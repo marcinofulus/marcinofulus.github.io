@@ -1,0 +1,2158 @@
+
+<!DOCTYPE html>
+
+<html xmlns="http://www.w3.org/1999/xhtml" lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <title>Analysis of the May model with SAGE &#8212; Nonlinear processes in Biology</title>
+    <link rel="stylesheet" href="../_static/alabaster.css" type="text/css" />
+    <link rel="stylesheet" href="../_static/pygments.css" type="text/css" />
+    <script id="documentation_options" data-url_root="../" src="../_static/documentation_options.js"></script>
+    <script src="../_static/jquery.js"></script>
+    <script src="../_static/underscore.js"></script>
+    <script src="../_static/doctools.js"></script>
+    <script src="../_static/language_data.js"></script>
+    <script crossorigin="anonymous" integrity="sha256-Ae2Vz/4ePdIu6ZyI/5ZGsYnb+m0JlOmKPjt6XZ9JJkA=" src="https://cdnjs.cloudflare.com/ajax/libs/require.js/2.3.4/require.min.js"></script>
+    <script async="async" src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.5/latest.js?config=TeX-AMS-MML_HTMLorMML"></script>
+    <script type="text/x-mathjax-config">MathJax.Hub.Config({"tex2jax": {"inlineMath": [["$", "$"], ["\\(", "\\)"]], "processEscapes": true, "ignoreClass": "document", "processClass": "math|output_area"}})</script>
+    <script type="text/javascript" src="http://sagecell.sagemath.org/static/jquery.min.js"></script>
+    <script type="text/javascript" src="http://sagecell.sagemath.org/embedded_sagecell.js"></script>
+    <script type="text/javascript">
+        sagecell.makeSagecell({inputLocation: ".sage_linked",
+                               linked: true});
+        sagecell.makeSagecell({inputLocation: ".sage_unlinked",
+                               linked: false});
+    </script>
+
+    <style type="text/css">
+        .sagecell .CodeMirror-scroll {
+            overflow-y: hidden;
+            overflow-x: auto;
+        }
+        .sagecell .CodeMirror {
+            height: auto;
+        }
+    </style>
+    
+    <link rel="index" title="Index" href="../genindex.html" />
+    <link rel="search" title="Search" href="../search.html" />
+    <link rel="next" title="Plot of stability condition in 3d" href="May_model_parameter_space_plot.html" />
+    <link rel="prev" title="The Lotka-Volterra model with SAGE" href="Lotka_Volterra_with_SAGE.html" />
+
+   
+  <link rel="stylesheet" href="../_static/custom.css" type="text/css" />
+  
+  
+  <meta name="viewport" content="width=device-width, initial-scale=0.9, maximum-scale=0.9" />
+
+  </head><body>
+  
+
+    <div class="document">
+      <div class="documentwrapper">
+        <div class="bodywrapper">
+          
+
+          <div class="body" role="main">
+            
+  
+<style>
+/* CSS for nbsphinx extension */
+
+/* remove conflicting styling from Sphinx themes */
+div.nbinput.container,
+div.nbinput.container div.prompt,
+div.nbinput.container div.input_area,
+div.nbinput.container div[class*=highlight],
+div.nbinput.container div[class*=highlight] pre,
+div.nboutput.container,
+div.nboutput.container div.prompt,
+div.nboutput.container div.output_area,
+div.nboutput.container div[class*=highlight],
+div.nboutput.container div[class*=highlight] pre {
+    background: none;
+    border: none;
+    padding: 0 0;
+    margin: 0;
+    box-shadow: none;
+}
+
+/* avoid gaps between output lines */
+div.nboutput.container div[class*=highlight] pre {
+    line-height: normal;
+}
+
+/* input/output containers */
+div.nbinput.container,
+div.nboutput.container {
+    display: -webkit-flex;
+    display: flex;
+    align-items: flex-start;
+    margin: 0;
+    width: 100%;
+}
+@media (max-width: 540px) {
+    div.nbinput.container,
+    div.nboutput.container {
+        flex-direction: column;
+    }
+}
+
+/* input container */
+div.nbinput.container {
+    padding-top: 5px;
+}
+
+/* last container */
+div.nblast.container {
+    padding-bottom: 5px;
+}
+
+/* input prompt */
+div.nbinput.container div.prompt pre {
+    color: #307FC1;
+}
+
+/* output prompt */
+div.nboutput.container div.prompt pre {
+    color: #BF5B3D;
+}
+
+/* all prompts */
+div.nbinput.container div.prompt,
+div.nboutput.container div.prompt {
+    min-width: 5ex;
+    padding-top: 0.4em;
+    padding-right: 0.4em;
+    text-align: right;
+    flex: 0;
+}
+@media (max-width: 540px) {
+    div.nbinput.container div.prompt,
+    div.nboutput.container div.prompt {
+        text-align: left;
+        padding: 0.4em;
+    }
+    div.nboutput.container div.prompt.empty {
+        padding: 0;
+    }
+}
+
+/* disable scrollbars on prompts */
+div.nbinput.container div.prompt pre,
+div.nboutput.container div.prompt pre {
+    overflow: hidden;
+}
+
+/* input/output area */
+div.nbinput.container div.input_area,
+div.nboutput.container div.output_area {
+    padding: 0.4em;
+    -webkit-flex: 1;
+    flex: 1;
+    overflow: auto;
+}
+@media (max-width: 540px) {
+    div.nbinput.container div.input_area,
+    div.nboutput.container div.output_area {
+        width: 100%;
+    }
+}
+
+/* input area */
+div.nbinput.container div.input_area {
+    border: 1px solid #e0e0e0;
+    border-radius: 2px;
+    background: #f5f5f5;
+}
+
+/* override MathJax center alignment in output cells */
+div.nboutput.container div[class*=MathJax] {
+    text-align: left !important;
+}
+
+/* override sphinx.ext.imgmath center alignment in output cells */
+div.nboutput.container div.math p {
+    text-align: left;
+}
+
+/* standard error */
+div.nboutput.container div.output_area.stderr {
+    background: #fdd;
+}
+
+/* ANSI colors */
+.ansi-black-fg { color: #3E424D; }
+.ansi-black-bg { background-color: #3E424D; }
+.ansi-black-intense-fg { color: #282C36; }
+.ansi-black-intense-bg { background-color: #282C36; }
+.ansi-red-fg { color: #E75C58; }
+.ansi-red-bg { background-color: #E75C58; }
+.ansi-red-intense-fg { color: #B22B31; }
+.ansi-red-intense-bg { background-color: #B22B31; }
+.ansi-green-fg { color: #00A250; }
+.ansi-green-bg { background-color: #00A250; }
+.ansi-green-intense-fg { color: #007427; }
+.ansi-green-intense-bg { background-color: #007427; }
+.ansi-yellow-fg { color: #DDB62B; }
+.ansi-yellow-bg { background-color: #DDB62B; }
+.ansi-yellow-intense-fg { color: #B27D12; }
+.ansi-yellow-intense-bg { background-color: #B27D12; }
+.ansi-blue-fg { color: #208FFB; }
+.ansi-blue-bg { background-color: #208FFB; }
+.ansi-blue-intense-fg { color: #0065CA; }
+.ansi-blue-intense-bg { background-color: #0065CA; }
+.ansi-magenta-fg { color: #D160C4; }
+.ansi-magenta-bg { background-color: #D160C4; }
+.ansi-magenta-intense-fg { color: #A03196; }
+.ansi-magenta-intense-bg { background-color: #A03196; }
+.ansi-cyan-fg { color: #60C6C8; }
+.ansi-cyan-bg { background-color: #60C6C8; }
+.ansi-cyan-intense-fg { color: #258F8F; }
+.ansi-cyan-intense-bg { background-color: #258F8F; }
+.ansi-white-fg { color: #C5C1B4; }
+.ansi-white-bg { background-color: #C5C1B4; }
+.ansi-white-intense-fg { color: #A1A6B2; }
+.ansi-white-intense-bg { background-color: #A1A6B2; }
+
+.ansi-default-inverse-fg { color: #FFFFFF; }
+.ansi-default-inverse-bg { background-color: #000000; }
+
+.ansi-bold { font-weight: bold; }
+.ansi-underline { text-decoration: underline; }
+
+/* Some additional styling taken form the Jupyter notebook CSS */
+div.rendered_html table {
+  border: none;
+  border-collapse: collapse;
+  border-spacing: 0;
+  color: black;
+  font-size: 12px;
+  table-layout: fixed;
+}
+div.rendered_html thead {
+  border-bottom: 1px solid black;
+  vertical-align: bottom;
+}
+div.rendered_html tr,
+div.rendered_html th,
+div.rendered_html td {
+  text-align: right;
+  vertical-align: middle;
+  padding: 0.5em 0.5em;
+  line-height: normal;
+  white-space: normal;
+  max-width: none;
+  border: none;
+}
+div.rendered_html th {
+  font-weight: bold;
+}
+div.rendered_html tbody tr:nth-child(odd) {
+  background: #f5f5f5;
+}
+div.rendered_html tbody tr:hover {
+  background: rgba(66, 165, 245, 0.2);
+}
+</style>
+<div class="section" id="Analysis-of-the-May-model-with-SAGE">
+<h1>Analysis of the May model with SAGE<a class="headerlink" href="#Analysis-of-the-May-model-with-SAGE" title="Permalink to this headline">¶</a></h1>
+<p>Dimensionless the May model reads:</p>
+<div class="math notranslate nohighlight">
+\[\frac{dx}{d\tau} = (1-x)\, x - \alpha  \frac{x y}{d+x}\]</div>
+<div class="math notranslate nohighlight">
+\[\frac{dy}{d\tau} = \beta \left(1- \frac{y}{x}\right) y\]</div>
+<p>where we have defined the following dimensionless parameters:</p>
+<div class="math notranslate nohighlight">
+\[\tau = r t, \quad \alpha = \frac{b_0}{h r}, \quad d = \frac{D}{K} , \quad \beta = \frac{s}{r}\]</div>
+<p>This scaling procedure leads to a set of two differential equations with only three parameters. The dimensionless time is scaled to the reproducinng rate <span class="math notranslate nohighlight">\(r\)</span> of prey. The parameter <span class="math notranslate nohighlight">\(\beta\)</span> is the relation of the reproducing rate of predators <span class="math notranslate nohighlight">\(s\)</span> to the reproducing rate of prey <span class="math notranslate nohighlight">\(r\)</span>. If <span class="math notranslate nohighlight">\(\beta \lt 1\)</span> then the reproducting tempo of predators is smaller than prey and therefore the prey population can survive. On the other hand, f <span class="math notranslate nohighlight">\(\beta \gt 1\)</span> then the
+reproducting tempo of predators is greater than for prey and therefore the prey population can become extinct (can fail to survive). But because the set of two equations is nonlinear, such simplified considerations cannot be fully true. We have to use precise mathematical methods to check this.</p>
+<p><strong>STATIONARY STATES</strong></p>
+<p>Stationary states are determined by a set of two algebraic equations:</p>
+<div class="math notranslate nohighlight">
+\[(1-x)\, x - \alpha  \frac{x y}{d+x} = 0\]</div>
+<div class="math notranslate nohighlight">
+\[\beta \left(1- \frac{y}{x}\right) y = 0\]</div>
+<p>One stationary state can easily be found:</p>
+<div class="math notranslate nohighlight">
+\[x_1=1, \quad y_1 =0\]</div>
+<p>In theis state there are no predators and the state of prey is the same as in the Verhulst system. We should cjeck whether this stse is stable.</p>
+<p>From the second equation we find that <span class="math notranslate nohighlight">\(y=x\)</span> solves this equation. We put it in the first equation and then the other stationary states are determined by the equations:</p>
+<div class="math notranslate nohighlight">
+\[y=x , \quad \quad  (1-x)   - \alpha  \frac{ y}{d+x} = 0\]</div>
+<p>From the second equation we obtain the condition:</p>
+<div class="math notranslate nohighlight">
+\[x^2 + (\alpha + d -1) x -d =0\]</div>
+<p>It is a trinomial square and we take into account only non-negative solutions of this equation, <span class="math notranslate nohighlight">\(x \ge 0\)</span>. Discriminant is always positive, namely,</p>
+<div class="math notranslate nohighlight">
+\[\Delta = (\alpha + d -1)^2 + 4d \gt  0\]</div>
+<p>So, the second stationary state is</p>
+<div class="math notranslate nohighlight">
+\[x_2=  y_2 = \frac{1}{2} \left[- (\alpha + d -1) + \sqrt{\Delta}\right]\]</div>
+<p>Let us note that this state does not depend on the parameter <span class="math notranslate nohighlight">\(\beta\)</span>, i.e. on the birth rate of prey and predators.</p>
+<p><strong>STABILITY OF STATIONARY STATES</strong></p>
+<ol class="upperalpha simple">
+<li><p>In the first step, we calculate the Jacobi matrix:</p></li>
+</ol>
+<div class="math notranslate nohighlight">
+\[\begin{split}\begin{aligned}
+\quad \quad \quad  J = \begin{bmatrix}\frac{ \partial  f}{\partial x}&amp;  \frac{\partial  f}{\partial y}\\ \frac{\partial  g}{\partial x}&amp;  \frac{\partial  g}{\partial y}  \end{bmatrix}  = \begin{bmatrix}1-2x-\alpha y \frac{d}{(x+d)^2}&amp;  -\alpha \frac{x}{x+d} \\ \frac{\beta y^2}{x^2}&amp;  \beta - \frac{2\beta y}{x}  \end{bmatrix}
+\end{aligned}\end{split}\]</div>
+<ol class="upperalpha simple" start="2">
+<li><p>In the second step, we determine the eigenvalues of the Jacobi matrix <span class="math notranslate nohighlight">\(|J -\lambda I|=0\)</span>:</p></li>
+</ol>
+<!-- --><ol class="loweralpha simple">
+<li><p>For the stationary state <span class="math notranslate nohighlight">\((1, 0)\)</span> one gets:</p></li>
+</ol>
+<div class="math notranslate nohighlight">
+\[\begin{split}\begin{aligned}
+\quad \quad \quad  J(1, 0)  =  \begin{bmatrix}-1&amp;  -  \frac{\alpha}{1+d} \\ 0&amp;  \beta \end{bmatrix}
+\end{aligned}\end{split}\]</div>
+<p>and the eigenvalues are: <span class="math notranslate nohighlight">\(\lambda_{1} = -1, \quad \lambda_{2} = \beta &gt; 0\)</span>. So, this state is not stable because one eigenvalue is positive, <span class="math notranslate nohighlight">\(\lambda_{2} \gt 0\)</span>. A small perturbation will displace the system from this state.</p>
+<ol class="loweralpha simple" start="2">
+<li><p>For the second stationary state the problem of stability is more complicated because the Jacobi matrix takes the form</p></li>
+</ol>
+<div class="math notranslate nohighlight">
+\[\begin{split}\begin{aligned}
+\quad \quad \quad  J(x_2, y_2)  =  \begin{bmatrix}x_2\left[ \frac{\alpha x_2}{(x_2+d)^2} -1\right]&amp;  -  \frac{\alpha x_2}{x_2+d} \\ \beta &amp;  -\beta \end{bmatrix}
+\end{aligned}\end{split}\]</div>
+<p>We used the equation for the stationary state to transform the term <span class="math notranslate nohighlight">\(J_{11}\)</span> to the form as in this matrix. One can try to determine the eigenvalues of this matrix. But it is not good way. What we want to know is the sign of a real part (positive or negative) of both eigenvalues <span class="math notranslate nohighlight">\((\lambda_1, \lambda_2)\)</span>. Because this matrix is <span class="math notranslate nohighlight">\(2 \times 2\)</span>, we get a trinomial square for <span class="math notranslate nohighlight">\(\lambda\)</span>. The conditions for its negative part reads:</p>
+<div class="math notranslate nohighlight">
+\[\lambda_1 + \lambda_2 \lt 0  \quad \mbox{and} \quad \lambda_1 \; \lambda_2 \gt  0, \quad \quad \mbox{it means that} \quad \mbox{Tr} \, J \lt  0, \quad \quad \mbox{det} \,J \gt  0\]</div>
+<dl class="simple">
+<dt><strong>WORK:</strong></dt><dd><p>Show that for arbitrary (positive) values of parameters <span class="math notranslate nohighlight">\(\alpha, \beta, d\)</span>, the second condition <span class="math notranslate nohighlight">\(\mbox{det} \,J \gt 0\)</span> is always fulfiled.</p>
+</dd>
+</dl>
+<p>The first condition for the stability of the state <span class="math notranslate nohighlight">\((x_2, y_2)\)</span> takes the form:</p>
+<div class="math notranslate nohighlight">
+\[b \gt  x_2\left[ \frac{\alpha x_2}{(x_1+d)^2} -1\right] = \phi (\alpha, d)\]</div>
+<p>Because <span class="math notranslate nohighlight">\(x_2\)</span> depends on 2 parameters <span class="math notranslate nohighlight">\(\alpha\)</span> and <span class="math notranslate nohighlight">\(d\)</span>, the right-hand side defines the surface in the 3-dimensional space.</p>
+<hr class="docutils" />
+<div class="nbinput docutils container">
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[50]:
+</pre></div>
+</div>
+<div class="input_area highlight-ipython2 notranslate"><div class="highlight"><pre>
+<span></span><span class="n">var</span><span class="p">(</span><span class="s1">&#39;a b d x y&#39;</span><span class="p">)</span>
+<span class="n">ode_lotka</span><span class="o">=</span><span class="p">[</span><span class="n">x</span><span class="o">*</span><span class="p">(</span><span class="mi">1</span><span class="o">-</span><span class="n">x</span><span class="p">)</span><span class="o">-</span><span class="p">(</span><span class="n">a</span><span class="o">*</span><span class="n">x</span><span class="o">*</span><span class="n">y</span><span class="p">)</span><span class="o">/</span><span class="p">(</span><span class="n">x</span><span class="o">+</span><span class="n">d</span><span class="p">),</span><span class="n">b</span><span class="o">*</span><span class="n">y</span><span class="o">*</span><span class="p">(</span><span class="mi">1</span><span class="o">-</span><span class="n">y</span><span class="o">/</span><span class="n">x</span><span class="p">)]</span>
+<span class="n">show</span><span class="p">(</span><span class="n">ode_lotka</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+<div class="nboutput nblast docutils container">
+<div class="prompt empty docutils container">
+</div>
+<div class="output_area rendered_html docutils container">
+<html><script type="math/tex; mode=display">\newcommand{\Bold}[1]{\mathbf{#1}}\left[-{\left(x - 1\right)} x - \frac{a x y}{d + x}, -b y {\left(\frac{y}{x} - 1\right)}\right]</script></html></div>
+</div>
+<div class="math notranslate nohighlight">
+\[\left[-{\left(x - 1\right)} x - \frac{a x y}{d + x}, -{\left(\frac{y}{x} - 1\right)} b y\right]\]</div>
+<div class="nbinput nblast docutils container">
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[51]:
+</pre></div>
+</div>
+<div class="input_area highlight-ipython2 notranslate"><div class="highlight"><pre>
+<span></span><span class="n">J</span> <span class="o">=</span> <span class="n">jacobian</span><span class="p">(</span><span class="n">ode_lotka</span><span class="p">,[</span><span class="n">x</span><span class="p">,</span><span class="n">y</span><span class="p">])</span>
+</pre></div>
+</div>
+</div>
+<div class="nbinput nblast docutils container">
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[52]:
+</pre></div>
+</div>
+<div class="input_area highlight-ipython2 notranslate"><div class="highlight"><pre>
+<span></span><span class="n">detJ</span> <span class="o">=</span> <span class="n">det</span><span class="p">(</span><span class="n">J</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+<div class="nbinput docutils container">
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[53]:
+</pre></div>
+</div>
+<div class="input_area highlight-ipython2 notranslate"><div class="highlight"><pre>
+<span></span><span class="n">detJ</span><span class="o">.</span><span class="n">variables</span><span class="p">()</span>
+</pre></div>
+</div>
+</div>
+<div class="nboutput nblast docutils container">
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[53]:
+</pre></div>
+</div>
+<div class="output_area docutils container">
+<div class="highlight"><pre>
+(a, b, d, x, y)
+</pre></div></div>
+</div>
+<div class="nbinput docutils container">
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[54]:
+</pre></div>
+</div>
+<div class="input_area highlight-ipython2 notranslate"><div class="highlight"><pre>
+<span></span><span class="n">detJ</span><span class="o">.</span><span class="n">subs</span><span class="p">({</span><span class="n">a</span><span class="p">:</span><span class="mi">1</span><span class="p">})</span>
+</pre></div>
+</div>
+</div>
+<div class="nboutput nblast docutils container">
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[54]:
+</pre></div>
+</div>
+<div class="output_area docutils container">
+<div class="highlight"><pre>
+(b*(y/x - 1) + b*y/x)*(2*x + y/(d + x) - x*y/(d + x)^2 - 1) + b*y^2/((d + x)*x)
+</pre></div></div>
+</div>
+<div class="nbinput docutils container">
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[55]:
+</pre></div>
+</div>
+<div class="input_area highlight-ipython2 notranslate"><div class="highlight"><pre>
+<span></span><span class="k">for</span> <span class="n">sol_</span> <span class="ow">in</span> <span class="n">solve</span><span class="p">(</span><span class="n">ode_lotka</span><span class="p">,[</span><span class="n">x</span><span class="p">,</span><span class="n">y</span><span class="p">]):</span>
+    <span class="n">show</span><span class="p">(</span><span class="n">sol_</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+<div class="nboutput docutils container">
+<div class="prompt empty docutils container">
+</div>
+<div class="output_area rendered_html docutils container">
+<html><script type="math/tex; mode=display">\newcommand{\Bold}[1]{\mathbf{#1}}\left[x = 0, y = 0\right]</script></html></div>
+</div>
+<div class="nboutput docutils container">
+<div class="prompt empty docutils container">
+</div>
+<div class="output_area rendered_html docutils container">
+<html><script type="math/tex; mode=display">\newcommand{\Bold}[1]{\mathbf{#1}}\left[x = 1, y = 0\right]</script></html></div>
+</div>
+<div class="nboutput docutils container">
+<div class="prompt empty docutils container">
+</div>
+<div class="output_area rendered_html docutils container">
+<html><script type="math/tex; mode=display">\newcommand{\Bold}[1]{\mathbf{#1}}\left[x = -d, y = 0\right]</script></html></div>
+</div>
+<div class="nboutput docutils container">
+<div class="prompt empty docutils container">
+</div>
+<div class="output_area rendered_html docutils container">
+<html><script type="math/tex; mode=display">\newcommand{\Bold}[1]{\mathbf{#1}}\left[x = -\frac{1}{2} \, a - \frac{1}{2} \, d - \frac{1}{2} \, \sqrt{a^{2} + 2 \, {\left(a + 1\right)} d + d^{2} - 2 \, a + 1} + \frac{1}{2}, y = -\frac{1}{2} \, a - \frac{1}{2} \, d - \frac{1}{2} \, \sqrt{a^{2} + 2 \, {\left(a + 1\right)} d + d^{2} - 2 \, a + 1} + \frac{1}{2}\right]</script></html></div>
+</div>
+<div class="nboutput nblast docutils container">
+<div class="prompt empty docutils container">
+</div>
+<div class="output_area rendered_html docutils container">
+<html><script type="math/tex; mode=display">\newcommand{\Bold}[1]{\mathbf{#1}}\left[x = -\frac{1}{2} \, a - \frac{1}{2} \, d + \frac{1}{2} \, \sqrt{a^{2} + 2 \, {\left(a + 1\right)} d + d^{2} - 2 \, a + 1} + \frac{1}{2}, y = -\frac{1}{2} \, a - \frac{1}{2} \, d + \frac{1}{2} \, \sqrt{a^{2} + 2 \, {\left(a + 1\right)} d + d^{2} - 2 \, a + 1} + \frac{1}{2}\right]</script></html></div>
+</div>
+<div class="nbinput nblast docutils container">
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[56]:
+</pre></div>
+</div>
+<div class="input_area highlight-ipython2 notranslate"><div class="highlight"><pre>
+<span></span><span class="n">sols</span> <span class="o">=</span> <span class="n">solve</span><span class="p">(</span><span class="n">ode_lotka</span><span class="p">,[</span><span class="n">x</span><span class="p">,</span><span class="n">y</span><span class="p">])</span>
+</pre></div>
+</div>
+</div>
+<p>We check if solutions are in first quadrant of coordinate system. We need it for positive <span class="math notranslate nohighlight">\(a\)</span> and <span class="math notranslate nohighlight">\(d\)</span>.</p>
+<div class="nbinput docutils container">
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[57]:
+</pre></div>
+</div>
+<div class="input_area highlight-ipython2 notranslate"><div class="highlight"><pre>
+<span></span><span class="n">sol_</span> <span class="o">=</span> <span class="n">sols</span><span class="p">[</span><span class="mi">4</span><span class="p">]</span>
+<span class="n">region_plot</span><span class="p">(</span><span class="n">sol_</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span><span class="o">.</span><span class="n">rhs</span><span class="p">()</span><span class="o">&gt;=</span><span class="mi">0</span> <span class="ow">and</span> <span class="n">sol_</span><span class="p">[</span><span class="mi">1</span><span class="p">]</span><span class="o">.</span><span class="n">rhs</span><span class="p">()</span><span class="o">&gt;=</span><span class="mi">0</span><span class="p">,(</span><span class="n">a</span><span class="p">,</span><span class="o">-</span><span class="mi">2</span><span class="p">,</span><span class="mi">2</span><span class="p">),(</span><span class="n">d</span><span class="p">,</span><span class="o">-</span><span class="mi">2</span><span class="p">,</span><span class="mi">2</span><span class="p">),</span><span class="n">incol</span><span class="o">=</span><span class="s1">&#39;red&#39;</span><span class="p">,</span><span class="n">plot_points</span><span class="o">=</span><span class="mi">400</span><span class="p">,</span><span class="n">figsize</span><span class="o">=</span><span class="mi">4</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+<div class="nboutput docutils container">
+<div class="prompt empty docutils container">
+</div>
+<div class="output_area stderr docutils container">
+<div class="highlight"><pre>
+/usr/local/lib/SageMath82/local/lib/python2.7/site-packages/sage/plot/contour_plot.py:1515: RuntimeWarning: invalid value encountered in less
+  neg_indices = (xy_data_arrays &lt; 0).all(axis=0)
+</pre></div></div>
+</div>
+<div class="nboutput nblast docutils container">
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[57]:
+</pre></div>
+</div>
+<div class="output_area docutils container">
+<img alt="../_images/notebooks_May_model_11_1.png" src="../_images/notebooks_May_model_11_1.png" />
+</div>
+</div>
+<p>We check if <span class="math notranslate nohighlight">\(\det J\)</span> is positive al all parametres. If <span class="math notranslate nohighlight">\(b&gt;0\)</span> then <span class="math notranslate nohighlight">\(\frac{\det J}{b}\)</span> depends only on <span class="math notranslate nohighlight">\((a,d)\)</span>:</p>
+<div class="nbinput docutils container">
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[58]:
+</pre></div>
+</div>
+<div class="input_area highlight-ipython2 notranslate"><div class="highlight"><pre>
+<span></span><span class="p">(</span><span class="n">detJ</span><span class="o">.</span><span class="n">subs</span><span class="p">(</span><span class="n">sol_</span><span class="p">)</span><span class="o">/</span><span class="n">b</span><span class="p">)</span><span class="o">.</span><span class="n">full_simplify</span><span class="p">()</span><span class="o">.</span><span class="n">variables</span><span class="p">()</span>
+</pre></div>
+</div>
+</div>
+<div class="nboutput nblast docutils container">
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[58]:
+</pre></div>
+</div>
+<div class="output_area docutils container">
+<div class="highlight"><pre>
+(a, d)
+</pre></div></div>
+</div>
+<p>thus we can check numerically using region plot if it takes positive values for all <span class="math notranslate nohighlight">\((a,d)\)</span> in the first quadrant of parameter space.</p>
+<div class="nbinput docutils container">
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[59]:
+</pre></div>
+</div>
+<div class="input_area highlight-ipython2 notranslate"><div class="highlight"><pre>
+<span></span><span class="n">region_plot</span><span class="p">((</span><span class="n">detJ</span><span class="o">.</span><span class="n">subs</span><span class="p">(</span><span class="n">sol_</span><span class="p">)</span><span class="o">/</span><span class="n">b</span><span class="p">)</span><span class="o">.</span><span class="n">full_simplify</span><span class="p">()</span><span class="o">&gt;</span><span class="mi">0</span><span class="p">,(</span><span class="n">a</span><span class="p">,</span><span class="o">-</span><span class="mi">2</span><span class="p">,</span><span class="mi">2</span><span class="p">),(</span><span class="n">d</span><span class="p">,</span><span class="o">-</span><span class="mi">2</span><span class="p">,</span><span class="mi">2</span><span class="p">),</span><span class="n">incol</span><span class="o">=</span><span class="s1">&#39;red&#39;</span><span class="p">,</span><span class="n">figsize</span><span class="o">=</span><span class="mi">4</span><span class="p">,</span><span class="n">plot_points</span><span class="o">=</span><span class="mi">400</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+<div class="nboutput nblast docutils container">
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[59]:
+</pre></div>
+</div>
+<div class="output_area docutils container">
+<img alt="../_images/notebooks_May_model_15_0.png" src="../_images/notebooks_May_model_15_0.png" />
+</div>
+</div>
+<div class="nbinput nblast docutils container">
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[60]:
+</pre></div>
+</div>
+<div class="input_area highlight-ipython2 notranslate"><div class="highlight"><pre>
+<span></span><span class="n">trJ</span> <span class="o">=</span> <span class="n">J</span><span class="o">.</span><span class="n">trace</span><span class="p">()</span>
+</pre></div>
+</div>
+</div>
+<p>One can solve equation <span class="math notranslate nohighlight">\(tr J==0\)</span> for <span class="math notranslate nohighlight">\(b\)</span> and the inequality becomes: <span class="math notranslate nohighlight">\(b&lt; \mbox{trJ_b}\)</span>.</p>
+<div class="nbinput nblast docutils container">
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[61]:
+</pre></div>
+</div>
+<div class="input_area highlight-ipython2 notranslate"><div class="highlight"><pre>
+<span></span><span class="n">trJ_b</span> <span class="o">=</span> <span class="n">trJ</span><span class="o">.</span><span class="n">subs</span><span class="p">(</span><span class="n">sol_</span><span class="p">)</span><span class="o">.</span><span class="n">solve</span><span class="p">(</span><span class="n">b</span><span class="p">)[</span><span class="mi">0</span><span class="p">]</span><span class="o">.</span><span class="n">rhs</span><span class="p">()</span>
+</pre></div>
+</div>
+</div>
+<div class="nbinput docutils container">
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[62]:
+</pre></div>
+</div>
+<div class="input_area highlight-ipython2 notranslate"><div class="highlight"><pre>
+<span></span><span class="n">trJ_b</span><span class="o">.</span><span class="n">variables</span><span class="p">()</span>
+</pre></div>
+</div>
+</div>
+<div class="nboutput nblast docutils container">
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[62]:
+</pre></div>
+</div>
+<div class="output_area docutils container">
+<div class="highlight"><pre>
+(a, d)
+</pre></div></div>
+</div>
+<div class="nbinput docutils container">
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[63]:
+</pre></div>
+</div>
+<div class="input_area highlight-ipython2 notranslate"><div class="highlight"><pre>
+<span></span><span class="n">implicit_plot3d</span><span class="p">(</span><span class="n">trJ</span><span class="o">.</span><span class="n">subs</span><span class="p">(</span><span class="n">sol_</span><span class="p">),(</span><span class="n">a</span><span class="p">,</span><span class="mf">1e-3</span><span class="p">,</span><span class="mf">1.41</span><span class="p">),(</span><span class="n">d</span><span class="p">,</span><span class="mf">1e-3</span><span class="p">,</span><span class="o">.</span><span class="mi">61</span><span class="p">),(</span><span class="n">b</span><span class="p">,</span><span class="mi">0</span><span class="p">,</span><span class="mf">1.5</span><span class="p">))</span><span class="o">.</span><span class="n">show</span><span class="p">(</span><span class="n">viewer</span><span class="o">=</span><span class="s1">&#39;tachyon&#39;</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+<div class="nboutput nblast docutils container">
+<div class="prompt empty docutils container">
+</div>
+<div class="output_area docutils container">
+<img alt="../_images/notebooks_May_model_20_0.png" src="../_images/notebooks_May_model_20_0.png" />
+</div>
+</div>
+<div class="nbinput docutils container">
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[64]:
+</pre></div>
+</div>
+<div class="input_area highlight-ipython2 notranslate"><div class="highlight"><pre>
+<span></span><span class="n">plt</span> <span class="o">=</span> <span class="n">plot3d</span><span class="p">(</span><span class="n">trJ_b</span><span class="p">,(</span><span class="n">a</span><span class="p">,</span><span class="mf">1e-3</span><span class="p">,</span><span class="mi">1</span><span class="p">),(</span><span class="n">d</span><span class="p">,</span><span class="mf">1e-3</span><span class="p">,</span><span class="mi">1</span><span class="p">))</span>
+<span class="n">plt</span> <span class="o">+=</span> <span class="n">plot3d</span><span class="p">(</span><span class="mi">0</span><span class="p">,(</span><span class="n">a</span><span class="p">,</span><span class="mi">0</span><span class="p">,</span><span class="mi">1</span><span class="p">),(</span><span class="n">d</span><span class="p">,</span><span class="mi">0</span><span class="p">,</span><span class="mi">1</span><span class="p">),</span><span class="n">color</span><span class="o">=</span><span class="s1">&#39;red&#39;</span><span class="p">)</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">show</span><span class="p">(</span><span class="n">viewer</span><span class="o">=</span><span class="s1">&#39;tachyon&#39;</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+<div class="nboutput nblast docutils container">
+<div class="prompt empty docutils container">
+</div>
+<div class="output_area docutils container">
+<img alt="../_images/notebooks_May_model_21_0.png" src="../_images/notebooks_May_model_21_0.png" />
+</div>
+</div>
+<div class="nbinput docutils container">
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[65]:
+</pre></div>
+</div>
+<div class="input_area highlight-ipython2 notranslate"><div class="highlight"><pre>
+<span></span><span class="n">implicit_plot</span><span class="p">(</span><span class="n">trJ_b</span><span class="p">,(</span><span class="n">a</span><span class="p">,</span><span class="mi">0</span><span class="p">,</span><span class="mi">2</span><span class="p">),(</span><span class="n">d</span><span class="p">,</span><span class="mi">0</span><span class="p">,</span><span class="mi">1</span><span class="p">))</span>
+</pre></div>
+</div>
+</div>
+<div class="nboutput nblast docutils container">
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[65]:
+</pre></div>
+</div>
+<div class="output_area docutils container">
+<img alt="../_images/notebooks_May_model_22_0.png" src="../_images/notebooks_May_model_22_0.png" />
+</div>
+</div>
+<div class="nbinput docutils container">
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[69]:
+</pre></div>
+</div>
+<div class="input_area highlight-ipython2 notranslate"><div class="highlight"><pre>
+<span></span><span class="n">plt_cond_trJ</span> <span class="o">=</span> <span class="n">region_plot</span><span class="p">(</span> <span class="n">trJ_b</span><span class="o">&gt;</span><span class="mi">0</span><span class="p">,(</span><span class="n">a</span><span class="p">,</span><span class="mi">0</span><span class="p">,</span><span class="mi">2</span><span class="p">),(</span><span class="n">d</span><span class="p">,</span><span class="o">+</span><span class="mf">1e-4</span><span class="p">,</span><span class="mi">2</span><span class="p">),</span><span class="n">plot_points</span><span class="o">=</span><span class="mi">400</span><span class="p">,</span>
+                          <span class="n">axes_labels</span><span class="o">=</span><span class="p">[</span><span class="sa">r</span><span class="s1">&#39;$a$&#39;</span><span class="p">,</span><span class="sa">r</span><span class="s1">&#39;$d$&#39;</span><span class="p">])</span>
+<span class="n">plt_cond_trJ</span>
+</pre></div>
+</div>
+</div>
+<div class="nboutput nblast docutils container">
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[69]:
+</pre></div>
+</div>
+<div class="output_area docutils container">
+<img alt="../_images/notebooks_May_model_23_0.png" src="../_images/notebooks_May_model_23_0.png" />
+</div>
+</div>
+<div class="nbinput docutils container">
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[79]:
+</pre></div>
+</div>
+<div class="input_area highlight-ipython2 notranslate"><div class="highlight"><pre>
+<span></span><span class="n">var</span><span class="p">(</span><span class="s1">&#39;X&#39;</span><span class="p">)</span>
+<span class="n">expr</span> <span class="o">=</span> <span class="n">trJ_b</span><span class="o">.</span><span class="n">subs</span><span class="p">((</span><span class="n">a</span><span class="o">^</span><span class="mi">2</span> <span class="o">+</span> <span class="mi">2</span><span class="o">*</span><span class="n">a</span><span class="o">*</span><span class="n">d</span> <span class="o">+</span> <span class="n">d</span><span class="o">^</span><span class="mi">2</span> <span class="o">-</span> <span class="mi">2</span><span class="o">*</span><span class="n">a</span> <span class="o">+</span> <span class="mi">2</span><span class="o">*</span><span class="n">d</span> <span class="o">+</span> <span class="mi">1</span><span class="p">)</span> <span class="o">==</span> <span class="n">X</span><span class="p">)</span>
+<span class="n">expr</span><span class="o">.</span><span class="n">full_simplify</span><span class="p">()</span>
+</pre></div>
+</div>
+</div>
+<div class="nboutput nblast docutils container">
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[79]:
+</pre></div>
+</div>
+<div class="output_area docutils container">
+<div class="highlight"><pre>
+1/2*(4*a^3 + 2*(a - 1)*d^2 - 10*a^2 + 2*(3*a^2 + a - 2)*d - (3*a^2 - d^2 + X - 4*a + 1)*sqrt(X) + 8*a - 2)/(a^2 + d^2 - sqrt(X)*(a - d - 1) - 2*a + 2*d + 1)
+</pre></div></div>
+</div>
+<div class="nbinput docutils container">
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[80]:
+</pre></div>
+</div>
+<div class="input_area highlight-ipython2 notranslate"><div class="highlight"><pre>
+<span></span><span class="n">expr</span><span class="o">.</span><span class="n">subs</span><span class="p">([</span><span class="n">sqrt</span><span class="p">(</span><span class="n">X</span><span class="p">)])</span>
+</pre></div>
+</div>
+</div>
+<div class="nboutput nblast docutils container">
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[80]:
+</pre></div>
+</div>
+<div class="output_area docutils container">
+<div class="highlight"><pre>
+1/2*(4*a^3 + (2*a + sqrt(X) - 2)*d^2 - a^2*(3*sqrt(X) + 10) + 2*(3*a^2 + a - 2)*d + 4*a*(sqrt(X) + 2) - X^(3/2) - sqrt(X) - 2)/(a^2 + d^2 - a*(sqrt(X) + 2) + d*(sqrt(X) + 2) + sqrt(X) + 1)
+</pre></div></div>
+</div>
+<div class="nbinput nblast docutils container">
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[57]:
+</pre></div>
+</div>
+<div class="input_area highlight-ipython2 notranslate"><div class="highlight"><pre>
+<span></span><span class="n">var</span><span class="p">(</span><span class="s1">&#39;a,d,b,x,y,t&#39;</span><span class="p">)</span>
+<span class="n">ode_lotka</span><span class="o">=</span><span class="n">vector</span><span class="p">([</span><span class="n">x</span><span class="o">*</span><span class="p">(</span><span class="mi">1</span><span class="o">-</span><span class="n">x</span><span class="p">)</span><span class="o">-</span><span class="p">(</span><span class="n">a</span><span class="o">*</span><span class="n">x</span><span class="o">*</span><span class="n">y</span><span class="p">)</span><span class="o">/</span><span class="p">(</span><span class="n">x</span><span class="o">+</span><span class="n">d</span><span class="p">),</span><span class="n">b</span><span class="o">*</span><span class="n">y</span><span class="o">*</span><span class="p">(</span><span class="mi">1</span><span class="o">-</span><span class="n">y</span><span class="o">/</span><span class="n">x</span><span class="p">)]);</span>
+
+</pre></div>
+</div>
+</div>
+<div class="nbinput nblast docutils container">
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[58]:
+</pre></div>
+</div>
+<div class="input_area highlight-ipython2 notranslate"><div class="highlight"><pre>
+<span></span><span class="n">b_in</span> <span class="o">=</span> <span class="mf">0.12</span>
+<span class="n">d_in</span> <span class="o">=</span> <span class="mf">0.15</span>
+<span class="n">a_in</span> <span class="o">=</span> <span class="mf">1.2</span>
+<span class="n">p</span> <span class="o">=</span> <span class="p">{</span><span class="n">a</span><span class="p">:</span><span class="n">a_in</span><span class="p">,</span> <span class="n">d</span><span class="p">:</span><span class="n">d_in</span><span class="p">,</span> <span class="n">b</span><span class="p">:</span><span class="n">b_in</span><span class="p">}</span>
+</pre></div>
+</div>
+</div>
+<div class="nbinput docutils container">
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[317]:
+</pre></div>
+</div>
+<div class="input_area highlight-ipython2 notranslate"><div class="highlight"><pre>
+<span></span><span class="n">b_in</span><span class="o">&lt;</span><span class="n">trJ_b</span><span class="o">.</span><span class="n">subs</span><span class="p">(</span><span class="n">p</span><span class="p">)</span><span class="o">.</span><span class="n">n</span><span class="p">()</span>
+</pre></div>
+</div>
+</div>
+<div class="nboutput nblast docutils container">
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[317]:
+</pre></div>
+</div>
+<div class="output_area docutils container">
+<div class="highlight"><pre>
+True
+</pre></div></div>
+</div>
+<div class="nbinput docutils container">
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[49]:
+</pre></div>
+</div>
+<div class="input_area highlight-ipython2 notranslate"><div class="highlight"><pre>
+<span></span><span class="n">plt_cond_trJ</span> <span class="o">+</span> <span class="n">point</span><span class="p">(</span> <span class="p">(</span><span class="n">a_in</span><span class="p">,</span><span class="n">d_in</span><span class="p">),</span><span class="n">color</span><span class="o">=</span><span class="s1">&#39;red&#39;</span><span class="p">,</span><span class="n">size</span><span class="o">=</span><span class="mi">30</span><span class="p">,</span><span class="n">zorder</span><span class="o">=</span><span class="mi">10</span><span class="p">,</span><span class="n">plot_points</span><span class="o">=</span><span class="mi">400</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+<div class="nboutput nblast docutils container">
+<div class="prompt empty docutils container">
+</div>
+<div class="output_area docutils container">
+<div class="highlight"><pre>
+<span class="ansi-red-fg">---------------------------------------------------------------------------</span>
+<span class="ansi-red-fg">NameError</span>                                 Traceback (most recent call last)
+<span class="ansi-green-fg">&lt;ipython-input-49-00ec68891fc8&gt;</span> in <span class="ansi-cyan-fg">&lt;module&gt;</span><span class="ansi-blue-fg">()</span>
+<span class="ansi-green-fg">----&gt; 1</span><span class="ansi-red-fg"> </span>plt_cond_trJ <span class="ansi-blue-fg">+</span> point<span class="ansi-blue-fg">(</span> <span class="ansi-blue-fg">(</span>a_in<span class="ansi-blue-fg">,</span>d_in<span class="ansi-blue-fg">)</span><span class="ansi-blue-fg">,</span>color<span class="ansi-blue-fg">=</span><span class="ansi-blue-fg">&#39;red&#39;</span><span class="ansi-blue-fg">,</span>size<span class="ansi-blue-fg">=</span>Integer<span class="ansi-blue-fg">(</span><span class="ansi-cyan-fg">30</span><span class="ansi-blue-fg">)</span><span class="ansi-blue-fg">,</span>zorder<span class="ansi-blue-fg">=</span>Integer<span class="ansi-blue-fg">(</span><span class="ansi-cyan-fg">10</span><span class="ansi-blue-fg">)</span><span class="ansi-blue-fg">,</span>plot_points<span class="ansi-blue-fg">=</span>Integer<span class="ansi-blue-fg">(</span><span class="ansi-cyan-fg">400</span><span class="ansi-blue-fg">)</span><span class="ansi-blue-fg">)</span>
+
+<span class="ansi-red-fg">NameError</span>: name &#39;plt_cond_trJ&#39; is not defined
+</pre></div></div>
+</div>
+<div class="nbinput docutils container">
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[319]:
+</pre></div>
+</div>
+<div class="input_area highlight-ipython2 notranslate"><div class="highlight"><pre>
+<span></span><span class="n">ode_lotka</span><span class="o">.</span><span class="n">subs</span><span class="p">(</span><span class="n">p</span><span class="p">)</span><span class="o">.</span><span class="n">list</span><span class="p">()</span>
+</pre></div>
+</div>
+</div>
+<div class="nboutput nblast docutils container">
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[319]:
+</pre></div>
+</div>
+<div class="output_area docutils container">
+<div class="highlight"><pre>
+[-(x - 1)*x - 1.20000000000000*x*y/(x + 0.150000000000000),
+ -0.120000000000000*y*(y/x - 1)]
+</pre></div></div>
+</div>
+<div class="nbinput docutils container">
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[3]:
+</pre></div>
+</div>
+<div class="input_area highlight-ipython2 notranslate"><div class="highlight"><pre>
+<span></span><span class="n">ode_lotka</span>
+</pre></div>
+</div>
+</div>
+<div class="nboutput nblast docutils container">
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[3]:
+</pre></div>
+</div>
+<div class="output_area docutils container">
+<div class="highlight"><pre>
+(-(x - 1)*x - a*x*y/(d + x), -b*y*(y/x - 1))
+</pre></div></div>
+</div>
+<div class="nbinput nblast docutils container">
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[116]:
+</pre></div>
+</div>
+<div class="input_area highlight-ipython2 notranslate"><div class="highlight"><pre>
+<span></span><span class="k">def</span> <span class="nf">phase_may</span><span class="p">(</span><span class="n">p</span><span class="p">,</span> <span class="n">xylims</span>  <span class="o">=</span> <span class="p">[(</span><span class="n">x</span><span class="p">,</span><span class="mf">1e-4</span><span class="p">,</span><span class="mi">1</span><span class="p">),(</span><span class="n">y</span><span class="p">,</span><span class="mf">1e-4</span><span class="p">,</span><span class="mi">1</span><span class="p">)]):</span>
+    <span class="n">pkts</span> <span class="o">=</span> <span class="n">solve</span><span class="p">(</span><span class="n">ode_lotka</span><span class="o">.</span><span class="n">subs</span><span class="p">(</span><span class="n">p</span><span class="p">)</span><span class="o">.</span><span class="n">list</span><span class="p">(),[</span><span class="n">x</span><span class="p">,</span><span class="n">y</span><span class="p">])</span>
+
+    <span class="n">colors</span> <span class="o">=</span> <span class="p">[</span><span class="s1">&#39;red&#39;</span><span class="p">,</span><span class="s1">&#39;green&#39;</span><span class="p">,</span><span class="s1">&#39;blue&#39;</span><span class="p">]</span>
+
+
+
+    <span class="n">plt_fixpoints</span> <span class="o">=</span> <span class="n">point</span><span class="p">([</span><span class="n">vector</span><span class="p">([</span><span class="n">x</span><span class="p">,</span><span class="n">y</span><span class="p">])</span><span class="o">.</span><span class="n">subs</span><span class="p">(</span><span class="n">pkt</span><span class="p">)</span> <span class="k">for</span> <span class="n">pkt</span> <span class="ow">in</span> <span class="n">pkts</span> <span class="k">if</span> <span class="n">pkt</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span><span class="o">.</span><span class="n">rhs</span><span class="p">()</span><span class="o">&gt;=</span><span class="mi">0</span> <span class="ow">and</span> <span class="n">pkt</span><span class="p">[</span><span class="mi">1</span><span class="p">]</span><span class="o">.</span><span class="n">rhs</span><span class="p">()</span><span class="o">&gt;=</span><span class="mi">0</span><span class="p">],</span><span class="n">color</span><span class="o">=</span><span class="s1">&#39;red&#39;</span><span class="p">,</span><span class="n">size</span><span class="o">=</span><span class="mi">30</span><span class="p">)</span>
+
+
+    <span class="n">plt_null</span> <span class="o">=</span> <span class="nb">sum</span><span class="p">([</span><span class="n">implicit_plot</span><span class="p">(</span><span class="n">eq</span><span class="p">,</span><span class="o">*</span><span class="n">xylims</span><span class="p">,</span><span class="n">color</span><span class="o">=</span><span class="n">c</span><span class="p">)</span> <span class="k">for</span> <span class="n">eq</span><span class="p">,</span><span class="n">c</span> <span class="ow">in</span> <span class="nb">zip</span><span class="p">(</span><span class="n">ode_lotka</span><span class="o">.</span><span class="n">subs</span><span class="p">(</span><span class="n">p</span><span class="p">),</span><span class="n">colors</span><span class="p">)])</span>
+    <span class="n">plt_phase</span> <span class="o">=</span> <span class="n">plot_vector_field</span><span class="p">(</span><span class="n">ode_lotka</span><span class="o">.</span><span class="n">subs</span><span class="p">(</span><span class="n">p</span><span class="p">)</span><span class="o">.</span><span class="n">normalized</span><span class="p">(),</span><span class="o">*</span><span class="n">xylims</span><span class="p">,</span><span class="n">plot_points</span><span class="o">=</span><span class="mi">20</span><span class="p">)</span>
+    <span class="n">plt_phase</span> <span class="o">+=</span> <span class="n">plt_fixpoints</span><span class="o">+</span><span class="n">plt_null</span>
+
+    <span class="n">ith_1st</span> <span class="o">=</span> <span class="p">[</span><span class="n">i</span> <span class="k">for</span> <span class="n">i</span><span class="p">,</span><span class="n">pkt</span> <span class="ow">in</span> <span class="nb">enumerate</span><span class="p">(</span><span class="n">pkts</span><span class="p">)</span> <span class="k">if</span> <span class="n">pkt</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span><span class="o">.</span><span class="n">rhs</span><span class="p">()</span><span class="o">&gt;</span><span class="mi">0</span> <span class="ow">and</span> <span class="n">pkt</span><span class="p">[</span><span class="mi">1</span><span class="p">]</span><span class="o">.</span><span class="n">rhs</span><span class="p">()</span><span class="o">&gt;</span><span class="mi">0</span> <span class="p">][</span><span class="mi">0</span><span class="p">]</span>
+
+    <span class="n">Jp</span> <span class="o">=</span> <span class="n">jacobian</span><span class="p">(</span><span class="n">ode_lotka</span><span class="o">.</span><span class="n">subs</span><span class="p">(</span><span class="n">p</span><span class="p">),[</span><span class="n">x</span><span class="p">,</span><span class="n">y</span><span class="p">])</span><span class="o">.</span><span class="n">subs</span><span class="p">(</span><span class="n">pkts</span><span class="p">[</span><span class="n">ith_1st</span><span class="p">])</span>
+
+    <span class="n">has_LC</span> <span class="o">=</span> <span class="kc">False</span>
+
+    <span class="k">if</span> <span class="n">Jp</span><span class="o">.</span><span class="n">trace</span><span class="p">()</span><span class="o">&gt;</span><span class="mi">0</span><span class="p">:</span>
+        <span class="nb">print</span><span class="p">(</span><span class="s2">&quot;fix point is unstable&quot;</span><span class="p">)</span>
+        <span class="n">has_LC</span> <span class="o">=</span> <span class="kc">True</span>
+
+    <span class="nb">print</span><span class="p">(</span><span class="s1">&#39;detJ&gt;trJ^2/4?&#39;</span><span class="p">,</span><span class="n">Jp</span><span class="o">.</span><span class="n">det</span><span class="p">()</span><span class="o">.</span><span class="n">n</span><span class="p">()</span><span class="o">&gt;</span><span class="n">Jp</span><span class="o">.</span><span class="n">trace</span><span class="p">()</span><span class="o">.</span><span class="n">n</span><span class="p">()</span><span class="o">^</span><span class="mi">2</span><span class="o">/</span><span class="mi">4</span><span class="p">)</span>
+
+    <span class="n">plt_trajs</span><span class="o">=</span><span class="n">Graphics</span><span class="p">()</span>
+
+    <span class="n">ics_lst</span> <span class="o">=</span> <span class="p">[]</span>
+    <span class="k">for</span> <span class="n">dy</span> <span class="ow">in</span> <span class="n">srange</span><span class="p">(</span><span class="mf">0.01</span><span class="p">,</span><span class="mf">0.71</span><span class="p">,</span><span class="mf">0.05</span><span class="p">):</span>
+        <span class="n">ics_lst</span><span class="o">.</span><span class="n">append</span><span class="p">(</span> <span class="n">vector</span><span class="p">((</span><span class="n">x</span><span class="p">,</span><span class="n">y</span><span class="o">+</span><span class="n">dy</span><span class="p">))</span><span class="o">.</span><span class="n">subs</span><span class="p">(</span><span class="n">pkts</span><span class="p">[</span><span class="n">ith_1st</span><span class="p">])</span> <span class="p">)</span>
+
+    <span class="n">ics_lst</span> <span class="o">=</span> <span class="p">[</span> <span class="p">(</span><span class="n">random</span><span class="p">(),</span><span class="n">random</span><span class="p">())</span> <span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="mi">50</span><span class="p">)]</span>
+
+    <span class="k">for</span> <span class="n">ics</span> <span class="ow">in</span> <span class="n">ics_lst</span><span class="p">:</span>
+        <span class="n">T</span> <span class="o">=</span> <span class="n">srange</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span><span class="mi">50</span><span class="p">,</span><span class="mf">0.01</span><span class="p">)</span>
+        <span class="n">traj</span> <span class="o">=</span> <span class="n">desolve_odeint</span><span class="p">(</span><span class="n">ode_lotka</span><span class="o">.</span><span class="n">subs</span><span class="p">(</span><span class="n">p</span><span class="p">),</span><span class="n">ics</span><span class="p">,</span><span class="n">T</span><span class="p">,[</span><span class="n">x</span><span class="p">,</span><span class="n">y</span><span class="p">])</span>
+
+        <span class="n">plt_trajs</span> <span class="o">+=</span> <span class="n">line</span><span class="p">(</span><span class="n">traj</span><span class="p">,</span><span class="n">thickness</span><span class="o">=</span><span class="mf">0.3</span><span class="p">)</span>
+
+    <span class="k">if</span> <span class="n">has_LC</span><span class="p">:</span>
+        <span class="n">T</span> <span class="o">=</span> <span class="n">srange</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span><span class="mi">350</span><span class="p">,</span><span class="mf">0.2</span><span class="p">)</span>
+        <span class="n">traj_lc</span> <span class="o">=</span> <span class="n">desolve_odeint</span><span class="p">(</span><span class="n">ode_lotka</span><span class="o">.</span><span class="n">subs</span><span class="p">(</span><span class="n">p</span><span class="p">),(</span><span class="mi">1</span><span class="p">,</span><span class="mf">1.23</span><span class="p">),</span><span class="n">T</span><span class="p">,[</span><span class="n">x</span><span class="p">,</span><span class="n">y</span><span class="p">])[</span><span class="o">-</span><span class="mi">205</span><span class="p">:,:]</span>
+        <span class="n">plt_traj_lc</span> <span class="o">=</span> <span class="n">line</span><span class="p">(</span><span class="n">traj_lc</span><span class="p">,</span><span class="n">color</span><span class="o">=</span><span class="s1">&#39;red&#39;</span><span class="p">,</span><span class="n">zorder</span><span class="o">=</span><span class="mi">11</span><span class="p">,</span><span class="n">thickness</span><span class="o">=</span><span class="mi">3</span><span class="p">)</span>
+
+
+    <span class="n">plt_phase</span> <span class="o">+=</span> <span class="n">plt_trajs</span>
+    <span class="k">if</span> <span class="n">has_LC</span><span class="p">:</span>
+        <span class="n">plt_phase</span> <span class="o">+=</span> <span class="n">plt_traj_lc</span>
+    <span class="k">return</span> <span class="n">plt_phase</span><span class="p">,</span><span class="n">pkts</span><span class="p">[</span><span class="n">ith_1st</span><span class="p">],</span><span class="n">Jp</span><span class="o">.</span><span class="n">trace</span><span class="p">(),</span><span class="n">Jp</span><span class="o">.</span><span class="n">det</span><span class="p">()</span>
+
+</pre></div>
+</div>
+</div>
+<div class="nbinput docutils container">
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[63]:
+</pre></div>
+</div>
+<div class="input_area highlight-ipython2 notranslate"><div class="highlight"><pre>
+<span></span><span class="n">phase_may</span><span class="p">(</span><span class="n">p</span><span class="p">)[</span><span class="mi">0</span><span class="p">]</span>
+</pre></div>
+</div>
+</div>
+<div class="nboutput docutils container">
+<div class="prompt empty docutils container">
+</div>
+<div class="output_area docutils container">
+<div class="highlight"><pre>
+fix point is unstable
+(&#39;detJ&gt;trJ^2/4?&#39;, True)
+</pre></div></div>
+</div>
+<div class="nboutput nblast docutils container">
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[63]:
+</pre></div>
+</div>
+<div class="output_area docutils container">
+<img alt="../_images/notebooks_May_model_33_1.png" src="../_images/notebooks_May_model_33_1.png" />
+</div>
+</div>
+<div class="nbinput docutils container">
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[178]:
+</pre></div>
+</div>
+<div class="input_area highlight-ipython2 notranslate"><div class="highlight"><pre>
+<span></span><span class="nd">@interact</span>
+<span class="k">def</span> <span class="nf">_</span><span class="p">(</span><span class="n">a_in</span> <span class="o">=</span> <span class="n">slider</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span><span class="mi">2</span><span class="p">,</span><span class="mf">0.01</span><span class="p">,</span><span class="n">default</span><span class="o">=</span><span class="mf">1.0</span><span class="p">),</span>\
+        <span class="n">b_in</span> <span class="o">=</span> <span class="n">slider</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span><span class="mi">2</span><span class="p">,</span><span class="mf">0.01</span><span class="p">,</span><span class="n">default</span><span class="o">=</span><span class="mf">0.1</span><span class="p">),</span>\
+        <span class="n">d_in</span> <span class="o">=</span> <span class="n">slider</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span><span class="mi">2</span><span class="p">,</span><span class="mf">0.01</span><span class="p">,</span><span class="n">default</span><span class="o">=</span><span class="mf">0.1</span><span class="p">)</span> <span class="p">):</span>
+
+    <span class="n">p</span> <span class="o">=</span> <span class="p">{</span><span class="n">a</span><span class="p">:</span><span class="n">a_in</span><span class="p">,</span><span class="n">d</span><span class="p">:</span><span class="n">d_in</span><span class="p">,</span><span class="n">b</span><span class="p">:</span><span class="n">b_in</span><span class="p">}</span>
+    <span class="n">plt</span><span class="p">,</span><span class="n">pkt</span><span class="p">,</span><span class="n">tr</span><span class="p">,</span><span class="n">det_</span> <span class="o">=</span> <span class="n">phase_may</span><span class="p">(</span><span class="n">p</span><span class="p">)</span>
+    <span class="n">plt_dettr</span> <span class="o">=</span> <span class="n">plot</span><span class="p">(</span><span class="n">x</span><span class="o">^</span><span class="mi">2</span><span class="o">/</span><span class="mi">4</span><span class="p">,</span> <span class="p">(</span><span class="n">x</span><span class="p">,</span><span class="o">-</span><span class="mi">3</span><span class="p">,</span><span class="mi">3</span><span class="p">),</span><span class="n">ymin</span><span class="o">=-</span><span class="mi">1</span><span class="p">,</span><span class="n">ymax</span><span class="o">=</span><span class="mi">1</span><span class="p">,</span><span class="n">legend_label</span><span class="o">=</span><span class="sa">r</span><span class="s1">&#39;$\detJ=\frac{\mathrm</span><span class="si">{Tr}</span><span class="s1">J^2}</span><span class="si">{4}</span><span class="s1">$&#39;</span><span class="p">)</span>
+    <span class="n">plt_dettr</span> <span class="o">+=</span> <span class="n">point</span><span class="p">((</span><span class="n">tr</span><span class="p">,</span><span class="n">det_</span><span class="p">),</span><span class="n">color</span><span class="o">=</span><span class="s1">&#39;red&#39;</span><span class="p">,</span><span class="n">size</span><span class="o">=</span><span class="mi">30</span><span class="p">,</span><span class="n">axes_labels</span><span class="o">=</span><span class="p">[</span><span class="s1">&#39;trJ&#39;</span><span class="p">,</span><span class="s1">&#39;detJ&#39;</span><span class="p">],</span><span class="n">legend_label</span><span class="o">=</span><span class="s2">&quot;&quot;</span><span class="p">)</span>
+    <span class="c1">#plt.show(figsize=6)</span>
+    <span class="c1">#plt_dettr.show(figsize=5)</span>
+    <span class="n">graphics_array</span><span class="p">([[</span><span class="n">plt</span><span class="p">,</span><span class="n">plt_dettr</span><span class="p">]])</span><span class="o">.</span><span class="n">show</span><span class="p">(</span><span class="n">figsize</span><span class="o">=</span><span class="p">[</span><span class="mi">10</span><span class="p">,</span><span class="mi">5</span><span class="p">])</span>
+</pre></div>
+</div>
+</div>
+<div class="nboutput nblast docutils container">
+<div class="prompt empty docutils container">
+</div>
+<div class="output_area docutils container">
+<script type="application/vnd.jupyter.widget-view+json">{"model_id": "84bebcc29a5a4b9fbaa5b7ac4adf08f4", "version_major": 2, "version_minor": 0}</script></div>
+</div>
+<div class="nbinput nblast docutils container">
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[ ]:
+</pre></div>
+</div>
+<div class="input_area highlight-ipython2 notranslate"><div class="highlight"><pre>
+<span></span>
+</pre></div>
+</div>
+</div>
+<div class="nbinput nblast docutils container">
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[169]:
+</pre></div>
+</div>
+<div class="input_area highlight-ipython2 notranslate"><div class="highlight"><pre>
+<span></span><span class="n">var</span><span class="p">(</span><span class="s1">&#39;a,d,b,x,y,t&#39;</span><span class="p">)</span>
+<span class="n">ode_lotka</span><span class="o">=</span><span class="n">vector</span><span class="p">([</span><span class="n">x</span><span class="o">*</span><span class="p">(</span><span class="mi">1</span><span class="o">-</span><span class="n">x</span><span class="p">)</span><span class="o">-</span><span class="p">(</span><span class="n">a</span><span class="o">*</span><span class="n">x</span><span class="o">*</span><span class="n">y</span><span class="p">)</span><span class="o">/</span><span class="p">(</span><span class="n">x</span><span class="o">+</span><span class="n">d</span><span class="p">),</span><span class="n">b</span><span class="o">*</span><span class="n">y</span><span class="o">*</span><span class="p">(</span><span class="mi">1</span><span class="o">-</span><span class="n">y</span><span class="o">/</span><span class="n">x</span><span class="p">)]);</span>
+</pre></div>
+</div>
+</div>
+<div class="nbinput nblast docutils container">
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[170]:
+</pre></div>
+</div>
+<div class="input_area highlight-ipython2 notranslate"><div class="highlight"><pre>
+<span></span><span class="n">p</span> <span class="o">=</span> <span class="p">{</span><span class="n">a</span><span class="p">:</span><span class="mf">1.0</span><span class="p">,</span> <span class="n">d</span><span class="p">:</span><span class="mf">0.1</span><span class="p">,</span> <span class="n">b</span><span class="p">:</span><span class="mi">1</span><span class="p">}</span>
+</pre></div>
+</div>
+</div>
+<div class="nbinput nblast docutils container">
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[171]:
+</pre></div>
+</div>
+<div class="input_area highlight-ipython2 notranslate"><div class="highlight"><pre>
+<span></span><span class="n">sol</span> <span class="o">=</span> <span class="n">solve</span><span class="p">(</span><span class="nb">list</span><span class="p">(</span><span class="n">ode_lotka</span><span class="o">.</span><span class="n">subs</span><span class="p">(</span><span class="n">p</span><span class="p">)),[</span><span class="n">x</span><span class="p">,</span><span class="n">y</span><span class="p">])[</span><span class="mi">4</span><span class="p">]</span>
+</pre></div>
+</div>
+</div>
+<div class="nbinput docutils container">
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[172]:
+</pre></div>
+</div>
+<div class="input_area highlight-ipython2 notranslate"><div class="highlight"><pre>
+<span></span><span class="n">J</span> <span class="o">=</span> <span class="n">jacobian</span><span class="p">(</span><span class="n">ode_lotka</span><span class="o">.</span><span class="n">subs</span><span class="p">(</span><span class="n">p</span><span class="p">),[</span><span class="n">x</span><span class="p">,</span><span class="n">y</span><span class="p">])</span><span class="o">.</span><span class="n">subs</span><span class="p">(</span><span class="n">sol</span><span class="p">)</span><span class="o">.</span><span class="n">n</span><span class="p">()</span>
+<span class="n">show</span><span class="p">(</span><span class="n">J</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+<div class="nboutput nblast docutils container">
+<div class="prompt empty docutils container">
+</div>
+<div class="output_area rendered_html docutils container">
+<html><script type="math/tex; mode=display">\newcommand{\Bold}[1]{\mathbf{#1}}\left(\begin{array}{rr}
+0.262515743197908 & -0.729843788128358 \\
+1.00000000000000 & -1.00000000000000
+\end{array}\right)</script></html></div>
+</div>
+<div class="nbinput docutils container">
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[173]:
+</pre></div>
+</div>
+<div class="input_area highlight-ipython2 notranslate"><div class="highlight"><pre>
+<span></span><span class="n">J</span><span class="o">.</span><span class="n">trace</span><span class="p">(),</span>
+</pre></div>
+</div>
+</div>
+<div class="nboutput nblast docutils container">
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[173]:
+</pre></div>
+</div>
+<div class="output_area docutils container">
+<div class="highlight"><pre>
+(-0.737484256802092,)
+</pre></div></div>
+</div>
+<div class="nbinput docutils container">
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[174]:
+</pre></div>
+</div>
+<div class="input_area highlight-ipython2 notranslate"><div class="highlight"><pre>
+<span></span><span class="n">J</span><span class="o">.</span><span class="n">det</span><span class="p">()</span>
+</pre></div>
+</div>
+</div>
+<div class="nboutput nblast docutils container">
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[174]:
+</pre></div>
+</div>
+<div class="output_area docutils container">
+<div class="highlight"><pre>
+0.467328044930449
+</pre></div></div>
+</div>
+<div class="nbinput docutils container">
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[175]:
+</pre></div>
+</div>
+<div class="input_area highlight-ipython2 notranslate"><div class="highlight"><pre>
+<span></span><span class="n">J</span><span class="o">.</span><span class="n">trace</span><span class="p">()</span><span class="o">^</span><span class="mi">2</span><span class="o">/</span><span class="mi">4</span>
+</pre></div>
+</div>
+</div>
+<div class="nboutput nblast docutils container">
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[175]:
+</pre></div>
+</div>
+<div class="output_area docutils container">
+<div class="highlight"><pre>
+0.135970757257733
+</pre></div></div>
+</div>
+<div class="nbinput nblast docutils container">
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[176]:
+</pre></div>
+</div>
+<div class="input_area highlight-ipython2 notranslate"><div class="highlight"><pre>
+<span></span><span class="n">xylims</span>  <span class="o">=</span> <span class="p">[(</span><span class="n">x</span><span class="p">,</span><span class="mf">1e-4</span><span class="p">,</span><span class="mi">1</span><span class="p">),(</span><span class="n">y</span><span class="p">,</span><span class="mf">1e-4</span><span class="p">,</span><span class="mi">1</span><span class="p">)]</span>
+</pre></div>
+</div>
+</div>
+<div class="nbinput docutils container">
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[177]:
+</pre></div>
+</div>
+<div class="input_area highlight-ipython2 notranslate"><div class="highlight"><pre>
+<span></span><span class="n">phase_may</span><span class="p">(</span><span class="n">p</span><span class="p">,</span><span class="n">xylims</span><span class="o">=</span><span class="p">[(</span><span class="n">x</span><span class="p">,</span><span class="o">+</span><span class="mf">1e-4</span><span class="p">,</span><span class="mi">1</span><span class="p">),(</span><span class="n">y</span><span class="p">,</span><span class="o">+</span><span class="mf">1e-4</span><span class="p">,</span><span class="mi">1</span><span class="p">)])[</span><span class="mi">0</span><span class="p">]</span>
+</pre></div>
+</div>
+</div>
+<div class="nboutput docutils container">
+<div class="prompt empty docutils container">
+</div>
+<div class="output_area docutils container">
+<div class="highlight"><pre>
+(&#39;detJ&gt;trJ^2/4?&#39;, True)
+</pre></div></div>
+</div>
+<div class="nboutput nblast docutils container">
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[177]:
+</pre></div>
+</div>
+<div class="output_area docutils container">
+<img alt="../_images/notebooks_May_model_44_1.png" src="../_images/notebooks_May_model_44_1.png" />
+</div>
+</div>
+<div class="nbinput nblast docutils container">
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[ ]:
+</pre></div>
+</div>
+<div class="input_area highlight-ipython2 notranslate"><div class="highlight"><pre>
+<span></span>
+</pre></div>
+</div>
+</div>
+<div class="nbinput docutils container">
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[157]:
+</pre></div>
+</div>
+<div class="input_area highlight-ipython2 notranslate"><div class="highlight"><pre>
+<span></span><span class="n">eps</span> <span class="o">=</span> <span class="mf">1e-3</span>
+<span class="n">solve</span><span class="p">(</span><span class="n">ode_lotka</span><span class="o">.</span><span class="n">subs</span><span class="p">(</span><span class="n">p</span><span class="p">)</span><span class="o">.</span><span class="n">subs</span><span class="p">(</span><span class="n">y</span><span class="o">==</span><span class="n">eps</span><span class="p">)</span><span class="o">*</span><span class="n">vector</span><span class="p">([</span><span class="mi">0</span><span class="p">,</span><span class="mi">1</span><span class="p">])</span><span class="o">&gt;=</span><span class="mi">0</span><span class="p">,</span><span class="n">x</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+<div class="nboutput nblast docutils container">
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[157]:
+</pre></div>
+</div>
+<div class="output_area docutils container">
+<div class="highlight"><pre>
+[[x &lt; 0], [x &gt;= (1/1000)]]
+</pre></div></div>
+</div>
+<div class="nbinput docutils container">
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[143]:
+</pre></div>
+</div>
+<div class="input_area highlight-ipython2 notranslate"><div class="highlight"><pre>
+<span></span><span class="n">solve</span><span class="p">(</span><span class="n">ode_lotka</span><span class="o">.</span><span class="n">subs</span><span class="p">(</span><span class="n">p</span><span class="p">)</span><span class="o">.</span><span class="n">subs</span><span class="p">(</span><span class="n">x</span><span class="o">==</span><span class="mf">0.00001</span><span class="p">)</span><span class="o">*</span><span class="n">vector</span><span class="p">([</span><span class="mi">1</span><span class="p">,</span><span class="mi">0</span><span class="p">])</span><span class="o">&gt;</span><span class="mi">0</span><span class="p">,</span><span class="n">x</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+<div class="nboutput nblast docutils container">
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[143]:
+</pre></div>
+</div>
+<div class="output_area docutils container">
+<div class="highlight"><pre>
+[[y &lt; (10001/100001)]]
+</pre></div></div>
+</div>
+<div class="nbinput nblast docutils container">
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[ ]:
+</pre></div>
+</div>
+<div class="input_area highlight-ipython2 notranslate"><div class="highlight"><pre>
+<span></span>
+</pre></div>
+</div>
+</div>
+<div class="nbinput docutils container">
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[166]:
+</pre></div>
+</div>
+<div class="input_area highlight-ipython2 notranslate"><div class="highlight"><pre>
+<span></span><span class="n">J</span>
+</pre></div>
+</div>
+</div>
+<div class="nboutput nblast docutils container">
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[166]:
+</pre></div>
+</div>
+<div class="output_area docutils container">
+<div class="highlight"><pre>
+[ 0.262515743197908 -0.729843788128358]
+[ 0.100000000000000 -0.100000000000000]
+</pre></div></div>
+</div>
+<div class="nbinput nblast docutils container">
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[ ]:
+</pre></div>
+</div>
+<div class="input_area highlight-ipython2 notranslate"><div class="highlight"><pre>
+<span></span>
+</pre></div>
+</div>
+</div>
+<div class="nbinput nblast docutils container">
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[ ]:
+</pre></div>
+</div>
+<div class="input_area highlight-ipython2 notranslate"><div class="highlight"><pre>
+<span></span>
+</pre></div>
+</div>
+</div>
+<div class="nbinput nblast docutils container">
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[ ]:
+</pre></div>
+</div>
+<div class="input_area highlight-ipython2 notranslate"><div class="highlight"><pre>
+<span></span>
+</pre></div>
+</div>
+</div>
+<div class="nbinput nblast docutils container">
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[ ]:
+</pre></div>
+</div>
+<div class="input_area highlight-ipython2 notranslate"><div class="highlight"><pre>
+<span></span>
+</pre></div>
+</div>
+</div>
+<div class="nbinput nblast docutils container">
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[ ]:
+</pre></div>
+</div>
+<div class="input_area highlight-ipython2 notranslate"><div class="highlight"><pre>
+<span></span>
+</pre></div>
+</div>
+</div>
+<div class="nbinput nblast docutils container">
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[ ]:
+</pre></div>
+</div>
+<div class="input_area highlight-ipython2 notranslate"><div class="highlight"><pre>
+<span></span>
+</pre></div>
+</div>
+</div>
+<div class="nbinput nblast docutils container">
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[ ]:
+</pre></div>
+</div>
+<div class="input_area highlight-ipython2 notranslate"><div class="highlight"><pre>
+<span></span>
+</pre></div>
+</div>
+</div>
+<div class="nbinput nblast docutils container">
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[ ]:
+</pre></div>
+</div>
+<div class="input_area highlight-ipython2 notranslate"><div class="highlight"><pre>
+<span></span>
+</pre></div>
+</div>
+</div>
+<div class="nbinput nblast docutils container">
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[ ]:
+</pre></div>
+</div>
+<div class="input_area highlight-ipython2 notranslate"><div class="highlight"><pre>
+<span></span>
+</pre></div>
+</div>
+</div>
+<div class="nbinput nblast docutils container">
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[ ]:
+</pre></div>
+</div>
+<div class="input_area highlight-ipython2 notranslate"><div class="highlight"><pre>
+<span></span>
+</pre></div>
+</div>
+</div>
+<div class="nbinput nblast docutils container">
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[ ]:
+</pre></div>
+</div>
+<div class="input_area highlight-ipython2 notranslate"><div class="highlight"><pre>
+<span></span>
+</pre></div>
+</div>
+</div>
+<div class="nbinput docutils container">
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[385]:
+</pre></div>
+</div>
+<div class="input_area highlight-ipython2 notranslate"><div class="highlight"><pre>
+<span></span><span class="nd">@interact</span>
+<span class="k">def</span> <span class="nf">May_phase</span><span class="p">(</span><span class="n">a_in</span> <span class="o">=</span> <span class="n">slider</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span><span class="mi">2</span><span class="p">,</span><span class="mf">0.01</span><span class="p">,</span><span class="n">default</span><span class="o">=</span><span class="mf">1.0</span><span class="p">),</span>\
+        <span class="n">b_in</span> <span class="o">=</span> <span class="n">slider</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span><span class="mi">2</span><span class="p">,</span><span class="mf">0.01</span><span class="p">,</span><span class="n">default</span><span class="o">=</span><span class="mf">0.1</span><span class="p">),</span>\
+        <span class="n">d_in</span> <span class="o">=</span> <span class="n">slider</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span><span class="mi">2</span><span class="p">,</span><span class="mf">0.01</span><span class="p">,</span><span class="n">default</span><span class="o">=</span><span class="mf">0.1</span><span class="p">)</span> <span class="p">):</span>
+    <span class="n">p</span> <span class="o">=</span> <span class="p">{</span><span class="n">a</span><span class="p">:</span><span class="n">a_in</span><span class="p">,</span><span class="n">d</span><span class="p">:</span><span class="n">d_in</span><span class="p">,</span><span class="n">b</span><span class="p">:</span><span class="n">b_in</span><span class="p">}</span>
+    <span class="n">ode_lotka_num</span> <span class="o">=</span><span class="p">[</span><span class="n">i</span><span class="o">.</span><span class="n">subs</span><span class="p">(</span><span class="n">p</span><span class="p">)</span> <span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="n">ode_lotka</span><span class="p">]</span>
+    <span class="n">pkt_osob</span><span class="o">=</span><span class="n">solve</span><span class="p">(</span><span class="n">ode_lotka_num</span><span class="p">,</span><span class="n">x</span><span class="p">,</span><span class="n">y</span><span class="p">,</span> <span class="n">solution_dict</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
+    <span class="n">x_osobliwy</span><span class="p">,</span><span class="n">y_osobliwy</span><span class="o">=</span><span class="mi">0</span><span class="p">,</span><span class="mi">0</span>
+    <span class="n">plt_pkt</span><span class="o">=</span><span class="p">[]</span>
+    <span class="k">for</span> <span class="n">n_pkt</span><span class="p">,</span><span class="n">pkt</span> <span class="ow">in</span> <span class="nb">enumerate</span><span class="p">(</span><span class="n">pkt_osob</span><span class="p">):</span>
+       <span class="n">x_osobliwy</span><span class="p">,</span><span class="n">y_osobliwy</span><span class="o">=</span><span class="n">pkt</span><span class="p">[</span><span class="n">x</span><span class="p">]</span><span class="o">.</span><span class="n">n</span><span class="p">(),</span><span class="n">pkt</span><span class="p">[</span><span class="n">y</span><span class="p">]</span><span class="o">.</span><span class="n">n</span><span class="p">()</span>
+       <span class="n">plt_pkt</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">point</span><span class="p">([</span><span class="n">x_osobliwy</span><span class="p">,</span><span class="n">y_osobliwy</span><span class="p">],</span><span class="n">size</span><span class="o">=</span><span class="mi">30</span><span class="p">,</span><span class="n">color</span><span class="o">=</span><span class="s1">&#39;red&#39;</span><span class="p">)</span> <span class="p">)</span>
+       <span class="n">JJ</span><span class="o">=</span><span class="n">jacobian</span><span class="p">(</span><span class="n">ode_lotka_num</span><span class="p">,[</span><span class="n">x</span><span class="p">,</span><span class="n">y</span><span class="p">])</span>
+       <span class="n">JJ0</span><span class="o">=</span><span class="n">JJ</span><span class="o">.</span><span class="n">subs</span><span class="p">({</span><span class="n">x</span><span class="p">:</span><span class="n">x_osobliwy</span><span class="o">+</span><span class="mf">1e-8</span><span class="p">,</span><span class="n">y</span><span class="p">:</span><span class="n">y_osobliwy</span><span class="o">+</span><span class="mf">1e-8</span><span class="p">})</span>
+       <span class="nb">print</span> <span class="n">n_pkt</span><span class="o">+</span><span class="mi">1</span><span class="p">,</span><span class="s2">&quot;:&quot;</span><span class="p">,</span><span class="n">x_osobliwy</span><span class="o">.</span><span class="n">n</span><span class="p">(</span><span class="n">digits</span><span class="o">=</span><span class="mi">3</span><span class="p">),</span><span class="n">y_osobliwy</span><span class="o">.</span><span class="n">n</span><span class="p">(</span><span class="n">digits</span><span class="o">=</span><span class="mi">3</span><span class="p">),</span><span class="n">vector</span><span class="p">(</span><span class="n">JJ0</span><span class="o">.</span><span class="n">eigenvalues</span><span class="p">())</span><span class="o">.</span><span class="n">n</span><span class="p">(</span><span class="n">digits</span><span class="o">=</span><span class="mi">3</span><span class="p">)</span>
+       <span class="k">if</span> <span class="n">pkt</span><span class="p">[</span><span class="n">x</span><span class="p">]</span><span class="o">&gt;</span><span class="mi">0</span> <span class="ow">and</span> <span class="n">pkt</span><span class="p">[</span><span class="n">y</span><span class="p">]</span><span class="o">&gt;</span><span class="mi">0</span> <span class="p">:</span>
+           <span class="nb">print</span> <span class="s2">&quot;Czy pkt. jest stabilny?&quot;</span><span class="p">,</span><span class="nb">bool</span><span class="p">(</span><span class="n">b_in</span><span class="o">&gt;</span><span class="n">f</span><span class="p">(</span><span class="n">a_in</span><span class="p">,</span><span class="n">d_in</span><span class="p">))</span>
+           <span class="nb">print</span> <span class="s2">&quot;detJ&gt;(TrJ/2)^2&quot;</span><span class="p">,(</span><span class="n">detJ</span><span class="o">.</span><span class="n">subs</span><span class="p">(</span><span class="n">sol_</span><span class="p">)</span><span class="o">-</span><span class="p">(</span><span class="n">trJ</span><span class="o">.</span><span class="n">subs</span><span class="p">(</span><span class="n">sol_</span><span class="p">)</span><span class="o">/</span><span class="mi">2</span><span class="p">)</span><span class="o">^</span><span class="mi">2</span><span class="p">)</span><span class="o">.</span><span class="n">subs</span><span class="p">(</span><span class="n">p</span><span class="p">)</span><span class="o">.</span><span class="n">n</span><span class="p">()</span>
+    <span class="n">plt1</span> <span class="o">=</span> <span class="n">plot_vector_field</span><span class="p">(</span><span class="n">vector</span><span class="p">(</span><span class="n">ode_lotka_num</span><span class="p">)</span><span class="o">/</span><span class="n">vector</span><span class="p">(</span><span class="n">ode_lotka_num</span><span class="p">)</span><span class="o">.</span><span class="n">norm</span><span class="p">(),(</span><span class="n">x</span><span class="p">,</span><span class="o">-</span><span class="mf">0.1</span><span class="p">,</span><span class="mi">2</span><span class="p">),(</span><span class="n">y</span><span class="p">,</span><span class="o">-</span><span class="mf">0.1</span><span class="p">,</span><span class="mi">2</span><span class="p">))</span>
+    <span class="c1">#plt2a = implicit_plot(ode_lotka_num[0],(x,-0.10,2),(y,-0.10,2),color=&#39;green&#39;)</span>
+    <span class="n">plt2a</span> <span class="o">=</span> <span class="n">plot</span><span class="p">(</span><span class="n">solve</span><span class="p">(</span><span class="n">ode_lotka_num</span><span class="p">[</span><span class="mi">0</span><span class="p">],</span><span class="n">y</span><span class="p">)[</span><span class="mi">0</span><span class="p">]</span><span class="o">.</span><span class="n">rhs</span><span class="p">(),(</span><span class="n">x</span><span class="p">,</span><span class="o">-</span><span class="mf">0.10</span><span class="p">,</span><span class="mi">2</span><span class="p">),</span><span class="n">ymin</span><span class="o">=-</span><span class="mf">0.10</span><span class="p">,</span><span class="n">ymax</span><span class="o">=</span><span class="mi">2</span><span class="p">,</span> <span class="n">color</span><span class="o">=</span><span class="s1">&#39;green&#39;</span><span class="p">)</span>
+    <span class="n">show</span><span class="p">(</span><span class="n">ode_lotka_num</span><span class="p">)</span>
+    <span class="n">plt2b</span> <span class="o">=</span> <span class="n">implicit_plot</span><span class="p">(</span><span class="n">ode_lotka_num</span><span class="p">[</span><span class="mi">1</span><span class="p">],(</span><span class="n">x</span><span class="p">,</span><span class="o">-</span><span class="mf">0.10</span><span class="p">,</span><span class="mi">2</span><span class="p">),(</span><span class="n">y</span><span class="p">,</span><span class="o">-.</span><span class="mi">010</span><span class="p">,</span><span class="mi">2</span><span class="p">),</span><span class="n">color</span><span class="o">=</span><span class="s1">&#39;blue&#39;</span><span class="p">,</span><span class="n">xmin</span><span class="o">=-</span><span class="mf">0.03</span><span class="p">)</span>
+    <span class="n">T</span> <span class="o">=</span> <span class="n">srange</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span><span class="mi">123</span><span class="p">,</span><span class="mf">0.1</span><span class="p">)</span>
+    <span class="n">sol1</span> <span class="o">=</span> <span class="n">desolve_odeint</span><span class="p">(</span><span class="n">vector</span><span class="p">(</span><span class="n">ode_lotka_num</span><span class="p">),</span> <span class="p">[</span><span class="mf">0.82</span><span class="p">,</span><span class="mf">0.85</span><span class="p">],</span> <span class="n">T</span><span class="p">,</span> <span class="p">[</span><span class="n">x</span><span class="p">,</span><span class="n">y</span><span class="p">])</span>
+    <span class="n">plt_solution</span> <span class="o">=</span> <span class="n">list_plot</span><span class="p">(</span><span class="n">sol1</span><span class="o">.</span><span class="n">tolist</span><span class="p">(),</span> <span class="n">plotjoined</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span> <span class="n">color</span><span class="o">=</span><span class="s1">&#39;brown&#39;</span><span class="p">)</span>
+    <span class="n">show</span><span class="p">(</span> <span class="nb">sum</span><span class="p">(</span><span class="n">plt_pkt</span><span class="p">)</span><span class="o">+</span><span class="n">plt1</span><span class="o">+</span><span class="n">plt2a</span><span class="o">+</span><span class="n">plt2b</span><span class="o">+</span><span class="n">plt_solution</span> <span class="p">)</span>
+</pre></div>
+</div>
+</div>
+<div class="nboutput docutils container">
+<div class="prompt empty docutils container">
+</div>
+<div class="output_area docutils container">
+<script type="application/vnd.jupyter.widget-view+json">{"model_id": "69ea650e857843f19fd2f8dc6723f658", "version_major": 2, "version_minor": 0}</script></div>
+</div>
+<div class="nboutput nblast docutils container">
+<div class="prompt empty docutils container">
+</div>
+<div class="output_area docutils container">
+<div class="highlight"><pre>
+
+</pre></div></div>
+</div>
+<div class="nbinput nblast docutils container">
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[93]:
+</pre></div>
+</div>
+<div class="input_area highlight-ipython2 notranslate"><div class="highlight"><pre>
+<span></span><span class="n">var</span><span class="p">(</span><span class="s1">&#39;Delta&#39;</span><span class="p">,</span><span class="n">latex_name</span><span class="o">=</span><span class="s1">&#39;\sqrt{\Delta}&#39;</span><span class="p">)</span>
+<span class="n">subDelta</span> <span class="o">=</span> <span class="n">sqrt</span><span class="p">(</span><span class="n">a</span><span class="o">^</span><span class="mi">2</span> <span class="o">+</span> <span class="mi">2</span><span class="o">*</span><span class="p">(</span><span class="n">a</span> <span class="o">+</span> <span class="mi">1</span><span class="p">)</span><span class="o">*</span><span class="n">d</span> <span class="o">+</span> <span class="n">d</span><span class="o">^</span><span class="mi">2</span> <span class="o">-</span> <span class="mi">2</span><span class="o">*</span><span class="n">a</span> <span class="o">+</span> <span class="mi">1</span><span class="p">)</span><span class="o">==</span><span class="n">Delta</span>
+</pre></div>
+</div>
+</div>
+<div class="nbinput docutils container">
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[94]:
+</pre></div>
+</div>
+<div class="input_area highlight-ipython2 notranslate"><div class="highlight"><pre>
+<span></span><span class="n">sol_</span><span class="p">[</span><span class="mi">1</span><span class="p">]</span><span class="o">.</span><span class="n">rhs</span><span class="p">()</span><span class="o">.</span><span class="n">subs</span><span class="p">(</span><span class="n">subDelta</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+<div class="nboutput nblast docutils container">
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[94]:
+</pre></div>
+</div>
+<div class="output_area docutils container">
+<div class="highlight"><pre>
+1/2*Delta - 1/2*a - 1/2*d + 1/2
+</pre></div></div>
+</div>
+<div class="nbinput docutils container">
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[95]:
+</pre></div>
+</div>
+<div class="input_area highlight-ipython2 notranslate"><div class="highlight"><pre>
+<span></span><span class="n">detJ</span><span class="o">.</span><span class="n">subs</span><span class="p">(</span><span class="n">sol_</span><span class="p">)</span><span class="o">.</span><span class="n">subs</span><span class="p">(</span><span class="n">subDelta</span><span class="p">)</span><span class="o">.</span><span class="n">expand</span><span class="p">()</span><span class="o">.</span><span class="n">full_simplify</span><span class="p">()</span>
+</pre></div>
+</div>
+</div>
+<div class="nboutput nblast docutils container">
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[95]:
+</pre></div>
+</div>
+<div class="output_area docutils container">
+<div class="highlight"><pre>
+-((Delta + 2*a + 2)*b*d^2 + b*d^3 - (Delta^2 - a^2 + 2*a - 1)*b*d - (Delta^3 + Delta*a^2 + 2*Delta^2 - 2*(Delta^2 + Delta)*a + Delta)*b)/(Delta^2 - 2*(Delta + 1)*a + a^2 + 2*(Delta - a + 1)*d + d^2 + 2*Delta + 1)
+</pre></div></div>
+</div>
+<div class="nbinput nblast docutils container">
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[96]:
+</pre></div>
+</div>
+<div class="input_area highlight-ipython2 notranslate"><div class="highlight"><pre>
+<span></span><span class="n">point1</span> <span class="o">=</span> <span class="n">sols</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span>
+<span class="n">point2</span> <span class="o">=</span> <span class="n">sols</span><span class="p">[</span><span class="mi">1</span><span class="p">]</span>
+<span class="n">point3</span> <span class="o">=</span> <span class="n">sols</span><span class="p">[</span><span class="mi">4</span><span class="p">]</span>
+<span class="c1">#point3 = map(lambda x:x.subs(subDelta),point3)</span>
+</pre></div>
+</div>
+</div>
+<div class="nbinput docutils container">
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[97]:
+</pre></div>
+</div>
+<div class="input_area highlight-ipython2 notranslate"><div class="highlight"><pre>
+<span></span><span class="n">point3</span>
+</pre></div>
+</div>
+</div>
+<div class="nboutput nblast docutils container">
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[97]:
+</pre></div>
+</div>
+<div class="output_area docutils container">
+<div class="highlight"><pre>
+[x == -1/2*a - 1/2*d + 1/2*sqrt(a^2 + 2*(a + 1)*d + d^2 - 2*a + 1) + 1/2,
+ y == -1/2*a - 1/2*d + 1/2*sqrt(a^2 + 2*(a + 1)*d + d^2 - 2*a + 1) + 1/2]
+</pre></div></div>
+</div>
+<div class="nbinput docutils container">
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[364]:
+</pre></div>
+</div>
+<div class="input_area highlight-ipython2 notranslate"><div class="highlight"><pre>
+<span></span><span class="n">trJ</span><span class="o">.</span><span class="n">subs</span><span class="p">(</span><span class="n">point3</span><span class="p">)</span><span class="o">.</span><span class="n">simplify</span><span class="p">()</span><span class="o">.</span><span class="n">numerator</span><span class="p">()</span>
+</pre></div>
+</div>
+</div>
+<div class="nboutput nblast docutils container">
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[364]:
+</pre></div>
+</div>
+<div class="output_area docutils container">
+<div class="highlight"><pre>
+a^3 - a^2*b + a^2*d + 2*a*b*d + a*d^2 - b*d^2 + d^3 - 3*sqrt(a^2 + 2*a*d + d^2 - 2*a + 2*d + 1)*a^2 + 2*sqrt(a^2 + 2*a*d + d^2 - 2*a + 2*d + 1)*a*b - 2*sqrt(a^2 + 2*a*d + d^2 - 2*a + 2*d + 1)*b*d + sqrt(a^2 + 2*a*d + d^2 - 2*a + 2*d + 1)*d^2 + 3*(a^2 + 2*a*d + d^2 - 2*a + 2*d + 1)*a - 4*a^2 - (a^2 + 2*a*d + d^2 - 2*a + 2*d + 1)*b + 2*a*b - (a^2 + 2*a*d + d^2 - 2*a + 2*d + 1)*d - 6*a*d - 2*b*d - (a^2 + 2*a*d + d^2 - 2*a + 2*d + 1)^(3/2) + 4*sqrt(a^2 + 2*a*d + d^2 - 2*a + 2*d + 1)*a - 2*sqrt(a^2 + 2*a*d + d^2 - 2*a + 2*d + 1)*b + 5*a - b - 3*d - sqrt(a^2 + 2*a*d + d^2 - 2*a + 2*d + 1) - 2
+</pre></div></div>
+</div>
+<div class="nbinput docutils container">
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[365]:
+</pre></div>
+</div>
+<div class="input_area highlight-ipython2 notranslate"><div class="highlight"><pre>
+<span></span><span class="n">detJ</span><span class="o">.</span><span class="n">subs</span><span class="p">(</span><span class="n">point3</span><span class="p">)</span><span class="o">.</span><span class="n">simplify</span><span class="p">()</span><span class="o">.</span><span class="n">numerator</span><span class="p">()</span><span class="o">.</span><span class="n">show</span><span class="p">()</span>
+</pre></div>
+</div>
+</div>
+<div class="nboutput nblast docutils container">
+<div class="prompt empty docutils container">
+</div>
+<div class="output_area rendered_html docutils container">
+<html><script type="math/tex; mode=display">\newcommand{\Bold}[1]{\mathbf{#1}}-a^{2} b d - 2 \, a b d^{2} - b d^{3} + \sqrt{a^{2} + 2 \, a d + d^{2} - 2 \, a + 2 \, d + 1} a^{2} b - \sqrt{a^{2} + 2 \, a d + d^{2} - 2 \, a + 2 \, d + 1} b d^{2} - 2 \, {\left(a^{2} + 2 \, a d + d^{2} - 2 \, a + 2 \, d + 1\right)} a b + {\left(a^{2} + 2 \, a d + d^{2} - 2 \, a + 2 \, d + 1\right)} b d + 2 \, a b d - 2 \, b d^{2} + {\left(a^{2} + 2 \, a d + d^{2} - 2 \, a + 2 \, d + 1\right)}^{\frac{3}{2}} b - 2 \, \sqrt{a^{2} + 2 \, a d + d^{2} - 2 \, a + 2 \, d + 1} a b + 2 \, {\left(a^{2} + 2 \, a d + d^{2} - 2 \, a + 2 \, d + 1\right)} b - b d + \sqrt{a^{2} + 2 \, a d + d^{2} - 2 \, a + 2 \, d + 1} b</script></html></div>
+</div>
+<div class="section" id="2d">
+<h2>2d<a class="headerlink" href="#2d" title="Permalink to this headline">¶</a></h2>
+<p><img alt="image1" src="notebooks/detJtrJ.jpg" /></p>
+<div class="math notranslate nohighlight">
+\[\det J = \left(\frac{\mathrm{Tr} J}{2}\right)^2\]</div>
+<div class="nbinput docutils container">
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[98]:
+</pre></div>
+</div>
+<div class="input_area highlight-ipython2 notranslate"><div class="highlight"><pre>
+<span></span><span class="p">(</span><span class="n">detJ</span><span class="o">.</span><span class="n">subs</span><span class="p">(</span><span class="n">sol_</span><span class="p">)</span><span class="o">-</span><span class="p">(</span><span class="n">trJ</span><span class="o">.</span><span class="n">subs</span><span class="p">(</span><span class="n">sol_</span><span class="p">)</span><span class="o">/</span><span class="mi">2</span><span class="p">)</span><span class="o">^</span><span class="mi">2</span><span class="p">)</span><span class="o">.</span><span class="n">subs</span><span class="p">({</span><span class="n">a</span><span class="p">:</span><span class="mi">1</span><span class="p">,</span><span class="n">d</span><span class="p">:</span><span class="mi">1</span><span class="p">,</span><span class="n">b</span><span class="p">:</span><span class="o">.</span><span class="mi">1</span><span class="p">})</span><span class="o">.</span><span class="n">n</span><span class="p">()</span>
+</pre></div>
+</div>
+</div>
+<div class="nboutput nblast docutils container">
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[98]:
+</pre></div>
+</div>
+<div class="output_area docutils container">
+<div class="highlight"><pre>
+0.00357530887414820
+</pre></div></div>
+</div>
+<div class="nbinput nblast docutils container">
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[ ]:
+</pre></div>
+</div>
+<div class="input_area highlight-ipython2 notranslate"><div class="highlight"><pre>
+<span></span>
+</pre></div>
+</div>
+</div>
+<div class="nbinput docutils container">
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[99]:
+</pre></div>
+</div>
+<div class="input_area highlight-ipython2 notranslate"><div class="highlight"><pre>
+<span></span><span class="n">point3</span>
+</pre></div>
+</div>
+</div>
+<div class="nboutput nblast docutils container">
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[99]:
+</pre></div>
+</div>
+<div class="output_area docutils container">
+<div class="highlight"><pre>
+[x == -1/2*a - 1/2*d + 1/2*sqrt(a^2 + 2*(a + 1)*d + d^2 - 2*a + 1) + 1/2,
+ y == -1/2*a - 1/2*d + 1/2*sqrt(a^2 + 2*(a + 1)*d + d^2 - 2*a + 1) + 1/2]
+</pre></div></div>
+</div>
+<div class="nbinput docutils container">
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[100]:
+</pre></div>
+</div>
+<div class="input_area highlight-ipython2 notranslate"><div class="highlight"><pre>
+<span></span><span class="n">var</span><span class="p">(</span><span class="s1">&#39;x0&#39;</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+<div class="nboutput nblast docutils container">
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[100]:
+</pre></div>
+</div>
+<div class="output_area docutils container">
+<div class="highlight"><pre>
+x0
+</pre></div></div>
+</div>
+<div class="nbinput docutils container">
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[104]:
+</pre></div>
+</div>
+<div class="input_area highlight-ipython2 notranslate"><div class="highlight"><pre>
+<span></span><span class="n">trJ</span><span class="o">.</span><span class="n">subs</span><span class="p">({</span><span class="n">x</span><span class="p">:</span><span class="n">x0</span><span class="p">,</span><span class="n">y</span><span class="p">:</span><span class="n">x0</span><span class="p">})</span><span class="o">.</span><span class="n">factor</span><span class="p">()</span><span class="o">.</span><span class="n">numerator</span><span class="p">()</span><span class="o">.</span><span class="n">collect</span><span class="p">(</span><span class="n">b</span><span class="p">)</span><span class="o">.</span><span class="n">show</span><span class="p">()</span>
+</pre></div>
+</div>
+</div>
+<div class="nboutput nblast docutils container">
+<div class="prompt empty docutils container">
+</div>
+<div class="output_area rendered_html docutils container">
+<html><script type="math/tex; mode=display">\newcommand{\Bold}[1]{\mathbf{#1}}-a d x_{0} - 2 \, d^{2} x_{0} - 4 \, d x_{0}^{2} - 2 \, x_{0}^{3} - {\left(d^{2} + 2 \, d x_{0} + x_{0}^{2}\right)} b + d^{2} + 2 \, d x_{0} + x_{0}^{2}</script></html></div>
+</div>
+<div class="nbinput nblast docutils container">
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[ ]:
+</pre></div>
+</div>
+<div class="input_area highlight-ipython2 notranslate"><div class="highlight"><pre>
+<span></span>
+</pre></div>
+</div>
+</div>
+<div class="nbinput docutils container">
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[366]:
+</pre></div>
+</div>
+<div class="input_area highlight-ipython2 notranslate"><div class="highlight"><pre>
+<span></span><span class="n">y_z_pierwszego</span><span class="o">=</span><span class="n">solve</span><span class="p">(</span><span class="n">ode_lotka</span><span class="p">[</span><span class="mi">0</span><span class="p">],</span><span class="n">y</span><span class="p">,</span><span class="n">solution_dict</span><span class="o">=</span><span class="kc">True</span><span class="p">)[</span><span class="mi">0</span><span class="p">]</span>
+<span class="n">drugie</span><span class="o">=</span><span class="n">ode_lotka</span><span class="p">[</span><span class="mi">1</span><span class="p">]</span><span class="o">.</span><span class="n">subs</span><span class="p">(</span><span class="n">y_z_pierwszego</span><span class="p">)</span>
+<span class="n">show</span><span class="p">(</span><span class="n">drugie</span><span class="p">)</span>
+<span class="n">show</span><span class="p">(</span><span class="n">solve</span><span class="p">(</span><span class="n">drugie</span><span class="p">,</span><span class="n">x</span><span class="p">,</span><span class="n">solution_dict</span><span class="o">=</span><span class="kc">True</span><span class="p">)[</span><span class="mi">0</span><span class="p">])</span>
+<span class="n">x_0</span><span class="o">=</span><span class="n">x</span><span class="o">.</span><span class="n">subs</span><span class="p">(</span><span class="n">solve</span><span class="p">(</span><span class="n">drugie</span><span class="p">,</span><span class="n">x</span><span class="p">,</span><span class="n">solution_dict</span><span class="o">=</span><span class="kc">True</span><span class="p">)[</span><span class="mi">1</span><span class="p">])</span>
+<span class="n">y_0</span><span class="o">=</span><span class="n">y_z_pierwszego</span><span class="p">[</span><span class="n">y</span><span class="p">]</span><span class="o">.</span><span class="n">subs</span><span class="p">({</span><span class="n">x</span><span class="p">:</span><span class="n">x_0</span><span class="p">})</span><span class="o">.</span><span class="n">expand</span><span class="p">()</span>
+<span class="n">show</span><span class="p">(</span><span class="n">x_0</span><span class="p">)</span>
+<span class="n">show</span><span class="p">(</span> <span class="n">y_0</span> <span class="p">)</span>
+</pre></div>
+</div>
+</div>
+<div class="nboutput docutils container">
+<div class="prompt empty docutils container">
+</div>
+<div class="output_area rendered_html docutils container">
+<html><script type="math/tex; mode=display">\newcommand{\Bold}[1]{\mathbf{#1}}-\frac{{\left({\left(d - 1\right)} x + x^{2} - d\right)} b {\left(\frac{{\left(d - 1\right)} x + x^{2} - d}{a x} + 1\right)}}{a}</script></html></div>
+</div>
+<div class="nboutput docutils container">
+<div class="prompt empty docutils container">
+</div>
+<div class="output_area rendered_html docutils container">
+<html><script type="math/tex; mode=display">\newcommand{\Bold}[1]{\mathbf{#1}}\left\{x : -\frac{1}{2} \, a - \frac{1}{2} \, d - \frac{1}{2} \, \sqrt{a^{2} + 2 \, {\left(a + 1\right)} d + d^{2} - 2 \, a + 1} + \frac{1}{2}\right\}</script></html></div>
+</div>
+<div class="nboutput docutils container">
+<div class="prompt empty docutils container">
+</div>
+<div class="output_area rendered_html docutils container">
+<html><script type="math/tex; mode=display">\newcommand{\Bold}[1]{\mathbf{#1}}-\frac{1}{2} \, a - \frac{1}{2} \, d + \frac{1}{2} \, \sqrt{a^{2} + 2 \, {\left(a + 1\right)} d + d^{2} - 2 \, a + 1} + \frac{1}{2}</script></html></div>
+</div>
+<div class="nboutput nblast docutils container">
+<div class="prompt empty docutils container">
+</div>
+<div class="output_area rendered_html docutils container">
+<html><script type="math/tex; mode=display">\newcommand{\Bold}[1]{\mathbf{#1}}-\frac{1}{2} \, a - \frac{1}{2} \, d + \frac{1}{2} \, \sqrt{a^{2} + 2 \, a d + d^{2} - 2 \, a + 2 \, d + 1} + \frac{1}{2}</script></html></div>
+</div>
+<div class="nbinput nblast docutils container">
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[ ]:
+</pre></div>
+</div>
+<div class="input_area highlight-ipython2 notranslate"><div class="highlight"><pre>
+<span></span>
+</pre></div>
+</div>
+</div>
+<div class="nbinput docutils container">
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[367]:
+</pre></div>
+</div>
+<div class="input_area highlight-ipython2 notranslate"><div class="highlight"><pre>
+<span></span><span class="n">ode_lotka</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span><span class="o">.</span><span class="n">diff</span><span class="p">(</span><span class="n">x</span><span class="p">)</span><span class="o">.</span><span class="n">show</span><span class="p">()</span>
+</pre></div>
+</div>
+</div>
+<div class="nboutput nblast docutils container">
+<div class="prompt empty docutils container">
+</div>
+<div class="output_area rendered_html docutils container">
+<html><script type="math/tex; mode=display">\newcommand{\Bold}[1]{\mathbf{#1}}-2 \, x - \frac{a y}{d + x} + \frac{a x y}{{\left(d + x\right)}^{2}} + 1</script></html></div>
+</div>
+<div class="math notranslate nohighlight">
+\[-\frac{a y}{d + x} + \frac{a x y}{{\left(d + x\right)}^{2}} - 2 \, x + 1\]</div>
+<div class="nbinput docutils container">
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[368]:
+</pre></div>
+</div>
+<div class="input_area highlight-ipython2 notranslate"><div class="highlight"><pre>
+<span></span><span class="n">JJ</span> <span class="o">=</span> <span class="n">jacobian</span><span class="p">(</span><span class="n">ode_lotka</span><span class="p">,[</span><span class="n">x</span><span class="p">,</span><span class="n">y</span><span class="p">])</span>
+<span class="n">show</span><span class="p">(</span><span class="n">JJ</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+<div class="nboutput nblast docutils container">
+<div class="prompt empty docutils container">
+</div>
+<div class="output_area rendered_html docutils container">
+<html><script type="math/tex; mode=display">\newcommand{\Bold}[1]{\mathbf{#1}}\left(\begin{array}{rr}
+-2 \, x - \frac{a y}{d + x} + \frac{a x y}{{\left(d + x\right)}^{2}} + 1 & -\frac{a x}{d + x} \\
+\frac{b y^{2}}{x^{2}} & -b {\left(\frac{y}{x} - 1\right)} - \frac{b y}{x}
+\end{array}\right)</script></html></div>
+</div>
+<div class="math notranslate nohighlight">
+\[\begin{split}\begin{aligned}
+\left(\begin{array}{rr}
+-\frac{a y}{d + x} + \frac{a x y}{{\left(d + x\right)}^{2}} - 2 \, x + 1 &amp; -\frac{a x}{d + x} \\
+\frac{b y^{2}}{x^{2}} &amp; -{\left(\frac{y}{x} - 1\right)} b - \frac{b y}{x}
+\end{array}\right)
+\end{aligned}\end{split}\]</div>
+<div class="nbinput nblast docutils container">
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[370]:
+</pre></div>
+</div>
+<div class="input_area highlight-ipython2 notranslate"><div class="highlight"><pre>
+<span></span><span class="c1">#mamy x0=y0 ;-)</span>
+<span class="n">var</span><span class="p">(</span><span class="s1">&#39;x0&#39;</span><span class="p">)</span>
+<span class="n">JJ0</span> <span class="o">=</span> <span class="n">JJ</span><span class="o">.</span><span class="n">subs</span><span class="p">({</span><span class="n">x</span><span class="p">:</span><span class="n">x0</span><span class="p">,</span><span class="n">y</span><span class="p">:</span><span class="n">x0</span><span class="p">})</span>
+</pre></div>
+</div>
+</div>
+<div class="nbinput docutils container">
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[371]:
+</pre></div>
+</div>
+<div class="input_area highlight-ipython2 notranslate"><div class="highlight"><pre>
+<span></span><span class="n">show</span><span class="p">(</span><span class="n">JJ0</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+<div class="nboutput nblast docutils container">
+<div class="prompt empty docutils container">
+</div>
+<div class="output_area rendered_html docutils container">
+<html><script type="math/tex; mode=display">\newcommand{\Bold}[1]{\mathbf{#1}}\left(\begin{array}{rr}
+-\frac{a x_{0}}{d + x_{0}} - 2 \, x_{0} + \frac{a x_{0}^{2}}{{\left(d + x_{0}\right)}^{2}} + 1 & -\frac{a x_{0}}{d + x_{0}} \\
+b & -b
+\end{array}\right)</script></html></div>
+</div>
+<div class="math notranslate nohighlight">
+\[\begin{split}\begin{aligned}
+\left(\begin{array}{rr}
+-\frac{a x_{0}}{d + x_{0}} + \frac{a x_{0}^{2}}{{\left(d + x_{0}\right)}^{2}} - 2 \, x_{0} + 1 &amp; -\frac{a x_{0}}{d + x_{0}} \\
+b &amp; -b
+\end{array}\right)
+\end{aligned}\end{split}\]</div>
+<div class="nbinput docutils container">
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[372]:
+</pre></div>
+</div>
+<div class="input_area highlight-ipython2 notranslate"><div class="highlight"><pre>
+<span></span><span class="n">show</span><span class="p">(</span><span class="n">JJ0</span><span class="o">.</span><span class="n">trace</span><span class="p">())</span>
+</pre></div>
+</div>
+</div>
+<div class="nboutput nblast docutils container">
+<div class="prompt empty docutils container">
+</div>
+<div class="output_area rendered_html docutils container">
+<html><script type="math/tex; mode=display">\newcommand{\Bold}[1]{\mathbf{#1}}-b - \frac{a x_{0}}{d + x_{0}} - 2 \, x_{0} + \frac{a x_{0}^{2}}{{\left(d + x_{0}\right)}^{2}} + 1</script></html></div>
+</div>
+<div class="math notranslate nohighlight">
+\[-\frac{a x_{0}}{d + x_{0}} + \frac{a x_{0}^{2}}{{\left(d + x_{0}\right)}^{2}} - b - 2 \, x_{0} + 1\]</div>
+<div class="math notranslate nohighlight">
+\[b = x_1\left[ \frac{\alpha x_1}{(x_1+d)^2} -1\right]\]</div>
+<div class="nbinput docutils container">
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[398]:
+</pre></div>
+</div>
+<div class="input_area highlight-ipython2 notranslate"><div class="highlight"><pre>
+<span></span><span class="n">trJ</span><span class="o">.</span><span class="n">subs</span><span class="p">({</span><span class="n">x</span><span class="p">:</span><span class="n">x0</span><span class="p">,</span><span class="n">y</span><span class="p">:</span><span class="n">x0</span><span class="p">})</span><span class="o">.</span><span class="n">operands</span><span class="p">()</span>
+</pre></div>
+</div>
+</div>
+<div class="nboutput nblast docutils container">
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[398]:
+</pre></div>
+</div>
+<div class="output_area docutils container">
+<div class="highlight"><pre>
+[-b, -a*x0/(d + x0), -2*x0, a*x0^2/(d + x0)^2, 1]
+</pre></div></div>
+</div>
+<div class="nbinput docutils container">
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[395]:
+</pre></div>
+</div>
+<div class="input_area highlight-ipython2 notranslate"><div class="highlight"><pre>
+<span></span><span class="n">expr_murray</span> <span class="o">=</span> <span class="n">x0</span><span class="o">*</span><span class="p">(</span><span class="n">a</span><span class="o">*</span><span class="n">x0</span><span class="o">/</span><span class="p">(</span><span class="n">x0</span><span class="o">-</span><span class="n">d</span><span class="p">)</span><span class="o">^</span><span class="mi">2</span><span class="o">-</span><span class="mi">1</span><span class="p">)</span>
+<span class="n">expr_murray</span><span class="o">.</span><span class="n">show</span><span class="p">()</span>
+</pre></div>
+</div>
+</div>
+<div class="nboutput nblast docutils container">
+<div class="prompt empty docutils container">
+</div>
+<div class="output_area rendered_html docutils container">
+<html><script type="math/tex; mode=display">\newcommand{\Bold}[1]{\mathbf{#1}}x_{0} {\left(\frac{a x_{0}}{{\left(d - x_{0}\right)}^{2}} - 1\right)}</script></html></div>
+</div>
+<div class="math notranslate nohighlight">
+\[{\left(\frac{a x_{0}}{{\left(d - x_{0}\right)}^{2}} - 1\right)} x_{0}\]</div>
+<div class="nbinput docutils container">
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[405]:
+</pre></div>
+</div>
+<div class="input_area highlight-ipython2 notranslate"><div class="highlight"><pre>
+<span></span><span class="n">show</span><span class="p">(</span> <span class="n">JJ0</span><span class="o">.</span><span class="n">trace</span><span class="p">()</span><span class="o">.</span><span class="n">subs</span><span class="p">({</span><span class="n">x0</span><span class="p">:</span><span class="n">x_0</span><span class="p">})</span><span class="o">+</span><span class="n">b</span> <span class="p">)</span>
+</pre></div>
+</div>
+</div>
+<div class="nboutput nblast docutils container">
+<div class="prompt empty docutils container">
+</div>
+<div class="output_area rendered_html docutils container">
+<html><script type="math/tex; mode=display">\newcommand{\Bold}[1]{\mathbf{#1}}\frac{{\left(a + d - \sqrt{a^{2} + 2 \, {\left(a + 1\right)} d + d^{2} - 2 \, a + 1} - 1\right)}^{2} a}{{\left(a - d - \sqrt{a^{2} + 2 \, {\left(a + 1\right)} d + d^{2} - 2 \, a + 1} - 1\right)}^{2}} - \frac{{\left(a + d - \sqrt{a^{2} + 2 \, {\left(a + 1\right)} d + d^{2} - 2 \, a + 1} - 1\right)} a}{a - d - \sqrt{a^{2} + 2 \, {\left(a + 1\right)} d + d^{2} - 2 \, a + 1} - 1} + a + d - \sqrt{a^{2} + 2 \, {\left(a + 1\right)} d + d^{2} - 2 \, a + 1}</script></html></div>
+</div>
+<div class="math notranslate nohighlight">
+\[\begin{split}\begin{aligned}
+-\frac{{\left(a + d - \sqrt{2 \, {\left(a + 1\right)} d + a^{2} + d^{2} - 2 \, a + 1} - 1\right)} a}{a - d - \sqrt{2 \, {\left(a + 1\right)} d + a^{2} + d^{2} - 2 \, a + 1} - 1} \\ + \frac{{\left(a + d - \sqrt{2 \, {\left(a + 1\right)} d + a^{2} + d^{2} - 2 \, a + 1} - 1\right)}^{2} a}{{\left(a - d - \sqrt{2 \, {\left(a + 1\right)} d + a^{2} + d^{2} - 2 \, a + 1} - 1\right)}^{2}} \\ + a + d - \sqrt{2 \, {\left(a + 1\right)} d + a^{2} + d^{2} - 2 \, a + 1}
+\end{aligned}\end{split}\]</div>
+<div class="nbinput docutils container">
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[19]:
+</pre></div>
+</div>
+<div class="input_area highlight-ipython2 notranslate"><div class="highlight"><pre>
+<span></span><span class="n">p</span><span class="o">=</span><span class="p">{</span><span class="n">a</span><span class="p">:</span><span class="mf">1.23</span><span class="p">,</span><span class="n">d</span><span class="p">:</span><span class="mf">1.01</span><span class="p">}</span>
+<span class="n">show</span><span class="p">(</span> <span class="n">JJ0</span><span class="o">.</span><span class="n">trace</span><span class="p">()</span><span class="o">.</span><span class="n">subs</span><span class="p">({</span><span class="n">x0</span><span class="p">:</span><span class="n">x_0</span><span class="p">})</span><span class="o">.</span><span class="n">subs</span><span class="p">(</span><span class="n">p</span><span class="p">)</span> <span class="p">)</span>
+<span class="n">expr_murray</span><span class="o">.</span><span class="n">subs</span><span class="p">({</span><span class="n">x0</span><span class="p">:</span><span class="n">x_0</span><span class="p">})</span><span class="o">.</span><span class="n">subs</span><span class="p">(</span><span class="n">p</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+<div class="nboutput docutils container">
+<div class="prompt empty docutils container">
+</div>
+<div class="output_area rendered_html docutils container">
+<html><script type="math/tex; mode=display">\newcommand{\Bold}[1]{\mathbf{#1}}-b - 0.404054289657954</script></html></div>
+</div>
+<div class="nboutput nblast docutils container">
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[19]:
+</pre></div>
+</div>
+<div class="output_area docutils container">
+<div class="highlight"><pre>
+1.35696399470668
+</pre></div></div>
+</div>
+<div class="math notranslate nohighlight">
+\[\begin{split}\begin{aligned}
+-b - 0.404054289657954 \\
+1.35696399470668
+\end{aligned}\end{split}\]</div>
+<div class="nbinput docutils container">
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[598]:
+</pre></div>
+</div>
+<div class="input_area highlight-ipython2 notranslate"><div class="highlight"><pre>
+<span></span><span class="n">var</span><span class="p">(</span><span class="s1">&#39;a,d,b,x,y,t&#39;</span><span class="p">)</span>
+<span class="n">ode_lotka</span><span class="o">=</span><span class="p">[</span><span class="n">x</span><span class="o">*</span><span class="p">(</span><span class="mi">1</span><span class="o">-</span><span class="n">x</span><span class="p">)</span><span class="o">-</span><span class="p">(</span><span class="n">a</span><span class="o">*</span><span class="n">x</span><span class="o">*</span><span class="n">y</span><span class="p">)</span><span class="o">/</span><span class="p">(</span><span class="n">x</span><span class="o">+</span><span class="n">d</span><span class="p">),</span><span class="n">b</span><span class="o">*</span><span class="n">y</span><span class="o">*</span><span class="p">(</span><span class="mi">1</span><span class="o">-</span><span class="n">y</span><span class="o">/</span><span class="n">x</span><span class="p">)];</span>
+<span class="c1">#Murray eq. 3.28</span>
+<span class="n">f</span><span class="p">(</span><span class="n">a</span><span class="p">,</span><span class="n">d</span><span class="p">)</span><span class="o">=</span><span class="p">(</span><span class="n">a</span><span class="o">-</span><span class="n">sqrt</span><span class="p">(</span>  <span class="p">(</span><span class="mi">1</span><span class="o">-</span><span class="n">a</span><span class="o">-</span><span class="n">d</span><span class="p">)</span><span class="o">^</span><span class="mi">2</span><span class="o">+</span><span class="mi">4</span><span class="o">*</span><span class="n">d</span><span class="p">)</span> <span class="p">)</span><span class="o">*</span><span class="p">(</span><span class="mi">1</span><span class="o">+</span><span class="n">a</span><span class="o">+</span><span class="n">d</span><span class="o">-</span><span class="n">sqrt</span><span class="p">((</span><span class="mi">1</span><span class="o">-</span><span class="n">a</span><span class="o">-</span><span class="n">d</span><span class="p">)</span><span class="o">^</span><span class="mi">2</span><span class="o">+</span><span class="mi">4</span><span class="o">*</span><span class="n">d</span><span class="p">))</span><span class="o">/</span><span class="p">(</span><span class="mi">2</span><span class="o">*</span><span class="n">a</span><span class="p">)</span>
+<span class="nd">@interact</span>
+<span class="k">def</span> <span class="nf">myf</span><span class="p">(</span><span class="n">a_in</span> <span class="o">=</span> <span class="n">slider</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span><span class="mi">2</span><span class="p">,</span><span class="mf">0.01</span><span class="p">,</span><span class="n">default</span><span class="o">=</span><span class="mf">1.0</span><span class="p">),</span><span class="n">b_in</span> <span class="o">=</span> <span class="n">slider</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span><span class="mi">2</span><span class="p">,</span><span class="mf">0.01</span><span class="p">,</span><span class="n">default</span><span class="o">=</span><span class="mf">0.1</span><span class="p">),</span><span class="n">d_in</span> <span class="o">=</span> <span class="n">slider</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span><span class="mi">2</span><span class="p">,</span><span class="mf">0.01</span><span class="p">,</span><span class="n">default</span><span class="o">=</span><span class="mf">0.1</span><span class="p">)</span> <span class="p">):</span>
+    <span class="n">p</span><span class="o">=</span><span class="p">{</span><span class="n">a</span><span class="p">:</span><span class="n">a_in</span><span class="p">,</span><span class="n">d</span><span class="p">:</span><span class="n">d_in</span><span class="p">,</span><span class="n">b</span><span class="p">:</span><span class="n">b_in</span><span class="p">}</span>
+    <span class="n">ode_lotka_num</span><span class="o">=</span><span class="p">[</span><span class="n">i</span><span class="o">.</span><span class="n">subs</span><span class="p">(</span><span class="n">p</span><span class="p">)</span> <span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="n">ode_lotka</span><span class="p">]</span>
+    <span class="n">pkt_osob</span><span class="o">=</span><span class="n">solve</span><span class="p">(</span><span class="n">ode_lotka_num</span><span class="p">,</span><span class="n">x</span><span class="p">,</span><span class="n">y</span><span class="p">,</span> <span class="n">solution_dict</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
+    <span class="n">x_osobliwy</span><span class="p">,</span><span class="n">y_osobliwy</span><span class="o">=</span><span class="mi">0</span><span class="p">,</span><span class="mi">0</span>
+    <span class="n">plt_pkt</span><span class="o">=</span><span class="p">[]</span>
+    <span class="k">for</span> <span class="n">n_pkt</span><span class="p">,</span><span class="n">pkt</span> <span class="ow">in</span> <span class="nb">enumerate</span><span class="p">(</span><span class="n">pkt_osob</span><span class="p">):</span>
+       <span class="n">x_osobliwy</span><span class="p">,</span><span class="n">y_osobliwy</span><span class="o">=</span><span class="n">pkt</span><span class="p">[</span><span class="n">x</span><span class="p">]</span><span class="o">.</span><span class="n">n</span><span class="p">(),</span><span class="n">pkt</span><span class="p">[</span><span class="n">y</span><span class="p">]</span><span class="o">.</span><span class="n">n</span><span class="p">()</span>
+       <span class="n">plt_pkt</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">point</span><span class="p">([</span><span class="n">x_osobliwy</span><span class="p">,</span><span class="n">y_osobliwy</span><span class="p">],</span><span class="n">size</span><span class="o">=</span><span class="mi">30</span><span class="p">,</span><span class="n">color</span><span class="o">=</span><span class="s1">&#39;red&#39;</span><span class="p">)</span> <span class="p">)</span>
+       <span class="n">JJ</span><span class="o">=</span><span class="n">jacobian</span><span class="p">(</span><span class="n">ode_lotka_num</span><span class="p">,[</span><span class="n">x</span><span class="p">,</span><span class="n">y</span><span class="p">])</span>
+       <span class="n">JJ0</span><span class="o">=</span><span class="n">JJ</span><span class="o">.</span><span class="n">subs</span><span class="p">({</span><span class="n">x</span><span class="p">:</span><span class="n">x_osobliwy</span><span class="o">+</span><span class="mf">1e-8</span><span class="p">,</span><span class="n">y</span><span class="p">:</span><span class="n">y_osobliwy</span><span class="o">+</span><span class="mf">1e-8</span><span class="p">})</span>
+       <span class="nb">print</span> <span class="n">n_pkt</span><span class="o">+</span><span class="mi">1</span><span class="p">,</span><span class="s2">&quot;:&quot;</span><span class="p">,</span><span class="n">x_osobliwy</span><span class="o">.</span><span class="n">n</span><span class="p">(</span><span class="n">digits</span><span class="o">=</span><span class="mi">3</span><span class="p">),</span><span class="n">y_osobliwy</span><span class="o">.</span><span class="n">n</span><span class="p">(</span><span class="n">digits</span><span class="o">=</span><span class="mi">3</span><span class="p">),</span><span class="n">vector</span><span class="p">(</span><span class="n">JJ0</span><span class="o">.</span><span class="n">eigenvalues</span><span class="p">())</span><span class="o">.</span><span class="n">n</span><span class="p">(</span><span class="n">digits</span><span class="o">=</span><span class="mi">3</span><span class="p">)</span>
+       <span class="k">if</span> <span class="n">pkt</span><span class="p">[</span><span class="n">x</span><span class="p">]</span><span class="o">&gt;</span><span class="mi">0</span> <span class="ow">and</span> <span class="n">pkt</span><span class="p">[</span><span class="n">y</span><span class="p">]</span><span class="o">&gt;</span><span class="mi">0</span> <span class="p">:</span>
+           <span class="nb">print</span> <span class="s2">&quot;Czy pkt. jest stabilny?&quot;</span><span class="p">,</span><span class="nb">bool</span><span class="p">(</span><span class="n">b_in</span><span class="o">&gt;</span><span class="n">f</span><span class="p">(</span><span class="n">a_in</span><span class="p">,</span><span class="n">d_in</span><span class="p">))</span>
+           <span class="nb">print</span> <span class="s2">&quot;detJ&gt;(TrJ/2)^2&quot;</span><span class="p">,(</span><span class="n">detJ</span><span class="o">.</span><span class="n">subs</span><span class="p">(</span><span class="n">sol_</span><span class="p">)</span><span class="o">-</span><span class="p">(</span><span class="n">trJ</span><span class="o">.</span><span class="n">subs</span><span class="p">(</span><span class="n">sol_</span><span class="p">)</span><span class="o">/</span><span class="mi">2</span><span class="p">)</span><span class="o">^</span><span class="mi">2</span><span class="p">)</span><span class="o">.</span><span class="n">subs</span><span class="p">(</span><span class="n">p</span><span class="p">)</span><span class="o">.</span><span class="n">n</span><span class="p">()</span>
+    <span class="n">plt1</span> <span class="o">=</span> <span class="n">plot_vector_field</span><span class="p">(</span><span class="n">vector</span><span class="p">(</span><span class="n">ode_lotka_num</span><span class="p">)</span><span class="o">/</span><span class="n">vector</span><span class="p">(</span><span class="n">ode_lotka_num</span><span class="p">)</span><span class="o">.</span><span class="n">norm</span><span class="p">(),(</span><span class="n">x</span><span class="p">,</span><span class="o">-</span><span class="mf">0.1</span><span class="p">,</span><span class="mi">2</span><span class="p">),(</span><span class="n">y</span><span class="p">,</span><span class="o">-</span><span class="mf">0.1</span><span class="p">,</span><span class="mi">2</span><span class="p">))</span>
+    <span class="c1">#plt2a = implicit_plot(ode_lotka_num[0],(x,-0.10,2),(y,-0.10,2),color=&#39;green&#39;)</span>
+    <span class="n">plt2a</span> <span class="o">=</span> <span class="n">plot</span><span class="p">(</span><span class="n">solve</span><span class="p">(</span><span class="n">ode_lotka_num</span><span class="p">[</span><span class="mi">0</span><span class="p">],</span><span class="n">y</span><span class="p">)[</span><span class="mi">0</span><span class="p">]</span><span class="o">.</span><span class="n">rhs</span><span class="p">(),(</span><span class="n">x</span><span class="p">,</span><span class="o">-</span><span class="mf">0.10</span><span class="p">,</span><span class="mi">2</span><span class="p">),</span><span class="n">ymin</span><span class="o">=-</span><span class="mf">0.10</span><span class="p">,</span><span class="n">ymax</span><span class="o">=</span><span class="mi">2</span><span class="p">,</span> <span class="n">color</span><span class="o">=</span><span class="s1">&#39;green&#39;</span><span class="p">)</span>
+    <span class="n">show</span><span class="p">(</span><span class="n">ode_lotka_num</span><span class="p">)</span>
+    <span class="n">plt2b</span> <span class="o">=</span> <span class="n">implicit_plot</span><span class="p">(</span><span class="n">ode_lotka_num</span><span class="p">[</span><span class="mi">1</span><span class="p">],(</span><span class="n">x</span><span class="p">,</span><span class="o">-</span><span class="mf">0.10</span><span class="p">,</span><span class="mi">2</span><span class="p">),(</span><span class="n">y</span><span class="p">,</span><span class="o">-.</span><span class="mi">010</span><span class="p">,</span><span class="mi">2</span><span class="p">),</span><span class="n">color</span><span class="o">=</span><span class="s1">&#39;blue&#39;</span><span class="p">,</span><span class="n">xmin</span><span class="o">=-</span><span class="mf">0.03</span><span class="p">)</span>
+    <span class="n">T</span> <span class="o">=</span> <span class="n">srange</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span><span class="mi">123</span><span class="p">,</span><span class="mf">0.1</span><span class="p">)</span>
+    <span class="n">sol1</span> <span class="o">=</span> <span class="n">desolve_odeint</span><span class="p">(</span><span class="n">vector</span><span class="p">(</span><span class="n">ode_lotka_num</span><span class="p">),</span> <span class="p">[</span><span class="mf">0.82</span><span class="p">,</span><span class="mf">0.85</span><span class="p">],</span> <span class="n">T</span><span class="p">,</span> <span class="p">[</span><span class="n">x</span><span class="p">,</span><span class="n">y</span><span class="p">])</span>
+    <span class="n">plt_solution</span> <span class="o">=</span> <span class="n">list_plot</span><span class="p">(</span><span class="n">sol1</span><span class="o">.</span><span class="n">tolist</span><span class="p">(),</span> <span class="n">plotjoined</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span> <span class="n">color</span><span class="o">=</span><span class="s1">&#39;brown&#39;</span><span class="p">)</span>
+    <span class="n">show</span><span class="p">(</span> <span class="nb">sum</span><span class="p">(</span><span class="n">plt_pkt</span><span class="p">)</span><span class="o">+</span><span class="n">plt1</span><span class="o">+</span><span class="n">plt2a</span><span class="o">+</span><span class="n">plt2b</span><span class="o">+</span><span class="n">plt_solution</span> <span class="p">)</span>
+</pre></div>
+</div>
+</div>
+<div class="nboutput nblast docutils container">
+<div class="prompt empty docutils container">
+</div>
+<div class="output_area docutils container">
+<script type="application/vnd.jupyter.widget-view+json">{"model_id": "e4a6d9a7fb5146429a1ff0b2ea27d7fd", "version_major": 2, "version_minor": 0}</script></div>
+</div>
+<div class="nbinput docutils container">
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[18]:
+</pre></div>
+</div>
+<div class="input_area highlight-ipython2 notranslate"><div class="highlight"><pre>
+<span></span><span class="n">var</span><span class="p">(</span><span class="s1">&#39;a,d&#39;</span><span class="p">,</span><span class="n">domain</span><span class="o">=</span><span class="s1">&#39;real&#39;</span><span class="p">)</span>
+<span class="n">f</span><span class="p">(</span><span class="n">a</span><span class="p">,</span><span class="n">d</span><span class="p">)</span><span class="o">=</span><span class="p">(</span><span class="n">a</span><span class="o">-</span><span class="n">sqrt</span><span class="p">(</span>  <span class="p">(</span><span class="mi">1</span><span class="o">-</span><span class="n">a</span><span class="o">-</span><span class="n">d</span><span class="p">)</span><span class="o">^</span><span class="mi">2</span><span class="o">+</span><span class="mi">4</span><span class="o">*</span><span class="n">d</span><span class="p">)</span> <span class="p">)</span><span class="o">*</span><span class="p">(</span><span class="mi">1</span><span class="o">+</span><span class="n">a</span><span class="o">+</span><span class="n">d</span><span class="o">-</span><span class="n">sqrt</span><span class="p">((</span><span class="mi">1</span><span class="o">-</span><span class="n">a</span><span class="o">-</span><span class="n">d</span><span class="p">)</span><span class="o">^</span><span class="mi">2</span><span class="o">+</span><span class="mi">4</span><span class="o">*</span><span class="n">d</span><span class="p">))</span><span class="o">/</span><span class="p">(</span><span class="mi">2</span><span class="o">*</span><span class="n">a</span><span class="p">)</span>
+<span class="n">show</span><span class="p">(</span><span class="n">f</span><span class="p">)</span>
+<span class="n">plt2</span> <span class="o">=</span> <span class="n">implicit_plot</span><span class="p">(</span> <span class="n">f</span><span class="p">(</span><span class="n">a</span><span class="p">,</span><span class="n">d</span><span class="p">),(</span><span class="n">d</span><span class="p">,</span><span class="mi">0</span><span class="p">,</span><span class="o">.</span><span class="mi">61</span><span class="p">),(</span><span class="n">a</span><span class="p">,</span><span class="mi">0</span><span class="p">,</span><span class="mi">2</span><span class="p">),</span><span class="n">aspect_ratio</span><span class="o">=</span><span class="mf">0.3</span><span class="p">,</span>  <span class="n">figsize</span><span class="o">=</span><span class="p">(</span><span class="mi">6</span><span class="p">,</span> <span class="mi">3</span><span class="p">),</span> <span class="n">axes_labels</span><span class="o">=</span><span class="p">[</span><span class="sa">r</span><span class="s1">&#39;$d$&#39;</span><span class="p">,</span><span class="s1">&#39;$a$&#39;</span><span class="p">]</span> <span class="p">)</span>
+<span class="n">plt2</span>
+</pre></div>
+</div>
+</div>
+<div class="nboutput docutils container">
+<div class="prompt empty docutils container">
+</div>
+<div class="output_area rendered_html docutils container">
+<html><script type="math/tex; mode=display">\newcommand{\Bold}[1]{\mathbf{#1}}\left( a, d \right) \ {\mapsto} \ \frac{{\left(a + d - \sqrt{{\left(a + d - 1\right)}^{2} + 4 \, d} + 1\right)} {\left(a - \sqrt{{\left(a + d - 1\right)}^{2} + 4 \, d}\right)}}{2 \, a}</script></html></div>
+</div>
+<div class="nboutput nblast docutils container">
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[18]:
+</pre></div>
+</div>
+<div class="output_area docutils container">
+<img alt="../_images/notebooks_May_model_95_1.png" src="../_images/notebooks_May_model_95_1.png" />
+</div>
+</div>
+<div class="nbinput nblast docutils container">
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[457]:
+</pre></div>
+</div>
+<div class="input_area highlight-ipython2 notranslate"><div class="highlight"><pre>
+<span></span><span class="n">b_ad</span> <span class="o">=</span> <span class="p">(</span><span class="n">trJ</span><span class="o">.</span><span class="n">subs</span><span class="p">(</span><span class="n">point3</span><span class="p">))</span><span class="o">.</span><span class="n">solve</span><span class="p">(</span><span class="n">b</span><span class="p">)[</span><span class="mi">0</span><span class="p">]</span><span class="o">.</span><span class="n">rhs</span><span class="p">()</span><span class="o">.</span><span class="n">full_simplify</span><span class="p">()</span>
+</pre></div>
+</div>
+</div>
+<div class="nbinput docutils container">
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[458]:
+</pre></div>
+</div>
+<div class="input_area highlight-ipython2 notranslate"><div class="highlight"><pre>
+<span></span><span class="n">b_ad</span><span class="o">.</span><span class="n">full_simplify</span><span class="p">()</span>
+</pre></div>
+</div>
+</div>
+<div class="nboutput nblast docutils container">
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[458]:
+</pre></div>
+</div>
+<div class="output_area docutils container">
+<div class="highlight"><pre>
+(2*a^3 + (a - 1)*d^2 - 5*a^2 + (3*a^2 + a - 2)*d - (2*a^2 + (a + 1)*d - 3*a + 1)*sqrt(a^2 + 2*(a + 1)*d + d^2 - 2*a + 1) + 4*a - 1)/(a^2 + d^2 - sqrt(a^2 + 2*(a + 1)*d + d^2 - 2*a + 1)*(a - d - 1) - 2*a + 2*d + 1)
+</pre></div></div>
+</div>
+<div class="nbinput docutils container">
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[500]:
+</pre></div>
+</div>
+<div class="input_area highlight-ipython2 notranslate"><div class="highlight"><pre>
+<span></span><span class="n">contour_plot</span><span class="p">(</span><span class="n">b_ad</span><span class="p">,(</span><span class="n">d</span><span class="p">,</span><span class="mf">1e-4</span><span class="p">,</span><span class="o">.</span><span class="mi">61</span><span class="p">),(</span><span class="n">a</span><span class="p">,</span><span class="mi">0</span><span class="p">,</span><span class="mi">2</span><span class="p">),</span><span class="n">aspect_ratio</span><span class="o">=.</span><span class="mi">31</span><span class="p">,</span><span class="n">contours</span><span class="o">=</span><span class="n">srange</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span><span class="mf">1.1</span><span class="p">,</span><span class="mf">0.031</span><span class="p">),</span><span class="n">cmap</span><span class="o">=</span><span class="s1">&#39;jet&#39;</span><span class="p">,</span><span class="n">plot_points</span><span class="o">=</span><span class="mi">432</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+<div class="nboutput nblast docutils container">
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[500]:
+</pre></div>
+</div>
+<div class="output_area docutils container">
+<img alt="../_images/notebooks_May_model_98_0.png" src="../_images/notebooks_May_model_98_0.png" />
+</div>
+</div>
+<div class="nbinput docutils container">
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[501]:
+</pre></div>
+</div>
+<div class="input_area highlight-ipython2 notranslate"><div class="highlight"><pre>
+<span></span><span class="n">b_ad</span><span class="o">.</span><span class="n">subs</span><span class="p">(</span><span class="n">d</span><span class="o">==</span><span class="mf">1e-4</span><span class="p">)</span><span class="o">.</span><span class="n">show</span><span class="p">()</span>
+</pre></div>
+</div>
+</div>
+<div class="nboutput nblast docutils container">
+<div class="prompt empty docutils container">
+</div>
+<div class="output_area rendered_html docutils container">
+<html><script type="math/tex; mode=display">\newcommand{\Bold}[1]{\mathbf{#1}}\frac{2 \, a^{3} - 4.99970000000000 \, a^{2} - {\left(2 \, a^{2} - 2.99990000000000 \, a + 1.00010000000000\right)} \sqrt{a^{2} - 1.99980000000000 \, a + 1.00020001000000} + 4.00010001000000 \, a - 1.00020001000000}{a^{2} - \sqrt{a^{2} - 1.99980000000000 \, a + 1.00020001000000} {\left(a - 1.00010000000000\right)} - 2 \, a + 1.00020001000000}</script></html></div>
+</div>
+<div class="nbinput docutils container">
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[507]:
+</pre></div>
+</div>
+<div class="input_area highlight-ipython2 notranslate"><div class="highlight"><pre>
+<span></span><span class="n">plot</span><span class="p">(</span><span class="n">b_ad</span><span class="o">.</span><span class="n">subs</span><span class="p">(</span><span class="n">d</span><span class="o">==</span><span class="mf">1e-5</span><span class="p">),(</span><span class="n">a</span><span class="p">,</span><span class="mf">0.0</span><span class="p">,</span><span class="mf">4.98</span><span class="p">))</span>
+</pre></div>
+</div>
+</div>
+<div class="nboutput nblast docutils container">
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[507]:
+</pre></div>
+</div>
+<div class="output_area docutils container">
+<img alt="../_images/notebooks_May_model_100_0.png" src="../_images/notebooks_May_model_100_0.png" />
+</div>
+</div>
+<div class="nbinput nblast docutils container">
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[ ]:
+</pre></div>
+</div>
+<div class="input_area highlight-ipython2 notranslate"><div class="highlight"><pre>
+<span></span>
+</pre></div>
+</div>
+</div>
+<div class="nbinput nblast docutils container">
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[ ]:
+</pre></div>
+</div>
+<div class="input_area highlight-ipython2 notranslate"><div class="highlight"><pre>
+<span></span>
+</pre></div>
+</div>
+</div>
+<div class="math notranslate nohighlight">
+\[\left( a, d \right) \ {\mapsto} \ \frac{{\left(a - \sqrt{{\left(a + d - 1\right)}^{2} + 4 \, d}\right)} {\left(a + d - \sqrt{{\left(a + d - 1\right)}^{2} + 4 \, d} + 1\right)}}{2 \, a}\]</div>
+<p><a href="#id1"><span class="problematic" id="id2">|image|</span></a></p>
+<p>Pod tą płaszczyzną</p>
+<div class="math notranslate nohighlight">
+\[b = x_1\left[ \frac{\alpha x_1}{(x_1+d)^2} -1\right] = \phi (\alpha, d)\]</div>
+<p>mamy cykl graniczny:</p>
+<div class="nbinput docutils container">
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[20]:
+</pre></div>
+</div>
+<div class="input_area highlight-ipython2 notranslate"><div class="highlight"><pre>
+<span></span><span class="n">var</span><span class="p">(</span><span class="s1">&#39;a,d&#39;</span><span class="p">)</span>
+<span class="n">f</span><span class="p">(</span><span class="n">a</span><span class="p">,</span><span class="n">d</span><span class="p">)</span><span class="o">=</span><span class="p">(</span><span class="n">a</span><span class="o">-</span><span class="n">sqrt</span><span class="p">(</span>  <span class="p">(</span><span class="mi">1</span><span class="o">-</span><span class="n">a</span><span class="o">-</span><span class="n">d</span><span class="p">)</span><span class="o">^</span><span class="mi">2</span><span class="o">+</span><span class="mi">4</span><span class="o">*</span><span class="n">d</span><span class="p">)</span> <span class="p">)</span><span class="o">*</span><span class="p">(</span><span class="mi">1</span><span class="o">+</span><span class="n">a</span><span class="o">+</span><span class="n">d</span><span class="o">-</span><span class="n">sqrt</span><span class="p">((</span><span class="mi">1</span><span class="o">-</span><span class="n">a</span><span class="o">-</span><span class="n">d</span><span class="p">)</span><span class="o">^</span><span class="mi">2</span><span class="o">+</span><span class="mi">4</span><span class="o">*</span><span class="n">d</span><span class="p">))</span><span class="o">/</span><span class="p">(</span><span class="mi">2</span><span class="o">*</span><span class="n">a</span><span class="p">)</span>
+<span class="n">show</span><span class="p">(</span><span class="n">f</span><span class="p">)</span>
+<span class="n">sol1</span><span class="o">=</span><span class="n">solve</span><span class="p">(</span><span class="n">f</span><span class="p">(</span><span class="n">a</span><span class="p">,</span><span class="n">d</span><span class="p">)</span><span class="o">==</span><span class="mi">0</span><span class="p">,</span> <span class="n">d</span><span class="p">)</span>
+<span class="n">show</span><span class="p">(</span><span class="n">sol1</span><span class="p">)</span>
+<span class="n">dm_expr</span><span class="o">=</span><span class="n">sol1</span><span class="p">[</span><span class="mi">1</span><span class="p">]</span><span class="o">.</span><span class="n">rhs</span><span class="p">()</span>
+<span class="n">assume</span><span class="p">(</span><span class="n">a</span><span class="o">&gt;</span><span class="mi">0</span><span class="p">)</span>
+<span class="n">f</span><span class="p">(</span><span class="n">a</span><span class="p">,</span><span class="mi">0</span><span class="p">)</span><span class="o">.</span><span class="n">full_simplify</span><span class="p">()</span>
+</pre></div>
+</div>
+</div>
+<div class="nboutput docutils container">
+<div class="prompt empty docutils container">
+</div>
+<div class="output_area rendered_html docutils container">
+<html><script type="math/tex; mode=display">\newcommand{\Bold}[1]{\mathbf{#1}}\left( a, d \right) \ {\mapsto} \ \frac{{\left(a + d - \sqrt{{\left(a + d - 1\right)}^{2} + 4 \, d} + 1\right)} {\left(a - \sqrt{{\left(a + d - 1\right)}^{2} + 4 \, d}\right)}}{2 \, a}</script></html></div>
+</div>
+<div class="nboutput docutils container">
+<div class="prompt empty docutils container">
+</div>
+<div class="output_area rendered_html docutils container">
+<html><script type="math/tex; mode=display">\newcommand{\Bold}[1]{\mathbf{#1}}\left[d = -a - \sqrt{a^{2} + 4 \, a} - 1, d = -a + \sqrt{a^{2} + 4 \, a} - 1, d = -a + \sqrt{a^{2} + 2 \, {\left(a + 1\right)} d + d^{2} - 2 \, a + 1} - 1\right]</script></html></div>
+</div>
+<div class="nboutput nblast docutils container">
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[20]:
+</pre></div>
+</div>
+<div class="output_area docutils container">
+<div class="highlight"><pre>
+1/2*(2*a^2 - a*(2*abs(a - 1) + 1) - abs(a - 1) + 1)/a
+</pre></div></div>
+</div>
+<div class="nbinput docutils container">
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[31]:
+</pre></div>
+</div>
+<div class="input_area highlight-ipython2 notranslate"><div class="highlight"><pre>
+<span></span><span class="n">forget</span><span class="p">()</span>
+<span class="n">assume</span><span class="p">(</span><span class="n">a</span><span class="o">&lt;</span><span class="mi">1</span><span class="p">)</span>
+<span class="n">f</span><span class="p">(</span><span class="n">a</span><span class="p">,</span><span class="mi">0</span><span class="p">)</span><span class="o">.</span><span class="n">simplify</span><span class="p">()</span>
+</pre></div>
+</div>
+</div>
+<div class="nboutput nblast docutils container">
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[31]:
+</pre></div>
+</div>
+<div class="output_area docutils container">
+<div class="highlight"><pre>
+1/2*(a - sqrt((a - 1)^2) + 1)*(a - sqrt((a - 1)^2))/a
+</pre></div></div>
+</div>
+<div class="nbinput nblast docutils container">
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[53]:
+</pre></div>
+</div>
+<div class="input_area highlight-ipython2 notranslate"><div class="highlight"><pre>
+<span></span><span class="k">def</span> <span class="nf">b2</span><span class="p">(</span><span class="n">a</span><span class="p">,</span><span class="n">d</span><span class="p">):</span>
+    <span class="k">return</span> <span class="p">(</span><span class="n">a</span><span class="o">-</span><span class="n">np</span><span class="o">.</span><span class="n">sqrt</span><span class="p">(</span>  <span class="p">(</span><span class="mi">1</span><span class="o">-</span><span class="n">a</span><span class="o">-</span><span class="n">d</span><span class="p">)</span><span class="o">**</span><span class="mi">2</span><span class="o">+</span><span class="mi">4</span><span class="o">*</span><span class="n">d</span><span class="p">)</span> <span class="p">)</span><span class="o">*</span><span class="p">(</span><span class="mi">1</span><span class="o">+</span><span class="n">a</span><span class="o">+</span><span class="n">d</span><span class="o">-</span><span class="n">np</span><span class="o">.</span><span class="n">sqrt</span><span class="p">((</span><span class="mi">1</span><span class="o">-</span><span class="n">a</span><span class="o">-</span><span class="n">d</span><span class="p">)</span><span class="o">**</span><span class="mi">2</span><span class="o">+</span><span class="mi">4</span><span class="o">*</span><span class="n">d</span><span class="p">))</span><span class="o">/</span><span class="p">(</span><span class="mi">2</span><span class="o">*</span><span class="n">a</span><span class="p">)</span>
+<span class="k">def</span> <span class="nf">dm</span><span class="p">(</span><span class="n">a</span><span class="p">):</span>
+    <span class="k">return</span> <span class="o">-</span><span class="n">a</span> <span class="o">+</span> <span class="n">np</span><span class="o">.</span><span class="n">sqrt</span><span class="p">(</span><span class="n">a</span><span class="o">**</span><span class="mi">2</span> <span class="o">+</span> <span class="mi">4</span><span class="o">*</span><span class="n">a</span><span class="p">)</span> <span class="o">-</span> <span class="mi">1</span>
+<span class="k">def</span> <span class="nf">bm</span><span class="p">(</span><span class="n">a</span><span class="p">):</span>
+
+    <span class="k">if</span> <span class="nb">type</span><span class="p">(</span><span class="n">a</span><span class="p">)</span> <span class="o">==</span> <span class="n">np</span><span class="o">.</span><span class="n">ndarray</span><span class="p">:</span>
+        <span class="n">out</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">empty_like</span><span class="p">(</span><span class="n">a</span><span class="p">)</span>
+        <span class="n">a_lt_1</span> <span class="o">=</span> <span class="n">a</span><span class="p">[</span><span class="n">a</span><span class="o">&lt;</span><span class="mi">1</span><span class="p">]</span>
+        <span class="n">a_gt_1</span> <span class="o">=</span> <span class="n">a</span><span class="p">[</span><span class="n">a</span><span class="o">&gt;=</span><span class="mi">1</span><span class="p">]</span>
+        <span class="n">out</span><span class="p">[</span><span class="n">a</span><span class="o">&lt;</span><span class="mi">1</span><span class="p">]</span> <span class="o">=</span> <span class="mi">1</span><span class="o">/</span><span class="n">a_lt_1</span>
+
+        <span class="n">out</span><span class="p">[</span><span class="n">a</span><span class="o">&gt;=</span><span class="mi">1</span><span class="p">]</span> <span class="o">=</span>  <span class="mf">0.5</span><span class="o">*</span><span class="p">(</span><span class="n">a_gt_1</span> <span class="o">-</span> <span class="n">np</span><span class="o">.</span><span class="n">sqrt</span><span class="p">((</span><span class="n">a_gt_1</span> <span class="o">-</span> <span class="mi">1</span><span class="p">)</span><span class="o">**</span><span class="mi">2</span><span class="p">)</span> <span class="o">+</span> <span class="mi">1</span><span class="p">)</span><span class="o">*</span><span class="p">(</span><span class="n">a_gt_1</span> <span class="o">-</span> <span class="n">np</span><span class="o">.</span><span class="n">sqrt</span><span class="p">((</span><span class="n">a_gt_1</span> <span class="o">-</span> <span class="mi">1</span><span class="p">)</span><span class="o">**</span><span class="mi">2</span><span class="p">))</span><span class="o">/</span><span class="n">a_gt_1</span>
+        <span class="k">return</span> <span class="n">out</span>
+    <span class="k">else</span><span class="p">:</span>
+        <span class="k">if</span> <span class="n">a</span><span class="o">&gt;</span><span class="mi">1</span><span class="p">:</span>
+            <span class="k">return</span> <span class="mi">1</span><span class="o">/</span><span class="n">a</span>
+        <span class="k">else</span><span class="p">:</span>
+            <span class="k">return</span> <span class="mf">0.5</span><span class="o">*</span><span class="p">(</span><span class="n">a</span> <span class="o">-</span> <span class="n">np</span><span class="o">.</span><span class="n">sqrt</span><span class="p">((</span><span class="n">a</span> <span class="o">-</span> <span class="mi">1</span><span class="p">)</span><span class="o">**</span><span class="mi">2</span><span class="p">)</span> <span class="o">+</span> <span class="mi">1</span><span class="p">)</span><span class="o">*</span><span class="p">(</span><span class="n">a</span> <span class="o">-</span> <span class="n">np</span><span class="o">.</span><span class="n">sqrt</span><span class="p">((</span><span class="n">a</span> <span class="o">-</span> <span class="mi">1</span><span class="p">)</span><span class="o">**</span><span class="mi">2</span><span class="p">))</span><span class="o">/</span><span class="n">a</span>
+
+
+
+<span class="kn">from</span> <span class="nn">mpl_toolkits.mplot3d</span> <span class="kn">import</span> <span class="n">Axes3D</span>
+<span class="kn">import</span> <span class="nn">matplotlib</span>
+<span class="kn">from</span> <span class="nn">matplotlib</span> <span class="kn">import</span> <span class="n">cm</span>
+<span class="kn">from</span> <span class="nn">matplotlib</span> <span class="kn">import</span> <span class="n">pyplot</span> <span class="k">as</span> <span class="n">plt</span>
+<span class="n">step</span> <span class="o">=</span> <span class="mf">0.04</span>
+<span class="n">maxval</span> <span class="o">=</span> <span class="mf">1.0</span>
+<span class="n">fig</span> <span class="o">=</span> <span class="n">plt</span><span class="o">.</span><span class="n">figure</span><span class="p">()</span>
+<span class="n">ax</span> <span class="o">=</span> <span class="n">fig</span><span class="o">.</span><span class="n">add_subplot</span><span class="p">(</span><span class="mi">111</span><span class="p">,</span> <span class="n">projection</span><span class="o">=</span><span class="s1">&#39;3d&#39;</span><span class="p">,</span><span class="n">azim</span><span class="o">=</span><span class="mi">134</span><span class="p">)</span>
+<span class="n">x</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">linspace</span><span class="p">(</span><span class="mf">0.5</span><span class="p">,</span><span class="mi">6</span><span class="p">,</span><span class="mi">115</span><span class="p">)</span>
+<span class="n">y</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">linspace</span><span class="p">(</span><span class="mf">0.00</span><span class="p">,</span><span class="mf">1.</span><span class="p">,</span><span class="mi">35</span><span class="p">)</span>
+<span class="n">X</span><span class="p">,</span><span class="n">Y</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">meshgrid</span><span class="p">(</span><span class="n">x</span><span class="p">,</span><span class="n">y</span><span class="p">)</span>
+<span class="c1"># transform them to cartesian system</span>
+<span class="n">X</span><span class="p">,</span><span class="n">Y</span> <span class="o">=</span> <span class="n">X</span><span class="p">,</span><span class="n">Y</span><span class="o">*</span><span class="p">(</span><span class="n">np</span><span class="o">.</span><span class="n">sqrt</span><span class="p">(</span><span class="n">X</span><span class="o">**</span><span class="mi">2</span><span class="o">+</span><span class="mi">4</span><span class="o">*</span><span class="n">X</span><span class="p">)</span><span class="o">-</span><span class="p">(</span><span class="mf">1.0</span><span class="o">+</span><span class="n">X</span><span class="p">))</span>
+<span class="c1">#Y[:,i((X[7,0]**2+4*X[7,0])**0.5 - (1+X[7,0]) )</span>
+<span class="c1">#0.99*d(:,i)*((a1.^2+4.*a1)^0.5 - (1+a1) )</span>
+<span class="n">Z</span> <span class="o">=</span> <span class="n">b2</span><span class="p">(</span><span class="n">X</span><span class="p">,</span><span class="n">Y</span><span class="p">)</span>
+<span class="n">ax</span><span class="o">.</span><span class="n">plot_surface</span><span class="p">(</span><span class="n">X</span><span class="p">,</span> <span class="n">Y</span><span class="p">,</span> <span class="n">Z</span><span class="p">,</span> <span class="n">rstride</span><span class="o">=</span><span class="mi">2</span><span class="p">,</span> <span class="n">cstride</span><span class="o">=</span><span class="mi">2</span><span class="p">,</span> <span class="n">cmap</span><span class="o">=</span><span class="n">cm</span><span class="o">.</span><span class="n">jet</span><span class="p">)</span>
+<span class="c1">#ax.plot_surface(X, Y, Z,  cmap=cm.jet)</span>
+<span class="c1">#ax.plot_wireframe(X, Y, Z)</span>
+<span class="n">ax</span><span class="o">.</span><span class="n">set_zlim3d</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span> <span class="mi">1</span><span class="p">)</span>
+<span class="n">ax</span><span class="o">.</span><span class="n">set_xlim3d</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span> <span class="mi">3</span><span class="p">)</span>
+<span class="n">ax</span><span class="o">.</span><span class="n">set_ylim3d</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span> <span class="o">.</span><span class="mi">7</span><span class="p">)</span>
+<span class="n">ax</span><span class="o">.</span><span class="n">set_xlabel</span><span class="p">(</span><span class="sa">r</span><span class="s1">&#39;$a$&#39;</span><span class="p">)</span>
+<span class="n">ax</span><span class="o">.</span><span class="n">set_ylabel</span><span class="p">(</span><span class="sa">r</span><span class="s1">&#39;$d$&#39;</span><span class="p">)</span>
+<span class="n">ax</span><span class="o">.</span><span class="n">set_zlabel</span><span class="p">(</span><span class="sa">r</span><span class="s1">&#39;$b(a,d)$&#39;</span><span class="p">)</span>
+<span class="n">ax</span><span class="o">.</span><span class="n">plot</span><span class="p">(</span><span class="n">x</span><span class="p">,</span> <span class="n">dm</span><span class="p">(</span><span class="n">x</span><span class="p">),</span> <span class="n">np</span><span class="o">.</span><span class="n">zeros_like</span><span class="p">(</span><span class="n">x</span><span class="p">),</span> <span class="n">color</span><span class="o">=</span><span class="p">(</span><span class="o">.</span><span class="mi">6</span><span class="p">,</span><span class="o">.</span><span class="mi">1</span><span class="p">,</span><span class="o">.</span><span class="mi">92</span><span class="p">),</span><span class="n">linewidth</span><span class="o">=</span><span class="mi">3</span><span class="p">)</span>
+<span class="n">ax</span><span class="o">.</span><span class="n">plot</span><span class="p">(</span><span class="n">x</span><span class="p">,</span><span class="n">np</span><span class="o">.</span><span class="n">zeros_like</span><span class="p">(</span><span class="n">x</span><span class="p">),</span> <span class="n">bm</span><span class="p">(</span><span class="n">x</span><span class="p">),</span>  <span class="n">color</span><span class="o">=</span><span class="s1">&#39;red&#39;</span><span class="p">,</span><span class="n">linewidth</span><span class="o">=</span><span class="mi">3</span><span class="p">)</span>
+<span class="n">ax</span><span class="o">.</span><span class="n">plot</span><span class="p">([</span><span class="mi">0</span><span class="p">],[</span><span class="mi">0</span><span class="p">],[</span><span class="mi">0</span><span class="p">])</span>
+<span class="n">ax</span><span class="o">.</span><span class="n">view_init</span><span class="p">(</span><span class="n">elev</span><span class="o">=</span><span class="mi">35</span><span class="p">,</span> <span class="n">azim</span><span class="o">=</span><span class="mi">134</span><span class="p">)</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">show</span><span class="p">()</span><span class="c1">#plt.savefig(&quot;1.png&quot;)</span>
+</pre></div>
+</div>
+</div>
+<div class="math notranslate nohighlight">
+\[\left[d = -\sqrt{a + 4} \sqrt{a} - a - 1, d = \sqrt{a + 4} \sqrt{a} - a - 1, d = -a + \sqrt{2 \, {\left(a + 1\right)} d + a^{2} + d^{2} - 2 \, a + 1} - 1\right]\]</div>
+<p><a href="#id3"><span class="problematic" id="id4">|image|</span></a></p>
+<p><strong>Rozwiązania dążące do stabilnego stanu stacjonarnego:</strong> <span class="math notranslate nohighlight">\(a \in (0, 0.5), \beta \gt 0, d \gt 0\)</span></p>
+<div class="nbinput docutils container">
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[28]:
+</pre></div>
+</div>
+<div class="input_area highlight-ipython2 notranslate"><div class="highlight"><pre>
+<span></span><span class="n">var</span><span class="p">(</span><span class="s1">&#39;x,y&#39;</span><span class="p">)</span>
+<span class="n">a</span><span class="p">,</span> <span class="n">b</span><span class="p">,</span> <span class="n">d</span> <span class="o">=</span> <span class="mf">0.3</span><span class="p">,</span> <span class="mf">0.35</span><span class="p">,</span> <span class="mf">0.1</span>
+<span class="n">T</span> <span class="o">=</span> <span class="n">srange</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span><span class="mi">30</span><span class="p">,</span><span class="mf">0.01</span><span class="p">)</span>
+<span class="n">sol2</span> <span class="o">=</span> <span class="n">desolve_odeint</span><span class="p">(</span>\
+ <span class="n">vector</span><span class="p">([</span><span class="n">x</span><span class="o">*</span><span class="p">(</span><span class="mi">1</span><span class="o">-</span><span class="n">x</span><span class="p">)</span> <span class="o">-</span> <span class="p">(</span><span class="n">a</span><span class="o">*</span><span class="n">x</span><span class="o">*</span><span class="n">y</span><span class="o">/</span><span class="p">(</span><span class="n">x</span><span class="o">+</span><span class="n">d</span><span class="p">)),</span> <span class="n">b</span><span class="o">*</span><span class="n">y</span><span class="o">*</span><span class="p">(</span><span class="mi">1</span><span class="o">-</span><span class="n">y</span><span class="o">/</span><span class="n">x</span><span class="p">)]),</span>\
+ <span class="p">[</span><span class="mf">0.2</span><span class="p">,</span> <span class="mf">0.5</span><span class="p">],</span><span class="n">T</span><span class="p">,[</span><span class="n">x</span><span class="p">,</span><span class="n">y</span><span class="p">])</span>
+<span class="n">line</span><span class="p">(</span> <span class="nb">zip</span> <span class="p">(</span> <span class="n">T</span><span class="p">,</span><span class="n">sol2</span><span class="p">[:,</span><span class="mi">0</span><span class="p">])</span> <span class="p">,</span><span class="n">color</span><span class="o">=</span><span class="s1">&#39;green&#39;</span><span class="p">,</span> <span class="n">figsize</span><span class="o">=</span><span class="p">(</span><span class="mi">6</span><span class="p">,</span> <span class="mi">3</span><span class="p">),</span> <span class="n">legend_label</span><span class="o">=</span><span class="s2">&quot;x&quot;</span><span class="p">)</span><span class="o">+</span>\
+ <span class="n">line</span><span class="p">(</span> <span class="nb">zip</span> <span class="p">(</span> <span class="n">T</span><span class="p">,</span><span class="n">sol2</span><span class="p">[:,</span><span class="mi">1</span><span class="p">])</span> <span class="p">,</span><span class="n">color</span><span class="o">=</span><span class="s1">&#39;black&#39;</span><span class="p">,</span><span class="n">legend_label</span><span class="o">=</span><span class="s2">&quot;y&quot;</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+<div class="nboutput nblast docutils container">
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[28]:
+</pre></div>
+</div>
+<div class="output_area docutils container">
+<img alt="../_images/notebooks_May_model_108_0.png" src="../_images/notebooks_May_model_108_0.png" />
+</div>
+</div>
+<p><a href="#id5"><span class="problematic" id="id6">|image|</span></a></p>
+<div class="nbinput docutils container">
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[30]:
+</pre></div>
+</div>
+<div class="input_area highlight-ipython2 notranslate"><div class="highlight"><pre>
+<span></span><span class="n">a</span><span class="p">,</span> <span class="n">b</span><span class="p">,</span> <span class="n">d</span> <span class="o">=</span> <span class="mf">0.3</span><span class="p">,</span> <span class="mf">0.35</span><span class="p">,</span> <span class="mf">0.1</span>
+<span class="n">F</span><span class="p">(</span><span class="n">x</span><span class="p">,</span><span class="n">y</span><span class="p">)</span><span class="o">=</span><span class="n">x</span><span class="o">*</span><span class="p">(</span><span class="mi">1</span><span class="o">-</span><span class="n">x</span><span class="p">)</span> <span class="o">-</span> <span class="n">a</span><span class="o">*</span><span class="n">x</span><span class="o">*</span><span class="n">y</span><span class="o">/</span><span class="p">(</span><span class="n">x</span><span class="o">+</span><span class="n">d</span><span class="p">)</span>
+<span class="n">G</span><span class="p">(</span><span class="n">x</span><span class="p">,</span><span class="n">y</span><span class="p">)</span><span class="o">=</span> <span class="n">b</span><span class="o">*</span><span class="n">y</span><span class="o">*</span><span class="p">(</span><span class="mi">1</span><span class="o">-</span><span class="n">y</span><span class="o">/</span><span class="n">x</span><span class="p">)</span>
+<span class="n">T</span> <span class="o">=</span> <span class="n">srange</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span><span class="mi">30</span><span class="p">,</span><span class="mf">0.01</span><span class="p">)</span>
+<span class="n">sol1</span><span class="o">=</span><span class="n">desolve_odeint</span><span class="p">(</span><span class="n">vector</span><span class="p">([</span><span class="n">F</span><span class="p">,</span><span class="n">G</span><span class="p">]),</span> <span class="p">[</span><span class="mf">0.2</span><span class="p">,</span><span class="mf">0.5</span><span class="p">],</span> <span class="n">T</span><span class="p">,</span> <span class="p">[</span><span class="n">x</span><span class="p">,</span><span class="n">y</span><span class="p">])</span>
+<span class="n">list_plot</span><span class="p">(</span><span class="n">sol1</span><span class="o">.</span><span class="n">tolist</span><span class="p">(),</span> <span class="n">plotjoined</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span>  <span class="n">figsize</span><span class="o">=</span><span class="p">(</span><span class="mi">6</span><span class="p">,</span> <span class="mi">3</span><span class="p">))</span>
+</pre></div>
+</div>
+</div>
+<div class="nboutput nblast docutils container">
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[30]:
+</pre></div>
+</div>
+<div class="output_area docutils container">
+<img alt="../_images/notebooks_May_model_110_0.png" src="../_images/notebooks_May_model_110_0.png" />
+</div>
+</div>
+<p><a href="#id7"><span class="problematic" id="id8">|image|</span></a></p>
+<p><strong>Rozwiązania dążące do stabilnego cyklu granicznego:</strong> <span class="math notranslate nohighlight">\(a \gt 0.5 , \beta \gt 0, d \gt 0\)</span></p>
+<div class="nbinput docutils container">
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[31]:
+</pre></div>
+</div>
+<div class="input_area highlight-ipython2 notranslate"><div class="highlight"><pre>
+<span></span><span class="n">var</span><span class="p">(</span><span class="s1">&#39;x,y&#39;</span><span class="p">)</span>
+<span class="n">a</span><span class="p">,</span> <span class="n">b</span><span class="p">,</span> <span class="n">d</span> <span class="o">=</span> <span class="mf">1.3</span><span class="p">,</span> <span class="mf">0.33</span><span class="p">,</span> <span class="mf">0.1</span>
+<span class="n">T</span> <span class="o">=</span> <span class="n">srange</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span><span class="mi">200</span><span class="p">,</span><span class="mf">0.01</span><span class="p">)</span>
+<span class="n">sol2</span><span class="o">=</span><span class="n">desolve_odeint</span><span class="p">(</span>\
+ <span class="n">vector</span><span class="p">([</span><span class="n">x</span><span class="o">*</span><span class="p">(</span><span class="mi">1</span><span class="o">-</span><span class="n">x</span><span class="p">)</span> <span class="o">-</span> <span class="p">(</span><span class="n">a</span><span class="o">*</span><span class="n">x</span><span class="o">*</span><span class="n">y</span><span class="o">/</span><span class="p">(</span><span class="n">x</span><span class="o">+</span><span class="n">d</span><span class="p">)),</span> <span class="n">b</span><span class="o">*</span><span class="n">y</span><span class="o">*</span><span class="p">(</span><span class="mi">1</span><span class="o">-</span><span class="n">y</span><span class="o">/</span><span class="n">x</span><span class="p">)]),</span>\
+ <span class="p">[</span><span class="mf">0.2</span><span class="p">,</span> <span class="mf">0.5</span><span class="p">],</span><span class="n">T</span><span class="p">,[</span><span class="n">x</span><span class="p">,</span><span class="n">y</span><span class="p">])</span>
+<span class="n">line</span><span class="p">(</span> <span class="nb">zip</span> <span class="p">(</span> <span class="n">T</span><span class="p">,</span><span class="n">sol2</span><span class="p">[:,</span><span class="mi">0</span><span class="p">])</span> <span class="p">,</span><span class="n">color</span><span class="o">=</span><span class="s1">&#39;green&#39;</span><span class="p">,</span> <span class="n">figsize</span><span class="o">=</span><span class="p">(</span><span class="mi">6</span><span class="p">,</span> <span class="mi">3</span><span class="p">),</span> <span class="n">legend_label</span><span class="o">=</span><span class="s2">&quot;x&quot;</span><span class="p">)</span><span class="o">+</span>\
+ <span class="n">line</span><span class="p">(</span> <span class="nb">zip</span> <span class="p">(</span> <span class="n">T</span><span class="p">,</span><span class="n">sol2</span><span class="p">[:,</span><span class="mi">1</span><span class="p">])</span> <span class="p">,</span><span class="n">color</span><span class="o">=</span><span class="s1">&#39;black&#39;</span><span class="p">,</span><span class="n">legend_label</span><span class="o">=</span><span class="s2">&quot;y&quot;</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+<div class="nboutput nblast docutils container">
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[31]:
+</pre></div>
+</div>
+<div class="output_area docutils container">
+<img alt="../_images/notebooks_May_model_112_0.png" src="../_images/notebooks_May_model_112_0.png" />
+</div>
+</div>
+<p><a href="#id9"><span class="problematic" id="id10">|image|</span></a></p>
+<div class="nbinput docutils container">
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[33]:
+</pre></div>
+</div>
+<div class="input_area highlight-ipython2 notranslate"><div class="highlight"><pre>
+<span></span><span class="n">a</span><span class="p">,</span> <span class="n">b</span><span class="p">,</span> <span class="n">d</span> <span class="o">=</span> <span class="mf">1.3</span><span class="p">,</span> <span class="mf">0.33</span><span class="p">,</span> <span class="mf">0.1</span>
+<span class="n">F</span><span class="p">(</span><span class="n">x</span><span class="p">,</span><span class="n">y</span><span class="p">)</span><span class="o">=</span><span class="n">x</span><span class="o">*</span><span class="p">(</span><span class="mi">1</span><span class="o">-</span><span class="n">x</span><span class="p">)</span> <span class="o">-</span> <span class="n">a</span><span class="o">*</span><span class="n">x</span><span class="o">*</span><span class="n">y</span><span class="o">/</span><span class="p">(</span><span class="n">x</span><span class="o">+</span><span class="n">d</span><span class="p">)</span>
+<span class="n">G</span><span class="p">(</span><span class="n">x</span><span class="p">,</span><span class="n">y</span><span class="p">)</span><span class="o">=</span> <span class="n">b</span><span class="o">*</span><span class="n">y</span><span class="o">*</span><span class="p">(</span><span class="mi">1</span><span class="o">-</span><span class="n">y</span><span class="o">/</span><span class="n">x</span><span class="p">)</span>
+<span class="n">T</span> <span class="o">=</span> <span class="n">srange</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span><span class="mi">250</span><span class="p">,</span><span class="mf">0.01</span><span class="p">)</span>
+<span class="n">sol1</span><span class="o">=</span><span class="n">desolve_odeint</span><span class="p">(</span><span class="n">vector</span><span class="p">([</span><span class="n">F</span><span class="p">,</span><span class="n">G</span><span class="p">]),</span> <span class="p">[</span><span class="mf">0.2</span><span class="p">,</span><span class="mf">0.5</span><span class="p">],</span> <span class="n">T</span><span class="p">,</span> <span class="p">[</span><span class="n">x</span><span class="p">,</span><span class="n">y</span><span class="p">])</span>
+<span class="n">list_plot</span><span class="p">(</span><span class="n">sol1</span><span class="o">.</span><span class="n">tolist</span><span class="p">(),</span> <span class="n">plotjoined</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span>  <span class="n">figsize</span><span class="o">=</span><span class="p">(</span><span class="mi">6</span><span class="p">,</span> <span class="mi">3</span><span class="p">))</span>
+</pre></div>
+</div>
+</div>
+<div class="nboutput nblast docutils container">
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[33]:
+</pre></div>
+</div>
+<div class="output_area docutils container">
+<img alt="../_images/notebooks_May_model_114_0.png" src="../_images/notebooks_May_model_114_0.png" />
+</div>
+</div>
+<p><a href="#id11"><span class="problematic" id="id12">|image|</span></a></p>
+</div>
+</div>
+
+
+          </div>
+          
+        </div>
+      </div>
+      <div class="sphinxsidebar" role="navigation" aria-label="main navigation">
+        <div class="sphinxsidebarwrapper">
+<h1 class="logo"><a href="../index.html">Nonlinear processes in Biology</a></h1>
+
+
+
+
+
+
+
+
+<h3>Navigation</h3>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../NPB_1d_models.html">Continuous models for single species</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../NPB_predator_prey.html">Models of interacting populations: prey-predator</a></li>
+</ul>
+<ul class="current">
+<li class="toctree-l1"><a class="reference internal" href="Lotka_Volterra_with_SAGE.html">The Lotka-Volterra model with SAGE</a></li>
+<li class="toctree-l1 current"><a class="current reference internal" href="#">Analysis of the May model with SAGE</a></li>
+<li class="toctree-l1"><a class="reference internal" href="May_model_parameter_space_plot.html">Plot of stability condition in 3d</a></li>
+</ul>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../NPB_kinetics.html">Introduction to the kinetics of chemical reactions</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../NPB_kinetics.html#autocatalytic-reactions">Autocatalytic reactions</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../NPB_kinetics.html#enzyme-reactions">Enzyme reactions</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../NPB_kinetics.html#theoretical-analysis-ala-michaelis-menten">Theoretical analysis a’la Michaelis-Menten</a></li>
+</ul>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../NPB_reaction_diffusion.html">Reaction-diffusion equations</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../NPB_reaction_diffusion.html#the-malthus-model-with-migration-the-skellam-equation">The Malthus model with migration: The Skellam equation</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../NPB_reaction_diffusion.html#verhulst-model-with-migration-fisher-kolmogorov-equation">Verhulst model with migration: Fisher-Kolmogorov equation</a></li>
+</ul>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../NPB_epidemics.html">Epidemic model of Kermack-McKendrick</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../NPB_epidemics.html#geographical-spread-of-epidemic">Geographical spread of epidemic</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../NPB_epidemics.html#realistic-modeling-of-spatial-epidemic-spread">Realistic modeling of spatial epidemic spread</a></li>
+</ul>
+
+<div class="relations">
+<h3>Related Topics</h3>
+<ul>
+  <li><a href="../index.html">Documentation overview</a><ul>
+      <li>Previous: <a href="Lotka_Volterra_with_SAGE.html" title="previous chapter">The Lotka-Volterra model with SAGE</a></li>
+      <li>Next: <a href="May_model_parameter_space_plot.html" title="next chapter">Plot of stability condition in 3d</a></li>
+  </ul></li>
+</ul>
+</div>
+<div id="searchbox" style="display: none" role="search">
+  <h3 id="searchlabel">Quick search</h3>
+    <div class="searchformwrapper">
+    <form class="search" action="../search.html" method="get">
+      <input type="text" name="q" aria-labelledby="searchlabel" />
+      <input type="submit" value="Go" />
+    </form>
+    </div>
+</div>
+<script>$('#searchbox').show(0);</script>
+
+
+
+
+
+
+
+
+        </div>
+      </div>
+      <div class="clearer"></div>
+    </div>
+    <div class="footer">
+      &copy;2016, J.Ł. & M.K..
+      
+      |
+      Powered by <a href="http://sphinx-doc.org/">Sphinx 2.4.0</a>
+      &amp; <a href="https://github.com/bitprophet/alabaster">Alabaster 0.7.12</a>
+      
+      |
+      <a href="../_sources/notebooks/May_model.ipynb.txt"
+          rel="nofollow">Page source</a>
+    </div>
+
+    
+
+    
+  </body>
+</html>

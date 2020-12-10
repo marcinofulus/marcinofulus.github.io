@@ -1,0 +1,607 @@
+
+<!DOCTYPE html>
+
+<html xmlns="http://www.w3.org/1999/xhtml" lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <title>Models of interacting populations: prey-predator &#8212; Nonlinear processes in Biology</title>
+    <link rel="stylesheet" href="_static/alabaster.css" type="text/css" />
+    <link rel="stylesheet" href="_static/pygments.css" type="text/css" />
+    <script id="documentation_options" data-url_root="./" src="_static/documentation_options.js"></script>
+    <script src="_static/jquery.js"></script>
+    <script src="_static/underscore.js"></script>
+    <script src="_static/doctools.js"></script>
+    <script src="_static/language_data.js"></script>
+    <script crossorigin="anonymous" integrity="sha256-Ae2Vz/4ePdIu6ZyI/5ZGsYnb+m0JlOmKPjt6XZ9JJkA=" src="https://cdnjs.cloudflare.com/ajax/libs/require.js/2.3.4/require.min.js"></script>
+    <script async="async" src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.5/latest.js?config=TeX-AMS-MML_HTMLorMML"></script>
+    <script type="text/x-mathjax-config">MathJax.Hub.Config({"tex2jax": {"inlineMath": [["$", "$"], ["\\(", "\\)"]], "processEscapes": true, "ignoreClass": "document", "processClass": "math|output_area"}})</script>
+    <script type="text/javascript" src="http://sagecell.sagemath.org/static/jquery.min.js"></script>
+    <script type="text/javascript" src="http://sagecell.sagemath.org/embedded_sagecell.js"></script>
+    <script type="text/javascript">
+        sagecell.makeSagecell({inputLocation: ".sage_linked",
+                               linked: true});
+        sagecell.makeSagecell({inputLocation: ".sage_unlinked",
+                               linked: false});
+    </script>
+
+    <style type="text/css">
+        .sagecell .CodeMirror-scroll {
+            overflow-y: hidden;
+            overflow-x: auto;
+        }
+        .sagecell .CodeMirror {
+            height: auto;
+        }
+    </style>
+    
+    <link rel="index" title="Index" href="genindex.html" />
+    <link rel="search" title="Search" href="search.html" />
+    <link rel="next" title="The Lotka-Volterra model with SAGE" href="notebooks/Lotka_Volterra_with_SAGE.html" />
+    <link rel="prev" title="Continuous models for single species" href="NPB_1d_models.html" />
+
+   
+  <link rel="stylesheet" href="_static/custom.css" type="text/css" />
+  
+  
+  <meta name="viewport" content="width=device-width, initial-scale=0.9, maximum-scale=0.9" />
+
+  </head><body>
+  
+
+    <div class="document">
+      <div class="documentwrapper">
+        <div class="bodywrapper">
+          
+
+          <div class="body" role="main">
+            
+  <div class="section" id="models-of-interacting-populations-prey-predator">
+<h1>Models of interacting populations: prey-predator<a class="headerlink" href="#models-of-interacting-populations-prey-predator" title="Permalink to this headline">¶</a></h1>
+<div class="section" id="the-lotka-volterra-model">
+<h2>The Lotka-Volterra model<a class="headerlink" href="#the-lotka-volterra-model" title="Permalink to this headline">¶</a></h2>
+<p>In this model we consider two populations: the population of prey and
+the population of predators. Prey and predators can be reproduced by the
+birth process. Population of prey is described by the function
+<span class="math notranslate nohighlight">\(N=N(t)\)</span> and population of predators - by <span class="math notranslate nohighlight">\(P=P(t)\)</span>. As in
+the Malthus model the rate of change of populations is the birth and
+death process:</p>
+<div class="math notranslate nohighlight">
+\[\frac{dN}{dt} = a N - b N\]</div>
+<div class="math notranslate nohighlight">
+\[\frac{dP}{dt} = c P - e P\]</div>
+<p>where the parameter <span class="math notranslate nohighlight">\(a\)</span> characterizes the birth of prey, <span class="math notranslate nohighlight">\(b\)</span>
+corresponds to the death process of prey, <span class="math notranslate nohighlight">\(c\)</span> describes the birth
+process of predators and finally <span class="math notranslate nohighlight">\(e\)</span> corresponds to the death
+process of predators.</p>
+<p>We assume that the death rate <span class="math notranslate nohighlight">\(b\)</span> of prey depends upon the
+population of predators: If there is a greater number of predators
+<span class="math notranslate nohighlight">\(P\)</span> then <span class="math notranslate nohighlight">\(b\)</span> should be greater. In the simplest modeling we
+assume that it is a linear function, i.e.,</p>
+<div class="math notranslate nohighlight">
+\[b \to  b_0 P\]</div>
+<p>where <span class="math notranslate nohighlight">\(b_0\gt 0\)</span> is a new parameter related to the death rate of
+prey. Next, we assume that <span class="math notranslate nohighlight">\(C\)</span> depends on the population <span class="math notranslate nohighlight">\(N\)</span>
+of prey: If there is a greater number of prey then the birth rate of
+predators is greater, i.e.,</p>
+<div class="math notranslate nohighlight">
+\[c  \to  c_0 N\]</div>
+<p>where <span class="math notranslate nohighlight">\(c_0 \gt 0\)</span> characterizes the birth rate of predators. Under
+these assumptions, the model reads</p>
+<div class="math notranslate nohighlight">
+\[\frac{dN}{dt} = a N - b_0 P N\]</div>
+<div class="math notranslate nohighlight">
+\[\frac{dP}{dt} = c_0 N P - e P\]</div>
+<p>All parameters in this model are positive. This model was introduced by
+V. Volterra in 1926 to describe population of fish. In 1920 A. J. Lotka
+considered a similar equation to describe kinetics of some chemical
+reactions. Therefore this model is called the Lotka-Volterra one. There
+are 4 parameters. Haw many relevant parameters are in this model? To
+answer this questions we have tp transform the set of two equations to
+the dimensionles form. We introduce the following new resclaed variables
+for populations: b</p>
+<div class="math notranslate nohighlight">
+\[x=\frac{c_0}{e} N, \quad y =\frac{b_0}{a} P\]</div>
+<p>and dimensionless time (similarly as in the Verhulst model):</p>
+<div class="math notranslate nohighlight">
+\[\tau = a t\]</div>
+<p>In the new variables the Lotka-Volterra set of equations is transformed
+to the form</p>
+<div class="math notranslate nohighlight">
+\[\dot x= x- x y\]</div>
+<div class="math notranslate nohighlight">
+\[\dot y = \alpha (xy-y)\]</div>
+<p>We note that only 1 relevant parameter occurs, i.e.,
+<span class="math notranslate nohighlight">\(\alpha = e/a \gt 0\)</span>. It is the ratio of the death rate of
+predators <span class="math notranslate nohighlight">\(e\)</span> to the birth rate of prey <span class="math notranslate nohighlight">\(a\)</span>. The scaling
+procedure allowed to eliminate irrelevant parameters of the model. There
+is only one relevant parameter <span class="math notranslate nohighlight">\(\alpha\)</span>. In consequence, solutions
+of the Lotka-Volterra system depens on this parameter and initial
+conditions <span class="math notranslate nohighlight">\([x(0), y(0)]\)</span>.</p>
+<div class="section" id="stationary-states-of-the-system">
+<h3>Stationary states of the system<a class="headerlink" href="#stationary-states-of-the-system" title="Permalink to this headline">¶</a></h3>
+<p>Stationary states of the system are determined by a set of 2 algebraic
+equations:</p>
+<div class="math notranslate nohighlight">
+\[f(x, y) = x- x y =0,  \quad g(x,y) = \alpha (xy - y) =0,\]</div>
+<p>Hence we obtain two pairs of states:</p>
+<div class="math notranslate nohighlight">
+\[(x_1=0, y_1=0) \quad \mbox{or} \quad (x_2=1, y_2 =1)\]</div>
+</div>
+<div class="section" id="stability-of-the-stationary-states">
+<h3>Stability of the stationary states<a class="headerlink" href="#stability-of-the-stationary-states" title="Permalink to this headline">¶</a></h3>
+<ol class="upperalpha simple">
+<li><p>In the first step we have to calculate the Jacobi matrix:</p></li>
+</ol>
+<div class="math notranslate nohighlight">
+\[\begin{split}\begin{aligned}
+J = \begin{bmatrix}\frac{ \partial f}{\partial x}&amp;  \frac{\partial f}{\partial y}\\ \frac{\partial g}{\partial x}&amp;  \frac{\partial g}{\partial y}  \end{bmatrix}
+\end{aligned}\end{split}\]</div>
+<ol class="upperalpha simple" start="2">
+<li><p>Next, we calculate it for the stationary points:</p></li>
+</ol>
+<div class="math notranslate nohighlight">
+\[\begin{split}\begin{aligned}
+J_1= J(0, 0) = \begin{bmatrix}1&amp; 0\\ 0&amp; -\alpha \end{bmatrix}, \quad \quad  J_2= J(1, 1) = \begin{bmatrix}0&amp; -1\\ \alpha&amp; 0 \end{bmatrix}
+\end{aligned}\end{split}\]</div>
+<ol class="upperalpha simple" start="3">
+<li><p>We have to calculate the eigenvalues of the Jacobi matrix
+<span class="math notranslate nohighlight">\(|J-\lambda I|=0\)</span>:</p></li>
+</ol>
+<p>C1. For <span class="math notranslate nohighlight">\((0, 0)\)</span> we get:</p>
+<p><span class="math notranslate nohighlight">\(\lambda_{01} = 1,\quad \lambda_{02} =- \alpha\)</span>.</p>
+<p>This state is unstable because one of the eigenvalues is positive
+<span class="math notranslate nohighlight">\(\lambda_{01} \gt 0\)</span>. An arbitrary small perturbation causes the
+escape from this state.</p>
+<p>C2. For <span class="math notranslate nohighlight">\((1, 1)\)</span> we get:</p>
+<p><span class="math notranslate nohighlight">\(\lambda_{11} = i \sqrt{\alpha}, \quad \lambda_{12} = -i\sqrt{\alpha}\)</span>.</p>
+<p>Two eigenvalues are imaginary. Therefore this state is stable but not
+asymptotically stable. An arbitrary small perturbation causes the
+creation of a new time-dependent asymptotic state which is in the
+vicinity of <span class="math notranslate nohighlight">\((1, 1)\)</span> but does not tends to <span class="math notranslate nohighlight">\((1, 1)\)</span>.</p>
+</div>
+<div class="section" id="phase-curves">
+<h3>Phase curves<a class="headerlink" href="#phase-curves" title="Permalink to this headline">¶</a></h3>
+<p>We will obtain the phase trajectories or phase curves, i.e. the curves
+on the plane <span class="math notranslate nohighlight">\((x, y)\)</span>. The phase curves are given by the
+parametric relation <span class="math notranslate nohighlight">\((x(t), y(t))\)</span>. To get its form, we devide the
+second equation by the first equation in the set of two Lotka-Volterra
+equations. As a result, one has:</p>
+<div class="math notranslate nohighlight">
+\[\frac{dy}{dx}= \frac{\alpha y (x-1)}{x(1-y)}\]</div>
+<p>It is a differential equation of the first order. It can be solved by
+the method of variables separation:</p>
+<div class="math notranslate nohighlight">
+\[\left(\frac{1}{y} - 1\right) \; dy = \alpha \left(1-\frac{1}{x}\right)\; dx\]</div>
+<p>The integration of both sides of this equation yields:</p>
+<div class="math notranslate nohighlight">
+\[\mbox{ln} y -y = \alpha (x- \mbox{ln} x) - H_0\]</div>
+<p>where <span class="math notranslate nohighlight">\(H_0\)</span> is the integration constant. Its value is determined
+by initial conditions <span class="math notranslate nohighlight">\((x(0), y(0)\)</span>. The minimal value is for the
+initial conditions <span class="math notranslate nohighlight">\((x(0)=1, y(0)=1)\)</span>&gt; we insert these value to
+the above equation and get <span class="math notranslate nohighlight">\(H_0 = 1+\alpha\)</span>.
+The explicit dependence of the integration constant on initial condition reads:</p>
+<div class="math notranslate nohighlight">
+\[H_0 = \alpha x_{0} - \alpha \log\left(x_{0}\right) + y_{0} -
+  \log\left(y_{0}\right)\]</div>
+<p>In a figure we present few phase curves for selected  <span class="math notranslate nohighlight">\(H_0\)</span>  corresponding to  different
+initial conditions shown as red dot. . Because the relation between <span class="math notranslate nohighlight">\(y\)</span> and
+<span class="math notranslate nohighlight">\(x\)</span> is an implicit equation its graphical realization can be
+obtained by using of SAGE in the following way:</p>
+<div class="figure align-center" id="id1">
+<a class="reference internal image-reference" href="_images/lotka_phase.png"><img alt="_images/lotka_phase.png" src="_images/lotka_phase.png" style="width: 280.0px; height: 285.0px;" /></a>
+<p class="caption"><span class="caption-text">Phase curves of the Lotka-Volterra system. Red dots denote initial
+condition. Integration constant
+<span class="math notranslate nohighlight">\(H_0=2.31,2.61,3.21,3.92,4.70\)</span>.</span><a class="headerlink" href="#id1" title="Permalink to this image">¶</a></p>
+</div>
+<div class="admonition-experiment-with-sage admonition">
+<p class="admonition-title">Experiment with Sage!</p>
+<p>Investigate how parameters: initial condition <span class="math notranslate nohighlight">\(x_0,y_0\)</span> and
+<span class="math notranslate nohighlight">\(\alpha\)</span> change phase curves of the Lotka-Volterra system.</p>
+</div>
+<div class='sage_unlinked'><script type='text/x-sage'>var('x z a x0 y0')
+phase_curve = -z + log(z) == a*x - a*x0 - a*log(x) + a*log(x0) - y0 + log(y0)
+@interact
+def _(a_=slider(1e-2,2,0.1,default=1.0),
+      x0_=slider(1e-3,4,0.04,default=1),
+      y0_=slider(1e-3,5,0.04,default=1.2)):
+    p = implicit_plot(phase_curve.subs(a==a_,x0==x0_,y0==y0_),(x,0,5),(z,0,5))
+    p += point((x0_,y0_),color='red',size=15,legend_label='ic')
+    p += point( (1,1),color='green',size=20,legend_label='fix point')
+    p.show(figsize=4)</script></div><p>First, we note that the phase curves are closed. It means that the
+solutions are periodic (oscillatory) functions of time. Secondly, the
+increase of <span class="math notranslate nohighlight">\(H_0\)</span> causes the increase of amplitude of
+oscillations. Below we demonstrate it solving numerically the set of
+Lotka-Volterra equations.</p>
+</div>
+<div class="section" id="time-evolution-in-lotka-volterra-systems">
+<h3>Time evolution in Lotka-Volterra systems<a class="headerlink" href="#time-evolution-in-lotka-volterra-systems" title="Permalink to this headline">¶</a></h3>
+<p>The time dependence of <span class="math notranslate nohighlight">\(x(t)\)</span> and <span class="math notranslate nohighlight">\(y(t)\)</span> can easily be
+obtained using the SAGE:</p>
+<div class="align-center figure align-default" id="id2">
+<img alt="image" src="_images/lotka_voltera_t.png" />
+<p class="caption"><span class="caption-text">Time evolution in Lotka-Volterra system</span><a class="headerlink" href="#id2" title="Permalink to this image">¶</a></p>
+</div>
+<p>Let us note that maxima of <span class="math notranslate nohighlight">\(y(t)\)</span> (population of predators) are
+delayed to maxima of <span class="math notranslate nohighlight">\(x(t)\)</span> (population of prey). It seems to be
+obvious: if predators have much food their birth rate grows but in turn
+it leads to the decrease of the prey number. In consequence the access
+to food is limited for predators. It causes the lower birth rate for
+predators and larger growth rate for prey. In turn, food resorces for
+predators are greater and their growth rate increases. The cycle starts
+to repeat.</p>
+<p>What is the relation between <span class="math notranslate nohighlight">\(H_0\)</span> and the period of oscillations?
+Below we show the influence of initial conditions (i.e. <span class="math notranslate nohighlight">\(H_0\)</span>) on
+the oscillations period. We can plot several timeseries with Sage and draw some conclusions.</p>
+<div class="admonition-experiment-with-sage admonition">
+<p class="admonition-title">Experiment with Sage!</p>
+<p>Investigate how the initial condition (i.e. integration constant)  change phase the frequency of oscillations.</p>
+</div>
+<div class='sage_unlinked'><script type='text/x-sage'>a_ = 1.0
+y0_ = 1.
+T = srange(0,31,0.2)
+var('x a y', domain='real')
+rhs =  vector([x-x*y, a*(x*y-y)])
+@interact
+def plot_time_x0(x0_=slider(1.01,6,0.1,default=2.)):
+    sol = desolve_odeint(rhs.subs([a==a_]), [x0_, y0_],T,[x,y])
+    p =  line( zip(T,sol[:,0]),color='green',ymin=0,ymax=6,legend_label='prey')
+    p += line( zip(T,sol[:,1]),color='black',ymin=0,ymax=6,legend_label='predator')
+    p.show(figsize=(8,3))</script></div><p>However, it is better to determine the period numerically from the solution and</p>
+<div class="align-center figure align-default" id="id3">
+<img alt="image" src="_images/Lotka_T_x0.png" />
+<p class="caption"><span class="caption-text">The dependence of oscillation period on initial condition aor a fiven dimensionless paramter.</span><a class="headerlink" href="#id3" title="Permalink to this image">¶</a></p>
+</div>
+<p>We conclude that if the phase curve is boarder i.e. <span class="math notranslate nohighlight">\(H_0\)</span>
+increases, then amplitude and the oscillations period is growssmaller
+as well.</p>
+</div>
+</div>
+<div class="section" id="more-realistic-the-may-model">
+<h2>More realistic: the May model<a class="headerlink" href="#more-realistic-the-may-model" title="Permalink to this headline">¶</a></h2>
+<p>In the Lotka-Volterra model there is one stable (but not asymptotically)
+stationary state. When at the intial time <span class="math notranslate nohighlight">\((x(0)=1, y(0)=1)\)</span> then
+at any time <span class="math notranslate nohighlight">\(x(t)=1\)</span> and <span class="math notranslate nohighlight">\(y(t)=1\)</span> is a solution of the
+Lotka-Volterra equations. The small perturbations destroy this state and
+small oscillations appear. Frequently another behavior is observed: If
+the system is perturbed from sthe stationary state it returns to the
+previous state. Then we say that the system is structurally stable. This
+feature is absent in the Lotka-Volterra system. We remind that this
+system is a modification of the 2-dimenional Malthus model:</p>
+<div class="math notranslate nohighlight">
+\[\frac{dN}{dt} = a N - b N\]</div>
+<div class="math notranslate nohighlight">
+\[\frac{dP}{dt} = c P - e P\]</div>
+<p>in which the birth and death processes are modeled in the simplest way.
+From our experience with other models presented hitherto we can modify
+the above model in the following way:</p>
+<ol class="upperalpha simple">
+<li><p>In the equation for <span class="math notranslate nohighlight">\(N\)</span> we add the part from the Verhulst
+model and add saturation effects from predations like in the Ludwig
+model with the Hill function:</p></li>
+</ol>
+<div class="math notranslate nohighlight">
+\[a=r\left(1-\frac{N}{K}\right), \quad \quad bN = b_0 \,\frac{N}{D+N} \;P\]</div>
+<ol class="upperalpha simple" start="2">
+<li><p>In the equation for <span class="math notranslate nohighlight">\(P\)</span> we include the Verhulst term:</p></li>
+</ol>
+<div class="math notranslate nohighlight">
+\[c  = c_0 \left(1-\frac{P}{K_0} \right)\]</div>
+<p>Therefore in the second equation we obtain</p>
+<div class="math notranslate nohighlight">
+\[c P - e P  = c_0 \left(1-\frac{P}{K_0} \right)\;P - e P = (c_0 - e) P - c_0 \frac{P^2}{K_0} = s P \left(1- \frac{P}{K_1} \right)\]</div>
+<p>We assume that <span class="math notranslate nohighlight">\(s=c_0-e \gt 0\)</span>. The re-scaled parameter
+<span class="math notranslate nohighlight">\(K_1 = K_0 (1-e/c_0).\)</span></p>
+<p>The parameter <span class="math notranslate nohighlight">\(K_1\)</span> modeling the carrying capacity for predators
+is proportional to a number of prey <span class="math notranslate nohighlight">\(K_1=h_0 N\)</span> (<span class="math notranslate nohighlight">\(h_0 \gt 0\)</span>
+is a proportional constant). Finally we get</p>
+<div class="math notranslate nohighlight">
+\[c = s \left(1- h \frac{P}{N}\right)\]</div>
+<p>where the new parameter <span class="math notranslate nohighlight">\(h=1/h_0\)</span>.</p>
+<p>Taking into account the above considerations we arrive at the following
+set of equations ( (R. May, Models for two interacting populations, in
+Theoretical Ecology. Principles and Applications, 2nd edition (ed. R.
+May), 1981, 78-104).</p>
+<div class="math notranslate nohighlight">
+\[\frac{dN}{dt} = r \left(1-\frac{N}{K}\right) \; N- b_0 \frac{N}{D+N} \; P\]</div>
+<div class="math notranslate nohighlight">
+\[\frac{dP}{dt} = s\left(1-h\frac{P}{N}\right)\; P\]</div>
+<p>There are 6 parameters: <span class="math notranslate nohighlight">\(r, K, b_0, D, s, h\)</span>. All parameters are
+positive. How many relevant parameters are in this model? Again, to
+answer this question we have to transform the set of equations to the
+dimensionless form. How to do this? We have experience with previous
+models and therefore we define new variables:</p>
+<div class="math notranslate nohighlight">
+\[x= \frac{N}{K}\]</div>
+<p>We insert <span class="math notranslate nohighlight">\(N=K x\)</span> to the expression for <span class="math notranslate nohighlight">\(P\)</span>. We see that the
+second variable can be scaled as:</p>
+<div class="math notranslate nohighlight">
+\[y= h\frac{P}{K}\]</div>
+<p>Then we obtain:</p>
+<div class="math notranslate nohighlight">
+\[\frac{dx}{d\tau} = (1-x)\, x - \alpha  \frac{x y}{d+x}\]</div>
+<div class="math notranslate nohighlight">
+\[\frac{dy}{d\tau} = \beta \left(1- \frac{y}{x}\right) y\]</div>
+<p>where we have defined the following dimensionless parameters:</p>
+<div class="math notranslate nohighlight">
+\[\tau = r t, \quad \alpha = \frac{b_0}{h r}, \quad d = \frac{D}{K} , \quad \beta = \frac{s}{r}\]</div>
+<p>This scaling procedure leads to a set of two differential equations with
+only three parameters. The dimensionless time is scaled to the
+reproducing rate <span class="math notranslate nohighlight">\(r\)</span> of prey. The parameter <span class="math notranslate nohighlight">\(\beta\)</span> is the
+relation of the reproducing rate of predators <span class="math notranslate nohighlight">\(s\)</span> to the
+reproducing rate of prey <span class="math notranslate nohighlight">\(r\)</span>. If <span class="math notranslate nohighlight">\(\beta \lt 1\)</span> then the
+reproducting tempo of predators is smaller than prey and therefore the
+prey population can survive. On the other hand, f <span class="math notranslate nohighlight">\(\beta \gt 1\)</span>
+then the reproducting tempo of predators is greater than for prey and
+therefore the prey population can become extinct (can fail to survive).
+But because the set of two equations is nonlinear, such simplified
+considerations cannot be fully true. We have to use precise mathematical
+methods to check this.</p>
+<div class="section" id="stationary-states">
+<h3>Stationary states<a class="headerlink" href="#stationary-states" title="Permalink to this headline">¶</a></h3>
+<p>Stationary states are determined by a set of two algebraic equations:</p>
+<div class="math notranslate nohighlight">
+\[(1-x)\, x - \alpha  \frac{x y}{d+x} = 0\]</div>
+<div class="math notranslate nohighlight">
+\[\beta \left(1- \frac{y}{x}\right) y = 0\]</div>
+<p>One stationary state can easily be found:</p>
+<div class="math notranslate nohighlight">
+\[x_1=1, \quad y_1 =0\]</div>
+<p>In theis state there are no predators and the state of prey is the same
+as in the Verhulst system. We should check whether this stse is stable.</p>
+<p>From the second equation we find that <span class="math notranslate nohighlight">\(y=x\)</span> solves this equation.
+We put it in the first equation and then the other stationary states are
+determined by the equations:</p>
+<div class="math notranslate nohighlight">
+\[y=x , \quad \quad  (1-x)   - \alpha  \frac{ y}{d+x} = 0\]</div>
+<p>From the second equation we obtain the condition:</p>
+<div class="math notranslate nohighlight">
+\[x^2 + (\alpha + d -1) x -d =0\]</div>
+<p>It is a trinomial square and we take into account only non-negative
+solutions of this equation, <span class="math notranslate nohighlight">\(x \ge 0\)</span>. Discriminant is always
+positive, namely,</p>
+<div class="math notranslate nohighlight">
+\[\Delta = (\alpha + d -1)^2 + 4d \gt  0\]</div>
+<p>So, the second stationary state is</p>
+<div class="math notranslate nohighlight">
+\[x_2=  y_2 = \frac{1}{2} \left[- (\alpha + d -1) + \sqrt{\Delta}\right]\]</div>
+<p>Let us note that this state does not depend on the parameter
+<span class="math notranslate nohighlight">\(\beta\)</span>, i.e. on the birth rate of prey and predators.</p>
+</div>
+<div class="section" id="stability-of-stationary-states">
+<h3>Stability of stationary states<a class="headerlink" href="#stability-of-stationary-states" title="Permalink to this headline">¶</a></h3>
+<ol class="upperalpha simple">
+<li><p>In the first step, we calculate the Jacobi matrix:</p></li>
+</ol>
+<div class="math notranslate nohighlight">
+\[\begin{split}\begin{aligned}
+\quad \quad \quad  J = \begin{bmatrix}\frac{ \partial  f}{\partial x}&amp;  \frac{\partial  f}{\partial y}\\ \frac{\partial  g}{\partial x}&amp;  \frac{\partial  g}{\partial y}  \end{bmatrix}  = \begin{bmatrix}1-2x-\alpha y \frac{d}{(x+d)^2}&amp;  -\alpha \frac{x}{x+d} \\ \frac{\beta y^2}{x^2}&amp;  \beta - \frac{2\beta y}{x}  \end{bmatrix}
+\end{aligned}\end{split}\]</div>
+<p>B. In the second step, we determine the eigenvalues of the Jacobi matrix
+<span class="math notranslate nohighlight">\(|J -\lambda I|=0\)</span>:</p>
+<!-- --><ol class="loweralpha simple">
+<li><p>For the stationary state <span class="math notranslate nohighlight">\((1, 0)\)</span> one gets:</p></li>
+</ol>
+<div class="math notranslate nohighlight">
+\[\begin{split}\begin{aligned}
+\quad \quad \quad  J(1, 0)  =  \begin{bmatrix}-1&amp;  -  \frac{\alpha}{1+d} \\ 0&amp;  \beta \end{bmatrix}
+\end{aligned}\end{split}\]</div>
+<p>and the eigenvalues are:
+<span class="math notranslate nohighlight">\(\lambda_{1} = -1, \quad \lambda_{2} = \beta &gt; 0\)</span>. So, this state
+is not stable because one eigenvalue is positive,
+<span class="math notranslate nohighlight">\(\lambda_{2} \gt 0\)</span>. A small perturbation will displace the system
+from this state.</p>
+<ol class="loweralpha simple" start="2">
+<li><p>For the second stationary state the problem of stability is more
+complicated because the Jacobi matrix takes the form</p></li>
+</ol>
+<div class="math notranslate nohighlight">
+\[\begin{split}\begin{aligned}
+\quad \quad \quad  J(x_2, y_2)  =  \begin{bmatrix}x_2\left[ \frac{\alpha x_2}{(x_2+d)^2} -1\right]&amp;  -  \frac{\alpha x_2}{x_2+d} \\ \beta &amp;  -\beta \end{bmatrix}
+\end{aligned}\end{split}\]</div>
+<p>We used the equation for the stationary state to transform the term
+<span class="math notranslate nohighlight">\(J_{11}\)</span> to the form as in this matrix. One can try to determine
+the eigenvalues of this matrix. But it is not good way. What we want to
+know is the sign of a real part (positive or negative) of both
+eigenvalues <span class="math notranslate nohighlight">\((\lambda_1, \lambda_2)\)</span>. Because this matrix is
+<span class="math notranslate nohighlight">\(2 \times 2\)</span>, we get a trinomial square for <span class="math notranslate nohighlight">\(\lambda\)</span>. The
+conditions for its negative part reads:</p>
+<div class="math notranslate nohighlight">
+\[\lambda_1 + \lambda_2 \lt 0  \quad \mbox{and} \quad \lambda_1 \; \lambda_2 \gt  0, \quad \quad \mbox{it means that} \quad \mbox{Tr} \, J \lt  0, \quad \quad \mbox{det} \,J \gt  0\]</div>
+<div class="admonition-exercise admonition">
+<p class="admonition-title">Exercise</p>
+<p>Show that for arbitrary (positive) values of parameters
+<span class="math notranslate nohighlight">\(\alpha, \beta, d\)</span>, the second condition
+<span class="math notranslate nohighlight">\(\mbox{det} \,J \gt 0\)</span> is always fulfiled.</p>
+</div>
+<p>The first condition for the stability of the state <span class="math notranslate nohighlight">\((x_2, y_2)\)</span>
+takes the form:</p>
+<div class="math notranslate nohighlight">
+\[b \gt  x_2\left[ \frac{\alpha x_2}{(x_1+d)^2} -1\right] = \phi (\alpha, d)\]</div>
+<p>Because <span class="math notranslate nohighlight">\(x_2\)</span> depends on 2 parameters <span class="math notranslate nohighlight">\(\alpha\)</span> and
+<span class="math notranslate nohighlight">\(d\)</span>, the right-hand side defines the surface in the 3-dimensional
+space. This surface is a boundary between two qualitatively different behaviours of the system:</p>
+<blockquote>
+<div><ul class="simple">
+<li><p>below the surface the system has a limit cycle</p></li>
+<li><p>above the urface the system has a fixpoint (see figure)</p></li>
+</ul>
+</div></blockquote>
+<div class="align-center figure align-default" id="id4">
+<img alt="image" src="_images/May_parameters3d.png" />
+<p class="caption"><span class="caption-text">The surface in the parameters space <span class="math notranslate nohighlight">\((\alpha,d,\beta)\)</span>. Below
+this surface the system has a limit cycle and above it a fixpoint.</span><a class="headerlink" href="#id4" title="Permalink to this image">¶</a></p>
+</div>
+<iframe src="_static/May_k3d.html" height="500" width="100%"></iframe></div>
+<div class="section" id="time-evolution-of-the-system">
+<h3>Time evolution of the system<a class="headerlink" href="#time-evolution-of-the-system" title="Permalink to this headline">¶</a></h3>
+<p>We can analyze the system for particular choice of parameters. There
+are two important examples:</p>
+<p><strong>Solutions which tend to the limit cycle:</strong></p>
+<p>If once chooses the parameters <span class="math notranslate nohighlight">\(\alpha = 1,\; \beta =t 0.1,\; d
+= 0.1 0\)</span> then the system has a unstable fix point inside the first
+quadrant, at
+<span class="math notranslate nohighlight">\(x_0=y_0=\newcommand{\Bold}[1]{\mathbf{#1}}\frac{1}{20} \,
+\sqrt{41} - \frac{1}{20}\)</span>. Both eigenvalues of Jacobian in this posit
+have positive real parts, thus the point is unstable.  On the other
+hand the inspection of the vector field indicates that the flow in the
+phase space is transporting into the <span class="math notranslate nohighlight">\((0,1)\times(0,1)\)</span>
+region. It suggests that the system can have at least limit cycle.</p>
+<div class="align-center figure align-default" id="id5">
+<img alt="image" src="_images/May_limit_cycle.png" />
+<p class="caption"><span class="caption-text">The phase portrait of a system and the location of the
+<span class="math notranslate nohighlight">\(\mathrm{Tr}J\)</span> and <span class="math notranslate nohighlight">\(\det J\)</span> respective to critical
+curve.</span><a class="headerlink" href="#id5" title="Permalink to this image">¶</a></p>
+</div>
+<p>Alternatively, one can figure out the stablity of the fix point from
+the sign of trace and determinant of the Jacobian in that point.</p>
+<div class="admonition-experiment-with-sage admonition">
+<p class="admonition-title">Experiment with Sage!</p>
+<p>Check the sign of trace and determinant of the Jacobian of the fix
+point for parameters <span class="math notranslate nohighlight">\(\alpha = 1,\; \beta =t 0.1,\; d=
+0.1\)</span>. Calculate eigenvalues and compare if the same conclusions on
+the stablility of the fix point can be drawn. Use:</p>
+<blockquote>
+<div><ul class="simple">
+<li><p><code class="code docutils literal notranslate"><span class="pre">J.trace()</span></code></p></li>
+<li><p><code class="code docutils literal notranslate"><span class="pre">J.det()</span></code></p></li>
+<li><p><code class="code docutils literal notranslate"><span class="pre">J.eigenvalues()</span></code></p></li>
+</ul>
+</div></blockquote>
+</div>
+<div class='sage_linked'><script type='text/x-sage'>var('a,d,b,x,y,t')
+ode_lotka = vector([x*(1-x)-(a*x*y)/(x+d),b*y*(1-y/x)]);
+p = {a:1.0, d:0.1, b:0.1}
+sol = solve(list(ode_lotka.subs(p)),[x,y])[4]
+J = jacobian(ode_lotka.subs(p),[x,y]).subs(sol).n()
+show(J)</script></div><div class="admonition-experiment-with-sage admonition">
+<p class="admonition-title">Experiment with Sage!</p>
+<p>Draw time solution to the system for parameters
+point <span class="math notranslate nohighlight">\(\alpha = 1,\; \beta =0.1,\; d= 0.1\)</span>.</p>
+</div>
+<div class='sage_linked'><script type='text/x-sage'>var('a,d,b,x,y,t')
+ode_lotka = vector([x*(1-x)-(a*x*y)/(x+d),b*y*(1-y/x)]);
+p = {a:1.0, d:0.1, b:0.1}
+T = srange(0,250,0.4)
+sol = desolve_odeint(ode_lotka.subs(p),[0.4,0.2],T,[x,y])
+p =  line( zip(T,sol[:,0]),color='green',ymin=0,ymax=1,legend_label='prey')
+p += line( zip(T,sol[:,1]),color='black',ymin=0,ymax=1,legend_label='predator')
+show(p,figsize=(10,3))</script></div><p><strong>Solutions which tend to the stable spiral</strong></p>
+<p>If once chooses the parameters <span class="math notranslate nohighlight">\(\alpha = 1,\; \beta =t 0.1,\; d
+= 1.\)</span> then the system has a unstable fix point inside the first
+quadrant, at
+<span class="math notranslate nohighlight">\(x_0=y_0=\newcommand{\Bold}[1]{\mathbf{#1}}\frac{1}{20} \,
+\sqrt{41} - \frac{1}{20}\)</span>. Both eigenvalues of Jacobian in this posit
+have positive real parts, thus the point is unstable.  On the other
+hand the inspection of the vector field indicates that the flow in the
+phase space is transporting into the <span class="math notranslate nohighlight">\((0,1)\times(0,1)\)</span>
+region. It suggests that the system can have at least limit cycle.</p>
+<div class="align-center figure align-default" id="id6">
+<img alt="image" src="_images/May_stable_node.png" />
+<p class="caption"><span class="caption-text">The phase portrait of a system and the location of the
+<span class="math notranslate nohighlight">\(\mathrm{Tr}J\)</span> and <span class="math notranslate nohighlight">\(\det J\)</span> respective to critical
+curve.</span><a class="headerlink" href="#id6" title="Permalink to this image">¶</a></p>
+</div>
+<div class="admonition-experiment-with-sage admonition">
+<p class="admonition-title">Experiment with Sage!</p>
+<p>Draw time solution to the system for parameters
+point <span class="math notranslate nohighlight">\(\alpha = 1,\; \beta =0.1,\; d= 1\)</span>.</p>
+</div>
+</div>
+</div>
+</div>
+
+
+          </div>
+          
+        </div>
+      </div>
+      <div class="sphinxsidebar" role="navigation" aria-label="main navigation">
+        <div class="sphinxsidebarwrapper">
+<h1 class="logo"><a href="index.html">Nonlinear processes in Biology</a></h1>
+
+
+
+
+
+
+
+
+<h3>Navigation</h3>
+<ul class="current">
+<li class="toctree-l1"><a class="reference internal" href="NPB_1d_models.html">Continuous models for single species</a></li>
+<li class="toctree-l1 current"><a class="current reference internal" href="#">Models of interacting populations: prey-predator</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="#the-lotka-volterra-model">The Lotka-Volterra model</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#more-realistic-the-may-model">More realistic: the May model</a></li>
+</ul>
+</li>
+</ul>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="notebooks/Lotka_Volterra_with_SAGE.html">The Lotka-Volterra model with SAGE</a></li>
+<li class="toctree-l1"><a class="reference internal" href="notebooks/May_model.html">Analysis of the May model with SAGE</a></li>
+<li class="toctree-l1"><a class="reference internal" href="notebooks/May_model_parameter_space_plot.html">Plot of stability condition in 3d</a></li>
+</ul>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="NPB_kinetics.html">Introduction to the kinetics of chemical reactions</a></li>
+<li class="toctree-l1"><a class="reference internal" href="NPB_kinetics.html#autocatalytic-reactions">Autocatalytic reactions</a></li>
+<li class="toctree-l1"><a class="reference internal" href="NPB_kinetics.html#enzyme-reactions">Enzyme reactions</a></li>
+<li class="toctree-l1"><a class="reference internal" href="NPB_kinetics.html#theoretical-analysis-ala-michaelis-menten">Theoretical analysis a’la Michaelis-Menten</a></li>
+</ul>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="NPB_reaction_diffusion.html">Reaction-diffusion equations</a></li>
+<li class="toctree-l1"><a class="reference internal" href="NPB_reaction_diffusion.html#the-malthus-model-with-migration-the-skellam-equation">The Malthus model with migration: The Skellam equation</a></li>
+<li class="toctree-l1"><a class="reference internal" href="NPB_reaction_diffusion.html#verhulst-model-with-migration-fisher-kolmogorov-equation">Verhulst model with migration: Fisher-Kolmogorov equation</a></li>
+</ul>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="NPB_epidemics.html">Epidemic model of Kermack-McKendrick</a></li>
+<li class="toctree-l1"><a class="reference internal" href="NPB_epidemics.html#geographical-spread-of-epidemic">Geographical spread of epidemic</a></li>
+<li class="toctree-l1"><a class="reference internal" href="NPB_epidemics.html#realistic-modeling-of-spatial-epidemic-spread">Realistic modeling of spatial epidemic spread</a></li>
+</ul>
+
+<div class="relations">
+<h3>Related Topics</h3>
+<ul>
+  <li><a href="index.html">Documentation overview</a><ul>
+      <li>Previous: <a href="NPB_1d_models.html" title="previous chapter">Continuous models for single species</a></li>
+      <li>Next: <a href="notebooks/Lotka_Volterra_with_SAGE.html" title="next chapter">The Lotka-Volterra model with SAGE</a></li>
+  </ul></li>
+</ul>
+</div>
+<div id="searchbox" style="display: none" role="search">
+  <h3 id="searchlabel">Quick search</h3>
+    <div class="searchformwrapper">
+    <form class="search" action="search.html" method="get">
+      <input type="text" name="q" aria-labelledby="searchlabel" />
+      <input type="submit" value="Go" />
+    </form>
+    </div>
+</div>
+<script>$('#searchbox').show(0);</script>
+
+
+
+
+
+
+
+
+        </div>
+      </div>
+      <div class="clearer"></div>
+    </div>
+    <div class="footer">
+      &copy;2016, J.Ł. & M.K..
+      
+      |
+      Powered by <a href="http://sphinx-doc.org/">Sphinx 2.4.0</a>
+      &amp; <a href="https://github.com/bitprophet/alabaster">Alabaster 0.7.12</a>
+      
+      |
+      <a href="_sources/NPB_predator_prey.rst.txt"
+          rel="nofollow">Page source</a>
+    </div>
+
+    
+
+    
+  </body>
+</html>

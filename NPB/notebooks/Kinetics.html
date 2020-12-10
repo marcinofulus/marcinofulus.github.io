@@ -1,0 +1,566 @@
+
+<!DOCTYPE html>
+
+<html xmlns="http://www.w3.org/1999/xhtml" lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <title>&lt;no title&gt; &#8212; Nonlinear processes in Biology</title>
+    <link rel="stylesheet" href="../_static/alabaster.css" type="text/css" />
+    <link rel="stylesheet" href="../_static/pygments.css" type="text/css" />
+    <script id="documentation_options" data-url_root="../" src="../_static/documentation_options.js"></script>
+    <script src="../_static/jquery.js"></script>
+    <script src="../_static/underscore.js"></script>
+    <script src="../_static/doctools.js"></script>
+    <script src="../_static/language_data.js"></script>
+    <script crossorigin="anonymous" integrity="sha256-Ae2Vz/4ePdIu6ZyI/5ZGsYnb+m0JlOmKPjt6XZ9JJkA=" src="https://cdnjs.cloudflare.com/ajax/libs/require.js/2.3.4/require.min.js"></script>
+    <script async="async" src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.5/latest.js?config=TeX-AMS-MML_HTMLorMML"></script>
+    <script type="text/x-mathjax-config">MathJax.Hub.Config({"tex2jax": {"inlineMath": [["$", "$"], ["\\(", "\\)"]], "processEscapes": true, "ignoreClass": "document", "processClass": "math|output_area"}})</script>
+    <script type="text/javascript" src="http://sagecell.sagemath.org/static/jquery.min.js"></script>
+    <script type="text/javascript" src="http://sagecell.sagemath.org/embedded_sagecell.js"></script>
+    <script type="text/javascript">
+        sagecell.makeSagecell({inputLocation: ".sage_linked",
+                               linked: true});
+        sagecell.makeSagecell({inputLocation: ".sage_unlinked",
+                               linked: false});
+    </script>
+
+    <style type="text/css">
+        .sagecell .CodeMirror-scroll {
+            overflow-y: hidden;
+            overflow-x: auto;
+        }
+        .sagecell .CodeMirror {
+            height: auto;
+        }
+    </style>
+    
+    <link rel="index" title="Index" href="../genindex.html" />
+    <link rel="search" title="Search" href="../search.html" />
+
+   
+  <link rel="stylesheet" href="../_static/custom.css" type="text/css" />
+  
+  
+  <meta name="viewport" content="width=device-width, initial-scale=0.9, maximum-scale=0.9" />
+
+  </head><body>
+  
+
+    <div class="document">
+      <div class="documentwrapper">
+        <div class="bodywrapper">
+          
+
+          <div class="body" role="main">
+            
+  
+<style>
+/* CSS for nbsphinx extension */
+
+/* remove conflicting styling from Sphinx themes */
+div.nbinput.container,
+div.nbinput.container div.prompt,
+div.nbinput.container div.input_area,
+div.nbinput.container div[class*=highlight],
+div.nbinput.container div[class*=highlight] pre,
+div.nboutput.container,
+div.nboutput.container div.prompt,
+div.nboutput.container div.output_area,
+div.nboutput.container div[class*=highlight],
+div.nboutput.container div[class*=highlight] pre {
+    background: none;
+    border: none;
+    padding: 0 0;
+    margin: 0;
+    box-shadow: none;
+}
+
+/* avoid gaps between output lines */
+div.nboutput.container div[class*=highlight] pre {
+    line-height: normal;
+}
+
+/* input/output containers */
+div.nbinput.container,
+div.nboutput.container {
+    display: -webkit-flex;
+    display: flex;
+    align-items: flex-start;
+    margin: 0;
+    width: 100%;
+}
+@media (max-width: 540px) {
+    div.nbinput.container,
+    div.nboutput.container {
+        flex-direction: column;
+    }
+}
+
+/* input container */
+div.nbinput.container {
+    padding-top: 5px;
+}
+
+/* last container */
+div.nblast.container {
+    padding-bottom: 5px;
+}
+
+/* input prompt */
+div.nbinput.container div.prompt pre {
+    color: #307FC1;
+}
+
+/* output prompt */
+div.nboutput.container div.prompt pre {
+    color: #BF5B3D;
+}
+
+/* all prompts */
+div.nbinput.container div.prompt,
+div.nboutput.container div.prompt {
+    min-width: 5ex;
+    padding-top: 0.4em;
+    padding-right: 0.4em;
+    text-align: right;
+    flex: 0;
+}
+@media (max-width: 540px) {
+    div.nbinput.container div.prompt,
+    div.nboutput.container div.prompt {
+        text-align: left;
+        padding: 0.4em;
+    }
+    div.nboutput.container div.prompt.empty {
+        padding: 0;
+    }
+}
+
+/* disable scrollbars on prompts */
+div.nbinput.container div.prompt pre,
+div.nboutput.container div.prompt pre {
+    overflow: hidden;
+}
+
+/* input/output area */
+div.nbinput.container div.input_area,
+div.nboutput.container div.output_area {
+    padding: 0.4em;
+    -webkit-flex: 1;
+    flex: 1;
+    overflow: auto;
+}
+@media (max-width: 540px) {
+    div.nbinput.container div.input_area,
+    div.nboutput.container div.output_area {
+        width: 100%;
+    }
+}
+
+/* input area */
+div.nbinput.container div.input_area {
+    border: 1px solid #e0e0e0;
+    border-radius: 2px;
+    background: #f5f5f5;
+}
+
+/* override MathJax center alignment in output cells */
+div.nboutput.container div[class*=MathJax] {
+    text-align: left !important;
+}
+
+/* override sphinx.ext.imgmath center alignment in output cells */
+div.nboutput.container div.math p {
+    text-align: left;
+}
+
+/* standard error */
+div.nboutput.container div.output_area.stderr {
+    background: #fdd;
+}
+
+/* ANSI colors */
+.ansi-black-fg { color: #3E424D; }
+.ansi-black-bg { background-color: #3E424D; }
+.ansi-black-intense-fg { color: #282C36; }
+.ansi-black-intense-bg { background-color: #282C36; }
+.ansi-red-fg { color: #E75C58; }
+.ansi-red-bg { background-color: #E75C58; }
+.ansi-red-intense-fg { color: #B22B31; }
+.ansi-red-intense-bg { background-color: #B22B31; }
+.ansi-green-fg { color: #00A250; }
+.ansi-green-bg { background-color: #00A250; }
+.ansi-green-intense-fg { color: #007427; }
+.ansi-green-intense-bg { background-color: #007427; }
+.ansi-yellow-fg { color: #DDB62B; }
+.ansi-yellow-bg { background-color: #DDB62B; }
+.ansi-yellow-intense-fg { color: #B27D12; }
+.ansi-yellow-intense-bg { background-color: #B27D12; }
+.ansi-blue-fg { color: #208FFB; }
+.ansi-blue-bg { background-color: #208FFB; }
+.ansi-blue-intense-fg { color: #0065CA; }
+.ansi-blue-intense-bg { background-color: #0065CA; }
+.ansi-magenta-fg { color: #D160C4; }
+.ansi-magenta-bg { background-color: #D160C4; }
+.ansi-magenta-intense-fg { color: #A03196; }
+.ansi-magenta-intense-bg { background-color: #A03196; }
+.ansi-cyan-fg { color: #60C6C8; }
+.ansi-cyan-bg { background-color: #60C6C8; }
+.ansi-cyan-intense-fg { color: #258F8F; }
+.ansi-cyan-intense-bg { background-color: #258F8F; }
+.ansi-white-fg { color: #C5C1B4; }
+.ansi-white-bg { background-color: #C5C1B4; }
+.ansi-white-intense-fg { color: #A1A6B2; }
+.ansi-white-intense-bg { background-color: #A1A6B2; }
+
+.ansi-default-inverse-fg { color: #FFFFFF; }
+.ansi-default-inverse-bg { background-color: #000000; }
+
+.ansi-bold { font-weight: bold; }
+.ansi-underline { text-decoration: underline; }
+
+/* Some additional styling taken form the Jupyter notebook CSS */
+div.rendered_html table {
+  border: none;
+  border-collapse: collapse;
+  border-spacing: 0;
+  color: black;
+  font-size: 12px;
+  table-layout: fixed;
+}
+div.rendered_html thead {
+  border-bottom: 1px solid black;
+  vertical-align: bottom;
+}
+div.rendered_html tr,
+div.rendered_html th,
+div.rendered_html td {
+  text-align: right;
+  vertical-align: middle;
+  padding: 0.5em 0.5em;
+  line-height: normal;
+  white-space: normal;
+  max-width: none;
+  border: none;
+}
+div.rendered_html th {
+  font-weight: bold;
+}
+div.rendered_html tbody tr:nth-child(odd) {
+  background: #f5f5f5;
+}
+div.rendered_html tbody tr:hover {
+  background: rgba(66, 165, 245, 0.2);
+}
+</style>
+<div class="nbinput docutils container">
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[1]:
+</pre></div>
+</div>
+<div class="input_area highlight-ipython2 notranslate"><div class="highlight"><pre>
+<span></span><span class="n">var</span><span class="p">(</span><span class="s1">&#39;x1, x2, x3, t&#39;</span><span class="p">)</span>
+<span class="n">colors</span> <span class="o">=</span> <span class="p">[</span><span class="s1">&#39;red&#39;</span><span class="p">,</span><span class="s1">&#39;blue&#39;</span><span class="p">]</span>
+
+
+
+<span class="n">x1</span> <span class="o">=</span> <span class="mf">0.01</span><span class="o">*</span><span class="n">exp</span><span class="p">(</span><span class="n">t</span><span class="p">)</span><span class="o">/</span><span class="p">(</span><span class="mi">1</span><span class="o">+</span><span class="n">exp</span><span class="p">(</span><span class="n">t</span><span class="p">)</span><span class="o">-</span><span class="mi">1</span><span class="p">)</span>
+<span class="n">x2</span> <span class="o">=</span> <span class="mf">0.6</span><span class="o">*</span><span class="n">exp</span><span class="p">(</span><span class="n">t</span><span class="p">)</span><span class="o">/</span><span class="p">(</span><span class="mi">1</span><span class="o">+</span><span class="mf">0.6</span><span class="o">*</span><span class="p">(</span><span class="n">exp</span><span class="p">(</span><span class="n">t</span><span class="p">)</span><span class="o">-</span><span class="mi">1</span><span class="p">))</span>
+<span class="n">x3</span> <span class="o">=</span> <span class="mf">1.5</span><span class="o">*</span><span class="n">exp</span><span class="p">(</span><span class="n">t</span><span class="p">)</span><span class="o">/</span><span class="p">(</span><span class="mi">1</span><span class="o">+</span><span class="mf">1.5</span><span class="o">*</span><span class="p">(</span><span class="n">exp</span><span class="p">(</span><span class="n">t</span><span class="p">)</span><span class="o">-</span><span class="mi">1</span><span class="p">))</span>
+<span class="n">p10</span> <span class="o">=</span> <span class="n">plot</span><span class="p">(</span><span class="n">x1</span><span class="p">,(</span><span class="n">t</span><span class="p">,</span><span class="mi">0</span><span class="p">,</span><span class="mi">10</span><span class="p">),</span><span class="n">figsize</span><span class="o">=</span><span class="p">(</span><span class="mi">5</span><span class="p">,</span><span class="mi">3</span><span class="p">),</span><span class="n">color</span><span class="o">=</span><span class="s1">&#39;red&#39;</span><span class="p">,</span> <span class="n">legend_label</span><span class="o">=</span><span class="s2">&quot;$x_0=0.01$&quot;</span><span class="p">)</span>
+<span class="n">p30</span> <span class="o">=</span> <span class="n">plot</span><span class="p">(</span><span class="n">x3</span><span class="p">,(</span><span class="n">t</span><span class="p">,</span><span class="mi">0</span><span class="p">,</span><span class="mi">10</span><span class="p">),</span><span class="n">color</span><span class="o">=</span><span class="s1">&#39;green&#39;</span><span class="p">,</span><span class="n">legend_label</span><span class="o">=</span><span class="s2">&quot;$x_0=1.5$&quot;</span><span class="p">,</span><span class="n">gridlines</span><span class="o">=</span><span class="p">[[],[</span><span class="mi">1</span><span class="p">]])</span>
+<span class="n">show</span><span class="p">(</span><span class="n">p10</span><span class="o">+</span><span class="n">p20</span><span class="o">+</span><span class="n">p30</span><span class="p">)</span>
+
+</pre></div>
+</div>
+</div>
+<div class="nboutput nblast docutils container">
+<div class="prompt empty docutils container">
+</div>
+<div class="output_area docutils container">
+<img alt="../_images/notebooks_Kinetics_0_0.png" src="../_images/notebooks_Kinetics_0_0.png" />
+</div>
+</div>
+<div class="nbinput nblast docutils container">
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[2]:
+</pre></div>
+</div>
+<div class="input_area highlight-ipython2 notranslate"><div class="highlight"><pre>
+<span></span><span class="kn">from</span> <span class="nn">sage.plot.colors</span> <span class="kn">import</span> <span class="n">rainbow</span><span class="p">,</span>
+</pre></div>
+</div>
+</div>
+<div class="nbinput nblast docutils container">
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[25]:
+</pre></div>
+</div>
+<div class="input_area highlight-ipython2 notranslate"><div class="highlight"><pre>
+<span></span><span class="nb">type</span><span class="p">(</span>sage.plot.colors<span class="o">??</span>
+</pre></div>
+</div>
+</div>
+<div class="nbinput nblast docutils container">
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[ ]:
+</pre></div>
+</div>
+<div class="input_area highlight-ipython2 notranslate"><div class="highlight"><pre>
+<span></span><span class="nb">type</span><span class="p">(</span><span class="n">sage</span><span class="o">.</span><span class="n">plot</span><span class="o">.</span><span class="n">colors</span>
+</pre></div>
+</div>
+</div>
+<div class="nbinput docutils container">
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[8]:
+</pre></div>
+</div>
+<div class="input_area highlight-ipython2 notranslate"><div class="highlight"><pre>
+<span></span><span class="n">sage</span><span class="o">.</span><span class="n">plot</span><span class="o">.</span><span class="n">colors</span><span class="o">.</span><span class="n">six</span><span class="o">.</span>
+</pre></div>
+</div>
+</div>
+<div class="nboutput nblast docutils container">
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[8]:
+</pre></div>
+</div>
+<div class="output_area docutils container">
+<div class="highlight"><pre>
+&lt;module &#39;six&#39; from &#39;/Applications/SageMath/local/lib/python2.7/site-packages/six.pyc&#39;&gt;
+</pre></div></div>
+</div>
+<div class="nbinput nblast docutils container">
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[26]:
+</pre></div>
+</div>
+<div class="input_area highlight-ipython2 notranslate"><div class="highlight"><pre>
+<span></span><span class="n">nice_colors</span> <span class="o">=</span> <span class="p">(</span>
+    <span class="mh">0xe6194b</span><span class="p">,</span> <span class="mh">0x3cb44b</span><span class="p">,</span> <span class="mh">0xffe119</span><span class="p">,</span> <span class="mh">0x0082c8</span><span class="p">,</span>
+    <span class="mh">0xf58231</span><span class="p">,</span> <span class="mh">0x911eb4</span><span class="p">,</span> <span class="mh">0x46f0f0</span><span class="p">,</span> <span class="mh">0xf032e6</span><span class="p">,</span>
+    <span class="mh">0xd2f53c</span><span class="p">,</span> <span class="mh">0xfabebe</span><span class="p">,</span> <span class="mh">0x008080</span><span class="p">,</span> <span class="mh">0xe6beff</span><span class="p">,</span>
+    <span class="mh">0xaa6e28</span><span class="p">,</span> <span class="mh">0xfffac8</span><span class="p">,</span> <span class="mh">0x800000</span><span class="p">,</span> <span class="mh">0xaaffc3</span><span class="p">,</span>
+    <span class="mh">0x808000</span><span class="p">,</span> <span class="mh">0xffd8b1</span><span class="p">,</span> <span class="mh">0x000080</span><span class="p">,</span> <span class="mh">0x808080</span><span class="p">,</span>
+    <span class="mh">0xFFFFFF</span><span class="p">,</span> <span class="mh">0x000000</span>
+<span class="p">)</span>
+</pre></div>
+</div>
+</div>
+<div class="nbinput docutils container">
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[29]:
+</pre></div>
+</div>
+<div class="input_area highlight-ipython2 notranslate"><div class="highlight"><pre>
+<span></span><span class="nb">sum</span><span class="p">([</span><span class="n">plot</span><span class="p">(</span><span class="n">sin</span><span class="p">(</span><span class="n">x</span><span class="o">+</span><span class="n">i</span><span class="p">),(</span><span class="n">x</span><span class="p">,</span><span class="mi">0</span><span class="p">,</span><span class="mi">10</span><span class="p">),</span><span class="n">color</span><span class="o">=</span><span class="n">c</span><span class="p">)</span> <span class="k">for</span> <span class="n">i</span><span class="p">,</span><span class="n">c</span> <span class="ow">in</span> <span class="nb">enumerate</span><span class="p">(</span><span class="n">nice_colors</span><span class="p">)])</span><span class="o">.</span><span class="n">show</span><span class="p">()</span>
+</pre></div>
+</div>
+</div>
+<div class="nboutput nblast docutils container">
+<div class="prompt empty docutils container">
+</div>
+<div class="output_area docutils container">
+<div class="highlight"><pre>
+<span class="ansi-red-fg">---------------------------------------------------------------------------</span>
+<span class="ansi-red-fg">TypeError</span>                                 Traceback (most recent call last)
+<span class="ansi-green-fg">&lt;ipython-input-29-c5c46e4558dc&gt;</span> in <span class="ansi-cyan-fg">&lt;module&gt;</span><span class="ansi-blue-fg">()</span>
+<span class="ansi-green-fg">----&gt; 1</span><span class="ansi-red-fg"> </span>sum<span class="ansi-blue-fg">(</span><span class="ansi-blue-fg">[</span>plot<span class="ansi-blue-fg">(</span>sin<span class="ansi-blue-fg">(</span>x<span class="ansi-blue-fg">+</span>i<span class="ansi-blue-fg">)</span><span class="ansi-blue-fg">,</span><span class="ansi-blue-fg">(</span>x<span class="ansi-blue-fg">,</span>Integer<span class="ansi-blue-fg">(</span><span class="ansi-cyan-fg">0</span><span class="ansi-blue-fg">)</span><span class="ansi-blue-fg">,</span>Integer<span class="ansi-blue-fg">(</span><span class="ansi-cyan-fg">10</span><span class="ansi-blue-fg">)</span><span class="ansi-blue-fg">)</span><span class="ansi-blue-fg">,</span>color<span class="ansi-blue-fg">=</span>c<span class="ansi-blue-fg">)</span> <span class="ansi-green-fg">for</span> i<span class="ansi-blue-fg">,</span>c <span class="ansi-green-fg">in</span> enumerate<span class="ansi-blue-fg">(</span>nice_colors<span class="ansi-blue-fg">)</span><span class="ansi-blue-fg">]</span><span class="ansi-blue-fg">)</span><span class="ansi-blue-fg">.</span>show<span class="ansi-blue-fg">(</span><span class="ansi-blue-fg">)</span>
+
+<span class="ansi-green-fg">/Applications/SageMath/local/lib/python2.7/site-packages/sage/misc/decorators.pyc</span> in <span class="ansi-cyan-fg">wrapper</span><span class="ansi-blue-fg">(*args, **kwds)</span>
+<span class="ansi-green-intense-fg ansi-bold">    481</span>             kwds<span class="ansi-blue-fg">[</span>self<span class="ansi-blue-fg">.</span>name <span class="ansi-blue-fg">+</span> <span class="ansi-blue-fg">&#34;options&#34;</span><span class="ansi-blue-fg">]</span> <span class="ansi-blue-fg">=</span> suboptions
+<span class="ansi-green-intense-fg ansi-bold">    482</span>
+<span class="ansi-green-fg">--&gt; 483</span><span class="ansi-red-fg">             </span><span class="ansi-green-fg">return</span> func<span class="ansi-blue-fg">(</span><span class="ansi-blue-fg">*</span>args<span class="ansi-blue-fg">,</span> <span class="ansi-blue-fg">**</span>kwds<span class="ansi-blue-fg">)</span>
+<span class="ansi-green-intense-fg ansi-bold">    484</span>
+<span class="ansi-green-intense-fg ansi-bold">    485</span>         <span class="ansi-red-fg">#Add the options specified by @options to the signature of the wrapped</span>
+
+<span class="ansi-green-fg">/Applications/SageMath/local/lib/python2.7/site-packages/sage/plot/graphics.pyc</span> in <span class="ansi-cyan-fg">show</span><span class="ansi-blue-fg">(self, **kwds)</span>
+<span class="ansi-green-intense-fg ansi-bold">   1985</span>         <span class="ansi-green-fg">from</span> sage<span class="ansi-blue-fg">.</span>repl<span class="ansi-blue-fg">.</span>rich_output <span class="ansi-green-fg">import</span> get_display_manager
+<span class="ansi-green-intense-fg ansi-bold">   1986</span>         dm <span class="ansi-blue-fg">=</span> get_display_manager<span class="ansi-blue-fg">(</span><span class="ansi-blue-fg">)</span>
+<span class="ansi-green-fg">-&gt; 1987</span><span class="ansi-red-fg">         </span>dm<span class="ansi-blue-fg">.</span>display_immediately<span class="ansi-blue-fg">(</span>self<span class="ansi-blue-fg">,</span> <span class="ansi-blue-fg">**</span>kwds<span class="ansi-blue-fg">)</span>
+<span class="ansi-green-intense-fg ansi-bold">   1988</span>
+<span class="ansi-green-intense-fg ansi-bold">   1989</span>     <span class="ansi-green-fg">def</span> xmin<span class="ansi-blue-fg">(</span>self<span class="ansi-blue-fg">,</span> xmin<span class="ansi-blue-fg">=</span>None<span class="ansi-blue-fg">)</span><span class="ansi-blue-fg">:</span>
+
+<span class="ansi-green-fg">/Applications/SageMath/local/lib/python2.7/site-packages/sage/repl/rich_output/display_manager.pyc</span> in <span class="ansi-cyan-fg">display_immediately</span><span class="ansi-blue-fg">(self, obj, **rich_repr_kwds)</span>
+<span class="ansi-green-intense-fg ansi-bold">    831</span>             <span class="ansi-cyan-fg">1</span><span class="ansi-blue-fg">/</span><span class="ansi-cyan-fg">2</span>
+<span class="ansi-green-intense-fg ansi-bold">    832</span>         &#34;&#34;&#34;
+<span class="ansi-green-fg">--&gt; 833</span><span class="ansi-red-fg">         </span>plain_text<span class="ansi-blue-fg">,</span> rich_output <span class="ansi-blue-fg">=</span> self<span class="ansi-blue-fg">.</span>_rich_output_formatter<span class="ansi-blue-fg">(</span>obj<span class="ansi-blue-fg">,</span> rich_repr_kwds<span class="ansi-blue-fg">)</span>
+<span class="ansi-green-intense-fg ansi-bold">    834</span>         self<span class="ansi-blue-fg">.</span>_backend<span class="ansi-blue-fg">.</span>display_immediately<span class="ansi-blue-fg">(</span>plain_text<span class="ansi-blue-fg">,</span> rich_output<span class="ansi-blue-fg">)</span>
+<span class="ansi-green-intense-fg ansi-bold">    835</span>
+
+<span class="ansi-green-fg">/Applications/SageMath/local/lib/python2.7/site-packages/sage/repl/rich_output/display_manager.pyc</span> in <span class="ansi-cyan-fg">_rich_output_formatter</span><span class="ansi-blue-fg">(self, obj, rich_repr_kwds)</span>
+<span class="ansi-green-intense-fg ansi-bold">    621</span>         has_rich_repr <span class="ansi-blue-fg">=</span> isinstance<span class="ansi-blue-fg">(</span>obj<span class="ansi-blue-fg">,</span> SageObject<span class="ansi-blue-fg">)</span> <span class="ansi-green-fg">and</span> hasattr<span class="ansi-blue-fg">(</span>obj<span class="ansi-blue-fg">,</span> <span class="ansi-blue-fg">&#39;_rich_repr_&#39;</span><span class="ansi-blue-fg">)</span>
+<span class="ansi-green-intense-fg ansi-bold">    622</span>         <span class="ansi-green-fg">if</span> has_rich_repr<span class="ansi-blue-fg">:</span>
+<span class="ansi-green-fg">--&gt; 623</span><span class="ansi-red-fg">             </span>rich_output <span class="ansi-blue-fg">=</span> self<span class="ansi-blue-fg">.</span>_call_rich_repr<span class="ansi-blue-fg">(</span>obj<span class="ansi-blue-fg">,</span> rich_repr_kwds<span class="ansi-blue-fg">)</span>
+<span class="ansi-green-intense-fg ansi-bold">    624</span>         <span class="ansi-green-fg">if</span> isinstance<span class="ansi-blue-fg">(</span>rich_output<span class="ansi-blue-fg">,</span> OutputPlainText<span class="ansi-blue-fg">)</span><span class="ansi-blue-fg">:</span>
+<span class="ansi-green-intense-fg ansi-bold">    625</span>             plain_text <span class="ansi-blue-fg">=</span> rich_output
+
+<span class="ansi-green-fg">/Applications/SageMath/local/lib/python2.7/site-packages/sage/repl/rich_output/display_manager.pyc</span> in <span class="ansi-cyan-fg">_call_rich_repr</span><span class="ansi-blue-fg">(self, obj, rich_repr_kwds)</span>
+<span class="ansi-green-intense-fg ansi-bold">    579</span>         <span class="ansi-green-fg">if</span> rich_repr_kwds<span class="ansi-blue-fg">:</span>
+<span class="ansi-green-intense-fg ansi-bold">    580</span>             <span class="ansi-red-fg"># do not ignore errors from invalid options</span>
+<span class="ansi-green-fg">--&gt; 581</span><span class="ansi-red-fg">             </span><span class="ansi-green-fg">return</span> obj<span class="ansi-blue-fg">.</span>_rich_repr_<span class="ansi-blue-fg">(</span>self<span class="ansi-blue-fg">,</span> <span class="ansi-blue-fg">**</span>rich_repr_kwds<span class="ansi-blue-fg">)</span>
+<span class="ansi-green-intense-fg ansi-bold">    582</span>         <span class="ansi-green-fg">try</span><span class="ansi-blue-fg">:</span>
+<span class="ansi-green-intense-fg ansi-bold">    583</span>             <span class="ansi-green-fg">return</span> obj<span class="ansi-blue-fg">.</span>_rich_repr_<span class="ansi-blue-fg">(</span>self<span class="ansi-blue-fg">)</span>
+
+<span class="ansi-green-fg">/Applications/SageMath/local/lib/python2.7/site-packages/sage/plot/graphics.pyc</span> in <span class="ansi-cyan-fg">_rich_repr_</span><span class="ansi-blue-fg">(self, display_manager, **kwds)</span>
+<span class="ansi-green-intense-fg ansi-bold">    882</span>             <span class="ansi-green-fg">if</span> output_container <span class="ansi-green-fg">in</span> display_manager<span class="ansi-blue-fg">.</span>supported_output<span class="ansi-blue-fg">(</span><span class="ansi-blue-fg">)</span><span class="ansi-blue-fg">:</span>
+<span class="ansi-green-intense-fg ansi-bold">    883</span>                 return display_manager.graphics_from_save(
+<span class="ansi-green-fg">--&gt; 884</span><span class="ansi-red-fg">                     self.save, kwds, file_ext, output_container)
+</span><span class="ansi-green-intense-fg ansi-bold">    885</span>
+<span class="ansi-green-intense-fg ansi-bold">    886</span>     <span class="ansi-green-fg">def</span> __str__<span class="ansi-blue-fg">(</span>self<span class="ansi-blue-fg">)</span><span class="ansi-blue-fg">:</span>
+
+<span class="ansi-green-fg">/Applications/SageMath/local/lib/python2.7/site-packages/sage/repl/rich_output/display_manager.pyc</span> in <span class="ansi-cyan-fg">graphics_from_save</span><span class="ansi-blue-fg">(self, save_function, save_kwds, file_extension, output_container, figsize, dpi)</span>
+<span class="ansi-green-intense-fg ansi-bold">    709</span>         <span class="ansi-green-fg">if</span> dpi <span class="ansi-green-fg">is</span> <span class="ansi-green-fg">not</span> None<span class="ansi-blue-fg">:</span>
+<span class="ansi-green-intense-fg ansi-bold">    710</span>             kwds<span class="ansi-blue-fg">[</span><span class="ansi-blue-fg">&#39;dpi&#39;</span><span class="ansi-blue-fg">]</span> <span class="ansi-blue-fg">=</span> dpi
+<span class="ansi-green-fg">--&gt; 711</span><span class="ansi-red-fg">         </span>save_function<span class="ansi-blue-fg">(</span>filename<span class="ansi-blue-fg">,</span> <span class="ansi-blue-fg">**</span>kwds<span class="ansi-blue-fg">)</span>
+<span class="ansi-green-intense-fg ansi-bold">    712</span>         <span class="ansi-green-fg">from</span> sage<span class="ansi-blue-fg">.</span>repl<span class="ansi-blue-fg">.</span>rich_output<span class="ansi-blue-fg">.</span>buffer <span class="ansi-green-fg">import</span> OutputBuffer
+<span class="ansi-green-intense-fg ansi-bold">    713</span>         buf <span class="ansi-blue-fg">=</span> OutputBuffer<span class="ansi-blue-fg">.</span>from_file<span class="ansi-blue-fg">(</span>filename<span class="ansi-blue-fg">)</span>
+
+<span class="ansi-green-fg">/Applications/SageMath/local/lib/python2.7/site-packages/sage/misc/decorators.pyc</span> in <span class="ansi-cyan-fg">wrapper</span><span class="ansi-blue-fg">(*args, **kwds)</span>
+<span class="ansi-green-intense-fg ansi-bold">    481</span>             kwds<span class="ansi-blue-fg">[</span>self<span class="ansi-blue-fg">.</span>name <span class="ansi-blue-fg">+</span> <span class="ansi-blue-fg">&#34;options&#34;</span><span class="ansi-blue-fg">]</span> <span class="ansi-blue-fg">=</span> suboptions
+<span class="ansi-green-intense-fg ansi-bold">    482</span>
+<span class="ansi-green-fg">--&gt; 483</span><span class="ansi-red-fg">             </span><span class="ansi-green-fg">return</span> func<span class="ansi-blue-fg">(</span><span class="ansi-blue-fg">*</span>args<span class="ansi-blue-fg">,</span> <span class="ansi-blue-fg">**</span>kwds<span class="ansi-blue-fg">)</span>
+<span class="ansi-green-intense-fg ansi-bold">    484</span>
+<span class="ansi-green-intense-fg ansi-bold">    485</span>         <span class="ansi-red-fg">#Add the options specified by @options to the signature of the wrapped</span>
+
+<span class="ansi-green-fg">/Applications/SageMath/local/lib/python2.7/site-packages/sage/plot/graphics.pyc</span> in <span class="ansi-cyan-fg">save</span><span class="ansi-blue-fg">(self, filename, **kwds)</span>
+<span class="ansi-green-intense-fg ansi-bold">   3151</span>             rc_backup = (rcParams[&#39;ps.useafm&#39;], rcParams[&#39;pdf.use14corefonts&#39;],
+<span class="ansi-green-intense-fg ansi-bold">   3152</span>                          rcParams[&#39;text.usetex&#39;]) # save the rcParams
+<span class="ansi-green-fg">-&gt; 3153</span><span class="ansi-red-fg">             </span>figure <span class="ansi-blue-fg">=</span> self<span class="ansi-blue-fg">.</span>matplotlib<span class="ansi-blue-fg">(</span><span class="ansi-blue-fg">**</span>options<span class="ansi-blue-fg">)</span>
+<span class="ansi-green-intense-fg ansi-bold">   3154</span>             <span class="ansi-red-fg"># You can output in PNG, PS, EPS, PDF, PGF, or SVG format, depending</span>
+<span class="ansi-green-intense-fg ansi-bold">   3155</span>             <span class="ansi-red-fg"># on the file extension.</span>
+
+<span class="ansi-green-fg">/Applications/SageMath/local/lib/python2.7/site-packages/sage/plot/graphics.pyc</span> in <span class="ansi-cyan-fg">matplotlib</span><span class="ansi-blue-fg">(self, filename, xmin, xmax, ymin, ymax, figsize, figure, sub, axes, axes_labels, axes_labels_size, fontsize, frame, verify, aspect_ratio, gridlines, gridlinesstyle, vgridlinesstyle, hgridlinesstyle, show_legend, legend_options, axes_pad, ticks_integer, tick_formatter, ticks, title, title_pos, base, scale, stylesheet, typeset)</span>
+<span class="ansi-green-intense-fg ansi-bold">   2602</span>                     <span class="ansi-green-fg">pass</span>
+<span class="ansi-green-intense-fg ansi-bold">   2603</span>             g<span class="ansi-blue-fg">.</span>set_options<span class="ansi-blue-fg">(</span>opts<span class="ansi-blue-fg">)</span>
+<span class="ansi-green-fg">-&gt; 2604</span><span class="ansi-red-fg">             </span>g<span class="ansi-blue-fg">.</span>_render_on_subplot<span class="ansi-blue-fg">(</span>subplot<span class="ansi-blue-fg">)</span>
+<span class="ansi-green-intense-fg ansi-bold">   2605</span>             <span class="ansi-green-fg">if</span> hasattr<span class="ansi-blue-fg">(</span>g<span class="ansi-blue-fg">,</span> <span class="ansi-blue-fg">&#39;_bbox_extra_artists&#39;</span><span class="ansi-blue-fg">)</span><span class="ansi-blue-fg">:</span>
+<span class="ansi-green-intense-fg ansi-bold">   2606</span>                 self<span class="ansi-blue-fg">.</span>_bbox_extra_artists<span class="ansi-blue-fg">.</span>extend<span class="ansi-blue-fg">(</span>g<span class="ansi-blue-fg">.</span>_bbox_extra_artists<span class="ansi-blue-fg">)</span>
+
+<span class="ansi-green-fg">/Applications/SageMath/local/lib/python2.7/site-packages/sage/plot/line.pyc</span> in <span class="ansi-cyan-fg">_render_on_subplot</span><span class="ansi-blue-fg">(self, subplot)</span>
+<span class="ansi-green-intense-fg ansi-bold">    255</span>         p<span class="ansi-blue-fg">.</span>set_alpha<span class="ansi-blue-fg">(</span>a<span class="ansi-blue-fg">)</span>
+<span class="ansi-green-intense-fg ansi-bold">    256</span>         p<span class="ansi-blue-fg">.</span>set_linewidth<span class="ansi-blue-fg">(</span>float<span class="ansi-blue-fg">(</span>options<span class="ansi-blue-fg">[</span><span class="ansi-blue-fg">&#39;thickness&#39;</span><span class="ansi-blue-fg">]</span><span class="ansi-blue-fg">)</span><span class="ansi-blue-fg">)</span>
+<span class="ansi-green-fg">--&gt; 257</span><span class="ansi-red-fg">         </span>p<span class="ansi-blue-fg">.</span>set_color<span class="ansi-blue-fg">(</span>to_mpl_color<span class="ansi-blue-fg">(</span>options<span class="ansi-blue-fg">[</span><span class="ansi-blue-fg">&#39;rgbcolor&#39;</span><span class="ansi-blue-fg">]</span><span class="ansi-blue-fg">)</span><span class="ansi-blue-fg">)</span>
+<span class="ansi-green-intense-fg ansi-bold">    258</span>         p<span class="ansi-blue-fg">.</span>set_label<span class="ansi-blue-fg">(</span>options<span class="ansi-blue-fg">[</span><span class="ansi-blue-fg">&#39;legend_label&#39;</span><span class="ansi-blue-fg">]</span><span class="ansi-blue-fg">)</span>
+<span class="ansi-green-intense-fg ansi-bold">    259</span>         <span class="ansi-red-fg"># we don&#39;t pass linestyle in directly since the drawstyles aren&#39;t</span>
+
+<span class="ansi-green-fg">/Applications/SageMath/local/lib/python2.7/site-packages/sage/plot/colors.pyc</span> in <span class="ansi-cyan-fg">rgbcolor</span><span class="ansi-blue-fg">(c, space)</span>
+<span class="ansi-green-intense-fg ansi-bold">    364</span>             <span class="ansi-green-fg">raise</span> ValueError<span class="ansi-blue-fg">(</span><span class="ansi-blue-fg">&#34;space must be one of &#39;rgb&#39;, &#39;hsv&#39;, &#39;hsl&#39;, &#39;hls&#39;&#34;</span><span class="ansi-blue-fg">)</span>
+<span class="ansi-green-intense-fg ansi-bold">    365</span>
+<span class="ansi-green-fg">--&gt; 366</span><span class="ansi-red-fg">     </span><span class="ansi-green-fg">raise</span> TypeError<span class="ansi-blue-fg">(</span><span class="ansi-blue-fg">&#34;&#39;%s&#39; must be a Color, list, tuple, or string&#34;</span> <span class="ansi-blue-fg">%</span> c<span class="ansi-blue-fg">)</span>
+<span class="ansi-green-intense-fg ansi-bold">    367</span>
+<span class="ansi-green-intense-fg ansi-bold">    368</span>
+
+<span class="ansi-red-fg">TypeError</span>: &#39;15079755&#39; must be a Color, list, tuple, or string
+</pre></div></div>
+</div>
+<div class="nbinput docutils container">
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[30]:
+</pre></div>
+</div>
+<div class="input_area highlight-ipython2 notranslate"><div class="highlight"><pre>
+<span></span><span class="n">rainbow</span><span class="p">(</span><span class="mi">1</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+<div class="nboutput nblast docutils container">
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[30]:
+</pre></div>
+</div>
+<div class="output_area docutils container">
+<div class="highlight"><pre>
+[&#39;#ff0000&#39;]
+</pre></div></div>
+</div>
+<div class="nbinput nblast docutils container">
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[ ]:
+</pre></div>
+</div>
+<div class="input_area highlight-ipython2 notranslate"><div class="highlight"><pre>
+<span></span>
+</pre></div>
+</div>
+</div>
+
+
+          </div>
+          
+        </div>
+      </div>
+      <div class="sphinxsidebar" role="navigation" aria-label="main navigation">
+        <div class="sphinxsidebarwrapper">
+<h1 class="logo"><a href="../index.html">Nonlinear processes in Biology</a></h1>
+
+
+
+
+
+
+
+
+<h3>Navigation</h3>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../NPB_1d_models.html">Continuous models for single species</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../NPB_predator_prey.html">Models of interacting populations: prey-predator</a></li>
+</ul>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="Lotka_Volterra_with_SAGE.html">The Lotka-Volterra model with SAGE</a></li>
+<li class="toctree-l1"><a class="reference internal" href="May_model.html">Analysis of the May model with SAGE</a></li>
+<li class="toctree-l1"><a class="reference internal" href="May_model_parameter_space_plot.html">Plot of stability condition in 3d</a></li>
+</ul>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../NPB_kinetics.html">Introduction to the kinetics of chemical reactions</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../NPB_kinetics.html#autocatalytic-reactions">Autocatalytic reactions</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../NPB_kinetics.html#enzyme-reactions">Enzyme reactions</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../NPB_kinetics.html#theoretical-analysis-ala-michaelis-menten">Theoretical analysis a’la Michaelis-Menten</a></li>
+</ul>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../NPB_reaction_diffusion.html">Reaction-diffusion equations</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../NPB_reaction_diffusion.html#the-malthus-model-with-migration-the-skellam-equation">The Malthus model with migration: The Skellam equation</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../NPB_reaction_diffusion.html#verhulst-model-with-migration-fisher-kolmogorov-equation">Verhulst model with migration: Fisher-Kolmogorov equation</a></li>
+</ul>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../NPB_epidemics.html">Epidemic model of Kermack-McKendrick</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../NPB_epidemics.html#geographical-spread-of-epidemic">Geographical spread of epidemic</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../NPB_epidemics.html#realistic-modeling-of-spatial-epidemic-spread">Realistic modeling of spatial epidemic spread</a></li>
+</ul>
+
+<div class="relations">
+<h3>Related Topics</h3>
+<ul>
+  <li><a href="../index.html">Documentation overview</a><ul>
+  </ul></li>
+</ul>
+</div>
+<div id="searchbox" style="display: none" role="search">
+  <h3 id="searchlabel">Quick search</h3>
+    <div class="searchformwrapper">
+    <form class="search" action="../search.html" method="get">
+      <input type="text" name="q" aria-labelledby="searchlabel" />
+      <input type="submit" value="Go" />
+    </form>
+    </div>
+</div>
+<script>$('#searchbox').show(0);</script>
+
+
+
+
+
+
+
+
+        </div>
+      </div>
+      <div class="clearer"></div>
+    </div>
+    <div class="footer">
+      &copy;2016, J.Ł. & M.K..
+      
+      |
+      Powered by <a href="http://sphinx-doc.org/">Sphinx 2.4.0</a>
+      &amp; <a href="https://github.com/bitprophet/alabaster">Alabaster 0.7.12</a>
+      
+      |
+      <a href="../_sources/notebooks/Kinetics.ipynb.txt"
+          rel="nofollow">Page source</a>
+    </div>
+
+    
+
+    
+  </body>
+</html>

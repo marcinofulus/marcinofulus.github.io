@@ -1,0 +1,660 @@
+
+<!DOCTYPE html>
+
+<html xmlns="http://www.w3.org/1999/xhtml" lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <title>Reaction-diffusion equations &#8212; Nonlinear processes in Biology</title>
+    <link rel="stylesheet" href="_static/alabaster.css" type="text/css" />
+    <link rel="stylesheet" href="_static/pygments.css" type="text/css" />
+    <script id="documentation_options" data-url_root="./" src="_static/documentation_options.js"></script>
+    <script src="_static/jquery.js"></script>
+    <script src="_static/underscore.js"></script>
+    <script src="_static/doctools.js"></script>
+    <script src="_static/language_data.js"></script>
+    <script crossorigin="anonymous" integrity="sha256-Ae2Vz/4ePdIu6ZyI/5ZGsYnb+m0JlOmKPjt6XZ9JJkA=" src="https://cdnjs.cloudflare.com/ajax/libs/require.js/2.3.4/require.min.js"></script>
+    <script async="async" src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.5/latest.js?config=TeX-AMS-MML_HTMLorMML"></script>
+    <script type="text/x-mathjax-config">MathJax.Hub.Config({"tex2jax": {"inlineMath": [["$", "$"], ["\\(", "\\)"]], "processEscapes": true, "ignoreClass": "document", "processClass": "math|output_area"}})</script>
+    <script type="text/javascript" src="http://sagecell.sagemath.org/static/jquery.min.js"></script>
+    <script type="text/javascript" src="http://sagecell.sagemath.org/embedded_sagecell.js"></script>
+    <script type="text/javascript">
+        sagecell.makeSagecell({inputLocation: ".sage_linked",
+                               linked: true});
+        sagecell.makeSagecell({inputLocation: ".sage_unlinked",
+                               linked: false});
+    </script>
+
+    <style type="text/css">
+        .sagecell .CodeMirror-scroll {
+            overflow-y: hidden;
+            overflow-x: auto;
+        }
+        .sagecell .CodeMirror {
+            height: auto;
+        }
+    </style>
+    
+    <link rel="index" title="Index" href="genindex.html" />
+    <link rel="search" title="Search" href="search.html" />
+    <link rel="next" title="Epidemic model of Kermack-McKendrick" href="NPB_epidemics.html" />
+    <link rel="prev" title="Introduction to the kinetics of chemical reactions" href="NPB_kinetics.html" />
+
+   
+  <link rel="stylesheet" href="_static/custom.css" type="text/css" />
+  
+  
+  <meta name="viewport" content="width=device-width, initial-scale=0.9, maximum-scale=0.9" />
+
+  </head><body>
+  
+
+    <div class="document">
+      <div class="documentwrapper">
+        <div class="bodywrapper">
+          
+
+          <div class="body" role="main">
+            
+  <div class="section" id="reaction-diffusion-equations">
+<h1>Reaction-diffusion equations<a class="headerlink" href="#reaction-diffusion-equations" title="Permalink to this headline">¶</a></h1>
+<p>Up to now, we have analysed models of population dynamics and kinetics
+of chemical reactions without spread in space or area. We have been
+interested in behavior of the system in time and not in space. It means
+that modeling is based on ordinary differential equations (derivatives
+are with repect to time. Changes in space are described by derivatives
+with respect to coordinates. The we obtain partial differential
+equations. Mathematical analysis of such equations is much more
+difficult. Today, an alternative is numerical analysis with the help of
+computers.</p>
+<div class="section" id="example-diffusion">
+<h2>Example: diffusion<a class="headerlink" href="#example-diffusion" title="Permalink to this headline">¶</a></h2>
+<p>If we put a drop of dye into water in a glass, we can observe spread of
+color and the blop will increases in time. After some time water in
+glass will be colorful. This process of spread of dye is called
+diffusion. Particle of dye in water moves in a very irregular way. This
+molecular motion is called Brownian motion and the particle of dye are
+named Brownian particles. Brownian particles suspended in fluid collides
+with particles of fluid and the position of the Brownian particle
+fluctuates in a chaotic (random) way.</p>
+<p>In the mathematical formalism, diffusion can be taken into account by
+adding the Laplacian to evolution equations:</p>
+<div class="math notranslate nohighlight">
+\[ \begin{align}\begin{aligned}\begin{split}\frac{\partial c(\vec r, t)}{\partial t} = D \Delta c(\vec r, t) = D \left[\frac{\partial^2 }{\partial x^2} + \frac{\partial^2 }{\partial y^2} + \frac{\partial ^2}{\partial z^2} \right] c(\vec r, t) = \\\end{split}\\D \left[\frac{\partial^2 c(\vec r, t)}{\partial x^2} + \frac{\partial^2 c(\vec r, t)}{\partial y^2} + \frac{\partial ^2 c(\vec r, t)}{\partial z^2} \right]\end{aligned}\end{align} \]</div>
+<p>where <span class="math notranslate nohighlight">\(c(\vec r, t)\)</span> is the concentration of the dye particles at
+time <span class="math notranslate nohighlight">\(t\)</span> in the point of space of coordinates
+<span class="math notranslate nohighlight">\(\vec r = (x, y, z)\)</span>. Let us note that the diffusion process is
+described by the second-order derivatives with respect to the spatial
+variables. The above equation is named the diffusion equation.</p>
+<p>For the initial concentration <span class="math notranslate nohighlight">\(c(x, y, z, 0)\)</span> of particles which
+all are in the point <span class="math notranslate nohighlight">\((x,y,z)=(0,0,0)\)</span> the solution of the
+diffusion equation has the form</p>
+<div class="math notranslate nohighlight">
+\[c(x, y, z, t) = [4\pi Dt]^{-3/2} \; exp\left[-\frac{x^2+y^2+z^2}{4Dt}\right]\]</div>
+<p>This equations can be solved by e.g. Fourier transform method. It is a
+Gaussian function of the bell shape. Its half-width is proportional to
+<span class="math notranslate nohighlight">\(D t\)</span>. It means that if time <span class="math notranslate nohighlight">\(t\)</span> increases, the half-with
+increases and this property describes spread of diffusiong particles.</p>
+<p>For the proces only in one dimension, e.g. along the <span class="math notranslate nohighlight">\(OX\)</span> axis,
+the corresponding diffusion equation has the form</p>
+<div class="math notranslate nohighlight">
+\[\frac{\partial c(x, t)}{\partial t} =  D  \frac{\partial^2 }{\partial x^2}  c(x, t)  = D  \frac{\partial^2  c(x, t) }{\partial x^2}\]</div>
+<p>Its solution reads</p>
+<div class="math notranslate nohighlight">
+\[c(x,  t) = [4\pi Dt]^{-1/2} \; exp\left[-\frac{x^2}{4Dt}\right]\]</div>
+<p>If we want to take into account the spatial spread of population (or
+chemical products), we can formulate the following method:</p>
+<div class="admonition-recipe admonition">
+<p class="admonition-title">Recipe</p>
+<p>One has to add the Laplace operator to evolution equations</p>
+</div>
+<p>If spread is in 2-dimensional region, we should add the term:</p>
+<div class="math notranslate nohighlight">
+\[+  D \left[ \frac{\partial^2 }{\partial  x^2}  + \frac{\partial^2 }{\partial y^2} \right] c(x, y, t)\]</div>
+<p>Solution of the 2-dimensional diffusion equation is the Gaussian
+function on the form:</p>
+<div class="math notranslate nohighlight">
+\[c(x, y, t) = [4\pi Dt]^{-2/2} \; \exp\left[-\frac{x^2+y^2}{4Dt}\right] =\frac{1}{4\pi Dt}  \; \exp\left[-\frac{x^2+y^2}{4Dt}\right]\]</div>
+<div class="highlight-ipython2 notranslate"><div class="highlight"><pre><span></span><span class="n">var</span><span class="p">(</span><span class="s1">&#39;x,y,t&#39;</span><span class="p">)</span>
+<span class="n">c</span><span class="p">(</span><span class="n">x</span><span class="p">,</span><span class="n">y</span><span class="p">,</span><span class="n">t</span><span class="p">)</span> <span class="o">=</span> <span class="mi">1</span><span class="o">/</span><span class="p">(</span><span class="mi">4</span><span class="o">*</span><span class="n">pi</span><span class="o">*</span><span class="n">t</span><span class="p">)</span><span class="o">*</span><span class="n">exp</span><span class="p">(</span><span class="o">-</span><span class="p">(</span><span class="n">x</span><span class="o">^</span><span class="mi">2</span><span class="o">+</span><span class="n">y</span><span class="o">^</span><span class="mi">2</span><span class="p">)</span><span class="o">/</span><span class="p">(</span><span class="mi">4</span><span class="o">*</span><span class="n">t</span><span class="p">))</span>
+<span class="n">plts</span> <span class="o">=</span> <span class="p">[</span> <span class="n">plot3d</span><span class="p">(</span><span class="n">c</span><span class="p">(</span><span class="n">x</span><span class="p">,</span><span class="n">y</span><span class="p">,</span><span class="n">t</span><span class="p">),</span> <span class="p">(</span><span class="n">x</span><span class="p">,</span><span class="o">-</span><span class="mi">4</span><span class="p">,</span><span class="mi">4</span><span class="p">),</span> <span class="p">(</span><span class="n">y</span><span class="p">,</span><span class="mi">0</span><span class="p">,</span><span class="mi">8</span><span class="p">),</span> <span class="n">rgbcolor</span><span class="o">=</span><span class="n">hue</span><span class="p">(</span><span class="n">t</span><span class="o">/</span><span class="mf">2.0</span><span class="p">))</span> <span class="k">for</span> <span class="n">t</span> <span class="ow">in</span> <span class="p">[</span><span class="mf">0.5</span><span class="p">,</span><span class="mf">1.0</span><span class="p">,</span><span class="mf">1.5</span><span class="p">,</span><span class="mf">2.0</span><span class="p">]]</span>
+
+<span class="nd">@interact</span>
+<span class="k">def</span> <span class="nf">_</span><span class="p">(</span><span class="n">viewer</span><span class="o">=</span><span class="p">[</span><span class="s1">&#39;tachyon&#39;</span><span class="p">,</span><span class="s1">&#39;jmol&#39;</span><span class="p">,</span><span class="s1">&#39;canvas3d&#39;</span><span class="p">]):</span>
+    <span class="n">show</span><span class="p">(</span><span class="nb">sum</span><span class="p">(</span><span class="n">plts</span><span class="p">),</span><span class="n">viewer</span><span class="o">=</span><span class="n">viewer</span><span class="p">)</span>
+</pre></div>
+</div>
+<div class="highlight-ipython2 notranslate"><div class="highlight"><pre><span></span><span class="k">def</span> <span class="nf">plt_t</span><span class="p">(</span><span class="n">t</span><span class="p">,</span><span class="o">**</span><span class="n">kwargs</span><span class="p">):</span>
+    <span class="n">cmax</span> <span class="o">=</span> <span class="n">c</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span><span class="mi">0</span><span class="p">,</span><span class="n">t</span><span class="p">)</span>
+    <span class="k">return</span> <span class="n">contour_plot</span><span class="p">(</span> <span class="n">c</span><span class="p">(</span><span class="n">x</span><span class="p">,</span><span class="n">y</span><span class="p">,</span><span class="n">t</span><span class="p">)</span> <span class="p">,(</span><span class="n">x</span><span class="p">,</span><span class="o">-</span><span class="mi">5</span><span class="p">,</span><span class="mi">5</span><span class="p">),(</span><span class="n">y</span><span class="p">,</span><span class="o">-</span><span class="mi">5</span><span class="p">,</span><span class="mi">5</span><span class="p">),</span><span class="n">contours</span><span class="o">=</span><span class="n">srange</span><span class="p">(</span><span class="mf">0.01</span><span class="p">,</span><span class="n">cmax</span><span class="p">,</span><span class="n">cmax</span><span class="o">/</span><span class="mf">20.0</span><span class="p">),</span>
+                        <span class="n">cmap</span><span class="o">=</span><span class="s1">&#39;spectral&#39;</span><span class="p">,</span><span class="n">figsize</span><span class="o">=</span><span class="p">(</span><span class="mi">3</span><span class="p">,</span><span class="mi">3</span><span class="p">),</span><span class="o">**</span><span class="n">kwargs</span><span class="p">)</span>
+</pre></div>
+</div>
+<div class="highlight-ipython2 notranslate"><div class="highlight"><pre><span></span><span class="n">times</span> <span class="o">=</span> <span class="p">[</span><span class="o">.</span><span class="mi">1</span><span class="p">,</span><span class="mf">0.4</span><span class="p">,</span><span class="mf">0.9</span><span class="p">]</span>
+<span class="k">for</span> <span class="n">t</span> <span class="ow">in</span> <span class="n">times</span><span class="p">:</span>
+    <span class="n">plt_t</span><span class="p">(</span><span class="n">t</span><span class="p">)</span><span class="o">.</span><span class="n">show</span><span class="p">(</span><span class="n">title</span><span class="o">=</span><span class="s2">&quot;t=</span><span class="si">%0.3f</span><span class="s2">&quot;</span><span class="o">%</span><span class="k">t</span>)
+</pre></div>
+</div>
+<img alt="_images/output_3_0.png" src="_images/output_3_0.png" />
+<img alt="_images/output_3_1.png" src="_images/output_3_1.png" />
+<img alt="_images/output_3_2.png" src="_images/output_3_2.png" />
+<p>All considered models (Malthus, Verhuslt, chemical reactions,
+Lotka-Volterra, May, …) can be extended includin spatial chages. For
+example, if an evolution equation has the form</p>
+<div class="math notranslate nohighlight">
+\[\frac{dN(t)}{dt} = F(N(t))\]</div>
+<p>then its generalization with diffusion has the form</p>
+<div class="math notranslate nohighlight">
+\[\frac{\partial N(\vec r, t)}{\partial t} = F(N(\vec r, t) ) +  D  \Delta N(\vec r, t)\]</div>
+<p>where the Laplacian can be taken in 1, 2 or 3 dimensions.</p>
+<p><strong>This type of equations are called reaction-diffusion equations</strong></p>
+<p>Below, we consider two examples: the Malthus model and the Verhulst
+model with diffusion.</p>
+</div>
+</div>
+<div class="section" id="the-malthus-model-with-migration-the-skellam-equation">
+<h1>The Malthus model with migration: The Skellam equation<a class="headerlink" href="#the-malthus-model-with-migration-the-skellam-equation" title="Permalink to this headline">¶</a></h1>
+<p>The standard Malthus model is the simplest model of growth or dacay
+processes. It is defined by the equation</p>
+<div class="math notranslate nohighlight">
+\[\frac{dN(t)}{dt} = k N(t), \quad k - real\]</div>
+<p>If the population can randomly moves on the plane <span class="math notranslate nohighlight">\(XY\)</span> then the
+extended equation takes the form</p>
+<div class="math notranslate nohighlight">
+\[\frac{dN(x, y, t)}{dt} = k N(x, y, t) +   D \left[ \frac{\partial^2  }{\partial  x^2}  + \frac{\partial^2 }{\partial y^2} \right] N(x, y,  t)\]</div>
+<p>where now <span class="math notranslate nohighlight">\(N(x, y, t)\)</span> is the concentration (density, i.e. a
+number of individuals per unit area) in the instant <span class="math notranslate nohighlight">\(t\)</span> in the
+point on the <span class="math notranslate nohighlight">\(XY\)</span> plane with the coordinates <span class="math notranslate nohighlight">\((x, y)\)</span>. It is
+one of the simplest example of the reaction-diffusion equation. In the
+literarure, this equation is called the Skellam equation. In 1951, he
+proposed the model of invasion of the muskrat in Europe. Muskrat
+(Ondatra zibethica) is a large rodent closely related to rats, mice,
+voles, hamster and lemmings. Muskrat is also known as a North American
+aquatic rodent. Muskrats possess wetlands, swamps, and zones close to
+the lakes, ponds, and streams. In specific parts of the world, muskrats
+are thought to be pests since they harm waterway dams and feast upon the
+yields. Individuals chased muskrats in the past just because of their
+fur and meat. In history, they had been the most trapped animals, for
+their fur having an economic value.</p>
+<p>It is interesting that only 5 muskrats released near Prague in 1905 was
+the source of rapid expansion year after year. Many millions of muskrats
+caused a big agriculture and ecological problems. The impact of muskrats
+on aquatic system is in general negative, especialli in the central
+Europe. It is a classic example what may happen when animals are
+transferred into new regions.</p>
+<div class="align-center figure align-default" id="id1">
+<img alt="image" src="http://upload.wikimedia.org/wikipedia/commons/thumb/3/35/Bisamratte-drawing.jpg/250px-Bisamratte-drawing.jpg" />
+<p class="caption"><span class="caption-text">Bisamratte</span><a class="headerlink" href="#id1" title="Permalink to this image">¶</a></p>
+</div>
+<p>In this model, we consider only such cases when
+<span class="math notranslate nohighlight">\(N(x, y, t) \ge 0\)</span>. Aditionally, we need:</p>
+<ol class="arabic simple">
+<li><p>the initial condition <span class="math notranslate nohighlight">\(N(x, y, 0)= N_0(x, y)\)</span></p></li>
+<li><p>boundary conditions</p></li>
+</ol>
+<p>The above equation can be solved by the substitution</p>
+<div class="math notranslate nohighlight">
+\[N(x, y, t)=e^{kt} c(x, y, t)\]</div>
+<p>where $c(x, y, t) is a new unknown function. If we insert it to the
+reaction-diffusion equation, we see that the new function
+<span class="math notranslate nohighlight">\(c(x, y, t)\)</span> fulfils the equation</p>
+<div class="math notranslate nohighlight">
+\[\frac{d c(x, y, t)}{dt} =   D \left[ \frac{\partial^2  }{\partial   x^2}  + \frac{\partial^2 }{\partial y^2} \right] c(x, y,  t)\]</div>
+<p>It is a standard diffusion equation in the 2-dimensional space and its
+solution is presented in the previous part. So, the function
+<span class="math notranslate nohighlight">\(N(x, y, t)\)</span> has the form</p>
+<div class="math notranslate nohighlight">
+\[N(x, y, t)=e^{kt} c(x, y, t) =  \frac{N_0}{4\pi Dt}  \; exp\left[kt -\frac{x^2+y^2}{4Dt}\right]\]</div>
+<p>where stała <span class="math notranslate nohighlight">\(N_0=N(0)\)</span> is a concentration of individuals in
+population at the initial time <span class="math notranslate nohighlight">\(t=0\)</span>.</p>
+<p>Because <span class="math notranslate nohighlight">\(N(x, y, t)\)</span> is a number of individuals per unit of area,
+hence</p>
+<div class="math notranslate nohighlight">
+\[\int_{-\infty}^{\;\infty} \;\int_{-\infty}^{\;\infty} N(x, y, t) \,dx \,dy = N(t) = N(0) e^{kt}\]</div>
+<p>Let us note that evolution of concentration depends on the coordinates
+in such a way</p>
+<div class="math notranslate nohighlight">
+\[N(x, y, t)= N(r ,t) = \frac{N_0}{4\pi Dt}  \; exp\left[kt -\frac{r^2}{4Dt}\right]\]</div>
+<p>where</p>
+<div class="math notranslate nohighlight">
+\[r^2=x^2+y^2\]</div>
+<p>is a distance from the origin of the coordinate system.</p>
+<p>Analysis of <span class="math notranslate nohighlight">\(N(r, t)\)</span> can be performed with the help of Sage.
+Below we present graphical presentation.</p>
+<div class="sagecellserver"><p>sage: g(x,t) = (1/(4*pi*t))*exp(t-x^2/(4*t)) sage: &#64;interact sage: def
+_(t=slider(0.1,5,0.01)): … pr0 = plot(
+g(x,0.1),(x,0,10),color=’black’ ) … prt = plot(
+g(x,t),(x,0,10),fill=True ) … (pr0+prt).show(figsize=5)</p>
+</div><p>We observe the following evolution of the population:</p>
+<ol class="upperalpha simple">
+<li><p>At initial time the distribution has a fixed form (e.g. for
+<span class="math notranslate nohighlight">\(t=0.1\)</span>).</p></li>
+<li><p>With time the population spreads and its concentration around
+<span class="math notranslate nohighlight">\(r=0\)</span> starts to decrease and small time tempo of birth is
+small.</p></li>
+<li><p>After some time, the concentration in the vicinity <span class="math notranslate nohighlight">\(r=0\)</span> is
+minimal and next starts to increase (because tempo of birth is
+greater and greater). At the same time the population spreads in
+bigger territory.</p></li>
+<li><p>Next, there a moment when the concentration close to <span class="math notranslate nohighlight">\(r=0\)</span>
+exceeds the initial concentration and the invasion non-stop
+increases.</p></li>
+</ol>
+<p>The complete analysis of this model can be found in the book:</p>
+<p>Nanako Shigesada and Kohkichi Kawasaki, <em>Biological Invasion: Theory and
+Practice</em> (Oxford University Press, 2001)</p>
+</div>
+<div class="section" id="verhulst-model-with-migration-fisher-kolmogorov-equation">
+<h1>Verhulst model with migration: Fisher-Kolmogorov equation<a class="headerlink" href="#verhulst-model-with-migration-fisher-kolmogorov-equation" title="Permalink to this headline">¶</a></h1>
+<p>Verhulst model describes time evolution of the population in the
+situation of limited sustaining resources of the environment:</p>
+<div class="math notranslate nohighlight">
+\[\frac{dn(t)}{dt} = r n(t) \; [1- n(t)]\]</div>
+<p>where rescaled concentration <span class="math notranslate nohighlight">\(n(t) = N(t)/K\)</span> and the parameter
+<span class="math notranslate nohighlight">\(K\)</span> is called the carrying capacity.</p>
+<p>This model describes kinetics of two autocatalytic reactions:</p>
+<div class="math notranslate nohighlight">
+\[A + X {\Longleftrightarrow}  2X , \quad \quad \mbox{or } \quad  A+X {\Longleftrightarrow} 2X, \quad B+X \rightarrow C\]</div>
+<p>If we want to take into account the spatial spread of substances we have
+to extend the model with the diffusion term:</p>
+<div class="math notranslate nohighlight">
+\[\frac{\partial n(\vec r, t)}{\partial t} =  r n(\vec r, t) \;[1-  n(\vec r, t)] +  D  \Delta n(\vec r, t)\]</div>
+<p>In the case of population, we should consider 2-dimensional space (
+i.e. the Laplacian on the plane) and for chemical reactions -
+3-dimensional space. Both realistic cases are complicated from the
+mathematical point of view. Therefore we make simplification and
+consider 1-dimensional case od diffusion:</p>
+<div class="math notranslate nohighlight">
+\[\frac{\partial n(x, t)}{\partial t} = r n(x, t) \;[1-  n(x, t)] +    D \frac{\partial^2   n(x, t)}{\partial  x^2}\]</div>
+<p>This equation is called the Fisher-Kolmogorov equation.</p>
+<p>As usual, we assume that <span class="math notranslate nohighlight">\(n(x, t) \ge 0\)</span>. Additionally, we have to
+impose:</p>
+<ol class="arabic simple">
+<li><p>the initial distribution of population <span class="math notranslate nohighlight">\(n(x, t= 0)= n_0(x)\)</span></p></li>
+<li><p>boundary conditions for <span class="math notranslate nohighlight">\(n(\pm\infty, t)\)</span></p></li>
+</ol>
+<p>Baoundary conditions will be formulated later.</p>
+<div class="section" id="analysis-of-the-fisher-kolmogorov-equation">
+<h2>Analysis of the Fisher-Kolmogorov equation<a class="headerlink" href="#analysis-of-the-fisher-kolmogorov-equation" title="Permalink to this headline">¶</a></h2>
+<ol class="upperroman simple">
+<li><p>Let us notice that the constant functions
+<span class="math notranslate nohighlight">\(n(x,t) = n_{0} = 0\)</span> and <span class="math notranslate nohighlight">\(n(x, t) = n_{1} = 1\)</span> are
+solutions of this equation. These are stationary states, the same
+as in the ordinary Verhulst equation.</p></li>
+<li><p>The equation can be rescaled:</p></li>
+</ol>
+<div class="math notranslate nohighlight">
+\[\tau = rt, \quad \quad y^2=\frac{r}{D} x^2, \quad \quad n(x,t) \equiv  c(y, \tau)\]</div>
+<p>The rescaled concentration obeys the equation</p>
+<div class="math notranslate nohighlight">
+\[\frac{\partial c }{\partial \tau} =  c  [1-  c ] + \frac{\partial^2  c}{\partial y^2}, \quad \quad c=c(y, \tau)\]</div>
+<p>The functions <span class="math notranslate nohighlight">\(c=0\)</span> and <span class="math notranslate nohighlight">\(c=1\)</span> are stationary solutions.</p>
+<ol class="upperroman simple" start="3">
+<li><p>We look for the solutions in the form of waves:</p></li>
+</ol>
+<div class="math notranslate nohighlight">
+\[c(y, \tau) = U(z), \quad \mbox{where } \quad z=y-v_0 \tau\]</div>
+<p>It means that the weve moves into the right direction with the velocity
+<span class="math notranslate nohighlight">\(v_0\)</span>. Frequently we say that the traveling wavefront moves in the
+right with the speed <span class="math notranslate nohighlight">\(v_0\)</span>.</p>
+<p>Let us notice that the following eqalities hold:</p>
+<div class="math notranslate nohighlight">
+\[\frac{\partial c }{\partial \tau} = \frac{\partial U}{\partial \tau} = \frac{d U}{d z} \frac{\partial z}{\partial \tau} =  -v_0 \frac{d U}{d z}\]</div>
+<div class="math notranslate nohighlight">
+\[\frac{\partial c }{\partial y} = \frac{\partial U }{\partial y} = \frac{d U }{d z} \frac{\partial z }{\partial y} =    \frac{d U }{d z}\]</div>
+<div class="math notranslate nohighlight">
+\[\frac{\partial ^2 c }{\partial y^2} = \frac{\partial^2 U }{\partial y^2} = \frac{d ^2U }{d z^2}\]</div>
+<p>Hence, the new function <span class="math notranslate nohighlight">\(U(z)\)</span> obeys the ordinary differential
+equation of the second order:</p>
+<div class="math notranslate nohighlight">
+\[U'' + v_0 U' + U(1-U)=0\]</div>
+<p>It is equaivalent to a set of two ordinary differential equations:</p>
+<div class="math notranslate nohighlight">
+\[U'=V = F(U, V), \quad \quad V'=-v_0 - U(1-U) = G(U, V)\]</div>
+<p>Now, we can use standard methods and find stationary states:</p>
+<div class="math notranslate nohighlight">
+\[F(U, V) = 0, \quad \quad  G(U, V) = 0,\]</div>
+<p>As a result we get two sets of stationary solutons:</p>
+<div class="math notranslate nohighlight">
+\[(U_0, V_0) = (0, 0), \quad (U_1,  V_1) = (1, 0)\]</div>
+<ol class="arabic simple">
+<li><p>We determine stability of these states. To this aim, we calculate the
+Jacobi matrix</p></li>
+</ol>
+<div class="math notranslate nohighlight">
+\[\begin{split}\begin{aligned}
+\quad \quad \quad \quad J = \begin{bmatrix}\frac{ \partial F}{\partial U}&amp;  \frac{\partial F}{\partial V}\\ \frac{\partial  G}{\partial U}&amp;  \frac{\partial Gg}{\partial V}  \end{bmatrix}= \begin{bmatrix}0,  &amp;  1\\ -1+2U,  &amp;  -v_0  \end{bmatrix}
+\end{aligned}\end{split}\]</div>
+<p>For the stationary states we have:</p>
+<div class="math notranslate nohighlight">
+\[\begin{split}\begin{aligned}
+J_0= J(0, 0) =  \begin{bmatrix}0&amp; 1\\ -1&amp; -v_0 \end{bmatrix}, \quad \quad  J_1=  J(1, ) = \begin{bmatrix}0&amp; 1\\ 1&amp; -v_0 \end{bmatrix}
+\end{aligned}\end{split}\]</div>
+<ol class="arabic simple" start="2">
+<li><p>Next, we have to determine eigen-values of the Jacobi matrices
+<span class="math notranslate nohighlight">\(|J-\lambda I|=0\)</span>:</p></li>
+</ol>
+<!-- --><ol class="loweralpha simple">
+<li><p>for the stationary state <span class="math notranslate nohighlight">\((0, 0)\)</span> one gets:</p></li>
+</ol>
+<div class="math notranslate nohighlight">
+\[\lambda_{\pm}(0, 0) = (1/2)[-v_0\pm\sqrt{v_0^2-4}]\]</div>
+<p>We have to consider two cases: <span class="math notranslate nohighlight">\(v_0 \lt 2\)</span> and <span class="math notranslate nohighlight">\(v_0 \ge 2\)</span>.
+In the first case the eigen-values are complex and their real parts are
+negative. It means that the phase curve is a spiral which tends to the
+origin <span class="math notranslate nohighlight">\((0, 0)\)</span>. In turn, it means that <span class="math notranslate nohighlight">\(U\)</span> can take
+negative values (the concentration cannot be negative!). In
+ceonsequence, we can consider only the second case</p>
+<div class="math notranslate nohighlight">
+\[v_0 \ge 2\]</div>
+<ol class="loweralpha simple" start="2">
+<li><p>for the stationary state <span class="math notranslate nohighlight">\((1, 0)\)</span> one gets:</p></li>
+</ol>
+<div class="math notranslate nohighlight">
+\[\lambda_{\pm}(1, 0) = (1/2)[-v_0\pm\sqrt{v_0^2+4}]\]</div>
+<p>Because one eigen-value is positive, this state in unstable (it is a
+saddle point).</p>
+<div class="highlight-ipython2 notranslate"><div class="highlight"><pre><span></span><span class="n">F</span><span class="p">(</span><span class="n">u</span><span class="p">,</span><span class="n">v</span><span class="p">)</span><span class="o">=</span><span class="n">v</span>
+<span class="n">G</span><span class="p">(</span><span class="n">u</span><span class="p">,</span><span class="n">v</span><span class="p">)</span><span class="o">=</span> <span class="o">-</span><span class="mi">2</span><span class="o">*</span><span class="n">v</span><span class="o">-</span><span class="n">u</span><span class="o">+</span><span class="n">u</span><span class="o">^</span><span class="mi">2</span>
+<span class="n">T1</span> <span class="o">=</span> <span class="n">srange</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span><span class="mi">5</span><span class="p">,</span><span class="mf">0.01</span><span class="p">)</span>
+<span class="n">T2</span> <span class="o">=</span> <span class="n">srange</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span><span class="mi">29</span><span class="p">,</span><span class="mf">0.01</span><span class="p">)</span>
+<span class="n">solo2</span> <span class="o">=</span> <span class="n">desolve_odeint</span><span class="p">(</span><span class="n">vector</span><span class="p">([</span><span class="n">F</span><span class="p">,</span><span class="n">G</span><span class="p">]),</span> <span class="p">[</span><span class="mf">0.8</span><span class="p">,</span> <span class="mf">0.01</span><span class="p">],</span> <span class="n">T1</span><span class="p">,</span> <span class="p">[</span><span class="n">u</span><span class="p">,</span><span class="n">v</span><span class="p">])</span> <span class="c1"># warunek pocz (U, V)</span>
+<span class="n">solo3</span> <span class="o">=</span> <span class="n">desolve_odeint</span><span class="p">(</span><span class="n">vector</span><span class="p">([</span><span class="n">F</span><span class="p">,</span><span class="n">G</span><span class="p">]),</span> <span class="p">[</span><span class="mf">0.999</span><span class="p">,</span> <span class="mi">0</span><span class="p">],</span> <span class="n">T2</span><span class="p">,</span> <span class="p">[</span><span class="n">u</span><span class="p">,</span><span class="n">v</span><span class="p">])</span> <span class="c1"># warunek pocz (U, V)</span>
+<span class="n">list_plot</span><span class="p">(</span><span class="n">solo2</span><span class="o">.</span><span class="n">tolist</span><span class="p">(),</span> <span class="n">plotjoined</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span> <span class="n">color</span><span class="o">=</span><span class="s1">&#39;green&#39;</span><span class="p">,</span> <span class="n">figsize</span><span class="o">=</span><span class="p">(</span><span class="mi">7</span><span class="p">,</span><span class="mi">3</span><span class="p">))</span> <span class="o">+</span>\
+  <span class="n">list_plot</span><span class="p">(</span><span class="n">solo3</span><span class="o">.</span><span class="n">tolist</span><span class="p">(),</span> <span class="n">plotjoined</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span> <span class="n">figsize</span><span class="o">=</span><span class="p">(</span><span class="mi">7</span><span class="p">,</span><span class="mi">3</span><span class="p">))</span>
+</pre></div>
+</div>
+<img alt="_images/output_8_0.png" src="_images/output_8_0.png" />
+<div class="line-block">
+<div class="line">From the above figure it follows that there are initial states close
+to the state <span class="math notranslate nohighlight">\((1, 0)\)</span>, which tend to the state <span class="math notranslate nohighlight">\((0, 0)\)</span>.
+We present it for two initial conditions
+<span class="math notranslate nohighlight">\((U(0), V(0)) =(0.8, 0.01)\)</span> and
+<span class="math notranslate nohighlight">\((U(0), V(0)) =(0.999, 0)\)</span>. Both trajectories tend to the point
+<span class="math notranslate nohighlight">\((0, 0)\)</span>. In other words, the function <span class="math notranslate nohighlight">\(U(z)\)</span> in the
+neighbourhood</div>
+<div class="line"><span class="math notranslate nohighlight">\(U(z) \approx 1\)</span> is linked with the function <span class="math notranslate nohighlight">\(U(z)=0\)</span>. It
+suggest the boundary conditions:</div>
+</div>
+<div class="math notranslate nohighlight">
+\[\lim_{z\to   -\infty} U(z) = 1, \quad \quad \lim_{z\to \infty} U(z) = 0\]</div>
+<p>We remember that in the standard Verhulst equation <span class="math notranslate nohighlight">\(n(t) \to 1\)</span>
+for <span class="math notranslate nohighlight">\(t\to \infty\)</span>. It means that for the fixed value <span class="math notranslate nohighlight">\(y\)</span>:</p>
+<div class="math notranslate nohighlight">
+\[\lim_{z\to   -\infty} U(z) =  \lim_{\tau \to \infty} U(y-v_0 \tau ) = \lim_{\tau \to   \infty} c(y, \tau )  = 1\]</div>
+<p>and it is consistent with the case without migration.</p>
+<div class="section" id="an-exact-solution-for-a-particular-case">
+<h3>An exact solution for a particular case<a class="headerlink" href="#an-exact-solution-for-a-particular-case" title="Permalink to this headline">¶</a></h3>
+<p>It is one particular case for which the solution of the
+Fisher-Kolmogorov equation can be presented in an analytical form. For
+the wave speed</p>
+<div class="math notranslate nohighlight">
+\[v_0 =  \frac{5}{\sqrt{6}}\]</div>
+<p>the solution reads :</p>
+<div class="math notranslate nohighlight">
+\[c(y, \tau) = \frac{1}{\left\{1+A \exp\left[ (y-v_0 \tau)/\sqrt{6}\right] \right\}^{2}}\]</div>
+<p>where the constant <span class="math notranslate nohighlight">\(A\gt 0\)</span> determines the initial concentration
+profile.</p>
+<div class="highlight-ipython2 notranslate"><div class="highlight"><pre><span></span><span class="n">A</span><span class="o">=</span><span class="mi">1</span>                                              <span class="c1">## określa początkowy profil koncentracji</span>
+<span class="n">b</span><span class="o">=</span><span class="mi">5</span><span class="o">/</span><span class="n">sqrt</span><span class="p">(</span><span class="mi">6</span><span class="p">)</span>                                      <span class="c1">## prędkość frontu falowego</span>
+<span class="n">cs</span><span class="p">(</span><span class="n">x</span><span class="p">,</span><span class="n">t</span><span class="p">)</span> <span class="o">=</span> <span class="mi">1</span><span class="o">/</span><span class="p">(</span><span class="mi">1</span><span class="o">+</span> <span class="n">A</span><span class="o">*</span><span class="n">exp</span><span class="p">(</span><span class="n">x</span><span class="o">-</span><span class="n">b</span><span class="o">*</span><span class="n">t</span><span class="p">)</span><span class="o">/</span><span class="n">sqrt</span><span class="p">(</span><span class="mi">6</span><span class="p">))</span><span class="o">^</span><span class="mi">2</span>          <span class="c1">## szczególna, ale analityczna postać frontu koncentracji</span>
+<span class="nd">@interact</span>
+<span class="k">def</span> <span class="nf">_</span><span class="p">(</span><span class="n">t</span><span class="o">=</span><span class="n">slider</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span><span class="mi">5</span><span class="p">,</span><span class="mf">0.2</span><span class="p">)):</span>
+    <span class="n">pr3</span> <span class="o">=</span> <span class="n">plot</span><span class="p">(</span> <span class="n">cs</span><span class="p">(</span><span class="n">x</span><span class="p">,</span><span class="mi">0</span><span class="p">),(</span><span class="n">x</span><span class="p">,</span><span class="o">-</span><span class="mi">10</span><span class="p">,</span><span class="mi">10</span><span class="p">),</span><span class="n">color</span><span class="o">=</span><span class="s1">&#39;black&#39;</span> <span class="p">)</span>
+    <span class="n">pr4</span> <span class="o">=</span> <span class="n">plot</span><span class="p">(</span> <span class="n">cs</span><span class="p">(</span><span class="n">x</span><span class="p">,</span><span class="n">t</span><span class="p">),(</span><span class="n">x</span><span class="p">,</span><span class="o">-</span><span class="mi">10</span><span class="p">,</span><span class="mi">10</span><span class="p">),</span><span class="n">fill</span><span class="o">=</span><span class="kc">True</span> <span class="p">)</span>
+    <span class="p">(</span><span class="n">pr3</span><span class="o">+</span><span class="n">pr4</span><span class="p">)</span><span class="o">.</span><span class="n">show</span><span class="p">(</span><span class="n">figsize</span><span class="o">=</span><span class="mi">5</span><span class="p">)</span>
+</pre></div>
+</div>
+<p>Failed to display Jupyter Widget of type <code>sage_interactive</code>.</p>
+<p>
+  If you're reading this message in the Jupyter Notebook or JupyterLab Notebook, it may mean
+  that the widgets JavaScript is still loading. If this message persists, it
+  likely means that the widgets JavaScript library is either not installed or
+  not enabled. See the <a href="https://ipywidgets.readthedocs.io/en/stable/user_install.html">Jupyter
+  Widgets Documentation</a> for setup instructions.
+</p>
+<p>
+  If you're reading this message in another frontend (for example, a static
+  rendering on GitHub or <a href="https://nbviewer.jupyter.org/">NBViewer</a>),
+  it may mean that your frontend doesn't currently support widgets.
+</p></div>
+</div>
+<div class="section" id="numerical-analysis-of-the-fisher-kolmogorov-equation">
+<h2>Numerical analysis of the Fisher-Kolmogorov equation:<a class="headerlink" href="#numerical-analysis-of-the-fisher-kolmogorov-equation" title="Permalink to this headline">¶</a></h2>
+<div class="math notranslate nohighlight">
+\[\frac{\partial n(x, t)}{\partial t} = r n(x, t) \;[1-  n(x, t)] +    D \frac{\partial^2  n(x, t)}{\partial x^2}\]</div>
+<p>For numerical solution of this equation, we take the simplest discrete
+verion of the differential equation using the definition of the
+derivative:</p>
+<div class="math notranslate nohighlight">
+\[\frac{dg(t)}{dt} = B(g(t)) \quad \to \quad g^{i+1} = g^i +  dt\; B(g^i)\]</div>
+<p>and for the Laplace operator:</p>
+<div class="math notranslate nohighlight">
+\[\frac{d^2 f(x)}{dx^2}  \quad \to \quad Lf^k = (dx)^2 \; [f^{k+1} - 2f^k + f^{k-1}]\]</div>
+<p>Then the discrete form of Fisher-Kolmogorov equation takes the form:</p>
+<div class="math notranslate nohighlight">
+\[u^{i+1}  = u^i + dt \left( r u^i (1-u^i) + D \frac{1}{h^2} Lu^i\right),\]</div>
+<p>We assume the periodic boundary conditions by an appropriate choice of
+the discrete version of the Laplacian. We discretize the space (here the
+line) and next we fix the time step.</p>
+<p>In order obtain solutions of the traveling wave one has to assume small
+value od the diffusion constant less than <span class="math notranslate nohighlight">\(D\lt 0.001\)</span> in the
+vicinity of <span class="math notranslate nohighlight">\(r=0\)</span>. The length of the system can be incorporated in
+<span class="math notranslate nohighlight">\(D\)</span>, so one can take the length as 1.</p>
+<div class="highlight-ipython2 notranslate"><div class="highlight"><pre><span></span><span class="kn">import</span>  <span class="nn">numpy</span> <span class="k">as</span> <span class="nn">np</span>
+<span class="n">Dyf</span> <span class="o">=</span> <span class="mf">1.0</span>
+<span class="n">r</span> <span class="o">=</span> <span class="mf">1.0</span>
+<span class="n">l</span> <span class="o">=</span> <span class="mf">100.0</span> <span class="c1"># dlugosc ukladu</span>
+<span class="n">t_end</span> <span class="o">=</span> <span class="mi">50</span> <span class="c1"># czas symulacje</span>
+<span class="n">N</span> <span class="o">=</span> <span class="mi">100</span> <span class="c1"># dyskretyzacja przestrzeni</span>
+<span class="n">h</span> <span class="o">=</span> <span class="n">l</span><span class="o">/</span><span class="p">(</span><span class="n">N</span><span class="o">-</span><span class="mi">1</span><span class="p">)</span>
+<span class="n">dt</span> <span class="o">=</span> <span class="mf">0.2</span><span class="o">/</span><span class="p">(</span><span class="n">Dyf</span><span class="o">*</span><span class="p">(</span><span class="n">N</span><span class="o">-</span><span class="mi">1</span><span class="p">)</span><span class="o">**</span><span class="mi">2</span><span class="o">/</span><span class="n">l</span><span class="o">**</span><span class="mi">2</span><span class="p">)</span> <span class="c1"># 0.2 z warunku CFL, krok nie moze byc wiekszy</span>
+<span class="n">sps</span> <span class="o">=</span> <span class="nb">int</span><span class="p">(</span><span class="mi">1</span><span class="o">/</span><span class="n">dt</span><span class="p">)</span> <span class="c1"># liczba krokow na jednostke czasu</span>
+<span class="n">Nsteps</span><span class="o">=</span><span class="n">sps</span><span class="o">*</span><span class="n">t_end</span>  <span class="c1"># calkowita liczba krotkow</span>
+<span class="nb">print</span> <span class="s2">&quot;sps=&quot;</span><span class="p">,</span><span class="n">sps</span><span class="p">,</span><span class="s2">&quot;dt=&quot;</span><span class="p">,</span><span class="n">dt</span>
+<span class="n">one</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">identity</span><span class="p">(</span><span class="n">N</span><span class="p">)</span>
+<span class="n">L</span><span class="o">=</span><span class="n">np</span><span class="o">.</span><span class="n">roll</span><span class="p">(</span><span class="n">one</span><span class="p">,</span><span class="o">-</span><span class="mi">1</span><span class="p">)</span><span class="o">+</span><span class="n">np</span><span class="o">.</span><span class="n">roll</span><span class="p">(</span><span class="n">one</span><span class="p">,</span><span class="mi">1</span><span class="p">)</span><span class="o">-</span><span class="mi">2</span><span class="o">*</span><span class="n">one</span>
+<span class="n">L</span><span class="p">[</span><span class="mi">0</span><span class="p">,</span><span class="mi">0</span><span class="p">]</span><span class="o">=-</span><span class="mf">2.</span>
+<span class="n">L</span><span class="p">[</span><span class="o">-</span><span class="mi">1</span><span class="p">,</span><span class="o">-</span><span class="mi">1</span><span class="p">]</span><span class="o">=-</span><span class="mf">2.</span>
+<span class="n">L</span><span class="p">[</span><span class="mi">0</span><span class="p">,</span><span class="o">-</span><span class="mi">1</span><span class="p">]</span><span class="o">=</span><span class="mf">1.</span>
+<span class="n">L</span><span class="p">[</span><span class="o">-</span><span class="mi">1</span><span class="p">,</span><span class="mi">0</span><span class="p">]</span><span class="o">=</span><span class="mf">1.</span>
+<span class="c1"># warunek poczatkowy</span>
+<span class="n">u</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">zeros</span><span class="p">(</span><span class="n">N</span><span class="p">)</span>
+<span class="n">u</span><span class="p">[</span><span class="n">N</span><span class="o">/</span><span class="mi">2</span><span class="o">-</span><span class="mi">10</span><span class="p">:</span><span class="n">N</span><span class="o">/</span><span class="mi">2</span><span class="o">+</span><span class="mi">10</span><span class="p">]</span><span class="o">=.</span><span class="mi">1</span> <span class="c1"># small bump</span>
+<span class="c1">#u[:N/2]=1 # step</span>
+<span class="n">Tlst</span><span class="o">=</span><span class="p">[]</span>
+<span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="n">Nsteps</span><span class="p">):</span>
+    <span class="k">if</span> <span class="ow">not</span> <span class="n">i</span><span class="o">%</span><span class="k">sps</span>:
+        <span class="n">Tlst</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="nb">list</span><span class="p">(</span><span class="n">u</span><span class="p">))</span>
+    <span class="n">u</span> <span class="o">=</span> <span class="n">u</span> <span class="o">+</span> <span class="n">dt</span><span class="o">*</span><span class="p">(</span><span class="n">r</span><span class="o">*</span><span class="n">u</span><span class="o">*</span><span class="p">(</span><span class="mi">1</span><span class="o">-</span><span class="n">u</span><span class="p">)</span> <span class="o">+</span> <span class="n">Dyf</span><span class="o">*</span><span class="p">(</span><span class="n">N</span><span class="o">-</span><span class="mi">1</span><span class="p">)</span><span class="o">**</span><span class="mi">2</span><span class="o">/</span><span class="n">l</span><span class="o">**</span><span class="mi">2</span><span class="o">*</span><span class="n">L</span><span class="o">.</span><span class="n">dot</span><span class="p">(</span><span class="n">u</span><span class="p">))</span>
+<span class="nd">@interact</span>
+<span class="k">def</span> <span class="nf">_</span><span class="p">(</span><span class="n">ti</span><span class="o">=</span><span class="n">slider</span><span class="p">(</span><span class="nb">range</span><span class="p">(</span><span class="nb">len</span><span class="p">(</span><span class="n">Tlst</span><span class="p">)))):</span>
+    <span class="nb">print</span> <span class="sa">r</span><span class="s2">&quot;tau=&quot;</span><span class="p">,</span><span class="n">dt</span><span class="o">*</span><span class="n">ti</span>
+    <span class="n">p</span> <span class="o">=</span>  <span class="n">list_plot</span><span class="p">(</span><span class="n">Tlst</span><span class="p">[</span><span class="n">ti</span><span class="p">],</span><span class="n">plotjoined</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
+    <span class="n">p</span> <span class="o">+=</span> <span class="n">list_plot</span><span class="p">(</span><span class="n">Tlst</span><span class="p">[</span><span class="o">-</span><span class="mi">1</span><span class="p">],</span><span class="n">plotjoined</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span><span class="n">color</span><span class="o">=</span><span class="s1">&#39;red&#39;</span><span class="p">,</span><span class="n">ymin</span><span class="o">=</span><span class="mi">0</span><span class="p">,</span><span class="n">ymax</span><span class="o">=</span><span class="mf">1.5</span><span class="p">)</span>
+    <span class="n">p</span> <span class="o">+=</span> <span class="n">list_plot</span><span class="p">(</span><span class="n">Tlst</span><span class="p">[</span><span class="mi">0</span><span class="p">],</span><span class="n">plotjoined</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span><span class="n">color</span><span class="o">=</span><span class="s1">&#39;gray&#39;</span><span class="p">)</span>
+    <span class="n">p</span><span class="o">.</span><span class="n">show</span><span class="p">(</span><span class="n">figsize</span><span class="o">=</span><span class="p">(</span><span class="mi">8</span><span class="p">,</span><span class="mi">3</span><span class="p">))</span>
+</pre></div>
+</div>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">sps</span><span class="o">=</span> <span class="mi">4</span> <span class="n">dt</span><span class="o">=</span> <span class="mf">0.204060810121416</span>
+</pre></div>
+</div>
+<p>Failed to display Jupyter Widget of type <code>sage_interactive</code>.</p>
+<p>
+  If you're reading this message in the Jupyter Notebook or JupyterLab Notebook, it may mean
+  that the widgets JavaScript is still loading. If this message persists, it
+  likely means that the widgets JavaScript library is either not installed or
+  not enabled. See the <a href="https://ipywidgets.readthedocs.io/en/stable/user_install.html">Jupyter
+  Widgets Documentation</a> for setup instructions.
+</p>
+<p>
+  If you're reading this message in another frontend (for example, a static
+  rendering on GitHub or <a href="https://nbviewer.jupyter.org/">NBViewer</a>),
+  it may mean that your frontend doesn't currently support widgets.
+</p><div class="highlight-ipython2 notranslate"><div class="highlight"><pre><span></span><span class="kn">import</span> <span class="nn">numpy</span> <span class="k">as</span> <span class="nn">np</span>
+<span class="n">Dyf</span> <span class="o">=</span> <span class="mf">1.0</span>
+<span class="n">r</span> <span class="o">=</span> <span class="mf">1.0</span>
+<span class="n">l</span> <span class="o">=</span> <span class="mf">100.0</span> <span class="c1"># dlugosc ukladu</span>
+<span class="n">t_end</span> <span class="o">=</span> <span class="mi">100</span> <span class="c1"># czas symulacje</span>
+<span class="n">N</span> <span class="o">=</span> <span class="mi">200</span> <span class="c1"># dyskretyzacja przestrzeni</span>
+<span class="n">h</span> <span class="o">=</span> <span class="n">l</span><span class="o">/</span><span class="p">(</span><span class="n">N</span><span class="o">-</span><span class="mi">1</span><span class="p">)</span>
+<span class="n">dt</span> <span class="o">=</span> <span class="mf">0.052</span><span class="o">/</span><span class="p">(</span><span class="n">Dyf</span><span class="o">*</span><span class="p">(</span><span class="n">N</span><span class="o">-</span><span class="mi">1</span><span class="p">)</span><span class="o">**</span><span class="mi">2</span><span class="o">/</span><span class="n">l</span><span class="o">**</span><span class="mi">2</span><span class="p">)</span> <span class="c1"># 0.2 z warunku CFL, krok nie moze byc wiekszy</span>
+<span class="n">sps</span> <span class="o">=</span> <span class="nb">int</span><span class="p">(</span><span class="mi">1</span><span class="o">/</span><span class="n">dt</span><span class="p">)</span> <span class="c1"># liczba krokow na jednostke czasu</span>
+<span class="n">Nsteps</span><span class="o">=</span><span class="n">sps</span><span class="o">*</span><span class="n">t_end</span>  <span class="c1"># calkowita liczba krotkow</span>
+<span class="nb">print</span> <span class="s2">&quot;sps=&quot;</span><span class="p">,</span><span class="n">sps</span><span class="p">,</span><span class="s2">&quot;dt=&quot;</span><span class="p">,</span><span class="n">dt</span>
+<span class="n">one</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">identity</span><span class="p">(</span><span class="n">N</span><span class="p">)</span>
+<span class="n">L</span><span class="o">=</span><span class="n">np</span><span class="o">.</span><span class="n">roll</span><span class="p">(</span><span class="n">one</span><span class="p">,</span><span class="o">-</span><span class="mi">1</span><span class="p">)</span><span class="o">+</span><span class="n">np</span><span class="o">.</span><span class="n">roll</span><span class="p">(</span><span class="n">one</span><span class="p">,</span><span class="mi">1</span><span class="p">)</span><span class="o">-</span><span class="mi">2</span><span class="o">*</span><span class="n">one</span>
+<span class="n">L</span><span class="p">[</span><span class="mi">0</span><span class="p">,</span><span class="mi">0</span><span class="p">]</span><span class="o">=</span><span class="mf">1.</span>
+<span class="n">L</span><span class="p">[</span><span class="o">-</span><span class="mi">1</span><span class="p">,</span><span class="o">-</span><span class="mi">1</span><span class="p">]</span><span class="o">=</span><span class="mf">1.</span>
+<span class="c1"># warunek poczatkowy</span>
+<span class="n">u</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">zeros</span><span class="p">(</span><span class="n">N</span><span class="p">)</span>
+<span class="c1">#u[:int(N/2]=1 # step</span>
+<span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="mi">1</span><span class="p">,</span><span class="mi">3</span><span class="p">):</span>
+     <span class="n">u</span><span class="p">[</span><span class="n">i</span><span class="p">]</span> <span class="o">=</span> <span class="mf">1.0</span> <span class="o">-</span> <span class="n">i</span><span class="o">/</span><span class="mf">3.0</span>
+<span class="k">def</span> <span class="nf">essential_boundary_conditions</span><span class="p">(</span><span class="n">u</span><span class="p">):</span>
+     <span class="n">u</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span> <span class="o">=</span> <span class="mf">1.</span>
+     <span class="n">u</span><span class="p">[</span><span class="o">-</span><span class="mi">1</span><span class="p">]</span> <span class="o">=</span> <span class="mf">0.0</span>
+<span class="n">Tlst</span><span class="o">=</span><span class="p">[]</span>
+<span class="n">essential_boundary_conditions</span><span class="p">(</span><span class="n">u</span><span class="p">)</span>
+<span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="n">Nsteps</span><span class="p">):</span>
+     <span class="k">if</span> <span class="ow">not</span> <span class="n">i</span><span class="o">%</span><span class="k">sps</span>:
+         <span class="n">Tlst</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="nb">list</span><span class="p">(</span><span class="n">u</span><span class="p">))</span>
+     <span class="n">u</span> <span class="o">=</span> <span class="n">u</span> <span class="o">+</span> <span class="n">dt</span><span class="o">*</span><span class="p">(</span><span class="n">r</span><span class="o">*</span><span class="n">u</span><span class="o">*</span><span class="p">(</span><span class="mi">1</span><span class="o">-</span><span class="n">u</span><span class="p">)</span> <span class="o">+</span> <span class="n">Dyf</span><span class="o">*</span><span class="p">(</span><span class="n">N</span><span class="o">-</span><span class="mi">1</span><span class="p">)</span><span class="o">**</span><span class="mi">2</span><span class="o">/</span><span class="n">l</span><span class="o">**</span><span class="mi">2</span><span class="o">*</span><span class="n">L</span><span class="o">.</span><span class="n">dot</span><span class="p">(</span><span class="n">u</span><span class="p">))</span>
+     <span class="n">essential_boundary_conditions</span><span class="p">(</span><span class="n">u</span><span class="p">)</span>
+<span class="nd">@interact</span>
+<span class="k">def</span> <span class="nf">_</span><span class="p">(</span><span class="n">ti</span><span class="o">=</span><span class="n">slider</span><span class="p">(</span><span class="nb">range</span><span class="p">(</span><span class="nb">len</span><span class="p">(</span><span class="n">Tlst</span><span class="p">)))):</span>
+     <span class="nb">print</span> <span class="sa">r</span><span class="s2">&quot;t=&quot;</span><span class="p">,</span><span class="n">dt</span><span class="o">*</span><span class="n">ti</span>
+     <span class="n">p</span> <span class="o">=</span>  <span class="n">list_plot</span><span class="p">(</span><span class="n">Tlst</span><span class="p">[</span><span class="n">ti</span><span class="p">],</span><span class="n">plotjoined</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
+     <span class="n">p</span> <span class="o">+=</span> <span class="n">list_plot</span><span class="p">(</span><span class="n">Tlst</span><span class="p">[</span><span class="o">-</span><span class="mi">1</span><span class="p">],</span><span class="n">plotjoined</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span><span class="n">color</span><span class="o">=</span><span class="s1">&#39;red&#39;</span><span class="p">,</span><span class="n">ymin</span><span class="o">=</span><span class="mi">0</span><span class="p">,</span><span class="n">ymax</span><span class="o">=</span><span class="mf">1.5</span><span class="p">)</span>
+     <span class="n">p</span> <span class="o">+=</span> <span class="n">list_plot</span><span class="p">(</span><span class="n">Tlst</span><span class="p">[</span><span class="mi">0</span><span class="p">],</span><span class="n">plotjoined</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span><span class="n">color</span><span class="o">=</span><span class="s1">&#39;gray&#39;</span><span class="p">)</span>
+     <span class="n">p</span><span class="o">.</span><span class="n">show</span><span class="p">(</span><span class="n">figsize</span><span class="o">=</span><span class="p">(</span><span class="mi">8</span><span class="p">,</span><span class="mi">3</span><span class="p">))</span>
+</pre></div>
+</div>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">sps</span><span class="o">=</span> <span class="mi">76</span> <span class="n">dt</span><span class="o">=</span> <span class="mf">0.0131309815408702</span>
+</pre></div>
+</div>
+<p>Failed to display Jupyter Widget of type <code>sage_interactive</code>.</p>
+<p>
+  If you're reading this message in the Jupyter Notebook or JupyterLab Notebook, it may mean
+  that the widgets JavaScript is still loading. If this message persists, it
+  likely means that the widgets JavaScript library is either not installed or
+  not enabled. See the <a href="https://ipywidgets.readthedocs.io/en/stable/user_install.html">Jupyter
+  Widgets Documentation</a> for setup instructions.
+</p>
+<p>
+  If you're reading this message in another frontend (for example, a static
+  rendering on GitHub or <a href="https://nbviewer.jupyter.org/">NBViewer</a>),
+  it may mean that your frontend doesn't currently support widgets.
+</p><div class="section" id="speed-of-the-wave-front">
+<h3>Speed of the wave front<a class="headerlink" href="#speed-of-the-wave-front" title="Permalink to this headline">¶</a></h3>
+<div class="highlight-ipython2 notranslate"><div class="highlight"><pre><span></span><span class="n">pos_lst</span> <span class="o">=</span> <span class="p">[]</span>
+<span class="k">for</span> <span class="n">T_</span> <span class="ow">in</span> <span class="n">Tlst</span><span class="p">:</span>
+    <span class="k">for</span> <span class="p">(</span><span class="n">i</span><span class="p">,</span><span class="n">a</span><span class="p">),</span><span class="n">b</span> <span class="ow">in</span> <span class="nb">zip</span><span class="p">(</span><span class="nb">enumerate</span><span class="p">(</span><span class="n">T_</span><span class="p">),</span><span class="n">T_</span><span class="p">[</span><span class="mi">1</span><span class="p">:]):</span>
+        <span class="k">if</span> <span class="n">a</span><span class="o">&gt;=</span><span class="mf">0.5</span> <span class="ow">and</span> <span class="n">b</span><span class="o">&lt;=</span><span class="mf">0.5</span><span class="p">:</span>
+            <span class="n">pos_lst</span><span class="o">.</span><span class="n">append</span><span class="p">(</span> <span class="n">i</span><span class="o">+</span><span class="p">(</span><span class="n">a</span><span class="o">-</span><span class="mf">0.5</span><span class="p">)</span><span class="o">/</span><span class="p">(</span><span class="n">a</span><span class="o">-</span><span class="n">b</span><span class="p">)</span> <span class="p">)</span>
+
+<span class="n">list_plot</span><span class="p">(</span> <span class="p">[</span><span class="n">l</span><span class="o">/</span><span class="p">(</span><span class="n">N</span><span class="o">-</span><span class="mi">1</span><span class="p">)</span><span class="o">*</span><span class="p">(</span><span class="n">b</span><span class="o">-</span><span class="n">a</span><span class="p">)</span><span class="o">/</span><span class="p">(</span><span class="n">sps</span><span class="o">*</span><span class="n">dt</span><span class="p">)</span> <span class="k">for</span> <span class="n">a</span><span class="p">,</span><span class="n">b</span> <span class="ow">in</span> <span class="nb">zip</span><span class="p">(</span><span class="n">pos_lst</span><span class="p">,</span><span class="n">pos_lst</span><span class="p">[</span><span class="mi">1</span><span class="p">:])]</span> <span class="p">,</span> <span class="n">figsize</span><span class="o">=</span><span class="p">(</span><span class="mi">7</span><span class="p">,</span><span class="mi">3</span><span class="p">),</span><span class="n">gridlines</span><span class="o">=</span><span class="p">[[],[</span><span class="mi">2</span><span class="p">]],</span><span class="n">ymax</span><span class="o">=</span><span class="mi">2</span><span class="p">)</span>
+</pre></div>
+</div>
+<img alt="_images/output_15_0.png" src="_images/output_15_0.png" />
+</div>
+</div>
+</div>
+
+
+          </div>
+          
+        </div>
+      </div>
+      <div class="sphinxsidebar" role="navigation" aria-label="main navigation">
+        <div class="sphinxsidebarwrapper">
+<h1 class="logo"><a href="index.html">Nonlinear processes in Biology</a></h1>
+
+
+
+
+
+
+
+
+<h3>Navigation</h3>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="NPB_1d_models.html">Continuous models for single species</a></li>
+<li class="toctree-l1"><a class="reference internal" href="NPB_predator_prey.html">Models of interacting populations: prey-predator</a></li>
+</ul>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="notebooks/Lotka_Volterra_with_SAGE.html">The Lotka-Volterra model with SAGE</a></li>
+<li class="toctree-l1"><a class="reference internal" href="notebooks/May_model.html">Analysis of the May model with SAGE</a></li>
+<li class="toctree-l1"><a class="reference internal" href="notebooks/May_model_parameter_space_plot.html">Plot of stability condition in 3d</a></li>
+</ul>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="NPB_kinetics.html">Introduction to the kinetics of chemical reactions</a></li>
+<li class="toctree-l1"><a class="reference internal" href="NPB_kinetics.html#autocatalytic-reactions">Autocatalytic reactions</a></li>
+<li class="toctree-l1"><a class="reference internal" href="NPB_kinetics.html#enzyme-reactions">Enzyme reactions</a></li>
+<li class="toctree-l1"><a class="reference internal" href="NPB_kinetics.html#theoretical-analysis-ala-michaelis-menten">Theoretical analysis a’la Michaelis-Menten</a></li>
+</ul>
+<ul class="current">
+<li class="toctree-l1 current"><a class="current reference internal" href="#">Reaction-diffusion equations</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="#example-diffusion">Example: diffusion</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="#the-malthus-model-with-migration-the-skellam-equation">The Malthus model with migration: The Skellam equation</a></li>
+<li class="toctree-l1"><a class="reference internal" href="#verhulst-model-with-migration-fisher-kolmogorov-equation">Verhulst model with migration: Fisher-Kolmogorov equation</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="#analysis-of-the-fisher-kolmogorov-equation">Analysis of the Fisher-Kolmogorov equation</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#numerical-analysis-of-the-fisher-kolmogorov-equation">Numerical analysis of the Fisher-Kolmogorov equation:</a></li>
+</ul>
+</li>
+</ul>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="NPB_epidemics.html">Epidemic model of Kermack-McKendrick</a></li>
+<li class="toctree-l1"><a class="reference internal" href="NPB_epidemics.html#geographical-spread-of-epidemic">Geographical spread of epidemic</a></li>
+<li class="toctree-l1"><a class="reference internal" href="NPB_epidemics.html#realistic-modeling-of-spatial-epidemic-spread">Realistic modeling of spatial epidemic spread</a></li>
+</ul>
+
+<div class="relations">
+<h3>Related Topics</h3>
+<ul>
+  <li><a href="index.html">Documentation overview</a><ul>
+      <li>Previous: <a href="NPB_kinetics.html" title="previous chapter">Introduction to the kinetics of chemical reactions</a></li>
+      <li>Next: <a href="NPB_epidemics.html" title="next chapter">Epidemic model of Kermack-McKendrick</a></li>
+  </ul></li>
+</ul>
+</div>
+<div id="searchbox" style="display: none" role="search">
+  <h3 id="searchlabel">Quick search</h3>
+    <div class="searchformwrapper">
+    <form class="search" action="search.html" method="get">
+      <input type="text" name="q" aria-labelledby="searchlabel" />
+      <input type="submit" value="Go" />
+    </form>
+    </div>
+</div>
+<script>$('#searchbox').show(0);</script>
+
+
+
+
+
+
+
+
+        </div>
+      </div>
+      <div class="clearer"></div>
+    </div>
+    <div class="footer">
+      &copy;2016, J.Ł. & M.K..
+      
+      |
+      Powered by <a href="http://sphinx-doc.org/">Sphinx 2.4.0</a>
+      &amp; <a href="https://github.com/bitprophet/alabaster">Alabaster 0.7.12</a>
+      
+      |
+      <a href="_sources/NPB_reaction_diffusion.rst.txt"
+          rel="nofollow">Page source</a>
+    </div>
+
+    
+
+    
+  </body>
+</html>

@@ -1,0 +1,545 @@
+
+<!DOCTYPE html>
+
+<html xmlns="http://www.w3.org/1999/xhtml" lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <title>Continuous models for single species &#8212; Nonlinear processes in Biology</title>
+    <link rel="stylesheet" href="_static/alabaster.css" type="text/css" />
+    <link rel="stylesheet" href="_static/pygments.css" type="text/css" />
+    <script id="documentation_options" data-url_root="./" src="_static/documentation_options.js"></script>
+    <script src="_static/jquery.js"></script>
+    <script src="_static/underscore.js"></script>
+    <script src="_static/doctools.js"></script>
+    <script src="_static/language_data.js"></script>
+    <script crossorigin="anonymous" integrity="sha256-Ae2Vz/4ePdIu6ZyI/5ZGsYnb+m0JlOmKPjt6XZ9JJkA=" src="https://cdnjs.cloudflare.com/ajax/libs/require.js/2.3.4/require.min.js"></script>
+    <script async="async" src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.5/latest.js?config=TeX-AMS-MML_HTMLorMML"></script>
+    <script type="text/x-mathjax-config">MathJax.Hub.Config({"tex2jax": {"inlineMath": [["$", "$"], ["\\(", "\\)"]], "processEscapes": true, "ignoreClass": "document", "processClass": "math|output_area"}})</script>
+    <script type="text/javascript" src="http://sagecell.sagemath.org/static/jquery.min.js"></script>
+    <script type="text/javascript" src="http://sagecell.sagemath.org/embedded_sagecell.js"></script>
+    <script type="text/javascript">
+        sagecell.makeSagecell({inputLocation: ".sage_linked",
+                               linked: true});
+        sagecell.makeSagecell({inputLocation: ".sage_unlinked",
+                               linked: false});
+    </script>
+
+    <style type="text/css">
+        .sagecell .CodeMirror-scroll {
+            overflow-y: hidden;
+            overflow-x: auto;
+        }
+        .sagecell .CodeMirror {
+            height: auto;
+        }
+    </style>
+    
+    <link rel="index" title="Index" href="genindex.html" />
+    <link rel="search" title="Search" href="search.html" />
+    <link rel="next" title="Models of interacting populations: prey-predator" href="NPB_predator_prey.html" />
+    <link rel="prev" title="Nonlinear Processes in Biology" href="index.html" />
+
+   
+  <link rel="stylesheet" href="_static/custom.css" type="text/css" />
+  
+  
+  <meta name="viewport" content="width=device-width, initial-scale=0.9, maximum-scale=0.9" />
+
+  </head><body>
+  
+
+    <div class="document">
+      <div class="documentwrapper">
+        <div class="bodywrapper">
+          
+
+          <div class="body" role="main">
+            
+  <div class="section" id="continuous-models-for-single-species">
+<h1>Continuous models for single species<a class="headerlink" href="#continuous-models-for-single-species" title="Permalink to this headline">¶</a></h1>
+<div class="section" id="malthus-model">
+<h2>Malthus model<a class="headerlink" href="#malthus-model" title="Permalink to this headline">¶</a></h2>
+<p>In Nature there are many groups of individuals of various species
+occupying a specific area at a specific time. A population is a group
+of individuals (all members of a single species) who live together in
+the same habitat and are likely to interbreed. Each population has a
+unique physical distribution in time and space. It may contain
+individuals of different ages and its size (density) is likely to
+change over time, growing or shrinking according to the reproductive
+success of its members. The study of population dynamics focuses on
+these changes – how, when, and why they occur. Understanding of
+population dynamics is useful for interpreting survey data, predicting
+pest outbreaks, and evaluating the effectiveness of control tactics.
+We will present a series of population models, each of which is
+applicable to different environmental circumstances. We start with the
+simplest models: one population. Next, we can complicate models by
+adding influence of various factors from environment.</p>
+<p>Mathematical modeling is based on properties of functions and their
+derivatives. The quantity that determines the change rate of the
+function N(t) is its derivative <span class="math notranslate nohighlight">\(\displaystyle\frac{dN(t)}{dt}\)</span>. If
+<span class="math notranslate nohighlight">\(\displaystyle\frac{dN(t)}{dt}&gt; 0\)</span>, the function <span class="math notranslate nohighlight">\(N(t)\)</span> increases if the
+argument <span class="math notranslate nohighlight">\(t\)</span> increases. On contrary, if <span class="math notranslate nohighlight">\(\displaystyle\frac{dN(t)}{dt}&lt;0\)</span>, the
+function <span class="math notranslate nohighlight">\(N(t)\)</span> decreases if <span class="math notranslate nohighlight">\(t\)</span>, increases. It is sufficient information to
+start the modeling.</p>
+<p>The first step of modeling: why the number N(t) of individuals in the
+population changes in time? One can consider three primary processes:
+birth of the individual, death of somebody or migration: somobdy leaves
+the population, somebody comes in. In mathematical language it means
+that the rate of changes is determined by three elements:</p>
+<div class="math notranslate nohighlight">
+\[\frac{dN(t)}{dt}= +\text{gain (birth)} - \text{loss (death)}  \pm  \text{migration}\]</div>
+<ol class="lowerroman simple">
+<li><p>The left side describes the rate of changes of population :
+<span class="math notranslate nohighlight">\(\displaystyle\frac{dN(t)}{dt}\)</span></p></li>
+<li><p>the sign + : the growth of population caused by birth of new
+individuals is an increassing function <span class="math notranslate nohighlight">\(f(N)\)</span> of the number
+<span class="math notranslate nohighlight">\(N\)</span> of individuals in the population: Much more individuals
+are born in the population of 1 mln individuals than in the
+population of 50 thousands of individuals (it is a rule and in many
+cases it can be accepted but there are cases when it is not a true
+assumption). The simplest function is the linear function:</p></li>
+</ol>
+<div class="math notranslate nohighlight">
+\[f(N) = a N\]</div>
+<p>where the coefficient <span class="math notranslate nohighlight">\(a \gt 0\)</span> is the birth rate of the
+population.</p>
+<ol class="lowerroman simple" start="3">
+<li><p>the sign - : the loss of population caused by death of individuals
+is an increasing function <span class="math notranslate nohighlight">\(g(N)\)</span> of <span class="math notranslate nohighlight">\(N\)</span>: In the
+population 1 mln more individuals pass away than in the population
+of 50 thousands. Again, the simples function is a linear one,</p></li>
+</ol>
+<div class="math notranslate nohighlight">
+\[g(N) = b N\]</div>
+<p>where the coefficient <span class="math notranslate nohighlight">\(b \gt 0\)</span> jest the death rate.</p>
+<p>At this stage of modleing, we neglect the migration processes. From the
+above considerations it follows that the simplest model which describe
+time changes in population can take the form</p>
+<div class="math notranslate nohighlight">
+\[\frac{dN(t)}{dt}= a N(t) - b N(t)  = (a-b) N(t) = k N(t), \quad \quad  k=a-b\]</div>
+<p>It is a linear ordinary differential equation of the first order. From
+the theory of differential equations we know that the initial condition
+has to be imposed:</p>
+<div class="math notranslate nohighlight">
+\[N(0) = N_0\]</div>
+<p>It is a simple differential equation which can be solved by the method
+of variable separations:</p>
+<div class="math notranslate nohighlight">
+\[N(t)= N_0  e^{kt}\]</div>
+<p>From this solution one can infer that:</p>
+<ol class="arabic simple">
+<li><p>if the growth rate is the same as the death rate, i.e., <span class="math notranslate nohighlight">\(k=0\)</span>
+or <span class="math notranslate nohighlight">\(a=b\)</span>, then <span class="math notranslate nohighlight">\(N(t) = N(0)\)</span> and the population is stable
+with fixed number of individuals.</p></li>
+<li><p>if the birth rate is greater than the death rate <span class="math notranslate nohighlight">\(k\gt 0\)</span> or
+<span class="math notranslate nohighlight">\(a \gt b\)</span>, then the population grows: <span class="math notranslate nohighlight">\(N(t) \gt N(0)\)</span>.</p></li>
+<li><p>if the birth rate is less than the death :
+<span class="math notranslate nohighlight">\(k\lt 0\)</span> czyli <span class="math notranslate nohighlight">\(a \lt b\)</span>, then the population is smaller
+and smaller and can dissappear: <span class="math notranslate nohighlight">\(N(t) \lt N(0)\)</span>.</p></li>
+</ol>
+<p>The above model was proposed by Malthus in 1798. The main feature of
+this model is exponential growth (for a &gt; b) or exponential decay (for a
+&lt; b) of population. There are examples for which this model is quite
+good but only in some limited interval of time (e.g. the growth of
+bacteria colony under favorable conditions)</p>
+<div class="section" id="applying-sage-for-analysis-of-the-malthus-model">
+<h3>Applying Sage for analysis of the Malthus model<a class="headerlink" href="#applying-sage-for-analysis-of-the-malthus-model" title="Permalink to this headline">¶</a></h3>
+<p><strong>Analytical solution</strong></p>
+<p>In SAGE it is easily to obtain an analytical form of the solution of
+this differential equation.</p>
+<div class="admonition-experiment-with-sage admonition">
+<p class="admonition-title">Experiment with Sage!</p>
+<p>Run the code cell below and obtain  analytical solution of the Mathus model.</p>
+</div>
+<div class='sage_unlinked'><script type='text/x-sage'>var('t k')
+assume(t>0)
+N = function('N')(t)
+eq = N.diff()== k*N
+sol = desolve(eq,N,ivar = t)
+show(sol)</script></div><div class="admonition-experiment-with-sage admonition">
+<p class="admonition-title">Experiment with Sage!</p>
+<p>Run the code cell below and obtain plot solutions of Mathus model for various parameters.
+The plot depicts the growth, lack of changes and decay of population
+dependening on value of the parameter k=a-b.</p>
+</div>
+<div class='sage_unlinked'><script type='text/x-sage'>var('t k')
+assume(t>0)
+N = function('N')(t)
+eq = N.diff()== k*N
+sol = desolve(eq,N,ivar = t,ics=[0,5.0])
+
+plot(sol.subs(k==-1),(t,0,3),figsize=(5, 3),legend_label="k=-1")+\
+    plot(sol.subs(k==0),(t,0,3),legend_label="k=0",color='red')+\
+    plot(sol.subs(k==0.5),(t,0,3),legend_label="k=0.5",color='green')</script></div><div class="admonition-experiment-with-sage admonition">
+<p class="admonition-title">Experiment with Sage!</p>
+<p>Rerun the above example with:</p>
+<blockquote>
+<div><ul class="simple">
+<li><p>different positive  the growth rates <span class="math notranslate nohighlight">\(k=a-b&gt;0\)</span></p></li>
+<li><p>different negative  the growth rates <span class="math notranslate nohighlight">\(k=a-b&lt;0\)</span></p></li>
+</ul>
+</div></blockquote>
+<p>How does the evolution of population behave?</p>
+</div>
+</div>
+</div>
+<div class="section" id="the-verhulst-logistic-model">
+<h2>The Verhulst (logistic) model<a class="headerlink" href="#the-verhulst-logistic-model" title="Permalink to this headline">¶</a></h2>
+<p>Let us assume that in the Malthus model we take into account only birth
+process and neglect the death process, i.e. <span class="math notranslate nohighlight">\(b=0\)</span>. Then the
+population grows exponentially:</p>
+<div class="math notranslate nohighlight">
+\[N(t)= N_0 e^{at}\]</div>
+<p>and it is visualized in the above figure for the case <span class="math notranslate nohighlight">\(k=a &gt;0\)</span>.
+Such a fast rate of growth can be observed in some specific systems and
+only in a limited interval of time. Generally a rapid growth can lead to
+an imbalance in nature. Moreover, food resources are limited in the
+finite regions where the population lives. It means that the birth rate
+<span class="math notranslate nohighlight">\(a\)</span> starts to slow down and self-regulation is observed. The first
+model which take into account this effect was proposed by Verhulst in
+1838. In this model, the coefficient <span class="math notranslate nohighlight">\(a\)</span> is not fixed but it
+depends on a number of individuals <span class="math notranslate nohighlight">\(N\)</span> in the population:</p>
+<div class="math notranslate nohighlight">
+\[a \to  a(N)\]</div>
+<p>and the evolution equation assumes the form:</p>
+<div class="math notranslate nohighlight">
+\[\frac{dN}{dt} = a(N) \; N, \quad N(0)=N_0\]</div>
+<p>The dependence of the function <span class="math notranslate nohighlight">\(a(N)\)</span> upon <span class="math notranslate nohighlight">\(N\)</span> should have
+the following feature: If the population increases then the growth rate
+should decrease because the more difficult is access to food and the
+amount of food available is smaller if <span class="math notranslate nohighlight">\(N\)</span> grows. Of course there
+are many functions which fulfil this property: all decreasing function
+of <span class="math notranslate nohighlight">\(N\)</span>. Verhulst proposed the following function:</p>
+<div class="math notranslate nohighlight">
+\[a(N)= r \left[1- \frac{N}{K}\right]\]</div>
+<p>where <span class="math notranslate nohighlight">\(r \gt 0\)</span> is a parameter whic has similar interpretation as
+the parameter <span class="math notranslate nohighlight">\(a\)</span> in the Malthus model (it characterizes the
+growth rate). The parameter <span class="math notranslate nohighlight">\(K \gt 0\)</span> characterizes resources of
+food and is named carrying capacity of the environment. Let us note that
+the constant <span class="math notranslate nohighlight">\(K\)</span> is in the quotient and <span class="math notranslate nohighlight">\(N/K\)</span> is
+dimensionless. It means that <span class="math notranslate nohighlight">\(K=N_s\)</span> is a characteristic number of
+population. If <span class="math notranslate nohighlight">\(N \gt K\)</span> then <span class="math notranslate nohighlight">\(a(N) \lt 0\)</span> and population
+decreases. In turn, if <span class="math notranslate nohighlight">\(N \lt K\)</span> then <span class="math notranslate nohighlight">\(a(N) \gt 0\)</span> and
+population grows.</p>
+<p>In what a way K influences of the growth rate? We note that when K
+increases (more food) then N/K decrease and in consequence 1-N/K
+increase. It means that a(N) increases or the growth rate increases and
+the population grows. Hence the conclusion is:</p>
+<div class="admonition note">
+<p class="admonition-title">Note</p>
+<p>When K increases the growth rate increases</p>
+</div>
+<p>From the above consideration we obtain the evolution equation in the
+form</p>
+<div class="math notranslate nohighlight">
+\[\frac{dN}{dt} = r \left[1- \frac{N}{K}\right]  N, \quad \quad N(0)=N_0\]</div>
+<p>Thie equation is called the Verhulst equation or the logistic equation.
+There are two parameters: r and K. There is the question: how many
+relevant parameters are in the Verhuls model. To answer this question we
+should scale this equation to the dimensionless form.To this aim, let us
+define the relative number of individuals in the population:</p>
+<div class="math notranslate nohighlight">
+\[x= \frac{N}{K}\]</div>
+<p>The dimensionless time is defined as</p>
+<div class="math notranslate nohighlight">
+\[s=r t\]</div>
+<p>In the new variables the Verhulst equation takes the form:</p>
+<div class="math notranslate nohighlight">
+\[\frac{dx}{ds} = f(x) = x[1-x], \quad x = x(s), \quad \quad x(0) = x_0 = \frac{1}{K} N(0)\]</div>
+<p>We see that in this equation, there are no parameteres. We can conclude that:</p>
+<div class="admonition important">
+<p class="admonition-title">Important</p>
+<p>Relevant properties of the system do not depend on
+values of r oraz K. The dependence is only quantitative, not
+qualitative.</p>
+</div>
+<div class="section" id="worked-example-stationary-states-of-verhulst-model">
+<h3>Worked example - stationary states of Verhulst model<a class="headerlink" href="#worked-example-stationary-states-of-verhulst-model" title="Permalink to this headline">¶</a></h3>
+<p>We want to find stationary states of the system and determine their stability.</p>
+<ol class="lowerroman simple">
+<li><p>we have to solve the algebraic equation <span class="math notranslate nohighlight">\(f(x) =0\)</span>, i.e.
+<span class="math notranslate nohighlight">\(x(1-x)=0\)</span>,</p></li>
+</ol>
+<p>Hence, we find two stationary states <span class="math notranslate nohighlight">\(x_1=0\)</span> and <span class="math notranslate nohighlight">\(x_2=1\)</span></p>
+<ol class="lowerroman simple" start="2">
+<li><p>to determine their stability we have to calculate the derivative:
+<span class="math notranslate nohighlight">\(\lambda = f'(x) = 1- 2 x\)</span></p></li>
+</ol>
+<p>and find the exponent <span class="math notranslate nohighlight">\(\lambda_1= f'(x_1) = 1 \gt 0\)</span> (i.e. it is
+unstable), <span class="math notranslate nohighlight">\(\lambda_2= f'(x_2) =-1 \lt 0\)</span> (asymptotically stable)</p>
+<p>Because there is only one stable stationaryy state <span class="math notranslate nohighlight">\(x=1\)</span>, all
+solutions of the Verhulst equation <span class="math notranslate nohighlight">\(x(s)\)</span> with the initial
+condition <span class="math notranslate nohighlight">\(x_0 \gt 0\)</span> tends to this state <span class="math notranslate nohighlight">\(x=1\)</span>.</p>
+<p>If the initial condition is <span class="math notranslate nohighlight">\(x_0=0\)</span> the solution is
+<span class="math notranslate nohighlight">\(x(s)=0\)</span>. Howver, an arbitrary small perturbation throws out the
+system from this state and the next the system starts to evlove to the
+stable state <span class="math notranslate nohighlight">\(x=1\)</span>.</p>
+<p>The verhulst equation can be solved analytically by the methos of the
+variable separation in the following way:</p>
+<div class="math notranslate nohighlight">
+\[\frac{dx}{x(1-x)} = ds  \quad \quad \mbox{or equivalently} \quad \quad \left[ \frac{1}{x}-\frac{1}{x-1}\right] dx = ds\]</div>
+<p>Alternatively we can use Sage to obtain indefinite integral:</p>
+<div class='sage_unlinked'><script type='text/x-sage'>    integrate(1/(x*(x-1)),x).show()</script></div><p>Next we integrate both sides:</p>
+<div class="math notranslate nohighlight">
+\[\int_{x_0}^{ x(s)} \left[\frac{1}{x} -\frac{1}{x-1}\right] dx =  \int_0^{ s} ds\]</div>
+<p>The final result is</p>
+<div class="math notranslate nohighlight">
+\[x(s) = \frac{x_0 e^s}{1+ x_0(e^s -1)} = \frac{x_0}{x_0 + e^{-s}(1-x_0)}\]</div>
+<p>If <span class="math notranslate nohighlight">\(x_0=0\)</span> then we see that <span class="math notranslate nohighlight">\(x(s)=0\)</span>. If <span class="math notranslate nohighlight">\(x_0 \gt 0\)</span>
+then it is seen that <span class="math notranslate nohighlight">\(x(s)\)</span> tends to the stationary state
+<span class="math notranslate nohighlight">\(x_2=1\)</span>.</p>
+<p>Now, we want to return to the “old” variables <span class="math notranslate nohighlight">\(N=N(t)\)</span> and time
+<span class="math notranslate nohighlight">\(t\)</span>. We insert <span class="math notranslate nohighlight">\(x=N/K\)</span> and <span class="math notranslate nohighlight">\(s=rt\)</span> to the solution for
+<span class="math notranslate nohighlight">\(x(t)\)</span> and obtain</p>
+<div class="math notranslate nohighlight">
+\[N(t) = \frac{K N_0}{N_0 +(K-N_0)e^{-rt}}\]</div>
+<p>The stable state is <span class="math notranslate nohighlight">\(x = N/K=1\)</span>, i.e., <span class="math notranslate nohighlight">\(N=K\)</span>. So, <span class="math notranslate nohighlight">\(K\)</span>
+is a characteristic number of individuals which is found in the
+stationary state. In the Verhuls model, the evolution is not exponential
+but the <strong>saturation effect</strong> is observed: at the fixed carrying
+capacity of the environment the population is stable at he value
+<span class="math notranslate nohighlight">\(K\)</span>, i.e. it is equal to the paramtere <span class="math notranslate nohighlight">\(K\)</span> in the model.
+Therefore in many case it seems to be more realistic than the Malthus
+model.</p>
+<p>In the Figure we depict 3 characteristic solution in dependence on
+initial conditions:</p>
+<p><span class="math notranslate nohighlight">\((A) \quad N_0 \in(0, K/2), \quad \quad N(t) \quad\mbox{is an increasing function of time and tends to the saturated values wartości K}\)</span></p>
+<p><span class="math notranslate nohighlight">\((B) \quad N_0 \in [K/2, K), \quad \quad N(t) \quad\mbox{is also an increasing to K}\)</span></p>
+<p><span class="math notranslate nohighlight">\((C) \quad N_0 \gt K, \quad \quad \quad \quad N(t) \quad \mbox{is a decreasing function of time and tends to the value K}\)</span></p>
+<p>In the case (A), the solution has a shape of the capital letter S and
+therefore is sometimes called the sigmoid function, which is popular in
+the problems of artificial intelligence and neuron networks.</p>
+<div class="admonition-experiment-with-sage admonition">
+<p class="admonition-title">Experiment with Sage!</p>
+<p>A solution of the Velhulst equation can be obtained using the system of
+computer algebra. Sage can have some problems to get an explicit result
+(i.e., <span class="math notranslate nohighlight">\(x(t)=...\)</span>). However, if we apply the simplification -
+<code class="code docutils literal notranslate"><span class="pre">full_simplify()</span></code> then the result is as below.</p>
+</div>
+<div class='sage_unlinked'><script type='text/x-sage'>var('t x0')
+x = function('x')(t)
+sol_verhulst = desolve(diff(x,t) == x*(1-x),x,ics=[0,x0],ivar=t)
+show(sol_verhulst)
+print("Explicit form reads:")
+show( sol_verhulst.simplify_log().solve(x(t=t)) )</script></div></div>
+<div class="section" id="time-evolution-of-the-population-in-the-verhulst-model">
+<h3>Time evolution of the population in the Verhulst model<a class="headerlink" href="#time-evolution-of-the-population-in-the-verhulst-model" title="Permalink to this headline">¶</a></h3>
+<p>We want to plot for  the time evolution of the population for selected initial conditions. If can be easily done with Sage.</p>
+<div class="admonition-experiment-with-sage admonition">
+<p class="admonition-title">Experiment with Sage!</p>
+<p>Run code below to obtain time evolution of the Verhulst model with different initial conditions.
+How the future of the population depend on the current population?</p>
+</div>
+<div class='sage_unlinked'><script type='text/x-sage'>var('x')
+T0 = srange(0,8,0.01)
+g = x*(1-x)
+solv = [desolve_odeint( g, ic,T0,x) for ic in [0.01,0.6,1.5,1]]
+line( zip ( T0,solv[0][:,0]) ,figsize=(7, 4)) +\
+    line( zip ( T0,solv[1][:,0]) ,color='red')+\
+    line( zip ( T0,solv[2][:,0]) ,color='green') +\
+    line( zip ( T0,solv[3][:,0]) ,color='gray',legend_label="$K=1$")</script></div></div>
+</div>
+<div class="section" id="generalizations-and-modifications-of-the-verhulst-model">
+<h2>Generalizations and modifications of the Verhulst model<a class="headerlink" href="#generalizations-and-modifications-of-the-verhulst-model" title="Permalink to this headline">¶</a></h2>
+<div class="section" id="the-model-with-predation-the-ludwig-jones-holling-model">
+<h3>The model with predation (the Ludwig-Jones-Holling model)<a class="headerlink" href="#the-model-with-predation-the-ludwig-jones-holling-model" title="Permalink to this headline">¶</a></h3>
+<p>In the Verhulst model, the death process can be implicitly contained in
+the parameter <span class="math notranslate nohighlight">\(r \gt 0\)</span>: If <span class="math notranslate nohighlight">\(r\)</span> is smaller, the grow process
+is smaller because the death process increases. It corresponds to the
+regime when in the Malthus model <span class="math notranslate nohighlight">\(a \gt b\)</span>. In other words the
+growth rate is greater than the death rate. The Verhulst model can be
+generalized to the case of presence of predators which kill individuals
+in the Verhulst model. Because in the presence of predators, a number of
+preys decreases and according to the rules of modelling, we should add
+the negative term to the Verhulst equation. So, we postulate the
+following equation:</p>
+<div class="math notranslate nohighlight">
+\[\frac{dN}{dt} = r \left[1- \frac{N}{K}\right]  N -F(N), \quad \quad N(0)=N_0\]</div>
+<p>The function <span class="math notranslate nohighlight">\(F(N)\)</span> describes the influence of predators and
+should exhibit the following properties:</p>
+<ol class="lowerroman simple">
+<li><p><span class="math notranslate nohighlight">\(F(N=0) =0\)</span> - it means that when there are no preys then
+there is no influence of predators.</p></li>
+<li><p>For large values of N, the function <span class="math notranslate nohighlight">\(F(N)\)</span> should saturate,
+i.e. for <span class="math notranslate nohighlight">\(N\to  \infty\)</span> the finction <span class="math notranslate nohighlight">\(F(N)\)</span> tends to a
+constant finite value. It means that the predator can consume only
+a limited amount of preys.</p></li>
+</ol>
+<p>If population is too small the predator preferes to change the region of
+hunting. In this modeling one can apply the Hill function exploited in
+biochemistry, namely,</p>
+<div class="math notranslate nohighlight">
+\[F(N)= F_n(N)= \frac {BN^n}{A^n + N^n}, \quad n\gt 0\]</div>
+<p>Below we present the shape of this function for 3 values of the
+exponents <span class="math notranslate nohighlight">\(n=2, 4, 6.\)</span> The case <span class="math notranslate nohighlight">\(n=2\)</span> was applied to
+description of ecological systems, in particular the spruce
+budworm-forest interaction in the eastern North America (D. Ludwig, D.
+D. Jones and C. S. Holling, “Qualitative Analysis of Insect Outbreak
+Systems: The Spruce Budworm and Forest”, The Journal of Animal Ecology,
+Vol. 47, p. 315, 1978). This model is determined by the equation</p>
+<div class="math notranslate nohighlight">
+\[\frac{dN}{dt} = r  \left[1- \frac{N}{K}\right] \, N -  \frac {BN^2}{A^2 + N^2}, \quad n \gt 0\]</div>
+<p>This model and its modifications have been applied for description of
+various phenomena and processes. It is the first model which exhibits
+non-trivial properties. With this respect, the Malthus and Verhulst
+models can be treated as trivial for analysis.</p>
+<div class="admonition-experiment-with-sage admonition">
+<p class="admonition-title">Experiment with Sage!</p>
+<p>Investigate how the <strong>The Hill function</strong> depens on value the the expenent. For this purpose plot the function for exponent <span class="math notranslate nohighlight">\(n=2,3,4\)</span>. Try yourself also different  values.</p>
+</div>
+<div class='sage_unlinked'><script type='text/x-sage'>var('N')
+plts = []
+c = ['red','blue','green']
+for i,n in enumerate([2,4,6]):
+    F1 = N^n/(1+N^n)
+    plts.append( plot(F1,(N,0,2),figsize=(5,2),color=c[i%3], legend_label="$n=%d$"%n) )
+show(sum(plts))</script></div></div>
+<div class="section" id="example-of-a-model-which-describes-allee-effect">
+<h3>Example of a model which describes Allee effect<a class="headerlink" href="#example-of-a-model-which-describes-allee-effect" title="Permalink to this headline">¶</a></h3>
+<p>Simplifying, we can say that the Allee effect (1931) occur in small or
+sparse populations (where group size is important for both reproduction
+and survival) that can result in critical population thresholds below
+which populations crash to extinction. There are a variety of mechanisms
+that can create Allee effects, including mate finding, predation,
+environmental modification, social interactions, reproductive
+mechanisms, including fertilization efficiency in broadcast spawners,
+pollen limitation, sperm limitation, reproductive facilitation by
+conspecifics, and female choice. According to Allee, it should be a
+threshold of population below which the population will die out. An
+example of modeling of such an effect is the modified Verhulst equation</p>
+<div class="math notranslate nohighlight">
+\[\frac{dN}{dt} = G(N) = r (N- N_c) \left[1- \frac{N}{K}\right] \;N\]</div>
+<p>where <span class="math notranslate nohighlight">\(0 \lt N_c \lt K\)</span> is the next stationary state from the
+Allee prediction. It is an example of modification. One can construct
+many other models but this is the simplest. We observe that in this
+model there are 3 stationary states:</p>
+<div class="math notranslate nohighlight">
+\[\begin{split}\begin{aligned}
+G(N)= r (N- N_c) \left[1- \frac{N}{K}\right] \;N  =\frac{r}{K}  (N- N_c) (K- N) \;N = 0, \\ \mbox{ hence} \quad  N_1=0, \quad N_2=N_c, \quad N_3=K
+\end{aligned}\end{split}\]</div>
+<p>Stability analysis:</p>
+<div class="math notranslate nohighlight">
+\[G'(N)= \frac{r}{K} \left[(K-N) N -(N-N_c) N + (N-N_c) (K-N)\right]\]</div>
+<div class="math notranslate nohighlight">
+\[\begin{split}\begin{aligned}
+\lambda_1= G'(N_1) =G'(0) = -K N_c \lt 0 \quad \mbox{(stable  state)}, \\ \lambda_2= G'(N_2) =G'(N_c) = (K-N_c)N_c \gt 0 \quad \mbox{(unstable state)}, \\ \lambda_3= G'(N_3) =G'(K) = -K(K- N_c) \lt 0 \quad  \mbox{(stable state)}
+\end{aligned}\end{split}\]</div>
+<p>There are 2 stable stationary states: <span class="math notranslate nohighlight">\(N=0\)</span> oraz <span class="math notranslate nohighlight">\(N=K\)</span>. The
+stationary state <span class="math notranslate nohighlight">\(N=N_c\)</span> is unstable. The stationary state
+<span class="math notranslate nohighlight">\(N=K\)</span> is the same as in the Verhulst model and the statble state
+<span class="math notranslate nohighlight">\(N=0\)</span> describes the Alee effect: the population can dissapear when
+initially it is not enough large.</p>
+<p><strong>Time evolution of population in the Allee model in dependence of
+initial conditions</strong> (for <span class="math notranslate nohighlight">\(K=1\)</span> and <span class="math notranslate nohighlight">\(N_c=0.5\)</span>)</p>
+<div class='sage_unlinked'><script type='text/x-sage'>var('x')
+T0 = srange(0,15,0.01)
+f = x*(x-0.5)*(1-x)
+sols = [desolve_odeint( f, ic,T0,x) for ic in [0.45,0.55,1.5,0.5,1]]
+line( zip ( T0,sols[0][:,0]) ,figsize=(7, 4)) +\
+    line( zip ( T0,sols[1][:,0]) ,color='red')+\
+    line( zip ( T0,sols[2][:,0]) ,color='green') +\
+    line( zip ( T0,sols[3][:,0]) ,color='gray',legend_label="$K=1$") +\
+    line( zip ( T0,sols[4][:,0]) ,color='violet',legend_label="$N_c=0.5$")</script></div><p>The green and red curves present change on population for sufficiently
+large initial population (like in the Verhulst model). The blue curve
+presents the Allee effect: if initially the population is not large, it
+diminishes in time and finally ceases to exist.</p>
+</div>
+</div>
+</div>
+
+
+          </div>
+          
+        </div>
+      </div>
+      <div class="sphinxsidebar" role="navigation" aria-label="main navigation">
+        <div class="sphinxsidebarwrapper">
+<h1 class="logo"><a href="index.html">Nonlinear processes in Biology</a></h1>
+
+
+
+
+
+
+
+
+<h3>Navigation</h3>
+<ul class="current">
+<li class="toctree-l1 current"><a class="current reference internal" href="#">Continuous models for single species</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="#malthus-model">Malthus model</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#the-verhulst-logistic-model">The Verhulst (logistic) model</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#generalizations-and-modifications-of-the-verhulst-model">Generalizations and modifications of the Verhulst model</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="NPB_predator_prey.html">Models of interacting populations: prey-predator</a></li>
+</ul>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="notebooks/Lotka_Volterra_with_SAGE.html">The Lotka-Volterra model with SAGE</a></li>
+<li class="toctree-l1"><a class="reference internal" href="notebooks/May_model.html">Analysis of the May model with SAGE</a></li>
+<li class="toctree-l1"><a class="reference internal" href="notebooks/May_model_parameter_space_plot.html">Plot of stability condition in 3d</a></li>
+</ul>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="NPB_kinetics.html">Introduction to the kinetics of chemical reactions</a></li>
+<li class="toctree-l1"><a class="reference internal" href="NPB_kinetics.html#autocatalytic-reactions">Autocatalytic reactions</a></li>
+<li class="toctree-l1"><a class="reference internal" href="NPB_kinetics.html#enzyme-reactions">Enzyme reactions</a></li>
+<li class="toctree-l1"><a class="reference internal" href="NPB_kinetics.html#theoretical-analysis-ala-michaelis-menten">Theoretical analysis a’la Michaelis-Menten</a></li>
+</ul>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="NPB_reaction_diffusion.html">Reaction-diffusion equations</a></li>
+<li class="toctree-l1"><a class="reference internal" href="NPB_reaction_diffusion.html#the-malthus-model-with-migration-the-skellam-equation">The Malthus model with migration: The Skellam equation</a></li>
+<li class="toctree-l1"><a class="reference internal" href="NPB_reaction_diffusion.html#verhulst-model-with-migration-fisher-kolmogorov-equation">Verhulst model with migration: Fisher-Kolmogorov equation</a></li>
+</ul>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="NPB_epidemics.html">Epidemic model of Kermack-McKendrick</a></li>
+<li class="toctree-l1"><a class="reference internal" href="NPB_epidemics.html#geographical-spread-of-epidemic">Geographical spread of epidemic</a></li>
+<li class="toctree-l1"><a class="reference internal" href="NPB_epidemics.html#realistic-modeling-of-spatial-epidemic-spread">Realistic modeling of spatial epidemic spread</a></li>
+</ul>
+
+<div class="relations">
+<h3>Related Topics</h3>
+<ul>
+  <li><a href="index.html">Documentation overview</a><ul>
+      <li>Previous: <a href="index.html" title="previous chapter">Nonlinear Processes in Biology</a></li>
+      <li>Next: <a href="NPB_predator_prey.html" title="next chapter">Models of interacting populations: prey-predator</a></li>
+  </ul></li>
+</ul>
+</div>
+<div id="searchbox" style="display: none" role="search">
+  <h3 id="searchlabel">Quick search</h3>
+    <div class="searchformwrapper">
+    <form class="search" action="search.html" method="get">
+      <input type="text" name="q" aria-labelledby="searchlabel" />
+      <input type="submit" value="Go" />
+    </form>
+    </div>
+</div>
+<script>$('#searchbox').show(0);</script>
+
+
+
+
+
+
+
+
+        </div>
+      </div>
+      <div class="clearer"></div>
+    </div>
+    <div class="footer">
+      &copy;2016, J.Ł. & M.K..
+      
+      |
+      Powered by <a href="http://sphinx-doc.org/">Sphinx 2.4.0</a>
+      &amp; <a href="https://github.com/bitprophet/alabaster">Alabaster 0.7.12</a>
+      
+      |
+      <a href="_sources/NPB_1d_models.rst.txt"
+          rel="nofollow">Page source</a>
+    </div>
+
+    
+
+    
+  </body>
+</html>
