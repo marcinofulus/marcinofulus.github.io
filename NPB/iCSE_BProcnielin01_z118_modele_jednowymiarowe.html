@@ -1,0 +1,604 @@
+
+
+  
+<!DOCTYPE html>
+
+<html xmlns="http://www.w3.org/1999/xhtml" lang="pl">
+  <head>
+    <meta charset="utf-8" />
+    <title>Dynamika populacyjna: ciągłe modele jednowymiarowe &#8212; Procesy nieliniowe w Biologii</title>
+    <link rel="stylesheet" href="_static/cloud.css" type="text/css" />
+    <link rel="stylesheet" href="_static/pygments.css" type="text/css" />
+    <link rel="stylesheet" href="http://fonts.googleapis.com/css?family=Noticia+Text|Open+Sans|Droid+Sans+Mono&subset=latin,latin-ext" type="text/css" />
+    <script id="documentation_options" data-url_root="./" src="_static/documentation_options.js"></script>
+    <script src="_static/jquery.js"></script>
+    <script src="_static/underscore.js"></script>
+    <script src="_static/doctools.js"></script>
+    <script src="_static/language_data.js"></script>
+    <script src="_static/translations.js"></script>
+    <script async="async" src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.5/latest.js?config=TeX-AMS-MML_HTMLorMML"></script>
+    <script src="_static/jquery.cookie.js"></script>
+    <script src="_static/cloud.js"></script>
+    <script type="text/javascript" src="http://sagecell.sagemath.org/static/jquery.min.js"></script>
+    <script type="text/javascript" src="http://sagecell.sagemath.org/embedded_sagecell.js"></script>
+    <script type="text/javascript">
+        sagecell.makeSagecell({inputLocation: ".sage_linked",
+                               linked: true});
+        sagecell.makeSagecell({inputLocation: ".sage_unlinked",
+                               linked: false});
+    </script>
+
+    <style type="text/css">
+        .sagecell .CodeMirror-scroll {
+            overflow-y: hidden;
+            overflow-x: auto;
+        }
+        .sagecell .CodeMirror {
+            height: auto;
+        }
+    </style>
+    
+    <link rel="search" title="Szukaj" href="search.html" />
+    <link rel="next" title="Modele oddziałujących populacji: ofiara - drapieżca" href="iCSE_BProcnielin02_z119_ofiara_drapiezca.html" />
+    <link rel="prev" title="Procesy Nieliniowe w Biologii" href="index.html" />
+ 
+  <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, minimum-scale=1">
+  </head><body>
+  <div class="relbar-top">
+    
+    <div class="related" role="navigation" aria-label="related navigation">
+      <h3>Nawigacja</h3>
+      <ul>
+        <li class="right" style="margin-right: 10px">
+          <a href="iCSE_BProcnielin02_z119_ofiara_drapiezca.html" title="Modele oddziałujących populacji: ofiara - drapieżca"
+             accesskey="N">dalej</a></li>
+        <li class="right" >
+          <a href="index.html" title="Procesy Nieliniowe w Biologii"
+             accesskey="P">wstecz</a> &nbsp; &nbsp;</li>
+  <li><a href="index.html">Procesy nieliniowe w Biologii</a> &#187;</li>
+   
+      </ul>
+    </div>
+  </div>
+  
+  <div class="content">  
+
+    <div class="document">
+      <div class="documentwrapper">
+        <div class="bodywrapper">
+          <div class="body">
+            
+  <div class="section" id="dynamika-populacyjna-ciagle-modele-jednowymiarowe">
+<h1>Dynamika populacyjna: ciągłe modele jednowymiarowe<a class="headerlink" href="#dynamika-populacyjna-ciagle-modele-jednowymiarowe" title="Stały odnośnik do tego nagłówka">¶</a></h1>
+<div class="section" id="model-malthusa">
+<h2>Model Malthusa<a class="headerlink" href="#model-malthusa" title="Stały odnośnik do tego nagłówka">¶</a></h2>
+<p>W przyrodzie występuje wiele gatunków zwierząt i roślin. Ich
+liczebność ciągle się zmienia: procesy są dynamiczne, powiązane między
+sobą, oddziaływania są skomplikowane, często losowe. Można powiedzieć,
+że jest to niewątpliwie przykład realnego układu złożonego z wielu
+elementów połączonych z sobą w skomplikowaną sieć. Opis takich układów
+jest trudny. Jak to często bywa w naukach przyrodniczych, stosuje się
+opis przybliżony, „gruboziarnisty”, pomija się elementy mniej istotne
+i uwzględnia się najważniejsze składniki układu. Jest to metoda
+<em>idealizacji</em> nagminnie stosowana przez fizyków do opisu
+rzeczywistości. Historia pokazuje, że metoda ta nie jest zła. Ba,
+czasami bardzo dobra i nawet znakomita.</p>
+<p>Podobne podejście zastosujemy do opisu dynamiki
+populacyjnej. Zaczniemy od najprostszego modelu: jedna populacja. Może
+to być populacja ludzi na określonym obszarze, populacja zajęcy,
+bakterii czy populacja komórek nowotworowych. Może to być „populacja”
+związku chemicznego (molekuł). Populację określa się liczbami
+naturalnymi: jest 4 tys. ludzi, 3 mld bakterii, 10 <sup>20</sup>
+molekuł. Posługiwanie się liczbami całkowitymi jest trudne w
+modelowaniu. Postąpimy podobnie jak w opisie dynamiki płynów, np. wody
+czy krwii. Woda w szklance składa się z dyskretnej liczby molekuł. Ale
+nikt do charakterystyki wody nie stosuje opisu bazyjącego na liczbach
+naturalnych.  Stosujemy <em>przybliżenie ośrodka ciągłego</em>
+scharakteryzowanego gęstością wody: ilością molekuł w jednostkowej
+objętości. Podobny opis zastosujemy w modelowaniu dynamiki
+populacyjnej. Liczba N charakteryzująca liczbę osobników w populacji
+będzie nieujemną liczbą rzeczywistą, interpretowaną jako względna
+liczba osobników (liczba osobników w stosunku do np. średniej liczby
+osobników w ostatnich 50 latach lub maksymalnej liczby osobników w
+poprzednim roku, itp.). Liczba ta może zmieniać się w sposób
+ciągły. Liczba N(t) będzie charakteryzować liczbę osobników populacji
+w chwili czasu t.  Zmiana w czasie tej funkcji wynika z zastosowanego
+modelu.</p>
+<p>Modele będziemy budować bazując na wiedzy z teorii funkcji i
+obserwacjach otaczającego nas świata. Nie trzeba być wybitnym
+matematykiem, żeby umieć zinterpretować różnicę dwóch prędkości
+samochodu A i samochodu B gdy samochód A jedzie z prędkością 40 km/h,
+a samochód B jedzie z prędkością 150 km/h. Wielkość, która mówi o
+<em>tempie zmiany położenia w czasie</em> to pochodna położenia jako funkcji
+czasu, czyli prędkość. To właśnie pochodna mówi nam, w jakim tempie
+zmienia się dana wielkość. Jeżeli pochodna jest dodatnia, to funkcja
+rośnie; gdy pochodna jest ujemna, to funkcja maleje. Oto niezbędna
+wiedza, aby zacząć modelowanie.</p>
+<p>Pierwszy krok modelowania: dlaczego zmienia się liczba osobników N(t)
+w danej populacji?  Można wyróżnić trzy podstawowe procesy: ktoś się
+rodzi, ktoś umiera, jeszcze inny „wyjeżdża”, emigruje, opuszcza
+populację, a jeszcze inny „przyjeżdża”, imigruje. W języku matematyki
+możemy to zapisać w postaci relacji:</p>
+<div class="math notranslate nohighlight">
+\[\frac{dN(t)}{dt}= +\text{przyrost (narodziny)} - \text{ubytek (śmierć)}  \pm  \text{migracja}\]</div>
+<ol class="lowerroman simple">
+<li><p>Lewa  strona  tej relacji opisuje tempo zmiany populacji: <span class="math notranslate nohighlight">\(dN(t)/dt\)</span></p></li>
+<li><p>przyrost populacji wskutek urodzin nowych osobników jest  rosnącą funkcją <span class="math notranslate nohighlight">\(f(N)\)</span>   liczby osobników <span class="math notranslate nohighlight">\(N\)</span> w populacji: W populacji 1 mln rodzi się więcej osobników niż w populacji 50 tys. (jak można zaobserwować w ostatnich latach, w populacji ludzi nie musi to być prawdą).  Najprostszą funkcją jest funkcja liniowa:</p></li>
+</ol>
+<div class="math notranslate nohighlight">
+\[f(N) = a N\]</div>
+<p>gdzie współczynnik  <span class="math notranslate nohighlight">\(a \gt 0\)</span>  nazywa się tempem rozmnażania (wzrostu)   populacji.</p>
+<ol class="lowerroman simple" start="3">
+<li><p>ubytek  populacji  wskutek śmierci osobników  jest  rosnącą funkcją <span class="math notranslate nohighlight">\(g(N)\)</span>   liczby osobników w populacji: W populacji 1 mln umiera  więcej osobników niż w populacji 50 tys.   Najprostszą funkcją jest funkcja liniowa:</p></li>
+</ol>
+<div class="math notranslate nohighlight">
+\[g(N) = b N\]</div>
+<p>gdzie współczynnik  <span class="math notranslate nohighlight">\(b \gt 0\)</span> jest tempem śmiertelności (zaniku) populacji .</p>
+<p>Pominiemy na obecnym etapie procesy migracji (zaczynamy od najprostszego modelu!).  Z powyższych rozważań wynika taki oto model:</p>
+<div class="math notranslate nohighlight">
+\[\frac{dN(t)}{dt}= a N(t) - b N(t)  = (a-b) N(t) = k N(t), \quad \quad  k=a-b\]</div>
+<p>Otrzymaliśmy liniowe równanie różniczkowe zwyczajne pierwszego rzędu. Aby otrzymać  jego jednoznaczne rozwiązanie, musimy jeszcze zadać warunek początkowy:</p>
+<div class="math notranslate nohighlight">
+\[N(0) = N_0\]</div>
+<p>Jest to proste równanie różniczkowe, które można rozwiązać metodą rozdzielenia zmiennych:</p>
+<div class="math notranslate nohighlight">
+\[N(t)= N_0  e^{kt}\]</div>
+<p>Z rozwiązania tego wynika, że:</p>
+<ol class="arabic simple">
+<li><p>jeżeli  tempo rozmnażania  jest takie samo jak tempo śmiertelności, <span class="math notranslate nohighlight">\(k=0\)</span> czyli <span class="math notranslate nohighlight">\(a=b\)</span>,  to populacja utrzymuje sie na tym samym poziomie liczebności:  <span class="math notranslate nohighlight">\(N(t) = N(0)\)</span>.</p></li>
+<li><p>jeżeli  tempo rozmnażania  jest większe niż  tempo śmiertelności, <span class="math notranslate nohighlight">\(k\gt 0\)</span> czyli <span class="math notranslate nohighlight">\(a \gt b\)</span>, to populacja rozrasta się: <span class="math notranslate nohighlight">\(N(t)  \gt  N(0)\)</span>.</p></li>
+<li><p>jeżeli  tempo rozmnażania  jest  mniejsze niż  tempo śmiertelności, <span class="math notranslate nohighlight">\(k\lt 0\)</span> czyli <span class="math notranslate nohighlight">\(a \lt b\)</span>,   to liczba osobników w populacji maleje:  <span class="math notranslate nohighlight">\(N(t)  \lt  N(0)\)</span>.</p></li>
+</ol>
+<p>Powyższy model został zaproponowany przez Malthusa w 1798 roku. Wynika z niego eksponencjalnie szybkie  tempo wzrostu (gdy a&gt;b) lub eksponencjalnie szybki zanik populacji (gdy a&lt;b). Są takie przykłady,  dla których model Malthusa realizuje się w pewnych przedziałach czasu, w szczególności  w początkowych fazach wzrostu (np. wzrost kolonii bakterii w odpowiednich warunkach).</p>
+<div class="section" id="wykorzystanie-sage-do-analizy-modelu-malthusa">
+<h3><strong>Wykorzystanie Sage do analizy  modelu Malthusa</strong><a class="headerlink" href="#wykorzystanie-sage-do-analizy-modelu-malthusa" title="Stały odnośnik do tego nagłówka">¶</a></h3>
+<p><strong>Rozwiązanie analityczne</strong></p>
+<p>W SAGE można bardzo łatwo otrzymać postać analityczną rozwiązania równania Malthusa, patrz poniżej:</p>
+<hr class="docutils" />
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="n">sage</span><span class="p">:</span> <span class="n">var</span><span class="p">(</span><span class="s1">&#39;t k&#39;</span><span class="p">)</span>
+<span class="n">sage</span><span class="p">:</span> <span class="c1">#k=1</span>
+<span class="n">sage</span><span class="p">:</span> <span class="n">assume</span><span class="p">(</span><span class="n">t</span><span class="o">&gt;</span><span class="mi">0</span><span class="p">)</span>
+<span class="n">sage</span><span class="p">:</span> <span class="n">N</span> <span class="o">=</span> <span class="n">function</span><span class="p">(</span><span class="s1">&#39;N&#39;</span><span class="p">,</span><span class="n">t</span><span class="p">)</span>
+<span class="n">sage</span><span class="p">:</span> <span class="n">row</span> <span class="o">=</span> <span class="n">N</span><span class="o">.</span><span class="n">diff</span><span class="p">()</span><span class="o">==</span> <span class="n">k</span><span class="o">*</span><span class="n">N</span>
+<span class="n">sage</span><span class="p">:</span> <span class="n">rozw</span> <span class="o">=</span> <span class="n">desolve</span><span class="p">(</span><span class="n">row</span><span class="p">,</span><span class="n">N</span><span class="p">,</span><span class="n">ivar</span> <span class="o">=</span> <span class="n">t</span><span class="p">)</span>
+<span class="n">sage</span><span class="p">:</span> <span class="n">rozw</span>
+</pre></div>
+</div>
+<div class="math notranslate nohighlight">
+\[c e^{(kt)}\]</div>
+<p><strong>Wykres pokazujący wzrost, brak zmian i zanik populacji w zależności od wartości parametru k=a-b</strong></p>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="n">sage</span><span class="p">:</span> <span class="n">var</span><span class="p">(</span><span class="s1">&#39;N1,N2,N3&#39;</span><span class="p">)</span>
+<span class="n">sage</span><span class="p">:</span> <span class="n">T</span> <span class="o">=</span> <span class="n">srange</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span><span class="mi">3</span><span class="p">,</span><span class="mf">0.01</span><span class="p">)</span>
+<span class="n">sage</span><span class="p">:</span> <span class="n">sol</span><span class="o">=</span><span class="n">desolve_odeint</span><span class="p">(</span> <span class="n">vector</span><span class="p">([</span><span class="o">-</span><span class="n">N1</span><span class="p">,</span> <span class="mi">0</span><span class="p">,</span> <span class="mf">0.5</span><span class="o">*</span><span class="n">N3</span><span class="p">]),</span> <span class="p">[</span><span class="mi">5</span><span class="p">,</span><span class="mi">5</span><span class="p">,</span><span class="mi">5</span><span class="p">],</span><span class="n">T</span><span class="p">,[</span><span class="n">N1</span><span class="p">,</span><span class="n">N2</span><span class="p">,</span><span class="n">N3</span><span class="p">])</span><span class="c1">## rozwiązania dla różnych wartości k=-1, 0, 0.5</span>
+
+<span class="n">sage</span><span class="p">:</span> <span class="n">line</span><span class="p">(</span> <span class="nb">zip</span> <span class="p">(</span> <span class="n">T</span><span class="p">,</span><span class="n">sol</span><span class="p">[:,</span><span class="mi">0</span><span class="p">])</span> <span class="p">,</span><span class="n">figsize</span><span class="o">=</span><span class="p">(</span><span class="mi">5</span><span class="p">,</span> <span class="mi">3</span><span class="p">),</span><span class="n">legend_label</span><span class="o">=</span><span class="s2">&quot;k=-1&quot;</span><span class="p">)</span> <span class="o">+</span>\
+<span class="o">...</span>    <span class="n">line</span><span class="p">(</span> <span class="nb">zip</span> <span class="p">(</span> <span class="n">T</span><span class="p">,</span><span class="n">sol</span><span class="p">[:,</span><span class="mi">1</span><span class="p">])</span> <span class="p">,</span><span class="n">color</span><span class="o">=</span><span class="s1">&#39;red&#39;</span><span class="p">,</span><span class="n">legend_label</span><span class="o">=</span><span class="s2">&quot;k=0&quot;</span><span class="p">)</span><span class="o">+</span>\
+<span class="o">...</span>    <span class="n">line</span><span class="p">(</span> <span class="nb">zip</span> <span class="p">(</span> <span class="n">T</span><span class="p">,</span><span class="n">sol</span><span class="p">[:,</span><span class="mi">2</span><span class="p">])</span> <span class="p">,</span><span class="n">color</span><span class="o">=</span><span class="s1">&#39;green&#39;</span><span class="p">,</span><span class="n">legend_label</span><span class="o">=</span><span class="s2">&quot;k=0.5&quot;</span><span class="p">)</span> <span class="c1">## pokazujemy rozwiązania dla różnych wartości k=-1, 0, 0.5</span>
+</pre></div>
+</div>
+<img alt="_images/cell_6_sage0.png" class="align-center" src="_images/cell_6_sage0.png" />
+<p><strong>Wykres pokazujący różne tempo wzrostu w zależności od wartości parametru k=a−b &gt; 0</strong></p>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="n">sage</span><span class="p">:</span> <span class="n">T1</span> <span class="o">=</span> <span class="n">srange</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span><span class="mf">1.5</span><span class="p">,</span><span class="mf">0.01</span><span class="p">)</span>
+<span class="n">sage</span><span class="p">:</span> <span class="n">sol1</span><span class="o">=</span><span class="n">desolve_odeint</span><span class="p">(</span> <span class="n">vector</span><span class="p">([</span><span class="n">N1</span><span class="p">,</span> <span class="mi">2</span><span class="o">*</span><span class="n">N2</span><span class="p">,</span> <span class="mf">2.5</span><span class="o">*</span><span class="n">N3</span><span class="p">]),</span> <span class="p">[</span><span class="mi">5</span><span class="p">,</span><span class="mi">5</span><span class="p">,</span><span class="mi">5</span><span class="p">],</span><span class="n">T1</span><span class="p">,[</span><span class="n">N1</span><span class="p">,</span><span class="n">N2</span><span class="p">,</span><span class="n">N3</span><span class="p">])</span>
+<span class="n">sage</span><span class="p">:</span> <span class="n">line</span><span class="p">(</span> <span class="nb">zip</span> <span class="p">(</span> <span class="n">T1</span><span class="p">,</span><span class="n">sol1</span><span class="p">[:,</span><span class="mi">0</span><span class="p">])</span> <span class="p">,</span><span class="n">figsize</span><span class="o">=</span><span class="p">(</span><span class="mi">5</span><span class="p">,</span> <span class="mi">3</span><span class="p">),</span><span class="n">legend_label</span><span class="o">=</span><span class="s2">&quot;k=1&quot;</span><span class="p">)</span> <span class="o">+</span>\
+<span class="o">...</span>    <span class="n">line</span><span class="p">(</span> <span class="nb">zip</span> <span class="p">(</span> <span class="n">T1</span><span class="p">,</span><span class="n">sol1</span><span class="p">[:,</span><span class="mi">1</span><span class="p">])</span> <span class="p">,</span><span class="n">color</span><span class="o">=</span><span class="s1">&#39;red&#39;</span><span class="p">,</span><span class="n">legend_label</span><span class="o">=</span><span class="s2">&quot;k=2&quot;</span><span class="p">)</span><span class="o">+</span>\
+<span class="o">...</span>    <span class="n">line</span><span class="p">(</span> <span class="nb">zip</span> <span class="p">(</span> <span class="n">T1</span><span class="p">,</span><span class="n">sol1</span><span class="p">[:,</span><span class="mi">2</span><span class="p">])</span> <span class="p">,</span><span class="n">color</span><span class="o">=</span><span class="s1">&#39;green&#39;</span><span class="p">,</span><span class="n">legend_label</span><span class="o">=</span><span class="s2">&quot;k=2.5&quot;</span><span class="p">)</span> <span class="c1">## pokazujemy rozwiązania dla dodatnich wartości k=1, 2, 2.5</span>
+</pre></div>
+</div>
+<img alt="_images/cell_9_sage0.png" class="align-center" src="_images/cell_9_sage0.png" />
+<p><strong>Wykres pokazujący różne tempo  zaniku populacji w zależności od wartości parametru k=a−b &lt; 0</strong></p>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="n">sage</span><span class="p">:</span> <span class="n">T2</span> <span class="o">=</span> <span class="n">srange</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span><span class="mi">2</span><span class="p">,</span><span class="mf">0.01</span><span class="p">)</span>
+<span class="n">sage</span><span class="p">:</span> <span class="n">sol2</span><span class="o">=</span><span class="n">desolve_odeint</span><span class="p">(</span> <span class="n">vector</span><span class="p">([</span><span class="o">-</span><span class="n">N1</span><span class="p">,</span> <span class="o">-</span><span class="mi">2</span><span class="o">*</span><span class="n">N2</span><span class="p">,</span> <span class="o">-</span><span class="mi">3</span><span class="o">*</span><span class="n">N3</span><span class="p">]),</span> <span class="p">[</span><span class="mi">5</span><span class="p">,</span><span class="mi">5</span><span class="p">,</span><span class="mi">5</span><span class="p">],</span><span class="n">T2</span><span class="p">,[</span><span class="n">N1</span><span class="p">,</span><span class="n">N2</span><span class="p">,</span><span class="n">N3</span><span class="p">])</span>
+<span class="n">sage</span><span class="p">:</span> <span class="n">line</span><span class="p">(</span> <span class="nb">zip</span> <span class="p">(</span> <span class="n">T2</span><span class="p">,</span><span class="n">sol2</span><span class="p">[:,</span><span class="mi">0</span><span class="p">])</span> <span class="p">,</span><span class="n">figsize</span><span class="o">=</span><span class="p">(</span><span class="mi">5</span><span class="p">,</span><span class="mi">3</span><span class="p">),</span><span class="n">legend_label</span><span class="o">=</span><span class="s2">&quot;k=-1&quot;</span><span class="p">)</span> <span class="o">+</span>\
+<span class="o">...</span>    <span class="n">line</span><span class="p">(</span> <span class="nb">zip</span> <span class="p">(</span> <span class="n">T2</span><span class="p">,</span><span class="n">sol2</span><span class="p">[:,</span><span class="mi">1</span><span class="p">])</span> <span class="p">,</span><span class="n">color</span><span class="o">=</span><span class="s1">&#39;red&#39;</span><span class="p">,</span><span class="n">legend_label</span><span class="o">=</span><span class="s2">&quot;k=-2&quot;</span><span class="p">)</span><span class="o">+</span>\
+<span class="o">...</span>    <span class="n">line</span><span class="p">(</span> <span class="nb">zip</span> <span class="p">(</span> <span class="n">T2</span><span class="p">,</span><span class="n">sol2</span><span class="p">[:,</span><span class="mi">2</span><span class="p">])</span> <span class="p">,</span><span class="n">color</span><span class="o">=</span><span class="s1">&#39;green&#39;</span><span class="p">,</span><span class="n">legend_label</span><span class="o">=</span><span class="s2">&quot;k=-3&quot;</span><span class="p">)</span> <span class="c1">## pokazujemy rozwiązania dla ujemnych wartości k=-1, -2, -3</span>
+</pre></div>
+</div>
+<img alt="_images/cell_10_sage0.png" class="align-center" src="_images/cell_10_sage0.png" />
+<p><strong>ZADANIE:</strong>   Dane eksperymentalne  dotyczące wzrostu bakterii  <em>Vibrio natrigens</em>  są nastepujace (patrz <a class="reference external" href="http://mathinsight.org/bacteria_growth_initial_model">http://mathinsight.org/bacteria_growth_initial_model</a>)</p>
+<blockquote>
+<div><table class="docutils align-default">
+<colgroup>
+<col style="width: 41%" />
+<col style="width: 59%" />
+</colgroup>
+<thead>
+<tr class="row-odd"><th class="head"><p>t  (min)</p></th>
+<th class="head"><p>N (gęstość)</p></th>
+</tr>
+</thead>
+<tbody>
+<tr class="row-even"><td><p>0</p></td>
+<td><p>0.022</p></td>
+</tr>
+<tr class="row-odd"><td><p>16</p></td>
+<td><p>0.036</p></td>
+</tr>
+<tr class="row-even"><td><p>32</p></td>
+<td><p>0.060</p></td>
+</tr>
+<tr class="row-odd"><td><p>48</p></td>
+<td><p>0.101</p></td>
+</tr>
+<tr class="row-even"><td><p>64</p></td>
+<td><p>0.169</p></td>
+</tr>
+</tbody>
+</table>
+</div></blockquote>
+<p>Vibrio natrigens</p>
+<p>Sprawdź, czy model Malthusa opisuje powyższy wzrost kolonii bakterii.
+Oceń rzetelność tego modelu.</p>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="n">sage</span><span class="p">:</span> <span class="n">t</span> <span class="o">=</span> <span class="p">[</span><span class="mi">0</span> <span class="p">,</span> <span class="mi">16</span> <span class="p">,</span>  <span class="mi">32</span> <span class="p">,</span> <span class="mi">48</span> <span class="p">,</span> <span class="mi">64</span> <span class="p">]</span>
+<span class="n">sage</span><span class="p">:</span> <span class="n">X</span> <span class="o">=</span> <span class="p">[</span><span class="mf">0.022</span><span class="p">,</span> <span class="mf">0.036</span><span class="p">,</span>  <span class="mf">0.060</span><span class="p">,</span> <span class="mf">0.101</span><span class="p">,</span>  <span class="mf">0.169</span> <span class="p">]</span>
+</pre></div>
+</div>
+<p>W modelu Malthusa, wzrost jest eksponencjalny. Więc w skali logarytmicznej otrzymujemy prostą:</p>
+<p><span class="math notranslate nohighlight">\(y(t) = \ln N(t) = \ln N_0 + k t = c + k t\)</span></p>
+<p>Przedstawiamy  dane wzrostu bakterii na  skali logarytmicznej:</p>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="n">sage</span><span class="p">:</span> <span class="n">point</span><span class="p">(</span><span class="nb">zip</span><span class="p">(</span><span class="n">t</span><span class="p">,</span><span class="nb">map</span><span class="p">(</span><span class="n">log</span><span class="p">,</span><span class="n">X</span><span class="p">)),</span><span class="n">color</span><span class="o">=</span><span class="s1">&#39;red&#39;</span><span class="p">,</span><span class="n">figsize</span><span class="o">=</span><span class="mi">4</span><span class="p">)</span>
+</pre></div>
+</div>
+<img alt="_images/cell_25_sage0.png" class="align-center" src="_images/cell_25_sage0.png" />
+<p>Z grubsza wygląda to na linię prostą. Aby to sprawdzić,  wykonamy procedurę dopasowania danych eksperymentalnych do krzywej: <span class="math notranslate nohighlight">\(n(t) = c \; e^{ k t}\)</span>:</p>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="n">sage</span><span class="p">:</span> <span class="n">var</span><span class="p">(</span><span class="s1">&#39;x a b&#39;</span><span class="p">)</span>
+<span class="n">sage</span><span class="p">:</span> <span class="n">model</span><span class="p">(</span><span class="n">x</span><span class="p">)</span> <span class="o">=</span> <span class="n">c</span> <span class="o">*</span> <span class="n">exp</span><span class="p">(</span><span class="n">k</span> <span class="o">*</span> <span class="n">x</span> <span class="p">)</span>
+<span class="n">sage</span><span class="p">:</span> <span class="n">fit</span> <span class="o">=</span> <span class="n">find_fit</span> <span class="p">(</span><span class="nb">zip</span><span class="p">(</span><span class="n">t</span><span class="p">,</span><span class="n">X</span><span class="p">),</span> <span class="n">model</span><span class="p">,</span> <span class="n">solution_dict</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span><span class="n">initial_guess</span><span class="o">=</span><span class="p">(</span><span class="o">.</span><span class="mi">1</span><span class="p">,</span><span class="o">.</span><span class="mi">1</span><span class="p">))</span>
+<span class="n">sage</span><span class="p">:</span> <span class="n">fit</span>
+</pre></div>
+</div>
+<div class="math notranslate nohighlight">
+\[\{k: 0.032184803220426876, c: 0.021538179879268291\}\]</div>
+<p>Parametr <code class="code docutils literal notranslate"><span class="pre">initial_guess</span></code>  ustala punkt startowy dla rozpoczęcia iteracji procedury nieliniowej optymalizacji.</p>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="n">sage</span><span class="p">:</span> <span class="n">fit2</span> <span class="o">=</span> <span class="n">find_fit</span> <span class="p">(</span><span class="nb">zip</span><span class="p">(</span><span class="n">t</span><span class="p">[:</span><span class="mi">2</span><span class="p">],</span><span class="n">X</span><span class="p">[:</span><span class="mi">2</span><span class="p">]),</span> <span class="n">model</span><span class="p">,</span> <span class="n">solution_dict</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
+<span class="n">sage</span><span class="p">:</span> <span class="nb">print</span> <span class="n">fit2</span>
+<span class="n">sage</span><span class="p">:</span> <span class="n">plot</span><span class="p">(</span> <span class="n">model</span><span class="p">(</span><span class="n">x</span><span class="p">)</span><span class="o">.</span><span class="n">subs</span><span class="p">(</span><span class="n">fit</span><span class="p">),</span> <span class="p">(</span><span class="n">x</span><span class="p">,</span><span class="o">-</span><span class="mi">20</span><span class="p">,</span><span class="mi">70</span><span class="p">))</span>  <span class="o">+</span> <span class="n">plot</span><span class="p">(</span> <span class="n">model</span><span class="p">(</span><span class="n">x</span><span class="p">)</span><span class="o">.</span><span class="n">subs</span><span class="p">(</span><span class="n">fit2</span><span class="p">),</span> <span class="p">(</span><span class="n">x</span><span class="p">,</span><span class="o">-</span><span class="mi">20</span><span class="p">,</span><span class="mi">70</span><span class="p">),</span><span class="n">color</span><span class="o">=</span><span class="s1">&#39;green&#39;</span><span class="p">)</span>  <span class="o">+</span> <span class="n">point</span><span class="p">(</span><span class="nb">zip</span><span class="p">(</span><span class="n">t</span><span class="p">,</span><span class="n">X</span><span class="p">),</span><span class="n">color</span><span class="o">=</span><span class="s1">&#39;red&#39;</span><span class="p">,</span><span class="n">figsize</span><span class="o">=</span><span class="mi">4</span><span class="p">)</span>
+</pre></div>
+</div>
+<div class="math notranslate nohighlight">
+\[\{b: 0.030779780318612133, a: 0.021999999999999999\}\]</div>
+<img alt="_images/cell_27_sage0.png" class="align-center" src="_images/cell_27_sage0.png" />
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="n">sage</span><span class="p">:</span> <span class="n">log</span><span class="p">(</span><span class="mf">0.036</span><span class="o">/</span><span class="mf">0.022</span><span class="p">)</span><span class="o">/</span><span class="mi">16</span>
+</pre></div>
+</div>
+<div class="math notranslate nohighlight">
+\[0.0307797803186121\]</div>
+<p>Ostatnia liczba to wartość <span class="math notranslate nohighlight">\(k\)</span> obliczona z danych dla wzrostu
+bakterii. Jest on bardzo bliska wartości b obliczonej z dopasowania
+danych do krzywej eksponencjalnej: <span class="math notranslate nohighlight">\(n(t) = c \exp(k t)\)</span>. Stała
+<span class="math notranslate nohighlight">\(c\)</span> też jest bliska wartości <span class="math notranslate nohighlight">\(0.022\)</span> z danych.</p>
+<p><strong>ZADANIE:</strong> W modelu Malthusa występują 2 parametry: a i b. W  rozwiązaniu pojawia się tylko różnica a-b. Przeprowadzić dyskusję  dotyczącą bezwymiarowej postaci równania Malthusa. Ile istotnych  parametrów zawiera model Malthusa?</p>
+<p><strong>ZADANIE:</strong>   W roku 1960 liczba ludności wynosiła 3 mld. W roku  1970 - 3.7 mld ludzi.  Zakładając, że zmiana populacji następuje zgodnie   z powyższym modelem Malthusa, oblicz  liczbę ludności w roku 1980.  Porównaj wynik modelu ze stanem faktycznym (skorzystaj z  danych  demograficznych zamieszczonych na stronie internetowej).</p>
+</div>
+</div>
+<div class="section" id="model-verhulsta">
+<h2>Model Verhulsta<a class="headerlink" href="#model-verhulsta" title="Stały odnośnik do tego nagłówka">¶</a></h2>
+<p>Załóżmy, że w modelu Malthusa uwzględniamy tylko procesy urodzin i
+pomijamy procesy śmierci, tzn. b=0. Wówczas populacja wzrasta w tempie
+wykładniczym:</p>
+<div class="math notranslate nohighlight">
+\[N(t)= N_0 e^{at}\]</div>
+<p>co ilustruje powyższy rysunek dla przypadku k&gt;0. Tak szybkie tempo
+wzrostu może być obserwowane dla pewnych układów tylko w niewielkim
+przedziale czasu.  W ogólności zbyt szybkie tempo wzrostu populacji
+spowodowałoby zachwianie równowagi w przyrodzie. Na przykład w roku
+1859 farmer Thomas Austin wypuścił w swoich włościach w Australii 24
+króliki europejskie, licząc na to, że będzie mógł oddawać się
+przyjemnościom polowania. Inni farmerzy podchwycili pomysł i
+rzeczywiście - polować mogli wkrótce do woli. W roku 1869 królików w
+Australii było już tyle, że odstrzeliwano ich dwa miliony rocznie, bez
+żadnych widocznych ubytków w liczebności populacji. Króliki
+zdewastowały przyrodę Australii. Pożerały roślinność, przez co wymarło
+wiele gatunków australijskich ssaków. Udało się je wytępić dopiero w
+latach pięćdziesiątych ostatniego stulecia, sprowadzając na wyspę
+chorobę: myksomatozę. Wirus w ciągu dwóch lat zabił pół miliarda z
+sześciuset milionów królików. Pozostałe króliki były na chorobę
+odporne i ich liczebność znowu zaczęła wzrastać, dlatego w latach
+dziewięćdziesiątych ludzie pognębili je kolejną plagą, zwaną chińskim
+pomorem królików.</p>
+<p>Z reguły nadmierny rozrost populacji na <em>ograniczonym</em> terenie
+powoduje trudny dostęp do pożywienia i tempo wzrostu populacji zaczyna
+spowalniać.  Model uwzględniający ten efekt ograniczonego dostępu do
+pożywienia został po raz pierwszy zaproponowany przez Verhulsta w
+roku 1838.  W modelu tym tempo wzrostu <span class="math notranslate nohighlight">\(a\)</span> nie jest stałe, ale
+zależy od stanu populacji:</p>
+<div class="math notranslate nohighlight">
+\[a \to  a(N)\]</div>
+<p>i równanie ewolucji przyjmuje postać:</p>
+<div class="math notranslate nohighlight">
+\[\frac{dN}{dt} = a(N) \; N, \quad N(0)=N_0\]</div>
+<p>Zależność funkcyjna <span class="math notranslate nohighlight">\(a(N)\)</span> od <span class="math notranslate nohighlight">\(N\)</span> powinna mieć następującą
+własność: jeżeli populacja wzrasta, tempo wzrostu powinno
+maleć. Oczywiście jest wiele funkcji o tej własności: to są funkcje
+malejące. Verhulst zaproponował taką oto zależność:</p>
+<div class="math notranslate nohighlight">
+\[a(N)= r \left[1- \frac{N}{K}\right]\]</div>
+<p>gdzie <span class="math notranslate nohighlight">\(r \gt 0\)</span> jest parametrem o podobnej interpretacji jak
+parametr <span class="math notranslate nohighlight">\(a\)</span> w modelu Malthusa (charakteryzuje tempo wzrostu)
+oraz stała <span class="math notranslate nohighlight">\(K \gt 0\)</span> charakteryzuje zasoby pożywienia i czasami
+nazywa się pojemnością środowiska. Zauważmy, że stała <span class="math notranslate nohighlight">\(K\)</span>
+pojawia się w ilorazie <span class="math notranslate nohighlight">\(N/K\)</span> i jest charakterystyczną liczbą
+osobników <span class="math notranslate nohighlight">\(K=N_c\)</span> w populacji.  Jeżeli <span class="math notranslate nohighlight">\(N \gt K\)</span> to
+<span class="math notranslate nohighlight">\(a(N) \lt 0\)</span> i populacja maleje. Z kolei jeżeli <span class="math notranslate nohighlight">\(N \lt K\)</span>
+to <span class="math notranslate nohighlight">\(a(N) \gt 0\)</span> i populacja rozrasta się.</p>
+<p>Jak zmiana K wpływa na tempo wzrostu populacji? Jeżeli K rośnie to N/K
+maleje. Z kolei to powoduje, że 1-N/K rośnie, czyli a(N)
+rośnie. Oznacza to, że tempo wzrostu rośnie i populacja rozrasta się
+szybciej. Stąd wniosek: <strong>Wzrost parametru K powoduje szybsze tempo
+wzrostu populacji.</strong></p>
+<p>Z powyższych rozważań otrzymujemy równanie ewolucji w postaci równania Verhulsta:</p>
+<div class="math notranslate nohighlight">
+\[\frac{dN}{dt} = r \left[1- \frac{N}{K}\right]  N, \quad \quad N(0)=N_0\]</div>
+<p>Równanie to zawiera 2 parametry: r oraz K. Natomiast istotne,
+jakościowe a nie ilościowe własności układu nie zależą od tych
+parametrów. Aby pokazać od ilu parametrów zależą własności układu,
+należy przekształcić równanie Verhulsta do postaci bezwymiarowej. W
+tym celu zdefiniujemy względną liczbę osobników w populacji</p>
+<div class="math notranslate nohighlight">
+\[x= \frac{N}{K}\]</div>
+<p>oraz bezwymiarowy czas</p>
+<div class="math notranslate nohighlight">
+\[s=r t\]</div>
+<p>W nowych zmiennych równanie Verhulsta przyjmuje postać:</p>
+<div class="math notranslate nohighlight">
+\[\frac{dx}{ds} = f(x) = x[1-x], \quad x = x(s), \quad \quad x(0) = x_0 = \frac{1}{K} N(0)\]</div>
+<p>Jak widać, w równaniu tym nie pojawiają się żadne parametry. Jest to istotne, gdyż  <strong>własności układu nie zależą jakościowo od jakichkolwiek wartości r oraz K.</strong></p>
+<p><strong>Zadanie</strong></p>
+<p>Znaleźć stany stacjonarne układu i zbadać ich stabilność.</p>
+<ol class="lowerroman simple">
+<li><p><span class="math notranslate nohighlight">\(f(x) =0\)</span>, tzn. <span class="math notranslate nohighlight">\(x(1-x)=0\)</span>,</p></li>
+</ol>
+<p>stąd otrzymujemy 2 stany stacjonarne <span class="math notranslate nohighlight">\(x_1=0\)</span> oraz <span class="math notranslate nohighlight">\(x_2=1\)</span></p>
+<ol class="lowerroman simple" start="2">
+<li><p>ich stabilność: <span class="math notranslate nohighlight">\(\lambda = f'(x) = 1- 2 x\)</span>,</p></li>
+</ol>
+<p>czyli <span class="math notranslate nohighlight">\(\lambda_1= f'(x_1) = 1 \gt  0\)</span> (niestabilny), <span class="math notranslate nohighlight">\(\lambda_2= f'(x_2) =-1 \lt  0\)</span> (stabilny)</p>
+<p>Ponieważ otrzymujemy jeden stabilny stan stacjonarny <span class="math notranslate nohighlight">\(x=1\)</span>, wszystkie rozwiązania <span class="math notranslate nohighlight">\(x(s)\)</span> z warunkiem początkowym <span class="math notranslate nohighlight">\(x_0 \gt 0\)</span> dążą do tego stanu.</p>
+<p>Gdy warunek początkowy <span class="math notranslate nohighlight">\(x_0=0\)</span>  to rozwiązaniem jest <span class="math notranslate nohighlight">\(x(s)=0\)</span>, ale dowolnie małe zaburzenie powoduje, że układ „wyskoczy” z tego stanu i zacznie ewoluować do stanu <span class="math notranslate nohighlight">\(x=1\)</span>.</p>
+<p>Powyższe równanie Verhulsta można rozwiązań analitycznie metodą separacji zmiennych:</p>
+<div class="math notranslate nohighlight">
+\[\frac{dx}{x(1-x)} = ds  \quad \quad \mbox{lub równoważnie} \quad \quad \left[ \frac{1}{x} -\frac{1}{x-1}\right] dx = ds\]</div>
+<p>Następnie całkujemy obustronnie:</p>
+<div class="math notranslate nohighlight">
+\[\int_{x_0}^{ x(s)} \left[\frac{1}{x} -\frac{1}{x-1}\right] dx =  \int_0^{ s} ds\]</div>
+<p>Końcowa postać rozwiązania to funkcja</p>
+<div class="math notranslate nohighlight">
+\[x(s) = \frac{x_0 e^s}{1+ x_0(e^s -1)} = \frac{x_0}{x_0 + e^{-s}(1-x_0)}\]</div>
+<p>Jeżeli <span class="math notranslate nohighlight">\(x_0=0\)</span> to <span class="math notranslate nohighlight">\(x(s)=0\)</span>. Jeżeli <span class="math notranslate nohighlight">\(x_0 \gt 0\)</span> to <span class="math notranslate nohighlight">\(x(s)\)</span> dąży do stanu stacjonarnego <span class="math notranslate nohighlight">\(x_2=1\)</span>.</p>
+<p>Chcemy teraz powrócić do „starych” zmiennych <span class="math notranslate nohighlight">\(N=N(t)\)</span> oraz  czasu <span class="math notranslate nohighlight">\(t\)</span>. Wstawiając <span class="math notranslate nohighlight">\(x=N/K\)</span> oraz <span class="math notranslate nohighlight">\(s=rt\)</span>  otrzymamy</p>
+<div class="math notranslate nohighlight">
+\[N(t) = \frac{K N_0}{N_0 +(K-N_0)e^{-rt}}\]</div>
+<p>Stabilnym stanem stacjonarnym jest stan <span class="math notranslate nohighlight">\(x=1\)</span> czyli <span class="math notranslate nohighlight">\(N=K\)</span>. Jest to charakterystyczna liczba osobników  jaka ustala się po długim czasie. W modelu Verhulsta obserwujemy nie eksponencjalny wzrost populacji, ale efekt nasycenia: przy danej dostępności populacji do pożywienia, ustala się stabilna liczba osobników  w populacji. Wynosi ona <span class="math notranslate nohighlight">\(K\)</span>, czyli tyle co parametr <span class="math notranslate nohighlight">\(K\)</span> w równaniu Verhulsta. Dlatego też model ten wydaje się być bardziej zbliżony do realnych warunków.</p>
+<p>Na wykresie pokazano 3 charakterystyczne krzywe w zależności od warunku początkowego:</p>
+<p><span class="math notranslate nohighlight">\((A) \quad N_0  \in(0, K/2), \quad \quad N(t)  \quad\mbox{jest funkcją rosnącą do wartości K}\)</span></p>
+<p><span class="math notranslate nohighlight">\((B) \quad N_0 \in [K/2, K), \quad \quad N(t)  \quad\mbox{jest funkcją rosnącą do wartości K}\)</span></p>
+<p><span class="math notranslate nohighlight">\((C)  \quad N_0 \gt K, \quad \quad \quad \quad N(t) \quad \mbox{jest funkcją malejącą do wartości K}\)</span></p>
+<p>W przypadku  (A), krzywa ma kształt zdeformowanej litery S i dlatego nazywana jest czasami funkcją sigmoidalną (z j. ang. sigmoid function), popularna w zagadnieniach sztucznej inteligencji i sieciach neuronowych.</p>
+<div class="admonition-poeksperymentuj-z-sage admonition">
+<p class="admonition-title"><strong>Poeksperymentuj z Sage</strong>!</p>
+<p>Rozwiązanie rówania Velhulsta można otrzymać stosując system
+algebry komputerowej. Sage ma trochę problemów z uzyskaniem postaci
+jawnej rozwiązania (tzn. <span class="math notranslate nohighlight">\(x(t)=...\)</span>), ale pomaga wykonanie
+radykalnego uproszczenia - <cite>full_simplify()</cite> na równaniu.</p>
+</div>
+<div class='sage_linked'><script type='text/x-sage'>integrate(1/(x*(x-1)),x).show()
+
+var('t x0')
+x = function('x')(t)
+sol = desolve(diff(x,t) == x*(1-x),x,ics=[0,x0],ivar=t)
+show(sol)
+show( "postać jawna:")
+show( sol.full_simplify().solve(x) )</script></div><p><strong>Ewolucja czasowa populacji w modelu Verhulsta dla różnych warunków początkowych</strong></p>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="n">sage</span><span class="p">:</span> <span class="n">var</span><span class="p">(</span><span class="s1">&#39;n1, n2, n3, t, T4&#39;</span><span class="p">)</span>
+<span class="n">sage</span><span class="p">:</span> <span class="n">T4</span> <span class="o">=</span> <span class="n">srange</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span><span class="mi">3</span><span class="p">,</span><span class="mf">0.01</span><span class="p">)</span> <span class="c1">## uwaga: K=1</span>
+<span class="n">sage</span><span class="p">:</span> <span class="n">n1</span><span class="o">=</span> <span class="mf">0.01</span><span class="o">*</span><span class="n">exp</span><span class="p">(</span><span class="n">t</span><span class="p">)</span><span class="o">/</span><span class="p">(</span><span class="mi">1</span><span class="o">+</span><span class="mf">0.01</span><span class="o">*</span><span class="p">(</span><span class="n">exp</span><span class="p">(</span><span class="n">t</span><span class="p">)</span><span class="o">-</span><span class="mi">1</span><span class="p">))</span>
+<span class="n">sage</span><span class="p">:</span> <span class="n">n2</span><span class="o">=</span> <span class="mf">0.6</span><span class="o">*</span><span class="n">exp</span><span class="p">(</span><span class="n">t</span><span class="p">)</span><span class="o">/</span><span class="p">(</span><span class="mi">1</span><span class="o">+</span><span class="mf">0.6</span><span class="o">*</span><span class="p">(</span><span class="n">exp</span><span class="p">(</span><span class="n">t</span><span class="p">)</span><span class="o">-</span><span class="mi">1</span><span class="p">))</span>
+<span class="n">sage</span><span class="p">:</span> <span class="n">n3</span><span class="o">=</span> <span class="mf">1.5</span><span class="o">*</span><span class="n">exp</span><span class="p">(</span><span class="n">t</span><span class="p">)</span><span class="o">/</span><span class="p">(</span><span class="mi">1</span><span class="o">+</span><span class="mf">1.5</span><span class="o">*</span><span class="p">(</span><span class="n">exp</span><span class="p">(</span><span class="n">t</span><span class="p">)</span><span class="o">-</span><span class="mi">1</span><span class="p">))</span>
+<span class="n">sage</span><span class="p">:</span> <span class="n">p10</span><span class="o">=</span><span class="n">plot</span><span class="p">(</span><span class="n">n1</span><span class="p">,(</span><span class="n">t</span><span class="p">,</span><span class="mi">0</span><span class="p">,</span><span class="mi">10</span><span class="p">),</span><span class="n">figsize</span><span class="o">=</span><span class="p">(</span><span class="mi">5</span><span class="p">,</span><span class="mi">3</span><span class="p">),</span><span class="n">color</span><span class="o">=</span><span class="s1">&#39;red&#39;</span><span class="p">,</span> <span class="n">legend_label</span><span class="o">=</span><span class="s2">&quot;$N_0=0.01$&quot;</span><span class="p">)</span>
+<span class="n">sage</span><span class="p">:</span> <span class="n">p20</span><span class="o">=</span><span class="n">plot</span><span class="p">(</span><span class="n">n2</span><span class="p">,(</span><span class="n">t</span><span class="p">,</span><span class="mi">0</span><span class="p">,</span><span class="mi">10</span><span class="p">),</span><span class="n">color</span><span class="o">=</span><span class="s1">&#39;blue&#39;</span><span class="p">,</span><span class="n">legend_label</span><span class="o">=</span><span class="s2">&quot;$N_0=0.6, \quad K=1$&quot;</span><span class="p">)</span>
+<span class="n">sage</span><span class="p">:</span> <span class="n">p30</span><span class="o">=</span><span class="n">plot</span><span class="p">(</span><span class="n">n3</span><span class="p">,(</span><span class="n">t</span><span class="p">,</span><span class="mi">0</span><span class="p">,</span><span class="mi">10</span><span class="p">),</span><span class="n">color</span><span class="o">=</span><span class="s1">&#39;green&#39;</span><span class="p">,</span><span class="n">legend_label</span><span class="o">=</span><span class="s2">&quot;$N_0=1.5$&quot;</span><span class="p">,</span><span class="n">gridlines</span><span class="o">=</span><span class="p">[[],[</span><span class="mi">1</span><span class="p">]])</span>
+<span class="n">sage</span><span class="p">:</span> <span class="n">show</span><span class="p">(</span><span class="n">p10</span><span class="o">+</span><span class="n">p20</span><span class="o">+</span><span class="n">p30</span><span class="p">)</span>
+</pre></div>
+</div>
+<img alt="_images/cell_8_sage0.png" class="align-center" src="_images/cell_8_sage0.png" />
+</div>
+<div class="section" id="uogolnienia-modelu-verhulsta">
+<h2>Uogólnienia modelu Verhulsta<a class="headerlink" href="#uogolnienia-modelu-verhulsta" title="Stały odnośnik do tego nagłówka">¶</a></h2>
+<p><strong>(A) Model z funkcją Hilla (model Ludwiga)</strong></p>
+<p>W modelu Verhulsta uwzględnia się pośrednio naturalny proces śmierci
+poprzez wartości parametru <span class="math notranslate nohighlight">\(r \gt 0\)</span>. Ale jest to sytuacja, gdy
+w modelu Malthusa <span class="math notranslate nohighlight">\(a \gt b\)</span>, czyli tempo urodzin jest większe od
+tempa śmierci. Model ten można uogólnić na przypadek obecności
+drapieżników, które zjadają osobników rozważanej populacji. Ponieważ w
+procesie tym liczba osobników maleje wskutek śmierci spowodowanej
+przez drapieżników, to w równaniu Verhulsta odzwierciedla to wyraz
+ujemny <span class="math notranslate nohighlight">\(F(N)\)</span>:</p>
+<div class="math notranslate nohighlight">
+\[\frac{dN}{dt} = r \left[1- \frac{N}{K}\right]  N -F(N), \quad \quad N(0)=N_0\]</div>
+<p>Funkcja <span class="math notranslate nohighlight">\(F(N)\)</span> opisująca malenie populacji wskutek istnienia
+drapieżników powinna spełniać następujące warunki:</p>
+<ol class="lowerroman simple">
+<li><p><span class="math notranslate nohighlight">\(F(N=0)=0\)</span> - oznacza to tyle, że drapieżnik nie ma co zjadać
+gdy populacja jest zerowa, N=0.</p></li>
+<li><p>dla dużych wartości N, funkcja <span class="math notranslate nohighlight">\(F(N)\)</span> powinna się nasycać,
+to znaczy dążyć do stałej wartości gdy <span class="math notranslate nohighlight">\(N\to
+\infty\)</span>. Oznacza to tyle, że drapieżnik może zjeść pewną
+maksymalną ale skończoną liczbę ofiar.</p></li>
+</ol>
+<p>Gdy populacja jest zbyt mała, drapieżnik woli zmienić teren i poszukać
+populację o większej liczbie osobników. W modelowaniu stosuje się
+funkcję Hilla, znaną z kinetyki reakcji chemicznych w procesie
+transkrypcji (proces syntezy RNA na matrycy DNA przez różne polimerazy
+RNA, czyli przepisywanie informacji zawartej w DNA na RNA). Ma ona
+postać:</p>
+<div class="math notranslate nohighlight">
+\[F(N)= F_n(N)= \frac {BN^n}{A^n + N^n}, \quad n\gt 0\]</div>
+<p>Poniżej pokazujemy jej kształt dla 3 wartości wykładnika <span class="math notranslate nohighlight">\(n=2,
+4, 6.\)</span> Przypadek <span class="math notranslate nohighlight">\(n=2\)</span> był zastosowany do opisu populacji motyli
+z rodziny zwójkowatych (Choristoneura occidentalis), które należą do
+największych szkodników lasów amerykańskich i kanadyjskich.  Model
+ten, czasami nazywany modelem Ludwiga , sformułowany jest przez
+równanie:</p>
+<div class="math notranslate nohighlight">
+\[\frac{dN}{dt} = r  \left[1- \frac{N}{K}\right] \, N -  \frac {BN^2}{A^2 + N^2}, \quad n \gt 0\]</div>
+<p>Powyższe równanie i jego modyfikacje był i jest stosowany do opisu
+różnorakich procesów: populacji motyli zjadanych przez ptaki, kinetyki
+reakcji chemicznych, rozwoju komórek nowotworowych, itp. Model ten
+wykazuje interesujące własności: mogą istnieć 3 stany stacjonarne, ale
+możliwe są także 2 stany stacjonarne i wreszcie może istnieć tylko 1
+stan stacjonarny.  Pojawiają się bifurkacje klina i nieciągłe
+przejścia fazowe. Dokładna analiza tego modelu jest przedstawiona na
+stronie internetowej iCSE: Przykład użycia metod iCSE: Zagadnienie
+wzrostu komórki rakowej (<a class="reference external" href="https://sage2.icse.us.edu.pl/home/pub/184/">https://sage2.icse.us.edu.pl/home/pub/184/</a>)</p>
+<p><strong>Funkcja Hilla dla 3 wartości wykładnika n.</strong></p>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="n">sage</span><span class="p">:</span> <span class="n">var</span><span class="p">(</span><span class="s1">&#39;F1, F2, F3, N, T5&#39;</span><span class="p">)</span>
+<span class="n">sage</span><span class="p">:</span> <span class="n">T5</span> <span class="o">=</span> <span class="n">srange</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span><span class="mi">3</span><span class="p">,</span><span class="mf">0.01</span><span class="p">)</span> <span class="c1">## uwaga: A=B=1</span>
+<span class="n">sage</span><span class="p">:</span> <span class="n">F1</span><span class="o">=</span> <span class="n">N</span><span class="o">^</span><span class="mi">2</span><span class="o">/</span><span class="p">(</span><span class="mi">1</span><span class="o">+</span><span class="n">N</span><span class="o">^</span><span class="mi">2</span><span class="p">)</span>
+<span class="n">sage</span><span class="p">:</span> <span class="n">F2</span><span class="o">=</span> <span class="n">N</span><span class="o">^</span><span class="mi">4</span><span class="o">/</span><span class="p">(</span><span class="mi">1</span><span class="o">+</span><span class="n">N</span><span class="o">^</span><span class="mi">4</span><span class="p">)</span>
+<span class="n">sage</span><span class="p">:</span> <span class="n">F3</span><span class="o">=</span> <span class="n">N</span><span class="o">^</span><span class="mi">6</span><span class="o">/</span><span class="p">(</span><span class="mi">1</span><span class="o">+</span><span class="n">N</span><span class="o">^</span><span class="mi">6</span><span class="p">)</span>
+<span class="n">sage</span><span class="p">:</span> <span class="n">pl1</span><span class="o">=</span><span class="n">plot</span><span class="p">(</span><span class="n">F1</span><span class="p">,(</span><span class="n">N</span><span class="p">,</span><span class="mi">0</span><span class="p">,</span><span class="mi">2</span><span class="p">),</span><span class="n">figsize</span><span class="o">=</span><span class="p">(</span><span class="mi">5</span><span class="p">,</span><span class="mi">2</span><span class="p">),</span><span class="n">color</span><span class="o">=</span><span class="s1">&#39;red&#39;</span><span class="p">,</span> <span class="n">legend_label</span><span class="o">=</span><span class="s2">&quot;$n=2$&quot;</span><span class="p">)</span>
+<span class="n">sage</span><span class="p">:</span> <span class="n">pl2</span><span class="o">=</span><span class="n">plot</span><span class="p">(</span><span class="n">F2</span><span class="p">,(</span><span class="n">N</span><span class="p">,</span><span class="mi">0</span><span class="p">,</span><span class="mi">2</span><span class="p">),</span><span class="n">color</span><span class="o">=</span><span class="s1">&#39;blue&#39;</span><span class="p">,</span><span class="n">legend_label</span><span class="o">=</span><span class="s2">&quot;$n=4$&quot;</span><span class="p">)</span>
+<span class="n">sage</span><span class="p">:</span> <span class="n">pl3</span><span class="o">=</span><span class="n">plot</span><span class="p">(</span><span class="n">F3</span><span class="p">,(</span><span class="n">N</span><span class="p">,</span><span class="mi">0</span><span class="p">,</span><span class="mi">2</span><span class="p">),</span><span class="n">color</span><span class="o">=</span><span class="s1">&#39;green&#39;</span><span class="p">,</span><span class="n">legend_label</span><span class="o">=</span><span class="s2">&quot;$n=6$&quot;</span><span class="p">)</span>
+<span class="n">sage</span><span class="p">:</span> <span class="n">show</span><span class="p">(</span><span class="n">pl1</span><span class="o">+</span><span class="n">pl2</span><span class="o">+</span><span class="n">pl3</span><span class="p">)</span>
+</pre></div>
+</div>
+<img alt="_images/cell_7_sage0.png" class="align-center" src="_images/cell_7_sage0.png" />
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="n">sage</span><span class="p">:</span> <span class="n">var</span><span class="p">(</span><span class="s1">&#39;F1, F2, F3, N, T5&#39;</span><span class="p">)</span>
+<span class="n">sage</span><span class="p">:</span> <span class="n">T5</span> <span class="o">=</span> <span class="n">srange</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span><span class="mi">3</span><span class="p">,</span><span class="mf">0.01</span><span class="p">)</span> <span class="c1">## uwaga: A=B=1</span>
+<span class="n">sage</span><span class="p">:</span> <span class="n">plts</span> <span class="o">=</span> <span class="p">[]</span>
+<span class="n">sage</span><span class="p">:</span> <span class="n">c</span> <span class="o">=</span> <span class="p">[</span><span class="s1">&#39;red&#39;</span><span class="p">,</span><span class="s1">&#39;blue&#39;</span><span class="p">,</span><span class="s1">&#39;green&#39;</span><span class="p">]</span>
+<span class="n">sage</span><span class="p">:</span> <span class="k">for</span> <span class="n">i</span><span class="p">,</span><span class="n">n</span> <span class="ow">in</span> <span class="nb">enumerate</span><span class="p">([</span><span class="mi">2</span><span class="p">,</span><span class="mi">4</span><span class="p">,</span><span class="mi">6</span><span class="p">]):</span>
+<span class="o">...</span>       <span class="n">F1</span><span class="o">=</span> <span class="n">N</span><span class="o">^</span><span class="n">n</span><span class="o">/</span><span class="p">(</span><span class="mi">1</span><span class="o">+</span><span class="n">N</span><span class="o">^</span><span class="n">n</span><span class="p">)</span>
+<span class="o">...</span>       <span class="n">plts</span><span class="o">.</span><span class="n">append</span><span class="p">(</span> <span class="n">plot</span><span class="p">(</span><span class="n">F1</span><span class="p">,(</span><span class="n">N</span><span class="p">,</span><span class="mi">0</span><span class="p">,</span><span class="mi">2</span><span class="p">),</span><span class="n">figsize</span><span class="o">=</span><span class="p">(</span><span class="mi">5</span><span class="p">,</span><span class="mi">2</span><span class="p">),</span><span class="n">color</span><span class="o">=</span><span class="n">c</span><span class="p">[</span><span class="n">i</span><span class="o">%</span><span class="mi">3</span><span class="p">],</span> <span class="n">legend_label</span><span class="o">=</span><span class="s2">&quot;$n=</span><span class="si">%d</span><span class="s2">$&quot;</span><span class="o">%</span><span class="n">n</span><span class="p">)</span> <span class="p">)</span>
+<span class="n">sage</span><span class="p">:</span> <span class="n">show</span><span class="p">(</span><span class="nb">sum</span><span class="p">(</span><span class="n">plts</span><span class="p">))</span>
+</pre></div>
+</div>
+<img alt="_images/cell_17_sage0.png" class="align-center" src="_images/cell_17_sage0.png" />
+<p><strong>(B) Model opisujący efekt Alleego</strong></p>
+<p>W 1931 r. W.C. Allee sformułował koncepcję wskazującą na istnienie
+drugiego stabilnego stanu stacjonarnego, różnego od stanu
+stacjonarnego N=K w modelu Verhulsta.  Allee wykazał, że przy niskich
+liczebnościach i zagęszczeniach spada przyrost populacji.  Mniejsze
+populacje są bardziej podatne na wymieranie (trudności w znalezieniu
+partnera, zmniejszona zdolność do grupowej obrony przed drapieżnikami,
+obniżona wydajność żerowania w grupie). Zgodnie z modelem Verhulsta
+wzrost populacji jest hamowany tym silniej im bardziej populacja
+zbliża się do stanu stacjonarnego N=K . Allee wykazał, ze istnieje
+drugi punkt stacjonarny, który populacja osiąga podczas spadku
+liczebności. Populacje, w których obserwujemy taki efekt, zmniejszają
+swoją liczebność, jeśli spadnie ona poniżej pewnego progu. Obecnie
+efekt Alleego oznacza każdy mechanizm, który prowadzi do zależności
+między liczbą i/lub zagęszczeniem osobników w populacji a średnim
+dostosowaniem osobnika.  Dobrym przykładem jest losowy rozkład płci,
+który w małej populacji może prowadzić do zmniejszenia średniego
+dostosowania poprzez mniejsze szanse na trafienie partnera.</p>
+<p>Przykładem modelu uwzgledniajacego efekt Alleego jest zmodyfikowane
+równanie Verhulsta:</p>
+<div class="math notranslate nohighlight">
+\[\frac{dN}{dt} = r (N- N_c) \left[1- \frac{N}{K}\right] \;N\]</div>
+<p>gdzie <span class="math notranslate nohighlight">\(0 \lt N_c \lt K\)</span> jest tym drugim stanem stacjonarnym, o którym mówi Allee. Nie jest to jedyna modyfikacja. W literaturze mozna znaleźć inne modele, ale powyższy model jest najprostszy. W modelu tym istnieją 3 stany stacjonarne:</p>
+<div class="math notranslate nohighlight">
+\[\begin{split}G(N)= r (N- N_c) \left[1- \frac{N}{K}\right] \;N  =\frac{r}{K}  (N- N_c) (K- N) \;N = 0, \\ \mbox{ stąd} \quad  N_1=0, \quad N_2=N_c, \quad N_3=K\end{split}\]</div>
+<p>Analiza stabilności:</p>
+<div class="math notranslate nohighlight">
+\[G'(N)= \frac{r}{K} \left[(K-N) N -(N-N_c) N + (N-N_c) (K-N)\right]\]</div>
+<div class="math notranslate nohighlight">
+\[\begin{split}\lambda_1= G'(N_1) =G'(0) = -K N_c \lt 0 \quad \mbox{(stabilny)}, \\ \lambda_2= G'(N_2) =G'(N_c) = (K-N_c)N_c \gt 0 \quad \mbox{(niestabilny)}, \\ \lambda_3= G'(N_3) =G'(K) = -K(K- N_c) \lt 0 \quad  \mbox{(stabilny)}\end{split}\]</div>
+<p>Otrzymujemy 2 stabilne stany stacjonarne: <span class="math notranslate nohighlight">\(N=0\)</span> oraz <span class="math notranslate nohighlight">\(N=K\)</span>. Stan <span class="math notranslate nohighlight">\(N=N_c\)</span> jest stanem niestabilnym.</p>
+<p><strong>Ewolucja czasowa populacji dla modelu Alleego w zależności od różnych warunków początkowych</strong>  (dla <span class="math notranslate nohighlight">\(K=1\)</span> oraz <span class="math notranslate nohighlight">\(N_c=0.5\)</span>)</p>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="n">sage</span><span class="p">:</span> <span class="n">var</span><span class="p">(</span><span class="s1">&#39;x,y,z,Z,Y,t&#39;</span><span class="p">)</span>
+<span class="n">sage</span><span class="p">:</span> <span class="n">T0</span> <span class="o">=</span> <span class="n">srange</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span><span class="mi">15</span><span class="p">,</span><span class="mf">0.01</span><span class="p">)</span>
+<span class="n">sage</span><span class="p">:</span> <span class="n">f11</span><span class="o">=</span><span class="n">x</span><span class="o">*</span><span class="p">(</span><span class="n">x</span><span class="o">-</span><span class="mf">0.5</span><span class="p">)</span><span class="o">*</span><span class="p">(</span><span class="mi">1</span><span class="o">-</span><span class="n">x</span><span class="p">)</span>
+<span class="n">sage</span><span class="p">:</span> <span class="n">f12</span><span class="o">=</span><span class="n">y</span><span class="o">*</span><span class="p">(</span><span class="n">y</span><span class="o">-</span><span class="mf">0.5</span><span class="p">)</span><span class="o">*</span><span class="p">(</span><span class="mi">1</span><span class="o">-</span><span class="n">y</span><span class="p">)</span>
+<span class="n">sage</span><span class="p">:</span> <span class="n">f13</span><span class="o">=</span><span class="n">z</span><span class="o">*</span><span class="p">(</span><span class="n">z</span><span class="o">-</span><span class="mf">0.5</span><span class="p">)</span><span class="o">*</span><span class="p">(</span><span class="mi">1</span><span class="o">-</span><span class="n">z</span><span class="p">)</span>
+<span class="n">sage</span><span class="p">:</span> <span class="n">f14</span><span class="o">=</span><span class="mi">0</span>
+<span class="n">sage</span><span class="p">:</span> <span class="n">f15</span><span class="o">=</span><span class="mi">0</span>
+<span class="n">sage</span><span class="p">:</span> <span class="n">sol5</span><span class="o">=</span><span class="n">desolve_odeint</span><span class="p">(</span> <span class="n">vector</span><span class="p">([</span><span class="n">f11</span><span class="p">,</span> <span class="n">f12</span><span class="p">,</span> <span class="n">f13</span><span class="p">,</span> <span class="mi">0</span><span class="p">,</span> <span class="mi">0</span><span class="p">]),</span> <span class="p">[</span><span class="mf">0.45</span><span class="p">,</span><span class="mf">0.55</span><span class="p">,</span><span class="mf">1.5</span><span class="p">,</span><span class="mf">0.5</span><span class="p">,</span><span class="mi">1</span><span class="p">],</span><span class="n">T0</span><span class="p">,[</span><span class="n">x</span><span class="p">,</span><span class="n">y</span><span class="p">,</span><span class="n">z</span><span class="p">,</span><span class="n">Z</span><span class="p">,</span><span class="n">Y</span><span class="p">])</span>
+<span class="n">sage</span><span class="p">:</span> <span class="n">line</span><span class="p">(</span> <span class="nb">zip</span> <span class="p">(</span> <span class="n">T0</span><span class="p">,</span><span class="n">sol5</span><span class="p">[:,</span><span class="mi">0</span><span class="p">])</span> <span class="p">,</span><span class="n">figsize</span><span class="o">=</span><span class="p">(</span><span class="mi">7</span><span class="p">,</span> <span class="mi">4</span><span class="p">))</span> <span class="o">+</span>\
+<span class="o">...</span>    <span class="n">line</span><span class="p">(</span> <span class="nb">zip</span> <span class="p">(</span> <span class="n">T0</span><span class="p">,</span><span class="n">sol5</span><span class="p">[:,</span><span class="mi">1</span><span class="p">])</span> <span class="p">,</span><span class="n">color</span><span class="o">=</span><span class="s1">&#39;red&#39;</span><span class="p">)</span><span class="o">+</span>\
+<span class="o">...</span>    <span class="n">line</span><span class="p">(</span> <span class="nb">zip</span> <span class="p">(</span> <span class="n">T0</span><span class="p">,</span><span class="n">sol5</span><span class="p">[:,</span><span class="mi">2</span><span class="p">])</span> <span class="p">,</span><span class="n">color</span><span class="o">=</span><span class="s1">&#39;green&#39;</span><span class="p">)</span> <span class="o">+</span>\
+<span class="o">...</span>    <span class="n">line</span><span class="p">(</span> <span class="nb">zip</span> <span class="p">(</span> <span class="n">T0</span><span class="p">,</span><span class="n">sol5</span><span class="p">[:,</span><span class="mi">4</span><span class="p">])</span> <span class="p">,</span><span class="n">color</span><span class="o">=</span><span class="s1">&#39;gray&#39;</span><span class="p">,</span><span class="n">legend_label</span><span class="o">=</span><span class="s2">&quot;$K=1$&quot;</span><span class="p">)</span> <span class="o">+</span>\
+<span class="o">...</span>    <span class="n">line</span><span class="p">(</span> <span class="nb">zip</span> <span class="p">(</span> <span class="n">T0</span><span class="p">,</span><span class="n">sol5</span><span class="p">[:,</span><span class="mi">3</span><span class="p">])</span> <span class="p">,</span><span class="n">color</span><span class="o">=</span><span class="s1">&#39;violet&#39;</span><span class="p">,</span><span class="n">legend_label</span><span class="o">=</span><span class="s2">&quot;$N_c=0.5$&quot;</span><span class="p">)</span>
+</pre></div>
+</div>
+<img alt="_images/cell_12_sage0.png" class="align-center" src="_images/cell_12_sage0.png" />
+<p><strong>Zadania</strong></p>
+<p>Można łatwo zmodyfikować powyższy program i analizowac dowolne modele. Dwa poniższe zadania dają przykład możliwości wykorzystania Sage.</p>
+<ol class="arabic simple">
+<li><p>Funkcja tempa wzrostu w modelu Verhuslta <span class="math notranslate nohighlight">\(a(N)= r[1-N/K]\)</span> przypomina dwa pierwsze wyrazy w rozwinięciu funkcji eksponencjalnej:</p></li>
+</ol>
+<div class="math notranslate nohighlight">
+\[a_1(N) = r e^{-\frac{N}{K}} \approx r \left[ 1 - \frac{N}{K} + ...\right]\]</div>
+<p>Zbadać własności dynamiki populacji z taką funkcją tempa wzrostu i porównań ze standardowym modelem  Verhulsta.</p>
+<ol class="arabic simple" start="2">
+<li><p>Zbadać własności modelu z funkcją Hilla dla różnych wartości wykładnika <span class="math notranslate nohighlight">\(n = 1, 2, 4, ...\)</span> i porównać je.</p></li>
+</ol>
+</div>
+</div>
+
+
+          </div>
+        </div>
+      </div>
+      <div class="sphinxsidebar" role="navigation" aria-label="main navigation">
+        <div class="sphinxsidebarwrapper">
+  <div class="sphinxlocaltoc">
+  <h3><a href="index.html">Table Of Contents</a></h3>
+  <ul>
+<li><a class="reference internal" href="#">Dynamika populacyjna: ciągłe modele jednowymiarowe</a><ul>
+<li><a class="reference internal" href="#model-malthusa">Model Malthusa</a><ul>
+<li><a class="reference internal" href="#wykorzystanie-sage-do-analizy-modelu-malthusa"><strong>Wykorzystanie Sage do analizy  modelu Malthusa</strong></a></li>
+</ul>
+</li>
+<li><a class="reference internal" href="#model-verhulsta">Model Verhulsta</a></li>
+<li><a class="reference internal" href="#uogolnienia-modelu-verhulsta">Uogólnienia modelu Verhulsta</a></li>
+</ul>
+</li>
+</ul>
+
+  </div>
+  <h4>Poprzedni temat</h4>
+  <p class="topless"><a href="index.html"
+                        title="poprzedni rozdział">Procesy Nieliniowe w Biologii</a></p>
+  <h4>Następny temat</h4>
+  <p class="topless"><a href="iCSE_BProcnielin02_z119_ofiara_drapiezca.html"
+                        title="następny rozdział">Modele oddziałujących populacji: ofiara - drapieżca</a></p>
+<div id="searchbox" style="display: none" role="search">
+  <h3 id="searchlabel">Szybkie wyszukiwanie</h3>
+    <div class="searchformwrapper">
+    <form class="search" action="search.html" method="get">
+      <input type="text" name="q" aria-labelledby="searchlabel" />
+      <input type="submit" value="Szukaj" />
+    </form>
+    </div>
+</div>
+<script>$('#searchbox').show(0);</script>
+        </div>
+      </div>
+      <div class="clearer"></div>
+    </div>
+  </div>
+  <div class="relbar-bottom">
+    
+    <div class="related" role="navigation" aria-label="related navigation">
+      <h3>Nawigacja</h3>
+      <ul>
+        <li class="right" style="margin-right: 10px">
+          <a href="iCSE_BProcnielin02_z119_ofiara_drapiezca.html" title="Modele oddziałujących populacji: ofiara - drapieżca"
+             >dalej</a></li>
+        <li class="right" >
+          <a href="index.html" title="Procesy Nieliniowe w Biologii"
+             >wstecz</a> &nbsp; &nbsp;</li>
+  <li><a href="index.html">Procesy nieliniowe w Biologii</a> &#187;</li>
+   
+      </ul>
+    </div>
+  </div>
+  
+  <div class="footer">
+    <a class="logo" href="http://icse.us.edu.pl/" target="_blank"><img src="_static/logo-icse.png" alt="ICSE"/></a><br/>
+    &copy; Copyright 2013, Jerzy Łuczka, Marcin Kostur.
+    Created using <a href="http://sphinx.pocoo.org/">Sphinx</a> 2.4.0.
+  </div>
+  </body>
+</html>

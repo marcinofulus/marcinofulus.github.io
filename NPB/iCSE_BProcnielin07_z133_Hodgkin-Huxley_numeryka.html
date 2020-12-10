@@ -1,0 +1,200 @@
+
+
+  
+<!DOCTYPE html>
+
+<html xmlns="http://www.w3.org/1999/xhtml" lang="pl">
+  <head>
+    <meta charset="utf-8" />
+    <title>Numeryczna analiza rozwiązań układu Hodgkina-Huxley’a &#8212; Procesy nieliniowe w Biologii</title>
+    <link rel="stylesheet" href="_static/cloud.css" type="text/css" />
+    <link rel="stylesheet" href="_static/pygments.css" type="text/css" />
+    <link rel="stylesheet" href="http://fonts.googleapis.com/css?family=Noticia+Text|Open+Sans|Droid+Sans+Mono&subset=latin,latin-ext" type="text/css" />
+    <script id="documentation_options" data-url_root="./" src="_static/documentation_options.js"></script>
+    <script src="_static/jquery.js"></script>
+    <script src="_static/underscore.js"></script>
+    <script src="_static/doctools.js"></script>
+    <script src="_static/language_data.js"></script>
+    <script src="_static/translations.js"></script>
+    <script async="async" src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.5/latest.js?config=TeX-AMS-MML_HTMLorMML"></script>
+    <script src="_static/jquery.cookie.js"></script>
+    <script src="_static/cloud.js"></script>
+    <script type="text/javascript" src="http://sagecell.sagemath.org/static/jquery.min.js"></script>
+    <script type="text/javascript" src="http://sagecell.sagemath.org/embedded_sagecell.js"></script>
+    <script type="text/javascript">
+        sagecell.makeSagecell({inputLocation: ".sage_linked",
+                               linked: true});
+        sagecell.makeSagecell({inputLocation: ".sage_unlinked",
+                               linked: false});
+    </script>
+
+    <style type="text/css">
+        .sagecell .CodeMirror-scroll {
+            overflow-y: hidden;
+            overflow-x: auto;
+        }
+        .sagecell .CodeMirror {
+            height: auto;
+        }
+    </style>
+    
+    <link rel="search" title="Szukaj" href="search.html" />
+    <link rel="next" title="Reakcje Biełusowa-Żabotyńskiego" href="iCSE_BProcnielin08_z161_BZ.html" />
+    <link rel="prev" title="Transmisja impulsów nerwowych: Model Hodgkinga-Huxleya" href="iCSE_BProcnielin07_z133_Hodgkin-Huxley.html" />
+ 
+  <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, minimum-scale=1">
+  </head><body>
+  <div class="relbar-top">
+    
+    <div class="related" role="navigation" aria-label="related navigation">
+      <h3>Nawigacja</h3>
+      <ul>
+        <li class="right" style="margin-right: 10px">
+          <a href="iCSE_BProcnielin08_z161_BZ.html" title="Reakcje Biełusowa-Żabotyńskiego"
+             accesskey="N">dalej</a></li>
+        <li class="right" >
+          <a href="iCSE_BProcnielin07_z133_Hodgkin-Huxley.html" title="Transmisja impulsów nerwowych: Model Hodgkinga-Huxleya"
+             accesskey="P">wstecz</a> &nbsp; &nbsp;</li>
+  <li><a href="index.html">Procesy nieliniowe w Biologii</a> &#187;</li>
+   
+      </ul>
+    </div>
+  </div>
+  
+  <div class="content">  
+
+    <div class="document">
+      <div class="documentwrapper">
+        <div class="bodywrapper">
+          <div class="body">
+            
+  <div class="section" id="numeryczna-analiza-rozwiazan-ukladu-hodgkina-huxley-a">
+<h1>Numeryczna analiza rozwiązań układu Hodgkina-Huxley’a<a class="headerlink" href="#numeryczna-analiza-rozwiazan-ukladu-hodgkina-huxley-a" title="Stały odnośnik do tego nagłówka">¶</a></h1>
+<img alt="_images/HH_t.svg" class="align-center" src="_images/HH_t.svg" /><p>Przeanalizujmy numerycznie układ Hodgkina-Huxley’a. W tym celu
+zdefiniujmy funkcje <span class="math notranslate nohighlight">\(\alpha_m\)</span>, <span class="math notranslate nohighlight">\(\beta_m\)</span> itp., Prawe
+strony całego układu równań różniczkowych zapiszemy na liście
+<cite>rhslst</cite>, a zmienne na liście <cite>varlst</cite>.</p>
+<div class='sage_linked'><script type='text/x-sage'>sage: var('C,g_Na,m,h,g_K,G_L,V,E_Na,n,E_K,E_L,I_ext')
+sage: alpha_m(V) = 0.1*(V+35.)/(1.-exp(-(V+35.)/10.))
+sage: beta_m(V) = 4.*exp(-(V+60)/18.)
+sage: alpha_h(V) = 0.07*exp(-(V+60.)/20.)
+sage: beta_h(V) = 1.0/(1.+exp(-(V+30.)/10.))
+sage: alpha_n(V) = 0.01*(V+50.)/(1-exp(-(V+50.)/10.))
+sage: beta_n(V) = 0.125*exp(-(V+65.)/80.)
+sage: F_V = 1/C*( I_ext - g_Na*m^3*h*(V-E_Na)- g_K*n^4*( V- E_K )- G_L*(V- E_L)  )
+sage: F_m = alpha_m(V)*(1-m) - beta_m(V)*m
+sage: F_h = alpha_h(V)*(1-h) - beta_h(V)*h
+sage: F_n = alpha_n(V)*(1-n) - beta_n(V)*n
+sage: varlst= [V,m,h,n]
+sage: rhslst= [F_V,F_m,F_h,F_n]
+sage: html.table([[ F_V*C],[F_m],[F_h],[F_n]])</script></div><p>Zdefiniumy sobie dwa zestawy parametrów, bez sygnału - <cite>set1</cite> i z sygnałem <cite>set2</cite>:</p>
+<div class='sage_linked'><script type='text/x-sage'>sage: set1 = {g_K:36,g_Na:120,E_Na:50,E_K:-77,E_L:-54.4,C:1.0,G_L:0.3,I_ext:0.}
+sage: set2 = {g_K:36,g_Na:120,E_Na:50,E_K:-77,E_L:-54.4,C:1.0,G_L:0.3,I_ext:120.}</script></div><p>Charakterystyczne zachowanie się układu jest widoczne w dwóch typowych rozwiązaniach:</p>
+<ul class="simple">
+<li><p>dla <span class="math notranslate nohighlight">\(V_0 = -60\)</span> (czerwony) mamy charakterystyczny pik i relaksację</p></li>
+<li><p>dla <span class="math notranslate nohighlight">\(V_0 = -30\)</span> (zielony) mamy relaksację</p></li>
+</ul>
+<div class='sage_linked'><script type='text/x-sage'>sage: f=[r.subs(set1) for r in rhslst]
+sage: t = srange(0,20.1,.1)
+sage: ic = [-30,.2,.2,.3]
+sage: sol = desolve_odeint(f,ic,t,varlst)
+sage: ic = [-60,.2,.2,.3]
+sage: sol_spike = desolve_odeint(f,ic,t,varlst)
+sage: line(zip(t,sol_spike[:,0]),color="green",figsize=(8,3)) +\
+...    line(zip(t,sol[:,0]),color="red")</script></div><p>Możemy dokładnie przyjrzeć się jak zmienia się rozwiązanie w
+zależności od warunku początkowego, manipulując elementem
+interaktywnym:</p>
+<div class='sage_linked'><script type='text/x-sage'>sage: @interact
+sage: def _(V0=slider(-70,0,0.1)):
+...       ic = [V0,.2,.2,.3]
+...       f=[r.subs(set1) for r in rhslst]
+...       t = srange(0,25.1,.1)
+...       sol = desolve_odeint(f,ic,t,varlst)
+...       line(zip(t,sol[:,0]),figsize=(8,3),ymin=-77,ymax=30).show()</script></div><p>Sygnałem dla neuronu jest <span class="math notranslate nohighlight">\(I_{ext}\)</span> - powoduje on zmniejszenie
+potencjału tak, że neuron znajduje się w reżimie „spike”. Możemy
+przekonać się jak ciąg „spike”ów prądu <span class="math notranslate nohighlight">\(I_{ext}\)</span> przekłada się
+na reakcę neurownów. W tym celu  wykonujemy naprzemian:</p>
+<ul class="simple">
+<li><p>przez któtki czas symulujemy układ z <span class="math notranslate nohighlight">\(I_{ext}=120\)</span> (<cite>set2</cite>)</p></li>
+<li><p>następnie wykorzystuąc stan układu jako warunek początkowy
+symulujemy przez dłuższy czas układ przy <span class="math notranslate nohighlight">\(I_{ext}=0\)</span> - czyli
+dla zestwu parametrów <cite>set1</cite></p></li>
+</ul>
+<p>Poeksperymentujmy sami:</p>
+<div class='sage_linked'><script type='text/x-sage'>sage: import numpy as np
+sage: col = ['blue','red','brown','green']
+sage: f1=[r.subs(set1) for r in rhslst]
+sage: f0=[r.subs(set2) for r in rhslst]
+sage: dt1 = np.linspace(0,0.1,3)
+sage: dt2 = np.linspace(0,20.,210)
+sage: ic = [-45,.2,.2,.2]
+sage: tend = 0.0
+sage: sol = np.array(2*[ic])
+sage: t = np.array([0,0])
+sage: for i in range(4):
+...
+...       t0 = dt1 +tend
+...       sol1 = desolve_odeint(f0,ic,t0,varlst)
+...       ic = sol1[-1]
+...       t1 = dt2+t0[-1]
+...       sol2 = desolve_odeint(f1,ic,t1,varlst)
+...       tend += dt1[-1] + dt2[-1]
+...       sol = np.concatenate( (sol,sol1,sol2) )
+...       t = np.concatenate( (t,t0,t1) )
+...
+sage: scal=[0.02,1.,1.,1.]
+sage: Xst = [zip(t,scal[i]*sol[:,i]) for i in range(4)]
+sage: col = ['blue','red','brown','green']
+sage: sum([line(Xst[i],color=col[i],figsize=(8,2)) for i in range(4)])</script></div></div>
+
+
+          </div>
+        </div>
+      </div>
+      <div class="sphinxsidebar" role="navigation" aria-label="main navigation">
+        <div class="sphinxsidebarwrapper">
+  <h4>Poprzedni temat</h4>
+  <p class="topless"><a href="iCSE_BProcnielin07_z133_Hodgkin-Huxley.html"
+                        title="poprzedni rozdział">Transmisja impulsów nerwowych: Model Hodgkinga-Huxleya</a></p>
+  <h4>Następny temat</h4>
+  <p class="topless"><a href="iCSE_BProcnielin08_z161_BZ.html"
+                        title="następny rozdział">Reakcje Biełusowa-Żabotyńskiego</a></p>
+<div id="searchbox" style="display: none" role="search">
+  <h3 id="searchlabel">Szybkie wyszukiwanie</h3>
+    <div class="searchformwrapper">
+    <form class="search" action="search.html" method="get">
+      <input type="text" name="q" aria-labelledby="searchlabel" />
+      <input type="submit" value="Szukaj" />
+    </form>
+    </div>
+</div>
+<script>$('#searchbox').show(0);</script>
+        </div>
+      </div>
+      <div class="clearer"></div>
+    </div>
+  </div>
+  <div class="relbar-bottom">
+    
+    <div class="related" role="navigation" aria-label="related navigation">
+      <h3>Nawigacja</h3>
+      <ul>
+        <li class="right" style="margin-right: 10px">
+          <a href="iCSE_BProcnielin08_z161_BZ.html" title="Reakcje Biełusowa-Żabotyńskiego"
+             >dalej</a></li>
+        <li class="right" >
+          <a href="iCSE_BProcnielin07_z133_Hodgkin-Huxley.html" title="Transmisja impulsów nerwowych: Model Hodgkinga-Huxleya"
+             >wstecz</a> &nbsp; &nbsp;</li>
+  <li><a href="index.html">Procesy nieliniowe w Biologii</a> &#187;</li>
+   
+      </ul>
+    </div>
+  </div>
+  
+  <div class="footer">
+    <a class="logo" href="http://icse.us.edu.pl/" target="_blank"><img src="_static/logo-icse.png" alt="ICSE"/></a><br/>
+    &copy; Copyright 2013, Jerzy Łuczka, Marcin Kostur.
+    Created using <a href="http://sphinx.pocoo.org/">Sphinx</a> 2.4.0.
+  </div>
+  </body>
+</html>

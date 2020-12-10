@@ -1,0 +1,482 @@
+
+
+  
+<!DOCTYPE html>
+
+<html xmlns="http://www.w3.org/1999/xhtml" lang="pl">
+  <head>
+    <meta charset="utf-8" />
+    <title>Równania reakcji-dyfuzji &#8212; Procesy nieliniowe w Biologii</title>
+    <link rel="stylesheet" href="_static/cloud.css" type="text/css" />
+    <link rel="stylesheet" href="_static/pygments.css" type="text/css" />
+    <link rel="stylesheet" href="http://fonts.googleapis.com/css?family=Noticia+Text|Open+Sans|Droid+Sans+Mono&subset=latin,latin-ext" type="text/css" />
+    <script id="documentation_options" data-url_root="./" src="_static/documentation_options.js"></script>
+    <script src="_static/jquery.js"></script>
+    <script src="_static/underscore.js"></script>
+    <script src="_static/doctools.js"></script>
+    <script src="_static/language_data.js"></script>
+    <script src="_static/translations.js"></script>
+    <script async="async" src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.5/latest.js?config=TeX-AMS-MML_HTMLorMML"></script>
+    <script src="_static/jquery.cookie.js"></script>
+    <script src="_static/cloud.js"></script>
+    <script type="text/javascript" src="http://sagecell.sagemath.org/static/jquery.min.js"></script>
+    <script type="text/javascript" src="http://sagecell.sagemath.org/embedded_sagecell.js"></script>
+    <script type="text/javascript">
+        sagecell.makeSagecell({inputLocation: ".sage_linked",
+                               linked: true});
+        sagecell.makeSagecell({inputLocation: ".sage_unlinked",
+                               linked: false});
+    </script>
+
+    <style type="text/css">
+        .sagecell .CodeMirror-scroll {
+            overflow-y: hidden;
+            overflow-x: auto;
+        }
+        .sagecell .CodeMirror {
+            height: auto;
+        }
+    </style>
+    
+    <link rel="search" title="Szukaj" href="search.html" />
+    <link rel="next" title="Modele epidemii" href="iCSE_BProcnielin06_z155_modele_epidemii.html" />
+    <link rel="prev" title="Kinetyka reakcji chemicznych" href="iCSE_BProcnielin04_z122_kinetyka_chemiczna.html" />
+ 
+  <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, minimum-scale=1">
+  </head><body>
+  <div class="relbar-top">
+    
+    <div class="related" role="navigation" aria-label="related navigation">
+      <h3>Nawigacja</h3>
+      <ul>
+        <li class="right" style="margin-right: 10px">
+          <a href="iCSE_BProcnielin06_z155_modele_epidemii.html" title="Modele epidemii"
+             accesskey="N">dalej</a></li>
+        <li class="right" >
+          <a href="iCSE_BProcnielin04_z122_kinetyka_chemiczna.html" title="Kinetyka reakcji chemicznych"
+             accesskey="P">wstecz</a> &nbsp; &nbsp;</li>
+  <li><a href="index.html">Procesy nieliniowe w Biologii</a> &#187;</li>
+   
+      </ul>
+    </div>
+  </div>
+  
+  <div class="content">  
+
+    <div class="document">
+      <div class="documentwrapper">
+        <div class="bodywrapper">
+          <div class="body">
+            
+  <div class="section" id="rownania-reakcji-dyfuzji">
+<h1>Równania reakcji-dyfuzji<a class="headerlink" href="#rownania-reakcji-dyfuzji" title="Stały odnośnik do tego nagłówka">¶</a></h1>
+<p>Dotychczas analizowaliśmy modele dynamiki populacyjnej oraz kinetykę reakcji chemicznych bez uwzględnienia zjawisk rozprzestrzeniania się populacji lub substancji chemicznych na powierzchni czy w przestrzeni. Interesowało nas tylko zachowanie się układu w czasie, a nie w przestrzeni. Oznacza to, że modelowanie oparte było na równaniach różniczkowych zwyczajnych (występują tylko pochodne ze względu na czas) . Uwzględnienie zjawisk związanych z przestrzennymi zmianami modeluje się z pomocą równań różniczkowych cząstkowych (występują pochodne ze względu na zmienne przestrzenne).  Poniższy przykład przybliży nam sposób takiego modelowania.</p>
+<p><strong>Przykład: zjawisko dyfuzji</strong></p>
+<p>Wrzućmy kroplę farby akwarelowej do pojemnika z wodą. Zaobserwujemy, że z upływem czasu cząsteczki farby rozpływają się w coraz to większym obszarze i po odpowiednio długim czasie wypełniaja całkowicie pojemnik z wodą. To, co obserwujemy jest zjawiskiem dyfuzji lub, jak niektórzy nazywają, ruchem cząstek Browna. Jest to zjawisko natury molekularnej, spowodowane nieregularnymi (chaotycznymi) zderzeniami cząsteczek wody i cząsteczek farby.  Zauważamy też, że podwyższenie temperatury wody powoduje szybsze mieszanie się obu substancji. W języku fizyki statystycznej oznacza to, że współczynnik dyfuzji ulega zwiększeniu, rosnie natężenie fluktuacji termicznych i następuje przyspieszenie procesu dyfuzji.W języki matematyki, proces ten jest opisany za pomocą równania:</p>
+<div class="math notranslate nohighlight">
+\[\frac{\partial c(\vec r, t)}{\partial t} = D \Delta c(\vec r, t) = D \left[\frac{\partial^2 }{\partial x^2} + \frac{\partial^2 }{\partial y^2} + \frac{\partial ^2}{\partial z^2} \right] c(\vec r, t)\]</div>
+<p>gdzie <span class="math notranslate nohighlight">\(c(\vec r, t)\)</span> jest koncentracją substancji  w chwili czasu <span class="math notranslate nohighlight">\(t\)</span> w punkcie przestrzeni określonej przez wektor wodzący <span class="math notranslate nohighlight">\(\vec r = (x, y, z)\)</span>. Zwracamy uwagę, że proces dyfuzji jest opisany operatorem Laplace’a (dwukrotnym różniczkowaniem).</p>
+<p>Dla początkowej koncentracji <span class="math notranslate nohighlight">\(c(x, y, z, 0)\)</span>  skupionej punktowo w początku układu odniesienia <span class="math notranslate nohighlight">\(XYZ\)</span>, rozwiązanie równania dyfuzji ma postać</p>
+<div class="math notranslate nohighlight">
+\[c(x, y, z, t) = [4\pi Dt]^{-3/2} \; exp\left[-\frac{x^2+y^2+z^2}{4Dt}\right]\]</div>
+<p>Gdyby proces przebiegał tylko w jednym kierunku przestrzennym, np. wzdłuż osi <span class="math notranslate nohighlight">\(OX\)</span> to odpowiednie równanie ma postać</p>
+<div class="math notranslate nohighlight">
+\[\frac{\partial c(x, t)}{\partial t} =  D  \frac{\partial^2 }{\partial x^2}  c(x, t)  = D  \frac{\partial^2  c(x, t) }{\partial x^2}\]</div>
+<p>Jego rozwiązaniem jest funkcja</p>
+<div class="math notranslate nohighlight">
+\[c(x,  t) = [4\pi Dt]^{-1/2} \; exp\left[-\frac{x^2}{4Dt}\right]\]</div>
+<p>Otrzymujemy więc następującą receptę na uwzględnienie dyfuzyjnego (losowego) rozprzestrzeniania się populacji lub substancji chemicznej:</p>
+<p>Do równań opisujących dynamikę populacji dodaj jeszcze wyraz z pochodnymi drugiego rzędu względem zmiennych przestrzennych. Jeżeli zmiany mogą zachodzić tylko w jednym kierunku przestrzennym, to dodajemy wyraz analogiczny jak po prawej stronie powyższego równania. Gdyby zmiany mogły zachodzić na płaszczyżnie, to dodajemy wyraz typu:</p>
+<div class="math notranslate nohighlight">
+\[+  D \left[ \frac{\partial^2 }{\partial  x^2}  + \frac{\partial^2 }{\partial y^2} \right] c(x, y, t)\]</div>
+<p>Rozwiązaniem 2-wymiarowego równania dyfuzji jest funkcja</p>
+<div class="math notranslate nohighlight">
+\[c(x, y, t) = [4\pi Dt]^{-2/2} \; \exp\left[-\frac{x^2+y^2}{4Dt}\right] =\frac{1}{4\pi Dt}  \; \exp\left[-\frac{x^2+y^2}{4Dt}\right]\]</div>
+<div class='sage_linked'><script type='text/x-sage'>sage: var('x,y,t')
+sage: c(x,y,t)=1/(4*pi*t)*exp(-(x^2+y^2)/(4*t) )
+sage: plts = [ plot3d(c(x,y,t), (x,-4,4), (y,0,8),rgbcolor = hue(t/2.0)) for t in [0.5,1.0,1.5,2.0]]
+sage: @interact
+sage: def _(viewer=['tachyon','jmol','canvas3d']):
+...       show(sum(plts),viewer=viewer)</script></div><div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="n">sage</span><span class="p">:</span> <span class="k">def</span> <span class="nf">plt_t</span><span class="p">(</span><span class="n">t</span><span class="p">):</span>
+<span class="o">...</span>       <span class="n">cmax</span> <span class="o">=</span> <span class="n">c</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span><span class="mi">0</span><span class="p">,</span><span class="n">t</span><span class="p">)</span>
+<span class="o">...</span>       <span class="k">return</span> <span class="n">contour_plot</span><span class="p">(</span> <span class="n">c</span><span class="p">(</span><span class="n">x</span><span class="p">,</span><span class="n">y</span><span class="p">,</span><span class="n">t</span><span class="p">)</span> <span class="p">,(</span><span class="n">x</span><span class="p">,</span><span class="o">-</span><span class="mi">5</span><span class="p">,</span><span class="mi">5</span><span class="p">),(</span><span class="n">y</span><span class="p">,</span><span class="o">-</span><span class="mi">5</span><span class="p">,</span><span class="mi">5</span><span class="p">),</span><span class="n">contours</span><span class="o">=</span><span class="n">srange</span><span class="p">(</span><span class="mf">0.01</span><span class="p">,</span><span class="n">cmax</span><span class="p">,</span><span class="n">cmax</span><span class="o">/</span><span class="mf">20.0</span><span class="p">),</span><span class="n">cmap</span><span class="o">=</span><span class="s1">&#39;spectral&#39;</span><span class="p">,</span><span class="n">figsize</span><span class="o">=</span><span class="p">(</span><span class="mi">3</span><span class="p">,</span><span class="mi">3</span><span class="p">))</span>
+</pre></div>
+</div>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="n">sage</span><span class="p">:</span> <span class="n">times</span> <span class="o">=</span> <span class="p">[</span><span class="o">.</span><span class="mi">1</span><span class="p">,</span><span class="mf">0.4</span><span class="p">,</span><span class="mf">0.9</span><span class="p">]</span>
+<span class="n">sage</span><span class="p">:</span> <span class="n">html</span><span class="o">.</span><span class="n">table</span><span class="p">([[</span><span class="s2">&quot;t=</span><span class="si">%0.2f</span><span class="s2">&quot;</span><span class="o">%</span><span class="n">t</span> <span class="k">for</span> <span class="n">t</span> <span class="ow">in</span> <span class="n">times</span><span class="p">],[</span><span class="n">plt_t</span><span class="p">(</span><span class="n">t</span><span class="p">)</span> <span class="k">for</span> <span class="n">t</span> <span class="ow">in</span> <span class="n">times</span><span class="p">]])</span>
+</pre></div>
+</div>
+<img alt="_images/cell_6_sage01.png" class="align-center" src="_images/cell_6_sage01.png" />
+<img alt="_images/cell_6_sage1.png" class="align-center" src="_images/cell_6_sage1.png" />
+<img alt="_images/cell_6_sage2.png" class="align-center" src="_images/cell_6_sage2.png" />
+<p>Wszystkie dotychczas rozważane modele (Malthusa, Verhuslta,  autokatalizy, Lotki-Volterry, Maya, Biełousowa-Żabotyńskiego) mogą być  uogólnione na przypadek przestrzennych zmian. Dla przykładu, jeżeli  równanie dynamiki populacyjnej ma postać</p>
+<div class="math notranslate nohighlight">
+\[\frac{dN(t)}{dt} = F(N(t))\]</div>
+<p>to odpowiednie równanie uwzględniające proces dyfuzji ma postać</p>
+<div class="math notranslate nohighlight">
+\[\frac{\partial N(\vec r, t)}{\partial t} = F(N(\vec r, t) ) +  D  \Delta N(\vec r, t)\]</div>
+<p>gdzie w zależności od zagadnienia, laplasjan jest w jednym, dwóch lub trzech wymiarach.  <strong>Tego typu równanie nazywa się równaniem reakcji-dyfuzji.</strong></p>
+<p>Rozważamy poniżej dwa modele: model Malthusa i model Verhulsta.</p>
+</div>
+<div class="section" id="model-malthusa-z-migracja-rownanie-skellama">
+<h1>Model Malthusa z migracją: Równanie Skellama<a class="headerlink" href="#model-malthusa-z-migracja-rownanie-skellama" title="Stały odnośnik do tego nagłówka">¶</a></h1>
+<p>Standardowy model Malthusa to najprostszy model wzrostu lub zaniku populacji opisany  przez  równanie różniczkowe</p>
+<div class="math notranslate nohighlight">
+\[\frac{dN(t)}{dt} = k N(t)\]</div>
+<p>Jeżeli populacja może przemieszczać się losowo na płaszczyźnie <span class="math notranslate nohighlight">\(XY\)</span> to ogólniona wersja tego równania ma postać</p>
+<div class="math notranslate nohighlight">
+\[\frac{dN(x, y, t)}{dt} = k N(x, y, t) +   D \left[ \frac{\partial^2  }{\partial  x^2}  + \frac{\partial^2 }{\partial y^2} \right] N(x, y,  t)\]</div>
+<p>gdzie teraz <span class="math notranslate nohighlight">\(N(x, y,  t)\)</span> ma interpretację koncentracji populacji  (substancji chemicznej) w chwili czasu <span class="math notranslate nohighlight">\(t\)</span> w punkcie o współrzędnych  <span class="math notranslate nohighlight">\((x, y)\)</span>, czyli liczby osobników na jednostke powierzchni. Jest to jeden  z prostszych  przykładów  układu,  który nazywamy równaniem  reakcji-dyfuzji. W literaturze, powyższe równanie  nazywa się równaniem  Skellama, który w 1951 roku  zaproponował ten model jako model inwazji  gatunku. Zastosował go do opisu inwazji piżmaka w Europie.</p>
+<img alt="http://upload.wikimedia.org/wikipedia/commons/thumb/3/35/Bisamratte-drawing.jpg/250px-Bisamratte-drawing.jpg" class="align-center" src="http://upload.wikimedia.org/wikipedia/commons/thumb/3/35/Bisamratte-drawing.jpg/250px-Bisamratte-drawing.jpg" />
+<p><a class="reference external" href="http://pl.wikipedia.org/w/index.php?title=Plik:Bisamratte-drawing.jpg&amp;filetimestamp=20041114193425">http://pl.wikipedia.org/w/index.php?title=Plik:Bisamratte-drawing.jpg&amp;filetimestamp=20041114193425</a></p>
+<p>Do Europy  piżmaki sprowadzone zostały na początku XX w. z  Ameryki  Północnej  przez księcia Colloredo-Mansfelda jako zwierzę futerkowe.   Cała dzisiejsza europejska populacja  dziko żyjących piżmaków pochodzi  od kilku osobników, które w 1905 roku uciekły z  farmy  położonej w  Czechach, 40 km na południowy zachód od Pragi.   Na ziemiach polskich  pojawił się w latach 30. XX w.</p>
+<p>W modelu rozpatrujemy tylko takie przypadki że <span class="math notranslate nohighlight">\(N(x, y,  t) \ge 0\)</span>.   Nie jest to jeszcze kompletne sformułowanie problemu. Należy  sprecyzować:</p>
+<ol class="arabic simple">
+<li><p>warunek początkowy <span class="math notranslate nohighlight">\(N(x, y, 0)= N_0(x, y)\)</span></p></li>
+<li><p>warunki brzegowe</p></li>
+</ol>
+<p>Właściwe warunki brzegowe są często trudne do zdefiniowania. Na pewno  na brzegach obszaru  koncentracja <span class="math notranslate nohighlight">\(N(\pm \infty, t)\)</span> powinna  przyjmować ograniczone wartości.  Ale to niekoniecznie musi wystarczać,  aby rozwiązania posiadały poprawne własności i były pozbawione  artefaktów.</p>
+<p>Powyższe równanie reakcji-dyfuzji jest  tak trudne (łatwe)  do  analizy jak równanie dyfuzji. Aby to zobaczyć, dokonamy podstawienia:</p>
+<div class="math notranslate nohighlight">
+\[N(x, y, t)=e^{kt} c(x, y, t)\]</div>
+<p>Wstawiając je  do równania reakcji-dyfuzji, widzimy że nowa funkcja <span class="math notranslate nohighlight">\(c(x, y, t)\)</span> spełnia równanie</p>
+<div class="math notranslate nohighlight">
+\[\frac{d c(x, y, t)}{dt} =   D \left[ \frac{\partial^2  }{\partial   x^2}  + \frac{\partial^2 }{\partial y^2} \right] c(x, y,  t)\]</div>
+<p>czyli równanie dyfuzji w dwu-wymiarowej przestrzeni. Rozwiązanie tego  równania jest przedstawione powyżej. Więc funkcja <span class="math notranslate nohighlight">\(N(x, y, t)\)</span> ma  postać</p>
+<div class="math notranslate nohighlight">
+\[N(x, y, t)=e^{kt} c(x, y, t) =  \frac{N_0}{4\pi Dt}  \; exp\left[kt -\frac{x^2+y^2}{4Dt}\right]\]</div>
+<p>gdzie stała <span class="math notranslate nohighlight">\(N_0=N(0)\)</span> jest liczbą osobników w populacji w chwili początkowej <span class="math notranslate nohighlight">\(t=0\)</span>.</p>
+<p>Ponieważ koncentracja <span class="math notranslate nohighlight">\(N(x, y, t)\)</span> populacji ma interpretację liczby osobników na jednostkę powierzchni, to</p>
+<div class="math notranslate nohighlight">
+\[\int_{-\infty}^{\;\infty} \;\int_{-\infty}^{\;\infty} N(x, y, t) \,dx \,dy = N(t) = N(0) e^{kt}\]</div>
+<p>Zauważmy, że ewolucja koncentracji populacji zależy tylko od położenia w taki oto sposób</p>
+<div class="math notranslate nohighlight">
+\[N(x, y, t)= N(r ,t) = \frac{N_0}{4\pi Dt}  \; exp\left[kt -\frac{r^2}{4Dt}\right]\]</div>
+<p>gdzie</p>
+<div class="math notranslate nohighlight">
+\[r^2=x^2+y^2\]</div>
+<p>jest  miarą odległości od początku układu odniesienia.</p>
+<p>Analizę własności <span class="math notranslate nohighlight">\(N(r,  t)\)</span> można łatwo przeprowadzić korzystając z możliwości Sage.  Są one przedstawione graficznie poniżej.</p>
+<div class='sage_linked'><script type='text/x-sage'>sage: g(x,t) = (1/(4*pi*t))*exp(t-x^2/(4*t))
+sage: @interact
+sage: def _(t=slider(0.1,5,0.01)):
+...       pr0 = plot( g(x,0.1),(x,0,10),color='black' )
+...       prt = plot( g(x,t),(x,0,10),fill=True )
+...       (pr0+prt).show(figsize=5)</script></div><p>Obserwujemy następującą ewolucję populacji:</p>
+<ol class="upperalpha simple">
+<li><p>W pewnej umownej chwili początkowej rozkład populacji ma określoną formę (powyżej:  dla t=0.1).</p></li>
+<li><p>Wraz z upływem czasu populacja rozprzestrzenia się i jej koncentracja wokół <span class="math notranslate nohighlight">\(r=0\)</span>  (w otoczeniu wyjściowego największego skupiska)  zaczyna maleć:  osobniki rozchodzą się, tempo urodzin jest na razie niewielkie.</p></li>
+<li><p>Po pewnym czasie koncentracja wokół  <span class="math notranslate nohighlight">\(r=0\)</span> przyjmuje minimalną wielkość, a następnie wraz z upływem czasu zaczyna wzrastać (narasta tempo urodzin). Jednocześnie populacja rozprzestrzenia się zajmując coraz to większy obszar.</p></li>
+<li><p>Następnie obserwujemy,  że  istnieje taka chwila czasu, gdy  koncentracja wokół położenia <span class="math notranslate nohighlight">\(r=0\)</span> przekracza wartość początkową i dalej wzrasta w coraz to większym tempie, jednocześnie rozprzestrzeniając się na coraz to większym obszarze. Obserwujemy  inwazję populacji. Dalej jest już jak w kiepskim horrorze. Tym nie mniej, scenariusz  ten wydaje się dość rozsądny i w pewnych warunkach całkiem dobrze opisuje w ograniczonym przedziale czasowym inwazję populacji.</p></li>
+</ol>
+<p>Pełniejsza analiza tego modelu jest przedstawiona w książce:</p>
+<p>Nanako Shigesada and Kohkichi Kawasaki,  <em>Biological Invasion: Theory and Practice</em>  (Oxford University Press, 2001)</p>
+</div>
+<div class="section" id="model-verhulsta-z-migracja-rownanie-fishera-kolmogorowa">
+<h1>Model Verhulsta z migracją: Równanie Fishera-Kołmogorowa<a class="headerlink" href="#model-verhulsta-z-migracja-rownanie-fishera-kolmogorowa" title="Stały odnośnik do tego nagłówka">¶</a></h1>
+<p>Model Verhulsta opisuje ewolucję populacji w przypadku ograniczonych zasobów pożywienia w środowisku, w którym żyje dana populacja:</p>
+<div class="math notranslate nohighlight">
+\[\frac{dn(t)}{dt} = r n(t) \; [1- n(t)]\]</div>
+<p>gdzie przeskalowana koncentracja <span class="math notranslate nohighlight">\(n(t) = N(t)/K\)</span> i parametr <span class="math notranslate nohighlight">\(K\)</span> nazywa sie pojemnością środowiska.</p>
+<p>Model ten opisuje też kinetykę dwóch reakcji autokatalitycznych:</p>
+<div class="math notranslate nohighlight">
+\[A + X {\Longleftrightarrow}  2X , \quad \quad \mbox{lub reakcji} \quad  A+X {\Longleftrightarrow} 2X, \quad B+X \rightarrow C\]</div>
+<p>Jeżeli uwzględnimy proces rozprzestrzeniania się dyfuzyjnego, model ten przyjmuje postać</p>
+<div class="math notranslate nohighlight">
+\[\frac{\partial n(\vec r, t)}{\partial t} =  r n(\vec r, t) \;[1-  n(\vec r, t)] +  D  \Delta n(\vec r, t)\]</div>
+<p>W przypadku dynamiki populacyjnej, powinniśmy rozważać migrację na płaszczyżnie (laplasjan w dwóch wymiarach), a w przypadku substancji chemicznych - dyfuzję przestrzenną (pełny trójwymiarowy laplasjan). Oba realistyczne przypadki są wyjątkowo skomplikowane. Dlatego upraszczamy model i redukujemy zagadnienia do przypadku jednowymiarowej dyfuzji i  poniżej rozważamy następujące równanie</p>
+<div class="math notranslate nohighlight">
+\[\frac{\partial n(x, t)}{\partial t} = r n(x, t) \;[1-  n(x, t)] +    D \frac{\partial^2   n(x, t)}{\partial  x^2}\]</div>
+<p>Równanie to nazywa się równaniem Fishera-Kołmogorowa.</p>
+<p>Jak zwykle w modelu tym rozpatrujemy tylko takie przypadki że <span class="math notranslate nohighlight">\(n(x,  t) \ge 0\)</span>.  Należy jeszcze zadać:</p>
+<ol class="arabic simple">
+<li><p>rozkład  początkowy populacji <span class="math notranslate nohighlight">\(n(x, t= 0)= n_0(x)\)</span></p></li>
+<li><p>warunki brzegowe dla <span class="math notranslate nohighlight">\(n(\pm\infty, t)\)</span></p></li>
+</ol>
+<p>Warunki brzegowe sformułujemy później.</p>
+<div class="section" id="analiza-rownania-fishera-kolmogorowa">
+<h2>Analiza równania Fishera-Kołmogorowa<a class="headerlink" href="#analiza-rownania-fishera-kolmogorowa" title="Stały odnośnik do tego nagłówka">¶</a></h2>
+<ol class="upperroman simple">
+<li><p>Zauważmy, że funkcje stałe <span class="math notranslate nohighlight">\(n(x,t) = n_{0} = 0\)</span> oraz <span class="math notranslate nohighlight">\(n(x, t) = n_{1} = 1\)</span> są rozwiązanami tego równania. Są to te same stany stacjonarne, które są obecne w przypadku modelu Verhulsta bez dyfuzji.</p></li>
+<li><p>Równanie powyższe można przeskalować w następujący sposób:</p></li>
+</ol>
+<div class="math notranslate nohighlight">
+\[\tau = rt, \quad \quad y^2=\frac{r}{D} x^2, \quad \quad n(x,t) \equiv  c(y, \tau)\]</div>
+<dl class="simple">
+<dt></dt><dd><p>Przeskalowana koncentracja spełnia równanie</p>
+</dd>
+</dl>
+<div class="math notranslate nohighlight">
+\[\frac{\partial c }{\partial \tau} =  c  [1-  c ] + \frac{\partial^2  c}{\partial y^2}, \quad \quad c=c(y, \tau)\]</div>
+<dl class="simple">
+<dt></dt><dd><p>Funkcje <span class="math notranslate nohighlight">\(c=0\)</span> oraz <span class="math notranslate nohighlight">\(c=1\)</span> są rozwiązaniami stacjonarnymi.</p>
+</dd>
+</dl>
+<ol class="upperroman simple" start="3">
+<li><p>Szukamy rozwiązań w postaci fali biegnącej:</p></li>
+</ol>
+<div class="math notranslate nohighlight">
+\[c(y, \tau) = U(z), \quad \mbox{gdzie } \quad z=y-v_0 \tau\]</div>
+<dl>
+<dt></dt><dd><p>Oznacza to, że fala przesuwa się w prawo z prędkością <span class="math notranslate nohighlight">\(v_0\)</span>.  Często mówi się, że  front falowy koncentracji porusza się w prawo z prędkością <span class="math notranslate nohighlight">\(v_0\)</span>.</p>
+<p>Zauważamy, że</p>
+</dd>
+</dl>
+<div class="math notranslate nohighlight">
+\[\frac{\partial c }{\partial \tau} = \frac{\partial U}{\partial \tau} = \frac{d U}{d z} \frac{\partial z}{\partial \tau} =  -v_0 \frac{d U}{d z}\]</div>
+<div class="math notranslate nohighlight">
+\[\frac{\partial c }{\partial y} = \frac{\partial U }{\partial y} = \frac{d U }{d z} \frac{\partial z }{\partial y} =    \frac{d U }{d z}\]</div>
+<div class="math notranslate nohighlight">
+\[\frac{\partial ^2 c }{\partial y^2} = \frac{\partial^2 U }{\partial y^2} = \frac{d ^2U }{d z^2}\]</div>
+<dl class="simple">
+<dt></dt><dd><p>Stąd, nowa funkcja <span class="math notranslate nohighlight">\(U(z)\)</span> spełnia równanie różniczkowe zwyczajne drugiego rzędu:</p>
+</dd>
+</dl>
+<div class="math notranslate nohighlight">
+\[U'' + v_0 U' + U(1-U)=0\]</div>
+<dl class="simple">
+<dt></dt><dd><p>Jest ono równoważne układowi 2 równań:</p>
+</dd>
+</dl>
+<div class="math notranslate nohighlight">
+\[U'=V = F(U, V), \quad \quad V'=-v_0 - U(1-U) = G(U, V)\]</div>
+<dl class="simple">
+<dt></dt><dd><p>Stany stacjonarne określone są przez pierwiastki równań:</p>
+</dd>
+</dl>
+<div class="math notranslate nohighlight">
+\[F(U, V) = 0, \quad \quad  G(U, V) = 0,\]</div>
+<dl class="simple">
+<dt></dt><dd><p>stąd otrzymujemy 2 par rozwiązań</p>
+</dd>
+</dl>
+<div class="math notranslate nohighlight">
+\[(U_0, V_0) = (0, 0), \quad (U_1,  V_1) = (1, 0)\]</div>
+<ol class="arabic simple">
+<li><p>Wyznaczamy macierz Jacobiego</p></li>
+</ol>
+<div class="math notranslate nohighlight">
+\[\begin{split}\quad \quad \quad \quad J = \begin{bmatrix}\frac{ \partial F}{\partial U}&amp;  \frac{\partial F}{\partial V}\\ \frac{\partial  G}{\partial U}&amp;  \frac{\partial Gg}{\partial V}  \end{bmatrix}= \begin{bmatrix}0,  &amp;  1\\ -1+2U,  &amp;  -v_0  \end{bmatrix}\end{split}\]</div>
+<dl class="simple">
+<dt></dt><dd><p>w punktach stacjonarnych:</p>
+</dd>
+</dl>
+<div class="math notranslate nohighlight">
+\[\begin{split}J_0= J(0, 0) =  \begin{bmatrix}0&amp; 1\\ -1&amp; -v_0 \end{bmatrix}, \quad \quad  J_1=  J(1, ) = \begin{bmatrix}0&amp; 1\\ 1&amp; -v_0 \end{bmatrix}\end{split}\]</div>
+<ol class="arabic simple" start="2">
+<li><p>Wyznaczamy wartości własne macierzy Jacobiego <span class="math notranslate nohighlight">\(|J-\lambda I|=0\)</span>:</p></li>
+</ol>
+<ol class="loweralpha simple">
+<li><p>dla <span class="math notranslate nohighlight">\((0, 0)\)</span> otrzymujemy:</p></li>
+</ol>
+<div class="math notranslate nohighlight">
+\[\lambda_{\pm}(0, 0) = (1/2)[-v_0\pm\sqrt{v_0^2-4}]\]</div>
+<dl class="simple">
+<dt></dt><dd><p>Należy rozważyć 2 przypadki: <span class="math notranslate nohighlight">\(v_0 \lt  2\)</span> oraz <span class="math notranslate nohighlight">\(v_0 \ge 2\)</span>. Pierwszy przypadek należy odrzucić, ponieważ wartości własne są zespolone, o rzeczywistej części ujemnej i krzywe fazowe tworzą spiralę wokół punktu <span class="math notranslate nohighlight">\((0, 0)\)</span>. Ale to oznacza, że <span class="math notranslate nohighlight">\(U\)</span>  przyjmuje także ujemne wartości, co nie jest dopuszczalne (koncentracje populacji mogą być tylko dodatnie lub zerowe). Pozostaje tylko drugi przypadek:</p>
+</dd>
+</dl>
+<div class="math notranslate nohighlight">
+\[v_0 \ge 2\]</div>
+<ol class="loweralpha simple" start="2">
+<li><p>dla <span class="math notranslate nohighlight">\((1, 0)\)</span> otrzymujemy: <span class="math notranslate nohighlight">\(\lambda_{\pm}(1, 0) = (1/2)[-v_0\pm\sqrt{v_0^2+4}]\)</span>.  Ponieważ jedna  z wartości własnych jest dodatnia, ten stan stacjonarny jest niestabilny (jest to stan stacjonarny typu siodło).</p></li>
+</ol>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="n">sage</span><span class="p">:</span> <span class="n">F</span><span class="p">(</span><span class="n">u</span><span class="p">,</span><span class="n">v</span><span class="p">)</span><span class="o">=</span><span class="n">v</span>
+<span class="n">sage</span><span class="p">:</span> <span class="n">G</span><span class="p">(</span><span class="n">u</span><span class="p">,</span><span class="n">v</span><span class="p">)</span><span class="o">=</span> <span class="o">-</span><span class="mi">2</span><span class="o">*</span><span class="n">v</span><span class="o">-</span><span class="n">u</span><span class="o">+</span><span class="n">u</span><span class="o">^</span><span class="mi">2</span> <span class="c1">#ewolucja z  otoczenia stanu stacjonarnego (1,0)</span>
+<span class="n">sage</span><span class="p">:</span> <span class="n">T1</span> <span class="o">=</span> <span class="n">srange</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span><span class="mi">5</span><span class="p">,</span><span class="mf">0.01</span><span class="p">)</span> <span class="c1">#druga liczba=ilość iteracji=&quot;czas&quot;</span>
+<span class="n">sage</span><span class="p">:</span> <span class="n">T2</span> <span class="o">=</span> <span class="n">srange</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span><span class="mi">29</span><span class="p">,</span><span class="mf">0.01</span><span class="p">)</span>
+<span class="n">sage</span><span class="p">:</span> <span class="n">solo2</span><span class="o">=</span><span class="n">desolve_odeint</span><span class="p">(</span><span class="n">vector</span><span class="p">([</span><span class="n">F</span><span class="p">,</span><span class="n">G</span><span class="p">]),</span> <span class="p">[</span><span class="mf">0.8</span><span class="p">,</span> <span class="mf">0.01</span><span class="p">],</span> <span class="n">T1</span><span class="p">,</span> <span class="p">[</span><span class="n">u</span><span class="p">,</span><span class="n">v</span><span class="p">])</span> <span class="c1"># warunek pocz (U, V)</span>
+<span class="n">sage</span><span class="p">:</span> <span class="n">solo3</span><span class="o">=</span><span class="n">desolve_odeint</span><span class="p">(</span><span class="n">vector</span><span class="p">([</span><span class="n">F</span><span class="p">,</span><span class="n">G</span><span class="p">]),</span> <span class="p">[</span><span class="mf">0.999</span><span class="p">,</span> <span class="mi">0</span><span class="p">],</span> <span class="n">T2</span><span class="p">,</span> <span class="p">[</span><span class="n">u</span><span class="p">,</span><span class="n">v</span><span class="p">])</span> <span class="c1"># warunek pocz (U, V)</span>
+<span class="n">sage</span><span class="p">:</span> <span class="n">list_plot</span><span class="p">(</span><span class="n">solo2</span><span class="o">.</span><span class="n">tolist</span><span class="p">(),</span> <span class="n">plotjoined</span><span class="o">=</span><span class="mi">1</span><span class="p">,</span> <span class="n">color</span><span class="o">=</span><span class="s1">&#39;green&#39;</span><span class="p">,</span> <span class="n">figsize</span><span class="o">=</span><span class="p">(</span><span class="mi">7</span><span class="p">,</span><span class="mi">3</span><span class="p">))</span> <span class="o">+</span> <span class="n">list_plot</span><span class="p">(</span><span class="n">solo3</span><span class="o">.</span><span class="n">tolist</span><span class="p">(),</span> <span class="n">plotjoined</span><span class="o">=</span><span class="mi">1</span><span class="p">,</span> <span class="n">figsize</span><span class="o">=</span><span class="p">(</span><span class="mi">7</span><span class="p">,</span><span class="mi">3</span><span class="p">))</span>
+</pre></div>
+</div>
+<img alt="_images/cell_10_sage01.png" class="align-center" src="_images/cell_10_sage01.png" />
+<p>Zauważmy, że istnieją stany początkowe z otoczenia stanu <span class="math notranslate nohighlight">\((1, 0)\)</span>, które dążą do stanu <span class="math notranslate nohighlight">\((0, 0)\)</span>. Innymi słowy funkcja <span class="math notranslate nohighlight">\(U(z)\)</span>  z otoczenia <span class="math notranslate nohighlight">\(U(z) \approx 1\)</span> łączy się z  funkcją <span class="math notranslate nohighlight">\(U(z)=0\)</span>. To sugeruje wybór warunków brzegowych w postaci:</p>
+<div class="math notranslate nohighlight">
+\[\lim_{z\to   -\infty} U(z) = 1, \quad \quad \lim_{z\to \infty} U(z) = 0\]</div>
+<p>Pamiętając o własnościach stanów stacjonarnych w standardowym modelu Verhulsta (<span class="math notranslate nohighlight">\(n(t) \to 1\)</span> dla <span class="math notranslate nohighlight">\(t\to \infty\)</span>), oznacza to, że dla ustalonej wartości położenia <span class="math notranslate nohighlight">\(y\)</span>:</p>
+<div class="math notranslate nohighlight">
+\[\lim_{z\to   -\infty} U(z) =  \lim_{\tau \to \infty} U(y-v_0 \tau ) = \lim_{\tau \to   \infty} c(y, \tau )  = 1\]</div>
+<p>co jest konsystentne z zachowaniem się układu w przypadku bez migracji.</p>
+<div class="section" id="dokladne-rozwiazanie-w-szczegolnym-przypadku">
+<h3>Dokładne rozwiązanie w szczególnym przypadku<a class="headerlink" href="#dokladne-rozwiazanie-w-szczegolnym-przypadku" title="Stały odnośnik do tego nagłówka">¶</a></h3>
+<p>Istnieje jeden szczególny przypadek, gdy znane jest dokładne  rozwiązanie równania Fishera-Kołmogorowa w postaci analitycznej. Dal prędkości fali</p>
+<div class="math notranslate nohighlight">
+\[v_0 =  \frac{5}{\sqrt{6}}\]</div>
+<p>rozwiązanie ma postać:</p>
+<div class="math notranslate nohighlight">
+\[c(y, \tau) = \frac{1}{\left\{1+A \exp\left[ (y-v_0 \tau)/\sqrt{6}\right] \right\}^{2}}\]</div>
+<p>gdzie stała <span class="math notranslate nohighlight">\(A\gt 0\)</span> określa początkowy profil koncentracji.</p>
+<div class='sage_linked'><script type='text/x-sage'>sage: A=1                                              ## określa początkowy profil koncentracji
+sage: b=5/sqrt(6)                                      ## prędkość frontu falowego
+sage: cs(x,t) = 1/(1+ A*exp(x-b*t)/sqrt(6))^2          ## szczególna, ale analityczna postać frontu koncentracji
+sage: @interact
+sage: def _(t=slider(0,5,0.2)):
+...       pr3 = plot( cs(x,0),(x,-10,10),color='black' )
+...       pr4 = plot( cs(x,t),(x,-10,10),fill=True )
+...       (pr3+pr4).show(figsize=5)</script></div></div>
+</div>
+<div class="section" id="analiza-numeryczna-rownania-fishera-kolmogorowa">
+<h2>Analiza numeryczna równania Fishera-Kołmogorowa:<a class="headerlink" href="#analiza-numeryczna-rownania-fishera-kolmogorowa" title="Stały odnośnik do tego nagłówka">¶</a></h2>
+<div class="math notranslate nohighlight">
+\[\frac{\partial n(x, t)}{\partial t} = r n(x, t) \;[1-  n(x, t)] +    D \frac{\partial^2  n(x, t)}{\partial x^2}\]</div>
+<p>Przyjęto okresowe warunki brzegowe, poprzez odpowiedni wybór dyskretnego operatowa dyfuzji <span class="math notranslate nohighlight">\(L\)</span>.  Najpierw wybieramy dyskretyzację przestrzeni, potem dobieramy maksymalny krok czasowy tak by warunek CFL był spełniony.</p>
+<p>Aby uzyskac rozwiązanie z wyraźną falą biegnącą należy wziąć dla <span class="math notranslate nohighlight">\(r=0\)</span> wartości dyfuzji poniżej <span class="math notranslate nohighlight">\(D\lt 0.001\)</span>. Dla większych wartości stałych dyfuzji najpierw nastąpi wyrównanie poziomu <span class="math notranslate nohighlight">\(u\)</span> na obszarze, a potem wzrost do wartości stabilnej <span class="math notranslate nohighlight">\(u=1\)</span>.</p>
+<p>Długość układu wchodzi efektywnie w skalowanie stałej dyfuzji, można więc bez straty ogólności rozważać układy o długości 1.</p>
+<div class="math notranslate nohighlight">
+\[u^{i+1}  = u^i + dt \left( r u^i (1-u^i) + D \frac{1}{h^2} Lu^i\right),\]</div>
+<p>gdzie <span class="math notranslate nohighlight">\(L\)</span> jest dyskretnym operatorem Laplace’a.</p>
+<p>Ponieważ część nieliniowa jest lokalna (nie zawiera pochodnych), to warunki brzegowe są zawarte w operatorze <span class="math notranslate nohighlight">\(L\)</span>.</p>
+<div class='sage_linked'><script type='text/x-sage'>sage: import numpy as np
+sage: Dyf = 1.0
+sage: r = 1.0
+sage: l = 100.0 # dlugosc ukladu
+sage: t_end = 50 # czas symulacje
+sage: N = 100 # dyskretyzacja przestrzeni
+sage: h = l/(N-1)
+sage: dt = 0.2/(Dyf*(N-1)**2/l**2) # 0.2 z warunku CFL, krok nie moze byc wiekszy
+sage: sps = int(1/dt) # liczba krokow na jednostke czasu
+sage: Nsteps=sps*t_end  # calkowita liczba krotkow
+sage: print "sps=",sps,"dt=",dt
+sage: one = np.identity(N)
+sage: L=np.roll(one,-1)+np.roll(one,1)-2*one
+sage: L[0,0]=-2.
+sage: L[-1,-1]=-2.
+sage: L[0,-1]=1.
+sage: L[-1,0]=1.
+sage: # warunek poczatkowy
+sage: u = np.zeros(N)
+sage: u[N/2-10:N/2+10]=.1 # small bump
+sage: #u[:N/2]=1 # step
+sage: Tlst=[]
+sage: for i in range(Nsteps):
+...       if not i%sps:
+...           Tlst.append(list(u))
+...       u = u + dt*(r*u*(1-u) + Dyf*(N-1)**2/l**2*L.dot(u))
+sage: @interact
+sage: def _(ti=slider(range(len(Tlst)))):
+...       print r"tau=",dt*ti
+...       p =  list_plot(Tlst[ti],plotjoined=True)
+...       p += list_plot(Tlst[-1],plotjoined=True,color='red',ymin=0,ymax=1.5)
+...       p += list_plot(Tlst[0],plotjoined=True,color='gray')
+...       p.show(figsize=(8,3))</script></div><div class='sage_linked'><script type='text/x-sage'>sage: import numpy as np
+sage: Dyf = 1.0
+sage: r = 1.0
+sage: l = 100.0 # dlugosc ukladu
+sage: t_end = 100 # czas symulacje
+sage: N = 200 # dyskretyzacja przestrzeni
+sage: h = l/(N-1)
+sage: dt = 0.052/(Dyf*(N-1)**2/l**2) # 0.2 z warunku CFL, krok nie moze byc wiekszy
+sage: sps = int(1/dt) # liczba krokow na jednostke czasu
+sage: Nsteps=sps*t_end  # calkowita liczba krotkow
+sage: print "sps=",sps,"dt=",dt
+sage: one = np.identity(N)
+sage: L=np.roll(one,-1)+np.roll(one,1)-2*one
+sage: L[0,0]=1.
+sage: L[-1,-1]=1.
+sage: # warunek poczatkowy
+sage: u = np.zeros(N)
+sage: #u[:int(N/2]=1 # step
+sage: for i in range(1,3):
+...       u[i] = 1.0 - i/3.0
+sage: def essential_boundary_conditions(u):
+...       u[0] = 1.
+...       u[-1] = 0.0
+sage: Tlst=[]
+sage: essential_boundary_conditions(u)
+sage: for i in range(Nsteps):
+...       if not i%sps:
+...           Tlst.append(list(u))
+...       u = u + dt*(r*u*(1-u) + Dyf*(N-1)**2/l**2*L.dot(u))
+...       essential_boundary_conditions(u)
+sage: @interact
+sage: def _(ti=slider(range(len(Tlst)))):
+...       print r"t=",dt*ti
+...       p =  list_plot(Tlst[ti],plotjoined=True)
+...       p += list_plot(Tlst[-1],plotjoined=True,color='red',ymin=0,ymax=1.5)
+...       p += list_plot(Tlst[0],plotjoined=True,color='gray')
+...       p.show(figsize=(8,3))</script></div><div class="section" id="predkosc-frontu-fali">
+<h3>Prędkość frontu fali:<a class="headerlink" href="#predkosc-frontu-fali" title="Stały odnośnik do tego nagłówka">¶</a></h3>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="n">sage</span><span class="p">:</span> <span class="n">pos_lst</span> <span class="o">=</span> <span class="p">[]</span>
+<span class="n">sage</span><span class="p">:</span> <span class="k">for</span> <span class="n">T_</span> <span class="ow">in</span> <span class="n">Tlst</span><span class="p">:</span>
+<span class="o">...</span>       <span class="k">for</span> <span class="p">(</span><span class="n">i</span><span class="p">,</span><span class="n">a</span><span class="p">),</span><span class="n">b</span> <span class="ow">in</span> <span class="nb">zip</span><span class="p">(</span><span class="nb">enumerate</span><span class="p">(</span><span class="n">T_</span><span class="p">),</span><span class="n">T_</span><span class="p">[</span><span class="mi">1</span><span class="p">:]):</span>
+<span class="o">...</span>           <span class="k">if</span> <span class="n">a</span><span class="o">&gt;=</span><span class="mf">0.5</span> <span class="ow">and</span> <span class="n">b</span><span class="o">&lt;=</span><span class="mf">0.5</span><span class="p">:</span>
+<span class="o">...</span>               <span class="n">pos_lst</span><span class="o">.</span><span class="n">append</span><span class="p">(</span> <span class="n">i</span><span class="o">+</span><span class="p">(</span><span class="n">a</span><span class="o">-</span><span class="mf">0.5</span><span class="p">)</span><span class="o">/</span><span class="p">(</span><span class="n">a</span><span class="o">-</span><span class="n">b</span><span class="p">)</span> <span class="p">)</span>
+<span class="o">...</span>
+<span class="n">sage</span><span class="p">:</span> <span class="n">list_plot</span><span class="p">(</span> <span class="p">[</span><span class="n">l</span><span class="o">/</span><span class="p">(</span><span class="n">N</span><span class="o">-</span><span class="mi">1</span><span class="p">)</span><span class="o">*</span><span class="p">(</span><span class="n">b</span><span class="o">-</span><span class="n">a</span><span class="p">)</span><span class="o">/</span><span class="p">(</span><span class="n">sps</span><span class="o">*</span><span class="n">dt</span><span class="p">)</span> <span class="k">for</span> <span class="n">a</span><span class="p">,</span><span class="n">b</span> <span class="ow">in</span> <span class="nb">zip</span><span class="p">(</span><span class="n">pos_lst</span><span class="p">,</span><span class="n">pos_lst</span><span class="p">[</span><span class="mi">1</span><span class="p">:])]</span> <span class="p">,</span> <span class="n">figsize</span><span class="o">=</span><span class="p">(</span><span class="mi">7</span><span class="p">,</span><span class="mi">3</span><span class="p">),</span><span class="n">gridlines</span><span class="o">=</span><span class="p">[[],[</span><span class="mi">2</span><span class="p">]],</span><span class="n">ymax</span><span class="o">=</span><span class="mi">2</span><span class="p">)</span>
+</pre></div>
+</div>
+<img alt="_images/cell_15_sage01.png" class="align-center" src="_images/cell_15_sage01.png" />
+</div>
+</div>
+</div>
+
+
+          </div>
+        </div>
+      </div>
+      <div class="sphinxsidebar" role="navigation" aria-label="main navigation">
+        <div class="sphinxsidebarwrapper">
+  <div class="sphinxlocaltoc">
+  <h3><a href="index.html">Table Of Contents</a></h3>
+  <ul>
+<li><a class="reference internal" href="#">Równania reakcji-dyfuzji</a></li>
+<li><a class="reference internal" href="#model-malthusa-z-migracja-rownanie-skellama">Model Malthusa z migracją: Równanie Skellama</a></li>
+<li><a class="reference internal" href="#model-verhulsta-z-migracja-rownanie-fishera-kolmogorowa">Model Verhulsta z migracją: Równanie Fishera-Kołmogorowa</a><ul>
+<li><a class="reference internal" href="#analiza-rownania-fishera-kolmogorowa">Analiza równania Fishera-Kołmogorowa</a><ul>
+<li><a class="reference internal" href="#dokladne-rozwiazanie-w-szczegolnym-przypadku">Dokładne rozwiązanie w szczególnym przypadku</a></li>
+</ul>
+</li>
+<li><a class="reference internal" href="#analiza-numeryczna-rownania-fishera-kolmogorowa">Analiza numeryczna równania Fishera-Kołmogorowa:</a><ul>
+<li><a class="reference internal" href="#predkosc-frontu-fali">Prędkość frontu fali:</a></li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+
+  </div>
+  <h4>Poprzedni temat</h4>
+  <p class="topless"><a href="iCSE_BProcnielin04_z122_kinetyka_chemiczna.html"
+                        title="poprzedni rozdział">Kinetyka reakcji chemicznych</a></p>
+  <h4>Następny temat</h4>
+  <p class="topless"><a href="iCSE_BProcnielin06_z155_modele_epidemii.html"
+                        title="następny rozdział">Modele epidemii</a></p>
+<div id="searchbox" style="display: none" role="search">
+  <h3 id="searchlabel">Szybkie wyszukiwanie</h3>
+    <div class="searchformwrapper">
+    <form class="search" action="search.html" method="get">
+      <input type="text" name="q" aria-labelledby="searchlabel" />
+      <input type="submit" value="Szukaj" />
+    </form>
+    </div>
+</div>
+<script>$('#searchbox').show(0);</script>
+        </div>
+      </div>
+      <div class="clearer"></div>
+    </div>
+  </div>
+  <div class="relbar-bottom">
+    
+    <div class="related" role="navigation" aria-label="related navigation">
+      <h3>Nawigacja</h3>
+      <ul>
+        <li class="right" style="margin-right: 10px">
+          <a href="iCSE_BProcnielin06_z155_modele_epidemii.html" title="Modele epidemii"
+             >dalej</a></li>
+        <li class="right" >
+          <a href="iCSE_BProcnielin04_z122_kinetyka_chemiczna.html" title="Kinetyka reakcji chemicznych"
+             >wstecz</a> &nbsp; &nbsp;</li>
+  <li><a href="index.html">Procesy nieliniowe w Biologii</a> &#187;</li>
+   
+      </ul>
+    </div>
+  </div>
+  
+  <div class="footer">
+    <a class="logo" href="http://icse.us.edu.pl/" target="_blank"><img src="_static/logo-icse.png" alt="ICSE"/></a><br/>
+    &copy; Copyright 2013, Jerzy Łuczka, Marcin Kostur.
+    Created using <a href="http://sphinx.pocoo.org/">Sphinx</a> 2.4.0.
+  </div>
+  </body>
+</html>

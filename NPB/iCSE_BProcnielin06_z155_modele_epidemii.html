@@ -1,0 +1,570 @@
+
+
+  
+<!DOCTYPE html>
+
+<html xmlns="http://www.w3.org/1999/xhtml" lang="pl">
+  <head>
+    <meta charset="utf-8" />
+    <title>Modele epidemii &#8212; Procesy nieliniowe w Biologii</title>
+    <link rel="stylesheet" href="_static/cloud.css" type="text/css" />
+    <link rel="stylesheet" href="_static/pygments.css" type="text/css" />
+    <link rel="stylesheet" href="http://fonts.googleapis.com/css?family=Noticia+Text|Open+Sans|Droid+Sans+Mono&subset=latin,latin-ext" type="text/css" />
+    <script id="documentation_options" data-url_root="./" src="_static/documentation_options.js"></script>
+    <script src="_static/jquery.js"></script>
+    <script src="_static/underscore.js"></script>
+    <script src="_static/doctools.js"></script>
+    <script src="_static/language_data.js"></script>
+    <script src="_static/translations.js"></script>
+    <script async="async" src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.5/latest.js?config=TeX-AMS-MML_HTMLorMML"></script>
+    <script src="_static/jquery.cookie.js"></script>
+    <script src="_static/cloud.js"></script>
+    <script type="text/javascript" src="http://sagecell.sagemath.org/static/jquery.min.js"></script>
+    <script type="text/javascript" src="http://sagecell.sagemath.org/embedded_sagecell.js"></script>
+    <script type="text/javascript">
+        sagecell.makeSagecell({inputLocation: ".sage_linked",
+                               linked: true});
+        sagecell.makeSagecell({inputLocation: ".sage_unlinked",
+                               linked: false});
+    </script>
+
+    <style type="text/css">
+        .sagecell .CodeMirror-scroll {
+            overflow-y: hidden;
+            overflow-x: auto;
+        }
+        .sagecell .CodeMirror {
+            height: auto;
+        }
+    </style>
+    
+    <link rel="search" title="Szukaj" href="search.html" />
+    <link rel="next" title="Transmisja impulsów nerwowych: Model Hodgkinga-Huxleya" href="iCSE_BProcnielin07_z133_Hodgkin-Huxley.html" />
+    <link rel="prev" title="Równania reakcji-dyfuzji" href="iCSE_BProcnielin05_z125_reakcja_dyfuzja.html" />
+ 
+  <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, minimum-scale=1">
+  </head><body>
+  <div class="relbar-top">
+    
+    <div class="related" role="navigation" aria-label="related navigation">
+      <h3>Nawigacja</h3>
+      <ul>
+        <li class="right" style="margin-right: 10px">
+          <a href="iCSE_BProcnielin07_z133_Hodgkin-Huxley.html" title="Transmisja impulsów nerwowych: Model Hodgkinga-Huxleya"
+             accesskey="N">dalej</a></li>
+        <li class="right" >
+          <a href="iCSE_BProcnielin05_z125_reakcja_dyfuzja.html" title="Równania reakcji-dyfuzji"
+             accesskey="P">wstecz</a> &nbsp; &nbsp;</li>
+  <li><a href="index.html">Procesy nieliniowe w Biologii</a> &#187;</li>
+   
+      </ul>
+    </div>
+  </div>
+  
+  <div class="content">  
+
+    <div class="document">
+      <div class="documentwrapper">
+        <div class="bodywrapper">
+          <div class="body">
+            
+  <div class="section" id="modele-epidemii">
+<h1>Modele epidemii<a class="headerlink" href="#modele-epidemii" title="Stały odnośnik do tego nagłówka">¶</a></h1>
+<div class="section" id="model-kermacka-mckendricka">
+<h2>Model Kermacka-McKendricka<a class="headerlink" href="#model-kermacka-mckendricka" title="Stały odnośnik do tego nagłówka">¶</a></h2>
+<p>W języku potocznym termin epidemia używany jest  jako synonim masowych zachorowań wywołanych chorobami zakaźnymi.  Często definiuje się ją jako wystąpienie na danym  obszarze zakażeń lub zachorowań na chorobę zakaźną w liczbie wyraźnie  większej niż we wcześniejszym okresie albo wystąpienie zakażeń lub  chorób zakaźnych dotychczas niewystępujących.  Przypadki globalnych epidemii nazywa się pandemią. Oto kilka przykładów epidemii (pandemii):</p>
+<blockquote>
+<div><ul class="simple">
+<li><p>grypy</p></li>
+</ul>
+<blockquote>
+<div><ul class="simple">
+<li><p>grypa hiszpanka (1918-1919) – ponad 50 mln ofiar śmiertelnych na całym świecie</p></li>
+<li><p>grypa azjatycka (1957) – ok. 1 mln ofiar śmiertelnych na całym świecie</p></li>
+<li><p>grypa Hong-Kong (1968) – ok. 1 mln ofiar śmiertelnych na całym świecie</p></li>
+<li><p>Pandemia grypy A/H1N1 (od 11 czerwca 2009) - ok. 12799 ofiar na całym świecie</p></li>
+</ul>
+</div></blockquote>
+<ul class="simple">
+<li><p>AIDS – masowe zachorowania; zwłaszcza na kontynencie afrykańskim</p></li>
+</ul>
+</div></blockquote>
+<p>Jak zwykle zaczniemy modelowanie epidemii jakiejś choroby od uproszczających założeń. Rozważamy izolowaną populację, a w niej 3 grupy osób:</p>
+<ol class="arabic simple">
+<li><p>osoby podatne, które mogą zachorować; ich populacje oznaczamy przez <span class="math notranslate nohighlight">\(S\)</span></p></li>
+<li><p>ososby chore  (zainfekowane) <span class="math notranslate nohighlight">\(I\)</span> oraz</p></li>
+<li><p>osoby,  które wyzdrowiały i są odporne na nową infekcję <span class="math notranslate nohighlight">\(R\)</span>.</p></li>
+</ol>
+<p>W punkcie 3 zakłada się, że choroba jest wyleczalna i nie prowadzi do śmierci. Równie dobrze można założyć, że choroba jest całkowicie śmiertelna i wówczas <span class="math notranslate nohighlight">\(R\)</span> jest liczbą osób matrwych z powodu choroby.</p>
+<p>Ponieważ  jest to  populacja izolowana, więc całkowita liczba wszystkich osobników jest stała</p>
+<div class="math notranslate nohighlight">
+\[S + I + R = N_0  = const.\]</div>
+<p>Zmiana liczebności osobników w poszczególnych grupach jest wyznaczona przez równania:</p>
+<div class="math notranslate nohighlight">
+\[\frac{dS}{dt} = - r S I, \quad \quad  \frac{dI}{dt} = r S I -aI, \quad \quad  \frac{dR}{dt} =  aI\]</div>
+<p>Równania te mają podobną strukturę jak równania dynamiki populacyjnej Lotki-Volterry. Uzasadnienie tych równań jest podobne:</p>
+<ol class="arabic simple">
+<li><p>Liczba osobników w grupie  podatnych <span class="math notranslate nohighlight">\(S\)</span> maleje (pochodna jest ujemna), ponieważ  mogą zachorować. Tempo ubytku osobników <span class="math notranslate nohighlight">\(S\)</span> zależy od liczby osób chorych <span class="math notranslate nohighlight">\(I\)</span>, ponieważ im więcej jest nosicieli choroby, tym więcej ludzi może być zainfekowanych.</p></li>
+<li><p>Liczba osób chorych <span class="math notranslate nohighlight">\(I\)</span> zmienia się z dwóch powodów. Pierwszy powód: <span class="math notranslate nohighlight">\(I\)</span> wzrasta (wyraz po prawej stronie równania jest dodatni) ponieważ nowe osoby są infekowane. Drugi powód: <span class="math notranslate nohighlight">\(I\)</span> maleje (wyraz po prawej stronie jest ujemny) ponieważ chorzy zdrowieją.</p></li>
+<li><p>Osób ozdrowiałych <span class="math notranslate nohighlight">\(R\)</span>  (lub martwych)  przybywa (pochodna jest dodatnia).</p></li>
+</ol>
+<p>Jeżeli dodamy obustronnie do siebie wszystkie 3 równania, to wyrazy po prawej stronie uproszczą się i otrzymamy zero:</p>
+<div class="math notranslate nohighlight">
+\[\begin{split}\frac{dS}{dt} + \frac{dI}{dt} + \frac{dR}{dt} =  \frac{d(S + I + R)}{dt} = 0  \quad \quad \Rightarrow \quad \quad  S + I + R  = const.   \quad \quad \Rightarrow \\  S(t) + I(t) + R(t)  = const. = S(0) + I(0) + R(0)  = N_0\end{split}\]</div>
+<p>Jak widać, całkowita liczba osobników  <span class="math notranslate nohighlight">\(S(t) + I(t) + R(t)\)</span> w populacji nie zmienia się w czasie i jest określona przez <span class="math notranslate nohighlight">\(S(0) + I(0) + R(0)\)</span> w początkowej  chwili czasu. Więc równania ewolucji są zgodne z założeniem o wyizolowanej populacji. Powyższy model można modyfikować na wiele sposobów. Po wykładach o modelowaniu dynamiki populacyjnej, każdy student może stworzyć swój model i   badać jego własności.</p>
+<p>Zbadajmy własności proponowanego modelu, który <strong>nazywa się  modelem  Kermacka-McKendricka.</strong> Będziemy uważali, że model ten może opisywać zjawisko epidemi, jeżeli w trakcie ewolucji czasowej liczba osób chorych  <span class="math notranslate nohighlight">\(S(t)\)</span>  będzie funkcją rosnącą od danej chwili zwanej umownie chwilą początkową (czasem początkowym) <span class="math notranslate nohighlight">\(t_0 = 0\)</span>. Nie będziemy wymagać, aby w zjawisku epidemii  <span class="math notranslate nohighlight">\(S(t)\)</span>  była cały czas funkcją rosnącą. Po pewnym czasie, epidemia może być opanowana i wówczas <span class="math notranslate nohighlight">\(S(t)\)</span> zacznie maleć.  Jeżeli  z kolei  <span class="math notranslate nohighlight">\(S(t)\)</span>  będzie funkcją malejącą już od chwili początkowej <span class="math notranslate nohighlight">\(t_0 = 0\)</span>, nie będzie to zjawisko epidemii.</p>
+<p>Dwa pierwsze równania tworzą zamknięty i niezależny układ równań różniczkowych:</p>
+<div class="math notranslate nohighlight">
+\[\frac{dS}{dt} = - r S I, \quad \quad  \frac{dI}{dt} = r S I -aI = I (r S - a)\]</div>
+<p>Możemy zastosować dobrze znaną nam metodę badania stanów stacjonarnych i ich stabilności. Przyrównując prawe strony do zera otrzymamy możliwe stany stacjonarne:</p>
+<div class="math notranslate nohighlight">
+\[I = 0 \quad \quad \quad  S = \frac{a}{r}\]</div>
+<p>Obliczmy odpowiednią macierz Jacobiego:</p>
+<div class="math notranslate nohighlight">
+\[\begin{split}\quad \quad \quad \quad J (S, I) = \begin{bmatrix}-r I&amp; -r S\\ r I &amp; r S - a  \end{bmatrix} \quad  \quad  \mbox{w punkcie stacjonarnym:} \quad J= J(a/r, 0) =  \begin{bmatrix}0&amp;-a\\ 0&amp;0 \end{bmatrix}\end{split}\]</div>
+<p>Wyznaczamy wartości własne macierzy Jacobiego <span class="math notranslate nohighlight">\(|J-\lambda I|=0\)</span>. Prosty rachunek pokazuje, że wartości własne wynoszą zero. Więc analiza liniowa stabilności nie może być stosowana!! Należy w inny sposób badać zachowanie sie układu.  Wykorzystajmy numeryczną analizę z użyciem SAGE.  W modelu występują dwa parametry:  tempo infekcji  <span class="math notranslate nohighlight">\(r\)</span>  oraz tempo zdrowienia  <span class="math notranslate nohighlight">\(a\)</span>. One powinny   decydować o ewolucji rozprzestrzeniania się choroby. Ale to jest za mało.  Okazuje się, żę także warunki początkowe odgrywają istotną  rolę.  Poniżej przedstawiamy dwa zestawy parametrów  <span class="math notranslate nohighlight">\(r\)</span>  oraz  <span class="math notranslate nohighlight">\(a\)</span> przy ustalonych i tych samych warunkach początkowych.</p>
+<div class="section" id="przykladowy-zestaw-parametrow">
+<h3>Przykładowy zestaw parametrów<a class="headerlink" href="#przykladowy-zestaw-parametrow" title="Stały odnośnik do tego nagłówka">¶</a></h3>
+<p>Dwa parametry:  tempo infekcji  <span class="math notranslate nohighlight">\(r\)</span>  oraz tempo zdrowienia  <span class="math notranslate nohighlight">\(a\)</span>  decydują o początkowej ewolucji rozprzestrzeniania się choroby (przy założeniu ustalonych warunkach początkowych). Jako pierwszy przykład, rozpatrujemy:</p>
+<div class="math notranslate nohighlight">
+\[r  \lt   a\]</div>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="n">sage</span><span class="p">:</span> <span class="n">var</span><span class="p">(</span><span class="s1">&#39;S I R&#39;</span><span class="p">)</span> <span class="c1">## w tej części układ równań jest numerycznie rozwiązywany</span>
+<span class="n">sage</span><span class="p">:</span> <span class="n">r</span><span class="p">,</span><span class="n">a</span> <span class="o">=</span> <span class="mi">1</span><span class="p">,</span><span class="mi">2</span>
+<span class="n">sage</span><span class="p">:</span> <span class="n">T</span> <span class="o">=</span> <span class="n">srange</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span> <span class="mi">3</span><span class="p">,</span><span class="mf">0.01</span><span class="p">)</span>
+<span class="n">sage</span><span class="p">:</span> <span class="n">sol</span><span class="o">=</span><span class="n">desolve_odeint</span><span class="p">(</span> <span class="n">vector</span><span class="p">([</span><span class="o">-</span><span class="n">r</span><span class="o">*</span><span class="n">S</span><span class="o">*</span><span class="n">I</span><span class="p">,</span><span class="n">r</span><span class="o">*</span><span class="n">S</span><span class="o">*</span><span class="n">I</span> <span class="o">-</span> <span class="n">a</span><span class="o">*</span><span class="n">I</span><span class="p">,</span> <span class="n">a</span><span class="o">*</span><span class="n">I</span><span class="p">]),</span> <span class="p">[</span><span class="mi">2</span><span class="p">,</span><span class="mi">1</span><span class="p">,</span><span class="mf">0.5</span><span class="p">],</span><span class="n">T</span><span class="p">,[</span><span class="n">S</span><span class="p">,</span><span class="n">I</span><span class="p">,</span><span class="n">R</span><span class="p">])</span>
+<span class="n">sage</span><span class="p">:</span> <span class="n">line</span><span class="p">(</span> <span class="nb">zip</span> <span class="p">(</span> <span class="n">T</span><span class="p">,</span><span class="n">sol</span><span class="p">[:,</span><span class="mi">0</span><span class="p">])</span> <span class="p">,</span><span class="n">figsize</span><span class="o">=</span><span class="p">(</span><span class="mi">8</span><span class="p">,</span><span class="mi">4</span><span class="p">),</span><span class="n">legend_label</span><span class="o">=</span><span class="s2">&quot;S (podatni)&quot;</span><span class="p">)</span> <span class="o">+</span>\
+<span class="o">...</span>    <span class="n">line</span><span class="p">(</span> <span class="nb">zip</span> <span class="p">(</span> <span class="n">T</span><span class="p">,</span><span class="n">sol</span><span class="p">[:,</span><span class="mi">1</span><span class="p">])</span> <span class="p">,</span><span class="n">color</span><span class="o">=</span><span class="s1">&#39;red&#39;</span><span class="p">,</span><span class="n">legend_label</span><span class="o">=</span><span class="s2">&quot;I (chorzy)&quot;</span><span class="p">)</span><span class="o">+</span>\
+<span class="o">...</span>    <span class="n">line</span><span class="p">(</span> <span class="nb">zip</span> <span class="p">(</span> <span class="n">T</span><span class="p">,</span><span class="n">sol</span><span class="p">[:,</span><span class="mi">2</span><span class="p">])</span> <span class="p">,</span><span class="n">color</span><span class="o">=</span><span class="s1">&#39;green&#39;</span><span class="p">,</span><span class="n">legend_label</span><span class="o">=</span><span class="s2">&quot;R (ozdrowiali)&quot;</span><span class="p">)</span>
+</pre></div>
+</div>
+<img alt="_images/cell_1_sage01.png" class="align-center" src="_images/cell_1_sage01.png" />
+</div>
+<div class="section" id="inny-zestaw-parametrow">
+<h3>Inny zestaw parametrów<a class="headerlink" href="#inny-zestaw-parametrow" title="Stały odnośnik do tego nagłówka">¶</a></h3>
+<p>Zmieniamy relacje między dwoma  parametrami: tempem infekcji  <span class="math notranslate nohighlight">\(r\)</span>  oraz tempem zdrowienia  <span class="math notranslate nohighlight">\(a\)</span>:</p>
+<div class="math notranslate nohighlight">
+\[r \gt  a\]</div>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="n">sage</span><span class="p">:</span> <span class="n">var</span><span class="p">(</span><span class="s1">&#39;S I R&#39;</span><span class="p">)</span>
+<span class="n">sage</span><span class="p">:</span> <span class="n">r1</span><span class="p">,</span><span class="n">a1</span> <span class="o">=</span> <span class="mi">4</span><span class="p">,</span><span class="mf">0.5</span>
+<span class="n">sage</span><span class="p">:</span> <span class="n">T</span> <span class="o">=</span> <span class="n">srange</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span><span class="mi">3</span><span class="p">,</span><span class="mf">0.01</span><span class="p">)</span>
+<span class="n">sage</span><span class="p">:</span> <span class="n">sol</span><span class="o">=</span><span class="n">desolve_odeint</span><span class="p">(</span> <span class="n">vector</span><span class="p">([</span><span class="o">-</span><span class="n">r1</span><span class="o">*</span><span class="n">S</span><span class="o">*</span><span class="n">I</span><span class="p">,</span><span class="n">r1</span><span class="o">*</span><span class="n">S</span><span class="o">*</span><span class="n">I</span> <span class="o">-</span> <span class="n">a1</span><span class="o">*</span><span class="n">I</span><span class="p">,</span> <span class="n">a1</span><span class="o">*</span><span class="n">I</span><span class="p">]),</span> <span class="p">[</span><span class="mi">2</span><span class="p">,</span><span class="mi">1</span><span class="p">,</span><span class="mf">0.5</span><span class="p">],</span><span class="n">T</span><span class="p">,[</span><span class="n">S</span><span class="p">,</span><span class="n">I</span><span class="p">,</span><span class="n">R</span><span class="p">])</span>
+<span class="n">sage</span><span class="p">:</span> <span class="n">line</span><span class="p">(</span> <span class="nb">zip</span> <span class="p">(</span> <span class="n">T</span><span class="p">,</span><span class="n">sol</span><span class="p">[:,</span><span class="mi">0</span><span class="p">])</span> <span class="p">,</span><span class="n">figsize</span><span class="o">=</span><span class="p">(</span><span class="mi">8</span><span class="p">,</span><span class="mi">4</span><span class="p">),</span><span class="n">legend_label</span><span class="o">=</span><span class="s2">&quot;S (podatni)&quot;</span><span class="p">)</span> <span class="o">+</span>\
+<span class="o">...</span>    <span class="n">line</span><span class="p">(</span> <span class="nb">zip</span> <span class="p">(</span> <span class="n">T</span><span class="p">,</span><span class="n">sol</span><span class="p">[:,</span><span class="mi">1</span><span class="p">])</span> <span class="p">,</span><span class="n">color</span><span class="o">=</span><span class="s1">&#39;red&#39;</span><span class="p">,</span><span class="n">legend_label</span><span class="o">=</span><span class="s2">&quot;I (chorzy)&quot;</span><span class="p">)</span><span class="o">+</span>\
+<span class="o">...</span>    <span class="n">line</span><span class="p">(</span> <span class="nb">zip</span> <span class="p">(</span> <span class="n">T</span><span class="p">,</span><span class="n">sol</span><span class="p">[:,</span><span class="mi">2</span><span class="p">])</span> <span class="p">,</span><span class="n">color</span><span class="o">=</span><span class="s1">&#39;green&#39;</span><span class="p">,</span><span class="n">legend_label</span><span class="o">=</span><span class="s2">&quot;R (ozdrowiali)&quot;</span><span class="p">)</span>
+</pre></div>
+</div>
+<img alt="_images/cell_3_sage0.png" class="align-center" src="_images/cell_3_sage0.png" />
+<p>Powyższe 2 zestawy parametrów prowadzą do 2 różnych ewolucji.  Dlaczego? Aby rozwikłać ten problem, rozpatrzmy własność równania dla <span class="math notranslate nohighlight">\(I\)</span>:</p>
+<div class="math notranslate nohighlight">
+\[\frac{dI}{dt} = r S I -aI = I (r S - a)\]</div>
+<p>Początkowa ewolucja zależy od znaku pochodnej dla czasu <span class="math notranslate nohighlight">\(t \to 0\)</span>.  Dobrze wiemy o tym  że jeżeli pochodna jest dodatnia, to funkcja rośnie; jeżeli pochodna jest ujemna to funkcja maleje.</p>
+<p>Znak pochodnej w zerze to:</p>
+<div class="math notranslate nohighlight">
+\[\frac{dI}{dt}|_{t=0}  =   r S(0)  I(0)  - a I(0)  = I(0) [r S(0) - a]\]</div>
+<p>Jeżeli <span class="math notranslate nohighlight">\(r S(0) - a \gt  0\)</span>  to funkcja <span class="math notranslate nohighlight">\(I(t) \gt  I(0)\)</span>  rośnie i pojawia się epidemia. Jeżeli <span class="math notranslate nohighlight">\(r S(0) - a  \lt   0\)</span>  to funkcja <span class="math notranslate nohighlight">\(I(t)  \lt   I(0)\)</span> maleje  i  nie pojawia się epidemia. W zagadnieniu tym pojawia się zjawisko progowe. Wartością progową jest wielkość:</p>
+<div class="math notranslate nohighlight">
+\[S_c = \frac{a}{r}\]</div>
+<p><strong>Gdy w chwili początkowej</strong>  <span class="math notranslate nohighlight">\(S(0) \gt  S_c\)</span> <strong>to pojawia się  epidemia!</strong></p>
+<p>Pojawienie sie epidemii zależy od tego jak duża jest populacja ludzi podatnych na zakażenie.  Populacja ta musi być odpowiednio duża, a jej minimalna wartość zależy od tego jakie jest tempo zdrowienia <span class="math notranslate nohighlight">\(a\)</span> w relacji do tempa infekcji <span class="math notranslate nohighlight">\(r\)</span>.  To jest najważniejszy wniosek z tej analizy.</p>
+</div>
+<div class="section" id="przyklad">
+<h3>Przykład<a class="headerlink" href="#przyklad" title="Stały odnośnik do tego nagłówka">¶</a></h3>
+<p>Powyższy model zastosowano do opisu epidemii grypy w 1978 roku w jednej z angielskich szkół dla chłopców (może dlatego tam pojawiła się epidemia?).  A oto dane:</p>
+<p>Wszystkich uczniów było 763.  Jeden z chłopców był chory i zaczął zakażać  swoich kolegów. Skutek był taki, że w przeciągu kilku dni (od 22 stycznia do 4 lutego)  zachorowało 512  uczniów. W szóstym dniu od pojawienia się choroby epidemia osiągnęła  maksimum: było chorych 300 chłopców. W następnych dniach ich liczba zaczęła spadać.  Dopasowano krzywą empiryczną do modelu i otrzymano następujące wartości parametrów:</p>
+<div class="math notranslate nohighlight">
+\[r = 0.00218, \quad \quad \quad S_c = 202.\]</div>
+<p>Wykreślić wszystkie trzy krzywe.</p>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="n">sage</span><span class="p">:</span> <span class="n">var</span><span class="p">(</span><span class="s1">&#39;S I R&#39;</span><span class="p">)</span>
+<span class="n">sage</span><span class="p">:</span> <span class="n">r2</span><span class="p">,</span><span class="n">s</span> <span class="o">=</span> <span class="mf">0.00218</span><span class="p">,</span> <span class="mi">202</span>
+<span class="n">sage</span><span class="p">:</span> <span class="n">T</span> <span class="o">=</span> <span class="n">srange</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span><span class="mi">15</span><span class="p">,</span><span class="mf">0.01</span><span class="p">)</span>
+<span class="n">sage</span><span class="p">:</span> <span class="n">sol</span><span class="o">=</span><span class="n">desolve_odeint</span><span class="p">(</span> <span class="n">vector</span><span class="p">([</span><span class="o">-</span><span class="n">r2</span><span class="o">*</span><span class="n">S</span><span class="o">*</span><span class="n">I</span><span class="p">,</span><span class="n">r2</span><span class="o">*</span><span class="n">I</span><span class="o">*</span><span class="p">(</span><span class="n">S</span> <span class="o">-</span> <span class="n">s</span><span class="p">),</span><span class="n">r2</span><span class="o">*</span><span class="n">s</span><span class="o">*</span><span class="n">I</span><span class="p">]),</span> <span class="p">[</span><span class="mi">762</span><span class="p">,</span><span class="mi">1</span><span class="p">,</span><span class="mi">0</span><span class="p">],</span><span class="n">T</span><span class="p">,[</span><span class="n">S</span><span class="p">,</span><span class="n">I</span><span class="p">,</span><span class="n">R</span><span class="p">])</span>
+<span class="n">sage</span><span class="p">:</span> <span class="n">line</span><span class="p">(</span> <span class="nb">zip</span> <span class="p">(</span> <span class="n">T</span><span class="p">,</span><span class="n">sol</span><span class="p">[:,</span><span class="mi">0</span><span class="p">])</span> <span class="p">,</span><span class="n">figsize</span><span class="o">=</span><span class="p">(</span><span class="mi">6</span><span class="p">,</span><span class="mi">4</span><span class="p">),</span><span class="n">legend_label</span><span class="o">=</span><span class="s2">&quot;S (podatni)&quot;</span><span class="p">)</span> <span class="o">+</span>\
+<span class="o">...</span>    <span class="n">line</span><span class="p">(</span> <span class="nb">zip</span> <span class="p">(</span> <span class="n">T</span><span class="p">,</span><span class="n">sol</span><span class="p">[:,</span><span class="mi">1</span><span class="p">])</span> <span class="p">,</span><span class="n">color</span><span class="o">=</span><span class="s1">&#39;red&#39;</span><span class="p">,</span><span class="n">legend_label</span><span class="o">=</span><span class="s2">&quot;I (chorzy)&quot;</span><span class="p">)</span><span class="o">+</span>\
+<span class="o">...</span>    <span class="n">line</span><span class="p">(</span> <span class="nb">zip</span> <span class="p">(</span> <span class="n">T</span><span class="p">,</span><span class="n">sol</span><span class="p">[:,</span><span class="mi">2</span><span class="p">])</span> <span class="p">,</span><span class="n">color</span><span class="o">=</span><span class="s1">&#39;green&#39;</span><span class="p">,</span><span class="n">legend_label</span><span class="o">=</span><span class="s2">&quot;R (ozdrowiali)&quot;</span><span class="p">)</span>
+</pre></div>
+</div>
+<img alt="_images/cell_4_sage0.png" class="align-center" src="_images/cell_4_sage0.png" />
+</div>
+</div>
+<div class="section" id="geograficzne-rozprzestrzenianie-sie-epidemii">
+<h2>Geograficzne rozprzestrzenianie się epidemii<a class="headerlink" href="#geograficzne-rozprzestrzenianie-sie-epidemii" title="Stały odnośnik do tego nagłówka">¶</a></h2>
+<p>W poprzednim modelowaniu nie byliśmy zainteresowani czy epidemia choroby rozprzestrzenia się na danym obszarze. Interesowało nas tylko to, czy zachorowalność w czasie  wzrasta czy maleje; czy liczba ludzi chorych rośnie czy maleje w czasie.  W tej części interesuje nas, w jaki sposób choroba „rozmywa się”  się na danym obszarze. Mamy już pewne doświadczenie, aby taki proces modelować. Nabyliśmy je przy modelowaniu modelu Malthusa z migracją i modelu Verhulsta z migracją. Otrzymaliśmy równania, którę w literaturze <strong>nazywają się równaniami reakcji-dyfuzji.</strong>  Podobnie będziemy postępować teraz: do naszych równań  Kermacka-McKendricka dodamy  wyraz (lub wyrazy) opisujące proces dyfuzji, czyli losowego rozchodzenia się danego zjawiska na określonym obszarze:</p>
+<div class="math notranslate nohighlight">
+\[\frac{\partial S }{\partial t} =  -r S I +  D_s  \Delta S\]</div>
+<div class="math notranslate nohighlight">
+\[\frac{\partial I }{\partial t} =   r S I  - a I +  D  \Delta I\]</div>
+<p>gdzie <span class="math notranslate nohighlight">\(S = S(\vec r, t)\)</span>  oraz  <span class="math notranslate nohighlight">\(I = I(\vec r, t)\)</span>  opisuje  koncentrację populacji  w chwili czasu <span class="math notranslate nohighlight">\(t\)</span>  w punkcie obszaru określonym  przez wektor wodzący <span class="math notranslate nohighlight">\(\vec r = (x, y)\)</span>.  Parametry <span class="math notranslate nohighlight">\(D_s\)</span> oraz  <span class="math notranslate nohighlight">\(D\)</span> są współczynnikami dyfuzji i opisują tempo zmian przestrzennych odpowiednich populacji <span class="math notranslate nohighlight">\(S\)</span>  i  <span class="math notranslate nohighlight">\(I\)</span>. Zwracamy uwagę, że proces dyfuzji jest opisany operatorem Laplace’a  (dwukrotnym różniczkowaniem). Na przykład :</p>
+<div class="math notranslate nohighlight">
+\[\Delta S(\vec r, t)  = \left[\frac{\partial^2 }{\partial x^2} + \frac{\partial^2 }{\partial y^2} \right] S (\vec r, t)\]</div>
+<p>W przypadku uproszczonych modeli, operator Laplace’a może dotyczyć tylko jednej zmiennej (dyfuzja w jednym wymiarze). Jeżeli nie interesuje nas przestrzenna zmiana osobników podatnych <span class="math notranslate nohighlight">\(S\)</span>, wówczas otrzymamy model tego typu:</p>
+<div class="math notranslate nohighlight">
+\[\frac{\partial S }{\partial t} =  -r S I\]</div>
+<div class="math notranslate nohighlight">
+\[\frac{\partial I }{\partial t} =   r S I  - a I +  D  \Delta I\]</div>
+<p>Model tego typu był szeroko stosowany do opisu rozprzestrzeniania się wścielkizny wśród dzikich zwierząt, zwałaszcza wśród populacji lisów. Jeszcze pod koniec lat 60-ych  do połowy lat 70-tych XX wieku we Francji wścielkizna stanowiła poważny problem i rozprzestrzeniała się w szybkim tempie z północnej części Francji aż do południowych krańców Francji.</p>
+<p>Powyższy model rozszerzono uwzględniając naturalny wzrost populacji lisów wskutek urodzin:</p>
+<div class="math notranslate nohighlight">
+\[\frac{\partial S }{\partial t} =  -r S I  + B S \left(1-\frac{S}{S_0}\right)\]</div>
+<div class="math notranslate nohighlight">
+\[\frac{\partial I }{\partial t} =   r S I  - a I +  D  \Delta I\]</div>
+<p>W pierwszym równaniu rozpoznajemy drugi wyraz po prawej stronie opisujący wzrost populacji podatnej populacji <span class="math notranslate nohighlight">\(S\)</span> taki jak w  modelu Verhulsta.   Parametry <span class="math notranslate nohighlight">\(B\)</span> oraz <span class="math notranslate nohighlight">\(S_0\)</span> mają taką samą interpretację jak w modelu Verhulsta: <span class="math notranslate nohighlight">\(B\)</span> opisuje tempo wzrostu populacji, natomiast <span class="math notranslate nohighlight">\(S_0\)</span> opisuje pojemność środowiska (zasoby pożywienia).</p>
+<p>W modelu tym występuje aż 6 parametrów.  Odpowiednie skalowanie pozwala zredukować liczbe parametrów. Zawsze jest ciekawym zagadnieniem, od ilu istotnych parametrów zależż własności opisywanego układu. Wprowadźmy następujące wielkości bezwymiarowe:</p>
+<div class="math notranslate nohighlight">
+\[U = \frac{S}{S_0},  \quad \quad V =  \frac{r I}{B S_0},  \quad \quad y =  \left(\frac{B}{D}\right)^{1/2} x ,  \quad \quad \tau =  B t,  \quad \quad \lambda =  \frac{a}{r S_0},  \quad \quad \alpha  =  \frac{r S_0}{B}\]</div>
+<p>W nowych zmiennych  równania mają postać:</p>
+<div class="math notranslate nohighlight">
+\[\frac{\partial U }{\partial t} =   U (1 - U - V)\]</div>
+<div class="math notranslate nohighlight">
+\[\frac{\partial V }{\partial t} =   \alpha V ( U - \lambda)  +  \Delta V\]</div>
+<p>Jak widać, jedynie 2 parametry (<span class="math notranslate nohighlight">\(\alpha\)</span>  oraz  <span class="math notranslate nohighlight">\(\lambda\)</span>) pojawijają się w przeskalowanych równaniach. Jedynie te 2 parametry są istotne dla charakteryzacji własności układu.</p>
+</div>
+<div class="section" id="relistyczne-modelowanie-rozprzestrzeniania-sie-epidemii">
+<h2>Relistyczne modelowanie rozprzestrzeniania się epidemii<a class="headerlink" href="#relistyczne-modelowanie-rozprzestrzeniania-sie-epidemii" title="Stały odnośnik do tego nagłówka">¶</a></h2>
+<p>Można rozbudować modele o następujące czynnki:</p>
+<blockquote>
+<div><ol class="arabic simple">
+<li><p>Epidemia w ośrodku jednorodnym</p></li>
+<li><p>Epidemia w ośrodku niejednorodnym:</p></li>
+</ol>
+<blockquote>
+<div><ul class="simple">
+<li><p>Przeszkody będące scianką odbijającą dla dyfuzji u i v rozmieszczone w pewien sposób (np. losowy).</p></li>
+<li><p>Przeszkody będące źródłem lub zlewem u lub v. Na przykład można sobie wyobrazić, że mamy miejsca w przestrzeni w które usuwają chorych (szpitale).</p></li>
+<li><p>Dodanie zmienności różnych stałych od miejsca. Na przykład miejsc w których zachodi zdrowienie chorych z dużą prędkościa dyfuzja chorych jest zero a dyfizja zdrowych duża (Uwaga na modelowanie zmiennej stałej dyfuzji!).</p></li>
+</ul>
+</div></blockquote>
+</div></blockquote>
+<p>Poniżej zamieszczone są dwa przykłady, w pierszym mamy możliwość dodania źródeł lub zlewów u i v a w drugim zaimplementowana jest złożona geometria z warunkiem von Neumanna.</p>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="n">sage</span><span class="p">:</span> <span class="n">var</span><span class="p">(</span><span class="s1">&#39;u,v&#39;</span><span class="p">)</span>
+<span class="n">sage</span><span class="p">:</span> <span class="n">T</span> <span class="o">=</span> <span class="n">srange</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span><span class="mi">45</span><span class="p">,</span><span class="mf">0.01</span><span class="p">)</span>
+<span class="n">sage</span><span class="p">:</span> <span class="c1">#sol=desolve_odeint( vector([u*(.0-0.0*u-v),a*v*(u-lam)]), [1,0.1],T,[u,v])</span>
+<span class="n">sage</span><span class="p">:</span> <span class="n">sol</span><span class="o">=</span><span class="n">desolve_odeint</span><span class="p">(</span> <span class="n">vector</span><span class="p">([</span><span class="o">-</span><span class="n">a</span><span class="o">*</span><span class="n">u</span><span class="o">*</span><span class="n">v</span><span class="p">,</span><span class="n">a</span><span class="o">*</span><span class="n">v</span><span class="o">*</span><span class="n">u</span><span class="o">-</span><span class="n">lam</span><span class="o">*</span><span class="n">a</span><span class="o">*</span><span class="n">v</span><span class="p">]),</span> <span class="p">[</span><span class="mi">1</span><span class="p">,</span><span class="mf">0.1</span><span class="p">],</span><span class="n">T</span><span class="p">,[</span><span class="n">u</span><span class="p">,</span><span class="n">v</span><span class="p">])</span>
+<span class="n">sage</span><span class="p">:</span> <span class="n">uvt</span> <span class="o">=</span> <span class="n">line</span><span class="p">(</span> <span class="nb">zip</span> <span class="p">(</span> <span class="n">T</span><span class="p">,</span><span class="n">sol</span><span class="p">[:,</span><span class="mi">0</span><span class="p">])</span> <span class="p">,</span><span class="n">figsize</span><span class="o">=</span><span class="mi">4</span><span class="p">,</span><span class="n">legend_label</span><span class="o">=</span><span class="s2">&quot;S (podatni)&quot;</span><span class="p">)</span> <span class="o">+</span>\
+<span class="o">...</span>    <span class="n">line</span><span class="p">(</span> <span class="nb">zip</span> <span class="p">(</span> <span class="n">T</span><span class="p">,</span><span class="n">sol</span><span class="p">[:,</span><span class="mi">1</span><span class="p">])</span> <span class="p">,</span><span class="n">color</span><span class="o">=</span><span class="s1">&#39;red&#39;</span><span class="p">,</span><span class="n">legend_label</span><span class="o">=</span><span class="s2">&quot;I (chorzy)&quot;</span><span class="p">)</span>
+<span class="n">sage</span><span class="p">:</span> <span class="n">html</span><span class="o">.</span><span class="n">table</span><span class="p">([[</span><span class="s2">&quot;Przestrzeń fazowa (u,v)&quot;</span><span class="p">,</span><span class="s2">&quot;u(t) i v(t)&quot;</span><span class="p">],[</span><span class="n">line</span><span class="p">(</span> <span class="n">sol</span><span class="p">,</span><span class="n">figsize</span><span class="o">=</span><span class="mi">4</span> <span class="p">),</span><span class="n">uvt</span><span class="p">]])</span>
+</pre></div>
+</div>
+<div class="section" id="model-rozprzestrzeniania-sie-epidemii-w-osrodku-jednorodnym">
+<h3>Model rozprzestrzeniania się epidemii w ośrodku jednorodnym<a class="headerlink" href="#model-rozprzestrzeniania-sie-epidemii-w-osrodku-jednorodnym" title="Stały odnośnik do tego nagłówka">¶</a></h3>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="n">sage</span><span class="p">:</span> <span class="o">%</span><span class="n">timeit</span>
+<span class="n">sage</span><span class="p">:</span> <span class="kn">import</span> <span class="nn">numpy</span> <span class="k">as</span> <span class="nn">np</span>
+<span class="n">sage</span><span class="p">:</span> <span class="n">sparse</span> <span class="o">=</span> <span class="kc">True</span>
+<span class="n">sage</span><span class="p">:</span> <span class="n">slicing</span> <span class="o">=</span> <span class="kc">True</span>
+<span class="n">sage</span><span class="p">:</span> <span class="n">Dyf_u</span> <span class="o">=</span> <span class="o">.</span><span class="mi">0</span>
+<span class="n">sage</span><span class="p">:</span> <span class="n">Dyf_v</span> <span class="o">=</span> <span class="mf">1.02</span>
+<span class="n">sage</span><span class="p">:</span> <span class="n">Dyf</span> <span class="o">=</span> <span class="nb">max</span><span class="p">(</span><span class="n">Dyf_u</span><span class="p">,</span><span class="n">Dyf_v</span><span class="p">)</span>
+<span class="n">sage</span><span class="p">:</span> <span class="n">a</span> <span class="o">=</span> <span class="mf">1.0</span>
+<span class="n">sage</span><span class="p">:</span> <span class="n">lam</span> <span class="o">=</span> <span class="o">.</span><span class="mi">3</span>
+<span class="n">sage</span><span class="p">:</span> <span class="n">l</span> <span class="o">=</span> <span class="mf">100.0</span> <span class="c1"># dlugosc ukladu</span>
+<span class="n">sage</span><span class="p">:</span> <span class="n">t_end</span> <span class="o">=</span> <span class="mi">200</span> <span class="c1"># czas symulacji</span>
+<span class="n">sage</span><span class="p">:</span> <span class="n">N</span> <span class="o">=</span> <span class="mi">160</span> <span class="c1"># dyskretyzacja przestrzeni</span>
+<span class="n">sage</span><span class="p">:</span> <span class="n">h</span> <span class="o">=</span> <span class="n">l</span><span class="o">/</span><span class="p">(</span><span class="n">N</span><span class="o">-</span><span class="mi">1</span><span class="p">)</span>
+<span class="n">sage</span><span class="p">:</span> <span class="n">dt</span> <span class="o">=</span> <span class="mf">0.052</span><span class="o">/</span><span class="p">(</span><span class="n">Dyf</span><span class="o">*</span><span class="p">(</span><span class="n">N</span><span class="o">-</span><span class="mi">1</span><span class="p">)</span><span class="o">**</span><span class="mi">2</span><span class="o">/</span><span class="n">l</span><span class="o">**</span><span class="mi">2</span><span class="p">)</span> <span class="c1"># 0.2 z warunku CFL, krok nie moze byc wiekszy</span>
+<span class="n">sage</span><span class="p">:</span> <span class="n">dt_dyn</span> <span class="o">=</span> <span class="mf">0.02</span>
+<span class="n">sage</span><span class="p">:</span> <span class="nb">print</span> <span class="s2">&quot;dt,dt_dyn&quot;</span><span class="p">,</span><span class="n">dt</span><span class="p">,</span><span class="n">dt_dyn</span>
+<span class="n">sage</span><span class="p">:</span> <span class="n">dt</span> <span class="o">=</span> <span class="nb">min</span><span class="p">(</span><span class="n">dt</span><span class="p">,</span><span class="n">dt_dyn</span><span class="p">)</span>
+<span class="n">sage</span><span class="p">:</span> <span class="n">sps</span> <span class="o">=</span> <span class="nb">int</span><span class="p">(</span><span class="mi">1</span><span class="o">/</span><span class="n">dt</span><span class="p">)</span> <span class="c1"># liczba krokow na jednostke czasu</span>
+<span class="n">sage</span><span class="p">:</span> <span class="n">Nsteps</span><span class="o">=</span><span class="n">sps</span><span class="o">*</span><span class="n">t_end</span>  <span class="c1"># calkowita liczba krotkow</span>
+<span class="n">sage</span><span class="p">:</span> <span class="nb">print</span> <span class="s2">&quot;sps=&quot;</span><span class="p">,</span><span class="n">sps</span><span class="p">,</span><span class="s2">&quot;dt=&quot;</span><span class="p">,</span><span class="n">dt</span><span class="p">,</span><span class="s1">&#39;Nsteps=&#39;</span><span class="p">,</span><span class="n">Nsteps</span>
+<span class="n">sage</span><span class="p">:</span> <span class="c1"># warunek poczatkowy</span>
+<span class="n">sage</span><span class="p">:</span> <span class="n">u</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">zeros</span><span class="p">((</span><span class="n">N</span><span class="p">,</span><span class="n">N</span><span class="p">))</span>
+<span class="n">sage</span><span class="p">:</span> <span class="n">v</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">zeros</span><span class="p">((</span><span class="n">N</span><span class="p">,</span><span class="n">N</span><span class="p">))</span>
+<span class="n">sage</span><span class="p">:</span> <span class="n">u</span><span class="p">[:,:]</span><span class="o">=</span><span class="mf">1.0</span>
+<span class="n">sage</span><span class="p">:</span> <span class="n">v</span><span class="p">[</span><span class="mi">50</span><span class="p">:</span><span class="mi">60</span><span class="p">:,</span><span class="mi">50</span><span class="p">:</span><span class="mi">60</span><span class="p">]</span><span class="o">=</span><span class="mf">0.1</span>
+<span class="n">sage</span><span class="p">:</span> <span class="n">perc</span> <span class="o">=</span><span class="mi">4100</span>
+<span class="n">sage</span><span class="p">:</span> <span class="n">irand</span><span class="p">,</span><span class="n">jrand</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">random</span><span class="o">.</span><span class="n">randint</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span><span class="n">u</span><span class="o">.</span><span class="n">shape</span><span class="p">[</span><span class="mi">0</span><span class="p">],</span><span class="n">perc</span><span class="p">),</span><span class="n">np</span><span class="o">.</span><span class="n">random</span><span class="o">.</span><span class="n">randint</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span><span class="n">u</span><span class="o">.</span><span class="n">shape</span><span class="p">[</span><span class="mi">0</span><span class="p">],</span><span class="n">perc</span><span class="p">)</span>
+<span class="n">sage</span><span class="p">:</span> <span class="k">def</span> <span class="nf">essential_boundary_conditions</span><span class="p">(</span><span class="n">u</span><span class="p">):</span>
+<span class="o">...</span>       <span class="k">global</span> <span class="n">irand</span><span class="p">,</span><span class="n">jrand</span>
+<span class="n">sage</span><span class="p">:</span> <span class="c1">#    u[irand,jrand]=1</span>
+<span class="n">sage</span><span class="p">:</span> <span class="c1">#    v[irand,jrand]=0</span>
+<span class="o">...</span>       <span class="n">u</span><span class="p">[:,</span><span class="mi">0</span><span class="p">]</span> <span class="o">=</span> <span class="mf">1.0</span>
+<span class="o">...</span>       <span class="n">u</span><span class="p">[:,</span><span class="o">-</span><span class="mi">1</span><span class="p">]</span> <span class="o">=</span> <span class="mf">1.0</span>
+<span class="o">...</span>       <span class="n">u</span><span class="p">[</span><span class="o">-</span><span class="mi">1</span><span class="p">,:]</span> <span class="o">=</span> <span class="mf">1.0</span>
+<span class="o">...</span>       <span class="n">u</span><span class="p">[</span><span class="mi">0</span><span class="p">,:]</span> <span class="o">=</span> <span class="mf">1.0</span>
+<span class="o">...</span>       <span class="n">v</span><span class="p">[:,</span><span class="mi">0</span><span class="p">]</span> <span class="o">=</span> <span class="mf">0.0</span>
+<span class="o">...</span>       <span class="n">v</span><span class="p">[:,</span><span class="o">-</span><span class="mi">1</span><span class="p">]</span> <span class="o">=</span> <span class="mf">0.0</span>
+<span class="o">...</span>       <span class="n">v</span><span class="p">[</span><span class="o">-</span><span class="mi">1</span><span class="p">,:]</span> <span class="o">=</span> <span class="mf">0.0</span>
+<span class="o">...</span>       <span class="n">v</span><span class="p">[</span><span class="mi">0</span><span class="p">,:]</span> <span class="o">=</span> <span class="mf">0.0</span>
+<span class="o">...</span>
+<span class="n">sage</span><span class="p">:</span> <span class="n">Tlst</span><span class="o">=</span><span class="p">[]</span>
+<span class="n">sage</span><span class="p">:</span> <span class="n">Tvlst</span><span class="o">=</span><span class="p">[]</span>
+<span class="n">sage</span><span class="p">:</span> <span class="n">essential_boundary_conditions</span><span class="p">(</span><span class="n">u</span><span class="p">)</span>
+<span class="n">sage</span><span class="p">:</span> <span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="n">Nsteps</span><span class="p">):</span>
+<span class="o">...</span>       <span class="k">if</span> <span class="ow">not</span> <span class="n">i</span><span class="o">%</span><span class="n">sps</span><span class="p">:</span>
+<span class="o">...</span>           <span class="n">Tlst</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">u</span><span class="o">.</span><span class="n">copy</span><span class="p">())</span>
+<span class="o">...</span>           <span class="n">Tvlst</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">v</span><span class="o">.</span><span class="n">copy</span><span class="p">())</span>
+<span class="o">...</span>
+<span class="o">...</span>       <span class="n">u</span><span class="p">[</span><span class="mi">1</span><span class="p">:</span><span class="o">-</span><span class="mi">1</span><span class="p">,</span><span class="mi">1</span><span class="p">:</span><span class="o">-</span><span class="mi">1</span><span class="p">]</span> <span class="o">=</span> <span class="n">u</span><span class="p">[</span><span class="mi">1</span><span class="p">:</span><span class="o">-</span><span class="mi">1</span><span class="p">,</span><span class="mi">1</span><span class="p">:</span><span class="o">-</span><span class="mi">1</span><span class="p">]</span> <span class="o">+</span> <span class="n">dt</span><span class="o">*</span><span class="p">(</span><span class="n">u</span><span class="p">[</span><span class="mi">1</span><span class="p">:</span><span class="o">-</span><span class="mi">1</span><span class="p">,</span><span class="mi">1</span><span class="p">:</span><span class="o">-</span><span class="mi">1</span><span class="p">]</span><span class="o">*</span><span class="p">(</span> <span class="mf">0.0</span> <span class="o">-</span> <span class="mi">0</span><span class="o">*</span><span class="n">u</span><span class="p">[</span><span class="mi">1</span><span class="p">:</span><span class="o">-</span><span class="mi">1</span><span class="p">,</span><span class="mi">1</span><span class="p">:</span><span class="o">-</span><span class="mi">1</span><span class="p">]</span><span class="o">-</span><span class="n">v</span><span class="p">[</span><span class="mi">1</span><span class="p">:</span><span class="o">-</span><span class="mi">1</span><span class="p">,</span><span class="mi">1</span><span class="p">:</span><span class="o">-</span><span class="mi">1</span><span class="p">]</span> <span class="p">)</span> <span class="o">+</span> \
+<span class="o">...</span>        <span class="n">Dyf_u</span><span class="o">*</span><span class="p">(</span><span class="n">N</span><span class="o">-</span><span class="mi">1</span><span class="p">)</span><span class="o">**</span><span class="mi">2</span><span class="o">/</span><span class="n">l</span><span class="o">**</span><span class="mi">2</span><span class="o">*</span><span class="p">(</span><span class="n">np</span><span class="o">.</span><span class="n">diff</span><span class="p">(</span><span class="n">u</span><span class="p">,</span><span class="mi">2</span><span class="p">,</span><span class="n">axis</span><span class="o">=</span><span class="mi">0</span><span class="p">)[:,</span><span class="mi">1</span><span class="p">:</span><span class="o">-</span><span class="mi">1</span><span class="p">]</span><span class="o">+</span><span class="n">np</span><span class="o">.</span><span class="n">diff</span><span class="p">(</span><span class="n">u</span><span class="p">,</span><span class="mi">2</span><span class="p">,</span><span class="n">axis</span><span class="o">=</span><span class="mi">1</span><span class="p">)[</span><span class="mi">1</span><span class="p">:</span><span class="o">-</span><span class="mi">1</span><span class="p">,:]))</span>
+<span class="o">...</span>       <span class="n">v</span><span class="p">[</span><span class="mi">1</span><span class="p">:</span><span class="o">-</span><span class="mi">1</span><span class="p">,</span><span class="mi">1</span><span class="p">:</span><span class="o">-</span><span class="mi">1</span><span class="p">]</span> <span class="o">=</span> <span class="n">v</span><span class="p">[</span><span class="mi">1</span><span class="p">:</span><span class="o">-</span><span class="mi">1</span><span class="p">,</span><span class="mi">1</span><span class="p">:</span><span class="o">-</span><span class="mi">1</span><span class="p">]</span> <span class="o">+</span> <span class="n">dt</span><span class="o">*</span><span class="p">(</span><span class="n">a</span><span class="o">*</span><span class="n">v</span><span class="p">[</span><span class="mi">1</span><span class="p">:</span><span class="o">-</span><span class="mi">1</span><span class="p">,</span><span class="mi">1</span><span class="p">:</span><span class="o">-</span><span class="mi">1</span><span class="p">]</span><span class="o">*</span><span class="p">(</span><span class="n">u</span><span class="p">[</span><span class="mi">1</span><span class="p">:</span><span class="o">-</span><span class="mi">1</span><span class="p">,</span><span class="mi">1</span><span class="p">:</span><span class="o">-</span><span class="mi">1</span><span class="p">]</span><span class="o">-</span><span class="n">lam</span><span class="p">)</span><span class="o">+</span> \
+<span class="o">...</span>        <span class="n">Dyf_v</span><span class="o">*</span><span class="p">(</span><span class="n">N</span><span class="o">-</span><span class="mi">1</span><span class="p">)</span><span class="o">**</span><span class="mi">2</span><span class="o">/</span><span class="n">l</span><span class="o">**</span><span class="mi">2</span><span class="o">*</span><span class="p">(</span><span class="n">np</span><span class="o">.</span><span class="n">diff</span><span class="p">(</span><span class="n">v</span><span class="p">,</span><span class="mi">2</span><span class="p">,</span><span class="n">axis</span><span class="o">=</span><span class="mi">0</span><span class="p">)[:,</span><span class="mi">1</span><span class="p">:</span><span class="o">-</span><span class="mi">1</span><span class="p">]</span><span class="o">+</span><span class="n">np</span><span class="o">.</span><span class="n">diff</span><span class="p">(</span><span class="n">v</span><span class="p">,</span><span class="mi">2</span><span class="p">,</span><span class="n">axis</span><span class="o">=</span><span class="mi">1</span><span class="p">)[</span><span class="mi">1</span><span class="p">:</span><span class="o">-</span><span class="mi">1</span><span class="p">,:]))</span>
+<span class="o">...</span>
+<span class="o">...</span>       <span class="n">essential_boundary_conditions</span><span class="p">(</span><span class="n">u</span><span class="p">)</span>
+<span class="o">...</span>
+<span class="n">sage</span><span class="p">:</span> <span class="nb">print</span> <span class="s2">&quot;Saved &quot;</span><span class="p">,</span><span class="nb">len</span><span class="p">(</span><span class="n">Tlst</span><span class="p">),</span> <span class="s2">&quot; from &quot;</span><span class="p">,</span> <span class="n">Nsteps</span>
+</pre></div>
+</div>
+<div class="line-block">
+<div class="line">dt,dt_dyn 0.0201654966800612 0.0200000000000000</div>
+<div class="line">sps= 50 dt= 0.0200000000000000 Nsteps= 10000</div>
+<div class="line">Saved  200  from  10000</div>
+<div class="line">CPU time: 24.83 s,  Wall time: 24.82 s</div>
+</div>
+<div class="math notranslate nohighlight">
+\[\frac{\partial U }{\partial t} =   U (1 - U - V)+  \Delta U\]</div>
+<div class="math notranslate nohighlight">
+\[\frac{\partial V }{\partial t} =   \alpha V ( U - \lambda)  +  \Delta V\]</div>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="n">sage</span><span class="p">:</span> <span class="kn">import</span> <span class="nn">pylab</span>
+<span class="n">sage</span><span class="p">:</span> <span class="nd">@interact</span>
+<span class="n">sage</span><span class="p">:</span> <span class="k">def</span> <span class="nf">_</span><span class="p">(</span><span class="n">ti</span><span class="o">=</span><span class="n">slider</span><span class="p">(</span><span class="nb">range</span><span class="p">(</span><span class="nb">len</span><span class="p">(</span><span class="n">Tlst</span><span class="p">)))):</span>
+<span class="o">...</span>       <span class="nb">print</span> <span class="sa">r</span><span class="s2">&quot;t=&quot;</span><span class="p">,</span><span class="n">dt</span><span class="o">*</span><span class="n">ti</span>
+<span class="o">...</span>       <span class="n">pu</span> <span class="o">=</span>  <span class="n">matrix_plot</span><span class="p">(</span><span class="n">Tlst</span><span class="p">[</span><span class="n">ti</span><span class="p">],</span><span class="n">origin</span><span class="o">=</span><span class="s1">&#39;lower&#39;</span><span class="p">,</span><span class="n">cmap</span><span class="o">=</span><span class="s1">&#39;rainbow&#39;</span><span class="p">,</span> <span class="n">figsize</span><span class="o">=</span><span class="p">(</span><span class="mi">4</span><span class="p">,</span><span class="mi">4</span><span class="p">)</span> <span class="p">)</span>
+<span class="o">...</span>       <span class="n">pv</span> <span class="o">=</span>  <span class="n">matrix_plot</span><span class="p">(</span><span class="n">Tvlst</span><span class="p">[</span><span class="n">ti</span><span class="p">],</span><span class="n">origin</span><span class="o">=</span><span class="s1">&#39;lower&#39;</span><span class="p">,</span><span class="n">cmap</span><span class="o">=</span><span class="s1">&#39;rainbow&#39;</span><span class="p">,</span><span class="n">figsize</span><span class="o">=</span><span class="p">(</span><span class="mi">4</span><span class="p">,</span><span class="mi">4</span><span class="p">)</span> <span class="p">)</span>
+<span class="o">...</span>       <span class="n">html</span><span class="o">.</span><span class="n">table</span><span class="p">([[</span><span class="n">pu</span><span class="p">,</span><span class="n">pv</span><span class="p">]])</span>
+</pre></div>
+</div>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="n">sage</span><span class="p">:</span> <span class="n">anim</span> <span class="o">=</span> <span class="n">animate</span><span class="p">([</span><span class="n">matrix_plot</span><span class="p">(</span><span class="n">u</span><span class="p">,</span><span class="n">origin</span><span class="o">=</span><span class="s1">&#39;lower&#39;</span><span class="p">,</span><span class="n">cmap</span><span class="o">=</span><span class="s1">&#39;rainbow&#39;</span><span class="p">,</span><span class="n">figsize</span><span class="o">=</span><span class="p">(</span><span class="mi">4</span><span class="p">,</span><span class="mi">4</span><span class="p">)</span> <span class="p">,</span><span class="n">vmin</span><span class="o">=</span><span class="mi">0</span><span class="p">,</span><span class="n">vmax</span><span class="o">=.</span><span class="mi">01</span><span class="p">)</span> <span class="k">for</span> <span class="n">u</span> <span class="ow">in</span> <span class="n">Tvlst</span><span class="p">[::</span><span class="mi">10</span><span class="p">]])</span>
+</pre></div>
+</div>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="n">sage</span><span class="p">:</span> <span class="n">anim</span><span class="o">.</span><span class="n">show</span><span class="p">()</span>
+</pre></div>
+</div>
+<img alt="_images/cell_23_sage0.gif" class="align-center" src="_images/cell_23_sage0.gif" />
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="n">sage</span><span class="p">:</span> <span class="n">anim</span><span class="o">.</span><span class="n">show</span><span class="p">()</span>
+</pre></div>
+</div>
+<img alt="_images/cell_16_sage0.gif" class="align-center" src="_images/cell_16_sage0.gif" />
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="n">sage</span><span class="p">:</span> <span class="n">u</span><span class="p">[</span><span class="n">np</span><span class="o">.</span><span class="n">random</span><span class="o">.</span><span class="n">randint</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span><span class="n">u</span><span class="o">.</span><span class="n">shape</span><span class="p">[</span><span class="mi">0</span><span class="p">],</span><span class="mi">100</span><span class="p">),</span><span class="n">np</span><span class="o">.</span><span class="n">random</span><span class="o">.</span><span class="n">randint</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span><span class="n">u</span><span class="o">.</span><span class="n">shape</span><span class="p">[</span><span class="mi">0</span><span class="p">],</span><span class="mi">100</span><span class="p">)]</span> <span class="o">=</span> <span class="mi">1</span>
+</pre></div>
+</div>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="n">sage</span><span class="p">:</span> <span class="n">matrix_plot</span><span class="p">(</span><span class="n">u</span><span class="p">,</span><span class="n">origin</span><span class="o">=</span><span class="s1">&#39;lower&#39;</span><span class="p">,</span><span class="n">cmap</span><span class="o">=</span><span class="s1">&#39;rainbow&#39;</span><span class="p">,</span><span class="n">figsize</span><span class="o">=</span><span class="p">(</span><span class="mi">4</span><span class="p">,</span><span class="mi">4</span><span class="p">)</span> <span class="p">)</span>
+</pre></div>
+</div>
+<img alt="_images/cell_18_sage0.png" class="align-center" src="_images/cell_18_sage0.png" />
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="n">sage</span><span class="p">:</span> <span class="p">(</span><span class="n">u</span><span class="o">-</span><span class="n">np</span><span class="o">.</span><span class="n">roll</span><span class="p">(</span><span class="n">u</span><span class="p">,</span><span class="mi">1</span><span class="p">,</span><span class="n">axis</span><span class="o">=</span><span class="mi">0</span><span class="p">))</span><span class="o">*</span><span class="n">m</span><span class="o">+</span><span class="p">(</span><span class="n">u</span><span class="o">-</span><span class="n">np</span><span class="o">.</span><span class="n">roll</span><span class="p">(</span><span class="n">u</span><span class="p">,</span><span class="o">-</span><span class="mi">1</span><span class="p">,</span><span class="n">axis</span><span class="o">=</span><span class="mi">0</span><span class="p">))</span><span class="o">*</span><span class="n">m</span><span class="o">+</span><span class="p">(</span><span class="n">u</span><span class="o">-</span><span class="n">np</span><span class="o">.</span><span class="n">roll</span><span class="p">(</span><span class="n">u</span><span class="p">,</span><span class="mi">1</span><span class="p">,</span><span class="n">axis</span><span class="o">=</span><span class="mi">1</span><span class="p">))</span><span class="o">*</span><span class="n">m</span><span class="o">+</span><span class="p">(</span><span class="n">u</span><span class="o">-</span><span class="n">np</span><span class="o">.</span><span class="n">roll</span><span class="p">(</span><span class="n">u</span><span class="p">,</span><span class="o">-</span><span class="mi">1</span><span class="p">,</span><span class="n">axis</span><span class="o">=</span><span class="mi">1</span><span class="p">))</span><span class="o">*</span><span class="n">m</span>
+</pre></div>
+</div>
+</div>
+<div class="section" id="model-rozprzestrzenienia-sie-epidemii-w-losowej-geometrii">
+<h3>Model rozprzestrzenienia się epidemii w losowej geometrii<a class="headerlink" href="#model-rozprzestrzenienia-sie-epidemii-w-losowej-geometrii" title="Stały odnośnik do tego nagłówka">¶</a></h3>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="n">sage</span><span class="p">:</span> <span class="o">%</span><span class="n">timeit</span>
+<span class="n">sage</span><span class="p">:</span> <span class="kn">import</span> <span class="nn">numpy</span> <span class="k">as</span> <span class="nn">np</span>
+<span class="n">sage</span><span class="p">:</span> <span class="n">sparse</span> <span class="o">=</span> <span class="kc">True</span>
+<span class="n">sage</span><span class="p">:</span> <span class="n">slicing</span> <span class="o">=</span> <span class="kc">True</span>
+<span class="n">sage</span><span class="p">:</span> <span class="n">Dyf_u</span> <span class="o">=</span> <span class="o">.</span><span class="mi">0</span>
+<span class="n">sage</span><span class="p">:</span> <span class="n">Dyf_v</span> <span class="o">=</span> <span class="mf">1.02</span>
+<span class="n">sage</span><span class="p">:</span> <span class="n">Dyf</span> <span class="o">=</span> <span class="nb">max</span><span class="p">(</span><span class="n">Dyf_u</span><span class="p">,</span><span class="n">Dyf_v</span><span class="p">)</span>
+<span class="n">sage</span><span class="p">:</span> <span class="n">a</span> <span class="o">=</span> <span class="mf">1.0</span>
+<span class="n">sage</span><span class="p">:</span> <span class="n">lam</span> <span class="o">=</span> <span class="o">.</span><span class="mi">3</span>
+<span class="n">sage</span><span class="p">:</span> <span class="n">l</span> <span class="o">=</span> <span class="mf">100.0</span> <span class="c1"># dlugosc ukladu</span>
+<span class="n">sage</span><span class="p">:</span> <span class="n">t_end</span> <span class="o">=</span> <span class="mi">50</span> <span class="c1"># czas symulacji</span>
+<span class="n">sage</span><span class="p">:</span> <span class="n">N</span> <span class="o">=</span> <span class="mi">100</span> <span class="c1"># dyskretyzacja przestrzeni</span>
+<span class="n">sage</span><span class="p">:</span> <span class="n">h</span> <span class="o">=</span> <span class="n">l</span><span class="o">/</span><span class="p">(</span><span class="n">N</span><span class="o">-</span><span class="mi">1</span><span class="p">)</span>
+<span class="n">sage</span><span class="p">:</span> <span class="n">dt</span> <span class="o">=</span> <span class="mf">0.052</span><span class="o">/</span><span class="p">(</span><span class="n">Dyf</span><span class="o">*</span><span class="p">(</span><span class="n">N</span><span class="o">-</span><span class="mi">1</span><span class="p">)</span><span class="o">**</span><span class="mi">2</span><span class="o">/</span><span class="n">l</span><span class="o">**</span><span class="mi">2</span><span class="p">)</span> <span class="c1"># 0.2 z warunku CFL, krok nie moze byc wiekszy</span>
+<span class="n">sage</span><span class="p">:</span> <span class="n">dt_dyn</span> <span class="o">=</span> <span class="mf">0.02</span>
+<span class="n">sage</span><span class="p">:</span> <span class="nb">print</span> <span class="s2">&quot;dt,dt_dyn&quot;</span><span class="p">,</span><span class="n">dt</span><span class="p">,</span><span class="n">dt_dyn</span>
+<span class="n">sage</span><span class="p">:</span> <span class="n">dt</span> <span class="o">=</span> <span class="nb">min</span><span class="p">(</span><span class="n">dt</span><span class="p">,</span><span class="n">dt_dyn</span><span class="p">)</span>
+<span class="n">sage</span><span class="p">:</span> <span class="n">sps</span> <span class="o">=</span> <span class="nb">int</span><span class="p">(</span><span class="mi">1</span><span class="o">/</span><span class="n">dt</span><span class="p">)</span> <span class="c1"># liczba krokow na jednostke czasu</span>
+<span class="n">sage</span><span class="p">:</span> <span class="n">Nsteps</span><span class="o">=</span><span class="n">sps</span><span class="o">*</span><span class="n">t_end</span>  <span class="c1"># calkowita liczba krotkow</span>
+<span class="n">sage</span><span class="p">:</span> <span class="nb">print</span> <span class="s2">&quot;sps=&quot;</span><span class="p">,</span><span class="n">sps</span><span class="p">,</span><span class="s2">&quot;dt=&quot;</span><span class="p">,</span><span class="n">dt</span><span class="p">,</span><span class="s1">&#39;Nsteps=&#39;</span><span class="p">,</span><span class="n">Nsteps</span>
+<span class="n">sage</span><span class="p">:</span> <span class="c1"># warunek poczatkowy</span>
+<span class="n">sage</span><span class="p">:</span> <span class="n">u</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">zeros</span><span class="p">((</span><span class="n">N</span><span class="p">,</span><span class="n">N</span><span class="p">))</span>
+<span class="n">sage</span><span class="p">:</span> <span class="n">v</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">zeros</span><span class="p">((</span><span class="n">N</span><span class="p">,</span><span class="n">N</span><span class="p">))</span>
+<span class="n">sage</span><span class="p">:</span> <span class="n">u</span><span class="p">[:,:]</span><span class="o">=</span><span class="mf">1.0</span>
+<span class="n">sage</span><span class="p">:</span> <span class="n">v</span><span class="p">[</span><span class="mi">30</span><span class="p">:</span><span class="mi">60</span><span class="p">:,</span><span class="mi">30</span><span class="p">:</span><span class="mi">60</span><span class="p">]</span><span class="o">=</span><span class="mf">0.1</span>
+<span class="n">sage</span><span class="p">:</span> <span class="n">perc</span> <span class="o">=</span><span class="mi">5500</span>
+<span class="n">sage</span><span class="p">:</span> <span class="n">irand</span><span class="p">,</span><span class="n">jrand</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">random</span><span class="o">.</span><span class="n">randint</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span><span class="n">u</span><span class="o">.</span><span class="n">shape</span><span class="p">[</span><span class="mi">0</span><span class="p">],</span><span class="n">perc</span><span class="p">),</span><span class="n">np</span><span class="o">.</span><span class="n">random</span><span class="o">.</span><span class="n">randint</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span><span class="n">u</span><span class="o">.</span><span class="n">shape</span><span class="p">[</span><span class="mi">0</span><span class="p">],</span><span class="n">perc</span><span class="p">)</span>
+<span class="n">sage</span><span class="p">:</span> <span class="c1"># maska</span>
+<span class="n">sage</span><span class="p">:</span> <span class="n">m</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">ones</span><span class="p">((</span><span class="n">N</span><span class="p">,</span><span class="n">N</span><span class="p">),</span><span class="n">dtype</span><span class="o">=</span><span class="n">np</span><span class="o">.</span><span class="n">bool</span><span class="p">)</span>
+<span class="n">sage</span><span class="p">:</span> <span class="k">if</span> <span class="kc">True</span><span class="p">:</span>
+<span class="o">...</span>       <span class="n">m</span><span class="p">[</span><span class="mi">0</span><span class="p">,:]</span><span class="o">=</span><span class="kc">False</span>
+<span class="o">...</span>       <span class="n">m</span><span class="p">[</span><span class="n">N</span><span class="o">-</span><span class="mi">1</span><span class="p">,:]</span><span class="o">=</span><span class="kc">False</span>
+<span class="o">...</span>       <span class="n">m</span><span class="p">[:,</span><span class="mi">0</span><span class="p">]</span><span class="o">=</span><span class="kc">False</span>
+<span class="o">...</span>       <span class="n">m</span><span class="p">[:,</span><span class="n">N</span><span class="o">-</span><span class="mi">1</span><span class="p">]</span><span class="o">=</span><span class="kc">False</span>
+<span class="o">...</span>
+<span class="n">sage</span><span class="p">:</span> <span class="n">m</span><span class="p">[</span><span class="n">irand</span><span class="p">,</span><span class="n">jrand</span><span class="p">]</span><span class="o">=</span><span class="kc">False</span>
+<span class="o">...</span>
+<span class="n">sage</span><span class="p">:</span> <span class="n">Lap</span> <span class="o">=</span><span class="k">lambda</span> <span class="n">u</span><span class="p">:</span> <span class="o">-</span><span class="p">((</span><span class="n">u</span><span class="o">-</span><span class="n">np</span><span class="o">.</span><span class="n">roll</span><span class="p">(</span><span class="n">u</span><span class="p">,</span><span class="mi">1</span><span class="p">,</span><span class="n">axis</span><span class="o">=</span><span class="mi">0</span><span class="p">))</span><span class="o">*</span><span class="n">np</span><span class="o">.</span><span class="n">roll</span><span class="p">(</span><span class="n">m</span><span class="p">,</span><span class="mi">1</span><span class="p">,</span><span class="n">axis</span><span class="o">=</span><span class="mi">0</span><span class="p">)</span><span class="o">+</span><span class="p">(</span><span class="n">u</span><span class="o">-</span><span class="n">np</span><span class="o">.</span><span class="n">roll</span><span class="p">(</span><span class="n">u</span><span class="p">,</span><span class="o">-</span><span class="mi">1</span><span class="p">,</span><span class="n">axis</span><span class="o">=</span><span class="mi">0</span><span class="p">))</span><span class="o">*</span><span class="n">np</span><span class="o">.</span><span class="n">roll</span><span class="p">(</span><span class="n">m</span><span class="p">,</span><span class="o">-</span><span class="mi">1</span><span class="p">,</span><span class="n">axis</span><span class="o">=</span><span class="mi">0</span><span class="p">)</span><span class="o">+</span><span class="p">(</span><span class="n">u</span><span class="o">-</span><span class="n">np</span><span class="o">.</span><span class="n">roll</span><span class="p">(</span><span class="n">u</span><span class="p">,</span><span class="mi">1</span><span class="p">,</span><span class="n">axis</span><span class="o">=</span><span class="mi">1</span><span class="p">))</span><span class="o">*</span><span class="n">np</span><span class="o">.</span><span class="n">roll</span><span class="p">(</span><span class="n">m</span><span class="p">,</span><span class="mi">1</span><span class="p">,</span><span class="n">axis</span><span class="o">=</span><span class="mi">1</span><span class="p">)</span><span class="o">+</span><span class="p">(</span><span class="n">u</span><span class="o">-</span><span class="n">np</span><span class="o">.</span><span class="n">roll</span><span class="p">(</span><span class="n">u</span><span class="p">,</span><span class="o">-</span><span class="mi">1</span><span class="p">,</span><span class="n">axis</span><span class="o">=</span><span class="mi">1</span><span class="p">))</span><span class="o">*</span><span class="n">np</span><span class="o">.</span><span class="n">roll</span><span class="p">(</span><span class="n">m</span><span class="p">,</span><span class="o">-</span><span class="mi">1</span><span class="p">,</span><span class="n">axis</span><span class="o">=</span><span class="mi">1</span><span class="p">))</span>
+<span class="n">sage</span><span class="p">:</span> <span class="k">def</span> <span class="nf">essential_boundary_conditions</span><span class="p">(</span><span class="n">u</span><span class="p">):</span>
+<span class="n">sage</span><span class="p">:</span> <span class="c1">#    global irand,jrand</span>
+<span class="n">sage</span><span class="p">:</span> <span class="c1">#    u[irand,jrand]=0</span>
+<span class="n">sage</span><span class="p">:</span> <span class="c1">#    v[irand,jrand]=0</span>
+<span class="o">...</span>       <span class="n">u</span><span class="p">[:,</span><span class="mi">0</span><span class="p">]</span> <span class="o">=</span> <span class="mf">1.0</span>
+<span class="o">...</span>       <span class="n">u</span><span class="p">[:,</span><span class="o">-</span><span class="mi">1</span><span class="p">]</span> <span class="o">=</span> <span class="mf">1.0</span>
+<span class="o">...</span>       <span class="n">u</span><span class="p">[</span><span class="o">-</span><span class="mi">1</span><span class="p">,:]</span> <span class="o">=</span> <span class="mf">1.0</span>
+<span class="o">...</span>       <span class="n">u</span><span class="p">[</span><span class="mi">0</span><span class="p">,:]</span> <span class="o">=</span> <span class="mf">1.0</span>
+<span class="o">...</span>       <span class="n">v</span><span class="p">[:,</span><span class="mi">0</span><span class="p">]</span> <span class="o">=</span> <span class="mf">0.0</span>
+<span class="o">...</span>       <span class="n">v</span><span class="p">[:,</span><span class="o">-</span><span class="mi">1</span><span class="p">]</span> <span class="o">=</span> <span class="mf">0.0</span>
+<span class="o">...</span>       <span class="n">v</span><span class="p">[</span><span class="o">-</span><span class="mi">1</span><span class="p">,:]</span> <span class="o">=</span> <span class="mf">0.0</span>
+<span class="o">...</span>       <span class="n">v</span><span class="p">[</span><span class="mi">0</span><span class="p">,:]</span> <span class="o">=</span> <span class="mf">0.0</span>
+<span class="o">...</span>
+<span class="n">sage</span><span class="p">:</span> <span class="n">Tlst</span><span class="o">=</span><span class="p">[]</span>
+<span class="n">sage</span><span class="p">:</span> <span class="n">Tvlst</span><span class="o">=</span><span class="p">[]</span>
+<span class="n">sage</span><span class="p">:</span> <span class="n">essential_boundary_conditions</span><span class="p">(</span><span class="n">u</span><span class="p">)</span>
+<span class="n">sage</span><span class="p">:</span> <span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="n">Nsteps</span><span class="p">):</span>
+<span class="o">...</span>       <span class="k">if</span> <span class="ow">not</span> <span class="n">i</span><span class="o">%</span><span class="n">sps</span><span class="p">:</span>
+<span class="o">...</span>           <span class="n">Tlst</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">u</span><span class="o">.</span><span class="n">copy</span><span class="p">())</span>
+<span class="o">...</span>           <span class="n">Tvlst</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">v</span><span class="o">.</span><span class="n">copy</span><span class="p">())</span>
+<span class="o">...</span>
+<span class="o">...</span>       <span class="n">u</span><span class="p">[</span><span class="mi">1</span><span class="p">:</span><span class="o">-</span><span class="mi">1</span><span class="p">,</span><span class="mi">1</span><span class="p">:</span><span class="o">-</span><span class="mi">1</span><span class="p">]</span> <span class="o">=</span> <span class="n">u</span><span class="p">[</span><span class="mi">1</span><span class="p">:</span><span class="o">-</span><span class="mi">1</span><span class="p">,</span><span class="mi">1</span><span class="p">:</span><span class="o">-</span><span class="mi">1</span><span class="p">]</span> <span class="o">+</span> <span class="n">dt</span><span class="o">*</span><span class="p">(</span><span class="n">u</span><span class="p">[</span><span class="mi">1</span><span class="p">:</span><span class="o">-</span><span class="mi">1</span><span class="p">,</span><span class="mi">1</span><span class="p">:</span><span class="o">-</span><span class="mi">1</span><span class="p">]</span><span class="o">*</span><span class="p">(</span> <span class="mf">0.0</span> <span class="o">-</span> <span class="mi">0</span><span class="o">*</span><span class="n">u</span><span class="p">[</span><span class="mi">1</span><span class="p">:</span><span class="o">-</span><span class="mi">1</span><span class="p">,</span><span class="mi">1</span><span class="p">:</span><span class="o">-</span><span class="mi">1</span><span class="p">]</span><span class="o">-</span><span class="n">v</span><span class="p">[</span><span class="mi">1</span><span class="p">:</span><span class="o">-</span><span class="mi">1</span><span class="p">,</span><span class="mi">1</span><span class="p">:</span><span class="o">-</span><span class="mi">1</span><span class="p">]</span> <span class="p">)</span> <span class="o">+</span> \
+<span class="o">...</span>        <span class="n">Dyf_u</span><span class="o">*</span><span class="p">(</span><span class="n">N</span><span class="o">-</span><span class="mi">1</span><span class="p">)</span><span class="o">**</span><span class="mi">2</span><span class="o">/</span><span class="n">l</span><span class="o">**</span><span class="mi">2</span><span class="o">*</span><span class="n">Lap</span><span class="p">(</span><span class="n">u</span><span class="p">)[</span><span class="mi">1</span><span class="p">:</span><span class="o">-</span><span class="mi">1</span><span class="p">,</span><span class="mi">1</span><span class="p">:</span><span class="o">-</span><span class="mi">1</span><span class="p">])</span>
+<span class="o">...</span>       <span class="n">v</span><span class="p">[</span><span class="mi">1</span><span class="p">:</span><span class="o">-</span><span class="mi">1</span><span class="p">,</span><span class="mi">1</span><span class="p">:</span><span class="o">-</span><span class="mi">1</span><span class="p">]</span> <span class="o">=</span> <span class="n">v</span><span class="p">[</span><span class="mi">1</span><span class="p">:</span><span class="o">-</span><span class="mi">1</span><span class="p">,</span><span class="mi">1</span><span class="p">:</span><span class="o">-</span><span class="mi">1</span><span class="p">]</span> <span class="o">+</span> <span class="n">dt</span><span class="o">*</span><span class="p">(</span><span class="n">a</span><span class="o">*</span><span class="n">v</span><span class="p">[</span><span class="mi">1</span><span class="p">:</span><span class="o">-</span><span class="mi">1</span><span class="p">,</span><span class="mi">1</span><span class="p">:</span><span class="o">-</span><span class="mi">1</span><span class="p">]</span><span class="o">*</span><span class="p">(</span><span class="n">u</span><span class="p">[</span><span class="mi">1</span><span class="p">:</span><span class="o">-</span><span class="mi">1</span><span class="p">,</span><span class="mi">1</span><span class="p">:</span><span class="o">-</span><span class="mi">1</span><span class="p">]</span><span class="o">-</span><span class="n">lam</span><span class="p">)</span><span class="o">+</span> \
+<span class="o">...</span>        <span class="n">Dyf_v</span><span class="o">*</span><span class="p">(</span><span class="n">N</span><span class="o">-</span><span class="mi">1</span><span class="p">)</span><span class="o">**</span><span class="mi">2</span><span class="o">/</span><span class="n">l</span><span class="o">**</span><span class="mi">2</span><span class="o">*</span><span class="n">Lap</span><span class="p">(</span><span class="n">v</span><span class="p">)[</span><span class="mi">1</span><span class="p">:</span><span class="o">-</span><span class="mi">1</span><span class="p">,</span><span class="mi">1</span><span class="p">:</span><span class="o">-</span><span class="mi">1</span><span class="p">])</span>
+<span class="o">...</span>
+<span class="n">sage</span><span class="p">:</span> <span class="n">wall</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">ones_like</span><span class="p">(</span><span class="n">u</span><span class="p">)</span>
+<span class="n">sage</span><span class="p">:</span> <span class="n">wall</span><span class="p">[</span><span class="n">np</span><span class="o">.</span><span class="n">logical_not</span><span class="p">(</span><span class="n">m</span><span class="p">)]</span><span class="o">=</span><span class="n">np</span><span class="o">.</span><span class="n">nan</span>
+<span class="n">sage</span><span class="p">:</span> <span class="nb">print</span> <span class="s2">&quot;Saved &quot;</span><span class="p">,</span><span class="nb">len</span><span class="p">(</span><span class="n">Tlst</span><span class="p">),</span> <span class="s2">&quot; from &quot;</span><span class="p">,</span> <span class="n">Nsteps</span>
+<span class="n">sage</span><span class="p">:</span> <span class="n">html</span><span class="o">.</span><span class="n">table</span><span class="p">([[</span><span class="s2">&quot;U&quot;</span><span class="p">,</span><span class="s2">&quot;V&quot;</span><span class="p">],[</span><span class="n">matrix_plot</span><span class="p">(</span><span class="n">u</span><span class="o">*</span><span class="n">wall</span><span class="p">,</span><span class="n">origin</span><span class="o">=</span><span class="s1">&#39;lower&#39;</span><span class="p">,</span><span class="n">cmap</span><span class="o">=</span><span class="s1">&#39;rainbow&#39;</span><span class="p">,</span><span class="n">figsize</span><span class="o">=</span><span class="mi">8</span> <span class="p">),</span><span class="n">matrix_plot</span><span class="p">(</span><span class="n">v</span><span class="o">*</span><span class="n">wall</span><span class="p">,</span><span class="n">origin</span><span class="o">=</span><span class="s1">&#39;lower&#39;</span><span class="p">,</span><span class="n">cmap</span><span class="o">=</span><span class="s1">&#39;rainbow&#39;</span><span class="p">,</span><span class="n">figsize</span><span class="o">=</span><span class="mi">8</span> <span class="p">)]])</span>
+</pre></div>
+</div>
+<div class="line-block">
+<div class="line">dt,dt_dyn 0.0520155006191845 0.0200000000000000</div>
+<div class="line">sps= 50 dt= 0.0200000000000000 Nsteps= 2500</div>
+<div class="line">Saved  50  from  2500</div>
+</div>
+<img alt="_images/cell_21_sage0.png" class="align-center" src="_images/cell_21_sage0.png" />
+<img alt="_images/cell_21_sage1.png" class="align-center" src="_images/cell_21_sage1.png" />
+<p>CPU time: 8.68 s,  Wall time: 8.68 s</p>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="n">sage</span><span class="p">:</span> <span class="kn">import</span> <span class="nn">pylab</span>
+<span class="n">sage</span><span class="p">:</span> <span class="nd">@interact</span>
+<span class="n">sage</span><span class="p">:</span> <span class="k">def</span> <span class="nf">_</span><span class="p">(</span><span class="n">ti</span><span class="o">=</span><span class="n">slider</span><span class="p">(</span><span class="nb">range</span><span class="p">(</span><span class="nb">len</span><span class="p">(</span><span class="n">Tlst</span><span class="p">)))):</span>
+<span class="o">...</span>       <span class="nb">print</span> <span class="sa">r</span><span class="s2">&quot;t=&quot;</span><span class="p">,</span><span class="n">dt</span><span class="o">*</span><span class="n">ti</span>
+<span class="o">...</span>       <span class="n">pu</span> <span class="o">=</span>  <span class="n">matrix_plot</span><span class="p">(</span><span class="n">Tlst</span><span class="p">[</span><span class="n">ti</span><span class="p">]</span><span class="o">*</span><span class="n">wall</span><span class="p">,</span><span class="n">origin</span><span class="o">=</span><span class="s1">&#39;lower&#39;</span><span class="p">,</span><span class="n">cmap</span><span class="o">=</span><span class="s1">&#39;rainbow&#39;</span><span class="p">,</span> <span class="n">figsize</span><span class="o">=</span><span class="p">(</span><span class="mi">4</span><span class="p">,</span><span class="mi">4</span><span class="p">)</span> <span class="p">)</span>
+<span class="o">...</span>       <span class="n">pv</span> <span class="o">=</span>  <span class="n">matrix_plot</span><span class="p">(</span><span class="n">Tvlst</span><span class="p">[</span><span class="n">ti</span><span class="p">]</span><span class="o">*</span><span class="n">wall</span><span class="p">,</span><span class="n">origin</span><span class="o">=</span><span class="s1">&#39;lower&#39;</span><span class="p">,</span><span class="n">cmap</span><span class="o">=</span><span class="s1">&#39;rainbow&#39;</span><span class="p">,</span><span class="n">figsize</span><span class="o">=</span><span class="p">(</span><span class="mi">4</span><span class="p">,</span><span class="mi">4</span><span class="p">)</span> <span class="p">)</span>
+<span class="o">...</span>       <span class="n">html</span><span class="o">.</span><span class="n">table</span><span class="p">([[</span><span class="n">pu</span><span class="p">,</span><span class="n">pv</span><span class="p">]])</span>
+</pre></div>
+</div>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="n">sage</span><span class="p">:</span> <span class="n">wall</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">ones_like</span><span class="p">(</span><span class="n">u</span><span class="p">)</span>
+<span class="n">sage</span><span class="p">:</span> <span class="n">wall</span><span class="p">[</span><span class="n">np</span><span class="o">.</span><span class="n">logical_not</span><span class="p">(</span><span class="n">m</span><span class="p">)]</span><span class="o">=</span><span class="n">np</span><span class="o">.</span><span class="n">nan</span>
+<span class="n">sage</span><span class="p">:</span> <span class="n">anim</span> <span class="o">=</span> <span class="n">animate</span><span class="p">([</span><span class="n">matrix_plot</span><span class="p">(</span><span class="n">u</span><span class="o">*</span><span class="n">wall</span><span class="p">,</span><span class="n">origin</span><span class="o">=</span><span class="s1">&#39;lower&#39;</span><span class="p">,</span><span class="n">cmap</span><span class="o">=</span><span class="s1">&#39;rainbow&#39;</span><span class="p">,</span><span class="n">figsize</span><span class="o">=</span><span class="p">(</span><span class="mi">4</span><span class="p">,</span><span class="mi">4</span><span class="p">)</span> <span class="p">,</span><span class="n">vmin</span><span class="o">=</span><span class="mi">0</span><span class="p">,</span><span class="n">vmax</span><span class="o">=</span><span class="mf">1.01</span><span class="p">)</span> <span class="k">for</span> <span class="n">u</span> <span class="ow">in</span> <span class="n">Tlst</span><span class="p">[::</span><span class="mi">1</span><span class="p">]])</span>
+<span class="n">sage</span><span class="p">:</span> <span class="n">anim</span><span class="o">.</span><span class="n">show</span><span class="p">()</span>
+</pre></div>
+</div>
+<img alt="_images/cell_31_sage0.gif" class="align-center" src="_images/cell_31_sage0.gif" />
+</div>
+<div class="section" id="operator-laplace-a-z-odbijajaca-scianka-implementacja-z-maska">
+<h3>Operator Laplace’a z odbijającą scianką: implementacja z maska.<a class="headerlink" href="#operator-laplace-a-z-odbijajaca-scianka-implementacja-z-maska" title="Stały odnośnik do tego nagłówka">¶</a></h3>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="n">sage</span><span class="p">:</span> <span class="kn">import</span> <span class="nn">numpy</span> <span class="k">as</span> <span class="nn">np</span>
+<span class="n">sage</span><span class="p">:</span> <span class="n">N</span><span class="o">=</span><span class="mi">6</span>
+<span class="n">sage</span><span class="p">:</span> <span class="n">m</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">ones</span><span class="p">((</span><span class="n">N</span><span class="p">,</span><span class="n">N</span><span class="p">),</span><span class="n">dtype</span><span class="o">=</span><span class="n">np</span><span class="o">.</span><span class="n">bool</span><span class="p">)</span>
+<span class="n">sage</span><span class="p">:</span> <span class="n">m</span><span class="p">[</span><span class="mi">0</span><span class="p">,:]</span><span class="o">=</span><span class="kc">False</span>
+<span class="n">sage</span><span class="p">:</span> <span class="n">m</span><span class="p">[</span><span class="n">N</span><span class="o">-</span><span class="mi">1</span><span class="p">,:]</span><span class="o">=</span><span class="kc">False</span>
+<span class="n">sage</span><span class="p">:</span> <span class="n">m</span><span class="p">[:,</span><span class="mi">0</span><span class="p">]</span><span class="o">=</span><span class="kc">False</span>
+<span class="n">sage</span><span class="p">:</span> <span class="n">m</span><span class="p">[:,</span><span class="n">N</span><span class="o">-</span><span class="mi">1</span><span class="p">]</span><span class="o">=</span><span class="kc">False</span>
+<span class="n">sage</span><span class="p">:</span> <span class="n">show</span><span class="p">(</span><span class="n">m</span><span class="p">)</span>
+<span class="n">sage</span><span class="p">:</span> <span class="n">matrix_plot</span><span class="p">(</span><span class="n">m</span><span class="p">,</span><span class="n">figsize</span><span class="o">=</span><span class="mi">3</span><span class="p">)</span>
+</pre></div>
+</div>
+<div class="math notranslate nohighlight">
+\[\begin{split}\begin{array}{l}
+\verb|[[False|\phantom{x}\verb|False|\phantom{x}\verb|False|\phantom{x}\verb|False|\phantom{x}\verb|False|\phantom{x}\verb|False]|\\
+\phantom{x}\verb|[False|\phantom{xx}\verb|True|\phantom{xx}\verb|True|\phantom{xx}\verb|True|\phantom{xx}\verb|True|\phantom{x}\verb|False]|\\
+\phantom{x}\verb|[False|\phantom{xx}\verb|True|\phantom{xx}\verb|True|\phantom{xx}\verb|True|\phantom{xx}\verb|True|\phantom{x}\verb|False]|\\
+\phantom{x}\verb|[False|\phantom{xx}\verb|True|\phantom{xx}\verb|True|\phantom{xx}\verb|True|\phantom{xx}\verb|True|\phantom{x}\verb|False]|\\
+\phantom{x}\verb|[False|\phantom{xx}\verb|True|\phantom{xx}\verb|True|\phantom{xx}\verb|True|\phantom{xx}\verb|True|\phantom{x}\verb|False]|\\
+\phantom{x}\verb|[False|\phantom{x}\verb|False|\phantom{x}\verb|False|\phantom{x}\verb|False|\phantom{x}\verb|False|\phantom{x}\verb|False]]|
+\end{array}\end{split}\]</div>
+<img alt="_images/cell_25_sage02.png" class="align-center" src="_images/cell_25_sage02.png" />
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="n">sage</span><span class="p">:</span> <span class="n">u</span><span class="o">=</span><span class="n">np</span><span class="o">.</span><span class="n">random</span><span class="o">.</span><span class="n">randn</span><span class="p">(</span><span class="n">N</span><span class="p">,</span><span class="n">N</span><span class="p">)</span>
+<span class="n">sage</span><span class="p">:</span> <span class="n">Lap</span> <span class="o">=</span><span class="k">lambda</span> <span class="n">u</span><span class="p">:</span> <span class="o">-</span><span class="p">((</span><span class="n">u</span><span class="o">-</span><span class="n">np</span><span class="o">.</span><span class="n">roll</span><span class="p">(</span><span class="n">u</span><span class="p">,</span><span class="mi">1</span><span class="p">,</span><span class="n">axis</span><span class="o">=</span><span class="mi">0</span><span class="p">))</span><span class="o">*</span><span class="n">np</span><span class="o">.</span><span class="n">roll</span><span class="p">(</span><span class="n">m</span><span class="p">,</span><span class="mi">1</span><span class="p">,</span><span class="n">axis</span><span class="o">=</span><span class="mi">0</span><span class="p">)</span><span class="o">+</span><span class="p">(</span><span class="n">u</span><span class="o">-</span><span class="n">np</span><span class="o">.</span><span class="n">roll</span><span class="p">(</span><span class="n">u</span><span class="p">,</span><span class="o">-</span><span class="mi">1</span><span class="p">,</span><span class="n">axis</span><span class="o">=</span><span class="mi">0</span><span class="p">))</span><span class="o">*</span><span class="n">np</span><span class="o">.</span><span class="n">roll</span><span class="p">(</span><span class="n">m</span><span class="p">,</span><span class="o">-</span><span class="mi">1</span><span class="p">,</span><span class="n">axis</span><span class="o">=</span><span class="mi">0</span><span class="p">)</span><span class="o">+</span><span class="p">(</span><span class="n">u</span><span class="o">-</span><span class="n">np</span><span class="o">.</span><span class="n">roll</span><span class="p">(</span><span class="n">u</span><span class="p">,</span><span class="mi">1</span><span class="p">,</span><span class="n">axis</span><span class="o">=</span><span class="mi">1</span><span class="p">))</span><span class="o">*</span><span class="n">np</span><span class="o">.</span><span class="n">roll</span><span class="p">(</span><span class="n">m</span><span class="p">,</span><span class="mi">1</span><span class="p">,</span><span class="n">axis</span><span class="o">=</span><span class="mi">1</span><span class="p">)</span><span class="o">+</span><span class="p">(</span><span class="n">u</span><span class="o">-</span><span class="n">np</span><span class="o">.</span><span class="n">roll</span><span class="p">(</span><span class="n">u</span><span class="p">,</span><span class="o">-</span><span class="mi">1</span><span class="p">,</span><span class="n">axis</span><span class="o">=</span><span class="mi">1</span><span class="p">))</span><span class="o">*</span><span class="n">np</span><span class="o">.</span><span class="n">roll</span><span class="p">(</span><span class="n">m</span><span class="p">,</span><span class="o">-</span><span class="mi">1</span><span class="p">,</span><span class="n">axis</span><span class="o">=</span><span class="mi">1</span><span class="p">))</span>
+</pre></div>
+</div>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="n">sage</span><span class="p">:</span> <span class="n">show</span><span class="p">(</span><span class="n">np</span><span class="o">.</span><span class="n">diff</span><span class="p">(</span><span class="n">u</span><span class="p">,</span><span class="mi">2</span><span class="p">,</span><span class="n">axis</span><span class="o">=</span><span class="mi">0</span><span class="p">)[:,</span><span class="mi">1</span><span class="p">:</span><span class="o">-</span><span class="mi">1</span><span class="p">]</span><span class="o">+</span><span class="n">np</span><span class="o">.</span><span class="n">diff</span><span class="p">(</span><span class="n">u</span><span class="p">,</span><span class="mi">2</span><span class="p">,</span><span class="n">axis</span><span class="o">=</span><span class="mi">1</span><span class="p">)[</span><span class="mi">1</span><span class="p">:</span><span class="o">-</span><span class="mi">1</span><span class="p">,:])</span>
+</pre></div>
+</div>
+<div class="math notranslate nohighlight">
+\[\begin{split}\begin{array}{l}
+\verb|[[-3.13448456|\phantom{xx}\verb|5.18465268|\phantom{xx}\verb|2.24718743|\phantom{xx}\verb|1.5615061|\phantom{x}\verb|]|\\
+\phantom{x}\verb|[|\phantom{x}\verb|6.81131198|\phantom{x}\verb|-5.12027386|\phantom{xx}\verb|0.45648868|\phantom{x}\verb|-8.70124209]|\\
+\phantom{x}\verb|[|\phantom{x}\verb|0.83522291|\phantom{x}\verb|-2.22075512|\phantom{xx}\verb|4.82439459|\phantom{xx}\verb|5.04618174]|\\
+\phantom{x}\verb|[|\phantom{x}\verb|4.44827112|\phantom{x}\verb|-5.28018261|\phantom{x}\verb|-5.41145643|\phantom{x}\verb|-2.22106382]]|
+\end{array}\end{split}\]</div>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="n">sage</span><span class="p">:</span> <span class="n">show</span><span class="p">(</span><span class="n">Lap</span><span class="p">(</span><span class="n">u</span><span class="p">))</span>
+</pre></div>
+</div>
+<div class="math notranslate nohighlight">
+\[\begin{split}\begin{array}{l}
+\verb|[[-0.|\phantom{xxxxxxxxxx}\verb|0.42601275|\phantom{x}\verb|-2.51302703|\phantom{x}\verb|-1.25894388|\phantom{xx}\verb|1.13807986|\phantom{x}\verb|-0.|\phantom{xxxxxxxx}\verb|]|\\
+\phantom{x}\verb|[|\phantom{x}\verb|0.34635619|\phantom{x}\verb|-2.36211561|\phantom{xx}\verb|2.67162565|\phantom{xx}\verb|0.98824355|\phantom{xx}\verb|1.49902703|\phantom{x}\verb|-1.20055893]|\\
+\phantom{x}\verb|[-1.58676378|\phantom{xx}\verb|5.22454821|\phantom{x}\verb|-5.12027386|\phantom{xx}\verb|0.45648868|\phantom{x}\verb|-6.25692915|\phantom{xx}\verb|2.44431293]|\\
+\phantom{x}\verb|[-0.21974371|\phantom{xx}\verb|0.61547921|\phantom{x}\verb|-2.22075512|\phantom{xx}\verb|4.82439459|\phantom{xx}\verb|3.49525843|\phantom{x}\verb|-1.55092331]|\\
+\phantom{x}\verb|[-1.49169634|\phantom{xx}\verb|2.81477871|\phantom{x}\verb|-3.81338909|\phantom{x}\verb|-1.7187601|\phantom{xx}\verb|-1.09762113|\phantom{xx}\verb|1.90581171]|\\
+\phantom{x}\verb|[-0.|\phantom{xxxxxxxxx}\verb|-0.14179607|\phantom{xx}\verb|1.46679352|\phantom{xx}\verb|3.69269634|\phantom{x}\verb|-0.78236901|\phantom{x}\verb|-0.|\phantom{xxxxxxxx}\verb|]]|
+\end{array}\end{split}\]</div>
+</div>
+</div>
+</div>
+
+
+          </div>
+        </div>
+      </div>
+      <div class="sphinxsidebar" role="navigation" aria-label="main navigation">
+        <div class="sphinxsidebarwrapper">
+  <div class="sphinxlocaltoc">
+  <h3><a href="index.html">Table Of Contents</a></h3>
+  <ul>
+<li><a class="reference internal" href="#">Modele epidemii</a><ul>
+<li><a class="reference internal" href="#model-kermacka-mckendricka">Model Kermacka-McKendricka</a><ul>
+<li><a class="reference internal" href="#przykladowy-zestaw-parametrow">Przykładowy zestaw parametrów</a></li>
+<li><a class="reference internal" href="#inny-zestaw-parametrow">Inny zestaw parametrów</a></li>
+<li><a class="reference internal" href="#przyklad">Przykład</a></li>
+</ul>
+</li>
+<li><a class="reference internal" href="#geograficzne-rozprzestrzenianie-sie-epidemii">Geograficzne rozprzestrzenianie się epidemii</a></li>
+<li><a class="reference internal" href="#relistyczne-modelowanie-rozprzestrzeniania-sie-epidemii">Relistyczne modelowanie rozprzestrzeniania się epidemii</a><ul>
+<li><a class="reference internal" href="#model-rozprzestrzeniania-sie-epidemii-w-osrodku-jednorodnym">Model rozprzestrzeniania się epidemii w ośrodku jednorodnym</a></li>
+<li><a class="reference internal" href="#model-rozprzestrzenienia-sie-epidemii-w-losowej-geometrii">Model rozprzestrzenienia się epidemii w losowej geometrii</a></li>
+<li><a class="reference internal" href="#operator-laplace-a-z-odbijajaca-scianka-implementacja-z-maska">Operator Laplace’a z odbijającą scianką: implementacja z maska.</a></li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+
+  </div>
+  <h4>Poprzedni temat</h4>
+  <p class="topless"><a href="iCSE_BProcnielin05_z125_reakcja_dyfuzja.html"
+                        title="poprzedni rozdział">Równania reakcji-dyfuzji</a></p>
+  <h4>Następny temat</h4>
+  <p class="topless"><a href="iCSE_BProcnielin07_z133_Hodgkin-Huxley.html"
+                        title="następny rozdział">Transmisja impulsów nerwowych: Model Hodgkinga-Huxleya</a></p>
+<div id="searchbox" style="display: none" role="search">
+  <h3 id="searchlabel">Szybkie wyszukiwanie</h3>
+    <div class="searchformwrapper">
+    <form class="search" action="search.html" method="get">
+      <input type="text" name="q" aria-labelledby="searchlabel" />
+      <input type="submit" value="Szukaj" />
+    </form>
+    </div>
+</div>
+<script>$('#searchbox').show(0);</script>
+        </div>
+      </div>
+      <div class="clearer"></div>
+    </div>
+  </div>
+  <div class="relbar-bottom">
+    
+    <div class="related" role="navigation" aria-label="related navigation">
+      <h3>Nawigacja</h3>
+      <ul>
+        <li class="right" style="margin-right: 10px">
+          <a href="iCSE_BProcnielin07_z133_Hodgkin-Huxley.html" title="Transmisja impulsów nerwowych: Model Hodgkinga-Huxleya"
+             >dalej</a></li>
+        <li class="right" >
+          <a href="iCSE_BProcnielin05_z125_reakcja_dyfuzja.html" title="Równania reakcji-dyfuzji"
+             >wstecz</a> &nbsp; &nbsp;</li>
+  <li><a href="index.html">Procesy nieliniowe w Biologii</a> &#187;</li>
+   
+      </ul>
+    </div>
+  </div>
+  
+  <div class="footer">
+    <a class="logo" href="http://icse.us.edu.pl/" target="_blank"><img src="_static/logo-icse.png" alt="ICSE"/></a><br/>
+    &copy; Copyright 2013, Jerzy Łuczka, Marcin Kostur.
+    Created using <a href="http://sphinx.pocoo.org/">Sphinx</a> 2.4.0.
+  </div>
+  </body>
+</html>

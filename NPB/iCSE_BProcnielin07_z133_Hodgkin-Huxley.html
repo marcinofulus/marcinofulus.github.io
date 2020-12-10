@@ -1,0 +1,238 @@
+
+
+  
+<!DOCTYPE html>
+
+<html xmlns="http://www.w3.org/1999/xhtml" lang="pl">
+  <head>
+    <meta charset="utf-8" />
+    <title>Transmisja impulsów nerwowych: Model Hodgkinga-Huxleya &#8212; Procesy nieliniowe w Biologii</title>
+    <link rel="stylesheet" href="_static/cloud.css" type="text/css" />
+    <link rel="stylesheet" href="_static/pygments.css" type="text/css" />
+    <link rel="stylesheet" href="http://fonts.googleapis.com/css?family=Noticia+Text|Open+Sans|Droid+Sans+Mono&subset=latin,latin-ext" type="text/css" />
+    <script id="documentation_options" data-url_root="./" src="_static/documentation_options.js"></script>
+    <script src="_static/jquery.js"></script>
+    <script src="_static/underscore.js"></script>
+    <script src="_static/doctools.js"></script>
+    <script src="_static/language_data.js"></script>
+    <script src="_static/translations.js"></script>
+    <script async="async" src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.5/latest.js?config=TeX-AMS-MML_HTMLorMML"></script>
+    <script src="_static/jquery.cookie.js"></script>
+    <script src="_static/cloud.js"></script>
+    <script type="text/javascript" src="http://sagecell.sagemath.org/static/jquery.min.js"></script>
+    <script type="text/javascript" src="http://sagecell.sagemath.org/embedded_sagecell.js"></script>
+    <script type="text/javascript">
+        sagecell.makeSagecell({inputLocation: ".sage_linked",
+                               linked: true});
+        sagecell.makeSagecell({inputLocation: ".sage_unlinked",
+                               linked: false});
+    </script>
+
+    <style type="text/css">
+        .sagecell .CodeMirror-scroll {
+            overflow-y: hidden;
+            overflow-x: auto;
+        }
+        .sagecell .CodeMirror {
+            height: auto;
+        }
+    </style>
+    
+    <link rel="search" title="Szukaj" href="search.html" />
+    <link rel="next" title="Numeryczna analiza rozwiązań układu Hodgkina-Huxley’a" href="iCSE_BProcnielin07_z133_Hodgkin-Huxley_numeryka.html" />
+    <link rel="prev" title="Modele epidemii" href="iCSE_BProcnielin06_z155_modele_epidemii.html" />
+ 
+  <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, minimum-scale=1">
+  </head><body>
+  <div class="relbar-top">
+    
+    <div class="related" role="navigation" aria-label="related navigation">
+      <h3>Nawigacja</h3>
+      <ul>
+        <li class="right" style="margin-right: 10px">
+          <a href="iCSE_BProcnielin07_z133_Hodgkin-Huxley_numeryka.html" title="Numeryczna analiza rozwiązań układu Hodgkina-Huxley’a"
+             accesskey="N">dalej</a></li>
+        <li class="right" >
+          <a href="iCSE_BProcnielin06_z155_modele_epidemii.html" title="Modele epidemii"
+             accesskey="P">wstecz</a> &nbsp; &nbsp;</li>
+  <li><a href="index.html">Procesy nieliniowe w Biologii</a> &#187;</li>
+   
+      </ul>
+    </div>
+  </div>
+  
+  <div class="content">  
+
+    <div class="document">
+      <div class="documentwrapper">
+        <div class="bodywrapper">
+          <div class="body">
+            
+  <div class="section" id="transmisja-impulsow-nerwowych-model-hodgkinga-huxleya">
+<h1>Transmisja impulsów nerwowych: Model Hodgkinga-Huxleya<a class="headerlink" href="#transmisja-impulsow-nerwowych-model-hodgkinga-huxleya" title="Stały odnośnik do tego nagłówka">¶</a></h1>
+<div class="section" id="wstep-podstawowe-informacje">
+<h2>Wstęp: Podstawowe informacje<a class="headerlink" href="#wstep-podstawowe-informacje" title="Stały odnośnik do tego nagłówka">¶</a></h2>
+<p>Aktywnością organizmu i koordynacją jego czynności  steruje układ nerwowy, który funkcjonuje na zasadzie przekazywania sygnałów z jednej komórki nerwowej do innych komórek nerwowych  lub do komórek mięśniowych albo  gruczołów.   Układ nerwowy ma wśród innych narządów i układów ustroju pozycję centralną i jest ich administratorem i koordynatorem. Każda bowiem czynność czy zadanie wykonywane przez określony narząd lub układ narządów, pozostaje pod jego ścisłym nadzorem. Za pośrednictwem zmysłów, z którymi jest bezpośrednio - anatomicznie i fizjologicznie - związany, układ nerwowy zapewnia ustrojowi możliwość komunikowania się ze światem zewnętrznym. Potrafi odbierać z zewnątrz najrozmaitsze bodźce (sygnały, informacje), przewodzić je do własnych ośrodków odczytujących ich treść, selekcjonować i wreszcie - przetwarzać w zrozumiałe dla siebie pojęcia i wyobrażenia oraz wydawać polecenia zwrotne. Układ nerwowy człowieka w ciągu jednej sekundy odbiera z otoczenia aż 109 bitów informacji. Warto przy tym pamiętać, że do świadomości dociera jednak minimalna ich część, bo jedynie 102 bitów/s. To oznacza, że przytłaczająca większość informacji dociera do mózgu i jest tam przetwarzana w sposób całkowicie nieświadomy.</p>
+<p>Układ nerwowy jest  zbudowany z 2 rodzajów komórek:</p>
+<ol class="arabic simple">
+<li><p>nerwowych</p></li>
+<li><p>glejowych.</p></li>
+</ol>
+<p>Komórki glejowe pełnia rolę pomocniczą, tzn. fizjologiczą. Komórki glejowe współtworzą barierę krew-mózg, pełnią istotną rolę w odżywianiu komórek nerwowych składnikami odżywczymi transportowanymi układem krążenia, syntetyzują wiele istotnych enzymów używanych m.in. do wytwarzania neuroprzekaźników, tworzą osłonki mielinowe aksonów, a nawet pełnią funkcje ochronne.</p>
+<p>Komórki nerwowe pełnią rolę zasadniczą. Reagują  one na bodźce zewnętrzne i wewnętrzne,  a następnie przesyłają je do jednostek wykonawczych organizmu. Powstanie bodźca w organizmie jest odpowiedzią na działanie czynników zewnętrznych takich jak światło, dźwięk, temperatura, ciśnienie, związki chemiczne smakowe i zapachowe. Za odbiór tych czynników odpowiedzialne są komórki receptorowe: chemoreceptory (węchowe, smakowe), fotoreceptory (pręciki, czopki) i mechanoreceptory (komórki rzęsate).</p>
+<p>Komórką  układu nerwowego jest komórka nerwowa -  neuron.
+<strong>Neuron jest podstawową jednostką  przetwarzania informacji w mózgu.</strong>
+To właśnie ta komórka charakteryzuje się zdolnością do wytwarzania, przekazywania, odbierania i przetwarzania specyficznych sygnałów elektrochemicznych, którym przypisuje się istotne znaczenie w przetwarzaniu informacji o otoczeniu i podejmowaniu decyzji dotyczących reakcji.</p>
+<img alt="http://upload.wikimedia.org/wikipedia/commons/thumb/6/6d/Neuron-figure_PL.svg/300px-Neuron-figure_PL.svg.png" class="align-center" src="http://upload.wikimedia.org/wikipedia/commons/thumb/6/6d/Neuron-figure_PL.svg/300px-Neuron-figure_PL.svg.png" />
+<p>Powyższy obraz neuronu ukazuje jego uproszczoną budowę. Brakuje tu zaznaczonego jednego ważnego elementu: synapsy,  która jest  miejscem komunikacji błony kończącej akson z błoną komórkową  następnej  komórki nerwowej. Ale tam gdzie jest oznaczenie „Zakończenie aksonów” znajduje sie własnie synapsa (co  z greckiego oznacza połączenie). W  synapsach neurony prawie się stykają . W synapsach elektrycznych przerwa wynosi tylko 2 nanometry. W synapsach chemicznych jest to odlegołość 20 nanometrów.</p>
+<p>Neurony połączone są ze sobą wzajemnie tworząc sieci, dzięki którym realizowane są funkcje inteligencji, emocji, pamięci i zdolności twórczych. Pojedynczy neuron przyjmuje pobudzenie od ogromnej liczby innych neuronów dochodzącej do tysiąca. Szacuje się, że w mózgu człowieka jest około 10 <sup>11</sup> neuronów, które oddziałują na siebie poprzez około 10 <sup>15</sup>  połączeń.</p>
+<img alt="http://cspeech.ucd.ie/%7Efred/teaching/oldcourses/ann98/figs/neurons.jpg" class="align-center" src="http://cspeech.ucd.ie/%7Efred/teaching/oldcourses/ann98/figs/neurons.jpg" />
+<p>Oto jak w uproszczeniu wygląda schematu propagacji impulsów :</p>
+<p>—–&gt;  dendryty  ——&gt;  ciało komórki  ——&gt;  akson  ——&gt;  synapsa  —–&gt;  dendryty  ——&gt;</p>
+<p>Dendryty są łącznikiem z  innymi komórkami (dokładniej z aksonami innych neuronów). Otrzymują impulsy od wielu (od kilku do  wielu tysięcy)  komórek. To jest znak, że jest jakiś bodziec. Ten bodziec w postaci impulsu elektrycznego propaguje się  wzdłuż komórki nerwowej od dentrydów  poprzez  ciało komórkowe i akson do synapsy. Ale impuls musi mieć minimalną wielkość (amplitudę)  aby mógł przekazać informacje do następnej komórki. Model  propagacji takiego impuslu będzie opisany poniżej.</p>
+</div>
+<div class="section" id="model-propagacji-impulsu">
+<h2>Model propagacji impulsu<a class="headerlink" href="#model-propagacji-impulsu" title="Stały odnośnik do tego nagłówka">¶</a></h2>
+<p>Gdy dendryt odbierze jeden z bodźców z  drugiej strony   synapsy oddzielającej akson od dendrytu, przez błonę dendrytu zaczynają przepływać miniaturowe prądy elektryczne. Zazwyczaj są to prądy wpływające do wnętrza dendrytu, określane jako pobudzające. Prądy mogą także wypływać na zewnątrz komórki i wtedy nosza nazwę prądów hamujących. Zarówno dodatnie jak i ujemne wahania prądu, powstające w błonach   dendrytów, przepływają do ciała komórkowego. Jeżeli ich suma jest niewielka, prądy takie zanikają i nie uruchamiają dalszych procesów. Jednak jeśli w wyniku ich dodawania zostanie przekroczona określona wartość progowa, to  generowany jest tzw.  <strong>potencjał czynnościowy</strong> propagujący się wzdłuż aksonu i komórka nerwowa  wyśle wiadomość do innych neuronów.  To działa prawie tak  jak komputer: jest impuls lub nie ma impulsu. Jeżeli jest impuls to jest na plus (czyli +1), jeżeli nie ma impulsu to jest na minus (czyli -1). Logika 2-wartościowa (+1, -1) potrafi zrobić wszystko:  potrafi zakodować wszelkie informacje, potrafi wykonywać skomplikowane operacje, ba potrafi się nawet uczyć (są takie algorytmy) . Na tym polega cud działania komórek nerwowych. I nie jest to cud boski, ale zupełnie (przy)ziemski, prozaiczny, prawie banalny (co nie oznacza, że rozumiemy jak działa mózg). Model stworzony przez angielskich uczonych  Hodgkina i Huxleya w 1952 roku opisuje  to w sposób jakościowy.</p>
+<p>Neuron i jego otocznie wypelnione jest płynem zawierajacym jony: potasu (K+ ), sodu (Na+ ), wapnia (Ca+2 ) i chloru (Cl− ). Pompy jonowe  wypompowują  z komórki jony sodu, a wpompowują jony potasu.  Na zewnątrz komórki istnieje wysoka  koncentracja  Na+ , Cl− i Ca+2 . Wewnątrz istnieje wysokie stężenie K+ oraz ujemnie naładowanych molekuł. Membrana komórkowa, oprócz pomp jonowych, zawiera kanały jonowe. W stanie równowagi, zewnętrzna część  błony komórkowej naładowana jest dodatnio, a wewnętrzna ujemnie. Różnicę potencjałów nazywamy potencjałem spoczynkowym. Typowo waha się on pomiędzy −90 mV  a −65 mV. Jeżeli  sygnał  pobudzający  neuron przekroczy wartość  progową ̧, w neuronie nastąpi generacja tzw. potencjału czynnościowego o wartości około +40 mV i sygnał  rozchodzi się  w aksonie w postaci fali depolaryzacji  i następującej po niej repolaryzacji o stałej czasowej 1 ms.</p>
+<p>Przez <span class="math notranslate nohighlight">\(V\)</span> oznaczymy różnicę  potencjałów pomiędzy wewnętrzną a zewnętrzną  stroną ściany neuronu (to jest membrana!!). Gradient stężeń danego typu jonów „k”  powoduje powstanie różnicy potencjałów <span class="math notranslate nohighlight">\(E_k\)</span> (nazywanego potencjałem Nernsta).    Wypadkowym potencjałem jest  <span class="math notranslate nohighlight">\(V - E_k\)</span> (tzw. potecjał elektrochemiczny). Z praw Ohma otrzymujemy relację dla natężenia prądu danego typu jonów:</p>
+<div class="math notranslate nohighlight">
+\[I_k = \frac{V - E_k}{R_k} =  G_k  ( V  - E_k)\]</div>
+<p>gdzie <span class="math notranslate nohighlight">\(G_k =  1/ R_k\)</span> jest przewodnością (konduktancją) dla danego rodzaju jonów. W teorii tej nie używa sie pojęcia oporu <span class="math notranslate nohighlight">\(R_k\)</span> dla danego typu jonów, tylko wszyscy posługują się pojęciem przewodności (biofizycy wolą mnożyć przez G niż dzielić przez R).  Całkowity prąd  <span class="math notranslate nohighlight">\(I = I(t)\)</span> płynący przez membranę jest sumą składników pochodzących od każdego rodzaju jonów oraz od czasowej  zmiany potencjału  <span class="math notranslate nohighlight">\(V\)</span>:</p>
+<div class="math notranslate nohighlight">
+\[I =  C \frac{dV}{dt} + G_{Na} ( V  - E_{Na}) + G_{K} ( V  - E_{Ka}) + G_{L} ( V  - E_{L})\]</div>
+<p>gdzie <span class="math notranslate nohighlight">\(C\)</span> jest pojemnością membrany (membrana jest jak dwie  okładki kondensatora rozdzielone dielektrykiem i wówczas <span class="math notranslate nohighlight">\(C=Q/V\)</span>, stąd ładunek <span class="math notranslate nohighlight">\(Q=C V\)</span>, a natężenie prądu to zmiana ładunku w czasie, czyli <span class="math notranslate nohighlight">\(dQ/dt = C dV/dt\)</span>).  Dla neuronu typowa wartość pojemności <span class="math notranslate nohighlight">\(C/cm^2 = 1 \mu F/cm^2\)</span>. Symbol „L” odnosi się do pozostałych jonów które dają wkład do całkowitego prąd.</p>
+<p>Z powyższego równania otrzymujemy równanie różniczkowe na zmianę potencjału w poprzek błony komórkowej (czyli  membrany):</p>
+<div class="math notranslate nohighlight">
+\[C \frac{dV}{dt}  = I  - G_{Na} ( V  - E_{Na})  - G_{K} ( V  - E_{K})  - G_{L} ( V  - E_{L})\]</div>
+<p>Pamiętajmy, że różnica potencjału w poprzek błony komórkowej (membrany)  powstaje wskutek działania pompy potasowo - sodowej napędzanej przez procesy metaboliczne. Zmiany potencjału powodowane są zmianami przepuszczalności błony dla jonów potasu i sodu.  Aktywne pompy jonowe w membranie stale przepychają jony poza komórkę i do wnętrza.    Kanały jonowe mogą być zamknięte lub otwarte, zależnie od różnych czynników.   Powoduje to zależność przewodności <span class="math notranslate nohighlight">\(G_i\)</span> od przepuszczalności kanałów jonowych i dlatego też zmiany  przewodności to skutek  łącznego efektu otwierania i zamykania wielu mikroskopowych kanałów jonowych w błonie. Każdy kanał ma kilka bramek. Jeżeli wszystkie bramki są otwarte, kanał  przepuszcza jony. Jeżeli chociaż jedna bramka jest zamknięta, to kanał  nie przepuszcza jonów.  Możemy rozważać dwa stany bramki: bramka otwarta i bramka zamknięta. Stany te zmieniają się w czasie.  Można to przedstawić schematycznie jako przejścia między stanami:</p>
+<div class="math notranslate nohighlight">
+\[m  \overset{ \beta_m} {\underset{\alpha_m} \longleftrightarrow}  1-m\]</div>
+<p>Schemat jest podobny do kinetyki reakcji chemicznych  scharakteryzowanymi szybkościami przejść <span class="math notranslate nohighlight">\(\alpha_m\)</span>  i  <span class="math notranslate nohighlight">\(\beta_m\)</span>. Stąd możemy wnioskować o dynamice przejść opisanych przez równanie  kinetyczne typu:</p>
+<div class="math notranslate nohighlight">
+\[\frac{dm}{dt} = \alpha_m  (1- m)  - \beta_m  m\]</div>
+<p>gdzie <span class="math notranslate nohighlight">\(m\)</span> można interpretować jako prawdopodobieństwo otwarcia danej bramki. Z kolei <span class="math notranslate nohighlight">\(1-m\)</span> to prawdopodobieństwo tego, że bramka jest zamknięta. Takie równania można napisać dla każdej bramki w kanałach. Aby uzgodnić teorię z danymi doświadczalnymi trzeba założyć że:</p>
+<ol class="arabic simple">
+<li><p>Kanał sodowy składa się z trzech bramek typu <span class="math notranslate nohighlight">\(&quot;m&quot;\)</span> i jednej bramki typu <span class="math notranslate nohighlight">\(&quot;h&quot;\)</span>, które są od siebie niezależne. Stąd przewodność jonów sodu jest proporcjonalna do iloczynu <span class="math notranslate nohighlight">\(m  m  m  h\)</span>:</p></li>
+</ol>
+<div class="math notranslate nohighlight">
+\[G_{Na} = g_{Na}   m^3  h\]</div>
+<dl class="simple">
+<dt></dt><dd><p>gdzie <span class="math notranslate nohighlight">\(g_{Na}\)</span> jest maksymalną wartościa przewodności jonów sodowych.</p>
+</dd>
+</dl>
+<ol class="arabic simple" start="2">
+<li><p>Kanał potasowy  składa się z  czterech  bramek typu <span class="math notranslate nohighlight">\(&quot;n&quot;\)</span>.  Stąd przewodność jonów potasu  jest proporcjonalna do iloczynu <span class="math notranslate nohighlight">\(n  n  n  n\)</span>:</p></li>
+</ol>
+<div class="math notranslate nohighlight">
+\[G_{K} = g_{K}   n^4\]</div>
+<dl class="simple">
+<dt></dt><dd><p>gdzie <span class="math notranslate nohighlight">\(g_{K}\)</span> jest maksymalną wartościa przewodności jonów potasowych.</p>
+</dd>
+</dl>
+<p>Dla każdej z bramek otrzymujemy równania kinetyczne podobne to tego powyżej:</p>
+<div class="math notranslate nohighlight">
+\[\frac{dh}{dt} = \alpha_h  (1- h)  - \beta_h  h\]</div>
+<div class="math notranslate nohighlight">
+\[\frac{dn}{dt} = \alpha_n  (1- n)  - \beta_n   n\]</div>
+<p>Niestety, to nie koniec modelowania. Okazuje się, że wszystkie szybkości przejść są funkcjami napięcia <span class="math notranslate nohighlight">\(V\)</span>, czyli:</p>
+<div class="math notranslate nohighlight">
+\[\alpha_m = \alpha_m(V) ,  \quad  \alpha_h = \alpha_m(V)  , \quad   \alpha_n = \alpha_m(V),  \quad   \beta_m = \beta_m(V)  , \quad \beta_h  = \beta_h(V)  , \quad \beta_n  = \beta_n(V)\]</div>
+<p>W oryginalnej  pracy Hodgkina-Huxleya (J. Physiol. 117 (1952) 500-544) podano wyrażenia dla szybkości przejść. Współczesna wersja jest przeskalowana do postaci:</p>
+<div class="math notranslate nohighlight">
+\[\alpha_m = \frac{0.1  (V+40)} { 1 -  \exp\left[ - (V+40)/ 10\right]}\]</div>
+<div class="math notranslate nohighlight">
+\[\beta_m = 4 \exp\left[ - (V + 65)/18\right]\]</div>
+<div class="math notranslate nohighlight">
+\[\alpha_h = 0.07  \exp\left[ - (V +65)/20\right]\]</div>
+<div class="math notranslate nohighlight">
+\[\beta_h =   \frac{1}{1 +  \exp\left[ - (V+35)/10\right]}\]</div>
+<div class="math notranslate nohighlight">
+\[\alpha_n = \frac{0.01  (V+ 55)}{1 -  \exp\left[ - (V+ 55)/10\right]}\]</div>
+<div class="math notranslate nohighlight">
+\[\beta_n = 0.125  \exp\left[ - (V + 65)/80\right]\]</div>
+<p>Uwaga: skalowanie w nowej wersji  polega na odjęciu w potencjałach liczby 65, a następnie zmiany znaku V na -V  (np. V + 25 <span class="math notranslate nohighlight">\(\to\)</span>  - (V+40)).</p>
+<p>Dla większego porządku przepiszemy powyższe równania w bardziej zwartej postaci:</p>
+<div class="math notranslate nohighlight">
+\[C \frac{dV}{dt}  = I  - g_{Na}   m^3  h  ( V  - E_{Na})  - g_{K}   n^4  ( V  - E_{K})  - G_{L} ( V  - E_{L})\]</div>
+<div class="math notranslate nohighlight">
+\[\frac{dm}{dt} = \alpha_m  (1- m)  - \beta_m  m\]</div>
+<div class="math notranslate nohighlight">
+\[\frac{dh}{dt} = \alpha_h  (1- h)  - \beta_h  h\]</div>
+<div class="math notranslate nohighlight">
+\[\frac{dn}{dt} = \alpha_n  (1- n)  - \beta_n   n\]</div>
+<p>To zamyka teorię Hodgkina-Huxleya. Otrzymujemy układ 4 równań różniczkowych pierwszego rzędu. Wszystkie pomocnicze funkcje są określone. Pozostaje jeszcze zestaw parametrów i warunki początkowe. Jest  to zawarte w pracy Hodgkina-Huxleya. Poniżej podajemy wszystkie te wartości.  Potencjały są w jednostkach <span class="math notranslate nohighlight">\(mV\)</span>, czas w <span class="math notranslate nohighlight">\(msec\)</span>, pojemność w <span class="math notranslate nohighlight">\(\mu F/cm^2\)</span>,  prądy w <span class="math notranslate nohighlight">\(\mu A/cm^2\)</span>,   przewodności w <span class="math notranslate nohighlight">\(mS/cm^2\)</span> (litera <span class="math notranslate nohighlight">\(S\)</span> oznacza simens i jest odwrotnością oma).</p>
+</div>
+<div class="section" id="typowy-zestaw-parametrow">
+<h2>Typowy zestaw parametrów<a class="headerlink" href="#typowy-zestaw-parametrow" title="Stały odnośnik do tego nagłówka">¶</a></h2>
+<div class="math notranslate nohighlight">
+\[C = 1, \quad \quad g_{Na} = 120, \quad  \quad E_{Na} = 50,   \quad \quad g_{K} = 36, \quad \quad E_{K} =  -77, \quad \quad G_{L} = 0.03, \quad \quad E_{L} = 54.4\]</div>
+<div class="math notranslate nohighlight">
+\[t_0 = -7.0 \quad  \quad V(0) = -65.054389 \quad  \quad m(0) = 0.052564  \quad  \quad   h(0) = 0.591267 \quad  \quad  n(0) =  0.317337\]</div>
+<p>Aby zaobserwować  potencjał czynnościowy należy przyłożyć krótko trwający  prąd  (e.g. <span class="math notranslate nohighlight">\(I=8 \mu A/cm^2\)</span> przez okres czasu  2ms)  .</p>
+</div>
+</div>
+
+
+          </div>
+        </div>
+      </div>
+      <div class="sphinxsidebar" role="navigation" aria-label="main navigation">
+        <div class="sphinxsidebarwrapper">
+  <div class="sphinxlocaltoc">
+  <h3><a href="index.html">Table Of Contents</a></h3>
+  <ul>
+<li><a class="reference internal" href="#">Transmisja impulsów nerwowych: Model Hodgkinga-Huxleya</a><ul>
+<li><a class="reference internal" href="#wstep-podstawowe-informacje">Wstęp: Podstawowe informacje</a></li>
+<li><a class="reference internal" href="#model-propagacji-impulsu">Model propagacji impulsu</a></li>
+<li><a class="reference internal" href="#typowy-zestaw-parametrow">Typowy zestaw parametrów</a></li>
+</ul>
+</li>
+</ul>
+
+  </div>
+  <h4>Poprzedni temat</h4>
+  <p class="topless"><a href="iCSE_BProcnielin06_z155_modele_epidemii.html"
+                        title="poprzedni rozdział">Modele epidemii</a></p>
+  <h4>Następny temat</h4>
+  <p class="topless"><a href="iCSE_BProcnielin07_z133_Hodgkin-Huxley_numeryka.html"
+                        title="następny rozdział">Numeryczna analiza rozwiązań układu Hodgkina-Huxley’a</a></p>
+<div id="searchbox" style="display: none" role="search">
+  <h3 id="searchlabel">Szybkie wyszukiwanie</h3>
+    <div class="searchformwrapper">
+    <form class="search" action="search.html" method="get">
+      <input type="text" name="q" aria-labelledby="searchlabel" />
+      <input type="submit" value="Szukaj" />
+    </form>
+    </div>
+</div>
+<script>$('#searchbox').show(0);</script>
+        </div>
+      </div>
+      <div class="clearer"></div>
+    </div>
+  </div>
+  <div class="relbar-bottom">
+    
+    <div class="related" role="navigation" aria-label="related navigation">
+      <h3>Nawigacja</h3>
+      <ul>
+        <li class="right" style="margin-right: 10px">
+          <a href="iCSE_BProcnielin07_z133_Hodgkin-Huxley_numeryka.html" title="Numeryczna analiza rozwiązań układu Hodgkina-Huxley’a"
+             >dalej</a></li>
+        <li class="right" >
+          <a href="iCSE_BProcnielin06_z155_modele_epidemii.html" title="Modele epidemii"
+             >wstecz</a> &nbsp; &nbsp;</li>
+  <li><a href="index.html">Procesy nieliniowe w Biologii</a> &#187;</li>
+   
+      </ul>
+    </div>
+  </div>
+  
+  <div class="footer">
+    <a class="logo" href="http://icse.us.edu.pl/" target="_blank"><img src="_static/logo-icse.png" alt="ICSE"/></a><br/>
+    &copy; Copyright 2013, Jerzy Łuczka, Marcin Kostur.
+    Created using <a href="http://sphinx.pocoo.org/">Sphinx</a> 2.4.0.
+  </div>
+  </body>
+</html>
