@@ -1,0 +1,563 @@
+
+<!DOCTYPE html>
+
+<html xmlns="http://www.w3.org/1999/xhtml" lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <title>Ludwig et al. Model for Tumor Growth &#8212; Nonlinear processes in Biology</title>
+    <link rel="stylesheet" href="_static/alabaster.css" type="text/css" />
+    <link rel="stylesheet" href="_static/pygments.css" type="text/css" />
+    <script id="documentation_options" data-url_root="./" src="_static/documentation_options.js"></script>
+    <script src="_static/jquery.js"></script>
+    <script src="_static/underscore.js"></script>
+    <script src="_static/doctools.js"></script>
+    <script src="_static/language_data.js"></script>
+    <script crossorigin="anonymous" integrity="sha256-Ae2Vz/4ePdIu6ZyI/5ZGsYnb+m0JlOmKPjt6XZ9JJkA=" src="https://cdnjs.cloudflare.com/ajax/libs/require.js/2.3.4/require.min.js"></script>
+    <script async="async" src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.5/latest.js?config=TeX-AMS-MML_HTMLorMML"></script>
+    <script type="text/x-mathjax-config">MathJax.Hub.Config({"tex2jax": {"inlineMath": [["$", "$"], ["\\(", "\\)"]], "processEscapes": true, "ignoreClass": "document", "processClass": "math|output_area"}})</script>
+    <script type="text/javascript" src="https://sagecell.sagemath.org/static/jquery.min.js"></script>
+    <script type="text/javascript" src="https://sagecell.sagemath.org/embedded_sagecell.js"></script>
+    <script type="text/javascript">
+        sagecell.makeSagecell({inputLocation: ".sage_linked",
+                               linked: true});
+        sagecell.makeSagecell({inputLocation: ".sage_unlinked",
+                               linked: false});
+    </script>
+
+    <style type="text/css">
+        .sagecell .CodeMirror-scroll {
+            overflow-y: hidden;
+            overflow-x: auto;
+        }
+        .sagecell .CodeMirror {
+            height: auto;
+        }
+    </style>
+    
+    <link rel="index" title="Index" href="genindex.html" />
+    <link rel="search" title="Search" href="search.html" />
+    <link rel="next" title="The Lotka-Volterra model with SAGE" href="notebooks/Lotka_Volterra_with_SAGE.html" />
+    <link rel="prev" title="Models of interacting populations: prey-predator" href="NPB_predator_prey.html" />
+
+   
+  <link rel="stylesheet" href="_static/custom.css" type="text/css" />
+  
+  
+  <meta name="viewport" content="width=device-width, initial-scale=0.9, maximum-scale=0.9" />
+
+  </head><body>
+  
+
+    <div class="document">
+      <div class="documentwrapper">
+        <div class="bodywrapper">
+          
+
+          <div class="body" role="main">
+            
+  <div class="section" id="ludwig-et-al-model-for-tumor-growth">
+<h1>Ludwig et al. Model for Tumor Growth<a class="headerlink" href="#ludwig-et-al-model-for-tumor-growth" title="Permalink to this headline">¶</a></h1>
+<p>This is a one dimensional model applied to description of ecological
+systems, in particular the spruce budworm-forest interaction in the
+eastern North America (D. Ludwig, D. D. Jones and C. S. Holling,
+“Qualitative Analysis of Insect Outbreak Systems: The Spruce Budworm and
+Forest”, The Journal of Animal Ecology, Vol. 47, p. 315, 1978).
+Introduction of this model is presented in the previous section. This
+model is an example which can be applied to variety of phenomena. The
+interesting example is modeling of tumor growth with immunization. In
+the absence of an immune reaction, tumor evolution is thought to follow
+a limited growth law that can be described by e.g. the Verhulst
+mechanism. The carrying capacity measures the greatest possible number
+to which the tumor cells can be extended. The carrying capacity is
+determined by the resources of the system in which the tumor will be
+embedded. The influence of the immune system on tumor growth is
+represented by the predation term in the Ludwig model. The immune system
+try to eradicate the tumor cells and acts as predator in the population
+dynamics: The lymphocytes migrate to the tumor site, recognize the tumor
+cells, and initiate a powerful immune reaction that ends up in the
+destruction of the tumor tissue. Whenever not all of the tumor cells are
+destroyed during the elimination phase, a transition into the
+equilibrium phase will occur. The effector cells of the immune system
+further attack the tumor and exert a selective pressure on the cancer
+cells. In this manner only the susceptible cancer cell variants will be
+eliminated by the immune system, whereas tumor cell clones that are
+nonimmunogenic will survive leading to a sculpting of the immunogenic
+phenotype of the tumor. We recall an evolution equation introduced for
+the first time in the Ludwig et al. paper. It has the form:</p>
+<div class="math notranslate nohighlight">
+\[\frac{dN}{dt} = R N \left( 1-\frac{N}{K}\right) - \frac {BN^2}{A^2+N^2} = a(N) - b(N),\qquad (1)\]</div>
+<p>The first term is the Verhulst one which describes the growth process of
+tumor cells. The second term describes the influence of the immune
+system which acts as a predator: it destroys the tumor cells. Both terms
+have similar interpretation as for the budworm population dynamics. It
+is the first example of the model which exhibits bifurcation phenomena.
+In this sense, it is non-trivial. It is not clinically relevant model
+but should be considered as an idealization and the first step to
+construct more realistic models which, in the future, could be able to
+forecast clinical outputs, such as overall response to treatment and
+time to progression, which will provide opportunities for guided
+intervention and improved patient care.</p>
+<p>We should rescale this equation to the dimensionless form and reduce a
+number of parameter. We define ne values as:</p>
+<div class="math notranslate nohighlight">
+\[x=N/A, \quad r= RA/B, \quad k=K/A, \quad \tau = (B/A) t . \qquad (2)\]</div>
+<p>In these new variables the Ludwig equation reads:</p>
+<div class="math notranslate nohighlight">
+\[\frac{dx}{d\tau} = r x ( 1-\frac{x}{k}) - \frac {x^2}{1+x^2} = f(x) = - \frac{dU(x)}{dx}, \qquad (3)\]</div>
+<p>Here we introduced the “potential” <span class="math notranslate nohighlight">\(U(x)\)</span> defined by the
+derivative of the “force” <span class="math notranslate nohighlight">\(f(x)\)</span>. It can be obtained by
+integration of the function <span class="math notranslate nohighlight">\(-f(x)\)</span>. Note that the scaling reduces a
+number of paramters from 4 to 2: <span class="math notranslate nohighlight">\(r\)</span> and <span class="math notranslate nohighlight">\(k\)</span> which have the
+same interpretation as in the Verhulst model.</p>
+<p>EXCERCISE: Rescale this equation in the same way as for the Verhulst
+model. Introduce the new variables <span class="math notranslate nohighlight">\(y=N/K\)</span> and <span class="math notranslate nohighlight">\(s=r t\)</span>. This
+scaling is not as convenient as the first scaling. Why?</p>
+<p>Below we show both the function <span class="math notranslate nohighlight">\(f(x)\)</span> and the potential
+<span class="math notranslate nohighlight">\(U(x)\)</span> for some fixed values of parameters.</p>
+<div class="highlight-ipython2 notranslate"><div class="highlight"><pre><span></span><span class="n">var</span><span class="p">(</span><span class="s1">&#39;r k x y&#39;</span><span class="p">,</span><span class="n">domain</span><span class="o">=</span><span class="s1">&#39;real&#39;</span><span class="p">)</span>
+<span class="n">f</span><span class="p">(</span><span class="n">x</span><span class="p">)</span><span class="o">=</span><span class="n">r</span><span class="o">*</span><span class="n">x</span><span class="o">*</span><span class="p">(</span><span class="mi">1</span><span class="o">-</span><span class="n">x</span><span class="o">/</span><span class="n">k</span><span class="p">)</span> <span class="o">-</span> <span class="n">x</span><span class="o">^</span><span class="mi">2</span><span class="o">/</span><span class="p">(</span><span class="mi">1</span><span class="o">+</span><span class="n">x</span><span class="o">^</span><span class="mi">2</span><span class="p">)</span>
+<span class="n">show</span><span class="p">(</span><span class="n">f</span><span class="p">)</span>
+<span class="n">U</span><span class="o">=-</span><span class="n">f</span><span class="o">.</span><span class="n">integrate</span><span class="p">(</span><span class="n">x</span><span class="p">)</span>
+<span class="n">show</span><span class="p">(</span><span class="n">U</span><span class="p">)</span>
+</pre></div>
+</div>
+<html><script type="math/tex; mode=display">\newcommand{\Bold}[1]{\mathbf{#1}}x \ {\mapsto}\ -r x {\left(\frac{x}{k} - 1\right)} - \frac{x^{2}}{x^{2} + 1}</script></html><html><script type="math/tex; mode=display">\newcommand{\Bold}[1]{\mathbf{#1}}x \ {\mapsto}\ -\frac{{\left(3 \, k x^{2} - 2 \, x^{3}\right)} r}{6 \, k} + x - \arctan\left(x\right)</script></html><p>In the above cell, the first expression is the function <span class="math notranslate nohighlight">\(f(x)\)</span>.
+Note that it is rewritten by Sage in a different way than originally as
+in the equation (3). The second line is calculation of the potential
+<span class="math notranslate nohighlight">\(U(x)\)</span>.</p>
+<div class="section" id="stationary-states">
+<h2>Stationary states<a class="headerlink" href="#stationary-states" title="Permalink to this headline">¶</a></h2>
+<p>The stationary states <span class="math notranslate nohighlight">\(x_s\)</span> are determined by roots of the
+equation <span class="math notranslate nohighlight">\(f(x)=0\)</span>. Below the above function <span class="math notranslate nohighlight">\(f(x)\)</span> is
+depicted for fixed values of the parameters <span class="math notranslate nohighlight">\(r\)</span> and <span class="math notranslate nohighlight">\(k\)</span>. One
+can notice that for this set of parameters there are 4 roots, i.e. 4
+stationary states <span class="math notranslate nohighlight">\(x_s = 0, x_1, x_2, x_3\)</span>.</p>
+<div class="highlight-ipython2 notranslate"><div class="highlight"><pre><span></span><span class="n">plot</span><span class="p">(</span> <span class="n">f</span><span class="p">(</span><span class="n">x</span><span class="p">)</span><span class="o">.</span><span class="n">subs</span><span class="p">({</span><span class="n">r</span><span class="p">:</span><span class="o">.</span><span class="mi">4</span><span class="p">,</span><span class="n">k</span><span class="p">:</span><span class="mi">14</span><span class="p">}),(</span><span class="n">x</span><span class="p">,</span><span class="mi">0</span><span class="p">,</span><span class="mi">13</span><span class="p">),</span><span class="n">figsize</span><span class="o">=</span><span class="p">(</span><span class="mi">7</span><span class="p">,</span><span class="mi">2</span><span class="p">),</span><span class="n">axes_labels</span><span class="o">=</span><span class="p">[</span><span class="sa">r</span><span class="s1">&#39;$x$&#39;</span><span class="p">,</span><span class="sa">r</span><span class="s1">&#39;$f(x)$&#39;</span><span class="p">],</span><span class="n">tick_formatter</span><span class="o">=</span><span class="s1">&#39;latex&#39;</span><span class="p">)</span>
+</pre></div>
+</div>
+<img alt="_images/Tumor_growth_3_0.png" src="_images/Tumor_growth_3_0.png" />
+<ul class="simple">
+<li><p><strong>:math:`r=0.4, qquad k=14`</strong></p></li>
+</ul>
+<div class="highlight-ipython2 notranslate"><div class="highlight"><pre><span></span><span class="n">plot</span><span class="p">(</span> <span class="n">U</span><span class="p">(</span><span class="n">x</span><span class="p">)</span><span class="o">.</span><span class="n">subs</span><span class="p">({</span><span class="n">r</span><span class="p">:</span><span class="o">.</span><span class="mi">4</span><span class="p">,</span><span class="n">k</span><span class="p">:</span><span class="mi">14</span><span class="p">}),(</span><span class="n">x</span><span class="p">,</span><span class="mi">0</span><span class="p">,</span><span class="mi">13</span><span class="p">),</span><span class="n">figsize</span><span class="o">=</span><span class="p">(</span><span class="mi">7</span><span class="p">,</span><span class="mi">2</span><span class="p">),</span><span class="n">axes_labels</span><span class="o">=</span><span class="p">[</span><span class="sa">r</span><span class="s1">&#39;$x$&#39;</span><span class="p">,</span><span class="sa">r</span><span class="s1">&#39;$U(x)$&#39;</span><span class="p">],</span><span class="n">tick_formatter</span><span class="o">=</span><span class="s1">&#39;latex&#39;</span><span class="p">)</span>
+</pre></div>
+</div>
+<img alt="_images/Tumor_growth_5_0.png" src="_images/Tumor_growth_5_0.png" />
+<div class="highlight-ipython2 notranslate"><div class="highlight"><pre><span></span><span class="n">plot</span><span class="p">(</span> <span class="n">U</span><span class="p">(</span><span class="n">x</span><span class="p">)</span><span class="o">.</span><span class="n">subs</span><span class="p">({</span><span class="n">r</span><span class="p">:</span><span class="o">.</span><span class="mi">4</span><span class="p">,</span><span class="n">k</span><span class="p">:</span><span class="mi">14</span><span class="p">}),(</span><span class="n">x</span><span class="p">,</span><span class="o">-</span><span class="mf">0.2</span><span class="p">,</span><span class="mi">1</span><span class="p">),</span><span class="n">figsize</span><span class="o">=</span><span class="p">(</span><span class="mi">7</span><span class="p">,</span><span class="mi">2</span><span class="p">),</span><span class="n">axes_labels</span><span class="o">=</span><span class="p">[</span><span class="sa">r</span><span class="s1">&#39;$x$&#39;</span><span class="p">,</span><span class="sa">r</span><span class="s1">&#39;$U(x)$&#39;</span><span class="p">])</span>
+</pre></div>
+</div>
+<img alt="_images/Tumor_growth_6_0.png" src="_images/Tumor_growth_6_0.png" />
+<p>The corresponding potential <span class="math notranslate nohighlight">\(U(x)\)</span> possesses 4 extrema: 2 maxima
+and 2 minima. We enlarged the second figure for the potential to show
+its maximum for <span class="math notranslate nohighlight">\(x=0\)</span> and the minimum in the vicinity
+<span class="math notranslate nohighlight">\(x=0.47\)</span>. So, <span class="math notranslate nohighlight">\(x_s=0\)</span> is unstable and
+<span class="math notranslate nohighlight">\(x_s \approx 0.47\)</span> is stable.</p>
+</div>
+<div class="section" id="graphical-solution">
+<h2>Graphical solution<a class="headerlink" href="#graphical-solution" title="Permalink to this headline">¶</a></h2>
+<p>The equation determining stationary states <span class="math notranslate nohighlight">\(f(x)=0\)</span> can be
+rewritten in an equivalent form as:</p>
+<div class="math notranslate nohighlight">
+\[r x ( 1-\frac{x}{k}) = \frac {x^2}{1+x^2}\]</div>
+<p>This form allows to find stationary solutions in a graphical way. One of
+the stationary state is <span class="math notranslate nohighlight">\(x=0\)</span>. Other states are find by the
+solution of the equation</p>
+<div class="math notranslate nohighlight">
+\[r  ( 1-\frac{x}{k}) = \frac {x}{1+x^2}\]</div>
+<p>It can be solved graphically. The function in the right hand side has no
+parameters and can be plotted. The function in the left hand side is a
+straight line with two parameters. They can be changed. It is done
+below. You can change the parameters <span class="math notranslate nohighlight">\(k\)</span> and <span class="math notranslate nohighlight">\(r\)</span> using
+sliders and observe the intersections of both functions which determine
+the stationary states.</p>
+<p>NOTE: the straight line intersects the axis OX at the point <span class="math notranslate nohighlight">\(x=k\)</span>
+and intersects the axis OY at the point <span class="math notranslate nohighlight">\(y=r\)</span>.</p>
+<div class='sage_linked'><script type='text/x-sage'>@interact
+def _(k=slider(round(0.001,3),20,0.1, 12.0),r=slider(round(0.001,4),1,0.05,.4)):
+    p1 = plot(x/(x^2+1),(x,0,15),legend_label=r'$y=\frac{x}{x^2+1}$')
+    p2 = plot(-r/k*x+r,(x,0,15),color='red',\
+       legend_label=r'$y=r(1-\frac{x}{k})$')
+    p3 = plot( -(1/6*(3*k*x^2 - 2*x^3)*r/k - x + arctan(x)),(x,0,11),\
+       legend_label=r'$y=-\frac{(3kx^2-2x^3)}{6k}-x+ \arctan(x)$')
+    show(p1+p2, ymin=0,figsize=(6,2),axes_labels=[r'$x$',r'$y$'])</script></div><p>From the above slider it follows that the system can have non-zero
+stationary states. Their number may be : 1, 2 or 3. Of course, there is
+still <span class="math notranslate nohighlight">\(x_s =0\)</span>. By chaging parameters, the number of stationary
+states can be changed. It is what is called a bifurcation phenomenon
+which in physics is known as phase transition. Below, a similar slider
+for the potential <span class="math notranslate nohighlight">\(U(x)\)</span> is constructed. Minima of this potential
+correspond to the stable stationary solutions and maxima of <span class="math notranslate nohighlight">\(U(x)\)</span>
+corresponds to unstable stationary states.</p>
+<div class='sage_linked'><script type='text/x-sage'>@interact
+def _(k=slider(round(0.001,3),20,0.1, 12.0),r=slider(round(0.001,4),1,0.05,.4)):
+    p1 = plot(x/(x^2+1),(x,0,15),legend_label=r'$y=\frac{x}{x^2+1}$')
+    p2 = plot(-r/k*x+r,(x,0,15),color='red',legend_label=r'$y=r(1-\frac{x}{k})$')
+    p3 = plot( -(1/6*(3*k*x^2 - 2*x^3)*r/k - x + arctan(x)),(x,0,11),\
+            legend_label=r'$y=-\frac{(3kx^2-2x^3)}{6k}-x+ \arctan(x)$')
+    show(p3,figsize=(6,2),axes_labels=[r'$x$',r'$y$'])</script></div><p>For the set of parameters <span class="math notranslate nohighlight">\(k=12\)</span> and <span class="math notranslate nohighlight">\(r=0.4\)</span>, the potential
+<span class="math notranslate nohighlight">\(U(x)\)</span> has two minima and one maximum.</p>
+<p>Below we show how to get numerically all roots of the equation
+<span class="math notranslate nohighlight">\(f(x)=0\)</span> by changing <span class="math notranslate nohighlight">\(n\)</span> in sol<span class="math notranslate nohighlight">\(2[n]\)</span> .</p>
+<div class="highlight-ipython2 notranslate"><div class="highlight"><pre><span></span><span class="n">solutions</span>  <span class="o">=</span> <span class="n">solve</span><span class="p">(</span> <span class="mf">0.4</span><span class="o">*</span><span class="n">x</span><span class="o">*</span><span class="p">(</span><span class="mi">1</span><span class="o">-</span><span class="n">x</span><span class="o">/</span><span class="mi">12</span><span class="p">)</span> <span class="o">-</span> <span class="n">x</span><span class="o">^</span><span class="mi">2</span><span class="o">/</span><span class="p">(</span><span class="mi">1</span><span class="o">+</span><span class="n">x</span><span class="o">^</span><span class="mi">2</span><span class="p">),</span><span class="n">x</span><span class="p">,</span><span class="n">solution_dict</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
+<span class="n">show</span><span class="p">(</span><span class="n">solutions</span><span class="p">)</span>
+</pre></div>
+</div>
+<html><script type="math/tex; mode=display">\newcommand{\Bold}[1]{\mathbf{#1}}\left[\left\{x : -\frac{1}{2} \, \sqrt{65} + \frac{9}{2}\right\}, \left\{x : \frac{1}{2} \, \sqrt{65} + \frac{9}{2}\right\}, \left\{x : 3\right\}, \left\{x : 0\right\}\right]</script></html><div class="highlight-ipython2 notranslate"><div class="highlight"><pre><span></span><span class="n">x</span><span class="o">.</span><span class="n">subs</span><span class="p">(</span><span class="n">solutions</span><span class="p">[</span><span class="mi">0</span><span class="p">])</span><span class="o">.</span><span class="n">n</span><span class="p">()</span>
+</pre></div>
+</div>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="mf">0.468871125850725</span>
+</pre></div>
+</div>
+<div class="highlight-ipython2 notranslate"><div class="highlight"><pre><span></span><span class="n">x</span><span class="o">.</span><span class="n">subs</span><span class="p">(</span><span class="n">solutions</span><span class="p">[</span><span class="mi">1</span><span class="p">])</span><span class="o">.</span><span class="n">n</span><span class="p">()</span>
+</pre></div>
+</div>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="mf">8.53112887414927</span>
+</pre></div>
+</div>
+<div class="highlight-ipython2 notranslate"><div class="highlight"><pre><span></span><span class="n">x</span><span class="o">.</span><span class="n">subs</span><span class="p">(</span><span class="n">solutions</span><span class="p">[</span><span class="mi">2</span><span class="p">])</span><span class="o">.</span><span class="n">n</span><span class="p">()</span>
+</pre></div>
+</div>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="mf">3.00000000000000</span>
+</pre></div>
+</div>
+<div class="highlight-ipython2 notranslate"><div class="highlight"><pre><span></span><span class="n">x</span><span class="o">.</span><span class="n">subs</span><span class="p">(</span><span class="n">solutions</span><span class="p">[</span><span class="mi">3</span><span class="p">])</span><span class="o">.</span><span class="n">n</span><span class="p">()</span>
+</pre></div>
+</div>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="mf">0.000000000000000</span>
+</pre></div>
+</div>
+<p>We observe that stationary states are: 0 is always unstable (maximum of
+the potential), 0.46887 is stable (minimum), 3 is unstable (maximum) and
+8.53 is stable (minimum). It is rule that the sequence of states is
+-unstable-stable-unstable-stable-</p>
+<p>Below: An analytical solution of <span class="math notranslate nohighlight">\(f(x)=0\)</span> obtained by the computer
+algebra. It is useful?</p>
+<div class="highlight-ipython2 notranslate"><div class="highlight"><pre><span></span><span class="n">var</span><span class="p">(</span><span class="s1">&#39;k r&#39;</span><span class="p">)</span>
+<span class="n">sols</span> <span class="o">=</span> <span class="n">solve</span><span class="p">(</span> <span class="n">r</span><span class="o">*</span><span class="n">x</span><span class="o">*</span><span class="p">(</span><span class="mi">1</span><span class="o">-</span><span class="n">x</span><span class="o">/</span><span class="n">k</span><span class="p">)</span> <span class="o">-</span> <span class="n">x</span><span class="o">^</span><span class="mi">2</span><span class="o">/</span><span class="p">(</span><span class="mi">1</span><span class="o">+</span><span class="n">x</span><span class="o">^</span><span class="mi">2</span><span class="p">),</span><span class="n">x</span><span class="p">,</span><span class="n">solution_dict</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
+<span class="n">show</span><span class="p">(</span> <span class="n">x</span><span class="o">.</span><span class="n">subs</span><span class="p">(</span><span class="n">sols</span><span class="p">[</span><span class="mi">2</span><span class="p">]))</span>
+</pre></div>
+</div>
+<html><script type="math/tex; mode=display">\newcommand{\Bold}[1]{\mathbf{#1}}\frac{2 \, \left(\frac{1}{2}\right)^{\frac{2}{3}} {\left(k^{2} - \frac{3 \, {\left(k + r\right)}}{r}\right)}}{3 \, {\left(2 \, k^{3} + 27 \, k - \frac{9 \, {\left(k + r\right)} k}{r} + \frac{9 \, \sqrt{\frac{1}{3}} \sqrt{\frac{4 \, {\left(k^{4} + 2 \, k^{2} + 1\right)} r^{3} + 4 \, k^{3} - 4 \, {\left(5 \, k^{3} - 3 \, k\right)} r^{2} - {\left(k^{4} - 12 \, k^{2}\right)} r}{r}}}{r}\right)}^{\frac{1}{3}}} + \frac{1}{3} \, k + \frac{1}{3} \, \left(\frac{1}{2}\right)^{\frac{1}{3}} {\left(2 \, k^{3} + 27 \, k - \frac{9 \, {\left(k + r\right)} k}{r} + \frac{9 \, \sqrt{\frac{1}{3}} \sqrt{\frac{4 \, {\left(k^{4} + 2 \, k^{2} + 1\right)} r^{3} + 4 \, k^{3} - 4 \, {\left(5 \, k^{3} - 3 \, k\right)} r^{2} - {\left(k^{4} - 12 \, k^{2}\right)} r}{r}}}{r}\right)}^{\frac{1}{3}}</script></html></div>
+<div class="section" id="bifurcation-diagram">
+<h2>Bifurcation diagram<a class="headerlink" href="#bifurcation-diagram" title="Permalink to this headline">¶</a></h2>
+<p>From the graphical method of solution of <span class="math notranslate nohighlight">\(f(x)=0\)</span> we see that the
+number of stationary states depends on values of parameters <span class="math notranslate nohighlight">\(k\)</span>
+and <span class="math notranslate nohighlight">\(r\)</span>. Assume that e.g. <span class="math notranslate nohighlight">\(r=0.45\)</span>. One can observe that if
+<span class="math notranslate nohighlight">\(k\)</span> is small (e.g. <span class="math notranslate nohighlight">\(k=6\)</span>) then there is only one root of
+<span class="math notranslate nohighlight">\(f(x)=0\)</span>. If <span class="math notranslate nohighlight">\(k\)</span> increases then the second root occurs
+(which is double). The further growth of <span class="math notranslate nohighlight">\(k\)</span> lead to the creation
+of the third root. A similar phenomenon can be detected when <span class="math notranslate nohighlight">\(r\)</span>
+is varied. The value of the parameter when the second root occurs is
+sometimes called critical. It corresponds to the double root. From this
+double root, two roots are created when the parameter is a little bit
+varied. If the function <span class="math notranslate nohighlight">\(f(x)\)</span> has a double root <span class="math notranslate nohighlight">\(x_d\)</span> then
+it means that it can be presented in the form:</p>
+<div class="math notranslate nohighlight">
+\[f(x) = (x-x_d)^2 g(x)\]</div>
+<p>We see that <span class="math notranslate nohighlight">\(f(x_d)=0\)</span> and one can check that also the derivative
+<span class="math notranslate nohighlight">\(f'(x_d)=0\)</span>. It is an important property of double roots. It means
+that if we want to find all values of parameters for which <span class="math notranslate nohighlight">\(f(x)\)</span>
+has double roots, we have to solve a set of two equations:</p>
+<div class="math notranslate nohighlight">
+\[f(x)=0 \qquad \mbox{and} \qquad f'(x)=0\]</div>
+<div class="line-block">
+<div class="line">We can devide and colore the plane of parameters <span class="math notranslate nohighlight">\((k, r)\)</span> for
+which there is one stationary state and three stationary states. The
+border between these two areas forms a curve which is named the
+bifurcation diagram.</div>
+<div class="line">It is presented below.</div>
+</div>
+<div class="highlight-ipython2 notranslate"><div class="highlight"><pre><span></span><span class="n">ff1</span><span class="o">=</span><span class="n">fast_callable</span><span class="p">(</span>  <span class="n">x</span><span class="o">.</span><span class="n">subs</span><span class="p">(</span><span class="n">sols</span><span class="p">[</span><span class="mi">0</span><span class="p">])</span> <span class="p">,</span> <span class="nb">vars</span><span class="o">=</span><span class="p">[</span><span class="n">r</span><span class="p">,</span><span class="n">k</span><span class="p">],</span> <span class="n">domain</span><span class="o">=</span><span class="n">CDF</span><span class="p">)</span>
+<span class="n">ff2</span><span class="o">=</span><span class="n">fast_callable</span><span class="p">(</span>  <span class="n">x</span><span class="o">.</span><span class="n">subs</span><span class="p">(</span><span class="n">sols</span><span class="p">[</span><span class="mi">1</span><span class="p">])</span> <span class="p">,</span> <span class="nb">vars</span><span class="o">=</span><span class="p">[</span><span class="n">r</span><span class="p">,</span><span class="n">k</span><span class="p">],</span> <span class="n">domain</span><span class="o">=</span><span class="n">CDF</span><span class="p">)</span>
+<span class="n">ff3</span><span class="o">=</span><span class="n">fast_callable</span><span class="p">(</span>  <span class="n">x</span><span class="o">.</span><span class="n">subs</span><span class="p">(</span><span class="n">sols</span><span class="p">[</span><span class="mi">2</span><span class="p">])</span> <span class="p">,</span> <span class="nb">vars</span><span class="o">=</span><span class="p">[</span><span class="n">r</span><span class="p">,</span><span class="n">k</span><span class="p">],</span> <span class="n">domain</span><span class="o">=</span><span class="n">CDF</span><span class="p">)</span>
+<span class="n">ff4</span><span class="o">=</span><span class="n">fast_callable</span><span class="p">(</span>  <span class="n">x</span><span class="o">.</span><span class="n">subs</span><span class="p">(</span><span class="n">sols</span><span class="p">[</span><span class="mi">3</span><span class="p">])</span> <span class="p">,</span> <span class="nb">vars</span><span class="o">=</span><span class="p">[</span><span class="n">r</span><span class="p">,</span><span class="n">k</span><span class="p">],</span> <span class="n">domain</span><span class="o">=</span><span class="n">CDF</span><span class="p">)</span>
+<span class="k">def</span> <span class="nf">get_n_roots</span><span class="p">(</span><span class="n">r</span><span class="p">,</span><span class="n">k</span><span class="p">):</span>
+    <span class="n">x0</span><span class="o">=</span><span class="p">[]</span>
+    <span class="k">for</span> <span class="n">ff</span> <span class="ow">in</span> <span class="p">[</span><span class="n">ff1</span><span class="p">,</span><span class="n">ff2</span><span class="p">,</span><span class="n">ff3</span><span class="p">,</span><span class="n">ff4</span><span class="p">]:</span>
+        <span class="n">val</span><span class="o">=</span><span class="n">ff</span><span class="p">(</span><span class="n">r</span><span class="p">,</span><span class="n">k</span><span class="p">)</span>
+        <span class="k">if</span> <span class="nb">abs</span><span class="p">(</span><span class="n">imag</span><span class="p">(</span><span class="n">val</span><span class="p">))</span><span class="o">&lt;</span><span class="mf">1e-10</span><span class="p">:</span>
+            <span class="n">x0</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">real</span><span class="p">(</span><span class="n">val</span><span class="p">))</span>
+    <span class="k">return</span> <span class="nb">len</span><span class="p">(</span><span class="n">x0</span><span class="p">),</span><span class="n">x0</span>
+</pre></div>
+</div>
+<div class="highlight-ipython2 notranslate"><div class="highlight"><pre><span></span><span class="n">get_n_roots</span><span class="p">(</span><span class="mi">1</span><span class="p">,</span><span class="mi">1</span><span class="p">)</span>
+</pre></div>
+</div>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="p">(</span><span class="mi">2</span><span class="p">,</span> <span class="p">[</span><span class="mf">0.5698402909980531</span><span class="p">,</span> <span class="mf">0.0</span><span class="p">])</span>
+</pre></div>
+</div>
+<div class="highlight-ipython2 notranslate"><div class="highlight"><pre><span></span><span class="n">four</span><span class="o">=</span><span class="p">[]</span>
+<span class="k">for</span> <span class="n">r_</span> <span class="ow">in</span> <span class="n">srange</span><span class="p">(</span><span class="mf">0.01</span><span class="p">,</span><span class="mf">0.9</span><span class="p">,</span><span class="mf">0.01</span><span class="p">):</span>
+    <span class="k">for</span> <span class="n">k_</span> <span class="ow">in</span> <span class="n">srange</span><span class="p">(</span><span class="mi">1</span><span class="p">,</span><span class="mi">40</span><span class="p">,</span><span class="o">.</span><span class="mi">3</span><span class="p">):</span>
+      <span class="k">if</span> <span class="n">get_n_roots</span><span class="p">(</span><span class="n">r_</span><span class="p">,</span><span class="n">k_</span><span class="p">)[</span><span class="mi">0</span><span class="p">]</span><span class="o">==</span><span class="mi">4</span><span class="p">:</span>
+          <span class="n">four</span><span class="o">.</span><span class="n">append</span><span class="p">((</span><span class="n">k_</span><span class="p">,</span><span class="n">r_</span><span class="p">))</span>
+<span class="n">points4</span><span class="o">=</span><span class="n">point</span><span class="p">(</span> <span class="n">four</span> <span class="p">,</span><span class="n">color</span><span class="o">=</span><span class="s1">&#39;red&#39;</span><span class="p">,</span><span class="n">figsize</span><span class="o">=</span><span class="mi">6</span><span class="p">)</span>
+<span class="n">show</span><span class="p">(</span><span class="n">points4</span><span class="p">)</span>
+</pre></div>
+</div>
+<img alt="_images/Tumor_growth_22_0.png" src="_images/Tumor_growth_22_0.png" />
+<p>It is a result of scan of parameters to find read area where there are
+three stationary states. In the white part of this plane, there is one
+stable stationary states. The border between them is limited by the
+curve which can be obtained by the solution of a set of two equations:
+<span class="math notranslate nohighlight">\(f(x)=0\)</span> and <span class="math notranslate nohighlight">\(f'(x)=0\)</span>. One can derive an analytical form
+for this curve from the set of two equations. It is given in a
+parametric form: <span class="math notranslate nohighlight">\(\{r=F(x), k=G(x)\}\)</span>, where</p>
+<div class="math notranslate nohighlight">
+\[F(x)=\frac{2x^3}{(x^2+1)^2}, \qquad G(x) = \frac{2x^3}{x^2-1} \qquad \mbox{for} \qquad x&gt;1\]</div>
+<p>The coordinate of the cusp can be obtained as an extremal point,
+i.e. from the derivative <span class="math notranslate nohighlight">\(F'(x)=0\)</span> or/and <span class="math notranslate nohighlight">\(G'(x)=0\)</span>. It
+gives the result <span class="math notranslate nohighlight">\(x_c=\sqrt{3}\)</span>. If we insert it to <span class="math notranslate nohighlight">\(F\)</span> and
+<span class="math notranslate nohighlight">\(G\)</span> then the coordinate of the casp are
+<span class="math notranslate nohighlight">\((r_c \approx 0.6495, k_c\approx 5.196)\)</span>.</p>
+<div class="highlight-ipython2 notranslate"><div class="highlight"><pre><span></span><span class="n">show</span><span class="p">(</span><span class="n">f</span><span class="p">(</span><span class="n">x</span><span class="p">))</span>
+</pre></div>
+</div>
+<html><script type="math/tex; mode=display">\newcommand{\Bold}[1]{\mathbf{#1}}-r x {\left(\frac{x}{k} - 1\right)} - \frac{x^{2}}{x^{2} + 1}</script></html><div class="highlight-ipython2 notranslate"><div class="highlight"><pre><span></span><span class="n">expr</span> <span class="o">=</span> <span class="n">expand</span><span class="p">(</span> <span class="p">(</span><span class="n">f</span><span class="p">(</span><span class="n">x</span><span class="p">)</span><span class="o">/</span><span class="n">x</span><span class="p">)</span><span class="o">*</span><span class="p">(</span><span class="n">x</span><span class="o">^</span><span class="mi">2</span><span class="o">+</span><span class="mi">1</span><span class="p">)</span> <span class="p">)</span><span class="o">.</span><span class="n">full_simplify</span><span class="p">()</span>
+</pre></div>
+</div>
+<div class="highlight-ipython2 notranslate"><div class="highlight"><pre><span></span><span class="n">show</span><span class="p">(</span><span class="n">expr</span><span class="p">)</span>
+</pre></div>
+</div>
+<html><script type="math/tex; mode=display">\newcommand{\Bold}[1]{\mathbf{#1}}\frac{k r x^{2} - r x^{3} + k r - {\left(k + r\right)} x}{k}</script></html><div class="highlight-ipython2 notranslate"><div class="highlight"><pre><span></span><span class="n">show</span><span class="p">(</span> <span class="n">numerator</span><span class="p">(</span><span class="n">factor</span><span class="p">(</span><span class="n">f</span><span class="p">(</span><span class="n">x</span><span class="p">)</span><span class="o">/</span><span class="n">x</span><span class="p">))</span> <span class="p">)</span>
+</pre></div>
+</div>
+<html><script type="math/tex; mode=display">\newcommand{\Bold}[1]{\mathbf{#1}}k r x^{2} - r x^{3} + k r - k x - r x</script></html><div class="highlight-ipython2 notranslate"><div class="highlight"><pre><span></span><span class="n">expr</span> <span class="o">=</span> <span class="n">numerator</span><span class="p">(</span><span class="n">factor</span><span class="p">(</span><span class="n">f</span><span class="p">(</span><span class="n">x</span><span class="p">)</span><span class="o">/</span><span class="n">x</span><span class="p">))</span>
+</pre></div>
+</div>
+<div class="highlight-ipython2 notranslate"><div class="highlight"><pre><span></span><span class="n">table</span><span class="p">([[</span><span class="sa">r</span><span class="s1">&#39;$\frac{f(x)(x^2+1)}</span><span class="si">{x}</span><span class="s1"> =0$&#39;</span><span class="p">,</span><span class="sa">r</span><span class="s1">&#39;$\frac</span><span class="si">{d}{dx}</span><span class="s1">\frac{f(x)(x^2+1)}</span><span class="si">{x}</span><span class="s1">$=0&#39;</span><span class="p">],[</span><span class="n">expr</span><span class="p">,</span><span class="n">expr</span><span class="o">.</span><span class="n">diff</span><span class="p">(</span><span class="n">x</span><span class="p">)]])</span>
+<span class="n">solrk</span> <span class="o">=</span> <span class="n">solve</span><span class="p">([</span><span class="n">expr</span><span class="p">,</span><span class="n">expr</span><span class="o">.</span><span class="n">diff</span><span class="p">(</span><span class="n">x</span><span class="p">)],[</span><span class="n">r</span><span class="p">,</span><span class="n">k</span><span class="p">],</span><span class="n">solution_dict</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
+<span class="n">rx</span><span class="p">,</span><span class="n">kx</span> <span class="o">=</span> <span class="n">r</span><span class="o">.</span><span class="n">subs</span><span class="p">(</span><span class="n">solrk</span><span class="p">[</span><span class="mi">0</span><span class="p">]),</span><span class="n">k</span><span class="o">.</span><span class="n">subs</span><span class="p">(</span><span class="n">solrk</span><span class="p">[</span><span class="mi">0</span><span class="p">])</span>
+<span class="n">table</span><span class="p">([[</span><span class="s1">&#39;$r(x)$&#39;</span><span class="p">,</span><span class="s1">&#39;$k(x)$&#39;</span><span class="p">],[</span><span class="n">rx</span><span class="p">,</span><span class="n">kx</span><span class="p">]])</span>
+</pre></div>
+</div>
+<div class="notruncate">
+<table  class="table_form">
+<tbody>
+<tr class ="row-a">
+<td><script type="math/tex">r(x)</script></td>
+<td><script type="math/tex">k(x)</script></td>
+</tr>
+<tr class ="row-b">
+<td><script type="math/tex">\frac{2 \, x^{3}}{x^{4} + 2 \, x^{2} + 1}</script></td>
+<td><script type="math/tex">\frac{2 \, x^{3}}{x^{2} - 1}</script></td>
+</tr>
+</tbody>
+</table>
+</div><div class="highlight-ipython2 notranslate"><div class="highlight"><pre><span></span><span class="n">points4</span> <span class="o">+</span> <span class="n">parametric_plot</span><span class="p">((</span><span class="n">kx</span><span class="p">,</span><span class="n">rx</span><span class="p">),(</span><span class="n">x</span><span class="p">,</span><span class="mf">1.</span><span class="p">,</span><span class="mi">13</span><span class="p">),</span><span class="n">aspect_ratio</span><span class="o">=</span><span class="mi">32</span><span class="p">)</span>
+</pre></div>
+</div>
+<img alt="_images/Tumor_growth_30_0.png" src="_images/Tumor_growth_30_0.png" />
+<div class="highlight-ipython2 notranslate"><div class="highlight"><pre><span></span><span class="nb">print</span><span class="p">(</span><span class="n">expr</span><span class="p">,</span><span class="n">f</span><span class="p">(</span><span class="n">x</span><span class="p">))</span>
+</pre></div>
+</div>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="p">(</span><span class="n">k</span><span class="o">*</span><span class="n">r</span><span class="o">*</span><span class="n">x</span><span class="o">^</span><span class="mi">2</span> <span class="o">-</span> <span class="n">r</span><span class="o">*</span><span class="n">x</span><span class="o">^</span><span class="mi">3</span> <span class="o">+</span> <span class="n">k</span><span class="o">*</span><span class="n">r</span> <span class="o">-</span> <span class="n">k</span><span class="o">*</span><span class="n">x</span> <span class="o">-</span> <span class="n">r</span><span class="o">*</span><span class="n">x</span><span class="p">,</span> <span class="o">-</span><span class="n">r</span><span class="o">*</span><span class="n">x</span><span class="o">*</span><span class="p">(</span><span class="n">x</span><span class="o">/</span><span class="n">k</span> <span class="o">-</span> <span class="mi">1</span><span class="p">)</span> <span class="o">-</span> <span class="n">x</span><span class="o">^</span><span class="mi">2</span><span class="o">/</span><span class="p">(</span><span class="n">x</span><span class="o">^</span><span class="mi">2</span> <span class="o">+</span> <span class="mi">1</span><span class="p">))</span>
+</pre></div>
+</div>
+<p><a class="reference external" href="http://sagecell.sagemath.org/?z=eJwty8EKwyAQBNB7IP-wN1e7DdHQo7_SIKkQa0pklcTPb6Q9zcyDORyjgAoRGITsO18Tg4WoWNWngTu0nODW5FpR1Z_1XfikLSyhzGnby_TC9iSMNJJ5SEKmcSBzlfoXl5NfysyuhN2iJm1ISznkdT_xCP70bEVZ2ft3FvILgyUruQ==&amp;lang=sage">link to
+sagecell</a></p>
+<div class="highlight-ipython2 notranslate"><div class="highlight"><pre><span></span><span class="n">implicit_plot3d</span><span class="p">(</span><span class="n">f</span><span class="o">.</span><span class="n">diff</span><span class="p">(</span><span class="n">x</span><span class="p">),(</span><span class="n">k</span><span class="p">,</span><span class="mi">0</span><span class="p">,</span><span class="mi">25</span><span class="p">),(</span><span class="n">r</span><span class="p">,</span><span class="mf">0.1</span><span class="p">,</span><span class="mf">0.7</span><span class="p">),(</span><span class="n">x</span><span class="p">,</span><span class="mi">0</span><span class="p">,</span><span class="mi">20</span><span class="p">),</span><span class="n">color</span><span class="o">=</span><span class="s1">&#39;palevioletred&#39;</span><span class="p">)</span><span class="o">.</span><span class="n">show</span><span class="p">(</span><span class="n">viewer</span><span class="o">=</span><span class="s1">&#39;tachyon&#39;</span><span class="p">)</span>
+</pre></div>
+</div>
+<img alt="_images/Tumor_growth_33_0.png" src="_images/Tumor_growth_33_0.png" />
+</div>
+<div class="section" id="problem-3-stability-of-stationary-states">
+<h2>Problem 3: stability of stationary states<a class="headerlink" href="#problem-3-stability-of-stationary-states" title="Permalink to this headline">¶</a></h2>
+<div class="highlight-ipython2 notranslate"><div class="highlight"><pre><span></span><span class="n">k_</span> <span class="o">=</span> <span class="mf">6.6</span>
+<span class="n">x_stab</span> <span class="o">=</span> <span class="p">[]</span>
+<span class="n">x_unstab</span> <span class="o">=</span> <span class="p">[]</span>
+<span class="k">for</span> <span class="n">r_</span> <span class="ow">in</span> <span class="n">srange</span><span class="p">(</span><span class="mf">0.1</span><span class="p">,</span><span class="mf">0.8</span><span class="p">,</span><span class="mf">0.001</span><span class="p">):</span>
+    <span class="k">for</span> <span class="n">x0</span> <span class="ow">in</span> <span class="n">get_n_roots</span><span class="p">(</span><span class="n">r_</span><span class="p">,</span><span class="n">k_</span><span class="p">)[</span><span class="mi">1</span><span class="p">]:</span>
+        <span class="k">if</span> <span class="n">f</span><span class="o">.</span><span class="n">diff</span><span class="p">(</span><span class="n">x</span><span class="p">)</span><span class="o">.</span><span class="n">subs</span><span class="p">({</span><span class="n">k</span><span class="p">:</span><span class="n">k_</span><span class="p">,</span><span class="n">r</span><span class="p">:</span><span class="n">r_</span><span class="p">})(</span><span class="n">x0</span><span class="p">)</span><span class="o">&lt;</span><span class="mi">0</span><span class="p">:</span>
+            <span class="n">x_stab</span><span class="o">.</span><span class="n">append</span><span class="p">(</span> <span class="p">(</span><span class="n">r_</span><span class="p">,</span> <span class="n">x0</span><span class="p">)</span> <span class="p">)</span>
+        <span class="k">else</span><span class="p">:</span>
+            <span class="n">x_unstab</span><span class="o">.</span><span class="n">append</span><span class="p">(</span> <span class="p">(</span><span class="n">r_</span><span class="p">,</span> <span class="n">x0</span><span class="p">)</span> <span class="p">)</span>
+
+<span class="n">p</span> <span class="o">=</span> <span class="n">point</span><span class="p">(</span><span class="n">x_stab</span><span class="p">,</span> <span class="n">legend_label</span><span class="o">=</span><span class="s1">&#39;stable&#39;</span><span class="p">)</span>
+<span class="n">p</span> <span class="o">+=</span> <span class="n">point</span><span class="p">(</span><span class="n">x_unstab</span><span class="p">,</span><span class="n">color</span><span class="o">=</span><span class="s1">&#39;red&#39;</span><span class="p">,</span> <span class="n">legend_label</span><span class="o">=</span><span class="s1">&#39;unstable&#39;</span><span class="p">)</span>
+<span class="n">p</span><span class="o">.</span><span class="n">show</span><span class="p">(</span><span class="n">axes_labels</span><span class="o">=</span><span class="p">[</span><span class="sa">r</span><span class="s1">&#39;$r$&#39;</span><span class="p">,</span><span class="sa">r</span><span class="s1">&#39;$x_0$&#39;</span><span class="p">],</span> <span class="n">tick_formatter</span><span class="o">=</span><span class="s1">&#39;latex&#39;</span><span class="p">,</span> <span class="n">figsize</span><span class="o">=</span><span class="p">(</span><span class="mi">5</span><span class="p">,</span><span class="mi">3</span><span class="p">))</span>
+</pre></div>
+</div>
+<img alt="_images/Tumor_growth_35_0.png" src="_images/Tumor_growth_35_0.png" />
+<div class='sage_linked'><script type='text/x-sage'>var('r k x y',domain='real')
+f(x)=r*x*(1-x/k) - x^2/(1+x^2)
+sols = solve(f(x),x,solution_dict=True)
+
+
+ff1=fast_callable(  x.subs(sols[0]) , vars=[r,k], domain=CDF)
+ff2=fast_callable(  x.subs(sols[1]) , vars=[r,k], domain=CDF)
+ff3=fast_callable(  x.subs(sols[2]) , vars=[r,k], domain=CDF)
+ff4=fast_callable(  x.subs(sols[3]) , vars=[r,k], domain=CDF)
+def get_n_roots(r,k):
+    x0=[]
+    for ff in [ff1,ff2,ff3,ff4]:
+        val=ff(r,k)
+        if abs(imag(val))<1e-10:
+            x0.append(real(val))
+    return len(x0),x0
+
+@interact
+def _(k_=slider(round(0.1,5),20,0.1,12)):
+    x_stab=[]
+    x_unstab=[]
+    for r_ in srange(0.1,0.8,round(0.001,4)):
+        for x0 in get_n_roots(r_,k_)[1]:
+            if f.diff(x).subs({k:k_,r:r_})(x0)<0:
+                x_stab.append( (r_, x0) )
+            else:
+                x_unstab.append( (r_, x0) )
+    plt = point(x_stab,legend_label='stable',axes_labels=[r'$r$',r'$x_0$'],
+           tick_formatter='latex', figsize=(5,3))
+    plt += point(x_unstab,color='red', legend_label='unstable')
+    plt.show(ymax=19,figsize=(5,3))</script></div></div>
+<div class="section" id="time-evolution">
+<h2>Time evolution<a class="headerlink" href="#time-evolution" title="Permalink to this headline">¶</a></h2>
+<div class="highlight-ipython2 notranslate"><div class="highlight"><pre><span></span><span class="n">double_roots</span><span class="o">=</span><span class="n">line</span><span class="p">(</span> <span class="p">[</span> <span class="p">(</span><span class="n">kx</span><span class="p">(</span><span class="n">x</span><span class="o">=</span><span class="n">x</span><span class="p">),</span><span class="n">rx</span><span class="p">(</span><span class="n">x</span><span class="o">=</span><span class="n">x</span><span class="p">))</span> <span class="k">for</span> <span class="n">x</span> <span class="ow">in</span> <span class="n">srange</span><span class="p">(</span><span class="mf">1.01</span><span class="p">,</span><span class="mi">42</span><span class="p">,</span><span class="mf">0.01</span><span class="p">)],</span><span class="n">axes_labels</span><span class="o">=</span><span class="p">[</span><span class="s1">&#39;$k$&#39;</span><span class="p">,</span><span class="s1">&#39;$r$&#39;</span><span class="p">],</span><span class="n">gridlines</span><span class="o">=</span><span class="p">[</span><span class="kc">None</span><span class="p">,[</span><span class="mf">0.5</span><span class="p">]],</span><span class="n">figsize</span><span class="o">=</span><span class="mi">4</span> <span class="p">)</span>
+<span class="n">var</span><span class="p">(</span><span class="s1">&#39;x&#39;</span><span class="p">)</span>
+<span class="k">for</span> <span class="n">r_</span><span class="p">,</span><span class="n">k_</span> <span class="ow">in</span> <span class="p">[(</span><span class="mf">0.4</span><span class="p">,</span><span class="mi">12</span><span class="p">),(</span><span class="mf">0.4</span><span class="p">,</span><span class="mi">8</span><span class="p">)]:</span>
+    <span class="n">rk</span><span class="o">=</span><span class="n">point</span><span class="p">((</span><span class="n">k_</span><span class="p">,</span><span class="n">r_</span><span class="p">),</span><span class="n">size</span><span class="o">=</span><span class="mi">100</span><span class="p">,</span><span class="n">color</span><span class="o">=</span><span class="s1">&#39;green&#39;</span><span class="p">,</span><span class="n">xmax</span><span class="o">=</span><span class="mi">80</span><span class="p">)</span>
+
+    <span class="n">t</span> <span class="o">=</span> <span class="n">var</span><span class="p">(</span><span class="s1">&#39;t&#39;</span><span class="p">);</span>
+    <span class="n">x</span> <span class="o">=</span> <span class="n">function</span><span class="p">(</span><span class="s1">&#39;x&#39;</span><span class="p">)(</span><span class="n">t</span><span class="p">)</span>
+    <span class="n">DE</span> <span class="o">=</span> <span class="n">diff</span><span class="p">(</span><span class="n">x</span><span class="p">,</span> <span class="n">t</span><span class="p">)</span> <span class="o">==</span> <span class="n">f</span><span class="o">.</span><span class="n">subs</span><span class="p">({</span><span class="n">k</span><span class="p">:</span><span class="n">k_</span><span class="p">,</span><span class="n">r</span><span class="p">:</span><span class="n">r_</span><span class="p">})(</span><span class="n">x</span><span class="p">)</span>
+    <span class="n">g</span> <span class="o">=</span> <span class="p">[]</span>
+    <span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="n">srange</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span> <span class="mi">16</span><span class="p">,</span> <span class="o">.</span><span class="mi">5</span><span class="p">):</span>
+        <span class="n">g</span><span class="o">.</span><span class="n">append</span> <span class="p">(</span> <span class="n">line</span><span class="p">(</span><span class="n">desolve_rk4</span><span class="p">(</span><span class="n">DE</span><span class="p">,</span> <span class="n">x</span><span class="p">,</span> <span class="n">ics</span><span class="o">=</span><span class="p">[</span><span class="mi">0</span><span class="p">,</span> <span class="n">i</span><span class="p">],</span> <span class="n">step</span><span class="o">=</span><span class="mf">1.5</span><span class="p">,</span> <span class="n">end_points</span><span class="o">=</span><span class="p">[</span><span class="mi">40</span><span class="p">]),</span><span class="n">hue</span><span class="o">=</span><span class="n">sqrt</span><span class="p">(</span><span class="n">i</span><span class="p">)</span> <span class="p">)</span> <span class="p">)</span>
+
+    <span class="n">x</span> <span class="o">=</span> <span class="n">var</span><span class="p">(</span><span class="s1">&#39;x&#39;</span><span class="p">)</span>
+    <span class="n">g</span><span class="o">.</span><span class="n">append</span><span class="p">(</span> <span class="n">plot_vector_field</span><span class="p">(</span> <span class="p">(</span><span class="mi">1</span><span class="p">,</span><span class="n">f</span><span class="o">.</span><span class="n">subs</span><span class="p">({</span><span class="n">k</span><span class="p">:</span><span class="n">k_</span><span class="p">,</span><span class="n">r</span><span class="p">:</span><span class="n">r_</span><span class="p">})(</span><span class="n">x</span><span class="p">)</span> <span class="p">)</span> <span class="p">,</span> <span class="p">(</span><span class="n">t</span><span class="p">,</span> <span class="mi">0</span><span class="p">,</span> <span class="mi">40</span><span class="p">),</span> <span class="p">(</span><span class="n">x</span><span class="p">,</span> <span class="mi">0</span><span class="p">,</span> <span class="mi">16</span><span class="p">),</span><span class="n">figsize</span><span class="o">=</span><span class="mi">4</span><span class="p">)</span> <span class="p">)</span>
+
+    <span class="n">show</span><span class="p">(</span><span class="sa">r</span><span class="s2">&quot;$r=</span><span class="si">%02f</span><span class="s2">\; k=</span><span class="si">%02f</span><span class="s2">$&quot;</span> <span class="o">%</span> <span class="p">(</span><span class="n">r_</span><span class="p">,</span><span class="n">k_</span><span class="p">))</span>
+    <span class="n">show</span><span class="p">(</span><span class="nb">sum</span><span class="p">(</span><span class="n">g</span><span class="p">))</span>
+    <span class="n">show</span><span class="p">(</span><span class="n">rk</span><span class="o">+</span><span class="n">double_roots</span><span class="p">)</span>
+</pre></div>
+</div>
+<html><script type="math/tex; mode=display">\newcommand{\Bold}[1]{\mathbf{#1}}\verb|$r=0.400000\;|\phantom{\verb!x!}\verb|k=12.000000$|</script></html><img alt="_images/Tumor_growth_38_1.png" src="_images/Tumor_growth_38_1.png" />
+<img alt="_images/Tumor_growth_38_2.png" src="_images/Tumor_growth_38_2.png" />
+<html><script type="math/tex; mode=display">\newcommand{\Bold}[1]{\mathbf{#1}}\verb|$r=0.400000\;|\phantom{\verb!x!}\verb|k=8.000000$|</script></html><img alt="_images/Tumor_growth_38_4.png" src="_images/Tumor_growth_38_4.png" />
+<img alt="_images/Tumor_growth_38_5.png" src="_images/Tumor_growth_38_5.png" />
+<p>From the above analysis it follows the following:</p>
+<ol class="arabic simple">
+<li><p>The parameter space is devided into two parts: one where there is
+only one stable stationary state and one where there are two stable
+stationary states and one unstable state (not realizable).</p></li>
+<li><p>In the regime when only one stable state is realized, for any initial
+conditions the system tends to this state.</p></li>
+<li><p>In the regime of two coexisting stable stationary states, the initial
+condition are crucial. In dependence of its value, the system can
+tend to the state of smaller or greater value.</p></li>
+<li><p>In the case of population of animals, the state of greater value is
+expected. In the case of tumor cells, the state of smaller value is
+desired.</p></li>
+<li><p>It allows to develop strategy how to proceed.</p></li>
+</ol>
+<p>We should keep some distance with respect to application of models. In
+the subject considered, although much progress has been made building
+mathematical models of tumor growth, they have not been centered on
+clinical data. Consequently, these models have had limited impact on
+clinical practice. It is not enough to test the effect of various
+assumptions mathematically (in silico); if they are to be of clinical
+value, these models must make predictions based on data that can be
+readily measured in people and that can be readily tested (falsified) in
+the clinic.</p>
+</div>
+</div>
+
+
+          </div>
+          
+        </div>
+      </div>
+      <div class="sphinxsidebar" role="navigation" aria-label="main navigation">
+        <div class="sphinxsidebarwrapper">
+<h1 class="logo"><a href="index.html">Nonlinear processes in Biology</a></h1>
+
+
+
+
+
+
+
+
+<h3>Navigation</h3>
+<ul class="current">
+<li class="toctree-l1"><a class="reference internal" href="NPB_1d_models.html">Continuous models for single species</a></li>
+<li class="toctree-l1"><a class="reference internal" href="NPB_predator_prey.html">Models of interacting populations: prey-predator</a></li>
+<li class="toctree-l1 current"><a class="current reference internal" href="#">Ludwig et al. Model for Tumor Growth</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="#stationary-states">Stationary states</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#graphical-solution">Graphical solution</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#bifurcation-diagram">Bifurcation diagram</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#problem-3-stability-of-stationary-states">Problem 3: stability of stationary states</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#time-evolution">Time evolution</a></li>
+</ul>
+</li>
+</ul>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="notebooks/Lotka_Volterra_with_SAGE.html">The Lotka-Volterra model with SAGE</a></li>
+<li class="toctree-l1"><a class="reference internal" href="notebooks/May_model.html">Analysis of the May model with SAGE</a></li>
+<li class="toctree-l1"><a class="reference internal" href="notebooks/May_model_parameter_space_plot.html">Plot of stability condition in 3d</a></li>
+</ul>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="NPB_kinetics.html">Introduction to the kinetics of chemical reactions</a></li>
+<li class="toctree-l1"><a class="reference internal" href="NPB_kinetics.html#autocatalytic-reactions">Autocatalytic reactions</a></li>
+<li class="toctree-l1"><a class="reference internal" href="NPB_kinetics.html#enzyme-reactions">Enzyme reactions</a></li>
+<li class="toctree-l1"><a class="reference internal" href="NPB_kinetics.html#theoretical-analysis-ala-michaelis-menten">Theoretical analysis a’la Michaelis-Menten</a></li>
+</ul>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="NPB_reaction_diffusion.html">Reaction-diffusion equations</a></li>
+<li class="toctree-l1"><a class="reference internal" href="NPB_reaction_diffusion.html#the-malthus-model-with-migration-the-skellam-equation">The Malthus model with migration: The Skellam equation</a></li>
+<li class="toctree-l1"><a class="reference internal" href="NPB_reaction_diffusion.html#verhulst-model-with-migration-fisher-kolmogorov-equation">Verhulst model with migration: Fisher-Kolmogorov equation</a></li>
+</ul>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="NPB_epidemics.html">Epidemic model of Kermack-McKendrick</a></li>
+<li class="toctree-l1"><a class="reference internal" href="NPB_epidemics.html#geographical-spread-of-epidemic">Geographical spread of epidemic</a></li>
+<li class="toctree-l1"><a class="reference internal" href="NPB_epidemics.html#realistic-modeling-of-spatial-epidemic-spread">Realistic modeling of spatial epidemic spread</a></li>
+</ul>
+
+<div class="relations">
+<h3>Related Topics</h3>
+<ul>
+  <li><a href="index.html">Documentation overview</a><ul>
+      <li>Previous: <a href="NPB_predator_prey.html" title="previous chapter">Models of interacting populations: prey-predator</a></li>
+      <li>Next: <a href="notebooks/Lotka_Volterra_with_SAGE.html" title="next chapter">The Lotka-Volterra model with SAGE</a></li>
+  </ul></li>
+</ul>
+</div>
+<div id="searchbox" style="display: none" role="search">
+  <h3 id="searchlabel">Quick search</h3>
+    <div class="searchformwrapper">
+    <form class="search" action="search.html" method="get">
+      <input type="text" name="q" aria-labelledby="searchlabel" />
+      <input type="submit" value="Go" />
+    </form>
+    </div>
+</div>
+<script>$('#searchbox').show(0);</script>
+
+
+
+
+
+
+
+
+        </div>
+      </div>
+      <div class="clearer"></div>
+    </div>
+    <div class="footer">
+      &copy;2016, J.Ł. & M.K..
+      
+      |
+      Powered by <a href="http://sphinx-doc.org/">Sphinx 2.4.0</a>
+      &amp; <a href="https://github.com/bitprophet/alabaster">Alabaster 0.7.12</a>
+      
+      |
+      <a href="_sources/NPB_Tumor_growth.rst.txt"
+          rel="nofollow">Page source</a>
+    </div>
+
+    
+
+    
+  </body>
+</html>

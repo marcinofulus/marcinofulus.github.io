@@ -16,7 +16,8 @@ Population dynamics
     :maxdepth: 2
 
     NPB_1d_models
-    NPB_predator_prey 
+    NPB_predator_prey
+    NPB_Tumor_growth
 
 Notebooks:
 
