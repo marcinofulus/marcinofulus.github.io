@@ -1,0 +1,292 @@
+
+
+  
+<!DOCTYPE html>
+
+<html xmlns="http://www.w3.org/1999/xhtml" lang="pl">
+  <head>
+    <meta charset="utf-8" />
+    <title>16. Przykład - obliczenie VaR dla nieliniowej funkcji wyceny &#8212; Analiza Rynków Finansowych</title>
+    <link rel="stylesheet" href="_static/upgow.css" type="text/css" />
+    <link rel="stylesheet" href="_static/pygments.css" type="text/css" />
+    <link rel="stylesheet" href="http://fonts.googleapis.com/css?family=Noticia+Text|Open+Sans|Droid+Sans+Mono&subset=latin,latin-ext" type="text/css" />
+    <script id="documentation_options" data-url_root="./" src="_static/documentation_options.js"></script>
+    <script src="_static/jquery.js"></script>
+    <script src="_static/underscore.js"></script>
+    <script src="_static/doctools.js"></script>
+    <script src="_static/language_data.js"></script>
+    <script src="_static/translations.js"></script>
+    <script async="async" src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.5/latest.js?config=TeX-AMS-MML_HTMLorMML"></script>
+    <script src="_static/jquery.cookie.js"></script>
+    <script src="_static/cloud.js"></script>
+    <script type="text/javascript" src="http://sagecell.sagemath.org/static/jquery.min.js"></script>
+    <script type="text/javascript" src="http://sagecell.sagemath.org/static/embedded_sagecell.js"></script>
+    <script type="text/javascript">
+        sagecell.makeSagecell({inputLocation: ".sage_linked",
+                               linked: true,
+                       	evalButtonText: 'Wykonaj'});
+        sagecell.makeSagecell({inputLocation: ".sage_unlinked",
+                               linked: false,
+                           evalButtonText: 'Wykonaj'});
+    </script>
+
+    <style type="text/css">
+        .sagecell .CodeMirror-scroll {
+            overflow-y: hidden;
+            overflow-x: auto;
+        }
+        .sagecell .CodeMirror {
+            height: auto;
+        }
+    </style>
+    
+    <link rel="index" title="Indeks" href="genindex.html" />
+    <link rel="search" title="Szukaj" href="search.html" />
+    <link rel="next" title="17. Dodatek: Komputerowa analiza drzew binarnych" href="binarne.html" />
+    <link rel="prev" title="15. VaR" href="var.html" />
+ 
+  <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, minimum-scale=1">
+  </head><body>
+  <div class="relbar-top">
+    
+    <div class="related" role="navigation" aria-label="related navigation">
+      <h3>Nawigacja</h3>
+      <ul>
+        <li class="right" style="margin-right: 10px">
+          <a href="genindex.html" title="Indeks ogólny"
+             accesskey="I">indeks</a></li>
+        <li class="right" >
+          <a href="binarne.html" title="17. Dodatek: Komputerowa analiza drzew binarnych"
+             accesskey="N">dalej</a> &nbsp; &nbsp;</li>
+        <li class="right" >
+          <a href="var.html" title="15. VaR"
+             accesskey="P">wstecz</a> &nbsp; &nbsp;</li>
+  <li><a href="index.html">Analiza Rynków Finansowych</a> &#187;</li>
+   
+      </ul>
+    </div>
+  </div>
+  
+  <div class="content">  
+
+    <div class="document">
+      <div class="documentwrapper">
+        <div class="bodywrapper">
+          <div class="body">
+            
+  <div class="section" id="przyklad-obliczenie-var-dla-nieliniowej-funkcji-wyceny">
+<h1><span class="section-number">16. </span>Przykład - obliczenie VaR  dla nieliniowej funkcji wyceny<a class="headerlink" href="#przyklad-obliczenie-var-dla-nieliniowej-funkcji-wyceny" title="Stały odnośnik do tego nagłówka">¶</a></h1>
+<div class="admonition attention">
+<p class="admonition-title">Uwaga</p>
+<p>Poniższe komórki są od siebie zależne więc należy
+wykonywać poprzednie by działały kolejne.</p>
+</div>
+<p>Wyobraźmy sobie, że posiadamy dwie akcję na rynku krajowym, oraz
+pozycję krótką na zerokuponową obligację na rynku zagranicznym. Z tej
+perspektywy rynek opisany przez cztery parametry, czas, wartość
+aktywa, stopę procentową na rynku zagranicznym oraz kurs wymiany
+waluty obcej. Wartość naszego portfela zależy bowiem od tych
+parametrów. W przypadku ceny akcji jest to zależność liniowa, ale
+wartość obligacji zależy nieliniowo od czasu, stopy procentowej i
+kursu wymiany.</p>
+<p>Rożważmy historię rynku zawartą w tabeli, w której każdy rząd oznacza:</p>
+<blockquote>
+<div><ul class="simple">
+<li><p>czas w dniach  liczony od 1.1.1997</p></li>
+<li><p>cena aktywa</p></li>
+<li><p>stopa procentową na rynku zagranicznym</p></li>
+<li><p>kurs wymiany waluty obcej.</p></li>
+</ul>
+</div></blockquote>
+<p>Mamy:</p>
+<div class='sage_linked'><script type='text/x-sage'>import numpy as np
+import scipy.linalg
+
+dataVAR= np.array([[   1.   ,  282.   ,    5.28 ,    3.5  ],
+    [   2.   ,  283.   ,    5.26 ,    3.47 ],
+    [   3.   ,  285.   ,    5.23 ,    3.46 ],
+    [   4.   ,  280.   ,    5.24 ,    3.45 ],
+    [   5.   ,  282.   ,    5.25 ,    3.45 ],
+    [   6.   ,  281.   ,    5.24 ,    3.46 ],
+    [   7.   ,  282.   ,    5.24 ,    3.45 ],
+    [   8.   ,  286.   ,    5.25 ,    3.43 ],
+    [   9.   ,  285.   ,    5.25 ,    3.47 ],
+    [  10.   ,  286.   ,    5.26 ,    3.443],
+    [  11.   ,  288.   ,    5.27 ,    3.42 ],
+    [  12.   ,  289.   ,    5.28 ,    3.42 ],
+    [  13.   ,  290.   ,    5.28 ,    3.41 ],
+    [  14.   ,  289.   ,    5.28 ,    3.42 ],
+    [  15.   ,  291.   ,    5.29 ,    3.46 ],
+    [  16.   ,  293.   ,    5.31 ,    3.41 ],
+    [  17.   ,  294.   ,    5.32 ,    3.4  ],
+    [  18.   ,  290.   ,    5.34 ,    3.49 ],
+    [  19.   ,  287.   ,    5.35 ,    3.47 ],
+    [  20.   ,  288.   ,    5.34 ,    3.48 ],
+    [  21.   ,  289.   ,    5.35 ,    3.46 ],
+    [  22.   ,  281.   ,    5.36 ,    3.44 ],
+    [  23.   ,  283.   ,    5.23 ,    3.45 ],
+    [  24.   ,  285.   ,    5.24 ,    3.42 ],
+    [  25.   ,  288.   ,    5.25 ,    3.41 ],
+    [  26.   ,  289.   ,    5.26 ,    3.41 ],
+    [  27.   ,  287.   ,    5.26 ,    3.43 ],
+    [  28.   ,  285.   ,    5.28 ,    3.42 ],
+    [  29.   ,  290.   ,    5.27 ,    3.44 ],
+    [  30.   ,  291.   ,    5.27 ,    3.42 ],
+    [  31.   ,  289.   ,    5.27 ,    3.37 ],
+    [  32.   ,  288.   ,    5.29 ,    3.39 ],
+    [  33.   ,  290.   ,    5.28 ,    3.41 ],
+    [  34.   ,  293.   ,    5.31 ,    3.44 ],
+    [  35.   ,  292.   ,    5.32 ,    3.41 ],
+    [  36.   ,  293.   ,    5.28 ,    3.42 ],
+    [  37.   ,  293.   ,    5.3  ,    3.42 ],
+    [  38.   ,  293.   ,    5.31 ,    3.44 ],
+    [  39.   ,  292.   ,    5.32 ,    3.41 ],
+    [  40.   ,  293.   ,    5.3  ,    3.4  ]])</script></div><p>Na przykład dnia 13.1.1997 było:</p>
+<div class='sage_linked'><script type='text/x-sage'>print( dataVAR[12] )</script></div><p>Wyobraźmy sobie, że jest 10.2.1997 i mamy portfel dwóch akcji i
+jesteśmy dłużni jedną obligację na sto jednostek waluty zagranicznej z
+data zapadalności 8 maja 2000. Oznaczmy przez <code class="code docutils literal notranslate"><span class="pre">P</span></code> strukturę danych
+określającą nasz portfel, stan rynku przez <code class="code docutils literal notranslate"><span class="pre">mrkt10Feb97</span></code> oraz
+zdefiniujmy funkcję wyceny portfela <code class="code docutils literal notranslate"><span class="pre">valueP</span></code>:</p>
+<div class='sage_linked'><script type='text/x-sage'>from datetime import date
+mrkt10Feb97 = np.array( [[40,293,5.3,3.4]] )
+P = [2,(-1,(date(2000,5,8)-date(1997,1,1)).days)]
+
+def valueP(P,m):
+    if len(m.shape)==1:
+        stock = m[1]*P[0]
+        bond = 100*m[3]*exp(-m[2]/100. * (P[1][1]-m[0])/365.25) * P[1][0]
+    else:
+        stock = m[:,1]*P[0]
+        bond = 100*m[:,3]*exp(-m[:,2]/100. * (P[1][1]-m[:,0])/365.25) * P[1][0]
+
+    return stock+bond
+
+
+print( "Wartość portfela na 10 Feb 1997",valueP(P,mrkt10Feb97)[0] )</script></div><div class="section" id="metoda-historyczna">
+<h2><span class="section-number">16.1. </span>Metoda historyczna<a class="headerlink" href="#metoda-historyczna" title="Stały odnośnik do tego nagłówka">¶</a></h2>
+<p>Wyceńmy wartość zagrożoną ryzykiem VaR na poziomie 20% metodą
+historyczną. W tym przypadku mamy taki sam sposób postępowania jak w
+przykładzie z liniową funkcją wyceny:</p>
+<div class='sage_linked'><script type='text/x-sage'>dataVAR_dx = np.diff(dataVAR,axis=0)
+hist_sim = mrkt10Feb97+dataVAR_dx
+changes = valueP(P,hist_sim)-valueP(P,mrkt10Feb97)
+print( "Metoda historyczna",np.percentile(changes,int(20)) )</script></div></div>
+<div class="section" id="metoda-wariancji-kowariancji">
+<h2><span class="section-number">16.2. </span>Metoda wariancji kowariancji<a class="headerlink" href="#metoda-wariancji-kowariancji" title="Stały odnośnik do tego nagłówka">¶</a></h2>
+<p>W tej metodzie mamy znaczną różnicę, nie obowiązują bowiem proste formuły</p>
+<div class='sage_linked'><script type='text/x-sage'>dataVAR_dx = np.diff(dataVAR,axis=0)
+avg = np.average(dataVAR_dx,axis=0)
+Cov = np.cov(dataVAR_dx.T)
+
+m=mrkt10Feb97[0]
+h = 0.01
+dx = h*np.eye(4)
+dP = [(valueP(P,m+dx[i])-valueP(P,m))/h for i in range(4)]
+dP =  np.array(dP)
+
+m = mrkt10Feb97[0]
+dx = h*np.eye(4)
+d2P = [[(valueP(P,m+dx[i]+dx[j])+valueP(P,m)-\
+  valueP(P,m+dx[i])-valueP(P,m+dx[j]))/h^2 for i in range(4)] for j in range(4)]
+d2P =  np.array(d2P)
+
+muP = avg.dot(dP)+0.5*np.trace(d2P.dot(Cov))
+sigma2P = dP.dot(Cov).dot(dP.T)
+T = RealDistribution('gaussian', 1.0)
+k =  T.cum_distribution_function_inv(0.2)
+print( "VaR, metoda wariancji kowariancji:",muP + np.sqrt(sigma2P)*k )</script></div></div>
+<div class="section" id="metoda-monte-carlo">
+<h2><span class="section-number">16.3. </span>Metoda Monte Carlo<a class="headerlink" href="#metoda-monte-carlo" title="Stały odnośnik do tego nagłówka">¶</a></h2>
+<div class='sage_linked'><script type='text/x-sage'>import scipy.linalg
+sqrtCov = np.real_if_close(scipy.linalg.sqrtm(Cov))
+values = np.array([ valueP(P,mrkt10Feb97 + avg + \
+  np.dot(sqrtCov,np.random.randn(4)))[0] for i in range(10000)])
+
+print( "VaR, MC:",np.percentile(values-valueP(P,mrkt10Feb97)[0],int(20)) )</script></div></div>
+<div class="section" id="porownanie">
+<h2><span class="section-number">16.4. </span>Porównanie<a class="headerlink" href="#porownanie" title="Stały odnośnik do tego nagłówka">¶</a></h2>
+<div class='sage_linked'><script type='text/x-sage'>Gaussian(x,mu,sigma) = 1/sqrt(2*pi*sigma^2)*exp(-(x-mu)^2/(2*sigma^2))
+print( muP,sigma2P )
+nbins = 20
+H = np.histogram(np.diff(valueP(P,dataVAR)),bins=np.linspace(-12,12,nbins))
+
+normalizacja = H[0].sum()*(H[1].max()-H[1].min())/nbins
+line( zip(H[1],H[0]/normalizacja) )+\
+ plot(Gaussian(x,muP,sqrt(sigma2P)),(x,-16,16),color='red',figsize=5)</script></div></div>
+</div>
+
+
+          </div>
+        </div>
+      </div>
+      <div class="sphinxsidebar" role="navigation" aria-label="main navigation">
+        <div class="sphinxsidebarwrapper">
+  <div class="sphinxlocaltoc">
+  <h3><a href="index.html">Table Of Contents</a></h3>
+  <ul>
+<li><a class="reference internal" href="#">16. Przykład - obliczenie VaR  dla nieliniowej funkcji wyceny</a><ul>
+<li><a class="reference internal" href="#metoda-historyczna">16.1. Metoda historyczna</a></li>
+<li><a class="reference internal" href="#metoda-wariancji-kowariancji">16.2. Metoda wariancji kowariancji</a></li>
+<li><a class="reference internal" href="#metoda-monte-carlo">16.3. Metoda Monte Carlo</a></li>
+<li><a class="reference internal" href="#porownanie">16.4. Porównanie</a></li>
+</ul>
+</li>
+</ul>
+
+  </div>
+  <h4>Poprzedni temat</h4>
+  <p class="topless"><a href="var.html"
+                        title="poprzedni rozdział"><span class="section-number">15. </span>VaR</a></p>
+  <h4>Następny temat</h4>
+  <p class="topless"><a href="binarne.html"
+                        title="następny rozdział"><span class="section-number">17. </span>Dodatek: Komputerowa analiza drzew binarnych</a></p>
+  <div role="note" aria-label="source link">
+    <h3>Ta strona</h3>
+    <ul class="this-page-menu">
+      <li><a href="_sources/var_ex2.rst.txt"
+            rel="nofollow">Pokaż źródło</a></li>
+    </ul>
+   </div>
+<div id="searchbox" style="display: none" role="search">
+  <h3 id="searchlabel">Szybkie wyszukiwanie</h3>
+    <div class="searchformwrapper">
+    <form class="search" action="search.html" method="get">
+      <input type="text" name="q" aria-labelledby="searchlabel" />
+      <input type="submit" value="Szukaj" />
+    </form>
+    </div>
+</div>
+<script>$('#searchbox').show(0);</script>
+        </div>
+      </div>
+      <div class="clearer"></div>
+    </div>
+  </div>
+  <div class="relbar-bottom">
+    
+    <div class="related" role="navigation" aria-label="related navigation">
+      <h3>Nawigacja</h3>
+      <ul>
+        <li class="right" style="margin-right: 10px">
+          <a href="genindex.html" title="Indeks ogólny"
+             >indeks</a></li>
+        <li class="right" >
+          <a href="binarne.html" title="17. Dodatek: Komputerowa analiza drzew binarnych"
+             >dalej</a> &nbsp; &nbsp;</li>
+        <li class="right" >
+          <a href="var.html" title="15. VaR"
+             >wstecz</a> &nbsp; &nbsp;</li>
+  <li><a href="index.html">Analiza Rynków Finansowych</a> &#187;</li>
+   
+      </ul>
+    </div>
+  </div>
+  
+  <div class="footer">
+    <a class="logo" href="http://upgow.us.edu.pl/" target="_blank"><img src="_static/upgow.png" alt="UPGOW"/></a><br/>
+    <img src="_static/stopka_EU.png" alt="EU"/><br/>
+    &copy; Copyright 2013, ML and MK.
+    Created using <a href="http://sphinx.pocoo.org/">Sphinx</a> 2.4.0.
+  </div>
+  </body>
+</html>

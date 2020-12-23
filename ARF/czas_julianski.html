@@ -1,0 +1,150 @@
+
+
+  
+<!DOCTYPE html>
+
+<html xmlns="http://www.w3.org/1999/xhtml" lang="pl">
+  <head>
+    <meta charset="utf-8" />
+    <title>Dodatek: Czas Juliański &#8212; Analiza Rynków Finansowych</title>
+    <link rel="stylesheet" href="_static/upgow.css" type="text/css" />
+    <link rel="stylesheet" href="_static/pygments.css" type="text/css" />
+    <link rel="stylesheet" href="http://fonts.googleapis.com/css?family=Noticia+Text|Open+Sans|Droid+Sans+Mono&subset=latin,latin-ext" type="text/css" />
+    <script id="documentation_options" data-url_root="./" src="_static/documentation_options.js"></script>
+    <script src="_static/jquery.js"></script>
+    <script src="_static/underscore.js"></script>
+    <script src="_static/doctools.js"></script>
+    <script src="_static/language_data.js"></script>
+    <script src="_static/translations.js"></script>
+    <script async="async" src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.5/latest.js?config=TeX-AMS-MML_HTMLorMML"></script>
+    <script src="_static/jquery.cookie.js"></script>
+    <script src="_static/cloud.js"></script>
+    <script type="text/javascript" src="http://sagecell.sagemath.org/static/jquery.min.js"></script>
+    <script type="text/javascript" src="http://sagecell.sagemath.org/static/embedded_sagecell.js"></script>
+    <script type="text/javascript">
+        sagecell.makeSagecell({inputLocation: ".sage_linked",
+                               linked: true,
+                       	evalButtonText: 'Wykonaj'});
+        sagecell.makeSagecell({inputLocation: ".sage_unlinked",
+                               linked: false,
+                           evalButtonText: 'Wykonaj'});
+    </script>
+
+    <style type="text/css">
+        .sagecell .CodeMirror-scroll {
+            overflow-y: hidden;
+            overflow-x: auto;
+        }
+        .sagecell .CodeMirror {
+            height: auto;
+        }
+    </style>
+    
+    <link rel="index" title="Indeks" href="genindex.html" />
+    <link rel="search" title="Szukaj" href="search.html" />
+ 
+  <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, minimum-scale=1">
+  </head><body>
+  <div class="relbar-top">
+    
+    <div class="related" role="navigation" aria-label="related navigation">
+      <h3>Nawigacja</h3>
+      <ul>
+        <li class="right" style="margin-right: 10px">
+          <a href="genindex.html" title="Indeks ogólny"
+             accesskey="I">indeks</a></li>
+  <li><a href="index.html">Analiza Rynków Finansowych</a> &#187;</li>
+   
+      </ul>
+    </div>
+  </div>
+  
+  <div class="content">  
+
+    <div class="document">
+      <div class="documentwrapper">
+        <div class="bodywrapper">
+          <div class="body">
+            
+  <div class="section" id="dodatek-czas-julianski">
+<h1>Dodatek: Czas Juliański<a class="headerlink" href="#dodatek-czas-julianski" title="Stały odnośnik do tego nagłówka">¶</a></h1>
+<div class="section" id="ble">
+<h2>ble<a class="headerlink" href="#ble" title="Stały odnośnik do tego nagłówka">¶</a></h2>
+<p>Jednym ze sposobów obliczania ilości dni, które upłynęły pomiędzy dwoma datami jest  konwersja daty to czasu <a class="reference external" href="http://pl.wikipedia.org/wiki/Data_julia%C5%84ska">Juliańskiego</a>. Jest to liczba
+dni, która upłynęła od tóra upłynęła od 1 stycznia roku 4713 p.n.e.,
+według kalendarza juliańskiego. Poniżej zamieszczamy implementację algorytmu obliczającego czas juliański.</p>
+<div class='sage_linked'><script type='text/x-sage'>def julian_days((Y,M,D)):
+    a=floor((14-M)/12)
+    y=Y+4800-a
+    m=M+12*a-3
+    return D + floor((153*m+2)/5) + 365*y + floor(y/4) - floor(y/100) + floor(y/400)-32045
+
+data1,data2 = (1980,10,31), (1989,5,1)
+
+print julian_days(data2)-julian_days(data1 )
+
+from datetime import date
+
+print "Sprawdzamy za pomocą modulu datetime:", date(*data2)-date(*data1)</script></div></div>
+</div>
+
+
+          </div>
+        </div>
+      </div>
+      <div class="sphinxsidebar" role="navigation" aria-label="main navigation">
+        <div class="sphinxsidebarwrapper">
+  <div class="sphinxlocaltoc">
+  <h3><a href="index.html">Table Of Contents</a></h3>
+  <ul>
+<li><a class="reference internal" href="#">Dodatek: Czas Juliański</a><ul>
+<li><a class="reference internal" href="#ble">ble</a></li>
+</ul>
+</li>
+</ul>
+
+  </div>
+  <div role="note" aria-label="source link">
+    <h3>Ta strona</h3>
+    <ul class="this-page-menu">
+      <li><a href="_sources/czas_julianski.rst.txt"
+            rel="nofollow">Pokaż źródło</a></li>
+    </ul>
+   </div>
+<div id="searchbox" style="display: none" role="search">
+  <h3 id="searchlabel">Szybkie wyszukiwanie</h3>
+    <div class="searchformwrapper">
+    <form class="search" action="search.html" method="get">
+      <input type="text" name="q" aria-labelledby="searchlabel" />
+      <input type="submit" value="Szukaj" />
+    </form>
+    </div>
+</div>
+<script>$('#searchbox').show(0);</script>
+        </div>
+      </div>
+      <div class="clearer"></div>
+    </div>
+  </div>
+  <div class="relbar-bottom">
+    
+    <div class="related" role="navigation" aria-label="related navigation">
+      <h3>Nawigacja</h3>
+      <ul>
+        <li class="right" style="margin-right: 10px">
+          <a href="genindex.html" title="Indeks ogólny"
+             >indeks</a></li>
+  <li><a href="index.html">Analiza Rynków Finansowych</a> &#187;</li>
+   
+      </ul>
+    </div>
+  </div>
+  
+  <div class="footer">
+    <a class="logo" href="http://upgow.us.edu.pl/" target="_blank"><img src="_static/upgow.png" alt="UPGOW"/></a><br/>
+    <img src="_static/stopka_EU.png" alt="EU"/><br/>
+    &copy; Copyright 2013, ML and MK.
+    Created using <a href="http://sphinx.pocoo.org/">Sphinx</a> 2.4.0.
+  </div>
+  </body>
+</html>

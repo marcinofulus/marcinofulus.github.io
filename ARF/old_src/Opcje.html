@@ -1,0 +1,466 @@
+
+
+  
+<!DOCTYPE html>
+
+<html xmlns="http://www.w3.org/1999/xhtml" lang="pl">
+  <head>
+    <meta charset="utf-8" />
+    <title>Opcje &#8212; Analiza Rynków Finansowych</title>
+    <link rel="stylesheet" href="../_static/upgow.css" type="text/css" />
+    <link rel="stylesheet" href="../_static/pygments.css" type="text/css" />
+    <link rel="stylesheet" href="http://fonts.googleapis.com/css?family=Noticia+Text|Open+Sans|Droid+Sans+Mono&subset=latin,latin-ext" type="text/css" />
+    <script id="documentation_options" data-url_root="../" src="../_static/documentation_options.js"></script>
+    <script src="../_static/jquery.js"></script>
+    <script src="../_static/underscore.js"></script>
+    <script src="../_static/doctools.js"></script>
+    <script src="../_static/language_data.js"></script>
+    <script src="../_static/translations.js"></script>
+    <script async="async" src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.5/latest.js?config=TeX-AMS-MML_HTMLorMML"></script>
+    <script src="../_static/jquery.cookie.js"></script>
+    <script src="../_static/cloud.js"></script>
+    <script type="text/javascript" src="http://sagecell.sagemath.org/static/jquery.min.js"></script>
+    <script type="text/javascript" src="http://sagecell.sagemath.org/static/embedded_sagecell.js"></script>
+    <script type="text/javascript">
+        sagecell.makeSagecell({inputLocation: ".sage_linked",
+                               linked: true,
+                       	evalButtonText: 'Wykonaj'});
+        sagecell.makeSagecell({inputLocation: ".sage_unlinked",
+                               linked: false,
+                           evalButtonText: 'Wykonaj'});
+    </script>
+
+    <style type="text/css">
+        .sagecell .CodeMirror-scroll {
+            overflow-y: hidden;
+            overflow-x: auto;
+        }
+        .sagecell .CodeMirror {
+            height: auto;
+        }
+    </style>
+    
+    <link rel="index" title="Indeks" href="../genindex.html" />
+    <link rel="search" title="Szukaj" href="../search.html" />
+ 
+  <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, minimum-scale=1">
+  </head><body>
+  <div class="relbar-top">
+    
+    <div class="related" role="navigation" aria-label="related navigation">
+      <h3>Nawigacja</h3>
+      <ul>
+        <li class="right" style="margin-right: 10px">
+          <a href="../genindex.html" title="Indeks ogólny"
+             accesskey="I">indeks</a></li>
+  <li><a href="../index.html">Analiza Rynków Finansowych</a> &#187;</li>
+   
+      </ul>
+    </div>
+  </div>
+  
+  <div class="content">  
+
+    <div class="document">
+      <div class="documentwrapper">
+        <div class="bodywrapper">
+          <div class="body">
+            
+  <div class="section" id="opcje">
+<h1>Opcje<a class="headerlink" href="#opcje" title="Stały odnośnik do tego nagłówka">¶</a></h1>
+<p>Tak, jak światło białe składa się z barw podstawowych. Tak i instrumenty finansowe składają się z elementów podstawowych. Opcje stanowią taki element podstawowy. Opcje to instrument zwany instrumentem pochodnym, gdyż jego cena (i jej zmiana) zależy od ceny innego aktywa (jej zmiany).</p>
+<p>Opcje to instrument finansowy, którego popularność szybko rośnie. Opcje to instrument mądry, użyteczny ale i niebezpieczny. Opcje to instrumenty coraz częściej stosowane. Ten wzrost stosowania opcji ma swe źródło w szczególnych cechach opcji</p>
+<p>Opcje:</p>
+<ul class="simple">
+<li><p>Stwarzają na rynku możliwości do korygowania ryzyka lub zmieniania przepływów przychodów co bez ich istnienia nie byłoby możliwym.</p></li>
+<li><p>Stwarzają możliwość  stosowania dźwigni finansowej.</p></li>
+<li><p>Mogą być używane jako generator dodatkowego dochodu z portfela inwestycyjnego.</p></li>
+</ul>
+<p>Przykładowo  opcje dają możliwość  dźwigni finansowej. Efekt dźwigni finansowej w przypadku opcji polega na tym, że przy pomocy względnie małych sum pieniędzy możemy generować znaczne zyski.</p>
+<p>Przykładowo popatrzmy na notowania cen akcji Yahoo w kilku kolejnych dniach i cen opcji na zakup tych akcji w tym samym czasie.</p>
+<blockquote>
+<div><table class="docutils align-default">
+<colgroup>
+<col style="width: 21%" />
+<col style="width: 40%" />
+<col style="width: 40%" />
+</colgroup>
+<thead>
+<tr class="row-odd"><th class="head"><p>.</p></th>
+<th class="head"><p>cena  akcji Yahoo</p></th>
+<th class="head"><p>cena opcji na akcje</p></th>
+</tr>
+</thead>
+<tbody>
+<tr class="row-even"><td><p>DZIEŃ 1</p></td>
+<td><p>100</p></td>
+<td><p>5</p></td>
+</tr>
+<tr class="row-odd"><td><p>DZIEŃ 2</p></td>
+<td><p>105</p></td>
+<td><p>7</p></td>
+</tr>
+<tr class="row-even"><td><p>DZIEŃ 3</p></td>
+<td><p>111</p></td>
+<td><p>9</p></td>
+</tr>
+<tr class="row-odd"><td><p>DZIEŃ 4</p></td>
+<td><p>113</p></td>
+<td><p>10</p></td>
+</tr>
+<tr class="row-even"><td><p>Zysk (%)</p></td>
+<td><p><strong>13</strong></p></td>
+<td><p><strong>100</strong></p></td>
+</tr>
+</tbody>
+</table>
+</div></blockquote>
+<p>Jak widać w przypadku zmian cen akcji można było zarobić 13% dysponując kwotą około 100 jednostek a na opcjach 100% dysponując kwota około 10 jednostek. Opcja to niezłe narzędzie do spekulacji. Ale to jest właśnie w niej niebezpieczne. Opcje maja i inne zastosowania. Głownie stosuje się je do zabezpieczania przed niekorzystną zmianą cen instrumentów finansowych. Temu ich zastosowaniu będzie poświecony poniższy tekst.</p>
+<p>Co dają opcje swym posiadaczom. Za co płacą pieniądze kupując opcje? Kupując opcje kupuje się możliwość wyboru w przyszłości. Prawo wyboru jest niestety prawem ograniczonym,  bo cena opcji wiąże się z ceną aktywa. Opcje bowiem są oparte o prawo do aktywów.</p>
+<p>Właściciel opcji może:</p>
+<ul class="simple">
+<li><p>Sprzedać ją komuś innemu</p></li>
+<li><p>Pozwolić jej wygasnąć (nie skorzystać z możliwości jakie  daje.)</p></li>
+<li><p>Wykonać ją (czyli skorzystać z niej).</p></li>
+</ul>
+<p>Są dwa rodzaje opcji; opcja <em>call</em> i opcja <em>put</em>.</p>
+<p>Opcja <strong>call daje prawo (ale nie nakaz) do kupienia</strong> w określonym okresie czasie aktywa za określoną cenę.</p>
+<p>Posiadacz opcji płaci pieniądze w wysokości <strong>Premii</strong> sprzedawcy opcji w zamian za to prawo.</p>
+<p>Sprzedawca opcji bierze pieniądze (Premia) za obowiązek sprzedaży w określonym okresie czasu, aktywa, za określona cenę, jeśli posiadacz opcji zechce skorzystać z tego prawa.</p>
+<p>Opcja <strong>call</strong> to jak  kupienie biletu do kina. Kupując bilet do kina za jego cenę (Premia) możemy wybierać miedzy następującymi możliwościami (wybór ograniczony w czasie  - praktycznie do rozpoczęcia seansu):</p>
+<ul class="simple">
+<li><p>Iść do kina i zobaczyć film (wykonanie opcji)</p></li>
+<li><p>Sprzedać posiadany bilet komuś innemu.</p></li>
+<li><p>Nie iść do kina (pozwolić opcji na wygaśniecie).</p></li>
+</ul>
+<p>Opcja <strong>put</strong> daje prawo (ale nie obowiązek)  do sprzedaży aktywa w określonym czasie, za określoną cenę. Posiadacz opcji płaci pieniądze w wysokości <strong>Premii</strong> sprzedawcy opcji w zamian za prawo do sprzedania. Sprzedawca opcji bierze pieniądze w zamian za obowiązek kupienia określone aktywa za, określoną  cenę, w określonym czasie. Nie jest koniecznym posiadanie aktywa przed wykorzystaniem prawa z wystawienia opcji <strong>Put</strong>.</p>
+<p>Aby wejść w posiadanie opcji, ktoś ja musi sprzedać (wystawić).  Jeśli wystawi się opcję a nikt jej nie kupi można ją zniszczyć. Ilość opcji call w obrocie nie jest równa ilości opcji put. Ilość opcji w obrocie zmienia  się w trakcie każdego dnia funkcjonowania rynku finansowego.</p>
+<p>Terminologia  rynku opcji:</p>
+<p>Cena wykonania: Cena za którą  nabywca może kupić  (w przypadku Call) lub sprzedać (w przypadku Put) aktywo podstawowe.</p>
+<p><em>Premia</em>:     Cena opcji, płacona przez nabywającego, wystawcy opcji.</p>
+<p>Każda opcja posiada dwie ceny</p>
+<ul class="simple">
+<li><p>Cenę sprzedaży (<strong>bid</strong>) czyli najwyższa cenę, jaką ktoś chce zapłacić za opcje.</p></li>
+<li><p>Cenę kupna  (<strong>ask</strong>) czyli najniższą za którą ktoś chce sprzedać daną opcję.</p></li>
+</ul>
+<p><em>Data zapadalności</em> T: ostatni termin do wykorzystania opcji (jeśli to opcja amerykańska),jedyna data do wykorzystania opcji (jeśli jest to opcja europejska).</p>
+<p>Różnica  miedzy opcja amerykańska a europejska jest taka, że opcje amerykańska możemy wykorzystać każdego dnia do terminu zapadalności (wygaśnięcia) a opcje europejska tylko w dzień zapadalności. Po tym terminie opcja wygasa.</p>
+<p><em>Wykonanie</em>: Kupno podstawowego aktywa (w przypadku  call), sprzedaż aktywa podstawowego (w przypadku put). Zazwyczaj jest jedna cena wykonania powyżej i jedna cena poniżej aktualnej ceny aktywa.</p>
+<p><em>Prawo</em>: tylko posiadacz opcji ma <strong>prawo</strong>. Prawo by sprzedać lub kupić aktywo podstawowe. <em>Wystawca opcji</em> (sprzedający) ma wypełnić obowiązek wynikający z prawa posiadacza opcji.</p>
+<p>W przypadku  kontraktu opcyjnego występują dwie transakcje  związane z tym kontraktem. Transakcja otwierająca zależność opcyjną  to sprzedaż  opcji przez wystawiającego. Transakcja która kończy zobowiązanie opcyjne jest nazywana transakcją  zamknięcia. <strong>Opcja call nie  jest odwrotną transakcją do put ani put nie jest odwrotna do call</strong>.  Ryzyko stron nie jest bowiem symetryczne. Można pozbyć się ryzyka wystawienia opcji poprzez zawarcie transakcji odwrotnej – t.j. wystawca opcji może pozbyć sie zobowiązania poprzez kupienie identycznej opcji.</p>
+<p>Posiadając opcje  posiadamy prawo wyboru. Jaka jest wartość takiego prawa czyli co to jest wartość opcji? Opcja to prawo  kupna lub sprzedaży aktywa za określoną cenę. Jej wartość składa się  z wartości oceniającej aktualne warunki rynkowe (wartość wewnętrzna – intristic value) oraz  nadzieje na  przyszłość, ocenę przyszłych  warunków rynkowych  - wartość czasową (time value). Na wartość opcji  czyli na jej cenę składa się jej wartość wewnętrzna i + jej wartość czasowa. Im opcja jest bliższa wygaśnięcia tym wartość czasowa maleje.</p>
+<p>Wartość wewnętrzna (<em>Intrinsic Value</em>)</p>
+<ul class="simple">
+<li><p>dla opcji call jest różnicą pomiędzy ceną instrumentu bazowego, a ceną wykonania,</p></li>
+<li><p>dla opcji put jest różnicą pomiędzy ceną wykonania, a ceną instrumentu bazowego.</p></li>
+</ul>
+<p>Wartość wewnętrzna przyjmuje tylko wartości dodatnie lub jest równa zero.</p>
+<p>Opcja z zerowa wartością wewnętrzna nazywa się <strong>out of the money</strong>, opcja z wartości a wewnętrzną  większą od zera nazywa się  <strong>in the money</strong> a jeśli cena wykonania opcji jest równa cenie aktywa bazowego opcje nazywa się  <strong>at the Money</strong>.</p>
+<p>Kupując opcje  musimy się liczyć z dwoma opłatami transakcyjnymi. Jedna  - zakup opcji, druga transakcja  nabycia / sprzedania aktywa. Wystawca opcji zarabia  wartość premii jeśli  nabywca nie wykorzysta opcji.</p>
+<p>Inwestor wyszukuje właściwą opcje kierując się (w przypadku akcji  spółki) Nazwą  firmy, datą zapadalności (wygaśnięcia), ceną wykonania, i typem  opcji:</p>
+<p>Przykładowo:</p>
+<p>ABC  Stycz.22.50 Call</p>
+<p>Gdzie:</p>
+<div class="line-block">
+<div class="line">ABC – nazwa spółki</div>
+<div class="line">Styczeń – data zapadalności</div>
+<div class="line">22.50 – cena wykonania</div>
+<div class="line"><em>Call</em> – typ opcji.</div>
+</div>
+<p>Przyjmijmy, ze cena takiej opcji cal wynosi  0,25 a  cena opcji put 0, 73 – jednostki monetarnej.</p>
+<p>Profile ryzyka w czterech przypadkach</p>
+<p>Posiadacz opcji call, wystawca opcji call, posiadacz opcji put, wystawca opcji put.  Rysunki – zrobić (zbiór  prostych…) long call, short call, long put, short put.</p>
+<p>Innymi słowy</p>
+<p>Profil zysku dla  posiadacza opcji <em>call (long call)</em> w zależności od ceny wykonania aktywa jest następujący: jeśli cena  aktywa jest niższa od ceny wykonania, posiadacz  opcji ponosi koszt jej zakupu bo oczywiście pozwoli jej wygasnąć a kupi aktywo poniższych cenach rynkowych. W naszym przypadku - 0,25.  Gdy cena  aktywa wzrośnie powyżej  ceny wykonania + cena opcji  (break even point) zysk  będzie praktycznie nieograniczony i zależny od wzrostu.  Miedzy cena wykonania a cena wykonania + cena opcji zysk będzie równy ujemny ale ograniczony.</p>
+<p>W przypadku strony wystawiającej (sprzedającego opcje call)  zysk pojawia się w wysokości premii jeśli kupujący nie skorzysta z opcji.  Jeśli cena aktywa będzie wyższa od ceny wykonania  sprzedający ponosi stratę  i jest ona  zależna od ceny aktywa czyli jest nieograniczona.</p>
+<p>Kolejne profile dotyczą opcji <em>put</em>.</p>
+<p>Posiadacz opcji <em>put (long put)</em> o cenie 0,73 i cenie wykonania 22,50 nie będzie wykorzystywał opcji jeśli cena aktywa będzie wyższa niż 22.50 bo sprzeda aktywo na rynku kasowym. W zakresie 22,50 - 21,87 zrealizuje opcje celem zminimalizowania straty. Zysk osiągnie jak cena spadnie poniżej 21,87.</p>
+<p>Wystawca opcji <em>put</em> natomiast realizuje zysk w wysokości premii jeśli nabywca nie zrealizuje opcji czyli gdy ceny aktywa będą powyżej 22,50. Natomiast jeśli spadną poniżej 21,87 poniesie stratę.</p>
+<p>Kupując opcje  kupujący zabezpiecza się przed niekorzystna zmianą ceny aktywa. Wystawca opcji kupna zarabia, gdy nie zrealizujemy opcji, czyli wtedy gdy cena akcji na rynku spadnie. Wystawca opcji sprzedaży zarabia wtedy, gdy na wskutek wzrostu cen nie wykorzystamy opcji.</p>
+<p>Patrząc na profile  ryzyka poszczególnych  pozycji zajętych na rynku opcji - czyli; <em>long call, short call, long put, short put</em>, nasuwa się pomysł aby używać kombinacji opcji i w ten sposób chronić posiadane aktywa za pomocą opcji. Takie strategie opcyjne są omówione w rozdziale  - Hedging za pomoca  opcji.</p>
+<p>Wycena opcji</p>
+<p>Na wartość opcji wpływają  czynniki rynkowe. Na przykładzie europejskiej opcji <em>call</em> (pierwszej opcji wycenionej teoretycznie) widać, ze wartość opcji zależy od pięciu czynników. Czynnikami tym są:</p>
+<ul class="simple">
+<li><p>cena  aktywa podstawowego na rynku kasowym</p></li>
+<li><p>cena wykonania</p></li>
+<li><p>czas do wygaśnięcia</p></li>
+<li><p>stopa wolna od ryzyka</p></li>
+<li><p>zmienność ceny aktywa (<em>volatility</em>)</p></li>
+</ul>
+<p>W przypadku  ceny aktywa, im wyższa cena aktywa (np. akcji), tym wyższa cena opcji <em>call</em> a niższa cena opcji  <em>put</em>.</p>
+<p>W przypadku  ceny wykonania dla opcji <em>call</em>; im niższa cena aktywa tym wyższa wartość opcji.</p>
+<p>Czas do wygaśnięcia:  Zarówno dla opcji <em>call</em> i <em>put</em> im dłuższy czas do wygaśnięcia, tym droższa cena opcji.</p>
+<p>Stopa wolna od ryzyka; im wyższa stopa, tym wyższa cena opcji call. Im większa stopa wolna od ryzyka to większy przychód wygenerują  pieniądze, które „ zaoszczędzi „ się kupując opcje a nie aktywo. Ta różnica zainwestowana do czasu wygaśnięcia opcji generuje wyższy przychód.</p>
+<p>Zmienność (<em>Volatility</em>) aktywa podstawowego; im większa zmienność, tym wyższa cena opcji <em>call</em> i  <em>put</em>.
+Tabela  ilustruje  te zależności dla opcji <em>call</em> i <em>put</em>.</p>
+<blockquote>
+<div><table class="docutils align-default">
+<colgroup>
+<col style="width: 22%" />
+<col style="width: 17%" />
+<col style="width: 11%" />
+<col style="width: 19%" />
+<col style="width: 11%" />
+<col style="width: 19%" />
+</colgroup>
+<thead>
+<tr class="row-odd"><th class="head"><p>Czynnik</p></th>
+<th class="head"></th>
+<th class="head"><p>Opcja Call</p></th>
+<th class="head"></th>
+<th class="head"><p>Opcja Put</p></th>
+<th class="head"></th>
+</tr>
+</thead>
+<tbody>
+<tr class="row-even"><td><p>Cena aktywa</p></td>
+<td><p><span class="math notranslate nohighlight">\(\uparrow\)</span></p></td>
+<td><p>Wprost</p></td>
+<td><p><span class="math notranslate nohighlight">\(\uparrow\)</span></p></td>
+<td><p>Odwrotnie</p></td>
+<td><p><span class="math notranslate nohighlight">\(\downarrow\)</span></p></td>
+</tr>
+<tr class="row-odd"><td><p>Cena wykonania</p></td>
+<td><p><span class="math notranslate nohighlight">\(\uparrow\)</span></p></td>
+<td><p>Odwrotnie</p></td>
+<td><p><span class="math notranslate nohighlight">\(\downarrow\)</span></p></td>
+<td><p>Wprost</p></td>
+<td><p><span class="math notranslate nohighlight">\(\uparrow\)</span></p></td>
+</tr>
+<tr class="row-even"><td><p>Zmienność</p></td>
+<td><p><span class="math notranslate nohighlight">\(\uparrow\)</span></p></td>
+<td><p>Wprost</p></td>
+<td><p><span class="math notranslate nohighlight">\(\uparrow\)</span></p></td>
+<td><p>Wprost</p></td>
+<td><p><span class="math notranslate nohighlight">\(\uparrow\)</span></p></td>
+</tr>
+<tr class="row-odd"><td><p>Stopa wolna od ryzyka</p></td>
+<td><p><span class="math notranslate nohighlight">\(\uparrow\)</span></p></td>
+<td><p>Wprost</p></td>
+<td><p><span class="math notranslate nohighlight">\(\uparrow\)</span></p></td>
+<td><p>Odwrotnie</p></td>
+<td><p><span class="math notranslate nohighlight">\(\downarrow\)</span></p></td>
+</tr>
+<tr class="row-even"><td><p>Czas</p></td>
+<td><p><span class="math notranslate nohighlight">\(\uparrow\)</span></p></td>
+<td><p>Wprost</p></td>
+<td><p><span class="math notranslate nohighlight">\(\uparrow\)</span></p></td>
+<td><p>Wprost</p></td>
+<td><p><span class="math notranslate nohighlight">\(\uparrow\)</span></p></td>
+</tr>
+</tbody>
+</table>
+</div></blockquote>
+<p>Tabela (1).  Wpływ czynników rynkowych na cenę opcji <em>call</em> i <em>put</em>.</p>
+<p>Innymi słowy</p>
+<p>Aktualna <strong>cena aktywa</strong> podstawowego jest najbardziej istotnym parametrem ceny.</p>
+<p>Dla opcji <em>call</em>, im wyższa cena aktywa podstawowego tym wyższa wartość <em>call</em>.</p>
+<p>Dla opcji <em>put</em>, im niższa cena aktywa tym wyższa wartość opcji <em>put</em>.</p>
+<p><strong>Cena wykonania</strong>  jest ustalona na czas życia opcji, ale każde <em>aktywo</em> podstawowe może mieć kilka cen wykonania dla każdego miesiąca  wykorzystania.</p>
+<p>Dla <em>call</em>, im wyższa cena wykonania (<em>strike price</em>), tym niższa wartość <em>call</em>.</p>
+<p>Dla  <em>put</em>, im wyzsza cena <em>strike</em>, tym wyższa  wartość <em>put</em>.</p>
+<p><strong>Zmienność</strong>  ceny aktywa podstawowego (<em>Volatility</em>) jest mierzona jako zanualizowane odchylenie standardowe zysku z aktywa podstawowego.  Cena wszystkich opcji rośnie z rosnącą  zmiennością  (<em>volatility</em>). To dlatego, że opcje z wyższą zmiennością maja większą szanse na wygaśnięcie w cenie (<em>in-the-money</em>).</p>
+<p><strong>Czas do wygaśnięcia</strong> - Czas do wygaśnięcia jest mierzony jako część roku. Podobnie jak zmienność (<em>volatility</em>), dłuższy czas do wygaśnięcia zwiększa wartość wszelkich opcji. To dlatego, ze są większe szanse że opcja wygaśnie w cenie (<em>in-the-money</em>)  w dłuższym czasie.</p>
+<p><strong>Stopa wolna od ryzyka</strong> - Stopa wolna od ryzyka jest najmniej znaczącym parametrem. Jest ona używana do dyskontowania ceny wykonania, ale ponieważ  czas do wygaśnięcia w praktyce jest dużo niższy niż 9 miesięcy to stopy te bywają niskie i mają niewielki wpływ na cenę opcji.  Jeśli stopa wzrasta, to w wyniku wzrostu obniża się  cena wykonania.  Dlatego, jeśli stopa rośnie opcja  <em>call</em> wzrasta w wartości a opcja <em>put</em> obniża wartość.</p>
+<p>Wyznaczenie ceny opcji polega na tym by wyznaczyć jej aktualna wartość,  wartości wewnętrznej (<em>intrinsic value</em>) w chwili wygaśnięcia. Niestety, nie ma sposobu by znać tę wartość z wyprzedzeniem.</p>
+<p>Dlatego aby wyznaczyć cenę opcji posługujemy się modelami  teoretycznymi.  Istnieje wiele modeli stosowanych do tego celu. Najprostszym modelem  jest dwumianowy model wyceny opcji. (<em>Cox, Ross,Rubinstein- Option pricing: Simplified Approach- Journal of Financial Economics- September 1979</em>). Ten model wycenia europejską opcję call na  akcje spółki nie wypłacającej dywidendę.</p>
+<p>W modelu dwumianowym czas pozostały do wygaśnięcia opcji dzieli się na dyskretne Przedziały. W każdym przedziale czasu cena aktywa P zmienia się przyjmując jeden z dwu możliwych stanów- czyli dwumianowo. Może wzrosnąć do wartości Pu (z prawdopodobieństwem p) lub zmaleć s do wartości Pd (z prawdopodobieństwem 1– p), gdzie u &gt; 1, d &lt; 1. Mając zbiór cen aktywa (np. akcji) w postaci drzewka, można wycenić opcję przeprowadzając rachunek wstecz, począwszy od daty wygaśnięcia.  Obliczenia wykonuje się w kierunku początku drzewa od chwili T do T – 1, dyskontując w tym przedziale czasowym wartość portfela bezpiecznego składającego się z aktywa i opcji,  po stopie procentowej wolnej od ryzyka. Procedurę powtarza się aż do chwili wystawienia opcji.</p>
+<p>Model Blacka Scholesa dla europejskiej opcji call.</p>
+<p>Model dwumianowy zakładał  stacjonarny dwumianowy proces stochastyczny dla ruchu ceny  aktywa (akcji) zachodzący w dyskretnych przedziałach czasowych. Jeśli przejdziemy do granicy skracając  dyskretne okresy czasowe  to ten stochastyczny proces stanie procesem dyfuzji (Ito proces) zwanym geometrycznym ruchem Browna. Podobnie jak w poprzednim  modelu dwumianowym  konstruowany jest portfel wolny od ryzyka składający się z aktywa i wystawionej opcji call. Tym razem zakładamy, ze dywidenda może być wypłacana.Taki portfel generuje bezpieczna stopę zwrotu. Struktura  zabezpieczonego portfela posiada formę  zbliżoną do równania  dyfuzji ciepła w fizyce.</p>
+<p>Dalej</p>
+<p>Wzor Blacka Scholesa na wartość opcji (np. taki- ale należy uwzględnić   oznaczenia!!!!</p>
+<p>Opcja Call</p>
+<div class="math notranslate nohighlight">
+\[C(S,K,\sigma,r,T,\delta) = S e^{(-\delta T)} N(d_1) - K e^{(-rT)} N(d_2)\]</div>
+<p>Opcja put</p>
+<div class="math notranslate nohighlight">
+\[P(S,K,\sigma,r,T,\delta) = K e^{-rT} N(-d_2) - S e^{-\delta T} N(-d_1)\]</div>
+<p>Oznaczenia</p>
+<p>gdzie:</p>
+<div class="math notranslate nohighlight">
+\[d_1 = \frac{\ln (S/K) + (r- \delta + \frac{1}{2} \sigma ^2)T}{\sigma \sqrt{T}}\]</div>
+<p>a</p>
+<div class="math notranslate nohighlight">
+\[d_2 = d_1 - \sigma \sqrt{T}\]</div>
+<p>Jest oczywiście więcej modeli do wyliczania ceny opcji. W praktyce do wyliczania wartości opcji posługuje się modelami pozwalającymi na  przybliżenie wartości opcji. Metody stosowane to:</p>
+<p><strong>Metody numeryczne</strong></p>
+<ul class="simple">
+<li><p>Monte Carlo</p></li>
+<li><p>Metody: dwumienna, trójmienna</p></li>
+</ul>
+<p>Generalnie, przyjmuje się w stosowanych modelach założenie, że ceny podlegają  procesowy  stochastycznemu.</p>
+<p>Analiza wrażliwości  czyli  jak  czuła jest cena opcji na zmianę określających tę cenę wartości wielkości rynkowych.</p>
+<p>Wiemy ze  na cenę opcji  - <span class="math notranslate nohighlight">\(P_o\)</span> - cena opcji     - w poprzed ozn. C i P odp dla opcji call i put</p>
+<p>wpływają:</p>
+<div class="line-block">
+<div class="line"><span class="math notranslate nohighlight">\(P_a\)</span> - cena aktywa podstawowego <strong>- w poprzednich wzorach S</strong></div>
+<div class="line"><span class="math notranslate nohighlight">\(X\)</span> – cena wykonania  <strong>- w poprz. K</strong></div>
+<div class="line"><span class="math notranslate nohighlight">\(r\)</span> - stopa  wolna od ryzyka  <strong>poprzednio tak samo</strong></div>
+<div class="line"><span class="math notranslate nohighlight">\(T\)</span> - czas do wygaśnięcia     <strong>poprzednio T</strong></div>
+</div>
+<p>Zmienność ceny  (<em>volatility</em>)  okreslana jako</p>
+<p><span class="math notranslate nohighlight">\(\sigma - a\)</span> liczona jako odchylenie standardowe tejże ceny.</p>
+<p>Powstaje pytanie jak cena opcji jest czuła na zmiany tych parametrów ?</p>
+<p>Aby odpowiedzieć na to pytanie możemy posłużyć się,  może nie eleganckim ale usprawiedliwionym i skutecznym do tego celu,  rozwinięciem tej funkcji we szereg Taylora  i uwzględnić w nim  tylko pierwsze pochodne cząstkowe (z wyjątkiem drugiej pochodnej względem ceny opcji względem ceny aktywa).</p>
+<p>W ten sposób określoną  zmianę ceny przybliżamy otrzymanym wzorem zakładając ze zmiana nie jest mniejsza niż.</p>
+<p>Pochodne cząstkowe ceny opcji wchodzące w sklad tego przybliżenia  maja znaczenie praktyczne bedac używane  i oznaczane  swymi nazwami.</p>
+<div class="math notranslate nohighlight">
+\[\Delta V \simeq \frac{\partial V}{\partial t} \Delta t + \frac{\partial V}{\partial S} \Delta S + \frac{1}{2} \frac{\partial ^2 V}{\partial S^2}(\Delta S)^2 + \frac{\partial V}{\partial \sigma} \Delta \sigma + \frac{\partial V}{\partial r} \Delta r + \frac{\partial V}{\partial \delta} \Delta \delta ,\]</div>
+<p><strong>Delta opcji</strong></p>
+<p>Zmiana ceny opcji przy zmianie ceny aktywa podstawowego nosi nazwę  współczynnika  delta.</p>
+<div class="math notranslate nohighlight">
+\[\Delta = \partial P_0/ \partial P^S = N(d_1)\]</div>
+<p>dla  modelu BS opcji call (bez dywidendy)</p>
+<p>dla opcji put</p>
+<div class="math notranslate nohighlight">
+\[\Delta_{put} = N(d_1) – 1\]</div>
+<p>Korzystając z prostego przekształcenia widać, ze:</p>
+<div class="math notranslate nohighlight">
+\[\Delta_{put} + \Delta_{call} = 1\]</div>
+<p>Ponadto, Delta wskazuje ilość akcji potrzebnych do otworzenia zwrotu z opcji.</p>
+<p>Np., <span class="math notranslate nohighlight">\(\Delta_{call} = 0.80\)</span> znaczy ze działa jak  0.80 akcji. Jeśli cena akcji wzrośnie o 1, cena opcji  call wzrośnie o 0.80.  cecha ta pozwala na  budowanie strategii  zabezpieczających. Ale o zastosowania  analizy wrażliwości w strategii zabezpieczania przed ryzykiem można znaleźć w <strong>Hedging za pomoca opcji</strong>.</p>
+<p><strong>Współczynnik gamma.</strong></p>
+<p><em>Gamma</em> drugą pochodną ceny opcji względem ceny akcji. Gamma jest pierwsza pochodną delta w stosunku do ceny aktywa. Gamma jest także nazywana  <em>krzywizną</em>.</p>
+<div class="math notranslate nohighlight">
+\[ \begin{align}\begin{aligned}\Gamma_c = \frac{\partial ^2 C}{\partial S^2} = \frac{\Delta_c}{\partial S}\\\Gamma_p = \frac{\partial ^2 P}{\partial S^2} = \frac{\Delta_p}{\partial S}\end{aligned}\end{align} \]</div>
+<p>Współczynnik gamma jest zatem miarą niestabilności współczynnika delta.</p>
+<p>Interpretacja</p>
+<p>Jeżeli w wyniku zmiany kursu instrumentu bazowego współczynnik delta zmieni się z 0,5 do 0,52 to wówczas zmiana delty o 0,02 określać będzie wartość współczynnika gamma.</p>
+<p>Przykład. Niech aktualna wartość instrumentu bazowego wynosi =75 jednostek pieniężnych. Aktualna wartość opcji  = 0,35. Delta opcji = 0,16 a gamma opcji  = 0,05.</p>
+<p>Jaka jest wartość opcji jeżeli kurs instrumentu bazowego wzrośnie do 80?</p>
+<p>A wiec zmiana ceny instrumentu bazowego = 5 a zmiana ceny wynikająca ze wsp. delta = 5 x 0,16 = 0,80. Wzrost wartości instrumentu bazowego o 5 powoduje wzrost wartości delty a zatem należy wyznaczyć dodatkową zmianę wartości opcji wynikającą z gamma. Zmiana ceny wynikająca z gamma = 0,5 x 0,05 x 52 = 0,62.</p>
+<p>Nowa wartość opcji to  stara wartość + zmiana z delty + z ze zmiany  gamma czyli: 0,35 + 0,80 + 0,62  = 1,77</p>
+<p><strong>Współczynnik Theta.</strong></p>
+<p>Kolejna pochodna cząstkowa jest wielkość zwana Theta.</p>
+<p>Określa ona  jak się zachowa cena opcji call (put) jeśli zmieni się czas do wygaśnięcia, a wszystko inne zostanie stałe?</p>
+<p>Theta jest to pierwsza pochodna ceny względem czasu.</p>
+<p>Opcje to „psujące się” aktywa, ponieważ wartość ich zanika po pewnym (wygaśnięcie).</p>
+<p>Wartość opcji = wartość wewnętrzna + premia czasowa.</p>
+<p>Wielkość tę dla opcja call i put wylicza się:</p>
+<div class="math notranslate nohighlight">
+\[ \begin{align}\begin{aligned}\Theta_c = \frac{\partial C}{\partial t}\\\Theta_p = \frac{\partial P}{\partial t}\end{aligned}\end{align} \]</div>
+<p>Theta większa od zera gdyż im więcej  jest czasu do wygaśnięcia tym większa wartość opcji.</p>
+<p>Ale  ponieważ czas do wygaśnięcia może tylko maleć theta jest rozpatrywana  jako wartość ujemna.  Biorąc pod uwagę  możliwość zajmowanej pozycji w opcjach należy pamiętać, że:</p>
+<ul class="simple">
+<li><p>Upływ czasu szkodzi posiadaczowi opcji.</p></li>
+<li><p>Upływ czasu działa na korzyść temu co opcje wystawił.</p></li>
+</ul>
+<p>Ze wzoru Blacka Scholes można wyliczyć wartość</p>
+<div class="math notranslate nohighlight">
+\[ \begin{align}\begin{aligned}\Theta_c = - \frac{S \sigma e^{-.5(d_1 ^2)}}{2\sqrt{2\pi t}} -rKe^{-rt}N(d_2)\\\Theta_p = \frac{S \sigma e^{-.5(d_1 ^2)}}{2\sqrt{2 \pi t}} +rKe^{-rt} N(d_2)\end{aligned}\end{align} \]</div>
+<p>Liczenie  Theta - interpretacja</p>
+<p>Równania określają  theta na rok. Np.  <span class="math notranslate nohighlight">\(\Theta = –5.58\)</span>, znaczy, że opcja straci 5.58 w wartości ceny na rok – czyli  (0.02 na dzień).</p>
+<p>Theta pozycji krótkich jest dodatnia. Theta pozycji długich jest ujemna. Opcje at-the-money mają największe wartości theta.</p>
+<p>Tabela poniżej  pokazuje znaki  pochodnych cząstkowych dla róznych pozycji opcji.</p>
+<blockquote>
+<div><table class="docutils align-default">
+<colgroup>
+<col style="width: 40%" />
+<col style="width: 20%" />
+<col style="width: 20%" />
+<col style="width: 20%" />
+</colgroup>
+<thead>
+<tr class="row-odd"><th class="head"><p>.</p></th>
+<th class="head"><p>Delta</p></th>
+<th class="head"><p>Theta</p></th>
+<th class="head"><p>Gamma</p></th>
+</tr>
+</thead>
+<tbody>
+<tr class="row-even"><td><p>Long call</p></td>
+<td><p>+</p></td>
+<td><p>-</p></td>
+<td><p>+</p></td>
+</tr>
+<tr class="row-odd"><td><p>Long put</p></td>
+<td><p>-</p></td>
+<td><p>-</p></td>
+<td><p>+</p></td>
+</tr>
+<tr class="row-even"><td><p>Short call</p></td>
+<td><p>-</p></td>
+<td><p>+</p></td>
+<td><p>-</p></td>
+</tr>
+<tr class="row-odd"><td><p>Short put</p></td>
+<td><p>+</p></td>
+<td><p>+</p></td>
+<td><p>-</p></td>
+</tr>
+</tbody>
+</table>
+</div></blockquote>
+<p>Znak gamma jest zawsze przeciwny do znaku theta</p>
+<p><strong>Czułość względem odchylenia standardowego - Vega</strong></p>
+<p>Odpowiada na pytanie,  jak się zmieni wartość opcji call (put) jeśli zmieni się odchylenie standardowe zwrotu czyli czułość na zmienność (volatility) funkcji?</p>
+<p><em>Vega</em> pierwszą cząstkową pochodną ceny opcji względem zmienności (volatility) aktywa podstawowego.</p>
+<div class="math notranslate nohighlight">
+\[ \begin{align}\begin{aligned}\text{vega}_c = \frac{\partial C}{\partial \sigma}\\\text{vega}_c = \frac{\partial P}{\partial \sigma}\end{aligned}\end{align} \]</div>
+<p>Wszystkie opcje long maja dodatnie  vegi. Im wyższa volatility tym  większa wartość opcji.</p>
+<p>Np., opcja o vega 0.30 zyskuje 0.30% wartości na każdy punkt procentowy wzrostu spodziewanej zmienności aktywa.</p>
+<p>Vega bywa także nazywane kappa, omega, tau, zeta, lub sigma prim.
+Ze wzoru Blacka Scholesa można przykładowo wyliczyć wartości Vega.</p>
+<div class="math notranslate nohighlight">
+\[\text{vega} = \frac{S\sqrt{t}e^{-0.5(d_1 ^2)}}{\sqrt{2\pi}}\]</div>
+<p>Vega pozycji długich jest dodatnia. Vega pozycji krótkich jest ujemna.</p>
+<p>Wartości opcji są <strong>bardzo</strong> czułe na zmianę odchylenia standardowego ceny aktywa.</p>
+<p>Im większe volatility, tym więcej są warte opcje  call i the put.</p>
+<p>Opcje at-the-money mają największą wartość Vega. Vega maleje dla opcji in- oraz out-of-the-money. <strong>Vega</strong>, Kappa maleje wraz z upływem czasu do terminu wygaśnięcia.</p>
+<p><strong>Rho</strong></p>
+<p><em>Rho</em> pierwsza pochodna ceny opcji względem stopy procentowej wolnej od ryzyka:</p>
+<div class="math notranslate nohighlight">
+\[ \begin{align}\begin{aligned}\rho _c = Kte^{-rt}N(d_2)\\\rho _p = -Kte^{-rt}N(-d_2)\end{aligned}\end{align} \]</div>
+<p>Rho  jest najmniej znaczącą  z pochodnych. Nawet jeśli opcja ma wyjątkowo długie życie, zmiany stopy procentowej wpływają na premie niewiele.</p>
+</div>
+
+
+          </div>
+        </div>
+      </div>
+      <div class="sphinxsidebar" role="navigation" aria-label="main navigation">
+        <div class="sphinxsidebarwrapper">
+  <div role="note" aria-label="source link">
+    <h3>Ta strona</h3>
+    <ul class="this-page-menu">
+      <li><a href="../_sources/old_src/Opcje.rst.txt"
+            rel="nofollow">Pokaż źródło</a></li>
+    </ul>
+   </div>
+<div id="searchbox" style="display: none" role="search">
+  <h3 id="searchlabel">Szybkie wyszukiwanie</h3>
+    <div class="searchformwrapper">
+    <form class="search" action="../search.html" method="get">
+      <input type="text" name="q" aria-labelledby="searchlabel" />
+      <input type="submit" value="Szukaj" />
+    </form>
+    </div>
+</div>
+<script>$('#searchbox').show(0);</script>
+        </div>
+      </div>
+      <div class="clearer"></div>
+    </div>
+  </div>
+  <div class="relbar-bottom">
+    
+    <div class="related" role="navigation" aria-label="related navigation">
+      <h3>Nawigacja</h3>
+      <ul>
+        <li class="right" style="margin-right: 10px">
+          <a href="../genindex.html" title="Indeks ogólny"
+             >indeks</a></li>
+  <li><a href="../index.html">Analiza Rynków Finansowych</a> &#187;</li>
+   
+      </ul>
+    </div>
+  </div>
+  
+  <div class="footer">
+    <a class="logo" href="http://upgow.us.edu.pl/" target="_blank"><img src="../_static/upgow.png" alt="UPGOW"/></a><br/>
+    <img src="../_static/stopka_EU.png" alt="EU"/><br/>
+    &copy; Copyright 2013, ML and MK.
+    Created using <a href="http://sphinx.pocoo.org/">Sphinx</a> 2.4.0.
+  </div>
+  </body>
+</html>

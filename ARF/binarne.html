@@ -1,0 +1,762 @@
+
+
+  
+<!DOCTYPE html>
+
+<html xmlns="http://www.w3.org/1999/xhtml" lang="pl">
+  <head>
+    <meta charset="utf-8" />
+    <title>17. Dodatek: Komputerowa analiza drzew binarnych &#8212; Analiza Rynków Finansowych</title>
+    <link rel="stylesheet" href="_static/upgow.css" type="text/css" />
+    <link rel="stylesheet" href="_static/pygments.css" type="text/css" />
+    <link rel="stylesheet" href="http://fonts.googleapis.com/css?family=Noticia+Text|Open+Sans|Droid+Sans+Mono&subset=latin,latin-ext" type="text/css" />
+    <script id="documentation_options" data-url_root="./" src="_static/documentation_options.js"></script>
+    <script src="_static/jquery.js"></script>
+    <script src="_static/underscore.js"></script>
+    <script src="_static/doctools.js"></script>
+    <script src="_static/language_data.js"></script>
+    <script src="_static/translations.js"></script>
+    <script async="async" src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.5/latest.js?config=TeX-AMS-MML_HTMLorMML"></script>
+    <script src="_static/jquery.cookie.js"></script>
+    <script src="_static/cloud.js"></script>
+    <script type="text/javascript" src="http://sagecell.sagemath.org/static/jquery.min.js"></script>
+    <script type="text/javascript" src="http://sagecell.sagemath.org/static/embedded_sagecell.js"></script>
+    <script type="text/javascript">
+        sagecell.makeSagecell({inputLocation: ".sage_linked",
+                               linked: true,
+                       	evalButtonText: 'Wykonaj'});
+        sagecell.makeSagecell({inputLocation: ".sage_unlinked",
+                               linked: false,
+                           evalButtonText: 'Wykonaj'});
+    </script>
+
+    <style type="text/css">
+        .sagecell .CodeMirror-scroll {
+            overflow-y: hidden;
+            overflow-x: auto;
+        }
+        .sagecell .CodeMirror {
+            height: auto;
+        }
+    </style>
+    
+    <link rel="index" title="Indeks" href="genindex.html" />
+    <link rel="search" title="Szukaj" href="search.html" />
+    <link rel="prev" title="16. Przykład - obliczenie VaR dla nieliniowej funkcji wyceny" href="var_ex2.html" />
+ 
+  <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, minimum-scale=1">
+  </head><body>
+  <div class="relbar-top">
+    
+    <div class="related" role="navigation" aria-label="related navigation">
+      <h3>Nawigacja</h3>
+      <ul>
+        <li class="right" style="margin-right: 10px">
+          <a href="genindex.html" title="Indeks ogólny"
+             accesskey="I">indeks</a></li>
+        <li class="right" >
+          <a href="var_ex2.html" title="16. Przykład - obliczenie VaR dla nieliniowej funkcji wyceny"
+             accesskey="P">wstecz</a> &nbsp; &nbsp;</li>
+  <li><a href="index.html">Analiza Rynków Finansowych</a> &#187;</li>
+   
+      </ul>
+    </div>
+  </div>
+  
+  <div class="content">  
+
+    <div class="document">
+      <div class="documentwrapper">
+        <div class="bodywrapper">
+          <div class="body">
+            
+  <div class="section" id="dodatek-komputerowa-analiza-drzew-binarnych">
+<span id="binarne"></span><h1><span class="section-number">17. </span>Dodatek: Komputerowa analiza drzew binarnych<a class="headerlink" href="#dodatek-komputerowa-analiza-drzew-binarnych" title="Stały odnośnik do tego nagłówka">¶</a></h1>
+<p>Modele zachowania zmienającej się w czasie ceny pewnego aktywa
+<span class="math notranslate nohighlight">\(S\)</span>, dzielą się na te z czasem ciągłym i dyskretnym. W przypadku
+modeli z czasem dyskretnym, zakładamy, że zmiany cen aktywa oraz
+wszelkie transakcje mają miejsce w pewnym wybranych momentach czasu,
+np. raz na dzień.</p>
+<p>Najprostszym wariantem modelu z czasem dyskretnym, jest taki, w którym
+cena aktywa w czasie <span class="math notranslate nohighlight">\(t+1\)</span> może przybierać jedną z dwóch
+wartości:</p>
+<div class="math notranslate nohighlight">
+\[\begin{split}S_{i+1} = \left\{
+ \begin{array}{l l}
+    S^{+} &amp; \quad \text{z prawdopodobieństwem} \; p\\
+    S^{-}   &amp; \quad \text{z prawdopodobieństwem} \; 1-p
+ \end{array} \right.\end{split}\]</div>
+<p>Startując z pewnej wartości aktywa w chwili początkowej, w pierwszym
+okresie mamy dwie możliwości. W drugim okresie, każda z tych możliwości
+prowadzi do kolejnych dwóch. Uogólniając po <span class="math notranslate nohighlight">\(N\)</span> okresach mamy
+<span class="math notranslate nohighlight">\(2^N\)</span> możliwych scenariuszy ewolucji ceny.</p>
+<p>Wartości <span class="math notranslate nohighlight">\(S^+\)</span> <span class="math notranslate nohighlight">\(S^-\)</span> generalnie mogą być dowolne, ale z
+przyczyn praktycznych stosuje się kilka reguł. Po pierwsze wartość
+aktywa <span class="math notranslate nohighlight">\(S_{i+1}\)</span> zależy od poprzedniej wartości
+<span class="math notranslate nohighlight">\(S_{i}\)</span>. Po drugie chcemy, żeby drzewo wartości aktywa
+generowane przez proces zmian cen w czasie było drzewem
+„rekombinującym”. Oznacza to, że jeśli aktywo zdrożeje a następnie
+potanieje to jego cena będzie dokładnie taka sama jakby najpierw
+potaniało a potem zdrożało. Wtedy, pomimo tego, że liczba scenariuszy
+po <span class="math notranslate nohighlight">\(N\)</span> okresach nadal pozostaje równa <span class="math notranslate nohighlight">\(2^N\)</span>, to liczba
+możliwych do osiągnięcia różnych cen aktywa wynosie
+<span class="math notranslate nohighlight">\(N+1\)</span>. Zdecydowanie ułatwia to wykonywanie rachunków na
+większych drzewach.</p>
+<p>Następujące dwa scenariusze wyboru reguł zmian cen prowadzą do drzew
+rekombinujących.</p>
+<blockquote>
+<div><ul class="simple">
+<li><p>Drzewa addytywne: Jeśli cena aktywa po jednym okresie może wzrosnąć
+o <span class="math notranslate nohighlight">\(\Delta_1\)</span> lub zmaleć o <span class="math notranslate nohighlight">\(\Delta_2\)</span> i wartości te są
+stałe w czasie oraz niezależne od wartości ceny aktywa.</p></li>
+<li><p>Drzewa multiplikatywne: Jeśli cena aktywa po jednym okresie może
+wzrosnąć do <span class="math notranslate nohighlight">\(S u\)</span> lub zmaleć do <span class="math notranslate nohighlight">\(S d\)</span>, dla pewnych
+liczb <span class="math notranslate nohighlight">\(u&gt;1\)</span> oraz <span class="math notranslate nohighlight">\(0&lt;d&lt;1\)</span>, niezależnych od ceny akcji i
+czasu.</p></li>
+</ul>
+</div></blockquote>
+<p>Do operacji na drzewach użyjemy list zagnieżdżonych. Będziemy
+stosowali kilka funkcji pomocniczych, które będą generowały drzewa jak
+i przedstawiały je graficznie.</p>
+<div class='sage_linked'><script type='text/x-sage'>import numpy as np
+def gen_all(niter,SP = 4.0,q=0.175,delta1=None,delta2=None):
+    SP = [[SP]]
+    for i in range(niter):
+        tmp = []
+        for s in SP[-1]:
+            if delta1==None or delta2==None:
+                tmp+= [ (1+q)*s, s/(1+q) ]
+            else:
+                tmp+= [ s+delta1, s-delta2 ]
+        SP.append(tmp)
+    return SP
+def gen_recombining(niter,SP = 4.0,q=0.175,delta1=None,delta2=None):
+    SP = [[SP]]
+    for i in range(niter):
+        tmp = []
+        for s in SP[-1]:
+            if delta1==None or delta2==None:
+                tmp+= [ (1+q)*s]
+            else:
+                tmp+= [ s+delta1]
+        if delta1==None or delta2==None:
+            tmp+= [ s/(1+q)]
+        else:
+            tmp+= [ s-delta2]
+
+
+        SP.append(tmp)
+    return SP
+
+def plot_tree(SP):
+    plt = point( (0,SP[0][0]),size=244,color='gray',alpha=0.2,zorder=0)
+
+    if len(SP) == len(SP[-1]):
+        for l,prices in enumerate(SP):
+            for i,p in enumerate(prices):
+                if l>0:
+                    plt+=point2d( (l,p),size=244,color='gray',alpha=0.2,zorder=0,faceted=True )
+                    plt+= text("%0.1f"%p,(l,p),color='black',figsize=(5,3))
+        for l in range(len(SP)-1):
+            for i in range(l+1):
+                plt+=arrow2d( (l,SP[l][i]),(l+1,SP[l+1][i]), arrowshorten=16)
+                plt+=arrow2d( (l,SP[l][i]),(l+1,SP[l+1][i+1]), arrowshorten=16)
+    else:
+        for l,prices in enumerate(SP):
+            for i,p in enumerate(prices):
+                if l>0:
+                    plt+=arrow2d( (l-1,SP[l-1][int(i/2)]),(l,p), arrowshorten=16)
+                    plt+=point2d( (l,p),size=244,color='gray',alpha=0.2,zorder=0,faceted=True )
+                    plt+= text("%0.1f"%p,(l,p),color='black',figsize=(5,3))
+    plt.axes_labels(["rok","wartosc"])
+    plt.axes_range(xmin=-.2, xmax = len(SP)-1+0.2,ymin=0,ymax=SP[-1][0]+1)
+    return plt
+
+def plot_tree2(SP,OP):
+    plt = point( (0,SP[0][0]),size=244,color='gray',alpha=0.2,zorder=0)
+
+    if len(SP) == len(SP[-1]):
+        for l,(prices,oprices) in enumerate(zip(SP,OP)):
+            for i,(p,op) in enumerate(zip(prices,oprices)):
+                if l>0:
+                    plt+=point2d( (l,p),size=244,color='gray',alpha=0.2,zorder=0,faceted=True )
+                    plt+= text("%0.1f"%op,(l,p),color='black',figsize=(5,3))
+        for l in range(len(SP)-1):
+            for i in range(l+1):
+                plt+=arrow2d( (l,SP[l][i]),(l+1,SP[l+1][i]), arrowshorten=16)
+                plt+=arrow2d( (l,SP[l][i]),(l+1,SP[l+1][i+1]), arrowshorten=16)
+    else:
+        for l,(prices,oprices) in enumerate(zip(SP,OP)):
+            for i,(p,op) in enumerate(zip(prices,oprices)):
+                if l>0:
+                    plt+=arrow2d( (l-1,SP[l-1][int(i/2)]),(l,p), arrowshorten=16)
+                    plt+=point2d( (l,p),size=244,color='gray',alpha=0.2,zorder=0,faceted=True )
+                    plt+= text("%0.1f"%op,(l,p),color='black',figsize=(5,3))
+    plt.axes_labels(["rok","wartosc"])
+    plt.axes_range(xmin=-.2, xmax = len(SP)-1+0.2,ymin=0,ymax=SP[-1][0]+1)
+    return plt</script></div><div class="admonition-opis-programu admonition">
+<p class="admonition-title">Opis programu</p>
+<p>Funkcja <code class="code docutils literal notranslate"><span class="pre">gen_all</span></code> generuje zadaną przez pierwszy parametr
+liczbę poziomów drzewa binarnego. Startujemy z wartości
+<code class="code docutils literal notranslate"><span class="pre">SP</span></code>. Z danej wartości w poprzednim okresie są generowane
+dwie nowe. Zgodnie z regułą addytywną: <code class="code docutils literal notranslate"><span class="pre">s+delta1,</span> <span class="pre">s-delta2</span></code> a
+z multiplikatywną mamy <code class="code docutils literal notranslate"><span class="pre">(1+q)*s,</span> <span class="pre">s/(1+q)</span></code>. Reguła
+multiplikatywna jest domyśna, a funkcja użyje wersji addytynej
+jesli na wejsciu podamy parametry <code class="code docutils literal notranslate"><span class="pre">delta1,delta2</span></code>. Struktura
+danych w której będziemy przechowywać dane wyjsciowe (drzewo
+binarne) to lista wartości w każdym okresie - czyli zagnieżdżona
+lista list.  Ponieważ <code class="code docutils literal notranslate"><span class="pre">gen_all</span></code> generuje wszystkie
+scenariusze należy pamiętać więc by <span class="math notranslate nohighlight">\(n\)</span> nie było zbyt duże,
+bo ilość scenariuszy jest <span class="math notranslate nohighlight">\(\sim 2^n\)</span>.</p>
+<p>Funkcja <code class="code docutils literal notranslate"><span class="pre">gen_recombining</span></code> ma ten sam wywołania jak
+<code class="code docutils literal notranslate"><span class="pre">gen_all</span></code>. Różnica polega na tym, że liczba możliwych stóp
+procentowych w n-tym okresie wynosi <span class="math notranslate nohighlight">\(n+1\)</span> a nie <span class="math notranslate nohighlight">\(2 n\)</span>.</p>
+<p>Funkcje <code class="code docutils literal notranslate"><span class="pre">plot_tree</span></code> i <code class="code docutils literal notranslate"><span class="pre">plot_tree2</span></code> przedstawiają
+graficznie drzewa binarne, przy czym ta ostatnia wersja pozwala
+nanieść wartości z dodatkowego drzewa. Ma to zastosowanie w
+przypadku wizualizacji ewolucji cen opcji.</p>
+</div>
+<p>Drzewa multiplikatywne mają kilka zalet. Po pierwsze cena nie będzie
+ujemna. Nie jest to prawdą w modelu addytywnym! Po drugie, założenie
+stałej zmiany, niezależnej od ceny aktywa wydaje się
+nierzeczywiste. Rozsądniejszym wydaje się podanie względnej zmienności
+ceny aktywa, co właśnie implementuje model multyplikatywny.</p>
+<p>Wygenerujmy dla przykładu drzewo z czterema rozgałęzieniami,
+rekombinujące i multiplikatywne:</p>
+<div class='sage_linked'><script type='text/x-sage'>show(plot_tree(gen_recombining(4,SP=30,q=0.1)))
+show(plot_tree(gen_all(4,SP=30,q=0.1)))</script></div><p>Zauważmy, że w pełnym drzewie binarnym mamy w <span class="math notranslate nohighlight">\(n\)</span>-tym okresie
+<span class="math notranslate nohighlight">\(2^n\)</span> wartości, z których tylko <span class="math notranslate nohighlight">\(n\)</span> jest liczbowo
+różnych. Procedura rysująca wszystkie wartości, rysuje stopy
+procentowe w kółkach o kolorze jasnoszarym, przy czym jeżeli
+narysujemy więcej niż raz jasnoszare kółko jedno na drugim to kolor
+będzie ciemniejszy (związane jest to z opcją alpha=0.2, która określa
+stopnień przezroczystości koloru). Wynika z tego, że im ciemniejszy
+kolor tym więcej elementów pełnego drzewa dwumiennego ma daną
+wartość.</p>
+<p>W pełnym drzewie binarnym istnieje tylko jedna ścieżką realizująca
+każdą gałąź. Wobec tego można powiedzieć, że liczba ścieżek
+realizujących stopę procentową jest proporcjonalna do odcienia na
+powyższym rysunku. Wyraźnie widzimy, że skrajne wartości są dużo mniej
+prawdopodobne od tych w środku.</p>
+<p>Drzewa binarne, są fundamentalnym elementem modelowania rynku
+finansowego. Rozważania z zakresu teorii rynków finansowych mogą być
+łatwo zademnostrowane na rynkach skończonych, które są naturalnym
+rozszerzeniem rynku jednookresowego, dwustanowego.</p>
+<div class="section" id="drzewa-binarne">
+<h2><span class="section-number">17.1. </span>Drzewa binarne<a class="headerlink" href="#drzewa-binarne" title="Stały odnośnik do tego nagłówka">¶</a></h2>
+<p>Rozważmy drzewo binarne w którym aktywo zmienia się począwszy od
+wartości początkowej <span class="math notranslate nohighlight">\(S_0=100\)</span> o 20 jednostek w górę lub w
+dół. Poniższy kod generuje takie drzewo:</p>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="n">sage</span><span class="p">:</span> <span class="n">N</span> <span class="o">=</span> <span class="mi">3</span>
+<span class="n">sage</span><span class="p">:</span> <span class="n">SP</span> <span class="o">=</span> <span class="n">gen_recombining</span><span class="p">(</span><span class="n">N</span><span class="p">,</span><span class="n">SP</span><span class="o">=</span><span class="mi">100</span><span class="p">,</span><span class="n">delta1</span><span class="o">=</span><span class="mi">20</span><span class="p">,</span><span class="n">delta2</span><span class="o">=</span><span class="mi">20</span><span class="p">)</span>
+<span class="n">sage</span><span class="p">:</span> <span class="n">plt_sp</span> <span class="o">=</span> <span class="n">plot_tree</span><span class="p">(</span><span class="n">SP</span><span class="p">)</span>
+<span class="n">sage</span><span class="p">:</span> <span class="n">plt_sp</span><span class="o">.</span><span class="n">set_axes_range</span><span class="p">(</span><span class="n">ymax</span><span class="o">=</span><span class="mi">170</span><span class="p">)</span>
+<span class="n">sage</span><span class="p">:</span> <span class="n">plt_sp</span>
+</pre></div>
+</div>
+<img alt="_images/cell_7_sage0.png" class="align-center" src="_images/cell_7_sage0.png" />
+<p>Możemy go samodzielnie uruchomić:</p>
+<div class='sage_linked'><script type='text/x-sage'>N = 3
+SP = gen_recombining(N,SP=100,delta1=20,delta2=20)
+plt_sp = plot_tree(SP)
+plt_sp.set_axes_range(ymax=170)
+plt_sp.show()
+print( SP )</script></div><p>Mając drzewo w postaci struktury zagnieżdżonej listy, możemy
+wygenerować sobie wszystkie scenariusze ewolucji na tym drzewie:</p>
+<div class='sage_linked'><script type='text/x-sage'>all_paths = list ( map(lambda x:[0]+np.cumsum(x).tolist(),cartesian_product( N*[[0,1]] ).list() ) )
+print( all_paths )</script></div><p>Weźmy prawdopodobieństwa <span class="math notranslate nohighlight">\(q\)</span>:</p>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="n">sage</span><span class="p">:</span> <span class="n">var</span><span class="p">(</span><span class="s1">&#39;q&#39;</span><span class="p">)</span>
+<span class="n">sage</span><span class="p">:</span> <span class="n">q</span> <span class="o">=</span> <span class="mi">1</span><span class="o">/</span><span class="mi">2</span>
+<span class="n">sage</span><span class="p">:</span> <span class="n">Q</span> <span class="o">=</span> <span class="p">[</span><span class="n">q</span><span class="p">,</span><span class="mi">1</span><span class="o">-</span><span class="n">q</span><span class="p">]</span>
+</pre></div>
+</div>
+<p>Wybierzmy sobie z naszego drzewa pewną cenę z okresu drugiego oraz
+dwie możliwości jej ewolucji w czasie.</p>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="n">sage</span><span class="p">:</span> <span class="n">SP</span><span class="p">[</span><span class="mi">2</span><span class="p">][</span><span class="mi">1</span><span class="p">],</span><span class="n">SP</span><span class="p">[</span><span class="mi">3</span><span class="p">][</span><span class="mi">1</span><span class="p">],</span><span class="n">SP</span><span class="p">[</span><span class="mi">3</span><span class="p">][</span><span class="mi">2</span><span class="p">]</span>
+<span class="p">(</span><span class="mi">100</span><span class="p">,</span> <span class="mi">120</span><span class="p">,</span> <span class="mi">80</span><span class="p">)</span>
+</pre></div>
+</div>
+<p>możemy sobie narysować to na drzewie, aby sprawdzić czy są to
+dokładnie te węzły o które nam chodzi.</p>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="n">sage</span><span class="p">:</span> <span class="n">point</span><span class="p">([</span> <span class="p">(</span><span class="mi">2</span><span class="p">,</span><span class="n">SP</span><span class="p">[</span><span class="mi">2</span><span class="p">][</span><span class="mi">1</span><span class="p">]),(</span><span class="mi">3</span><span class="p">,</span><span class="n">SP</span><span class="p">[</span><span class="mi">3</span><span class="p">][</span><span class="mi">1</span><span class="p">]),(</span><span class="mi">3</span><span class="p">,</span><span class="n">SP</span><span class="p">[</span><span class="mi">3</span><span class="p">][</span><span class="mi">2</span><span class="p">])],</span><span class="n">color</span><span class="o">=</span><span class="s1">&#39;yellow&#39;</span><span class="p">,</span><span class="n">size</span><span class="o">=</span><span class="mi">600</span><span class="p">,</span><span class="n">zorder</span><span class="o">=-</span><span class="mi">10</span><span class="p">,</span><span class="n">ymin</span><span class="o">=</span><span class="mi">0</span><span class="p">,</span><span class="n">ymax</span><span class="o">=</span><span class="mi">170</span><span class="p">,</span><span class="n">xmax</span><span class="o">=</span><span class="mf">3.4</span><span class="p">)</span><span class="o">+</span><span class="n">plt_sp</span>
+</pre></div>
+</div>
+<img alt="_images/cell_96_sage0.png" class="align-center" src="_images/cell_96_sage0.png" />
+<p>Dla prawdopodobieństwa <span class="math notranslate nohighlight">\(q=\frac{1}{2}\)</span> możemy obliczyć jaka
+będzie stopa oprocentowanie wolnego od ryzyka, które zapewni to, że
+nie będzie mógł zachodzić arbitraż (w podręcznikach matematycznych
+zwane jest ono też miarą arbitrażową):</p>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="n">sage</span><span class="p">:</span> <span class="n">var</span><span class="p">(</span><span class="s1">&#39;r&#39;</span><span class="p">)</span>
+<span class="n">sage</span><span class="p">:</span> <span class="n">eq</span> <span class="o">=</span> <span class="n">SP</span><span class="p">[</span><span class="mi">2</span><span class="p">][</span><span class="mi">1</span><span class="p">]</span><span class="o">*</span><span class="p">(</span><span class="mi">1</span><span class="o">+</span><span class="n">r</span><span class="p">)</span> <span class="o">==</span> <span class="n">q</span><span class="o">*</span><span class="n">SP</span><span class="p">[</span><span class="mi">3</span><span class="p">][</span><span class="mi">1</span><span class="p">]</span><span class="o">+</span><span class="p">(</span><span class="mi">1</span><span class="o">-</span><span class="n">q</span><span class="p">)</span><span class="o">*</span><span class="n">SP</span><span class="p">[</span><span class="mi">3</span><span class="p">][</span><span class="mi">2</span><span class="p">]</span>
+<span class="n">sage</span><span class="p">:</span> <span class="n">show</span><span class="p">(</span><span class="n">eq</span><span class="p">)</span>
+</pre></div>
+</div>
+<div class="math notranslate nohighlight">
+\[100 \, r + 100 = 100\]</div>
+<p>Ile wynosi  <span class="math notranslate nohighlight">\(r\)</span>?</p>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="n">sage</span><span class="p">:</span> <span class="n">solve</span><span class="p">(</span><span class="n">eq</span><span class="p">,</span><span class="n">r</span><span class="p">)</span>
+<span class="p">[</span><span class="n">r</span> <span class="o">==</span> <span class="mi">0</span><span class="p">]</span>
+</pre></div>
+</div>
+<p>Bedzie to zachodziło dla każdego węzła, sprawdźmy:</p>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="n">sage</span><span class="p">:</span> <span class="k">def</span> <span class="nf">calculate_r</span><span class="p">(</span><span class="n">i</span><span class="o">=</span><span class="mi">2</span><span class="p">,</span><span class="n">j</span> <span class="o">=</span> <span class="mi">1</span><span class="p">):</span>
+<span class="o">...</span>
+<span class="o">...</span>       <span class="n">eq</span> <span class="o">=</span> <span class="n">SP</span><span class="p">[</span><span class="n">i</span><span class="p">][</span><span class="n">j</span><span class="p">]</span><span class="o">*</span><span class="p">(</span><span class="mi">1</span><span class="o">+</span><span class="n">r</span><span class="p">)</span> <span class="o">==</span> <span class="n">q</span><span class="o">*</span><span class="n">SP</span><span class="p">[</span><span class="n">i</span><span class="o">+</span><span class="mi">1</span><span class="p">][</span><span class="n">j</span><span class="p">]</span><span class="o">+</span><span class="p">(</span><span class="mi">1</span><span class="o">-</span><span class="n">q</span><span class="p">)</span><span class="o">*</span><span class="n">SP</span><span class="p">[</span><span class="n">i</span><span class="o">+</span><span class="mi">1</span><span class="p">][</span><span class="n">j</span><span class="o">+</span><span class="mi">1</span><span class="p">]</span>
+<span class="o">...</span>       <span class="n">show</span><span class="p">([</span><span class="n">SP</span><span class="p">[</span><span class="n">i</span><span class="p">][</span><span class="n">j</span><span class="p">],</span><span class="n">SP</span><span class="p">[</span><span class="n">i</span><span class="o">+</span><span class="mi">1</span><span class="p">][</span><span class="n">j</span><span class="p">],</span><span class="n">SP</span><span class="p">[</span><span class="n">i</span><span class="o">+</span><span class="mi">1</span><span class="p">][</span><span class="n">j</span><span class="o">+</span><span class="mi">1</span><span class="p">]])</span>
+<span class="o">...</span>       <span class="k">return</span> <span class="n">solve</span><span class="p">(</span><span class="n">eq</span><span class="p">,</span><span class="n">r</span><span class="p">)[</span><span class="mi">0</span><span class="p">]</span><span class="o">.</span><span class="n">rhs</span><span class="p">()</span>
+</pre></div>
+</div>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="n">sage</span><span class="p">:</span> <span class="n">calculate_r</span><span class="p">(</span><span class="n">i</span><span class="o">=</span><span class="mi">1</span><span class="p">,</span><span class="n">j</span> <span class="o">=</span> <span class="mi">1</span><span class="p">)</span>
+<span class="mi">0</span>
+</pre></div>
+</div>
+<div class="math notranslate nohighlight">
+\[\left[80, 100, 60\right]\]</div>
+<p>Definiujemy tablicę wszystkich ścieżek (historii) ewolucji ceny
+aktywa, z notają, że:</p>
+<ul class="simple">
+<li><p>0 - oznacza wzrost ceny</p></li>
+<li><p>1 - oznacza spadek ceny</p></li>
+</ul>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="n">sage</span><span class="p">:</span> <span class="n">all_moves</span> <span class="o">=</span> <span class="n">CartesianProduct</span><span class="p">(</span><span class="o">*</span><span class="p">(</span> <span class="n">N</span><span class="o">*</span><span class="p">[[</span><span class="mi">0</span><span class="p">,</span><span class="mi">1</span><span class="p">]])</span> <span class="p">)</span><span class="o">.</span><span class="n">list</span><span class="p">()</span>
+</pre></div>
+</div>
+<p>Ruchom tym przyporządkowujemy prawdopodobieństwa. Korzystamy z faktu,
+że prawdopodobieństwa wzrostu lub spadku nie zależą od miejsca w
+drzewie w którym się znajdujemy.</p>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="n">sage</span><span class="p">:</span> <span class="n">Qmoves</span> <span class="o">=</span> <span class="p">[</span> <span class="nb">map</span><span class="p">(</span><span class="k">lambda</span> <span class="n">x</span><span class="p">:</span><span class="n">Q</span><span class="p">[</span><span class="n">x</span><span class="p">],</span><span class="n">m</span><span class="p">)</span> <span class="k">for</span> <span class="n">m</span> <span class="ow">in</span> <span class="n">all_moves</span> <span class="p">]</span>
+</pre></div>
+</div>
+<p>Możemy teraz obliczyć prawdopodobieństwo każdej ścieżki:</p>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="n">sage</span><span class="p">:</span> <span class="nb">map</span><span class="p">(</span><span class="n">prod</span><span class="p">,</span><span class="n">Qmoves</span><span class="p">)</span>
+<span class="p">[</span><span class="mi">1</span><span class="o">/</span><span class="mi">8</span><span class="p">,</span> <span class="mi">1</span><span class="o">/</span><span class="mi">8</span><span class="p">,</span> <span class="mi">1</span><span class="o">/</span><span class="mi">8</span><span class="p">,</span> <span class="mi">1</span><span class="o">/</span><span class="mi">8</span><span class="p">,</span> <span class="mi">1</span><span class="o">/</span><span class="mi">8</span><span class="p">,</span> <span class="mi">1</span><span class="o">/</span><span class="mi">8</span><span class="p">,</span> <span class="mi">1</span><span class="o">/</span><span class="mi">8</span><span class="p">,</span> <span class="mi">1</span><span class="o">/</span><span class="mi">8</span><span class="p">]</span>
+</pre></div>
+</div>
+<p>Zobaczmy czy sumują się one do jedności:</p>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="n">sage</span><span class="p">:</span> <span class="k">try</span><span class="p">:</span>
+<span class="o">...</span>       <span class="nb">print</span><span class="p">(</span>  <span class="nb">sum</span><span class="p">(</span><span class="nb">map</span><span class="p">(</span><span class="n">prod</span><span class="p">,</span><span class="n">Qmoves</span><span class="p">))</span><span class="o">.</span><span class="n">full_simplify</span><span class="p">()</span> <span class="p">)</span>
+<span class="n">sage</span><span class="p">:</span> <span class="k">except</span><span class="p">:</span>
+<span class="o">...</span>       <span class="nb">print</span><span class="p">(</span> <span class="nb">sum</span><span class="p">(</span><span class="nb">map</span><span class="p">(</span><span class="n">prod</span><span class="p">,</span><span class="n">Qmoves</span><span class="p">))</span> <span class="p">)</span>
+<span class="mi">1</span>
+</pre></div>
+</div>
+<p>Jeśli dla każdej ścieżki obliczymy jej koncową wartość - biorąc pod
+uwagę rekombinacje to mamy po prostu sumę:</p>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="n">sage</span><span class="p">:</span> <span class="nb">map</span><span class="p">(</span> <span class="nb">sum</span><span class="p">,</span> <span class="n">all_moves</span><span class="p">)</span>
+<span class="p">[</span><span class="mi">0</span><span class="p">,</span> <span class="mi">1</span><span class="p">,</span> <span class="mi">1</span><span class="p">,</span> <span class="mi">2</span><span class="p">,</span> <span class="mi">1</span><span class="p">,</span> <span class="mi">2</span><span class="p">,</span> <span class="mi">2</span><span class="p">,</span> <span class="mi">3</span><span class="p">]</span>
+</pre></div>
+</div>
+<p>To biorąc odpowiedznie prawdopodobieństwa zajścia ścieżek:</p>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="n">sage</span><span class="p">:</span> <span class="nb">map</span><span class="p">(</span><span class="n">prod</span><span class="p">,</span><span class="n">Qmoves</span><span class="p">)</span>
+<span class="p">[</span><span class="mi">1</span><span class="o">/</span><span class="mi">8</span><span class="p">,</span> <span class="mi">1</span><span class="o">/</span><span class="mi">8</span><span class="p">,</span> <span class="mi">1</span><span class="o">/</span><span class="mi">8</span><span class="p">,</span> <span class="mi">1</span><span class="o">/</span><span class="mi">8</span><span class="p">,</span> <span class="mi">1</span><span class="o">/</span><span class="mi">8</span><span class="p">,</span> <span class="mi">1</span><span class="o">/</span><span class="mi">8</span><span class="p">,</span> <span class="mi">1</span><span class="o">/</span><span class="mi">8</span><span class="p">,</span> <span class="mi">1</span><span class="o">/</span><span class="mi">8</span><span class="p">]</span>
+</pre></div>
+</div>
+<p>Otrzymamy -  Rozkład dwumianowy (Bernoulliego!)</p>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="n">sage</span><span class="p">:</span> <span class="n">binom</span> <span class="o">=</span> <span class="p">(</span><span class="n">N</span><span class="o">+</span><span class="mi">1</span><span class="p">)</span><span class="o">*</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span>
+<span class="n">sage</span><span class="p">:</span> <span class="k">for</span> <span class="n">m</span><span class="p">,</span><span class="n">p</span> <span class="ow">in</span> <span class="nb">zip</span><span class="p">(</span> <span class="nb">map</span><span class="p">(</span> <span class="nb">sum</span><span class="p">,</span> <span class="n">all_moves</span><span class="p">),</span> <span class="nb">map</span><span class="p">(</span><span class="n">prod</span><span class="p">,</span><span class="n">Qmoves</span><span class="p">)</span> <span class="p">):</span>
+<span class="o">...</span>       <span class="n">binom</span><span class="p">[</span><span class="n">m</span><span class="p">]</span> <span class="o">+=</span> <span class="n">p</span>
+<span class="n">sage</span><span class="p">:</span> <span class="n">binom</span>
+<span class="p">[</span><span class="mi">1</span><span class="o">/</span><span class="mi">8</span><span class="p">,</span> <span class="mi">3</span><span class="o">/</span><span class="mi">8</span><span class="p">,</span> <span class="mi">3</span><span class="o">/</span><span class="mi">8</span><span class="p">,</span> <span class="mi">1</span><span class="o">/</span><span class="mi">8</span><span class="p">]</span>
+</pre></div>
+</div>
+<p>sprawdźmy korzystając np. z jego implementacji w pakiecie scipy:</p>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="n">sage</span><span class="p">:</span> <span class="kn">import</span> <span class="nn">scipy.stats</span>
+<span class="n">sage</span><span class="p">:</span> <span class="n">binom_dist</span> <span class="o">=</span> <span class="n">scipy</span><span class="o">.</span><span class="n">stats</span><span class="o">.</span><span class="n">binom</span><span class="p">(</span><span class="n">N</span><span class="p">,</span><span class="mi">1</span><span class="o">-</span><span class="n">q</span><span class="p">)</span>
+<span class="n">sage</span><span class="p">:</span> <span class="c1">#bar_chart([binom_dist.pmf(x) for x in range(21)])</span>
+<span class="n">sage</span><span class="p">:</span> <span class="n">d</span> <span class="o">=</span> <span class="p">[</span><span class="n">binom_dist</span><span class="o">.</span><span class="n">pmf</span><span class="p">(</span><span class="n">x</span><span class="p">)</span> <span class="k">for</span> <span class="n">x</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="n">N</span><span class="o">+</span><span class="mi">1</span><span class="p">)]</span>
+<span class="n">sage</span><span class="p">:</span> <span class="n">d</span>
+<span class="p">[</span><span class="mf">0.12500000000000003</span><span class="p">,</span> <span class="mf">0.375</span><span class="p">,</span> <span class="mf">0.375</span><span class="p">,</span> <span class="mf">0.12500000000000003</span><span class="p">]</span>
+</pre></div>
+</div>
+<p>Możemy teraz obliczyć średnią z ceny aktywa po ścieżkach:</p>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="n">sage</span><span class="p">:</span> <span class="k">for</span> <span class="n">q_</span><span class="p">,</span><span class="n">p_</span><span class="p">,</span><span class="ow">in</span> <span class="nb">zip</span><span class="p">(</span><span class="n">Qmoves</span><span class="p">,</span><span class="n">all_paths</span><span class="p">):</span>
+<span class="o">...</span>       <span class="nb">print</span><span class="p">(</span> <span class="n">q_</span><span class="p">,</span><span class="n">p_</span><span class="p">,</span><span class="nb">round</span><span class="p">(</span> <span class="n">prod</span><span class="p">(</span><span class="n">q_</span><span class="p">)</span><span class="o">*</span><span class="n">SP</span><span class="p">[</span><span class="n">N</span><span class="p">][</span><span class="n">p_</span><span class="p">[</span><span class="n">N</span><span class="p">]]</span> <span class="p">)</span> <span class="p">)</span>
+<span class="p">[</span><span class="mi">1</span><span class="o">/</span><span class="mi">2</span><span class="p">,</span> <span class="mi">1</span><span class="o">/</span><span class="mi">2</span><span class="p">,</span> <span class="mi">1</span><span class="o">/</span><span class="mi">2</span><span class="p">]</span> <span class="p">[</span><span class="mi">0</span><span class="p">,</span> <span class="mi">0</span><span class="p">,</span> <span class="mi">0</span><span class="p">,</span> <span class="mi">0</span><span class="p">]</span> <span class="mi">20</span>
+<span class="p">[</span><span class="mi">1</span><span class="o">/</span><span class="mi">2</span><span class="p">,</span> <span class="mi">1</span><span class="o">/</span><span class="mi">2</span><span class="p">,</span> <span class="mi">1</span><span class="o">/</span><span class="mi">2</span><span class="p">]</span> <span class="p">[</span><span class="mi">0</span><span class="p">,</span> <span class="mi">0</span><span class="p">,</span> <span class="mi">0</span><span class="p">,</span> <span class="mi">1</span><span class="p">]</span> <span class="mi">15</span>
+<span class="p">[</span><span class="mi">1</span><span class="o">/</span><span class="mi">2</span><span class="p">,</span> <span class="mi">1</span><span class="o">/</span><span class="mi">2</span><span class="p">,</span> <span class="mi">1</span><span class="o">/</span><span class="mi">2</span><span class="p">]</span> <span class="p">[</span><span class="mi">0</span><span class="p">,</span> <span class="mi">0</span><span class="p">,</span> <span class="mi">1</span><span class="p">,</span> <span class="mi">1</span><span class="p">]</span> <span class="mi">15</span>
+<span class="p">[</span><span class="mi">1</span><span class="o">/</span><span class="mi">2</span><span class="p">,</span> <span class="mi">1</span><span class="o">/</span><span class="mi">2</span><span class="p">,</span> <span class="mi">1</span><span class="o">/</span><span class="mi">2</span><span class="p">]</span> <span class="p">[</span><span class="mi">0</span><span class="p">,</span> <span class="mi">0</span><span class="p">,</span> <span class="mi">1</span><span class="p">,</span> <span class="mi">2</span><span class="p">]</span> <span class="mi">10</span>
+<span class="p">[</span><span class="mi">1</span><span class="o">/</span><span class="mi">2</span><span class="p">,</span> <span class="mi">1</span><span class="o">/</span><span class="mi">2</span><span class="p">,</span> <span class="mi">1</span><span class="o">/</span><span class="mi">2</span><span class="p">]</span> <span class="p">[</span><span class="mi">0</span><span class="p">,</span> <span class="mi">1</span><span class="p">,</span> <span class="mi">1</span><span class="p">,</span> <span class="mi">1</span><span class="p">]</span> <span class="mi">15</span>
+<span class="p">[</span><span class="mi">1</span><span class="o">/</span><span class="mi">2</span><span class="p">,</span> <span class="mi">1</span><span class="o">/</span><span class="mi">2</span><span class="p">,</span> <span class="mi">1</span><span class="o">/</span><span class="mi">2</span><span class="p">]</span> <span class="p">[</span><span class="mi">0</span><span class="p">,</span> <span class="mi">1</span><span class="p">,</span> <span class="mi">1</span><span class="p">,</span> <span class="mi">2</span><span class="p">]</span> <span class="mi">10</span>
+<span class="p">[</span><span class="mi">1</span><span class="o">/</span><span class="mi">2</span><span class="p">,</span> <span class="mi">1</span><span class="o">/</span><span class="mi">2</span><span class="p">,</span> <span class="mi">1</span><span class="o">/</span><span class="mi">2</span><span class="p">]</span> <span class="p">[</span><span class="mi">0</span><span class="p">,</span> <span class="mi">1</span><span class="p">,</span> <span class="mi">2</span><span class="p">,</span> <span class="mi">2</span><span class="p">]</span> <span class="mi">10</span>
+<span class="p">[</span><span class="mi">1</span><span class="o">/</span><span class="mi">2</span><span class="p">,</span> <span class="mi">1</span><span class="o">/</span><span class="mi">2</span><span class="p">,</span> <span class="mi">1</span><span class="o">/</span><span class="mi">2</span><span class="p">]</span> <span class="p">[</span><span class="mi">0</span><span class="p">,</span> <span class="mi">1</span><span class="p">,</span> <span class="mi">2</span><span class="p">,</span> <span class="mi">3</span><span class="p">]</span> <span class="mi">5</span>
+</pre></div>
+</div>
+<p>Średnia wartość aktywa  <span class="math notranslate nohighlight">\(S\)</span> wynosi:</p>
+<div class="math notranslate nohighlight">
+\[\sum_{p\in P}\left (\prod q_i \right )SP_{N,p_N}\]</div>
+<p>gdzie oznaczyliśmy przez dla ścieżki  <span class="math notranslate nohighlight">\(p\)</span> ze zbioru wszystkich scieżek  <span class="math notranslate nohighlight">\(P\)</span> przez:</p>
+<blockquote>
+<div><ul class="simple">
+<li><p><span class="math notranslate nohighlight">\(q_i\)</span> - prawdopodobieństwo, skoku ceny między okresami
+<span class="math notranslate nohighlight">\(i\)</span> i <span class="math notranslate nohighlight">\(i+1\)</span></p></li>
+<li><p><span class="math notranslate nohighlight">\(p_N\)</span> - indeks w drzewie wartości aktywa na końcu ścieżki
+<span class="math notranslate nohighlight">\(p\)</span></p></li>
+<li><p><span class="math notranslate nohighlight">\(SP_{i,j}\)</span> jest tablicą cen aktywa, w <span class="math notranslate nohighlight">\(i\)</span> oznacza okres
+a <span class="math notranslate nohighlight">\(j\)</span> indeks w drzewie wartości.</p></li>
+</ul>
+</div></blockquote>
+<p>Na przykład mamy:</p>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="n">sage</span><span class="p">:</span> <span class="nb">sum</span><span class="p">([</span><span class="n">prod</span><span class="p">(</span><span class="n">q_</span><span class="p">)</span><span class="o">*</span><span class="n">SP</span><span class="p">[</span><span class="n">N</span><span class="p">][</span><span class="n">p_</span><span class="p">[</span><span class="n">N</span><span class="p">]]</span> <span class="k">for</span> <span class="n">q_</span><span class="p">,</span><span class="n">p_</span><span class="p">,</span><span class="ow">in</span> <span class="nb">zip</span><span class="p">(</span><span class="n">Qmoves</span><span class="p">,</span><span class="n">all_paths</span><span class="p">)])</span>
+<span class="mi">100</span>
+</pre></div>
+</div>
+<p>Mając takie narzędzie możemy policzyć średnią po realizacjach
+(ścieżkach) dowolnej funkcji ceny aktywa. Na przykład akcji sprzedaży,
+której cena jest dana przez: <span class="math notranslate nohighlight">\(\max(0,S-K)\)</span></p>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="n">sage</span><span class="p">:</span> <span class="n">K</span><span class="o">=</span><span class="mi">100</span>
+<span class="n">sage</span><span class="p">:</span> <span class="nb">sum</span><span class="p">([</span><span class="n">prod</span><span class="p">(</span><span class="n">q_</span><span class="p">)</span><span class="o">*</span><span class="p">(</span> <span class="nb">max</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span><span class="n">SP</span><span class="p">[</span><span class="n">N</span><span class="p">][</span><span class="n">p_</span><span class="p">[</span><span class="n">N</span><span class="p">]]</span><span class="o">-</span><span class="n">K</span><span class="p">)</span> <span class="p">)</span> <span class="k">for</span> <span class="n">q_</span><span class="p">,</span><span class="n">p_</span><span class="p">,</span><span class="ow">in</span> <span class="nb">zip</span><span class="p">(</span><span class="n">Qmoves</span><span class="p">,</span><span class="n">all_paths</span><span class="p">)])</span>
+<span class="mi">15</span>
+</pre></div>
+</div>
+<div class="section" id="ewolucja-portfela-na-drzewie-binarnym">
+<h3><span class="section-number">17.1.1. </span>Ewolucja portfela na drzewie binarnym.<a class="headerlink" href="#ewolucja-portfela-na-drzewie-binarnym" title="Stały odnośnik do tego nagłówka">¶</a></h3>
+<p>Mamy portfel <span class="math notranslate nohighlight">\(P\)</span> - [liczba akcji, liczba obligacji] w chwili
+<span class="math notranslate nohighlight">\(t=0\)</span>. Obliczmy jego ewolucję czasową. Zanim to uczynimy,
+policzmy jak zmienia się cena aktywa na pewnej ścieżce:</p>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="n">sage</span><span class="p">:</span> <span class="k">for</span> <span class="n">i</span><span class="p">,</span><span class="n">p_</span> <span class="ow">in</span> <span class="nb">enumerate</span><span class="p">(</span><span class="n">all_paths</span><span class="p">[</span><span class="mi">6</span><span class="p">]):</span>
+<span class="o">...</span>       <span class="nb">print</span><span class="p">(</span> <span class="s2">&quot;czas:&quot;</span><span class="p">,</span><span class="n">i</span><span class="p">,</span><span class="s2">&quot;cena&quot;</span><span class="p">,</span><span class="n">SP</span><span class="p">[</span><span class="n">i</span><span class="p">][</span><span class="n">p_</span><span class="p">]</span> <span class="p">)</span>
+<span class="n">czas</span><span class="p">:</span> <span class="mi">0</span> <span class="n">cena</span> <span class="mi">100</span>
+<span class="n">czas</span><span class="p">:</span> <span class="mi">1</span> <span class="n">cena</span> <span class="mi">80</span>
+<span class="n">czas</span><span class="p">:</span> <span class="mi">2</span> <span class="n">cena</span> <span class="mi">60</span>
+<span class="n">czas</span><span class="p">:</span> <span class="mi">3</span> <span class="n">cena</span> <span class="mi">80</span>
+</pre></div>
+</div>
+<p>co graficznie możemy przedstawić:</p>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="n">sage</span><span class="p">:</span> <span class="n">plot_tree</span><span class="p">(</span><span class="n">SP</span><span class="p">)</span><span class="o">+</span><span class="n">line</span><span class="p">(</span> <span class="p">[(</span> <span class="n">i</span><span class="p">,</span><span class="n">SP</span><span class="p">[</span><span class="n">i</span><span class="p">][</span><span class="n">p_</span><span class="p">]</span> <span class="p">)</span> <span class="k">for</span> <span class="n">i</span><span class="p">,</span><span class="n">p_</span> <span class="ow">in</span> <span class="nb">enumerate</span><span class="p">(</span><span class="n">all_paths</span><span class="p">[</span><span class="mi">6</span><span class="p">])],</span><span class="n">color</span><span class="o">=</span><span class="s1">&#39;red&#39;</span><span class="p">)</span>
+</pre></div>
+</div>
+<img alt="_images/cell_47_sage0.png" class="align-center" src="_images/cell_47_sage0.png" />
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="n">sage</span><span class="p">:</span> <span class="n">r</span> <span class="o">=</span> <span class="mi">0</span>
+<span class="n">sage</span><span class="p">:</span> <span class="n">P</span> <span class="o">=</span> <span class="p">[</span><span class="mi">1</span><span class="p">,</span><span class="mi">123</span><span class="p">]</span>
+<span class="n">sage</span><span class="p">:</span> <span class="k">for</span> <span class="n">i</span><span class="p">,</span><span class="n">p_</span> <span class="ow">in</span> <span class="nb">enumerate</span><span class="p">(</span><span class="n">all_paths</span><span class="p">[</span><span class="mi">6</span><span class="p">]):</span>
+<span class="o">...</span>       <span class="nb">print</span><span class="p">(</span>  <span class="s2">&quot;czas:&quot;</span><span class="p">,</span><span class="n">i</span><span class="p">,</span><span class="s2">&quot;cena&quot;</span><span class="p">,</span><span class="n">SP</span><span class="p">[</span><span class="n">i</span><span class="p">][</span><span class="n">p_</span><span class="p">],</span><span class="s2">&quot;wartość portfela:&quot;</span><span class="p">,</span><span class="n">P</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span><span class="o">*</span><span class="n">SP</span><span class="p">[</span><span class="n">i</span><span class="p">][</span><span class="n">p_</span><span class="p">]</span><span class="o">+</span><span class="n">P</span><span class="p">[</span><span class="mi">1</span><span class="p">]</span><span class="o">*</span><span class="p">(</span><span class="mi">1</span><span class="o">+</span><span class="n">r</span><span class="p">)</span><span class="o">^</span><span class="n">i</span> <span class="p">)</span>
+<span class="n">czas</span><span class="p">:</span> <span class="mi">0</span> <span class="n">cena</span> <span class="mi">100</span> <span class="n">wartość</span> <span class="n">portfela</span><span class="p">:</span> <span class="mi">223</span>
+<span class="n">czas</span><span class="p">:</span> <span class="mi">1</span> <span class="n">cena</span> <span class="mi">80</span> <span class="n">wartość</span> <span class="n">portfela</span><span class="p">:</span> <span class="mi">203</span>
+<span class="n">czas</span><span class="p">:</span> <span class="mi">2</span> <span class="n">cena</span> <span class="mi">60</span> <span class="n">wartość</span> <span class="n">portfela</span><span class="p">:</span> <span class="mi">183</span>
+<span class="n">czas</span><span class="p">:</span> <span class="mi">3</span> <span class="n">cena</span> <span class="mi">80</span> <span class="n">wartość</span> <span class="n">portfela</span><span class="p">:</span> <span class="mi">203</span>
+</pre></div>
+</div>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="n">sage</span><span class="p">:</span> <span class="n">K</span><span class="o">=</span><span class="mi">100</span>
+<span class="n">sage</span><span class="p">:</span> <span class="p">[</span><span class="n">prod</span><span class="p">(</span><span class="n">q_</span><span class="p">)</span><span class="o">*</span><span class="p">(</span> <span class="nb">max</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span><span class="n">SP</span><span class="p">[</span><span class="n">N</span><span class="p">][</span><span class="n">p_</span><span class="p">[</span><span class="n">N</span><span class="p">]]</span><span class="o">-</span><span class="n">K</span><span class="p">)</span> <span class="p">)</span> <span class="k">for</span> <span class="n">q_</span><span class="p">,</span><span class="n">p_</span><span class="p">,</span><span class="ow">in</span> <span class="nb">zip</span><span class="p">(</span><span class="n">Qmoves</span><span class="p">,</span><span class="n">all_paths</span><span class="p">)]</span>
+<span class="p">[</span><span class="mi">15</span><span class="o">/</span><span class="mi">2</span><span class="p">,</span> <span class="mi">5</span><span class="o">/</span><span class="mi">2</span><span class="p">,</span> <span class="mi">5</span><span class="o">/</span><span class="mi">2</span><span class="p">,</span> <span class="mi">0</span><span class="p">,</span> <span class="mi">5</span><span class="o">/</span><span class="mi">2</span><span class="p">,</span> <span class="mi">0</span><span class="p">,</span> <span class="mi">0</span><span class="p">,</span> <span class="mi">0</span><span class="p">]</span>
+</pre></div>
+</div>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="n">sage</span><span class="p">:</span> <span class="p">[</span><span class="nb">max</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span><span class="n">s</span><span class="o">-</span><span class="n">K</span><span class="p">)</span> <span class="k">for</span> <span class="n">s</span> <span class="ow">in</span> <span class="n">SP</span><span class="p">[</span><span class="n">N</span><span class="p">]]</span>
+<span class="p">[</span><span class="mi">60</span><span class="p">,</span> <span class="mi">20</span><span class="p">,</span> <span class="mi">0</span><span class="p">,</span> <span class="mi">0</span><span class="p">]</span>
+</pre></div>
+</div>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="n">sage</span><span class="p">:</span> <span class="n">OP</span> <span class="o">=</span> <span class="p">[</span> <span class="p">[</span><span class="nb">max</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span><span class="n">s</span><span class="o">-</span><span class="n">K</span><span class="p">)</span> <span class="k">for</span> <span class="n">s</span> <span class="ow">in</span> <span class="n">SP</span><span class="p">[</span><span class="n">N</span><span class="p">]]</span> <span class="p">]</span>
+</pre></div>
+</div>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="n">sage</span><span class="p">:</span> <span class="n">OP</span>
+<span class="p">[[</span><span class="mi">60</span><span class="p">,</span> <span class="mi">20</span><span class="p">,</span> <span class="mi">0</span><span class="p">,</span> <span class="mi">0</span><span class="p">]]</span>
+</pre></div>
+</div>
+</div>
+<div class="section" id="hedging-na-drzewie-binarnym">
+<h3><span class="section-number">17.1.2. </span>Hedging na drzewie binarnym:<a class="headerlink" href="#hedging-na-drzewie-binarnym" title="Stały odnośnik do tego nagłówka">¶</a></h3>
+<p>Przypuścmy, że mamy kupca na opcję po 16, której cena godziwa,
+tzn. taka przy której nie zachodzi arbitraż, wynosi 15. Istnieje
+możliwość zarobienia. Wystawiając jednak opcje narażamy się na duże
+ryzyko. Na naszym modelowym rynku idealnym jesteśmy zainteresowani
+zyskiem bez ponoszenia ryzyka.</p>
+<p>Ideą hegdingu, jest taka konstrukcja portfelem by w KAŻDYM scenariuszu
+ewolucji ceny aktywa, otrzymać zysk = 1 (wynikający z początkowej
+różnicy ceny godziwej i rynkowej).</p>
+<p>Po pierwsze będziemy potrzebowali ceny opcji w każdym węźle
+drzewa. Niech drzewo cen opcji będzie w strukturze zagnieżdzonej listy
+OP.</p>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="n">sage</span><span class="p">:</span> <span class="n">OP</span> <span class="o">=</span> <span class="p">[</span> <span class="p">[</span><span class="nb">max</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span><span class="n">s</span><span class="o">-</span><span class="n">K</span><span class="p">)</span> <span class="k">for</span> <span class="n">s</span> <span class="ow">in</span> <span class="n">SP</span><span class="p">[</span><span class="n">N</span><span class="p">]]</span> <span class="p">]</span>
+<span class="n">sage</span><span class="p">:</span> <span class="k">for</span> <span class="n">idx</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="n">N</span><span class="p">):</span>
+<span class="o">...</span>       <span class="n">el</span> <span class="o">=</span> <span class="p">[</span> <span class="n">q</span><span class="o">*</span><span class="n">OP</span><span class="p">[</span><span class="o">-</span><span class="mi">1</span><span class="p">][</span><span class="n">i</span><span class="p">]</span><span class="o">+</span><span class="p">(</span><span class="mi">1</span><span class="o">-</span><span class="n">q</span><span class="p">)</span><span class="o">*</span><span class="n">OP</span><span class="p">[</span><span class="o">-</span><span class="mi">1</span><span class="p">][</span><span class="n">i</span><span class="o">+</span><span class="mi">1</span><span class="p">]</span> <span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="nb">len</span><span class="p">(</span><span class="n">OP</span><span class="p">[</span><span class="o">-</span><span class="mi">1</span><span class="p">])</span><span class="o">-</span><span class="mi">1</span><span class="p">)]</span>
+<span class="o">...</span>       <span class="n">OP</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">el</span><span class="p">)</span>
+<span class="n">sage</span><span class="p">:</span> <span class="n">OP</span><span class="o">.</span><span class="n">reverse</span><span class="p">()</span>
+</pre></div>
+</div>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="n">sage</span><span class="p">:</span> <span class="n">plot_tree2</span><span class="p">(</span><span class="n">SP</span><span class="p">,</span><span class="n">OP</span><span class="p">)</span>
+</pre></div>
+</div>
+<img alt="_images/cell_71_sage0.png" class="align-center" src="_images/cell_71_sage0.png" />
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="n">sage</span><span class="p">:</span> <span class="n">OP</span>
+<span class="p">[[</span><span class="mi">15</span><span class="p">],</span> <span class="p">[</span><span class="mi">25</span><span class="p">,</span> <span class="mi">5</span><span class="p">],</span> <span class="p">[</span><span class="mi">40</span><span class="p">,</span> <span class="mi">10</span><span class="p">,</span> <span class="mi">0</span><span class="p">],</span> <span class="p">[</span><span class="mi">60</span><span class="p">,</span> <span class="mi">20</span><span class="p">,</span> <span class="mi">0</span><span class="p">,</span> <span class="mi">0</span><span class="p">]]</span>
+</pre></div>
+</div>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="n">sage</span><span class="p">:</span> <span class="n">p_</span> <span class="o">=</span> <span class="n">all_paths</span><span class="p">[</span><span class="mi">6</span><span class="p">]</span>
+<span class="n">sage</span><span class="p">:</span> <span class="n">p_</span>
+<span class="p">[</span><span class="mi">0</span><span class="p">,</span> <span class="mi">1</span><span class="p">,</span> <span class="mi">2</span><span class="p">,</span> <span class="mi">2</span><span class="p">]</span>
+</pre></div>
+</div>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="n">sage</span><span class="p">:</span> <span class="n">p_</span> <span class="o">=</span> <span class="p">[</span><span class="mi">0</span><span class="p">,</span><span class="mi">0</span><span class="p">,</span><span class="mi">1</span><span class="p">,</span><span class="mi">2</span><span class="p">]</span>
+<span class="n">sage</span><span class="p">:</span> <span class="n">Pt</span> <span class="o">=</span> <span class="p">[(</span><span class="mi">0</span><span class="p">,</span><span class="mi">16</span><span class="p">,</span><span class="n">SP</span><span class="p">[</span><span class="mi">0</span><span class="p">][</span><span class="mi">0</span><span class="p">])]</span>
+<span class="n">sage</span><span class="p">:</span> <span class="k">for</span> <span class="n">i</span><span class="p">,(</span><span class="n">k</span><span class="p">,</span><span class="n">k_next</span><span class="p">)</span> <span class="ow">in</span> <span class="nb">enumerate</span><span class="p">(</span><span class="nb">zip</span><span class="p">(</span><span class="n">p_</span><span class="p">,</span><span class="n">p_</span><span class="p">[</span><span class="mi">1</span><span class="p">:])):</span>
+<span class="o">...</span>       <span class="n">delta</span> <span class="o">=</span> <span class="p">(</span><span class="n">OP</span><span class="p">[</span><span class="n">i</span><span class="o">+</span><span class="mi">1</span><span class="p">][</span><span class="n">k</span><span class="p">]</span><span class="o">-</span><span class="n">OP</span><span class="p">[</span><span class="n">i</span><span class="o">+</span><span class="mi">1</span><span class="p">][</span><span class="n">k</span><span class="o">+</span><span class="mi">1</span><span class="p">])</span><span class="o">/</span><span class="p">(</span><span class="n">SP</span><span class="p">[</span><span class="n">i</span><span class="o">+</span><span class="mi">1</span><span class="p">][</span><span class="n">k</span><span class="p">]</span><span class="o">-</span><span class="n">SP</span><span class="p">[</span><span class="n">i</span><span class="o">+</span><span class="mi">1</span><span class="p">][</span><span class="n">k</span><span class="o">+</span><span class="mi">1</span><span class="p">])</span>
+<span class="o">...</span>       <span class="n">x</span> <span class="o">=</span> <span class="n">delta</span> <span class="o">-</span> <span class="n">Pt</span><span class="p">[</span><span class="o">-</span><span class="mi">1</span><span class="p">][</span><span class="mi">0</span><span class="p">]</span>
+<span class="o">...</span>       <span class="nb">print</span><span class="p">(</span>  <span class="n">k</span><span class="p">,</span><span class="n">delta</span><span class="p">,</span><span class="n">Pt</span><span class="p">[</span><span class="o">-</span><span class="mi">1</span><span class="p">][</span><span class="mi">0</span><span class="p">]</span> <span class="p">)</span>
+<span class="o">...</span>       <span class="n">Pt</span><span class="o">.</span><span class="n">append</span><span class="p">(</span> <span class="p">(</span><span class="n">delta</span><span class="p">,</span><span class="n">Pt</span><span class="p">[</span><span class="o">-</span><span class="mi">1</span><span class="p">][</span><span class="mi">1</span><span class="p">]</span><span class="o">-</span><span class="n">x</span><span class="o">*</span><span class="n">SP</span><span class="p">[</span><span class="n">i</span><span class="p">][</span><span class="n">k</span><span class="p">],</span><span class="n">SP</span><span class="p">[</span><span class="n">i</span><span class="o">+</span><span class="mi">1</span><span class="p">][</span><span class="n">k_next</span><span class="p">])</span> <span class="p">)</span>
+<span class="mi">0</span> <span class="mi">1</span><span class="o">/</span><span class="mi">2</span> <span class="mi">0</span>
+<span class="mi">0</span> <span class="mi">3</span><span class="o">/</span><span class="mi">4</span> <span class="mi">1</span><span class="o">/</span><span class="mi">2</span>
+<span class="mi">1</span> <span class="mi">1</span><span class="o">/</span><span class="mi">2</span> <span class="mi">3</span><span class="o">/</span><span class="mi">4</span>
+</pre></div>
+</div>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="n">sage</span><span class="p">:</span> <span class="n">Pt</span>
+<span class="p">[(</span><span class="mi">0</span><span class="p">,</span> <span class="mi">16</span><span class="p">,</span> <span class="mi">100</span><span class="p">),</span> <span class="p">(</span><span class="mi">1</span><span class="o">/</span><span class="mi">2</span><span class="p">,</span> <span class="o">-</span><span class="mi">34</span><span class="p">,</span> <span class="mi">120</span><span class="p">),</span> <span class="p">(</span><span class="mi">3</span><span class="o">/</span><span class="mi">4</span><span class="p">,</span> <span class="o">-</span><span class="mi">64</span><span class="p">,</span> <span class="mi">100</span><span class="p">),</span> <span class="p">(</span><span class="mi">1</span><span class="o">/</span><span class="mi">2</span><span class="p">,</span> <span class="o">-</span><span class="mi">39</span><span class="p">,</span> <span class="mi">80</span><span class="p">)]</span>
+</pre></div>
+</div>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="n">sage</span><span class="p">:</span> <span class="n">Pt</span><span class="p">[</span><span class="o">-</span><span class="mi">1</span><span class="p">][</span><span class="mi">0</span><span class="p">]</span><span class="o">*</span><span class="n">Pt</span><span class="p">[</span><span class="o">-</span><span class="mi">1</span><span class="p">][</span><span class="mi">2</span><span class="p">],</span><span class="n">Pt</span><span class="p">[</span><span class="o">-</span><span class="mi">1</span><span class="p">][</span><span class="mi">1</span><span class="p">]</span>
+<span class="p">(</span><span class="mi">40</span><span class="p">,</span> <span class="o">-</span><span class="mi">39</span><span class="p">)</span>
+</pre></div>
+</div>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="n">sage</span><span class="p">:</span> <span class="nb">print</span><span class="p">(</span> <span class="s2">&quot;mamy akje szt.:&quot;</span><span class="p">,</span><span class="n">Pt</span><span class="p">[</span><span class="o">-</span><span class="mi">1</span><span class="p">][</span><span class="mi">0</span><span class="p">],</span><span class="s2">&quot;po&quot;</span><span class="p">,</span><span class="n">Pt</span><span class="p">[</span><span class="o">-</span><span class="mi">1</span><span class="p">][</span><span class="mi">2</span><span class="p">]</span> <span class="p">)</span>
+<span class="n">sage</span><span class="p">:</span> <span class="nb">print</span><span class="p">(</span> <span class="s2">&quot;oraz depozyt/dlug:&quot;</span><span class="p">,</span><span class="n">Pt</span><span class="p">[</span><span class="o">-</span><span class="mi">1</span><span class="p">][</span><span class="mi">1</span><span class="p">]</span> <span class="p">)</span>
+<span class="n">sage</span><span class="p">:</span> <span class="nb">print</span><span class="p">(</span> <span class="s2">&quot;i obiecankę za opcję:&quot;</span><span class="p">,</span><span class="o">-</span><span class="nb">max</span><span class="p">(</span> <span class="n">Pt</span><span class="p">[</span><span class="o">-</span><span class="mi">1</span><span class="p">][</span><span class="mi">2</span><span class="p">]</span><span class="o">-</span><span class="n">K</span><span class="p">,</span><span class="mi">0</span><span class="p">)</span> <span class="p">)</span>
+<span class="n">mamy</span> <span class="n">akje</span> <span class="n">szt</span><span class="o">.</span><span class="p">:</span> <span class="mi">1</span><span class="o">/</span><span class="mi">2</span> <span class="n">po</span> <span class="mi">80</span>
+<span class="n">oraz</span> <span class="n">depozyt</span><span class="o">/</span><span class="n">dlug</span><span class="p">:</span> <span class="o">-</span><span class="mi">39</span>
+<span class="n">i</span> <span class="n">obiecankę</span> <span class="n">za</span> <span class="n">opcję</span><span class="p">:</span> <span class="mi">0</span>
+</pre></div>
+</div>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="n">sage</span><span class="p">:</span> <span class="n">total</span> <span class="o">=</span> <span class="n">Pt</span><span class="p">[</span><span class="o">-</span><span class="mi">1</span><span class="p">][</span><span class="mi">0</span><span class="p">]</span><span class="o">*</span><span class="n">Pt</span><span class="p">[</span><span class="o">-</span><span class="mi">1</span><span class="p">][</span><span class="mi">2</span><span class="p">]</span><span class="o">+</span><span class="n">Pt</span><span class="p">[</span><span class="o">-</span><span class="mi">1</span><span class="p">][</span><span class="mi">1</span><span class="p">]</span><span class="o">-</span><span class="nb">max</span><span class="p">(</span> <span class="n">Pt</span><span class="p">[</span><span class="o">-</span><span class="mi">1</span><span class="p">][</span><span class="mi">2</span><span class="p">]</span><span class="o">-</span><span class="n">K</span><span class="p">,</span><span class="mi">0</span><span class="p">)</span>
+<span class="n">sage</span><span class="p">:</span> <span class="n">total</span>
+<span class="mi">1</span>
+</pre></div>
+</div>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="n">sage</span><span class="p">:</span> <span class="k">def</span> <span class="nf">calculate_evo</span><span class="p">(</span><span class="n">SP</span><span class="p">,</span><span class="n">OP</span><span class="p">,</span><span class="n">p_</span><span class="p">,</span><span class="n">c</span><span class="o">=</span><span class="mi">1</span><span class="p">):</span>
+<span class="o">...</span>       <span class="n">Pt</span> <span class="o">=</span> <span class="p">[(</span><span class="mi">0</span><span class="p">,</span><span class="mi">0</span><span class="p">,</span><span class="n">SP</span><span class="p">[</span><span class="mi">0</span><span class="p">][</span><span class="mi">0</span><span class="p">])]</span>
+<span class="o">...</span>       <span class="k">for</span> <span class="n">i</span><span class="p">,(</span><span class="n">k</span><span class="p">,</span><span class="n">k_next</span><span class="p">)</span> <span class="ow">in</span> <span class="nb">enumerate</span><span class="p">(</span><span class="nb">zip</span><span class="p">(</span><span class="n">p_</span><span class="p">,</span><span class="n">p_</span><span class="p">[</span><span class="mi">1</span><span class="p">:])):</span>
+<span class="o">...</span>           <span class="n">delta</span> <span class="o">=</span> <span class="n">c</span><span class="o">*</span><span class="p">(</span><span class="n">OP</span><span class="p">[</span><span class="n">i</span><span class="o">+</span><span class="mi">1</span><span class="p">][</span><span class="n">k</span><span class="p">]</span><span class="o">-</span><span class="n">OP</span><span class="p">[</span><span class="n">i</span><span class="o">+</span><span class="mi">1</span><span class="p">][</span><span class="n">k</span><span class="o">+</span><span class="mi">1</span><span class="p">])</span><span class="o">/</span><span class="p">(</span><span class="n">SP</span><span class="p">[</span><span class="n">i</span><span class="o">+</span><span class="mi">1</span><span class="p">][</span><span class="n">k</span><span class="p">]</span><span class="o">-</span><span class="n">SP</span><span class="p">[</span><span class="n">i</span><span class="o">+</span><span class="mi">1</span><span class="p">][</span><span class="n">k</span><span class="o">+</span><span class="mi">1</span><span class="p">])</span>
+<span class="o">...</span>           <span class="n">delta</span> <span class="o">=</span> <span class="mf">3.0</span> <span class="c1">## try -1 0</span>
+<span class="o">...</span>           <span class="n">x</span> <span class="o">=</span> <span class="n">delta</span> <span class="o">-</span> <span class="n">Pt</span><span class="p">[</span><span class="o">-</span><span class="mi">1</span><span class="p">][</span><span class="mi">0</span><span class="p">]</span>
+<span class="o">...</span>           <span class="n">Pt</span><span class="o">.</span><span class="n">append</span><span class="p">(</span> <span class="p">(</span><span class="n">delta</span><span class="p">,</span><span class="n">Pt</span><span class="p">[</span><span class="o">-</span><span class="mi">1</span><span class="p">][</span><span class="mi">1</span><span class="p">]</span><span class="o">-</span><span class="n">x</span><span class="o">*</span><span class="n">SP</span><span class="p">[</span><span class="n">i</span><span class="p">][</span><span class="n">k</span><span class="p">],</span><span class="n">SP</span><span class="p">[</span><span class="n">i</span><span class="o">+</span><span class="mi">1</span><span class="p">][</span><span class="n">k_next</span><span class="p">])</span> <span class="p">)</span>
+<span class="o">...</span>       <span class="k">return</span> <span class="p">(</span><span class="n">Pt</span><span class="p">[</span><span class="o">-</span><span class="mi">1</span><span class="p">][</span><span class="mi">0</span><span class="p">]</span><span class="o">*</span><span class="n">Pt</span><span class="p">[</span><span class="o">-</span><span class="mi">1</span><span class="p">][</span><span class="mi">2</span><span class="p">]</span><span class="o">+</span><span class="n">Pt</span><span class="p">[</span><span class="o">-</span><span class="mi">1</span><span class="p">][</span><span class="mi">1</span><span class="p">]</span><span class="o">-</span><span class="nb">max</span><span class="p">(</span><span class="n">c</span><span class="o">*</span><span class="p">(</span> <span class="n">Pt</span><span class="p">[</span><span class="o">-</span><span class="mi">1</span><span class="p">][</span><span class="mi">2</span><span class="p">]</span><span class="o">-</span><span class="n">K</span><span class="p">),</span><span class="mi">0</span><span class="p">),</span><span class="n">Pt</span><span class="p">)</span>
+</pre></div>
+</div>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="n">sage</span><span class="p">:</span> <span class="k">def</span> <span class="nf">calculate_evo</span><span class="p">(</span><span class="n">SP</span><span class="p">,</span><span class="n">OP</span><span class="p">,</span><span class="n">p_</span><span class="p">,</span><span class="n">c</span><span class="o">=</span><span class="mi">1</span><span class="p">):</span>
+<span class="o">...</span>       <span class="n">Pt</span> <span class="o">=</span> <span class="p">[(</span><span class="mi">0</span><span class="p">,</span><span class="mi">0</span><span class="p">,</span><span class="n">SP</span><span class="p">[</span><span class="mi">0</span><span class="p">][</span><span class="mi">0</span><span class="p">])]</span>
+<span class="o">...</span>       <span class="k">for</span> <span class="n">i</span><span class="p">,(</span><span class="n">k</span><span class="p">,</span><span class="n">k_next</span><span class="p">)</span> <span class="ow">in</span> <span class="nb">enumerate</span><span class="p">(</span><span class="nb">zip</span><span class="p">(</span><span class="n">p_</span><span class="p">,</span><span class="n">p_</span><span class="p">[</span><span class="mi">1</span><span class="p">:])):</span>
+<span class="o">...</span>           <span class="n">delta</span> <span class="o">=</span> <span class="n">c</span><span class="o">*</span><span class="p">(</span><span class="n">OP</span><span class="p">[</span><span class="n">i</span><span class="o">+</span><span class="mi">1</span><span class="p">][</span><span class="n">k</span><span class="p">]</span><span class="o">-</span><span class="n">OP</span><span class="p">[</span><span class="n">i</span><span class="o">+</span><span class="mi">1</span><span class="p">][</span><span class="n">k</span><span class="o">+</span><span class="mi">1</span><span class="p">])</span><span class="o">/</span><span class="p">(</span><span class="n">SP</span><span class="p">[</span><span class="n">i</span><span class="o">+</span><span class="mi">1</span><span class="p">][</span><span class="n">k</span><span class="p">]</span><span class="o">-</span><span class="n">SP</span><span class="p">[</span><span class="n">i</span><span class="o">+</span><span class="mi">1</span><span class="p">][</span><span class="n">k</span><span class="o">+</span><span class="mi">1</span><span class="p">])</span>
+<span class="o">...</span>           <span class="n">x</span> <span class="o">=</span> <span class="n">delta</span> <span class="o">-</span> <span class="n">Pt</span><span class="p">[</span><span class="o">-</span><span class="mi">1</span><span class="p">][</span><span class="mi">0</span><span class="p">]</span>
+<span class="o">...</span>           <span class="n">Pt</span><span class="o">.</span><span class="n">append</span><span class="p">(</span> <span class="p">(</span><span class="n">delta</span><span class="p">,</span><span class="n">Pt</span><span class="p">[</span><span class="o">-</span><span class="mi">1</span><span class="p">][</span><span class="mi">1</span><span class="p">]</span><span class="o">-</span><span class="n">x</span><span class="o">*</span><span class="n">SP</span><span class="p">[</span><span class="n">i</span><span class="p">][</span><span class="n">k</span><span class="p">],</span><span class="n">SP</span><span class="p">[</span><span class="n">i</span><span class="o">+</span><span class="mi">1</span><span class="p">][</span><span class="n">k_next</span><span class="p">])</span> <span class="p">)</span>
+<span class="o">...</span>       <span class="k">return</span> <span class="p">(</span><span class="n">Pt</span><span class="p">[</span><span class="o">-</span><span class="mi">1</span><span class="p">][</span><span class="mi">0</span><span class="p">]</span><span class="o">*</span><span class="n">Pt</span><span class="p">[</span><span class="o">-</span><span class="mi">1</span><span class="p">][</span><span class="mi">2</span><span class="p">]</span><span class="o">+</span><span class="n">Pt</span><span class="p">[</span><span class="o">-</span><span class="mi">1</span><span class="p">][</span><span class="mi">1</span><span class="p">]</span><span class="o">-</span><span class="nb">max</span><span class="p">(</span><span class="n">c</span><span class="o">*</span><span class="p">(</span> <span class="n">Pt</span><span class="p">[</span><span class="o">-</span><span class="mi">1</span><span class="p">][</span><span class="mi">2</span><span class="p">]</span><span class="o">-</span><span class="n">K</span><span class="p">),</span><span class="mi">0</span><span class="p">),</span><span class="n">Pt</span><span class="p">)</span>
+</pre></div>
+</div>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="n">sage</span><span class="p">:</span> <span class="n">calculate_evo</span><span class="p">(</span><span class="n">SP</span><span class="p">,</span><span class="n">OP</span><span class="p">,[</span><span class="mi">0</span><span class="p">,</span><span class="mi">0</span><span class="p">,</span><span class="mi">1</span><span class="p">,</span><span class="mi">2</span><span class="p">])[</span><span class="mi">0</span><span class="p">]</span>
+<span class="o">-</span><span class="mi">15</span>
+</pre></div>
+</div>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="n">sage</span><span class="p">:</span> <span class="k">for</span> <span class="n">path</span> <span class="ow">in</span> <span class="n">all_paths</span><span class="p">:</span>
+<span class="o">...</span>       <span class="nb">print</span><span class="p">(</span> <span class="n">SP</span><span class="p">[</span><span class="o">-</span><span class="mi">1</span><span class="p">][</span><span class="n">path</span><span class="p">[</span><span class="o">-</span><span class="mi">1</span><span class="p">]],</span><span class="n">calculate_evo</span><span class="p">(</span><span class="n">SP</span><span class="p">,</span><span class="n">OP</span><span class="p">,</span><span class="n">path</span><span class="p">)[</span><span class="mi">0</span><span class="p">],</span><span class="o">-</span><span class="nb">max</span><span class="p">(</span><span class="n">SP</span><span class="p">[</span><span class="o">-</span><span class="mi">1</span><span class="p">][</span><span class="n">path</span><span class="p">[</span><span class="o">-</span><span class="mi">1</span><span class="p">]]</span><span class="o">-</span><span class="n">K</span><span class="p">,</span><span class="mi">0</span><span class="p">)</span> <span class="p">)</span>
+<span class="mi">160</span> <span class="o">-</span><span class="mi">15</span> <span class="o">-</span><span class="mi">60</span>
+<span class="mi">120</span> <span class="o">-</span><span class="mi">15</span> <span class="o">-</span><span class="mi">20</span>
+<span class="mi">120</span> <span class="o">-</span><span class="mi">15</span> <span class="o">-</span><span class="mi">20</span>
+<span class="mi">80</span> <span class="o">-</span><span class="mi">15</span> <span class="mi">0</span>
+<span class="mi">120</span> <span class="o">-</span><span class="mi">15</span> <span class="o">-</span><span class="mi">20</span>
+<span class="mi">80</span> <span class="o">-</span><span class="mi">15</span> <span class="mi">0</span>
+<span class="mi">80</span> <span class="o">-</span><span class="mi">15</span> <span class="mi">0</span>
+<span class="mi">40</span> <span class="o">-</span><span class="mi">15</span> <span class="mi">0</span>
+</pre></div>
+</div>
+</div>
+<div class="section" id="niezerowa-stopa-procentowa">
+<h3><span class="section-number">17.1.3. </span>Niezerowa stopa procentowa<a class="headerlink" href="#niezerowa-stopa-procentowa" title="Stały odnośnik do tego nagłówka">¶</a></h3>
+<p>Pomińmy teraz nierealistyczne założenie o niezerowej stopie procentowej.</p>
+<p>max(0,K-s) - czyli mamy do czynienia z opcją sprzedaży</p>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="n">sage</span><span class="p">:</span> <span class="n">rate</span> <span class="o">=</span> <span class="mf">28.59</span>
+<span class="n">sage</span><span class="p">:</span> <span class="p">(</span><span class="mi">1</span><span class="o">+</span><span class="n">rate</span><span class="o">/</span><span class="mi">3</span><span class="o">/</span><span class="mi">100</span><span class="p">)</span><span class="o">.</span><span class="n">n</span><span class="p">(),</span><span class="n">exp</span><span class="p">(</span><span class="n">rate</span><span class="o">/</span><span class="mi">3</span><span class="o">/</span><span class="mi">100</span><span class="p">)</span><span class="o">.</span><span class="n">n</span><span class="p">()</span>
+<span class="p">(</span><span class="mf">1.09530000000000</span><span class="p">,</span> <span class="mf">1.09998880227224</span><span class="p">)</span>
+</pre></div>
+</div>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="n">sage</span><span class="p">:</span> <span class="n">C</span> <span class="o">=</span> <span class="n">exp</span><span class="p">(</span><span class="n">rate</span><span class="o">/</span><span class="mi">3</span><span class="o">/</span><span class="mi">100</span><span class="p">)</span><span class="o">.</span><span class="n">n</span><span class="p">()</span>
+<span class="n">sage</span><span class="p">:</span> <span class="n">C</span>
+<span class="mf">1.09998880227224</span>
+</pre></div>
+</div>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="n">sage</span><span class="p">:</span> <span class="n">C</span><span class="o">=</span><span class="mf">1.1</span>
+</pre></div>
+</div>
+<p>Generujemy drzewko prawdopodobieństw arbitrażowych:</p>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="n">sage</span><span class="p">:</span> <span class="n">QP</span> <span class="o">=</span> <span class="p">[]</span>
+<span class="n">sage</span><span class="p">:</span> <span class="k">for</span> <span class="n">k</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="n">N</span><span class="p">):</span>
+<span class="o">...</span>       <span class="n">q_</span> <span class="o">=</span> <span class="p">[</span> <span class="p">(</span><span class="n">sp</span><span class="o">*</span><span class="n">C</span><span class="o">-</span><span class="n">sp1</span><span class="p">)</span><span class="o">/</span><span class="p">(</span><span class="n">sp0</span><span class="o">-</span><span class="n">sp1</span><span class="p">)</span> <span class="k">for</span> <span class="n">j</span><span class="p">,(</span><span class="n">sp</span><span class="p">,</span><span class="n">sp0</span><span class="p">,</span><span class="n">sp1</span><span class="p">)</span> <span class="ow">in</span> <span class="nb">enumerate</span><span class="p">(</span><span class="nb">zip</span><span class="p">(</span><span class="n">SP</span><span class="p">[</span><span class="n">k</span><span class="p">],</span><span class="n">SP</span><span class="p">[</span><span class="n">k</span><span class="o">+</span><span class="mi">1</span>
+<span class="n">sage</span><span class="p">:</span> <span class="p">],</span><span class="n">SP</span><span class="p">[</span><span class="n">k</span><span class="o">+</span><span class="mi">1</span><span class="p">][</span><span class="mi">1</span><span class="p">:]))]</span>
+<span class="o">...</span>          <span class="c1"># print( k,j,sp,sp0,sp1,(sp*C-sp1)/(sp0-sp1) )</span>
+<span class="o">...</span>       <span class="n">QP</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">q_</span><span class="p">)</span>
+</pre></div>
+</div>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="n">sage</span><span class="p">:</span> <span class="n">QP</span>
+<span class="p">[[</span><span class="mf">0.750000000000000</span><span class="p">],</span> <span class="p">[</span><span class="mf">0.800000000000000</span><span class="p">,</span> <span class="mf">0.700000000000000</span><span class="p">],</span> <span class="p">[</span><span class="mf">0.850000000000000</span><span class="p">,</span> <span class="mf">0.750000000000000</span><span class="p">,</span> <span class="mf">0.650000000000000</span><span class="p">]]</span>
+</pre></div>
+</div>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="n">sage</span><span class="p">:</span> <span class="n">plot_tree</span><span class="p">(</span><span class="n">SP</span><span class="p">)</span>
+</pre></div>
+</div>
+<img alt="_images/cell_83_sage0.png" class="align-center" src="_images/cell_83_sage0.png" />
+<p>Generacja drzewka prawdopodobienstw  <span class="math notranslate nohighlight">\(q=q_t\)</span></p>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="n">sage</span><span class="p">:</span> <span class="n">K</span> <span class="o">=</span> <span class="mi">100</span>
+<span class="n">sage</span><span class="p">:</span> <span class="n">OP</span> <span class="o">=</span> <span class="p">[</span> <span class="p">[</span><span class="nb">max</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span><span class="n">K</span><span class="o">-</span><span class="n">s</span><span class="p">)</span> <span class="k">for</span> <span class="n">s</span> <span class="ow">in</span> <span class="n">SP</span><span class="p">[</span><span class="n">N</span><span class="p">]]</span> <span class="p">]</span>
+<span class="n">sage</span><span class="p">:</span> <span class="k">for</span> <span class="n">idx</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="n">N</span><span class="p">):</span>
+<span class="o">...</span>       <span class="n">el</span> <span class="o">=</span> <span class="p">[</span> <span class="mi">1</span><span class="o">/</span><span class="n">C</span><span class="o">*</span><span class="p">(</span><span class="n">QP</span><span class="p">[</span><span class="n">N</span><span class="o">-</span><span class="n">idx</span><span class="o">-</span><span class="mi">1</span><span class="p">][</span><span class="n">i</span><span class="p">]</span><span class="o">*</span><span class="n">OP</span><span class="p">[</span><span class="o">-</span><span class="mi">1</span><span class="p">][</span><span class="n">i</span><span class="p">]</span><span class="o">+</span><span class="p">(</span><span class="mi">1</span><span class="o">-</span><span class="n">QP</span><span class="p">[</span><span class="n">N</span><span class="o">-</span><span class="n">idx</span><span class="o">-</span><span class="mi">1</span><span class="p">][</span><span class="n">i</span><span class="p">])</span><span class="o">*</span><span class="n">OP</span><span class="p">[</span><span class="o">-</span><span class="mi">1</span><span class="p">][</span><span class="n">i</span><span class="o">+</span><span class="mi">1</span><span class="p">])</span> <span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="nb">len</span><span class="p">(</span><span class="n">OP</span><span class="p">[</span><span class="o">-</span><span class="mi">1</span><span class="p">])</span><span class="o">-</span><span class="mi">1</span><span class="p">)]</span>
+<span class="o">...</span>       <span class="n">OP</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">el</span><span class="p">)</span>
+<span class="n">sage</span><span class="p">:</span> <span class="n">OP</span><span class="o">.</span><span class="n">reverse</span><span class="p">()</span>
+</pre></div>
+</div>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="n">sage</span><span class="p">:</span> <span class="n">plt</span><span class="o">=</span><span class="n">plot_tree2</span><span class="p">(</span><span class="n">SP</span><span class="p">,</span><span class="n">OP</span><span class="p">)</span>
+<span class="n">sage</span><span class="p">:</span> <span class="n">plt</span><span class="o">.</span><span class="n">set_axes_range</span><span class="p">(</span><span class="n">ymax</span><span class="o">=</span><span class="mf">170.0</span><span class="p">)</span>
+<span class="n">sage</span><span class="p">:</span> <span class="n">plt</span> <span class="o">+=</span> <span class="n">line</span><span class="p">([(</span><span class="mi">0</span><span class="p">,</span><span class="mi">100</span><span class="p">),(</span><span class="mi">3</span><span class="p">,</span><span class="mi">100</span><span class="o">*</span> <span class="n">exp</span><span class="p">(</span><span class="n">rate</span><span class="o">/</span><span class="mi">100</span><span class="p">))],</span><span class="n">color</span><span class="o">=</span><span class="s1">&#39;red&#39;</span><span class="p">)</span>
+<span class="n">sage</span><span class="p">:</span> <span class="n">plt</span> <span class="o">+=</span> <span class="n">line</span><span class="p">([(</span><span class="n">i</span><span class="p">,</span><span class="mi">100</span><span class="o">*</span><span class="p">(</span><span class="mi">1</span><span class="o">+</span><span class="n">rate</span><span class="o">/</span><span class="mi">3</span><span class="o">/</span><span class="mf">100.</span><span class="p">)</span><span class="o">^</span><span class="n">i</span><span class="p">)</span> <span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="mi">4</span><span class="p">)],</span><span class="n">color</span><span class="o">=</span><span class="s1">&#39;green&#39;</span><span class="p">)</span>
+<span class="n">sage</span><span class="p">:</span> <span class="n">plt</span>
+</pre></div>
+</div>
+<img alt="_images/cell_79_sage0.png" class="align-center" src="_images/cell_79_sage0.png" />
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="n">sage</span><span class="p">:</span> <span class="n">OP</span>
+<span class="p">[[</span><span class="mf">3.13673929376408</span><span class="p">],</span> <span class="p">[</span><span class="mf">0.826446280991734</span><span class="p">,</span> <span class="mf">11.3223140495868</span><span class="p">],</span> <span class="p">[</span><span class="mf">0.000000000000000</span><span class="p">,</span> <span class="mf">4.54545454545454</span><span class="p">,</span> <span class="mf">30.9090909090909</span><span class="p">],</span> <span class="p">[</span><span class="mi">0</span><span class="p">,</span> <span class="mi">0</span><span class="p">,</span> <span class="mi">20</span><span class="p">,</span> <span class="mi">60</span><span class="p">]]</span>
+</pre></div>
+</div>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="n">sage</span><span class="p">:</span> <span class="n">q</span><span class="o">=</span> <span class="mf">0.657756377113472</span>
+<span class="n">sage</span><span class="p">:</span> <span class="mi">1</span><span class="o">/</span><span class="n">C</span><span class="o">*</span><span class="p">(</span><span class="n">q</span><span class="o">*</span><span class="mi">20</span><span class="o">+</span><span class="p">(</span><span class="mi">1</span><span class="o">-</span><span class="n">q</span><span class="p">)</span><span class="o">*</span><span class="mi">60</span><span class="p">)</span>
+<span class="mf">30.6270408322374</span>
+</pre></div>
+</div>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="n">sage</span><span class="p">:</span> <span class="n">plot_tree</span><span class="p">(</span><span class="n">SP</span><span class="p">)</span>
+</pre></div>
+</div>
+<img alt="_images/cell_123_sage0.png" class="align-center" src="_images/cell_123_sage0.png" />
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="n">sage</span><span class="p">:</span> <span class="n">path</span> <span class="o">=</span> <span class="p">[</span><span class="mi">0</span><span class="p">,</span><span class="mi">0</span><span class="p">,</span><span class="mi">0</span><span class="p">,</span><span class="mi">1</span><span class="p">]</span>
+<span class="n">sage</span><span class="p">:</span> <span class="n">path</span> <span class="o">=</span> <span class="p">[</span><span class="mi">0</span><span class="p">,</span> <span class="mi">0</span><span class="p">,</span> <span class="mi">1</span><span class="p">,</span> <span class="mi">2</span><span class="p">]</span>
+<span class="n">sage</span><span class="p">:</span> <span class="n">plt</span> <span class="o">=</span>  <span class="n">plot_tree2</span><span class="p">(</span><span class="n">SP</span><span class="p">,</span><span class="n">OP</span><span class="p">)</span>
+<span class="n">sage</span><span class="p">:</span> <span class="n">plt</span> <span class="o">+=</span> <span class="n">line</span><span class="p">(</span> <span class="p">[(</span> <span class="n">i</span><span class="p">,</span><span class="n">SP</span><span class="p">[</span><span class="n">i</span><span class="p">][</span><span class="n">p_</span><span class="p">]</span> <span class="p">)</span> <span class="k">for</span> <span class="n">i</span><span class="p">,</span><span class="n">p_</span> <span class="ow">in</span> <span class="nb">enumerate</span><span class="p">(</span><span class="n">path</span><span class="p">)],</span><span class="n">color</span><span class="o">=</span><span class="s1">&#39;red&#39;</span><span class="p">)</span>
+<span class="n">sage</span><span class="p">:</span> <span class="n">plt</span><span class="o">.</span><span class="n">set_axes_range</span><span class="p">(</span><span class="n">xmin</span><span class="o">=-</span><span class="mi">1</span><span class="p">)</span>
+<span class="n">sage</span><span class="p">:</span> <span class="n">plt</span>
+</pre></div>
+</div>
+<img alt="_images/cell_121_sage0.png" class="align-center" src="_images/cell_121_sage0.png" />
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="n">sage</span><span class="p">:</span> <span class="k">def</span> <span class="nf">calculate_evo</span><span class="p">(</span><span class="n">SP</span><span class="p">,</span><span class="n">OP</span><span class="p">,</span><span class="n">p_</span><span class="p">,</span><span class="n">c</span><span class="o">=</span><span class="mi">1</span><span class="p">,</span><span class="n">rate</span><span class="o">=</span><span class="mf">28.59</span><span class="p">,</span><span class="n">depozyt</span><span class="o">=</span><span class="mi">0</span><span class="p">):</span>
+<span class="o">...</span>       <span class="s2">&quot;&quot;&quot; Zwraca zysk/strate na zabezpieczeniu pozycji opcji P/C technika delta-hegde</span>
+<span class="s2">...</span>
+<span class="s2">...       :param SP: drzewo cen akcji</span>
+<span class="s2">...       :param SP: drzewo cen opcji</span>
+<span class="s2">...       :param c: 1 - dla wystawienia opcji, -1 - dla kupna opcji</span>
+<span class="s2">...       &quot;&quot;&quot;</span>
+<span class="o">...</span>       <span class="n">C</span> <span class="o">=</span> <span class="n">exp</span><span class="p">(</span><span class="n">rate</span><span class="o">/</span><span class="mi">3</span><span class="o">/</span><span class="mi">100</span><span class="p">)</span><span class="o">.</span><span class="n">n</span><span class="p">()</span>
+<span class="o">...</span>       <span class="n">Pt</span> <span class="o">=</span> <span class="p">[(</span><span class="mi">0</span><span class="p">,</span><span class="n">depozyt</span><span class="p">,</span><span class="n">SP</span><span class="p">[</span><span class="mi">0</span><span class="p">][</span><span class="mi">0</span><span class="p">])]</span>
+<span class="o">...</span>       <span class="k">for</span> <span class="n">i</span><span class="p">,(</span><span class="n">k</span><span class="p">,</span><span class="n">k_next</span><span class="p">)</span> <span class="ow">in</span> <span class="nb">enumerate</span><span class="p">(</span><span class="nb">zip</span><span class="p">(</span><span class="n">p_</span><span class="p">,</span><span class="n">p_</span><span class="p">[</span><span class="mi">1</span><span class="p">:])):</span>
+<span class="o">...</span>           <span class="n">delta</span> <span class="o">=</span> <span class="n">c</span><span class="o">*</span><span class="p">(</span><span class="n">OP</span><span class="p">[</span><span class="n">i</span><span class="o">+</span><span class="mi">1</span><span class="p">][</span><span class="n">k</span><span class="p">]</span><span class="o">-</span><span class="n">OP</span><span class="p">[</span><span class="n">i</span><span class="o">+</span><span class="mi">1</span><span class="p">][</span><span class="n">k</span><span class="o">+</span><span class="mi">1</span><span class="p">])</span><span class="o">/</span><span class="p">(</span><span class="n">SP</span><span class="p">[</span><span class="n">i</span><span class="o">+</span><span class="mi">1</span><span class="p">][</span><span class="n">k</span><span class="p">]</span><span class="o">-</span><span class="n">SP</span><span class="p">[</span><span class="n">i</span><span class="o">+</span><span class="mi">1</span><span class="p">][</span><span class="n">k</span><span class="o">+</span><span class="mi">1</span><span class="p">])</span>
+<span class="o">...</span>           <span class="n">x</span> <span class="o">=</span> <span class="n">delta</span> <span class="o">-</span> <span class="n">Pt</span><span class="p">[</span><span class="o">-</span><span class="mi">1</span><span class="p">][</span><span class="mi">0</span><span class="p">]</span>
+<span class="o">...</span>           <span class="c1">#print( delta,x,-x*SP[i][k] )</span>
+<span class="o">...</span>           <span class="n">Pt</span><span class="o">.</span><span class="n">append</span><span class="p">(</span> <span class="p">(</span><span class="n">delta</span><span class="p">,</span><span class="n">C</span><span class="o">*</span><span class="p">(</span> <span class="n">Pt</span><span class="p">[</span><span class="o">-</span><span class="mi">1</span><span class="p">][</span><span class="mi">1</span><span class="p">]</span><span class="o">-</span><span class="n">x</span><span class="o">*</span><span class="n">SP</span><span class="p">[</span><span class="n">i</span><span class="p">][</span><span class="n">k</span><span class="p">]),</span><span class="n">SP</span><span class="p">[</span><span class="n">i</span><span class="o">+</span><span class="mi">1</span><span class="p">][</span><span class="n">k_next</span><span class="p">])</span> <span class="p">)</span>
+<span class="o">...</span>       <span class="k">return</span> <span class="p">(</span><span class="n">Pt</span><span class="p">[</span><span class="o">-</span><span class="mi">1</span><span class="p">][</span><span class="mi">0</span><span class="p">]</span><span class="o">*</span><span class="n">Pt</span><span class="p">[</span><span class="o">-</span><span class="mi">1</span><span class="p">][</span><span class="mi">2</span><span class="p">]</span><span class="o">+</span><span class="n">Pt</span><span class="p">[</span><span class="o">-</span><span class="mi">1</span><span class="p">][</span><span class="mi">1</span><span class="p">]</span><span class="o">-</span><span class="n">c</span><span class="o">*</span><span class="nb">max</span><span class="p">(</span><span class="n">c</span><span class="o">*</span><span class="p">(</span> <span class="n">Pt</span><span class="p">[</span><span class="o">-</span><span class="mi">1</span><span class="p">][</span><span class="mi">2</span><span class="p">]</span><span class="o">-</span><span class="n">K</span><span class="p">),</span><span class="mi">0</span><span class="p">),</span><span class="n">Pt</span><span class="p">)</span>
+</pre></div>
+</div>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="n">sage</span><span class="p">:</span> <span class="p">[</span><span class="n">SP</span><span class="p">[</span><span class="n">i</span><span class="p">][</span><span class="n">k</span><span class="p">]</span> <span class="k">for</span> <span class="n">i</span><span class="p">,</span><span class="n">k</span> <span class="ow">in</span> <span class="nb">enumerate</span><span class="p">(</span><span class="n">path</span><span class="p">)]</span>
+<span class="p">[</span><span class="mi">100</span><span class="p">,</span> <span class="mi">120</span><span class="p">,</span> <span class="mi">100</span><span class="p">,</span> <span class="mi">80</span><span class="p">]</span>
+</pre></div>
+</div>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="n">sage</span><span class="p">:</span> <span class="n">calculate_evo</span><span class="p">(</span><span class="n">SP</span><span class="p">,</span><span class="n">OP</span><span class="p">,</span><span class="n">path</span><span class="p">,</span><span class="n">c</span><span class="o">=-</span><span class="mi">1</span><span class="p">,</span><span class="n">rate</span><span class="o">=</span><span class="mf">28.59</span><span class="p">)[</span><span class="mi">1</span><span class="p">]</span>
+<span class="p">[(</span><span class="mi">0</span><span class="p">,</span> <span class="mi">0</span><span class="p">,</span> <span class="mi">100</span><span class="p">),</span> <span class="p">(</span><span class="mf">0.262396694214876</span><span class="p">,</span> <span class="o">-</span><span class="mf">28.8633425389616</span><span class="p">,</span> <span class="mi">120</span><span class="p">),</span> <span class="p">(</span><span class="mf">0.113636363636363</span><span class="p">,</span> <span class="o">-</span><span class="mf">12.1131898459641</span><span class="p">,</span> <span class="mi">100</span><span class="p">),</span> <span class="p">(</span><span class="mi">1</span><span class="o">/</span><span class="mi">2</span><span class="p">,</span> <span class="o">-</span><span class="mf">55.8239405508766</span><span class="p">,</span> <span class="mi">80</span><span class="p">)]</span>
+</pre></div>
+</div>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="n">sage</span><span class="p">:</span> <span class="n">calculate_evo</span><span class="p">(</span><span class="n">SP</span><span class="p">,</span><span class="n">OP</span><span class="p">,</span><span class="n">path</span><span class="p">,</span><span class="n">c</span><span class="o">=-</span><span class="mi">1</span><span class="p">,</span><span class="n">rate</span><span class="o">=</span><span class="mf">28.59</span><span class="p">)[</span><span class="mi">0</span><span class="p">]</span>
+<span class="mf">4.17605944912340</span>
+</pre></div>
+</div>
+<p>Załóżmy, że kupiliśmy opcję za 2.5, wtedy mamy depozyt=2.5:</p>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="n">sage</span><span class="p">:</span> <span class="n">calculate_evo</span><span class="p">(</span><span class="n">SP</span><span class="p">,</span><span class="n">OP</span><span class="p">,</span><span class="n">path</span><span class="p">,</span><span class="n">c</span><span class="o">=-</span><span class="mi">1</span><span class="p">,</span><span class="n">rate</span><span class="o">=</span><span class="mf">28.59</span><span class="p">,</span><span class="n">depozyt</span><span class="o">=-</span><span class="mf">2.5</span><span class="p">)[</span><span class="mi">0</span><span class="p">]</span><span class="o">*</span><span class="n">exp</span><span class="p">(</span><span class="o">-</span><span class="n">rate</span><span class="o">/</span><span class="mi">100</span><span class="p">)</span>
+<span class="mf">0.637631093519873</span>
+</pre></div>
+</div>
+<p>Wartość opcji w czasie  <span class="math notranslate nohighlight">\(t=3\)</span> wynosi:</p>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="n">sage</span><span class="p">:</span> <span class="p">(</span><span class="n">OP</span><span class="p">[</span><span class="mi">0</span><span class="p">][</span><span class="mi">0</span><span class="p">])</span><span class="o">*</span><span class="mf">1.1</span><span class="o">^</span><span class="mi">3</span>
+<span class="mf">4.17499999999999</span>
+</pre></div>
+</div>
+<p>Efekt zabezpieczenia - każdy scenariusz prowadzi do tego samego wyniku finansowego.</p>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="n">sage</span><span class="p">:</span> <span class="k">for</span> <span class="n">path</span> <span class="ow">in</span> <span class="n">all_paths</span><span class="p">:</span>
+<span class="o">...</span>       <span class="nb">print</span><span class="p">(</span> <span class="n">path</span><span class="p">,</span><span class="n">SP</span><span class="p">[</span><span class="o">-</span><span class="mi">1</span><span class="p">][</span><span class="n">path</span><span class="p">[</span><span class="o">-</span><span class="mi">1</span><span class="p">]],</span><span class="n">calculate_evo</span><span class="p">(</span><span class="n">SP</span><span class="p">,</span><span class="n">OP</span><span class="p">,</span><span class="n">path</span><span class="p">,</span><span class="n">c</span><span class="o">=-</span><span class="mi">1</span><span class="p">,</span><span class="n">rate</span><span class="o">=</span><span class="mf">28.59</span><span class="p">)[</span><span class="mi">0</span><span class="p">]</span> <span class="p">)</span>
+<span class="p">[</span><span class="mi">0</span><span class="p">,</span> <span class="mi">0</span><span class="p">,</span> <span class="mi">0</span><span class="p">,</span> <span class="mi">0</span><span class="p">]</span> <span class="mi">160</span> <span class="mf">4.17544866397274</span>
+<span class="p">[</span><span class="mi">0</span><span class="p">,</span> <span class="mi">0</span><span class="p">,</span> <span class="mi">0</span><span class="p">,</span> <span class="mi">1</span><span class="p">]</span> <span class="mi">120</span> <span class="mf">4.17544866397274</span>
+<span class="p">[</span><span class="mi">0</span><span class="p">,</span> <span class="mi">0</span><span class="p">,</span> <span class="mi">1</span><span class="p">,</span> <span class="mi">1</span><span class="p">]</span> <span class="mi">120</span> <span class="mf">4.17605944912340</span>
+<span class="p">[</span><span class="mi">0</span><span class="p">,</span> <span class="mi">0</span><span class="p">,</span> <span class="mi">1</span><span class="p">,</span> <span class="mi">2</span><span class="p">]</span> <span class="mi">80</span> <span class="mf">4.17605944912340</span>
+<span class="p">[</span><span class="mi">0</span><span class="p">,</span> <span class="mi">1</span><span class="p">,</span> <span class="mi">1</span><span class="p">,</span> <span class="mi">1</span><span class="p">]</span> <span class="mi">120</span> <span class="mf">4.17667022805639</span>
+<span class="p">[</span><span class="mi">0</span><span class="p">,</span> <span class="mi">1</span><span class="p">,</span> <span class="mi">1</span><span class="p">,</span> <span class="mi">2</span><span class="p">]</span> <span class="mi">80</span> <span class="mf">4.17667022805639</span>
+<span class="p">[</span><span class="mi">0</span><span class="p">,</span> <span class="mi">1</span><span class="p">,</span> <span class="mi">2</span><span class="p">,</span> <span class="mi">2</span><span class="p">]</span> <span class="mi">80</span> <span class="mf">4.17707741815681</span>
+<span class="p">[</span><span class="mi">0</span><span class="p">,</span> <span class="mi">1</span><span class="p">,</span> <span class="mi">2</span><span class="p">,</span> <span class="mi">3</span><span class="p">]</span> <span class="mi">40</span> <span class="mf">4.17707741815681</span>
+</pre></div>
+</div>
+<p>Widzimy, że dla każdego scenariusza mamy ten sam stan końcowy!</p>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="n">sage</span><span class="p">:</span> <span class="n">exp</span><span class="p">(</span><span class="mf">0.1</span><span class="o">/</span><span class="n">sqrt</span><span class="p">(</span><span class="mi">3</span><span class="p">))</span><span class="o">^</span><span class="mi">3</span>
+<span class="n">e</span><span class="o">^</span><span class="p">(</span><span class="mf">0.100000000000000</span><span class="o">*</span><span class="n">sqrt</span><span class="p">(</span><span class="mi">3</span><span class="p">))</span>
+</pre></div>
+</div>
+</div>
+</div>
+</div>
+
+
+          </div>
+        </div>
+      </div>
+      <div class="sphinxsidebar" role="navigation" aria-label="main navigation">
+        <div class="sphinxsidebarwrapper">
+  <div class="sphinxlocaltoc">
+  <h3><a href="index.html">Table Of Contents</a></h3>
+  <ul>
+<li><a class="reference internal" href="#">17. Dodatek: Komputerowa analiza drzew binarnych</a><ul>
+<li><a class="reference internal" href="#drzewa-binarne">17.1. Drzewa binarne</a><ul>
+<li><a class="reference internal" href="#ewolucja-portfela-na-drzewie-binarnym">17.1.1. Ewolucja portfela na drzewie binarnym.</a></li>
+<li><a class="reference internal" href="#hedging-na-drzewie-binarnym">17.1.2. Hedging na drzewie binarnym:</a></li>
+<li><a class="reference internal" href="#niezerowa-stopa-procentowa">17.1.3. Niezerowa stopa procentowa</a></li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+
+  </div>
+  <h4>Poprzedni temat</h4>
+  <p class="topless"><a href="var_ex2.html"
+                        title="poprzedni rozdział"><span class="section-number">16. </span>Przykład - obliczenie VaR  dla nieliniowej funkcji wyceny</a></p>
+  <div role="note" aria-label="source link">
+    <h3>Ta strona</h3>
+    <ul class="this-page-menu">
+      <li><a href="_sources/binarne.rst.txt"
+            rel="nofollow">Pokaż źródło</a></li>
+    </ul>
+   </div>
+<div id="searchbox" style="display: none" role="search">
+  <h3 id="searchlabel">Szybkie wyszukiwanie</h3>
+    <div class="searchformwrapper">
+    <form class="search" action="search.html" method="get">
+      <input type="text" name="q" aria-labelledby="searchlabel" />
+      <input type="submit" value="Szukaj" />
+    </form>
+    </div>
+</div>
+<script>$('#searchbox').show(0);</script>
+        </div>
+      </div>
+      <div class="clearer"></div>
+    </div>
+  </div>
+  <div class="relbar-bottom">
+    
+    <div class="related" role="navigation" aria-label="related navigation">
+      <h3>Nawigacja</h3>
+      <ul>
+        <li class="right" style="margin-right: 10px">
+          <a href="genindex.html" title="Indeks ogólny"
+             >indeks</a></li>
+        <li class="right" >
+          <a href="var_ex2.html" title="16. Przykład - obliczenie VaR dla nieliniowej funkcji wyceny"
+             >wstecz</a> &nbsp; &nbsp;</li>
+  <li><a href="index.html">Analiza Rynków Finansowych</a> &#187;</li>
+   
+      </ul>
+    </div>
+  </div>
+  
+  <div class="footer">
+    <a class="logo" href="http://upgow.us.edu.pl/" target="_blank"><img src="_static/upgow.png" alt="UPGOW"/></a><br/>
+    <img src="_static/stopka_EU.png" alt="EU"/><br/>
+    &copy; Copyright 2013, ML and MK.
+    Created using <a href="http://sphinx.pocoo.org/">Sphinx</a> 2.4.0.
+  </div>
+  </body>
+</html>

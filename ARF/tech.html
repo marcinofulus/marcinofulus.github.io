@@ -1,0 +1,403 @@
+
+
+  
+<!DOCTYPE html>
+
+<html xmlns="http://www.w3.org/1999/xhtml" lang="pl">
+  <head>
+    <meta charset="utf-8" />
+    <title>4. Specyfika danych rynkowych &#8212; Analiza Rynków Finansowych</title>
+    <link rel="stylesheet" href="_static/upgow.css" type="text/css" />
+    <link rel="stylesheet" href="_static/pygments.css" type="text/css" />
+    <link rel="stylesheet" href="http://fonts.googleapis.com/css?family=Noticia+Text|Open+Sans|Droid+Sans+Mono&subset=latin,latin-ext" type="text/css" />
+    <script id="documentation_options" data-url_root="./" src="_static/documentation_options.js"></script>
+    <script src="_static/jquery.js"></script>
+    <script src="_static/underscore.js"></script>
+    <script src="_static/doctools.js"></script>
+    <script src="_static/language_data.js"></script>
+    <script src="_static/translations.js"></script>
+    <script async="async" src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.5/latest.js?config=TeX-AMS-MML_HTMLorMML"></script>
+    <script src="_static/jquery.cookie.js"></script>
+    <script src="_static/cloud.js"></script>
+    <script type="text/javascript" src="http://sagecell.sagemath.org/static/jquery.min.js"></script>
+    <script type="text/javascript" src="http://sagecell.sagemath.org/static/embedded_sagecell.js"></script>
+    <script type="text/javascript">
+        sagecell.makeSagecell({inputLocation: ".sage_linked",
+                               linked: true,
+                       	evalButtonText: 'Wykonaj'});
+        sagecell.makeSagecell({inputLocation: ".sage_unlinked",
+                               linked: false,
+                           evalButtonText: 'Wykonaj'});
+    </script>
+
+    <style type="text/css">
+        .sagecell .CodeMirror-scroll {
+            overflow-y: hidden;
+            overflow-x: auto;
+        }
+        .sagecell .CodeMirror {
+            height: auto;
+        }
+    </style>
+    
+    <link rel="index" title="Indeks" href="genindex.html" />
+    <link rel="search" title="Szukaj" href="search.html" />
+    <link rel="next" title="5. Czas i pieniądz" href="wartosc_pieniadza.html" />
+    <link rel="prev" title="3. Wstęp techniczny czyli jak korzystać z części interaktywnych?" href="wstep_tech.html" />
+ 
+  <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, minimum-scale=1">
+  </head><body>
+  <div class="relbar-top">
+    
+    <div class="related" role="navigation" aria-label="related navigation">
+      <h3>Nawigacja</h3>
+      <ul>
+        <li class="right" style="margin-right: 10px">
+          <a href="genindex.html" title="Indeks ogólny"
+             accesskey="I">indeks</a></li>
+        <li class="right" >
+          <a href="wartosc_pieniadza.html" title="5. Czas i pieniądz"
+             accesskey="N">dalej</a> &nbsp; &nbsp;</li>
+        <li class="right" >
+          <a href="wstep_tech.html" title="3. Wstęp techniczny czyli jak korzystać z części interaktywnych?"
+             accesskey="P">wstecz</a> &nbsp; &nbsp;</li>
+  <li><a href="index.html">Analiza Rynków Finansowych</a> &#187;</li>
+   
+      </ul>
+    </div>
+  </div>
+  
+  <div class="content">  
+
+    <div class="document">
+      <div class="documentwrapper">
+        <div class="bodywrapper">
+          <div class="body">
+            
+  <div class="section" id="specyfika-danych-rynkowych">
+<h1><span class="section-number">4. </span>Specyfika danych rynkowych<a class="headerlink" href="#specyfika-danych-rynkowych" title="Stały odnośnik do tego nagłówka">¶</a></h1>
+<p>Oprogramowanie Sage a w szczególności zawarte w nim biblioteki <cite>numpy</cite>
+oraz <cite>scipy</cite> oraz wbudowane możliwości wizualizacji i interakcji dają
+możliwość stworzenia „od podstaw” prototypu własnej aplikacji to
+szerokiego spektrum analiz danych i statystyk.</p>
+<div class="section" id="zwroty-wzgledne-bezwzgledne-i-log-zwroty">
+<h2><span class="section-number">4.1. </span>Zwroty względne, bezwzględne i log-zwroty<a class="headerlink" href="#zwroty-wzgledne-bezwzgledne-i-log-zwroty" title="Stały odnośnik do tego nagłówka">¶</a></h2>
+<p>Rozważmy ewolucję ceny pewnego aktywa w czasie. Wartości notowań
+aktywa są pewnym procesem losowym. W analizie jego zmienności ważnym
+pojęciem jest „zwrot”, który jest matematycznie rzecz biorąc
+przyrostem procesu na pewnym okresie czasu. Załóżmy, że mamy pewien
+dyskretny ciąg chwil czasu <span class="math notranslate nohighlight">\(t_i\)</span> w których aktywo ma cenę  <span class="math notranslate nohighlight">\(S_i\)</span>.
+W finansach spotykamy trzy ważne pojęcia:</p>
+<ul class="simple">
+<li><p>zwrot absolutny w chwili <span class="math notranslate nohighlight">\(t_i\)</span>: <span class="math notranslate nohighlight">\(S_i-S_{i-1}\)</span></p></li>
+<li><p>zwrot względny w chwili  <span class="math notranslate nohighlight">\(t_i\)</span>: <span class="math notranslate nohighlight">\(\displaystyle\frac{S_i-S_{i-1}}{S_{i-1}}\)</span></p></li>
+<li><p>log-zwrot w chwili <span class="math notranslate nohighlight">\(t_i\)</span>: <span class="math notranslate nohighlight">\(\log S_i -\log S_{i-1}\)</span></p></li>
+</ul>
+<p>Analiza szeregów czasowych notowań historycznych najczęściej operuje
+właśnie tymi wielkościami. Posiadają one kilka istotnych własności. Po
+pierwsze, korzystając z własności logarytmu naturalnego możemy
+napisać:</p>
+<div class="math notranslate nohighlight">
+\[\log S_i -\log S_{i-1} = \log \frac{S_i}{S_{i-1}}.\]</div>
+<p>Jeśli zwrot względny jest mały, to jest w przybliżeniu równy
+log-zwrotowi. Zapiszmy:</p>
+<div class="math notranslate nohighlight">
+\[\begin{split}\log \frac{S_i}{S_{i-1}} = \log  \frac{S_{i-1}+S_i-S_{i-1}}{S_{i-1}} \\
+= \log \left(1+\frac{S_i-S_{i-1}}{S_{i-1}}\right).\end{split}\]</div>
+<p>Teraz możemy rozwinąć logarytm w szereg Taylora:</p>
+<div class="math notranslate nohighlight" id="equation-taylorlog">
+<span class="eqno">(1)<a class="headerlink" href="#equation-taylorlog" title="Stały odnośnik do tego równania">¶</a></span>\[\log (1+x) = x-\frac{x^2}{x} + \mathop{O}(x^3),\]</div>
+<p>jeżeli zatrzymamy się tylko na liniowym członie to otrzymamy:</p>
+<div class="math notranslate nohighlight">
+\[\log \frac{S_i}{S_{i-1}} \simeq \frac{S_i-S_{i-1}}{S_{i-1}}\]</div>
+<p>Klasycznym modelem matematycznym, który stosuje się do opisu
+zachowania się zmian ceny jest geometryczny ruch Browna. W takim
+przypadku zakłada się, że zwrot względny spełnia:</p>
+<div class="math notranslate nohighlight">
+\[\frac{S_i-S_{i-1}}{S_{i-1}} = \mu  + \sigma N_i(0,1),\]</div>
+<p>gdzie <span class="math notranslate nohighlight">\(\mu\)</span> to deterministyczne tempo wzrostu logarytmu ceny
+związane ze stopą procentową a <span class="math notranslate nohighlight">\(\sigma^2\)</span> to wariancja zmian
+logarytmu ceny.  <span class="math notranslate nohighlight">\(N_i(0,1)\)</span> oznacza niezależne gaussowskie
+zmienne losowe o średniej zero i wariancji jeden. Przejście do granicy
+<span class="math notranslate nohighlight">\((t_i-t_{i-1})\to 0\)</span> wymaga zastosowania stochastycznych równań
+różniczkowych i taki proces ciągły jest dany wzorem:</p>
+<div class="math notranslate nohighlight" id="equation-sde1">
+<span class="eqno">(2)<a class="headerlink" href="#equation-sde1" title="Stały odnośnik do tego równania">¶</a></span>\[dS = \mu S dt  + \sigma S dW,\]</div>
+<p>gdzie <span class="math notranslate nohighlight">\(dW\)</span> to różniczka procesu Wienera. Można pokazać, że
+zakładając ewolucje według równania stochastycznego <a class="reference internal" href="#equation-sde1">(2)</a>
+otrzymujemy proces w którym warunkowy rozkład ceny w czasie <span class="math notranslate nohighlight">\(t\)</span>
+przy założeniu ceny <span class="math notranslate nohighlight">\(S_0\)</span> w chwili <span class="math notranslate nohighlight">\(t=0\)</span>, jest
+log-normalny:</p>
+<div class="math notranslate nohighlight" id="equation-pwar">
+<span class="eqno">(3)<a class="headerlink" href="#equation-pwar" title="Stały odnośnik do tego równania">¶</a></span>\[P_S(S,t|S_0,0)= \frac{1}{\sqrt{2\pi\sigma^2 t } S } e^{-\displaystyle\frac{(\log(\frac{S}{S_0})-(\mu-\frac{\sigma^2}{2}) t)^2}{2\sigma^2t}}.\]</div>
+<div class="admonition note">
+<p class="admonition-title">Informacja</p>
+<p>Sprawdź jaka jest kanoniczna postać rozkładu log-normalnego np. w
+<a class="reference external" href="http://pl.wikipedia.org/wiki/Rozk%C5%82ad_logarytmicznie_normalny">Wikipedii</a>. Zauważ,
+że w naszej notacji zarówno średnia jak i wariancja rosną  liniowo z
+czasem.  Jak to zinterpretować?</p>
+</div>
+<p>Rozkład log-normalny jest zupełnie odmienny od rozkładu normalnego,
+jednak dla małych zmian ceny można by się spodziewać pewnych
+podobieństw. Rozważmy sytuację, w której mamy wartość początkową ceny
+pewnego aktywa równą <span class="math notranslate nohighlight">\(S_0\)</span> i rozważamy najbliższą przyszłość. Co
+to znaczy? W tej sytuacji będzie to taki horyzont czasowy na którym
+cena akcji niewiele się zmieni w stosunku do ceny początkowej tzn.:</p>
+<div class="math notranslate nohighlight">
+\[\frac{S}{S_0} \simeq 1\]</div>
+<p>W praktyce, taki krótki horyzont czasowy może typowo oznaczać zmianę
+kursów pomiędzy notowaniami dziennymi. Przekonamy się teraz, że
+rozkład ceny na któtkich czasach jest „prawie” gaussowski. Do równania
+<a class="reference internal" href="#equation-pwar">(3)</a> wstawmy w mianowniku <span class="math notranslate nohighlight">\(S_0\)</span> zamiast <span class="math notranslate nohighlight">\(S\)</span> a w
+eksponencie zastąpmy logarytm rozwinięciem <span class="math notranslate nohighlight">\(\log
+\frac{S}{S_0}\simeq \frac{S-S_0}{S_0}\)</span>. Otrzymamy wówczas rozkład
+normany w postaci:</p>
+<div class="math notranslate nohighlight" id="equation-pshort">
+<span class="eqno">(4)<a class="headerlink" href="#equation-pshort" title="Stały odnośnik do tego równania">¶</a></span>\[P_S(S,t|S_0,0)= \frac{1}{\sqrt{2\pi\sigma^2 t } S_0 } e^{-\displaystyle\frac{\frac{S-S_0}{S_0}-(\mu-\frac{\sigma^2}{2}) t)^2}{2\sigma^2t}}.\]</div>
+<div class="admonition-poeskperymentuj-z-komputerem admonition">
+<p class="admonition-title">Poeskperymentuj z komputerem</p>
+<p>Zbadaj czym różnią się dwa rozkłady - normalny <a class="reference internal" href="#equation-pshort">(4)</a> i
+log-normalny <a class="reference internal" href="#equation-pwar">(3)</a> dla małych i dużych  czasów.</p>
+<blockquote>
+<div><ul class="simple">
+<li><p>Zwiększ czas i zaobserwuj jak zmienia się rozkład. Czy w każdym
+z przypadków może pojawić się cena aktywa mniejsza od zera?</p></li>
+<li><p>Zmień w kodzie inne parametry: wartość początkową, wariancję na
+jednostkę czasu i szybkość wzrostu ceny.</p></li>
+</ul>
+</div></blockquote>
+</div>
+<div class='sage_unlinked'><script type='text/x-sage'>var('r,sigma,t,x0')
+logN = 1/(sigma*sqrt(2*pi*t)*x)*exp(-(log(x)-log(x0)-(r-sigma^2)*t)^2/(2*sigma^2*t))
+Normal = 1/(sigma*sqrt(2*pi*t)*x0)*exp(-( (x-x0)/x0-(r-sigma^2/2)*t)^2/(2*sigma^2*t))
+
+@interact
+def _(t_=slider(0.001,0.2,0.001,default=0.01)):
+    pars = {r:0,sigma:1.51,x0:1,t:t_}
+    p1 = plot( logN.subs(pars) , (x,1e-5,4), fill=True)
+    p2 = plot( Normal.subs(pars) , (x,1e-5,4), figsize=4,color='red')
+    (p1+p2).show()</script></div></div>
+<div class="section" id="przyklad-analizy-danych-rynkowych">
+<h2><span class="section-number">4.2. </span>Przykład analizy danych rynkowych<a class="headerlink" href="#przyklad-analizy-danych-rynkowych" title="Stały odnośnik do tego nagłówka">¶</a></h2>
+<p>Wczytamy dane i obliczymy zwroty względne i logarytmiczne.</p>
+<div class="admonition attention">
+<p class="admonition-title">Uwaga</p>
+<p>Dane zazwyczaj są w pliku, jednak w tym przypadku w skrypcie
+nie mamy możliwości załączenia pliku. Dlatego będziemy analizować
+dane, które są dostępne jako odnośnik URL i które możemy otworzyć z
+pomocą biblioteki <code class="code docutils literal notranslate"><span class="pre">urllib</span></code>.</p>
+</div>
+<p>Dane z notowań historycznych najczęściej występują w formacie zwanym
+<cite>csv</cite> - czyli wartości oddzielone przecinkiem. Można je wczytać do
+arkusza kalkulacyjnego, ale też bezpośrednio otworzyć za pomocą
+pakietu <code class="code docutils literal notranslate"><span class="pre">numpy</span></code>.</p>
+<div class='sage_linked'><script type='text/x-sage'>import numpy as np
+from urllib import request
+
+fp  = request.urlopen("https://www.dropbox.com/s/eemrayeer8kfwxn/COMARCH.mst?dl=1")
+data = np.loadtxt(fp,skiprows=1,usecols=[2],delimiter=',')
+N = data.shape[0]
+t = np.arange(N)
+line(zip(t,data),thickness=0.3,figsize=(7,2))</script></div><div class="admonition-poeksperymentuj-sam admonition">
+<p class="admonition-title">Poeksperymentuj sam</p>
+<p>Ile jest danych? Wypisz na ekranie pierwsze 100 wartości.</p>
+</div>
+<p>Policzmy teraz zwroty względne i logarytmiczne i narysujmy wykres log-zwrotów i zwrotów względnych. Aby odróżnić te dwa zestawy danych będziemy rysować kropkami i:</p>
+<div class='sage_linked'><script type='text/x-sage'>r_rel = np.gradient(data)/data
+r_log = np.gradient(np.log(data))
+
+line(zip(t,r_rel),color='gray',thickness=0.5)+\
+point(zip(t,r_log),color='red')</script></div><p>Jak widać praktycznie wielkości te się pokrywają.  Możemy też łatwo
+sporządzić histogram wartości tychże zwrotów co jeszcze bardziej
+uwydatnia tą własność:</p>
+<div class='sage_linked'><script type='text/x-sage'>nbins=100
+plst = []
+for r,c,title in zip([r_rel,r_log],['red','blue'],["Zwroty wzgledne","Log-zwroty"]):
+    H = np.histogram(r,bins=nbins)
+    normalizacja = H[0].sum()*(H[1].max()-H[1].min())/nbins
+    plst.append(line( zip(H[1],H[0]/normalizacja),color=c,figsize=(4,2),title=title))
+show(plst[0])
+show(plst[1])</script></div><div class="admonition-poeksperymentuj-z-komputerem admonition">
+<p class="admonition-title">Poeksperymentuj z komputerem</p>
+<p>Zbadaj jak wyglądałby histogram dla różnych wartości parametry
+<code class="code docutils literal notranslate"><span class="pre">nbins</span></code>. Czy bardzo duże i bardzo małe wartości mają sens?
+Jaki jest użyteczny zakres tego parametru?</p>
+</div>
+<div class="section" id="stacjonarnosc-danych">
+<h3><span class="section-number">4.2.1. </span>Stacjonarność danych<a class="headerlink" href="#stacjonarnosc-danych" title="Stały odnośnik do tego nagłówka">¶</a></h3>
+<p>Zauważmy że w modelu geometrycznego ruchu Browna, parametry
+<span class="math notranslate nohighlight">\(r,\sigma^2\)</span> nie zależą jawnie od czasu. Może się to wydawać
+mylące bo wariancja i średnia rozkładu warunkowego na cenę aktywa
+<a class="reference internal" href="#equation-pwar">(3)</a> jest funkcją czasu. Jednak to wynika z faktu, że cena aktywa
+jest opisana zmienną losową spełniającą równanie stochastyczne
+<a class="reference internal" href="#equation-sde1">(2)</a>. Jej rozkład warunkowy jest jednak zależny od
+czasu. Sytuacja jest taka sama jak dla np. położenia punktu
+materialnego w ruchu jednostajnym prostoliniowym. W takim ruchu
+położenie zależy od czasu pomimo, że wszystkie współczynniki w
+równaniu Newtona są stałe.  W naszym przypadku mamy interpretację dla
+parametrów <span class="math notranslate nohighlight">\(r,\sigma^2\)</span> - są mianowicie to średnia i wariancja
+na jednostkę czasu. Zauważmy też, że jest to prawdą tylko w granicy
+małych czasów.</p>
+<p>Sprawdźmy jak dobrze jest spełniony warunek stacjonarności <span class="math notranslate nohighlight">\(r,\sigma^2\)</span>!</p>
+<div class='sage_linked'><script type='text/x-sage'>print(np.std(r_log[:1000]),np.std(r_log[1000:2000]))</script></div><p>Widzimy, że jest kiepsko spełniona! Widać to już całkiem nieźle z wykresu
+log-zwrotów, który to ma okresy większej i mniejszej zmienności.</p>
+<div class="admonition-poeksperymentuj-z-komputerem admonition">
+<p class="admonition-title">Poeksperymentuj z komputerem</p>
+<p>Narysuj wykres wariancji danych estymowanej po okresie <span class="math notranslate nohighlight">\(k\)</span>
+notowań.</p>
+<ul class="simple">
+<li><p>Co się stanie gdy zwiększymy ten okres?</p></li>
+<li><p>Porównaj ten    wykres z zależnością dziennych zwrotów od czasu.</p></li>
+</ul>
+</div>
+<div class='sage_linked'><script type='text/x-sage'>k=5
+X = r_log
+var_win = [np.var(X[i:i+k]) for i in range(0,X.shape[0],1)]
+line(zip(t[::1],var_win),ymin=0,ymax=0.002,figsize=(6,2))</script></div></div>
+<div class="section" id="autokorelacja">
+<h3><span class="section-number">4.2.2. </span>Autokorelacja<a class="headerlink" href="#autokorelacja" title="Stały odnośnik do tego nagłówka">¶</a></h3>
+<p>Log-zwroty są ze sobą nieskorelowane. Gdyby było inaczej to predykcja
+ceny była by zbyt prosta i teoretycznie prowadziła by do możliwości
+arbitrażu. Sprawdźmy, że tak jest rzeczywiście:</p>
+<div class='sage_linked'><script type='text/x-sage'>X = r_log
+autocorr = [np.corrcoef(np.vstack((X[:-k],X[k:])))[0,1] for k in range(1,250)]
+line(enumerate(autocorr))</script></div></div>
+<div class="section" id="grube-ogony-kurtoza-i-skosnosc">
+<h3><span class="section-number">4.2.3. </span>Grube ogony, kurtoza i skośność<a class="headerlink" href="#grube-ogony-kurtoza-i-skosnosc" title="Stały odnośnik do tego nagłówka">¶</a></h3>
+<p>Analizując histogram log-zwrotów możemy odnieść wrażenie, że jest on
+nieco bardziej wypikowany w okolicy zera i ma trochę „grubszy ogon”
+tzn. większe wartości daleko od zera. Zobaczmy sami:</p>
+<div class="admonition-poeksperymentuj-z-komputerem admonition">
+<p class="admonition-title">Poeksperymentuj z komputerem</p>
+<p>Uruchom poniższy kod. Oblicza on histogram log-zwrotów oraz
+porównuje go z rozkładem Gaussa o tych samych parametrach: średniej i wariancji.</p>
+</div>
+<div class='sage_linked'><script type='text/x-sage'>nbins=80
+Gaussian(x,mu,sigma) = 1/sqrt(2*pi*sigma^2)*exp(-(x-mu)^2/(2*sigma^2))
+X = r_rel[400:1200]
+mu,sigma = np.average(X),np.std(X)
+H = np.histogram(X,bins=nbins,range=[-.13r,.13r])
+normalizacja = H[0].sum()*(H[1].max()-H[1].min())/nbins
+p = line( zip(H[1],H[0]),color='red',figsize=(7,4))
+mu,sigma = np.average(X),np.std(X)
+p += plot(normalizacja*Gaussian(x,mu,sigma),(x,-4*sigma,4*sigma),fill=True,gridlines=[None,[1]])
+p</script></div><p>Popularnymi wielkościami, które charakteryzują jak dany rozkład
+odbiega od rozkładu normalnego są kurtoza i skośność. Jak wiemy w
+rozkładzie normalnym wszystkie momenty rzędu wyższego niż dwa można
+wyrazić jako funkcje momentów pierwszego i drugiego. Dlatego można
+zbudować wyrażenia:</p>
+<div class="math notranslate nohighlight">
+\[\begin{split}\hat K =  \frac{\mu_4}{\sigma^4} - 3 \\
+\hat S =  \frac{\mu_3}{\sigma^3},\end{split}\]</div>
+<p>gdzie <span class="math notranslate nohighlight">\(\mu_i = \mathop{E}\big[(X-\mu)^i\big]\)</span>.</p>
+<div class="admonition-poeksperymentuj-z-komputerem admonition">
+<p class="admonition-title">Poeksperymentuj z komputerem</p>
+<p>Estymatory kurtozy i skośności są zaimplementowane w pakiecie
+<cite>scipy</cite> i można je zaimportować przez: <code class="code docutils literal notranslate"><span class="pre">from</span> <span class="pre">scipy.stats</span> <span class="pre">import</span> <span class="pre">kurtosis,skew</span></code>.</p>
+<blockquote>
+<div><ul class="simple">
+<li><p>Do poprzedniego kodu dodaj obliczanie kurtozy i skośności danego rozkładu</p></li>
+<li><p>Zmień okno z <cite>[400:1200]</cite> na inne, mniejsze większe i w innym miejscu.</p></li>
+<li><p>Jakie wartości  kurtozy i skośności można zaobserwować?</p></li>
+</ul>
+</div></blockquote>
+</div>
+</div>
+</div>
+<div class="section" id="problem-analiza-innych-danych">
+<h2><span class="section-number">4.3. </span>Problem  - analiza innych danych<a class="headerlink" href="#problem-analiza-innych-danych" title="Stały odnośnik do tego nagłówka">¶</a></h2>
+<p>Zdobądź ze źródeł internetowych pliki z innymi indeksami
+giełdowymi. Napisz własny analizator, który będzie potrafił na
+podstawie pliku z danymi:</p>
+<blockquote>
+<div><ul class="simple">
+<li><p>narysować zależność czasową</p></li>
+<li><p>wybrać okno do analizy i je zaznaczyć na wykresie</p></li>
+<li><p>obliczyć log-zwroty</p></li>
+<li><p>narysować histogram wybranego okna</p></li>
+<li><p>obliczyć współczynniki takie jak kurtoza, wariancja, średnia,
+skośność.</p></li>
+</ul>
+</div></blockquote>
+</div>
+</div>
+
+
+          </div>
+        </div>
+      </div>
+      <div class="sphinxsidebar" role="navigation" aria-label="main navigation">
+        <div class="sphinxsidebarwrapper">
+  <div class="sphinxlocaltoc">
+  <h3><a href="index.html">Table Of Contents</a></h3>
+  <ul>
+<li><a class="reference internal" href="#">4. Specyfika danych rynkowych</a><ul>
+<li><a class="reference internal" href="#zwroty-wzgledne-bezwzgledne-i-log-zwroty">4.1. Zwroty względne, bezwzględne i log-zwroty</a></li>
+<li><a class="reference internal" href="#przyklad-analizy-danych-rynkowych">4.2. Przykład analizy danych rynkowych</a><ul>
+<li><a class="reference internal" href="#stacjonarnosc-danych">4.2.1. Stacjonarność danych</a></li>
+<li><a class="reference internal" href="#autokorelacja">4.2.2. Autokorelacja</a></li>
+<li><a class="reference internal" href="#grube-ogony-kurtoza-i-skosnosc">4.2.3. Grube ogony, kurtoza i skośność</a></li>
+</ul>
+</li>
+<li><a class="reference internal" href="#problem-analiza-innych-danych">4.3. Problem  - analiza innych danych</a></li>
+</ul>
+</li>
+</ul>
+
+  </div>
+  <h4>Poprzedni temat</h4>
+  <p class="topless"><a href="wstep_tech.html"
+                        title="poprzedni rozdział"><span class="section-number">3. </span>Wstęp techniczny czyli jak korzystać z części interaktywnych?</a></p>
+  <h4>Następny temat</h4>
+  <p class="topless"><a href="wartosc_pieniadza.html"
+                        title="następny rozdział"><span class="section-number">5. </span>Czas i pieniądz</a></p>
+  <div role="note" aria-label="source link">
+    <h3>Ta strona</h3>
+    <ul class="this-page-menu">
+      <li><a href="_sources/tech.rst.txt"
+            rel="nofollow">Pokaż źródło</a></li>
+    </ul>
+   </div>
+<div id="searchbox" style="display: none" role="search">
+  <h3 id="searchlabel">Szybkie wyszukiwanie</h3>
+    <div class="searchformwrapper">
+    <form class="search" action="search.html" method="get">
+      <input type="text" name="q" aria-labelledby="searchlabel" />
+      <input type="submit" value="Szukaj" />
+    </form>
+    </div>
+</div>
+<script>$('#searchbox').show(0);</script>
+        </div>
+      </div>
+      <div class="clearer"></div>
+    </div>
+  </div>
+  <div class="relbar-bottom">
+    
+    <div class="related" role="navigation" aria-label="related navigation">
+      <h3>Nawigacja</h3>
+      <ul>
+        <li class="right" style="margin-right: 10px">
+          <a href="genindex.html" title="Indeks ogólny"
+             >indeks</a></li>
+        <li class="right" >
+          <a href="wartosc_pieniadza.html" title="5. Czas i pieniądz"
+             >dalej</a> &nbsp; &nbsp;</li>
+        <li class="right" >
+          <a href="wstep_tech.html" title="3. Wstęp techniczny czyli jak korzystać z części interaktywnych?"
+             >wstecz</a> &nbsp; &nbsp;</li>
+  <li><a href="index.html">Analiza Rynków Finansowych</a> &#187;</li>
+   
+      </ul>
+    </div>
+  </div>
+  
+  <div class="footer">
+    <a class="logo" href="http://upgow.us.edu.pl/" target="_blank"><img src="_static/upgow.png" alt="UPGOW"/></a><br/>
+    <img src="_static/stopka_EU.png" alt="EU"/><br/>
+    &copy; Copyright 2013, ML and MK.
+    Created using <a href="http://sphinx.pocoo.org/">Sphinx</a> 2.4.0.
+  </div>
+  </body>
+</html>

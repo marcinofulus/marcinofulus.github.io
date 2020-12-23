@@ -1,0 +1,235 @@
+
+
+  
+<!DOCTYPE html>
+
+<html xmlns="http://www.w3.org/1999/xhtml" lang="pl">
+  <head>
+    <meta charset="utf-8" />
+    <title>3. Wstęp techniczny czyli jak korzystać z części interaktywnych? &#8212; Analiza Rynków Finansowych</title>
+    <link rel="stylesheet" href="_static/upgow.css" type="text/css" />
+    <link rel="stylesheet" href="_static/pygments.css" type="text/css" />
+    <link rel="stylesheet" href="http://fonts.googleapis.com/css?family=Noticia+Text|Open+Sans|Droid+Sans+Mono&subset=latin,latin-ext" type="text/css" />
+    <script id="documentation_options" data-url_root="./" src="_static/documentation_options.js"></script>
+    <script src="_static/jquery.js"></script>
+    <script src="_static/underscore.js"></script>
+    <script src="_static/doctools.js"></script>
+    <script src="_static/language_data.js"></script>
+    <script src="_static/translations.js"></script>
+    <script async="async" src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.5/latest.js?config=TeX-AMS-MML_HTMLorMML"></script>
+    <script src="_static/jquery.cookie.js"></script>
+    <script src="_static/cloud.js"></script>
+    <script type="text/javascript" src="http://sagecell.sagemath.org/static/jquery.min.js"></script>
+    <script type="text/javascript" src="http://sagecell.sagemath.org/static/embedded_sagecell.js"></script>
+    <script type="text/javascript">
+        sagecell.makeSagecell({inputLocation: ".sage_linked",
+                               linked: true,
+                       	evalButtonText: 'Wykonaj'});
+        sagecell.makeSagecell({inputLocation: ".sage_unlinked",
+                               linked: false,
+                           evalButtonText: 'Wykonaj'});
+    </script>
+
+    <style type="text/css">
+        .sagecell .CodeMirror-scroll {
+            overflow-y: hidden;
+            overflow-x: auto;
+        }
+        .sagecell .CodeMirror {
+            height: auto;
+        }
+    </style>
+    
+    <link rel="index" title="Indeks" href="genindex.html" />
+    <link rel="search" title="Szukaj" href="search.html" />
+    <link rel="next" title="4. Specyfika danych rynkowych" href="tech.html" />
+    <link rel="prev" title="2. Wstęp" href="wstep.html" />
+ 
+  <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, minimum-scale=1">
+  </head><body>
+  <div class="relbar-top">
+    
+    <div class="related" role="navigation" aria-label="related navigation">
+      <h3>Nawigacja</h3>
+      <ul>
+        <li class="right" style="margin-right: 10px">
+          <a href="genindex.html" title="Indeks ogólny"
+             accesskey="I">indeks</a></li>
+        <li class="right" >
+          <a href="tech.html" title="4. Specyfika danych rynkowych"
+             accesskey="N">dalej</a> &nbsp; &nbsp;</li>
+        <li class="right" >
+          <a href="wstep.html" title="2. Wstęp"
+             accesskey="P">wstecz</a> &nbsp; &nbsp;</li>
+  <li><a href="index.html">Analiza Rynków Finansowych</a> &#187;</li>
+   
+      </ul>
+    </div>
+  </div>
+  
+  <div class="content">  
+
+    <div class="document">
+      <div class="documentwrapper">
+        <div class="bodywrapper">
+          <div class="body">
+            
+  <div class="section" id="wstep-techniczny-czyli-jak-korzystac-z-czesci-interaktywnych">
+<h1><span class="section-number">3. </span>Wstęp techniczny czyli jak korzystać z części interaktywnych?<a class="headerlink" href="#wstep-techniczny-czyli-jak-korzystac-z-czesci-interaktywnych" title="Stały odnośnik do tego nagłówka">¶</a></h1>
+<p>Skrypt ten kładzie szczególny nacisk na  praktyczny aspekt zrozumienia teorii
+rynków finansowych. Wychodzimy z założenia, że ćwiczenia w
+samodzielnej implementacji wielu algorytmów pozwolą na praktyczne
+sprawdzenie nabytej wiedzy teoretycznej. Nie podważamy tutaj istoty i
+piękna teorii matematycznych. Pragniemy jedynie podkreślić, że
+napisanie algorytmu wymaga nie tylko jej zrozumienia, ale i jest
+podwierdzemien poprawności toku rozumowania. Otrzymanie poprawnego
+wyniku liczbowego nie wybacza pomyłki. Samodzielne eksperymentowanie z
+komputerem pozwala na uzyskanie biegłości, która jest potrzebna gdy na
+osi odciętych jest przyszłość a na rzędnych prawdziwe pieniądze.</p>
+<a class="reference internal image-reference" href="_images/sage_logo_new.png"><img alt="William Stein" class="align-right" src="_images/sage_logo_new.png" style="width: 150px;" /></a>
+<p><a class="reference external" href="http://sagemath.org">Sage</a>, jest pakietem <a class="reference external" href="http://pl.wikipedia.org/wiki/Otwarte_oprogramowanie">otwartego
+oprogramowania</a>
+opartym o język Python. Proponujemy wykorzystanie Sage do wizualizacji
+i analizy danych, przekształcania formuł i wykonywania symulacji
+numerycznych. Z systemu Sage można korzystać na wiele sposobów.</p>
+<ol class="arabic simple">
+<li><p>Po pierwsze można pracować w systemie „notatnik”, zarówno
+korzystając z instalacji lokalnej na własnym komputerze jak i z
+instalacji oferowanej przez Wydział MFiCh.</p></li>
+<li><p>Do wykonania pojedyńczych eksperymentów i prostych obliczeń, możemy
+korzystać z serwera pojedyńczych obliczeń, zwanego <a class="reference external" href="http://sagecell.icse.us.edu.pl:6363/">Sagecell</a>.</p></li>
+<li><p>Interaktywne książki - jak ten sktypt, korzystający z systemu
+Sagecell, umożliwiają korzystanie z systemu Sage z poziomu
+przeglądarki, bez uprzedniej rejestracji czy logowania, tak jak w
+tym przykładzie.</p></li>
+<li><p>Można skorzystać z darmowago systemu stworzonego przez Wiliama
+Steina zmanego <a class="reference external" href="https://cloud.sagemath.com">Sage Math Cloud</a>.</p></li>
+</ol>
+<div class="section" id="interaktywne-komorki-sagecell">
+<h2><span class="section-number">3.1. </span>Interaktywne komórki Sagecell<a class="headerlink" href="#interaktywne-komorki-sagecell" title="Stały odnośnik do tego nagłówka">¶</a></h2>
+<p>Jak skorzystać z elementów interaktywnych w tym skrypcie? Jeśli
+zobaczymy taką komórkę wystarczy nacisnąć przyciska „Wykonaj” i
+zostanie uruchomiony system Sage na jednym z serwerów i zostanie wykonany na
+nim kod programu znajdującego się w polu tekstowym:</p>
+<div class="admonition-poeksperymentuj-z-komputerem admonition">
+<p class="admonition-title">Poeksperymentuj z komputerem</p>
+<p>Naciśnij „Wykonaj!”</p>
+</div>
+<div class='sage_linked'><script type='text/x-sage'>formula = integrate( sin(2*x),x)
+show( formula )</script></div><p>Zauważmy ważną cechę - jeśli na stronie jest więcej niż jedna komórka
+to definicje utworzone podczas wykonania jednej są dostępne w drugiej.</p>
+<div class="admonition-poeksperymentuj-z-komputerem admonition">
+<p class="admonition-title">Poeksperymentuj z komputerem</p>
+<p>Wykonaj najpierw piewszą komórkę a potem drugą. Następnie przeładuj
+stronę i wykonaj najpierw druga a potem pierwszą.</p>
+<p>Zauważ, że przeładowawanie strony powoduje skasowanie informacji o
+wczesniej zdefiniowanych zmiennych! Dzieje się tak dlatego, gdyż po
+przeładowaniu komórki obsługuje nowy proces Sage na serwerze, a
+stary ginie.</p>
+</div>
+<div class='sage_linked'><script type='text/x-sage'>try:
+    show( formula )
+    show("pochodna wynosi:")
+    show( formula.diff(x) )
+except:
+    print( "Nie zdefiniowano zmiennej!" )</script></div><div class="admonition attention">
+<p class="admonition-title">Uwaga</p>
+<ul>
+<li><p>Problem 1: Naciskanie na przycisk „Wykonaj” nie przynosi
+oczekiwanego efektu.</p>
+<p>Odp. W takim razie zalecamy ponowne
+przeładowanie strony i ewentualne wykonanie komórek z wymaganymi
+uprzednio definicjami (pamiętamy, że przeładowanie strony kasuje
+stan Sage.</p>
+</li>
+<li><p>Problem 2: Program po zwiększeniu liczby kroków przestaje działać.</p>
+<p>Odp. Proces na serwerze ma ograniczoną ilość czasu na
+wykonanie. Jeśli czas zostaje przekroczony to ginie. Aby dalej
+używać komórek interaktywnych trzeba przeładować stronę.</p>
+</li>
+</ul>
+</div>
+<p>Komórki Sagecell zawierają dostęp do kompletnego systemu Sage. Nie
+sposób we wstępie opisać jego możliwości, ale zachęcamy do
+przeczytania licznych materiałów:</p>
+<ul class="simple">
+<li><p>Bardzo krótkie wprowadzenie do <a class="reference external" href="http://visual.icse.us.edu.pl/Warsztaty/iCSE_1a_Wprowadzenie_CubeProject.html">Sage’a</a></p></li>
+<li><p>Książka „Matematyka łatwiejsza niż przypuszczasz” <a class="reference external" href="http://icse.us.edu.pl/e-book/">http://icse.us.edu.pl/e-book/</a></p></li>
+<li><p>Materiały do zajęć Technologie Informacyjne dla I roku Studentów: <a class="reference external" href="http://visual.icse.us.edu.pl/iCSE_main/icse_final.html#technologia-informacyjna">http://visual.icse.us.edu.pl/iCSE_main/icse_final.html#technologia-informacyjna</a>.</p></li>
+<li><p>Dociekliwych zachęcamy do <a class="reference external" href="http://pl.wikibooks.org/wiki/Zanurkuj_w_Pythonie">zanurkowania w Pythonie</a></p></li>
+</ul>
+</div>
+</div>
+
+
+          </div>
+        </div>
+      </div>
+      <div class="sphinxsidebar" role="navigation" aria-label="main navigation">
+        <div class="sphinxsidebarwrapper">
+  <div class="sphinxlocaltoc">
+  <h3><a href="index.html">Table Of Contents</a></h3>
+  <ul>
+<li><a class="reference internal" href="#">3. Wstęp techniczny czyli jak korzystać z części interaktywnych?</a><ul>
+<li><a class="reference internal" href="#interaktywne-komorki-sagecell">3.1. Interaktywne komórki Sagecell</a></li>
+</ul>
+</li>
+</ul>
+
+  </div>
+  <h4>Poprzedni temat</h4>
+  <p class="topless"><a href="wstep.html"
+                        title="poprzedni rozdział"><span class="section-number">2. </span>Wstęp</a></p>
+  <h4>Następny temat</h4>
+  <p class="topless"><a href="tech.html"
+                        title="następny rozdział"><span class="section-number">4. </span>Specyfika danych rynkowych</a></p>
+  <div role="note" aria-label="source link">
+    <h3>Ta strona</h3>
+    <ul class="this-page-menu">
+      <li><a href="_sources/wstep_tech.rst.txt"
+            rel="nofollow">Pokaż źródło</a></li>
+    </ul>
+   </div>
+<div id="searchbox" style="display: none" role="search">
+  <h3 id="searchlabel">Szybkie wyszukiwanie</h3>
+    <div class="searchformwrapper">
+    <form class="search" action="search.html" method="get">
+      <input type="text" name="q" aria-labelledby="searchlabel" />
+      <input type="submit" value="Szukaj" />
+    </form>
+    </div>
+</div>
+<script>$('#searchbox').show(0);</script>
+        </div>
+      </div>
+      <div class="clearer"></div>
+    </div>
+  </div>
+  <div class="relbar-bottom">
+    
+    <div class="related" role="navigation" aria-label="related navigation">
+      <h3>Nawigacja</h3>
+      <ul>
+        <li class="right" style="margin-right: 10px">
+          <a href="genindex.html" title="Indeks ogólny"
+             >indeks</a></li>
+        <li class="right" >
+          <a href="tech.html" title="4. Specyfika danych rynkowych"
+             >dalej</a> &nbsp; &nbsp;</li>
+        <li class="right" >
+          <a href="wstep.html" title="2. Wstęp"
+             >wstecz</a> &nbsp; &nbsp;</li>
+  <li><a href="index.html">Analiza Rynków Finansowych</a> &#187;</li>
+   
+      </ul>
+    </div>
+  </div>
+  
+  <div class="footer">
+    <a class="logo" href="http://upgow.us.edu.pl/" target="_blank"><img src="_static/upgow.png" alt="UPGOW"/></a><br/>
+    <img src="_static/stopka_EU.png" alt="EU"/><br/>
+    &copy; Copyright 2013, ML and MK.
+    Created using <a href="http://sphinx.pocoo.org/">Sphinx</a> 2.4.0.
+  </div>
+  </body>
+</html>

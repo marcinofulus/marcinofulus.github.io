@@ -1,0 +1,1111 @@
+
+
+  
+<!DOCTYPE html>
+
+<html xmlns="http://www.w3.org/1999/xhtml" lang="pl">
+  <head>
+    <meta charset="utf-8" />
+    <title>11. Metody wyznaczania ceny opcji &#8212; Analiza Rynków Finansowych</title>
+    <link rel="stylesheet" href="_static/upgow.css" type="text/css" />
+    <link rel="stylesheet" href="_static/pygments.css" type="text/css" />
+    <link rel="stylesheet" href="http://fonts.googleapis.com/css?family=Noticia+Text|Open+Sans|Droid+Sans+Mono&subset=latin,latin-ext" type="text/css" />
+    <script id="documentation_options" data-url_root="./" src="_static/documentation_options.js"></script>
+    <script src="_static/jquery.js"></script>
+    <script src="_static/underscore.js"></script>
+    <script src="_static/doctools.js"></script>
+    <script src="_static/language_data.js"></script>
+    <script src="_static/translations.js"></script>
+    <script async="async" src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.5/latest.js?config=TeX-AMS-MML_HTMLorMML"></script>
+    <script src="_static/jquery.cookie.js"></script>
+    <script src="_static/cloud.js"></script>
+    <script type="text/javascript" src="http://sagecell.sagemath.org/static/jquery.min.js"></script>
+    <script type="text/javascript" src="http://sagecell.sagemath.org/static/embedded_sagecell.js"></script>
+    <script type="text/javascript">
+        sagecell.makeSagecell({inputLocation: ".sage_linked",
+                               linked: true,
+                       	evalButtonText: 'Wykonaj'});
+        sagecell.makeSagecell({inputLocation: ".sage_unlinked",
+                               linked: false,
+                           evalButtonText: 'Wykonaj'});
+    </script>
+
+    <style type="text/css">
+        .sagecell .CodeMirror-scroll {
+            overflow-y: hidden;
+            overflow-x: auto;
+        }
+        .sagecell .CodeMirror {
+            height: auto;
+        }
+    </style>
+    
+    <link rel="index" title="Indeks" href="genindex.html" />
+    <link rel="search" title="Szukaj" href="search.html" />
+    <link rel="next" title="12. Instrumenty syntetyczne" href="Instrumenty_syntetyczne.html" />
+    <link rel="prev" title="10. Opcje" href="opcje.html" />
+ 
+  <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, minimum-scale=1">
+  </head><body>
+  <div class="relbar-top">
+    
+    <div class="related" role="navigation" aria-label="related navigation">
+      <h3>Nawigacja</h3>
+      <ul>
+        <li class="right" style="margin-right: 10px">
+          <a href="genindex.html" title="Indeks ogólny"
+             accesskey="I">indeks</a></li>
+        <li class="right" >
+          <a href="Instrumenty_syntetyczne.html" title="12. Instrumenty syntetyczne"
+             accesskey="N">dalej</a> &nbsp; &nbsp;</li>
+        <li class="right" >
+          <a href="opcje.html" title="10. Opcje"
+             accesskey="P">wstecz</a> &nbsp; &nbsp;</li>
+  <li><a href="index.html">Analiza Rynków Finansowych</a> &#187;</li>
+   
+      </ul>
+    </div>
+  </div>
+  
+  <div class="content">  
+
+    <div class="document">
+      <div class="documentwrapper">
+        <div class="bodywrapper">
+          <div class="body">
+            
+  <div class="section" id="metody-wyznaczania-ceny-opcji">
+<h1><span class="section-number">11. </span>Metody wyznaczania ceny opcji<a class="headerlink" href="#metody-wyznaczania-ceny-opcji" title="Stały odnośnik do tego nagłówka">¶</a></h1>
+<div class="section" id="jak-wyznaczyc-cene-opcji">
+<h2><span class="section-number">11.1. </span>Jak wyznaczyć cenę opcji?<a class="headerlink" href="#jak-wyznaczyc-cene-opcji" title="Stały odnośnik do tego nagłówka">¶</a></h2>
+<p>Wyznaczenie ceny opcji polega na tym by określić jej wartość godziwą w
+dowolnej chwili czasu. Wartość zależy od ceny aktywa w przyszłości a
+ta z kolei zmienia się w losowy sposób.  Niestety, nie ma sposobu by
+znać tę wartość z wyprzedzeniem.</p>
+<p>Dlatego aby wyznaczyć cenę opcji posługujemy się modelami
+teoretycznymi.  Istnieje wiele modeli stosowanych do tego
+celu. Wszystkie modele zakładają, że proces ewolucji ceny aktywa jest
+jest pewnym procesem losowym. Ponadto zakładamy, że mamy do czynienia
+z rynkiem wolnym od arbitrażu na którym można bez ograniczeń i
+prowizji handlowac dowolną ilością aktywów.</p>
+<p>Najprostszym modelem jest dwumianowy model wyceny opcji. (<em>Cox,
+Ross, Rubinstein, „Option pricing: Simplified Approach”, Journal of
+Financial Economics- September 1979</em>). Ten model wycenia europejską
+opcję call na akcje spółki nie wypłacającej dywidendę.</p>
+<p>W modelu dwumianowym czas pozostały do wygaśnięcia opcji dzieli się na
+dyskretne przedziały. Po każdy okresie czasu cena aktywa <span class="math notranslate nohighlight">\(P\)</span>
+zmienia się przyjmując jeden z dwu możliwych stanów. Może wzrosnąć do
+wartości Pu (z prawdopodobieństwem p) lub zmaleć do wartości
+<span class="math notranslate nohighlight">\(P_d\)</span> (z prawdopodobieństwem <span class="math notranslate nohighlight">\(1-p\)</span>), gdzie <span class="math notranslate nohighlight">\(u &gt; 1\)</span>,
+<span class="math notranslate nohighlight">\(d &lt; 1\)</span>. Mając zbiór cen aktywa (np. akcji) w postaci drzewka,
+można wycenić opcję przeprowadzając rachunek wstecz, począwszy od daty
+wygaśnięcia.  Obliczenia wykonuje się w kierunku początku drzewa od
+chwili <span class="math notranslate nohighlight">\(T\)</span> do <span class="math notranslate nohighlight">\(T-1\)</span>, dyskontując w tym przedziale czasowym
+wartość portfela bezpiecznego składającego się z aktywa i opcji, po
+stopie procentowej wolnej od ryzyka. Procedurę powtarza się aż do
+chwili wystawienia opcji. Modele te są opisane w szczególach w
+rozdziale o opcjach binarnych <a class="reference internal" href="binarne.html#binarne"><span class="std std-ref">Dodatek: Komputerowa analiza drzew binarnych</span></a>.</p>
+</div>
+<div class="section" id="model-minimalny-rynek-dwustanowy-jednookresowy">
+<h2><span class="section-number">11.2. </span>Model minimalny - rynek dwustanowy jednookresowy<a class="headerlink" href="#model-minimalny-rynek-dwustanowy-jednookresowy" title="Stały odnośnik do tego nagłówka">¶</a></h2>
+<p>Rozważmy najprostszy rynek uwzględniający nieprzewidywalną zmienność.
+Wyobraźmy sobie, że mamy pewne aktywo <span class="math notranslate nohighlight">\(S\)</span>, które w chwili
+początkowej <span class="math notranslate nohighlight">\(t=0\)</span> posiada wartość <span class="math notranslate nohighlight">\(S(t=0)=S_0\)</span>. Po czasie
+<span class="math notranslate nohighlight">\(T\)</span> dopuszczamy jeden z dwóch możliwych scenariuszy: aktywo
+drożeje do wartości <span class="math notranslate nohighlight">\(S_{up}\)</span> albo tanieje do wartości
+<span class="math notranslate nohighlight">\(S_{down}\)</span>. W tym momencie prawdopodobieństwa każdego ze
+scenariuszy są niewiadomą. Rynek jest jednookresowy, co oznacza, że
+rozważamy tylko dwie chwile czasu: początkową: <span class="math notranslate nohighlight">\(t=0\)</span> i przyszłą: <span class="math notranslate nohighlight">\(t=T\)</span>.</p>
+<p>Zakładamy, że na rynku istnieje możliwość ulokowania gotówki w depozyt
+bankowy ze stopą procentową <span class="math notranslate nohighlight">\(r\)</span>. Zakładamy, że taka operacja
+jest pozbawiona jakiegokolwiek ryzyka. Innymi słowy po czasie
+<span class="math notranslate nohighlight">\(T\)</span> depozyt bankowy gwarantuje nam, że nasz kapitał będzie
+wynosił <span class="math notranslate nohighlight">\(S_0 e^{rT}\)</span>.</p>
+<p>Kolejnym elementem stosowanym przy wycenie instrumentów, co do których
+przyszłości nie mamy pewności, jest pojęcie rynku wolnego od
+arbitrażu. Arbitraż oznacza, że startując z pewnego kapitału możemy
+zarobić - w sensie wartości średniej, kupując lub sprzedająć dostępne
+instrumenty. Zarobek oznacza oczywiście, że po operacji będziemy mieli
+więcej środków niż dał by nam depozyt bankowy. Oczywiście musimy wziąć
+pod uwagę wartości średnie, jeśli występują losowo zmieniające się
+aktywa.</p>
+<p>Okazuje się, że jeśli przyjmiemy założenie rynku wolnego od arbitrażu,
+to przy ustalonych stanach aktywa <span class="math notranslate nohighlight">\(S_{up}\)</span> i <span class="math notranslate nohighlight">\(S_{down}\)</span>,
+prawdopodobieństwo tego, że aktywo podrożeje <span class="math notranslate nohighlight">\(p\)</span> musi spełniać:</p>
+<div class="math notranslate nohighlight" id="equation-parb">
+<span class="eqno">(1)<a class="headerlink" href="#equation-parb" title="Stały odnośnik do tego równania">¶</a></span>\[ p S_{up} + (1-p) S_{down} = S_0 e^{rT}\]</div>
+<p>Dlaczego? Jeśli prawdopodobieństwo to było by większe, wtedy
+moglibyśmy kupić aktywo i w sensie wartości średniej otrzymalibyśmy
+więcej niż lokata bankowa. Arbitraż byłby możliwy. W przeciwnym
+przypadku posiadając aktywo moglibyśmy je sprzedać i ulokować środki
+na depozycie. Po okresie <span class="math notranslate nohighlight">\(T\)</span> za wartość depozytu moglibyśmy
+nabyć więcej jednostek aktywa niż mieliśmy na początku. Znowu
+zyskaliśmy w sensie wartości średniej.</p>
+<p>Równanie <a class="reference internal" href="#equation-parb">(1)</a> jest podstawą konstrukcji wszystkich metod
+wyceny instrumentów finansowych. Korzystając z niego możemy się
+przekonać jaka jest wartość instrumentu w chwili początkowej czyli
+wycenić dany instrument.</p>
+<p>Jeśli znamy, albo założymy, wartości cen po czasie <span class="math notranslate nohighlight">\(T\)</span>, to
+równanie <a class="reference internal" href="#equation-parb">(1)</a> jest równaniem na prawdopodobieństwo
+<span class="math notranslate nohighlight">\(p\)</span>. Możemy je wyliczyć. Wtedy mając wszystkie dane na temat
+drzewa kombinacji, jesteśmy w stanie analizować proces ewolucji cen
+różnych instrumentów na takim drzewie.</p>
+</div>
+<div class="section" id="wycena-opcji-na-drzewie-binarnym">
+<h2><span class="section-number">11.3. </span>Wycena opcji na drzewie binarnym<a class="headerlink" href="#wycena-opcji-na-drzewie-binarnym" title="Stały odnośnik do tego nagłówka">¶</a></h2>
+<div class="admonition important">
+<p class="admonition-title">Ważne</p>
+<p>Do analizy zachowania się ceny na drzewie będziemy korzystać z
+kilku funkcji pomocniczych. Dlatego należy wczytać poniższą
+komórkę:</p>
+<div class='sage_linked'><script type='text/x-sage'>import numpy as np
+def gen_all(niter,SP = 4.0,q=0.175,delta1=None,delta2=None):
+    SP = [[SP]]
+    for i in range(niter):
+        tmp = []
+        for s in SP[-1]:
+            if delta1==None or delta2==None:
+                tmp+= [ (1+q)*s, s/(1+q) ]
+            else:
+                tmp+= [ s+delta1, s-delta2 ]
+        SP.append(tmp)
+    return SP
+def gen_recombining(niter,SP = 4.0,q=0.175,delta1=None,delta2=None):
+    SP = [[SP]]
+    for i in range(niter):
+        tmp = []
+        for s in SP[-1]:
+            if delta1==None or delta2==None:
+                tmp+= [ (1+q)*s]
+            else:
+                tmp+= [ s+delta1]
+        if delta1==None or delta2==None:
+            tmp+= [ s/(1+q)]
+        else:
+            tmp+= [ s-delta2]
+
+
+        SP.append(tmp)
+    return SP
+
+def plot_tree(SP):
+    plt = point( (0,SP[0][0]),size=244,color='gray',alpha=0.2,zorder=0)
+
+    if len(SP) == len(SP[-1]):
+        for l,prices in enumerate(SP):
+            for i,p in enumerate(prices):
+                if l>0:
+                    plt+=point2d( (l,p),size=244,color='gray',alpha=0.2,zorder=0,faceted=True )
+                    plt+= text("%0.1f"%p,(l,p),color='black',figsize=(5,3))
+        for l in range(len(SP)-1):
+            for i in range(l+1):
+                plt+=arrow2d( (l,SP[l][i]),(l+1,SP[l+1][i]), arrowshorten=16)
+                plt+=arrow2d( (l,SP[l][i]),(l+1,SP[l+1][i+1]), arrowshorten=16)
+    else:
+        for l,prices in enumerate(SP):
+            for i,p in enumerate(prices):
+                if l>0:
+                    plt+=arrow2d( (l-1,SP[l-1][int(i/2)]),(l,p), arrowshorten=16)
+                    plt+=point2d( (l,p),size=244,color='gray',alpha=0.2,zorder=0,faceted=True )
+                    plt+= text("%0.1f"%p,(l,p),color='black',figsize=(5,3))
+    plt.axes_labels(["rok","wartosc"])
+    plt.axes_range(xmin=-.2, xmax = len(SP)-1+0.2,ymin=0,ymax=SP[-1][0]+1)
+    return plt
+
+def plot_tree2(SP,OP):
+    plt = point( (0,SP[0][0]),size=244,color='gray',alpha=0.2,zorder=0)
+
+    if len(SP) == len(SP[-1]):
+        for l,(prices,oprices) in enumerate(zip(SP,OP)):
+            for i,(p,op) in enumerate(zip(prices,oprices)):
+                if l>0:
+                    plt+=point2d( (l,p),size=244,color='gray',alpha=0.2,zorder=0,faceted=True )
+                    plt+= text("%0.1f"%op,(l,p),color='black',figsize=(5,3))
+        for l in range(len(SP)-1):
+            for i in range(l+1):
+                plt+=arrow2d( (l,SP[l][i]),(l+1,SP[l+1][i]), arrowshorten=16)
+                plt+=arrow2d( (l,SP[l][i]),(l+1,SP[l+1][i+1]), arrowshorten=16)
+    else:
+        for l,(prices,oprices) in enumerate(zip(SP,OP)):
+            for i,(p,op) in enumerate(zip(prices,oprices)):
+                if l>0:
+                    plt+=arrow2d( (l-1,SP[l-1][int(i/2)]),(l,p), arrowshorten=16)
+                    plt+=point2d( (l,p),size=244,color='gray',alpha=0.2,zorder=0,faceted=True )
+                    plt+= text("%0.1f"%op,(l,p),color='black',figsize=(5,3))
+    plt.axes_labels(["rok","wartosc"])
+    plt.axes_range(xmin=-.2, xmax = len(SP)-1+0.2,ymin=0,ymax=SP[-1][0]+1)
+    return plt
+
+print(  "OK - wczytano funkcje pomocnicze" )</script></div></div>
+<p>Rozważmy drzewo multiplikatywne i instrument o wartości początkowej
+<span class="math notranslate nohighlight">\(S_0\)</span>. Narysujmy drzewo możliwych scenariuszy po pięciu
+miesiącach, przyjmując jeden okres modelu jako jeden miesiąc:</p>
+<div class='sage_linked'><script type='text/x-sage'>N = 5
+SP = gen_recombining(N,SP=50,q=0.1224)
+plot_tree(SP)</script></div><p>Niech roczna stopa procentowa wynosi 10% a cena wykupu opcji
+<span class="math notranslate nohighlight">\(K=50\)</span>. Łatwo się przekonać, że takie drzewo jest wolne od
+arbitrażu dla miary określonej przez <span class="math notranslate nohighlight">\(p=0.5073\)</span>.</p>
+<div class='sage_linked'><script type='text/x-sage'>p = 0.5073
+Q = [p,1-p]
+K = 50
+r = 10.0
+C  = exp(r/100*1/12.).n()</script></div><p>Aby wycenic opcje postępujemy w następujący sposób. W ostatnim okresie
+cena europejskiej opcji kupna (call) zależy tylko od ceny aktualnej
+aktywa oraz ceny wykupu i jest równa:</p>
+<div class='sage_linked'><script type='text/x-sage'>[max(0,s-K) for s in SP[N]]</script></div><p>Znając te liczby możemy obliczyć cenę opcji w przedostatnim okresie
+rozliczeniowym. Skorzystamy z tym celu z równania <a class="reference internal" href="#equation-parb">(1)</a>, dla ceny
+nie aktywa podstawowoego ale opcji.  Zauważmy, że prawdopodopieństwa
+<span class="math notranslate nohighlight">\(p\)</span> i <span class="math notranslate nohighlight">\(1-p\)</span> obliczyliśmy z równania <a class="reference internal" href="#equation-parb">(1)</a> dla cen
+opcji. Mamy więc:</p>
+<div class="math notranslate nohighlight">
+\[S_{i} = e^{-r T}\left( p S^{+}_{i+1} +(1-p) S^{-}_{i+1} \right)\]</div>
+<p>Możemy więc napisać następujący algorytm. Zaczynamy od ceny opcji w
+chwili <span class="math notranslate nohighlight">\(t=T\)</span> - czyli od prawej strony drzewa binarnego, która
+jest dana przez <span class="math notranslate nohighlight">\(\mathrm{max}(0,S-K)\)</span>. Następnie stosując wzrór
+<a class="reference internal" href="#equation-parb">(1)</a> dla każdego rozgałędzienia z osobna wyliczamy ceny
+arbitrażowe dla czasu o jeden okres wcześniej.  Podstępując dalej w
+ten sposób możemy otrzymać całe drzewo cen:</p>
+<div class='sage_linked'><script type='text/x-sage'>OP = [ [max(0,s-K) for s in SP[N]] ]
+for idx in range(N):
+    el = [ 1/C*(p*OP[-1][i]+(1-p)*OP[-1][i+1]) for i in range(len(OP[-1])-1)]
+    OP.append(el)
+OP.reverse()
+
+print( "Cena opcji:",OP[0] )
+plot_tree2(SP,OP)</script></div><p>Można jeszcze sobie zadać pytanie jaką intepretacje mają poszczególne
+ceny w okresach pośrednich?  Weżmy z powyższego rysunku punkt z ceną
+<span class="math notranslate nohighlight">\(8.2\)</span>. Jest to cena opcji okresie <span class="math notranslate nohighlight">\(3\)</span> w przypadku, gdy cena
+aktywa w tym momencie wynosi <span class="math notranslate nohighlight">\(56.1\)</span>. Tą ostatnią cenę odczytujemy z
+poprzedniego wykresu drzewa cen instrumentu bazowego.</p>
+<p>Powyższy algorytm wycenia opcję nie tylko w okresie początkowym, ale i
+w każdej chwili pośredniej. Jeżeli opcja jest typy europejskiego to
+możemy uprościć ten proces. Zauważmy, że w tym przypadku cena zależy
+tylko od rozkładu cen w chwili <span class="math notranslate nohighlight">\(t=T\)</span>. Całe drzewo składa się z
+niezależnych zmian ceny, o tych samych prawdopodobieństwach <span class="math notranslate nohighlight">\(p\)</span>
+i <span class="math notranslate nohighlight">\(1-p\)</span> w każdym rozgałęzieniu. Taki proces zmian jest
+stochastycznym procesem Bernouliego. Dla takiego procesu znamy rozkład
+końcowy po <span class="math notranslate nohighlight">\(N\)</span> próbach:</p>
+<div class="math notranslate nohighlight" id="equation-bernoulli">
+<span class="eqno">(2)<a class="headerlink" href="#equation-bernoulli" title="Stały odnośnik do tego równania">¶</a></span>\[P(k) = {N\choose k} p^k (1-p)^{N-k}.\]</div>
+<p>Cena opcji zależy tylko od tego rozkładu końcowego i możemy ją
+obliczyć jaka średnią funkcji zmiennej losowej po rozkładzie
+<a class="reference internal" href="#equation-bernoulli">(2)</a>:</p>
+<div class="math notranslate nohighlight" id="equation-srednia-bernoulli">
+<span class="eqno">(3)<a class="headerlink" href="#equation-srednia-bernoulli" title="Stały odnośnik do tego równania">¶</a></span>\[\langle S \rangle = \sum_{k=1}^{N} \mathrm{max}(0,S(k)-K) P(k)\]</div>
+<p>Implementacja tego wzoru w Sage jest bardzo prosta:</p>
+<div class='sage_linked'><script type='text/x-sage'>r=0.1
+T = 5/12.
+p = 0.5073
+K = 50
+S0 = 50
+u = 1.1224
+d = 1/u
+N = 5
+print( exp(-r*T).n()*sum([ binomial(N,j)*p^(j)*(1-p)^(N-j)*max(S0*u^j*d^(N-j)-K,0) for j in range(N+1)]) )</script></div><p>Wykonując ostatnią komórkę powinniśmy dostać tą samą liczbę jak w
+procesie wyceny na całym drzewie.</p>
+</div>
+<div class="section" id="model-ciagly">
+<h2><span class="section-number">11.4. </span>Model ciągły<a class="headerlink" href="#model-ciagly" title="Stały odnośnik do tego nagłówka">¶</a></h2>
+<p>Obok modeli dyskretnych do opisu ewolucji ceny danego aktywa stosuje
+się modele ciągłe. Można by zadać sobie pytanie do czego jest
+potrzebne takie podejscie, skoro czas w praktyce jest naturalnie
+podzielony na okresy związane z notowaniami np. dziennymy czy miesięcznymi?</p>
+<p>Jedną z głównych zalet jest możliwość uzyskania, przynajmniej w
+najprostszych przypadkach, analitycznych wyników. Umożliwiają one
+np. przeprowadzanie analizy wrażliwości, która była trudna do
+przeprowadzenia tylko na podstawie symulacji.</p>
+<p>Modele z czasem ciągłym można też rozwiązywać numerycznie stosując
+dyskretyzację czasu z pewnym skończonym krokiem. Krok ten decyduje o
+dokładności rozwiązania numerycznego, im miejszy krok tym większa
+dokładność. Z drugiej strony powoduje to zwiększenie liczby obliczeń,
+która w tym przypadku rośnie liniowo z ilością kroków. Jeśli mamy
+model ciągły to mamy pełną kontrolę nad wielkością kroku i  ilością
+obliczeń i możemy zoptymalizować  procedurę numryczną.</p>
+<p>Klasycznym modelem stosowanym do opisu ewolucji ceny aktywów, jest
+tzw. <a class="reference external" href="http://el.us.edu.pl/ekonofizyka/index.php/MKZR:Numeryczne_rozwi%C4%85zania_r%C3%B3wna%C5%84_stochastycznch-przyk%C5%82ady">geometryczny ruch Browna:</a>. Dany
+jest on przez równanie Langevina:</p>
+<div class="math notranslate nohighlight" id="equation-sde1">
+<span class="eqno">(4)<a class="headerlink" href="#equation-sde1" title="Stały odnośnik do tego równania">¶</a></span>\[ dS(t) = \mu S(t) dt + \sigma S(t) d W(t),\]</div>
+<p>gdzie <span class="math notranslate nohighlight">\(S\)</span> jest procesem stochastycznym - ceną aktywa. Parametry
+<span class="math notranslate nohighlight">\(\mu\)</span> oraz <span class="math notranslate nohighlight">\(\sigma\)</span> mają interpretację stopy wzrostu i
+wariancji danego aktywa, odpowiednio. Proces taki jest łatwy do
+zasymulowania numerycznego.</p>
+<div class="admonition-poeksperymentuj-z-komputerem admonition">
+<p class="admonition-title">Poeksperymentuj z komputerem</p>
+<p>Poniższa komórka zawiera kod programu symulującego proces
+geometrycznego ruchu Browna. W tablicy <cite>numpy</cite> zapisujemy historię
+<cite>M</cite> trajektorii składającą się z <cite>N</cite> punktów czasu. Innymi słowy
+<code class="code docutils literal notranslate"><span class="pre">S[3,5]</span></code> - szóstym krokiem czwartej trajektorii (indeksy
+zaczynają sie od zera).</p>
+<p>Poeksperymentujmy:</p>
+<blockquote>
+<div><ul class="simple">
+<li><p>Wykonaj kilka razy komórkę. Za każdym wykonaniem generator
+liczb losowych <code class="code docutils literal notranslate"><span class="pre">np.random.randn</span></code> zwróci inną próbkę liczb
+gaussowskich i otrzymamy inne scenariusze symulowanej historii ceny.</p></li>
+<li><p>Jak wpływa wartość parametru <span class="math notranslate nohighlight">\(r\)</span> oraz <span class="math notranslate nohighlight">\(\sigma\)</span> na wygląd trajektorii?</p></li>
+<li><p>Zmień liczbę trajektorii na dużo większą. Jak zmienia się czas obliczeń?</p></li>
+<li><p>Dopisz linijkę obliczającą średnią cenę na końcu symulacji (w
+czasie <span class="math notranslate nohighlight">\(t=T\)</span>) <code class="code docutils literal notranslate"><span class="pre">np.average(S[:,-1])</span></code>.</p></li>
+<li><p>Wykonaj symulacje kilka razy - zobacz jak zmienia się średnia
+dla <span class="math notranslate nohighlight">\(M=10,100,1000,10000\)</span>? Jak wpływa ilość trajektorii na wartość średnią?
+Można zautomatyzować ten proces uruchamiając część kodu w dodatkowej pętli.</p></li>
+<li><p>Wykonaj histogram cen końcowych i porównaj z rozkładem
+<span class="math notranslate nohighlight">\(P(S,t=T)\)</span>. Można skorzystać z rozdziału <a class="reference external" href="http://el.us.edu.pl/ekonofizyka/index.php/MKZR:Numeryczne_rozwi%C4%85zania_r%C3%B3wna%C5%84_stochastycznch-przyk%C5%82ady">geometryczny ruch Browna</a> w którym znajduje się zarówno postać wzoru końcowego jak i algorytm obliczający
+histogram.</p></li>
+</ul>
+</div></blockquote>
+</div>
+<div class='sage_linked'><script type='text/x-sage'>import numpy as np
+T,r,sigma = 1,0.1,0.2
+S0 = 100
+N = 300
+M = 10
+h = T/N;
+S = np.zeros((M,N))
+S[:,0] = S0*np.ones(M);
+
+for i in range(1,N):
+    S[:,i] = S[:,i-1] + r*S[:,i-1]*h + sigma*np.sqrt(h)*S[:,i-1]*np.random.randn(M)
+
+sum([line(enumerate(S[i,:]),thickness=0.2,figsize=4) for i in range(M)])</script></div><p>Opcję europejską możemy wycenić korzystając z symulacji procesu
+losowego.  W tym celu generujemy <span class="math notranslate nohighlight">\(M\)</span> trajektorii ceny
+instrumentu podstawowego i obliczamy średnią z funkcji wyceny opcji w
+chwili zapadalności. Używając powyższego schematu do symulacji
+dynamiki instrumentu podstawowego jako geometrycznego ruchu Browna,
+wystarczy wykonać operację uśredniania, która w przedstawia się
+następująco:</p>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="n">np</span><span class="o">.</span><span class="n">exp</span><span class="p">(</span><span class="o">-</span><span class="n">r</span><span class="o">*</span><span class="n">T</span><span class="p">)</span><span class="o">*</span><span class="n">np</span><span class="o">.</span><span class="n">mean</span><span class="p">(</span> <span class="n">np</span><span class="o">.</span><span class="n">maximum</span><span class="p">(</span><span class="n">S</span><span class="p">[:,</span><span class="n">N</span><span class="o">-</span><span class="mi">1</span><span class="p">]</span><span class="o">-</span><span class="n">K</span><span class="p">,</span><span class="mi">0</span><span class="p">)</span> <span class="p">)</span>
+</pre></div>
+</div>
+<p>Pełna procedura wyceny metodą Monte-Carlo wygląda następująco:</p>
+<div class='sage_linked'><script type='text/x-sage'>K = 125.0
+r,T,sigma = 0.1, 1, 0.1
+S0 = 120
+
+import numpy as np
+N = 100
+M = 1000
+h = T/N;
+S = np.zeros((M,N))
+S[:,0] = S0*np.ones(M);
+for i in range(1,N):
+  S[:,i] = S[:,i-1] + r*S[:,i-1]*h + sigma*np.sqrt(h)*S[:,i-1]*np.random.randn(M)
+
+call_MC = np.exp(-r*T)*np.mean( np.maximum(S[:,N-1]-K,0) )
+put_MC = np.exp(-r*T)*np.mean( np.maximum(K-S[:,N-1],0) )
+print( "Wycena z symulacji Monte-Carlo, opcja Call:",call_MC," opcja Put:",put_MC )
+
+# sum([line(enumerate(S[i,:]),thickness=0.2,figsize=4) for i in range(123)])</script></div><p>Kolejnym elementem analizy jest określenie związku między modelami
+ciągłym a drzewami dyskretnymi.</p>
+</div>
+<div class="section" id="zwiazek-pomiedzy-modelem-ciaglym-i-binarnym">
+<h2><span class="section-number">11.5. </span>Związek pomiędzy modelem ciągłym i binarnym<a class="headerlink" href="#zwiazek-pomiedzy-modelem-ciaglym-i-binarnym" title="Stały odnośnik do tego nagłówka">¶</a></h2>
+<p>Rozważmy model dwustanowy - jednookresowy. Niech cenę aktywa określa
+reguła multiplikatywna.</p>
+<div class="math notranslate nohighlight">
+\[\begin{split}S_{1} = \left\{
+ \begin{array}{l l}
+    S_0 u   &amp; \quad \text{z prawdopodobieństwem} \; p\\
+    S_0 d   &amp; \quad \text{z prawdopodobieństwem} \; 1-p
+ \end{array} \right.\end{split}\]</div>
+<p>Mamy więc trzy liczby: <span class="math notranslate nohighlight">\(p,u,d\)</span>, które określają ten
+model. Chcemy zastosować go jako przybliżenie pewnego ciągłego procesu
+ewolucji ceny, który jest scharakteryzowany przez dwa parametry:</p>
+<ul class="simple">
+<li><p><span class="math notranslate nohighlight">\(r t\)</span> - wolna od ryzyka stopa procentowa</p></li>
+<li><p><span class="math notranslate nohighlight">\(\sigma^2 t=\log(\frac{S_1}{S_0})\)</span> - średniokwadratowe
+odchylenie standardowe logarytmicznej stopy zwrotu (w modelu ciągłym).</p></li>
+</ul>
+<p>Dla procesu ciągłego opisywanego przez geometryczny proces Wienera:</p>
+<div class="math notranslate nohighlight">
+\[dS = rSdt+\sigma S dW,\]</div>
+<p>prawdopodobieństwo ceny aktywa w czasie <span class="math notranslate nohighlight">\(t\)</span> przy założeniu, że
+cena w czasie <span class="math notranslate nohighlight">\(S(t=0)=S_0\)</span> jest dane rozkładem lognormalnym:</p>
+<div class="math notranslate nohighlight" id="equation-eq-logn">
+<span class="eqno">(5)<a class="headerlink" href="#equation-eq-logn" title="Stały odnośnik do tego równania">¶</a></span>\[P(S,t|S_0,0)= \frac{1}{\sqrt{2\pi\sigma^2 t S^2}} e^{-\displaystyle\frac{(\log(\frac{S}{S_0})-(r-\frac{1}{2}\sigma^2)t)^2}{2\sigma^2 t}}\]</div>
+<p>Wykorzystując wzory na średnią i wariancję (np. z <a class="reference external" href="http://pl.wikipedia.org/wiki/Rozk%C5%82ad_logarytmicznie_normalny">wikipedii</a>)
+i porównując z postacią rozkładu <a class="reference internal" href="#equation-eq-logn">(5)</a> otrzymujemy wzory na
+wartość oczekiwaną i wariancję procesu ciągłego:</p>
+<div class="math notranslate nohighlight" id="equation-eq-long-ev">
+<span class="eqno">(6)<a class="headerlink" href="#equation-eq-long-ev" title="Stały odnośnik do tego równania">¶</a></span>\[\begin{split}E(S) = S_0 e^{r t} \\
+Var(S)=   S_0^{2} {\left(e^{\sigma^{2} t} - 1\right)} e^{2 \, r t}\end{split}\]</div>
+<p>Chcemy by jeden krok procesu binarnego odtwarzał przynajmniej dwa
+pierwsze momenty procesu ciągłego: średnią i wariancję. Tak
+więc proces dyskretny będzie musiał spełnić dwa równania:</p>
+<div class="math notranslate nohighlight" id="equation-eq-cond">
+<span class="eqno">(7)<a class="headerlink" href="#equation-eq-cond" title="Stały odnośnik do tego równania">¶</a></span>\[\begin{split}E(S) = p S_0 u+(1-p) S_0 d \\
+Var(S)=  p (S_0 u)^2+(1-p) (S_0 d)^2 - E(S)\end{split}\]</div>
+<p>gdzie podstawiamy wartości średniej i wariancji rozkładu lognormalnego
+korzystając z <a class="reference internal" href="#equation-eq-long-ev">(6)</a>.</p>
+<p>Mamy więc dwa warunki i trzy zmienne do ustalenia, co powoduje, że
+potencjalnie może być nieskończenie wiele rozwiązań. Rozważmy pierwszy
+przypadek w którym przyjmiemy:</p>
+<div class="math notranslate nohighlight" id="equation-eq-crr1">
+<span class="eqno">(8)<a class="headerlink" href="#equation-eq-crr1" title="Stały odnośnik do tego równania">¶</a></span>\[d = \frac{1}{u}.\]</div>
+<p>Taki wariant drzewa binarnego jest znany jako model <strong>Coxa, Rossa i
+Rubinsteina (CRR)</strong>. Rozwiązując układ równań <a class="reference internal" href="#equation-eq-crr1">(8)</a>, w
+przybliżenie małego czasu <span class="math notranslate nohighlight">\(t\)</span>, otrzymujemy wzory wiążące model ciągły z  drzewem binarnym:</p>
+<div class="math notranslate nohighlight" id="equation-eq-crr">
+<span class="eqno">(9)<a class="headerlink" href="#equation-eq-crr" title="Stały odnośnik do tego równania">¶</a></span>\[\begin{split}p &amp;= \frac{e^{rt}-d}{u-d} \\
+u &amp;= e^{\sigma \sqrt{t}} \\
+d &amp;= e^{-\sigma \sqrt{t}}.\end{split}\]</div>
+<p>Wyprowadzenie tych wzorów można łatwo otrzymać na przykład stosując
+system algebry komputerowej. I tak, zdefiniujmy najpierw zmienne i
+wzory na średnią i wariancję rozkładu lognormalnego oraz zdefiniujmym
+układ <a class="reference internal" href="#equation-eq-cond">(7)</a>:</p>
+<div class='sage_linked'><script type='text/x-sage'>var('r,t,u,d,S0,p,sigma')
+lognormE = S0*exp(r*t)
+lognormVar = S0^2*exp(2*r*t)*(exp(sigma^2*t)-1)
+show([lognormE,lognormVar])
+
+eq1  = lognormE == p*S0*u+(1-p)*S0*d
+eq2  = lognormVar ==(p*(S0*u)^2+(1-p)*(S0*d)^2) - lognormE^2
+
+show([eq1,eq2])</script></div><p>Rozwiążmy teraz pierwsze równanie ze względu na <span class="math notranslate nohighlight">\(p\)</span></p>
+<div class='sage_linked'><script type='text/x-sage'>psol = solve(eq1,p,solution_dict=True)[0]
+p.subs(psol).show()</script></div><p>a następnie podstawmy wynik do drugiego równania i skorzystajmy z
+założenia <a class="reference internal" href="#equation-eq-crr1">(8)</a>:</p>
+<div class='sage_linked'><script type='text/x-sage'>solsu = (eq2).subs(psol).subs(d=1/u).solve(u)
+expr = solsu[1].rhs()
+expr.show()</script></div><p>Ponieważ interesuje nas granica małych czasów to możemy rozwinąć ten
+nieco długi wzór w szereg Taylora w punktcie <span class="math notranslate nohighlight">\(t=0\)</span> i ograniczyć
+się do wyrazów pierwszego rzędu w czasie. Zauważmy, że to rozwinięcie
+jest identyczne z rozwinięciem drugiego równania ze wzorów
+<a class="reference internal" href="#equation-eq-crr">(9)</a>, co kończy nasze wyprowadzenie:</p>
+<div class='sage_linked'><script type='text/x-sage'>expr.taylor(t,0,1).show()
+exp(sigma*sqrt(t)).taylor(t,0,1).show()</script></div><p>Możemy też pokusić się o rozwiązanie układu równań w innej
+parametryzacji, w której mamy:</p>
+<div class="math notranslate nohighlight" id="equation-eq-jr">
+<span class="eqno">(10)<a class="headerlink" href="#equation-eq-jr" title="Stały odnośnik do tego równania">¶</a></span>\[\begin{split}p &amp;= \frac{1}{2} \\
+u &amp;= e^{\sigma \sqrt{t}+(r-\frac{\sigma^2}{2})*t)}\\
+d &amp;= e^{-\sigma \sqrt{t}+(r-\frac{\sigma^2}{2})*t)}.\end{split}\]</div>
+<p>Taki przypadek jest znany jako parametryzacja
+Jarrowa-Rudda. Sprawdźmy, czy rzeczywiście to zachodzi. W równaniach
+podstawmy więc od razu <span class="math notranslate nohighlight">\(p = \frac{1}{2}\)</span> i porównajmy
+rozwinięcia w szereg wyników oraz rozwinięcia równań <a class="reference internal" href="#equation-eq-jr">(10)</a>:</p>
+<div class='sage_linked'><script type='text/x-sage'>sols = solve([eq1.subs(p==1/2),eq2.subs(p==1/2)],[u,d])
+print( "pełne rozwiązanie:")
+show(sols[1])
+print( "Rozwinięcia w t=0:" )
+sols[1][0].rhs().taylor(t,0,1).show()
+sols[1][1].rhs().taylor(t,0,1).show()
+print( "Rozwinięcia wzorów w  t=0:"  )
+exp(sigma*sqrt(t)+(r-sigma^2/2)*t).taylor(t,0,1).show()
+exp(-sigma*sqrt(t)+(r-sigma^2/2)*t).taylor(t,0,1).show()</script></div><p>Ważną uwagą jest to, że model drzewa binarnego i model ciągły jest
+równoważny tylko w granicy <span class="math notranslate nohighlight">\(t\to 0.\)</span> Oznacza to, że wyceniając
+pewnien instrument jednookresowym modelem dyskretnym otrzymamy spore
+różnice w stosunku do modelu ciągłego, jeśli interesująca nas skala
+czasowa będzie duża.</p>
+<p>Sytuacja jednak się zmienia jeśli zastosujemy model
+wielookresowy. Wtedy nasz czas możemy podzielić na wiele odcinków a
+liczba tych podziałów będzie zależała od tego jaką dokładność chcemy
+osiągnąć. Wycena za pomocą modelu wielokresowego będzie dążyła do
+modelu ciągłego w granicy <span class="math notranslate nohighlight">\(n\to \infty.\)</span></p>
+<p>Przykład - wyceny opcji z danymi z rynku ciągłego.</p>
+<div class='sage_linked'><script type='text/x-sage'>T = 5/12.
+N = 123
+sigma = 0.4
+K = 50
+r = 10.0
+
+u = exp(sigma*sqrt(T/N))
+d = 1.0/u
+p = (exp(r/100*T/N)-d)/(u-d)
+C  = exp(r/100*T/N).n()
+
+SP = gen_recombining(N,SP=K,q=u-1.0)
+
+OP = [ [max(0,s-K) for s in SP[N]] ]
+for idx in range(N):
+    el = [ 1/C*(p*OP[-1][i]+(1-p)*OP[-1][i+1]) for i in range(len(OP[-1])-1)]
+    OP.append(el)
+print( OP[-1] )</script></div></div>
+<div class="section" id="wzory-blacka-scholesa-dla-europejskiech-opcji-call-i-put">
+<h2><span class="section-number">11.6. </span>Wzory Blacka Scholesa dla europejskiech opcji Call i Put<a class="headerlink" href="#wzory-blacka-scholesa-dla-europejskiech-opcji-call-i-put" title="Stały odnośnik do tego nagłówka">¶</a></h2>
+<p>W tym rozdziale przedstawione zostaną własności metody opartej o ciagły proces
+losowy. Olbrzymią zaletą jest istnienie prostych analitycznych
+wzorów na cenę opcji Europejskich, co pozwala na łatwą ich analizę i
+poznanie własności.</p>
+<p>Model dwumianowy zakładał stacjonarny dwumianowy proces stochastyczny
+dla ruchu ceny aktywa (akcji) zachodzący w dyskretnych przedziałach
+czasowych. Jeśli przejdziemy do granicy skracając dyskretne okresy
+czasowe to ten stochastyczny proces stanie procesem dyfuzji (proces Ito) zwanym geometrycznym ruchem Browna. Podobnie jak w poprzednim modelu dwumianowym konstruowany jest portfel wolny od ryzyka
+składający się z aktywa i wystawionej opcji call. Taki portfel
+generuje bezpieczna stopę zwrotu. Struktura zabezpieczonego portfela
+posiada formę zbliżoną do równania dyfuzji ciepła w fizyce.</p>
+<p>Wzór Blacka Scholesa na wartość opcji nie wypłacającej dywidendy przyjmuje postać:</p>
+<p>Opcja Call</p>
+<div class="math notranslate nohighlight">
+\[C(S_0,K,r,T,\sigma,r) = S_0 F(d_1) - K e^{-rT} F(d_2)\]</div>
+<p>a opcja Put</p>
+<div class="math notranslate nohighlight">
+\[P(S_0,K,r,T,\sigma,r) = K e^{-rT} F(-d_2) - S_0  F(-d_1)\]</div>
+<p>gdzie symbole <span class="math notranslate nohighlight">\(d_1,d_2\)</span> oznaczają:</p>
+<div class="math notranslate nohighlight">
+\[d_1 = \frac{\ln (S_0/K) + (r+\frac{1}{2} \sigma ^2)T}{\sigma \sqrt{T}}\]</div>
+<p>a</p>
+<div class="math notranslate nohighlight">
+\[d_2 = d_1 - \sigma \sqrt{T}\]</div>
+<p>Funkcja <span class="math notranslate nohighlight">\(F(x)\)</span> jest dystrybuantą <a class="reference external" href="http://pl.wikipedia.org/wiki/Rozk%C5%82ad_normalny">rozkładu normalnego</a> o średniej zero i
+jednostkowej variancji. Możemy więc wyrazić ją przez funkcja błędu Gaussa:</p>
+<div class="math notranslate nohighlight">
+\[F(x) =  \frac{1}{2} \, \text{erf}\left(\frac{1}{2} \, \sqrt{2} x\right) + \frac{1}{2}\]</div>
+<p>Powyższe wzory możemy wprowadzić do systemu Sage i zbadać ich własności:</p>
+<div class="admonition-poeksperymentuj-z-komputerem admonition">
+<p class="admonition-title">Poeksperymentuj z komputerem</p>
+<p>Zbadaj własności wzorów na wycenę opcji Call. Zauważmy, że poniższy
+wykres jest wykresem ceny opcji a nie wykresem zysk/strata. Linia
+niebieska to cena kupna opcji a czerwona to cena jej wykonania.</p>
+<ul class="simple">
+<li><p>Ustaw <span class="math notranslate nohighlight">\(\sigma,r,T\)</span> na zero. Jak można zinterpetować taki profil ceny?</p></li>
+<li><p>Zwiększ <span class="math notranslate nohighlight">\(\sigma\)</span> - co się dzieje z ceną? Jak zmienia się jej wartość czasowa?</p></li>
+<li><p>Zostawiąjąc niezmienne (ale dodatnie <span class="math notranslate nohighlight">\(\sigma\)</span>) zwiększ
+stopę procentową. Pojawia się dodatkowa linia będąca asymtotą
+wzoru Blacka-Scholesa. Co to oznacza?</p></li>
+</ul>
+</div>
+<div class='sage_linked'><script type='text/x-sage'>var('S')
+def longCALL(S,K,P=0):
+    return max_symbolic(S-K,0)-P
+def longPUT(S,K,P=0):
+    return max_symbolic(K-S,0)-P
+def shortCALL(S,K,P=0):
+    return -max_symbolic(S-K,0)+P
+def shortPUT(S,K,P=0):
+    return -max_symbolic(K-S,0)+P
+
+
+var('sigma,S0,K,T,r')
+cdf(x) = 1/2*(1+erf(x/sqrt(2)))
+d1=(log(S0/K)+(r+sigma**2/2)*T)/(sigma*sqrt(T))
+d2=d1-sigma*sqrt(T)
+C(S0,K,r,T,sigma) = S0*cdf(d1)-K*exp(-r*T)*cdf(d2)
+P(S0,K,r,T,sigma) = K*exp(-r*T)*cdf(-d2)-S0*cdf(-d1)
+
+def plotBS(OPTION=longCALL,K=125,sigma=.1,r=0.0,T=1, c='red'):
+    var('S')
+    S1,S2 = 100,160
+
+    if "CALL" in OPTION.__name__:
+        cena = C
+    else:
+        cena = P
+    if "short" in OPTION.__name__:
+        k = -1.0
+    else:
+        k = 1.0
+
+
+    p  = plot( OPTION(S,K),(S,S1,S2),color=c,thickness=2.5)
+    p += plot( OPTION(S,exp(-r*T)*K),(S,S1,S2),color='gray',thickness=.5)
+    p += plot(k*(cena(x,K,r,T,sigma)),(x,S1,S2),color='blue',thickness=1)
+    p += point([(K,0)],color='brown',size=40,gridlines=[[K],[]])
+    p += text(r"$K$",(K,2))
+
+    return p
+
+@interact
+def _(s=slider(0.001,0.5,0.02,label='volatility',default=0.1),r=slider(0,0.1,0.01),T=slider(1,12,1),K=slider(104,150,1,default=129)):
+
+    p = plotBS(OPTION=longCALL,K=K, c='red',sigma=s,r=r,T=T)
+    p.set_axes_range(ymax=50,ymin=0)
+    p.show(figsize=6)</script></div><div class="section" id="wycena-ze-wzorow-blacka-scholesa-a-wycena-monte-carlo">
+<h3><span class="section-number">11.6.1. </span>Wycena ze wzorów Blacka-Scholesa a wycena Monte-Carlo<a class="headerlink" href="#wycena-ze-wzorow-blacka-scholesa-a-wycena-monte-carlo" title="Stały odnośnik do tego nagłówka">¶</a></h3>
+<p>W modelu Blacka-Scholesa zakłada się, że instrument podstawowy ( zmiana jego ceny)
+zachowuję się jak geometryczny ruch Browna. Można więc przypuszczać,
+że wycena opcji metodą Monte-Carlo, stosując model ciągły powinna
+odtworzyć liczby pochodzące ze wzorów Blacka-Scholesa.</p>
+<div class='sage_linked'><script type='text/x-sage'>var('sigma,S0,K,T,r')
+cdf(x) = 1/2*(1+erf(x/sqrt(2)))
+d1=(log(S0/K)+(r+sigma**2/2)*T)/(sigma*sqrt(T))
+d2=d1-sigma*sqrt(T)
+C(S0,K,r,T,sigma) = S0*cdf(d1)-K*exp(-r*T)*cdf(d2)
+
+
+K = 125.0
+
+r,T,sigma = 0.1, 1, 0.1
+S0 = 120
+print( "Wycena ze wzoru:",C(S0,K,r,T,sigma).n() )
+
+import numpy as np
+N = 100
+M = 1000
+h = T/N;
+S = np.zeros((M,N))
+S[:,0] = S0*np.ones(M);
+for i in range(1,N):
+  S[:,i] = S[:,i-1] + r*S[:,i-1]*h + sigma*np.sqrt(h)*S[:,i-1]*np.random.randn(M)
+
+call_MC = np.exp(-r*T)*np.mean( np.maximum(S[:,N-1]-K,0) )
+put_MC = np.exp(-r*T)*np.mean( np.maximum(K-S[:,N-1],0) )
+print( "Wycena z symulacji Monte-Carlo:",call_MC,put_MC )
+
+# sum([line(enumerate(S[i,:]),thickness=0.2,figsize=4) for i in range(123)])</script></div></div>
+</div>
+<div class="section" id="porownanie-wyceny-modelem-binarnym-i-modelem-wyceny-blacka-scholes-a">
+<h2><span class="section-number">11.7. </span>Porównanie wyceny modelem binarnym i modelem wyceny Blacka Scholes’a<a class="headerlink" href="#porownanie-wyceny-modelem-binarnym-i-modelem-wyceny-blacka-scholes-a" title="Stały odnośnik do tego nagłówka">¶</a></h2>
+<p>Załóżmy, że wyceniamy opcję europejską.  Można zadać sobie pytanie o
+ile będą różniły się wyceny według modelu ciągłego i binarnego z
+<span class="math notranslate nohighlight">\(N\)</span> okresami. W tym celu definiujemy sobie funkcje wyceniające
+opcje modelem binarnym <code class="code docutils literal notranslate"><span class="pre">Bin_Call</span></code>. Można narysować wykres ceny
+opcji od ilości pokoleń drzewa. Cena wynikającą ze wzoru
+Blacka-Scholesa będzie zaznaczoną przerywaną poziomą linią.</p>
+<div class="admonition-poeksperymentuj-z-komputerem admonition">
+<p class="admonition-title">Poeksperymentuj z komputerem</p>
+<p>Poniższy kod zawiera zaimlementowaną funkcję wyceny opcji
+europejskie kupna oraz rysuje wykres jej wyceny w zależności od
+ilości okresów.</p>
+<ul class="simple">
+<li><p>Jaki jest błąd względny dla małej liczby okresów: <span class="math notranslate nohighlight">\(N=1,2,3\)</span>?</p></li>
+<li><p>Zaimplementuj podobne porównanie dla opcji sprzedaży.</p></li>
+<li><p>Czy dla dużych <span class="math notranslate nohighlight">\(N\)</span> cena opcji zależy od metody jej wyceniania?</p></li>
+</ul>
+</div>
+<div class='sage_linked'><script type='text/x-sage'>def Bin_Call(N,S0,K,r,T,sigma):
+    u = exp(sigma*sqrt(T/N))
+    d = 1.0/u
+    p = (exp(r*T/N)-d)/(u-d)
+    return exp(-r*T).n()*sum([binomial(N,j)*p^j*(1-p)^(N-j)*max(S0*u^j*d^(N-j)-K,0) for j in range(N+1)])
+
+sigma,S0,K,T,r=0.1,120,125,1,0.1
+
+point( [(i,Bin_Call(i,S0,K,r,T,sigma)) for i in range(1,36,1)], \
+  gridlines=[None,[C(S0,K,r,T,sigma).n()]],figsize=(8,2)).show()</script></div></div>
+<div class="section" id="analiza-wrazliwosci">
+<span id="greeks"></span><h2><span class="section-number">11.8. </span>Analiza wrażliwości<a class="headerlink" href="#analiza-wrazliwosci" title="Stały odnośnik do tego nagłówka">¶</a></h2>
+<dl class="simple">
+<dt>Analiza wrażliwości określa  jak czuła jest cena opcji na zmianę</dt><dd><p>wartości wielkości rynkowych.</p>
+</dd>
+</dl>
+<p>Wiemy, że na cenę opcji w chwili <span class="math notranslate nohighlight">\(t=0\)</span> wpływają następujące
+wielkości:</p>
+<blockquote>
+<div><ul class="simple">
+<li><p>cena aktywa podstawowego: <span class="math notranslate nohighlight">\(S\)</span> (w chwili <span class="math notranslate nohighlight">\(t=0\)</span>),</p></li>
+<li><p>cena wykonania: <span class="math notranslate nohighlight">\(K\)</span>,</p></li>
+<li><p>czas do wygaśnięcia: <span class="math notranslate nohighlight">\(T\)</span>,</p></li>
+<li><p>stopa procentowa wolna od ryzyka: <span class="math notranslate nohighlight">\(r\)</span>,</p></li>
+<li><p>zmienność ceny aktywa (<em>volatility</em>) <span class="math notranslate nohighlight">\(\sigma\)</span></p></li>
+</ul>
+</div></blockquote>
+<p>Powstaje pytanie jak cena opcji jest czuła na zmiany tych parametrów ?</p>
+<p>Aby odpowiedzieć na to pytanie możemy posłużyć się, może nie
+eleganckim ale usprawiedliwionym i skutecznym do tego celu,
+rozwinięciem tej funkcji w szereg Taylora i uwzględnić w nim tylko
+pierwsze pochodne cząstkowe (z wyjątkowo drugą pochodną względem
+ceny opcji względem ceny aktywa).</p>
+<p>W ten sposób określoną zmianę ceny przybliżamy otrzymanym wzorem.</p>
+<p>Pochodne cząstkowe ceny opcji wchodzące w skład tego przybliżenia mają
+znaczenie praktyczne będąc używane i oznaczane swymi nazwami.</p>
+<p>Oznaczmy symbolem <span class="math notranslate nohighlight">\(V\)</span> cenę naszej opcji. W przypadku
+europejskiej opcji Put lub Call będziemy stosować symbole od
+pierwszych liter, odpowiednio: <span class="math notranslate nohighlight">\(P\)</span> <span class="math notranslate nohighlight">\(C\)</span>. Tak więc dla
+dowolnej opcji zawsze możemy zapisać:</p>
+<div class="math notranslate nohighlight">
+\[\Delta V \simeq \frac{\partial V}{\partial T} \Delta T + \frac{\partial V}{\partial S} \Delta S + \frac{1}{2} \frac{\partial ^2 V}{\partial S^2}(\Delta S)^2 + \frac{\partial V}{\partial \sigma} \Delta \sigma + \frac{\partial V}{\partial r} \Delta r .\]</div>
+<p>Współczynniki w powyższym wzorze można łatwo obliczyć, jeśli dana jest
+formuła  analityczna na cenę opcji. Najczęsciej spotykanym przypadkiem są
+wzory  Blacka-Scholesa dla europejskich opcji kupna i
+sprzedaży.</p>
+<div class="admonition-dla-dociekliwych admonition">
+<p class="admonition-title">Dla dociekliwych</p>
+<p>Spróbuj obliczyć poniższe współczynniki dla modelu Cox’a, Ross’a,
+Rubinsteina (CRR). Czy można je policzyć jeśli jedyną metodą wyceny
+jest metoda Monte Carlo?</p>
+</div>
+<div class="section" id="delta-opcji">
+<h3><span class="section-number">11.8.1. </span>Delta opcji<a class="headerlink" href="#delta-opcji" title="Stały odnośnik do tego nagłówka">¶</a></h3>
+<p>Zmiana ceny opcji przy zmianie ceny aktywa podstawowego nosi nazwę
+współczynnika delta.</p>
+<div class="math notranslate nohighlight">
+\[\Delta = \frac{\partial V}{ \partial S}\]</div>
+<p>dla europejskiej opcji Call wycenionej według modelu Blacka-Scholesa
+(bez dywidendy) wynosi ona:</p>
+<div class="math notranslate nohighlight">
+\[\Delta_{Call} = N(d_1)\]</div>
+<p>a dla opcji Put</p>
+<div class="math notranslate nohighlight">
+\[\Delta_{Put} = N(d_1) - 1\]</div>
+<p>Powyższe wzory możemy otrzymać przez różniczkowanie wzorów
+Blacka-Scholesa ze względu na <span class="math notranslate nohighlight">\(S_0\)</span>. Sprawdźmy z pomocą systemu
+algebry komputerowej czy, rzeczywiście są spełnione.</p>
+<p>Po pierwsze wczytajmy sobie wzory Blacka-Scholesa:</p>
+<div class='sage_linked'><script type='text/x-sage'>var('sigma,S0,K,T,r')
+cdf(x) = 1/2*(1+erf(x/sqrt(2)))
+d1=(log(S0/K)+(r+sigma**2/2)*T)/(sigma*sqrt(T))
+d2=d1-sigma*sqrt(T)
+C(sigma,S0,K,T,r) = S0*cdf(d1)-K*exp(-r*T)*cdf(d2)
+P(sigma,S0,K,T,r) = K*exp(-r*T)*cdf(-d2)-S0*cdf(-d1)</script></div><div class='sage_linked'><script type='text/x-sage'>try:
+    print( bool( C.diff(S0) == cdf(d1) )  )
+    print( bool( P.diff(S0) == cdf(d1)-1 )  )
+    print( bool( C.diff(S0) - P.diff(S0) == 1 ) )
+except:
+    print( "Wczytaj wzory Blacka-Scholesa!" )</script></div><p>Widać, że zachodzi własność:</p>
+<div class="math notranslate nohighlight">
+\[\Delta_{call} - \Delta_{put} = 1,\]</div>
+<p>Delta wskazuje na ilość akcji potrzebnych do otworzenia zwrotu z
+opcji.</p>
+<p>Np., <span class="math notranslate nohighlight">\(\Delta_{call} = 0.80\)</span> znaczy ze działa jak 0.80
+akcji. Jeśli cena akcji wzrośnie o 1, cena opcji call wzrośnie o 0.80.
+cecha ta pozwala na budowanie strategii zabezpieczających. Ale o
+zastosowania analizy wrażliwości w strategii zabezpieczania przed
+ryzykiem można znaleźć w <strong>Hedging za pomoca opcji</strong>.</p>
+<p>Narysujmy jak zależy dla pewnej opcji Call - Delta od ceny instrumentu
+bazowego:</p>
+<div class='sage_linked'><script type='text/x-sage'>try:
+    p = plot( C.diff(S0)(0.1,S0,120,1,0.03),(S0,90,150),figsize=5)
+    p += plot( C(0.1,S0,120,1,0.03)/10,(S0,90,150),color='gray')
+    p.show()
+except:
+    print( "Wczytaj wzory Blacka-Scholesa!" )</script></div></div>
+<div class="section" id="wspolczynnik-gamma">
+<h3><span class="section-number">11.8.2. </span>Współczynnik gamma<a class="headerlink" href="#wspolczynnik-gamma" title="Stały odnośnik do tego nagłówka">¶</a></h3>
+<dl class="simple">
+<dt><em>Gamma</em> drugą pochodną ceny opcji względem ceny akcji. Gamma jest</dt><dd><p>pierwsza pochodną delta w stosunku do ceny aktywa. Gamma jest także
+nazywana <em>krzywizną</em>.</p>
+</dd>
+</dl>
+<div class="math notranslate nohighlight">
+\[ \begin{align}\begin{aligned}\Gamma_c = \frac{\partial ^2 C}{\partial S^2} = \frac{\Delta_c}{\partial S}\\\Gamma_p = \frac{\partial ^2 P}{\partial S^2} = \frac{\Delta_p}{\partial S}\end{aligned}\end{align} \]</div>
+<p>Współczynnik gamma jest zatem miarą niestabilności współczynnika delta.</p>
+<div class='sage_linked'><script type='text/x-sage'>try:
+    p = plot( C.diff(S0,2)(0.1,S0,120,1,0.03),(S0,90,150),figsize=5)
+    p += plot( C.diff(S0)(0.1,S0,120,1,0.03)/10,(S0,90,150),color='gray')
+    p += plot( C(0.1,S0,120,1,0.03)/100,(S0,90,150),color='gray')
+    p.show()
+except:
+    print( "Wczytaj wzory Blacka-Scholesa!" )</script></div><p>Interpretacja</p>
+<p>Jeżeli w wyniku zmiany kursu instrumentu bazowego współczynnik delta
+zmieni się z 0.5 do 0.52 to wówczas zmiana delty o 0.02 określać
+będzie wartość współczynnika gamma.</p>
+<div class="admonition-przyklad admonition">
+<p class="admonition-title">Przykład.</p>
+<p>Niech aktualna wartość instrumentu bazowego wynosi =75 jednostek
+pieniężnych. Aktualna wartość opcji = 0.35. Delta opcji = 0.16 a
+gamma opcji = 0.05.  Jaka jest wartość opcji jeżeli kurs
+instrumentu bazowego wzrośnie do 80?</p>
+<p>A wiec zmiana ceny
+instrumentu bazowego = 5 a zmiana ceny wynikająca ze wsp. delta = 5
+x 0.16 = 0.80. Wzrost wartości instrumentu bazowego o 5 powoduje
+wzrost wartości delty a zatem należy wyznaczyć dodatkową zmianę
+wartości opcji wynikającą z gamma. Zmiana ceny wynikająca z gamma =
+0.5 x 0.05 x 52 = 0.62.</p>
+<p>Nowa wartość opcji to stara wartość + zmiana z delty + zmiany gamma
+czyli: 0.35 + 0.80 + 0.62 = 1.77</p>
+</div>
+</div>
+<div class="section" id="wspolczynnik-theta">
+<h3><span class="section-number">11.8.3. </span>Współczynnik Theta<a class="headerlink" href="#wspolczynnik-theta" title="Stały odnośnik do tego nagłówka">¶</a></h3>
+<p>Kolejną pochodną cząstkową jest wielkość zwana Theta.</p>
+<p>Określa ona jak się zachowa cena opcji call (put) jeśli zmieni się
+czas do wygaśnięcia, a wszystko inne zostanie stałe?</p>
+<p>Theta jest to pierwsza pochodna ceny względem czasu.</p>
+<p>Opcje to „psujące się” aktywa, ponieważ wartość ich zanika po pewnym czasie
+(wygaśnięcie).</p>
+<p>Wartość opcji = wartość wewnętrzna + premia czasowa.</p>
+<p>Wielkość tę dla opcja call i put wylicza się:</p>
+<div class="math notranslate nohighlight">
+\[ \begin{align}\begin{aligned}\Theta_c = \frac{\partial C}{\partial t}\\\Theta_p = \frac{\partial P}{\partial t}\end{aligned}\end{align} \]</div>
+<p>Theta większa od zera gdyż im więcej  jest czasu do wygaśnięcia tym większa wartość opcji.</p>
+<p>Ale ponieważ czas do wygaśnięcia może tylko maleć theta jest
+rozpatrywana jako wartość ujemna.  Biorąc pod uwagę możliwość
+zajmowanej pozycji w opcjach należy pamiętać, że:</p>
+<ul class="simple">
+<li><p>Upływ czasu szkodzi posiadaczowi opcji.</p></li>
+<li><p>Upływ czasu działa na korzyść temu co opcje wystawił.</p></li>
+</ul>
+<p>Ze wzoru Blacka Scholes można wyliczyć wartość:</p>
+<div class="math notranslate nohighlight">
+\[ \begin{align}\begin{aligned}\Theta_c = - \frac{S \sigma e^{-.5(d_1 ^2)}}{2\sqrt{2\pi t}} -rKe^{-rt}N(d_2)\\\Theta_p = \frac{S \sigma e^{-.5(d_1 ^2)}}{2\sqrt{2 \pi t}} +rKe^{-rt} N(d_2)\end{aligned}\end{align} \]</div>
+<div class='sage_linked'><script type='text/x-sage'>try:
+    p = plot( C.diff(T)(0.1,S0,120,1,0.03),(S0,90,150),figsize=5)
+    p += plot( C(0.1,S0,120,1,0.03)/10,(S0,90,150),color='gray')
+    p.show()
+except:
+    print( "Wczytaj wzory Blacka-Scholesa!" )</script></div><p>Liczenie  Theta - interpretacja</p>
+<p>Równania określają theta na rok. Np.  <span class="math notranslate nohighlight">\(\Theta = -5.58\)</span>, znaczy,
+że opcja straci 5.58 w wartości ceny na rok - czyli (0.02 na dzień).</p>
+<p>Theta pozycji krótkich jest dodatnia. Theta pozycji długich jest
+ujemna. Opcje at-the-money mają największe wartości theta.</p>
+<p>Tabela poniżej  pokazuje znaki  pochodnych cząstkowych dla róznych pozycji opcji.</p>
+<blockquote>
+<div><table class="docutils align-default">
+<colgroup>
+<col style="width: 40%" />
+<col style="width: 20%" />
+<col style="width: 20%" />
+<col style="width: 20%" />
+</colgroup>
+<thead>
+<tr class="row-odd"><th class="head"><p>.</p></th>
+<th class="head"><p>Delta</p></th>
+<th class="head"><p>Theta</p></th>
+<th class="head"><p>Gamma</p></th>
+</tr>
+</thead>
+<tbody>
+<tr class="row-even"><td><p>Long call</p></td>
+<td><p>+</p></td>
+<td><p>-</p></td>
+<td><p>+</p></td>
+</tr>
+<tr class="row-odd"><td><p>Long put</p></td>
+<td><p>-</p></td>
+<td><p>-</p></td>
+<td><p>+</p></td>
+</tr>
+<tr class="row-even"><td><p>Short call</p></td>
+<td><p>-</p></td>
+<td><p>+</p></td>
+<td><p>-</p></td>
+</tr>
+<tr class="row-odd"><td><p>Short put</p></td>
+<td><p>+</p></td>
+<td><p>+</p></td>
+<td><p>-</p></td>
+</tr>
+</tbody>
+</table>
+</div></blockquote>
+<p>Znak gamma jest zawsze przeciwny do znaku theta</p>
+</div>
+<div class="section" id="czulosc-wzgledem-odchylenia-standardowego-vega">
+<h3><span class="section-number">11.8.4. </span>Czułość względem odchylenia standardowego - Vega<a class="headerlink" href="#czulosc-wzgledem-odchylenia-standardowego-vega" title="Stały odnośnik do tego nagłówka">¶</a></h3>
+<p>Odpowiada na pytanie, jak się zmieni wartość opcji Call (Put) jeśli
+zmieni się odchylenie standardowe zwrotu czyli czułość na zmienność
+(volatility) funkcji?</p>
+<dl class="simple">
+<dt><em>Vega</em> pierwszą cząstkową pochodną ceny opcji względem zmienności</dt><dd><p>(volatility) aktywa podstawowego.</p>
+</dd>
+</dl>
+<div class="math notranslate nohighlight">
+\[ \begin{align}\begin{aligned}\text{vega}_c = \frac{\partial C}{\partial \sigma}\\\text{vega}_c = \frac{\partial P}{\partial \sigma}\end{aligned}\end{align} \]</div>
+<p>Im wyższa volatility tym większa wartość opcji.  Np., opcja o vega
+0.30 zyskuje 0.30% wartości na każdy punkt procentowy wzrostu
+spodziewanej zmienności aktywa.  Vega bywa także nazywane kappa,
+omega, tau, zeta, lub sigma prim.  Ze wzoru Blacka Scholesa można
+przykładowo wyliczyć wartości Vega.</p>
+<div class="math notranslate nohighlight">
+\[\text{vega} = \frac{S\sqrt{t}e^{-0.5(d_1 ^2)}}{\sqrt{2\pi}}\]</div>
+<p>Vega pozycji długich jest dodatnia. Vega pozycji krótkich jest ujemna.
+Wartości opcji są <strong>bardzo</strong> czułe na zmianę odchylenia standardowego
+ceny aktywa.  Im większe volatility, tym więcej są warte opcje call i
+put.  Opcje at-the-money mają największą wartość Vega. Vega maleje dla
+opcji in- oraz out-of-the-money. <strong>Vega</strong>, maleje wraz z upływem czasu
+do terminu wygaśnięcia.</p>
+<div class='sage_linked'><script type='text/x-sage'>var('sigma,S0,K,T,r')
+cdf(x) = 1/2*(1+erf(x/sqrt(2)))
+d1=(log(S0/K)+(r+sigma**2/2)*T)/(sigma*sqrt(T))
+d2=d1-sigma*sqrt(T)
+C(sigma,S0,K,T,r) = S0*cdf(d1)-K*exp(-r*T)*cdf(d2)
+plot( C.diff(sigma,1)(.1,S0,125,1,.1),(S0,70,150),figsize=5)</script></div></div>
+<div class="section" id="rho">
+<h3><span class="section-number">11.8.5. </span>Rho<a class="headerlink" href="#rho" title="Stały odnośnik do tego nagłówka">¶</a></h3>
+<p><em>Rho</em> pierwsza pochodna ceny opcji względem stopy procentowej wolnej od ryzyka:</p>
+<div class="math notranslate nohighlight">
+\[ \begin{align}\begin{aligned}\rho _c = Kte^{-rt}N(d_2)\\\rho _p = -Kte^{-rt}N(-d_2)\end{aligned}\end{align} \]</div>
+<p>Rho jest najmniej znaczącą z pochodnych. Nawet jeśli opcja ma
+wyjątkowo długie życie, zmiany stopy procentowej wpływają na premie
+niewiele.</p>
+<div class='sage_linked'><script type='text/x-sage'>try:
+    p = plot( C.diff(r)(0.1,S0,120,1,0.03),(S0,90,150),figsize=5)
+    p += plot( C(0.1,S0,120,1,0.03)/10,(S0,90,150),color='gray')
+    p.show()
+except:
+    print( "Wczytaj wzory Blacka-Scholesa!" )</script></div></div>
+</div>
+<div class="section" id="wycena-opcji-amerykanskiej-modelami-binarnym-i-ciaglym">
+<h2><span class="section-number">11.9. </span>Wycena opcji Amerykańskiej modelami binarnym i ciągłym<a class="headerlink" href="#wycena-opcji-amerykanskiej-modelami-binarnym-i-ciaglym" title="Stały odnośnik do tego nagłówka">¶</a></h2>
+<p>Nie zawsze wycena opcji jest możliwa do wyliczenia poprzez uśrednianie po rozkładzie
+brzegowym dla <span class="math notranslate nohighlight">\(t=T\)</span>. Przykładem są opcje amerykańskie. Różnią się
+one od europejskich tym, że prawo do zawarcia transakcji obowiązuje
+nie tylko w chwili <span class="math notranslate nohighlight">\(t=T\)</span>, ale w dowolnej chwili przed
+nią. Posiadacz tego prawa musi zadecydować kiedy będzie chciał z tego
+prawa skorzystać.</p>
+<p>Procedura wyceny takiej opcji, będzie korzystała z pełnej informacji o
+historii zmian ceny instrumentu.</p>
+<p>Algorytm wyznaczania ceny opcji korzysta z warunku braku
+arbitrażu. Postępujemy podobnie jak przy wycenie opcji europejskiej na
+całym drzewie. Jednak w każdym rozwidleniu drzewa, sprawdzamy czy
+wartość otrzymana z warunku braku arbitrażu <a class="reference internal" href="#equation-parb">(1)</a> nie jest
+mniejsza od wartości wewnętrzej opcji. Jesli tak jest to wpisujemy
+właśnie tą wartość wewnętrzą do drzewa, zamiast wartości wynikającej z
+<a class="reference internal" href="#equation-parb">(1)</a>. Poniżej prezentujemy możliwą implementację tego
+algorytmu:</p>
+<div class='sage_linked'><script type='text/x-sage'>T = 5/12.
+N = 8
+sigma = 0.4
+K = 50
+r = 0.26
+
+u = exp(sigma*sqrt(T/N))
+d = 1.0/u
+p = (exp(r*T/N)-d)/(u-d)
+C  = exp(r*T/N).n()
+
+S0 = K-15
+SP = gen_recombining(N,SP=S0,q=u-1.0)
+
+# PUT AM
+OP = [ [max(0,K-s) for s in SP[N]] ]
+for j in range(N):
+    el = [ max( max(K-SP[N-j-1][i],0) , 1/C*(p*OP[-1][i]+(1-p)*OP[-1][i+1])) for i in range(len(OP[-1])-1)]
+    OP.append(el)
+OP.reverse()
+
+def Bin_Put(N,sigma,S0,K,T,r):
+    u = exp(sigma*sqrt(T/N))
+    d = 1.0/u
+    p = (exp(r*T/N)-d)/(u-d)
+    return exp(-r*T).n()*sum([binomial(N,j)*p^j*(1-p)^(N-j)*max(K-S0*u^j*d^(N-j),0) for j in range(N+1)])
+
+print( "Opcja amerykańska:",OP[0],"Opcja europejska:",Bin_Put(N,sigma,S0,K,T,r) )</script></div><p>Widzimy, że wartość opcji amerykańskiej przy podanych parametrach
+różni się znacznie od opcji europejskiej. Mozna się przypatrzeć na
+drzewie w których miejscach wartość wewnętrzna będzie większa od
+wartości arbitrażowej. Zobaczmy:</p>
+<div class='sage_linked'><script type='text/x-sage'>table( [[max(l-K,0)>l2 for l,l2 in zip(b,b2)] for b,b2 in zip(SP,OP)] )</script></div><div class="admonition-poeksperymentuj-z-komputerem admonition">
+<p class="admonition-title">Poeksperymentuj z komputerem</p>
+<ul class="simple">
+<li><p>W powyższym kodzie pozmieniaj wartość początkową aktywa. Jak
+zmienia się cena opcji? Jak zmienia się tabela z ostatniej komórki
+Sage?</p></li>
+<li><p>Zaimplementuj wycenę amerykańskiej opcji Call. Porównaj wartość z
+opcją europejska. Czy zaobserwowałeś coś dziwnego?</p></li>
+<li><p>Zaimplementuj wycenę opcji amerykańskiej w oparciu o model ciągły
+stosując odpowiednie uśrednianie po trajektoriach.</p></li>
+</ul>
+</div>
+<blockquote>
+<div><div class='sage_linked'><script type='text/x-sage'>T = 5/12.
+N = 8
+sigma = 0.4
+K = 50
+r = 0.26
+
+u = exp(sigma*sqrt(T/N))
+d = 1.0/u
+p = (exp(r*T/N)-d)/(u-d)
+C  = exp(r*T/N).n()
+
+S0 = K-15
+SP = gen_recombining(N,SP=S0,q=u-1.0)
+
+#call AM
+OP = [ [max(0,s-K) for s in SP[N]] ]
+for j in range(N):
+    el = [ max( max(SP[N-j-1][i]-K,0) , 1/C*(p*OP[-1][i]+(1-p)*OP[-1][i+1])) for i in range(len(OP[-1])-1)]
+    OP.append(el)
+OP.reverse()
+
+def Bin_Call(N,sigma,S0,K,T,r):
+    u = exp(sigma*sqrt(T/N))
+    d = 1.0/u
+    p = (exp(r*T/N)-d)/(u-d)
+    return exp(-r*T).n()*sum([binomial(N,j)*p^j*(1-p)^(N-j)*max(S0*u^j*d^(N-j)-K,0) for j in range(N+1)])
+
+
+table( [[max(l-K,0)>l2 for l,l2 in zip(b,b2)] for b,b2 in zip(SP,OP)] )</script></div><div class='sage_linked'><script type='text/x-sage'>import numpy as np
+N = 300
+M = 1000
+h = T/N;
+r = 0.1
+S = np.zeros((M,N))
+
+S[:,0] = S0*np.ones(M);
+for i in range(1,N):
+  S[:,i] = S[:,i-1] + r*S[:,i-1]*h + sigma*np.sqrt(h)*S[:,i-1]*np.random.randn(M)</script></div></div></blockquote>
+</div>
+</div>
+
+
+          </div>
+        </div>
+      </div>
+      <div class="sphinxsidebar" role="navigation" aria-label="main navigation">
+        <div class="sphinxsidebarwrapper">
+  <div class="sphinxlocaltoc">
+  <h3><a href="index.html">Table Of Contents</a></h3>
+  <ul>
+<li><a class="reference internal" href="#">11. Metody wyznaczania ceny opcji</a><ul>
+<li><a class="reference internal" href="#jak-wyznaczyc-cene-opcji">11.1. Jak wyznaczyć cenę opcji?</a></li>
+<li><a class="reference internal" href="#model-minimalny-rynek-dwustanowy-jednookresowy">11.2. Model minimalny - rynek dwustanowy jednookresowy</a></li>
+<li><a class="reference internal" href="#wycena-opcji-na-drzewie-binarnym">11.3. Wycena opcji na drzewie binarnym</a></li>
+<li><a class="reference internal" href="#model-ciagly">11.4. Model ciągły</a></li>
+<li><a class="reference internal" href="#zwiazek-pomiedzy-modelem-ciaglym-i-binarnym">11.5. Związek pomiędzy modelem ciągłym i binarnym</a></li>
+<li><a class="reference internal" href="#wzory-blacka-scholesa-dla-europejskiech-opcji-call-i-put">11.6. Wzory Blacka Scholesa dla europejskiech opcji Call i Put</a><ul>
+<li><a class="reference internal" href="#wycena-ze-wzorow-blacka-scholesa-a-wycena-monte-carlo">11.6.1. Wycena ze wzorów Blacka-Scholesa a wycena Monte-Carlo</a></li>
+</ul>
+</li>
+<li><a class="reference internal" href="#porownanie-wyceny-modelem-binarnym-i-modelem-wyceny-blacka-scholes-a">11.7. Porównanie wyceny modelem binarnym i modelem wyceny Blacka Scholes’a</a></li>
+<li><a class="reference internal" href="#analiza-wrazliwosci">11.8. Analiza wrażliwości</a><ul>
+<li><a class="reference internal" href="#delta-opcji">11.8.1. Delta opcji</a></li>
+<li><a class="reference internal" href="#wspolczynnik-gamma">11.8.2. Współczynnik gamma</a></li>
+<li><a class="reference internal" href="#wspolczynnik-theta">11.8.3. Współczynnik Theta</a></li>
+<li><a class="reference internal" href="#czulosc-wzgledem-odchylenia-standardowego-vega">11.8.4. Czułość względem odchylenia standardowego - Vega</a></li>
+<li><a class="reference internal" href="#rho">11.8.5. Rho</a></li>
+</ul>
+</li>
+<li><a class="reference internal" href="#wycena-opcji-amerykanskiej-modelami-binarnym-i-ciaglym">11.9. Wycena opcji Amerykańskiej modelami binarnym i ciągłym</a></li>
+</ul>
+</li>
+</ul>
+
+  </div>
+  <h4>Poprzedni temat</h4>
+  <p class="topless"><a href="opcje.html"
+                        title="poprzedni rozdział"><span class="section-number">10. </span>Opcje</a></p>
+  <h4>Następny temat</h4>
+  <p class="topless"><a href="Instrumenty_syntetyczne.html"
+                        title="następny rozdział"><span class="section-number">12. </span>Instrumenty syntetyczne</a></p>
+  <div role="note" aria-label="source link">
+    <h3>Ta strona</h3>
+    <ul class="this-page-menu">
+      <li><a href="_sources/opcje-wycena.rst.txt"
+            rel="nofollow">Pokaż źródło</a></li>
+    </ul>
+   </div>
+<div id="searchbox" style="display: none" role="search">
+  <h3 id="searchlabel">Szybkie wyszukiwanie</h3>
+    <div class="searchformwrapper">
+    <form class="search" action="search.html" method="get">
+      <input type="text" name="q" aria-labelledby="searchlabel" />
+      <input type="submit" value="Szukaj" />
+    </form>
+    </div>
+</div>
+<script>$('#searchbox').show(0);</script>
+        </div>
+      </div>
+      <div class="clearer"></div>
+    </div>
+  </div>
+  <div class="relbar-bottom">
+    
+    <div class="related" role="navigation" aria-label="related navigation">
+      <h3>Nawigacja</h3>
+      <ul>
+        <li class="right" style="margin-right: 10px">
+          <a href="genindex.html" title="Indeks ogólny"
+             >indeks</a></li>
+        <li class="right" >
+          <a href="Instrumenty_syntetyczne.html" title="12. Instrumenty syntetyczne"
+             >dalej</a> &nbsp; &nbsp;</li>
+        <li class="right" >
+          <a href="opcje.html" title="10. Opcje"
+             >wstecz</a> &nbsp; &nbsp;</li>
+  <li><a href="index.html">Analiza Rynków Finansowych</a> &#187;</li>
+   
+      </ul>
+    </div>
+  </div>
+  
+  <div class="footer">
+    <a class="logo" href="http://upgow.us.edu.pl/" target="_blank"><img src="_static/upgow.png" alt="UPGOW"/></a><br/>
+    <img src="_static/stopka_EU.png" alt="EU"/><br/>
+    &copy; Copyright 2013, ML and MK.
+    Created using <a href="http://sphinx.pocoo.org/">Sphinx</a> 2.4.0.
+  </div>
+  </body>
+</html>

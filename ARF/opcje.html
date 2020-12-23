@@ -1,0 +1,969 @@
+
+
+  
+<!DOCTYPE html>
+
+<html xmlns="http://www.w3.org/1999/xhtml" lang="pl">
+  <head>
+    <meta charset="utf-8" />
+    <title>10. Opcje &#8212; Analiza Rynków Finansowych</title>
+    <link rel="stylesheet" href="_static/upgow.css" type="text/css" />
+    <link rel="stylesheet" href="_static/pygments.css" type="text/css" />
+    <link rel="stylesheet" href="http://fonts.googleapis.com/css?family=Noticia+Text|Open+Sans|Droid+Sans+Mono&subset=latin,latin-ext" type="text/css" />
+    <script id="documentation_options" data-url_root="./" src="_static/documentation_options.js"></script>
+    <script src="_static/jquery.js"></script>
+    <script src="_static/underscore.js"></script>
+    <script src="_static/doctools.js"></script>
+    <script src="_static/language_data.js"></script>
+    <script src="_static/translations.js"></script>
+    <script async="async" src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.5/latest.js?config=TeX-AMS-MML_HTMLorMML"></script>
+    <script src="_static/jquery.cookie.js"></script>
+    <script src="_static/cloud.js"></script>
+    <script type="text/javascript" src="http://sagecell.sagemath.org/static/jquery.min.js"></script>
+    <script type="text/javascript" src="http://sagecell.sagemath.org/static/embedded_sagecell.js"></script>
+    <script type="text/javascript">
+        sagecell.makeSagecell({inputLocation: ".sage_linked",
+                               linked: true,
+                       	evalButtonText: 'Wykonaj'});
+        sagecell.makeSagecell({inputLocation: ".sage_unlinked",
+                               linked: false,
+                           evalButtonText: 'Wykonaj'});
+    </script>
+
+    <style type="text/css">
+        .sagecell .CodeMirror-scroll {
+            overflow-y: hidden;
+            overflow-x: auto;
+        }
+        .sagecell .CodeMirror {
+            height: auto;
+        }
+    </style>
+    
+    <link rel="index" title="Indeks" href="genindex.html" />
+    <link rel="search" title="Szukaj" href="search.html" />
+    <link rel="next" title="11. Metody wyznaczania ceny opcji" href="opcje-wycena.html" />
+    <link rel="prev" title="9. Kontrakty terminowe - wycena" href="kontrakty_terminowe.html" />
+ 
+  <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, minimum-scale=1">
+  </head><body>
+  <div class="relbar-top">
+    
+    <div class="related" role="navigation" aria-label="related navigation">
+      <h3>Nawigacja</h3>
+      <ul>
+        <li class="right" style="margin-right: 10px">
+          <a href="genindex.html" title="Indeks ogólny"
+             accesskey="I">indeks</a></li>
+        <li class="right" >
+          <a href="opcje-wycena.html" title="11. Metody wyznaczania ceny opcji"
+             accesskey="N">dalej</a> &nbsp; &nbsp;</li>
+        <li class="right" >
+          <a href="kontrakty_terminowe.html" title="9. Kontrakty terminowe - wycena"
+             accesskey="P">wstecz</a> &nbsp; &nbsp;</li>
+  <li><a href="index.html">Analiza Rynków Finansowych</a> &#187;</li>
+   
+      </ul>
+    </div>
+  </div>
+  
+  <div class="content">  
+
+    <div class="document">
+      <div class="documentwrapper">
+        <div class="bodywrapper">
+          <div class="body">
+            
+  <div class="section" id="opcje">
+<span id="kontrakty-terminowe"></span><h1><span class="section-number">10. </span>Opcje<a class="headerlink" href="#opcje" title="Stały odnośnik do tego nagłówka">¶</a></h1>
+<div class="section" id="podstawowe-cechy-opcji">
+<h2><span class="section-number">10.1. </span>Podstawowe cechy opcji<a class="headerlink" href="#podstawowe-cechy-opcji" title="Stały odnośnik do tego nagłówka">¶</a></h2>
+<p>Opcje stanowią podstawowy element innych instrumentów finansowych.
+Opcje to instrument zwany instrumentem pochodnym, gdyż jego cena
+zależy (pochodzi) od ceny innego aktywa.</p>
+<p>Opcje to instrument finansowy, którego popularność szybko
+rośnie. Opcje to instrument mądry, użyteczny ale i
+niebezpieczny.  Ten wzrost stosowania opcji ma swe źródło w szczególnych cechach opcji.</p>
+<p>Opcje:</p>
+<ul class="simple">
+<li><p>Stwarzają na rynku możliwości do korygowania ryzyka lub zmieniania
+przepływów przychodów, co bez ich istnienia nie byłoby możliwe.</p></li>
+<li><p>Stwarzają możliwość  stosowania dźwigni finansowej.</p></li>
+<li><p>Mogą być używane jako generator dodatkowego dochodu z portfela
+inwestycyjnego.</p></li>
+</ul>
+<p>Przykładowo opcje dają możliwość dźwigni finansowej. Efekt dźwigni
+finansowej w przypadku opcji polega na tym, że przy pomocy względnie
+małych sum pieniędzy możemy generować znaczne zyski.</p>
+<p>Przykładowo popatrzmy na notowania cen akcji Yahoo w kilku kolejnych
+dniach i cen opcji na zakup tych akcji w tym samym czasie.</p>
+<blockquote>
+<div><table class="docutils align-default">
+<colgroup>
+<col style="width: 21%" />
+<col style="width: 40%" />
+<col style="width: 40%" />
+</colgroup>
+<thead>
+<tr class="row-odd"><th class="head"><p>czas</p></th>
+<th class="head"><p>cena  akcji Yahoo</p></th>
+<th class="head"><p>cena opcji na akcje</p></th>
+</tr>
+</thead>
+<tbody>
+<tr class="row-even"><td><p>DZIEŃ 1</p></td>
+<td><p>100</p></td>
+<td><p>5</p></td>
+</tr>
+<tr class="row-odd"><td><p>DZIEŃ 2</p></td>
+<td><p>105</p></td>
+<td><p>7</p></td>
+</tr>
+<tr class="row-even"><td><p>DZIEŃ 3</p></td>
+<td><p>111</p></td>
+<td><p>9</p></td>
+</tr>
+<tr class="row-odd"><td><p>DZIEŃ 4</p></td>
+<td><p>113</p></td>
+<td><p>10</p></td>
+</tr>
+<tr class="row-even"><td><p>Zysk (%)</p></td>
+<td><p><strong>13</strong></p></td>
+<td><p><strong>100</strong></p></td>
+</tr>
+</tbody>
+</table>
+</div></blockquote>
+<p>Jak widać w przypadku zmian cen akcji można było zarobić 13%
+dysponując kwotą około 100 jednostek a na opcjach 100% dysponując
+kwota około 10 jednostek. Opcja to niezłe narzędzie do spekulacji. Ale
+to jest właśnie w niej niebezpieczne. Wszystkim zainteresowanym
+polecamy przeczytanie ciekawego tekstu „10 mitów o instrumentach
+pochodnych”: <a class="reference external" href="http://www.cato.org/pubs/pas/pa-283.html">http://www.cato.org/pubs/pas/pa-283.html</a></p>
+<p>Opcje mają i inne zastosowania. Głównie stosuje się je do
+zabezpieczania przed niekorzystną zmianą cen instrumentów
+finansowych. Temu ich zastosowaniu będzie poświecony poniższy tekst.</p>
+<p>Co dają opcje swym posiadaczom. Za co płacą pieniądze kupując opcje?
+Kupując opcje kupuje się możliwość wyboru w przyszłości. Prawo wyboru
+jest niestety prawem ograniczonym, bo cena opcji wiąże się z ceną
+aktywa. Opcje bowiem są oparte o prawo do aktywów.</p>
+<p>Właściciel opcji może:</p>
+<ul class="simple">
+<li><p>Sprzedać ją komuś innemu.</p></li>
+<li><p>Pozwolić jej wygasnąć (nie skorzystać z możliwości jakie  daje).</p></li>
+<li><p>Wykonać ją (czyli skorzystać z niej).</p></li>
+</ul>
+</div>
+<div class="section" id="opcja-call-i-opcja-put">
+<h2><span class="section-number">10.2. </span>Opcja <strong>call</strong> i opcja <strong>put</strong><a class="headerlink" href="#opcja-call-i-opcja-put" title="Stały odnośnik do tego nagłówka">¶</a></h2>
+<p>Opcja <strong>call daje prawo (ale nie nakaz) do kupienia</strong> w określonym
+okresie czasie aktywa za określoną cenę.</p>
+<p>Nabywający opcji płaci pieniądze w wysokości <strong>Premii</strong> sprzedawcy
+opcji w zamian za to prawo.</p>
+<p><strong>Sprzedawca</strong> opcji bierze pieniądze (<strong>Premia</strong>) za <strong>obowiązek sprzedaży</strong> w
+określonym okresie czasu, aktywa, za określona cenę, jeśli posiadacz
+opcji zechce skorzystać z tego prawa.</p>
+<p>Opcja <strong>call</strong> to jak kupienie biletu do kina. Kupując bilet do kina
+za jego cenę (Premia) możemy wybierać miedzy następującymi
+możliwościami (wybór ograniczony w czasie - praktycznie do rozpoczęcia
+seansu):</p>
+<ul class="simple">
+<li><p>Iść do kina i zobaczyć film (wykonanie opcji)</p></li>
+<li><p>Sprzedać posiadany bilet komuś innemu (np. z zyskiem jeśli seans
+jest wyjątkowo atrakcyjny)</p></li>
+<li><p>Nie iść do kina (pozwolić opcji na wygaśniecie).</p></li>
+</ul>
+<p>Opcja <strong>put</strong> daje <strong>prawo (ale nie obowiązek)</strong> do sprzedaży aktywa w
+określonym czasie, za określoną cenę. Kupujący opcję płaci pieniądze w
+wysokości <strong>Premii</strong> sprzedawcy opcji w zamian za prawo do
+sprzedania. <strong>Sprzedawca</strong> opcji bierze pieniądze w zamian za <strong>obowiązek kupienia</strong> określone aktywa za określoną cenę, w określonym czasie.
+Nie jest koniecznym posiadanie aktywa przed wykorzystaniem prawa z
+wystawienia opcji <strong>Put</strong>.</p>
+<p>Aby wejść w posiadanie opcji, ktoś ją musi sprzedać (wystawić).  Jeśli
+wystawi się opcję a nikt jej nie kupi można ją zniszczyć. Ilość opcji
+call w obrocie nie jest równa ilości opcji put. Ilość opcji w obrocie
+zmienia się w trakcie każdego dnia funkcjonowania rynku finansowego.</p>
+</div>
+<div class="section" id="terminologia-rynku-opcji">
+<h2><span class="section-number">10.3. </span>Terminologia rynku opcji<a class="headerlink" href="#terminologia-rynku-opcji" title="Stały odnośnik do tego nagłówka">¶</a></h2>
+<div class="section" id="cena-wykonania">
+<h3><span class="section-number">10.3.1. </span>Cena wykonania<a class="headerlink" href="#cena-wykonania" title="Stały odnośnik do tego nagłówka">¶</a></h3>
+<p>Cena za którą nabywca może kupić (w przypadku Call) lub sprzedać (w
+przypadku Put) aktywo podstawowe.</p>
+</div>
+<div class="section" id="premia">
+<h3><span class="section-number">10.3.2. </span>Premia<a class="headerlink" href="#premia" title="Stały odnośnik do tego nagłówka">¶</a></h3>
+<p>Cena opcji, płacona przez nabywającego, wystawcy opcji.  Każda opcja
+posiada dwie ceny:</p>
+<ul class="simple">
+<li><p>Cenę sprzedaży (<strong>bid</strong>) czyli najwyższa cenę, jaką ktoś chce
+zapłacić za opcje.</p></li>
+<li><p>Cenę kupna (<strong>ask</strong>) czyli najniższą za którą ktoś chce sprzedać
+daną opcję.</p></li>
+</ul>
+</div>
+<div class="section" id="data-wygasniecia-zapadalnosci-t">
+<h3><span class="section-number">10.3.3. </span>Data wygaśnięcia/zapadalności T<a class="headerlink" href="#data-wygasniecia-zapadalnosci-t" title="Stały odnośnik do tego nagłówka">¶</a></h3>
+<p>Jest to ostatni termin do wykorzystania opcji (jeśli to opcja
+amerykańska), jedyna data do wykorzystania opcji (jeśli jest to opcja
+europejska).</p>
+<p>Różnica miedzy opcją amerykańską a europejską jest taka, że opcje
+amerykańska możemy wykorzystać każdego dnia do terminu wygaśnięcia
+(zapadalności) a opcje europejska tylko w dzień zapadalności. Po tym
+terminie opcja wygasa.</p>
+</div>
+<div class="section" id="wykonanie">
+<h3><span class="section-number">10.3.4. </span>Wykonanie<a class="headerlink" href="#wykonanie" title="Stały odnośnik do tego nagłówka">¶</a></h3>
+<p>Kupno podstawowego aktywa (w przypadku call), sprzedaż aktywa
+podstawowego (w przypadku put). Zazwyczaj jest jedna cena wykonania
+powyżej i jedna cena poniżej aktualnej ceny aktywa.</p>
+</div>
+<div class="section" id="prawa-i-obowiazki">
+<h3><span class="section-number">10.3.5. </span>Prawa i obowiązki<a class="headerlink" href="#prawa-i-obowiazki" title="Stały odnośnik do tego nagłówka">¶</a></h3>
+<p>Tylko <em>posiadacz opcji</em> ma <strong>prawo</strong>. Prawo by sprzedać lub kupić aktywo
+podstawowe. <em>Wystawca opcji</em> (sprzedający) ma wypełnić <strong>obowiązek</strong>
+wynikający z prawa posiadacza opcji.</p>
+<p>W przypadku kontraktu opcyjnego występują dwie transakcje związane z
+tym kontraktem. Transakcja otwierająca zależność opcyjną to sprzedaż
+opcji przez wystawiającego. Transakcja która kończy zobowiązanie
+opcyjne jest nazywana transakcją zamknięcia.</p>
+<div class="admonition-uwaga admonition">
+<p class="admonition-title">UWAGA!</p>
+<p>Opcja call nie jest odwrotną transakcją do put ani put nie jest
+odwrotna do call. Ryzyko stron nie jest bowiem symetryczne. Można
+pozbyć się ryzyka wystawienia opcji poprzez zawarcie transakcji
+odwrotnej - t.j. wystawca opcji może pozbyć sie zobowiązania
+poprzez kupienie <strong>identycznej</strong> opcji.</p>
+</div>
+<p>Posiadając opcje posiadamy prawo wyboru. Jaka jest wartość takiego
+prawa czyli co to jest wartość opcji? Opcja to prawo kupna lub
+sprzedaży aktywa za określoną cenę. Jej wartość składa się z wartości
+oceniającej aktualne warunki rynkowe (wartość wewnętrzna – intristic
+value) oraz nadzieje na przyszłość, ocenę przyszłych warunków
+rynkowych - wartość czasową (time value). Na wartość opcji czyli na
+jej cenę składa się jej wartość wewnętrzna i jej wartość czasowa. Im
+opcja jest bliższa wygaśnięcia tym wartość czasowa maleje.</p>
+</div>
+<div class="section" id="wartosc-wewnetrzna-intrinsic-value">
+<h3><span class="section-number">10.3.6. </span>Wartość wewnętrzna (<em>Intrinsic Value</em>)<a class="headerlink" href="#wartosc-wewnetrzna-intrinsic-value" title="Stały odnośnik do tego nagłówka">¶</a></h3>
+<ul class="simple">
+<li><p>dla opcji <strong>call</strong> jest różnicą pomiędzy ceną instrumentu bazowego,
+a ceną wykonania,</p></li>
+<li><p>dla opcji <strong>put</strong> jest różnicą pomiędzy ceną wykonania, a ceną
+instrumentu bazowego.</p></li>
+</ul>
+<p>Wartość wewnętrzna przyjmuje tylko wartości dodatnie lub jest równa zero.</p>
+<p>Opcja z zerowa wartością wewnętrzna nazywa się <strong>out of the money</strong>,
+opcja z wartości a wewnętrzną większą od zera nazywa się <strong>in the
+money</strong> a jeśli cena wykonania opcji jest równa cenie aktywa bazowego
+opcje nazywa się <strong>at the money</strong>.</p>
+<div class="figure align-center" id="id2" style="width: 629px">
+<img alt="_images/inatout.png" src="_images/inatout.png" />
+<p class="caption"><span class="caption-text">Ewolucja czasowa ceny aktywa. Jeśli mamy opcję Call o cenie wykupu
+<span class="math notranslate nohighlight">\(K=125\)</span> to w obszarze czerwonym jest ona <strong>out of the money</strong>,
+w zielonym <strong>in the money</strong> a punktach w których kurs aktywa
+przechodzi przez cenę wykonania <strong>at the money</strong>.</span><a class="headerlink" href="#id2" title="Stały odnośnik do tego obrazu">¶</a></p>
+</div>
+<p>Kupując opcje musimy się liczyć z dwoma opłatami
+transakcyjnymi. Jedna - za zakup opcji, druga  opłata transakcji
+nabycia/sprzedania aktywa. Wystawca opcji zarabia wartość premii jeśli
+nabywca nie wykorzysta opcji.</p>
+<p>Inwestor wyszukuje właściwą opcje kierując się (w przypadku akcji
+spółki) Nazwą firmy, datą zapadalności (wygaśnięcia), ceną wykonania,
+i typem opcji.</p>
+</div>
+</div>
+<div class="section" id="profile-ryzyka-w-czterech-przypadkach">
+<h2><span class="section-number">10.4. </span>Profile ryzyka w czterech przypadkach<a class="headerlink" href="#profile-ryzyka-w-czterech-przypadkach" title="Stały odnośnik do tego nagłówka">¶</a></h2>
+<div class="admonition-przyklad admonition">
+<p class="admonition-title">Przykład</p>
+<p>Mamy następującą informacje:  Diora  Stycz.125.00 Call</p>
+<p>Gdzie:</p>
+<ul class="simple">
+<li><p>Diora - nazwa spółki</p></li>
+<li><p>Styczeń - data zapadalności,</p></li>
+<li><p>125.00 - cena wykonania</p></li>
+<li><p><em>Call</em> - typ opcji.</p></li>
+</ul>
+<p>Przyjmijmy, ze cena takiej opcji cal wynosi <strong>3.25</strong> a cena opcji
+put <strong>13.25</strong> - jednostki monetarnej. Będziemy także oznaczać datę
+zapadalności jako <span class="math notranslate nohighlight">\(t=T\)</span>, a chwilę obecną <span class="math notranslate nohighlight">\(t=0\)</span>.</p>
+</div>
+<div class="section" id="long-call-kupujemy-prawo-kupna">
+<h3><span class="section-number">10.4.1. </span>Long Call - kupujemy prawo kupna<a class="headerlink" href="#long-call-kupujemy-prawo-kupna" title="Stały odnośnik do tego nagłówka">¶</a></h3>
+<p>Zanim przystąpimy do analizy profili wypłat, omówimy dokładnie co
+bedzie znajdowało się na poniższych wykresach. We wszyskich
+przypadkach będziemy rozważać ten sam przypadek opcji na aktywo o
+chwilowej cenie <span class="math notranslate nohighlight">\(115\)</span>, i cenie wykonania w momencie czasu
+<span class="math notranslate nohighlight">\(t=T\)</span> wynosi <span class="math notranslate nohighlight">\(K=125\)</span>. Rynkowa cena takiej opcji call i put
+wynosi odpowiednio 3.25 i 13.25. Na poniższym rysunku znajdują się dwie
+krzywe. Grubą niebieską linią zaznaczono profil wypłaty w czasie
+<span class="math notranslate nohighlight">\(t=T\)</span> od ceny jaką przyjmie aktywo w czasie <span class="math notranslate nohighlight">\(t=T\)</span>. Cienką
+czerwoną linią zaznaczono cenę opcji w czasie <span class="math notranslate nohighlight">\(t=0\)</span>.</p>
+<div class="figure align-center" id="id3" style="width: 65%">
+<img alt="_images/longcall0.png" src="_images/longcall0.png" />
+<p class="caption"><span class="caption-text">Cena akcji w <span class="math notranslate nohighlight">\(t=0\)</span> (cienka czerwona linia) oraz <span class="math notranslate nohighlight">\(t=T\)</span>
+(grubą niebieską linia).</span><a class="headerlink" href="#id3" title="Stały odnośnik do tego obrazu">¶</a></p>
+</div>
+<p>Załóżmy teraz, że nabędziemy taką opcje w momencie <span class="math notranslate nohighlight">\(t=0\)</span>. Jej
+cena zgodnie z założeniami wynosi 3.25. Zakładając, że nie mieliśmy
+żadnego kapitału, po takim zakupie jesteśmy zadłużeni na 3.25 i mamy
+opcje z pewnym profilem wypłaty w okresie zapadalności
+<span class="math notranslate nohighlight">\(t=T\)</span>. Jeżeli wieć przesuniemy wykres o 3.25 do góry, to wykres
+ceny opcji w czasie <span class="math notranslate nohighlight">\(t=0\)</span> będzie przechodził przez zero
+dokładnie dla tej wartości ceny aktywa jaka akurat jest w
+<span class="math notranslate nohighlight">\(t=0\)</span>. Dostaniemy więc wykres:</p>
+<div class="figure align-center" id="id4" style="width: 65%">
+<img alt="_images/longcall.png" src="_images/longcall.png" />
+<p class="caption"><span class="caption-text">Long - Call: czyli nabyliśmy prawo do kupna po cenie <span class="math notranslate nohighlight">\(K\)</span>.</span><a class="headerlink" href="#id4" title="Stały odnośnik do tego obrazu">¶</a></p>
+</div>
+<p>Punkt na wykresię <span class="math notranslate nohighlight">\((115,0)\)</span> możemy interpetować jako stan
+naszego portfela, bowiem, na chwilę zakupu opcji <span class="math notranslate nohighlight">\(t=0\)</span> mamy
+dokładnie zero a aktywo ma wartość 115. Czy zarobimy na kupnie tej
+opcji zależy od scenariusza ewolucji ceny aktywa na rynku w czasie do
+<span class="math notranslate nohighlight">\(t=T\)</span>. W przypadku opcji europejskiej, jedynie od jego
+wartościm w chwili wygasania opcji.</p>
+<p>Innymi słowy:</p>
+<p>Profil zysku dla posiadacza opcji <em>call (long call)</em> w zależności od
+ceny wykonania aktywa jest następujący: jeśli cena aktywa na czas
+wykonania jest niższa od ceny wykonania, posiadacz opcji ponosi koszt
+jej zakupu, bo oczywiście pozwoli jej wygasnąć a kupi aktywo
+poniższych cenach rynkowych. W naszym przypadku -3.25.  Gdy cena
+aktywa wzrośnie powyżej ceny wykonania + cena opcji (125+3.25=128.25)
+(break even point) zysk będzie praktycznie nieograniczony i zależny od
+wzrostu.  Między ceną wykonania a ceną wykonania + cena opcji zysk
+będzie ujemny ale ograniczony . Te punkty punkty zaznaczone są
+czerwonymi kropkami na osi odciętych na powyższym wykresie.</p>
+</div>
+<div class="section" id="short-call-sprzedajemy-prawo-kupna">
+<h3><span class="section-number">10.4.2. </span>Short Call - sprzedajemy prawo kupna<a class="headerlink" href="#short-call-sprzedajemy-prawo-kupna" title="Stały odnośnik do tego nagłówka">¶</a></h3>
+<p>W przypadku strony wystawiającej (sprzedającego opcje call) zysk
+pojawia się w wysokości premii jeśli kupujący nie skorzysta z opcji.
+Jeśli cena aktywa będzie wyższa od ceny wykonania sprzedający ponosi
+stratę i jest ona zależna od ceny aktywa czyli jest nieograniczona.</p>
+<div class="figure align-center" id="id5" style="width: 65%">
+<img alt="_images/shortcall.png" src="_images/shortcall.png" />
+<p class="caption"><span class="caption-text">Short - Call: czyli sprzedaliśmy prawo do kupna po cenie
+<span class="math notranslate nohighlight">\(K\)</span> - wystawiliśmy opcję.</span><a class="headerlink" href="#id5" title="Stały odnośnik do tego obrazu">¶</a></p>
+</div>
+</div>
+<div class="section" id="long-put-kupujemy-prawo-sprzedazy">
+<h3><span class="section-number">10.4.3. </span>Long Put - kupujemy prawo sprzedaży<a class="headerlink" href="#long-put-kupujemy-prawo-sprzedazy" title="Stały odnośnik do tego nagłówka">¶</a></h3>
+<div class="figure align-center" id="id6" style="width: 65%">
+<img alt="_images/longput.png" src="_images/longput.png" />
+<p class="caption"><span class="caption-text">Long - Put: czyli nabyliśmy prawo do sprzedaży po cenie <span class="math notranslate nohighlight">\(K\)</span>.</span><a class="headerlink" href="#id6" title="Stały odnośnik do tego obrazu">¶</a></p>
+</div>
+<p>Posiadacz opcji <em>put (long put)</em> o cenie <strong>13.25</strong> i cenie wykonania 125
+nie będzie wykorzystywał opcji jeśli cena aktywa będzie wyższa niż
+125 bo sprzeda aktywo na rynku kasowym. W zakresie 125 - 111.75
+zrealizuje opcje celem zminimalizowania straty. Zysk osiągnie jak cena
+spadnie poniżej 111.75.</p>
+<div class="figure align-center" id="id7" style="width: 65%">
+<img alt="_images/shortput.png" src="_images/shortput.png" />
+<p class="caption"><span class="caption-text">Short - Put: czyli sprzedaliśmy prawo do sprzedaży po cenie
+<span class="math notranslate nohighlight">\(K\)</span> - wystawiliśmy opcję.</span><a class="headerlink" href="#id7" title="Stały odnośnik do tego obrazu">¶</a></p>
+</div>
+<p>Wystawca opcji <em>put</em> natomiast realizuje zysk w wysokości premii jeśli
+nabywca nie zrealizuje opcji czyli gdy ceny aktywa będą powyżej
+125.0. Natomiast jeśli spadną poniżej 117.5 poniesie stratę.</p>
+<p>Kupując opcje kupujący zabezpiecza się przed niekorzystną zmianą ceny
+aktywa. Wystawca opcji kupna zarabia, gdy nie zrealizujemy opcji,
+czyli wtedy gdy cena akcji na rynku spadnie. Wystawca opcji sprzedaży
+zarabia wtedy, gdy na wskutek wzrostu cen nie wykorzystamy opcji.</p>
+<p>Patrząc na profile ryzyka poszczególnych pozycji zajętych na rynku
+opcji - czyli; <em>long call, short call, long put, short put</em>, nasuwa
+się pomysł aby używać kombinacji opcji i w ten sposób chronić
+posiadane aktywa za pomocą opcji. Takie strategie opcyjne są omówione
+w rozdziale - Hedging za pomoca opcji.</p>
+</div>
+</div>
+<div class="section" id="jak-zalezy-profil-wyplaty-od-parametrow-k-s">
+<h2><span class="section-number">10.5. </span>Jak zależy profil wypłaty od parametrów K,S?<a class="headerlink" href="#jak-zalezy-profil-wyplaty-od-parametrow-k-s" title="Stały odnośnik do tego nagłówka">¶</a></h2>
+<p>Poeksperymentujmy z wykresem zysku/straty na zakupie opcji w
+zależności od parametrów <span class="math notranslate nohighlight">\(S_0,K\)</span>. Tak jak poprzednio, zakładamy,
+że w chwili początkowej nie mamy żadnego kapitału i jedyną operacją,
+którą wykonujemy jest zakup lub sprzedaż opcji. W przypadku zakupu
+stan naszego portfela obciąża nam nasz na kredyt, jeśli zaś
+sprzedajemy to mamy depozyt. Zakładamy, że w chwili początkowej
+istnieje pewna godziwa cena opcji, którą wliczamy w nasz początkowy
+bilans. Innymi słowy na poniższych wykresach zielona linia oznacza
+profil zysku straty z transakcji w chwili <span class="math notranslate nohighlight">\(t=T\)</span>, biorący pod
+uwagę fakt poniesienia kosztów kupienia opcji lub wpływów za jej
+wystawienie.</p>
+<div class="admonition note">
+<p class="admonition-title">Informacja</p>
+<p>W poniższym kodzie definiujemy funkcje <code class="code docutils literal notranslate"><span class="pre">C</span></code> i <code class="code docutils literal notranslate"><span class="pre">P</span></code>, które
+są słynnymi wzorami Blacka-Scholesa na cenę opcji Call i Put,
+odpowiednio. W tym momencie przyjmijmy, że reprezentują one cenę
+godziwą opcji. Ich wyprowadzenie będzie omówione w następnym
+rozdziale.</p>
+</div>
+<p>Wykonajmy najpierw komórkę z definicjami:</p>
+<div class='sage_linked'><script type='text/x-sage'>var('S')
+def longCALL(S,K,P=0):
+    return max_symbolic(S-K,0)-P
+def longPUT(S,K,P=0):
+    return max_symbolic(K-S,0)-P
+def shortCALL(S,K,P=0):
+    return -max_symbolic(S-K,0)+P
+def shortPUT(S,K,P=0):
+    return -max_symbolic(K-S,0)+P
+
+
+var('sigma,S0,K,T,r')
+cdf(x) = 1/2*(1+erf(x/sqrt(2)))
+d1=(log(S0/K)+(r+sigma**2/2)*T)/(sigma*sqrt(T))
+d2=d1-sigma*sqrt(T)
+C(S0,K,r,T,sigma) = S0*cdf(d1)-K*exp(-r*T)*cdf(d2)
+P(S0,K,r,T,sigma) = K*exp(-r*T)*cdf(-d2)-S0*cdf(-d1)
+
+def plotOption(OPTION=longCALL,S0=115,K=125, c='red'):
+    var('S')
+    S1,S2 = 100,140
+    sigma = 0.1
+    if "CALL" in OPTION.__name__:
+        cena = C
+    else:
+        cena = P
+    if "short" in OPTION.__name__:
+        k = -1.0
+    else:
+        k = 1.0
+
+    SP = cena(S0,K,0.0,1,sigma).n()
+    p  = plot( OPTION(S,K,SP),(S,S1,S2),color=c)
+    p += plot(k*(cena(x,K,0.0,1,sigma)-SP),(x,S1,S2),\
+     color='gray',thickness=0.5)
+    p += point([(K,0),(S0,0)],color='brown',size=40,\
+     gridlines=[[K],[]])
+    p += text(r"$K$",(K,2))
+    p += text(r"$S_0$",(S0,k*2))
+    return p
+
+print("Wczytano funkcje pomocnicze!")</script></div><div class="section" id="kupujemy-opcje-call">
+<h3><span class="section-number">10.5.1. </span>Kupujemy opcję Call<a class="headerlink" href="#kupujemy-opcje-call" title="Stały odnośnik do tego nagłówka">¶</a></h3>
+<div class="admonition-poeksperymentuj-komputerem admonition">
+<p class="admonition-title">Poeksperymentuj komputerem</p>
+<p>Uruchom poniższy kod.</p>
+<ul class="simple">
+<li><p>Jak z otrzymanego wykresu odczytać cenę za którą kupiono opcję?</p></li>
+<li><p>Dla jakich ustawień suwaka opcja jest <em>in-the-money</em> a dla jakich  <em>out-the-money</em>?</p></li>
+<li><p>Dla jakiego ustawienia wartość czasowa opcji jest największa?</p></li>
+<li><p>Kiedy opcja jest prawie nic nie warta?</p></li>
+<li><p>Ustaw <span class="math notranslate nohighlight">\(S_0=130\)</span> a na <span class="math notranslate nohighlight">\(K=110\)</span>. Z przesunięcia wykresu
+profilu wypłaty określ ile zapłacono za opcje. Dlaczego cena była
+równa prawie <span class="math notranslate nohighlight">\(130-110\)</span>?</p></li>
+<li><p>Jaką możemy ponieść maksymalną stratę?</p></li>
+<li><p>Jaki jest maksymalny zysk?</p></li>
+</ul>
+</div>
+<div class='sage_linked'><script type='text/x-sage'>try:
+    @interact
+    def _(K=slider(100,135,1,default=125),\
+     S0=slider(100,135,1,default=115)):
+        p = plotOption(OPTION=longCALL,S0=S0,K=K,c='green')
+        p.set_axes_range(xmin=100,xmax=140,ymin=-20,ymax=20)
+        p.show(figsize=5)
+except:
+    print("Wykonaj pierwszą komórkę!")</script></div></div>
+<div class="section" id="sprzedajemy-opcje-call">
+<h3><span class="section-number">10.5.2. </span>Sprzedajemy opcję Call<a class="headerlink" href="#sprzedajemy-opcje-call" title="Stały odnośnik do tego nagłówka">¶</a></h3>
+<div class="admonition-poeksperymentuj-komputerem admonition">
+<p class="admonition-title">Poeksperymentuj komputerem</p>
+<p>Uruchom poniższy kod.</p>
+<ul class="simple">
+<li><p>Jak z otrzymanego wykresu odczytać cenę otrzymaną za wystawienie  opcji?</p></li>
+<li><p>Dla jakich ustawień suwaka opcja jest <em>in-the-money</em> a dla jakich  <em>out-the-money</em>?</p></li>
+<li><p>Dla jakiego ustawienia wartość czasowa opcji jest największa?</p></li>
+<li><p>Kiedy opcja jest prawie nic nie warta?</p></li>
+<li><p>Ustaw <span class="math notranslate nohighlight">\(S_0=128\)</span> a na <span class="math notranslate nohighlight">\(K=108\)</span>. Z przesunięcia wykresu
+profilu wypłaty określ ile zapłacono za opcje.Dlaczego cena była
+równa prawie <span class="math notranslate nohighlight">\(128-108\)</span>?</p></li>
+<li><p>Jaką możemy ponieść maksymalną stratę?</p></li>
+<li><p>Jaki jest maksymalny zysk?</p></li>
+</ul>
+</div>
+<div class='sage_linked'><script type='text/x-sage'>try:
+    @interact
+    def _(K=slider(100,135,1,default=125),S0=slider(100,135,1,default=115)):
+        p = plotOption(OPTION=shortCALL,S0=S0,K=K,c='green')
+        p.set_axes_range(xmin=100,xmax=140,ymin=-10,ymax=20)
+        p.show(figsize=5)
+except:
+    print("Wykonaj pierwszą komórkę!")</script></div></div>
+<div class="section" id="kupujemy-opcje-put">
+<h3><span class="section-number">10.5.3. </span>Kupujemy opcję Put<a class="headerlink" href="#kupujemy-opcje-put" title="Stały odnośnik do tego nagłówka">¶</a></h3>
+<div class="admonition-poeksperymentuj-komputerem admonition">
+<p class="admonition-title">Poeksperymentuj komputerem</p>
+<p>Uruchom poniższy kod.</p>
+<ul class="simple">
+<li><p>Jak z otrzymanego wykresu odczytać cenę za którą kupiono opcję?</p></li>
+<li><p>Dla jakich ustawień suwaka opcja jest <em>in-the-money</em> a dla jakich  <em>out-the-money</em>?</p></li>
+<li><p>Dla jakiego ustawienia wartość czasowa opcji jest największa?</p></li>
+<li><p>Kiedy opcja jest prawie nic nie warta?</p></li>
+<li><p>Ustaw <span class="math notranslate nohighlight">\(S_0=110\)</span> a na <span class="math notranslate nohighlight">\(K=130\)</span>. Z przesunięcia wykresu
+profilu wypłaty określ ile zapłacono za opcje. Dlaczego cena była
+równa prawie <span class="math notranslate nohighlight">\(130-110\)</span>?</p></li>
+<li><p>Jaką możemy ponieść maksymalną stratę?</p></li>
+<li><p>Jaki jest maksymalny zysk?</p></li>
+</ul>
+</div>
+<div class='sage_linked'><script type='text/x-sage'>try:
+    @interact
+    def _(K=slider(100,135,1,default=122),S0=slider(100,135,1,default=115)):
+        p = plotOption(OPTION=longPUT,S0=S0,K=K,c='green')
+        p.set_axes_range(xmin=100,xmax=140,ymin=-20,ymax=20)
+        p.show(figsize=5)
+except:
+    print("Wykonaj pierwszą komórkę!")</script></div></div>
+<div class="section" id="sprzedajemy-opcje-put">
+<h3><span class="section-number">10.5.4. </span>Sprzedajemy opcję Put<a class="headerlink" href="#sprzedajemy-opcje-put" title="Stały odnośnik do tego nagłówka">¶</a></h3>
+<div class="admonition-poeksperymentuj-komputerem admonition">
+<p class="admonition-title">Poeksperymentuj komputerem</p>
+<p>Uruchom poniższy kod.</p>
+<ul class="simple">
+<li><p>Jak z otrzymanego wykresu odczytać cenę otrzymaną za wystawienie  opcji?</p></li>
+<li><p>Dla jakich ustawień suwaka opcja jest <em>in-the-money</em> a dla jakich  <em>out-the-money</em>?</p></li>
+<li><p>Dla jakiego ustawienia wartość czasowa opcji jest największa?</p></li>
+<li><p>Kiedy opcja jest prawie nic nie warta?</p></li>
+<li><p>Ustaw <span class="math notranslate nohighlight">\(S_0=105\)</span> a na <span class="math notranslate nohighlight">\(K=125\)</span>. Z przesunięcia wykresu
+profilu wypłaty określ ile zapłacono za opcje.Dlaczego cena była
+równa prawie <span class="math notranslate nohighlight">\(125-105\)</span>?</p></li>
+<li><p>Jaką możemy ponieść maksymalną stratę?</p></li>
+<li><p>Jaki jest maksymalny zysk?</p></li>
+</ul>
+</div>
+<div class='sage_linked'><script type='text/x-sage'>try:
+    @interact
+    def _(K=slider(100,135,1,default=125),S0=slider(100,135,1,default=115)):
+        p = plotOption(OPTION=shortPUT,S0=S0,K=K,c='green')
+        p.set_axes_range(xmin=100,xmax=140,ymin=-10,ymax=20)
+        p.show(figsize=5)
+except:
+    print("Wykonaj pierwszą komórkę!")</script></div></div>
+</div>
+<div class="section" id="wycena-opcji">
+<h2><span class="section-number">10.6. </span>Wycena opcji<a class="headerlink" href="#wycena-opcji" title="Stały odnośnik do tego nagłówka">¶</a></h2>
+<p>Na wartość opcji wpływają czynniki rynkowe. Na przykładzie
+europejskiej opcji <em>call</em> (pierwszej opcji wycenionej teoretycznie)
+widać, że wartość opcji zależy od pięciu czynników. Czynnikami tymi są:</p>
+<ul class="simple">
+<li><p>cena  aktywa podstawowego na rynku kasowym</p></li>
+<li><p>cena wykonania</p></li>
+<li><p>czas do wygaśnięcia</p></li>
+<li><p>stopa wolna od ryzyka</p></li>
+<li><p>zmienność ceny aktywa (<em>volatility</em>)</p></li>
+</ul>
+<p>W przypadku <strong>ceny aktywa</strong>, im wyższa cena aktywa (np. akcji), tym wyższa
+cena opcji <em>call</em> a niższa cena opcji <em>put</em>. Odwrotna zależność
+zachodzi w przypadku ceny wykonania dla opcji <em>call</em>; im niższa cena
+aktywa tym wyższa wartość opcji.</p>
+<p><strong>Czas do wygaśnięcia</strong> (zapadalności) - Czas do wygaśnięcia jest
+mierzony jako część roku. Podobnie jak zmienność (<em>volatility</em>),
+dłuższy czas do wygaśnięcia zwiększa wartość wszelkich opcji. To
+dlatego, że są większe szanse że opcja wygaśnie w cenie
+(<em>in-the-money</em>) w dłuższym czasie.</p>
+<p><strong>Stopa wolna od ryzyka</strong> - Stopa wolna od ryzyka jest najmniej
+znaczącym parametrem. Jest ona używana do dyskontowania ceny
+wykonania, ale ponieważ czas do wygaśnięcia w praktyce jest dużo
+niższy niż 9 miesięcy to stopy te bywają niskie i mają niewielki wpływ
+na cenę opcji.  Jeśli stopa wzrasta, to w wyniku wzrostu obniża się
+cena wykonania.  Dlatego, jeśli stopa rośnie opcja <em>call</em> wzrasta w
+wartości a opcja <em>put</em> obniża wartość. <em>Im większa stopa wolna od
+ryzyka to większy przychód wygenerują pieniądze, które „zaoszczędzi”
+się kupując opcje a nie aktywo. Ta różnica zainwestowana do czasu
+wygaśnięcia opcji generuje wyższy przychód.</em></p>
+<p><strong>Zmienność</strong> ceny aktywa podstawowego (<em>Volatility</em>) jest mierzona
+jako zanualizowane odchylenie standardowe zysku z aktywa podstawowego.
+Cena wszystkich opcji rośnie z rosnącą zmiennością (<em>volatility</em>). To
+dlatego, że opcje z wyższą zmiennością maja większą szanse na
+wygaśnięcie w cenie (<em>in-the-money</em>).</p>
+<p><strong>Cena wykonania</strong> jest ustalona na czas życia opcji, ale każde
+<em>aktywo</em> podstawowe może mieć kilka cen wykonania dla każdego miesiąca
+wykorzystania.  Dla <em>call</em>, im wyższa cena wykonania (<em>strike price</em>),
+tym niższa wartość <em>call</em>. Dla <em>put</em>, im wyzsza cena <em>strike</em>, tym
+wyższa wartość <em>put</em>.</p>
+<blockquote>
+<div><table class="docutils align-default">
+<colgroup>
+<col style="width: 22%" />
+<col style="width: 17%" />
+<col style="width: 11%" />
+<col style="width: 19%" />
+<col style="width: 11%" />
+<col style="width: 19%" />
+</colgroup>
+<thead>
+<tr class="row-odd"><th class="head"><p>Czynnik</p></th>
+<th class="head"></th>
+<th class="head"><p>Opcja Call</p></th>
+<th class="head"></th>
+<th class="head"><p>Opcja Put</p></th>
+<th class="head"></th>
+</tr>
+</thead>
+<tbody>
+<tr class="row-even"><td><p>Cena aktywa</p></td>
+<td><p><span class="math notranslate nohighlight">\(\uparrow\)</span></p></td>
+<td><p>Wprost</p></td>
+<td><p><span class="math notranslate nohighlight">\(\uparrow\)</span></p></td>
+<td><p>Odwrotnie</p></td>
+<td><p><span class="math notranslate nohighlight">\(\downarrow\)</span></p></td>
+</tr>
+<tr class="row-odd"><td><p>Cena wykonania</p></td>
+<td><p><span class="math notranslate nohighlight">\(\uparrow\)</span></p></td>
+<td><p>Odwrotnie</p></td>
+<td><p><span class="math notranslate nohighlight">\(\downarrow\)</span></p></td>
+<td><p>Wprost</p></td>
+<td><p><span class="math notranslate nohighlight">\(\uparrow\)</span></p></td>
+</tr>
+<tr class="row-even"><td><p>Zmienność</p></td>
+<td><p><span class="math notranslate nohighlight">\(\uparrow\)</span></p></td>
+<td><p>Wprost</p></td>
+<td><p><span class="math notranslate nohighlight">\(\uparrow\)</span></p></td>
+<td><p>Wprost</p></td>
+<td><p><span class="math notranslate nohighlight">\(\uparrow\)</span></p></td>
+</tr>
+<tr class="row-odd"><td><p>Stopa wolna od ryzyka</p></td>
+<td><p><span class="math notranslate nohighlight">\(\uparrow\)</span></p></td>
+<td><p>Wprost</p></td>
+<td><p><span class="math notranslate nohighlight">\(\uparrow\)</span></p></td>
+<td><p>Odwrotnie</p></td>
+<td><p><span class="math notranslate nohighlight">\(\downarrow\)</span></p></td>
+</tr>
+<tr class="row-even"><td><p>Czas</p></td>
+<td><p><span class="math notranslate nohighlight">\(\uparrow\)</span></p></td>
+<td><p>Wprost</p></td>
+<td><p><span class="math notranslate nohighlight">\(\uparrow\)</span></p></td>
+<td><p>Wprost</p></td>
+<td><p><span class="math notranslate nohighlight">\(\uparrow\)</span></p></td>
+</tr>
+</tbody>
+</table>
+</div></blockquote>
+<p>Tabela (1).  Wpływ czynników rynkowych na cenę opcji <em>call</em> i <em>put</em>.</p>
+<p>Podsumowując, aktualna <strong>cena aktywa</strong> podstawowego jest najbardziej
+istotnym parametrem ceny. Dla opcji <em>call</em>, im wyższa cena aktywa
+podstawowego tym wyższa wartość <em>call</em>.</p>
+</div>
+<div class="section" id="opcje-i-lekcja-na-ich-temat-jaka-wynika-z-klopotow-polskich-firm-z-opcjami-w-roku-2008">
+<h2><span class="section-number">10.7. </span>Opcje i lekcja na ich temat,  jaka wynika z kłopotów  polskich firm z opcjami w roku 2008<a class="headerlink" href="#opcje-i-lekcja-na-ich-temat-jaka-wynika-z-klopotow-polskich-firm-z-opcjami-w-roku-2008" title="Stały odnośnik do tego nagłówka">¶</a></h2>
+<p>W każdym rozdziale niniejszego opracowania, tam gdzie, wspomina się o
+opcjach podkreślane jest, że opcja to świetny instrument do
+zabezpieczania się przed ryzykiem ale jeśli chodzi o relacje do tego
+ryzyka - asymetryczny. Asymetryczność przejawia się m.in. w tym, że
+kupujący opcje czuje się jak posiadacz polisy
+ubezpieczeniowej. Zapłacił za nią, czyli poniósł koszt, ale wie, że za
+tą cenę może być spokojny o przyszłość. Bo jeśli ceny aktywa na które
+opiewa opcja zmienią się w sposób niekorzystny dla posiadacza opcji
+(ubezpieczenia) to opcja ochrania go i zmiany te nie będą odczuwalne
+dla niego. Jeśli zmiany pójdą w stronę korzystną pozwoli opcji
+wygasnąć ( tak jak w przypadku polisy- nie skorzysta z niej jeśli nie
+potrzebuje) i skorzysta z dobrodziejstw zmiany. Koszty opcji już
+poniósł w przeszłości i żadne dodatkowe koszty mu nie grożą.</p>
+<p>Niestety inaczej wygląda sytuacja wystawcy opcji. Wystawca opcji
+sprzedaje „ubezpieczenie” od niekorzystnej zmiany ceny na rynku i
+zobowiązuje się do zrealizowania w przyszłości transakcji w warunkach
+korzystnych dla nabywcy i przed zmianą których nabywca się
+zabezpieczał. Czyli kupić od nabywcy opcji put aktywo po określonej
+cenie lub sprzedać nabywcy opcji call aktywo po określonej
+cenie. Przypomnieć należy, że aby wystawić opcje nie jest wymagane
+posiadanie aktywa na które opcja opiewa. Wystawca opcji działa
+podobnie do firmy ubezpieczeniowej.  W zamian za premię, czyli cenę
+sprzedanej opcji zobowiązuje się „wyrównania” niekorzystnych zmian
+ceny.  Zarabia wtedy gdy nabywca nie skorzysta z opcji ale musi
+wywiązać się ze zobowiązania jeśli ten co kupił u niego opcję zażąda
+tego i to bez względu na to ile go to będzie kosztować. To znaczy, że
+sprzedając opcje powinien skalkulować sobie ile to może kosztować i
+wziął to pod uwagę zanim wystawił opcję.</p>
+<p>Jak wynika z powyższego straty z nabycia opcji nie przekraczają
+kosztów jej kupna ale korzyść z jej posiadania  jest znaczna i nie
+ograniczana żadnymi barierami poza wielkością zmiany ceny na rynku a
+ta zmiana może być, przynajmniej teoretycznie, nieograniczona. Koszty
+z wystawienia opcji niestety mogą być wysokie, bo zależą od zmiany
+ceny na rynku, a ta zmiana, przynajmniej teoretycznie, może być
+nieograniczona. Korzyść natomiast ograniczona jest do wysokości premii
+czyli ceny za którą nabywca opcji kupił, opcje od wystawcy.</p>
+<p>Jeśli po lekturze powyższego tekstu pojawi się refleksja, że wystawcy
+opcji bardzo ryzykują to, ta refleksja na tym poziomie wiedzy o rynku i
+opcjach jest w pełni słuszna ( i taką pozostaje). Żałować należy, że
+taką wiedzą albo inaczej, że do takiej konkluzji nie doszli
+zarządzający pewnymi spółkami w kraju w roku 2008. Spółki te popadły
+bowiem w tym czasie w duże kłopoty finansowe w związku z transakcjami
+opcyjnymi, które, zawarły. Zanim sytuacja roku 2008 zostanie
+przedstawiona istotnym jest zrobienie jeszcze jednego wyjaśnienia.</p>
+<p>Uwaga o tym, że ryzyko wystawcy opcji jest większe niż nabywającego
+jest prawdą na tym poziomie wiedzy i taką prawdą pozostaje, tak jak
+zasady zachowania mechaniki klasycznej przykładowo są ważne w fizyce
+kwantowej i innych bardziej zaawansowanych działach fizyki. Prawda ta
+jednak nie wyklucza wystawiania opcji. Aby można było nabyć opcje,
+ktoś ją musi wystawić. Opcje są wystawiane i jest to robione w celach
+uzyskania zysku a nie straty. Zaleca się jednak by czytający ten tekst
+nie wystawiali opcji tak długo, jak długo będą odkrywać jakieś istotne
+informacje w niniejszym opracowaniu. Jeśli bowiem ich doświadczenie i
+wiedza o rynku będzie tak duża, że nie będą korzystać z takich
+opracowań, mogą rozważać możliwość wystawienia opcji. Na rynku finansowym, jak i w życiu,
+nie można osiągnąć nic więcej bez podjęcia ryzyka. Tylko należy mieć
+świadomość istnienia ryzyka i umieć oszacować koszty podjęcia tego
+ryzyka i zarządzania nim tak by, ewentualne straty mieściły się w
+możliwościach ich pokrycia bez zdezorganizowania funkcjonowania firmy
+i jej działalności. Niemniej jednak, podmiot gospodarczy, który nie
+specjalizuje się w transakcjach na rynku instrumentów pochodnych, nie
+powinien wystawiać tego typu instrumentów.</p>
+<div class="section" id="sytuacja-na-rynku-walutowym-w-okolicach-roku-2008-uwarunkowania-eksporterow">
+<h3><span class="section-number">10.7.1. </span>Sytuacja   na rynku walutowym w okolicach roku 2008 - uwarunkowania   eksporterów<a class="headerlink" href="#sytuacja-na-rynku-walutowym-w-okolicach-roku-2008-uwarunkowania-eksporterow" title="Stały odnośnik do tego nagłówka">¶</a></h3>
+<p>Od kilku lat polski złoty PLN generalnie umacniał się w stosunku do
+głównych walut i coraz mniej złotówek otrzymywali eksporterzy za każdy
+( przykładowo) dolar uzyskany z eksportu.  Koszty jednak ponosili w
+złotówkach.  Czyli z ich punktu widzenia eksport stawał się mniej
+opłacalny albo inaczej byli coraz mniej konkurencyjni na rynku.</p>
+<div class="figure align-center" id="id9" style="width: 340px">
+<a class="reference internal image-reference" href="_images/USD_2008.png"><img alt="_images/USD_2008.png" src="_images/USD_2008.png" style="height: 230px;" /></a>
+<p class="caption"><span class="caption-text">Kurs USD - PLN w okresie od kwietnia 2004 roku do kwietnia  2008 roku.</span><a class="headerlink" href="#id9" title="Stały odnośnik do tego obrazu">¶</a></p>
+</div>
+<p>Interesem eksporterów było zabezpieczenie się przed umacniającym się
+złotym czyli otrzymywanie jak najwięcej złotówek za np. dolara.</p>
+<p>Transakcja która mogła spełnić ich oczekiwania przykładowo wygladała
+następująco:</p>
+<div class="admonition-scenariusz-1 admonition">
+<p class="admonition-title">Scenariusz 1</p>
+<p>Firma Export S.A. chciała zabezpieczyć swój przyszły
+przychód o wartości 1 miliona USD na wypadek wzrostu
+wartości złotówki. Ponieważ działalność firmy to
+eksport towarów a nie operacje finansowe skorzystała z
+pomocy dostawcy usług finansowych np. Banku
+International. Bank zaproponował sprzedaż opcji
+walutowej - koszt opcji (jakiś ułamek wartości
+aktywa) - czyli 10 000 PLN. Kupiony instrument
+zobowiązywał bank w określonym terminie ( np. 3
+miesiące) do zakupu miliona dolarów po ustalonym
+kursie ( korzystnym dla eksportera)- powiedzmy po 2,50
+PLN za USD. W chwili zawarcia transakcji kurs oscyluje
+około 2.48 PLN za dolara.  Firma nie martwi się w tym
+przypadku o zmiany ceny dolara na rynku bo jeśli złoty
+się umocni w stosunku do sytuacji opisanej w zawartej
+transakcji i skorzysta z zakupionej opcji, jeśli
+natomiast złoty się osłabi pozwoli opcji wygasnąć i
+skorzysta z zaistniałej sytuacji na rynku. W tym
+drugim przypadku można mówić o stracie a prawidłowo, o kosztach nabycia w wysokości
+opłaty za transakcje czyli ceny opcji, w tym
+przypadku 10 000 PLN. Ten koszt już był poniesiony i
+jest już zaksięgowany w kosztach i wielkość
+ewentualnych kosztów nie wzrośnie.</p>
+</div>
+<p>Właściwie do tego miejsca wszystko wydaje się jasne i zrozumiałe. Tak
+powinno działać zabezpieczenie.</p>
+<p>Tylko że z czasem firmie bardzo nie podoba się poziom kosztów
+transakcji zawieranych. Jeśli obroty wynoszą dziesiątki i setki
+milionów koszty te stanowią pokaźną pozycje. Tym bardziej,że zgodnie  z opinią podatkową Urzędów Skarbowych koszty nabycia opcji nie są zaliczany do kosztów uzyskania przychodu.</p>
+<p>Bank, któremu klient zwierzył się ze swych obserwacji o kosztach i w
+obawie o stratę klienta a może w trosce o jego komfort??  wymyśla taką
+konstrukcję transakcji aby klient nie ponosił tych kosztów.
+Zaproponowana transakcja wygląda następująco:</p>
+<div class="admonition-scenariusz-2 admonition">
+<p class="admonition-title">Scenariusz  2</p>
+<p>Firma Export S.A chcąc zabezpieczyć swój przyszły
+przychód w wysokości 1 miliona USD na wypadek wzrostu
+wartości złotówki. Ponieważ nie chce płacić bankowi
+International za wykupienie opcji walutowej 10 000 PLN
+bank International proponuje: ja sprzedam Ci opcję
+walutową za 10 000 PLN w której zobowiążę się do
+wykupienia Twojego miliona dolarów po korzystnym 2,50
+PLN, to kosztować Cię będzie 10 000PLN ale Ty
+sprzedasz mi opcję walutową wartą, powiedzmy 10 000
+PLN, i zgodnie z tą umową zobowiążesz się, że
+sprzedasz bankowi 1 milion USD po kursie 2,50PLN za
+USD. Ponieważ Klient ma płacić bankowi a bank
+klientowi równe kwoty opłaty za opcje wiec sumaryczny
+koszt dla klienta wynosi 0 PLN. Koszty takie
+zadawalają klienta. Ponadto firma Export S.A nie musi
+martwić się wzrastającą wartością
+złotówki. Rozwiązanie wydaje się idealne. Co prawda
+przykład jest teoretyczny więc cena opcji sprzedaży i
+kupna są identyczne. W praktyce tak nie jest ale od
+czego są specjaliści od finansów. Można bowiem
+regulować tak kwotą sprzedawanych przez klienta
+bankowi dolarów aby kwoty opłat za opcje były równe
+czego oczekuje klient.  Zadowolenie klienta -
+wartością naczelną dla banku. To, że Klient ma sprzedać
+więcej dolarów bankowi niż bank zobowiązuję w swej
+opcji kupić jest szczegółem. Przecież wystarczy
+popatrzeć na wykres by zobaczyć, że PLN się umacnia
+czyli bank i tak nie wykorzysta swej opcji.</p>
+</div>
+<p>I znów wszyscy są zadowoleni, tylko, że klient nie zauważa (może nie
+zauważył) , że wystawił opcje. Jako wystawca opcji ma obowiązek
+dostarczyć bankowi dolary po 2,50 jeśli bank tego zażąda.</p>
+<p>Sytuacja na rynku nagle uległa zmianie. Kryzys finansowy USA pojawił
+się w roku 2008 powodując duże perturbacje na rynkach, w tym na rynku
+walutowym.</p>
+<div class="figure align-center" id="id10" style="width: 340px">
+<a class="reference internal image-reference" href="_images/USD_2008b.png"><img alt="_images/USD_2008b.png" src="_images/USD_2008b.png" style="height: 230px;" /></a>
+<p class="caption"><span class="caption-text">Notowania  kursu  USD/PLN.</span><a class="headerlink" href="#id10" title="Stały odnośnik do tego obrazu">¶</a></p>
+</div>
+<p>Skutkiem wyprzedaży aktywów przez inwestorów zagranicznych w Polsce
+złoty uległ nagłemu osłabieniu.</p>
+<p>Wtedy pojawił się problem dla posiadaczy złożonych opcji, kiedy
+wartość złotego idzie w dół. 1 milion dolarów jaki zarobi firma Export
+S.A.  Bank International kupiłby po kursie 3,50 PLN za 1 USD. Tylko,
+że Firma Export S.A.  nie ma już wyboru – musi sprzedać swoje
+pieniądze bankowi International po kursie 2,50 za 1 USD. Ponadto
+często więcej dolarów niż zabezpieczała sobie kupując opcje put (
+pierwsza opcja) bo druga opcja zawarta celem zrównoważenia opłaty
+(kosztów opcji) za opcje put często opiewała na większą kwotę. Kolejny
+raz na rynku zdarzyła się sytuacja, której nie przewidzieli
+zawierający transakcje albo inaczej uznali prawdopodobieństwo
+wystąpienia jako bardzo niskie, wręcz niemożliwe do wystąpienia w
+realnym świecie. Kolejny raz rynek brutalnie nauczał pokory . Zerowe
+prawdopodobieństwo nie istnieje.  Ilość zawartych transakcji była
+znaczna. Patrz wykres poniżej.</p>
+<div class="figure align-center" style="width: 340px">
+<a class="reference internal image-reference" href="_images/tip.png"><img alt="_images/tip.png" src="_images/tip.png" style="height: 230px;" /></a>
+</div>
+<p>Firmy wpadły w kłopoty finansowe. W mediach pojawiło się określenie
+„toksyczne opcje” jako określenie umów zawieranych z
+bankami przez polskie przedsiębiorstwa w 2008 roku, które często
+doprowadzały je do kłopotów finansowych, z bankructwem włącznie. Jak
+to bywa z mediami określenie nie było precyzyjne bo firmy zawierały
+różne umowy z różnymi bankami, ale miało cel wywołania emocji.
+Zaistniała sytuacja była analizowana i omawiana szeroko bo i problem
+był spory i w przypadku niektórych firm zakończył się bankructwem <a class="footnote-reference brackets" href="#f1" id="id1">1</a>.</p>
+<p>Konkluzje prawie wszystkich opracowań były zgodne i
+podobne. Wypracowując opisaną strategie zabezpieczającą przed ryzykiem
+kursowym i podpisując umowy z bankami firmy przyjęły na siebie jeszcze
+większe ryzyko kursowe niż to, przed którym szukały ochrony.
+Ponadto, asymetria umów, w których nominał waluty opcji wystawionych
+przewyższa nominał waluty opcji nabytych, wskazywał na brak orientacji w
+działaniu opcji albo brak zrozumienia wykonywanych transakcji(co
+wydaje się mało prawdopodobne) albo na działania spekulacyjne. Firmy
+jako podmioty nie zajmujące się działalnością na rynkach finansowych
+nie powinny były wystawiać opcji.</p>
+<p>Zawsze, w każdej działalności, należy kierować się zasadą
+ograniczonego zaufania do partnerów ( a szczególnie finansowych, i szczególnie gdy
+oferowane jest ” coś za darmo”) i nigdy nie wchodzić posiadanie
+instrumentów finansowych, których działania do końca się nie rozumie.
+Na rynku pojawiają się ciągle coraz bardziej skomplikowane i wymyślne
+instrumenty finansowe projektowane przez świetnie wyszkolonych
+specjalistów posiadających znakomita wiedzę matematyczno- numeryczną,
+których działanie nie wszyscy do końca rozumieją a ryzyka których nie
+jest w pełni znane.</p>
+<p>Jednak należy podkreślić jeden pozytywny element omawianej
+sytuacji. Firmy nie finansowe podeszły aktywnie do zarządzania ryzykiem
+finansowym, w tym przypadku , kursowym. Omówiony został przypadek firm,
+które nie zrobiły tego idealnie i popełniły pewne błędy na słusznej
+drodze, słusznych decyzji o zabezpieczeniu. W powyższym przypadku nie
+mówiono o firmach, które zrobiły to zabezpieczenie właściwie.</p>
+<p class="rubric">Footnotes</p>
+<dl class="footnote brackets">
+<dt class="label" id="f1"><span class="brackets"><a class="fn-backref" href="#id1">1</a></span></dt>
+<dd><p>Ciekawą analizę problemu można przykładowo znaleźć w pracy:
+Danuta Dziagwo, Leszek Dziagwo. „Ryzyko instrumentów
+pochodnych w obrocie gospodarczym na przykładzie „Opcji
+toksycznych””- Zeszyty Naukowe Uniwersytetu Szczecińskiego Nr
+752 Ekonomiczne Problemy Usług NR 102 2013.</p>
+</dd>
+</dl>
+</div>
+</div>
+</div>
+
+
+          </div>
+        </div>
+      </div>
+      <div class="sphinxsidebar" role="navigation" aria-label="main navigation">
+        <div class="sphinxsidebarwrapper">
+  <div class="sphinxlocaltoc">
+  <h3><a href="index.html">Table Of Contents</a></h3>
+  <ul>
+<li><a class="reference internal" href="#">10. Opcje</a><ul>
+<li><a class="reference internal" href="#podstawowe-cechy-opcji">10.1. Podstawowe cechy opcji</a></li>
+<li><a class="reference internal" href="#opcja-call-i-opcja-put">10.2. Opcja <strong>call</strong> i opcja <strong>put</strong></a></li>
+<li><a class="reference internal" href="#terminologia-rynku-opcji">10.3. Terminologia rynku opcji</a><ul>
+<li><a class="reference internal" href="#cena-wykonania">10.3.1. Cena wykonania</a></li>
+<li><a class="reference internal" href="#premia">10.3.2. Premia</a></li>
+<li><a class="reference internal" href="#data-wygasniecia-zapadalnosci-t">10.3.3. Data wygaśnięcia/zapadalności T</a></li>
+<li><a class="reference internal" href="#wykonanie">10.3.4. Wykonanie</a></li>
+<li><a class="reference internal" href="#prawa-i-obowiazki">10.3.5. Prawa i obowiązki</a></li>
+<li><a class="reference internal" href="#wartosc-wewnetrzna-intrinsic-value">10.3.6. Wartość wewnętrzna (<em>Intrinsic Value</em>)</a></li>
+</ul>
+</li>
+<li><a class="reference internal" href="#profile-ryzyka-w-czterech-przypadkach">10.4. Profile ryzyka w czterech przypadkach</a><ul>
+<li><a class="reference internal" href="#long-call-kupujemy-prawo-kupna">10.4.1. Long Call - kupujemy prawo kupna</a></li>
+<li><a class="reference internal" href="#short-call-sprzedajemy-prawo-kupna">10.4.2. Short Call - sprzedajemy prawo kupna</a></li>
+<li><a class="reference internal" href="#long-put-kupujemy-prawo-sprzedazy">10.4.3. Long Put - kupujemy prawo sprzedaży</a></li>
+</ul>
+</li>
+<li><a class="reference internal" href="#jak-zalezy-profil-wyplaty-od-parametrow-k-s">10.5. Jak zależy profil wypłaty od parametrów K,S?</a><ul>
+<li><a class="reference internal" href="#kupujemy-opcje-call">10.5.1. Kupujemy opcję Call</a></li>
+<li><a class="reference internal" href="#sprzedajemy-opcje-call">10.5.2. Sprzedajemy opcję Call</a></li>
+<li><a class="reference internal" href="#kupujemy-opcje-put">10.5.3. Kupujemy opcję Put</a></li>
+<li><a class="reference internal" href="#sprzedajemy-opcje-put">10.5.4. Sprzedajemy opcję Put</a></li>
+</ul>
+</li>
+<li><a class="reference internal" href="#wycena-opcji">10.6. Wycena opcji</a></li>
+<li><a class="reference internal" href="#opcje-i-lekcja-na-ich-temat-jaka-wynika-z-klopotow-polskich-firm-z-opcjami-w-roku-2008">10.7. Opcje i lekcja na ich temat,  jaka wynika z kłopotów  polskich firm z opcjami w roku 2008</a><ul>
+<li><a class="reference internal" href="#sytuacja-na-rynku-walutowym-w-okolicach-roku-2008-uwarunkowania-eksporterow">10.7.1. Sytuacja   na rynku walutowym w okolicach roku 2008 - uwarunkowania   eksporterów</a></li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+
+  </div>
+  <h4>Poprzedni temat</h4>
+  <p class="topless"><a href="kontrakty_terminowe.html"
+                        title="poprzedni rozdział"><span class="section-number">9. </span>Kontrakty terminowe - wycena</a></p>
+  <h4>Następny temat</h4>
+  <p class="topless"><a href="opcje-wycena.html"
+                        title="następny rozdział"><span class="section-number">11. </span>Metody wyznaczania ceny opcji</a></p>
+  <div role="note" aria-label="source link">
+    <h3>Ta strona</h3>
+    <ul class="this-page-menu">
+      <li><a href="_sources/opcje.rst.txt"
+            rel="nofollow">Pokaż źródło</a></li>
+    </ul>
+   </div>
+<div id="searchbox" style="display: none" role="search">
+  <h3 id="searchlabel">Szybkie wyszukiwanie</h3>
+    <div class="searchformwrapper">
+    <form class="search" action="search.html" method="get">
+      <input type="text" name="q" aria-labelledby="searchlabel" />
+      <input type="submit" value="Szukaj" />
+    </form>
+    </div>
+</div>
+<script>$('#searchbox').show(0);</script>
+        </div>
+      </div>
+      <div class="clearer"></div>
+    </div>
+  </div>
+  <div class="relbar-bottom">
+    
+    <div class="related" role="navigation" aria-label="related navigation">
+      <h3>Nawigacja</h3>
+      <ul>
+        <li class="right" style="margin-right: 10px">
+          <a href="genindex.html" title="Indeks ogólny"
+             >indeks</a></li>
+        <li class="right" >
+          <a href="opcje-wycena.html" title="11. Metody wyznaczania ceny opcji"
+             >dalej</a> &nbsp; &nbsp;</li>
+        <li class="right" >
+          <a href="kontrakty_terminowe.html" title="9. Kontrakty terminowe - wycena"
+             >wstecz</a> &nbsp; &nbsp;</li>
+  <li><a href="index.html">Analiza Rynków Finansowych</a> &#187;</li>
+   
+      </ul>
+    </div>
+  </div>
+  
+  <div class="footer">
+    <a class="logo" href="http://upgow.us.edu.pl/" target="_blank"><img src="_static/upgow.png" alt="UPGOW"/></a><br/>
+    <img src="_static/stopka_EU.png" alt="EU"/><br/>
+    &copy; Copyright 2013, ML and MK.
+    Created using <a href="http://sphinx.pocoo.org/">Sphinx</a> 2.4.0.
+  </div>
+  </body>
+</html>

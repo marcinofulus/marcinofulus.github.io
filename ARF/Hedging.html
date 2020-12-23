@@ -1,0 +1,1635 @@
+
+
+  
+<!DOCTYPE html>
+
+<html xmlns="http://www.w3.org/1999/xhtml" lang="pl">
+  <head>
+    <meta charset="utf-8" />
+    <title>14. Hedging &#8212; Analiza Rynków Finansowych</title>
+    <link rel="stylesheet" href="_static/upgow.css" type="text/css" />
+    <link rel="stylesheet" href="_static/pygments.css" type="text/css" />
+    <link rel="stylesheet" href="http://fonts.googleapis.com/css?family=Noticia+Text|Open+Sans|Droid+Sans+Mono&subset=latin,latin-ext" type="text/css" />
+    <script id="documentation_options" data-url_root="./" src="_static/documentation_options.js"></script>
+    <script src="_static/jquery.js"></script>
+    <script src="_static/underscore.js"></script>
+    <script src="_static/doctools.js"></script>
+    <script src="_static/language_data.js"></script>
+    <script src="_static/translations.js"></script>
+    <script async="async" src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.5/latest.js?config=TeX-AMS-MML_HTMLorMML"></script>
+    <script src="_static/jquery.cookie.js"></script>
+    <script src="_static/cloud.js"></script>
+    <script type="text/javascript" src="http://sagecell.sagemath.org/static/jquery.min.js"></script>
+    <script type="text/javascript" src="http://sagecell.sagemath.org/static/embedded_sagecell.js"></script>
+    <script type="text/javascript">
+        sagecell.makeSagecell({inputLocation: ".sage_linked",
+                               linked: true,
+                       	evalButtonText: 'Wykonaj'});
+        sagecell.makeSagecell({inputLocation: ".sage_unlinked",
+                               linked: false,
+                           evalButtonText: 'Wykonaj'});
+    </script>
+
+    <style type="text/css">
+        .sagecell .CodeMirror-scroll {
+            overflow-y: hidden;
+            overflow-x: auto;
+        }
+        .sagecell .CodeMirror {
+            height: auto;
+        }
+    </style>
+    
+    <link rel="index" title="Indeks" href="genindex.html" />
+    <link rel="search" title="Szukaj" href="search.html" />
+    <link rel="next" title="15. VaR" href="var.html" />
+    <link rel="prev" title="13. Zarządzanie ryzykiem" href="ryzyko.html" />
+ 
+  <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, minimum-scale=1">
+  </head><body>
+  <div class="relbar-top">
+    
+    <div class="related" role="navigation" aria-label="related navigation">
+      <h3>Nawigacja</h3>
+      <ul>
+        <li class="right" style="margin-right: 10px">
+          <a href="genindex.html" title="Indeks ogólny"
+             accesskey="I">indeks</a></li>
+        <li class="right" >
+          <a href="var.html" title="15. VaR"
+             accesskey="N">dalej</a> &nbsp; &nbsp;</li>
+        <li class="right" >
+          <a href="ryzyko.html" title="13. Zarządzanie ryzykiem"
+             accesskey="P">wstecz</a> &nbsp; &nbsp;</li>
+  <li><a href="index.html">Analiza Rynków Finansowych</a> &#187;</li>
+   
+      </ul>
+    </div>
+  </div>
+  
+  <div class="content">  
+
+    <div class="document">
+      <div class="documentwrapper">
+        <div class="bodywrapper">
+          <div class="body">
+            
+  <div class="section" id="hedging">
+<h1><span class="section-number">14. </span>Hedging<a class="headerlink" href="#hedging" title="Stały odnośnik do tego nagłówka">¶</a></h1>
+<div class="section" id="hedging-cel-operacji-zabezpieczenia-przed-ryzykiem">
+<h2><span class="section-number">14.1. </span>Hedging: cel  operacji  zabezpieczenia przed ryzykiem<a class="headerlink" href="#hedging-cel-operacji-zabezpieczenia-przed-ryzykiem" title="Stały odnośnik do tego nagłówka">¶</a></h2>
+<p>Każda działalność człowieka posiada bardziej widoczny czy też bardziej
+ukryty element finansowy. Z finansami wiąże się istnienie ryzyka
+finansowego czyli takiej sytuacji, w której wynik finansowy zaczyna
+odbiegać od planowanego z powodów zmian sytuacji na rynkach
+finansowych.  Każdy, kto starannie prowadzi działalność gospodarczą
+chce by ta rozbieżność nie niszczyła szans lepszej i planowanej
+przyszłości i stara się zapobiegać negatywnym skutkom tych
+zmian. Ruchy cen na rynkach finansowych wpływają zarówno na aktywa
+jaki pasywa bilansu firm.</p>
+<p>Zabezpieczanie się przed negatywnymi zmianami na rynkach finansowych
+dotyczących zmienności cen i kursów nosi nazwę hedging’u.</p>
+<div class="admonition-przyklad admonition">
+<p class="admonition-title">Przykład</p>
+<p>Firma kupiła w roku 2005 akcje firmy holenderskiej po 200EUR płacąc
+3.25 PLN za EUR, sprzedała je w roku 2013 po 250 EUR, gdy kurs
+wymiany wynosił 4.20 PLN/EUR.  Zwrot z inwestycji wyniósł 40% licząc
+w Euro lub ok. 62% licząc w PLN.  Jaki jest „prawdziwy„ zwrot z
+inwestycji???  Czy w ogóle coś takiego jak „prawdziwy” w ogóle
+istnieje?  Jak często należy określać rentowność?? Codziennie???</p>
+</div>
+<p>Ten przykład ilustruje problemy z ryzykiem firmy w aspekcie księgowym.</p>
+<p>Cena posiadanego aktywa wzrosła, co zapewnie cieszy właściciela, ale
+gdyby zmalała, to dał by się odczuć aspekt strat w transakcjach
+bieżących.</p>
+<p>Inny aspektem jest aspekt ryzyka zmian w dłuższym terminie. Posiadacz
+długiej pozycji w instrumentach rynku kapitałowego będzie się obawiał
+o to, że ich cena może spaść w pewnym okresie czasu. Przykładowa
+posiadana w portfelu akcja firmy holenderskiej kupiona po 200EUR,
+ostatnio była wyceniona na 230 EUR, czy akurat cena jej wzrosła. A co
+by było gdyby zmalala?</p>
+<p>Nic dziwnego, ze będzie się starał o zabezpieczenie się przed taką
+ewentualnością.</p>
+<p>W zależności od potrzeb, umiejętności i wielkości prowadzonych
+operacji zabezpieczający używają różnych sposobów zabezpieczania się
+przed ryzykiem.  Stosują różne instrumenty i strategie.  Nie istnieje
+bowiem jeden optymalny, „jedynie właściwy” sposób
+zabezpieczenia. Zarówno metoda zabezpieczenia, zestaw stosowanych
+technik i instrumentów zależy od sytuacji i celu
+zabezpieczającego. Najważniejszym jest bowiem rozumienie jaki cel chce
+się osiągnąć i jak funkcjonuje rynek i jakie instrumenty mogą być
+pomocne, biorąc pod uwagę, ich mocne ich strony jak i ich
+niedostatki. Należy pamiętać, że zabezpieczanie się przed ryzykiem
+rynkowym kosztuje, ale koszt ten jeśli jest niższy od możliwych strat
+jest często wartym poniesienia.</p>
+<p>Nie podjęcie decyzji o zabezpieczeniu się przed ryzykiem jest
+naturalnie podjęciem decyzji o jego absorbcji. Z wszystkimi
+konsekwencjami tej decyzji. Czasami takie działania wynikają nie z
+braku świadomości ryzyka czy braku umiejętności hedgingu. Często taka
+metoda stosowana jest przez firmy mające możliwość przełożenia ryzyka
+na kontrahentów. Przykładem takiej strategii są działania firm
+dostarczające paliwa na rynek.  Jako klienci tych firm, kupując na
+stacjach benzynowych paliwo odczuwamy na sobie wszelkie zmiany cen
+ropy jak i zmiany cen waluty.</p>
+<p>Tak, niejako, przy okazji, poznajemy na sobie najprostszą z metod
+postępowania z ryzykiem czyli przesuwania jego efektów na innych.</p>
+<p>Jak więc wynika z powyższego opisu celem hedgingu jest przesunięcie
+ryzyka jednego podmiotu gospodarczego na inny. Instytucja (osoba)
+która pozbywa się ryzyka nazywana jest zabezpieczającym (hedger).  Nie
+wszystkie instytucje „uciekają” od ryzyka. Na rynku istnieje wiele
+instytucji i osób specjalizujących się w braniu ryzyka na siebie w
+zamian za oczekiwane korzyści tej usługi. To ta grupa uczestników
+rynku daje mu płynność i sprawne funkcjonowanie.</p>
+<p>Różne aspekty ryzyka, jego skutki oraz podejmowane działania wynikają
+z celu jaki sobie stawiamy w stosunku do ryzyka.</p>
+<p>Zabezpieczający zabezpiecza się przed niekorzystnym z jego punktu
+widzenia ruchem cen aktywa, które jest mu potrzebne do funkcjonowania
+na rynku oraz/ lub wzrostem zmienności ceny, co prowadzi do wzrostu
+ryzyka zajętej pozycji.</p>
+<p>Innymi słowy uczestnik rynku zajmujący pozycje długą (Long) będzie
+obawiał się spadku cen aktywa (zmiana wartości pozycji w Aktywach) i
+będzie starał się przed nim zabezpieczyć.  Inaczej posiadacz pozycji
+krótkiej (Short), ten będzie się obawiał wzrostu ceny (wzrost wartości
+zobowiązań w Pasywach) i będzie się chciał zabezpieczyć przed takim
+scenariuszem.</p>
+<p>W celu zabezpieczenia należy znaleźć taki instrument zabezpieczający,
+który pozwoli „zdjąć” całe (lub prawie całe) ryzyko z
+zabezpieczającego. Tzn. znaleźć taki instrument, którego ruch ceny
+odzwierciedla, jak najlepiej, ruch cen zabezpieczanego aktywa.</p>
+<p>Zabezpieczenie idealne to takie zabezpieczenie, w którym ruch cen
+instrumentu zabezpieczającego jest dokładnie negatywnie skorelowany z
+ruchem cen aktywa zabezpieczanego.</p>
+<p>Niestety, bardzo często nie jest możliwe stworzenie idealnego
+zabezpieczenia, gdyż dokładnie skorelowany instrument zabezpieczający
+jest niedostępny, albo inaczej nie istnieje na rynku.  W takim
+przypadku stosuje się tylko częściowe (niepełne) zabezpieczenie. Takie
+rozwiązanie jest często lepsze niż poniechanie procesu zabezpieczania.</p>
+</div>
+<div class="section" id="ryzyko-walutowe-i-ryzyko-zmiany-ceny">
+<h2><span class="section-number">14.2. </span>Ryzyko walutowe i ryzyko zmiany ceny<a class="headerlink" href="#ryzyko-walutowe-i-ryzyko-zmiany-ceny" title="Stały odnośnik do tego nagłówka">¶</a></h2>
+<p>Firmy prowadząc swą działalność poddane są efektom ryzyk ich
+działalności. Oba wymienione w tytule ryzyka dotyczą firm, których
+działalność opiera się na korzystaniu z międzynarodowych rynków
+finansowych. Do tej grupy nalężą firmy kupujące/sprzedające surowce na rynku globalnym.</p>
+<p>Krótkie spojrzenie na takie firmy uwidacznia dwie sytuacje. Firma
+sprzedając swe produkty chce, by cena za jej produkty nie
+zmalała. Firma, która kupuje za granicą, np. surowiec chce by jego
+cena nie wzrosła. Takie zachowanie bowiem gwarantuje firmom uzyskanie
+założonego wyniku finansowego oraz generowanie zysku, co jest głównym
+powodem ich funkcjonowania.</p>
+<p>Jeśli ich działalność dotyczy korzystania z rynków zagranicznych to
+szczególnie w przypadku polskich firm narażone są na ryzyko
+walutowe. Złoty w odróżnieniu od euro czy USD, nie jest walutą używaną przez
+inne niż Polska kraje. Najczęściej aktywa na rynkach światowych
+wyceniane są w USD.</p>
+<p>Nawet jeśli ceny aktywów pozostają niezmienne, na wyniki finansowe
+firm ma jeszcze wpływ kurs waluty. Firmy w swym dążeniu do
+maksymalizacji zysków mają przeciwstawne oczekiwania co do zmian kursu
+waluty. Firmy sprzedające produkt za granice są zainteresowane w tym,
+aby za każdą jednostkę waluty obcej wpływów dostać jak najwięcej
+jednostek waluty polskiej, czyli chcą aby waluta polska była
+słaba. Firmy natomiast kupujące za granicą chcą płacić za każdą
+jednostkę waluty obcej jak najmniejszą ilość polskich złotych,
+czyli są zainteresowane w tym by polska waluta była jak najsilniejsza.</p>
+<p>Te różne oczekiwania spowodowane są tym, że ich wpływy (aktywa) są
+denominowane w innej walucie niż koszty (wypływy, pasywa). Ryzyko
+jakie występuje w tej sytuacji to ryzyko kursowe. O istnieniu ryzyka
+kursowego boleśnie się przekonali Ci, którzy brali kredyty hipoteczne
+we CHF a spłacali je w PLN.  W momencie silnej aprecjacji CHF ich raty
+kredytów boleśnie wzrosły.</p>
+<p>Jak wspomniane firmy mogą w takiej sytuacji zabezpieczać się przed
+ryzykiem?</p>
+<p>Najprostsza metoda eliminacji takiego ryzyka to doprowadzenie do
+takiej sytuacji by wpływy były w tej samej walucie co wydatki i to
+najlepiej w tym samej wielkości. Jest to bardzo naturalna metoda
+zabezpieczenia i niezwykle skuteczna.</p>
+<p>Innym sposobem zabezpieczenia się przed ryzykiem kursowym jest
+zabezpieczenie dostaw waluty po niezmiennym kursie.  Ale takie
+zabezpieczenie wymaga już używania innych, bardziej złożonych technik
+i instrumentów finansowych. Przykładem takiego rozwiązania są
+kontrakty <strong>forward</strong> omówione w części „Wprowadzenie do
+Funkcjonowania Rynków finansowych” <a class="reference external" href="http://el.us.edu.pl/ekonofizyka/index.php/RF:Rynek_wymiany_walut#Kurs_wymiany_transakcji_spot_a_kurs_transakcji_terminowej_-forward.2C_ryzyko_kursowe">link</a>. Wadą
+takich kontraktów jest to, że jako kontrakty OTC, są mało płynne i
+każde nawet małe opóźnienie czasu wpływów powoduje duże problemy
+płynnościowe kupującego taki kontrakt.</p>
+<p>Analizując sytuacje omawianych firm obserwuje się, że oprócz
+wspomnianego ryzyka kursowego (PLN nie jest walutą światową jak USD
+czy EUR) występuję w ich przypadku ryzyko rynku, czyli wahań cen
+surowców. Surowce te na globalnym rynku wyceniane są zazwyczaj w
+którejś z głównych walut światowych.</p>
+<p>Eksporter czyli producent surowca chcąc rozsądnie zarządzać finansami
+firmy musi kalkulować cenę surowca, który zamierza sprzedawać w
+przyszłości tak by móc zapewnić działanie swej firmy. Obawia się, aby
+ceny produkowanego przez niego surowca, np. miedzi, złota, srebra albo
+przykładowo produktów rolnych nie spadły poniżej pewnego znanego mu
+poziomu. Jego naturalna pozycja rynkowa jest LONG i jest
+zainteresowany by cena dostawy była odpowiednio wysoka. Chętnie będzie
+negocjował kontrakty długoterminowe na dostawy swej produkcji po
+cenach, które dzisiaj może zaakceptować i ustalić na przyszłość tak by
+stabilizować produkcję swej firmy w przyszłości.</p>
+<p>Importer surowca, firma kupująca surowiec by przykładowo zrobić z
+niego inny produkt, jest zainteresowana by kupować go najtaniej i
+ustalić tanie ceny na przyszłość. Przykładem może być producent kabli
+elektrycznych, który używa miedzi jako surowca do produkcji. Importer
+ma naturalną pozycję SHORT i interesują go najniższe możliwe ceny
+dostaw. Jak widać ich pozycje negocjacyjne są przeciwstawne.</p>
+<p>Jeśli cena rynkowa surowca jest akceptowalna, to obie strony są
+interesowne w zawarciu kontraktów na przyszłość po ustalonej cenie,
+czyli kontraktów forward. Taki kontrakt pozwala na racjonalne
+zarządzanie finansowe i stabilizuje sytuacje firmy. Kontrakty forward
+lub futures są stosowane często w takich przypadkach bo ustalają
+przyszła cenę.</p>
+<p>Niestety cena na rynkach zmienia się i każda ze stron może po upływie
+pewnego czasu, nie być zadowolona z wynegocjowanej ceny dostaw. Cena
+rynkowa bowiem może być dużo wyższa (strata producenta) lub dużo
+niższa (strata importera). Cena nawet w kontraktach na długie terminy
+dostaw nie jest raczej stała w zbyt długim okresie czasu. Rynek
+dyktuje jej zmienność.</p>
+<p>W takich przypadkach strony długoterminowych umów zgadzają się na
+stosowanie cen średnich z ustalonych okresów czasu.  Najczęściej
+jednak decydują się na stosowanie cen rynkowych i stosowanie metod
+zabezpieczenia swych interesów zabezpieczając się przed wahaniami cen
+rynkowych.</p>
+</div>
+<div class="section" id="zabezpieczenie-przy-pomocy-kontraktow-futures">
+<h2><span class="section-number">14.3. </span>Zabezpieczenie przy pomocy kontraktów Futures<a class="headerlink" href="#zabezpieczenie-przy-pomocy-kontraktow-futures" title="Stały odnośnik do tego nagłówka">¶</a></h2>
+<p>Short hedge, Long hedge.</p>
+<p>U podstaw korzystania z rynku terminowego futures leżą następujące
+fakty:</p>
+<ol class="arabic simple">
+<li><p>Ponieważ ceny na rynku futures i rynku spot dotyczą tego samego
+aktywa (surowca) w dniu dostawy ceny te powinny być równe. Gdyby
+nawet pojawiła się możliwość arbitrażu między rynkami to czujni
+uczestnicy rynku z niej skorzystają i ceny szybko się wyrównają.</p></li>
+<li><p>Jeśli zajmiemy na rynku terminową pozycję odwrotną do pozycji na
+rynku natychmiastowym, to jeśli ceny będą wzrastać to zysk na
+jednej pozycji będzie równy stracie na drugiej tak jak pokazuje to
+rysunek</p></li>
+</ol>
+<div class="figure align-center" id="id1" style="width: 350px">
+<img alt="_images/waga.png" src="_images/waga.png" />
+<p class="caption"><span class="caption-text">Zasada hedgingu przy pomocy kontraktów Futures. Cena kupna
+kontraktu na jednym rynku zachowuje się odwrotnie do ceny sprzedaży
+na drugin rynku.</span><a class="headerlink" href="#id1" title="Stały odnośnik do tego obrazu">¶</a></p>
+</div>
+<p>Innymi słowy w wyniku takiego zabiegu sumaryczny wynik ewentualnych
+zysków czy strat będzie równy zero czyli wynik finansowy nie ulega
+zmianie bez względu na wahania ceny.</p>
+<div class="figure align-center" id="id2" style="width: 450px">
+<img alt="_images/hedge_futures.png" src="_images/hedge_futures.png" />
+<p class="caption"><span class="caption-text">Zabezpieczenie się przed zmianą ceny przy pomocy kontraktu futures.</span><a class="headerlink" href="#id2" title="Stały odnośnik do tego obrazu">¶</a></p>
+</div>
+<p>Przykład pokazany na rysunku pokazuje sytuacje zabezpieczenia się
+przed zmiana spadkiem ceny na posiadane aktywo (surowiec). Obawiając
+się spadku ceny w przyszłości (strata) producent sprzedaje kontrakt
+terminowy (futures) na tą sama ilość surowca (i dla uproszczenia
+przyjmijmy z taką samą datą dostawy jak kontrakt dostawy fizycznej).</p>
+<p>W tej sytuacji możliwa strata z powodu możliwego spadku ceny jest
+wyrównywana przez zysk na transakcji terminowej.</p>
+<p>Taka transakcja zabezpieczająca nazywa się <em>Short Hedge</em>, gdzie
+<strong>short</strong> opisuje akcje sprzedaży (przyjęcia pozycji short) aktywa
+(surowca, akcji, itd.) jako instrumenty pochodnego (futures) co
+zabezpiecza przed stratami spadku ceny instrumentu
+posiadanego. Zastosowanie właściwe takiej strategii pozwala na to by
+zyski z instrumentu pochodnego równoważyły straty z pozycji długiej
+(i odwrotnie).</p>
+<p><strong>Short hedge</strong> jest często stosowana strategia zabezpieczania przez
+producentów (surowce, produkty spożywcze, etc.), którzy chętnie
+poniosą pewne koszty „zamrażając” ceny w przyszłości.</p>
+<p>Dla zobrazowania powyższego postepowania można sobie wyobrazić
+producenta surowca przykładowo; producent miedzi ( podobnie postepować
+będzie gospodarstwo rolne, itd.), który musi w przyszłości dostarczyć
+wytwór swej pracy po cenie rynkowej i obawia by cena ta nie była
+niższa niż koszty wytwarzania produktu.</p>
+<div class="admonition-przyklad admonition">
+<p class="admonition-title">Przykład</p>
+<p>Cena miedzi utrzymuje się na rynku kasowym wynosi 3.21
+USD za funt (ok. 0.5kg) a wielkość kontraktu wynosi
+25 000 funtów (notowania COMEX).  Producent wie, że
+powinien dostarczyć za dwa miesiące 25 000 funtów
+miedzi na rynek. Dla uproszczenia wielkość dostawy to
+wielkość 1 kontraktu giełdowego na dostawę miedzi w
+przyszłości.  Obawia się by cena rynkowa w chwili
+dostawy nie była niższa niż jego koszty wytwarzania,
+które wynoszą (powiedzmy) 2.89 USD za funt, czyli
+72 250 za kontrakt.  Dzisiejsza cena miedzi na rynku
+terminowym futures wynosi 3.18 USD za funt na miedz w
+terminie dostawy za dwa miesiące. Chcąc się
+zabezpieczyć producent sprzedaje kontakt futures na
+dostawę za dwa miesiące za cenę 3.18 USD za funt czyli
+79 500 USD za kontrakt.</p>
+<p>Za dwa miesiące cena miedzi na rynku kasowym (i na
+dostawę w tym samym czasie na rynku futures) wynosi
+2.8 USD za funt czyli 70 000 USD za kontrakt.  Czyli
+zysk jaki odnotował ze sprzedaży futures wyniósł
+79 500 - 70 000 = 9 500 USD Sprzedając miedź na rynku
+kasowym odnotował wynik:</p>
+<blockquote>
+<div><ul class="simple">
+<li><p>wpływ ze sprzedaż: 70 000 USD</p></li>
+<li><p>koszty wytworzenia: 72 250 USD,</p></li>
+</ul>
+</div></blockquote>
+<p>czyli stracił 70 000 - 72 250 = - 2 250
+USD. Uwzględniając zyski z rynku futures całkowity
+jego bilans jest dodatni:</p>
+<ul class="simple">
+<li><p>9 500 - 2 250 = 7 250 USD</p></li>
+</ul>
+<p>Innymi słowy mimo, że rynek zmusił producenta do
+sprzedaży poniżej kosztów wytworzenia jego wynik
+finansowy jest dodatni, czyli odnotowuje zysk mimo
+spadku ceny.</p>
+<p>Zabezpieczenie zadziałało.</p>
+</div>
+<p>Podobną strategię zastosuje firma, która pożyczyła 10 milionów w
+banku na 1% powyżej trzymiesięcznej stopy depozytowej z prawem
+rolowania co kwartał. W dacie następnego rolowania stopa procentowa
+może być wyższa, więc firma decyduje się zabezpieczyć poprzez sprzedaż
+trzy miesięcznych kontraktów futures na stope procentową o wartości nominalnej
+odpowiadającej pożyczce bankowej. Niech trzymiesięczna stopa
+depozytowa (referencyjna) wynosi 12% rocznie.</p>
+<p>Sytuacja  na początku transakcji:</p>
+<table class="docutils align-default">
+<colgroup>
+<col style="width: 50%" />
+<col style="width: 50%" />
+</colgroup>
+<thead>
+<tr class="row-odd"><th class="head"><p>Rynek natychmiastowy (kasowy)</p></th>
+<th class="head"><p>Rynek futures</p></th>
+</tr>
+</thead>
+<tbody>
+<tr class="row-even"><td><p>Maj</p></td>
+<td></td>
+</tr>
+<tr class="row-odd"><td><p>Pożyczyła po 13% + (12% +1%)</p></td>
+<td><p>Sprzedała kontrakty marcowe na
+trzymiesięczną stopę po cenie, załóżmy,
+87,75 (100-12,25%)</p></td>
+</tr>
+<tr class="row-even"><td><p>Czerwiec</p></td>
+<td></td>
+</tr>
+<tr class="row-odd"><td><p>Firma roluje, czyli pożycza znów 10
+milionów na trzy kolejne miesiące po 14%
+(13%+1%)</p></td>
+<td><p>Skupuje z rynku kontrakty je zgodnie z
+86,75 tj.( 100-13,25%)</p></td>
+</tr>
+<tr class="row-even"><td><p>Czyli płaci dodatkowe odsetki za jeden
+kwartał czyli
+10 000 000(0.14-0.13)/4  = 25 000</p></td>
+<td><dl class="simple">
+<dt>Zysk na transakcji</dt><dd><p>1% 10mln <span class="math notranslate nohighlight">\(\times\)</span> 3/12= 25000</p>
+</dd>
+</dl>
+</td>
+</tr>
+</tbody>
+</table>
+<p>Czyli doskonałe zabezpieczenie bo zysk z rynku futures pozwala na
+utrzymaniu kosztu kredytu na poziomie niezmiennym 13% rocznie mimo
+zmiany stopy oprocentowania.</p>
+<p>W przypadku importera, czyli uczestnika rynku, który naturalnie
+potrzebuje kupować aktywa (surowce) na rynku wykorzystanie rynku
+instrumentów pochodnych do zabezpieczania jest podobne chociaż pozycje
+zajmowane są odwrotne w stosunku do sytuacji powyżej.</p>
+<p><strong>Long Hedge</strong> jest to strategia stosowana by zachować w przyszłości
+dzisiejszą cenę dostawy. Czyli firma wie, że w przyszłości musi kupić
+aktywo (surowiec) i chce „zamrozić” jego cenę zakupu.</p>
+<p>Inwestor zajmuje pozycje długą na rynku terminowym w celu
+zabezpieczenia się przed zmiennością przyszłej ceny.</p>
+<p>Long hedge jest stosowany również by zabezpieczyć krótka pozycje
+zajętą na rynku przez inwestora.</p>
+<p>Jako przykład niech posłuży ta sama, co w poprzednim przykładzie,
+firma. Tym razem, oczekuje za dwa miesiące wpływu 2
+milionów. Pieniądze te zamierza firma ta ulokować na depozycie
+krótkoterminowym. Firma (a właściwie jej zarząd) obawia się, że stopy
+depozytowe spadną zanim pieniądze wpłyną do firmy i zamierza się przed
+skutkiem takiej zmiany zabezpieczyć, kupując znane z poprzedniego
+przykładu kontrakty terminowe na stopę trzymiesięczną. Oczywiście, ich
+liczba wynika z wartości kwoty zabezpieczanej. Jest to strategia <strong>Long Hedge</strong></p>
+<p>Czyli</p>
+<table class="docutils align-default">
+<colgroup>
+<col style="width: 20%" />
+<col style="width: 40%" />
+<col style="width: 40%" />
+</colgroup>
+<tbody>
+<tr class="row-odd"><td><p>Czas</p></td>
+<td><p>rynek natychmiastowy(kasowy)</p></td>
+<td><p>Rynek terminowy (futures)</p></td>
+</tr>
+<tr class="row-even"><td><p>luty</p></td>
+<td><p>stopa depozytowa 11%</p></td>
+<td><p>zakup majowych kontraktów terminowych na
+trzymiesięczną stopę za 88.5%=100%-11,5%</p></td>
+</tr>
+<tr class="row-odd"><td><p>maj</p></td>
+<td><blockquote>
+<div><p>stopa depozytowa tylko 9.0%,</p>
+</div></blockquote>
+<p>inwestuje 2mln na 9.%,</p>
+</td>
+<td><p>sprzedaje kontrakty po 90.5%=100%-9.5%</p></td>
+</tr>
+<tr class="row-even"><td><p>zysk/strata</p></td>
+<td><dl class="simple">
+<dt>strata w odsetkach w kwartale</dt><dd><p>2 000 000[(0,11-0,09)/4=10 000</p>
+</dd>
+</dl>
+</td>
+<td><blockquote>
+<div><p>2 000 000 <span class="math notranslate nohighlight">\(\times\)</span> 2%  3/12=</p>
+</div></blockquote>
+<p><span class="math notranslate nohighlight">\(\times\)</span> 10 000  zysk=10 000</p>
+</td>
+</tr>
+</tbody>
+</table>
+<p>Czyli mimo spadku stopy depozytowej zysk z transakcji na instrumentach
+pochodnych pozwolił na utrzymanie wyniku finansowego na niezmienionym
+a korzystnym dla firmy poziomie.</p>
+<p>Czyli jawi się jasna zasada:</p>
+<div class="admonition-zasada-i admonition">
+<p class="admonition-title">Zasada I</p>
+<p>Jeśli mamy <strong>pozycje krótką</strong> na rynku natychmiastowym
+(<strong>kasowym</strong>). Innymi słowy, oczekujemy wpływu płatności i obawiamy
+się wzrostu cen lub spadku stóp procentowych, to <strong>kupujemy
+futures</strong> (stosujemy <strong>long hedge</strong>).</p>
+</div>
+<div class="admonition-zasada-ii admonition">
+<p class="admonition-title">Zasada II</p>
+<p>Jeśli mamy <strong>pozycje długą</strong> na rynku natychmiastowym
+(<strong>kasowym</strong>). Innymi słowy trzymamy gotówkę lub aktywo i martwimy
+się, że ceny spadną albo stopy wzrosną to <strong>sprzedajemy
+futures</strong>. Czyli stosujemy <strong>short hedge</strong>.</p>
+</div>
+<p>Dotąd zakładaliśmy, że zabezpieczona jest cała kwota wynikająca ze
+strategii i że dzień dostawy na rynku terminowym przypada w dniu
+transakcji na rynku kasowym. Teraz powoli uwolnimy się od
+uproszczeń. Popatrzmy formalnie na stosowane strategie.</p>
+<p>W strategii short hedge mamy następującą formalną sytuację.  Niech
+<span class="math notranslate nohighlight">\(F_1\)</span> oznacza cenę początkową kontraktu futures, a <span class="math notranslate nohighlight">\(F_2\)</span>
+cenę końcową futures, <span class="math notranslate nohighlight">\(S_2\)</span> końcową cenę aktywa kasowego. To
+wejściu w strategie short hedge cena realizacji strategii będzie
+równa:</p>
+<div class="math notranslate nohighlight">
+\[P_r=S_2 + (F_1 - F_2) = F_1 + \text{ basis }\]</div>
+<p>W przypadku wejścia w pozycje długą, celem zabezpieczenia (long hedge)
+koszt aktywa wynosi:</p>
+<div class="math notranslate nohighlight">
+\[P_a= S_2 - (F_2- F_1) = F_1 + \text{basis}\]</div>
+<p>Ten rodzaj strategii zawiera w sobie pewne ryzyko niedopasowania rynku
+terminowego do rynku kasowego. Różnica między ceną kasową a rynku
+terminowego to tzw. baza albo <em>basis</em>. O tym było mówione przy
+omawianiu rynku i kontraktów terminowych (patrz:
+<a class="reference internal" href="opcje.html#kontrakty-terminowe"><span class="std std-ref">Opcje</span></a>). Warto pamiętać o bazie jak i o <em>cost of
+carry</em>.</p>
+<p>Ryzyko bazy, a właściwie jego skutki czasem powoduje bardzo duże
+zaskoczenie tak, jak to miało miejsce w transakcjach Metallgeselschaft
+AG. Firma ta doświadczyła boleśnie istnienia ryzyka bazy w handlu nie
+metalami (jak by to mogło kojarzyć się z nazwą), ale ropa naftową, przy
+rolowaniu zabezpieczenia.</p>
+<p>Powstaje pytanie ile kontraktów futures jest potrzebne do
+zabezpieczenia pozycji kasowej?</p>
+<p>W celu odpowiedzi konstruujemy portfel z długiej pozycji kasowej i
+krótkiej pozycji <span class="math notranslate nohighlight">\(\boldsymbol{h}\)</span> jednostek odpowiednich
+kontraktów futures. Wartość <span class="math notranslate nohighlight">\(\boldsymbol{W}\)</span> portfela to:</p>
+<div class="math notranslate nohighlight">
+\[\boldsymbol{W} = \boldsymbol{P_k} - h \boldsymbol{P_f},\]</div>
+<p>gdzie:</p>
+<blockquote>
+<div><ul class="simple">
+<li><p><span class="math notranslate nohighlight">\(\boldsymbol{P_k}\)</span> - wartość pozycji kasowej,</p></li>
+<li><p><span class="math notranslate nohighlight">\(\boldsymbol{P_f}\)</span> wartość kontraktu futures,</p></li>
+<li><p><span class="math notranslate nohighlight">\(\boldsymbol{h}\)</span> - współczynnik zabezpieczenia.</p></li>
+</ul>
+</div></blockquote>
+<p>Optymalna wartość <span class="math notranslate nohighlight">\(h\)</span> to taka wartość, gdy zabezpieczenie będzie
+idealne, czyli zmiana wartości portfela nie ulegnie zmianie
+niezależnie czy wartość kasowego aktywa wzrośnie czy zmaleje.</p>
+<p>Czyli:</p>
+<div class="math notranslate nohighlight">
+\[\Delta \boldsymbol{W} = \Delta \boldsymbol{P_k} - h \Delta \boldsymbol{P_f} = 0\]</div>
+<p>Stąd:</p>
+<div class="math notranslate nohighlight">
+\[h = \frac{\Delta P_k}{ \Delta P_f}\]</div>
+<p>Czyli ilość kontraktów futures <span class="math notranslate nohighlight">\(I_f\)</span> potrzebna do zabezpieczenia
+pozycji na rynku kasowym jest równa:</p>
+<div class="math notranslate nohighlight">
+\[I_f =\frac{\text{ Wart. nom. pozycji kasowej}}{\text{Wart. nom. kontraktu futures}}\times h.\]</div>
+<p>W przypadku dyskutowanych przykładów powyżej zmiany ceny aktywa na rynku
+futures były takie same jak zmiany ceny aktywa na rynku
+kasowym. Niestety nie zawsze tak jest w praktyce i co za tym idzie,
+idealne zabezpieczenie nie zawsze jest możliwe.</p>
+<p>A to dlatego, że:</p>
+<ol class="arabic simple">
+<li><p>Zabezpieczane aktywo może nie być dokładnie takie samo jak aktywo
+będące podstawą kontraktu futures.  Przykładowo dla rynku surowców
+może różnic się co do wagi, jakości, ilości jak i samego surowca
+(szukanie aktywa o podobnym zachowaniu) .</p></li>
+<li><p>Zabezpieczając możemy nie znać dokładnego terminu zakupu lub
+sprzedaży aktywa.</p></li>
+<li><p>Kontrakt futures może wymagać zamknięcia go przed jego miesiącem
+dostawy</p></li>
+</ol>
+<p>Wtedy jesteśmy zmuszeni zadowolić się częściowym zabezpieczeniem. Nie
+zawsze istnieje kontrakt pochodny oparty na tym samym aktywie i musimy
+dopasować instrument zbliżony do kasowego, którego zmiany nie
+dokładnie korelują ze zmianami instrumentu podstawowego. Takie
+zabezpieczenie nazywane jest <strong>cross hegde</strong> w odróżnieniu od <strong>direct
+hedge</strong>, czyli sytuacji z poprzednich przykładów gdy korelacje zmian
+były pełne.</p>
+<div class="section" id="cross-hedging">
+<h3><span class="section-number">14.3.1. </span>Cross hedging<a class="headerlink" href="#cross-hedging" title="Stały odnośnik do tego nagłówka">¶</a></h3>
+<p>Ponownie rozważmy definicje bazy - basis. Baza (basis) to różnica
+między ceną kasową aktywa zabezpieczanego a ceną kontraktu futures na
+to aktywo. Jeśli zabezpieczane aktywo jest identyczne co aktywo
+podstawowe dla kontraktu futures, cena aktywa na rynku kasowym i cena
+kontraktu futures powinny „zbiegać się” (konwergencja) w pobliżu
+terminu dostawy futures. Ta konwergencja nazywana jest też ceną
+bazy.</p>
+<p>Zachowanie bazy generalne cechuje:
+a. Sezonowość zachowania
+b. Zmienność bazy jest zazwyczaj mniejsza niż zmienność ceny
+c. Cena bazy wprowadzić może dodatkowe ryzyko zmiany ceny powyżej, jak i
+poniżej ceny futures.
+To zachowanie zaburza perfekcyjność zabezpieczenia.
+Ponadto, jeśli okresy do do dostawy użytych instrumentów będą różne to
+zabezpieczenie nie będzie już tak idealne jak w przypadku gdy
+termin dostawy instrumentu kasowego i dostawy instrumentu
+futures będą równe. Współczynnik h nie jest wtedy równy 1. W takich
+przypadkach stosuje się zabezpieczenie „cross hedge”.</p>
+<p>Praktyczna wskazówka przy stosowaniu tego typu hedgingu jest
+nastepująca: w przypadku gdy terminy dostawy dostępnych kontraktów na
+rynku futures nie zgadzają się z terminami zabezpieczenia to
+wybierając kontrakt futures kierować się należy tym, by data dostawy
+(miesiąc) był najbliższy terminowi transakcji na rynku kasowym ale
+późniejszy niż czas zabezpieczenia. Jeśli nie ma kontraktu futures na
+aktywo zabezpieczane należy wybierać kontrakt futures, którego cena
+jest najlepiej skorelowana z ceną zabezpieczanego aktywa. Korelacje
+taką określa się poszukując najmniejszej wariancji.</p>
+</div>
+<div class="section" id="zabezpieczenia-metoda-najmniejszej-wariancji">
+<h3><span class="section-number">14.3.2. </span>Zabezpieczenia metodą najmniejszej wariancji<a class="headerlink" href="#zabezpieczenia-metoda-najmniejszej-wariancji" title="Stały odnośnik do tego nagłówka">¶</a></h3>
+<p>Jeśli czasy dostawy użytych instrumentów będą różne to
+należy pamiętać o cost of carry. Szczególnie instrumenty
+dłużne mają skomplikowaną zależność generowanego dochodu od duration i
+stopy procentowej.</p>
+<p>Tak więc reakcja instrumentu kasowego i terminowego mogą być różne,
+tzn. ich zmiany mogą być inne na koniec okresu zabezpieczenia.</p>
+<p>Jasnym jest, że zmiany aktywów na rynku kasowym i terminowym nie są takie
+same (chociaż w jakimś stopniu podobne). Jak to wpłynie na
+współczynnik h? Jak wybrać najlepsze h?</p>
+<p>Można w takiej sytuacji skorzystać z takiego h które minimalizuje
+następujące równanie:</p>
+<div class="math notranslate nohighlight">
+\[\min E [(\Delta P_k- h \Delta P_f)]^2\]</div>
+<p>Czyli minimalizujemy kwadraty różnic między zmianami cen.</p>
+<p>Innymi słowy takie h to hedging minimalizujący wariancje - hedging
+minimalnej wariancji.</p>
+<p>Popatrzmy jeszcze raz na <span class="math notranslate nohighlight">\(\boldsymbol{\Delta W}\)</span> - zmianę
+wartości portfela zabezpieczonego:</p>
+<div class="math notranslate nohighlight">
+\[\Delta \boldsymbol{W} = \Delta \boldsymbol{P_k} - h \Delta \boldsymbol{P_f} = 0\]</div>
+<div class="math notranslate nohighlight">
+\[\sigma^2_{\Delta W} = \sigma^2_{\Delta P_f} + h^2 \sigma^2_{\Delta P_f} - 2 h \langle \Delta P_f \Delta P_k\rangle\]</div>
+<p>gdzie:</p>
+<div class="line-block">
+<div class="line"><span class="math notranslate nohighlight">\(\sigma_{P_k}\)</span> - jest odchyleniem standardowym zmiany ceny na rynku kasowym <span class="math notranslate nohighlight">\(\Delta P_{k}\)</span> w czasie trwania zabezpieczenia.</div>
+<div class="line"><span class="math notranslate nohighlight">\(\sigma_{P_f}\)</span> - jest odchyleniem standardowym zmiany ceny na
+rynku terminowym w czasie trwania zabezpieczenia.</div>
+</div>
+<p>Zabezpieczenie jest optymalne jeśli powyższa pochodna  cząstkowa wariancji zmian portfela po współczynniku hedgingu się zeruje, czyli:</p>
+<div class="math notranslate nohighlight">
+\[\frac{\partial \sigma^2_{\Delta W}}{\partial h} = 2 h \sigma^2_{\Delta P_f} - 2 \langle \Delta P_f \Delta P_k\rangle   = 0\]</div>
+<div class="math notranslate nohighlight">
+\[2 h \sigma^2_{\Delta P_f} - 2 \langle \Delta P_f \Delta P_k\rangle  = 0\]</div>
+<p>stąd:</p>
+<div class="math notranslate nohighlight">
+\[h = \frac{ \langle \Delta P_f \Delta P_k \rangle }{ \sigma^2_{\Delta P_f}}\]</div>
+<dl class="simple">
+<dt>czyli biorąc pod uwagę, że współczynnik korelacji <span class="math notranslate nohighlight">\(\Delta P_k\)</span> i</dt><dd><p><span class="math notranslate nohighlight">\(\Delta P_f\)</span> -  <span class="math notranslate nohighlight">\(\rho\)</span> jest równy z definicji:</p>
+</dd>
+</dl>
+<div class="math notranslate nohighlight">
+\[\rho = \frac{\langle \Delta P_f \Delta P_k\rangle}{ \sigma_{\Delta P_f}\sigma_{\Delta P_k}}\]</div>
+<p>otrzymujemy ostatecznie znany wzór:</p>
+<div class="math notranslate nohighlight">
+\[h = \rho \frac{\sigma_{\Delta P_k} }{ \sigma_{\Delta P_f}}\]</div>
+<p>Można także oszacować optymalny współczynnik zabezpieczenia h używając
+analizy <strong>regresji</strong>.</p>
+<p>Podstawowe równanie wyjściowe ma w tym przypadku następująca postać.</p>
+<div class="math notranslate nohighlight">
+\[\Delta P_k = \alpha + h \Delta P_f\]</div>
+<p>Używając regresji liniowej (najmniejszych kwadratów) wyliczymy, że</p>
+<div class="math notranslate nohighlight">
+\[h = \rho (\sigma p_k/ \sigma p_f)\]</div>
+<p>Metoda powyższa jest pomocna w wielu przypadkach. Poniże rozpatrzone
+będą pewne przykłady zastosowania tej metody, przedstawione by lepiej
+zilustrować sposoby postępowania w takich przypadkach.</p>
+<p>Zarządzający portfelem, mający portfel instrumentów inwestycyjnych o
+określonej jego wartości w danym dniu może chcieć zabezpieczyć jego
+wartość w najbliższym okresie czasu. Spodziewa się bowiem
+przykładowo, że cena aktywów może chwilowo się obniżyć ale uważa, że
+posiadane w portfelu aktywa są warte trzymania.</p>
+<div class="admonition note">
+<p class="admonition-title">Informacja</p>
+<p>Alternatywnym działaniem może być sprzedanie całego portfela, by
+odkupić go później, po powrocie rynku do oczekiwanych wartości.
+Takie działanie jest możliwe teoretycznie ale bardzo trudne w
+praktyce do wykonania z powodu dostępności aktywów i kosztów
+transakcyjnych opisanych operacji.</p>
+</div>
+<p>Chcąc zabezpieczyć posiadany portfel na rynku instrumentów futures
+jest niezwykle trudno, wręcz niemożliwym jest, by znaleźć kontrakt futures
+odpowiadający swym zachowaniem zachowaniu czasowemu portfela.  Sposób
+w jaki można próbować się zabezpieczyć przed zmianami stanu posiadania
+jest zabezpieczenie przy pomocy kontraktu futures na indeks
+giełdowy. Przykład poniżej ilustruje sposób postępowania i szukania
+współczynnika korelacji zmian wartości portfela i kontraktu futures na
+indeks, potrzebnego do najlepszego w miarę możliwości ( nie idealnego)
+zabezpieczenia portfela.</p>
+<p>Jak używać  kontraktów futures do  zabezpieczania portfela?</p>
+<p>Załóżmy ,ze posiadamy portfel zdywersyfikowanych akcji.  Powiedzmy, ze
+o wartości 1 miliona USD ( waluta i skład portfela wybrany do
+wyjaśnienia przykładu poniżej- czyli użycia kontraktu futures na
+indeks S&amp;P 500- podobnie można myśleć używając innych indeksów
+rynkowych na które są kontrakty futures)).  Wybieramy kontrakt futures
+na indeks S&amp;P 500 celem zabezpieczenia portfela. Obawiamy się, że
+rynkowa wartość portfela może się obniżyć. W takiej sytuacji sprzedaż
+kontraktu futures na indeks może być sposobem na zabezpieczenie się
+przed obniżeniem się wartości portfela.</p>
+<p>Jeśli rynek spadnie zysk na pozycji krótkiej na rynku futures może
+zrównoważy stratę na portfelu. Jeśli rynek jednak wzrośnie stratę na
+pozycji futures będzie pokrywać zysk na portfelu.</p>
+<p>Kontrakt futures na indeks S&amp;P 500 jest wyceniany jako wartość indeksu
+pomnożoną razy 250 USD. Czyli zakładając, że wartość indeksu wynosi
+2000 jego wartość kasowa wynosi 500 000 USD. Czyli dwa kontrakty Futures
+stanowią wartość porównywalną z wartością kasową portfela.</p>
+<p>Kontrakty futures na indeks S&amp;P 500 mają cztery daty dostawy w
+roku. Marcową, czerwcowa, wrześniową i grudniową.  Na rynku są dostępne
+również kontrakty e – mini S&amp;P 500 których wartość jest 50 USD razy
+wartość indeksu.Te często dają lepsze dopasowanie do wielkości portfela dzięki
+mniejszemu mnożnikowi niż typowe kontrakty na indeks S&amp;P 500.</p>
+<p>Pierwszym krokiem do zabezpieczenia jest znalezienie korelacji zmian
+indeksu i zmian wartości portfela.  Stad można wyliczyć ilość
+kontraktów które należy sprzedać by zabezpieczyć portfel.</p>
+<p>Przykład zamieszony poniżej  ilustruje sposób działania.</p>
+</div>
+<div class="section" id="zabezpieczenie-portfela-indeksem-gieldowym">
+<h3><span class="section-number">14.3.3. </span>Zabezpieczenie portfela indeksem giełdowym<a class="headerlink" href="#zabezpieczenie-portfela-indeksem-gieldowym" title="Stały odnośnik do tego nagłówka">¶</a></h3>
+<p>Załóżmy, że mamy portfel o wartośći rynkowej i chcemy zabezpieczyć tę wartość przed zmianami kursu
+za pomocą indeksu giełdowego. W kolejnych kolumnach znajdują się
+wartości portfela oraz indeks S&amp;P500 z okresu 2000-09-15 do
+2002-09-19. Używamy tych danych do zabezpieczenia kontraktem Futures
+na S&amp;P500 w ostatnim dniu - czyli 2002-09-19.</p>
+<div class='sage_linked'><script type='text/x-sage'>from urllib import request
+import numpy as np
+file = "https://www.dropbox.com/s/qzmgf54wvchtga4/hedgefutures2.txt?dl=1"
+file = "https://www.dropbox.com/s/1cra3tt8f97mezu/SP500_porfolio.txt?dl=1"
+data = np.loadtxt(request.urlopen(file))
+plt = line(enumerate(data[:,0]/data[-1,0]),figsize=(8,2))
+plt += line(enumerate(data[:,1]/data[-1,1]),color='green')
+plt.show()</script></div><p>Ponieważ zarówno indeks jak i wartość portfela jest w „innych jednostkach”,
+możemy posługiwać się bezwymiarowymi zwrotami, zamiast przyrostów
+cen. I tak zwroty z portfela i S&amp;P500 obliczamy:</p>
+<div class='sage_linked'><script type='text/x-sage'>dP = np.diff(data[:,0])/data[:-1,0]
+dSP500 = np.diff(data[:,1])/data[:-1,1]
+plt = line(enumerate(dP),figsize=(8,2))
+plt += line(enumerate(dSP500),color='green')
+plt.show()</script></div><p>Z tych danych widzimy, że zachodzi duża korelacja między zwrotami portfela i indeksu.
+Współczynnik dopasowania obliczamy ze wzoru:</p>
+<div class='sage_linked'><script type='text/x-sage'>print( "Wspolczynnik korelacji:",np.cov(dP,dSP500, bias=1)[0,1]/(np.std(dP)*np.std(dSP500)) )
+print(      "h=",np.cov(dP,dSP500, bias=1)[0,1]/(np.std(dSP500)**2) )
+print( "Ilosc kontraktów na SP500:",data[-1,0]/(data[-1,1]*250) * np.cov(dP,dSP500)[0,1]/(dSP500.std()**2) )</script></div><p>Zauważmy, że mając obliczone „hedge ratio” - <span class="math notranslate nohighlight">\(h\)</span>, liczbę
+kontraktów wyliczamy mnożąc <span class="math notranslate nohighlight">\(h\)</span> przez ilość jednostek S&amp;P500,
+które w chwili zabezpieczenia mają dokładnie wartość naszego portfela.
+Oczywiście nie można kupować ułamkowej ilości kontraktów
+futures. Zabezpieczający się musi kupić 5 kontraktów.</p>
+<p>Dopasowując model linowej zależności zwrotów otrzymamy znowu ten sam
+wynik:</p>
+<div class='sage_linked'><script type='text/x-sage'>var('a b x')
+model(x) = a * x + b
+data = list( zip(dSP500,dP) )
+find_fit(data,model)</script></div></div>
+</div>
+<div class="section" id="przyklad-obliczen-hedgingu-za-pomoca-kontraktow-futures">
+<h2><span class="section-number">14.4. </span>Przykład obliczeń hedgingu za pomocą kontraktów futures<a class="headerlink" href="#przyklad-obliczen-hedgingu-za-pomoca-kontraktow-futures" title="Stały odnośnik do tego nagłówka">¶</a></h2>
+<p>Metoda najmniejszej wariancji jest skutecznie stosowana w procesie
+zabezpieczania się przed zmiennością ceny paliwa lotniczego stosowaną
+przez niektóre linie lotnicze.
+Tak się składa, że kontrakty futures
+na paliwo lotnicze są rzadkością na rynku i do zabezpieczania stosuje
+się kontrakty futures na olej opałowy, które to kontrakty są bardziej
+płynne. Porównując ceny paliwa lotniczego i ceny oleju opałowego widać,
+że zmienność ceny obu surowców jest w pewnej mierze podobna ale nie
+identyczna. Problemowi zabezpieczania cen paliwa lotniczego przy
+pomocy instrumentów rynków futures poświęcone są poniższe pozycje:</p>
+<blockquote>
+<div><ul class="simple">
+<li><p><a class="reference external" href="http://bettingthebusiness.com/2011/02/03/the-perils-of-hedging-the-price-of-jet-fuel/">The perils of hedging the price of jet fuel</a></p></li>
+<li><p><a class="reference external" href="https://www.kellogg.northwestern.edu/research/fimrc/papers/jet_fuel.pdf">Jet Fuel Hedging Strategies</a></p></li>
+<li><p><a class="reference external" href="https://dspace.lib.cranfield.ac.uk/bitstream/1826/3029/1/Airline%20jet%20fuel%20hedging%20-%20theory%20and%20practice.pdf">Airline Jet Fuel Hedging: Theory and practice</a></p></li>
+</ul>
+</div></blockquote>
+<p>Problem ten jest szeroko dyskutowany i analizowany literaturze fachowej.</p>
+<div class="section" id="paliwo-lotnicze-oraz-olej-opalowy">
+<h3><span class="section-number">14.4.1. </span>Paliwo lotnicze oraz olej opałowy<a class="headerlink" href="#paliwo-lotnicze-oraz-olej-opalowy" title="Stały odnośnik do tego nagłówka">¶</a></h3>
+<p>Rozważmy następujący przykład. Chcemy zabezpieczyć cenę na paliwo
+lotnicze na jeden miesiąc do przodu mając do dyspozycji kontrakty
+Futures na olej opałowy na 60 i 90 dni. Oczekuje się, że istnieje duża
+korelacja pomiędzy tymi surowcami. Rzeczywiście, ich historyczne
+comiesięczne notowania wyglądają następującą:</p>
+<div class='sage_linked'><script type='text/x-sage'>import numpy as np
+Jet = np.array([0.334,0.309,0.378,0.43,0.415,0.44,0.512,0.564,0.614,0.595,0.661,0.701,0.781,0.78,0.771,0.719,0.762,0.785,0.796,0.9,1.017,0.982,1.028,0.863,0.87,0.815,0.748,0.77,0.821,0.767,0.711,0.764,0.738,0.622,0.543,0.515,0.533,0.551,0.63,0.669,0.666,0.653])
+Oil60 = np.array([0.341,0.317,0.388,0.435,0.428,0.445,0.515,0.563,0.611,0.595,0.65,0.667,0.704,0.724,0.702,0.651,0.724,0.779,0.785,0.883,0.987,0.971,0.999,0.895,0.805,0.756,0.705,0.744,0.776,0.764,0.709,0.745,0.73,0.643,0.568,0.548,0.541,0.548,0.64,0.673,0.674,0.658])
+
+Oil90 = np.array([0.344,0.323,0.391,0.439,0.435,0.453,0.521,0.57,0.617,0.598,0.643,0.65,0.666,0.69,0.68,0.636,0.719,0.78,0.788,0.878,0.979,0.963,0.962,0.833,0.764,0.738,0.7,0.743,0.78,0.77,0.717,0.751,0.739,0.649,0.571,0.55,0.543,0.55,0.641,0.677,0.68,0.666])
+
+plt = line(enumerate(Jet),figsize=(8,2))
+plt += line(enumerate(Oil90),color='green')
+plt.show()</script></div><div class="admonition note">
+<p class="admonition-title">Informacja</p>
+<p>W pliku z danymi mamy w wierszach comiesięczne notowania, a w
+kolumnach kolejno: cenę paliwa lotniczego, cenę kontraktu Futures
+na 90 dni i na 60 dni.</p>
+</div>
+<p>Korelację widać gołym okiem, ale oczywiście możemy ją obliczyć
+numerycznie korzystając z narzędzi znajdujących się w bibliotece
+<cite>numpy</cite>. Uczynimy to w dwóch krokach. W pierwszej kolejności obliczmy
+miesięczne zmiany cen. Dla wartości ceny paliwa lotniczego na rynku
+kasowym jest to proste: obliczamy różnicę pomiędzy każdą parą
+kolejnych wartości. Dla kontraktu Futures jest trochę bardziej
+skomplikowane zadanie. Jeżeli kupimy kontrakt 90 dniowy to po 30
+dniach mamy kontrakt 60 dniowy w ręce. Dlatego, mając możliwość handlu
+kontraktami 60 i 90 dniowymi możemy efektywnie użyć ich do hedgingu na
+30 dni, biorąc różnicę między ceną kontrakty 60 dniowego a ceną 90
+dniowego po miesiącu.</p>
+<div class="admonition note">
+<p class="admonition-title">Informacja</p>
+<p>Gdybyśmy mieli do dyspozycji kontrakty 30-dniowe na olej opałowy
+obliczylibysmy po prostu różnice ich kolejnych cen.</p>
+</div>
+<p>W Sage obliczenia możemy wykonać w następujący sposób:</p>
+<div class='sage_linked'><script type='text/x-sage'>            dJet = np.diff(Jet)
+dOil = Oil90[1:]-Oil60[:-1]</script></div><p>Możemy teraz policzyć macierz kowariancii przyrostów cen oraz ich
+współczynnik kolelacji:</p>
+<div class='sage_linked'><script type='text/x-sage'>print( "Macierz kowariancji:" )
+show(matrix(np.cov(dJet,dOil)))
+print( "Współczynnik korelacji:",np.cov(dJet,dOil)[0,1]/(np.std(dJet)*np.std(dOil)) )</script></div><p>Jaki będzie współczynnik zabezpieczenia? Gdyby udało nam się uzyskać
+idealy hedging to zachodziło by:</p>
+<div class="math notranslate nohighlight">
+\[\Delta S = h \Delta F\]</div>
+<p>Jest to pewnie nie możliwe, ale przynajmniej chcemy znaleźć takie
+<span class="math notranslate nohighlight">\(h\)</span>, które minimalizuje <span class="math notranslate nohighlight">\(\langle\Delta S - h \Delta F
+\rangle^2\)</span>. Narysujmy wykres tej średniej po naszych danych
+historycznych:</p>
+<div class='sage_linked'><script type='text/x-sage'>var('h')
+plot( lambda h:np.mean( (dJet-h*dOil)**2), (h,-3,4) ).show(figsize=3)
+print( "Rozwiazujac rownanie:",solve( diff( np.mean( (dJet-h*dOil)**2),h), h)[0].rhs().n() )</script></div><p>Taki sam wynik otrzymamy dopasowując dane przyrostów cen do siebie w
+modelu liniowych (co jest czasem zwane regresją liniową):</p>
+<div class='sage_linked'><script type='text/x-sage'>var('a b x')
+model(x) = a * x + b
+data = list( zip(dOil,dJet) )
+find_fit(data,model)</script></div><p><em>Przypadek zabezpieczania w przypadku instrumentów opartych o stopę procentową</em></p>
+<p>Jako ilustracje powyższych rozważań przykładowo zadajmy sobie pytanie: Ile
+kontraktów terminowych na stopę procentową potrzebujemy by
+zabezpieczyć 10 000 000 (np. BPF) instrumentu pieniężnego. Jeśli to
+funty to wielkość nominalna kontraktu futures - 500 000. Jak widać do
+zabezpieczenia kredytu z ostatniego przykładu potrzebowaliśmy 20
+kontraktów.  Ile trzymiesięcznych kontraktów futures na stope
+procentową potrzebujemy do zabezpieczenia 10 000 000 BPF w
+półrocznych CD.</p>
+<p>Instrumenty te różnią się czułością na stopę procentową.</p>
+<p>Biorąc pod uwagę powyższe, ilość kontraktów futures <span class="math notranslate nohighlight">\(I_f\)</span> potrzebna do
+zabezpieczenia wynosi</p>
+<blockquote>
+<div><ul class="simple">
+<li><p><span class="math notranslate nohighlight">\(I_f =\frac{\text{ Wart. nom. pozycji kasowej}}{\text{Wart. nom. kontraktu futures}}\times \text{wsp. odpowiedniości pieniężnej}\times\text{wsp regresji}.\)</span></p></li>
+</ul>
+</div></blockquote>
+<p>Czyli h jest równe iloczynowi dwu wielkości: współczynnikowi odpowiedniości pieniężnej  K i współczynnikowi  regresji R.</p>
+<p>Wartość odpowiedniości pieniężnej T mierzy zmianę  ceny kontraktu terminowego lub aktywa kasowego w zależności od stopy procentowej. Zależy ta zmiana od  okresu do zapadalności.</p>
+<p>Przykładowo T dla zmiany  stopy procentowej o 0,01 % dla kontraktu wielkości 1000 000 - wynosi:</p>
+<blockquote>
+<div><blockquote>
+<div><p>Wartość T (jednostki pieniężne)</p>
+</div></blockquote>
+<table class="docutils align-default">
+<colgroup>
+<col style="width: 19%" />
+<col style="width: 14%" />
+<col style="width: 68%" />
+</colgroup>
+<tbody>
+<tr class="row-odd"><td><p>1 rok</p></td>
+<td><p>100</p></td>
+<td><p>(tj. 1 000 000 x 0.0001x 12/12)</p></td>
+</tr>
+<tr class="row-even"><td><p>9 miesięcy</p></td>
+<td><p>75</p></td>
+<td><p>(tj 1000 000 x 00001 x 9/12)</p></td>
+</tr>
+<tr class="row-odd"><td><p>6 miesięcy</p></td>
+<td><p>50</p></td>
+<td><p>(………………. x 6/12)</p></td>
+</tr>
+<tr class="row-even"><td><p>3 miesiące</p></td>
+<td><p>25</p></td>
+<td></td>
+</tr>
+<tr class="row-odd"><td><p>1 miesiąc</p></td>
+<td><p>8.3</p></td>
+<td></td>
+</tr>
+</tbody>
+</table>
+</div></blockquote>
+<p>Współczynnik odpowiedniości pieniężnej K jest stosunkiem dwu odpowiednich wartości T.</p>
+<div class="admonition-przyklad admonition">
+<p class="admonition-title">Przykład</p>
+<p>W celu zabezpieczenia sześciomiesięcznego aktywa kasowego
+trzymiesięcznymi kontraktami terminowymi współczynnik K jest
+równy 2. (t.j. 50/25). Innymi słowy, 2 kontrakty terminowe są
+potrzebne na zabezpieczenie kontraktu kasowego bo ten, konkretny
+kontrakt reaguje dwukrotnie silniej dla danej stopy procentowej niż
+trzymiesięczny.</p>
+<p>Dociekliwym polecamy próbę odpowiedzi dlaczego tak być może????
+Zagadnienie występowania zostanie omówione w innym miejscu
+dokładniej. W tym miejscu polecamy wziąć pod uwagę duration
+instrumentów i ich kształt krzywej dochodowości.</p>
+</div>
+<p>Przyjmijmy, że doświadczalnie wyliczone równanie regresji dla CD i
+trzymiesięcznych futures na stopę procentową daje następujące
+parametry - współczynnik regresji alfa:</p>
+<blockquote>
+<div><ul class="simple">
+<li><p><span class="math notranslate nohighlight">\(\alpha = 0.12\)</span></p></li>
+<li><p><span class="math notranslate nohighlight">\(h = 0.95\)</span></p></li>
+</ul>
+</div></blockquote>
+<p>Czyli chcąc zabezpieczyć przed zmiana wartości portfel o wartości
+nominalnej 10 000 000 BPF w CD przy pomocy kontraktów futures na
+trzymiesięczna stopę procentową potrzebne jest:</p>
+<blockquote>
+<div><ul class="simple">
+<li><p><span class="math notranslate nohighlight">\(If = \frac{10 000 000}{500000} \times \frac{50}{25} \times 0.95 = 38\)</span> kontraktów</p></li>
+</ul>
+</div></blockquote>
+<p>Jak widać ilość kontraktów jest różna od prostej zależności
+nominalnych wartości kontraktów na obu rynkach.</p>
+<p>Podsumowując powyższe rozważania można stwierdzić:</p>
+<p>Wartość <span class="math notranslate nohighlight">\(\boldsymbol{W}\)</span> portfela to:</p>
+<div class="math notranslate nohighlight">
+\[\boldsymbol{W} = \boldsymbol{P_k} - h \boldsymbol{P_f}\]</div>
+<p>Gdzie: <span class="math notranslate nohighlight">\(\boldsymbol{P_k}\)</span> - wartość pozycji kasowej a
+<span class="math notranslate nohighlight">\(\boldsymbol{P_f}\)</span> wartość kontrakty
+futures. <span class="math notranslate nohighlight">\(\boldsymbol{h}\)</span> - współczynnik zabezpieczenia.</p>
+<p>Optymalna wartość <span class="math notranslate nohighlight">\(h\)</span> to taka wartość gdy zabezpieczenie będzie
+idealne czyli zmiana wartości portfela nie ulegnie zmianie niezależnie
+czy wartość kasowego aktywa wzrośnie czy zmaleje.</p>
+<p>Czyli</p>
+<div class="math notranslate nohighlight">
+\[\Delta \boldsymbol{W} = \Delta \boldsymbol{P_k} - h \Delta \boldsymbol{P_f} = 0\]</div>
+<p>Stąd:</p>
+<div class="math notranslate nohighlight">
+\[h =\frac{\Delta P_k}{ \Delta P_f}\]</div>
+<p>Czyli ilość kontraktów futures <span class="math notranslate nohighlight">\(I_f\)</span> potrzebna do zabezpieczenia pozycji na
+rynku kasowym jest równa:</p>
+<div class="math notranslate nohighlight">
+\[I_f =\frac{\text{ Wart. nom. pozycji kasowej}}{\text{Wart. nom. kontraktu futures}}\times h\]</div>
+<p>W przypadku dyskutowanych przykładów powyżej zmiany ceny aktywa na
+rynku futures były takie same jak zmiany ceny aktywa na rynku
+kasowym. Niestety nie zawsze tak jest w praktyce. Dlatego współczynnik
+zabezpieczenia h może być reprezentowany przez współczynnik regresji
+ceny instrumentu kasowego od ceny instrumentu
+terminowego. Współczynnik ten jednak może lepiej określać powyższa
+zależność jeśli będzie traktowany jako zmienny w czasie niż jako
+niezmienny.</p>
+<p>W wielu pracach wykazano, ze prawdziwy związek między danymi
+finansowymi jest lepiej uchwycony, jeśli stosuje się modele o
+zmiennych w czasie parametrach niż modele o parametrach
+stałych. Często, w praktyce, stosuje się podejście zwane filtrem
+Kalmana by oszacować zmienny w czasie współczynnik hedgingu. Takie
+podejście często jest statystycznie bardziej efektywne i ma lepsze
+własności przewidywania.</p>
+</div>
+<div class="section" id="hedging-portfela-obligacji">
+<h3><span class="section-number">14.4.2. </span>Hedging portfela obligacji<a class="headerlink" href="#hedging-portfela-obligacji" title="Stały odnośnik do tego nagłówka">¶</a></h3>
+<p><strong>Zabezpieczanie przed ryzykiem stopy procentowej portfela  obligacji.</strong></p>
+<p>Podobne jak w każdym poprzednim przykładzie celem zabezpieczenia jest
+wyrównanie ewentualnych strat na kontrakcie kasowym zyskiem z
+kontraktu futures.</p>
+<p>Ryzykiem, którego obawiają się zarządzający portfelem instrumentów
+dłużnych jest ryzyko stopy procentowej. Jeśli zarządzający obawia się,
+że w wyniku wzrostu stopy procentowej wartość jego portfela obligacji
+spadnie to ma przed sobą kilka możliwości rozwiązania tego
+problemu. Może spieniężyć (sprzedać) cały portfel a po wzroście stóp
+odkupić jego zawartość (a będzie on tańszy). Jednak musimy pamiętać o
+kosztach transakcyjnych i o tym, ze może być niemożliwym odkupić
+wszystkie poprzednio posiadane obligacje. Może on również, kolejna
+tańsza możliwość, użyć kontraktu futures na obligacje. Na większości
+rynków futures taki kontrakt jest wyceniany na podstawie wyceny
+koszyka obligacji „cheapest -to- deliver” (<a class="reference external" href="http://www.investopedia.com/terms/c/cheapesttodeliver.asp">CDT</a> lub na
+<a class="reference external" href="http://www.youtube.com/watch?v=jA14ZJaPu8c">YouTube</a>).</p>
+<p>Tak więc kluczowym jest kupienie właściwej ilości kontraktów do
+zabezpieczenia. Należy więc wyliczyć współczynnik zabezpieczenia
+(hedge ratio), która to wielkość będzie zależeć od zmienności cen
+instrumentów na rynku kasowym i rynku futures. Ilość kontraktów, które
+należy użyć wynika z wielkości współczynnika zabezpieczenia, który
+możemy oszacować jako:</p>
+<div class="math notranslate nohighlight" id="equation-h-vol">
+<span class="eqno">(1)<a class="headerlink" href="#equation-h-vol" title="Stały odnośnik do tego równania">¶</a></span>\[h =\frac{\text{volatility ceny kontraktów kasowych}}{\text{ volatility kontraktów futures}}\]</div>
+<p>Nie musimy określać zmienności cen instrumentów. Jak już wiemy jeśli
+instrument kasowy jest mniej zmienny niż terminowy instrument
+zabezpieczenia to większa ilość instrumentów zabezpieczających jest
+potrzebna.  Albowiem nie zawsze możemy używać obligacji zachowujących
+się jak obligacje - „cheapest to deliver”.</p>
+<p>Wśród metod dostępnych do wyliczenia współczynnika zabezpieczenia w
+powyższym przypadku najbardziej powszechnymi są metody „współczynnika
+konwersji” zwana także współczynnikiem ceny oraz metoda
+„zmodyfikowanej duration” (zwana również jako wycena punktów
+bazowych.)</p>
+<p>Współczynnik konwersji dla każdego instrumentu dłużniego jest podawany
+na bieżąco przez giełdy futures dla każdego instrumentu notowanego na
+tej giełdzie.</p>
+<p>Kontrakt futures dla obligacji pozwala sprzedającemu spełnić
+zobowiązania dostawy używając każdej innej obligacji, tak by spełniać
+standard każdego kontraktu.  Cena każdej z dostępnych obligacji może
+zostać wyliczona przez zastosowanie współczynnika
+konwersji. Współczynnik konwersji bazuje na matematycznym wyliczeniu
+wartości aktualnej netto, co pozwala na porównanie różnych dostępnych
+obligacji (z różnymi terminami do zapadalności i kuponami) na wspólnej
+bazie nominalnego kuponu.</p>
+<p>Niektórzy autorzy (np.  David Black - <em>Financial Market Analysis</em>)
+używa wielkości współczynnika ceny, który jest odwrotnością
+współczynnika konwersji.</p>
+<p>Niech będzie sytuacja, gdy zarządzający portfelem spodziewa się wpływu
+ok. 1,5 milion USD, które to pieniądze zamierza ulokować w obligacje
+„cheapest to delivery” - CDT.  Załóżmy, dla uproszczenia, że cena
+obligacji CDT i kontraktu futures na nie porusza się równolegle w
+czasie.  Związek pomiędzy zmianą ceny kontraktu terminowego i ceny
+obligacji CDT są dane równaniem:</p>
+<div class="math notranslate nohighlight">
+\[\Delta P_f = \frac{1}{PF_{CDT}}  \times  \Delta P_{CDT}\]</div>
+<p>Gdzie :</p>
+<blockquote>
+<div><ul class="simple">
+<li><p><span class="math notranslate nohighlight">\(\Delta P_f\)</span> - zmiana ceny kontraktu terminowego na obligacje</p></li>
+<li><p><span class="math notranslate nohighlight">\(\Delta P_{CDT}\)</span> - zmiana ceny obligacji CDT</p></li>
+<li><p><span class="math notranslate nohighlight">\(PF_{CDT}\)</span> - współczynnik ceny dla obligacji CDT</p></li>
+</ul>
+</div></blockquote>
+<p>Niech współczynnik ceny (zgodnie z tabelą giełdową) wynosi 1.20833.
+Oraz niech są handlowane po 125 za nominał 100. Aby zabezpieczyć
+wartość portfela potrzebuje ilość kontraktów <span class="math notranslate nohighlight">\(I_f\)</span> wyliczonych
+zgodnie z:</p>
+<div class="math notranslate nohighlight" id="equation-if">
+<span class="eqno">(2)<a class="headerlink" href="#equation-if" title="Stały odnośnik do tego równania">¶</a></span>\[I_f =\frac{\text{ Wart. nom. ekspozycji kasowej}}{\text{Wart. kontraktu futures}}\times h\]</div>
+<p>Gdzie <span class="math notranslate nohighlight">\(h\)</span>  to współczynnik zabezpieczenia równy   <span class="math notranslate nohighlight">\(h = PF_{CDT}\)</span>, oraz</p>
+<div class="math notranslate nohighlight">
+\[\text{Wartość nominalna  ekspozycji kasowej} = \frac{\text{Wartość rynkowa ekspozycji kasowej}}{P_{CTD}}\]</div>
+<p>przy czym <span class="math notranslate nohighlight">\(P_{CTD}\)</span> to cena  obligacji CTD.</p>
+<p>Czyli innymi słowy:</p>
+<div class="math notranslate nohighlight">
+\[I_f= \frac{1200000}{50000} \times 1.20833 = 29\]</div>
+<p>To niezłe zabezpieczenie.</p>
+<p>Wykazano jak można użyć kontraktów terminowych na obligacje do zabezpieczenia obligacji.</p>
+<p>Kolejne pytanie to pytanie co może zrobić zarządzający używający
+kontraktów terminowych by zabezpieczyć obligacje inna niż CTD? Oraz
+drugie pytanie Jak można zabezpieczyć przy pomocy kontraktów
+terminowych na obligacje portfel obligacji?</p>
+<p>Można posłużyć się dwoma metodami przybliżonymi:</p>
+<ol class="arabic simple">
+<li><p>Metoda  oparta na wspł. konwersji (ceny)</p></li>
+<li><p>Metoda zabezpieczenia oparta na duration</p></li>
+</ol>
+<p>Metoda 1.</p>
+<p>Załóżmy podobną sytuację jak poprzednio: 1,5 miliona USD i zamierzamy
+użyć obligacji 5- letniej o współczynniku ceny 1,1111 handlowanej w
+dniu planowania zabezpieczenia po 124 za nominał 100.</p>
+<p>Załóżmy, że jeśli nastąpi określona zmiana stopy procentowej to zmiana
+ceny obligacji CTD zmieni się o 1,2 a cena obligacji, którą
+zabezpieczamy zmieni się o 1.8.</p>
+<p>Te informacje posłużą nam do wyprowadzenia zmodyfikowane równania
+zabezpieczenia.</p>
+<p>Jak zwykle ilość kontraktów potrzebna do zabezpieczenia <span class="math notranslate nohighlight">\(I_f\)</span> wynosi:</p>
+<div class="math notranslate nohighlight" id="equation-2222">
+<span class="eqno">(3)<a class="headerlink" href="#equation-2222" title="Stały odnośnik do tego równania">¶</a></span>\[I_f = \frac{\text{Wartość nominalna ekspozycji na rynku kasowym}}{\text{Wartość nominalna kontraktu futures}} \times PF_{CDT}\times  h_z,\]</div>
+<p>gdzie:</p>
+<blockquote>
+<div><ul class="simple">
+<li><p><span class="math notranslate nohighlight">\(h_z\)</span> to współczynnik zmiany zabezpieczenia dla obligacji zabezpieczanej</p></li>
+</ul>
+</div></blockquote>
+<p>równy</p>
+<blockquote>
+<div><ul class="simple">
+<li><p><span class="math notranslate nohighlight">\(\Delta P_{CDT}\)</span> - zmiana ceny obligacji CDT przy takiej samej zmianie stopy procentowej</p></li>
+<li><p><span class="math notranslate nohighlight">\(\Delta P_H\)</span> - zmiana  ceny obligacji zabezpieczanej przy takiej samej zmianie stopy procentowej.</p></li>
+</ul>
+</div></blockquote>
+<p>Czyli liczba kontraktów wynosi:</p>
+<div class="math notranslate nohighlight">
+\[I_f  = \frac{1200100}{50000}\times 1.1111 \times \frac{1.8}{1.2} \simeq  40.\]</div>
+<p>Przybliżenie tej metody polega na tym że zmiana stopy procentowej o 1%
+nie powoduje zmian cen obligacji dwa razy większych niż zmiana stopy o
+0.5%. Jak pamiętamy z analizy obligacji ta zależność nie jest liniowa.
+Dlatego dokładniej jest używać metody opartej na <strong>duration</strong>. Definicja
+duration została wprowadzona z równania:</p>
+<div class="math notranslate nohighlight" id="equation-wzor">
+<span class="eqno">(4)<a class="headerlink" href="#equation-wzor" title="Stały odnośnik do tego równania">¶</a></span>\[\Delta P = - D \times P  \times [ \Delta y/(1+y)]\]</div>
+<p>Gdzie</p>
+<blockquote>
+<div><ul class="simple">
+<li><p><span class="math notranslate nohighlight">\(D\)</span> - duration obligacji (średni czas do zapadalności)</p></li>
+<li><p><span class="math notranslate nohighlight">\(P\)</span> - cena obligacji</p></li>
+<li><p><span class="math notranslate nohighlight">\(Y\)</span> - dochodowość do zapadalności (yield to maturity)</p></li>
+</ul>
+</div></blockquote>
+<p>Aby wyliczyć współczynnik zabezpieczenia w tej metodzie należy podzielić
+zmianę ceny obligacji zabezpieczanej przez zmianę ceny obligacji CDT.</p>
+<blockquote>
+<div><ul class="simple">
+<li><p><span class="math notranslate nohighlight">\(h_D\)</span> = współczynnik zabezpieczenia uwzględniający „duration”.</p></li>
+<li><p><span class="math notranslate nohighlight">\(h_D = \Delta P_H/ \Delta P_{CDT}\)</span></p></li>
+</ul>
+</div></blockquote>
+<p>wpisując formalnie równanie <a class="reference internal" href="#equation-wzor">(4)</a> do powyższego wzoru i
+zakładając równoległe przesunięcie krzywych dochodowości otrzymujemy</p>
+<div class="math notranslate nohighlight">
+\[h_D= \Delta P_H/ \Delta P_{CDT} = D_H \times  P_H/ D_{CDT} \times P_{CDT}\]</div>
+<p>Gdzie indeksy <span class="math notranslate nohighlight">\(H\)</span> odnoszą się do obligacji zabezpieczanej a
+<span class="math notranslate nohighlight">\(CDT\)</span> do obligacji ”cheapest to delivery”.</p>
+<p>Zakładając duration obligacji CTD jako 10 lat oraz duration obligacji
+zabezpieczanej jako 14 lat otrzymujemy dla danych z poprzednich
+przykładów:</p>
+<div class="math notranslate nohighlight">
+\[h_D  = 14 \times 124/ 10 \times 125 = 1.38888\]</div>
+<p>czyli w sensie duration 1 obligacja zabezpieczana jest równa około 1.4 obligacji CDT.</p>
+<p>Konsekwencją będzie wyliczenie ilości kontraktów potrzebnych do
+zabezpieczenia kwoty zainwestowanej w obligacje z poprzedniego
+przykładu (czyli o cenie 124 i współczynniku ceny 1.1111):</p>
+<div class="math notranslate nohighlight">
+\[I_f = \frac{\text{Wartość nominalna ekspozycji na rynku kasowym}}{ \text{Wartość nominalna kontraktu futures}} \times PF_{CDT} \times h_D,\]</div>
+<p>czyli ilość kontraktów wynosi:</p>
+<div class="math notranslate nohighlight">
+\[I_f  = \frac{1200100}{50000}\times 1.1111 \times 1.388 \simeq  37.\]</div>
+<p>W przypadku portfela obligacji metodą najłatwiejszą do konstruowania
+strategii zabezpieczającej zużywając kontraktów futures na obligacje
+wydaje się być metodą biorącą pod uwagę duration portfela. Z analizy
+zachowania się ceny obligacji wiemy, że zmiana jej dochodowości
+skutkiem zmiana stopy procentowej jest nieliniowa, tak więc
+przybliżenie liniowe jest niedokładne. Branie pod uwagę duration
+portfela jako średni (ważony wartością) czas do zapadalności
+wszystkich instrumentów obligacyjnych portfela wydaje się być
+dokładniejszą metodą.</p>
+<p>Mając, więc, do zabezpieczenia portfel obligacji określamy jego
+duration a następnie określamy współczynnik zabezpieczenia
+analogicznie jak w poprzednim przypadku.</p>
+<p>Dla portfela otrzymujemy równanie na współczynnik zabezpieczenia
+<span class="math notranslate nohighlight">\(h_p\)</span> w podobne, jak równanie w poprzednim przypadku, w postaci</p>
+<div class="math notranslate nohighlight">
+\[h_p= \frac{\Delta P_H}{ \Delta P_{CDT}} = D_p \times  \frac{P_p}{ D_{CDT}} \times P_{CDT}\]</div>
+<p>Z tym, że:</p>
+<blockquote>
+<div><ul class="simple">
+<li><p><span class="math notranslate nohighlight">\(D_p\)</span> - to duration portfela</p></li>
+<li><p><span class="math notranslate nohighlight">\(P_p\)</span> - to średnia ważona  kapitałem cena obligacji w portfelu.</p></li>
+</ul>
+</div></blockquote>
+<p>Mając wyliczony współczynnik zabezpieczenia dla portfela o określonej
+wartości potrafimy, analogicznie jak w poprzednim przypadku wyliczyć
+ilość kontraktów potrzebnych do zabezpieczenia portfela obligacji:</p>
+<div class="math notranslate nohighlight">
+\[I_f =\frac{\text{ Wart. nom. ekspozycji kasowej}}{\text{Wart. kontraktu futures}}\times PF_{CDT}\times h_p\]</div>
+</div>
+</div>
+<div class="section" id="hedging-przy-pomocy-opcji">
+<h2><span class="section-number">14.5. </span>Hedging przy pomocy opcji<a class="headerlink" href="#hedging-przy-pomocy-opcji" title="Stały odnośnik do tego nagłówka">¶</a></h2>
+<p>Opcje wydaja się być bardziej elastycznymi narzędziami do
+zabezpieczania w porównaniu z kontraktami futures.  Jak to wynika z
+samej ich natury można przy ich pomocy starać się zbudować taką
+strategię zabezpieczania, która pozwoli na ograniczenie strat w
+przypadku niekorzystnego ruchu cen, ale pozwoli na osiągniecie zysku w
+przypadku sprzyjających zmian na rynku.  Opcje są bowiem, ze swej
+natury niesymetryczne.  Kontrakt futures jako zabezpieczanie ustalał
+cenę na danym poziomie ale uniemożliwiał skorzystanie z zysków.</p>
+<p>Generalnie kontrakty terminowe są stosowane kiedy ilości aktywów i
+czas zamknięcia pozycji jest znany z dużą pewnością. Kontrakt
+terminowy ustala cenę określonej ilości aktywa w danym czasie w
+przyszłości. Jeśli któryś z wymienionych parametrów nie jest znany
+raczej stosuje się opcje.</p>
+<p>Z rozważań na temat opcji znane są profile zysków i strat dla
+poszczególnych opcji.</p>
+<p>Patrząc na te profile nasuwa się strategia zabezpieczenia przy pomocy
+opcji.</p>
+<p>Jeśli posiadamy akcje ABC i chcemy zabezpieczyć się przed spadkiem ich
+ceny, rozwiązaniem jest wykupienie opcji put na tę cenę. Jeśli
+wykreślimy profil zysków i strat takiej strategii to łatwo jest
+dostrzec, że wynik takiej transakcji (long akcji i long put) ma taki
+sam profil jak posiadanie (syntetycznej) opcji call.</p>
+<p>Czyli są możliwe dwie strategie zabezpieczania dające ten sam efekt
+końcowy. Czy to, że efekt zabezpieczenia jest taki sam znaczy, że są
+sobie równoważne??? I którą strategię należy stosować?</p>
+<p>Mając bowiem akcje spółki ABC możemy zabezpieczyć się przed spadkiem
+ich kursu w określonym czasie, kupując do portfela opcje put
+wygasającą w tym właśnie czasie.  Alternatywna strategia to sprzedać
+akcje i kupić opcje call. Którą wybrać?</p>
+<p>Wybrać należy tańszą strategię, biorąc pod uwagę, koszty opcji,
+ewentualną wypłatę dywidendy i stopę wolną od ryzyka. Kupując dziś
+opcje put i trzymając ją do czasu wygaśnięcia ponosimy koszty zakupu
+opcji + koszty pieniądza w czasie, ale zyskujemy dywidendę. W
+przypadku sprzedaży dzisiaj akcji ABC zyskujemy wartość tej kwoty w
+czasie (do wygaśnięcia opcji call ale ponosimy koszty opcji call
+dzisiaj + jej wartość w czasie. Oczywiście nie mamy dywidendy.  Które
+z dwu przepływów finansowych jest mniejszy, tę strategie
+stosujemy. Należy jeszcze uwzględnić w obliczeniach koszty transakcji.</p>
+<div class="admonition note">
+<p class="admonition-title">Informacja</p>
+<p>Generalnie stosuje się następującą zasadę zabezpieczania stosując
+opcje:</p>
+<ul class="simple">
+<li><p>Jeśli pozycja jest zagrożona stratą w przypadku spadających cen to
+kupujemy opcje put lub sprzedajemy call.</p></li>
+<li><p>Jeśli pozycja jest zagrożona stratą w przypadku rosnących cen
+sprzedajemy opcje put lub kupujemy call.</p></li>
+</ul>
+</div>
+<p>Należy pamiętać jakie zobowiązania ciążą na sprzedającym opcje
+(konieczność dostarczeni/ kupienia aktywa podstawowego po ustalonej
+cenie) a jakie na kupującym opcje (ryzyko ograniczone do wysokości
+straty premii).</p>
+</div>
+<div class="section" id="strategie-opcyjne-polegajace-na-stosowaniu-kombinacji-opcji">
+<h2><span class="section-number">14.6. </span>Strategie opcyjne  polegające na stosowaniu  kombinacji opcji<a class="headerlink" href="#strategie-opcyjne-polegajace-na-stosowaniu-kombinacji-opcji" title="Stały odnośnik do tego nagłówka">¶</a></h2>
+<p>Do zabezpieczenia pozycji możemy użyć kombinacje opcji. Opcji, które
+dotyczą tego samego aktywa, tego samego czasu wygaśnięcia opcji i tej
+samej ceny wykonania (jeśli nie potrafimy przewidzieć kierunku ruchu
+cen). Przykładem takiego zabezpieczenia  jest strategia, która polega na kupnie (bądź
+sprzedaży) zarówno opcji put i call (at the money) (w równych
+ilościach).</p>
+<div class="section" id="dwie-opcje">
+<h3><span class="section-number">14.6.1. </span>Dwie opcje<a class="headerlink" href="#dwie-opcje" title="Stały odnośnik do tego nagłówka">¶</a></h3>
+<div class='sage_linked'><script type='text/x-sage'>from scipy.stats import norm
+import numpy as np
+var('S')
+def longCALL(S,K,P=0):
+    return max_symbolic(S-K,0)-P
+def longPUT(S,K,P=0):
+    return max_symbolic(K-S,0)-P
+def shortCALL(S,K,P=0):
+    return -max_symbolic(S-K,0)+P
+def shortPUT(S,K,P=0):
+    return -max_symbolic(K-S,0)+P
+
+
+def BlackScholes(S0,K,r,T,sigma):
+     d1=(np.log(S0/K)+(r+sigma**2/2)*T)/(sigma*np.sqrt(T));
+     d2=d1-sigma*np.sqrt(T);
+     C = S0*norm.cdf(d1)-K*exp(-r*T)*norm.cdf(d2);
+     P = K*np.exp(-r*T)*norm.cdf(-d2)-S0*norm.cdf(-d1);
+     return (C,P)
+
+def plotOptions(OPTIONS=[longCALL,longPUT],Ks=[125,120], cs=['red','green'],alpha=None):
+    var('S')
+    S1,S2 = 100,140
+    sigma = 0.1
+    p = Graphics()
+    Osum,BSsum  = 0,0
+    if alpha==None:
+        a = [1.0]*len(OPTIONS)+[1.0]
+    else:
+        a = [alpha[1]]*len(OPTIONS)+[alpha[1]]
+        a[alpha[0]]=1.0
+    for i,(OPTION,K,c) in enumerate(zip(OPTIONS,Ks,cs)):
+        if "CALL" in OPTION.__name__:
+            No = 0
+        else:
+            No = 1
+        if "long" in OPTION.__name__:
+            C = +1.0
+        else:
+            C = -1.0
+        P = BlackScholes(115,K,0.0,1,sigma)[No]
+        x = np.linspace(S1,S2,50)
+        BS =  C*( BlackScholes(x,K,0.0,1,sigma)[No] - P)
+        p += plot( OPTION(S,K,P),(S,S1,S2),thickness=2.,color=c,alpha=a[i])
+        p += line(zip(x,BS),color=c,thickness=1.,alpha=a[i])
+        p += point([(K,0)],color=c,size=40,alpha=a[i])
+        p += text(r"$K_%d$"%(i+1),(K,2),fontsize=15,color=c)
+        Osum += OPTION(S,K,P)
+        BSsum += BS
+    p += plot( Osum,(S,S1,S2),color='black',thickness=3.,alpha=a[-1])
+    p += line(zip(x,BSsum),color='black',thickness=1.,alpha=a[-1])
+    p += point([(115,0)],color='brown',size=40,gridlines=[Ks,[]])
+    return p
+
+@interact
+def _(K1 = slider(100,145,1,default=125),K2=slider(100,145,1,default=120),s=[0,1,2,'all']):
+      if s!='all':
+          alpha = (s,.1)
+      else:
+          alpha = None
+      p = plotOptions(OPTIONS=[longCALL,longPUT],Ks=[K1,K2], cs=['red','green'],alpha=alpha)
+      p.set_axes_range(ymin=-12,ymax=12)
+      p.show(figsize=6)</script></div><div class='sage_linked'><script type='text/x-sage'>p=plotOptions(OPTIONS=[longCALL,shortCALL,shortCALL,longCALL],Ks=[112,118,122,128], cs=['red','green','green','blue'],alpha=[4,0.1])
+p.set_axes_range(ymin=-12,ymax=12)
+p.show(figsize=6)</script></div><p>Strategia ta jest nazywana Straddle - stelaż.</p>
+<ul class="simple">
+<li><p>Strategie ta jest stosowana, kiedy oczekujemy dużej zmienności ceny
+aktywa, ale nie wiemy, w którą stronę</p></li>
+<li><p>Jeśli kupimy straddle zyskujemy jeśli akcje przesuną się dużo w
+dowolna stronę.</p></li>
+<li><p>Maksymalna strata to cena kupionych opcji.</p></li>
+</ul>
+<p>Należy ponownie podkreślić, że w przypadku używania opcji w celu
+zabezpieczenia możemy kupować opcje albo je wystawiać. Opcje nie są
+instrumentami o symetrycznym ryzyku. Wystawiając opcje ryzykujemy
+konieczność dostawy aktywa więc koszty nabycia takiego aktywa są
+często znacznie wyższe niż premia za opcje a w przypadku kupna opcji
+ryzykujemy tylko stratę w wysokości jej ceny.</p>
+<p>Powyższy przykład to strategia Long stradle czyli nabywamy opcje i
+nasze ryzyko jest ograniczone do sumy premii zapłaconych za opcje a</p>
+<blockquote>
+<div><p>ewentualny zysk jest praktycznie nieograniczony.</p>
+</div></blockquote>
+<p>Jednakże, jeślispodziewamy się, że cena wykonania aktywa podstawowego nie zmieni
+się zastosujemy strategie short straddle czyli wystawimy tą samą ilość opcji
+kupna i sprzedaży na tą samą cenę wykonania i czas
+zapadalności. Jeśli sprzedamy straddle,zyskujemy jeśli akcja nie przesunie się w żadnym kierunku. Strategia
+jest opłacalna w sytuacji gdy spodziewana jest stabilizacja ceny
+instrumentu podstawowego na poziomie ceny wykonania S1. Wadą tej
+strategii może być brak ograniczenia maksymalnej straty jaką można
+ponieść w wyniku zastosowania strategii, gdy cena jenak ulegnie zmianie. Maksymalny zysk wynikający z
+zastosowania takiej strategii jest równy sumie premii uzyskanych z
+tytułu wystawienia opcji.</p>
+<p>Inne strategie tego typu.</p>
+<p>Generalnie można stosować strategie opcyjne polegające na kupieniu i
+sprzedaży opcji o różnych cenach wykonania S1 i S2 różnych od siebie
+(poszerzony zakres niepewności). Przypadek gdy S1=S2 już został
+omówiony powyżej.</p>
+<p>Takie strategie zwane są vertical spread.</p>
+<p>Można też używać kombinacji opcji o różnych okresach wygaśnięcia czyli
+tak zwany calendar spread. Pozwala to na zyski jeśli cena wyjdzie poza
+obszar miedzy cenami wykonania.</p>
+<p>Oczywiście można stosować kombinacje opcji o różnej cenie wykonania S1
+i S2 oraz o różnych terminach wygaśnięcia T1 i T2. (tzw Zeus hedge).</p>
+<p>Wybór strategii zależy od tego przed czym chcemy się zabezpieczyć.</p>
+<p>Bardziej dokładne omówienie stosowania kombinacji opcji i jego
+praktycznych ograniczeń, można znaleźć np. w pracy autorstwa Jerzego
+Dzieży - <em>O możliwościach arbitrażu na Giełdzie Papierów Wartościowych
+w Warszawie</em> 2005 napisanej dla GPW i dostępnego w sieci Internet i na
+stronach GPW. Oraz w pracy Krzysztofa Piontka pracownika Katedry
+Inwestycji Finansowych i Ubezpieczeń, Akademii Ekonomicznej we
+Wrocławiu a zatytułowanej <em>Weryfikacja parytetu kupna/sprzedaży dla
+opcji notowanych na GPW w Warszawie - Problemy oraz przykłady
+strategii arbitrażowych</em> - praca dostępna w sieci Internet.</p>
+</div>
+<div class="section" id="delta-hedging">
+<h3><span class="section-number">14.6.2. </span>Delta hedging<a class="headerlink" href="#delta-hedging" title="Stały odnośnik do tego nagłówka">¶</a></h3>
+<p>Wiedząc jak wrażliwa jest cena opcji na zmianę parametrów rynkowych
+wiedząc o znaczeniu współczynników greckich opcji (kolejne pochodne
+cząstkowe- Patrz opcje  rozdział <a class="reference internal" href="opcje-wycena.html#greeks"><span class="std std-ref">Analiza wrażliwości</span></a> ) Możemy posłużyć
+się tą wiedzą konstruując strategie zabezpieczania pozycji (portfela)
+przed zmianami cen na rynku.  Metoda zwana hedgingiem delta neutralnym
+ma na celu utworzenie i zachowanie pozycji portfela składającego się z
+pozycji kasowej i pozycji opcyjne mającego deltę równą zero (delta
+neutralna na zmiany)i zachowanie jej w czasie. Delta neutralny hedging
+jest taką strategią, w której stosunek pomiędzy ilością opcji i
+ilością akcji (aktywa zabezpieczanego) jest równa odwrotności delty
+opcji.</p>
+<p>Zmiana ceny opcji przy zmianie ceny aktywa podstawowego nosi nazwę
+współczynnika delta. Jest to, innymi słowy, miara wpływu zmiany
+wartości instrumentu bazowego na kurs opcji. Odpowiada na pytanie; O
+ile zmieni się kurs opcji na wskutek zmiany wartości instrumentu
+bazowego?</p>
+<div class="math notranslate nohighlight">
+\[\Delta = \frac{\partial P_0 }{ \partial P_S }\]</div>
+<p>Dla opcji call, korzystajac z modelu Blacka Scholesa</p>
+<div class="math notranslate nohighlight">
+\[\Delta_{\text{call}} = N(d_1)\]</div>
+<p>A dla opcji put:</p>
+<div class="math notranslate nohighlight">
+\[\Delta_{\text{put}} = N(d_1) - 1\]</div>
+<p>Korzystając z prostego przekształcenia widać, ze:</p>
+<div class="math notranslate nohighlight">
+\[\Delta_{\text{call}} - \Delta_{\text{put}}  = 1\]</div>
+<p>Ponadto, delta wskazuje ilość akcji potrzebnych do otworzenia zwrotu z opcji.</p>
+<p>Np., <span class="math notranslate nohighlight">\(\Delta_{call} = 0.80\)</span> znaczy ze działa jak 0.80
+akcji. Jeśli cena akcji wzrośnie o 1, cena opcji call wzrośnie o 0.80.
+cecha ta pozwala na budowanie strategii zabezpieczających. Ale więcej
+o analizie wrażliwości można znaleźć w <strong>Analiza wrażliwości opcji</strong>.</p>
+<div class="admonition note">
+<p class="admonition-title">Informacja</p>
+<p>Budując strategie zabezpieczające bazujące na zachowaniu niezależności
+wartości od zmiany ceny (<span class="math notranslate nohighlight">\(\Delta= 0\)</span>) kierujemy się zasadą,
+która to zasada jest następująca:</p>
+<ul class="simple">
+<li><p>Budując zabezpieczenie pozycji krótkiej/(długiej) w opcjach
+(europejskich) call polega na utrzymaniu pozycji długiej/(krótkiej) w
+N(d1) aktywach bazowych.</p></li>
+<li><p>W przypadku opcji put, (opcje europejskie - delta ujemna)
+pozycje długą /(krótka) w opcjach put zabezpieczamy pozycja
+długą/(krótką) w [N(d1) - 1] akcjach bazowych.</p></li>
+</ul>
+</div>
+<p>Współczynnik delta zmienia się w wyniku upływu czasu do terminu
+wygaśnięcia opcji oraz zmiany wartości instrumentu bazowego.  Przy
+zabezpieczaniu wystawionych opcji metodą delta hedging należy
+dokonywać okresowych korekt pozycji zabezpieczającej zgodnie ze zmianą
+współczynnika delta.  Delta bowiem jest równa zero przez pewien czas i
+cierpi skutkiem zmian nie tylko czasu i zmienności ceny ale także
+wielkości mierzonych przez współczynniki theta i Vega (kappa).</p>
+</div>
+<div class="section" id="delta-hedging-przyklad-na-drzewie-binarnym">
+<h3><span class="section-number">14.6.3. </span>Delta hedging, przykład na drzewie binarnym<a class="headerlink" href="#delta-hedging-przyklad-na-drzewie-binarnym" title="Stały odnośnik do tego nagłówka">¶</a></h3>
+<p>Wyobraźmy sobie, że mamy rynek na którym opcja sprzedaży na aktywo ma
+cenę godziwą 15. Ponadto wyobrażmy sobie, że mamy chętnego na taką
+opcję za 16. Wynika z tego, że można zarobić 16-15=1 wystawiając opcję
+sprzedaży. Jednak wystawieniem opcji narażamy się na ryzyko poniesienia
+niczym nie ograniczonej straty! Czy możemy zarobić „naszą” złotówkę
+nie ponosząc ryzyka? Okazuje się, że tak i właśnie delta-hedging może
+nam w tym pomoć.</p>
+<p>Postąpimy tak. Wystawimy za 16 opcje. Zgodnie z ideą hegdingu,
+będziemy utrzymywać taki portfel by w KAŻDYM scenariuszu ewolucji ceny
+aktywa, otrzymać zysk 1, wynikający z początkowej różnicy ceny godziwej
+i rynkowej.</p>
+<p>Do ilustracji tej sytuacji wykorzystamy model binarny. Najpierw
+zbudujemy czteropokoleniowe drzewo cen aktywa, startując od
+wartości 100. Będzie to drzewo addytywne - zakładamy, że cena może
+wzrosnąc lub zmaleć o 20 w jednym kroku. Ponadto dla przejrzystości
+zakładamy zerową stopę procentową. Łatwo się przekonać, że w takiej
+sytuacji model będzie wolne od arbitrażu jeśli prawdopodobieństwa
+wzrostu lub spadku ceny aktywa będą równe <span class="math notranslate nohighlight">\(\frac{1}{2}\)</span>.</p>
+<p>Zacznijmy od zdefiniowania kilku pomocniczych funkcji:</p>
+<div class='sage_linked'><script type='text/x-sage'>import numpy as np
+def gen_all(niter,SP = 4.0,q=0.175,delta1=None,delta2=None):
+    SP = [[SP]]
+
+    for i in range(niter):
+        tmp = []
+        for s in SP[-1]:
+            if delta1==None or delta2==None:
+                tmp+= [ (1+q)*s, s/(1+q) ]
+            else:
+                tmp+= [ s+delta1, s-delta2 ]
+        SP.append(tmp)
+    return SP
+
+def gen_recombining(niter,SP = 4.0,q=0.175,delta1=None,delta2=None):
+    SP = [[SP]]
+
+    for i in range(niter):
+        tmp = []
+        for s in SP[-1]:
+            if delta1==None or delta2==None:
+                tmp+= [ (1+q)*s]
+            else:
+                tmp+= [ s+delta1]
+
+        if delta1==None or delta2==None:
+            tmp+= [ s/(1+q)]
+        else:
+            tmp+= [ s-delta2]
+
+
+        SP.append(tmp)
+    return SP
+
+def plot_tree(SP):
+    plt = point( (0,SP[0][0]),size=244,color='gray',alpha=0.2,zorder=0)
+
+    if len(SP) == len(SP[-1]):
+        for l,prices in enumerate(SP):
+            for i,p in enumerate(prices):
+                if l>0:
+                    plt+=point2d( (l,p),size=244,color='gray',alpha=0.2,zorder=0,faceted=True )
+                plt+= text("%0.1f"%p,(l,p),color='black',figsize=(5,3))
+
+        for l in range(len(SP)-1):
+            for i in range(l+1):
+                plt+=arrow2d( (l,SP[l][i]),(l+1,SP[l+1][i]), arrowshorten=16)
+                plt+=arrow2d( (l,SP[l][i]),(l+1,SP[l+1][i+1]), arrowshorten=16)
+    else:
+        for l,prices in enumerate(SP):
+            for i,p in enumerate(prices):
+                if l>0:
+                    plt+=arrow2d( (l-1,SP[l-1][int(i/2)]),(l,p), arrowshorten=16)
+                    plt+=point2d( (l,p),size=244,color='gray',alpha=0.2,zorder=0,faceted=True )
+                plt+= text("%0.1f"%p,(l,p),color='black',figsize=(5,3))
+    plt.axes_labels(["rok","wartosc"])
+    plt.axes_range(xmin=-.2, xmax = len(SP)-1+0.2,ymin=0,ymax=SP[-1][0]+1)
+    return plt
+
+def plot_tree2(SP,OP):
+    plt = point( (0,SP[0][0]),size=244,color='gray',alpha=0.2,zorder=0)
+
+    if len(SP) == len(SP[-1]):
+        for l,(prices,oprices) in enumerate(zip(SP,OP)):
+            for i,(p,op) in enumerate(zip(prices,oprices)):
+                if l>0:
+                    plt+=point2d( (l,p),size=244,color='gray',alpha=0.2,zorder=0,faceted=True )
+                plt+= text("%0.2f"%op,(l,p),color='black',figsize=(5,3))
+
+        for l in range(len(SP)-1):
+            for i in range(l+1):
+                plt+=arrow2d( (l,SP[l][i]),(l+1,SP[l+1][i]), arrowshorten=16)
+                plt+=arrow2d( (l,SP[l][i]),(l+1,SP[l+1][i+1]), arrowshorten=16)
+    else:
+        for l,(prices,oprices) in enumerate(zip(SP,OP)):
+            for i,(p,op) in enumerate(zip(prices,oprices)):
+                if l>0:
+                    plt+=arrow2d( (l-1,SP[l-1][int(i/2)]),(l,p), arrowshorten=16)
+                    plt+=point2d( (l,p),size=244,color='gray',alpha=0.2,zorder=0,faceted=True )
+                plt+= text("%0.2f"%op,(l,p),color='black',figsize=(5,3))
+    plt.axes_labels(["rok","wartosc"])
+    plt.axes_range(xmin=-.2, xmax = len(SP)-1+0.2,ymin=0,ymax=SP[-1][0]+1)
+    return plt
+print( "Wczytano funkcje pomocnicze" )</script></div><p>Wygenerujmy więc nasze eksperymentalne drzewo cen aktywa i narysujmy
+je:</p>
+<div class='sage_linked'><script type='text/x-sage'>N = 3
+S0 = 100
+Delta = 20
+SP = gen_recombining(N,SP=S0,delta1=Delta,delta2=Delta)
+plt_sp = plot_tree(SP)
+plt_sp.set_axes_range(ymax=170)
+plt_sp.show()</script></div><p>Wycenimy teraz opcję sprzedaży aktywa za cenę <span class="math notranslate nohighlight">\(K\)</span> w czasie
+<span class="math notranslate nohighlight">\(t=3\)</span>. Zaczynamy od ceny opcji w czasie jej wykonania i
+propagujemy w dół drzewa obliczając za każdym razem średnie ważone z
+miarą arbitrażową <span class="math notranslate nohighlight">\(p\)</span>. Dochodzimy w ten sposób do ceny opcji w
+czasie <span class="math notranslate nohighlight">\(t=0\)</span>. Algorytm może być zaimplementowany na przykład
+tak:</p>
+<div class='sage_linked'><script type='text/x-sage'>K = 100
+p = 0.5
+OP = [ [max(0,s-K) for s in SP[N]] ]
+for idx in range(N):
+    el = [ (p*OP[-1][i]+(1-p)*OP[-1][i+1]) for i in range(len(OP[-1])-1)]
+    OP.append(el)
+OP.reverse()
+print( "Cena opcji Call wynosi:",OP[0] )
+plot_tree2(SP,OP)</script></div><p>Mając ceny opcji i aktywa w każdym miejscu drzewa, możemy wyliczyć
+współczynnik delta. W przypadku modelu dyskretnego będzie on dany
+przez:</p>
+<div class="math notranslate nohighlight">
+\[\Delta_i = \frac{O^{up}_{i+1}-O^{down}_{i+1}}{S^{up}_{i+1}-S^{down}_{i+1}},\]</div>
+<p>czyli delta w danym węźle drzewa jest ilorazem różnic cen opcji i
+aktywa w chwili następnej. Wynika z tego, że deltę możemy policzyć dla
+wszystkich z wyjątkiem ostatniego pokolenia. Wykorzystując procedurę
+wizualizacyjną możemy obliczyć wszystkie delty dla naszego drzewa i
+zestawić wykres z wykresem ceny opcji.</p>
+<div class='sage_linked'><script type='text/x-sage'>delta_tree = [np.diff(np.array(op))/np.diff(np.array(sp)) for op,sp in zip(OP[1:],SP[1:])]
+delta_tree.append([0]*len(SP[-1]))
+show(plot_tree2(SP,delta_tree))
+show(plot_tree2(SP,OP) )</script></div><p>Strategia delta hedge zakłada, że w każdym momencie powinniśmy mieć
+dokładnie tyle jednostek aktywa ile wynosi delta. Mamy więc:</p>
+<blockquote>
+<div><ul class="simple">
+<li><p>Wystawiliśmy opcję za którą dostaliśmy 16</p></li>
+<li><p>Tworzymy portfel składający się z aktywa i depozytu bankowego lub
+kredytu, na starcie mamy na depozycie 16 ze sprzedaży opcji</p></li>
+<li><p>W każdym punkcie drzewa modyfikujemy portfel tak by mieć dokładnie
+<span class="math notranslate nohighlight">\(\Delta\)</span> jednostek aktywa. Jeśli trzeba to się zadłużamy.</p></li>
+</ul>
+</div></blockquote>
+<p>Możemy więc łatwo zaimplementować funkcję <code class="code docutils literal notranslate"><span class="pre">calculate_evo</span></code>,
+która obliczy dla danego scenariusza w każdym momencie portfel
+zabezpieczający. Następnie generujemy listę wszystkich scenariuszy i
+w elementcie interaktywnym obliczamy kolejne portfele.</p>
+<div class='sage_linked'><script type='text/x-sage'>def calculate_evo(SP,OP,p_,depo=0,c=1):
+    Pt = [(0,depo,SP[0][0])]
+    for i,(k,k_next) in enumerate(zip(p_,p_[1:])):
+        delta = c*(OP[i+1][k]-OP[i+1][k+1])/(SP[i+1][k]-SP[i+1][k+1])
+        x = delta - Pt[-1][0]
+        Pt.append( (delta,Pt[-1][1]-x*SP[i][k],SP[i+1][k_next]) )
+    return (Pt[-1][0]*Pt[-1][2]+Pt[-1][1]-max(c*( Pt[-1][2]-K),0),Pt)
+
+all_paths = map(lambda x:[0]+np.cumsum(x).tolist(),map(list,cartesian_product( N*[[0,1]]).list()) )
+
+@interact
+def _(path = list(all_paths)):
+    p = plot_tree2(SP,OP)
+    p += line( [( i,SP[i][p_] ) for i,p_ in enumerate(path)],color='red')
+    if SP[-1][path[-1]]>K:
+        print( "Opcja jest w cenie i musimy doplacic", SP[-1][path[-1]]-K )
+    else:
+        print( "Opcja jest bezwartościowa" )
+    table( calculate_evo(SP,OP,path,depo=16)[1])
+    print( "W czasie wykonania mamy w sumie:",calculate_evo(SP,OP,path,depo=16)[0] )
+    p.show(figsize=3)</script></div></div>
+<div class="section" id="strategia-gamma-neutralnej-przy-delta-0">
+<h3><span class="section-number">14.6.4. </span>Strategia  gamma - neutralnej (przy delta = 0)<a class="headerlink" href="#strategia-gamma-neutralnej-przy-delta-0" title="Stały odnośnik do tego nagłówka">¶</a></h3>
+<p>Strategia polegająca na tworzeniu portfela o zerowym <span class="math notranslate nohighlight">\(\Delta\)</span> i
+zerowym <span class="math notranslate nohighlight">\(\Gamma\)</span> jednocześnie.</p>
+<p><span class="math notranslate nohighlight">\(\Gamma\)</span> drugą pochodną ceny opcji względem ceny
+akcji. <span class="math notranslate nohighlight">\(\Gamma\)</span> jest pierwsza pochodną <span class="math notranslate nohighlight">\(\Delta\)</span> w stosunku
+do ceny aktywa. <span class="math notranslate nohighlight">\(\Gamma\)</span> jest także nazywana <em>krzywizną</em>.</p>
+<div class="math notranslate nohighlight">
+\[ \begin{align}\begin{aligned}\Gamma_c = \frac{\partial ^2 C}{\partial S^2} = \frac{\partial \Delta_c}{\partial S}\\\Gamma_p = \frac{\partial ^2 P}{\partial S^2} = \frac{\partial \Delta_p}{\partial S}\end{aligned}\end{align} \]</div>
+<p>Jeśli gamma jest bliska zero, to znaczy <span class="math notranslate nohighlight">\(\Delta\)</span> nie zmienia się
+wiele ze zmiana ceny.</p>
+<p>Więcej informacji na temat stosowania opcji do ograniczenia ryzyka
+można znaleźć w pozycji autorstwa Ryszarda Węgrzyna - „Opcje jako
+instrumenty ograniczenia ryzyka cen akcji. Problemy optymalizacji.” -
+Wydawnictwo Uniwersytetu Ekonomicznego w Krakowie - (2013).</p>
+</div>
+</div>
+</div>
+
+
+          </div>
+        </div>
+      </div>
+      <div class="sphinxsidebar" role="navigation" aria-label="main navigation">
+        <div class="sphinxsidebarwrapper">
+  <div class="sphinxlocaltoc">
+  <h3><a href="index.html">Table Of Contents</a></h3>
+  <ul>
+<li><a class="reference internal" href="#">14. Hedging</a><ul>
+<li><a class="reference internal" href="#hedging-cel-operacji-zabezpieczenia-przed-ryzykiem">14.1. Hedging: cel  operacji  zabezpieczenia przed ryzykiem</a></li>
+<li><a class="reference internal" href="#ryzyko-walutowe-i-ryzyko-zmiany-ceny">14.2. Ryzyko walutowe i ryzyko zmiany ceny</a></li>
+<li><a class="reference internal" href="#zabezpieczenie-przy-pomocy-kontraktow-futures">14.3. Zabezpieczenie przy pomocy kontraktów Futures</a><ul>
+<li><a class="reference internal" href="#cross-hedging">14.3.1. Cross hedging</a></li>
+<li><a class="reference internal" href="#zabezpieczenia-metoda-najmniejszej-wariancji">14.3.2. Zabezpieczenia metodą najmniejszej wariancji</a></li>
+<li><a class="reference internal" href="#zabezpieczenie-portfela-indeksem-gieldowym">14.3.3. Zabezpieczenie portfela indeksem giełdowym</a></li>
+</ul>
+</li>
+<li><a class="reference internal" href="#przyklad-obliczen-hedgingu-za-pomoca-kontraktow-futures">14.4. Przykład obliczeń hedgingu za pomocą kontraktów futures</a><ul>
+<li><a class="reference internal" href="#paliwo-lotnicze-oraz-olej-opalowy">14.4.1. Paliwo lotnicze oraz olej opałowy</a></li>
+<li><a class="reference internal" href="#hedging-portfela-obligacji">14.4.2. Hedging portfela obligacji</a></li>
+</ul>
+</li>
+<li><a class="reference internal" href="#hedging-przy-pomocy-opcji">14.5. Hedging przy pomocy opcji</a></li>
+<li><a class="reference internal" href="#strategie-opcyjne-polegajace-na-stosowaniu-kombinacji-opcji">14.6. Strategie opcyjne  polegające na stosowaniu  kombinacji opcji</a><ul>
+<li><a class="reference internal" href="#dwie-opcje">14.6.1. Dwie opcje</a></li>
+<li><a class="reference internal" href="#delta-hedging">14.6.2. Delta hedging</a></li>
+<li><a class="reference internal" href="#delta-hedging-przyklad-na-drzewie-binarnym">14.6.3. Delta hedging, przykład na drzewie binarnym</a></li>
+<li><a class="reference internal" href="#strategia-gamma-neutralnej-przy-delta-0">14.6.4. Strategia  gamma - neutralnej (przy delta = 0)</a></li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+
+  </div>
+  <h4>Poprzedni temat</h4>
+  <p class="topless"><a href="ryzyko.html"
+                        title="poprzedni rozdział"><span class="section-number">13. </span>Zarządzanie ryzykiem</a></p>
+  <h4>Następny temat</h4>
+  <p class="topless"><a href="var.html"
+                        title="następny rozdział"><span class="section-number">15. </span>VaR</a></p>
+  <div role="note" aria-label="source link">
+    <h3>Ta strona</h3>
+    <ul class="this-page-menu">
+      <li><a href="_sources/Hedging.rst.txt"
+            rel="nofollow">Pokaż źródło</a></li>
+    </ul>
+   </div>
+<div id="searchbox" style="display: none" role="search">
+  <h3 id="searchlabel">Szybkie wyszukiwanie</h3>
+    <div class="searchformwrapper">
+    <form class="search" action="search.html" method="get">
+      <input type="text" name="q" aria-labelledby="searchlabel" />
+      <input type="submit" value="Szukaj" />
+    </form>
+    </div>
+</div>
+<script>$('#searchbox').show(0);</script>
+        </div>
+      </div>
+      <div class="clearer"></div>
+    </div>
+  </div>
+  <div class="relbar-bottom">
+    
+    <div class="related" role="navigation" aria-label="related navigation">
+      <h3>Nawigacja</h3>
+      <ul>
+        <li class="right" style="margin-right: 10px">
+          <a href="genindex.html" title="Indeks ogólny"
+             >indeks</a></li>
+        <li class="right" >
+          <a href="var.html" title="15. VaR"
+             >dalej</a> &nbsp; &nbsp;</li>
+        <li class="right" >
+          <a href="ryzyko.html" title="13. Zarządzanie ryzykiem"
+             >wstecz</a> &nbsp; &nbsp;</li>
+  <li><a href="index.html">Analiza Rynków Finansowych</a> &#187;</li>
+   
+      </ul>
+    </div>
+  </div>
+  
+  <div class="footer">
+    <a class="logo" href="http://upgow.us.edu.pl/" target="_blank"><img src="_static/upgow.png" alt="UPGOW"/></a><br/>
+    <img src="_static/stopka_EU.png" alt="EU"/><br/>
+    &copy; Copyright 2013, ML and MK.
+    Created using <a href="http://sphinx.pocoo.org/">Sphinx</a> 2.4.0.
+  </div>
+  </body>
+</html>

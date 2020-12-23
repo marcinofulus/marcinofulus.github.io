@@ -1,0 +1,990 @@
+
+
+  
+<!DOCTYPE html>
+
+<html xmlns="http://www.w3.org/1999/xhtml" lang="pl">
+  <head>
+    <meta charset="utf-8" />
+    <title>15. VaR &#8212; Analiza Rynków Finansowych</title>
+    <link rel="stylesheet" href="_static/upgow.css" type="text/css" />
+    <link rel="stylesheet" href="_static/pygments.css" type="text/css" />
+    <link rel="stylesheet" href="http://fonts.googleapis.com/css?family=Noticia+Text|Open+Sans|Droid+Sans+Mono&subset=latin,latin-ext" type="text/css" />
+    <script id="documentation_options" data-url_root="./" src="_static/documentation_options.js"></script>
+    <script src="_static/jquery.js"></script>
+    <script src="_static/underscore.js"></script>
+    <script src="_static/doctools.js"></script>
+    <script src="_static/language_data.js"></script>
+    <script src="_static/translations.js"></script>
+    <script async="async" src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.5/latest.js?config=TeX-AMS-MML_HTMLorMML"></script>
+    <script src="_static/jquery.cookie.js"></script>
+    <script src="_static/cloud.js"></script>
+    <script type="text/javascript" src="http://sagecell.sagemath.org/static/jquery.min.js"></script>
+    <script type="text/javascript" src="http://sagecell.sagemath.org/static/embedded_sagecell.js"></script>
+    <script type="text/javascript">
+        sagecell.makeSagecell({inputLocation: ".sage_linked",
+                               linked: true,
+                       	evalButtonText: 'Wykonaj'});
+        sagecell.makeSagecell({inputLocation: ".sage_unlinked",
+                               linked: false,
+                           evalButtonText: 'Wykonaj'});
+    </script>
+
+    <style type="text/css">
+        .sagecell .CodeMirror-scroll {
+            overflow-y: hidden;
+            overflow-x: auto;
+        }
+        .sagecell .CodeMirror {
+            height: auto;
+        }
+    </style>
+    
+    <link rel="index" title="Indeks" href="genindex.html" />
+    <link rel="search" title="Szukaj" href="search.html" />
+    <link rel="next" title="16. Przykład - obliczenie VaR dla nieliniowej funkcji wyceny" href="var_ex2.html" />
+    <link rel="prev" title="14. Hedging" href="Hedging.html" />
+ 
+  <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, minimum-scale=1">
+  </head><body>
+  <div class="relbar-top">
+    
+    <div class="related" role="navigation" aria-label="related navigation">
+      <h3>Nawigacja</h3>
+      <ul>
+        <li class="right" style="margin-right: 10px">
+          <a href="genindex.html" title="Indeks ogólny"
+             accesskey="I">indeks</a></li>
+        <li class="right" >
+          <a href="var_ex2.html" title="16. Przykład - obliczenie VaR dla nieliniowej funkcji wyceny"
+             accesskey="N">dalej</a> &nbsp; &nbsp;</li>
+        <li class="right" >
+          <a href="Hedging.html" title="14. Hedging"
+             accesskey="P">wstecz</a> &nbsp; &nbsp;</li>
+  <li><a href="index.html">Analiza Rynków Finansowych</a> &#187;</li>
+   
+      </ul>
+    </div>
+  </div>
+  
+  <div class="content">  
+
+    <div class="document">
+      <div class="documentwrapper">
+        <div class="bodywrapper">
+          <div class="body">
+            
+  <div class="section" id="var">
+<h1><span class="section-number">15. </span>VaR<a class="headerlink" href="#var" title="Stały odnośnik do tego nagłówka">¶</a></h1>
+<div class="section" id="wstep-co-to-jest-var">
+<h2><span class="section-number">15.1. </span>Wstęp- co to jest VaR?<a class="headerlink" href="#wstep-co-to-jest-var" title="Stały odnośnik do tego nagłówka">¶</a></h2>
+<p>Zarządzanie portfelem to proces ustawicznej analizy sytuacji na rynku
+i zachowania się cen aktywów, proces optymalizacji składu posiadanego
+portfela tak by zysk z niego był wysoki oraz szukanie sposobów by
+ewentualna strata wartości portfela była możliwie najmniej
+bolesna. Ograniczanie strat, to podstawowe oczekiwanie zarządzania
+ryzykiem a źródłem tego ryzyka jest zmienność cen aktywów. Generalnie,
+optymalizacja w procesie zarządzania portfelem sprowadza się do
+maksymalizacji dochodu przy niezmiennym ryzyku albo do zmniejszania
+ryzyka przy ustalonym dochodzie.</p>
+<p>Coraz większe skomplikowanie instrumentów finansowych i transakcji
+wymagało stworzenia w miarę prostego, ale jednocześnie elastycznego
+narzędzia kontroli ekspozycji na ryzyko.</p>
+<p>Przykładowo w koncepcji CAPM takim parametrem charakteryzującym poziom
+ryzyka akcji jest współczynnik beta. VaR (skrót od angielskiego <em>Value at Risk</em>) jako metoda (a także wskaźnik
+podejmowanego ryzyka), powstała w związku z koniecznością wyceny
+ryzyka instrumentów, portfeli instrumentów, które to stają się coraz
+bardziej wyrafinowane i skomplikowane. Wartość VaR
+wyraża stopień ekspozycji podmiotu na ryzyko w zakresie posiadania
+określonego portfela aktywów. Zadaniem VaRu jest określenie pewnej
+wartości potencjalnej straty (przy założonym poziomie
+prawdopodobieństwa, przedziale czasowym, normalnych warunkach
+rynkowych i przy wycenie aktywów po cenach ostatnich zawartych rynkowo
+transakcji czyli Mark-to-Market).  VaR informuje, na jaki poziom strat
+narażona jest pula aktywów, przy określonych warunkach pomiaru.</p>
+<p><em>VaR</em> (wartość narażona na ryzyko, wartość zagrożona) jest to kwota,
+jaką można stracić w wyniku inwestycji w portfel w określonym
+horyzoncie czasowym i przy założonym poziomie ufności. VaR jest
+statystyczną miarą ryzyka, która szacuje stratę na portfelu, jaka może
+wystąpić przy założonym poziomie ufności. VAR zawsze określa
+prawdopodobieństwo, zgodnie z którym straty (dotkliwość ryzyka) przy
+zadanym prawdopodobieństwie (przedział ufności) statystycznie nie
+powinny być większe od wyliczone kwoty.</p>
+<p>Definiując VaR uznajemy, że VaR jest poziomem straty, który może
+zostać przekroczony z prawdopodobieństwem równym a.</p>
+<p>Nie należy interpretować wyliczonej wartości VaR’u jako stwierdzenie,
+że „VaR jest maksymalną stratą” nawet jeśli autorzy dodają do tego
+wyrażenia uwagę, że mamy do czynienia ze statystyką, np. „przy
+ustalonym poziomie istotności (ufności)”.  Bywają sytuacje, że straty
+mogą być dużo wyższe <a class="footnote-reference brackets" href="#f1" id="id1">1</a></p>
+<p>Innymi słowy VaR to wartość strat, która może być przekroczona z
+prawdopodobieństwem α lub to wielkość straty, która może nie być
+przekroczona z prawdopodobieństwem równym <span class="math notranslate nohighlight">\((1-\alpha)\)</span> w
+kolejnym dniu. VaR jest bardzo wygodną i praktyczna miarą
+ryzyka. Prostota jej to przede wszystkim to, że jest to konkretna
+liczba. To daje prostą możliwość porównania i pewność w interpretacji
+odnośnie do porównywania zasad zarządzania finansowego. Jest to
+metoda, która podaje ogólny poziom ryzyka, niezależnie od rodzaju
+aktywów w powszechnie zrozumiałych jednostkach jakimi są pieniądze
+(wartość rynkowa).</p>
+<p>Konsekwencja zasady funkcjonowania VaR jest prosta: Jeżeli dany
+portfel aktywów przynosi większe zyski, przy mniejszym poziomie ryzyka
+VaR, to należało zwiększyć jego wielkość. Jeżeli dane aktywo przynosi
+większe zyski przy takim samym poziomie VaR, to należało zwiększyć
+zaangażowanie w to aktywo. Jeżeli zarządzający generował większe zyski
+przy tym samym poziomie VaR, to należy się mu się odpowiednio większa
+premia.</p>
+</div>
+<div class="section" id="kwantyle-i-percentyle">
+<h2><span class="section-number">15.2. </span>Kwantyle i percentyle<a class="headerlink" href="#kwantyle-i-percentyle" title="Stały odnośnik do tego nagłówka">¶</a></h2>
+<p>Z pojęciem VaR nieodłącznie związane jest pojęcie kwantyla. Cóż to
+jest kwantyl? Kwantylem rzędu <span class="math notranslate nohighlight">\(p\)</span> zmiennej losowej <span class="math notranslate nohighlight">\(X\)</span> o
+ciągłym rozkładzie danym gęstością <span class="math notranslate nohighlight">\(f(x)\)</span> nazywamy taką wartość
+<span class="math notranslate nohighlight">\(x_p\)</span>, że zachodzi:</p>
+<div class="math notranslate nohighlight">
+\[\int_{-\infty}^{x_p} f(x) dx = F(x_p) = p\]</div>
+<p>Percentylem, określa się kwantyl rzędu <span class="math notranslate nohighlight">\(\frac{p}{100\%}\)</span>, czyli
+kwantyl rzędu 0.05 jest równy percentylowi rzędu <span class="math notranslate nohighlight">\(5\%\)</span>.  Dla
+rozkładu normalnego (Gaussa) o średniej i variancji <span class="math notranslate nohighlight">\(\mu\)</span> i
+<span class="math notranslate nohighlight">\(\sigma\)</span>, odpowiednio, kwantyl rzędu <span class="math notranslate nohighlight">\(p\)</span> jest dany wzorem:</p>
+<div class="math notranslate nohighlight" id="equation-kwantyl-norm">
+<span class="eqno">(1)<a class="headerlink" href="#equation-kwantyl-norm" title="Stały odnośnik do tego równania">¶</a></span>\[\mu+\sigma\sqrt{2}\,\operatorname{erf}^{-1}(2 p - 1),\]</div>
+<p>co łatwo pokazać wiedząc, że dystybuanta zmiennej normalnej wynosi:</p>
+<div class="math notranslate nohighlight">
+\[\frac12\left[1 + \operatorname{erf}\left( \frac{x-\mu}{\sigma\sqrt{2}}\right)\right]\]</div>
+<p>Wzór <a class="reference internal" href="#equation-kwantyl-norm">(1)</a> ma ważną własność - widzimy, że wystarczy
+znać kwantyl dla rozkładu o średniej zero i wariancji jeden by łatwo go
+sobie przetransformować na zmienną losową o dowonych parametrach
+(oczywiście gaussowską).</p>
+<p>Wzory te są dostępne w każdym podręczniku statystyki więc nie warto
+znać ich na pamięć, jednak warto się dowiedzieć jak wyliczyć wartość
+kwantyla dla danych parametrów numerycznie. Niestety, widzimy, że wzór
+<a class="reference internal" href="#equation-kwantyl-norm">(1)</a> zawiera funkcję błędu Gaussa. Użyjemy, Sage-a.</p>
+<div class="admonition-poeksperymentujmy-z-kwantylami admonition">
+<p class="admonition-title">Poeksperymentujmy z kwantylami!</p>
+<p>Wartości numeryczne różnych wartości rozkładu normalnego (i nie
+tylko), można otrzymać w następujący sposób:</p>
+</div>
+<div class='sage_linked'><script type='text/x-sage'>T = RealDistribution('gaussian',1.0)
+k =  T.cum_distribution_function_inv(0.05)
+print( k )</script></div><p>Teraz, sprawdźmy, że rzeczywiście wycałkowanie funkcji gęstości od
+minus nieskończoności do <span class="math notranslate nohighlight">\(k\)</span> daje 0.05:</p>
+<div class='sage_linked'><script type='text/x-sage'>numerical_integral(lambda x:T.distribution_function(x),-oo,k)</script></div><p>Kwantyl możemy obliczyć nie tylko dla normalnej zmiennej
+losowej. Załóżmy, że mamy pewną liczbę (np. 100 000) realizacji
+zmiennej losowej w wektorze <span class="math notranslate nohighlight">\(X\)</span>. Jeżeli posortujemy te wartości
+rosnąco i weźniemy element o indeksie <span class="math notranslate nohighlight">\(5\% \times 100000 =
+5000\)</span>, to będziemy mieli wartość zmiennej losowej, poniżej której
+znajduję sie 5% „populacji” wyników losowania.  Oczywiście, jeśli
+liczba losowań nie będzie podzielna przez 20, to musimy
+np. zaokrąglić. W numpy mamy przydatną funkcję <cite>np.percentile</cite>, która
+oblicza kwantyl z danego wektora danych. Nazwa sugeruje, że podajemy
+na wejsciu <span class="math notranslate nohighlight">\(p \times 100\%\)</span>. Sprawdźmy sami:</p>
+<div class='sage_linked'><script type='text/x-sage'>import numpy as np
+X = np.random.randn(100000)
+X.sort()
+print( X[5000] )
+print( "Wbudowana funkcja w numpy, daje:", np.percentile(X,int(5)) )</script></div><p>Przy małej liczbie danych widać pewne różnice pomiędzy <cite>np.percentile</cite>
+a naszą procedurą, wynikającą ze sposobu interpolacji. Warto też
+zauważyć, że jeśli dysponujemy małą próbką danych, to wyznaczenie
+kwantyla obarczone jest dużym błędem. W szczególności jeśli mamy
+próbkę o liczebności 100 (co w analizie danych finansowych nie jest
+rzadkie) to kwantyl rzędu 0.01, ma taką samą wariancję jak badana
+zmienna losowa, i jego wartość będzie tego samego rzędu co do
+wielkości jak wariancja. Fakt ten znacznie rzutuje na wybór metod
+obliczeniowych stosowanych w analizie wartości zagrożonej.</p>
+<p>Warto też nadmienić, że wartość kwantyla dla dowolnego poziomu można
+odczytać w arkuszu kalkulacyjnym (np. OpenOffice, Excel, Arkusze
+Google) w funkcji: <cite>NORMSINV</cite>.</p>
+</div>
+<div class="section" id="var-metody-obliczania">
+<h2><span class="section-number">15.3. </span>VaR - metody obliczania<a class="headerlink" href="#var-metody-obliczania" title="Stały odnośnik do tego nagłówka">¶</a></h2>
+<p>Wartość zagrożona (wartość narażona na ryzyko, Value at Risk, VaR) w
+chwili t jest to taka strata wartości rynkowej portfela, że
+prawdopodobieństwo osiągnięcia jej lub przekroczenia w rozpatrywanym
+okresie (t,) równe jest zadanemu poziomowi tolerancji <span class="math notranslate nohighlight">\(\alpha\)</span>.</p>
+<p>Literatura ; Jorion P., Value at Risk, 2nd edition, McGraw-Hill, 2001,
+Krzysztof Piontek, Akademia Ekonomiczna
+im. Oskara Langego we Wrocławiu Katedra Inwestycji Finansowych i Ubezpieczeń - <cite>http://www.kpiontek.ue.wroc.pl/testyVaR.pdf</cite></p>
+<p>Powyższa definicje można zapisać w następujący sposób:</p>
+<p>Prawdopodobieństwo tego że wartość portfela pod koniec okresu będzie
+nie mniejsza niż wartość portfela na początku okresu pomniejszona o
+VaR jest równa <span class="math notranslate nohighlight">\(\alpha\)</span>.</p>
+<p>Taka jest istota VaRu. Jednak wyliczenie tej wielkości to problem
+praktyczny który nie jest realizowany jednakowo. Stosuje się bowiem w
+praktyce wiele metod aby oszacować tą wartość.  Wartość zagrożona w
+odniesieniu do portfela na rynku kapitałowym czy instrumentu
+finansowego, jest to taka strata jego wartości rynkowej, że
+prawdopodobieństwo jej osiągnięcia lub przekroczenia w zadanym okresie
+równe jest przyjętemu poziomowi tolerancji <span class="math notranslate nohighlight">\(\alpha\)</span>. Zazwyczaj
+przyjmuje się:</p>
+<div class="math notranslate nohighlight">
+\[\alpha =  (0.01,0.05),\]</div>
+<p>przy czym im jest on niższy, tym wyższa jest wartość VaR. Tak wiec
+przyjmuje się najczęściej praktycznie przyjmowane prawdopodobieństwo
+przekroczenia VaR wynosi 5% lub 1%. Oczywiście, zakładamy typowe
+warunki rynkowej zmienności cen, znane z historii. Jest to pierwsze z
+założeń jakie są przyjmowane. Można by dyskutować czy warunki z okresu
+lat 2003 - 2005 można zastosować do sytuacji rynku w roku 2007, albo
+czy dane z okresu 1925_1928 będą reprezentatywne do tego co rynek
+pokazał pod koniec października 1929roku, czyli w początku Wielkiego
+Kryzysu.</p>
+<div class="section" id="metody-wariancji-kowariancji">
+<h3><span class="section-number">15.3.1. </span>Metody wariancji -  kowariancji<a class="headerlink" href="#metody-wariancji-kowariancji" title="Stały odnośnik do tego nagłówka">¶</a></h3>
+<p>Bez względu na metodę, Value at Risk - miarę straty można wyrazić jako
+wartość absolutną lub jako jej procentową wielkość w stosunku do
+wartości bazowej, bądź w odniesieniu do wartości średniej portfela.</p>
+<p>Omawianie tych metod zacznijmy od przykładu portfela składającego się
+z pojedynczego aktywa.  Wartość rynkowa aktywa zmienia się rynkowo w
+czasie.  Jest ona większa lub mniejsza. Trend jest raczej trudny do
+przewidzenia. Często zakładamy, że ruch cen to ruch Browna.  Duże
+zmiany wartości są rzadsze niż mniejsze.  Obserwując zmiany cen w
+dłuższym okresie możemy zauważyć, że duże zmiany są mało prawdopodobne
+a ekstremalnie duże, wręcz niemożliwe. Decydując jak bardzo mało
+prawdopodobne są to zmiany decydujemy jakie skoki są praktycznie
+niemożliwe czyli jakie straty portfela są bardzo mało prawdopodobne (
+lub nawet niemożliwe). Wybrany poziom prawdopodobieństwa to poziom
+tolerancji. Mówimy tutaj o ufności a właściwie poziomie ufności.</p>
+<p>Jeśli poziom tolerancji czyli prawdopodobieństwo przekroczenia to
+<span class="math notranslate nohighlight">\(\alpha\)</span>, to poziom ufności <span class="math notranslate nohighlight">\(c\)</span> jest równy <span class="math notranslate nohighlight">\(1-\alpha\)</span>.</p>
+<dl class="simple">
+<dt>Wartość VaR dla portfela składającego się z jednego aktywa jest funkcją:</dt><dd><ul class="simple">
+<li><p>wartości ( mierzonej w pieniądzu) portfela</p></li>
+<li><p>zmienności ceny aktywa, mierzonej jako odchylenie standardowe</p></li>
+<li><p>poziomu tolerancji</p></li>
+<li><p>horyzontu czasowego.</p></li>
+</ul>
+</dd>
+</dl>
+<p>Jeśli staramy się określić VaR dla kolejnego, jednego dnia możemy
+przyjąć założenie, ze średnia zmian dla jednego dnia wynosi zero.</p>
+<blockquote>
+<div><p>Dla  portfela jednego aktywa i jednego dnia zmian VaR  wynosi:</p>
+</div></blockquote>
+<div class="math notranslate nohighlight" id="equation-eq-var">
+<span class="eqno">(2)<a class="headerlink" href="#equation-eq-var" title="Stały odnośnik do tego równania">¶</a></span>\[VaR = W \times \sigma \times k,\]</div>
+<p>gdzie:</p>
+<blockquote>
+<div><p><span class="math notranslate nohighlight">\(W\)</span> - wartość portfela w dniu poprzednim (w okresie poprzednim)</p>
+<p><span class="math notranslate nohighlight">\(\sigma\)</span> - odchylenie  standardowe ceny aktywa</p>
+<dl class="simple">
+<dt><span class="math notranslate nohighlight">\(k\)</span> - liczba odchyleń standardowych poniżej średniej</dt><dd><p>odpowiadające <span class="math notranslate nohighlight">\(\alpha\)</span> kwantylowi wystandaryzowanego
+rozkładu normalnego.</p>
+</dd>
+</dl>
+</div></blockquote>
+<p>Dla poziomu ufności <span class="math notranslate nohighlight">\(95\%\)</span>, <span class="math notranslate nohighlight">\(c=0.95\)</span> czyli <span class="math notranslate nohighlight">\((1-c)\)</span> jest piątym kwantylem (czyli 5%) standardowego rozkładu normalnego. Odpowiadająca temu wartość <span class="math notranslate nohighlight">\(k = -1.645\)</span>, a gdy  <span class="math notranslate nohighlight">\(1- \alpha = 0.99\)</span>, to <span class="math notranslate nohighlight">\(k = -2.326\)</span>.</p>
+<div class="admonition-przyklad admonition">
+<p class="admonition-title">Przykład</p>
+<p>Mamy portfel o wartości 100000 jednostek pieniężnych składający się
+z akcji spółki „Reflex. SA.”. Załóżmy, że odchylenie standardowe
+dziennego zwrotu na tych akcjach wynosi 0.0251 ( 2.51%)
+dziennie.</p>
+<p>Chcąc wiedzieć z pewnością 95% jaki jest VaR naszego portfela
+prowadzimy wyliczenia następująco:</p>
+<div class="math notranslate nohighlight">
+\[W \times \sigma \times  k.\]</div>
+<p>Czyli:</p>
+<div class="math notranslate nohighlight">
+\[100 000 \times 0.0251 \times -1.645 = -4128.95\]</div>
+<p>Znaczy to, że posiadając taki portfel w ciągu następnego dnia
+istnieje 5% szans na to, że straty portfela mogą wynieś 4129
+jednostek pieniężnych lub więcej. Czyli wartość portfela może spaść
+poniżej 95871 jednostek pieniężnych.</p>
+</div>
+<div class="section" id="poszerzenie-na-wiecej-niz-jeden-okres-czasowy">
+<h4><span class="section-number">15.3.1.1. </span>Poszerzenie na  więcej niż jeden okres czasowy<a class="headerlink" href="#poszerzenie-na-wiecej-niz-jeden-okres-czasowy" title="Stały odnośnik do tego nagłówka">¶</a></h4>
+<p>Aby wycenić wartość VaR w czasie więcej niż jeden dzień (okres
+czasowy), korzysta się z zależności odchylenia standardowego od czasu.</p>
+<p>Odchylenie standardowe po t okresach (np. dniach) jest równe
+odchyleniu standardowemu dziennemu (jednego okresu) razy pierwiastek z
+ilości okresów. Zachodzi to oczywiście, jeżeli procesy zmiany ceny w
+każdym z okresów są niezależnymi od siebie normalnymi zmiennymi
+losowymi o tych samych parametrach.</p>
+<div class="math notranslate nohighlight" id="equation-sigmat">
+<span class="eqno">(3)<a class="headerlink" href="#equation-sigmat" title="Stały odnośnik do tego równania">¶</a></span>\[\sigma_t = \sqrt{t} \sigma_1,\]</div>
+<dl>
+<dt>gdzie</dt><dd><p><span class="math notranslate nohighlight">\(t\)</span> - oznacza ilość okresów( dni)</p>
+<p><span class="math notranslate nohighlight">\(\sigma_t\)</span>  - oznacza odchylenie standardowe dzienne ( jednego okresu)</p>
+<p><span class="math notranslate nohighlight">\(\sigma_1\)</span>  - oznacza odchylenie standardowe po  t okresach ( dniach).</p>
+</dd>
+</dl>
+<p>Czyli jeśli chcemy znać VaR naszego portfela w ciągu miesiąca na
+poziomie 95% pewności (przyjmuje się średnio jako 22 dni robocze)
+wyliczamy:</p>
+<div class="math notranslate nohighlight">
+\[VaR = 100000 \times 0,0251 \times 1.645 \times \sqrt{22} = 19 366.5  \text{ jednostek pieniężnych}\]</div>
+<p>Należy jeszcze uogólnić sytuacje na przypadek, gdy że średnia wartość
+rozkładu zmiany ceny w danych okreśie jest niezerowa. W takim
+przypadku kwantyl jest równy:</p>
+<div class="math notranslate nohighlight" id="equation-var2a">
+<span class="eqno">(4)<a class="headerlink" href="#equation-var2a" title="Stały odnośnik do tego równania">¶</a></span>\[R\alpha = \mu - k\sigma\]</div>
+<p>Czyli VaR jest równy:</p>
+<div class="math notranslate nohighlight" id="equation-var2">
+<span class="eqno">(5)<a class="headerlink" href="#equation-var2" title="Stały odnośnik do tego równania">¶</a></span>\[VaR = (\mu - k\sigma ) W\]</div>
+<p>Gdzie</p>
+<blockquote>
+<div><p><span class="math notranslate nohighlight">\(W\)</span> - wartość portfela</p>
+<p><span class="math notranslate nohighlight">\(\mu\)</span> - średnia wartość rozkładu</p>
+<p><span class="math notranslate nohighlight">\(\sigma\)</span> - odchylenie standardowe stopy zwrotu</p>
+<p><span class="math notranslate nohighlight">\(k\)</span> - stała rozkładu</p>
+</div></blockquote>
+</div>
+<div class="section" id="portfel-skladajacy-sie-z-wielu-aktywow">
+<h4><span class="section-number">15.3.1.2. </span>Portfel składający się z wielu aktywów<a class="headerlink" href="#portfel-skladajacy-sie-z-wielu-aktywow" title="Stały odnośnik do tego nagłówka">¶</a></h4>
+<p>Co jeśli w naszym portfelu znajduje się więcej niż jedno aktywo?
+Wtedy należy uwzględnić istnienie  korelacji miedzy zachowaniem się aktywów.</p>
+<p>Uwzględnienie korelacji prowadzi do stosowania tych samych elementów
+jak teorii portfela której autorem jest Markowitz. Z tej teorii
+wiadomo, że ryzyko portfela zmniejsza jego dywersyfikacja i taki efekt
+powinna odzwierciedlać również miara ryzyka jaką jest VaR.</p>
+<p>Aby wyliczyć wartość VaR takiego portfela należy dodatkowo określić:</p>
+<blockquote>
+<div><ul class="simple">
+<li><p>wagę aktywa w portfelu (jego udział w wartości portfela), udział
+jest bowiem ważony kapitałem</p></li>
+<li><p>odchylenie standardowe stopy zwrotu każdego z aktywów portfela</p></li>
+<li><p>korelacje miedzy stopami zwrotu każdego aktywa portfela.</p></li>
+</ul>
+</div></blockquote>
+<p>Czyli VaR dla portfela aktywów o cenach danych przez wektor
+<span class="math notranslate nohighlight">\(x_i\)</span> może być opisany przez unormowany do jedności wektor:</p>
+<div class="math notranslate nohighlight">
+\[\mathbf{w} = (w_1,w_2,...,w_n).\]</div>
+<p>Wartość portfela wyraża się przez:</p>
+<div class="math notranslate nohighlight">
+\[W = \sum_{i=1}^{n} w_i x_i\]</div>
+<div class="admonition attention">
+<p class="admonition-title">Uwaga</p>
+<p>Wartość portfela jest więc liniową funkcją (kombinacją) parametrów
+rynku. To założenie nie zawsze jest spełnione, jeśli w portfelu
+mamy instrumenty takie jak opcje czy kontrakty terminowe to ich
+wartość zależy w pewnien nieliniowy sposób np. od wartości stóp
+procentowych czy cen instrumentów bazowych.</p>
+</div>
+<p>VaR jest dany przez taki sam wzór:</p>
+<div class="math notranslate nohighlight" id="equation-var3">
+<span class="eqno">(6)<a class="headerlink" href="#equation-var3" title="Stały odnośnik do tego równania">¶</a></span>\[VaR = (\mu_P - k\sigma_P ) W\]</div>
+<p>jednak wartości <span class="math notranslate nohighlight">\(\mu_P\)</span> i <span class="math notranslate nohighlight">\(\sigma_P\)</span> są odpowienio: średnią
+wartością oraz odchyleniem standardowym całego portfela. Niech ceny
+aktywów będą dane jako wektor <span class="math notranslate nohighlight">\(\mathbf{\mu} =
+(\mu_1,\mu_2,...,\mu_n)\)</span>. Zakładając, że mamy do czynienia z
+gausowskimi zmiennymi losowymi, średnie odchylenie i wartość
+portfela dane są przez:</p>
+<div class="math notranslate nohighlight" id="equation-sigma-mu">
+<span class="eqno">(7)<a class="headerlink" href="#equation-sigma-mu" title="Stały odnośnik do tego równania">¶</a></span>\[\begin{split}\sigma_P = \mathbf{w^T} \Sigma \mathbf{w} \\
+\mu_P = \mathbf{w} \mathbf{\mu}\end{split}\]</div>
+<div class="admonition attention">
+<p class="admonition-title">Uwaga</p>
+<p>Liniowa kombinacja zmiennych gaussowskich ma rozkład Gaussa więc
+zakładając, że mamy normalne rozkłady zmian cen będziemy mogli
+opisywać rozkład wartości portfela przez <a class="reference internal" href="#equation-sigma-mu">(7)</a></p>
+</div>
+<p>Wielowymiarowy rozkład stóp zwrotów składników portfela (wymiarowość
+jest określona przez liczbę składników) jest więc wielowymiarowym
+rozkładem normalnym o wektorze średnich <span class="math notranslate nohighlight">\(\boldsymbol{\mu}\)</span>:</p>
+<div class="math notranslate nohighlight" id="equation-mu-rozpisany">
+<span class="eqno">(8)<a class="headerlink" href="#equation-mu-rozpisany" title="Stały odnośnik do tego równania">¶</a></span>\[\begin{split}\boldsymbol{\mu} = \left[\begin{array}{c}
+   \mu_1  \\
+   \mu_2 \\
+   \ldots \\
+   \mu_n
+\end{array}\right]\,,\end{split}\]</div>
+<p>i macierzy kowariancji danych <span class="math notranslate nohighlight">\(\boldsymbol{\Sigma}\)</span>:</p>
+<div class="math notranslate nohighlight" id="equation-sigma-rozpisany">
+<span class="eqno">(9)<a class="headerlink" href="#equation-sigma-rozpisany" title="Stały odnośnik do tego równania">¶</a></span>\[\begin{split}\boldsymbol{\Sigma}\ =\
+\left[\begin{array}{cccc}
+   \sigma_{11}      &amp;    \sigma_{12}   &amp; \ldots &amp;    \sigma_{1n}   \\
+   \sigma_{21}      &amp;    \sigma_{22}   &amp; \ldots &amp;    \sigma_{2n}   \\
+   \ldots &amp; \ldots &amp; \ldots &amp; \ldots \\
+   \sigma_{n1}      &amp;    \sigma_{n2}   &amp; \ldots &amp;    \sigma_{nn}
+\end{array}\right]\,\end{split}\]</div>
+<p>gdzie <span class="math notranslate nohighlight">\(n\)</span> jest liczba składników portfela.</p>
+<p>Wartości <span class="math notranslate nohighlight">\(\mu_P\)</span> oraz <span class="math notranslate nohighlight">\(\Sigma_P\)</span> możemy wyliczyć
+korzystając z wektora dryftu i  macierzy kowariancji danych.</p>
+<div class="math notranslate nohighlight" id="equation-sr-sigma">
+<span class="eqno">(10)<a class="headerlink" href="#equation-sr-sigma" title="Stały odnośnik do tego równania">¶</a></span>\[ \begin{align}\begin{aligned}\boldsymbol{\Sigma} = \sum_{i=1}^{n}   \sum_{j=1}^{n} w_i w_j \sigma_{ij}\\\boldsymbol{\mu} = \sum_{i=1}^{n} w_i \mu_{i}\end{aligned}\end{align} \]</div>
+<p>Zaś <span class="math notranslate nohighlight">\(\mu\)</span> oraz <span class="math notranslate nohighlight">\(\sigma\)</span> są określone przez powyższy
+wektor <span class="math notranslate nohighlight">\(\boldsymbol{\mu}\)</span> i macierzą
+<span class="math notranslate nohighlight">\(\boldsymbol{\Sigma}\)</span>.  Po podstawieniu ostatnich dwu wzorów do
+wzoru <a class="reference internal" href="#equation-var2">(5)</a> obliczyć można VaR.  Powyższe podejście nosi nazwę
+metody wariancji-kowariancji.</p>
+<div class="admonition-przyklad admonition">
+<p class="admonition-title">Przykład</p>
+<p>Niech portfel o wartości początkowej 100000 składa się z dwu
+składników jednego o wadze 60% i odchylenie standardowym 1% i
+drugiego o o wadze 40% i odchyleniu 2% oraz współczynnik korelacji
+między nimi niech wynosi 0.4.</p>
+<p>Przypomnijmy, że współczynnik korelacji dla dwóch zmiennych
+losowych <span class="math notranslate nohighlight">\(X,Y\)</span> wiąże się w następujący sposób z elementem
+pozadiagonalnym macierzy kowariancji:</p>
+<div class="math notranslate nohighlight">
+\[\rho_{XY} =\frac{\langle XY \rangle}{\sigma_X \sigma_Y}\]</div>
+<p>Dla takich danych:</p>
+<div class="math notranslate nohighlight" id="equation-ex2">
+<span class="eqno">(11)<a class="headerlink" href="#equation-ex2" title="Stały odnośnik do tego równania">¶</a></span>\[\sigma_P = \sqrt{w_X^2\sigma_X^2+w_Y^2\sigma_Y^2 + 2 w_X w_Y \rho \sigma_X \sigma_Y  }\]</div>
+</div>
+<div class='sage_linked'><script type='text/x-sage'>w_X = 0.6
+w_Y = 1-w_X
+rho = 0.4
+sigma_X = 0.01
+sigma_Y = 0.02
+sigmaP = sqrt(w_X^2*sigma_X^2+w_Y^2*sigma_Y^2 + 2*w_X*w_Y*rho*sigma_X*sigma_Y)
+print( sigmaP )
+T = RealDistribution('gaussian', 1.0)
+k =  T.cum_distribution_function_inv(0.05)
+print( 'k = ',k )
+print( "VaR procentowy= ",sigmaP*k )
+print( "VaR pieniężny = ", 100000*sigmaP*k )</script></div></div>
+</div>
+<div class="section" id="metody-symulacji-historycznej">
+<h3><span class="section-number">15.3.2. </span>Metody symulacji historycznej<a class="headerlink" href="#metody-symulacji-historycznej" title="Stały odnośnik do tego nagłówka">¶</a></h3>
+<p>Metoda ta sprowadza się do wykorzystania historycznych stóp zwrotu
+instrumentu finansowego (np.  portfela akcji). Najczęściej przyjmuje
+się dzienne historyczne stopy zwrotu. Obserwuje się stopy przez pewien
+(odpowiednio długi) okres czasu, przykładowo 1 rok - czyli około 225
+obserwacji- z dni transakcyjnych. Historyczne stopy zwrotu pozwalają
+określić empiryczny rozkład. Umożliwia to oszacowanie kwantyla
+rozkładu i wyznaczenie wartości ryzykownej. Skuteczność symulacji
+historycznej jest uwarunkowana niezmiennością stóp zwrotu w
+przyszłości w stosunku do danych historycznych. Stąd korzysta się z n
+obserwacji objętych badaniem według formuły:</p>
+<div class="math notranslate nohighlight" id="equation-rt">
+<span class="eqno">(12)<a class="headerlink" href="#equation-rt" title="Stały odnośnik do tego równania">¶</a></span>\[R_t = \sum_{i=1}^n w_i R_{it}\]</div>
+<p>W ten sposób zostaje wygenerowany rozkład statystyczny stóp
+zwrotu. Wyznaczenie odpowiedniego kwantyla tego rozkładu pozwala na
+wyliczenie VaR bezpośrednio z definicji, czyli wg. pokazanych w
+poprzednich metodach zasad. Tym razem nie zakłada się, że rozkład
+jest rozkładem normalnym oraz unika się szacowania parametrów takich
+jak średnia czy odchylenie standardowe korzystając z danych
+historycznych.</p>
+</div>
+<div class="section" id="metoda-symulacji-monte-carlo">
+<h3><span class="section-number">15.3.3. </span>Metoda symulacji Monte Carlo<a class="headerlink" href="#metoda-symulacji-monte-carlo" title="Stały odnośnik do tego nagłówka">¶</a></h3>
+<p>W metodzie Monte Carlo przyjmuje się pewien model kształtowania się
+cen rynkowych aktywa.  Wybór modelu zależy od autorów, ich
+doświadczenia praktycznego czy teoretycznego. Niemniej jednak musi on
+zostać starannie sprawdzony na danych historycznych czy rzeczywiście
+charakteryzuje właściwie zachowania się danych rynkowych instrumentu
+finansowego. Następnie generuje się wiele (tysiące) obserwacji stóp
+zwrotu instrumentów finansowych tworzących portfel. Otrzymuje się, w
+ten sposób rozkład stóp zwrotów z portfela. Wyznaczenie odpowiedniego
+kwantyla tego rozkładu prowadzi do obliczenia VaR.</p>
+<p>Schemat obliczeń Monte Carlo jest następujący:</p>
+<blockquote>
+<div><ul class="simple">
+<li><p>obliczamy parametry procesu zmian parametrów od których zależy cena
+portfela - tzn. średnią i macierz kowariancji</p></li>
+<li><p>konstruujemy wektor zmiennch  losowych o wcześniej obliczonych parametrach</p></li>
+<li><p>dla każdej wartości tego wektora, obliczamy wartość przyszłą indeksów a następnie wartość portfela</p></li>
+<li><p>wyliczmy odpowiedni kwantyl rozkladu wartości portfela.</p></li>
+</ul>
+</div></blockquote>
+<p>Pojawia się praktyczne pytanie - jak mając standardowy generator niezależnych
+liczb pseudolosowych o rozkładzie normalnym (<span class="math notranslate nohighlight">\(N(0,1)\)</span>)
+wygenererować wektor o zadanej średniej i kowariancji. Wartość średnia
+to nie jest problem, bo wystarczy dodać żądaną średnią do wektora o
+zerowej średniej. Natomiast, aby wynikowy wektor miał pożądane
+korelacje należy pomnożyć go przez pierwiastek z macierzy kowariancji.</p>
+<p>Rzeczywiście, niech:</p>
+<div class="math notranslate nohighlight">
+\[x_i  = \mu_i + \sqrt{S_{ik}}N_k(0,1)\]</div>
+<p>wtedy:</p>
+<div class="math notranslate nohighlight">
+\[\langle x_i x_j \rangle  = \left\langle \left( \mu_i + \sqrt{S_{ik}}N_k(0,1) \right) \left( \mu_j + \sqrt{S_{jl}}N_k(0,1)\right) \right\rangle\]</div>
+<p>wymnażamy dwa nawiasy i otrzymujemy sumę średnich następujących składników, które się upraszczają do:</p>
+<div class="math notranslate nohighlight">
+\[\langle \mu_i \rangle \langle \mu_j \rangle = \mu_i \mu_j\]</div>
+<p>zmienna losowa <span class="math notranslate nohighlight">\(N_i(0,1)\)</span> ma średnią zero więc mamy:</p>
+<div class="math notranslate nohighlight">
+\[\langle \sqrt{S_{ik}}N_k(0,1) \mu_j \rangle = 0\]</div>
+<div class="math notranslate nohighlight">
+\[\langle \sqrt{S_{jl}}N_l(0,1) \mu_i \rangle  = 0\]</div>
+<p>i ostatni wyraz zawiera:</p>
+<div class="math notranslate nohighlight">
+\[\begin{split}\langle \sqrt{S_{ik}}N_k(0,1) \sqrt{S_{jl}}N_k(0,1) \rangle \\\end{split}\]</div>
+<p>Wykonując średniowanie, widzimy, że ponieważ zmienne <span class="math notranslate nohighlight">\(N_i(0,1)\)</span> są niezależnie  i zachodzi</p>
+<div class="math notranslate nohighlight">
+\[\langle N_k(0,1) N_l(0,1)) \rangle = \delta_{kl}\]</div>
+<p>to ostatecznie otrzymujemy:</p>
+<div class="math notranslate nohighlight">
+\[\langle x_i x_j \rangle  = \mu_i\mu_j + \sqrt{S_{ik}}\sqrt{S_{jl}}\delta_{kl} = \mu_i\mu_j + S_{ij}\]</div>
+<p>czyli:</p>
+<div class="math notranslate nohighlight">
+\[\langle x_i x_j \rangle  - \mu_i\mu_j  = S_{ij}\]</div>
+<div class="section" id="var-z-uwzglednieniem-wartosci-ekstremalnych-grube-ogony-rozkladu">
+<h4><span class="section-number">15.3.3.1. </span>VaR z uwzględnieniem wartości ekstremalnych - „Grube ogony  rozkładu”<a class="headerlink" href="#var-z-uwzglednieniem-wartosci-ekstremalnych-grube-ogony-rozkladu" title="Stały odnośnik do tego nagłówka">¶</a></h4>
+<p>Dokładna analiza stóp zwrotu doświadczalnych, czasowych szeregów finansowych
+pozwala stwierdzić, że to co dość często było w powtarzane,
+czyli o rozkładzie normalnym jako modelu, w wielu przypadkach jest
+nieprawdą. Większość szeregów finansowych wykazuje: istnienie „
+grubych ogonów” czyli tego, że prawdopodobieństwo pojawienia się skrajnych
+wartości, czy bardzo dużych zmian jest wyraźnie większe niż w
+przypadku rozkładu Gaussa.</p>
+<p>Wykresy rozkładów zwrotów pokazują, że duże zmiany występują znacznie
+częściej niż przewiduje to rozkład normalny, natomiast mniej jest
+średnich zmian (wartości odchylających się od średniej od 0.5 do 2.5
+odchyleń standardowych).  W związku z powyższym konieczne jest
+poszukiwanie o nowych modeli. Na podstawie przeprowadzonych analiz (
+np. Katarzyna Brzozowska-Rup, Wiesław Dziubdziela „Estymacja indeksu
+ogona wybranych szeregów finansowych za pomocą entropii
+Renyi’ego”.
+<a class="reference external" href="http://www.wne.sggw.pl/czasopisma/pdf/EIOGZ_2006_nr60_s69.pdf">http://www.wne.sggw.pl/czasopisma/pdf/EIOGZ_2006_nr60_s69.pdf</a>) oraz (
+Ewa Miłoś- Finansowy Kwartalnik Internetowy „e-Finanse” 2011, vol. 7,
+nr 1 www.e-finanse.com Wyższa Szkoła Informatyki i Zarządzania w
+Rzeszowie) wykazać można, że w wielu zjawiskach wartości ekstremalne
+pojawiają się zgodne z rozkładami potęgowymi.  W obliczeniach VaR
+skupiamy się na poziomie ufności 99% zakładając, że strata się nie
+zdarzy. W modelach wartości ekstremalnych skupiamy się na tych
+niekorzystnych zdarzeniach, które mają bardzo małe prawdopodobieństwo
+wystąpienia ale mogą przynieść duże straty.  Szczególnie w
+instytucjach ubezpieczeniowych istnieje potrzeba analizy zjawisk
+katastrof.</p>
+<p>Rozkłady wykazujące cechy „ grubych ogonów to przykładowo
+rozkład t- Studenta, Pareto, etc. Modele rozkładów jakie stosowane są
+w analizach i szacowaniach VaR opisane są przykładowo (Tomasz
+Bałamut- Metody estymacji Value AT Risk - NBP- Materiały i studia;
+zeszyt 147; 2002r.)</p>
+</div>
+</div>
+<div class="section" id="nieliniowa-funkcja-wyceny">
+<h3><span class="section-number">15.3.4. </span>Nieliniowa funkcja wyceny<a class="headerlink" href="#nieliniowa-funkcja-wyceny" title="Stały odnośnik do tego nagłówka">¶</a></h3>
+<p>W przypadku, gdy portfel składa się z instrumentów podstawowych, to
+jego wartość jest liniową funkcją cen składników. Może się jednak
+zdarzyć, a dzieje się to często w praktyce, że nasz portfel zawiera
+instrumenty, które w nieliniowy sposób zależą od parametrów rynku.  W
+takim przypadku metody: historyczna i Monte-Carlo mogą być zastosowane
+bez większych modyfikacji, jednak metoda wariancji-kowariancji musi
+być zmodyfikowana.</p>
+<p>Niech wartość portfela będzie funkcją <span class="math notranslate nohighlight">\(P(x_1,x_2,...,x_n)\)</span>
+parametrów rynku <span class="math notranslate nohighlight">\(\mathbf{x}=(x_1,x_2,...,x_n)\)</span>. Załóżmy, że
+znamy wartość tych parametrów dzisiaj: <span class="math notranslate nohighlight">\(\mathbf{x_0}\)</span> i chcemy
+dowiedzieć się jak zmieni się wartość portfela do jutra. Niech
+przyrosty zmiennych będą dane przez proces:</p>
+<div class="math notranslate nohighlight" id="equation-dx">
+<span class="eqno">(13)<a class="headerlink" href="#equation-dx" title="Stały odnośnik do tego równania">¶</a></span>\[\mathbf{dx} = \mathbf{\mu} dt + \sqrt{\mathbf{S} dt}N(0,1)\]</div>
+<p>gdzie <span class="math notranslate nohighlight">\(dt,S\)</span> to przedział czasu i macierz kowariancji przyrostów
+procesu na tym przedziale.</p>
+<p>Zakładamy więc, że przyrosty indeksów <span class="math notranslate nohighlight">\(\mathbf{dx}\)</span> w okresie
+<span class="math notranslate nohighlight">\(dt\)</span> są skorelowanymi zmiennymi gaussowskimi. W metodzie
+wariancji-kowariancji dla liniowej funkcji wyceny, to założenie
+implikowało normalność rozkładu wartości portfela. Nie jest to jednak
+prawdą jeśli funkcja wyceny jest nielinowa. Możemy jednak wyznaczyć
+parametry rozkładu normalnego, który jak najlepiej przybliża
+rzeczywisty rozkład wartości portfela.</p>
+<p>W tym celu, naturalnym wydaje się być zlinearyzowanie funkcji wyceny i
+zastosowanie wzorów <a class="reference internal" href="#equation-sigma-mu">(7)</a>. Popełnilibyśmy jednak duży
+błąd. Pamiętajmy, że jeżeli chcemy otrzymać wynik, który jest rzędu
+pierwszego w <span class="math notranslate nohighlight">\(dt\)</span> to musimy uwględnić możliwość pojawienia się
+kwadratów członów <span class="math notranslate nohighlight">\(\sqrt{\mathbf{S} dt}N(0,1)\)</span>. Innymi słowy
+musimy rozwinąć funkcję <span class="math notranslate nohighlight">\(P(x_1,x_2,...,x_n)\)</span> w szereg Taylora do
+drugiego rzędu włącznie, podstawić za przyrosty procesy <a class="reference internal" href="#equation-dx">(13)</a> i
+obliczyć z takim rozkładem <span class="math notranslate nohighlight">\(\mu_P\)</span> oraz <span class="math notranslate nohighlight">\(\sigma_P\)</span>, z
+dokładnością do <span class="math notranslate nohighlight">\(dt\)</span>.</p>
+<p>Ostatecznie odpowiedniki wzorów <a class="reference internal" href="#equation-sigma-mu">(7)</a> przybiorą postać:</p>
+<div class="math notranslate nohighlight" id="equation-sigma-mu-nonlin">
+<span class="eqno">(14)<a class="headerlink" href="#equation-sigma-mu-nonlin" title="Stały odnośnik do tego równania">¶</a></span>\[\begin{split}\mu_P = \mu\mathbf{\nabla} P + \frac{1}{2}\mathrm{Tr}\left( \mathbf{H}(P) \mathbf{S}\right) dt\\
+\sigma_P = \mathbf{\nabla} P \mathbf{S} \mathbf{\nabla} P^T  dt\end{split}\]</div>
+<p>gdzie:</p>
+<blockquote>
+<div><ul class="simple">
+<li><p><span class="math notranslate nohighlight">\(\nabla P\)</span> - gradient wektora wartości portfela obliczony dla wartości początkowej <span class="math notranslate nohighlight">\(\mathbf{x_0}\)</span></p></li>
+<li><p><span class="math notranslate nohighlight">\(H(P)\)</span> - Hessian wektora wartości portfela obliczony dla wartości początkowej <span class="math notranslate nohighlight">\(\mathbf{x_0}\)</span></p></li>
+</ul>
+</div></blockquote>
+</div>
+<div class="section" id="przyklad-obliczenia-var">
+<h3><span class="section-number">15.3.5. </span>Przykład obliczenia VaR<a class="headerlink" href="#przyklad-obliczenia-var" title="Stały odnośnik do tego nagłówka">¶</a></h3>
+<div class="admonition attention">
+<p class="admonition-title">Uwaga</p>
+<p>Poniższe komórki są od siebie zależne więc należy
+wykonywać poprzednie by działały kolejne.</p>
+</div>
+<p>Zaimportujmy sobie dane historyczne notować dwóch spółek, Comarch i
+Colian. W tym przypadku pliki z danymi mamy w publicznym katalogu
+serwisu Dropbox, ale mogą być to dowolne miejsca w sieci, dostępne
+poprzez www. Po zaimportowaniu, danych narysujemy historię notowań i
+ich dziennych zmian.</p>
+<div class='sage_linked'><script type='text/x-sage'>from  urllib import request
+import numpy as np
+import scipy.linalg
+
+fp  = request.urlopen("https://www.dropbox.com/s/eemrayeer8kfwxn/COMARCH.mst?dl=1")
+d1 = np.loadtxt(fp,skiprows=1,usecols=range(1,7),delimiter=',')
+fp  = request.urlopen("https://www.dropbox.com/s/m015q77ro58jxqy/COLIAN.mst?dl=1")
+d2 = np.loadtxt(fp,skiprows=1,usecols=range(1,7),delimiter=',')
+
+# ostatni rok
+d1,d2 = d1[-248:,1],d2[-248:,1]
+
+p1 = point(enumerate(d1))+\
+ point(enumerate(d2),color='red',figsize=(8,2))
+
+p2 = line(enumerate(np.diff(d1)/d1[1:]))+\
+ line(enumerate(np.diff(d2)/d2[1:]),color='red',figsize=(8,2))
+
+dataVAR = np.vstack([d1,d2]).T
+show(p1),show(p2)</script></div><p>W tym stanie mamy dane historyczne dwóch aktywów w tabeli <code class="code docutils literal notranslate"><span class="pre">dataVAR</span></code>, w
+której kolumny odpowiadają kolejnym aktywom, a rzędy kolejnym okresom
+czasowym.</p>
+<p>Zdefiniujemy sobie teraz funkcję, która obliczy nam wartość portfela
+dla danych wartości parametrów rynku - <code class="code docutils literal notranslate"><span class="pre">valueP</span></code>. Funkcja ta pobiera
+dwa argumenty, <code class="code docutils literal notranslate"><span class="pre">P</span></code> - portfel, będący wektorem ilości aktywów
+(dwuelementowym w tym przypadku) oraz stan rynku <code class="code docutils literal notranslate"><span class="pre">m</span></code>. Dodatkowa
+zabudowana jest funkcjonalność obliczenia wartości na pewnej historii
+rynku, wówczas zwracany jest wektor wartości portfela w tychże
+chwilach.</p>
+<div class='sage_linked'><script type='text/x-sage'>def valueP(P,m):
+    if len(m.shape)==2:
+        stock = sum([ m[:,i]*P[i]  for i in range(len(P))])
+    else:
+        stock = sum([ m[i]*P[i]  for i in range(len(P))])
+    return stock
+
+P = np.array([1,21])
+mrkt = np.array( [ 87.01,   3.01] )
+
+print( "Wartość portfela",P," dla notowań",mrkt,"wynosi:",valueP(P,mrkt) )</script></div><div class="section" id="metoda-historyczna">
+<h4><span class="section-number">15.3.5.1. </span>Metoda historyczna<a class="headerlink" href="#metoda-historyczna" title="Stały odnośnik do tego nagłówka">¶</a></h4>
+<p>Mając wczytane dane rynkowe oraz portfel w powyższy sposób, dość łatwo
+możemy sobie zaimplementowac metodę historyczną. W tym celu obliczamy
+przyrosty notowań, działając na macierz <code class="code docutils literal notranslate"><span class="pre">dataVAR</span></code> funkcją
+<code class="code docutils literal notranslate"><span class="pre">np.diff</span></code> względem rzędu. Następnie zapisujemy w pod nazwą
+<code class="code docutils literal notranslate"><span class="pre">hist_sim</span></code> hipotetyczne kursy przyszłe aktywów, dla każdej
+wartości przyrostu. Pozostaje już tylko wycenić portfel dla nowych
+wartości rynku i wziąć piąty kwantyl.</p>
+<div class='sage_linked'><script type='text/x-sage'>dataVAR_dx = np.diff(dataVAR,axis=0)
+hist_sim = mrkt+dataVAR_dx
+changes = valueP(P,hist_sim) - valueP(P,mrkt)
+print( "VaR, metoda historyczna",np.percentile(changes,int(5)) )</script></div></div>
+<div class="section" id="metoda-wariancji-kowariancji">
+<h4><span class="section-number">15.3.5.2. </span>Metoda wariancji kowariancji<a class="headerlink" href="#metoda-wariancji-kowariancji" title="Stały odnośnik do tego nagłówka">¶</a></h4>
+<p>W metodzie wariancji-kowariancji obliczamy najpierw wektor średni
+<code class="code docutils literal notranslate"><span class="pre">avg</span></code> oraz macierz kowariancji <code class="code docutils literal notranslate"><span class="pre">Cov</span></code> z dziennych zmian cen
+<code class="code docutils literal notranslate"><span class="pre">dataVAR</span></code>. Następnie korzystając z formuł <a class="reference internal" href="#equation-sigma-mu">(7)</a>
+obliczamy parametry portfela <span class="math notranslate nohighlight">\(\mu_P\)</span> i <span class="math notranslate nohighlight">\(\sigma_P\)</span> i
+wyliczamy odpowiedni kwantyl rozkładu normalnego w tymi wartościami.</p>
+<div class='sage_linked'><script type='text/x-sage'>dataVAR_dx = np.diff(dataVAR,axis=0)
+avg = np.average(dataVAR_dx,axis=0)
+Cov = np.cov(dataVAR_dx.T)
+
+sigma2P = (P.T).dot(Cov).dot(P)
+muP = avg.dot(P)
+
+T = RealDistribution('gaussian', 1.0)
+k =  T.cum_distribution_function_inv(0.05)
+print( "VaR metodą wariancji-kowariancji:", muP + np.sqrt(sigma2P)*k )</script></div></div>
+<div class="section" id="id2">
+<h4><span class="section-number">15.3.5.3. </span>Metoda symulacji Monte-Carlo<a class="headerlink" href="#id2" title="Stały odnośnik do tego nagłówka">¶</a></h4>
+<p>W metodzie symulacji Monte-Carlo postepujęmy podobnie jak w
+historycznej, z tą różnicą, że generujemy zestaw nowych cen nie z
+pomocą historycznie zaobserwowanych zmian, ale sztucznie
+wygenerowanych. Zakładamy, że zmiany parametrów rynku ( w tym
+przypadku - ceny dwóch aktywów) powodujące zmiany wartości portfela są
+wektorem normalnych zmiennych losowych, zadanym przez wektor średnich i
+macierz kowariancji. Te ostatnie, jak w poprzedniej metodzie obliczamy
+z dostępnej historii.</p>
+<div class='sage_linked'><script type='text/x-sage'>N = dataVAR.shape[1]
+dataVAR_dx = np.diff(dataVAR,axis=0)
+avg = np.average(dataVAR_dx,axis=0)
+Cov = np.cov(dataVAR_dx.T)
+
+sqrtCov =  np.real_if_close(scipy.linalg.sqrtm(Cov))
+values = np.array([ valueP(P,mrkt + avg + \
+ np.dot(sqrtCov,np.random.randn(N))) for i in range(10000)])
+print( "VaR, MC:",np.percentile(values-valueP(P,mrkt),int(5)) )</script></div></div>
+<div class="section" id="porownanie-wynikow">
+<h4><span class="section-number">15.3.5.4. </span>Porównanie wyników<a class="headerlink" href="#porownanie-wynikow" title="Stały odnośnik do tego nagłówka">¶</a></h4>
+<p>Zauważmy, że VaR obliczony metoda wariancji-kowariancji i Monte
+Carlo - są do siebie badzo zbliżone. W rzeczywistości powinny one
+dawać w tym przypadku dokładnie tą samą wartość. Dlaczego? Zauważmy,
+że mamy liniową zależność wartości porftela od indeksów
+rynkowych. Oznacza to, że symulowany rozkład będzie normalny (jako
+liniowa kombinacja założonych w Monte Carlo normalnych rozkładów zmian
+indeksów. Najlepiej zobaczyć do na wykresie:</p>
+<div class='sage_linked'><script type='text/x-sage'>Gaussian(x,mu,sigma) = 1/sqrt(2*pi*sigma^2)*exp(-(x-mu)^2/(2*sigma^2))
+print( muP,sigma2P )
+nbins = 100
+H = np.histogram(values-valueP(P,mrkt),bins=nbins)
+normalizacja = H[0].sum()*(H[1].max()-H[1].min())/nbins
+point( zip(H[1],H[0]/normalizacja) )+\
+ plot(Gaussian(x,muP,sqrt(sigma2P)),(x,-16,16),color='red',figsize=5)</script></div><p>Porównajmy więc dopasowany rozkład normalny z tym który realizuje się
+w rzeczywistości - który możemy otrzymać przez znormalizowanie
+histogramu przyrostów historycznych:</p>
+<div class='sage_linked'><script type='text/x-sage'>nbins=55
+H = np.histogram(np.diff(valueP(P,dataVAR)),bins=nbins)
+normalizacja = H[0].sum()*(H[1].max()-H[1].min())/nbins
+line( zip(H[1],H[0]/normalizacja) )+\
+ plot(Gaussian(x,muP,sqrt(sigma2P)),(x,-16,16),color='red',figsize=5)</script></div><p>Widzimy, że tu różnice są znaczne. Interpretując histogram danych
+rzeczywistych widzimy, że w praktyce mamy o wiele większe
+prawdopodobieństwo zajścia dużych fluktuacji niż przewiduje rozkład
+Gaussa.</p>
+</div>
+<div class="section" id="var-w-systemie-risk-metrics">
+<h4><span class="section-number">15.3.5.5. </span>VaR  w systemie Risk Metrics<a class="headerlink" href="#var-w-systemie-risk-metrics" title="Stały odnośnik do tego nagłówka">¶</a></h4>
+<p>VaR jako miara ryzyka powstała przy opracowaniu systemu pomiaru ryzyka
+w J.P. Morgan na początku lat 90.  Na ten system składa ( składała w
+przeszłości przy opracowywaniu systemu) się metodologia, zgromadzone
+dane dotyczące setek instrumentów na całym świecie i oprogramowanie
+pozwalające na wyliczenia VaR zgodnie z metodologia i zebranymi
+danymi. System powstał w celu wprowadzenie wystandaryzowanej miary
+ryzyka dla całej organizacji jaka jest J.P Morgan. Miara ta została
+oparta o analizę odchyleń zwrotów z danych instrumentów finansowych
+oraz zależności między nimi. Po publikacji systemu RiskMetricsTM przez
+J.P. Morgan, VaR stała się miarą powszechnie używaną w zarządzaniu
+ryzykiem finansowym, nie tylko w instytucjach finansowych.  Miara ta
+została przyjęta przez Nadzór Finansowy jako regulacyjna metoda oceny
+ryzyka dla banków.  Dotyczy to regulacji europejskich w tym polskich.
+Model podstawowy obliczania VaR stosowany przez RiskMetricsTM jest
+oparty o założenie, że zwroty są generowane w geometrycznym ruchu
+Browna. Jest to ogólnie mówiąc metoda wariancji - kowariancji.</p>
+</div>
+</div>
+<div class="section" id="wady-i-zalety-var-u">
+<h3><span class="section-number">15.3.6. </span>Wady i zalety VaR-u<a class="headerlink" href="#wady-i-zalety-var-u" title="Stały odnośnik do tego nagłówka">¶</a></h3>
+<p>VaR to stosunkowo prosta w praktycznym działaniu metoda porównania
+ryzyka w przypadku instytucji działającej na rynku. Porównanie jest
+stosunkowo proste bo polega na porównaniu wielkości wyliczonych VaR
+dla proponowanych portfeli. Wielkość ta wyrażona jest w pieniądzu i
+jest konkretną liczbą. Interpretacja i porównanie jest więc
+proste. Pozwala na łatwiejsze zarządzanie ryzykiem pojedynczego
+portfela jak i na wyższych szczeblach zarządzania ryzykiem działu czy
+całej instytucji. Pozwala na oszacowanie wielkości i tworzenie rezerwy
+kapitałowej na wypadek strat. Jest metoda uznaną przez Nadzór
+Finansowy. Nie jest to jednak wartość idealna.</p>
+<p>Wady jej biorą się z założeń stosowanych modeli do wyliczeń VaR.  VaR
+jest liczony dla „ normalnych” warunków rynku. Normalny rynek to rynek
+danych historycznych. Jeśli tylko rynek odchodzi od „ normalności”,
+model może zawieść.  Jak wykazuje historia rynków zachowanie typowe
+rynków występuje od czasu do czasu. Czy rynek w okresie 2004 - 2005
+jest typowym rynkiem dla wycen w roku 2007?  W przypadku niepokojów na
+rynkach, rynki zachowują się „nietypowo” a straty wtedy są szczególnie
+duże. Przy gwałtownych zmianach na rynku VaR może być zawodny.</p>
+<p>Liczenie VaR-u może być pracochłonne ( wyliczenia VaR portfeli metodą
+Monte Carlo).</p>
+<p>Główny wpływ na jakość wyników VaR ma estymacja zdarzeń i trafność
+doboru modeli.  Istnieją lepsze, alternatywne metody pomiaru ryzyka
+np. oczekiwana wartość strat większych od VaR w danym przedziale
+czasowym czyli warunkowa wartość oczekiwanych strat</p>
+<p>Podsumowując warto podkreślić. Jest to najbardziej popularne obecnie
+narzędzie oceny ryzyka.  Jednakże, żadne narzędzie używane w finansach
+nie jest rynkowo neutralne. VaR jest uproszczeniem modelowym rynku.
+Zależy od jakości tego uproszczenia. „Modelowa matematyczność” wyceny
+oraz ustalenie poziomu ufności VaR na stosunkowo wysokim poziomie,
+powoduje złudzenie posiadania kontroli, podczas gdy należy mieć duży
+szacunek do rynku, oraz pamiętać, że zerowe prawdopodobieństwo nie
+istnieje.</p>
+<div class="section" id="slabosci-var">
+<h4><span class="section-number">15.3.6.1. </span>Słabości VaR<a class="headerlink" href="#slabosci-var" title="Stały odnośnik do tego nagłówka">¶</a></h4>
+<p>W praktyce, co wynika po części z uregulowań prawnych, określanych
+przez instytucje nadzorujące rynek, wartość zagrożona (VaR) jest jedną
+z szerzej stosowanych miar ryzyka.  Ma jednak pewne wady, z których
+największą, z punktu widzenia stosowania VaR w analizie portfelowej,
+jest to, że VaR nie spełnia warunku addytywności. Oznacza to, iż VaR
+policzona dla zdywersyfikowanego portfela może być większa niż suma
+VaR-ów wyznaczonych dla instrumentów składowych.  Tylko w przypadku
+współczynnika korelacji równego lub mniejszego od 0 warunek
+addytywności jest spełniony. Ale taka sytuacje zachowania
+<span class="math notranslate nohighlight">\(\sigma\)</span> już znamy z analizy portfela, a dokładnie
+dywersyfikacji wg. Markowitza.</p>
+<p>Należy ponownie zwrócić uwagę na jeszcze jedno przyjęte
+założenie. Założono, że rozkłady zmiany cen są rozkładem normalnym,
+lub do niego zbliżonym.  W rzeczywistości rozkłady doświadczalne zmian
+cen aktywów finansowych często nie odpowiadają rozkładowi
+normalnemu. W praktyce, rzeczywiście, większość zmian cen oscyluje
+wokół wartości oczekiwanej, ale występują jednak częściej (niż w
+rozkładzie normalnym) zmiany ekstremalne. Zmiany te charakteryzują
+występowanie tzw. „grubych ogonów” rozkładu, co wpływa na zwiększenie
+zmienności i nie jest ujmowane w VaR, w sposób adekwatny. Przyjęcie
+założenia o rozkładzie normalnym zmian wartości ułatwia jednak
+obliczeniach znacznie zmniejsza koszty pomiaru ryzyka.</p>
+<p>Nadzorcy rynku, mimo, że formalnie uznają VaR jako narzędzie
+zarządzania ryzykiem pozwalające na określenie wielkości rezerwy
+tworzonej na wypadek ewentualnej straty to wielkość tej rezerwy
+wymaganej przez Nadzór jest większy zazwyczaj od wyliczonego tak jak
+powyżej o współczynnik - <span class="math notranslate nohighlight">\(a\)</span> i zwiększając rozmiar tej rezerwy <span class="math notranslate nohighlight">\(a\)</span>
+razy.</p>
+</div>
+</div>
+<div class="section" id="analizy-scenariuszy">
+<h3><span class="section-number">15.3.7. </span>Analizy Scenariuszy<a class="headerlink" href="#analizy-scenariuszy" title="Stały odnośnik do tego nagłówka">¶</a></h3>
+<p>Jak to już było podkreślane Var jest prostą miarą ryzyka. To pewna
+wartość pieniędzy, które mogą być „stracone” przy niekorzystnej
+sytuacji zmienności rynku. Pierwsze co wydaje się koniecznym do
+zrobienia to weryfikacja otrzymanych wyników w ujęciu historycznym.</p>
+<p>Sposób myślenia zwany z angielska <strong>„back testing”</strong> czyli porównanie
+historyczne</p>
+<p>Mając już opracowany model i sposób liczenia Var dla portfela warto
+popatrzeć wstecz jak wyliczony z metody i modelu VaR miał się do
+rzeczywistych wyników. Warto popatrzeć na np. 100 ostatnich wyliczeń
+VaR ( np. . 95%, jednodniowego) i porównać ten wynik z rzeczywistymi
+stratami portfela w tym okresie. Interesujacym jest odpowiedź na
+pytanie czy wyliczony VaR był przekraczany w przeszłości i jak często.</p>
+<p>Jeśli wyliczany VaR jest systematycznie za niski znaczy to, że
+przyjęty model nie dowartościowuje ryzyko i dlatego straty portfela
+przekraczają VaR. Znaczy to, ze należy zwiększyć „mnożnik“ dla liczenia
+wymogów kapitałowych.  Jeśli VaR jest „za wysoki“ model przecenia
+ryzyko i wymagany kapitał jest może być za duży (czyli - za drogi).</p>
+<p>Kolejne kryterium analizy to <strong>Analiza Czułości</strong>.
+Znając skład portfela powinniśmy wyliczyć na jakie zmiany i jakich wielkości jest
+szczególnie czuły nasz portfel. Takiej analizie służy zróżniczkowanie
+równania na wartość portfela w zależności od zmiennych rynkowych.
+O ile analiza czułości daje dobre wyniki dla niewielkich zmian
+rynku to jeśli mamy do czynienie z warunkami kryzysowymi to nie jest
+dobrą aproksymacją ryzyka.</p>
+<p><strong>„Stress testing”</strong> to metoda testowania w warunkach znacznych zmian
+otoczenia rynkowego.  W stress testing, stosujemy duże zmiany
+czynników, i wyliczamy dla nich wartość portfela.  Celem stress
+testing pokazanie w jasny sposób, co się może wydarzyć z ryzykiem i z
+czym będzie trzeba się zmierzyć. Przykładowo, typowe zdanie z
+stosowania metody stress testing może być „jeśli stopy procentowe
+wzrosną o 2%, możemy stracić $15 millionów; jeśli wzrosną o 4%,
+stracimy $28 millionów.”</p>
+<p>Zazwyczaj, ruchy rynku podaje się w sposób standaryzowany, aby były
+lepiej rozumiane w firmie.  Na przykład, zmiany cen akcji przy zmianie
+o -20%, -10%, oraz +10% i +20% . Zasadnym jest podjęcie decyzji które
+dane będzie grupować razem co będzie lepiej ilustrowało problem.</p>
+<p><strong>„Metoda” scenariuszy awaryjnych””</strong>.</p>
+<p>Stress testing i analiza scenariuszy są podobnymi metodami i są
+stosowane celem wyliczenia co się może wydarzyć w określonej sytuacji
+na rynku. Jednakże, w metodzie stress testing, zmiany czynników ryzyka
+są zazwyczaj podobne i są niejako typowe i obiektywne. W analizie
+scenariuszy, zmiany są dobrane subiektywnie i celowo.  W metodzie
+scenariuszy awaryjnych, używa się takich danych by stworzyć kilka
+scenariuszy – najgorszego przypadku. Każdy scenariusz odpowiada
+szczególnemu przypadkowi kryzysu rynku, np. kryzys USA 2007, upadek
+gospodarki Chin, podniesienie cen przez OPEC, wstrzymanie eksportu
+surowców energetycznych przez Rosje, itd . Zazwyczaj wybiera się 5- 10
+najgorszych scenariuszy.</p>
+<p>Scenariusze zazwyczaj bazują na: poprzednich kryzysach, aktualnym
+portfelu firmy, opiniach ekspertów (scenariusze zazwyczaj proponują: Risk
+Menedżer, szefowie pionów etc.). Biorąc pod uwagi ubiegłe kryzysy,
+porównuje się dane historyczne z różnych rynków i sprawdza się co by
+się stało gdyby aktualnie to się nam przydarzyło dziś.  Przykładowo,
+jeśli 20% spadek w jeden dzień na rynku U.S.A. ( co miało miejsce
+w1987), wydarzył by się na rynkach euro?? Scenariusz konfliktu
+zbrojnego etc.</p>
+<p>Tak wiec, oprócz formalnego liczenia VaR dla statystycznych danych
+metoda powinna zostać przetestowana tak jak opisano powyżej i
+wyliczenia dla scenariuszy powinny uzupełniać formalne, codzienne
+wyliczenia VaR.</p>
+<p>Taki zestaw analiz pozwala na lepsze zrozumienie ryzyka.</p>
+<p class="rubric">Footnotes</p>
+<dl class="footnote brackets">
+<dt class="label" id="f1"><span class="brackets"><a class="fn-backref" href="#id1">1</a></span></dt>
+<dd><p>VaR jest to konstrukcja oparta o statystykę rynków czyli zdarzeń
+statystycznie najczęściej występujących czyli mimo, że w 99 % sytuacji
+jest wspaniałym wynalazkiem, to niestety kiedy mamy do czynienie z
+ekstremalną sytuacją, VaR jest mało użyteczny. Stratę bowiem liczy
+się, jako utratę wartości liczoną według zasady Mark-to-Market. Znaczy
+to, że realna strata w przypadku katastrofy rynkowej jest z reguły
+dużo wyższa. Powodem tego jest: płynność (a raczej jej brak w sytuacji
+kryzysowej) i bezwzględność konkurencji. Innymi słowy; strata,
+realizowana przy zamykaniu pozycji, w wyniku braku płynności na rynku,
+może być dużo wyższa. Ponadto, konkurencja może straty pogłębić,
+jeszcze bardziej np. zwiększając podaż.)</p>
+</dd>
+</dl>
+</div>
+</div>
+</div>
+
+
+          </div>
+        </div>
+      </div>
+      <div class="sphinxsidebar" role="navigation" aria-label="main navigation">
+        <div class="sphinxsidebarwrapper">
+  <div class="sphinxlocaltoc">
+  <h3><a href="index.html">Table Of Contents</a></h3>
+  <ul>
+<li><a class="reference internal" href="#">15. VaR</a><ul>
+<li><a class="reference internal" href="#wstep-co-to-jest-var">15.1. Wstęp- co to jest VaR?</a></li>
+<li><a class="reference internal" href="#kwantyle-i-percentyle">15.2. Kwantyle i percentyle</a></li>
+<li><a class="reference internal" href="#var-metody-obliczania">15.3. VaR - metody obliczania</a><ul>
+<li><a class="reference internal" href="#metody-wariancji-kowariancji">15.3.1. Metody wariancji -  kowariancji</a><ul>
+<li><a class="reference internal" href="#poszerzenie-na-wiecej-niz-jeden-okres-czasowy">15.3.1.1. Poszerzenie na  więcej niż jeden okres czasowy</a></li>
+<li><a class="reference internal" href="#portfel-skladajacy-sie-z-wielu-aktywow">15.3.1.2. Portfel składający się z wielu aktywów</a></li>
+</ul>
+</li>
+<li><a class="reference internal" href="#metody-symulacji-historycznej">15.3.2. Metody symulacji historycznej</a></li>
+<li><a class="reference internal" href="#metoda-symulacji-monte-carlo">15.3.3. Metoda symulacji Monte Carlo</a><ul>
+<li><a class="reference internal" href="#var-z-uwzglednieniem-wartosci-ekstremalnych-grube-ogony-rozkladu">15.3.3.1. VaR z uwzględnieniem wartości ekstremalnych - „Grube ogony  rozkładu”</a></li>
+</ul>
+</li>
+<li><a class="reference internal" href="#nieliniowa-funkcja-wyceny">15.3.4. Nieliniowa funkcja wyceny</a></li>
+<li><a class="reference internal" href="#przyklad-obliczenia-var">15.3.5. Przykład obliczenia VaR</a><ul>
+<li><a class="reference internal" href="#metoda-historyczna">15.3.5.1. Metoda historyczna</a></li>
+<li><a class="reference internal" href="#metoda-wariancji-kowariancji">15.3.5.2. Metoda wariancji kowariancji</a></li>
+<li><a class="reference internal" href="#id2">15.3.5.3. Metoda symulacji Monte-Carlo</a></li>
+<li><a class="reference internal" href="#porownanie-wynikow">15.3.5.4. Porównanie wyników</a></li>
+<li><a class="reference internal" href="#var-w-systemie-risk-metrics">15.3.5.5. VaR  w systemie Risk Metrics</a></li>
+</ul>
+</li>
+<li><a class="reference internal" href="#wady-i-zalety-var-u">15.3.6. Wady i zalety VaR-u</a><ul>
+<li><a class="reference internal" href="#slabosci-var">15.3.6.1. Słabości VaR</a></li>
+</ul>
+</li>
+<li><a class="reference internal" href="#analizy-scenariuszy">15.3.7. Analizy Scenariuszy</a></li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+
+  </div>
+  <h4>Poprzedni temat</h4>
+  <p class="topless"><a href="Hedging.html"
+                        title="poprzedni rozdział"><span class="section-number">14. </span>Hedging</a></p>
+  <h4>Następny temat</h4>
+  <p class="topless"><a href="var_ex2.html"
+                        title="następny rozdział"><span class="section-number">16. </span>Przykład - obliczenie VaR  dla nieliniowej funkcji wyceny</a></p>
+  <div role="note" aria-label="source link">
+    <h3>Ta strona</h3>
+    <ul class="this-page-menu">
+      <li><a href="_sources/var.rst.txt"
+            rel="nofollow">Pokaż źródło</a></li>
+    </ul>
+   </div>
+<div id="searchbox" style="display: none" role="search">
+  <h3 id="searchlabel">Szybkie wyszukiwanie</h3>
+    <div class="searchformwrapper">
+    <form class="search" action="search.html" method="get">
+      <input type="text" name="q" aria-labelledby="searchlabel" />
+      <input type="submit" value="Szukaj" />
+    </form>
+    </div>
+</div>
+<script>$('#searchbox').show(0);</script>
+        </div>
+      </div>
+      <div class="clearer"></div>
+    </div>
+  </div>
+  <div class="relbar-bottom">
+    
+    <div class="related" role="navigation" aria-label="related navigation">
+      <h3>Nawigacja</h3>
+      <ul>
+        <li class="right" style="margin-right: 10px">
+          <a href="genindex.html" title="Indeks ogólny"
+             >indeks</a></li>
+        <li class="right" >
+          <a href="var_ex2.html" title="16. Przykład - obliczenie VaR dla nieliniowej funkcji wyceny"
+             >dalej</a> &nbsp; &nbsp;</li>
+        <li class="right" >
+          <a href="Hedging.html" title="14. Hedging"
+             >wstecz</a> &nbsp; &nbsp;</li>
+  <li><a href="index.html">Analiza Rynków Finansowych</a> &#187;</li>
+   
+      </ul>
+    </div>
+  </div>
+  
+  <div class="footer">
+    <a class="logo" href="http://upgow.us.edu.pl/" target="_blank"><img src="_static/upgow.png" alt="UPGOW"/></a><br/>
+    <img src="_static/stopka_EU.png" alt="EU"/><br/>
+    &copy; Copyright 2013, ML and MK.
+    Created using <a href="http://sphinx.pocoo.org/">Sphinx</a> 2.4.0.
+  </div>
+  </body>
+</html>

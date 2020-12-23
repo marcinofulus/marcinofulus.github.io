@@ -1,0 +1,1015 @@
+
+
+  
+<!DOCTYPE html>
+
+<html xmlns="http://www.w3.org/1999/xhtml" lang="pl">
+  <head>
+    <meta charset="utf-8" />
+    <title>12. Instrumenty syntetyczne &#8212; Analiza Rynków Finansowych</title>
+    <link rel="stylesheet" href="_static/upgow.css" type="text/css" />
+    <link rel="stylesheet" href="_static/pygments.css" type="text/css" />
+    <link rel="stylesheet" href="http://fonts.googleapis.com/css?family=Noticia+Text|Open+Sans|Droid+Sans+Mono&subset=latin,latin-ext" type="text/css" />
+    <script id="documentation_options" data-url_root="./" src="_static/documentation_options.js"></script>
+    <script src="_static/jquery.js"></script>
+    <script src="_static/underscore.js"></script>
+    <script src="_static/doctools.js"></script>
+    <script src="_static/language_data.js"></script>
+    <script src="_static/translations.js"></script>
+    <script async="async" src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.5/latest.js?config=TeX-AMS-MML_HTMLorMML"></script>
+    <script src="_static/jquery.cookie.js"></script>
+    <script src="_static/cloud.js"></script>
+    <script type="text/javascript" src="http://sagecell.sagemath.org/static/jquery.min.js"></script>
+    <script type="text/javascript" src="http://sagecell.sagemath.org/static/embedded_sagecell.js"></script>
+    <script type="text/javascript">
+        sagecell.makeSagecell({inputLocation: ".sage_linked",
+                               linked: true,
+                       	evalButtonText: 'Wykonaj'});
+        sagecell.makeSagecell({inputLocation: ".sage_unlinked",
+                               linked: false,
+                           evalButtonText: 'Wykonaj'});
+    </script>
+
+    <style type="text/css">
+        .sagecell .CodeMirror-scroll {
+            overflow-y: hidden;
+            overflow-x: auto;
+        }
+        .sagecell .CodeMirror {
+            height: auto;
+        }
+    </style>
+    
+    <link rel="index" title="Indeks" href="genindex.html" />
+    <link rel="search" title="Szukaj" href="search.html" />
+    <link rel="next" title="13. Zarządzanie ryzykiem" href="ryzyko.html" />
+    <link rel="prev" title="11. Metody wyznaczania ceny opcji" href="opcje-wycena.html" />
+ 
+  <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, minimum-scale=1">
+  </head><body>
+  <div class="relbar-top">
+    
+    <div class="related" role="navigation" aria-label="related navigation">
+      <h3>Nawigacja</h3>
+      <ul>
+        <li class="right" style="margin-right: 10px">
+          <a href="genindex.html" title="Indeks ogólny"
+             accesskey="I">indeks</a></li>
+        <li class="right" >
+          <a href="ryzyko.html" title="13. Zarządzanie ryzykiem"
+             accesskey="N">dalej</a> &nbsp; &nbsp;</li>
+        <li class="right" >
+          <a href="opcje-wycena.html" title="11. Metody wyznaczania ceny opcji"
+             accesskey="P">wstecz</a> &nbsp; &nbsp;</li>
+  <li><a href="index.html">Analiza Rynków Finansowych</a> &#187;</li>
+   
+      </ul>
+    </div>
+  </div>
+  
+  <div class="content">  
+
+    <div class="document">
+      <div class="documentwrapper">
+        <div class="bodywrapper">
+          <div class="body">
+            
+  <div class="section" id="instrumenty-syntetyczne">
+<h1><span class="section-number">12. </span>Instrumenty syntetyczne<a class="headerlink" href="#instrumenty-syntetyczne" title="Stały odnośnik do tego nagłówka">¶</a></h1>
+<p>Tak jak światło składa się z elementów składowych tak i instrumenty
+finansowe składają się z instrumentów podstawowych. Jak już było
+wspomniane to na początku rozdziału o opcjach, opcje należą do tych
+składowych. <strong>Instrumenty syntetyczne</strong> to instrumenty składające (dające
+się rozłożyć) na składowe instrumenty. Instrumenty syntetyczne
+składają się z kombinacji dwu lub więcej elementów
+składowych. Oprócz opcji „cegiełkami” tworzacymi inne instrumenty są obligacje, akcje swapy. Konstruowanie takich instrumentów nazywane jest inżynierią
+finansową.</p>
+<p>Zbudujmy portfel inwestycyjny. Kupujemy aktywo i od
+momentu posiadania aktywa obawiamy się spadku jego ceny i chcemy by
+wartość naszego portfela nie zmalała w przypadku spadku cen tego
+aktywa na rynku. Aby się zabezpieczyc przed spadkiem wartości portfela
+kupujemy opcje Put na wspomniane aktywo.  Kupienie opcji Put i
+zapłacenie premii pozwala na ograniczenie możliwych strat z dołu przy
+zachowaniu szans na wzrost wartości aktywa. W takiej strategii widać
+podobieństwo do płacenia polisy ubezpieczeniowej za ograniczenie
+strat.</p>
+<p>Istnieje strategia alternatywna dla opisanej sytuacji.  Zamiast
+kupować aktywo i opcje Put zapewniającą „atrakcyjna” cenę jego
+sprzedaży możemy kupić jedynie opcje Call na „atrakcyjną” cenę aktywa.
+Zaoszczędzone pieniądze (różnica miedzy ceną kupna aktywa i premią
+opcji Put) możemy zainwestować w instrument dłużny oprocentowany stopą
+wolną od ryzyka.  Jeśli wartość aktywa wzrośnie możemy kupić je
+wykorzystując opcje Call i swoją inwestycje. Jeśli wartość aktywa
+spadnie można pozwolić wygasnąć opcji i zachować pieniądze w
+inwestycji w stopę wolną od ryzyka.</p>
+<p>Porównując obie strategie widzimy, że:</p>
+<table class="docutils align-default">
+<colgroup>
+<col style="width: 29%" />
+<col style="width: 34%" />
+<col style="width: 37%" />
+</colgroup>
+<tbody>
+<tr class="row-odd"><td></td>
+<td><p>Wartość przy
+wygaśnięciu</p></td>
+<td></td>
+</tr>
+<tr class="row-even"><td><p>pozycja
+początkowa</p></td>
+<td><p><span class="math notranslate nohighlight">\(S&lt;K\)</span></p></td>
+<td><p><span class="math notranslate nohighlight">\(S \geq
+K\)</span></p></td>
+</tr>
+<tr class="row-odd"><td><p>Akcje +
+Put</p></td>
+<td><p><span class="math notranslate nohighlight">\(K\)</span></p></td>
+<td><p><span class="math notranslate nohighlight">\(S\)</span></p></td>
+</tr>
+<tr class="row-even"><td><p>Call +
+PV(K)</p></td>
+<td><p><span class="math notranslate nohighlight">\(K\)</span></p></td>
+<td><p><span class="math notranslate nohighlight">\(S\)</span></p></td>
+</tr>
+</tbody>
+</table>
+<p>Niech cena aktywa wynosi <span class="math notranslate nohighlight">\(S\)</span> a cena wykonania opcji <span class="math notranslate nohighlight">\(K\)</span>.  W zależności od
+tego ile wynosi cena aktywa na rynku postępujemy:</p>
+<p>w przypadku portfela:</p>
+<p>Aktywo + Put</p>
+<ul class="simple">
+<li><p>Jeśli <span class="math notranslate nohighlight">\(S &lt; K\)</span>, wykorzystaj Put i weź <span class="math notranslate nohighlight">\(K\)</span></p></li>
+<li><p>Jeśli <span class="math notranslate nohighlight">\(S\geq K\)</span>, niech Put wygaśnie a masz <span class="math notranslate nohighlight">\(S\)</span></p></li>
+</ul>
+<p>Portfel  Call + PV(K)</p>
+<ul class="simple">
+<li><p><span class="math notranslate nohighlight">\(PV(K)\)</span> będzie warta <span class="math notranslate nohighlight">\(K\)</span> dla wygaśnięcia opcji</p></li>
+<li><p>Jeśli <span class="math notranslate nohighlight">\(S &lt; K\)</span>, niech Call wygaśnie a masz inwestycje, <span class="math notranslate nohighlight">\(K\)</span></p></li>
+<li><p>Jeśli <span class="math notranslate nohighlight">\(S\geq K\)</span>, wykorzystaj Call mając inwestycje i masz  <span class="math notranslate nohighlight">\(S\)</span></p></li>
+</ul>
+<p>Jeśli te dwie pozycje są tyle samo warte na koniec inwestycji to
+powinny być tyle samo warte na początku inwestycji.</p>
+<p>To prowadzi do warunku równości (parytetu) Put-Call</p>
+<div class="math notranslate nohighlight" id="equation-is1">
+<span class="eqno">(1)<a class="headerlink" href="#equation-is1" title="Stały odnośnik do tego równania">¶</a></span>\[S + P = C + PV(K)\]</div>
+<p>Gdzie</p>
+<blockquote>
+<div><ul class="simple">
+<li><p><span class="math notranslate nohighlight">\(S\)</span> - cena aktywa (1 akcji)</p></li>
+<li><p><span class="math notranslate nohighlight">\(P\)</span> - cena opcji Put (1 opcja) na cenę wykonania <span class="math notranslate nohighlight">\(K\)</span> i czasie
+do wygaśnięcia <span class="math notranslate nohighlight">\(T\)</span></p></li>
+<li><p><span class="math notranslate nohighlight">\(C\)</span> - cena opcji Call (jedna opcja) na cene wykonania K i
+czasie do wygaśnięcia <span class="math notranslate nohighlight">\(T\)</span> - jak opcja Put.</p></li>
+<li><p><span class="math notranslate nohighlight">\(PV(K)\)</span> - jedna obligacja (instrument dyskontowy) z wartością
+w czasie zapadalności T równej K.</p></li>
+</ul>
+</div></blockquote>
+<p>Możemy również rozumieć ten związek jako konsekwencję matematycznej
+równości:</p>
+<div class="math notranslate nohighlight" id="equation-cmp">
+<span class="eqno">(2)<a class="headerlink" href="#equation-cmp" title="Stały odnośnik do tego równania">¶</a></span>\[\max (S-K,0)  -    \max (K-S,0)  = S-K.\]</div>
+<p>Prześledźmy, jeśli <span class="math notranslate nohighlight">\(S&gt;K\)</span> to pierwszy składnik różnicy w równaniu
+<a class="reference internal" href="#equation-cmp">(2)</a> jest równy <span class="math notranslate nohighlight">\(S-K\)</span>, a drugi jest zero. W przeciwnym
+przypadku <span class="math notranslate nohighlight">\(K&gt;S\)</span> pierwszy się zeruje a drugi daje
+<span class="math notranslate nohighlight">\(-(K-S)=S-K\)</span> czyli w efekcie to samo co pierwszy. Funkcja
+wypłaty dla różnicy dwóch opcji - Call i Put, jest więc taka sama jak
+funkcja wypłaty dla posiadanej akcji i instrumentu dłużnego (obligacji) o  wartość <span class="math notranslate nohighlight">\(K\)</span>.</p>
+<p>Funkcja wypłady zobowiązuje w czasie zapadalności obydwu opcji - czyli
+<span class="math notranslate nohighlight">\(t=T\)</span>).  Wyobrażmy sobie, że jesteśmy w dowolnym momencie przed
+tym czasem, (niech będzie on oznaczony przez <span class="math notranslate nohighlight">\(t=0\)</span>). Wtedy cena
+akcji jest inna. Opcje przez ich czasem zapadalności możemy wycenić,
+np. za pomocą wzoru Blacka-Scholesa. Kredyt <span class="math notranslate nohighlight">\(K\)</span> będzie trzeba
+zdyskontować ze stopą wolną od ryzyka <span class="math notranslate nohighlight">\(r\)</span>. Dlatego możemy się
+spodziewać, że będzie zachodził wzór:</p>
+<div class="math notranslate nohighlight">
+\[S + P_P =    P_C + e^{-rT} K,\]</div>
+<p>gdzie przez <span class="math notranslate nohighlight">\(P_C,P_P\)</span> to ceny opcji Call i Put, odpowiednio, w
+czasie <span class="math notranslate nohighlight">\(t=0\)</span>.</p>
+<p>Wzór ten powinien zachodzić dla wycen opcji, sprawdźmy więc czy
+rzeczywiście tak jest. Możemy wykorzystać system algebry komputerowej
+by wykonał mozolną robotę za nas.</p>
+<div class="admonition-poeksperymentuj-z-sage admonition">
+<p class="admonition-title">Poeksperymentuj z Sage!</p>
+<p>Kod wykorzystujący CAS do pokazania spełnienia przez wzory
+Blacka-Scholesa parytetu Put-Call. Do sprawdzenia parytetu używamy
+polecenia <cite>bool</cite>, które próbuje algebraicznie udowodnić
+równość. Możemy też zobaczyć jawną postać lewej lub prawej strony
+równości używając do tego polecenia <cite>show</cite>, jednak uzyskane wzory
+mogą być dość długie,  spróbuj sam!</p>
+<div class='sage_linked'><script type='text/x-sage'>var("S0,K,r,T,sigma")
+cdf(x) = 1/2*(1+erf(x/sqrt(2)))
+d1=(log(S0/K)+(r+sigma**2/2)*T)/(sigma*sqrt(T))
+d2=d1-sigma*sqrt(T)
+C(S0,K,r,T,sigma) = S0*cdf(d1)-K*exp(-r*T)*cdf(d2)
+P(S0,K,r,T,sigma) = K*exp(-r*T)*cdf(-d2)-S0*cdf(-d1)
+bool( S0+P(S0,K,r,T,sigma) == K*exp(-r*T) + C(S0,K,r,T,sigma) )</script></div></div>
+<p>Jeśli ten warunek nie zachodzi to mamy do czynienia z arbitrażem.
+Możliwość arbitrażu nie będzie istnieć długo, ale wtedy opłacalnym
+będzie działanie: Kup stronę „niską” a sprzedaj „wysoką”.</p>
+<p>Arbitraż jest sytuacją wyjątkową i ulotną w stosunku do sytuacji gdy
+rynek jest w równowadze.  Jeśli rynek jest efektywny (a raczej jest)
+używamy tego równania do znalezienia wielkości przy pomocy danych
+pozostałych trzech instrumentów</p>
+<div class="admonition note">
+<p class="admonition-title">Informacja</p>
+<p>Przykład</p>
+<p>Z danych rynkowych widać, że:</p>
+<ul class="simple">
+<li><p>aktualna cena akcji = 50,</p></li>
+<li><p>cena opcji Put = 1.15, z ceną wykonania = 45,</p></li>
+<li><p>stopa wolna od ryzyka = 5%,</p></li>
+<li><p>Termin wygaśnięcia 1 rok</p></li>
+</ul>
+<p><strong>Pytanie:</strong> Jaka jest cena  opcji Call?</p>
+<p>Korzystając z równania parytetu mamy</p>
+<div class="math notranslate nohighlight">
+\[50  1.15 = C + 45 / (1.05)\]</div>
+<p>Czyli cena opcji Call wynosi  C = 8.29</p>
+</div>
+<p>Przy wycenie opcji podobnie jak w wielu przypadkach instrumentów
+dłużnych stosuje ciągłą kapitalizacje w czasie.</p>
+<p>Równania wartości pieniądza w czasie dla ciągłej kapitalizacji:</p>
+<div class="math notranslate nohighlight">
+\[ \begin{align}\begin{aligned}PV = FVe^{-Rt}\\FV = PVe^{Rt}\end{aligned}\end{align} \]</div>
+<p>Równanie pokazujące związek ceny akcji i opcji Call oraz Put i
+obligacji o stopie bez ryzyka <a class="reference internal" href="#equation-is1">(1)</a> wygląda:</p>
+<div class="math notranslate nohighlight" id="equation-putcall">
+<span class="eqno">(3)<a class="headerlink" href="#equation-putcall" title="Stały odnośnik do tego równania">¶</a></span>\[ S + P = C + Ke^{-Rt}\]</div>
+<p>Gdzie <span class="math notranslate nohighlight">\(K\)</span> - to wartość obligacji na stopę wolną od ryzyka na
+datę wygaśnięcia opcji. <span class="math notranslate nohighlight">\(K\)</span> to również cena wykonania opcji
+(obu) w czasie wygaśnięcia.</p>
+<p>Równanie <a class="reference internal" href="#equation-putcall">(3)</a> nazwane parytetem call - put pokazuje symetrie
+ceny opcji put i call. Najlepiej można to prześledzić w przypadku
+opcji europejskich i aktywa nie wypłacającego dywidendy. Potraktujmy
+równanie <a class="reference internal" href="#equation-putcall">(3)</a> jako równość wartości dwu portfeli.</p>
+<blockquote>
+<div><ul class="simple">
+<li><p>Pierwszy portfel składa się z opcji call z ceną wykonania
+przykładowo 12 i obligacji która w chwili wygaśnięcia ma wartość
+aktywa w chwili wykonania. Obligacja obrazuje „pożyczone” środki
+pieniężne, które w chwili z wygaśnięcia musza być równe cenie
+wykonania aktywa pozwalając na wykonanie opcji.</p></li>
+<li><p>Drugi portfel składa się z opcji put z tą samą ceną wykonania jak
+opcja call i aktywa, które w chwili wykonania ma wartość ceny
+wykonania.</p></li>
+</ul>
+</div></blockquote>
+<p>Istota parytetu zasadza się w równości tych dwu portfeli. Ta równość
+zachodzi niezależnie od ceny (wykonania) aktywa.</p>
+<p>Sprawdźmy to:</p>
+<p>Dla ceny aktywa 12 równość ta, wygląda następująco:</p>
+<table class="docutils align-default">
+<colgroup>
+<col style="width: 50%" />
+<col style="width: 50%" />
+</colgroup>
+<thead>
+<tr class="row-odd"><th class="head"><p>Call= 0</p></th>
+<th class="head"><p>put = 0</p></th>
+</tr>
+<tr class="row-even"><th class="head"><p>Obligacja= 12</p></th>
+<th class="head"><p>Aktywo =12</p></th>
+</tr>
+</thead>
+<tbody>
+<tr class="row-odd"><td><p>Wartość = 12</p></td>
+<td><p>Wartość = 12</p></td>
+</tr>
+</tbody>
+</table>
+<p>Call wygasa bez wartości gdy w chwili wygaśnięcia cena aktywa wynosi
+12, podobnie put. Jednak zaciągnięty został kredyt o wartości 12.</p>
+<p>Dla ceny aktywa 14 równość ta, wygląda następująco:</p>
+<table class="docutils align-default">
+<colgroup>
+<col style="width: 50%" />
+<col style="width: 50%" />
+</colgroup>
+<thead>
+<tr class="row-odd"><th class="head"><p>Call =2</p></th>
+<th class="head"><p>put = 0</p></th>
+</tr>
+<tr class="row-even"><th class="head"><p>Obligacja= 12</p></th>
+<th class="head"><p>Aktywo =14</p></th>
+</tr>
+</thead>
+<tbody>
+<tr class="row-odd"><td><p>Wartość = 14</p></td>
+<td><p>Wartość = 14</p></td>
+</tr>
+</tbody>
+</table>
+<p>Dla tej ceny aktywa opcja call ma wartość = 2 a opcja put wygasa bez
+wartości.</p>
+<p>Dla ceny aktywa 6 równość ta, wygląda następująco:</p>
+<table class="docutils align-default">
+<colgroup>
+<col style="width: 50%" />
+<col style="width: 50%" />
+</colgroup>
+<thead>
+<tr class="row-odd"><th class="head"><p>Call= 0</p></th>
+<th class="head"><p>put = 6</p></th>
+</tr>
+<tr class="row-even"><th class="head"><p>Obligacja= 12</p></th>
+<th class="head"><p>Aktywo =6</p></th>
+</tr>
+</thead>
+<tbody>
+<tr class="row-odd"><td><p>Wartość = 12</p></td>
+<td><p>Wartość = 12</p></td>
+</tr>
+</tbody>
+</table>
+<p>Jak widać jeden portfel replikuje wartość drugiego bez względu na
+wartość aktywa. Są one równowartościowe.</p>
+<p>Jeśli aktywo (akcja) wypłaca dywidendę to zachodzi równość.</p>
+<p>cena opcji Put - cena opcji Call  = present value ceny wykonania  + present value dywidend  - cena akcji</p>
+<p>Gdy na wykresie zysków (strat) od ceny aktywa naniesiemy zależności
+dla ceny akcji opcji Call i Put możemy łatwo wykazać zależność
+parytetu graficznie.</p>
+<div class="figure align-center" id="id4" style="width: 480px">
+<img alt="_images/parytet0.png" src="_images/parytet0.png" />
+<p class="caption"><span class="caption-text">Oznaczenia:</span><a class="headerlink" href="#id4" title="Stały odnośnik do tego obrazu">¶</a></p>
+<div class="legend">
+<p>Zółty kolor - long Call
+Czerwony  - long Put
+Niebieski - pozycja długa w aktywie (akcja)
+Zielony - pozycja długa w obligacji.</p>
+</div>
+</div>
+<p>Mając do dyspozycji równanie <a class="reference internal" href="#equation-is1">(1)</a>, możemy je rozwiązać na cenę
+opcji Call, cenę opcji Put lub cenę aktywa. Powyższe trzy możliwości
+mogą zostać wykorzystane do zastąpienia pozycji długiej lub krótkiej w
+portfelu. Razem daje to sześć możliwości zastosowania parytetu
+Put-Call, oraz tworzenia instrumentów syntetycznych.</p>
+<div class="section" id="syntetyczny-put">
+<h2><span class="section-number">12.1. </span>Syntetyczny Put<a class="headerlink" href="#syntetyczny-put" title="Stały odnośnik do tego nagłówka">¶</a></h2>
+<p>Analogicznie aby określić cenę opcji Put przekształcamy wzór <a class="reference internal" href="#equation-is1">(1)</a>
+do postaci:</p>
+<div class="math notranslate nohighlight" id="equation-is2">
+<span class="eqno">(4)<a class="headerlink" href="#equation-is2" title="Stały odnośnik do tego równania">¶</a></span>\[P = C - S + K e^{-Rt}\]</div>
+<p>Co to oznacza?  Kupienie opcji Call i sprzedaż aktywa (np. akcji) oraz
+kupienie obligacji o tym samym terminie zapadalności jak termin
+wygaśnięcia opcji (czyli <span class="math notranslate nohighlight">\(T\)</span>) replikuje wypłatę z zakupu opcji
+Put.</p>
+<p>Graficznie wygląda to tak:</p>
+<div class="figure align-center" id="id5">
+<img alt="_images/P_CSK.png" src="_images/P_CSK.png" />
+<p class="caption"><span class="caption-text">Syntetyczna opcja Put. Korzystając z parytetu put-call w postaci:
+<span class="math notranslate nohighlight">\(P = C - S + K e^{-Rt}\)</span> możemy za pomoca trzech instrumentów
+otrzymać taki sam efekt finansowy jak z instrumentu Put.</span><a class="headerlink" href="#id5" title="Stały odnośnik do tego obrazu">¶</a></p>
+<div class="legend">
+<p>Na lewym panelu pomarańczowa gruba linia oznacza zależność
+zysku/straty z opcji Put. Na prawym panelu naniesiono trzy
+instrumenty z prawej strony równania <a class="reference internal" href="#equation-is2">(4)</a>. Dodając je do
+siebie otrzymujemy zysk/stratę całego portfela. Suma ta jest
+zaznaczona na wykresie lewym czarną linią. Widzimy, że pokrywa się
+ona zyskiem/stratą z opcji Put.</p>
+</div>
+</div>
+<div class="section" id="krok-po-kroku">
+<h3><span class="section-number">12.1.1. </span>Krok po kroku<a class="headerlink" href="#krok-po-kroku" title="Stały odnośnik do tego nagłówka">¶</a></h3>
+<p>Zobaczmy jak to można samemu utworzyć powyższe wykresy. Po pierwsze
+zdefiniujmy z systemie Sage wypłaty opcji Put i Call oraz wzory
+Blacka-Scholesa:</p>
+<div class='sage_linked'><script type='text/x-sage'>var('S')
+def longCALL(S,K,P=0):
+    return max_symbolic(S-K,0)-P
+def longPUT(S,K,P=0):
+    return max_symbolic(K-S,0)-P
+var('sigma,S0,K,T,r')
+cdf(x) = 1/2*(1+erf(x/sqrt(2)))
+d1 = (log(S0/K)+(r+sigma**2/2)*T)/(sigma*sqrt(T))
+d2 = d1-sigma*sqrt(T)
+C(S0,K,r,T,sigma) = S0*cdf(d1)-K*exp(-r*T)*cdf(d2)
+P(S0,K,r,T,sigma) = K*exp(-r*T)*cdf(-d2)-S0*cdf(-d1)
+print( "Wczytano definicje!" )</script></div><p>Rozważmy aktywo o wartości chwilowej (cena spot ) <span class="math notranslate nohighlight">\(S=50\)</span> i
+zmienności (volatility) <span class="math notranslate nohighlight">\(\sigma=0.5\)</span>. Ponadto, niech wolna od
+ryzyka stopa procentowa wynosi <span class="math notranslate nohighlight">\(r=0.05\)</span>. Będziemy rozważać opcje
+o czasie wygaśnięcia trzy miesiące czyli <span class="math notranslate nohighlight">\(T=90/365\)</span>. W chwili
+początkowej mamy następujące ceny opcji Call i Put, dane przez wzory
+Blacka-Scholesa:</p>
+<div class='sage_linked'><script type='text/x-sage'>P_c,P_p = C(50,50,.05,90/365.,0.3).n(),P(50,50,.05,90/365.,0.3).n()
+print( P_c,P_p )</script></div><div class='sage_linked'><script type='text/x-sage'>p3 = plot( longCALL(S,50,0)-P_c,(S,0,100),color='red',aspect_ratio=1)+\
+ plot( - (S-50),(S,0,100),color='green',aspect_ratio=1)+\
+ plot( ( 50-50*exp(-0.05*90/365.) ) ,(S,0,100),color='blue',aspect_ratio=1,figsize=4)
+show(p3)</script></div><div class='sage_linked'><script type='text/x-sage'>p2 = plot( longCALL(S,50,0)-P_c-( S-50) + ( 50-50*exp(-0.05*90/365.) ),(S,0,100),color='black',aspect_ratio=1,zorder=10)
+p2 += plot( longPUT(S,50,0)-P_p,(S,0,100),color='pink',thickness=5,figsize=4)
+print( "Instrumenty bazowe" )
+p3.show()
+print( "Instrument syntetyczny" )
+p2.show()</script></div><p>Na ostatnim rysunku widzimy po prawej - profil zysku/straty dla
+poszczególnych instrumentów bazowych a po lewej czarną linią
+zaznaczono ich sumę - czyli nasz instrument syntetyczny. Szeroka
+różowa linia oznacza profil zysku straty dla opcji Call. Spełnienie
+parytetu powoduje, że obie linie się pokrywają.</p>
+<p>Korzystając ze wzoru <a class="reference internal" href="#equation-is1">(1)</a> możemy tworzyć instrumenty syntetyczne
+korzystając z czterech „cegiełek” wymienionych powyżej.</p>
+<div class="admonition-poeksperymentuj-z-komputerem admonition">
+<p class="admonition-title">Poeksperymentuj z komputerem!</p>
+<ol class="arabic simple">
+<li><p>Przypuśćmy, że nie wycenilismy opcji Put wg. wzoru
+Blacka-Scholesa, tylko od kolegi, który zawsze ma odmienne od
+rynku zdanie, dowiedzieliśmy się, że
+<span class="math notranslate nohighlight">\(P_p=5.94\)</span>. Przeprowadźmy te same obliczenia i zobaczmy
+czy parytet Put-Call dalej będzie spełniony!</p></li>
+<li><p>Napisz własne programy rysujące pozostałe pięć instrumentów syntetycznych.</p></li>
+</ol>
+</div>
+</div>
+</div>
+<div class="section" id="syntetyczna-pozycja-long-stock">
+<h2><span class="section-number">12.2. </span>Syntetyczna pozycja Long Stock<a class="headerlink" href="#syntetyczna-pozycja-long-stock" title="Stały odnośnik do tego nagłówka">¶</a></h2>
+<p>Można stworzyć syntetyczną pozycję posiadania akcji poprzez kupienie
+Call, sprzedaż Put, i zainwestowanie ceny wykonania na stopę wolną od
+ryzyka do wygaśnięcia.</p>
+<div class="math notranslate nohighlight">
+\[S = C - P + Ke^{-Rt}\]</div>
+<p>Graficznie pokazuje to rysunek poniżej:</p>
+<div class="figure align-center" id="id6">
+<img alt="_images/S_CPK.png" src="_images/S_CPK.png" />
+<p class="caption"><span class="caption-text">Parytet put-call: <span class="math notranslate nohighlight">\(S = C - P + Ke^{-Rt}\)</span></span><a class="headerlink" href="#id6" title="Stały odnośnik do tego obrazu">¶</a></p>
+</div>
+</div>
+<div class="section" id="syntetyczny-long-call">
+<h2><span class="section-number">12.3. </span>Syntetyczny Long Call<a class="headerlink" href="#syntetyczny-long-call" title="Stały odnośnik do tego nagłówka">¶</a></h2>
+<p>Można zbudować pozycje syntetyczną long Call poprzez kupienie Put,
+kupienie akcji za pożyczoną kwotę równą cenie wykonania i spłacanej w
+chwili wygaśnięcia przy stopie wolnej od ryzyka.</p>
+<div class="math notranslate nohighlight">
+\[C = P + S - Ke^{-Rt}\]</div>
+<p>Na wykresie</p>
+<div class="figure align-center" id="id7">
+<img alt="_images/C_PSK.png" src="_images/C_PSK.png" />
+<p class="caption"><span class="caption-text">Parytet put-call: <span class="math notranslate nohighlight">\(C = P + S - Ke^{-Rt}\)</span></span><a class="headerlink" href="#id7" title="Stały odnośnik do tego obrazu">¶</a></p>
+</div>
+</div>
+<div class="section" id="syntetyczna-sprzedaz-akcji">
+<h2><span class="section-number">12.4. </span>Syntetyczna sprzedaż akcji<a class="headerlink" href="#syntetyczna-sprzedaz-akcji" title="Stały odnośnik do tego nagłówka">¶</a></h2>
+<p>Można utworzyć syntetyczną pozycja sprzedaży akcji (short) poprzez
+sprzedaż Call, kupienie Put, kupienie obligacji (stopa wolna od
+ryzyka) za pożyczona cenę wykonania i trzymanie jej do zapadnięcia.</p>
+<div class="math notranslate nohighlight">
+\[-S =  P - C - Ke^{-Rt}\]</div>
+<p>Graficznie</p>
+<div class="figure align-center" id="id8">
+<img alt="_images/sS_PCK.png" src="_images/sS_PCK.png" />
+<p class="caption"><span class="caption-text">Parytet put-call: <span class="math notranslate nohighlight">\(-S =  P - C - Ke^{-Rt}\)</span></span><a class="headerlink" href="#id8" title="Stały odnośnik do tego obrazu">¶</a></p>
+</div>
+</div>
+<div class="section" id="syntetyczna-pozycja-short-put">
+<h2><span class="section-number">12.5. </span>Syntetyczna pozycja short Put<a class="headerlink" href="#syntetyczna-pozycja-short-put" title="Stały odnośnik do tego nagłówka">¶</a></h2>
+<p>Można stworzyć syntetyczną short Put poprzez sprzedaż opcji Call,
+kupno aktywa za kwotę pożyczoną na stopę wolna od ryzyka do wygaśnięcia.</p>
+<div class="math notranslate nohighlight">
+\[-P = S - C - Ke^{-Rt}\]</div>
+<p>Graficznie przedstawia wykres</p>
+<div class="figure align-center" id="id9">
+<img alt="_images/sP_SCK.png" src="_images/sP_SCK.png" />
+<p class="caption"><span class="caption-text">Parytet put-call: <span class="math notranslate nohighlight">\(-P = S - C - Ke^{-Rt}\)</span></span><a class="headerlink" href="#id9" title="Stały odnośnik do tego obrazu">¶</a></p>
+</div>
+</div>
+<div class="section" id="przypadek-kontraktow-terminowych">
+<h2><span class="section-number">12.6. </span>Przypadek kontraktów terminowych<a class="headerlink" href="#przypadek-kontraktow-terminowych" title="Stały odnośnik do tego nagłówka">¶</a></h2>
+<p>Jeśli w miejsce kontraktów kasowych na aktywo wstawimy do równania
+parytetu kontrakty terminowe to otrzymamy podobne zależności dla rynku
+futures ( forward). W równości parytetu dla tego rynku opcje są
+opcjami dla kupna i sprzedaży kontraktu futures.</p>
+</div>
+<div class="section" id="podsumowanie">
+<h2><span class="section-number">12.7. </span>Podsumowanie<a class="headerlink" href="#podsumowanie" title="Stały odnośnik do tego nagłówka">¶</a></h2>
+<p>Równość zwana parytetem cen opcji call i put jest spełniona przy
+następujących warunkach:</p>
+<ol class="arabic simple">
+<li><p>Opcje są opcjami europejskimi</p></li>
+<li><p>Cena wykonana jest identyczna dla opcji cal i opcji put.</p></li>
+<li><p>Ceny transakcji są zerowe  (tzw. Rynek bez tarcia)</p></li>
+<li><p>Stopy procentowe są niezmienne aż do terminu wygaśnięcia.</p></li>
+<li><p>Akcja nie wypłaca dywidendy.</p></li>
+</ol>
+<p>Parytet put-call jest skutecznym narzędziem pozwalającym na testowanie
+modeli wyceny opcji. Jeśli sprawdzany model wyceny prowadzi do
+wyliczenia cen które nie spełniają parytetu na rynku bez arbitrażu,
+należy uznać go za błędny i go odrzucić ( albo jeszcze nad nim
+popracować by usunąć jego braki).</p>
+<p>Parytet nie stosuje się do opcji amerykańskich jeśli  są wykonywane przed dniem wygaśnięcia.</p>
+<p>Wynika to z równań Blacka Scholes’a, które jest spełnione jeśli opcja
+nie zostanie wykonana przed wygaśnięciem.  Amerykańskie opcje call i
+put nie spełniają warunków parytetu, ale spełniają słabszą relacje:</p>
+<div class="math notranslate nohighlight">
+\[S_0 - K \leq C - P \leq S_0 - K e^{-Rt}\]</div>
+<p>Warunek wypłacania dywidendy czyli warunek nr. 5 parytetu jest dość
+łatwy do ominięcia jeśli uwzględni sie wartość czasową wypłacanej
+dywidendy zanim opcja wygasnie.  Wyniki takich wyliczeń, które
+polecamy do własnych wyliczeń można znaleźć:</p>
+<p>W pracy Weiyu Guo i Tie Su-“ Option Put-Call Parity Relations When the
+Underlying Security Pays Dividends”- International Journal of Business
+and Economics, 2006, Vol. 5, No. 3, 225-230 albo
+<a class="reference external" href="http://moya.bus.miami.edu/~tsu/ijbe2006.pdf">http://moya.bus.miami.edu/~tsu/ijbe2006.pdf</a></p>
+</div>
+<div class="section" id="id1">
+<h2><span class="section-number">12.8. </span>Instrumenty syntetyczne<a class="headerlink" href="#id1" title="Stały odnośnik do tego nagłówka">¶</a></h2>
+<p>Kilka uwag o instrumentach syntetycznych.</p>
+<p>Istnienie ich warunkuje ważność parytetu Call- Put. Do tego miejsca
+zajecie pozycji na rynku oznaczało kupno/sprzedaż aktywa lub kontraktu
+futures , kupno/sprzedaż opcji call lub put na dany
+instrument. Parytet call- put jest podstawą pewnego, nowego i innego
+spojrzenia na aktywo. Pozwala na tworzenie instrumentów rynkowych jako
+kombinacji innych instrumentów dających ten sam efekt i wartość dla
+inwestora.</p>
+<p>Pozycja syntetyczna pozwala na osiągnięcie tego samego zysku( lub
+straty) co posiadanie instrumentu poprzez zajecie dwu innych pozycji
+na tym samym rynku. To jest często bardzo wygodne.  Przykładowo, jeśli
+inwestor jest long call a chce być long put. Zamiast likwidować
+pozycję i otwierać nową, inwestor może zostać long call a sprzedać
+aktywo lub kontrakt futures jeśli na takim rynku działa. Zamiast więc
+dwu transakcji zawiera jedną i to dzięki temu przyjmuje syntetyczną
+pozycje long put. Innymi słowy inwestor „sfabrykował” syntetyczną
+pozycję dającą ten sam zysk jak long put posiadając opcje call i
+sprzedając aktywo (kontrakt futures).</p>
+<p>Syntetyczne opcje muszą posiadać te same ceny wykonania i czasy
+wygaśnięcia, co jest konsekwencją założeń parytety call- put. Ponadto
+jeśli pozycja syntetyczna zawiera w sobie akcje i opcje, liczba akcji
+reprezentowanych przez opcje musi być równa ilości akcji.</p>
+<p><strong>Zalety instrumentów  syntetycznych.</strong></p>
+<p>Instrumenty syntetyczne  stwarzają w pewnych sytuacjach możliwości  które mogą być atrakcyjne dla ich posiadacza.</p>
+<ol class="arabic simple">
+<li><p>Tworząc kontrakt syntetyczny wchodzimy w posiadanie instrumentu
+który nie istnieje inaczej niż wspomniany syntetyk.</p></li>
+<li><p>W pewnych sytuacjach może być taniej kupić syntetyk niż instrument,
+który syntetyk „ naśladuje” ze względu na opłaty, prowizje, spready
+oraz wolumen który wymagany jest przy zakupie instrumentu
+„fizycznego’.</p></li>
+<li><p>Często ( ale nie zawsze) syntetyki są mniej zmienne niż ceny
+instrumentów fizycznych.</p></li>
+<li><p>Przykładem zalety syntetyka jest sytuacja krótkiej sprzedaży.
+Jeśli sprzedajemy krótko akcje nie musimy jej pożyczać i nie musimy
+się martwić o płatność dywidendy na sprzedaną krótko akcje.</p></li>
+</ol>
+<p>Wydawać się może, że instrumenty syntetyczne pozwalają
+na większą spekulacje i pozwalają na uniknięcie depozytów
+zabezpieczających. Przykładowo może się wydawać, że w przypadku
+syntetycznego long/short futures można uniknąć płacenia depozytu
+zabezpieczającego. Niestety, pozycja short put wymaga tego samego
+depozytu jak pozycja short futures. Syntetyczna pozycja long futures
+wymaga wpłaty podobnego rzędu jak „fizyczna” pozycja długa na rynku
+kontraktów futures.</p>
+</div>
+<div class="section" id="swapy">
+<h2><span class="section-number">12.9. </span>Swapy<a class="headerlink" href="#swapy" title="Stały odnośnik do tego nagłówka">¶</a></h2>
+<p>Transakcje swapowe to syntetyczne instrumenty zbudowane z dwu
+podstawowych „cegiełek” instrumentów finansowych. Przykładowo są to
+połączenia instrumentu dłużnego o stałym oprocentowaniu z instrumentem
+dłużnym o zmiennym oprocentowaniu. Często do tej kombinacji
+instrumentów dochodzi transakcja wymiany walut.</p>
+<p>Swapy stosuje się w celu unikania niedogodności związanych z wymiana
+walut, przeciwdziałaniu ryzyku kursowemu oraz zabezpieczenia się przed
+ryzykiem związanym z wahaniem stóp procentowych. Typowy podział swapów
+to podział na swapy kuponowe i bazowe.</p>
+<div class="section" id="swap-stopy-procentowej">
+<h3><span class="section-number">12.9.1. </span>Swap stopy procentowej<a class="headerlink" href="#swap-stopy-procentowej" title="Stały odnośnik do tego nagłówka">¶</a></h3>
+<div class="section" id="swap-kuponowy">
+<h4><span class="section-number">12.9.1.1. </span>Swap kuponowy<a class="headerlink" href="#swap-kuponowy" title="Stały odnośnik do tego nagłówka">¶</a></h4>
+<div class="figure align-center" style="width: 480px">
+<img alt="_images/ARF2_swap_kuponowy.png" src="_images/ARF2_swap_kuponowy.png" />
+</div>
+<p>Najbardziej typowy swap dotyczy wymiany płatności opartej na zmiennej
+stopie na płatność opartą o stopę stałą. Na ilustracji spółka A zgadza
+się wykonać płatność do spółki B liczoną w oparciu o zmienne
+oprocentowanie (np. LIBOR 6 - miesięczny)  dla ustalonej kwoty. W zamian
+Spółka B zgadza się dokonać płatności odsetek od tej kwoty dla stałego
+oprocentowania ( np. 10% na rok) Wymiana płatności nastąpi co 6
+miesięcy.</p>
+</div>
+<div class="section" id="swap-bazowy">
+<h4><span class="section-number">12.9.1.2. </span>Swap  bazowy<a class="headerlink" href="#swap-bazowy" title="Stały odnośnik do tego nagłówka">¶</a></h4>
+<div class="figure align-center" style="width: 480px">
+<img alt="_images/ARF2_swap_bazowy.png" src="_images/ARF2_swap_bazowy.png" />
+</div>
+<p>Dotyczy wymiany płatności opartych o zmienne oprocentowanie, ale dla
+różnych rodzajów stóp procentowych. W przypadku swapu bazowego strony
+wymieniają płatności oparte na jednym rodzaju zmiennej stopy
+procentowej( np. 3- miesięczny LIBOR) na inne płatności oparte o inną
+zmienną stopę oprocentowania. ( np. LIBOR 6- miesięczny).</p>
+<p>SWAP jest transakcją zawieraną przez dwie strony. Podstawową
+trudnością dla instytucji chcącej zawrzeć transakcje tego typu jest
+znalezienie drugiej strony transakcji, czyli firmy chcącej również
+zawrzeć transakcje swap na warunkach atrakcyjnych. To stwarza nowe
+możliwości dla banków, które to pośredniczą w transakcjach i są stroną
+dla każdej części transakcji zawierając oddzielne kontrakty swap z obu
+stronami( klientami).</p>
+</div>
+<div class="section" id="id2">
+<h4><span class="section-number">12.9.1.3. </span>Swap stopy procentowej<a class="headerlink" href="#id2" title="Stały odnośnik do tego nagłówka">¶</a></h4>
+<p>Inaczej nazywany IRS (czyli interest rate swap).  Polega ten swap na
+tym, że płatności wynikające dla stron z kontraktu swap dotyczą tego
+samego nominału kwoty, ale nie następuje tu żaden transfer tejże kwoty
+ani inna forma zmiany jej własności. Raczej mówi się o wymianie
+oprocentowania, ale nie wynika z tego, że następuje tu jakaś pożyczka.</p>
+<p>Kontrakt swap reguluje okresowość płatności. Najczęściej są to okresy
+półroczne, ale mogą być i inne. Podstawą jest regulacja zawarta w
+kontrakcie. Chociaż strony umawiają się w kontrakcie co do dokonywania
+płatności w regularnych odstępach czasu to w praktyce, jednak, jest to
+każdorazowo, płatność jednej strony do drugiej równa różnicy
+zobowiązań.</p>
+<p>Mechanizm swapu na stopę procentową.</p>
+<p>Niech będą dwie firmy: Spółka A i spółka B. Spółka A funkcjonuje na
+rynku długo i jest uważana za spółkę o bardzo bezpiecznym bilansie i
+bezpiecznej działalności finansowej. Dla tego na rynku może otrzymać
+kredyt stało procentowy o stopie 8% lub zmienno procentowy w oparciu o
+WIBOR + 0,5%. Spółka B jest firma młodą i oferowany dla niej kredyt
+stało procentowy opiera się o stopę 10% albo kredyt o stopie zmiennej
+liczony według formuły WIBOR +1%.</p>
+<p>Załóżmy że Spółka A, oczekując wzrostu stóp procentowych chce
+zaciągnąć kredyt o oprocentowaniu stałym, B zaś woli zaciągnąć kredyt
+o oprocentowaniu zmiennym.</p>
+<p>W powyższej sytuacji:</p>
+<p>Dla spółki A korzystne jest płacić 8% za kredyt o stałym
+oprocentowaniu a spółka B musi płacić WIBOR+0,5% za kredyt o zmiennym
+oprocentowaniu.  I tak by było, gdyby nie istniał rynek swapów. Ale
+istnieje i firmy mogą we wzajemnym współdziałaniu poprawić sobie
+warunki kredytowania. Zawarcie kontraktu swap pomiędzy tymi dwoma
+firmami umożliwia poprawę sytuacji każdej z nich.</p>
+<p>Na obu rynkach firma A ma lepsza sytuacje i otrzymuje lepsze
+propozycje, posiada bowiem bezwzględną przewagę na obu rynkach
+kredytowych. Na rynku stóp zmiennych spółka B za kredyt o zmiennym
+oprocentowaniu musi płacić tylko o 0,5% więcej niż firma A, która to
+na rynku kredytów procentowych otrzymuje warunki o 2% lepsze od
+spółki B. Tak wiec na rynku kredytów opartych o zmienna stopę firma B
+osiąga przewagę komparatywną.</p>
+<p>Firmy zawierają kontrakt swap w ramach którego spółka B zaciąga kredyt
+według stopy WIBOR+1% i zobowiązuje się do płacenia stałej stopy 8.5%
+na rzecz A, w zamian to Spółka A zaciąga kredyt wg stopy stałej (8%) i
+zobowiązuje się do płacenia na rzecz B zmiennej stopy WIBOR.  Czyli:</p>
+<div class="figure align-center" style="width: 680px">
+<img alt="_images/ARF2_swap_irs.png" src="_images/ARF2_swap_irs.png" />
+</div>
+<p>W wyniku zawartej transakcji Spółka  B płaci:</p>
+<blockquote>
+<div><ul class="simple">
+<li><p>stałą stopę 8.5%</p></li>
+<li><p>(WIBOR+1%)</p></li>
+</ul>
+</div></blockquote>
+<p>ale dostaje:</p>
+<blockquote>
+<div><ul class="simple">
+<li><p>+WIBOR</p></li>
+</ul>
+</div></blockquote>
+<p>Czyli, w sumie płaci 9.5% odsetek wg stałej stopy procentowej.  Dzięki
+zastosowaniu takiego swapu firma B zaoszczędza 0.5% w stosunku do
+stopy oferowanej przez kredytodawcę.</p>
+<p>Natomiast spółka A płaci:</p>
+<blockquote>
+<div><ul class="simple">
+<li><p>stałą stopę 8%</p></li>
+<li><p>WIBOR</p></li>
+</ul>
+</div></blockquote>
+<p>Lecz dostaje od spółki B:</p>
+<blockquote>
+<div><ul class="simple">
+<li><p>+stałą stopę 8.5%,</p></li>
+</ul>
+</div></blockquote>
+<p>i w sumie płaci WIBOR-0.5% odsetek (zmienna stopa procentowa).</p>
+<p>Dzięki zastosowaniu takiego swapu firma A zaoszczędza 1% w stosunku do
+stopy oferowanej przez kredytodawcę.</p>
+<p>Analiza powyższego przykładu jest ilustracją ogólniejszej
+zasady. Podział zysków ze swapu może jest dowolny i negocjowany między
+partnerami swapu i zależy od ich porozumienia (warunków kontraktu),
+aczkolwiek ograniczony.  Korzyść osiągana przez obie strony jest równa
+wartości różnicy stóp oferowanych firmom na rynku stóp stałych
+pomniejszonej o wartość różnicy stóp na rynku stóp zmiennych.</p>
+<p>W naszym przypadku wartości te wynoszą 2%-0.5%=1.5%.</p>
+<p>Natomiast w sytuacji gdy jedna z firm ma przewagę bezwzględną na
+jednym rynku a druga na drugim zysk będzie sumą wartość różnicy stóp
+oferowanym firmom na rynku stóp stałych powiększoną o wartość różnicy
+na rynku stóp zmiennych. W warunkach rynkowych przewaga komparatywna
+nie zawsze musi występować oraz ewentualne korzyści osiągane ze swapu
+mogą być zbyt małe w porównaniu do kosztów transakcji. Znalezienie
+drugiej strony swapu często jest trudne. Trudność tą usuwa pośrednik
+finansowy, którym najczęsciej jest bank, który to, niejako, staje się
+stroną dla obu stron swapu. Pośrednik przejmuje na siebie ryzyko
+związane z niedotrzymaniem warunków umowy przez każdego z kontrahentów
+(ryzyko kredytowe), oraz może przejmować na siebie część ryzyka
+walutowego (w swapach walutowych). Żąda w zamian wynagrodzenia- czyli
+każda ze stron rezygnuje na rzecz pośrednika z części beneficjów
+swapu.</p>
+<p>Swap stopy procentowej ma podobną strukturę do kontraktu terminowego
+futures (forward) na stopę procentową, w tym sensie, że przyszłe
+zobowiązania swapu są określane dzisiaj.</p>
+</div>
+</div>
+<div class="section" id="swap-walutowy">
+<h3><span class="section-number">12.9.2. </span>Swap walutowy<a class="headerlink" href="#swap-walutowy" title="Stały odnośnik do tego nagłówka">¶</a></h3>
+<p>W transakcji swapu walutowego ( currency swap), strony wymieniają
+waluty po ustalonym kursie. Następnie w określonych okresach dokonują
+wzajemnie płatności odsetkowych w oparciu o wcześniej ustalone pary
+stóp procentowych. Na koniec, dokonują powtórnej wymiany do
+oryginalnych walut w terminie zapadalności transakcji.</p>
+<p>W każdym swapie walutowym występują trzy ważne składowe:</p>
+<ul class="simple">
+<li><p>Kwota główna</p></li>
+<li><p>Kurs wymiany</p></li>
+<li><p>Dwie stopy oprocentowania</p></li>
+</ul>
+<p>Na początku swapu strony „wymieniają się” Kwotą Główną. Wymiana może
+być zarówno rzeczywista jak i „teoretyczna” (fizyczna wymiana nie ma
+miejsca). Kurs wymiany – kurs spot. Znaczenie kwoty głównej jest
+istotne dla określenia wielkości odsetek i wielkości wtórnej wymiany
+pod koniec transakcji swap. Końcowa wymiana następuje po kursie
+wymiany początkowej.</p>
+<div class="section" id="walutowy-swap-kuponowy">
+<h4><span class="section-number">12.9.2.1. </span>Walutowy swap kuponowy<a class="headerlink" href="#walutowy-swap-kuponowy" title="Stały odnośnik do tego nagłówka">¶</a></h4>
+<p>Ten rodzaj swapu zwany powszechnie (currency coupon swap) ( cross
+currency interest rate swap) jest złożeniem swapu walutowego ze swapem
+stopy procentowej.  Mechanizm swapu jest taki sam jak poprzednio. (Te
+same ruchy i zasady przepływu strumieni pieniężnych jak w swapie
+walutowym). Dodatkowo zamieniane jest oprocentowanie o stopie stałej
+na zmienna, lub odwrotnie.</p>
+<p>Przykładowo: Dolarowy kredyt o stałej stopie odsetek zamieniany jest
+na kredyt w Euro o zmiennym oprocentowaniu.</p>
+</div>
+</div>
+<div class="section" id="assets-swap">
+<h3><span class="section-number">12.9.3. </span>Assets swap<a class="headerlink" href="#assets-swap" title="Stały odnośnik do tego nagłówka">¶</a></h3>
+<p>Swap aktywów jest kombinacją aktywów i swapu, tak by stworzyć
+syntetyczne aktywa. Przykładowo: aktywo stałego oprocentowania może
+zostać zamienione w aktywo o zmiennym oprocentowaniu wyceniane w tej
+samej lub innej walucie.</p>
+<p><strong>Przykład:</strong></p>
+<p>Strony transakcji: Fundusz inwestycyjny i bank.</p>
+<p>Fundusz inwestycyjny zamierza kupić na rynku: albo obligacje o stałym
+oprocentowaniu o rentowności 4 % rocznie, albo papier o zmiennym
+oprocentowaniu wyceniany na poziomie LIBOR.</p>
+<p>Bank jest zainteresowany posiadaniem obligacji stałym oprocentowaniu
+równym 4 %, albo zamierza udzielić kredytu hipotecznego dla klienta na
+poziomie LIBOR + 0.5%. Fundusz kupuje obligacje i „swapuje” ją z
+bankiem, bez pośrednika.</p>
+<p>Mechanizm swapu:</p>
+<p>Fundusz:</p>
+<blockquote>
+<div><ul class="simple">
+<li><p>Kupuje obligacje o rentowności 4%</p></li>
+<li><p>Płaci do banku - 3,75%</p></li>
+<li><p>Otrzymuje  z banku  LIBOR</p></li>
+</ul>
+</div></blockquote>
+<p>Czyli w wyniku  otrzymuje:  LIBOR +0,25</p>
+<p>Bank:</p>
+<blockquote>
+<div><ul class="simple">
+<li><p>Udziela kredytu hipotecznego o oprocentowaniu LIBOR +0,5%</p></li>
+<li><p>Otrzymuje od Funduszu 3,75%</p></li>
+<li><p>Płaci do funduszu LIBOR</p></li>
+</ul>
+</div></blockquote>
+<p>Czyli w sumie otrzymuje: 4,25%.</p>
+<p>W wyniku transakcji swapu z funduszem Bank wykreował syntetyczną
+obligację stało procentową o oprocentowaniu wyższym niż rynek a
+fundusz syntetyczny papier dłużny zmienno procentowy o rentowności
+wyższej niż rynek.</p>
+</div>
+<div class="section" id="swap-a-kontrakt-forward">
+<h3><span class="section-number">12.9.4. </span>Swap a kontrakt forward<a class="headerlink" href="#swap-a-kontrakt-forward" title="Stały odnośnik do tego nagłówka">¶</a></h3>
+<p>Swap to umowa stron by wymienić się przepływami pieniężnymi w
+przyszłości. Umowa ta określa daty w których strumienie pieniężne będą
+płacone i sposób jak będą one liczone.  Kontrakt forward jest
+przykładem prostego swapu.  W przypadku kontraktu forward, następuje
+wymiana przepływów pieniężnych w danej, konkretnej dacie w
+przyszłości.  W przypadku swapu przepływy występuje kilka razy w
+określonych datach w przyszłości.  Czyli, …innymi słowy,… Możemy
+traktować swap jako syntetyczny portfel kontraktów forward na stopę
+procentową czyli Forward Rate Agreement (FRA).</p>
+</div>
+<div class="section" id="swap-jako-para-obligacji">
+<h3><span class="section-number">12.9.5. </span>Swap jako para obligacji<a class="headerlink" href="#swap-jako-para-obligacji" title="Stały odnośnik do tego nagłówka">¶</a></h3>
+<p>Jeśli kupujemy obligację, płacą nam odsetki. Jeśli emitujemy
+obligację, to my płacimy odsetki.  W prostym swap’ie, robimy obie te
+rzeczy czyli płacimy stałe oprocentowanie fixed rate, nam płacą
+zmienne oprocentowanie, lub odwrotnie.</p>
+</div>
+<div class="section" id="forward-rate-agreement-fra">
+<h3><span class="section-number">12.9.6. </span>Forward Rate Agreement (FRA)<a class="headerlink" href="#forward-rate-agreement-fra" title="Stały odnośnik do tego nagłówka">¶</a></h3>
+<p>Transakcja FRA (opisana w <a class="reference external" href="http://el.us.edu.pl/ekonofizyka/index.php/RF:Rynek_wymiany_walut#FRA_.28Forward_Rate_Agreement.29">skrypcie Rynki Finansowe</a>)
+to terminowa transakcja stopy procentowej polegająca na ustaleniu w
+dniu jej zawarcia wysokości stopy procentowej dla przyszłego okresu
+odsetkowego (np. za 6 miesięcy) w odniesieniu do kwoty nominalnej, bez
+faktycznego jej zaangażowania. Zysk, bądź strata wynikają z różnicy
+pomiędzy stopą procentową transakcji, a właściwą dla danego okresu
+odsetkowego stawką referencyjną.</p>
+<p>FRA są równoważne kontraktom forward w krótkoterminowych swap’ach
+stopy procentowej. FRA są syntetycznymi kontraktami swap kontraktów
+forward lub futures.</p>
+<p>FRA jest umową stron aby wymienić się (swap) płatnościami wynikającymi
+ze stóp procentowych poprzez umówiony okres od pewnej daty w
+przyszłości. Jedna ze stron takiego kontraktu ustala sobie stałe
+oprocentowanie a druga zmienne. Kwota główna nie zostaje „przesuwana”
+między stronami, natomiast w dacie umowy jedna strona dokonuje wpłaty
+by skompensować drugiej stronie różnicę pomiędzy uzgodnionym
+oprocentowaniem a stopą spot w dniu zawarcia. Ilustracja funkcjonowania tego instrumentu została pokazana w
+<a class="reference external" href="http://el.us.edu.pl/ekonofizyka/index.php/RF:Rynek_wymiany_walut#FRA_.28Forward_Rate_Agreement.29">skrypcie Rynki Finansowe.</a></p>
+<p>Jeśli chcemy ustalić przyszłą stopę oprocentowania kredytu otrzymujemy
+zmienną a płacimy stałą (kupujemy FRA). Jeśli chcemy ustabilizować
+przyszła stopę inwestycji płacimy zmienną a otrzymujemy stałą
+(sprzedajemy FRA).</p>
+</div>
+</div>
+<div class="section" id="swaption-swapcja">
+<h2><span class="section-number">12.10. </span>Swaption - swapcja<a class="headerlink" href="#swaption-swapcja" title="Stały odnośnik do tego nagłówka">¶</a></h2>
+<p>Wśród instrumentów finansowych służących do zarządzania ryzykiem stopy
+procentowej ważne miejsce zajmuje Swapcja (swaption). Jest to
+instrument finansowy, który jest opcją na zakup/sprzedaż swapu. Długa
+pozycja w opcji kupna daje prawo, ale nie obowiązek kupna
+swapu. Innymi słowy swapcja daje temu, kto ją posiada prawo (ale nie
+obowiązek) do zawarcia umowy swap’u z wystawcą swapcji. Warunki
+transakcji swap’u ustalone zostają w umowie swapcji. Warunki te
+określają: nominalna kwota główna wymiany, okresowość płatności stron
+(np. półrocznie, rocznie), płacone i otrzymywane stopy dla wymiany
+płatności, które to stopy określane są jako cena wykonania swapcji.</p>
+<p>Podobne jak w przypadku opcji, swapcja może mieć cechy opcji
+europejskiej tzn. wykonanie w dacie wygaśnięcia, albo cechy opcji
+amerykańskiej- wykonalność w dowolnej dacie od zawarcia umowy do daty
+wygaśnięcia.</p>
+<p>Swapcja typu amerykańskiego daje większą elastyczność w wyborze
+najlepszego czasu wykonania niż swapcja europejska co ma odbicie w
+cenie. Swapcje amerykańskie są znacznie droższe od europejskich.</p>
+<p>Wysokość premii za swapcję jest ustalana między nabywcą a
+sprzedającym. Swapcja jest instrumentem OTC, czyli umową zawieraną
+pomiędzy bankiem specjalizującym się w transakcjach swap a klientem.
+Zależy ona od stóp procentowych, ich zmienności i czasu do
+wygaśnięcia. Data wygaśnięcia swapcji może wynosić i pięć lat od
+chwili zawarcia umowy ale typowe okresy ustalania stóp procentowych są
+między trzy a 12 miesięcy.</p>
+<div class="admonition-przyklad admonition">
+<p class="admonition-title">Przykład:</p>
+<p>Firma z kraju Euro kupuje swapcje od Banku w dniu 23 października
+roku1, którą może wykonać w dowolnym czasie do 23 października
+następnego roku. Firma bowiem spodziewa się zawarcia transakcji
+kredytowej gdzieś w przyszłości do roku czasu i zamierza wejść w
+tym czasie w transakcje swapu płatności.  Swap dotyczy kapitału w
+wysokości 100 milionów USD i terminu 5 lat. Firma zamierza zapewnić
+sobie płatności, powiedzmy, 1% stałego oprocentowania i otrzymywać
+zmienne w wysokości USD LIBOR, w sześciomiesięcznych płatnościach
+swapowych. Premia za swapcje wynosi, powiedzmy, 300 000 i jest
+płatna w EUR.</p>
+</div>
+<p>Przyczyna dla której firma kupiła swapcje to przewidywanie, że firma
+wejdzie ( lub może wejść) w umowę swapu kiedyś w ciągu roku. W ramach
+tej umowy zapewnia sobie płatności stało- procentowe na poziomie 1%by
+otrzymywać USD LIBOR. Taki poziom płatności byłby dla niej
+zadawalający. Chce więc zapewnić sobie takie warunki swapu, którego
+umowę chce zawrzeć w przyszłości. Obawia się jednak, że oprocentowanie
+stało procentowe może wzrosnąć zanim umowa swapu się
+rozpocznie. Płacąc premię za swapcje zabezpiecza sobie już dziś niższe
+płatności oprocentowania stałego.</p>
+<p>Jeśli stopy wzrosną zanim firma będzie chciała zacząć swap to
+oprocentowanie stałe też wzrośnie wtedy firma wykorzysta swapcje i
+wejdzie w umowę swapu z bankiem płacąc 1% stałego procentowania a
+otrzymując stopę LIBOR w dolarach amerykańskich.</p>
+<p>Jeśli stopy obniżą się to oprocentowanie stałe też będzie niższe i
+firma nie skorzysta ze swapcji wchodząc w umowę swapu na warunkach
+rynkowych płacąc niższą stopę stałą niż 1 % a otrzymując LIBOR w USD.</p>
+<p><strong>Dlaczego Bank  wystawia swapcje?</strong></p>
+<p>Wystawiając swapcje bank bierze na siebie ryzyko, że w czasie od
+wystawienia swapcji do jej wygaśnięcia stopy procentowe mogą się
+zmienić w kierunku niekorzystnym i swapcja zostanie wykorzystana przez
+jej posiadacza. Gdy to się zdarzy wystawca swapcji jest zobowiązany do
+zawarcia kontraktu swapu na warunkach lepszych dla posiadacza swapcji
+niż aktualne warunki rynkowe.</p>
+<p>W zamian za to ryzyko zyskuje premię za wystawienie swapcji. Wystawca
+opcji spodziewa się zysku z zawartych transakcji to znaczy, że premia
+za swapcje przewyższy straty na oprocentowaniu gdy posiadacz swapcji
+ją wykorzysta. Najwięcej zyskuje gdy swapcja nie zostaje wykonana (podobnie jak ma to miejsce w przypadku opcji).</p>
+<p>Jeśli swapcja zostaje wykonana, czyli stopy procentowe wykonywane (wynikające z umowy swapcji)
+są bardziej korzystne dla posiadacza swapcji w stosunku do stóp na rynku swapów,
+to zyskiem posiadacza swapcji są niższe płatności oprocentowania albo wyższe przychody z
+oprocentowania w swapie. A jego stratą jest płacona za swapcje premia.</p>
+<p>Należy podkreślić, że ryzyko wystawcy swapcji może być duże jeśli
+zmienność stóp procentowych na rynku jest znaczna, a nominał kapitału
+wielki. Załóżmy że swap dotyczy 100 milionów a posiadacz swapcji
+zamierza płacić 1% stałego otrzymując LIBOR w zamian. Gdy stopy na
+rynku swapów będą równe np. 2% skorzysta on z swapcji a jej wystawca
+będzie otrzymywał mniej niż stopy rynkowe stałe ( a pewnie i mniej niż
+LIBOR, który będzie płacił). Jego „ strata” w tym przypadku wyniesie
+1% (2%-1%) roczne od kapitału czyli 1 milion rocznie. Jeśli stopy
+będą bardziej zmienne ( i wyniosą np. 3%) to rozmiar tej straty
+wyniesie 2 miliony. W przypadku dużej zmienności na rynku stóp
+procentowych premia za swapcje będzie też wyższa.</p>
+<p>Swapcje stosuje się by zabezpieczyć swą ekspozycje na ryzyko stóp
+procentowych, w przypadku spodziewanego zawierania swapu w
+przyszłości. Swapcja gwarantuje najgorszy przypadek stóp dla
+swapu. Dla posiadacza swapcji, który chce płacić stałe oprocentowanie
+w swapie swapcja gwarantuje maksymalna stopę płatności. Dla posiadacza
+swapcji, który chce otrzymywać stała stopę , swapcja zabezpiecza
+minimalny poziom otrzymywanego oprocentowania.</p>
+<p>Swapcja jest podobna do kontraktów caps i floor i collars w tym
+sensie, że są to też kontrakty opcyjnie na stopę procentową. Jednak w
+odróżnieniu od tych kontraktów są częściej stosowane ze wzgledu na
+lepsze dopasowanie do rynku swapów.</p>
+</div>
+</div>
+
+
+          </div>
+        </div>
+      </div>
+      <div class="sphinxsidebar" role="navigation" aria-label="main navigation">
+        <div class="sphinxsidebarwrapper">
+  <div class="sphinxlocaltoc">
+  <h3><a href="index.html">Table Of Contents</a></h3>
+  <ul>
+<li><a class="reference internal" href="#">12. Instrumenty syntetyczne</a><ul>
+<li><a class="reference internal" href="#syntetyczny-put">12.1. Syntetyczny Put</a><ul>
+<li><a class="reference internal" href="#krok-po-kroku">12.1.1. Krok po kroku</a></li>
+</ul>
+</li>
+<li><a class="reference internal" href="#syntetyczna-pozycja-long-stock">12.2. Syntetyczna pozycja Long Stock</a></li>
+<li><a class="reference internal" href="#syntetyczny-long-call">12.3. Syntetyczny Long Call</a></li>
+<li><a class="reference internal" href="#syntetyczna-sprzedaz-akcji">12.4. Syntetyczna sprzedaż akcji</a></li>
+<li><a class="reference internal" href="#syntetyczna-pozycja-short-put">12.5. Syntetyczna pozycja short Put</a></li>
+<li><a class="reference internal" href="#przypadek-kontraktow-terminowych">12.6. Przypadek kontraktów terminowych</a></li>
+<li><a class="reference internal" href="#podsumowanie">12.7. Podsumowanie</a></li>
+<li><a class="reference internal" href="#id1">12.8. Instrumenty syntetyczne</a></li>
+<li><a class="reference internal" href="#swapy">12.9. Swapy</a><ul>
+<li><a class="reference internal" href="#swap-stopy-procentowej">12.9.1. Swap stopy procentowej</a><ul>
+<li><a class="reference internal" href="#swap-kuponowy">12.9.1.1. Swap kuponowy</a></li>
+<li><a class="reference internal" href="#swap-bazowy">12.9.1.2. Swap  bazowy</a></li>
+<li><a class="reference internal" href="#id2">12.9.1.3. Swap stopy procentowej</a></li>
+</ul>
+</li>
+<li><a class="reference internal" href="#swap-walutowy">12.9.2. Swap walutowy</a><ul>
+<li><a class="reference internal" href="#walutowy-swap-kuponowy">12.9.2.1. Walutowy swap kuponowy</a></li>
+</ul>
+</li>
+<li><a class="reference internal" href="#assets-swap">12.9.3. Assets swap</a></li>
+<li><a class="reference internal" href="#swap-a-kontrakt-forward">12.9.4. Swap a kontrakt forward</a></li>
+<li><a class="reference internal" href="#swap-jako-para-obligacji">12.9.5. Swap jako para obligacji</a></li>
+<li><a class="reference internal" href="#forward-rate-agreement-fra">12.9.6. Forward Rate Agreement (FRA)</a></li>
+</ul>
+</li>
+<li><a class="reference internal" href="#swaption-swapcja">12.10. Swaption - swapcja</a></li>
+</ul>
+</li>
+</ul>
+
+  </div>
+  <h4>Poprzedni temat</h4>
+  <p class="topless"><a href="opcje-wycena.html"
+                        title="poprzedni rozdział"><span class="section-number">11. </span>Metody wyznaczania ceny opcji</a></p>
+  <h4>Następny temat</h4>
+  <p class="topless"><a href="ryzyko.html"
+                        title="następny rozdział"><span class="section-number">13. </span>Zarządzanie ryzykiem</a></p>
+  <div role="note" aria-label="source link">
+    <h3>Ta strona</h3>
+    <ul class="this-page-menu">
+      <li><a href="_sources/Instrumenty_syntetyczne.rst.txt"
+            rel="nofollow">Pokaż źródło</a></li>
+    </ul>
+   </div>
+<div id="searchbox" style="display: none" role="search">
+  <h3 id="searchlabel">Szybkie wyszukiwanie</h3>
+    <div class="searchformwrapper">
+    <form class="search" action="search.html" method="get">
+      <input type="text" name="q" aria-labelledby="searchlabel" />
+      <input type="submit" value="Szukaj" />
+    </form>
+    </div>
+</div>
+<script>$('#searchbox').show(0);</script>
+        </div>
+      </div>
+      <div class="clearer"></div>
+    </div>
+  </div>
+  <div class="relbar-bottom">
+    
+    <div class="related" role="navigation" aria-label="related navigation">
+      <h3>Nawigacja</h3>
+      <ul>
+        <li class="right" style="margin-right: 10px">
+          <a href="genindex.html" title="Indeks ogólny"
+             >indeks</a></li>
+        <li class="right" >
+          <a href="ryzyko.html" title="13. Zarządzanie ryzykiem"
+             >dalej</a> &nbsp; &nbsp;</li>
+        <li class="right" >
+          <a href="opcje-wycena.html" title="11. Metody wyznaczania ceny opcji"
+             >wstecz</a> &nbsp; &nbsp;</li>
+  <li><a href="index.html">Analiza Rynków Finansowych</a> &#187;</li>
+   
+      </ul>
+    </div>
+  </div>
+  
+  <div class="footer">
+    <a class="logo" href="http://upgow.us.edu.pl/" target="_blank"><img src="_static/upgow.png" alt="UPGOW"/></a><br/>
+    <img src="_static/stopka_EU.png" alt="EU"/><br/>
+    &copy; Copyright 2013, ML and MK.
+    Created using <a href="http://sphinx.pocoo.org/">Sphinx</a> 2.4.0.
+  </div>
+  </body>
+</html>
