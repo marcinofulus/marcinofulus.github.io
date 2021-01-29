@@ -1,0 +1,174 @@
+
+
+  
+<!DOCTYPE html>
+
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Tossing a coin &#8212; Science education with SageMath</title>
+    <link rel="stylesheet" href="../../../_static/cloud.css" type="text/css" />
+    <link rel="stylesheet" href="../../../_static/pygments.css" type="text/css" />
+    <link rel="stylesheet" href="http://fonts.googleapis.com/css?family=Noticia+Text|Open+Sans|Droid+Sans+Mono&amp;subset=latin,latin-ext" type="text/css" />
+    <script id="documentation_options" data-url_root="../../../" src="../../../_static/documentation_options.js"></script>
+    <script src="../../../_static/jquery.js"></script>
+    <script src="../../../_static/underscore.js"></script>
+    <script src="../../../_static/doctools.js"></script>
+    <script src="../../../_static/language_data.js"></script>
+    <script async="async" src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.7/latest.js?config=TeX-AMS-MML_HTMLorMML"></script>
+    <script src="../../../_static/jquery.cookie.js"></script>
+    <script src="../../../_static/cloud.js"></script>
+    <script type="text/javascript" src="http://sagecell.sagemath.org/static/jquery.min.js"></script>
+    <script type="text/javascript" src="http://sagecell.sagemath.org/static/embedded_sagecell.js"></script>
+    <script type="text/javascript">
+        sagecell.makeSagecell({inputLocation: ".sage_linked",
+                               linked: true});
+        sagecell.makeSagecell({inputLocation: ".sage_unlinked",
+                               linked: false});
+    </script>
+
+    <style type="text/css">
+        .sagecell .CodeMirror-scroll {
+            overflow-y: hidden;
+            overflow-x: auto;
+        }
+        .sagecell .CodeMirror {
+            height: auto;
+        }
+    </style>
+    
+    <link rel="search" title="Search" href="../../../search.html" />
+    <link rel="next" title="Seminar problem" href="pseminar.html" />
+    <link rel="prev" title="Tree diagrams" href="baumdiagramme.html" />
+ 
+  <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, minimum-scale=1">
+  </head><body>
+  <div class="relbar-top">
+    
+    <div class="related" role="navigation" aria-label="related navigation">
+      <h3>Navigation</h3>
+      <ul>
+        <li class="right" style="margin-right: 10px">
+          <a href="pseminar.html" title="Seminar problem"
+             accesskey="N">next</a></li>
+        <li class="right" >
+          <a href="baumdiagramme.html" title="Tree diagrams"
+             accesskey="P">previous</a> &nbsp; &nbsp;</li>
+  <li><a href="../../../index.html">Science education with SageMath</a> &#187;</li>
+  
+        <li class="nav-item nav-item-this"><a href="">Tossing a coin</a></li> 
+      </ul>
+    </div>
+  </div>
+  
+  <div class="content">  
+
+    <div class="document">
+      <div class="documentwrapper">
+        <div class="bodywrapper">
+          <div class="body">
+            
+  <div class="section" id="tossing-a-coin">
+<h1>Tossing a coin<a class="headerlink" href="#tossing-a-coin" title="Permalink to this headline">¶</a></h1>
+<div class="admonition-problem admonition">
+<p class="admonition-title">Problem</p>
+<p>For a random experiment an ideal coin is tossed until it shows heads (<span class="math notranslate nohighlight">\(H\)</span>) for a
+second time or tails (<span class="math notranslate nohighlight">\(T\)</span>) for a second time.
+The event space is set to be: <span class="math notranslate nohighlight">\(\{HH; TT; HTH; HTT; THH; THT\}\)</span>.</p>
+<ol class="loweralpha simple">
+<li><p>Argue that this random experiment is not a Laplace experiment.</p></li>
+<li><p>The random variable <span class="math notranslate nohighlight">\(X\)</span> assigns to each event the number of coins tossed.
+Compute the expectation value of <span class="math notranslate nohighlight">\(X\)</span>.</p></li>
+</ol>
+</div>
+<p><strong>Solution of part a</strong></p>
+<p>For a Laplace experiment each outcome has the same probability.
+Here, this would mean that each outcome has a probability of <span class="math notranslate nohighlight">\(\frac{1}{6}\)</span>.
+Because an ideal coin is used for the random experiment, we can determine the
+probabilities of each event as follows:</p>
+<div class="math notranslate nohighlight">
+\[ \begin{align}\begin{aligned}P(HH) = P(TT) = \left(\frac{1}{2}\right)^2 = \frac{1}{4}\\P(HTH) = P(HTT) = P(THH) = P(THT) = \left(\frac{1}{2}\right)^3 = \frac{1}{8}\end{aligned}\end{align} \]</div>
+<p>Because at least one of the probabilities now differs from <span class="math notranslate nohighlight">\(\frac{1}{6}\)</span>,
+this random experiment is not a Laplace experiment.</p>
+<p>The different probabilities also become apparent if one simulates the random
+experiment with Sage.</p>
+<div class='sage_linked'><script type='text/x-sage'>def toss():
+    return Set(["T", "H"]).random_element()
+
+def event():
+    event = toss()+toss()
+    if event[0] != event[1]:
+        event = event+toss()
+    return event
+
+eventspace = {"HH": 0, "TT": 0,
+                 "HTH": 0, "HTT": 0, "THH": 0, "THT": 0}
+iterations = 10000
+for n in range(iterations):
+    e = event()
+    eventspace[e] = eventspace[e]+1
+for k, v in eventspace.items():
+    print "Frequency of the event %3s: %5i" % (k, v)</script></div><p><strong>Solution of part b</strong></p>
+<p>The expectation value of <span class="math notranslate nohighlight">\(X\)</span> can be determined with the probabilities obtained in part a:</p>
+<div class="math notranslate nohighlight">
+\[E(X)=2\cdot P(HH)+2\cdot P(TT) + 3\cdot P(HTH) + 3\cdot P(HTT) + 3\cdot P(THH) + 3\cdot P(THT) = 2.5.\]</div>
+<p>A simulation with Sage yields:</p>
+<div class='sage_linked'><script type='text/x-sage'>iterations = 10000
+x = 0
+for n in range(iterations):
+    x = x+len(event())
+print "The expectation value of X is about: ", "%4.2f" % float(x/iterations)</script></div></div>
+
+
+          </div>
+        </div>
+      </div>
+      <div class="sphinxsidebar" role="navigation" aria-label="main navigation">
+        <div class="sphinxsidebarwrapper">
+  <h4>Previous topic</h4>
+  <p class="topless"><a href="baumdiagramme.html"
+                        title="previous chapter">Tree diagrams</a></p>
+  <h4>Next topic</h4>
+  <p class="topless"><a href="pseminar.html"
+                        title="next chapter">Seminar problem</a></p>
+<div id="searchbox" style="display: none" role="search">
+  <h3 id="searchlabel">Quick search</h3>
+    <div class="searchformwrapper">
+    <form class="search" action="../../../search.html" method="get">
+      <input type="text" name="q" aria-labelledby="searchlabel" />
+      <input type="submit" value="Go" />
+    </form>
+    </div>
+</div>
+<script>$('#searchbox').show(0);</script>
+        </div>
+      </div>
+      <div class="clearer"></div>
+    </div>
+  </div>
+  <div class="relbar-bottom">
+    
+    <div class="related" role="navigation" aria-label="related navigation">
+      <h3>Navigation</h3>
+      <ul>
+        <li class="right" style="margin-right: 10px">
+          <a href="pseminar.html" title="Seminar problem"
+             >next</a></li>
+        <li class="right" >
+          <a href="baumdiagramme.html" title="Tree diagrams"
+             >previous</a> &nbsp; &nbsp;</li>
+  <li><a href="../../../index.html">Science education with SageMath</a> &#187;</li>
+  
+        <li class="nav-item nav-item-this"><a href="">Tossing a coin</a></li> 
+      </ul>
+    </div>
+  </div>
+  
+  <div class="footer">
+    <a class="logo" href="http://icse.us.edu.pl/" target="_blank"><img src="../../../_static/logo-icse.png" alt="ICSE"/></a><br/>
+    &copy; Copyright Creative Commons CC-BY 4.0, iCSE-team.
+    Created using <a href="http://sphinx.pocoo.org/">Sphinx</a> 3.2.1.
+  </div>
+  </body>
+</html>

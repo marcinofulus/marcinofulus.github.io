@@ -1,0 +1,206 @@
+
+
+  
+<!DOCTYPE html>
+
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Bayerisches Abitur in Mathematik 2013 &#8212; Science education with SageMath</title>
+    <link rel="stylesheet" href="../../../_static/cloud.css" type="text/css" />
+    <link rel="stylesheet" href="../../../_static/pygments.css" type="text/css" />
+    <link rel="stylesheet" href="http://fonts.googleapis.com/css?family=Noticia+Text|Open+Sans|Droid+Sans+Mono&amp;subset=latin,latin-ext" type="text/css" />
+    <script id="documentation_options" data-url_root="../../../" src="../../../_static/documentation_options.js"></script>
+    <script src="../../../_static/jquery.js"></script>
+    <script src="../../../_static/underscore.js"></script>
+    <script src="../../../_static/doctools.js"></script>
+    <script src="../../../_static/language_data.js"></script>
+    <script async="async" src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.7/latest.js?config=TeX-AMS-MML_HTMLorMML"></script>
+    <script src="../../../_static/jquery.cookie.js"></script>
+    <script src="../../../_static/cloud.js"></script>
+    <script type="text/javascript" src="http://sagecell.sagemath.org/static/jquery.min.js"></script>
+    <script type="text/javascript" src="http://sagecell.sagemath.org/static/embedded_sagecell.js"></script>
+    <script type="text/javascript">
+        sagecell.makeSagecell({inputLocation: ".sage_linked",
+                               linked: true});
+        sagecell.makeSagecell({inputLocation: ".sage_unlinked",
+                               linked: false});
+    </script>
+
+    <style type="text/css">
+        .sagecell .CodeMirror-scroll {
+            overflow-y: hidden;
+            overflow-x: auto;
+        }
+        .sagecell .CodeMirror {
+            height: auto;
+        }
+    </style>
+    
+    <link rel="search" title="Search" href="../../../search.html" />
+ 
+  <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, minimum-scale=1">
+  </head><body>
+  <div class="relbar-top">
+    
+    <div class="related" role="navigation" aria-label="related navigation">
+      <h3>Navigation</h3>
+      <ul>
+  <li><a href="../../../index.html">Science education with SageMath</a> &#187;</li>
+  
+        <li class="nav-item nav-item-this"><a href="">Bayerisches Abitur in Mathematik 2013</a></li> 
+      </ul>
+    </div>
+  </div>
+  
+  <div class="content">  
+
+    <div class="document">
+      <div class="documentwrapper">
+        <div class="bodywrapper">
+          <div class="body">
+            
+  <div class="section" id="bayerisches-abitur-in-mathematik-2013">
+<h1>Bayerisches Abitur in Mathematik 2013<a class="headerlink" href="#bayerisches-abitur-in-mathematik-2013" title="Permalink to this headline">¶</a></h1>
+<div class="admonition-aufgabe admonition">
+<p class="admonition-title">Aufgabe</p>
+<p>In einem kartesischen Koordinatensystem sind die Geraden
+<span class="math notranslate nohighlight">\(g: \vec{X} = \begin{pmatrix}8\\1\\7\end{pmatrix} + \lambda\cdot
+\begin{pmatrix}3\\1\\2\end{pmatrix}\)</span>, <span class="math notranslate nohighlight">\(\lambda \in \mathbb{R}\)</span>, und
+<span class="math notranslate nohighlight">\(h: \vec{X} = \begin{pmatrix}-1\\5\\-9\end{pmatrix} + \mu \cdot
+\begin{pmatrix}1\\-2\\4\end{pmatrix}\)</span>, <span class="math notranslate nohighlight">\(\mu \in \mathbb{R}\)</span>, gegeben.
+Die Geraden <span class="math notranslate nohighlight">\(g\)</span> und <span class="math notranslate nohighlight">\(h\)</span> schneiden sich im Punkt <span class="math notranslate nohighlight">\(T\)</span>.</p>
+<ol class="loweralpha">
+<li><p>Bestimmen Sie die Koordinaten von <span class="math notranslate nohighlight">\(T\)</span>.</p>
+<p><em>(Ergebnis:</em> <span class="math notranslate nohighlight">\(T(2|-1|3)\)</span><em>)</em></p>
+</li>
+<li><p>Geben Sie die Koordinaten zweier Punkte <span class="math notranslate nohighlight">\(P\)</span> und <span class="math notranslate nohighlight">\(Q\)</span> an, die
+auf <span class="math notranslate nohighlight">\(g\)</span> liegen und von <span class="math notranslate nohighlight">\(T\)</span> gleich weit entfernt sind.</p></li>
+<li><p>Zwei Punkte <span class="math notranslate nohighlight">\(U\)</span> und <span class="math notranslate nohighlight">\(V\)</span> der Geraden <span class="math notranslate nohighlight">\(h\)</span> bilden zusammen mit
+<span class="math notranslate nohighlight">\(P\)</span> und <span class="math notranslate nohighlight">\(Q\)</span> das Rechteck <span class="math notranslate nohighlight">\(PUQV\)</span>. Beschreiben Sie einen
+Weg zur Ermittlung der Koordinaten von <span class="math notranslate nohighlight">\(U\)</span> und <span class="math notranslate nohighlight">\(V\)</span></p></li>
+</ol>
+</div>
+<p><strong>Lösung zu Teil a</strong></p>
+<p>Den Schnittpunkt der Geraden <span class="math notranslate nohighlight">\(g\)</span> und <span class="math notranslate nohighlight">\(h\)</span> erhält man durch
+Gleichsetzen der beiden Geradengleichungen. Aus den Gleichungen für die drei
+Koordinaten ergibt sich das lineare Gleichungssystem</p>
+<div class="math notranslate nohighlight">
+\[\begin{split}3\lambda -\mu &amp;= -9\\
+\lambda+2\mu &amp;= 4\\
+2\lambda-4\mu &amp;= -16\end{split}\]</div>
+<p>mit der Lösung <span class="math notranslate nohighlight">\(\lambda=-2\)</span>, <span class="math notranslate nohighlight">\(\mu=3\)</span>. Einsetzen in die
+Geradengleichungen führt auf die angegebenen Koordinaten des Punktes <span class="math notranslate nohighlight">\(T\)</span>.</p>
+<p>Die Lösung lässt sich mit Hilfe von Sage bestimmen:</p>
+<div class='sage_linked'><script type='text/x-sage'>sage: var("lamb, mu")
+sage: g = vector([8, 1, 7]) + lamb * vector([3, 1, 2])
+sage: h = vector([-1, 5, -9]) + mu * vector([1, -2, 4])
+sage: result = solve([g[0] == h[0],
+sage:                 g[1] == h[1],
+sage:                 g[2] == h[2]], mu, lamb)
+sage: print("Werte für den Schnittpunkt: {}".format(result[0]))
+sage: t = h.subs(result[0][0])
+sage: print("Schnittpunkt bei: T = {}".format(t))</script></div><p>Zur Veranschaulichung kann man Sage die Geraden in einem dreidimensionalen
+Koordinatensystem zeichnen lassen.</p>
+<div class='sage_linked'><script type='text/x-sage'>sage: labeloffset = vector([0, 0, 2])
+sage: pg = line([g(lamb = -4), g(lamb = 0)], color = 'blue')
+sage: tg = text3d("g", g(lamb = 0) + labeloffset, color='blue', horizontal_alignment='left')
+sage: ph = line([h(mu = 0), h(mu = 4)], color = 'purple')
+sage: th = text3d("h", h(mu = 0) + labeloffset, color='purple', horizontal_alignment='left')
+sage: pt = point(t, size=10, color='red')
+sage: tt = text3d("T", t + labeloffset, color='red', horizontal_alignment='left')
+sage: p1 = pg + tg + ph + th + pt + tt
+sage: show(p1, aspect_ratio=1)</script></div><p><strong>Lösung zu Teil b</strong></p>
+<p>Den Schnittpunkt <span class="math notranslate nohighlight">\(T\)</span> erhält man durch Einsetzen des in Teil a bestimmten
+Werts für <span class="math notranslate nohighlight">\(\lambda\)</span> in die Geradengleichung von <span class="math notranslate nohighlight">\(g\)</span>. Nun sollen zwei
+Punkte <span class="math notranslate nohighlight">\(P\)</span> und <span class="math notranslate nohighlight">\(Q\)</span> gefunden werden, die sich auf <span class="math notranslate nohighlight">\(g\)</span> in
+gleicher Entfernung von <span class="math notranslate nohighlight">\(T\)</span> befinden. Dafür muss einfach der gleiche Wert zu
+<span class="math notranslate nohighlight">\(\lambda\)</span> addiert beziehungsweise von <span class="math notranslate nohighlight">\(\lambda\)</span> subtrahiert werden.</p>
+<p>In Teil a hatten wir <span class="math notranslate nohighlight">\(\lambda = -2\)</span> gefunden. Zwei Punkte
+<span class="math notranslate nohighlight">\(P\)</span> und <span class="math notranslate nohighlight">\(Q\)</span> erhält man nun etwa, indem man in die Geradengleichung
+für <span class="math notranslate nohighlight">\(g\)</span> die Werte <span class="math notranslate nohighlight">\(\lambda = -1\)</span> und <span class="math notranslate nohighlight">\(\lambda = -3\)</span> einsetzt.
+Diese Punkte werden zusätzlich in das Koordinatensystem eingezeichnet.</p>
+<div class='sage_linked'><script type='text/x-sage'>sage: p = g(lamb = result[0][1].right() + 1)
+sage: print("P {}".format(p))
+sage: pp = point(p, size=10, color='green')
+sage: tp = text3d("P", p + labeloffset, color='green', horizontal_alignment='left')
+sage: q = g(lamb = result[0][1].right() - 1)
+sage: print("Q {}".format(q))
+sage: pq = point(q, size=10, color='green')
+sage: tq = text3d("Q", q + labeloffset, color='green', horizontal_alignment='left')
+sage: p2 = p1 + pp + tp + pq + tq
+sage: show(p2, aspect_ratio=1)</script></div><p><strong>Lösung zu Teil c</strong></p>
+<p>Im Folgenden wird eine Methode beschrieben, um zwei weitere
+Punkte <span class="math notranslate nohighlight">\(U\)</span> und <span class="math notranslate nohighlight">\(V\)</span> zu finden, welche auf der Geraden <span class="math notranslate nohighlight">\(h\)</span>
+liegen, sodass <span class="math notranslate nohighlight">\(PUQV\)</span> ein Rechteck bilden.</p>
+<p>Die Punkte <span class="math notranslate nohighlight">\(P\)</span> und <span class="math notranslate nohighlight">\(Q\)</span> sind sich gegenüberliegende Eckpunkte in dem
+Rechteck. Daraus folgt, dass die Gerade <span class="math notranslate nohighlight">\(g\)</span> zwischen den Punkten eine
+Diagonale des Rechtecks ist. Da <span class="math notranslate nohighlight">\(T\)</span> genau in der Mitte der beiden Punkte
+liegt, muss es sich dabei um den Mittelpunkt des Rechtecks handeln.</p>
+<p>Die beiden anderen Punkte sollen auf der Geraden <span class="math notranslate nohighlight">\(h\)</span> liegen. Aus der
+gleichen Überlegung wie zuvor ergibt sich, dass die Gerade <span class="math notranslate nohighlight">\(h\)</span>
+zwischen den Punkten <span class="math notranslate nohighlight">\(U\)</span> und <span class="math notranslate nohighlight">\(V\)</span> die zweite Diagonale des
+Rechtecks bildet.</p>
+<p>Damit aus einem Viereck mit bekannten Diagonalen ein Rechteck wird, müssen
+beide Diagonalen gleich lang sein und der Mittelpunkt der Diagonalen muss der
+gemeinsame Schnittpunkt sein.  Daraus folgt für unser Rechteck, dass die Punkte
+<span class="math notranslate nohighlight">\(U\)</span> und <span class="math notranslate nohighlight">\(V\)</span> genauso weit von <span class="math notranslate nohighlight">\(T\)</span> entfernt sein müssen, wie
+die Punkte <span class="math notranslate nohighlight">\(P\)</span> und <span class="math notranslate nohighlight">\(Q\)</span>.</p>
+<p>Mit Sage berechnen wir zunächst den Abstand zwischen den Punkten <span class="math notranslate nohighlight">\(T\)</span> und
+<span class="math notranslate nohighlight">\(Q\)</span>. Anschließend wird der Wert <span class="math notranslate nohighlight">\(\mu\)</span> bestimmt, für den der
+zugehörige Punkt auf der Geraden <span class="math notranslate nohighlight">\(h\)</span> den gleichen Abstand von <span class="math notranslate nohighlight">\(T\)</span>
+hat wie der Punkt <span class="math notranslate nohighlight">\(Q\)</span>. Damit lassen sich dann die Punkte <span class="math notranslate nohighlight">\(U\)</span> und
+<span class="math notranslate nohighlight">\(V\)</span> durch Einsetzen von <span class="math notranslate nohighlight">\(\pm\mu\)</span> in die Geradengleichung von <span class="math notranslate nohighlight">\(h\)</span> erhalten.</p>
+<div class='sage_linked'><script type='text/x-sage'>sage: from sage.plot.polygon import Polygon
+
+sage: abstand = (t-q).norm()
+sage: print("Abstand zwischen T und Q: {}".format(abstand))
+sage: result = solve(mu*vector([1, -2, 4]).norm() == abstand, mu)
+sage: print(result[0])
+sage: mu_1 = result[0].right()
+sage: mu_2 = -mu_1
+
+sage: rechteck = line3d([q, t+mu_1*vector([1, -2, 4]), p, t+mu_2*vector([1, -2, 4]), q], color='orange', thickness=5)
+sage: show(p2 + rechteck, aspect_ratio=1)</script></div></div>
+
+
+          </div>
+        </div>
+      </div>
+      <div class="sphinxsidebar" role="navigation" aria-label="main navigation">
+        <div class="sphinxsidebarwrapper">
+<div id="searchbox" style="display: none" role="search">
+  <h3 id="searchlabel">Quick search</h3>
+    <div class="searchformwrapper">
+    <form class="search" action="../../../search.html" method="get">
+      <input type="text" name="q" aria-labelledby="searchlabel" />
+      <input type="submit" value="Go" />
+    </form>
+    </div>
+</div>
+<script>$('#searchbox').show(0);</script>
+        </div>
+      </div>
+      <div class="clearer"></div>
+    </div>
+  </div>
+  <div class="relbar-bottom">
+    
+    <div class="related" role="navigation" aria-label="related navigation">
+      <h3>Navigation</h3>
+      <ul>
+  <li><a href="../../../index.html">Science education with SageMath</a> &#187;</li>
+  
+        <li class="nav-item nav-item-this"><a href="">Bayerisches Abitur in Mathematik 2013</a></li> 
+      </ul>
+    </div>
+  </div>
+  
+  <div class="footer">
+    <a class="logo" href="http://icse.us.edu.pl/" target="_blank"><img src="../../../_static/logo-icse.png" alt="ICSE"/></a><br/>
+    &copy; Copyright Creative Commons CC-BY 4.0, iCSE-team.
+    Created using <a href="http://sphinx.pocoo.org/">Sphinx</a> 3.2.1.
+  </div>
+  </body>
+</html>

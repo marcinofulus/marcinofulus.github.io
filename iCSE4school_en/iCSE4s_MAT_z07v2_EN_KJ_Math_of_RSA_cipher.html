@@ -1,0 +1,467 @@
+
+
+  
+<!DOCTYPE html>
+
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>RSA asymmetric cipher. &#8212; Science education with SageMath</title>
+    <link rel="stylesheet" href="_static/cloud.css" type="text/css" />
+    <link rel="stylesheet" href="_static/pygments.css" type="text/css" />
+    <link rel="stylesheet" href="http://fonts.googleapis.com/css?family=Noticia+Text|Open+Sans|Droid+Sans+Mono&amp;subset=latin,latin-ext" type="text/css" />
+    <script id="documentation_options" data-url_root="./" src="_static/documentation_options.js"></script>
+    <script src="_static/jquery.js"></script>
+    <script src="_static/underscore.js"></script>
+    <script src="_static/doctools.js"></script>
+    <script src="_static/language_data.js"></script>
+    <script async="async" src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.7/latest.js?config=TeX-AMS-MML_HTMLorMML"></script>
+    <script src="_static/jquery.cookie.js"></script>
+    <script src="_static/cloud.js"></script>
+    <script type="text/javascript" src="http://sagecell.sagemath.org/static/jquery.min.js"></script>
+    <script type="text/javascript" src="http://sagecell.sagemath.org/static/embedded_sagecell.js"></script>
+    <script type="text/javascript">
+        sagecell.makeSagecell({inputLocation: ".sage_linked",
+                               linked: true});
+        sagecell.makeSagecell({inputLocation: ".sage_unlinked",
+                               linked: false});
+    </script>
+
+    <style type="text/css">
+        .sagecell .CodeMirror-scroll {
+            overflow-y: hidden;
+            overflow-x: auto;
+        }
+        .sagecell .CodeMirror {
+            height: auto;
+        }
+    </style>
+    
+    <link rel="search" title="Search" href="search.html" />
+    <link rel="next" title="Polynomial approximation" href="iCSE4s_MAT_z09v1_EN_Polynomial_approximations.html" />
+    <link rel="prev" title="Amazing approximation" href="amazing_approximation.html" />
+ 
+  <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, minimum-scale=1">
+  </head><body>
+  <div class="relbar-top">
+    
+    <div class="related" role="navigation" aria-label="related navigation">
+      <h3>Navigation</h3>
+      <ul>
+        <li class="right" style="margin-right: 10px">
+          <a href="iCSE4s_MAT_z09v1_EN_Polynomial_approximations.html" title="Polynomial approximation"
+             accesskey="N">next</a></li>
+        <li class="right" >
+          <a href="amazing_approximation.html" title="Amazing approximation"
+             accesskey="P">previous</a> &nbsp; &nbsp;</li>
+  <li><a href="index.html">Science education with SageMath</a> &#187;</li>
+  
+        <li class="nav-item nav-item-this"><a href="">RSA asymmetric cipher.</a></li> 
+      </ul>
+    </div>
+  </div>
+  
+  <div class="content">  
+
+    <div class="document">
+      <div class="documentwrapper">
+        <div class="bodywrapper">
+          <div class="body">
+            
+  <div class="section" id="rsa-asymmetric-cipher">
+<h1>RSA asymmetric cipher.<a class="headerlink" href="#rsa-asymmetric-cipher" title="Permalink to this headline">¶</a></h1>
+<div class="section" id="about-this-lesson-plan">
+<h2>About this lesson plan<a class="headerlink" href="#about-this-lesson-plan" title="Permalink to this headline">¶</a></h2>
+<p>This is a lesson plan for indented for realization during  2h lesson activities.</p>
+<p>It has been developed during work in iCSE4school project based on
+lesson carried out in 2015-2017 at  The Stefan Batory High School in Chorzów.</p>
+<p>It was prepared by  Krzysztof Jarczewski based on his lesson.</p>
+<div class="admonition-attention admonition">
+<p class="admonition-title">Attention!</p>
+<p>In each of the “code” cells you can change any number, text or
+instruction. In order to  return to the original version  refresh
+the webpage.  Sometimes the next code depends on variables defined from the previous one,
+so one has to execute cells in order of apperance.</p>
+</div>
+</div>
+<div class="section" id="definition-of-congruence-relation">
+<h2>Definition of congruence relation.<a class="headerlink" href="#definition-of-congruence-relation" title="Permalink to this headline">¶</a></h2>
+<p>Two integers <em>a</em> and <em>b</em> are said to be  <strong>congruent modulo</strong> <em>n</em>, written: <span class="math notranslate nohighlight">\(a = b (mod \hspace{2mm} n)\)</span>, when: <span class="math notranslate nohighlight">\((a-b) \cdot k=n,\hspace{2mm} k \in Z.\)</span></p>
+<div class="section" id="examples">
+<h3>Examples:<a class="headerlink" href="#examples" title="Permalink to this headline">¶</a></h3>
+<p>2 = 2 (mod 8), because 2 - 2 = 0, which is a multiple of 8,</p>
+<p>3 = 18 (mod 5), because 3 - 18 = -15, which is a multiple of 5,</p>
+<p>100 = 1 (mod 9), because 100 - 1 = 99, which is a multiple of 9,</p>
+<p>250 = 206 (mod 22), because 250 - 206 = 44, which is a multiple of 22.</p>
+</div>
+<div class="section" id="exercise-1">
+<h3>Exercise 1.<a class="headerlink" href="#exercise-1" title="Permalink to this headline">¶</a></h3>
+<p>Find <em>x</em> if you know: <span class="math notranslate nohighlight">\(3x = 1 (mod \hspace{2mm} 4), \hspace{2mm} 5&lt;x&lt;10\)</span>.</p>
+<div class='sage_linked'><script type='text/x-sage'>for x in range(5,11):        #You can change this range
+    if (3*x - 1) % 4 == 0:   #You can change this equation
+        print "x=",x</script></div></div>
+<div class="section" id="exercise-2">
+<h3>Exercise 2.<a class="headerlink" href="#exercise-2" title="Permalink to this headline">¶</a></h3>
+<p>Find <em>x</em> if you know: <span class="math notranslate nohighlight">\(3x+2 = 1 (mod \hspace{2mm} 5)\)</span>.</p>
+<div class='sage_linked'><script type='text/x-sage'>for x in range(40):
+    if (3*x+2 - 1) % 5 == 0:
+        print x</script></div><p>We can realise there are infinitely many solutions. What is more, the solutions determine an arithmetic progression.</p>
+</div>
+<div class="section" id="exercise-3">
+<h3>Exercise 3.<a class="headerlink" href="#exercise-3" title="Permalink to this headline">¶</a></h3>
+<p>Find <em>x</em> if you know: <span class="math notranslate nohighlight">\(3x = 1 (mod \hspace{2mm} 6)\)</span>.</p>
+<div class='sage_linked'><script type='text/x-sage'>for x in range(100):
+    if (3*x-1) % 6 == 0:
+        print x
+print "?"</script></div><p>In the exercise above there is not a number which satisfies the given congruity.</p>
+</div>
+</div>
+<div class="section" id="the-chinese-remainder-theorem">
+<h2>The Chinese remainder theorem.<a class="headerlink" href="#the-chinese-remainder-theorem" title="Permalink to this headline">¶</a></h2>
+<p>The following exercise can be solved using the Chinese remainder theorem. One of the most important theorems in number theory and cryptography. This theorem allows to share a secret among several people (valid numeric password).</p>
+<div class="section" id="exercise-4">
+<h3>Exercise 4.<a class="headerlink" href="#exercise-4" title="Permalink to this headline">¶</a></h3>
+<p>A bar of chocolate consists of less than 100 pieces. While dividing it into three equal parts, there remains 1 piece of chocolate. While dividing it into 5 parts, what remains are 3 pieces of chocolate but when dividing into 7 equal parts, 2 pieces remain.</p>
+<p>We know that the number of chocolate pieces must satisfy the below congruence:</p>
+<p>x = 1 mod 3,</p>
+<p>x = 3 mod 5,</p>
+<p>x = 2 mod 7.</p>
+<div class='sage_linked'><script type='text/x-sage'>for x in range(100):
+    if (x-1) % 3 == 0 and (x-3) % 5 == 0 and (x-2) % 7 == 0:
+        print x</script></div></div>
+</div>
+<div class="section" id="fermets-little-theorem">
+<h2>Fermet’s Little Theorem.<a class="headerlink" href="#fermets-little-theorem" title="Permalink to this headline">¶</a></h2>
+<p>If   <em>p</em>   is a prime number and   <em>a</em>   is not divisible by   <em>p</em>,</p>
+<p><em>then</em> <span class="math notranslate nohighlight">\(a^{p-1} - 1\)</span> is an integer multiple of <em>p</em>, or in symbols: <span class="math notranslate nohighlight">\(a^{p-1}=1 (mod \hspace{2mm} p)\)</span></p>
+<p>Let’s check the correctness of the Fermet’s Little Theorem basing on the Python language.</p>
+<p>For a we substitute 35, so p=5 and p=7, the am. theory is not satisfied. We can even state that it must be dividable by p.</p>
+<p>This code was written and posted the students in the classroom.</p>
+<div class='sage_linked'><script type='text/x-sage'>for x in range (1, 30):
+    p = nth_prime(x)
+    print(p, 35^(p-1) % p)</script></div></div>
+<div class="section" id="message-encryption">
+<h2>Message Encryption.<a class="headerlink" href="#message-encryption" title="Permalink to this headline">¶</a></h2>
+<p>Cryptography was mentioned in the Antique Times for the first time. So, we can conclude that encryption and writing were invented at the same time. Encryption was used to send military and political messages. During the IT lessons we acquired (or will acquire) the Caesar cipher. It is a simple encryption where letters are substituted. Although the ciphered message is not understandable, but simple to decryption .  Other methods of encryption applied in the Antique Times were much more sophisticated and  more difficult to de cryption .  Until 1960s of the 20th century only symmetric encryptions had been well-known. They are the encryptions which have just one method of ciphering and deciphering the message.</p>
+<p>In the 1970s of the 20th century, the power of computing and the need for data protection led the cryptographers to invent an asymmetric encryption, where two different keys are used – one to encrypt and the other to decrypt the message ( the order of keys is of no importance). One of the keys is available to a person who is to send the secret message. You can even make the key available to the public on your website (available to everyone – a public key). The other key is a secret one (a private key) which is only known to us and cannot be made available to anyone. Only the private key allows us to decipher the message.</p>
+<p>Below, you can find a simple asymmetric encryption which can be cracked (if you know the digits: d, n, define number e) it is your task to score extra points.</p>
+<div class="section" id="how-to-create-asymmetrical-encryption-mathematically">
+<h3>How to create asymmetrical encryption mathematically?<a class="headerlink" href="#how-to-create-asymmetrical-encryption-mathematically" title="Permalink to this headline">¶</a></h3>
+<p>To create a simple asymmetrical encryption you need various natural numbers: <span class="math notranslate nohighlight">\(a, b, a1, b1\)</span>.</p>
+<p>The bigger the numbers is, the safer the encryption becomes. It is more difficult to decript if you don’t know the proper key.</p>
+<p>For our task we take only two-digit and three-digit numbers.</p>
+<p>Calculate: <span class="math notranslate nohighlight">\(M=a \cdot b-1\)</span>, then: <span class="math notranslate nohighlight">\(e=a1 \cdot M+a, \hspace{3mm} d=b1\cdot M+b, \hspace{3mm} n=(e \cdot d-1)/M\)</span></p>
+<p>The key of the cipher are pairs of numbers: a public key <span class="math notranslate nohighlight">\((d, n)\)</span> and a private key <span class="math notranslate nohighlight">\((e, n)\)</span>.</p>
+<p>Below you can find an example of the  number cither:</p>
+<div class='sage_linked'><script type='text/x-sage'>number=1234567   #You can change this number (message). What will be if number larger then n?
+a=89             #you can change the numbers: a, b, a1, b1
+b=45
+a1=98
+b1=55
+M=a*b-1
+e=a1*M+a
+d=b1*M+b
+n=(e*d-1)/M
+print " public key:", (d, n)
+print "private key:",(e, n)
+# encryption
+encrypted = (number*d) % n
+print "encryption:", encrypted
+# decryption
+decrypted = (encrypted*e) % n
+print "decryption:", decrypted</script></div></div>
+<div class="section" id="what-to-do-when-the-number-is-larger-than-n">
+<h3>What to do when the number is larger than n?<a class="headerlink" href="#what-to-do-when-the-number-is-larger-than-n" title="Permalink to this headline">¶</a></h3>
+<ol class="arabic simple">
+<li><p>We calculate the remainder of division by n ( we receive a “portion” to cipher)</p></li>
+<li><p>We cipher the “portion”</p></li>
+<li><p>We add the ciphered “portion” in the next power of number n to the code.</p></li>
+<li><p>We divide the number by n</p></li>
+<li><p>If the result is larger than 0, repeat the steps from 1 – 4.</p></li>
+</ol>
+<div class='sage_linked'><script type='text/x-sage'>number=123456567675635352364213879879797996743546789435345241 #Big number(message)
+encrypted = 0
+i=0
+while number>0:                           # 5
+    pomoc=number%n                        # 1
+    encrypted = encrypted + ((pomoc*d) % n)*n^i   # 2, 3
+    i=i+1
+    number=int(number/n)                  # 4
+print encrypted</script></div><p>In the similar way the message is decripted.</p>
+<p>Help:</p>
+<table class="docutils align-default">
+<colgroup>
+<col style="width: 43%" />
+<col style="width: 50%" />
+<col style="width: 7%" />
+</colgroup>
+<tbody>
+<tr class="row-odd"><td><p>number → encrypted</p></td>
+<td><p>encrypted → decrypted</p></td>
+<td><p>d→e</p></td>
+</tr>
+</tbody>
+</table>
+<p>Try to decription the number (message) below.</p>
+<div class='sage_linked'><script type='text/x-sage'>i=0
+while number>0:                           # 5
+    pomoc=number%n                        # 1
+    encrypted = encrypted + ((pomoc*d) % n)*n^i   # 2, 3
+    i=i+1
+    number=int(number/n)                  # 4
+print encrypted</script></div><p>What we usually want to do is to cipher a text not a number, so we have to substitute letters into numbers. We shall use ASCII code. Each letter, symbol is given a number from 1 to 128.</p>
+<p>Below, you can find the algorithm of the encryption (this code was written and posted by the students in the classroom).</p>
+<div class='sage_linked'><script type='text/x-sage'>number=0
+i=0
+tekst="This is the secret message or anything."
+for x in tekst:
+    i=i+1
+    print x,"->", ord(x)," ",
+    if (i%10==0):
+        print
+    number=number + ord(x)*128^i
+print
+print "number =", number</script></div></div>
+<div class="section" id="the-full-algorithm-of-encryption">
+<h3>The full algorithm of encryption.<a class="headerlink" href="#the-full-algorithm-of-encryption" title="Permalink to this headline">¶</a></h3>
+<p>Following the submission of these algorithms we get full algorithm to encrypt and decrypt text messages.</p>
+<div class='sage_linked'><script type='text/x-sage'>number=0
+i=0
+tekst="This is the secret message or anything." #message
+tekst2=""
+print "message:", tekst
+# change text to number
+for x in tekst:
+    i=i+1
+    number=number + ord(x)*128^i
+print "number:", number
+print ""
+# encription
+encrypted = 0
+i=0
+while number>0:
+    pomoc=number%n
+    encrypted = encrypted + ((pomoc*d) % n)*n^i
+    i=i+1
+    number=int(number/n)
+print "encription:", encrypted</script></div></div>
+<div class="section" id="the-full-algorithm-of-decryption">
+<h3>The full algorithm of decryption.<a class="headerlink" href="#the-full-algorithm-of-decryption" title="Permalink to this headline">¶</a></h3>
+<div class='sage_linked'><script type='text/x-sage'>tekst2=""
+decrypted = 0
+i=0
+print "encription:", encrypted
+# decription
+while encrypted>0:
+    pomoc=encrypted%n
+    decrypted = decrypted + ((pomoc*e) % n)*n^i
+    i=i+1
+    encrypted=int(encrypted/n)
+print "decription: ", decrypted
+## change number to text
+i=0
+while decrypted>0:
+    i=i+1
+    decrypted=int(decrypted/128)
+    tekst2 = tekst2 + chr(decrypted%128)
+print "message: ", tekst2</script></div></div>
+</div>
+<div class="section" id="id1">
+<h2>RSA asymmetric cipher.<a class="headerlink" href="#id1" title="Permalink to this headline">¶</a></h2>
+<p><strong>RSA</strong>  is one of the first and most popular algorithm cryptosystems with a public key. It was designed in 1977 by Ron Rivest,  Adi Szamir and Leonard Adleman (RSA name derives from the first letters of the creators’ surnames).</p>
+<p>The security of the RSA cryptosystem  is based on the decomposition of large  complex numbers (more than two-digit numbers) into prime numbers (factoring problem).</p>
+<div class="section" id="example-below">
+<h3>Example below.<a class="headerlink" href="#example-below" title="Permalink to this headline">¶</a></h3>
+<div class='sage_linked'><script type='text/x-sage'>@interact
+def _(n=slider( range(34,101,2))):
+    t=2^((n-34)/2)
+    print n,"-digits prime numbers, factoring time:", t, "minutes"
+    if t>100 and t<60*24:
+        print n,"-digits prime numbers, factoring time:", int(t/60), "hours"
+    elif t>60*24 and t<60*24*365:
+        print n,"-digits prime numbers, factoring time:", int(t/60/24), "days"
+    elif t>60*24*365:
+        print n,"-digits prime numbers, factoring time:", int(t/60/24/365), "year"</script></div><p>Notice how time-consuming the calculation of the distribution of prime factors.</p>
+</div>
+<div class="section" id="generating-rsa-cryptosystem">
+<h3>Generating RSA cryptosystem.<a class="headerlink" href="#generating-rsa-cryptosystem" title="Permalink to this headline">¶</a></h3>
+<ol class="arabic simple">
+<li><p>Choose two large prime numbers: <span class="math notranslate nohighlight">\(p, q\)</span> (in practice you use numbers which are more than a hundred digit, but we use three-digit numbers).</p></li>
+<li><p>Compute:  <span class="math notranslate nohighlight">\(n=p \cdot q, \hspace{2mm} f=(p-1)(q-1)\)</span>.</p></li>
+<li><p>Choose an integer <em>d</em> such that: <span class="math notranslate nohighlight">\(1  &lt; d &lt; f\)</span> and <span class="math notranslate nohighlight">\(gcd(d,\hspace{2mm} f) = 1\)</span> (You can choose a prime number).</p></li>
+<li><p>Determine <span class="math notranslate nohighlight">\(e\)</span> as: <span class="math notranslate nohighlight">\(de=1 \hspace{1mm} (mod \hspace{1mm} f)\)</span>.</p></li>
+</ol>
+<p>Public key: <span class="math notranslate nohighlight">\((d, n)\)</span></p>
+<p>Private key: <span class="math notranslate nohighlight">\((e, n)\)</span></p>
+<p>It is enough to copy the algorithm of cither from previous lessons and substitute them.</p>
+<div class='sage_linked'><script type='text/x-sage'>los=int(100*random())
+p=nth_prime(30+los)
+los=int(100*random())
+q=nth_prime(30+los)
+n=p*q
+f=(p-1)*(q-1)
+los=int(f*random())
+e=next_prime(los)
+print "p =",p, ", q =",q, ", e =",e, ", n =", n, ", f =", f</script></div><p>Determine <span class="math notranslate nohighlight">\(e\)</span> as: <span class="math notranslate nohighlight">\((d \cdot e) \hspace{1mm} mod f=1\)</span>.</p>
+<p>We can use expanded Euclidean algorithm, to find e number.
+My students changed the existing program on the Internet, but not always, does it generate the correct number. Can you improve this code!</p>
+<div class='sage_linked'><script type='text/x-sage'>a = e
+p0 = 0
+p1 = 1
+a0 = a
+n0 = f
+q  = int(n0/a0)
+r  = n0 % a0
+while (r > 0):
+    t = p0 - q * p1
+    if (t >= 0):
+        t = t % n
+    else:
+        t = n - ((-t) % n)
+    p0 = p1
+    p1 = t
+    n0 = a0
+    a0 = r
+    q  = int(n0/a0)
+    r  = n0 % a0
+d = p1
+print "verification : (d*e)%f =", (d*e)%f
+print " public key:", d, n
+print "private key:", e, n</script></div></div>
+<div class="section" id="the-full-algorithm-of-encryption-rsa">
+<h3>The full algorithm of encryption RSA.<a class="headerlink" href="#the-full-algorithm-of-encryption-rsa" title="Permalink to this headline">¶</a></h3>
+<p>It is enough to copy the algorithm of coding from the previous lessons and substitute  pomoc*d them pomoc^d.</p>
+<div class='sage_linked'><script type='text/x-sage'>number=0
+i=0
+tekst="This is secret message or anything." #message
+tekst2=""
+print "message:", tekst
+# change text to number
+for x in tekst:
+    i=i+1
+    number=number + ord(x)*128^i
+print "number:", number
+print ""
+# encription
+encrypted = 0
+i=0
+while number>0:
+    pomoc=number%n
+    encrypted = encrypted + ((pomoc^d) % n)*n^i
+    i=i+1
+    number=int(number/n)
+print "encription:", encrypted</script></div></div>
+<div class="section" id="the-full-algorithm-of-decryption-rsa">
+<h3>The full algorithm of decryption RSA.<a class="headerlink" href="#the-full-algorithm-of-decryption-rsa" title="Permalink to this headline">¶</a></h3>
+<p>It is enough to copy the algorithm of coding from the previous lessons
+and substitute pomoc*e them pomoc^e.</p>
+<div class='sage_linked'><script type='text/x-sage'>tekst2=""
+decrypted = 0
+i=0
+print "encription:", encrypted
+# decription
+while encrypted>0:
+    pomoc=encrypted%n
+    decrypted = decrypted + ((pomoc^e) % n)*n^i
+    i=i+1
+    encrypted=int(encrypted/n)
+print "decription: ", decrypted
+## change number to text
+i=0
+while decrypted>0:
+    i=i+1
+    decrypted=int(decrypted/128)
+    tekst2 = tekst2 + chr(decrypted%128)
+print "message: ", tekst2</script></div></div>
+</div>
+</div>
+
+
+          </div>
+        </div>
+      </div>
+      <div class="sphinxsidebar" role="navigation" aria-label="main navigation">
+        <div class="sphinxsidebarwrapper">
+  <div class="sphinxlocaltoc">
+  <h3><a href="index.html">Table Of Contents</a></h3>
+  <ul>
+<li><a class="reference internal" href="#">RSA asymmetric cipher.</a><ul>
+<li><a class="reference internal" href="#about-this-lesson-plan">About this lesson plan</a></li>
+<li><a class="reference internal" href="#definition-of-congruence-relation">Definition of congruence relation.</a><ul>
+<li><a class="reference internal" href="#examples">Examples:</a></li>
+<li><a class="reference internal" href="#exercise-1">Exercise 1.</a></li>
+<li><a class="reference internal" href="#exercise-2">Exercise 2.</a></li>
+<li><a class="reference internal" href="#exercise-3">Exercise 3.</a></li>
+</ul>
+</li>
+<li><a class="reference internal" href="#the-chinese-remainder-theorem">The Chinese remainder theorem.</a><ul>
+<li><a class="reference internal" href="#exercise-4">Exercise 4.</a></li>
+</ul>
+</li>
+<li><a class="reference internal" href="#fermets-little-theorem">Fermet’s Little Theorem.</a></li>
+<li><a class="reference internal" href="#message-encryption">Message Encryption.</a><ul>
+<li><a class="reference internal" href="#how-to-create-asymmetrical-encryption-mathematically">How to create asymmetrical encryption mathematically?</a></li>
+<li><a class="reference internal" href="#what-to-do-when-the-number-is-larger-than-n">What to do when the number is larger than n?</a></li>
+<li><a class="reference internal" href="#the-full-algorithm-of-encryption">The full algorithm of encryption.</a></li>
+<li><a class="reference internal" href="#the-full-algorithm-of-decryption">The full algorithm of decryption.</a></li>
+</ul>
+</li>
+<li><a class="reference internal" href="#id1">RSA asymmetric cipher.</a><ul>
+<li><a class="reference internal" href="#example-below">Example below.</a></li>
+<li><a class="reference internal" href="#generating-rsa-cryptosystem">Generating RSA cryptosystem.</a></li>
+<li><a class="reference internal" href="#the-full-algorithm-of-encryption-rsa">The full algorithm of encryption RSA.</a></li>
+<li><a class="reference internal" href="#the-full-algorithm-of-decryption-rsa">The full algorithm of decryption RSA.</a></li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+
+  </div>
+  <h4>Previous topic</h4>
+  <p class="topless"><a href="amazing_approximation.html"
+                        title="previous chapter">Amazing approximation</a></p>
+  <h4>Next topic</h4>
+  <p class="topless"><a href="iCSE4s_MAT_z09v1_EN_Polynomial_approximations.html"
+                        title="next chapter">Polynomial  approximation</a></p>
+<div id="searchbox" style="display: none" role="search">
+  <h3 id="searchlabel">Quick search</h3>
+    <div class="searchformwrapper">
+    <form class="search" action="search.html" method="get">
+      <input type="text" name="q" aria-labelledby="searchlabel" />
+      <input type="submit" value="Go" />
+    </form>
+    </div>
+</div>
+<script>$('#searchbox').show(0);</script>
+        </div>
+      </div>
+      <div class="clearer"></div>
+    </div>
+  </div>
+  <div class="relbar-bottom">
+    
+    <div class="related" role="navigation" aria-label="related navigation">
+      <h3>Navigation</h3>
+      <ul>
+        <li class="right" style="margin-right: 10px">
+          <a href="iCSE4s_MAT_z09v1_EN_Polynomial_approximations.html" title="Polynomial approximation"
+             >next</a></li>
+        <li class="right" >
+          <a href="amazing_approximation.html" title="Amazing approximation"
+             >previous</a> &nbsp; &nbsp;</li>
+  <li><a href="index.html">Science education with SageMath</a> &#187;</li>
+  
+        <li class="nav-item nav-item-this"><a href="">RSA asymmetric cipher.</a></li> 
+      </ul>
+    </div>
+  </div>
+  
+  <div class="footer">
+    <a class="logo" href="http://icse.us.edu.pl/" target="_blank"><img src="_static/logo-icse.png" alt="ICSE"/></a><br/>
+    &copy; Copyright Creative Commons CC-BY 4.0, iCSE-team.
+    Created using <a href="http://sphinx.pocoo.org/">Sphinx</a> 3.2.1.
+  </div>
+  </body>
+</html>

@@ -1,0 +1,174 @@
+
+
+  
+<!DOCTYPE html>
+
+<html lang="pl">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>O konstrukcji złożonych poleceń z pomocą metod &#8212; Metodologia nauczania przedmiotów ścisłych z perspektywą obliczeniową</title>
+    <link rel="stylesheet" href="_static/cloud.css" type="text/css" />
+    <link rel="stylesheet" href="_static/pygments.css" type="text/css" />
+    <link rel="stylesheet" href="http://fonts.googleapis.com/css?family=Noticia+Text|Open+Sans|Droid+Sans+Mono&amp;subset=latin,latin-ext" type="text/css" />
+    <script id="documentation_options" data-url_root="./" src="_static/documentation_options.js"></script>
+    <script src="_static/jquery.js"></script>
+    <script src="_static/underscore.js"></script>
+    <script src="_static/doctools.js"></script>
+    <script src="_static/language_data.js"></script>
+    <script src="_static/translations.js"></script>
+    <script async="async" src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.7/latest.js?config=TeX-AMS-MML_HTMLorMML"></script>
+    <script src="_static/jquery.cookie.js"></script>
+    <script src="_static/cloud.js"></script>
+    <script type="text/javascript" src="http://sagecell.sagemath.org/static/jquery.min.js"></script>
+    <script type="text/javascript" src="http://sagecell.sagemath.org/static/embedded_sagecell.js"></script>
+    <script type="text/javascript">
+        sagecell.makeSagecell({inputLocation: ".sage_linked",
+                               linked: true});
+        sagecell.makeSagecell({inputLocation: ".sage_unlinked",
+                               linked: false});
+    </script>
+
+    <style type="text/css">
+        .sagecell .CodeMirror-scroll {
+            overflow-y: hidden;
+            overflow-x: auto;
+        }
+        .sagecell .CodeMirror {
+            height: auto;
+        }
+    </style>
+    
+    <link rel="search" title="Szukaj" href="search.html" />
+    <link rel="next" title="Pojedynek funkcji kwadratowej z solve" href="matura2015_p11.html" />
+    <link rel="prev" title="O tym jak technologia @interact pomoże rozwiązać równanie z parametrem" href="matura2015_p09.html" />
+ 
+  <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, minimum-scale=1">
+  </head><body>
+  <div class="relbar-top">
+    
+    <div class="related" role="navigation" aria-label="related navigation">
+      <h3>Nawigacja</h3>
+      <ul>
+        <li class="right" style="margin-right: 10px">
+          <a href="matura2015_p11.html" title="Pojedynek funkcji kwadratowej z solve"
+             accesskey="N">dalej</a></li>
+        <li class="right" >
+          <a href="matura2015_p09.html" title="O tym jak technologia @interact pomoże rozwiązać równanie z parametrem"
+             accesskey="P">wstecz</a> &nbsp; &nbsp;</li>
+  <li><a href="index.html">Metodologia nauczania przedmiotów ścisłych z perspektywą obliczeniową</a> &#187;</li>
+  
+        <li class="nav-item nav-item-this"><a href="">O konstrukcji złożonych poleceń z pomocą metod</a></li> 
+      </ul>
+    </div>
+  </div>
+  
+  <div class="content">  
+
+    <div class="document">
+      <div class="documentwrapper">
+        <div class="bodywrapper">
+          <div class="body">
+            
+  <div class="section" id="o-konstrukcji-zlozonych-polecen-z-pomoca-metod">
+<span id="matura2015-p10-rst"></span><h1>O konstrukcji złożonych poleceń z pomocą metod<a class="headerlink" href="#o-konstrukcji-zlozonych-polecen-z-pomoca-metod" title="Stały odnośnik do tego nagłówka">¶</a></h1>
+<a class="reference internal image-reference" href="_images/matura2015_p10.png"><img alt="_images/matura2015_p10.png" class="align-center" src="_images/matura2015_p10.png" style="width: 76%;" /></a>
+<p>Korzystając z algebry komputerowej możemy praktycznie w jednej linijce
+otrzymać wynik:</p>
+<div class='sage_linked'><script type='text/x-sage'>var('x,b')
+f =  2*x + b
+g = -3*x + 4
+f.subs(solve(g,x)[0]).solve(b)[0].show()</script></div><p>Co oznacza wyrażenie <code class="code docutils literal notranslate"><span class="pre">f.subs(solve(g,x)[0]).solve(b)[0].show()</span></code>?
+W bezpośrednim przekładzie z Pythona na Polski:</p>
+<blockquote>
+<div><p>Podstaw do wyrażenia <code class="code docutils literal notranslate"><span class="pre">f</span></code> pierwsze rozwiązanie równania
+<span class="math notranslate nohighlight">\(g(x)=0\)</span>, rozwiąż ze względu na <span class="math notranslate nohighlight">\(b\)</span> i pokaż ładnie na
+ekranie pierwsze rozwiązanie.</p>
+</div></blockquote>
+<div class="admonition note">
+<p class="admonition-title">Informacja</p>
+<p>Warto zauważyć, że dla Sage <code class="code docutils literal notranslate"><span class="pre">solve(g,x)</span></code> to jest to samo co
+<code class="code docutils literal notranslate"><span class="pre">solve(g==0,x)</span></code> oznacza: rozwiąż <span class="math notranslate nohighlight">\(g(x)=0\)</span>. Wynikiem
+rozwiązywania jest zawsze lista, może być pusta jeśli nie ma
+rozwiązań lub jednoelementowa.</p>
+</div>
+<div class="admonition-jak-to-dziala-metody-i-funkcje admonition">
+<p class="admonition-title">Jak to działa?  -  metody i funkcje.</p>
+<p>Językiem systemu algebry komputerowej Sage jest Python. W Python-ie
+wszystkie zmienne są objektami i posiadają, prócz danych takich jak
+np. wartość zmiennej, tak zwane metody. Metodami są funkcje, które
+wywołujemy taką składnią:   <code class="code docutils literal notranslate"><span class="pre">nazwa_objektu.funkcja()</span></code>.</p>
+</div>
+<p>Wypróbuj sam działanie metod. Weż na przykład wyrażenie algebraiczne
+Sage, które jest bardzo złożonym objektem i posiada np. rozmaite
+metody do manipulacji na wyrażeniach. Na przykład w komórce:</p>
+<div class='sage_linked'><script type='text/x-sage'>var('x,a')
+wyrazenie = (x+a)^2
+wyrazenie</script></div><p>dopisz do statniej  liniki:</p>
+<ol class="loweralpha simple">
+<li><p><code class="code docutils literal notranslate"><span class="pre">wyrazenie.show()</span></code> - pokaże nam ładną postać matematyczną wzoru.</p></li>
+<li><p><code class="code docutils literal notranslate"><span class="pre">wyrazenie.expand()</span></code> - rozwinie wzór, spróboj połączyć z
+poprzednim: <code class="code docutils literal notranslate"><span class="pre">wyrażenie.expand().show()</span></code></p></li>
+<li><p><code class="code docutils literal notranslate"><span class="pre">wyrazenie.subs(a==2)</span></code></p></li>
+</ol>
+<div class="admonition note">
+<p class="admonition-title">Informacja</p>
+<p>W Sage jest system pomocy, spróbuj napisać
+<code class="code docutils literal notranslate"><span class="pre">wyrazenie.expand?</span></code>. Lista dostępnych metod jest olbrzymia: <code class="code docutils literal notranslate"><span class="pre">dir(wyrazenie)</span></code>.</p>
+<p>W notatniku (sagenb lub jupyter) działa klawisz uzupełnienia
+<code class="code docutils literal notranslate"><span class="pre">TAB</span></code> (tabulator) po <code class="code docutils literal notranslate"><span class="pre">wyrazenie.</span></code></p>
+</div>
+</div>
+
+
+          </div>
+        </div>
+      </div>
+      <div class="sphinxsidebar" role="navigation" aria-label="main navigation">
+        <div class="sphinxsidebarwrapper">
+  <h4>Poprzedni temat</h4>
+  <p class="topless"><a href="matura2015_p09.html"
+                        title="poprzedni rozdział">O tym jak technologia <code class="code docutils literal notranslate"><span class="pre">&#64;interact</span></code> pomoże rozwiązać równanie z parametrem</a></p>
+  <h4>Następny temat</h4>
+  <p class="topless"><a href="matura2015_p11.html"
+                        title="następny rozdział">Pojedynek  funkcji kwadratowej z <code class="code docutils literal notranslate"><span class="pre">solve</span></code></a></p>
+<div id="searchbox" style="display: none" role="search">
+  <h3 id="searchlabel">Szybkie wyszukiwanie</h3>
+    <div class="searchformwrapper">
+    <form class="search" action="search.html" method="get">
+      <input type="text" name="q" aria-labelledby="searchlabel" />
+      <input type="submit" value="Szukaj" />
+    </form>
+    </div>
+</div>
+<script>$('#searchbox').show(0);</script>
+        </div>
+      </div>
+      <div class="clearer"></div>
+    </div>
+  </div>
+  <div class="relbar-bottom">
+    
+    <div class="related" role="navigation" aria-label="related navigation">
+      <h3>Nawigacja</h3>
+      <ul>
+        <li class="right" style="margin-right: 10px">
+          <a href="matura2015_p11.html" title="Pojedynek funkcji kwadratowej z solve"
+             >dalej</a></li>
+        <li class="right" >
+          <a href="matura2015_p09.html" title="O tym jak technologia @interact pomoże rozwiązać równanie z parametrem"
+             >wstecz</a> &nbsp; &nbsp;</li>
+  <li><a href="index.html">Metodologia nauczania przedmiotów ścisłych z perspektywą obliczeniową</a> &#187;</li>
+  
+        <li class="nav-item nav-item-this"><a href="">O konstrukcji złożonych poleceń z pomocą metod</a></li> 
+      </ul>
+    </div>
+  </div>
+  
+  <div class="footer">
+    <a class="logo" href="http://icse.us.edu.pl/" target="_blank"><img src="_static/logo-icse.png" alt="ICSE"/></a><br/>
+    &copy; Copyright Creative Commons CC-BY 4.0, iCSE-team.
+    Created using <a href="http://sphinx.pocoo.org/">Sphinx</a> 3.2.1.
+  </div>
+  </body>
+</html>

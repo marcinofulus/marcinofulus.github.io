@@ -1,0 +1,225 @@
+
+
+  
+<!DOCTYPE html>
+
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Straight lines in 3d &#8212; Science education with SageMath</title>
+    <link rel="stylesheet" href="../../../_static/cloud.css" type="text/css" />
+    <link rel="stylesheet" href="../../../_static/pygments.css" type="text/css" />
+    <link rel="stylesheet" href="http://fonts.googleapis.com/css?family=Noticia+Text|Open+Sans|Droid+Sans+Mono&amp;subset=latin,latin-ext" type="text/css" />
+    <script id="documentation_options" data-url_root="../../../" src="../../../_static/documentation_options.js"></script>
+    <script src="../../../_static/jquery.js"></script>
+    <script src="../../../_static/underscore.js"></script>
+    <script src="../../../_static/doctools.js"></script>
+    <script src="../../../_static/language_data.js"></script>
+    <script async="async" src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.7/latest.js?config=TeX-AMS-MML_HTMLorMML"></script>
+    <script src="../../../_static/jquery.cookie.js"></script>
+    <script src="../../../_static/cloud.js"></script>
+    <script type="text/javascript" src="http://sagecell.sagemath.org/static/jquery.min.js"></script>
+    <script type="text/javascript" src="http://sagecell.sagemath.org/static/embedded_sagecell.js"></script>
+    <script type="text/javascript">
+        sagecell.makeSagecell({inputLocation: ".sage_linked",
+                               linked: true});
+        sagecell.makeSagecell({inputLocation: ".sage_unlinked",
+                               linked: false});
+    </script>
+
+    <style type="text/css">
+        .sagecell .CodeMirror-scroll {
+            overflow-y: hidden;
+            overflow-x: auto;
+        }
+        .sagecell .CodeMirror {
+            height: auto;
+        }
+    </style>
+    
+    <link rel="search" title="Search" href="../../../search.html" />
+    <link rel="next" title="Prism" href="../../2014/en/prisma.html" />
+    <link rel="prev" title="Pyramid" href="pyramide.html" />
+ 
+  <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, minimum-scale=1">
+  </head><body>
+  <div class="relbar-top">
+    
+    <div class="related" role="navigation" aria-label="related navigation">
+      <h3>Navigation</h3>
+      <ul>
+        <li class="right" style="margin-right: 10px">
+          <a href="../../2014/en/prisma.html" title="Prism"
+             accesskey="N">next</a></li>
+        <li class="right" >
+          <a href="pyramide.html" title="Pyramid"
+             accesskey="P">previous</a> &nbsp; &nbsp;</li>
+  <li><a href="../../../index.html">Science education with SageMath</a> &#187;</li>
+  
+        <li class="nav-item nav-item-this"><a href="">Straight lines in 3d</a></li> 
+      </ul>
+    </div>
+  </div>
+  
+  <div class="content">  
+
+    <div class="document">
+      <div class="documentwrapper">
+        <div class="bodywrapper">
+          <div class="body">
+            
+  <div class="section" id="straight-lines-in-3d">
+<h1>Straight lines in 3d<a class="headerlink" href="#straight-lines-in-3d" title="Permalink to this headline">¶</a></h1>
+<div class="admonition-problem admonition">
+<p class="admonition-title">Problem</p>
+<p>The straight lines
+<span class="math notranslate nohighlight">\(g: \vec{X} = \begin{pmatrix}8\\1\\7\end{pmatrix} + \lambda\cdot
+\begin{pmatrix}3\\1\\2\end{pmatrix}\)</span>, <span class="math notranslate nohighlight">\(\lambda \in \mathbb{R}\)</span>, and
+<span class="math notranslate nohighlight">\(h: \vec{X} = \begin{pmatrix}-1\\5\\-9\end{pmatrix} + \mu \cdot
+\begin{pmatrix}1\\-2\\4\end{pmatrix}\)</span>, <span class="math notranslate nohighlight">\(\mu \in \mathbb{R}\)</span>, are given
+in a cartesian coordinate system.
+The lines <span class="math notranslate nohighlight">\(g\)</span> and <span class="math notranslate nohighlight">\(h\)</span> intersect at the point <span class="math notranslate nohighlight">\(T\)</span>.</p>
+<ol class="loweralpha">
+<li><p>Determine the coordinates of <span class="math notranslate nohighlight">\(T\)</span>.</p>
+<p><em>(result:</em> <span class="math notranslate nohighlight">\(T(2|-1|3)\)</span><em>)</em></p>
+</li>
+<li><p>Give the coordinates of two points <span class="math notranslate nohighlight">\(P\)</span> and <span class="math notranslate nohighlight">\(Q\)</span> which lie on
+<span class="math notranslate nohighlight">\(g\)</span> and are at equal distance from <span class="math notranslate nohighlight">\(T\)</span>.</p></li>
+<li><p>Two points <span class="math notranslate nohighlight">\(U\)</span> and <span class="math notranslate nohighlight">\(V\)</span> of the line <span class="math notranslate nohighlight">\(h\)</span> together with the
+points <span class="math notranslate nohighlight">\(P\)</span> and <span class="math notranslate nohighlight">\(Q\)</span> form the rectangle <span class="math notranslate nohighlight">\(PUQV\)</span>. Describe
+a method to determine the coordinates of <span class="math notranslate nohighlight">\(U\)</span> and <span class="math notranslate nohighlight">\(V\)</span>.</p></li>
+</ol>
+</div>
+<p><strong>Solution of part a</strong></p>
+<p>One obtains the intersection of the lines <span class="math notranslate nohighlight">\(g\)</span> and <span class="math notranslate nohighlight">\(h\)</span> by equating
+the equations of the two lines. The equations for the three coordinates yield
+the system of linear equations</p>
+<div class="math notranslate nohighlight">
+\[\begin{split}3\lambda -\mu &amp;= -9\\
+\lambda+2\mu &amp;= 4\\
+2\lambda-4\mu &amp;= -16\end{split}\]</div>
+<p>with the solution <span class="math notranslate nohighlight">\(\lambda=-2\)</span>, <span class="math notranslate nohighlight">\(\mu=3\)</span>. Plugging this into the
+equation of the lines yields the given coordinates of the point <span class="math notranslate nohighlight">\(T\)</span>.</p>
+<p>The solution can be determined with the help of Sage:</p>
+<div class='sage_linked'><script type='text/x-sage'>var("lamb, mu")
+g = vector([8, 1, 7]) + lamb * vector([3, 1, 2])
+h = vector([-1, 5, -9]) + mu * vector([1, -2, 4])
+result = solve([g[0] == h[0],
+                g[1] == h[1],
+                g[2] == h[2]], mu, lamb)
+print("Values at the intersection: {}".format(result[0]))
+t = h.subs(result[0][0])
+print("Intersection at: T = {}".format(t))</script></div><p>To illustrate the result one can draw the lines in a three-dimensional
+coordinate system with Sage.</p>
+<div class='sage_linked'><script type='text/x-sage'>labeloffset = vector([0, 0, 2])
+pg = line([g(lamb = -4), g(lamb = 0)], color = 'blue')
+tg = text3d("g", g(lamb = 0) + labeloffset, color='blue', horizontal_alignment='left')
+ph = line([h(mu = 0), h(mu = 4)], color = 'purple')
+th = text3d("h", h(mu = 0) + labeloffset, color='purple', horizontal_alignment='left')
+pt = point(t, size=10, color='red')
+tt = text3d("T", t + labeloffset, color='red', horizontal_alignment='left')
+p1 = pg + tg + ph + th + pt + tt
+show(p1, aspect_ratio=1)</script></div><p><strong>Solution of part b</strong></p>
+<p>The intersection <span class="math notranslate nohighlight">\(T\)</span> can be obtained by plugging the value of
+<span class="math notranslate nohighlight">\(\lambda\)</span> determined in part a into the equation of line <span class="math notranslate nohighlight">\(g\)</span>.  Now,
+two points <span class="math notranslate nohighlight">\(P\)</span> and <span class="math notranslate nohighlight">\(Q\)</span> are to be determined which lie on <span class="math notranslate nohighlight">\(g\)</span>
+at equal distance from <span class="math notranslate nohighlight">\(T\)</span>. To this end, one adds a chosen value to
+<span class="math notranslate nohighlight">\(\lambda\)</span> and subtracts the same value from <span class="math notranslate nohighlight">\(\lambda\)</span>.</p>
+<p>In part a, we found <span class="math notranslate nohighlight">\(\lambda = -2\)</span>. The two points <span class="math notranslate nohighlight">\(P\)</span> and <span class="math notranslate nohighlight">\(Q\)</span>
+can be obtained, for example, by plugging the values <span class="math notranslate nohighlight">\(\lambda = -1\)</span> and
+<span class="math notranslate nohighlight">\(\lambda = -3\)</span> into the equations of the line. These points are added to the
+coordinate system.</p>
+<div class='sage_linked'><script type='text/x-sage'>p = g(lamb = result[0][1].right() + 1)
+print("P {}".format(p))
+pp = point(p, size=10, color='green')
+tp = text3d("P", p + labeloffset, color='green', horizontal_alignment='left')
+q = g(lamb = result[0][1].right() - 1)
+print("Q {}".format(q))
+pq = point(q, size=10, color='green')
+tq = text3d("Q", q + labeloffset, color='green', horizontal_alignment='left')
+p2 = p1 + pp + tp + pq + tq
+show(p2, aspect_ratio=1)</script></div><p><strong>Solution of part c</strong></p>
+<p>In the following, a method is described for finding two points <span class="math notranslate nohighlight">\(U\)</span>
+and <span class="math notranslate nohighlight">\(V\)</span> which lie on line <span class="math notranslate nohighlight">\(h\)</span> such that <span class="math notranslate nohighlight">\(PUQV\)</span> forms a
+rectangle.</p>
+<p>The points <span class="math notranslate nohighlight">\(P\)</span> and <span class="math notranslate nohighlight">\(Q\)</span> are opposite corners of the rectangle.
+It follows that the line <span class="math notranslate nohighlight">\(g\)</span> between these points is a diagonal of
+the rectangle. Since <span class="math notranslate nohighlight">\(T\)</span> is exactly the center between those two points,
+it has to be the center of the rectangle as well.</p>
+<p>The two other points shall lie on the line <span class="math notranslate nohighlight">\(h\)</span>. The same considerations
+as before imply that the line <span class="math notranslate nohighlight">\(h\)</span> between the points <span class="math notranslate nohighlight">\(U\)</span> and <span class="math notranslate nohighlight">\(V\)</span>
+is the second diagonal of the rectangle.</p>
+<p>To obtain a rectangle from a quadrangle with known diagonals, the diagonals have to have
+the same length and the center of the diagonals has to be the intersection of these.
+Thus, the two points <span class="math notranslate nohighlight">\(U\)</span> and <span class="math notranslate nohighlight">\(V\)</span> have to be at equal distance from <span class="math notranslate nohighlight">\(T\)</span>,
+just as the points <span class="math notranslate nohighlight">\(P\)</span> and <span class="math notranslate nohighlight">\(Q\)</span>.</p>
+<p>With Sage, we first compute the distance between the points <span class="math notranslate nohighlight">\(T\)</span> and <span class="math notranslate nohighlight">\(Q\)</span>.
+Subsequently, the value <span class="math notranslate nohighlight">\(\mu\)</span> is determined for which the corresponding point on the
+line <span class="math notranslate nohighlight">\(h\)</span> is at equal distance from <span class="math notranslate nohighlight">\(T\)</span> as the point <span class="math notranslate nohighlight">\(Q\)</span>.
+Then, the points <span class="math notranslate nohighlight">\(U\)</span> and <span class="math notranslate nohighlight">\(V\)</span> can be obtained by plugging <span class="math notranslate nohighlight">\(\pm\mu\)</span>
+into the equation of line <span class="math notranslate nohighlight">\(h\)</span>.</p>
+<div class='sage_linked'><script type='text/x-sage'>from sage.plot.polygon import Polygon
+
+disance = (t-q).norm()
+print("Distance between T and Q: {}".format(disance))
+result = solve(mu*vector([1, -2, 4]).norm() == disance, mu)
+print(result[0])
+mu_1 = result[0].right()
+mu_2 = -mu_1
+
+rectangle = line3d([q, t+mu_1*vector([1, -2, 4]), p, t+mu_2*vector([1, -2, 4]), q], color='orange', thickness=5)
+show(p2 + rectangle, aspect_ratio=1)</script></div></div>
+
+
+          </div>
+        </div>
+      </div>
+      <div class="sphinxsidebar" role="navigation" aria-label="main navigation">
+        <div class="sphinxsidebarwrapper">
+  <h4>Previous topic</h4>
+  <p class="topless"><a href="pyramide.html"
+                        title="previous chapter">Pyramid</a></p>
+  <h4>Next topic</h4>
+  <p class="topless"><a href="../../2014/en/prisma.html"
+                        title="next chapter">Prism</a></p>
+<div id="searchbox" style="display: none" role="search">
+  <h3 id="searchlabel">Quick search</h3>
+    <div class="searchformwrapper">
+    <form class="search" action="../../../search.html" method="get">
+      <input type="text" name="q" aria-labelledby="searchlabel" />
+      <input type="submit" value="Go" />
+    </form>
+    </div>
+</div>
+<script>$('#searchbox').show(0);</script>
+        </div>
+      </div>
+      <div class="clearer"></div>
+    </div>
+  </div>
+  <div class="relbar-bottom">
+    
+    <div class="related" role="navigation" aria-label="related navigation">
+      <h3>Navigation</h3>
+      <ul>
+        <li class="right" style="margin-right: 10px">
+          <a href="../../2014/en/prisma.html" title="Prism"
+             >next</a></li>
+        <li class="right" >
+          <a href="pyramide.html" title="Pyramid"
+             >previous</a> &nbsp; &nbsp;</li>
+  <li><a href="../../../index.html">Science education with SageMath</a> &#187;</li>
+  
+        <li class="nav-item nav-item-this"><a href="">Straight lines in 3d</a></li> 
+      </ul>
+    </div>
+  </div>
+  
+  <div class="footer">
+    <a class="logo" href="http://icse.us.edu.pl/" target="_blank"><img src="../../../_static/logo-icse.png" alt="ICSE"/></a><br/>
+    &copy; Copyright Creative Commons CC-BY 4.0, iCSE-team.
+    Created using <a href="http://sphinx.pocoo.org/">Sphinx</a> 3.2.1.
+  </div>
+  </body>
+</html>

@@ -1,0 +1,406 @@
+
+
+  
+<!DOCTYPE html>
+
+<html lang="pl">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>SageMath w pigułce &#8212; Metodologia nauczania przedmiotów ścisłych z perspektywą obliczeniową</title>
+    <link rel="stylesheet" href="_static/cloud.css" type="text/css" />
+    <link rel="stylesheet" href="_static/pygments.css" type="text/css" />
+    <link rel="stylesheet" href="http://fonts.googleapis.com/css?family=Noticia+Text|Open+Sans|Droid+Sans+Mono&amp;subset=latin,latin-ext" type="text/css" />
+    <script id="documentation_options" data-url_root="./" src="_static/documentation_options.js"></script>
+    <script src="_static/jquery.js"></script>
+    <script src="_static/underscore.js"></script>
+    <script src="_static/doctools.js"></script>
+    <script src="_static/language_data.js"></script>
+    <script src="_static/translations.js"></script>
+    <script async="async" src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.7/latest.js?config=TeX-AMS-MML_HTMLorMML"></script>
+    <script src="_static/jquery.cookie.js"></script>
+    <script src="_static/cloud.js"></script>
+    <script type="text/javascript" src="http://sagecell.sagemath.org/static/jquery.min.js"></script>
+    <script type="text/javascript" src="http://sagecell.sagemath.org/static/embedded_sagecell.js"></script>
+    <script type="text/javascript">
+        sagecell.makeSagecell({inputLocation: ".sage_linked",
+                               linked: true});
+        sagecell.makeSagecell({inputLocation: ".sage_unlinked",
+                               linked: false});
+    </script>
+
+    <style type="text/css">
+        .sagecell .CodeMirror-scroll {
+            overflow-y: hidden;
+            overflow-x: auto;
+        }
+        .sagecell .CodeMirror {
+            height: auto;
+        }
+    </style>
+    
+    <link rel="search" title="Szukaj" href="search.html" />
+    <link rel="next" title="Narzędzia i metody pracy" href="narzedzia.html" />
+    <link rel="prev" title="Wybór narzędzia" href="dlaczego_Sage.html" />
+ 
+  <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, minimum-scale=1">
+  </head><body>
+  <div class="relbar-top">
+    
+    <div class="related" role="navigation" aria-label="related navigation">
+      <h3>Nawigacja</h3>
+      <ul>
+        <li class="right" style="margin-right: 10px">
+          <a href="narzedzia.html" title="Narzędzia i metody pracy"
+             accesskey="N">dalej</a></li>
+        <li class="right" >
+          <a href="dlaczego_Sage.html" title="Wybór narzędzia"
+             accesskey="P">wstecz</a> &nbsp; &nbsp;</li>
+  <li><a href="index.html">Metodologia nauczania przedmiotów ścisłych z perspektywą obliczeniową</a> &#187;</li>
+  
+        <li class="nav-item nav-item-this"><a href="">SageMath w pigułce</a></li> 
+      </ul>
+    </div>
+  </div>
+  
+  <div class="content">  
+
+    <div class="document">
+      <div class="documentwrapper">
+        <div class="bodywrapper">
+          <div class="body">
+            
+  <div class="section" id="sagemath-w-pigulce">
+<span id="sage-w-pigulce"></span><h1>SageMath w pigułce<a class="headerlink" href="#sagemath-w-pigulce" title="Stały odnośnik do tego nagłówka">¶</a></h1>
+<div class="section" id="bogaty-i-szybki-kalkulator-naukowy">
+<span id="arytmetyka"></span><h2>Bogaty i szybki kalkulator naukowy.<a class="headerlink" href="#bogaty-i-szybki-kalkulator-naukowy" title="Stały odnośnik do tego nagłówka">¶</a></h2>
+<p>Praktycznie, każda ważna funkcja, wzór matematyczny są już
+zaimplementowane w języku SageMath. Poniżej tylko niektóre instrukcje,
+które można wykorzystać w szkole średniej:</p>
+<ul class="simple">
+<li><p>wartość bezwzględna – <em>abs</em>,</p></li>
+<li><p>rozkład na czynniki pierwsze - <em>factor</em>,</p></li>
+<li><p>silnia – <em>factorial</em>,</p></li>
+<li><p>symbol Newtona – <em>binomial</em>,</p></li>
+<li><p>rozwiąż równanie – <em>solve</em>,</p></li>
+<li><p>narysuj wykres – <em>plot</em>,</p></li>
+<li><p>następna liczba pierwsza – <em>next_prime</em>,</p></li>
+<li><p>NWD – <em>gcd</em>, NWW – <em>lcm</em>,</p></li>
+<li><p>pochodna – <em>diff</em>,</p></li>
+<li><p>całka – <em>integrate</em>.</p></li>
+</ul>
+<p>Pierwszy przykład pokazuje możliwości rachunkowe Sage’a. Można używać
+go do sprawdzania: przeprowadzonych rachunków, zadań domowych przez
+uczniów. Jeżeli nauczyciel pozna powyższy język programowania, to może
+stworzyć kod, który umożliwia rozwiązywanie zadań rachunkowych „krok
+po kroku”.</p>
+<div class='sage_unlinked'><script type='text/x-sage'>print "(4/3+5/5)-(5/2-4/6) =", (4/3+5/5)-(5/2-4/6)
+print "(3^15-3^13)/(3^13+3^14) =", (3^15-3^13)/(3^13+3^14)
+print "1001 =", factor(1001)
+print "(sqrt(8)-sqrt(2))^2 =", (sqrt(8)-sqrt(2))^2
+print "5! =", factorial(5)
+print "NWD(354,222) =", gcd(354, 222)</script></div><p>SageMath ma wbudowane różne systemy arytmetyczne i może np.
+przybliżać liczby niewymierne z dowolną precyzją. Te możliwości
+wykorzystaliśmy w naszym projekcie, przed wszystkim w szyfrowaniu RSA
+oraz w rozdziale dotyczących przybliżeń wyrażeń niewymiernych.</p>
+<div class='sage_unlinked'><script type='text/x-sage'>show(sqrt(2), "=", N(sqrt(2), digits=60))
+show(pi, "=", N(pi, digits=60))
+show(2^168+5^80)</script></div></div>
+<div class="section" id="dzialania-na-wyrazeniach-logicznych">
+<span id="logika"></span><h2>Działania na wyrażeniach logicznych.<a class="headerlink" href="#dzialania-na-wyrazeniach-logicznych" title="Stały odnośnik do tego nagłówka">¶</a></h2>
+<p>SageMath a także sam język Python, umożliwia wykonanie działań na
+wyrazeniach logicznych. Może się do okazać przydatne w wielu
+dziedzinach. Dla przykładu rozważmy zagadkę:</p>
+<div class="admonition-zagadka-o-klamcach admonition">
+<p class="admonition-title">Zagadka o kłamcach</p>
+<p>Sa dwa rodzaje ludzi - jeden zawsze kłamie a jeden mówi zawsze
+prawdę. Ala i Bolek należą do jednej z tych kategorii. Ala
+powiedziała: ja i Bolek jesteśmy kłamcami. Kto jest kłamcą a kto
+mówi prawdę?</p>
+</div>
+<p>Stosując SageMath możemy przyjąć następującą interpretacje: niech
+<span class="math notranslate nohighlight">\(a\)</span> będzie prawdą jeśli Ala jest prawdomówna a <span class="math notranslate nohighlight">\(b\)</span> będzie
+prawdą jeśli Bolek jest prawdomówny. Wtedy możemy w Sage zapisać:</p>
+<div class='sage_unlinked'><script type='text/x-sage'>f = propcalc.formula("a&(~a&~b) | ~a&(~(~a&~b))")
+show(f)
+print(f.truthtable())</script></div><p>Od razu widać, że jedynym rozwiązaniem jest takie w którym Ala kłamie
+a Bolek mówi prawdę.</p>
+</div>
+<div class="section" id="dzialania-na-wyrazeniach-algebraicznych">
+<span id="algebra"></span><h2>Działania na wyrażeniach algebraicznych.<a class="headerlink" href="#dzialania-na-wyrazeniach-algebraicznych" title="Stały odnośnik do tego nagłówka">¶</a></h2>
+<p>Jedną z ważniejszych możliwości, którą można zastosować na lekcjach
+matematyki, fizyki oraz chemii jest przeprowadzanie rachunków nie
+tylko na liczbach, ale także na zmiennych. SageMath doskonale sobie radzi
+z obliczeniami symbolicznymi, czyli potrafi przeprowadzać obliczenia,
+przekształcenia na wyrażeniach algebraicznych. Przez co możemy
+modyfikować postać wzoru, obliczać jedną zmienną przy pomocy innych,
+wyprowadzać wzory – ogólne rozwiązania. Poniżej pokazane są proste
+przykłady dotyczące wzorów skróconego mnożenia oraz wyrażeń
+wymiernych.</p>
+<p><strong>Wzory skróconego mnożenia.</strong></p>
+<div class='sage_unlinked'><script type='text/x-sage'>var('a','b')
+wzor1 = (a+b)^2
+wzor2 = (a-b)^2
+wzor3 = (a+b)*(a-b)
+show (wzor1, "=", wzor1.canonicalize_radical())
+show (wzor2, "=", wzor2.canonicalize_radical())
+show (wzor3, "=", wzor3.canonicalize_radical())
+a=sqrt(3)
+b=2
+wzor1=(a+b)^2
+wzor2=(a-b)^2
+wzor3=(a+b)*(a-b)
+show (wzor1, "=", wzor1.canonicalize_radical())
+show (wzor2, "=", wzor2.canonicalize_radical())
+show (wzor3, "=", wzor3.canonicalize_radical())</script></div><p><strong>Zamiana postaci wyrażenia algebraicznego.</strong></p>
+<div class='sage_linked'><script type='text/x-sage'>var('n')
+wyr = n^3-(n-1)^3
+show ("n=2")
+show(wyr," = ", wyr.canonicalize_radical()," = ",wyr.substitute(n = 2))</script></div><p><strong>Zamiana postaci wyrażenia wymiernego.</strong></p>
+<div class='sage_unlinked'><script type='text/x-sage'>var('z')
+wyr = (z^2+3*z)/z
+show (wyr)
+show (wyr.canonicalize_radical())
+show (wyr.subs(z=x+1))
+show (wyr.subs(z=2))</script></div><p>Upraszczanie wyrażeń zawierających funkcje trygonometryczne wymaga
+użycia metod <code class="code docutils literal notranslate"><span class="pre">.trig_simplify</span></code>. Na przykład aby wykorzystać
+jedynkę trygonometryczą należy wykonać:</p>
+<div class='sage_unlinked'><script type='text/x-sage'>( sin(x)^2+cos(x)^2 ).trig_simplify()</script></div><p>Jeśli chcemy udowodnić tożsamość trygonometryczną lepiej użyć
+<code class="code docutils literal notranslate"><span class="pre">bool</span></code> niż próbować uprościć jedną ze stron by przypominała
+drugą:</p>
+<div class='sage_unlinked'><script type='text/x-sage'>expr = (2*sin(x)^2-1)/(sin(x)*cos(x)) == tan(x)-cot(x)
+show(expr)
+bool(expr)</script></div></div>
+<div class="section" id="rozwiazywanie-rownan-i-ukladow-rownan">
+<h2>Rozwiązywanie równań i układów równań.<a class="headerlink" href="#rozwiazywanie-rownan-i-ukladow-rownan" title="Stały odnośnik do tego nagłówka">¶</a></h2>
+<p>Największą ilość zadań z przedmiotów ścisłych jaką uczeń musi wykonać
+to rozwiązywanie równań i układów równań. Oczywiście żadne narzędzie
+nie zastąpi samodzielnego rozwiązywania zadań przez uczniów, ale może
+być bardzo przydatne do ćwiczeń, sprawdzania wyników, czy też
+rozwiązywania równań, które uczeń musi samodzielnie wyprowadzić na
+podstawie zadań tekstowych. Powyższy język umożliwia rozwiązywanie
+nawet trudnych równań i układów równań przy pomocy jednej instrukcji
+– <code class="code docutils literal notranslate"><span class="pre">solve</span></code>.</p>
+<p>Poniżej zamieszczamy przykłady, które demonstrują
+użycie instrukcji na podstawie równania kwadratowego oraz prostego
+układu równań z dwoma niewiadomymi. Dla nauczycieli prowadzących
+zajęcia dodatkowe z matematyki dla uczniów zdolnych nie bez znaczenia
+będzie fakt, ze Sage rozwiązuje równania w zbiorze liczb zespolonych
+oraz macierzowe.</p>
+<p><strong>Równanie kwadratowe.</strong></p>
+<div class='sage_unlinked'><script type='text/x-sage'>var('a','b','c')
+r_kwadr = a*x^2 + b*x + c == 0
+show(solve(r_kwadr, x))
+a = 1
+b = 4
+c = -5
+r_kwadr = a*x^2 + b*x + c == 0
+show (solve(r_kwadr, x))</script></div><p><strong>Układ równań z dwoma niewiadomymi.</strong></p>
+<div class='sage_unlinked'><script type='text/x-sage'>var('x','y')
+solve([x-3*y==2, x-2*y==8],x,y)</script></div></div>
+<div class="section" id="wizualizacja">
+<span id="wykresy"></span><h2>Wizualizacja.<a class="headerlink" href="#wizualizacja" title="Stały odnośnik do tego nagłówka">¶</a></h2>
+<p>Uczniowie dzięki stronom internetowym czy platformom społecznościowym
+odbierają świat „obrazkowo”, czyli wiążą krótkie informacje z
+odpowiednim obrazkiem, zdjęciem, wykresem. Dlatego też wizualizacja
+dla obecnego pokolenia młodzieży jest bardzo ważna. Sage umożliwia
+rysowanie wykresów funkcji w prosty sposób. Zatem możemy szybko
+przedstawiać rozwiązania na wykresie lub też rysować interesujące nas
+funkcje podczas lekcji. Uczniowie mogą modyfikować już istniejący kod
+programu i analizować otrzymane funkcje. Można to zastosować nie tylko
+na matematyce ale także na pozostałych przedmiotach ścisłych.</p>
+<p>Poniższy program dotyczy miejsc zerowych funkcji
+kwadratowej. Obliczono w nim pierwiastki funkcji kwadratowej, punkt
+przecięcia funkcji z osią Y następnie narysowano wykres funkcji i
+zaznaczono wyróżnione punkty.</p>
+<div class='sage_unlinked'><script type='text/x-sage'>a = 1
+b = 3
+c = 2
+d = b*b - 4*a*c
+f(x) = a*x*x + b*x + c
+if d < 0:
+    print "Brak rozwiązania dla liczb rzeczywistych!"
+    xmin,xmax =-5, 5
+    x1,x2 = 0,0
+
+if d > 0:
+    x1 = float((-b-sqrt(d))/(2*a))
+    x2 = float((-b+sqrt(d))/(2*a))
+
+    print "x1=", x1, ", ", "x2=", x2
+
+    if x1<x2:
+        xmin,xmax = x1-2,x2+2
+    else:
+        xmin,xmax = x2-2,x1+2
+
+p1 = point((x1,0), color="red", size=35)
+p2 = point((x2,0), color="red", size=35)
+p3 = point((0, c), color="green", size=35)
+q = plot(f(x),(x,xmin,xmax))
+show(p1+p2+p3+q, figsize=4)</script></div><p>Dzięki instrukcji <code class="code docutils literal notranslate"><span class="pre">region_plot</span></code> możemy na wykresie przedstawiać
+także rozwiązanie układów nierówności.</p>
+<div class='sage_unlinked'><script type='text/x-sage'>var('x','y')
+g1 = -x^2/4+1*x
+g2 = 0.25*x
+f1 = plot(g1, (x,-0.4,4.5), linestyle="--")
+f2 = plot(g2,(x,-0.4,4.5), linestyle="-", color="green")
+rp = region_plot([y<g1,y>=g2],(x,-0.3,4.5),(y,-1,1.2), incol="khaki")
+show(f1 + f2 + rp, figsize=5)</script></div><div class='sage_unlinked'><script type='text/x-sage'>var('x','y')
+g1 = -x-2
+g2 = -x+2
+g3 = x-2
+g4 = x+2
+f1 = plot(g1, (x,-2.5,2.5), linestyle="--")
+f2 = plot(g2, (x,-2.5,2.5), linestyle="--", color="royalblue")
+f3 = plot(g3, (x,-2.5,2.5), linestyle="-", color="green")
+f4 = plot(g4, (x,-2.5,2.5), linestyle="-", color="lightgreen")
+rp = region_plot([y>g1,y<g2,y>=g3,y<=g4],\
+     (x,-2,2),(y,-2,2), incol="khaki")
+show(f1 + f2 + f3 + f4 + rp, figsize=5,ymax=3,ymin=-3)</script></div><p>W systemie SageMath rysowaną funkcję możemy stworzyć również
+algorytmicznie. Wyobraźmy sobie, że chcemy zobaczyć jak wygląda wykres:</p>
+<div class="math notranslate nohighlight">
+\[f(x) = \sum_{i=0}^{N}\sin(\omega_i x)\]</div>
+<p>dla dużych wartosci N. W systemie Sage możemy zsumować wiele funkcji
+wykorzystując pętlę. Tworzenie takich złożonych funkcji ma
+zastosowanie na lekcjach fizyki podczas omawiania zjawisk
+falowych. Poniższy kod doda fale o zbliżonych częstościach:</p>
+<div class='sage_unlinked'><script type='text/x-sage'>  f = sum([sin(w*x) for w in srange(0.9,1.101,0.02)])
+  plot(f,(x,-200,200),figsize=(10,2),thickness=0.5)</script></div><p>Ciekawym przykładem wizualizacji jest graficzne przedstawianie pól
+wektorowych. Podczas lekcji fizyki, można wykorzystać możliwości
+SagaMath do rysowania pół wektorowych. Poniżej zamieszczony jest
+przykład pola pochodządzego od dipola magnetycznego. Pole jest
+trójwymiarowe, w przykładzie przedstawiony jest przekrój takiego pola
+przez płaszczyznę <span class="math notranslate nohighlight">\(x=0\)</span></p>
+<div class='sage_unlinked'><script type='text/x-sage'>var('x y z',domain='real')
+m = 1
+r = sqrt(x^2+y^2+z^2+1e-6)
+Bx = 3*m*x*z/(r^5)
+By = 3*m*y*z/(r^5)
+Bz = 3*m*z^2/(r^5)-m/r^3
+B = vector( [Bx,By,Bz])
+Bmod = B.subs(x==0)[1:].norm()
+plot_vector_field(B.subs(x==0)[1:]/Bmod,(y,-2,2),(z,-2,2))</script></div></div>
+<div class="section" id="interakcja">
+<h2>Interakcja<a class="headerlink" href="#interakcja" title="Stały odnośnik do tego nagłówka">¶</a></h2>
+<p>Duże walory edukacyjne mają programy komputerowe pozwalające wykonać
+animację lub dynamicznie zmieniać parametr i obserwować jak wpływa on
+na rozwiązanie. Tego typu elementy, najczęściej wykonane są w
+technologii Flash lub javascript są atrakcyjną cyfrową pomocą
+naukową. Zazwyczaj jednak uczeń ograniczony jest jedynie do interakcji
+z takim programem. System SageMath pozwala pojść jeden krok dalej -
+pozwala na bardzo łatwe tworzenie tych elementów. Korzystając z
+prostych funkcji uczeń może samodzielnie stworzyć interaktywną
+applikację, która może ilustrować badane zagadnienie.</p>
+<p>Zilustrujemy na przykładzie następującego problemu:</p>
+<div class="admonition-zadanie admonition">
+<p class="admonition-title">Zadanie</p>
+<p>Zbadaj ile ma rozwiązań równanie <span class="math notranslate nohighlight">\(x^2=x-a\)</span> w zależności od parametru <span class="math notranslate nohighlight">\(a\in(0,\frac{1}{2})\)</span>?</p>
+</div>
+<p>W SageMath możemy narysować wykresy zarówno prostej <span class="math notranslate nohighlight">\(y=x-a\)</span> jak
+i paraboli <span class="math notranslate nohighlight">\(y=x^2\)</span> i zaznaczyć na nich pierwiastki równania
+<span class="math notranslate nohighlight">\(x^2=x-a\)</span>.  Wystarczy taki stworzony kod programu opakować w
+funkcję i dodać tzw. dekorator <code class="code docutils literal notranslate"><span class="pre">&#64;interact</span></code>. SageMath wygeneruje
+nam interaktywną aplikację, w której będzie można zmieniać myszką
+wartość parametru i obserwować jak zmienia się wykres.</p>
+<div class='sage_unlinked'><script type='text/x-sage'>@interact
+def fun(a=slider(0,1/2,0.01)):
+    p = plot([x^2,x-a],(x,-1,1),figsize=5,ymax=1,ymin=-1)
+    assume(x,'real')
+    pkt = [(x.subs(s),x.subs(s)-a) for s in solve(x^2==x-a,x)]
+    if pkt:
+         p += point(pkt,size=40,color='red')
+    else:
+         print "Nie ma pierwiastkow"
+    show(p)</script></div></div>
+<div class="section" id="sage-interdyscyplinarnosc">
+<h2>Sage = interdyscyplinarność.<a class="headerlink" href="#sage-interdyscyplinarnosc" title="Stały odnośnik do tego nagłówka">¶</a></h2>
+<p>Podsumowując SageMath umożliwia:</p>
+<blockquote>
+<div><ol class="arabic simple">
+<li><p>Szybkie i dokładne obliczenia nawet
+dowolnie dużych liczb.</p></li>
+<li><p>Przeprowadzanie obliczeń na wyrażeniach algebraicznych.
+rozwiązywanie równań w zbiorze liczb zespolonych, rozwiązywanie
+układów równań i nierówności.</p></li>
+<li><p>Wizualizację rozwiązań na wykresach, rysowanie wykresów funkcji.</p></li>
+<li><p>Obliczanie pochodnych, całek i wielu innych działań
+matematycznych.</p></li>
+</ol>
+</div></blockquote>
+<p>Podanto SageMath to bardzo dobre i bogate narzędzie programistyczne,
+dzięki któremu możemy łączyć przedmioty ścisłe: informatykę,
+programowanie, matematykę, fizykę, chemię. Czy istnieją ograniczenia
+dla Sage’a? Tak, ale pewnie wcześniej natrafimy na ograniczenia naszej
+wyobraźni.</p>
+</div>
+</div>
+
+
+          </div>
+        </div>
+      </div>
+      <div class="sphinxsidebar" role="navigation" aria-label="main navigation">
+        <div class="sphinxsidebarwrapper">
+  <div class="sphinxlocaltoc">
+  <h3><a href="index.html">Table Of Contents</a></h3>
+  <ul>
+<li><a class="reference internal" href="#">SageMath w pigułce</a><ul>
+<li><a class="reference internal" href="#bogaty-i-szybki-kalkulator-naukowy">Bogaty i szybki kalkulator naukowy.</a></li>
+<li><a class="reference internal" href="#dzialania-na-wyrazeniach-logicznych">Działania na wyrażeniach logicznych.</a></li>
+<li><a class="reference internal" href="#dzialania-na-wyrazeniach-algebraicznych">Działania na wyrażeniach algebraicznych.</a></li>
+<li><a class="reference internal" href="#rozwiazywanie-rownan-i-ukladow-rownan">Rozwiązywanie równań i układów równań.</a></li>
+<li><a class="reference internal" href="#wizualizacja">Wizualizacja.</a></li>
+<li><a class="reference internal" href="#interakcja">Interakcja</a></li>
+<li><a class="reference internal" href="#sage-interdyscyplinarnosc">Sage = interdyscyplinarność.</a></li>
+</ul>
+</li>
+</ul>
+
+  </div>
+  <h4>Poprzedni temat</h4>
+  <p class="topless"><a href="dlaczego_Sage.html"
+                        title="poprzedni rozdział">Wybór  narzędzia</a></p>
+  <h4>Następny temat</h4>
+  <p class="topless"><a href="narzedzia.html"
+                        title="następny rozdział">Narzędzia i metody pracy</a></p>
+<div id="searchbox" style="display: none" role="search">
+  <h3 id="searchlabel">Szybkie wyszukiwanie</h3>
+    <div class="searchformwrapper">
+    <form class="search" action="search.html" method="get">
+      <input type="text" name="q" aria-labelledby="searchlabel" />
+      <input type="submit" value="Szukaj" />
+    </form>
+    </div>
+</div>
+<script>$('#searchbox').show(0);</script>
+        </div>
+      </div>
+      <div class="clearer"></div>
+    </div>
+  </div>
+  <div class="relbar-bottom">
+    
+    <div class="related" role="navigation" aria-label="related navigation">
+      <h3>Nawigacja</h3>
+      <ul>
+        <li class="right" style="margin-right: 10px">
+          <a href="narzedzia.html" title="Narzędzia i metody pracy"
+             >dalej</a></li>
+        <li class="right" >
+          <a href="dlaczego_Sage.html" title="Wybór narzędzia"
+             >wstecz</a> &nbsp; &nbsp;</li>
+  <li><a href="index.html">Metodologia nauczania przedmiotów ścisłych z perspektywą obliczeniową</a> &#187;</li>
+  
+        <li class="nav-item nav-item-this"><a href="">SageMath w pigułce</a></li> 
+      </ul>
+    </div>
+  </div>
+  
+  <div class="footer">
+    <a class="logo" href="http://icse.us.edu.pl/" target="_blank"><img src="_static/logo-icse.png" alt="ICSE"/></a><br/>
+    &copy; Copyright Creative Commons CC-BY 4.0, iCSE-team.
+    Created using <a href="http://sphinx.pocoo.org/">Sphinx</a> 3.2.1.
+  </div>
+  </body>
+</html>

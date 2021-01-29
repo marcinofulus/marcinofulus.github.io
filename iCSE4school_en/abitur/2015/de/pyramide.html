@@ -1,0 +1,154 @@
+
+
+  
+<!DOCTYPE html>
+
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Bayerisches Abitur in Mathematik 2015 &#8212; Science education with SageMath</title>
+    <link rel="stylesheet" href="../../../_static/cloud.css" type="text/css" />
+    <link rel="stylesheet" href="../../../_static/pygments.css" type="text/css" />
+    <link rel="stylesheet" href="http://fonts.googleapis.com/css?family=Noticia+Text|Open+Sans|Droid+Sans+Mono&amp;subset=latin,latin-ext" type="text/css" />
+    <script id="documentation_options" data-url_root="../../../" src="../../../_static/documentation_options.js"></script>
+    <script src="../../../_static/jquery.js"></script>
+    <script src="../../../_static/underscore.js"></script>
+    <script src="../../../_static/doctools.js"></script>
+    <script src="../../../_static/language_data.js"></script>
+    <script async="async" src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.7/latest.js?config=TeX-AMS-MML_HTMLorMML"></script>
+    <script src="../../../_static/jquery.cookie.js"></script>
+    <script src="../../../_static/cloud.js"></script>
+    <script type="text/javascript" src="http://sagecell.sagemath.org/static/jquery.min.js"></script>
+    <script type="text/javascript" src="http://sagecell.sagemath.org/static/embedded_sagecell.js"></script>
+    <script type="text/javascript">
+        sagecell.makeSagecell({inputLocation: ".sage_linked",
+                               linked: true});
+        sagecell.makeSagecell({inputLocation: ".sage_unlinked",
+                               linked: false});
+    </script>
+
+    <style type="text/css">
+        .sagecell .CodeMirror-scroll {
+            overflow-y: hidden;
+            overflow-x: auto;
+        }
+        .sagecell .CodeMirror {
+            height: auto;
+        }
+    </style>
+    
+    <link rel="search" title="Search" href="../../../search.html" />
+ 
+  <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, minimum-scale=1">
+  </head><body>
+  <div class="relbar-top">
+    
+    <div class="related" role="navigation" aria-label="related navigation">
+      <h3>Navigation</h3>
+      <ul>
+  <li><a href="../../../index.html">Science education with SageMath</a> &#187;</li>
+  
+        <li class="nav-item nav-item-this"><a href="">Bayerisches Abitur in Mathematik 2015</a></li> 
+      </ul>
+    </div>
+  </div>
+  
+  <div class="content">  
+
+    <div class="document">
+      <div class="documentwrapper">
+        <div class="bodywrapper">
+          <div class="body">
+            
+  <div class="section" id="bayerisches-abitur-in-mathematik-2015">
+<h1>Bayerisches Abitur in Mathematik 2015<a class="headerlink" href="#bayerisches-abitur-in-mathematik-2015" title="Permalink to this headline">¶</a></h1>
+<div class="admonition-aufgabe admonition">
+<p class="admonition-title">Aufgabe</p>
+<p>Betrachtet wird die Pyramide ABCDS mit A(0|0|0), B(4|4|2), C(8|0|2), D(4|-4|0)
+und S(1|1|-4). Die Grundfläche ist ein Parallelogramm.</p>
+<ol class="loweralpha simple">
+<li><p>Weisen Sie nach, dass das Parallelogramm ABCD ein Rechteck ist.</p></li>
+<li><p>Die Kante [AS] steht senkrecht auf der Grundfläche ABCD. Der Flächeninhalt
+der Grundfläche beträgt <span class="math notranslate nohighlight">\(24\sqrt{2}\)</span>. Ermitteln Sie das Volumen der
+Pyramide.</p></li>
+</ol>
+</div>
+<p><strong>Lösung zu Teil a</strong></p>
+<p>Ein Rechteck liegt vor, wenn ausgehend von einem Eckpunkt der Winkel zwischen
+den beiden kürzesten Verbindungsvektoren zu den anderen Eckpunkten gleich
+90 Grad ist.</p>
+<div class='sage_linked'><script type='text/x-sage'>sage: a = vector([0, 0, 0])
+sage: b = vector([4, 4, 2])
+sage: c = vector([8, 0, 2])
+sage: d = vector([4, -4, 0])
+sage: print ' Abstand A-B:', N(norm(b-a))
+sage: print ' Abstand A-C:', N(norm(c-a))
+sage: print ' Abstand A-D:', N(norm(d-a))
+sage: (b-a).dot_product(d-a)</script></div><p>Die Verbindungsvektoren von A nach B und D stehen demnach senkrecht
+aufeinander. Der Punkt C liegt diagonal gegenüber A. Es liegt somit ein
+Rechteck vor. Da diese Lösung von der Vorgabe abhängt, dass ABCD ein
+Parallelogramm ist, überprüfen wir noch die anderen drei Innenwinkel.</p>
+<div class='sage_linked'><script type='text/x-sage'>sage: a = vector([0, 0, 0])
+sage: b = vector([4, 4, 2])
+sage: c = vector([8, 0, 2])
+sage: d = vector([4, -4, 0])
+sage: (c-b).dot_product(a-b), (d-c).dot_product(b-c), (a-d).dot_product(c-d)</script></div><p><strong>Lösung zu Teil b</strong></p>
+<p>Nachdem der Verbindungsvektor von A nach S senkrecht auf der Grundfläche steht,
+gibt seine Länge die Höhe <span class="math notranslate nohighlight">\(h\)</span> der Pyramide an. Die Grundfläche ist als
+<span class="math notranslate nohighlight">\(A=24\sqrt{2}\)</span> vorgegeben, was wir kurz überprüfen wollen:</p>
+<div class='sage_linked'><script type='text/x-sage'>sage: a = vector([0, 0, 0])
+sage: b = vector([4, 4, 2])
+sage: d = vector([4, -4, 0])
+sage: norm(a-b)*norm(a-d)</script></div><p>Die Höhe der Pyramide ist</p>
+<div class='sage_linked'><script type='text/x-sage'>sage: a = vector([0, 0, 0])
+sage: s = vector([1, 1, -4])
+sage: norm(s-a)</script></div><p>Somit ergibt sich das Volumen zu <span class="math notranslate nohighlight">\(V=\frac{h}{3}A=48\)</span>. Dieses Ergebnis
+lässt sich auch direkt mit Hilfe von Sage bestätigen.</p>
+<div class='sage_linked'><script type='text/x-sage'>sage: a = vector([0, 0, 0])
+sage: b = vector([4, 4, 2])
+sage: c = vector([8, 0, 2])
+sage: d = vector([4, -4, 0])
+sage: s = vector([1, 1, -4])
+sage: Polyhedron(vertices=[a, b, c, d, s]).volume()</script></div></div>
+
+
+          </div>
+        </div>
+      </div>
+      <div class="sphinxsidebar" role="navigation" aria-label="main navigation">
+        <div class="sphinxsidebarwrapper">
+<div id="searchbox" style="display: none" role="search">
+  <h3 id="searchlabel">Quick search</h3>
+    <div class="searchformwrapper">
+    <form class="search" action="../../../search.html" method="get">
+      <input type="text" name="q" aria-labelledby="searchlabel" />
+      <input type="submit" value="Go" />
+    </form>
+    </div>
+</div>
+<script>$('#searchbox').show(0);</script>
+        </div>
+      </div>
+      <div class="clearer"></div>
+    </div>
+  </div>
+  <div class="relbar-bottom">
+    
+    <div class="related" role="navigation" aria-label="related navigation">
+      <h3>Navigation</h3>
+      <ul>
+  <li><a href="../../../index.html">Science education with SageMath</a> &#187;</li>
+  
+        <li class="nav-item nav-item-this"><a href="">Bayerisches Abitur in Mathematik 2015</a></li> 
+      </ul>
+    </div>
+  </div>
+  
+  <div class="footer">
+    <a class="logo" href="http://icse.us.edu.pl/" target="_blank"><img src="../../../_static/logo-icse.png" alt="ICSE"/></a><br/>
+    &copy; Copyright Creative Commons CC-BY 4.0, iCSE-team.
+    Created using <a href="http://sphinx.pocoo.org/">Sphinx</a> 3.2.1.
+  </div>
+  </body>
+</html>

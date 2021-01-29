@@ -1,0 +1,553 @@
+
+
+  
+<!DOCTYPE html>
+
+<html lang="pl">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>RSA szyfrowanie asymetryczne &#8212; Metodologia nauczania przedmiotów ścisłych z perspektywą obliczeniową</title>
+    <link rel="stylesheet" href="_static/cloud.css" type="text/css" />
+    <link rel="stylesheet" href="_static/pygments.css" type="text/css" />
+    <link rel="stylesheet" href="http://fonts.googleapis.com/css?family=Noticia+Text|Open+Sans|Droid+Sans+Mono&amp;subset=latin,latin-ext" type="text/css" />
+    <script id="documentation_options" data-url_root="./" src="_static/documentation_options.js"></script>
+    <script src="_static/jquery.js"></script>
+    <script src="_static/underscore.js"></script>
+    <script src="_static/doctools.js"></script>
+    <script src="_static/language_data.js"></script>
+    <script src="_static/translations.js"></script>
+    <script async="async" src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.7/latest.js?config=TeX-AMS-MML_HTMLorMML"></script>
+    <script src="_static/jquery.cookie.js"></script>
+    <script src="_static/cloud.js"></script>
+    <script type="text/javascript" src="http://sagecell.sagemath.org/static/jquery.min.js"></script>
+    <script type="text/javascript" src="http://sagecell.sagemath.org/static/embedded_sagecell.js"></script>
+    <script type="text/javascript">
+        sagecell.makeSagecell({inputLocation: ".sage_linked",
+                               linked: true});
+        sagecell.makeSagecell({inputLocation: ".sage_unlinked",
+                               linked: false});
+    </script>
+
+    <style type="text/css">
+        .sagecell .CodeMirror-scroll {
+            overflow-y: hidden;
+            overflow-x: auto;
+        }
+        .sagecell .CodeMirror {
+            height: auto;
+        }
+    </style>
+    
+    <link rel="search" title="Szukaj" href="search.html" />
+    <link rel="next" title="Przybliżanie wielomianami" href="przyblizanie_wielomianami.html" />
+    <link rel="prev" title="Zadziwiające przybliżenie" href="zadziwiajace_przyblizenie.html" />
+ 
+  <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, minimum-scale=1">
+  </head><body>
+  <div class="relbar-top">
+    
+    <div class="related" role="navigation" aria-label="related navigation">
+      <h3>Nawigacja</h3>
+      <ul>
+        <li class="right" style="margin-right: 10px">
+          <a href="przyblizanie_wielomianami.html" title="Przybliżanie wielomianami"
+             accesskey="N">dalej</a></li>
+        <li class="right" >
+          <a href="zadziwiajace_przyblizenie.html" title="Zadziwiające przybliżenie"
+             accesskey="P">wstecz</a> &nbsp; &nbsp;</li>
+  <li><a href="index.html">Metodologia nauczania przedmiotów ścisłych z perspektywą obliczeniową</a> &#187;</li>
+  
+        <li class="nav-item nav-item-this"><a href="">RSA szyfrowanie asymetryczne</a></li> 
+      </ul>
+    </div>
+  </div>
+  
+  <div class="content">  
+
+    <div class="document">
+      <div class="documentwrapper">
+        <div class="bodywrapper">
+          <div class="body">
+            
+  <div class="section" id="rsa-szyfrowanie-asymetryczne">
+<h1>RSA szyfrowanie asymetryczne<a class="headerlink" href="#rsa-szyfrowanie-asymetryczne" title="Stały odnośnik do tego nagłówka">¶</a></h1>
+<div class="section" id="o-scenariuszu">
+<h2>O scenariuszu<a class="headerlink" href="#o-scenariuszu" title="Stały odnośnik do tego nagłówka">¶</a></h2>
+<p>Scenariusz ten jest materiałem do przeprowadzenie 3h zajęć
+lekcyjnych.</p>
+<p>Został on opracowany w ramach projektu iCSE4school na podstawie lekcji
+prowadzonych w latach 2015-2017 w III Liceum
+Ogólnokształcącym im. Stefana Batorego w Chorzowie przez Krzysztofa
+Jarczewskiego.</p>
+<div class="admonition-uwaga admonition">
+<p class="admonition-title">Uwaga!</p>
+<p>W każdym z okien programu można zmieniać liczby, tekst, zmienne
+lub cały kod.  Nie trzeba się martwić, jeśli program przestanie
+działać, bo po odświeżeniu strony powróci do ustawień
+początkowych.  Często następny kod wynika z poprzedniego, więc
+należy ćwiczenia (algorytmy) wykonywać według kolejności.</p>
+</div>
+</div>
+<div class="section" id="wstep">
+<h2>Wstęp<a class="headerlink" href="#wstep" title="Stały odnośnik do tego nagłówka">¶</a></h2>
+<p><strong>Uczniowie powinni znać i  rozumieć:</strong></p>
+<ul class="simple">
+<li><p>działania na potęgach, NWD, dzielenie z resztą. <em>(1.1, 1.4, 1.5 mat_p)</em>,</p></li>
+<li><p>podstawowy algorytm Euklidesa a najlepiej rozszerzoną jego wersję, <em>(1.0-II-5.11.a inf_r)</em>,</p></li>
+<li><p>podstawowe komendy programistyczne w SageMath: działania, funkcję warunkową, pętle <em>(1.0-II-5.22-23 inf_r)</em>,</p></li>
+<li><p>potrzebę szyfrowania wiadomości <em>(1.0-II-2.5, 1.0-II-5.11.e inf_r)</em>,</p></li>
+<li><p>kodowanie znaków ASCI <em>(1.0-II-5.11.d inf_r)</em>.</p></li>
+</ul>
+<p><strong>Uczniowie na poniższych zajęciach poznają:</strong></p>
+<ul class="simple">
+<li><p>własności działania modulo (kongruencję), chińskie twierdzenie o resztach,</p></li>
+<li><p>małe twierdzenie Fermata, proste szyfrowanie asymetryczne,</p></li>
+<li><p>szyfrowanie asymetryczne RSA – oparte na liczbach pierwszych <em>(1.0-II-5.11.e inf_r)</em>.</p></li>
+</ul>
+<p><strong>Powyżej w nawiasach jest wpisany szczegółowy zakres nauczanych treści.</strong></p>
+<p>mat_p – matematyka poziom podstawowy, inf_r – informatyka poziom rozszerzony.</p>
+</div>
+<div class="section" id="czesc-teoretyczna">
+<h2>Część teoretyczna<a class="headerlink" href="#czesc-teoretyczna" title="Stały odnośnik do tego nagłówka">¶</a></h2>
+<div class="admonition-definicja-kongruencji admonition">
+<p class="admonition-title">Definicja kongruencji.</p>
+<p>Dwie liczby całkowite : <span class="math notranslate nohighlight">\(a, b\)</span> przystają do siebie <strong>modulo</strong> <em>n</em>, jeśli: <span class="math notranslate nohighlight">\((a-b) \cdot k=n,\hspace{2mm} k \in Z.\)</span></p>
+<p>Kongruencję zapisujemy symbolicznie: <span class="math notranslate nohighlight">\(a = b (mod \hspace{2mm} n)\)</span>.</p>
+</div>
+<div class="section" id="przyklady">
+<h3>Przykłady:<a class="headerlink" href="#przyklady" title="Stały odnośnik do tego nagłówka">¶</a></h3>
+<p>2 = 2 (mod 8), ponieważ 2 - 2 = 0,  0 jest podzielne przez 8,</p>
+<p>3 = 18 (mod 5), ponieważ 3 - 18 = -15, -15 jest podzielne przez 5,</p>
+<p>100 = 1 (mod 9), ponieważ 100 - 1 = 99, 99 jest podzielne przez 9,</p>
+<p>250 = 206 (mod 22), ponieważ 250 - 206 = 44, 44 jest podzielne przez 22.</p>
+</div>
+<div class="section" id="cwiczenie-1">
+<h3>Ćwiczenie 1.<a class="headerlink" href="#cwiczenie-1" title="Stały odnośnik do tego nagłówka">¶</a></h3>
+<p>Znajdź <em>x</em> takie, że: <span class="math notranslate nohighlight">\(3x = 1 (mod \hspace{2mm} 4), \hspace{2mm} 5&lt;x&lt;10\)</span>.</p>
+<div class='sage_linked'><script type='text/x-sage'>for x in range(5,11):        #You can change this range
+    if (3*x - 1) % 4 == 0:   #You can change this equation
+        print "x =",x</script></div></div>
+<div class="section" id="cwiczenie-2">
+<h3>Ćwiczenie 2.<a class="headerlink" href="#cwiczenie-2" title="Stały odnośnik do tego nagłówka">¶</a></h3>
+<p>Znajdź <em>x</em> takie, że: <span class="math notranslate nohighlight">\(3x+2 = 1 (mod \hspace{2mm} 5)\)</span>.</p>
+<div class='sage_linked'><script type='text/x-sage'>for x in range(40):
+    if (3*x+2 - 1) % 5 == 0:
+        print x</script></div><p>Oczywiście istnieje nieskończenie takich rozwiązań. Dodatkowo te rozwiązania wyznaczają ciąg arytmetyczny.</p>
+</div>
+<div class="section" id="cwiczenie-3">
+<h3>Ćwiczenie 3.<a class="headerlink" href="#cwiczenie-3" title="Stały odnośnik do tego nagłówka">¶</a></h3>
+<p>Znajdź <em>x</em> takie, że: 3x = 1 (mod 6).</p>
+<div class='sage_linked'><script type='text/x-sage'>odp  = "?"
+for x in range(100):
+    if (3*x-1) % 6 == 0:
+        odp = x
+print odp</script></div><p>W powyższym ćwiczeniu nie istnieje żadna liczba, która spełnia powyższą kongruencję.</p>
+<div class="admonition note">
+<p class="admonition-title">Informacja</p>
+<p>Chińskie twierdzenie o resztach.</p>
+<p>Poniższe ćwiczenie można rozwiązać przy użyciu chińskiego
+twierdzenia o resztach. Jedno z najważniejszych twierdzeń z teorii
+liczb i kryptografii. Twierdzenie to pozwala dzielić sekret wśród
+kilku osób (ważne hasło liczbowe).</p>
+</div>
+</div>
+<div class="section" id="cwiczenie-4">
+<h3>Ćwiczenie 4.<a class="headerlink" href="#cwiczenie-4" title="Stały odnośnik do tego nagłówka">¶</a></h3>
+<p>Tabliczka czekolady składa się z mniej niż 100 kawałków. Przy podziale
+na trzy równe części, pozostaje 1 kawałek czekolady. Dzieląc na 5
+równych części, zostają 3 kawałki czekolady, a przy podziale na 7
+równych części, pozostają 2 kawałki.</p>
+<p>Wiemy, że liczba kawałków czekolady musi spełniać poniższe kongruencje:</p>
+<p>x = 1 mod 3,</p>
+<p>x = 3 mod 5,</p>
+<p>x = 2 mod 7.</p>
+<div class='sage_linked'><script type='text/x-sage'>for x in range(100):
+    if (x-1) % 3 == 0 and (x-3) % 5 == 0 and (x-2) % 7 == 0:
+        print x</script></div><div class="admonition-male-twierdzenie-fermata admonition">
+<p class="admonition-title">Małe twierdzenie Fermata.</p>
+<p><strong>Jeśli</strong> <em>p</em> jest liczbą pierwszą oraz <em>a</em>, <em>p</em> są względnie pierwsze, <strong>wtedy</strong> <span class="math notranslate nohighlight">\(a^{p-1} - 1\)</span> jest wielokrotnością liczby <em>p</em>. Zapisujemy to symbolicznie: <span class="math notranslate nohighlight">\(a^{p-1}=1 (mod \hspace{2mm} p)\)</span>.</p>
+</div>
+<p>Sprawdźmy poprawność powyższego twierdzenia, dla kolejnych liczb pierwszych, numerycznie z wykorzystaniem języka Python.</p>
+<p>Dla a = 35 i p = 5 lub p = 7 liczby nie spełniają założeń twierdzenia. Możemy dodatkowo stwierdzić, że liczba <span class="math notranslate nohighlight">\(a^{p-1} - 1\)</span> jest podzielna przez p.</p>
+<div class='sage_linked'><script type='text/x-sage'>for x in range (1, 30):
+    p = nth_prime(x)
+    print(p, 35^(p-1) % p)</script></div></div>
+</div>
+<div class="section" id="czesc-informatyczna">
+<h2>Część informatyczna<a class="headerlink" href="#czesc-informatyczna" title="Stały odnośnik do tego nagłówka">¶</a></h2>
+<div class="admonition note">
+<p class="admonition-title">Informacja</p>
+<p>Szyfrowanie wiadomości.</p>
+<p>Pierwsze wzmianki o kryptografii pochodzą już ze starożytności. Można stwierdzić, że szyfrowanie powstało równocześnie z wynalezieniem pisma. Szyfrowanie było stosowne przy przekazywaniu wiadomości wojskowych lub politycznych. Na lekcjach informatyki poznaliśmy (lub poznamy) szyfr Cezara. Jest to prosty szyfr, w którym zamieniamy litery. Co prawda zaszyfrowana wiadomość jest niezrozumiała, ale także prosta do odszyfrowania. Inne metody starożytnych były bardziej wyrafinowane i trudniejsze do odszyfrowania. Do lat sześćdziesiatych dwudziestego wieku znane były tylko szyfry symetryczne, to znaczy takie, które mają jeden klucz (jedną metodę) dzięki, któremu szyfrujemy i deszyfrujemy wiadomości.</p>
+<p>W latach siedemdziesiątych dwudziestego wieku kryptografowie dzięki informatyzacji, zwiększeniu mocy obliczeniowej komputerów oraz potrzebie zabezpieczenia danych wymyślili szyfr asymetryczny, czyli taki, w którym używamy dwóch różnych kluczy – jeden do zaszyfrowania, a drugi do odszyfrowania (kolejność kluczy jest nieważna). Jeden z kluczy udostępniamy osobie, która ma przesłać nam tajną wiadomość. Możemy nawet udostępnić klucz na naszej stronie internetowej (dostępny dla wszystkich - klucz publiczny). Drugi klucz jest tajny (klucz prywatny) znamy go tylko my i nie możemy go nikomu udostępnić. Tylko i wyłącznie dzięki kluczowi prywatnemu możemy odszyfrować wiadomość.</p>
+</div>
+<p>Poniżej opiszemy prosty szyfr asymetryczny, który można złamać (czyli znając liczby d, n można szybko znaleść liczbę e). Będzie to Wasze zadanie dodatkowe.</p>
+<p><strong>Jak matematycznie stworzyć szyfr asymetryczny?</strong></p>
+<p>Do stworzenia prostego szyfru asymetrycznego będą nam potrzebne różne liczby naturalne: <span class="math notranslate nohighlight">\(a, b, a1, b1\)</span>.</p>
+<p>Czym większe liczby tym szyfr jest bezpieczniejszy - trudniejszy do odszyfrowania bez znajomości odpowiedniego klucza.</p>
+<p>Dla naszego przykładu wystarczą liczby dwu, trzy cyfrowe.</p>
+<p>Obliczamy: <span class="math notranslate nohighlight">\(M=a \cdot b-1\)</span>, wtedy: <span class="math notranslate nohighlight">\(e=a1 \cdot M+a, \hspace{3mm} d=b1\cdot M+b, \hspace{3mm} n=(e \cdot d-1)/M\)</span></p>
+<p>Otrzymujemy parę kluczy, klucz publiczny: <span class="math notranslate nohighlight">\((d, n)\)</span> i klucz prywatny: <span class="math notranslate nohighlight">\((e, n)\)</span>.</p>
+<p><strong>Poniżej przykład generowania kluczy oraz zaszyfrowania liczby.</strong></p>
+<div class='sage_linked'><script type='text/x-sage'>number = 1234567   #You can change this number (message). What will be if number larger then n?
+a = 89             #you can change the numbers: a, b, a1, b1
+b = 45
+a1 = 98
+b1 = 55
+M = a*b-1
+e = a1*M+a
+d = b1*M+b
+n = (e*d-1)/M
+print "public key:", (d, n)
+print "private key:",(e, n)
+ # encryption
+szyfr = (number*d) % n
+print "encryption:", szyfr
+# decryption
+deszyfr = (szyfr*e) % n
+print "decryption:", deszyfr</script></div><p><strong>Co zrobić gdy liczba jest więsza od n?</strong></p>
+<ol class="arabic simple">
+<li><p>Obliczamy resztę z dzielenia przez n (otrzymujemy „porcję” do zaszyfrowania).</p></li>
+<li><p>Szyfrujemy otrzymaną „porcję”.</p></li>
+<li><p>Do szyfru dodajemy zaszyfrowaną „porcję” w kolejnej potędze liczby n.</p></li>
+<li><p>Dzielimy liczbę przez n.</p></li>
+<li><p>Jeśli otrzymana liczba jest większa od 0, to powtarzamy kroki 1-4</p></li>
+</ol>
+<div class='sage_linked'><script type='text/x-sage'>number=1234565676756353523642138798797979967435467894353452 #Big number(message)
+szyfr = 0
+i=0
+while number>0:                           # 5
+    pomoc = number%n                      # 1
+    szyfr = szyfr + ((pomoc*d) % n)*n^i   # 2, 3
+    i=i+1
+    number = int(number/n)                # 4
+print szyfr</script></div><p>W podobny sposób deszyfrujemy wiadomość:</p>
+<p>Pomoc:</p>
+<table class="docutils align-default">
+<colgroup>
+<col style="width: 40%" />
+<col style="width: 43%" />
+<col style="width: 17%" />
+</colgroup>
+<tbody>
+<tr class="row-odd"><td><p>number → szyfr</p></td>
+<td><p>szyfr → deszyfr</p></td>
+<td><p>d→e</p></td>
+</tr>
+</tbody>
+</table>
+<p>Spróbuj poniżej odszyfrować liczbę:</p>
+<div class='sage_linked'><script type='text/x-sage'>i=0
+while number>0:                             # 5
+    pomoc = number%n                        # 1
+    szyfr = szyfr + ((pomoc*d) % n)*n^i     # 2, 3
+    i=i+1
+    number = int(number/n)                  # 4
+print szyfr</script></div><p>Zazwyczaj chcemy zaszyfrować tekst, a nie liczbę, czyli musimy zamienić litery (znaki) na liczbę. Do tego posłużymy się kodem ASCII.</p>
+<p>Każdej literze, znakowi przyporządkowana jest liczba z przedziału od 1 do 128.</p>
+<p>Poniżej algorytm szyfrowania wiadomości tekstowej (ten kod został napisany i wprowadzony przez uczniów na zajęciach).</p>
+<div class='sage_linked'><script type='text/x-sage'>number=0
+i=0
+tekst="This is the secret message or anything."
+for x in tekst:
+    i=i+1
+    print x,"->", ord(x)," ",
+    if (i%10==0):
+        print
+    number=number + ord(x)*128^i
+print
+print "number =", number</script></div><div class="section" id="pelny-algorytm-szyfrujacy">
+<h3>Pełny algorytm szyfrujący<a class="headerlink" href="#pelny-algorytm-szyfrujacy" title="Stały odnośnik do tego nagłówka">¶</a></h3>
+<p>Po złożeniu powyższych programów otrzymujemy pełny algorytm szyfrowania i deszyfrowania wiadomości tekstowych.</p>
+<div class='sage_linked'><script type='text/x-sage'>number = 0
+i = 0
+tekst = "This is the secret message or anything." #message
+tekst2 = ""
+print "message:", tekst
+# change text to number
+for x in tekst:
+    i = i + 1
+    number = number + ord(x)*128^i
+print "number:", number
+print ""
+# encription
+szyfr = 0
+i=0
+while number>0:
+    pomoc=number%n
+    szyfr = szyfr + ((pomoc*d) % n)*n^i
+    i = i + 1
+    number = int(number/n)
+print "encription:", szyfr</script></div></div>
+<div class="section" id="pelny-algorytm-deszyfrujacy">
+<h3>Pełny algorytm deszyfrujący<a class="headerlink" href="#pelny-algorytm-deszyfrujacy" title="Stały odnośnik do tego nagłówka">¶</a></h3>
+<div class='sage_linked'><script type='text/x-sage'>tekst2 = ""
+deszyfr = 0
+i = 0
+print "encription:", szyfr
+# decription
+while szyfr>0:
+    pomoc = szyfr%n
+    deszyfr = deszyfr + ((pomoc*e) % n)*n^i
+    i = i+1
+    szyfr = int(szyfr/n)
+print "decription: ", deszyfr
+## change number to text
+i = 0
+while deszyfr>0:
+    i = i+1
+    deszyfr = int(deszyfr/128)
+    tekst2 = tekst2 + chr(deszyfr%128)
+print "message: ", tekst2</script></div></div>
+</div>
+<div class="section" id="szyfrowanie-asymetryczne-rsa">
+<h2>Szyfrowanie asymetryczne RSA<a class="headerlink" href="#szyfrowanie-asymetryczne-rsa" title="Stały odnośnik do tego nagłówka">¶</a></h2>
+<p><strong>RSA</strong> jeden z pierwszych i najpopularniejszy asymetryczny algorytm kryptograficzny z kluczem publicznym, zaprojektowany w 1977 przez Rona Rivesta, Adi Szamira oraz Leonarda Adlemana (jego nazwa pochodzi od pierwszych liter nazwisk jego twórców).</p>
+<p>Bezpieczeństwo szyfru RSA opiera się na rozkładzie dużych (ponad dwustucyfrowych) liczb złożonych na liczby pierwsze (trudność faktoryzacji).</p>
+<div class="section" id="ponizej-przyklad">
+<h3>Poniżej przykład<a class="headerlink" href="#ponizej-przyklad" title="Stały odnośnik do tego nagłówka">¶</a></h3>
+<ol class="arabic simple">
+<li><p>Wybieramy liczby pierwsze 20-34 cyfrowe.</p></li>
+<li><p>Mnożymy je i wyznaczamy podział otrzymanej liczby złożonej na czynniki pierwsze (to trwa bardzo długo).</p></li>
+</ol>
+<div class='sage_linked'><script type='text/x-sage'>%time
+@interact
+def _(n=slider( srange(20,32,2))):
+    a = int(random()*10^n)
+    a = next_prime(a)
+    print a
+    b = int(random()*10^n)
+    b = next_prime(b)
+    print b
+    n = a*b
+    print(factor(n))</script></div><p><strong>Zobacz jeszcze przewidywania dla dłuższych liczb.</strong></p>
+<div class='sage_linked'><script type='text/x-sage'>@interact
+def _(n=slider( range(34,101,2))):
+    t = 2^((n-34)/2)
+    print n,"-digits prime numbers, factoring time:", t, "minutes"
+    if t>100 and t<60*24:
+        print n,"-digits prime numbers, factoring time:", int(t/60), "hours"
+    elif t>60*24 and t<60*24*365:
+        print n,"-digits prime numbers, factoring time:", int(t/60/24), "days"
+    elif t>60*24*365:
+        print n,"-digits prime numbers, factoring time:", int(t/60/24/365), "year"</script></div></div>
+<div class="section" id="generowanie-szyfru-rsa">
+<h3>Generowanie szyfru RSA<a class="headerlink" href="#generowanie-szyfru-rsa" title="Stały odnośnik do tego nagłówka">¶</a></h3>
+<ol class="arabic simple">
+<li><p>Wybieramy dwie duże liczby pierwsze: <span class="math notranslate nohighlight">\(p, q\)</span> (w praktyce wykorzystuje się liczby ponad stocyfrowe, ale dla naszych porzeb wystarczą liczby trzycyfrowe).</p></li>
+<li><p>Obliczamy:  <span class="math notranslate nohighlight">\(n=p \cdot q, \hspace{2mm} f=(p-1)(q-1)\)</span>.</p></li>
+<li><p>Wybieramy dowolną nieparzystą liczbę <em>e</em>, taką że:<span class="math notranslate nohighlight">\(1  &lt; e &lt; f\)</span> and <span class="math notranslate nohighlight">\(gcd(d,\hspace{2mm} f) = 1\)</span>.</p></li>
+<li><p>Wyznaczamy liczbę <span class="math notranslate nohighlight">\(d\)</span> as: <span class="math notranslate nohighlight">\(de=1 \hspace{1mm} (mod \hspace{1mm} f)\)</span>.</p></li>
+</ol>
+<p>Klucz publiczny to para liczb: <span class="math notranslate nohighlight">\((d, n)\)</span>.</p>
+<p>Klucz prywatny to para liczb:  <span class="math notranslate nohighlight">\((e, n)\)</span>.</p>
+<div class='sage_linked'><script type='text/x-sage'>los = int(100*random())
+p = nth_prime(30+los)
+los = int(100*random())
+q = nth_prime(30+los)
+n = p*q
+f = (p-1)*(q-1)
+los = int(f*random())
+e = next_prime(los)
+print "p =",p, ", q =",q, ", e =",e, ", n =", n, ", f =", f</script></div><p>Ostatecznie należy wyznaczyć liczbę <span class="math notranslate nohighlight">\(e\)</span> taką, że: <span class="math notranslate nohighlight">\((d \cdot e) \hspace{1mm} mod f=1\)</span>.</p>
+<p>Możemy użyć rozszerzonego algorytmu Euklidesa do wyznaczenia liczby e.
+Moi uczniowie zmieniając istniejący program w Internecie napisali poniższy program, ale nie zawsze generuje on prawidłową liczbę.
+Spróbuj poprawić ten kod!</p>
+<div class='sage_linked'><script type='text/x-sage'>a = e
+p0 = 0
+p1 = 1
+a0 = a
+n0 = f
+q  = int(n0/a0)
+r  = n0 % a0
+while (r > 0):
+    t = p0 - q * p1
+    if (t >= 0):
+        t = t % n
+    else:
+        t = n - ((-t) % n)
+    p0 = p1
+    p1 = t
+    n0 = a0
+    a0 = r
+    q  = int(n0/a0)
+    r  = n0 % a0
+d = p1
+print "verification : (d*e)%f =", (d*e)%f
+print " public key:", d, n
+print "private key:", e, n</script></div></div>
+<div class="section" id="pelny-algorytm-szyfrowania-rsa">
+<h3>Pełny algorytm szyfrowania RSA<a class="headerlink" href="#pelny-algorytm-szyfrowania-rsa" title="Stały odnośnik do tego nagłówka">¶</a></h3>
+<p>Wystarczy skopiować algorytm szyfrowania z punktu 2 i zamienić: pomoc*d na pomoc^d.</p>
+<div class='sage_linked'><script type='text/x-sage'>number = 0
+i = 0
+tekst = "This is secret message or anything." #message
+tekst2 = ""
+print "message:", tekst
+# change text to number
+for x in tekst:
+    i = i+1
+    number = number + ord(x)*128^i
+print "number:", number
+print ""
+# encription
+szyfr = 0
+i = 0
+while number>0:
+    pomoc = number%n
+    szyfr = szyfr + ((pomoc^d) % n)*n^i
+    i = i + 1
+    number = int(number/n)
+print "encription:", szyfr</script></div></div>
+<div class="section" id="pelen-algorym-deszyfrujacy-rsa">
+<h3>Pełen algorym deszyfrujący RSA<a class="headerlink" href="#pelen-algorym-deszyfrujacy-rsa" title="Stały odnośnik do tego nagłówka">¶</a></h3>
+<p>Wystarczy skopiować algorytm deszyfrowania z punktu 2 i zamienić: pomoc*d na pomoc^d.</p>
+<div class='sage_linked'><script type='text/x-sage'>tekst2 = ""
+deszyfr = 0
+i = 0
+print "encription:", szyfr
+# decription
+while szyfr>0:
+    pomoc = szyfr%n
+    deszyfr = deszyfr + ((pomoc^e) % n)*n^i
+    i = i + 1
+    szyfr = int(szyfr/n)
+print "decription: ", deszyfr
+## change number to text
+i = 0
+while deszyfr>0:
+    i = i + 1
+    deszyfr = int(deszyfr/128)
+    tekst2 = tekst2 + chr(deszyfr%128)
+print "message: ", tekst2</script></div></div>
+</div>
+<div class="section" id="wnioski">
+<h2>Wnioski<a class="headerlink" href="#wnioski" title="Stały odnośnik do tego nagłówka">¶</a></h2>
+<p>Uczniowie naszej szkoły przed projektem iCSE mogli usłyszeć wykład o
+metodach szyfrowania. Wykazali oni duże zainteresowanie tą
+sprawą. Dlatego zdecydowałem się zorganizować lekcje z asymetrycznego
+szyfrowania przy użyciu języka programowania Python. Język SageMath
+umożliwia pracę na dużych liczbach przekraczających zakres zmiennych
+typu float, double, a jednocześnie szybkość obliczeniowa jest naprawdę
+imponująca. W ten sposób uczniowie mieli możliwość praktycznego
+sposobu szyfrowania i deszyfrowania wiadomości przy użyciu publicznych
+i prywatnych kluczy. Zajęcia odbywały się na dodatkowych godzinach w
+ramach iCSE for school w III Liceum Ogólnokształcącym im. Stefana
+Batorego w Chorzowie. Celem zajęć było rozszerzenie nauczania
+matematyki i informatyki w drugiej klasie liceum. Powyższy temat
+nadaje się również jako praca projektowa, która łączy wiedzę
+matematyczno-informatyczną. Jak wiadomo powyższe elementy są istotne w
+dziedzinie kryptografii, która łączy teorię liczb z praktyką
+programistyczną. Nie przekracza to zakresu materiału przewidzianego na
+rozszerzeniu z informatyki liceum lub technikum. Dlatego też
+postanowiłem przeprowadzić lekcje dotyczące asymetrycznego szyfrowania
+wiadomości <strong>RSA</strong>.</p>
+<p>Materiał dla uczniów jest podzielony na trzy rozdziały (trzy godziny
+dydaktyczne). Pierwszy z nich wprowadza pojęcia kongruencji oraz
+istotne matematyczne twierdzenia, które są wykorzystywane w
+kryptografii. Co prawda dowody i szczegóły zagadnień są pominięte, ale
+zainteresowani uczniowie bez problemu znajdą te informacje w
+internecie. Drugi rozdział to szczegółowe wprowadzenie szyfrowania
+asymetrycznego stosowanego na początku lat 70 poprzedniego stulecia
+(obecnie stosowanego już tylko w celach dydaktycznych). Trzeci
+rozdział to już pełne szyfrowanie RSA. W każdej części są
+wyszczególnione ćwiczenia i zadania dla uczniów.</p>
+<p>Zadaniem uczniów było uzyskanie matematycznej znajomości kongruencji,
+małego twierdzenia Fermata i algorytmu euklidesowego. Te kwestie
+zostały zaprezentowane na początku, a uczniowie rozwiązywali swoje
+zadania podczas warsztatów. Każdy uczeń wygenerował własną parę
+kluczy, szyfrował i deszyfrował własne wiadomości. Pomimo wiedzy
+teoretycznej uczniów, było dość zaskakujące dla nich, że nie można
+odszyfrować wiadomości z tym samym kluczem i że klucze można
+zamienić. Oznacza to, że prywatny klucz może stać się publicznym i
+odwrotnie. Największą niespodzianką dla uczniów była symulacja
+złamania hasła RSA - dla liczby dwustucyfrowej szacowany podział na
+czynniki pierwsze dla szybkiego komputera zająłby to ponad 3000 lat.</p>
+</div>
+</div>
+
+
+          </div>
+        </div>
+      </div>
+      <div class="sphinxsidebar" role="navigation" aria-label="main navigation">
+        <div class="sphinxsidebarwrapper">
+  <div class="sphinxlocaltoc">
+  <h3><a href="index.html">Table Of Contents</a></h3>
+  <ul>
+<li><a class="reference internal" href="#">RSA szyfrowanie asymetryczne</a><ul>
+<li><a class="reference internal" href="#o-scenariuszu">O scenariuszu</a></li>
+<li><a class="reference internal" href="#wstep">Wstęp</a></li>
+<li><a class="reference internal" href="#czesc-teoretyczna">Część teoretyczna</a><ul>
+<li><a class="reference internal" href="#przyklady">Przykłady:</a></li>
+<li><a class="reference internal" href="#cwiczenie-1">Ćwiczenie 1.</a></li>
+<li><a class="reference internal" href="#cwiczenie-2">Ćwiczenie 2.</a></li>
+<li><a class="reference internal" href="#cwiczenie-3">Ćwiczenie 3.</a></li>
+<li><a class="reference internal" href="#cwiczenie-4">Ćwiczenie 4.</a></li>
+</ul>
+</li>
+<li><a class="reference internal" href="#czesc-informatyczna">Część informatyczna</a><ul>
+<li><a class="reference internal" href="#pelny-algorytm-szyfrujacy">Pełny algorytm szyfrujący</a></li>
+<li><a class="reference internal" href="#pelny-algorytm-deszyfrujacy">Pełny algorytm deszyfrujący</a></li>
+</ul>
+</li>
+<li><a class="reference internal" href="#szyfrowanie-asymetryczne-rsa">Szyfrowanie asymetryczne RSA</a><ul>
+<li><a class="reference internal" href="#ponizej-przyklad">Poniżej przykład</a></li>
+<li><a class="reference internal" href="#generowanie-szyfru-rsa">Generowanie szyfru RSA</a></li>
+<li><a class="reference internal" href="#pelny-algorytm-szyfrowania-rsa">Pełny algorytm szyfrowania RSA</a></li>
+<li><a class="reference internal" href="#pelen-algorym-deszyfrujacy-rsa">Pełen algorym deszyfrujący RSA</a></li>
+</ul>
+</li>
+<li><a class="reference internal" href="#wnioski">Wnioski</a></li>
+</ul>
+</li>
+</ul>
+
+  </div>
+  <h4>Poprzedni temat</h4>
+  <p class="topless"><a href="zadziwiajace_przyblizenie.html"
+                        title="poprzedni rozdział">Zadziwiające przybliżenie</a></p>
+  <h4>Następny temat</h4>
+  <p class="topless"><a href="przyblizanie_wielomianami.html"
+                        title="następny rozdział">Przybliżanie wielomianami</a></p>
+<div id="searchbox" style="display: none" role="search">
+  <h3 id="searchlabel">Szybkie wyszukiwanie</h3>
+    <div class="searchformwrapper">
+    <form class="search" action="search.html" method="get">
+      <input type="text" name="q" aria-labelledby="searchlabel" />
+      <input type="submit" value="Szukaj" />
+    </form>
+    </div>
+</div>
+<script>$('#searchbox').show(0);</script>
+        </div>
+      </div>
+      <div class="clearer"></div>
+    </div>
+  </div>
+  <div class="relbar-bottom">
+    
+    <div class="related" role="navigation" aria-label="related navigation">
+      <h3>Nawigacja</h3>
+      <ul>
+        <li class="right" style="margin-right: 10px">
+          <a href="przyblizanie_wielomianami.html" title="Przybliżanie wielomianami"
+             >dalej</a></li>
+        <li class="right" >
+          <a href="zadziwiajace_przyblizenie.html" title="Zadziwiające przybliżenie"
+             >wstecz</a> &nbsp; &nbsp;</li>
+  <li><a href="index.html">Metodologia nauczania przedmiotów ścisłych z perspektywą obliczeniową</a> &#187;</li>
+  
+        <li class="nav-item nav-item-this"><a href="">RSA szyfrowanie asymetryczne</a></li> 
+      </ul>
+    </div>
+  </div>
+  
+  <div class="footer">
+    <a class="logo" href="http://icse.us.edu.pl/" target="_blank"><img src="_static/logo-icse.png" alt="ICSE"/></a><br/>
+    &copy; Copyright Creative Commons CC-BY 4.0, iCSE-team.
+    Created using <a href="http://sphinx.pocoo.org/">Sphinx</a> 3.2.1.
+  </div>
+  </body>
+</html>

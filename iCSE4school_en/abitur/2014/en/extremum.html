@@ -1,0 +1,158 @@
+
+
+  
+<!DOCTYPE html>
+
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Extremum of the function &#8212; Science education with SageMath</title>
+    <link rel="stylesheet" href="../../../_static/cloud.css" type="text/css" />
+    <link rel="stylesheet" href="../../../_static/pygments.css" type="text/css" />
+    <link rel="stylesheet" href="http://fonts.googleapis.com/css?family=Noticia+Text|Open+Sans|Droid+Sans+Mono&amp;subset=latin,latin-ext" type="text/css" />
+    <script id="documentation_options" data-url_root="../../../" src="../../../_static/documentation_options.js"></script>
+    <script src="../../../_static/jquery.js"></script>
+    <script src="../../../_static/underscore.js"></script>
+    <script src="../../../_static/doctools.js"></script>
+    <script src="../../../_static/language_data.js"></script>
+    <script async="async" src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.7/latest.js?config=TeX-AMS-MML_HTMLorMML"></script>
+    <script src="../../../_static/jquery.cookie.js"></script>
+    <script src="../../../_static/cloud.js"></script>
+    <script type="text/javascript" src="http://sagecell.sagemath.org/static/jquery.min.js"></script>
+    <script type="text/javascript" src="http://sagecell.sagemath.org/static/embedded_sagecell.js"></script>
+    <script type="text/javascript">
+        sagecell.makeSagecell({inputLocation: ".sage_linked",
+                               linked: true});
+        sagecell.makeSagecell({inputLocation: ".sage_unlinked",
+                               linked: false});
+    </script>
+
+    <style type="text/css">
+        .sagecell .CodeMirror-scroll {
+            overflow-y: hidden;
+            overflow-x: auto;
+        }
+        .sagecell .CodeMirror {
+            height: auto;
+        }
+    </style>
+    
+    <link rel="search" title="Search" href="../../../search.html" />
+    <link rel="next" title="Zeros and antiderivative" href="stammfunktionen.html" />
+    <link rel="prev" title="Asymptotes" href="../../2013/en/asymp.html" />
+ 
+  <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, minimum-scale=1">
+  </head><body>
+  <div class="relbar-top">
+    
+    <div class="related" role="navigation" aria-label="related navigation">
+      <h3>Navigation</h3>
+      <ul>
+        <li class="right" style="margin-right: 10px">
+          <a href="stammfunktionen.html" title="Zeros and antiderivative"
+             accesskey="N">next</a></li>
+        <li class="right" >
+          <a href="../../2013/en/asymp.html" title="Asymptotes"
+             accesskey="P">previous</a> &nbsp; &nbsp;</li>
+  <li><a href="../../../index.html">Science education with SageMath</a> &#187;</li>
+  
+        <li class="nav-item nav-item-this"><a href="">Extremum of the function</a></li> 
+      </ul>
+    </div>
+  </div>
+  
+  <div class="content">  
+
+    <div class="document">
+      <div class="documentwrapper">
+        <div class="bodywrapper">
+          <div class="body">
+            
+  <div class="section" id="extremum-of-the-function">
+<h1>Extremum of the function<a class="headerlink" href="#extremum-of-the-function" title="Permalink to this headline">¶</a></h1>
+<div class="admonition-problem admonition">
+<p class="admonition-title">Problem</p>
+<p>Given the function <span class="math notranslate nohighlight">\(f: x\mapsto \frac{x}{\ln(x)}\)</span> in the domain
+<span class="math notranslate nohighlight">\(\mathbb{R}^+\backslash\{1\}\)</span>, determine position and nature
+of the extrema of the graph of <span class="math notranslate nohighlight">\(f\)</span>.</p>
+</div>
+<p><strong>Solution</strong></p>
+<p>We first employ Sage to obtain an overview of the given function.</p>
+<div class='sage_linked'><script type='text/x-sage'>p = plot(x/ln(x), xmin=0, xmax=10, ymin=-2, ymax=5, color='blue', detect_poles='show')
+p.show(figsize=(4, 2.8))</script></div><p>The extrema of the function are found by setting the derivative equal to zero.
+The derivative is obtained as</p>
+<div class="math notranslate nohighlight">
+\[f'(x)=\frac{\ln(x)-1}{\ln(x)^2}\]</div>
+<p>which can easily be verified by means of Sage:</p>
+<div class='sage_linked'><script type='text/x-sage'>f(x) = x/ln(x)
+df(x) = f.derivative(x).log_simplify()
+print df(x)</script></div><p>Setting the derivative equal to zero yields the only extremum at
+<span class="math notranslate nohighlight">\(x_0=e\)</span> with <span class="math notranslate nohighlight">\(f(x_0)=e\)</span>.</p>
+<div class='sage_linked'><script type='text/x-sage'>x0 = solve(df(x)==0, x)[0].lhs()
+print 'extremum at (', x0, '|', f(x0), ')'</script></div><p>In order to determine the nature of the extremum, we calculate the second
+derivative of the function <span class="math notranslate nohighlight">\(f(x)\)</span></p>
+<div class="math notranslate nohighlight">
+\[f''(x) = \frac{-\ln(x)+2}{x\ln(x)^3}\]</div>
+<p>and evaluate it at the extremum</p>
+<div class="math notranslate nohighlight">
+\[f''(x_0) = \frac{1}{\mathrm{e}} &gt; 0\]</div>
+<p>This result can again be verified by means of Sage:</p>
+<div class='sage_linked'><script type='text/x-sage'>ddf(x) = df.derivative(x).log_simplify()
+print ddf(x)
+print ddf(x0)</script></div><p>We conclude that the extremum is a minimum in agreement with the graph of the
+function obtained above.</p>
+</div>
+
+
+          </div>
+        </div>
+      </div>
+      <div class="sphinxsidebar" role="navigation" aria-label="main navigation">
+        <div class="sphinxsidebarwrapper">
+  <h4>Previous topic</h4>
+  <p class="topless"><a href="../../2013/en/asymp.html"
+                        title="previous chapter">Asymptotes</a></p>
+  <h4>Next topic</h4>
+  <p class="topless"><a href="stammfunktionen.html"
+                        title="next chapter">Zeros and antiderivative</a></p>
+<div id="searchbox" style="display: none" role="search">
+  <h3 id="searchlabel">Quick search</h3>
+    <div class="searchformwrapper">
+    <form class="search" action="../../../search.html" method="get">
+      <input type="text" name="q" aria-labelledby="searchlabel" />
+      <input type="submit" value="Go" />
+    </form>
+    </div>
+</div>
+<script>$('#searchbox').show(0);</script>
+        </div>
+      </div>
+      <div class="clearer"></div>
+    </div>
+  </div>
+  <div class="relbar-bottom">
+    
+    <div class="related" role="navigation" aria-label="related navigation">
+      <h3>Navigation</h3>
+      <ul>
+        <li class="right" style="margin-right: 10px">
+          <a href="stammfunktionen.html" title="Zeros and antiderivative"
+             >next</a></li>
+        <li class="right" >
+          <a href="../../2013/en/asymp.html" title="Asymptotes"
+             >previous</a> &nbsp; &nbsp;</li>
+  <li><a href="../../../index.html">Science education with SageMath</a> &#187;</li>
+  
+        <li class="nav-item nav-item-this"><a href="">Extremum of the function</a></li> 
+      </ul>
+    </div>
+  </div>
+  
+  <div class="footer">
+    <a class="logo" href="http://icse.us.edu.pl/" target="_blank"><img src="../../../_static/logo-icse.png" alt="ICSE"/></a><br/>
+    &copy; Copyright Creative Commons CC-BY 4.0, iCSE-team.
+    Created using <a href="http://sphinx.pocoo.org/">Sphinx</a> 3.2.1.
+  </div>
+  </body>
+</html>

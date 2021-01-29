@@ -1,0 +1,187 @@
+
+
+  
+<!DOCTYPE html>
+
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Graphical integration &#8212; Science education with SageMath</title>
+    <link rel="stylesheet" href="../../../_static/cloud.css" type="text/css" />
+    <link rel="stylesheet" href="../../../_static/pygments.css" type="text/css" />
+    <link rel="stylesheet" href="http://fonts.googleapis.com/css?family=Noticia+Text|Open+Sans|Droid+Sans+Mono&amp;subset=latin,latin-ext" type="text/css" />
+    <script id="documentation_options" data-url_root="../../../" src="../../../_static/documentation_options.js"></script>
+    <script src="../../../_static/jquery.js"></script>
+    <script src="../../../_static/underscore.js"></script>
+    <script src="../../../_static/doctools.js"></script>
+    <script src="../../../_static/language_data.js"></script>
+    <script async="async" src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.7/latest.js?config=TeX-AMS-MML_HTMLorMML"></script>
+    <script src="../../../_static/jquery.cookie.js"></script>
+    <script src="../../../_static/cloud.js"></script>
+    <script type="text/javascript" src="http://sagecell.sagemath.org/static/jquery.min.js"></script>
+    <script type="text/javascript" src="http://sagecell.sagemath.org/static/embedded_sagecell.js"></script>
+    <script type="text/javascript">
+        sagecell.makeSagecell({inputLocation: ".sage_linked",
+                               linked: true});
+        sagecell.makeSagecell({inputLocation: ".sage_unlinked",
+                               linked: false});
+    </script>
+
+    <style type="text/css">
+        .sagecell .CodeMirror-scroll {
+            overflow-y: hidden;
+            overflow-x: auto;
+        }
+        .sagecell .CodeMirror {
+            height: auto;
+        }
+    </style>
+    
+    <link rel="search" title="Search" href="../../../search.html" />
+    <link rel="next" title="Blood types statistics" href="../../2013/en/blutgruppe.html" />
+    <link rel="prev" title="The construction of functions given set of properties" href="beispielfunktion.html" />
+ 
+  <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, minimum-scale=1">
+  </head><body>
+  <div class="relbar-top">
+    
+    <div class="related" role="navigation" aria-label="related navigation">
+      <h3>Navigation</h3>
+      <ul>
+        <li class="right" style="margin-right: 10px">
+          <a href="../../2013/en/blutgruppe.html" title="Blood types statistics"
+             accesskey="N">next</a></li>
+        <li class="right" >
+          <a href="beispielfunktion.html" title="The construction of functions given set of properties"
+             accesskey="P">previous</a> &nbsp; &nbsp;</li>
+  <li><a href="../../../index.html">Science education with SageMath</a> &#187;</li>
+  
+        <li class="nav-item nav-item-this"><a href="">Graphical integration</a></li> 
+      </ul>
+    </div>
+  </div>
+  
+  <div class="content">  
+
+    <div class="document">
+      <div class="documentwrapper">
+        <div class="bodywrapper">
+          <div class="body">
+            
+  <div class="section" id="graphical-integration">
+<h1>Graphical integration<a class="headerlink" href="#graphical-integration" title="Permalink to this headline">¶</a></h1>
+<div class="admonition-problem admonition">
+<p class="admonition-title">Problem</p>
+<p>Figure 1 depicts the graph of a function <span class="math notranslate nohighlight">\(f\)</span> defined over <span class="math notranslate nohighlight">\(\mathbb{R}\)</span>.</p>
+<div class="figure align-center" id="id1">
+<img alt="../../../_images/qualitatives_integral1.png" src="../../../_images/qualitatives_integral1.png" />
+<p class="caption"><span class="caption-number">Fig. 16 </span><span class="caption-text">Abb. 1</span><a class="headerlink" href="#id1" title="Permalink to this image">¶</a></p>
+</div>
+<ol class="loweralpha simple">
+<li><p>Determine an approximate value of <span class="math notranslate nohighlight">\(\int\limits_3^5 f(x)\mathrm{d}x\)</span>
+with the help of figure 1.</p></li>
+</ol>
+<p>The function <span class="math notranslate nohighlight">\(F\)</span> is the antiderivative of <span class="math notranslate nohighlight">\(f\)</span> defined over
+<span class="math notranslate nohighlight">\(\mathbb{R}\)</span> with <span class="math notranslate nohighlight">\(F(3)=0\)</span>.</p>
+<ol class="loweralpha simple" start="2">
+<li><p>Give an approximate value of the derivative of <span class="math notranslate nohighlight">\(F\)</span> at <span class="math notranslate nohighlight">\(x=2\)</span>
+with the help of figure 1.</p></li>
+<li><p>Show that <span class="math notranslate nohighlight">\(F(b) = \int\limits_3^b f(x)\mathrm{d}x\)</span>
+with <span class="math notranslate nohighlight">\(b\in\mathbb{R}\)</span> holds.</p></li>
+</ol>
+</div>
+<p><strong>Solution of part a</strong></p>
+<p>The integral corresponds to the area under the curve between the <span class="math notranslate nohighlight">\(x\)</span>-values
+3 and 5. Thanks to the drawn grid, we can estimate the area to be about 9 squares.
+One square has the height and width of 0.5, respectively. The area of a square thus
+corresponds to 0.25, and the value of the integral is hence about 2.25.</p>
+<p>Because the function of the graph is not explictly given, it is not easy to verify
+this result with Sage. However, we can try to approximately reproduce the graph
+with an interpolation. To this end, we choose a polynomial of degree 4 of the form</p>
+<div class="math notranslate nohighlight">
+\[ax^4+bx^3+cx^2+dx+e\,.\]</div>
+<p>To fix the parameters <span class="math notranslate nohighlight">\(a\)</span> to <span class="math notranslate nohighlight">\(e\)</span>, we have to choose five points
+characterizing the graph. For this purpose, we choose the points
+<span class="math notranslate nohighlight">\((0|3)\)</span>, <span class="math notranslate nohighlight">\((1|1)\)</span>, <span class="math notranslate nohighlight">\((2|0.5)\)</span>, <span class="math notranslate nohighlight">\((4|1.2)\)</span> and <span class="math notranslate nohighlight">\((6|2)\)</span>.</p>
+<p>With the help of Sage, we can solve the corresponding linear system:</p>
+<div class='sage_linked'><script type='text/x-sage'>var('a, b, c, d, e')
+f(x) = a*x**4 + b*x**3 + c*x**2 + d*x + e
+equations = [f(0) == 3, f(1) == 1, f(2) == 0.5, f(4) == 1.2, f(6) == 2]
+solution = solve(equations, a, b, c, d, e, solution_dict=True)[0]
+f(x) = f(x).substitute(solution)
+print f(x)</script></div><p>In the interval <span class="math notranslate nohighlight">\([0, 6]\)</span>, the graph of the function agrees with the given
+graph quite well:</p>
+<div class='sage_linked'><script type='text/x-sage'>p1 = plot(f(x), (0, 6), ymin=0, figsize=(4, 2.8))
+p1</script></div><p>The value of the integral can be approximately reproduced as well:</p>
+<div class='sage_linked'><script type='text/x-sage'>print "Value of the integral:", float(integrate(f(x), x, 3, 5))</script></div><p><strong>Solution of part b</strong></p>
+<p>The derivative of the function <span class="math notranslate nohighlight">\(F\)</span> is the original function <span class="math notranslate nohighlight">\(f\)</span>.
+Hence, we just have to read off the value of <span class="math notranslate nohighlight">\(f\)</span> at <span class="math notranslate nohighlight">\(x=2\)</span> which
+we have already done in part a):</p>
+<div class="math notranslate nohighlight">
+\[F'(2) = f(2) = 0.5\]</div>
+<p>The corresponding tangent line is depicted as a green line in the following part.</p>
+<p><strong>Solution of part c</strong></p>
+<p>Since <span class="math notranslate nohighlight">\(F\)</span> is an antiderivative of <span class="math notranslate nohighlight">\(f\)</span>, we have</p>
+<div class="math notranslate nohighlight">
+\[\int\limits_3^bf(x)\mathrm{d}x = F(b)-F(3)\,.\]</div>
+<p>The statement to be proven follows from the supposition <span class="math notranslate nohighlight">\(F(3)=0\)</span>.</p>
+<p>We add <span class="math notranslate nohighlight">\(F(x)\)</span> to the plot of <span class="math notranslate nohighlight">\(f\)</span>:</p>
+<div class='sage_linked'><script type='text/x-sage'>F(x) = integral(f(x), x)
+F_3(x) = F(x) - F(3)
+p2 = plot(F_3(x), (0, 6), ymin=-2, color = 'red')
+p3 = plot(F_3(2)+0.5*(x-2), (0, 6), color='green')
+show(p1+p2+p3, figsize=(4, 2.8))</script></div></div>
+
+
+          </div>
+        </div>
+      </div>
+      <div class="sphinxsidebar" role="navigation" aria-label="main navigation">
+        <div class="sphinxsidebarwrapper">
+  <h4>Previous topic</h4>
+  <p class="topless"><a href="beispielfunktion.html"
+                        title="previous chapter">The construction of functions given set of properties</a></p>
+  <h4>Next topic</h4>
+  <p class="topless"><a href="../../2013/en/blutgruppe.html"
+                        title="next chapter">Blood types statistics</a></p>
+<div id="searchbox" style="display: none" role="search">
+  <h3 id="searchlabel">Quick search</h3>
+    <div class="searchformwrapper">
+    <form class="search" action="../../../search.html" method="get">
+      <input type="text" name="q" aria-labelledby="searchlabel" />
+      <input type="submit" value="Go" />
+    </form>
+    </div>
+</div>
+<script>$('#searchbox').show(0);</script>
+        </div>
+      </div>
+      <div class="clearer"></div>
+    </div>
+  </div>
+  <div class="relbar-bottom">
+    
+    <div class="related" role="navigation" aria-label="related navigation">
+      <h3>Navigation</h3>
+      <ul>
+        <li class="right" style="margin-right: 10px">
+          <a href="../../2013/en/blutgruppe.html" title="Blood types statistics"
+             >next</a></li>
+        <li class="right" >
+          <a href="beispielfunktion.html" title="The construction of functions given set of properties"
+             >previous</a> &nbsp; &nbsp;</li>
+  <li><a href="../../../index.html">Science education with SageMath</a> &#187;</li>
+  
+        <li class="nav-item nav-item-this"><a href="">Graphical integration</a></li> 
+      </ul>
+    </div>
+  </div>
+  
+  <div class="footer">
+    <a class="logo" href="http://icse.us.edu.pl/" target="_blank"><img src="../../../_static/logo-icse.png" alt="ICSE"/></a><br/>
+    &copy; Copyright Creative Commons CC-BY 4.0, iCSE-team.
+    Created using <a href="http://sphinx.pocoo.org/">Sphinx</a> 3.2.1.
+  </div>
+  </body>
+</html>

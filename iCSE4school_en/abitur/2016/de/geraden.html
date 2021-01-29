@@ -1,0 +1,163 @@
+
+
+  
+<!DOCTYPE html>
+
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Bayerisches Abitur in Mathematik 2016 &#8212; Science education with SageMath</title>
+    <link rel="stylesheet" href="../../../_static/cloud.css" type="text/css" />
+    <link rel="stylesheet" href="../../../_static/pygments.css" type="text/css" />
+    <link rel="stylesheet" href="http://fonts.googleapis.com/css?family=Noticia+Text|Open+Sans|Droid+Sans+Mono&amp;subset=latin,latin-ext" type="text/css" />
+    <script id="documentation_options" data-url_root="../../../" src="../../../_static/documentation_options.js"></script>
+    <script src="../../../_static/jquery.js"></script>
+    <script src="../../../_static/underscore.js"></script>
+    <script src="../../../_static/doctools.js"></script>
+    <script src="../../../_static/language_data.js"></script>
+    <script async="async" src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.7/latest.js?config=TeX-AMS-MML_HTMLorMML"></script>
+    <script src="../../../_static/jquery.cookie.js"></script>
+    <script src="../../../_static/cloud.js"></script>
+    <script type="text/javascript" src="http://sagecell.sagemath.org/static/jquery.min.js"></script>
+    <script type="text/javascript" src="http://sagecell.sagemath.org/static/embedded_sagecell.js"></script>
+    <script type="text/javascript">
+        sagecell.makeSagecell({inputLocation: ".sage_linked",
+                               linked: true});
+        sagecell.makeSagecell({inputLocation: ".sage_unlinked",
+                               linked: false});
+    </script>
+
+    <style type="text/css">
+        .sagecell .CodeMirror-scroll {
+            overflow-y: hidden;
+            overflow-x: auto;
+        }
+        .sagecell .CodeMirror {
+            height: auto;
+        }
+    </style>
+    
+    <link rel="search" title="Search" href="../../../search.html" />
+ 
+  <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, minimum-scale=1">
+  </head><body>
+  <div class="relbar-top">
+    
+    <div class="related" role="navigation" aria-label="related navigation">
+      <h3>Navigation</h3>
+      <ul>
+  <li><a href="../../../index.html">Science education with SageMath</a> &#187;</li>
+  
+        <li class="nav-item nav-item-this"><a href="">Bayerisches Abitur in Mathematik 2016</a></li> 
+      </ul>
+    </div>
+  </div>
+  
+  <div class="content">  
+
+    <div class="document">
+      <div class="documentwrapper">
+        <div class="bodywrapper">
+          <div class="body">
+            
+  <div class="section" id="bayerisches-abitur-in-mathematik-2016">
+<h1>Bayerisches Abitur in Mathematik 2016<a class="headerlink" href="#bayerisches-abitur-in-mathematik-2016" title="Permalink to this headline">¶</a></h1>
+<div class="admonition-aufgabe admonition">
+<p class="admonition-title">Aufgabe</p>
+<p>Gegeben sind die Punkte <span class="math notranslate nohighlight">\(A(-2|1|4)\)</span> und <span class="math notranslate nohighlight">\(B(-4|0|6)\)</span>.</p>
+<ol class="loweralpha">
+<li><p>Bestimmen Sie die Koordinaten des Punkts <span class="math notranslate nohighlight">\(C\)</span> so, dass gilt: <span class="math notranslate nohighlight">\(\vec{CA} = 2\cdot \vec{AB}\)</span>.</p></li>
+<li><p>Durch die Punkte <span class="math notranslate nohighlight">\(A\)</span> und <span class="math notranslate nohighlight">\(B\)</span> verläuft die Gerade <span class="math notranslate nohighlight">\(g\)</span>.
+Betrachtet werden Geraden, für welche die Bedingungen I und II gelten:</p>
+<ol class="upperroman simple">
+<li><p>Jede dieser Geraden schneidet die Gerade <span class="math notranslate nohighlight">\(g\)</span> orthogonal.</p></li>
+<li><p>Der Abstand jeder dieser Geraden vom Punkt <span class="math notranslate nohighlight">\(A\)</span> beträgt <span class="math notranslate nohighlight">\(3\)</span>.</p></li>
+</ol>
+<p>Ermitteln Sie eine Gleichung für eine dieser Geraden.</p>
+</li>
+</ol>
+</div>
+<p><strong>Lösung zu Teil a</strong></p>
+<p>Wir können zunächst <span class="math notranslate nohighlight">\(\vec{CA}=\vec A - \vec C\)</span> und <span class="math notranslate nohighlight">\(\vec{AB}=\vec B - \vec A\)</span>
+in die Gleichung einsetzen,</p>
+<div class="math notranslate nohighlight">
+\[\vec A - \vec C = 2 \cdot \left(\vec B - \vec A\right)\,,\]</div>
+<p>und anschließend nach <span class="math notranslate nohighlight">\(\vec C\)</span> auflösen:</p>
+<div class="math notranslate nohighlight">
+\[\begin{split}\vec C = \vec A - 2 \cdot \left(\vec B - \vec A\right) = 3\cdot\vec A - 2\cdot\vec B = 3 \cdot\begin{pmatrix} -2\\1\\4\end{pmatrix} - 2\cdot\begin{pmatrix} -4\\0\\6\end{pmatrix} = \begin{pmatrix} 2\\3\\0\end{pmatrix}\end{split}\]</div>
+<p>Diese Rechnung können wir mit Sage schnell überprüfen:</p>
+<div class='sage_linked'><script type='text/x-sage'>sage: A = vector([-2, 1, 4])
+sage: B = vector([-4, 0, 6])
+sage: C = A - 2*(B-A)
+sage: print C</script></div><p>Die Koordinaten von <span class="math notranslate nohighlight">\(C\)</span> sind also <span class="math notranslate nohighlight">\((2|3|0)\)</span>.</p>
+<p><strong>Lösung zu Teil b</strong></p>
+<p>Wir beobachten als Erstes, dass der Abstand von <span class="math notranslate nohighlight">\(B\)</span> zu <span class="math notranslate nohighlight">\(A\)</span> gerade <span class="math notranslate nohighlight">\(3\)</span> ist, denn
+die Strecke <span class="math notranslate nohighlight">\([AB]\)</span> hat die Länge</p>
+<div class="math notranslate nohighlight">
+\[\begin{split}|\vec{AB}| = \left|\begin{pmatrix}-2\\-1\\2\end{pmatrix}\right| = \sqrt{(-2)^2+(-1)^2+2^2} = 3\,.\end{split}\]</div>
+<p>Sage kann das auch bestätigen:</p>
+<div class='sage_linked'><script type='text/x-sage'>sage: A = vector([-2, 1, 4])
+sage: B = vector([-4, 0, 6])
+sage: BA = B-A
+sage: print norm(BA)</script></div><p>Als Aufpunkt wählen wir deswegen <span class="math notranslate nohighlight">\(B\)</span>.
+Es muss dann nur noch ein Richtungsvektor <span class="math notranslate nohighlight">\(\vec G\)</span> der Geraden bestimmt werden.
+Dieser muss senkrecht zu <span class="math notranslate nohighlight">\(\vec{AB}\)</span> sein, also die Bedingung</p>
+<div class="math notranslate nohighlight">
+\[\vec{AB}\cdot\vec G = 0\]</div>
+<p>erfüllen. Man kann durch Ausprobieren eine Lösung finden, wie zum Beispiel</p>
+<div class="math notranslate nohighlight">
+\[\begin{split}\vec G = \begin{pmatrix}1\\0\\1\end{pmatrix}\,.\end{split}\]</div>
+<p>Die Gleichung der Geraden <span class="math notranslate nohighlight">\(g\)</span> ist dann:</p>
+<div class="math notranslate nohighlight">
+\[\begin{split}g: \vec X = \begin{pmatrix}-4\\0\\6\end{pmatrix} + \lambda \begin{pmatrix}1\\0\\1\end{pmatrix},\quad\lambda\in\mathbb{R}\,.\end{split}\]</div>
+<p>Mit Sage können wir den Richtungsvektor bestimmen, wenn wir zum Beispiel
+die <span class="math notranslate nohighlight">\(x_1\)</span>- und <span class="math notranslate nohighlight">\(x_2\)</span>-Koordinate beliebig vorgeben. Zur Überprüfung
+des obigen Ergebnisses setzten wir diese jeweils gleich 1 beziehungsweise 0:</p>
+<div class='sage_linked'><script type='text/x-sage'>sage: var('G_3')
+sage: G_1 = 1
+sage: G_2 = 0
+sage: G = vector([G_1, G_2, G_3])
+sage: loesung = solve(BA*G == 0, G_3, solution_dict=True)[0]
+sage: print "Richtungsvektor G:", G.substitute(loesung)</script></div></div>
+
+
+          </div>
+        </div>
+      </div>
+      <div class="sphinxsidebar" role="navigation" aria-label="main navigation">
+        <div class="sphinxsidebarwrapper">
+<div id="searchbox" style="display: none" role="search">
+  <h3 id="searchlabel">Quick search</h3>
+    <div class="searchformwrapper">
+    <form class="search" action="../../../search.html" method="get">
+      <input type="text" name="q" aria-labelledby="searchlabel" />
+      <input type="submit" value="Go" />
+    </form>
+    </div>
+</div>
+<script>$('#searchbox').show(0);</script>
+        </div>
+      </div>
+      <div class="clearer"></div>
+    </div>
+  </div>
+  <div class="relbar-bottom">
+    
+    <div class="related" role="navigation" aria-label="related navigation">
+      <h3>Navigation</h3>
+      <ul>
+  <li><a href="../../../index.html">Science education with SageMath</a> &#187;</li>
+  
+        <li class="nav-item nav-item-this"><a href="">Bayerisches Abitur in Mathematik 2016</a></li> 
+      </ul>
+    </div>
+  </div>
+  
+  <div class="footer">
+    <a class="logo" href="http://icse.us.edu.pl/" target="_blank"><img src="../../../_static/logo-icse.png" alt="ICSE"/></a><br/>
+    &copy; Copyright Creative Commons CC-BY 4.0, iCSE-team.
+    Created using <a href="http://sphinx.pocoo.org/">Sphinx</a> 3.2.1.
+  </div>
+  </body>
+</html>

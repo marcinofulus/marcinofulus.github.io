@@ -1,0 +1,335 @@
+
+
+  
+<!DOCTYPE html>
+
+<html lang="pl">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Wymiar fraktalny &#8212; Metodologia nauczania przedmiotów ścisłych z perspektywą obliczeniową</title>
+    <link rel="stylesheet" href="_static/cloud.css" type="text/css" />
+    <link rel="stylesheet" href="_static/pygments.css" type="text/css" />
+    <link rel="stylesheet" href="http://fonts.googleapis.com/css?family=Noticia+Text|Open+Sans|Droid+Sans+Mono&amp;subset=latin,latin-ext" type="text/css" />
+    <script id="documentation_options" data-url_root="./" src="_static/documentation_options.js"></script>
+    <script src="_static/jquery.js"></script>
+    <script src="_static/underscore.js"></script>
+    <script src="_static/doctools.js"></script>
+    <script src="_static/language_data.js"></script>
+    <script src="_static/translations.js"></script>
+    <script async="async" src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.7/latest.js?config=TeX-AMS-MML_HTMLorMML"></script>
+    <script src="_static/jquery.cookie.js"></script>
+    <script src="_static/cloud.js"></script>
+    <script type="text/javascript" src="http://sagecell.sagemath.org/static/jquery.min.js"></script>
+    <script type="text/javascript" src="http://sagecell.sagemath.org/static/embedded_sagecell.js"></script>
+    <script type="text/javascript">
+        sagecell.makeSagecell({inputLocation: ".sage_linked",
+                               linked: true});
+        sagecell.makeSagecell({inputLocation: ".sage_unlinked",
+                               linked: false});
+    </script>
+
+    <style type="text/css">
+        .sagecell .CodeMirror-scroll {
+            overflow-y: hidden;
+            overflow-x: auto;
+        }
+        .sagecell .CodeMirror {
+            height: auto;
+        }
+    </style>
+    
+    <link rel="search" title="Szukaj" href="search.html" />
+    <link rel="next" title="Zadziwiające przybliżenie" href="zadziwiajace_przyblizenie.html" />
+    <link rel="prev" title="Od punktu do punktu" href="od_punktu_do_punktu.html" />
+ 
+  <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, minimum-scale=1">
+  </head><body>
+  <div class="relbar-top">
+    
+    <div class="related" role="navigation" aria-label="related navigation">
+      <h3>Nawigacja</h3>
+      <ul>
+        <li class="right" style="margin-right: 10px">
+          <a href="zadziwiajace_przyblizenie.html" title="Zadziwiające przybliżenie"
+             accesskey="N">dalej</a></li>
+        <li class="right" >
+          <a href="od_punktu_do_punktu.html" title="Od punktu do punktu"
+             accesskey="P">wstecz</a> &nbsp; &nbsp;</li>
+  <li><a href="index.html">Metodologia nauczania przedmiotów ścisłych z perspektywą obliczeniową</a> &#187;</li>
+  
+        <li class="nav-item nav-item-this"><a href="">Wymiar fraktalny</a></li> 
+      </ul>
+    </div>
+  </div>
+  
+  <div class="content">  
+
+    <div class="document">
+      <div class="documentwrapper">
+        <div class="bodywrapper">
+          <div class="body">
+            
+  <div class="section" id="wymiar-fraktalny">
+<span id="wymiar"></span><h1>Wymiar fraktalny<a class="headerlink" href="#wymiar-fraktalny" title="Stały odnośnik do tego nagłówka">¶</a></h1>
+<div class="section" id="o-scenariuszu">
+<h2>O scenariuszu<a class="headerlink" href="#o-scenariuszu" title="Stały odnośnik do tego nagłówka">¶</a></h2>
+<p>Scenariusz ten jest materiałem do przeprowadzenia jednej godziny zajęć
+lekcyjnych i jest uzupełnieniem do scenariusza <a class="reference internal" href="od_punktu_do_punktu.html#od-punktu"><span class="std std-ref">Od punktu do punktu</span></a>.</p>
+<p>Został on opracowany w ramach projektu iCSE4school na podstawie lekcji
+prowadzonych w latach 2015-2017 w III Liceum
+Ogólnokształcącym im. Stefana Batorego w Chorzowie przez Krzysztofa
+Olesia.</p>
+<div class="admonition-uwaga admonition">
+<p class="admonition-title">Uwaga!</p>
+<p>W każdym z okien programu można zmieniać liczby, tekst, zmienne
+lub cały kod.  Nie trzeba się martwić, jeśli program przestanie
+działać, bo po odświeżeniu strony powróci do ustawień
+początkowych.  W tym przypadku komórki korzystają w poprzednich
+definicji, więc należy ćwiczenia (algorytmy) wykonywać według
+kolejności występowania.</p>
+</div>
+</div>
+<div class="section" id="wstep-generacja-samopodobnych-objektow">
+<h2>Wstęp - generacja samopodobnych objektów<a class="headerlink" href="#wstep-generacja-samopodobnych-objektow" title="Stały odnośnik do tego nagłówka">¶</a></h2>
+<p>W dalszej analizie potrzebujemy algorytmów do generacji samopodobnych
+obiektów geometrycznych. Rozważymy trzy obiekty, chociaż przedstawione rozwiązania mogą służyć badaniu dowolnych danych, zarówno pomiarowych jak i sztucznie wygenerowanych. Ponieważ analiza poniższych algorytmów nie jest dla nas celem, to poprzestaniemy na wypróbowaniu ich działania.</p>
+<div class='sage_linked'><script type='text/x-sage'>import numpy as np
+
+def kochenize(a,b):
+    HFACTOR = (3**0.5)/6
+    dx = b[0] - a[0]
+    dy = b[1] - a[1]
+    mid = ( (a[0]+b[0])/2, (a[1]+b[1])/2 )
+    p1 = ( a[0]+dx/3, a[1]+dy/3 )
+    p3 = ( b[0]-dx/3, b[1]-dy/3 )
+    p2 = ( mid[0]-dy*HFACTOR, mid[1]+dx*HFACTOR )
+    return p1, p2, p3
+
+def koch(steps, width=1):
+    arraysize = 4**steps + 1
+    points = [(0.0,0.0)]*arraysize
+    points[0] = (-width/2., 0.0)
+    points[-1] = (width/2., 0.0)
+    stepwidth = arraysize - 1
+    for n in xrange(steps):
+        segment = (arraysize-1)/stepwidth
+        for s in xrange(segment):
+            st = s*stepwidth
+            a = (points[st][0], points[st][1])
+            b = (points[st+stepwidth][0], points[st+stepwidth][1])
+            index1 = st + (stepwidth)/4
+            index2 = st + (stepwidth)/2
+            index3 = st + ((stepwidth)/4)*3
+            result = kochenize(a,b)
+            points[index1], points[index2], points[index3] = result
+        stepwidth /= 4
+    return np.array(points)
+def hilbert(n=6):
+    L=[]
+    M = matrix([[2,3],[1,4]])
+    for i in range(1,n):
+        M1=M.antitranspose()
+        M2=M+4^i*ones_matrix(2^i)
+        M3=M+2*4^i*ones_matrix(2^i)
+        M4=M.transpose()+3*4^i*ones_matrix(2^i)
+        P=block_matrix([[M2,M3],[M1,M4]])
+        M=P
+        L.append(P)
+
+    A = M.numpy()
+    nx,ny = A.shape
+    Z = np.argsort(A.flatten())
+    X,Y = Z%nx,Z/ny
+    X,Y = X/(2^n-1.),Y/(2^n-1.)
+    xy = np.vstack([X,Y]).T
+    return xy</script></div><p>Wypróbujmy działanie tych funkcji. Na początek możemy narysować krzywą
+Kocha. Algorytm jej tworzenia jest dwuetapowy. Najpierw należy odcinek
+podzielić na trzy równe części. Następnie środkową zastąpić dwoma
+bokami trójkąta równobocznego. Powtarzając wiele razy wspomnianą operację, otrzymujemy
+nieskończenie długą linię mieszczącą się w obszarze o skończonym polu. Narysujmy pierwszą, drugą i szóstą iterację.</p>
+<div class='sage_linked'><script type='text/x-sage'>line(koch(1),aspect_ratio=1) + line(koch(2),color='red') + \
+  line(koch(3),color='green')</script></div><p>Widzimy, że każde kolejne zwiększenie liczby iteracji (argumentu)
+powoduje skomplikowanie wykresu.</p>
+<p>Należy pamiętać, że ilość danych rośnie potęgowo z liczbą pokoleń, więc
+badzo łatwo przekroczyć zasoby komputera, na którym wykonujemy powyższy
+algorytm. Warto sprawdzić ile czasu zajmuje wyenerowanie danej
+krzywej.</p>
+<div class='sage_linked'><script type='text/x-sage'>%%time
+data_koch = koch(9)</script></div><p>Podobnie z krzywą Hilberta - narysujmy pierwszą, drugą i
+szóstą iterację.</p>
+<div class='sage_linked'><script type='text/x-sage'>line(hilbert(1),aspect_ratio=1) + line(hilbert(2),color='red') + \
+  line(hilbert(6),color='green')</script></div><div class='sage_linked'><script type='text/x-sage'>%%time
+data_hilbert = hilbert(9)</script></div><p>Na samym końcu wygenerujemy dane będące punktami na okręgu - czyli
+obiekcie wymiarze równym jeden.</p>
+<div class='sage_linked'><script type='text/x-sage'>phi = np.linspace(0,2*3.14,1000000)
+data_circle =  np.vstack([0.3*np.cos(phi),0.3*np.sin(phi)]).T</script></div></div>
+<div class="section" id="wymiar-pudelkowy-minkowskiego">
+<h2>Wymiar pudełkowy (Mińkowskiego)<a class="headerlink" href="#wymiar-pudelkowy-minkowskiego" title="Stały odnośnik do tego nagłówka">¶</a></h2>
+<p>Wymiar Minkowskiego można określić rozważając to, jak długość zależy od
+skali, tzn. „linijki”, którą przeprowadzamy pomiar:</p>
+<div class="math notranslate nohighlight">
+\[l(\epsilon) \sim e^{ (1-d)},\]</div>
+<p>gdzie <span class="math notranslate nohighlight">\(d\)</span> jest wymiarem obiektu.</p>
+<p>Ponieważ znamy procedurę tworzenia niektórych obiektów, to możemy dla nich otrzymać dokładne wyniki. I tak dla:</p>
+<blockquote>
+<div><ul>
+<li><p>Krzywej Kocha:</p>
+<div class="math notranslate nohighlight">
+\[d = \frac{\log(4)}{\log(3)}\simeq 1.2618\]</div>
+</li>
+<li><p>okręgu:</p>
+<div class="math notranslate nohighlight">
+\[d=1\]</div>
+</li>
+<li><p>Krzywej Hilberta:</p>
+<div class="math notranslate nohighlight">
+\[d=2.\]</div>
+</li>
+</ul>
+</div></blockquote>
+<p>Spróbujmy obliczyć wymiar obiektu, zapominając skąd mamy dane: weźmy
+je (np. 1 milion punktów leżących na krzywej Kocha) i zmierzmy długość
+łamanej. Następnie wyrzućmy co drugi punkt i powtórzmy pomiar.  Taką
+procedurę możemy zastosować dla dowolnego obiektu będącego łamaną.</p>
+<div class="admonition-operacje-na-tablicach admonition">
+<p class="admonition-title">Operacje na tablicach:</p>
+<p>Pozornie skomplikowana linijka w Python/Sage
+<code class="code docutils literal notranslate"><span class="pre">np.mean(np.sqrt(np.sum(np.diff(l,axis=0)**2,axis=1)))</span></code> jest
+równoznaczna z matematycznym zapisem:</p>
+<div class="math notranslate nohighlight">
+\[\frac{1}{N} \sum_{i=0}^{N-1} \sqrt{ \sum_{j=1}^{2} (l_{i,j}- l_{i-1,j})^2},\]</div>
+<p>a <code class="code docutils literal notranslate"><span class="pre">np.sum(np.sqrt(np.sum(np.diff(l,axis=0)**2,axis=1)))</span></code></p>
+<p>oznacza:</p>
+<div class="math notranslate nohighlight">
+\[\sum_{i=0}^{N-1} \sqrt{ \sum_{j=1}^{2} (l_{i,j}- l_{i-1,j})^2}.\]</div>
+</div>
+<div class="admonition note">
+<p class="admonition-title">Informacja</p>
+<p>W poniższej komórce można „odkomentować” inne przypadki, powtórzyć
+obliczenia i przeanalizować wyniki.</p>
+</div>
+<div class='sage_linked'><script type='text/x-sage'># l = data_hilbert
+# l = data_circle
+l = data_koch</script></div><div class='sage_linked'><script type='text/x-sage'>scal=[]
+for i in range(100):
+    epsilon = np.mean(np.sqrt(np.sum(np.diff(l,axis=0)**2,axis=1)))
+    length = np.sum(np.sqrt(np.sum(np.diff(l,axis=0)**2,axis=1)))
+    scal.append( (epsilon,length) )
+
+    l = l[0::2,:]
+    if l.shape[0]<=2:
+        break</script></div><p>Wystarczy dopasować tak otrzymane dane do modelu <span class="math notranslate nohighlight">\(l(\epsilon)
+\sim e^{ (1-d)}\)</span> i powinniśmy otrzymać przybliżenie wymiaru.</p>
+<div class='sage_linked'><script type='text/x-sage'>var('a,d,x')
+model(x)=a*x^(1-d)
+scal_sel = [(eps,length) for eps,length in scal if eps>0.0009 and eps<0.01]
+fit = find_fit(scal_sel,model)
+fit</script></div><p>Narysujmy dopasowanie.</p>
+<div class='sage_linked'><script type='text/x-sage'>plot_loglog(model(x).subs(fit),(x,0.001,1),title=r"$l(\epsilon)= b \epsilon^{(1-%0.4f)}}$"%(d.subs(fit))) +\
+ point(scal,size=30) + point(scal_sel,size=30,color='red')</script></div><p>Otrzymujemy liczbę zbliżoną do wyniku dokładnego. Zaletą tego
+postępowania jest jego niezależność od źródła danych.</p>
+</div>
+<div class="section" id="box-counting">
+<h2>Box counting<a class="headerlink" href="#box-counting" title="Stały odnośnik do tego nagłówka">¶</a></h2>
+<p>Wyobraźmy sobie, ze robimy zdjęcie naszego obiektu aparatem cyfrowym o
+pewnej rozdzielczości i zliczamy tylko te piksele, na których
+widać obiekt.  Jak zmienia się liczba pikseli, na których znajduje się
+nasz obiekt z rozmiarem piksela aparatu? Taka procedura nazywa się
+box-counting.</p>
+<p>Wykorzystujemy histogram wbudowany w numpy: <code class="docutils literal notranslate"><span class="pre">np.histogramdd</span></code></p>
+<p>Piksel - lub voxel (3d) - może być n-wymiarowym pudełkiem, jednak takim, by
+mógł on pokrywać cały obiekt: np. dla krzywej Kocha musimy rozważyć co najmniej piksele 2d.</p>
+<p>Zaletą box-countingu jest to, że  wystarczy dysponować punktami należącymi do obiektu w
+dowolnej kolejności, np. takimi jak te generowane w grze w chaos.</p>
+<div class='sage_linked'><script type='text/x-sage'># xy = data_circle
+# xy = data_hilbert
+xy = data_koch</script></div><div class='sage_linked'><script type='text/x-sage'>scal = []
+# np.logspace(1.2,3.3,10)
+for bs in [15, 27, 46, 79, 135, 232, 398, 681, 1165, 1995]:
+    H = np.histogramdd(xy,bins=[np.linspace(-1.,1.0,int(bs))]*2 )[0]
+    scal.append( (2*bs,np.sum(H>0) ))
+    print np.sum(H>0),bs**2</script></div><div class='sage_linked'><script type='text/x-sage'>var('a,d,x')
+model(x)=a*x^d
+fit = find_fit(scal,model)
+print fit
+plt = plot_loglog(model(x).subs(fit),(x,1,1e5),title="$y= c \epsilon^{%0.4f}$"%(d.subs(fit))) + point(scal,size=30)
+
+plt.show()</script></div></div>
+<div class="section" id="podsumowanie">
+<h2>Podsumowanie<a class="headerlink" href="#podsumowanie" title="Stały odnośnik do tego nagłówka">¶</a></h2>
+<p>Powyższe przykłady zachęcają do przeprowadzania eksperymetnów z
+własnymi danymi. Można na przykład wykorzystać dane geodezyjne linii
+brzegowej rzek i zbadać ich wymiar fraktalny. Szczególnie prostą i
+uniwersalną wydaje się metoda box-counting, która w języku Python -
+wykorzystującym biblioteki zawarte w SageMath - zawiera się w kilku
+liniach kodu.</p>
+</div>
+</div>
+
+
+          </div>
+        </div>
+      </div>
+      <div class="sphinxsidebar" role="navigation" aria-label="main navigation">
+        <div class="sphinxsidebarwrapper">
+  <div class="sphinxlocaltoc">
+  <h3><a href="index.html">Table Of Contents</a></h3>
+  <ul>
+<li><a class="reference internal" href="#">Wymiar fraktalny</a><ul>
+<li><a class="reference internal" href="#o-scenariuszu">O scenariuszu</a></li>
+<li><a class="reference internal" href="#wstep-generacja-samopodobnych-objektow">Wstęp - generacja samopodobnych objektów</a></li>
+<li><a class="reference internal" href="#wymiar-pudelkowy-minkowskiego">Wymiar pudełkowy (Mińkowskiego)</a></li>
+<li><a class="reference internal" href="#box-counting">Box counting</a></li>
+<li><a class="reference internal" href="#podsumowanie">Podsumowanie</a></li>
+</ul>
+</li>
+</ul>
+
+  </div>
+  <h4>Poprzedni temat</h4>
+  <p class="topless"><a href="od_punktu_do_punktu.html"
+                        title="poprzedni rozdział">Od punktu do punktu</a></p>
+  <h4>Następny temat</h4>
+  <p class="topless"><a href="zadziwiajace_przyblizenie.html"
+                        title="następny rozdział">Zadziwiające przybliżenie</a></p>
+<div id="searchbox" style="display: none" role="search">
+  <h3 id="searchlabel">Szybkie wyszukiwanie</h3>
+    <div class="searchformwrapper">
+    <form class="search" action="search.html" method="get">
+      <input type="text" name="q" aria-labelledby="searchlabel" />
+      <input type="submit" value="Szukaj" />
+    </form>
+    </div>
+</div>
+<script>$('#searchbox').show(0);</script>
+        </div>
+      </div>
+      <div class="clearer"></div>
+    </div>
+  </div>
+  <div class="relbar-bottom">
+    
+    <div class="related" role="navigation" aria-label="related navigation">
+      <h3>Nawigacja</h3>
+      <ul>
+        <li class="right" style="margin-right: 10px">
+          <a href="zadziwiajace_przyblizenie.html" title="Zadziwiające przybliżenie"
+             >dalej</a></li>
+        <li class="right" >
+          <a href="od_punktu_do_punktu.html" title="Od punktu do punktu"
+             >wstecz</a> &nbsp; &nbsp;</li>
+  <li><a href="index.html">Metodologia nauczania przedmiotów ścisłych z perspektywą obliczeniową</a> &#187;</li>
+  
+        <li class="nav-item nav-item-this"><a href="">Wymiar fraktalny</a></li> 
+      </ul>
+    </div>
+  </div>
+  
+  <div class="footer">
+    <a class="logo" href="http://icse.us.edu.pl/" target="_blank"><img src="_static/logo-icse.png" alt="ICSE"/></a><br/>
+    &copy; Copyright Creative Commons CC-BY 4.0, iCSE-team.
+    Created using <a href="http://sphinx.pocoo.org/">Sphinx</a> 3.2.1.
+  </div>
+  </body>
+</html>

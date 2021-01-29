@@ -1,0 +1,168 @@
+
+
+  
+<!DOCTYPE html>
+
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Properties of graphs of functions &#8212; Science education with SageMath</title>
+    <link rel="stylesheet" href="../../../_static/cloud.css" type="text/css" />
+    <link rel="stylesheet" href="../../../_static/pygments.css" type="text/css" />
+    <link rel="stylesheet" href="http://fonts.googleapis.com/css?family=Noticia+Text|Open+Sans|Droid+Sans+Mono&amp;subset=latin,latin-ext" type="text/css" />
+    <script id="documentation_options" data-url_root="../../../" src="../../../_static/documentation_options.js"></script>
+    <script src="../../../_static/jquery.js"></script>
+    <script src="../../../_static/underscore.js"></script>
+    <script src="../../../_static/doctools.js"></script>
+    <script src="../../../_static/language_data.js"></script>
+    <script async="async" src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.7/latest.js?config=TeX-AMS-MML_HTMLorMML"></script>
+    <script src="../../../_static/jquery.cookie.js"></script>
+    <script src="../../../_static/cloud.js"></script>
+    <script type="text/javascript" src="http://sagecell.sagemath.org/static/jquery.min.js"></script>
+    <script type="text/javascript" src="http://sagecell.sagemath.org/static/embedded_sagecell.js"></script>
+    <script type="text/javascript">
+        sagecell.makeSagecell({inputLocation: ".sage_linked",
+                               linked: true});
+        sagecell.makeSagecell({inputLocation: ".sage_unlinked",
+                               linked: false});
+    </script>
+
+    <style type="text/css">
+        .sagecell .CodeMirror-scroll {
+            overflow-y: hidden;
+            overflow-x: auto;
+        }
+        .sagecell .CodeMirror {
+            height: auto;
+        }
+    </style>
+    
+    <link rel="search" title="Search" href="../../../search.html" />
+    <link rel="next" title="Properties of sin(2x)" href="sinus.html" />
+    <link rel="prev" title="Nonlinear equation" href="nullstellen_log.html" />
+ 
+  <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, minimum-scale=1">
+  </head><body>
+  <div class="relbar-top">
+    
+    <div class="related" role="navigation" aria-label="related navigation">
+      <h3>Navigation</h3>
+      <ul>
+        <li class="right" style="margin-right: 10px">
+          <a href="sinus.html" title="Properties of sin(2x)"
+             accesskey="N">next</a></li>
+        <li class="right" >
+          <a href="nullstellen_log.html" title="Nonlinear equation"
+             accesskey="P">previous</a> &nbsp; &nbsp;</li>
+  <li><a href="../../../index.html">Science education with SageMath</a> &#187;</li>
+  
+        <li class="nav-item nav-item-this"><a href="">Properties of graphs of functions</a></li> 
+      </ul>
+    </div>
+  </div>
+  
+  <div class="content">  
+
+    <div class="document">
+      <div class="documentwrapper">
+        <div class="bodywrapper">
+          <div class="body">
+            
+  <div class="section" id="properties-of-graphs-of-functions">
+<h1>Properties of graphs of functions<a class="headerlink" href="#properties-of-graphs-of-functions" title="Permalink to this headline">¶</a></h1>
+<div class="admonition-problem admonition">
+<p class="admonition-title">Problem</p>
+<p>Given are the functions <span class="math notranslate nohighlight">\(f, g\)</span> and <span class="math notranslate nohighlight">\(h\)</span> defined on <span class="math notranslate nohighlight">\(\mathbb{R}\)</span>
+by <span class="math notranslate nohighlight">\(f(x)=x^2-x+1\)</span>, <span class="math notranslate nohighlight">\(g(x)=x^3-x+1\)</span>, and <span class="math notranslate nohighlight">\(h(x)=x^4+x^2+1\)</span>.</p>
+<ol class="loweralpha simple">
+<li><p>The figure depicts the graph of one of the three functions. Indicate which
+functions is represented by the graph. Argue why the graph cannot represent
+the other two functions.</p></li>
+</ol>
+<img alt="../../../_images/funktionen1.png" class="align-center" src="../../../_images/funktionen1.png" />
+<ol class="loweralpha simple" start="2">
+<li><p>The first derivative of the function <span class="math notranslate nohighlight">\(h\)</span> is given by <span class="math notranslate nohighlight">\(h'\)</span>.
+Evalute <span class="math notranslate nohighlight">\(\int_0^1h'(x)\mathrm{d}x\)</span>.</p></li>
+</ol>
+</div>
+<p><strong>Solution of part a</strong></p>
+<p>The graph displays two extrema. Therefore, it cannot represent the function
+<span class="math notranslate nohighlight">\(f(x)\)</span> because the derivative of a quadratic function possesses only
+one zero. Furthermore, the function displayes in the figure takes on negative
+values, excluding the function <span class="math notranslate nohighlight">\(h(x)\)</span> aus. As a consequence the graph
+represents the function <span class="math notranslate nohighlight">\(g(x)\)</span>. We check our conjecture with the help
+of Sage:</p>
+<div class='sage_linked'><script type='text/x-sage'>ranges = {'xmin': -2, 'xmax': 2.5, 'ymin': -2.5, 'ymax': 2.5}
+p = sum([plot(x^2-x+1, color='blue', **ranges),
+         plot(x^3-x+1, color='red', **ranges),
+         plot(x^4+x^2+1, color='green', **ranges)])
+p.show(figsize=(2.7, 3))</script></div><p>The graph of the function <span class="math notranslate nohighlight">\(g(x)\)</span> shown in red indeed fits the graph
+in the original figure.</p>
+<p><strong>Solution of part b</strong></p>
+<p>The antiderivative of the derivative of a function is the function itself.
+It follows</p>
+<div class="math notranslate nohighlight">
+\[\int_0^1h'(x)\mathrm{d}x = h(1)-h(0) = 3-1 = 2.\]</div>
+<p>In Sage, we start by differentiating the function <span class="math notranslate nohighlight">\(h(x)\)</span> as a check
+and continue by evaluating the required definite integral:</p>
+<div class='sage_linked'><script type='text/x-sage'>h(x) = x^4+x^2+1
+dh(x) = diff(h, x)
+print 'Derivative of h(x):', dh
+print 'Value of the definite integral:', integrate(dh(x), x, 0, 1)</script></div><p>Of course, according to our reasoning above, we obtain the same result by
+subtracting the function taken at the limits of integration:</p>
+<div class='sage_linked'><script type='text/x-sage'>h(x) = x^4+x^2+1
+h(1)-h(0)</script></div></div>
+
+
+          </div>
+        </div>
+      </div>
+      <div class="sphinxsidebar" role="navigation" aria-label="main navigation">
+        <div class="sphinxsidebarwrapper">
+  <h4>Previous topic</h4>
+  <p class="topless"><a href="nullstellen_log.html"
+                        title="previous chapter">Nonlinear equation</a></p>
+  <h4>Next topic</h4>
+  <p class="topless"><a href="sinus.html"
+                        title="next chapter">Properties of sin(2x)</a></p>
+<div id="searchbox" style="display: none" role="search">
+  <h3 id="searchlabel">Quick search</h3>
+    <div class="searchformwrapper">
+    <form class="search" action="../../../search.html" method="get">
+      <input type="text" name="q" aria-labelledby="searchlabel" />
+      <input type="submit" value="Go" />
+    </form>
+    </div>
+</div>
+<script>$('#searchbox').show(0);</script>
+        </div>
+      </div>
+      <div class="clearer"></div>
+    </div>
+  </div>
+  <div class="relbar-bottom">
+    
+    <div class="related" role="navigation" aria-label="related navigation">
+      <h3>Navigation</h3>
+      <ul>
+        <li class="right" style="margin-right: 10px">
+          <a href="sinus.html" title="Properties of sin(2x)"
+             >next</a></li>
+        <li class="right" >
+          <a href="nullstellen_log.html" title="Nonlinear equation"
+             >previous</a> &nbsp; &nbsp;</li>
+  <li><a href="../../../index.html">Science education with SageMath</a> &#187;</li>
+  
+        <li class="nav-item nav-item-this"><a href="">Properties of graphs of functions</a></li> 
+      </ul>
+    </div>
+  </div>
+  
+  <div class="footer">
+    <a class="logo" href="http://icse.us.edu.pl/" target="_blank"><img src="../../../_static/logo-icse.png" alt="ICSE"/></a><br/>
+    &copy; Copyright Creative Commons CC-BY 4.0, iCSE-team.
+    Created using <a href="http://sphinx.pocoo.org/">Sphinx</a> 3.2.1.
+  </div>
+  </body>
+</html>

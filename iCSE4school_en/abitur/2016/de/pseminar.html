@@ -1,0 +1,192 @@
+
+
+  
+<!DOCTYPE html>
+
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Bayerisches Abitur in Mathematik 2016 &#8212; Science education with SageMath</title>
+    <link rel="stylesheet" href="../../../_static/cloud.css" type="text/css" />
+    <link rel="stylesheet" href="../../../_static/pygments.css" type="text/css" />
+    <link rel="stylesheet" href="http://fonts.googleapis.com/css?family=Noticia+Text|Open+Sans|Droid+Sans+Mono&amp;subset=latin,latin-ext" type="text/css" />
+    <script id="documentation_options" data-url_root="../../../" src="../../../_static/documentation_options.js"></script>
+    <script src="../../../_static/jquery.js"></script>
+    <script src="../../../_static/underscore.js"></script>
+    <script src="../../../_static/doctools.js"></script>
+    <script src="../../../_static/language_data.js"></script>
+    <script async="async" src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.7/latest.js?config=TeX-AMS-MML_HTMLorMML"></script>
+    <script src="../../../_static/jquery.cookie.js"></script>
+    <script src="../../../_static/cloud.js"></script>
+    <script type="text/javascript" src="http://sagecell.sagemath.org/static/jquery.min.js"></script>
+    <script type="text/javascript" src="http://sagecell.sagemath.org/static/embedded_sagecell.js"></script>
+    <script type="text/javascript">
+        sagecell.makeSagecell({inputLocation: ".sage_linked",
+                               linked: true});
+        sagecell.makeSagecell({inputLocation: ".sage_unlinked",
+                               linked: false});
+    </script>
+
+    <style type="text/css">
+        .sagecell .CodeMirror-scroll {
+            overflow-y: hidden;
+            overflow-x: auto;
+        }
+        .sagecell .CodeMirror {
+            height: auto;
+        }
+    </style>
+    
+    <link rel="search" title="Search" href="../../../search.html" />
+ 
+  <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, minimum-scale=1">
+  </head><body>
+  <div class="relbar-top">
+    
+    <div class="related" role="navigation" aria-label="related navigation">
+      <h3>Navigation</h3>
+      <ul>
+  <li><a href="../../../index.html">Science education with SageMath</a> &#187;</li>
+  
+        <li class="nav-item nav-item-this"><a href="">Bayerisches Abitur in Mathematik 2016</a></li> 
+      </ul>
+    </div>
+  </div>
+  
+  <div class="content">  
+
+    <div class="document">
+      <div class="documentwrapper">
+        <div class="bodywrapper">
+          <div class="body">
+            
+  <div class="section" id="bayerisches-abitur-in-mathematik-2016">
+<h1>Bayerisches Abitur in Mathematik 2016<a class="headerlink" href="#bayerisches-abitur-in-mathematik-2016" title="Permalink to this headline">¶</a></h1>
+<div class="admonition-aufgabe admonition">
+<p class="admonition-title">Aufgabe</p>
+<p>An einem P-Seminar nehmen acht Mädchen und sechs Jungen teil, darunter Anna und Tobias.
+Für eine Präsentation wird per Los aus den Teilnehmerinnen und Teilnehmern ein Team aus
+vier Personen zusammengestellt.</p>
+<ol class="loweralpha">
+<li><p>Geben Sie zu jedem der folgenden Ereignisse einen Term an, mit dem die Wahrscheinlichkeit
+des Ereignisses berechnet werden kann.</p>
+<p>A: „Anna und Tobias gehören dem Team an.“</p>
+<p>B: „Das Team besteht aus gleich vielen Mädchen und Jungen.“</p>
+</li>
+<li><p>Beschreiben Sie im Sachzusammenhang ein Ereignis, dessen Wahrscheinlichkeit durch den
+folgenden Term berechnet werden kann:</p></li>
+</ol>
+<div class="math notranslate nohighlight">
+\[\frac{\binom{14}{4}-\binom{6}{4}}{\binom{14}{4}}\]</div>
+</div>
+<p><strong>Lösung zu Teil a</strong></p>
+<p>Das kombinatorische Problem ein Team aus vier Personen bei insgesamt 14 Teilnehmern
+zusammenzustellen, entspricht im Urnenmodell dem Ziehen von 4 Kugeln ohne Zurücklegen
+und ohne Beachtung der Reihenfolge. Dementsprechend gibt es</p>
+<div class="math notranslate nohighlight">
+\[\binom{14}{4} = 1001\]</div>
+<p>Möglichkeiten.</p>
+<p>Da in Ereignis <span class="math notranslate nohighlight">\(A\)</span> die anderen Teammitglieder neben Anna und Tobias beliebig sind,
+gibt es <span class="math notranslate nohighlight">\(\binom{12}{2}=66\)</span> verschiedene Möglichkeiten das Ereignis zu realisieren.
+Dementsprechend ergibt sich die Wahrscheinlichkeit für das Ereigis A zu</p>
+<div class="math notranslate nohighlight">
+\[P(A) = \frac{66}{1001} \approx 6{,}6\%\]</div>
+<p>Anhand einer Simulation mit Sage können wir diesen Wert überprüfen. Dabei werden
+4 Elemente aus den Zahlen von 1 bis 14 gezogen und Anna und Tobias die Werte
+<span class="math notranslate nohighlight">\(1\)</span> bzw. <span class="math notranslate nohighlight">\(2\)</span> zugeordnet.</p>
+<div class='sage_linked'><script type='text/x-sage'>sage: iterationen = 30000
+sage: haeufigkeit = 0
+sage: for _ in range(iterationen):
+sage:     team = Subsets(14, 4).random_element()
+sage:     if 1 in team and 2 in team:
+sage:         haeufigkeit = haeufigkeit+1
+sage: print 'Näherung für die Wahrscheinlichkeit P(A) = %4.1f%%' % float(100*haeufigkeit/iterationen)</script></div><p>Um Ereignis B zu realisieren, gibt es <span class="math notranslate nohighlight">\(\binom{8}{2}=28\)</span> Möglichkeiten Mädchen
+auszuwählen und <span class="math notranslate nohighlight">\(\binom{6}{2}=15\)</span> Möglichkeiten bei den Jungen.
+Zusammen gibt es also <span class="math notranslate nohighlight">\(28\cdot 15 = 420\)</span> Möglichkeiten, ein Team aus zwei
+Mädchen und zwei Jungen zusammenzustellen.
+Die zugehörige Wahrscheinlichkeit ergibt sich dann zu</p>
+<div class="math notranslate nohighlight">
+\[P(B) = \frac{420}{1001} \approx 42{,}0\%\]</div>
+<p>Auch dieses Ergebnis können wir mit Sage ähnlich wie zuvor durch eine Simulation
+überprüfen. Den Mädchen sind die Zahlen kleiner gleich <span class="math notranslate nohighlight">\(8\)</span> zugeordnet, die
+Zahlen über <span class="math notranslate nohighlight">\(8\)</span> entsprechen Jungen.</p>
+<div class='sage_linked'><script type='text/x-sage'>sage: iterationen = 30000
+sage: haeufigkeit = 0
+sage: for _ in range(iterationen):
+sage:     team = Subsets(14, 4).random_element()
+sage:     anzahl_maedchen = 0
+sage:     anzahl_jungen = 0
+sage:     for mitglied in team:
+sage:         if mitglied <= 8:
+sage:             anzahl_maedchen = anzahl_maedchen+1
+sage:         else:
+sage:             anzahl_jungen = anzahl_jungen+1
+sage:     if anzahl_maedchen == anzahl_jungen:
+sage:         haeufigkeit = haeufigkeit+1
+sage: print 'Näherung für die Wahrscheinlichkeit P(B) = %4.1f%%' % float(100*haeufigkeit/iterationen)</script></div><p><strong>Lösung zu Teil b</strong></p>
+<p>Die gegebene Wahrscheinlichkeit kann zu</p>
+<div class="math notranslate nohighlight">
+\[1-\frac{\binom{6}{4}}{\binom{14}{4}}\]</div>
+<p>vereinfacht werden. Das Ereignis ist also komplementär zu dem Ereignis, das durch die
+Wahrscheinlichkeit</p>
+<div class="math notranslate nohighlight">
+\[\frac{\binom{6}{4}}{\binom{14}{4}}\]</div>
+<p>beschrieben wird. Letztere gehört beispielsweise zum Ereignis „Das Team besteht nur aus Jungen.“,
+da die Anzahl der Möglichkeiten, 4 Jungen auszuwählen, gerade <span class="math notranslate nohighlight">\(\binom{6}{4}\)</span> entspricht.
+Das komplementäre Ereignis dazu ist dann „Mindestens ein Mädchen gehört dem Team an.“, welchem
+die angebene Wahrscheinlichkeit zugeordnet werden kann.</p>
+<p>Die zweite Simulation aus Teil a lässt sich leicht anpassen, um unsere
+Interpretation zu überprüfen.</p>
+<div class='sage_linked'><script type='text/x-sage'>sage: iterationen = 30000
+sage: haeufigkeit = 0
+sage: for _ in range(iterationen):
+sage:     team = Subsets(14, 4).random_element()
+sage:     for mitglied in team:
+sage:         if mitglied <= 8:
+sage:             haeufigkeit = haeufigkeit+1
+sage:             break
+sage: p = (binomial(14, 4)-binomial(6, 4))/binomial(14, 4)
+sage: print 'vorgegebene Wahrscheinlichkeit = %6.3f' % float(p)
+sage: print 'simulierte Wahrscheinlichkeit = %6.3f' % float(haeufigkeit/iterationen)</script></div></div>
+
+
+          </div>
+        </div>
+      </div>
+      <div class="sphinxsidebar" role="navigation" aria-label="main navigation">
+        <div class="sphinxsidebarwrapper">
+<div id="searchbox" style="display: none" role="search">
+  <h3 id="searchlabel">Quick search</h3>
+    <div class="searchformwrapper">
+    <form class="search" action="../../../search.html" method="get">
+      <input type="text" name="q" aria-labelledby="searchlabel" />
+      <input type="submit" value="Go" />
+    </form>
+    </div>
+</div>
+<script>$('#searchbox').show(0);</script>
+        </div>
+      </div>
+      <div class="clearer"></div>
+    </div>
+  </div>
+  <div class="relbar-bottom">
+    
+    <div class="related" role="navigation" aria-label="related navigation">
+      <h3>Navigation</h3>
+      <ul>
+  <li><a href="../../../index.html">Science education with SageMath</a> &#187;</li>
+  
+        <li class="nav-item nav-item-this"><a href="">Bayerisches Abitur in Mathematik 2016</a></li> 
+      </ul>
+    </div>
+  </div>
+  
+  <div class="footer">
+    <a class="logo" href="http://icse.us.edu.pl/" target="_blank"><img src="../../../_static/logo-icse.png" alt="ICSE"/></a><br/>
+    &copy; Copyright Creative Commons CC-BY 4.0, iCSE-team.
+    Created using <a href="http://sphinx.pocoo.org/">Sphinx</a> 3.2.1.
+  </div>
+  </body>
+</html>

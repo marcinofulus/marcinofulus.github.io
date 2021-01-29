@@ -1,0 +1,190 @@
+
+
+  
+<!DOCTYPE html>
+
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Properties of sin(ax) +c &#8212; Science education with SageMath</title>
+    <link rel="stylesheet" href="../../../_static/cloud.css" type="text/css" />
+    <link rel="stylesheet" href="../../../_static/pygments.css" type="text/css" />
+    <link rel="stylesheet" href="http://fonts.googleapis.com/css?family=Noticia+Text|Open+Sans|Droid+Sans+Mono&amp;subset=latin,latin-ext" type="text/css" />
+    <script id="documentation_options" data-url_root="../../../" src="../../../_static/documentation_options.js"></script>
+    <script src="../../../_static/jquery.js"></script>
+    <script src="../../../_static/underscore.js"></script>
+    <script src="../../../_static/doctools.js"></script>
+    <script src="../../../_static/language_data.js"></script>
+    <script async="async" src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.7/latest.js?config=TeX-AMS-MML_HTMLorMML"></script>
+    <script src="../../../_static/jquery.cookie.js"></script>
+    <script src="../../../_static/cloud.js"></script>
+    <script type="text/javascript" src="http://sagecell.sagemath.org/static/jquery.min.js"></script>
+    <script type="text/javascript" src="http://sagecell.sagemath.org/static/embedded_sagecell.js"></script>
+    <script type="text/javascript">
+        sagecell.makeSagecell({inputLocation: ".sage_linked",
+                               linked: true});
+        sagecell.makeSagecell({inputLocation: ".sage_unlinked",
+                               linked: false});
+    </script>
+
+    <style type="text/css">
+        .sagecell .CodeMirror-scroll {
+            overflow-y: hidden;
+            overflow-x: auto;
+        }
+        .sagecell .CodeMirror {
+            height: auto;
+        }
+    </style>
+    
+    <link rel="search" title="Search" href="../../../search.html" />
+    <link rel="next" title="The construction of periodic functions" href="beispielfunktionen.html" />
+    <link rel="prev" title="Zeros and antiderivative" href="stammfunktionen.html" />
+ 
+  <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, minimum-scale=1">
+  </head><body>
+  <div class="relbar-top">
+    
+    <div class="related" role="navigation" aria-label="related navigation">
+      <h3>Navigation</h3>
+      <ul>
+        <li class="right" style="margin-right: 10px">
+          <a href="beispielfunktionen.html" title="The construction of periodic functions"
+             accesskey="N">next</a></li>
+        <li class="right" >
+          <a href="stammfunktionen.html" title="Zeros and antiderivative"
+             accesskey="P">previous</a> &nbsp; &nbsp;</li>
+  <li><a href="../../../index.html">Science education with SageMath</a> &#187;</li>
+  
+        <li class="nav-item nav-item-this"><a href="">Properties of  sin(ax) +c</a></li> 
+      </ul>
+    </div>
+  </div>
+  
+  <div class="content">  
+
+    <div class="document">
+      <div class="documentwrapper">
+        <div class="bodywrapper">
+          <div class="body">
+            
+  <div class="section" id="properties-of-sin-ax-c">
+<h1>Properties of  sin(ax) +c<a class="headerlink" href="#properties-of-sin-ax-c" title="Permalink to this headline">¶</a></h1>
+<div class="admonition-problem admonition">
+<p class="admonition-title">Problem</p>
+<p>Given are the functions <span class="math notranslate nohighlight">\(g_{a,c}: x\mapsto \sin(ax)+c\)</span>
+defined on <span class="math notranslate nohighlight">\(\mathbb{R}\)</span> with <span class="math notranslate nohighlight">\(a,c\in \mathbb{R}^+_0\)</span>.</p>
+<blockquote>
+<div><ol class="loweralpha simple">
+<li><p>For each of the following two properties find a possible value for
+<span class="math notranslate nohighlight">\(a\)</span> and a possible value for <span class="math notranslate nohighlight">\(c\)</span> such that the corresponding
+function <span class="math notranslate nohighlight">\(g_{a,c}\)</span> has this property.</p></li>
+</ol>
+<blockquote>
+<div><ol class="arabic simple">
+<li><p>The function <span class="math notranslate nohighlight">\(g_{a,c}\)</span> has the codomain <span class="math notranslate nohighlight">\([0;2]\)</span>.</p></li>
+<li><p>The function <span class="math notranslate nohighlight">\(g_{a,c}\)</span> contains exactly three zeros in the
+interval <span class="math notranslate nohighlight">\([0;\pi]\)</span>.</p></li>
+</ol>
+</div></blockquote>
+<ol class="loweralpha simple" start="2">
+<li><p>Determine as a function of <span class="math notranslate nohighlight">\(a\)</span> the possible values of the
+derivative of <span class="math notranslate nohighlight">\(g_{a,c}\)</span>.</p></li>
+</ol>
+</div></blockquote>
+</div>
+<p><strong>Solution of part a</strong></p>
+<p>The parameter <span class="math notranslate nohighlight">\(a\)</span> determines the period of the sine but does not influence
+the function’s codomain. The parameter <span class="math notranslate nohighlight">\(c\)</span>, on the other hand, shifts the
+function’s codomain by a constant value.</p>
+<ol class="arabic simple">
+<li><p>The codomain of the sine function <span class="math notranslate nohighlight">\(\sin(ax)\)</span> is given by
+<span class="math notranslate nohighlight">\([-1;1]\)</span>. A constant shift by <span class="math notranslate nohighlight">\(c=1\)</span> changes the codomain as
+specified in the requirement. For the parameter <span class="math notranslate nohighlight">\(a\)</span> an arbitrary
+nonzero value can be chosen, e.g. <span class="math notranslate nohighlight">\(a=1\)</span>. We check our statement with
+the help of Sage:</p></li>
+</ol>
+<div class='sage_linked'><script type='text/x-sage'>g(x, a, c) = sin(a*x)+c
+plot(g(x, 1, 1), (-2*pi, 2*pi), figsize=(4, 2.5))</script></div><ol class="arabic simple" start="2">
+<li><p>The number of the function’s zeros in the interval <span class="math notranslate nohighlight">\([0;\pi]\)</span> can be
+adjusted by means of the parameter <span class="math notranslate nohighlight">\(a\)</span>. It is necessary, however, that
+the codomain of the function includes zero. Choosing <span class="math notranslate nohighlight">\(c=0\)</span>, half a
+period of the sine function with <span class="math notranslate nohighlight">\(a=1\)</span> fits into the given interval,
+thus leading to only two zeros. In contrast, choosing <span class="math notranslate nohighlight">\(a=2\)</span>, a full
+period of the sine function with exactly three zeros lies within the
+interval. Again, we check our result with Sage:</p></li>
+</ol>
+<div class='sage_linked'><script type='text/x-sage'>plot(g(x, 2, 0), (0, pi), figsize=(4, 2.5))</script></div><p><strong>Solution of part b</strong></p>
+<p>First, we need to determine the derivative of the function <span class="math notranslate nohighlight">\(g_{a, c}(x)\)</span>.
+By means of the chain rule, we obtain</p>
+<div class="math notranslate nohighlight">
+\[\frac{\mathrm{d}g_{a,c}(x)}{\mathrm{d}x} = a\cos(ax).\]</div>
+<p>We remark that the derivative is independent of the parameter <span class="math notranslate nohighlight">\(c\)</span>. The
+cosine function possesses the codomain <span class="math notranslate nohighlight">\([-1;1]\)</span> but, in addition, is
+compressed or stretched because of the amplitude <span class="math notranslate nohighlight">\(a\)</span>. The codomain of
+the derivate thus results in <span class="math notranslate nohighlight">\([-a;a]\)</span>.</p>
+<p>In order to obtain a general expression for the derivative, in Sage we formally
+introduce the parameters <span class="math notranslate nohighlight">\(a\)</span> and <span class="math notranslate nohighlight">\(c\)</span> as additional variables of the
+function. Then, we plot the derivative <span class="math notranslate nohighlight">\(g_{a,c}'(x)\)</span> for a few values
+of the parameter <span class="math notranslate nohighlight">\(a\)</span>. The different amplitudes and periods can easily
+be read off.</p>
+<div class='sage_linked'><script type='text/x-sage'>dg(x, a, c) = g.derivative(x)
+print 'dg/dx =', dg(x, a, c)
+p1 = plot(dg(x, 0.5, 0), (-2*pi,2*pi), color='blue')
+p2 = plot(dg(x, 1, 0), (-2*pi,2*pi), color='red')
+p3 = plot(dg(x, 2, 0), (-2*pi,2*pi), color='green')
+(p1 + p2 + p3).show(figsize=(4, 2.5))</script></div></div>
+
+
+          </div>
+        </div>
+      </div>
+      <div class="sphinxsidebar" role="navigation" aria-label="main navigation">
+        <div class="sphinxsidebarwrapper">
+  <h4>Previous topic</h4>
+  <p class="topless"><a href="stammfunktionen.html"
+                        title="previous chapter">Zeros and antiderivative</a></p>
+  <h4>Next topic</h4>
+  <p class="topless"><a href="beispielfunktionen.html"
+                        title="next chapter">The construction of periodic functions</a></p>
+<div id="searchbox" style="display: none" role="search">
+  <h3 id="searchlabel">Quick search</h3>
+    <div class="searchformwrapper">
+    <form class="search" action="../../../search.html" method="get">
+      <input type="text" name="q" aria-labelledby="searchlabel" />
+      <input type="submit" value="Go" />
+    </form>
+    </div>
+</div>
+<script>$('#searchbox').show(0);</script>
+        </div>
+      </div>
+      <div class="clearer"></div>
+    </div>
+  </div>
+  <div class="relbar-bottom">
+    
+    <div class="related" role="navigation" aria-label="related navigation">
+      <h3>Navigation</h3>
+      <ul>
+        <li class="right" style="margin-right: 10px">
+          <a href="beispielfunktionen.html" title="The construction of periodic functions"
+             >next</a></li>
+        <li class="right" >
+          <a href="stammfunktionen.html" title="Zeros and antiderivative"
+             >previous</a> &nbsp; &nbsp;</li>
+  <li><a href="../../../index.html">Science education with SageMath</a> &#187;</li>
+  
+        <li class="nav-item nav-item-this"><a href="">Properties of  sin(ax) +c</a></li> 
+      </ul>
+    </div>
+  </div>
+  
+  <div class="footer">
+    <a class="logo" href="http://icse.us.edu.pl/" target="_blank"><img src="../../../_static/logo-icse.png" alt="ICSE"/></a><br/>
+    &copy; Copyright Creative Commons CC-BY 4.0, iCSE-team.
+    Created using <a href="http://sphinx.pocoo.org/">Sphinx</a> 3.2.1.
+  </div>
+  </body>
+</html>

@@ -1,0 +1,476 @@
+
+
+  
+<!DOCTYPE html>
+
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Properties of the graph of the function &#8212; Science education with SageMath</title>
+    <link rel="stylesheet" href="../../../_static/cloud.css" type="text/css" />
+    <link rel="stylesheet" href="../../../_static/pygments.css" type="text/css" />
+    <link rel="stylesheet" href="http://fonts.googleapis.com/css?family=Noticia+Text|Open+Sans|Droid+Sans+Mono&amp;subset=latin,latin-ext" type="text/css" />
+    <script id="documentation_options" data-url_root="../../../" src="../../../_static/documentation_options.js"></script>
+    <script src="../../../_static/jquery.js"></script>
+    <script src="../../../_static/underscore.js"></script>
+    <script src="../../../_static/doctools.js"></script>
+    <script src="../../../_static/language_data.js"></script>
+    <script async="async" src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.7/latest.js?config=TeX-AMS-MML_HTMLorMML"></script>
+    <script src="../../../_static/jquery.cookie.js"></script>
+    <script src="../../../_static/cloud.js"></script>
+    <script type="text/javascript" src="http://sagecell.sagemath.org/static/jquery.min.js"></script>
+    <script type="text/javascript" src="http://sagecell.sagemath.org/static/embedded_sagecell.js"></script>
+    <script type="text/javascript">
+        sagecell.makeSagecell({inputLocation: ".sage_linked",
+                               linked: true});
+        sagecell.makeSagecell({inputLocation: ".sage_unlinked",
+                               linked: false});
+    </script>
+
+    <style type="text/css">
+        .sagecell .CodeMirror-scroll {
+            overflow-y: hidden;
+            overflow-x: auto;
+        }
+        .sagecell .CodeMirror {
+            height: auto;
+        }
+    </style>
+    
+    <link rel="search" title="Search" href="../../../search.html" />
+    <link rel="next" title="Properties of the logarithm" href="ln.html" />
+    <link rel="prev" title="Function and its aniderivative" href="intgraph.html" />
+ 
+  <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, minimum-scale=1">
+  </head><body>
+  <div class="relbar-top">
+    
+    <div class="related" role="navigation" aria-label="related navigation">
+      <h3>Navigation</h3>
+      <ul>
+        <li class="right" style="margin-right: 10px">
+          <a href="ln.html" title="Properties of the logarithm"
+             accesskey="N">next</a></li>
+        <li class="right" >
+          <a href="intgraph.html" title="Function and its aniderivative"
+             accesskey="P">previous</a> &nbsp; &nbsp;</li>
+  <li><a href="../../../index.html">Science education with SageMath</a> &#187;</li>
+  
+        <li class="nav-item nav-item-this"><a href="">Properties of the graph of the function</a></li> 
+      </ul>
+    </div>
+  </div>
+  
+  <div class="content">  
+
+    <div class="document">
+      <div class="documentwrapper">
+        <div class="bodywrapper">
+          <div class="body">
+            
+  <div class="section" id="properties-of-the-graph-of-the-function">
+<h1>Properties of the graph of the function<a class="headerlink" href="#properties-of-the-graph-of-the-function" title="Permalink to this headline">¶</a></h1>
+<div class="admonition-problem admonition">
+<p class="admonition-title">Problem</p>
+<ol class="arabic">
+<li><p>We are given the function <span class="math notranslate nohighlight">\(f:x\mapsto 2x\cdot e^{-0.5x^2}\)</span>
+defined in <span class="math notranslate nohighlight">\(\mathbb{R}\)</span>. Figure 2 displays the graph
+<span class="math notranslate nohighlight">\(G_f\)</span> of <span class="math notranslate nohighlight">\(f\)</span>.</p>
+<img alt="../../../_images/kurvendiskussion1.png" class="align-center" src="../../../_images/kurvendiskussion1.png" />
+<ol class="loweralpha">
+<li><p>Demonstrate by calculation that <span class="math notranslate nohighlight">\(G_f\)</span> is point-symmetric
+with respect to the origin. On the basis of the function term
+of <span class="math notranslate nohighlight">\(f\)</span> make plausible that
+<span class="math notranslate nohighlight">\(\lim\limits_{x\rightarrow +\infty} f(x)=0\)</span>.</p></li>
+<li><p>Determine by calculation the position and nature of the extrema of
+<span class="math notranslate nohighlight">\(G_f\)</span>.</p></li>
+<li><p>Determine the mean rate of change <span class="math notranslate nohighlight">\(m_S\)</span> of <span class="math notranslate nohighlight">\(f\)</span> in the
+interval <span class="math notranslate nohighlight">\([-0.5;0.5]\)</span> as well as the local rate of change
+<span class="math notranslate nohighlight">\(m_T\)</span> of <span class="math notranslate nohighlight">\(f\)</span> at <span class="math notranslate nohighlight">\(x=0\)</span>. Determine by how many
+percent <span class="math notranslate nohighlight">\(m_S\)</span> differs from <span class="math notranslate nohighlight">\(m_T\)</span>.</p></li>
+<li><p>The graph of <span class="math notranslate nohighlight">\(f\)</span>, the <span class="math notranslate nohighlight">\(x\)</span>-axis and the straight line
+<span class="math notranslate nohighlight">\(x=u\)</span> with <span class="math notranslate nohighlight">\(u \in \mathbb{R}^+\)</span> enclose for
+<span class="math notranslate nohighlight">\(0\leq x \leq u\)</span> a region with area <span class="math notranslate nohighlight">\(A(u)\)</span>.</p>
+<p>Demonstrate that <span class="math notranslate nohighlight">\(A(u)=2-2e^{-0.5u^2}\)</span>. Give
+<span class="math notranslate nohighlight">\(\lim\limits_{u\rightarrow + \infty} A(u)\)</span> and interpret
+the result geometrically.</p>
+</li>
+<li><p>The line <span class="math notranslate nohighlight">\(h\)</span> through the origin defined by
+<span class="math notranslate nohighlight">\(y=\frac{2}{e^2}\cdot x\)</span> together with <span class="math notranslate nohighlight">\(G_f\)</span>
+completely encloses for <span class="math notranslate nohighlight">\(x\geq 0\)</span> a region with area <span class="math notranslate nohighlight">\(B\)</span>.</p>
+<p>Determine the <span class="math notranslate nohighlight">\(x\)</span>-coordinates of the three intersections of
+the straight line <span class="math notranslate nohighlight">\(h\)</span> with <span class="math notranslate nohighlight">\(G_f\)</span> and draw the straight
+line into figure 2. Calculate <span class="math notranslate nohighlight">\(B\)</span>.</p>
+</li>
+</ol>
+</li>
+<li><p>In the following, the family of functions <span class="math notranslate nohighlight">\(g_c: x\mapsto f(x) + c\)</span>
+defined in <span class="math notranslate nohighlight">\(\mathbb{R}\)</span> with <span class="math notranslate nohighlight">\(c\in \mathbb{R}\)</span> will be
+considered.</p>
+<ol class="loweralpha">
+<li><p>State without any further calculation the coordinates of the maximum
+of the graph of <span class="math notranslate nohighlight">\(g_c\)</span> as well as the behavior of <span class="math notranslate nohighlight">\(g_c\)</span>
+for <span class="math notranslate nohighlight">\(x\rightarrow + \infty\)</span> as a function of <span class="math notranslate nohighlight">\(c\)</span>.</p></li>
+<li><p>The number of zeros of <span class="math notranslate nohighlight">\(g_c\)</span> depends on <span class="math notranslate nohighlight">\(c\)</span>.
+Give for each of the following cases a possible value of
+<span class="math notranslate nohighlight">\(c\)</span> so that the respective condition holds:</p>
+<p><span class="math notranslate nohighlight">\(\alpha\)</span>) <span class="math notranslate nohighlight">\(g_c\)</span> has no zero.</p>
+<p><span class="math notranslate nohighlight">\(\beta\)</span>) <span class="math notranslate nohighlight">\(g_c\)</span> has exactly one zero.</p>
+<p><span class="math notranslate nohighlight">\(\gamma\)</span>) <span class="math notranslate nohighlight">\(g_c\)</span> has exactly two zeros.</p>
+</li>
+<li><p>Argue by means of an appropriate sketch that
+<span class="math notranslate nohighlight">\(\int\limits_0^3 g_c(x)\mathrm{d}x=\int\limits_0^3f(x)\mathrm{d}x+3c\)</span>.</p></li>
+</ol>
+</li>
+<li><p>The number of children to which a woman gives birth during her life is
+described by the so-called birth rate which is statistically determined
+each year.</p>
+<p>The function <span class="math notranslate nohighlight">\(g_{1.4}: x \rightarrow 2x \cdot e^{-0.5x^2} + 1.4\)</span>
+for <span class="math notranslate nohighlight">\(x\geq0\)</span> exemplarily describes the time evolution of the birth
+rate in a European country. Here, <span class="math notranslate nohighlight">\(x\)</span> is the number of decades
+passed since 1955 (i.e., <span class="math notranslate nohighlight">\(x=1\)</span> corresponds to the year 1965) and
+<span class="math notranslate nohighlight">\(g_{1.4}(x)\)</span> is the birth rate. For the population to be
+approximately constant in the long run in that contry, a birth rate of
+approximately <span class="math notranslate nohighlight">\(2.1\)</span> is required.</p>
+<ol class="loweralpha simple">
+<li><p>Sketch the graph of <span class="math notranslate nohighlight">\(g_{1{,}4}\)</span> in figure 2 and deduce with
+reasonable accuracy in which time period the birth rate is at least
+<span class="math notranslate nohighlight">\(2.1\)</span>.</p></li>
+<li><p>What is to be expected on the basis of this model for the future
+evolution of the population? Justify your answer.</p></li>
+<li><p>In the time period considered, there exists a year in which the
+birth rate decreases most. Make use of figure 2 to give an approximate
+value for that year. Describe how on the basis of this model one could
+demonstrate by calculation that the decrease of the birth rate becomes
+continuously weaker from that year on.</p></li>
+</ol>
+</li>
+</ol>
+</div>
+<div class="section" id="part-1">
+<h2>Part 1<a class="headerlink" href="#part-1" title="Permalink to this headline">¶</a></h2>
+<p><strong>Solution of part a</strong></p>
+<p>In order to prove the point-symmetry of <span class="math notranslate nohighlight">\(G_f\)</span> we need to demonstrate
+<span class="math notranslate nohighlight">\(f(x)=-f(-x)\)</span> or, equivalently, <span class="math notranslate nohighlight">\(f(x) + f(-x) = 0\)</span>.</p>
+<div class="math notranslate nohighlight">
+\[\begin{split}f(x) + f(-x)  = 2x \cdot e^{-0.5x^2} + 2(-x) \cdot e^{-0.5(-x)^2}\\
+= 2x \cdot e^{-0.5x^2} - 2 x \cdot e^{-0.5x^2}\\
+= 0\end{split}\]</div>
+<p>This result can easily be checked by means of Sage:</p>
+<div class='sage_linked'><script type='text/x-sage'>f(x) = 2*x*exp(-1/2*x**2)
+print("f(x) + f(-x) = " + str(f(x) + f(-x)))</script></div><p><strong>Solution of part b</strong></p>
+<p>In order to identify the extrema of <span class="math notranslate nohighlight">\(G_f\)</span>, one needs to determine
+the zeros of the derivative of <span class="math notranslate nohighlight">\(f\)</span>.</p>
+<div class="math notranslate nohighlight">
+\[\begin{split}\frac{\mathrm{d}}{\mathrm{d}x}f(x)
+&amp;= \frac{\mathrm{d}}{\mathrm{d}x}\left(2x\cdot e^{-0{,}5x^2}\right)\\
+&amp;= 2 \cdot e^{-0{,}5x^2} + 2x\cdot e^{-0{,}5x^2}\cdot (-x)\\
+&amp;= 2\cdot e^{-0{,}5x^2}\left(1-x^2\right)\end{split}\]</div>
+<p>By means of Sage, the derivative may be obtained as follows:</p>
+<div class='sage_linked'><script type='text/x-sage'>df(x) = derivative(f(x),x)
+print("Derivative of f(x): " + str(df(x).full_simplify()))</script></div><p>In order to determine the extrema, the equation</p>
+<div class="math notranslate nohighlight">
+\[2\cdot e^{-0.5x^2}(1-x^2)=0\]</div>
+<p>must be solved. As the exponential function does not possess zeros,
+all zeros result from <span class="math notranslate nohighlight">\(1-x^2=0\)</span>. We thus find the solutions
+<span class="math notranslate nohighlight">\(x_1=-1\)</span> and <span class="math notranslate nohighlight">\(x_2=1\)</span>.</p>
+<p>The solutions can be confirmed with Sage.</p>
+<div class='sage_linked'><script type='text/x-sage'>nstn = solve(df(x)==0, x)
+print("Zeros of the derivative of f: " +repr(nstn))</script></div><p>In order to identify the nature of the extrema, one needs to consider the second
+derivative of <span class="math notranslate nohighlight">\(f\)</span> at the <span class="math notranslate nohighlight">\(x\)</span> values determined above.  For a
+positive second derivative , one has a minimum, while for a negative second
+derivative, the extremum is a maximum. By means of the derivative of <span class="math notranslate nohighlight">\(f\)</span>
+already determined above, one obtains for the second derivative</p>
+<div class="math notranslate nohighlight">
+\[\begin{split}f''(x) &amp;= \frac{d^2}{dx^2}f(x)\\
+       &amp;= \frac{d}{dx}\left(2\cdot e^{-0.5x^2}\left(1-x^2\right)\right)\\
+       &amp;= - 2x\cdot e^{-0.5x^2}\left(3-x^2\right)\end{split}\]</div>
+<p>Inserting <span class="math notranslate nohighlight">\(x_1\)</span> and <span class="math notranslate nohighlight">\(x_2\)</span> yields:</p>
+<div class="math notranslate nohighlight">
+\[\begin{split}f''(x_1) = f''(-1) = -2 \cdot (-1)\cdot e^{-0.5\cdot(-1)^2}\left(3-(-1)^2\right)\\
+= 4 \cdot e^{-0.5} &gt; 0\\
+f''(x_2) = f''(1) = -2 \cdot 1\cdot e^{-0.5 \cdot 1^2}\left(3-1^2\right)\\
+= -4 \cdot e^{-0.5} &lt; 0\end{split}\]</div>
+<p>Therefore, <span class="math notranslate nohighlight">\(x_1\)</span> is a minimum while <span class="math notranslate nohighlight">\(x_2\)</span> is a maximum. This result
+is confirmed by figure 2.</p>
+<p>By means of Sage, one obtains the second derivative and its values at the
+points <span class="math notranslate nohighlight">\(x_1\)</span> and <span class="math notranslate nohighlight">\(x_2\)</span> as follows:</p>
+<div class='sage_linked'><script type='text/x-sage'>ddf(x) = derivative(df(x),x)
+print("Second derivative of f(x): " + str(ddf(x).full_simplify()))
+print("ddf(-1) = " + str(ddf(-1)))
+print("ddf(1) = " + str(ddf(1)))</script></div><p><strong>Solution of part c</strong></p>
+<p>The mean rate of change <span class="math notranslate nohighlight">\(m_S\)</span> of <span class="math notranslate nohighlight">\(f\)</span> in the interval <span class="math notranslate nohighlight">\([-0.5;0.5]\)</span>
+is obtained as the difference of the function values at the borders of the
+inervall divided by the length of the interval. Emplying the point-symmetry
+with respect to the origin, one finds</p>
+<div class="math notranslate nohighlight">
+\[\begin{split}m_S &amp;=\frac{f(0.5)-f(-0.5)}{0.5 - (-0.5)}\\
+    &amp;= 2f(0.5)\\
+    &amp;= 4\cdot(0.5)\cdot e^{-0.5\cdot(0.5)^2}\\
+    &amp;= 2\cdot e^{-0.125}\\
+    &amp;\approx 1.76\end{split}\]</div>
+<p>In Sage, one can easily define a function which determines the mean slope for
+two intervall borders.</p>
+<div class='sage_linked'><script type='text/x-sage'>def ms(x1,x2):
+   return (f(x2)-f(x1))/(x2-x1)
+print("Mean rate of change between -0.5 and 0.5: %4.2f" % ms(-0.5, 0.5))</script></div><p>The local rate of change <span class="math notranslate nohighlight">\(m_T\)</span> at <span class="math notranslate nohighlight">\(x=0\)</span> is the slope in
+that point. The derivative has already been determined in the previous
+subproblem. Thus we find:</p>
+<div class="math notranslate nohighlight">
+\[m_T = f'(0) = 2 \cdot e^{-0.5\cdot0}(1-0) = 2\]</div>
+<div class='sage_linked'><script type='text/x-sage'>print("Local rate of change at x=0: " + str(df(0)))</script></div><p>The deviation in percent thus amounts to</p>
+<div class="math notranslate nohighlight">
+\[\left(\frac{m_S}{m_T}-1\right) = e^{-0.125} = 0.882 = 88.2\%.\]</div>
+<div class='sage_linked'><script type='text/x-sage'>print("Deviation in percent between mean and local rate of change: %4.1f%%" % (100*ms(-0.5,0.5)/df(0)))</script></div><p><strong>Solution of part d</strong></p>
+<p>The enclosed area <span class="math notranslate nohighlight">\(A(u)\)</span> can be computed as integral over <span class="math notranslate nohighlight">\(f(x)\)</span>
+from the lower limit <span class="math notranslate nohighlight">\(0\)</span> to the upper limit <span class="math notranslate nohighlight">\(u\)</span>:</p>
+<div class="math notranslate nohighlight">
+\[A(u) = \int\limits_0^u f(x) \mathrm{d}x\]</div>
+<p>The area must vanish for <span class="math notranslate nohighlight">\(u=0\)</span>.</p>
+<div class="math notranslate nohighlight">
+\[A(0) = 2 - 2e^{-0.5\cdot 0^2} = 2 - 2 = 0\]</div>
+<p>Taking the derivative of <span class="math notranslate nohighlight">\(A(u)\)</span> with respect to <span class="math notranslate nohighlight">\(u\)</span>, one finds:</p>
+<div class="math notranslate nohighlight">
+\[\frac{\mathrm{d}}{\mathrm{d}u} A(u)
+= \frac{\mathrm{d}}{\mathrm{d}u}\left(2-2e^{-0.5u^2}\right)
+= 2u\cdot e^{-0.5 u^2} = f(u)\]</div>
+<p>These two properties prove that <span class="math notranslate nohighlight">\(A(u)\)</span> is the definite integral of
+<span class="math notranslate nohighlight">\(f(x)\)</span> on the interval <span class="math notranslate nohighlight">\([0;u]\)</span>.</p>
+<p>The integration can be carried out directly by means of Sage.</p>
+<div class='sage_linked'><script type='text/x-sage'>var('u')
+assume(u > 0)
+a(u) = f.integral(x, 0, u)
+print("A(u) = "+str(a(u)))</script></div><p>The limit of <span class="math notranslate nohighlight">\(A(u)\)</span> for <span class="math notranslate nohighlight">\(u\rightarrow +\infty\)</span> is found as:</p>
+<div class="math notranslate nohighlight">
+\[\lim\limits_{u\rightarrow +\infty} A(u)
+= \lim\limits_{u\rightarrow +\infty}\left(2-2e^{-0.5u^2}\right)
+= 2 - 0 = 2\]</div>
+<p>By means of Sage the limit is obtained as follows:</p>
+<div class='sage_linked'><script type='text/x-sage'>print("A(inf) = " + str(limit(a(u), u=Infinity)))</script></div><p>The result implies that the area enclosed by the graph between
+<span class="math notranslate nohighlight">\(0\)</span> and <span class="math notranslate nohighlight">\(+\infty\)</span> is finite and equals 2.</p>
+<p><strong>Solution of part e</strong></p>
+<p>The first intersection of the straight line <span class="math notranslate nohighlight">\(y=\frac{2}{e^2}\cdot x\)</span> with <span class="math notranslate nohighlight">\(G_f\)</span>
+is found at <span class="math notranslate nohighlight">\(x_1=0\)</span>, since both functions pass through the origin.
+Additional intersections are obtained by equating the two functions.</p>
+<div class="math notranslate nohighlight">
+\[\begin{split}\frac{2}{e^2}\cdot x = 2x \cdot e^{-0.5x^2} \left| \cdot \frac{e^2}{2x}\right. \\
+1 = e^{-0.5x^2 + 2} \left| \ln()\right. \\
+0 = -0.5x^2 + 2 \qquad \left| -2\right.\\
+4 = x^2 \left| \sqrt{\ } \right. \\
+x_{2/ 3} = \pm 2 \\\end{split}\]</div>
+<p>With the help of Sage, the intersections can be obtained as follows:</p>
+<div class='sage_linked'><script type='text/x-sage'>h(x) = x * 2 / e^2
+solve(f(x) == h(x), x)</script></div><p>The intersection points can be identified graphically if both functions
+are drawn in the same coordinate system.</p>
+<div class='sage_linked'><script type='text/x-sage'>pf = plot(f, (0, 2), color='blue', fill=h, fillcolor='yellow')
+ppf = plot(f, (-4, 0), color='blue')
+pppf = plot(f, (2, 4), color='blue')
+ph = plot(h, (-4, 4), color='red')
+b = text("B",(1, 0.7))
+show(pf + ph + ppf + pppf + b, aspect_ratio=1)</script></div><p>The enclosed area <span class="math notranslate nohighlight">\(B\)</span> results from taking the difference
+between the area <span class="math notranslate nohighlight">\(A(2)\)</span> under the function <span class="math notranslate nohighlight">\(f\)</span> and
+the triangular area below the straight line</p>
+<div class="math notranslate nohighlight">
+\[\begin{split}B &amp;= A(2)-\frac{1}{2}\cdot 2\cdot\frac{2}{e^2}\cdot 2\\
+  &amp;= 2-2e^{-2}-4e^{-2}\\
+  &amp; = 2 - 6 e^{-2}\\
+  &amp;\approx 1.19.\end{split}\]</div>
+<p>The integral can easily be evaluated by means of Sage.</p>
+<div class='sage_linked'><script type='text/x-sage'>b = a(2)-integral(h(x), x, 0, 2)
+print(u"The area B is given by: " + str(b) + u" ≈ %4.2f" % b)</script></div></div>
+<div class="section" id="part-2">
+<h2>Part 2<a class="headerlink" href="#part-2" title="Permalink to this headline">¶</a></h2>
+<p><strong>Solution of part a</strong></p>
+<p>The family of functions <span class="math notranslate nohighlight">\(g_c\)</span> is displaced vertically with respect to
+<span class="math notranslate nohighlight">\(f(x)\)</span> by a constant <span class="math notranslate nohighlight">\(c\)</span>. Therefore, the maximum of the graph
+remains at the same <span class="math notranslate nohighlight">\(x\)</span> coordinate. For <span class="math notranslate nohighlight">\(f(x)\)</span>, the maximum
+was determined in problem 1b) and found at <span class="math notranslate nohighlight">\(x=1\)</span> and
+<span class="math notranslate nohighlight">\(f(1) = \frac{2}{\sqrt{e}}\)</span>. The <span class="math notranslate nohighlight">\(y\)</span>-value of the maximum
+of <span class="math notranslate nohighlight">\(g_c\)</span> correspondingly is found as</p>
+<div class="math notranslate nohighlight">
+\[g_c(1) = f(1) + c = \frac{2}{\sqrt{e}} + c.\]</div>
+<p>Thus the coordinates of the maximum are given by <span class="math notranslate nohighlight">\(\left(1;\frac{2}{\sqrt{e}} + c\right)\)</span>.</p>
+<p>For a fixed value of <span class="math notranslate nohighlight">\(c\)</span>, Sage determines the maximum numerically.
+Here, we choose <span class="math notranslate nohighlight">\(c=3\)</span>.</p>
+<div class='sage_linked'><script type='text/x-sage'>c = var('c')
+gc(c, x) = f(x) + c
+hy, hx = find_local_maximum(gc(3), -30, 30)
+print("The maximum for c=3 is found at: (%4.2f,%4.2f)" % (hx, hy))</script></div><p>As <span class="math notranslate nohighlight">\(f(x)\)</span> vanishes in the limit <span class="math notranslate nohighlight">\(x\rightarrow + \infty\)</span>,
+we find <span class="math notranslate nohighlight">\(\lim\limits_{x\rightarrow+\infty}g_c(x) = c\)</span>.</p>
+<div class='sage_linked'><script type='text/x-sage'>print(u"g_c(c, inf) = " + str(limit(gc(c, x), x=Infinity)))</script></div><p><strong>Solution of part b</strong></p>
+<p>For <span class="math notranslate nohighlight">\(g_c\)</span> not to have a zero, a positive or negative value of <span class="math notranslate nohighlight">\(c\)</span>
+must be chosen such that its absolute value is larger than the absolute value of
+the minimum or maximum, respectively, of the graph, e.g., <span class="math notranslate nohighlight">\(c=2\)</span>. For exactly
+one zero, <span class="math notranslate nohighlight">\(c\)</span> can be chosen equal to the negative value of the maximum or
+the positive value of the minimum of <span class="math notranslate nohighlight">\(f(x)\)</span>.  From problem 1b)
+<span class="math notranslate nohighlight">\(c=\pm\frac{2}{\sqrt{e}}\)</span> follow as solutions. Furthermore, <span class="math notranslate nohighlight">\(c=0\)</span>
+can be chosen. In this case, <span class="math notranslate nohighlight">\(f(x)\)</span> only possesses a zero at the origin.
+For all other values of <span class="math notranslate nohighlight">\(c\)</span> (smaller than the absolute value of the
+maximum and minimum and different from zero), <span class="math notranslate nohighlight">\(g_c\)</span> possesses two zeros.</p>
+<p>The following diagram <span class="math notranslate nohighlight">\(c\in\{0;1;\frac{2}{\sqrt{e}};2\}\)</span> displays graphs
+of functions with a different number of zeros.</p>
+<div class='sage_linked'><script type='text/x-sage'>pg0 = plot(gc(0, x), (-4, 4), color='blue')
+pg1 = plot(gc(1, x), (-4, 4), color='red')
+pgtp = plot(gc(2/sqrt(e), x), (-4, 4), color='purple')
+pg2 = plot(gc(2, x), (-4, 4), color='green')
+show(pg0 + pg1 + pgtp + pg2, aspect_ratio=1)</script></div><p>The zeros can numerically be determined by means of Sage, if one provides
+an interval in which not more than one zero is expected. The total interval
+to be examined must therefore be divided into sufficiently small subintervals in
+order to find all zeros. In the following example, the interval
+<span class="math notranslate nohighlight">\([-5, 5]\)</span> is divided into a selectable number of subintervals. It is
+interesting to choose <span class="math notranslate nohighlight">\(c\)</span> close to the value for which only one
+zero exists, e.g. <span class="math notranslate nohighlight">\(c=\pm 1.2\)</span>. Then, the number of found zeros depends
+on the subintervals chosen.</p>
+<div class='sage_linked'><script type='text/x-sage'> from numpy import linspace
+
+ def my_find_root(f, a, b, n):
+....:       """find zeros of the function f in the interval [a, b] by
+....:       subdivision into n subintervals of equal size
+....:
+....:       """
+....:       roots = set()
+....:       limits = linspace(a, b, n+1)
+....:       for x0, x1 in zip(limits[:-1], limits[1:]):
+....:           try:
+....:               r = find_root(f, x0, x1)
+....:               roots.add(str(r))
+....:           except RuntimeError: # No zero was found in this interval
+....:               pass
+....:       zeros = "{" + ", ".join(roots) + "}"
+....:       print("Zeros of " + str(f) + ": " + zeros)
+
+ @interact
+ def _(c=slider(-2, 2, 0.1, 0),
+....:         n=slider(1, 80, 1)):
+....:       my_find_root(gc(c), -5, 5, n)</script></div><p><strong>Solution of part c</strong></p>
+<p>It is straightforward to derive the given formula by exploiting
+the linearity of the integration:</p>
+<div class="math notranslate nohighlight">
+\[\int\limits_0^3 g_c(x)\mathrm{d}x=\int\limits_0^3(f(x)+c)\mathrm{d}x=
+\int\limits_0^3f(x)\mathrm{d}x+\int\limits_0^3c\mathrm{d}x=
+\int\limits_0^3f(x)\mathrm{d}x+3c\]</div>
+<p>A sketch visualizing this relation can easily be produced with Sage.
+The green rectangle has the size <span class="math notranslate nohighlight">\(3c\)</span>. The yellow area corresponds
+to the integral over <span class="math notranslate nohighlight">\(f(x)\)</span>.</p>
+<div class='sage_linked'><script type='text/x-sage'>c = 1
+pg = plot(gc(c, x), (0, 3), color='red', fill=c, fillcolor='yellow')
+pgl = plot(gc(c, x), (-1, 0), color='red')
+pgr = plot(gc(c, x), (3, 4), color='red')
+gtext = text(r"$g_1(x)$", (2, c + 0.8), fontsize=14)
+pc = plot(c,(0, 3), color='white', fill=True, fillcolor='lightgreen')
+ftext = text(r"$\int_0^3 f(x) \mathrm{d}x$",(1, c + 0.5), fontsize=14)
+ctext = text(r"$c=" + str(c) + r"$",(-0.5, c), fontsize=14)
+c3text = text(r"$3c$",(1, c/2), fontsize=14)
+show(pgl + pg + pgr + gtext+ pc + ftext + ctext + c3text, aspect_ratio=1, xmax=4)</script></div></div>
+<div class="section" id="part-3">
+<h2>Part 3<a class="headerlink" href="#part-3" title="Permalink to this headline">¶</a></h2>
+<p><strong>Solution of part a</strong></p>
+<p>In order to find the starting and end points of the interval in which
+<span class="math notranslate nohighlight">\(g_{1.4}(x) &gt; 2.1\)</span>, we must solve the following equation:</p>
+<div class="math notranslate nohighlight">
+\[g_{1.4}(x) - 2.1 = 0\]</div>
+<p>Based on the previously solved problems we know that the maximum of
+<span class="math notranslate nohighlight">\(g_c(x)\)</span> is situated at <span class="math notranslate nohighlight">\(x = 1\)</span>. Therefore, the starting point
+of the interval must have a smaller value of <span class="math notranslate nohighlight">\(x\)</span>. On the other
+hand, the end point must have a larger value of <span class="math notranslate nohighlight">\(x\)</span>. We determine
+the limit numerically by means of Sage.</p>
+<div class='sage_linked'><script type='text/x-sage'>startx = find_root(gc(1.4)-2.1, -1, 1)
+endx = find_root(gc(1.4)-2.1, 1, 3)
+print("In the interval [" + str(startx) + ", " + str(endx) + "] gc(1.4, x) is larger than 2.1")
+pg14l = plot(gc(1.4, x), (-4, startx), color='red')
+pg14 = plot(gc(1.4, x), (startx, endx), fill=2.1, fillcolor='yellow', color='red')
+pg14r = plot(gc(1.4, x), (endx, 4), color='red')
+show(pg0 + pg14l + pg14 + pg14r, aspect_ratio=1)</script></div><p><strong>Solution of part b</strong></p>
+<p>As the solution to the previous subproblem indicates, the birth rate within the
+given model at the latest in 1975 was below the value where the population
+remains constant in the long run. Therefore a decrease of the population is
+also to be expected for the future.</p>
+<p><strong>Solution of part c</strong></p>
+<p>The point of the strongest decrease of the birth rate is given by the minimum
+of the derivative of the birth rate. As <span class="math notranslate nohighlight">\(g_{c}(x)\)</span> is only vertically
+shifted by a constant with respect to <span class="math notranslate nohighlight">\(f(x)\)</span>, the derivatives of the
+two functions agree. The first two derivatives of <span class="math notranslate nohighlight">\(f(x)\)</span> have been
+evaluated in subproblem 1b). The minimum of the derivative of the birth rate
+is found by determining the zeros of <span class="math notranslate nohighlight">\(f''(x)\)</span>:</p>
+<div class="math notranslate nohighlight">
+\[\begin{split}&amp;f''(x) = 2x \cdot e^{-0.5x^2}\left(x^2 - 3\right)\overset{!}{=}0\\
+&amp;\rightarrow x_1 = 0, x_{2/3} = \pm \sqrt{3}\end{split}\]</div>
+<p>This result can also be reproduced by means of Sage:</p>
+<div class='sage_linked'><script type='text/x-sage'>solve(ddf(x) == 0, x)</script></div><p>As the model is only valid for <span class="math notranslate nohighlight">\(x\geq 0\)</span>, the zero at
+<span class="math notranslate nohighlight">\(x_3=-\sqrt{3}\)</span> has to be excluded. <span class="math notranslate nohighlight">\(x_1=0\)</span> cannot correspond
+to a global minimum, because according to subproblem 1c) the birth rate
+increases at this point. Furthermore, we know that negative values for the
+derivative exist. As a consequence <span class="math notranslate nohighlight">\(x_2=\sqrt{3}\)</span> is the minimum
+of the derivative which we are looking for. It corresponds to the year 1972.</p>
+<p>For the decrease of the birth rate to become continuously weaker beyond this point in
+time, the derivative <span class="math notranslate nohighlight">\(g'(x)\)</span> for <span class="math notranslate nohighlight">\(x&gt;\sqrt{3}\)</span> must be negative.
+According to the derivative of <span class="math notranslate nohighlight">\(f(x)\)</span> determined in subproblem 1b),
+this is indeed the case.</p>
+</div>
+</div>
+
+
+          </div>
+        </div>
+      </div>
+      <div class="sphinxsidebar" role="navigation" aria-label="main navigation">
+        <div class="sphinxsidebarwrapper">
+  <div class="sphinxlocaltoc">
+  <h3><a href="../../../index.html">Table Of Contents</a></h3>
+  <ul>
+<li><a class="reference internal" href="#">Properties of the graph of the function</a><ul>
+<li><a class="reference internal" href="#part-1">Part 1</a></li>
+<li><a class="reference internal" href="#part-2">Part 2</a></li>
+<li><a class="reference internal" href="#part-3">Part 3</a></li>
+</ul>
+</li>
+</ul>
+
+  </div>
+  <h4>Previous topic</h4>
+  <p class="topless"><a href="intgraph.html"
+                        title="previous chapter">Function and its aniderivative</a></p>
+  <h4>Next topic</h4>
+  <p class="topless"><a href="ln.html"
+                        title="next chapter">Properties of the logarithm</a></p>
+<div id="searchbox" style="display: none" role="search">
+  <h3 id="searchlabel">Quick search</h3>
+    <div class="searchformwrapper">
+    <form class="search" action="../../../search.html" method="get">
+      <input type="text" name="q" aria-labelledby="searchlabel" />
+      <input type="submit" value="Go" />
+    </form>
+    </div>
+</div>
+<script>$('#searchbox').show(0);</script>
+        </div>
+      </div>
+      <div class="clearer"></div>
+    </div>
+  </div>
+  <div class="relbar-bottom">
+    
+    <div class="related" role="navigation" aria-label="related navigation">
+      <h3>Navigation</h3>
+      <ul>
+        <li class="right" style="margin-right: 10px">
+          <a href="ln.html" title="Properties of the logarithm"
+             >next</a></li>
+        <li class="right" >
+          <a href="intgraph.html" title="Function and its aniderivative"
+             >previous</a> &nbsp; &nbsp;</li>
+  <li><a href="../../../index.html">Science education with SageMath</a> &#187;</li>
+  
+        <li class="nav-item nav-item-this"><a href="">Properties of the graph of the function</a></li> 
+      </ul>
+    </div>
+  </div>
+  
+  <div class="footer">
+    <a class="logo" href="http://icse.us.edu.pl/" target="_blank"><img src="../../../_static/logo-icse.png" alt="ICSE"/></a><br/>
+    &copy; Copyright Creative Commons CC-BY 4.0, iCSE-team.
+    Created using <a href="http://sphinx.pocoo.org/">Sphinx</a> 3.2.1.
+  </div>
+  </body>
+</html>

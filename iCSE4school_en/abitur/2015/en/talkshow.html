@@ -1,0 +1,181 @@
+
+
+  
+<!DOCTYPE html>
+
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Talkshow &#8212; Science education with SageMath</title>
+    <link rel="stylesheet" href="../../../_static/cloud.css" type="text/css" />
+    <link rel="stylesheet" href="../../../_static/pygments.css" type="text/css" />
+    <link rel="stylesheet" href="http://fonts.googleapis.com/css?family=Noticia+Text|Open+Sans|Droid+Sans+Mono&amp;subset=latin,latin-ext" type="text/css" />
+    <script id="documentation_options" data-url_root="../../../" src="../../../_static/documentation_options.js"></script>
+    <script src="../../../_static/jquery.js"></script>
+    <script src="../../../_static/underscore.js"></script>
+    <script src="../../../_static/doctools.js"></script>
+    <script src="../../../_static/language_data.js"></script>
+    <script async="async" src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.7/latest.js?config=TeX-AMS-MML_HTMLorMML"></script>
+    <script src="../../../_static/jquery.cookie.js"></script>
+    <script src="../../../_static/cloud.js"></script>
+    <script type="text/javascript" src="http://sagecell.sagemath.org/static/jquery.min.js"></script>
+    <script type="text/javascript" src="http://sagecell.sagemath.org/static/embedded_sagecell.js"></script>
+    <script type="text/javascript">
+        sagecell.makeSagecell({inputLocation: ".sage_linked",
+                               linked: true});
+        sagecell.makeSagecell({inputLocation: ".sage_unlinked",
+                               linked: false});
+    </script>
+
+    <style type="text/css">
+        .sagecell .CodeMirror-scroll {
+            overflow-y: hidden;
+            overflow-x: auto;
+        }
+        .sagecell .CodeMirror {
+            height: auto;
+        }
+    </style>
+    
+    <link rel="search" title="Search" href="../../../search.html" />
+    <link rel="next" title="Tree diagrams" href="../../2016/en/baumdiagramme.html" />
+    <link rel="prev" title="Biathlon" href="biathlon.html" />
+ 
+  <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, minimum-scale=1">
+  </head><body>
+  <div class="relbar-top">
+    
+    <div class="related" role="navigation" aria-label="related navigation">
+      <h3>Navigation</h3>
+      <ul>
+        <li class="right" style="margin-right: 10px">
+          <a href="../../2016/en/baumdiagramme.html" title="Tree diagrams"
+             accesskey="N">next</a></li>
+        <li class="right" >
+          <a href="biathlon.html" title="Biathlon"
+             accesskey="P">previous</a> &nbsp; &nbsp;</li>
+  <li><a href="../../../index.html">Science education with SageMath</a> &#187;</li>
+  
+        <li class="nav-item nav-item-this"><a href="">Talkshow</a></li> 
+      </ul>
+    </div>
+  </div>
+  
+  <div class="content">  
+
+    <div class="document">
+      <div class="documentwrapper">
+        <div class="bodywrapper">
+          <div class="body">
+            
+  <div class="section" id="talkshow">
+<h1>Talkshow<a class="headerlink" href="#talkshow" title="Permalink to this headline">¶</a></h1>
+<div class="admonition-problem admonition">
+<p class="admonition-title">Problem</p>
+<p>A talkshow host invites three politicians, a newswoman and two members of a
+citizens’ action committee. During the discussion round, the participants
+will be sitting in a semi-circle with the host in the middle and each
+participant taken as an individual.</p>
+<ol class="loweralpha simple">
+<li><p>Give an expression which allows to determine the number of possible seating
+arrangements if no other constraints need to be taken into account.</p></li>
+<li><p>The station has decided that the newswoman will take a seat next to the
+host and that to the other side of the host, a politician shall be seated.
+Determine the number of possible seating arrangements accounting for these
+constraints.</p></li>
+</ol>
+</div>
+<p><strong>Solution of part a</strong></p>
+<p>If we want to generate all possible seating arrangements, we start with the
+first seat for which we the choice among six person. For the second seat,
+five person are left and so on. In total, we obtain</p>
+<div class="math notranslate nohighlight">
+\[6!=6\cdot5\cdot4\cdot3\cdot2\cdot1=720\]</div>
+<p>possibilities.</p>
+<p>If we indicate the host by H, the politicans by 1, 2, and 3, the newswoman
+by N and the members of the citizens’ action committee by C and c, we can
+list all seating arrangements:</p>
+<div class='sage_linked'><script type='text/x-sage'>for n, a in enumerate(Arrangements(["1", "2", "3", "N", "C", "c"], 6)):
+    if not n % 8:
+        print "%3i" % (n/8+1),
+    print "%sH%s" % ("".join(a[:3]), "".join(a[3:])),
+    if not (n+1) % 8:
+        print</script></div><p>Our list indeed comprises <span class="math notranslate nohighlight">\(8\cdot90=720\)</span> different seating
+arrangements.</p>
+<p><strong>Solution of part b</strong></p>
+<p>We can attribute the seats by proceeding as follows: The newswoman is placed on
+one of the two seats next to the host (2 possibilities) and one of the three
+politicians is seated on the other side of the host (3 possibilities). It remains
+to place four persons on four seats which, in analogy to our reasoning in part a,
+yields <span class="math notranslate nohighlight">\(4\cdot3\cdot2\cdot1=24\)</span> possiblities. In total, we obtain
+<span class="math notranslate nohighlight">\(2\cdot3\cdot24\)</span> different seating arrangements which we can list:</p>
+<div class='sage_linked'><script type='text/x-sage'>persons = set(["1", "2", "3", "C", "c"])
+n = 0
+for jleft in (True, False):
+    for pmiddle in ("1", "2", "3"):
+        for others in Arrangements(persons-set([pmiddle]), 4):
+            if jleft:
+                a = "".join(others[:2])+"NH"+pmiddle+"".join(others[2:])
+            else:
+                a = "".join(others[:2])+pmiddle+"HN"+"".join(others[2:])
+            if not n % 8:
+                print "%3i" % (n/8+1),
+            print a,
+            if not (n+1) % 8:
+                print
+            n = n+1</script></div><p>We obtain <span class="math notranslate nohighlight">\(18\cdot8=144\)</span> seating arrangements as expected.</p>
+</div>
+
+
+          </div>
+        </div>
+      </div>
+      <div class="sphinxsidebar" role="navigation" aria-label="main navigation">
+        <div class="sphinxsidebarwrapper">
+  <h4>Previous topic</h4>
+  <p class="topless"><a href="biathlon.html"
+                        title="previous chapter">Biathlon</a></p>
+  <h4>Next topic</h4>
+  <p class="topless"><a href="../../2016/en/baumdiagramme.html"
+                        title="next chapter">Tree diagrams</a></p>
+<div id="searchbox" style="display: none" role="search">
+  <h3 id="searchlabel">Quick search</h3>
+    <div class="searchformwrapper">
+    <form class="search" action="../../../search.html" method="get">
+      <input type="text" name="q" aria-labelledby="searchlabel" />
+      <input type="submit" value="Go" />
+    </form>
+    </div>
+</div>
+<script>$('#searchbox').show(0);</script>
+        </div>
+      </div>
+      <div class="clearer"></div>
+    </div>
+  </div>
+  <div class="relbar-bottom">
+    
+    <div class="related" role="navigation" aria-label="related navigation">
+      <h3>Navigation</h3>
+      <ul>
+        <li class="right" style="margin-right: 10px">
+          <a href="../../2016/en/baumdiagramme.html" title="Tree diagrams"
+             >next</a></li>
+        <li class="right" >
+          <a href="biathlon.html" title="Biathlon"
+             >previous</a> &nbsp; &nbsp;</li>
+  <li><a href="../../../index.html">Science education with SageMath</a> &#187;</li>
+  
+        <li class="nav-item nav-item-this"><a href="">Talkshow</a></li> 
+      </ul>
+    </div>
+  </div>
+  
+  <div class="footer">
+    <a class="logo" href="http://icse.us.edu.pl/" target="_blank"><img src="../../../_static/logo-icse.png" alt="ICSE"/></a><br/>
+    &copy; Copyright Creative Commons CC-BY 4.0, iCSE-team.
+    Created using <a href="http://sphinx.pocoo.org/">Sphinx</a> 3.2.1.
+  </div>
+  </body>
+</html>

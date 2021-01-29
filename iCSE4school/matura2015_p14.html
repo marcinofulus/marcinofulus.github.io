@@ -1,0 +1,213 @@
+
+
+  
+<!DOCTYPE html>
+
+<html lang="pl">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Jak skomplikować proste i popaść w kłopoty z funkcją tangens &#8212; Metodologia nauczania przedmiotów ścisłych z perspektywą obliczeniową</title>
+    <link rel="stylesheet" href="_static/cloud.css" type="text/css" />
+    <link rel="stylesheet" href="_static/pygments.css" type="text/css" />
+    <link rel="stylesheet" href="http://fonts.googleapis.com/css?family=Noticia+Text|Open+Sans|Droid+Sans+Mono&amp;subset=latin,latin-ext" type="text/css" />
+    <script id="documentation_options" data-url_root="./" src="_static/documentation_options.js"></script>
+    <script src="_static/jquery.js"></script>
+    <script src="_static/underscore.js"></script>
+    <script src="_static/doctools.js"></script>
+    <script src="_static/language_data.js"></script>
+    <script src="_static/translations.js"></script>
+    <script async="async" src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.7/latest.js?config=TeX-AMS-MML_HTMLorMML"></script>
+    <script src="_static/jquery.cookie.js"></script>
+    <script src="_static/cloud.js"></script>
+    <script type="text/javascript" src="http://sagecell.sagemath.org/static/jquery.min.js"></script>
+    <script type="text/javascript" src="http://sagecell.sagemath.org/static/embedded_sagecell.js"></script>
+    <script type="text/javascript">
+        sagecell.makeSagecell({inputLocation: ".sage_linked",
+                               linked: true});
+        sagecell.makeSagecell({inputLocation: ".sage_unlinked",
+                               linked: false});
+    </script>
+
+    <style type="text/css">
+        .sagecell .CodeMirror-scroll {
+            overflow-y: hidden;
+            overflow-x: auto;
+        }
+        .sagecell .CodeMirror {
+            height: auto;
+        }
+    </style>
+    
+    <link rel="search" title="Szukaj" href="search.html" />
+    <link rel="next" title="O tożsamości trygonometrycznej i założeniach" href="matura2015_p15.html" />
+    <link rel="prev" title="O brutalnej metodzie i pętli for przyrządzonej na dwa sposoby" href="matura2015_p12.html" />
+ 
+  <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, minimum-scale=1">
+  </head><body>
+  <div class="relbar-top">
+    
+    <div class="related" role="navigation" aria-label="related navigation">
+      <h3>Nawigacja</h3>
+      <ul>
+        <li class="right" style="margin-right: 10px">
+          <a href="matura2015_p15.html" title="O tożsamości trygonometrycznej i założeniach"
+             accesskey="N">dalej</a></li>
+        <li class="right" >
+          <a href="matura2015_p12.html" title="O brutalnej metodzie i pętli for przyrządzonej na dwa sposoby"
+             accesskey="P">wstecz</a> &nbsp; &nbsp;</li>
+  <li><a href="index.html">Metodologia nauczania przedmiotów ścisłych z perspektywą obliczeniową</a> &#187;</li>
+  
+        <li class="nav-item nav-item-this"><a href="">Jak skomplikować proste i popaść w kłopoty z funkcją tangens</a></li> 
+      </ul>
+    </div>
+  </div>
+  
+  <div class="content">  
+
+    <div class="document">
+      <div class="documentwrapper">
+        <div class="bodywrapper">
+          <div class="body">
+            
+  <div class="section" id="jak-skomplikowac-proste-i-popasc-w-klopoty-z-funkcja-tangens">
+<span id="matura2015-p14-rst"></span><h1>Jak skomplikować proste i popaść w kłopoty z funkcją tangens<a class="headerlink" href="#jak-skomplikowac-proste-i-popasc-w-klopoty-z-funkcja-tangens" title="Stały odnośnik do tego nagłówka">¶</a></h1>
+<img alt="_images/matura2015_p14.png" class="align-center" src="_images/matura2015_p14.png" />
+<p>Wynik otrzymujemy natychmiast bez komputera metodą <em>przez „ogląd”:</em>,
+łatwo widać, że ostatnia odpowiedz jest prawdziwa. Mówiąc inaczej
+korzystamy z definicji tangensa: <span class="math notranslate nohighlight">\(tan(\alpha)=\frac{y}{x}\)</span> dla
+<span class="math notranslate nohighlight">\(x=-4\)</span> i <span class="math notranslate nohighlight">\(y=5\)</span>.</p>
+<p>Wyobraźmy sobie jednak, że zapomnielismy co to tangens, ale pamiętamy,
+że Sage posiada funkcję odwrotną <code class="code docutils literal notranslate"><span class="pre">arctan</span></code>, która pozwoli nam
+rozwiązać zadanie „od końca” przez wyliczenie kątów i narysowanie
+wszystkie odpowiedzi w tescie. Będziemy do tego potrzebowali jeszcze
+odległości od początku układu wspólrzędnych, którą wyliczymy z
+Twierdzenie Pitagorasa: <span class="math notranslate nohighlight">\(r=\sqrt{x^2+y^2}=\sqrt{5^2+4^2}\)</span>. Z
+definicji <em>sinusa</em> i <em>cosinusa</em> wiemy też, że współrzędne spełniają:</p>
+<div class="math notranslate nohighlight">
+\[\begin{split}x = r \cos(\phi) \\
+y = r \sin(\phi)\end{split}\]</div>
+<p>Wystarczy więc dla każdej odpowiedzi z testu obliczyć kąt i narysować
+odpowiadający punkt na wykresie (np. funkcją
+<code class="code docutils literal notranslate"><span class="pre">point((x,y))</span></code>. Właściwą odpowiedź rozpoznamy graficznie.</p>
+<p><em>Nasuwa się pytanie: czy można jeszcze bardziej skomplikować to zadanie?</em></p>
+<p>Napiszmy więc:</p>
+<div class='sage_linked'><script type='text/x-sage'>r = sqrt( 5^2+4^2 )
+tanphi=-sqrt(3)/3 # inne odpowiedzi: -4/5,-1,-5/4
+phi = arctan(tanphi )
+point ( (r*cos(phi),r*sin(phi) ),size=20)</script></div><p>Jednak wykres nie jest zbyt piękny, fajnie by było ustawić takie same
+zakresy osi jak w zadaniu. Aby precyzyjnie odczytać położenie punktu z
+wykresu dorysujemy też siatkę z lini pionowych i poziomych
+<code class="code docutils literal notranslate"><span class="pre">gridlines</span></code>.</p>
+<div class='sage_linked'><script type='text/x-sage'>r = sqrt( 5^2+4^2 )
+
+tanphi=-sqrt(3)/3
+phi = arctan(tanphi )
+point ( (r*cos(phi),r*sin(phi) ),size=20,\
+  ymin=-6,ymax=6,xmin=-6,xmax=6,\
+  gridlines=[range(-5,6),range(-5,6)])</script></div><p>No to mamy już nasz program gotowy, dodajemy jeszcze <code class="code docutils literal notranslate"><span class="pre">&#64;interact</span></code>
+by sprawdzać odpowiedzi kliknięciem w odpowiedni klawisz:</p>
+<div class='sage_linked'><script type='text/x-sage'>r = sqrt( 5^2+4^2 )
+@interact
+def _(tanphi=[-sqrt(3)/3,-4/5,-1,-5/4]):
+    phi = arctan(tanphi )
+    plt = point ( (r*cos(phi),r*sin(phi) ),size=20,\
+      ymin=-6,ymax=6,xmin=-6,xmax=6,\
+      gridlines=[range(-5,6),range(-5,6)])
+    plt.show()</script></div><p>Co się okazuje, <strong>żadna</strong> odpowiedź daje punktu w tym samym miejscu
+jak w zadaniu? Co poszło nie tak?</p>
+<p>Okazuje się że zawiniła właność funkcji <span class="math notranslate nohighlight">\(\tan\)</span>. Jej okres to
+<span class="math notranslate nohighlight">\(\pi\)</span> - a nie <span class="math notranslate nohighlight">\(2 \pi\)</span> jak u poczciwego
+<em>sinusa</em>. Oznacza to, że jeżeli:</p>
+<div class="math notranslate nohighlight">
+\[a = \tan(\phi),\]</div>
+<p>to także zachodzi:</p>
+<div class="math notranslate nohighlight">
+\[a = \tan(\phi+\pi)\]</div>
+<p>Czyli działając funkcją odwrotną:</p>
+<div class="math notranslate nohighlight">
+\[\arctan(a) = \phi+\pi!\]</div>
+<p>Dodajmy więc do naszego rysunku drugi punkt dlą kąta <span class="math notranslate nohighlight">\(\phi+\pi\)</span>:</p>
+<div class='sage_linked'><script type='text/x-sage'>r = sqrt( 5^2+4^2 )
+@interact
+def _(tanphi=[-sqrt(3)/3,-4/5,-1,-5/4]):
+    phi = arctan(tanphi )
+    plt = point ( (r*cos(phi),r*sin(phi) ),size=20,\
+      ymin=-6,ymax=6,xmin=-6,xmax=6,\
+      gridlines=[range(-5,6),range(-5,6)])
+    phi += pi
+    plt += point ( (r*cos(phi),r*sin(phi) ),size=20 )
+    plt.show()</script></div><p>I zgadza się! W ostatnim przypadku otrzymujemy wszystkie punkty dla
+których <span class="math notranslate nohighlight">\(\tan(\phi)=-\frac{5}{4}\)</span> i <span class="math notranslate nohighlight">\(r=\sqrt{41}\)</span>. Jednym
+z tych punktów jest ten z rysunku w zadaniu.</p>
+<div class="admonition-jak-to-dziala-code-gridlines admonition">
+<p class="admonition-title">Jak to działa: <code class="code docutils literal notranslate"><span class="pre">gridlines</span></code></p>
+<p>Opcja <cite>gridlines</cite> pozwala na narysowanie pionowych i poziomych lini
+na dowolnym wykresie w Sage. Składnia wygląda tak:</p>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="n">gridlines</span> <span class="o">=</span> <span class="p">[</span> <span class="p">[</span><span class="n">x1</span><span class="p">,</span><span class="n">x2</span><span class="p">,</span><span class="o">...</span><span class="p">,</span><span class="n">xn</span><span class="p">],</span> <span class="p">[</span><span class="n">y1</span><span class="p">,</span><span class="n">y2</span><span class="p">,</span><span class="o">...</span><span class="p">,</span><span class="n">yn</span><span class="p">]</span> <span class="p">]</span>
+</pre></div>
+</div>
+<p>gdzie <cite>x1,x2,…</cite> to położenia prostych pionowych a <cite>y1,y2,…</cite>
+poziomych. Jest to zagnieżdżona lista, dwuelementowa, na której
+znajdują się dwie listy ze współrzędnymi. Przykłady:</p>
+<blockquote>
+<div><ul class="simple">
+<li><p><code class="code docutils literal notranslate"><span class="pre">gridlines=[[1,2,5],[]]</span></code> - trzy linie pionowe</p></li>
+<li><p><code class="code docutils literal notranslate"><span class="pre">gridlines=[</span> <span class="pre">range(1,20),[3]]</span></code> - 19 lini pionowych i jedna pozioma</p></li>
+</ul>
+</div></blockquote>
+</div>
+</div>
+
+
+          </div>
+        </div>
+      </div>
+      <div class="sphinxsidebar" role="navigation" aria-label="main navigation">
+        <div class="sphinxsidebarwrapper">
+  <h4>Poprzedni temat</h4>
+  <p class="topless"><a href="matura2015_p12.html"
+                        title="poprzedni rozdział">O brutalnej metodzie i pętli <code class="code docutils literal notranslate"><span class="pre">for</span></code> przyrządzonej na dwa sposoby</a></p>
+  <h4>Następny temat</h4>
+  <p class="topless"><a href="matura2015_p15.html"
+                        title="następny rozdział">O tożsamości trygonometrycznej i założeniach</a></p>
+<div id="searchbox" style="display: none" role="search">
+  <h3 id="searchlabel">Szybkie wyszukiwanie</h3>
+    <div class="searchformwrapper">
+    <form class="search" action="search.html" method="get">
+      <input type="text" name="q" aria-labelledby="searchlabel" />
+      <input type="submit" value="Szukaj" />
+    </form>
+    </div>
+</div>
+<script>$('#searchbox').show(0);</script>
+        </div>
+      </div>
+      <div class="clearer"></div>
+    </div>
+  </div>
+  <div class="relbar-bottom">
+    
+    <div class="related" role="navigation" aria-label="related navigation">
+      <h3>Nawigacja</h3>
+      <ul>
+        <li class="right" style="margin-right: 10px">
+          <a href="matura2015_p15.html" title="O tożsamości trygonometrycznej i założeniach"
+             >dalej</a></li>
+        <li class="right" >
+          <a href="matura2015_p12.html" title="O brutalnej metodzie i pętli for przyrządzonej na dwa sposoby"
+             >wstecz</a> &nbsp; &nbsp;</li>
+  <li><a href="index.html">Metodologia nauczania przedmiotów ścisłych z perspektywą obliczeniową</a> &#187;</li>
+  
+        <li class="nav-item nav-item-this"><a href="">Jak skomplikować proste i popaść w kłopoty z funkcją tangens</a></li> 
+      </ul>
+    </div>
+  </div>
+  
+  <div class="footer">
+    <a class="logo" href="http://icse.us.edu.pl/" target="_blank"><img src="_static/logo-icse.png" alt="ICSE"/></a><br/>
+    &copy; Copyright Creative Commons CC-BY 4.0, iCSE-team.
+    Created using <a href="http://sphinx.pocoo.org/">Sphinx</a> 3.2.1.
+  </div>
+  </body>
+</html>

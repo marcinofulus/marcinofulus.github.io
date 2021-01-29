@@ -1,0 +1,184 @@
+
+
+  
+<!DOCTYPE html>
+
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Bayerisches Abitur in Mathematik 2013 &#8212; Science education with SageMath</title>
+    <link rel="stylesheet" href="../../../_static/cloud.css" type="text/css" />
+    <link rel="stylesheet" href="../../../_static/pygments.css" type="text/css" />
+    <link rel="stylesheet" href="http://fonts.googleapis.com/css?family=Noticia+Text|Open+Sans|Droid+Sans+Mono&amp;subset=latin,latin-ext" type="text/css" />
+    <script id="documentation_options" data-url_root="../../../" src="../../../_static/documentation_options.js"></script>
+    <script src="../../../_static/jquery.js"></script>
+    <script src="../../../_static/underscore.js"></script>
+    <script src="../../../_static/doctools.js"></script>
+    <script src="../../../_static/language_data.js"></script>
+    <script async="async" src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.7/latest.js?config=TeX-AMS-MML_HTMLorMML"></script>
+    <script src="../../../_static/jquery.cookie.js"></script>
+    <script src="../../../_static/cloud.js"></script>
+    <script type="text/javascript" src="http://sagecell.sagemath.org/static/jquery.min.js"></script>
+    <script type="text/javascript" src="http://sagecell.sagemath.org/static/embedded_sagecell.js"></script>
+    <script type="text/javascript">
+        sagecell.makeSagecell({inputLocation: ".sage_linked",
+                               linked: true});
+        sagecell.makeSagecell({inputLocation: ".sage_unlinked",
+                               linked: false});
+    </script>
+
+    <style type="text/css">
+        .sagecell .CodeMirror-scroll {
+            overflow-y: hidden;
+            overflow-x: auto;
+        }
+        .sagecell .CodeMirror {
+            height: auto;
+        }
+    </style>
+    
+    <link rel="search" title="Search" href="../../../search.html" />
+ 
+  <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, minimum-scale=1">
+  </head><body>
+  <div class="relbar-top">
+    
+    <div class="related" role="navigation" aria-label="related navigation">
+      <h3>Navigation</h3>
+      <ul>
+  <li><a href="../../../index.html">Science education with SageMath</a> &#187;</li>
+  
+        <li class="nav-item nav-item-this"><a href="">Bayerisches Abitur in Mathematik 2013</a></li> 
+      </ul>
+    </div>
+  </div>
+  
+  <div class="content">  
+
+    <div class="document">
+      <div class="documentwrapper">
+        <div class="bodywrapper">
+          <div class="body">
+            
+  <div class="section" id="bayerisches-abitur-in-mathematik-2013">
+<h1>Bayerisches Abitur in Mathematik 2013<a class="headerlink" href="#bayerisches-abitur-in-mathematik-2013" title="Permalink to this headline">¶</a></h1>
+<div class="admonition-aufgabe admonition">
+<p class="admonition-title">Aufgabe</p>
+<p>Bei 0,074% der neugeborenen Kinder liegt eine bestimmte Stoffwechselstörung
+vor. Wird diese Störung frühzeitig erkannt, lässt sich durch eine geeignete
+Behandlung eine spätere Erkrankung vermeiden. Zur Früherkennung kann zunächst
+ein einfacher Test durchgeführt werden. Zeigt das Ergebnis des Tests die
+Stoffwechselstörung an, so bezeichnet man es als positiv.</p>
+<p>Liegt bei einem neugeborenen Kind die Stoffwechselstörung vor, so ist das
+Testergebnis mit einer Wahrscheinlichkeit von 99,5% positiv. Liegt bei einem
+neugeborenen Kind die Stoffwechselstörung nicht vor, so beträgt die
+Wahrscheinlichkeit dafür, dass das Testergebnis irrtümlich positiv ist,
+0,78%.</p>
+<p>Bei einem zufällig ausgewählten neugeborenen Kind wird der Test durchgeführt.
+Betrachtet werden folgende Ereignisse:</p>
+<p><span class="math notranslate nohighlight">\(S\)</span>: „Die Stoffwechselstörung liegt vor.“</p>
+<p><span class="math notranslate nohighlight">\(T\)</span>: „Das Testergebnis ist positiv.“</p>
+<ol class="loweralpha">
+<li><p>Beschreiben Sie das Ereignis <span class="math notranslate nohighlight">\(\overline{S\cup T}\)</span> im
+Sachzusammenhang.</p></li>
+<li><p>Berechnen Sie die Wahrscheinlichkeiten <span class="math notranslate nohighlight">\(P(T)\)</span> und <span class="math notranslate nohighlight">\(P_T (S)\)</span>.
+Interpretieren Sie das Ergebnis für <span class="math notranslate nohighlight">\(P_T(S)\)</span> im Sachzusammenhang.</p>
+<p><em>(zur Kontrolle:</em> <span class="math notranslate nohighlight">\(P(T)\approx 0{,}85\%, P_T(S)&lt;0{,}1\)</span><em>)</em></p>
+</li>
+<li><p>Im Rahmen eines Screenings wird eine sehr große Anzahl zufällig
+ausgewählter neugeborener Kinder getestet. Ermitteln Sie die pro Million
+getesteter Kinder im Mittel zu erwartende Anzahl derjenigen Kinder, bei
+denen die Stoffwechselstörung vorliegt und das Testergebnis negativ ist.</p></li>
+</ol>
+</div>
+<p><strong>Lösung zu Teil a</strong></p>
+<p>Zuerst vereinfachen wir die Aussage:</p>
+<div class="math notranslate nohighlight">
+\[\overline{S\cup T} = \overline{S} \cap \overline{T}.\]</div>
+<p>Diese Formel beschreibt also das Ereignis, dass keine Stoffwechselstörung
+vorliegt und das Testergebnis negativ ist.</p>
+<p><strong>Lösung zu Teil b</strong></p>
+<p><span class="math notranslate nohighlight">\(P(T)\)</span> beschreibt die Wahrscheinlichkeit für ein positives Testergebnis.
+Sie ergibt sich aus der Wahrscheinlichkeit eines positiven Tests bei
+einem gesunden neugeborenen Kind sowie der Wahrscheinlichkeit eines positiven Tests
+bei einem kranken neugeborenen Kind.</p>
+<div class="math notranslate nohighlight">
+\[P(T) = (1-0{,}00074)\cdot 0{,}0078 + 0{,}00074 \cdot 0{,}995 \approx
+0{,}00853\,.\]</div>
+<p><span class="math notranslate nohighlight">\(P_T(S)\)</span> berechnet sich wie folgt:</p>
+<div class="math notranslate nohighlight">
+\[P_T(S) = \frac{P(S \cap T)}{P(T)} = \frac{0{,}00074\cdot 0{,}995}{0{,}00853} \approx 0{,}0863\,.\]</div>
+<p>Dies bedeutet, dass bei einem positiven Testergebnis nur in 8,63% der Fälle tatsächlich
+eine Stoffwechselstörung vorliegt.</p>
+<p><strong>Lösung zu Teil c</strong></p>
+<p>Die Wahrscheinlichkeit dass ein zufälliges Kind die Stoffwechselstörung hat und
+nicht positiv getestet wird beträgt:</p>
+<div class="math notranslate nohighlight">
+\[P(S\cap\overline{T}) = 0{,}00074\cdot (1-0{,}995) \approx 3{,}7 \cdot 10^{-6}\]</div>
+<p>Bei einer Million getesteter Kinder tritt dieses Ereignis folglich bei etwa
+vier Kindern auf.</p>
+<p>Mit Sage können wir den Test simulieren und die Anzahl aller auftretenden
+Ereignisse bestimmen.</p>
+<div class='sage_linked'><script type='text/x-sage'>sage: import numpy as np
+sage: from numpy.random import random_sample
+sage: kinder = 1000000
+sage: ps = 0.00074
+sage: pst = 0.995
+sage: pnst = 0.0078
+
+sage: test_s = random_sample(kinder)
+sage: kranke_kinder = np.sum(random_sample(kinder) < ps)
+sage: kranke_kinder_pos = np.sum(random_sample(kranke_kinder) < pst)
+sage: kranke_kinder_neg = kranke_kinder-kranke_kinder_pos
+sage: gesunde_kinder = kinder-kranke_kinder
+sage: gesunde_kinder_pos = np.sum(random_sample(gesunde_kinder) < pnst)
+sage: gesunde_kinder_neg = gesunde_kinder-gesunde_kinder_pos
+
+sage: print("""{} Kinder wurden wie folgt getestet:
+sage: {} Kinder waren erkrankt und wurden positiv getestet.
+sage: {} Kinder waren erkrankt und wurden negativ getestet.
+sage: {} Kinder waren nicht erkrankt und wurden positiv getestet.
+sage: {} Kinder waren nicht erkrankt und wurden negativ getestet.""").format(
+sage:     kinder, kranke_kinder_pos, kranke_kinder_neg, gesunde_kinder_pos, gesunde_kinder_neg)</script></div></div>
+
+
+          </div>
+        </div>
+      </div>
+      <div class="sphinxsidebar" role="navigation" aria-label="main navigation">
+        <div class="sphinxsidebarwrapper">
+<div id="searchbox" style="display: none" role="search">
+  <h3 id="searchlabel">Quick search</h3>
+    <div class="searchformwrapper">
+    <form class="search" action="../../../search.html" method="get">
+      <input type="text" name="q" aria-labelledby="searchlabel" />
+      <input type="submit" value="Go" />
+    </form>
+    </div>
+</div>
+<script>$('#searchbox').show(0);</script>
+        </div>
+      </div>
+      <div class="clearer"></div>
+    </div>
+  </div>
+  <div class="relbar-bottom">
+    
+    <div class="related" role="navigation" aria-label="related navigation">
+      <h3>Navigation</h3>
+      <ul>
+  <li><a href="../../../index.html">Science education with SageMath</a> &#187;</li>
+  
+        <li class="nav-item nav-item-this"><a href="">Bayerisches Abitur in Mathematik 2013</a></li> 
+      </ul>
+    </div>
+  </div>
+  
+  <div class="footer">
+    <a class="logo" href="http://icse.us.edu.pl/" target="_blank"><img src="../../../_static/logo-icse.png" alt="ICSE"/></a><br/>
+    &copy; Copyright Creative Commons CC-BY 4.0, iCSE-team.
+    Created using <a href="http://sphinx.pocoo.org/">Sphinx</a> 3.2.1.
+  </div>
+  </body>
+</html>

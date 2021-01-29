@@ -1,0 +1,163 @@
+
+
+  
+<!DOCTYPE html>
+
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Bayerisches Abitur in Mathematik 2016 &#8212; Science education with SageMath</title>
+    <link rel="stylesheet" href="../../../_static/cloud.css" type="text/css" />
+    <link rel="stylesheet" href="../../../_static/pygments.css" type="text/css" />
+    <link rel="stylesheet" href="http://fonts.googleapis.com/css?family=Noticia+Text|Open+Sans|Droid+Sans+Mono&amp;subset=latin,latin-ext" type="text/css" />
+    <script id="documentation_options" data-url_root="../../../" src="../../../_static/documentation_options.js"></script>
+    <script src="../../../_static/jquery.js"></script>
+    <script src="../../../_static/underscore.js"></script>
+    <script src="../../../_static/doctools.js"></script>
+    <script src="../../../_static/language_data.js"></script>
+    <script async="async" src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.7/latest.js?config=TeX-AMS-MML_HTMLorMML"></script>
+    <script src="../../../_static/jquery.cookie.js"></script>
+    <script src="../../../_static/cloud.js"></script>
+    <script type="text/javascript" src="http://sagecell.sagemath.org/static/jquery.min.js"></script>
+    <script type="text/javascript" src="http://sagecell.sagemath.org/static/embedded_sagecell.js"></script>
+    <script type="text/javascript">
+        sagecell.makeSagecell({inputLocation: ".sage_linked",
+                               linked: true});
+        sagecell.makeSagecell({inputLocation: ".sage_unlinked",
+                               linked: false});
+    </script>
+
+    <style type="text/css">
+        .sagecell .CodeMirror-scroll {
+            overflow-y: hidden;
+            overflow-x: auto;
+        }
+        .sagecell .CodeMirror {
+            height: auto;
+        }
+    </style>
+    
+    <link rel="search" title="Search" href="../../../search.html" />
+ 
+  <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, minimum-scale=1">
+  </head><body>
+  <div class="relbar-top">
+    
+    <div class="related" role="navigation" aria-label="related navigation">
+      <h3>Navigation</h3>
+      <ul>
+  <li><a href="../../../index.html">Science education with SageMath</a> &#187;</li>
+  
+        <li class="nav-item nav-item-this"><a href="">Bayerisches Abitur in Mathematik 2016</a></li> 
+      </ul>
+    </div>
+  </div>
+  
+  <div class="content">  
+
+    <div class="document">
+      <div class="documentwrapper">
+        <div class="bodywrapper">
+          <div class="body">
+            
+  <div class="section" id="bayerisches-abitur-in-mathematik-2016">
+<h1>Bayerisches Abitur in Mathematik 2016<a class="headerlink" href="#bayerisches-abitur-in-mathematik-2016" title="Permalink to this headline">¶</a></h1>
+<div class="admonition-aufgabe admonition">
+<p class="admonition-title">Aufgabe</p>
+<p>Gegeben sind die Ebene <span class="math notranslate nohighlight">\(E: 2x_1+x_2+2x_3=6\)</span> sowie die Punkte <span class="math notranslate nohighlight">\(P(1|0|2)\)</span>
+und <span class="math notranslate nohighlight">\(Q(5|2|6)\)</span>.</p>
+<ol class="loweralpha simple">
+<li><p>Zeigen Sie, dass die Gerade durch die Punkte <span class="math notranslate nohighlight">\(P\)</span> und <span class="math notranslate nohighlight">\(Q\)</span> senkrecht
+zur Ebene <span class="math notranslate nohighlight">\(E\)</span> verläuft.</p></li>
+<li><p>Die Punkte <span class="math notranslate nohighlight">\(P\)</span> und <span class="math notranslate nohighlight">\(Q\)</span> liegen symmetrisch zu einer Ebene <span class="math notranslate nohighlight">\(F\)</span>.
+Ermitteln Sie eine Gleichung von <span class="math notranslate nohighlight">\(F\)</span>.</p></li>
+</ol>
+</div>
+<p><strong>Lösung zu Teil a</strong></p>
+<p>Der Normalenvektor <span class="math notranslate nohighlight">\(\vec n\)</span> der Ebene <span class="math notranslate nohighlight">\(E\)</span> kann aus der Ebenengleichung
+abgelesen werden. Es gilt:</p>
+<div class="math notranslate nohighlight">
+\[\begin{split}\vec n = \begin{pmatrix}2\\1\\2\end{pmatrix}\end{split}\]</div>
+<p>Für die Gerade <span class="math notranslate nohighlight">\(PQ\)</span> wählen wir den Richtungsvektor</p>
+<div class="math notranslate nohighlight">
+\[\begin{split}\vec{PQ} = \vec Q - \vec P = \begin{pmatrix}5\\2\\6\end{pmatrix}-\begin{pmatrix}1\\0\\2\end{pmatrix}=\begin{pmatrix}4\\2\\4\end{pmatrix}\,.\end{split}\]</div>
+<p>Man kann dann einfach überprüfen, dass <span class="math notranslate nohighlight">\(\vec{PQ}=2\vec n\)</span> gilt. Somit sind
+die Vektoren <span class="math notranslate nohighlight">\(\vec{PQ}\)</span> und <span class="math notranslate nohighlight">\(\vec n\)</span> kollinear, was des Weiteren bedeutet,
+dass die Gerade <span class="math notranslate nohighlight">\(PQ\)</span> senkrecht zur Ebene <span class="math notranslate nohighlight">\(E\)</span> verläuft.</p>
+<p>Mit Sage können wir dies graphisch überprüfen:</p>
+<div class='sage_linked'><script type='text/x-sage'>sage: def E(x1, x2, x3):
+sage:     return 2*x1 + x2 + 2*x3 - 6
+
+sage: P = vector([1, 0, 2])
+sage: Q = vector([5, 2, 6])
+
+sage: p1 = implicit_plot3d(E, (-1, 7), (-4, 4), (-1, 7), color="blue")
+sage: p2 = line([P, Q], color="red", thickness=2)
+sage: labeloffset = vector([0, 0, 0.3])
+sage: p3 = point(P, size=10)+text3d("P", P+labeloffset, color="black", horizontal_alignment="right")
+sage: p4 = point(Q, size=10)+text3d("Q", P+labeloffset, color="black", horizontal_alignment="right")
+
+sage: show(p1+p2+p3+p4, aspect_ratio=1)</script></div><p><strong>Lösung zu Teil b</strong></p>
+<p>Da die Punkte <span class="math notranslate nohighlight">\(P\)</span> und <span class="math notranslate nohighlight">\(Q\)</span> symmetrisch zur Ebene <span class="math notranslate nohighlight">\(F\)</span> liegen sollen,
+verläuft die Gerade <span class="math notranslate nohighlight">\(PQ\)</span> senkrecht zu dieser Ebene. Des Weiteren haben
+wir in Aufgabenteil a gesehen, dass der Vektor <span class="math notranslate nohighlight">\(\vec{PQ}\)</span> senkrecht zur Ebene <span class="math notranslate nohighlight">\(E\)</span>
+steht. Somit liegen <span class="math notranslate nohighlight">\(E\)</span> und <span class="math notranslate nohighlight">\(F\)</span> parallel und haben den gleichen
+Normalenvektor <span class="math notranslate nohighlight">\(\vec n\)</span>.</p>
+<p>Als Aufpunkt <span class="math notranslate nohighlight">\(A\)</span> von <span class="math notranslate nohighlight">\(F\)</span> wählen wir den Mittelpunkt der Strecke <span class="math notranslate nohighlight">\([PQ]\)</span>.
+Es gilt also:</p>
+<div class="math notranslate nohighlight">
+\[\begin{split}\vec A = \frac{1}{2}\cdot\left(\vec P + \vec Q\right) = \frac{1}{2}\cdot\left(\begin{pmatrix}1\\0\\2\end{pmatrix}+\begin{pmatrix}5\\2\\6\end{pmatrix}\right) = \begin{pmatrix}3\\1\\4\end{pmatrix}\end{split}\]</div>
+<p>Die Normalengleichung für <span class="math notranslate nohighlight">\(F\)</span></p>
+<div class="math notranslate nohighlight">
+\[\left(\vec X - \vec A\right)\cdot \vec n = 0\]</div>
+<p>ergibt sich folglich zu</p>
+<div class="math notranslate nohighlight">
+\[2 x_1 + x_2 + 2 x_3 - 15 = 0\,.\]</div>
+<p>Mit Sage können wir dies wieder anhand einer 3D-Grafik überprüfen:</p>
+<div class='sage_linked'><script type='text/x-sage'>sage: def F(x1, x2, x3):
+sage:     return 2*x1 + x2 + 2*x3 - 15
+
+sage: p5 = implicit_plot3d(F, (-1, 7), (-4, 4), (-1, 7), color="green")
+sage: show(p1+p2+p3+p4+p5, aspect_ratio=1)</script></div></div>
+
+
+          </div>
+        </div>
+      </div>
+      <div class="sphinxsidebar" role="navigation" aria-label="main navigation">
+        <div class="sphinxsidebarwrapper">
+<div id="searchbox" style="display: none" role="search">
+  <h3 id="searchlabel">Quick search</h3>
+    <div class="searchformwrapper">
+    <form class="search" action="../../../search.html" method="get">
+      <input type="text" name="q" aria-labelledby="searchlabel" />
+      <input type="submit" value="Go" />
+    </form>
+    </div>
+</div>
+<script>$('#searchbox').show(0);</script>
+        </div>
+      </div>
+      <div class="clearer"></div>
+    </div>
+  </div>
+  <div class="relbar-bottom">
+    
+    <div class="related" role="navigation" aria-label="related navigation">
+      <h3>Navigation</h3>
+      <ul>
+  <li><a href="../../../index.html">Science education with SageMath</a> &#187;</li>
+  
+        <li class="nav-item nav-item-this"><a href="">Bayerisches Abitur in Mathematik 2016</a></li> 
+      </ul>
+    </div>
+  </div>
+  
+  <div class="footer">
+    <a class="logo" href="http://icse.us.edu.pl/" target="_blank"><img src="../../../_static/logo-icse.png" alt="ICSE"/></a><br/>
+    &copy; Copyright Creative Commons CC-BY 4.0, iCSE-team.
+    Created using <a href="http://sphinx.pocoo.org/">Sphinx</a> 3.2.1.
+  </div>
+  </body>
+</html>

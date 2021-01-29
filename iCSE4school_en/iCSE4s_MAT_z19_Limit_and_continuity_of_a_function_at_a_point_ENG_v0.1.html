@@ -1,0 +1,273 @@
+
+
+  
+<!DOCTYPE html>
+
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Limit and continuity of a function at a point &#8212; Science education with SageMath</title>
+    <link rel="stylesheet" href="_static/cloud.css" type="text/css" />
+    <link rel="stylesheet" href="_static/pygments.css" type="text/css" />
+    <link rel="stylesheet" href="http://fonts.googleapis.com/css?family=Noticia+Text|Open+Sans|Droid+Sans+Mono&amp;subset=latin,latin-ext" type="text/css" />
+    <script id="documentation_options" data-url_root="./" src="_static/documentation_options.js"></script>
+    <script src="_static/jquery.js"></script>
+    <script src="_static/underscore.js"></script>
+    <script src="_static/doctools.js"></script>
+    <script src="_static/language_data.js"></script>
+    <script async="async" src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.7/latest.js?config=TeX-AMS-MML_HTMLorMML"></script>
+    <script src="_static/jquery.cookie.js"></script>
+    <script src="_static/cloud.js"></script>
+    <script type="text/javascript" src="http://sagecell.sagemath.org/static/jquery.min.js"></script>
+    <script type="text/javascript" src="http://sagecell.sagemath.org/static/embedded_sagecell.js"></script>
+    <script type="text/javascript">
+        sagecell.makeSagecell({inputLocation: ".sage_linked",
+                               linked: true});
+        sagecell.makeSagecell({inputLocation: ".sage_unlinked",
+                               linked: false});
+    </script>
+
+    <style type="text/css">
+        .sagecell .CodeMirror-scroll {
+            overflow-y: hidden;
+            overflow-x: auto;
+        }
+        .sagecell .CodeMirror {
+            height: auto;
+        }
+    </style>
+    
+    <link rel="search" title="Search" href="search.html" />
+    <link rel="next" title="From point to point" href="from_point_to_point.html" />
+    <link rel="prev" title="SageMath in nutshell" href="sage_in_nutshell.html" />
+ 
+  <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, minimum-scale=1">
+  </head><body>
+  <div class="relbar-top">
+    
+    <div class="related" role="navigation" aria-label="related navigation">
+      <h3>Navigation</h3>
+      <ul>
+        <li class="right" style="margin-right: 10px">
+          <a href="from_point_to_point.html" title="From point to point"
+             accesskey="N">next</a></li>
+        <li class="right" >
+          <a href="sage_in_nutshell.html" title="SageMath in nutshell"
+             accesskey="P">previous</a> &nbsp; &nbsp;</li>
+  <li><a href="index.html">Science education with SageMath</a> &#187;</li>
+  
+        <li class="nav-item nav-item-this"><a href="">Limit and continuity of a function at a point</a></li> 
+      </ul>
+    </div>
+  </div>
+  
+  <div class="content">  
+
+    <div class="document">
+      <div class="documentwrapper">
+        <div class="bodywrapper">
+          <div class="body">
+            
+  <div class="section" id="limit-and-continuity-of-a-function-at-a-point">
+<h1>Limit and continuity of a function at a point<a class="headerlink" href="#limit-and-continuity-of-a-function-at-a-point" title="Permalink to this headline">¶</a></h1>
+<div class="section" id="about-this-lesson-plan">
+<h2>About this lesson plan<a class="headerlink" href="#about-this-lesson-plan" title="Permalink to this headline">¶</a></h2>
+<p>This is a lesson plan for indented for realization during  2h lesson activities.</p>
+<p>It has been developed during work in iCSE4school project based on
+lesson carried out in 2015-2017 at XXXIII LO M. Kopernika w Warszawie.</p>
+<p>It was prepared by   Mirosław Malinowski based on his lesson.</p>
+<div class="admonition-attention admonition">
+<p class="admonition-title">Attention!</p>
+<p>In each of the “code” cells you can change any number, text or
+instruction. In order to  return to the original version  refresh
+the webpage.  Sometimes the next code depends on variables defined from the previous one,
+so one has to execute cells in order of apperance.</p>
+</div>
+</div>
+<div class="section" id="number-sequences-review">
+<h2>Number sequences - review<a class="headerlink" href="#number-sequences-review" title="Permalink to this headline">¶</a></h2>
+<ol class="loweralpha simple">
+<li><p>What do we call a number sequence?</p></li>
+<li><p>Recall the Cauchy definition of the limit of a number sequence.</p></li>
+<li><p>Calculate the following limits:</p></li>
+</ol>
+<p><span class="math notranslate nohighlight">\(\displaystyle \lim_{n\to\infty} \left(1+\frac{1}{n} \right )\)</span>,  <span class="math notranslate nohighlight">\(\displaystyle \lim_{n\to\infty} \left(1-\frac{1}{n} \right)\)</span>,  <span class="math notranslate nohighlight">\(\displaystyle \lim_{n\to\infty} \frac{2n^2+n+1}{n^2- \frac{1}{2}n}\)</span>,  <span class="math notranslate nohighlight">\(\displaystyle  \lim_{n\to\infty} \frac{4n^2-n-1}{2n^2+3n}\)</span></p>
+<ol class="loweralpha simple" start="4">
+<li><p>Using SAGE calculate limits of the sequences above and sketch their graphs.</p></li>
+</ol>
+<div class="section" id="example">
+<h3>Example:<a class="headerlink" href="#example" title="Permalink to this headline">¶</a></h3>
+<p>Let’s check out convergence of the following sequences:  <span class="math notranslate nohighlight">\(\large a_n= 1 + \Large \frac{1}{n}\)</span> oraz  <span class="math notranslate nohighlight">\(\large b_n= 1 - \Large \frac{1}{n}\)</span></p>
+<div class="admonition-experiment-with-sage admonition">
+<p class="admonition-title">Experiment with Sage!</p>
+<p>Run following example to see the output.</p>
+</div>
+<div class='sage_linked'><script type='text/x-sage'>var('a_n')
+a(n) = 1 + 1/n
+b(n) = 1 - 1/n
+c = limit(a(n), n=oo);
+d = limit(b(n), n=oo)
+plt = points([(m, a(m)) for m in srange (1, 50)], axes_labels=['$n$', '$a_n \, b_n$'], legend_label="$a_n = $ $%s$" %latex(a(n)), color = 'green', figsize = (6, 4), gridlines = [None, [c]], fontsize=9)
+plt += points([(m, b(m)) for m in srange (1, 50)], legend_label="$b_n = $ $%s$" %latex(b(n)),color = 'red', gridlines = [None, [d]])
+plt</script></div></div>
+</div>
+<div class="section" id="introduction-of-heine-definition-of-the-limit-of-a-function-at-a-point">
+<h2>Introduction of Heine definition of the limit of a function at a point<a class="headerlink" href="#introduction-of-heine-definition-of-the-limit-of-a-function-at-a-point" title="Permalink to this headline">¶</a></h2>
+<p>A function  <span class="math notranslate nohighlight">\(f(x)\)</span> has a  <strong>left-hand limit</strong>    <em>g</em>   at a point  <span class="math notranslate nohighlight">\(x_0\)</span> (denoted  <span class="math notranslate nohighlight">\(\displaystyle  \lim_{x\to x_0^-} f(x) = g\)</span>),  if for every sequence  <span class="math notranslate nohighlight">\((x_n)\)</span> such that  <span class="math notranslate nohighlight">\(x_n &lt; x_0)\)</span>,  convergent to  <span class="math notranslate nohighlight">\(x_0\)</span>, the sequence of values   <span class="math notranslate nohighlight">\((f(x_n))\)</span> is convergent to   <em>g</em>  .</p>
+<div class="math notranslate nohighlight">
+\[\displaystyle  \lim_{x\to x_0^-} f(x) = g \iff \forall (x_n) \in (a; x_0): \lim_{n\to\infty} a_n = x_0 \implies \lim_{n\to\infty} f(a_n) = g\]</div>
+<p>A function  <span class="math notranslate nohighlight">\(f(x)\)</span> has a  <strong>right-hand limit</strong>    <em>g</em>   at a point  <span class="math notranslate nohighlight">\(x_0\)</span> (denoted  <span class="math notranslate nohighlight">\(\displaystyle  \lim_{x\to x_0^-} f(x) = g\)</span>),  if for every sequence  <span class="math notranslate nohighlight">\((x_n)\)</span> such that  <span class="math notranslate nohighlight">\(x_n &gt; x_0)\)</span>,  convergent to  <span class="math notranslate nohighlight">\(x_0\)</span>, the sequence of values   <span class="math notranslate nohighlight">\((f(x_n))\)</span> is convergent to   <em>g</em>  .</p>
+<div class="math notranslate nohighlight">
+\[\displaystyle  \lim_{x\to x_0^+} f(x) = g \iff \forall (x_n) \in (x_0; a): \lim_{n\to\infty} a_n = x_0 \implies \lim_{n\to\infty} f(a_n) = g\]</div>
+<div class="admonition note">
+<p class="admonition-title">Note</p>
+<p>The function  <span class="math notranslate nohighlight">\(f(x)\)</span> has limit   <span class="math notranslate nohighlight">\(g\)</span>   at the point  <span class="math notranslate nohighlight">\(x_0\)</span>, if the left-hand limit and the right-hand limit exist at  <span class="math notranslate nohighlight">\(x_0\)</span> and  <span class="math notranslate nohighlight">\(\displaystyle \lim_{x\to x_0^-}f(x)=\lim_{x\to x_0^+}f(x)=g\)</span>.</p>
+</div>
+<div class="section" id="id1">
+<h3>Example<a class="headerlink" href="#id1" title="Permalink to this headline">¶</a></h3>
+<p>Using the Heine definition we will calculate the limit of the function  <span class="math notranslate nohighlight">\(f(x) = \Large \frac{x}{x+1}\)</span> at the point  <span class="math notranslate nohighlight">\(x_0 = 1\)</span>.</p>
+<div class='sage_linked'><script type='text/x-sage'>var('x0 x_0')
+x0 = 1
+f(x) = x/(x+1) # Given function
+a(n) = x0 - 1.5/n # A sequence convergent to x0 from below
+b(n) = x0 + 1.5/n # A sequence convergent to do x0 from above
+gl = limit(f(a(n)), n=oo) # Left-hand limit of a sequence of values of the function f(x)
+gr = limit(f(b(n)), n=oo) # Right-hand limit of a sequence of values of the function f(x)
+la = [a(k) for k in srange(1, 100)] # Terms of a sequence convergent to x0 from below
+lb = [b(k) for k in srange(1, 100)] # Terms of a sequence convergent to x0 from above
+plt = plot (f(x), (x, x0-1, x0+1), axes_labels=['$x$','$f(x)$'], legend_label="$y = $ $%s$"%latex(f(x)))
+plt += points([(m, f(m)) for m in la], legend_label="$a_n = $ $%s$" %latex(a(n)), color='red', size=40, ymin = 0, ymax = 1, figsize=(6,4))
+plt += point([(x, f(x)) for x in lb], color='green', size=40, legend_label="$b_n = $ $%s$" %latex(b(n)))
+plt</script></div></div>
+<div class="section" id="excercise-1">
+<h3>Excercise 1<a class="headerlink" href="#excercise-1" title="Permalink to this headline">¶</a></h3>
+<p>Using the procedure given above find the following limits:</p>
+<ol class="arabic simple">
+<li><p><span class="math notranslate nohighlight">\(f(x) = \large \frac{x+2}{x-1}\)</span> at  <span class="math notranslate nohighlight">\(x_0 = 2\)</span></p></li>
+<li><p><span class="math notranslate nohighlight">\(f(x) = \large \frac{x^2-3}{2x^2-1}\)</span> at  <span class="math notranslate nohighlight">\(x_0 = 1\)</span></p></li>
+<li><p><span class="math notranslate nohighlight">\(f(x) = \large \frac{sinx}{x+1}\)</span> at  <span class="math notranslate nohighlight">\(x_0 = \large \frac{\pi}{2}\)</span></p></li>
+<li><p><span class="math notranslate nohighlight">\(f(x) = \large \frac{x}{|x|}\)</span> at  <span class="math notranslate nohighlight">\(x_0 = 0\)</span></p></li>
+<li><p><span class="math notranslate nohighlight">\(f(x) = \begin{cases} x^2 &amp; \text{for } x \le {0}\\ 2^x &amp; \text{for } x&gt;0 \end{cases}\)</span> at  <span class="math notranslate nohighlight">\(x_0 = 0\)</span></p></li>
+</ol>
+</div>
+</div>
+<div class="section" id="definition-of-continuity-of-a-function-at-a-point">
+<h2>Definition of continuity of a function at a point<a class="headerlink" href="#definition-of-continuity-of-a-function-at-a-point" title="Permalink to this headline">¶</a></h2>
+<p>A function <span class="math notranslate nohighlight">\(f\)</span> is continuous at a point <span class="math notranslate nohighlight">\(x_0\)</span> if for any
+sequence <span class="math notranslate nohighlight">\((x_n)\)</span> with terms belonging to a neighbourhood of
+<span class="math notranslate nohighlight">\(x_0\)</span>, convergent to <span class="math notranslate nohighlight">\(x_0\)</span>:</p>
+<ol class="arabic simple">
+<li><p><span class="math notranslate nohighlight">\(\displaystyle \lim_{x \to x_0} f(x)\)</span> exists.</p></li>
+<li><p><span class="math notranslate nohighlight">\(\displaystyle \lim_{x \to x_0} f(x)=f(x_0)\)</span></p></li>
+</ol>
+<div class="section" id="id2">
+<h3>Example<a class="headerlink" href="#id2" title="Permalink to this headline">¶</a></h3>
+<p>Check whether the function  <span class="math notranslate nohighlight">\(f(x) = \begin{cases}x^2 -4 &amp; \text{dla } x&lt; x_0 \\ \sqrt{x}-4 &amp; \text{dla } x \ge {x_0} \end{cases}\)</span>  is continuous at the point  <span class="math notranslate nohighlight">\(x_0=0\)</span>. Is the given function continuous at other points  <span class="math notranslate nohighlight">\(x_0\)</span>?</p>
+<div class='sage_linked'><script type='text/x-sage'>var('x0')
+x0 = 0
+fl(x) = x^2 - 4
+fr(x) = sqrt(x) - 4
+def f(x):
+    if x < x0: return fl(x)
+    if x == x0: return fr(x)
+    if x > x0: return fr(x)
+a = limit(fl(x), x = x0, dir = 'left')
+b = limit(fr(x), x = x0, dir = 'right')
+if a == b == f(x0):
+    print("The function is continuous at the point ",x0)
+else:
+    print("The function is NOT continuous at the point ",x0)
+plt = plot (fl, (x, x0-5, x0), axes_labels=['$x$','$f(x)$'], ymin = -5, ymax = 15, figsize = (6, 4), color = 'green', legend_label="$y =$ $%s$"%latex(fl(x)))
+plt += plot (fr, (x, x0, x0+5), color = 'red', legend_label="$y=$ $%s$"%latex(fr(x))) + point((x0, f(x0)), color = 'red', size = 48)
+plt</script></div></div>
+<div class="section" id="excercise-2">
+<h3>Excercise 2<a class="headerlink" href="#excercise-2" title="Permalink to this headline">¶</a></h3>
+<p>Verify if the following functions are continuous at the given points.</p>
+<ol class="arabic simple">
+<li><p><span class="math notranslate nohighlight">\(f(x) = |x+1|-x\)</span>  at  <span class="math notranslate nohighlight">\(x_0=-1\)</span></p></li>
+<li><p><span class="math notranslate nohighlight">\(f(x) = \begin{cases}|x+3|-1 &amp; \text{for } x&lt;x_0 \\ \cos{x} &amp; \text{for } x \ge {x_0} \end{cases}\)</span>  at  <span class="math notranslate nohighlight">\(x_0=0\)</span>.</p></li>
+<li><p><span class="math notranslate nohighlight">\(f(x) = \begin{cases} \Large \frac{x^2+x-6}{x-2} &amp; \text{for } x&lt;x_0 \\ 3x-1 &amp; \text{for } x \ge {x_0} \end{cases}\)</span>  at  <span class="math notranslate nohighlight">\(x_0=2\)</span></p></li>
+<li><p><span class="math notranslate nohighlight">\(f(x) = \begin{cases} -2 \sin{x} &amp; \text{for } x&lt; x_0 \\ \cos{x} &amp; \text{for } x \ge {x_0} \end{cases}\)</span>  at  <span class="math notranslate nohighlight">\(x_0=\pi\)</span></p></li>
+<li><p><span class="math notranslate nohighlight">\(f(x) = \begin{cases} x \sin{\frac{1}{x}} &amp; \text{for } x \ne x_0\\ 0 &amp; \text{for } x =x_0 \end{cases}\)</span>  at  <span class="math notranslate nohighlight">\(x_0=1\)</span></p></li>
+</ol>
+</div>
+</div>
+</div>
+
+
+          </div>
+        </div>
+      </div>
+      <div class="sphinxsidebar" role="navigation" aria-label="main navigation">
+        <div class="sphinxsidebarwrapper">
+  <div class="sphinxlocaltoc">
+  <h3><a href="index.html">Table Of Contents</a></h3>
+  <ul>
+<li><a class="reference internal" href="#">Limit and continuity of a function at a point</a><ul>
+<li><a class="reference internal" href="#about-this-lesson-plan">About this lesson plan</a></li>
+<li><a class="reference internal" href="#number-sequences-review">Number sequences - review</a><ul>
+<li><a class="reference internal" href="#example">Example:</a></li>
+</ul>
+</li>
+<li><a class="reference internal" href="#introduction-of-heine-definition-of-the-limit-of-a-function-at-a-point">Introduction of Heine definition of the limit of a function at a point</a><ul>
+<li><a class="reference internal" href="#id1">Example</a></li>
+<li><a class="reference internal" href="#excercise-1">Excercise 1</a></li>
+</ul>
+</li>
+<li><a class="reference internal" href="#definition-of-continuity-of-a-function-at-a-point">Definition of continuity of a function at a point</a><ul>
+<li><a class="reference internal" href="#id2">Example</a></li>
+<li><a class="reference internal" href="#excercise-2">Excercise 2</a></li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+
+  </div>
+  <h4>Previous topic</h4>
+  <p class="topless"><a href="sage_in_nutshell.html"
+                        title="previous chapter">SageMath in nutshell</a></p>
+  <h4>Next topic</h4>
+  <p class="topless"><a href="from_point_to_point.html"
+                        title="next chapter">From point to point</a></p>
+<div id="searchbox" style="display: none" role="search">
+  <h3 id="searchlabel">Quick search</h3>
+    <div class="searchformwrapper">
+    <form class="search" action="search.html" method="get">
+      <input type="text" name="q" aria-labelledby="searchlabel" />
+      <input type="submit" value="Go" />
+    </form>
+    </div>
+</div>
+<script>$('#searchbox').show(0);</script>
+        </div>
+      </div>
+      <div class="clearer"></div>
+    </div>
+  </div>
+  <div class="relbar-bottom">
+    
+    <div class="related" role="navigation" aria-label="related navigation">
+      <h3>Navigation</h3>
+      <ul>
+        <li class="right" style="margin-right: 10px">
+          <a href="from_point_to_point.html" title="From point to point"
+             >next</a></li>
+        <li class="right" >
+          <a href="sage_in_nutshell.html" title="SageMath in nutshell"
+             >previous</a> &nbsp; &nbsp;</li>
+  <li><a href="index.html">Science education with SageMath</a> &#187;</li>
+  
+        <li class="nav-item nav-item-this"><a href="">Limit and continuity of a function at a point</a></li> 
+      </ul>
+    </div>
+  </div>
+  
+  <div class="footer">
+    <a class="logo" href="http://icse.us.edu.pl/" target="_blank"><img src="_static/logo-icse.png" alt="ICSE"/></a><br/>
+    &copy; Copyright Creative Commons CC-BY 4.0, iCSE-team.
+    Created using <a href="http://sphinx.pocoo.org/">Sphinx</a> 3.2.1.
+  </div>
+  </body>
+</html>

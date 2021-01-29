@@ -1,0 +1,168 @@
+
+
+  
+<!DOCTYPE html>
+
+<html lang="pl">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>O brutalnej metodzie i pętli for przyrządzonej na dwa sposoby &#8212; Metodologia nauczania przedmiotów ścisłych z perspektywą obliczeniową</title>
+    <link rel="stylesheet" href="_static/cloud.css" type="text/css" />
+    <link rel="stylesheet" href="_static/pygments.css" type="text/css" />
+    <link rel="stylesheet" href="http://fonts.googleapis.com/css?family=Noticia+Text|Open+Sans|Droid+Sans+Mono&amp;subset=latin,latin-ext" type="text/css" />
+    <script id="documentation_options" data-url_root="./" src="_static/documentation_options.js"></script>
+    <script src="_static/jquery.js"></script>
+    <script src="_static/underscore.js"></script>
+    <script src="_static/doctools.js"></script>
+    <script src="_static/language_data.js"></script>
+    <script src="_static/translations.js"></script>
+    <script async="async" src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.7/latest.js?config=TeX-AMS-MML_HTMLorMML"></script>
+    <script src="_static/jquery.cookie.js"></script>
+    <script src="_static/cloud.js"></script>
+    <script type="text/javascript" src="http://sagecell.sagemath.org/static/jquery.min.js"></script>
+    <script type="text/javascript" src="http://sagecell.sagemath.org/static/embedded_sagecell.js"></script>
+    <script type="text/javascript">
+        sagecell.makeSagecell({inputLocation: ".sage_linked",
+                               linked: true});
+        sagecell.makeSagecell({inputLocation: ".sage_unlinked",
+                               linked: false});
+    </script>
+
+    <style type="text/css">
+        .sagecell .CodeMirror-scroll {
+            overflow-y: hidden;
+            overflow-x: auto;
+        }
+        .sagecell .CodeMirror {
+            height: auto;
+        }
+    </style>
+    
+    <link rel="search" title="Szukaj" href="search.html" />
+    <link rel="next" title="Jak skomplikować proste i popaść w kłopoty z funkcją tangens" href="matura2015_p14.html" />
+    <link rel="prev" title="Pojedynek funkcji kwadratowej z solve" href="matura2015_p11.html" />
+ 
+  <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, minimum-scale=1">
+  </head><body>
+  <div class="relbar-top">
+    
+    <div class="related" role="navigation" aria-label="related navigation">
+      <h3>Nawigacja</h3>
+      <ul>
+        <li class="right" style="margin-right: 10px">
+          <a href="matura2015_p14.html" title="Jak skomplikować proste i popaść w kłopoty z funkcją tangens"
+             accesskey="N">dalej</a></li>
+        <li class="right" >
+          <a href="matura2015_p11.html" title="Pojedynek funkcji kwadratowej z solve"
+             accesskey="P">wstecz</a> &nbsp; &nbsp;</li>
+  <li><a href="index.html">Metodologia nauczania przedmiotów ścisłych z perspektywą obliczeniową</a> &#187;</li>
+  
+        <li class="nav-item nav-item-this"><a href="">O brutalnej metodzie i pętli <code class="code docutils literal notranslate"><span class="pre">for</span></code> przyrządzonej na dwa sposoby</a></li> 
+      </ul>
+    </div>
+  </div>
+  
+  <div class="content">  
+
+    <div class="document">
+      <div class="documentwrapper">
+        <div class="bodywrapper">
+          <div class="body">
+            
+  <div class="section" id="o-brutalnej-metodzie-i-petli-for-przyrzadzonej-na-dwa-sposoby">
+<span id="matura2015-p12-rst"></span><h1>O brutalnej metodzie i pętli <code class="code docutils literal notranslate"><span class="pre">for</span></code> przyrządzonej na dwa sposoby<a class="headerlink" href="#o-brutalnej-metodzie-i-petli-for-przyrzadzonej-na-dwa-sposoby" title="Stały odnośnik do tego nagłówka">¶</a></h1>
+<a class="reference internal image-reference" href="_images/matura2015_p12.png"><img alt="_images/matura2015_p12.png" class="align-center" src="_images/matura2015_p12.png" style="width: 76%;" /></a>
+<p>Ile liczb całkowitych spełnia nierówność <span class="math notranslate nohighlight">\(\frac{2}{7}&lt;\frac{x}{14}&lt;\frac{4}{3}\)</span>?</p>
+<p>Zadanie może się wydawać zbyt łatwym by traktować je komputerem, ale
+możemy je wykorzystać by poćwiczyć sobie pętlę <code class="code docutils literal notranslate"><span class="pre">for</span></code>.</p>
+<p>I tak możemy sprawdzić („dla pewności”) wszystkie liczby z przedziału
+<span class="math notranslate nohighlight">\(x\in(-1000,1000)\)</span> wykorzystując system Sage, a właściwie sam
+język Python. Takie podejście czasem jest zwane metodą <em>brute force</em> -
+czyli brutalną <a class="reference external" href="http://en.wikipedia.org/wiki/Proof_by_exhaustion">zob. link</a> . Zmuszamy bowiem
+komputer do brutalnie dużego wysiłku - przynajmniej w stosunku to
+złożoności postawionego problemu.</p>
+<p>Uczyńmy to więc:</p>
+<div class='sage_linked'><script type='text/x-sage'>liczby = [x for x in range(-1000,1000) if 2/7<x/14<4/3]
+print len(liczby),":",liczby</script></div><p>Oczywiście każdy matematyk zaprotestuje, nie mamy pewności czy nie ma
+liczb całkowytych poza przedziałem, które spełniają te nierówności. W
+tym przypadku mie ma problemu by rozwiązać w dziedzinie liczb
+rzeczywistych:</p>
+<div class='sage_linked'><script type='text/x-sage'>var('x')
+solve([2/7<x/14,x/14<4/3],x)</script></div><p>Ponieważ wykonaliśmy sprawdzenie każdej liczby z osobna, można również
+oszacować zakres.  Skoro <span class="math notranslate nohighlight">\(\frac{x}{14}\)</span> jest większe od
+<span class="math notranslate nohighlight">\(\frac{2}{7}\)</span> to na pewno będzie większe od <span class="math notranslate nohighlight">\(0\)</span>. Z drugiej
+strony jest mniejsze od <span class="math notranslate nohighlight">\(\frac{4}{3}\)</span> to będzie mniejsze też od
+np. <span class="math notranslate nohighlight">\(2\)</span>. Czyli wychodzi ze <span class="math notranslate nohighlight">\(x\)</span> będzie większe od <span class="math notranslate nohighlight">\(0\)</span>
+i mniejsze od <span class="math notranslate nohighlight">\(2 \times 14 = 28\)</span>. Okazało się, że poprzedni
+przedział nie zawęził poszukiwania!</p>
+<div class="admonition-ja-to-dziala-list-comprehension-produktowanie-list admonition">
+<p class="admonition-title">Ja to działa? - „list comprehension” - produktowanie list</p>
+<p>Wyrażenie <code class="code docutils literal notranslate"><span class="pre">[x</span> <span class="pre">for</span> <span class="pre">x</span> <span class="pre">in</span> <span class="pre">range(-1000,1000)</span> <span class="pre">if</span> <span class="pre">2/7&lt;x/14&lt;4/3]</span></code>
+zawiera konstrukcję która wykona następującę polecenie: <em>podaj mi
+wszystkie x od -1000 do 999, które spełniają dany warunek</em>. Jest to
+de facto pętla for, tylko tak sprytnie zapisana, że od razu
+generuje listę. Przypomina to nieco zapis matematyczny:</p>
+<div class="math notranslate nohighlight">
+\[S=\{x\mid x \in \mathbb{N},\ \frac{2}{7}&lt;\frac{x}{14}&lt;\frac{4}{3}\,\}\]</div>
+</div>
+<p>Możemy również wykonać to samo zadanie bardziej klasycznie wyglądającą
+pętlą <code class="code docutils literal notranslate"><span class="pre">for</span></code>:</p>
+<div class='sage_linked'><script type='text/x-sage'>i = 0
+for x in range(-1000,1000):
+    if 2/7<x/14<4/3:
+        i+=1
+print i</script></div></div>
+
+
+          </div>
+        </div>
+      </div>
+      <div class="sphinxsidebar" role="navigation" aria-label="main navigation">
+        <div class="sphinxsidebarwrapper">
+  <h4>Poprzedni temat</h4>
+  <p class="topless"><a href="matura2015_p11.html"
+                        title="poprzedni rozdział">Pojedynek  funkcji kwadratowej z <code class="code docutils literal notranslate"><span class="pre">solve</span></code></a></p>
+  <h4>Następny temat</h4>
+  <p class="topless"><a href="matura2015_p14.html"
+                        title="następny rozdział">Jak skomplikować proste i popaść w kłopoty z funkcją tangens</a></p>
+<div id="searchbox" style="display: none" role="search">
+  <h3 id="searchlabel">Szybkie wyszukiwanie</h3>
+    <div class="searchformwrapper">
+    <form class="search" action="search.html" method="get">
+      <input type="text" name="q" aria-labelledby="searchlabel" />
+      <input type="submit" value="Szukaj" />
+    </form>
+    </div>
+</div>
+<script>$('#searchbox').show(0);</script>
+        </div>
+      </div>
+      <div class="clearer"></div>
+    </div>
+  </div>
+  <div class="relbar-bottom">
+    
+    <div class="related" role="navigation" aria-label="related navigation">
+      <h3>Nawigacja</h3>
+      <ul>
+        <li class="right" style="margin-right: 10px">
+          <a href="matura2015_p14.html" title="Jak skomplikować proste i popaść w kłopoty z funkcją tangens"
+             >dalej</a></li>
+        <li class="right" >
+          <a href="matura2015_p11.html" title="Pojedynek funkcji kwadratowej z solve"
+             >wstecz</a> &nbsp; &nbsp;</li>
+  <li><a href="index.html">Metodologia nauczania przedmiotów ścisłych z perspektywą obliczeniową</a> &#187;</li>
+  
+        <li class="nav-item nav-item-this"><a href="">O brutalnej metodzie i pętli <code class="code docutils literal notranslate"><span class="pre">for</span></code> przyrządzonej na dwa sposoby</a></li> 
+      </ul>
+    </div>
+  </div>
+  
+  <div class="footer">
+    <a class="logo" href="http://icse.us.edu.pl/" target="_blank"><img src="_static/logo-icse.png" alt="ICSE"/></a><br/>
+    &copy; Copyright Creative Commons CC-BY 4.0, iCSE-team.
+    Created using <a href="http://sphinx.pocoo.org/">Sphinx</a> 3.2.1.
+  </div>
+  </body>
+</html>

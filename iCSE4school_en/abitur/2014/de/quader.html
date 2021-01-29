@@ -1,0 +1,162 @@
+
+
+  
+<!DOCTYPE html>
+
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Bayerisches Abitur in Mathematik 2014 &#8212; Science education with SageMath</title>
+    <link rel="stylesheet" href="../../../_static/cloud.css" type="text/css" />
+    <link rel="stylesheet" href="../../../_static/pygments.css" type="text/css" />
+    <link rel="stylesheet" href="http://fonts.googleapis.com/css?family=Noticia+Text|Open+Sans|Droid+Sans+Mono&amp;subset=latin,latin-ext" type="text/css" />
+    <script id="documentation_options" data-url_root="../../../" src="../../../_static/documentation_options.js"></script>
+    <script src="../../../_static/jquery.js"></script>
+    <script src="../../../_static/underscore.js"></script>
+    <script src="../../../_static/doctools.js"></script>
+    <script src="../../../_static/language_data.js"></script>
+    <script async="async" src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.7/latest.js?config=TeX-AMS-MML_HTMLorMML"></script>
+    <script src="../../../_static/jquery.cookie.js"></script>
+    <script src="../../../_static/cloud.js"></script>
+    <script type="text/javascript" src="http://sagecell.sagemath.org/static/jquery.min.js"></script>
+    <script type="text/javascript" src="http://sagecell.sagemath.org/static/embedded_sagecell.js"></script>
+    <script type="text/javascript">
+        sagecell.makeSagecell({inputLocation: ".sage_linked",
+                               linked: true});
+        sagecell.makeSagecell({inputLocation: ".sage_unlinked",
+                               linked: false});
+    </script>
+
+    <style type="text/css">
+        .sagecell .CodeMirror-scroll {
+            overflow-y: hidden;
+            overflow-x: auto;
+        }
+        .sagecell .CodeMirror {
+            height: auto;
+        }
+    </style>
+    
+    <link rel="search" title="Search" href="../../../search.html" />
+ 
+  <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, minimum-scale=1">
+  </head><body>
+  <div class="relbar-top">
+    
+    <div class="related" role="navigation" aria-label="related navigation">
+      <h3>Navigation</h3>
+      <ul>
+  <li><a href="../../../index.html">Science education with SageMath</a> &#187;</li>
+  
+        <li class="nav-item nav-item-this"><a href="">Bayerisches Abitur in Mathematik 2014</a></li> 
+      </ul>
+    </div>
+  </div>
+  
+  <div class="content">  
+
+    <div class="document">
+      <div class="documentwrapper">
+        <div class="bodywrapper">
+          <div class="body">
+            
+  <div class="section" id="bayerisches-abitur-in-mathematik-2014">
+<h1>Bayerisches Abitur in Mathematik 2014<a class="headerlink" href="#bayerisches-abitur-in-mathematik-2014" title="Permalink to this headline">¶</a></h1>
+<div class="admonition-aufgabe admonition">
+<p class="admonition-title">Aufgabe</p>
+<p>Die Vektoren</p>
+<div class="math notranslate nohighlight">
+\[\begin{split}\vec{a} = \left(\begin{matrix} 2\\1\\2 \end{matrix} \right),\quad
+\vec{b} = \left(\begin{matrix} -1\\2\\0 \end{matrix} \right),\quad
+\vec{c_t} = \left(\begin{matrix} 4t\\2t\\-5t \end{matrix} \right),\end{split}\]</div>
+<p>spannen für jeden Wert von <span class="math notranslate nohighlight">\(t\)</span> mit <span class="math notranslate nohighlight">\(t\in\mathbb{R}\backslash\{0\}\)</span>
+einen Körper auf. Die Abbildung zeigt den Sachverhalt beispielhaft für einen
+Wert von <span class="math notranslate nohighlight">\(t\)</span>.</p>
+<ol class="loweralpha simple">
+<li><p>Zeigen Sie, dass die aufgespannten Körper Quader sind.</p></li>
+<li><p>Bestimmen Sie diejenigen Werte von <span class="math notranslate nohighlight">\(t\)</span>, für die der jeweils zugehörige
+Quader das Volumen 15 besitzt.</p></li>
+</ol>
+<img alt="../../../_images/quader.png" class="align-center" src="../../../_images/quader.png" />
+</div>
+<p><strong>Lösung zu Teil a</strong></p>
+<p>Bei dem Körper handelt es sich genau dann um einen Quader, wenn die drei Vektoren
+<span class="math notranslate nohighlight">\(\vec{a}\)</span>, <span class="math notranslate nohighlight">\(\vec{b}\)</span> und <span class="math notranslate nohighlight">\(\vec{c}\)</span> paarweise senkrecht aufeinander
+stehen. Wir überprüfen dies durch die Berechnung des jeweiligen Skalarprodukts zwischen
+zwei Vektoren, welches in allen Fällen <span class="math notranslate nohighlight">\(0\)</span> ergeben muss.</p>
+<div class="math notranslate nohighlight">
+\[\begin{split}\vec{a}\cdot\vec{b} &amp;= 2\cdot(-1) + 1\cdot2 + 2\cdot0 &amp;= 0\\
+\vec{a}\cdot\vec{c} &amp;= 2\cdot4t + 1\cdot2t + 2\cdot(-5t) &amp;= 0\\
+\vec{b}\cdot\vec{c} &amp;= (-1)\cdot4t + 2\cdot2t + 0\cdot(-5t) &amp;= 0\\\end{split}\]</div>
+<p>Wir überprüfen die Skalarprodukte mit Sage:</p>
+<div class='sage_linked'><script type='text/x-sage'>sage: t = var('t')
+sage: a = vector([2, 1, 2])
+sage: b = vector([-1, 2, 0])
+sage: c = vector([4*t, 2*t, -5*t])
+sage: print u"a\u00b7b =", a.dot_product(b)
+sage: print u"a\u00b7c =", a.dot_product(c)
+sage: print u"b\u00b7c =", b.dot_product(c)</script></div><p><strong>Lösung zu Teil b</strong></p>
+<p>Das Volumen des Quaders ergibt sich aus dem Betrag des Spatprodukts</p>
+<div class="math notranslate nohighlight">
+\[\begin{split}V &amp;= \left\vert\vec{a}\cdot(\vec{b}\times\vec{c})\right\vert\\
+  &amp;=\left\vert\left(\begin{matrix} 2\\1\\2 \end{matrix} \right)
+\cdot\left(\begin{matrix} 2\cdot(-5t)-0\cdot2t \\ 0\cdot4t-(-1)\cdot(-5t) \\ (-1)\cdot2t-2\cdot4t
+\end{matrix}\right)\right\vert \\
+&amp;=\left\vert 2\cdot(-10t) + 1\cdot(-5t)+2\cdot(-10t) \right\vert\\
+&amp;= 45\left\vert t \right\vert.\end{split}\]</div>
+<p>Mit der Vorgabe, dass das Volumen des Quaders gleich 15 sein soll, erhalten wir</p>
+<div class="math notranslate nohighlight">
+\[V = 45\left\vert t \right\vert \overset{!}{=} 15\]</div>
+<p>und daraus</p>
+<div class="math notranslate nohighlight">
+\[\left\vert t \right\vert = \frac{1}{3} \Leftrightarrow t=\pm\frac{1}{3}\]</div>
+<p>Es gibt also zwei mögliche Lösungen für das Problem. In einem Fall zeigt der
+Vektor <span class="math notranslate nohighlight">\(\vec{c}\)</span> in die obere Halbebene und im anderen Fall in die untere
+Halbebene.</p>
+<p>Mit Hilfe von Sage lässt sich das Ergebnis leicht überprüfen. Insbesondere bei
+der Berechnung des Spatprodukts liefert Sage eine deutliche Erleichterung.</p>
+<div class='sage_linked'><script type='text/x-sage'>sage: V = abs(a.dot_product(b.cross_product(c)))
+sage: print "Volumen =", V
+sage: solve(V == 15, t)</script></div></div>
+
+
+          </div>
+        </div>
+      </div>
+      <div class="sphinxsidebar" role="navigation" aria-label="main navigation">
+        <div class="sphinxsidebarwrapper">
+<div id="searchbox" style="display: none" role="search">
+  <h3 id="searchlabel">Quick search</h3>
+    <div class="searchformwrapper">
+    <form class="search" action="../../../search.html" method="get">
+      <input type="text" name="q" aria-labelledby="searchlabel" />
+      <input type="submit" value="Go" />
+    </form>
+    </div>
+</div>
+<script>$('#searchbox').show(0);</script>
+        </div>
+      </div>
+      <div class="clearer"></div>
+    </div>
+  </div>
+  <div class="relbar-bottom">
+    
+    <div class="related" role="navigation" aria-label="related navigation">
+      <h3>Navigation</h3>
+      <ul>
+  <li><a href="../../../index.html">Science education with SageMath</a> &#187;</li>
+  
+        <li class="nav-item nav-item-this"><a href="">Bayerisches Abitur in Mathematik 2014</a></li> 
+      </ul>
+    </div>
+  </div>
+  
+  <div class="footer">
+    <a class="logo" href="http://icse.us.edu.pl/" target="_blank"><img src="../../../_static/logo-icse.png" alt="ICSE"/></a><br/>
+    &copy; Copyright Creative Commons CC-BY 4.0, iCSE-team.
+    Created using <a href="http://sphinx.pocoo.org/">Sphinx</a> 3.2.1.
+  </div>
+  </body>
+</html>

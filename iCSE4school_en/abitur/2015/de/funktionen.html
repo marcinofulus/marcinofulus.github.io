@@ -1,0 +1,149 @@
+
+
+  
+<!DOCTYPE html>
+
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Bayerisches Abitur in Mathematik 2015 &#8212; Science education with SageMath</title>
+    <link rel="stylesheet" href="../../../_static/cloud.css" type="text/css" />
+    <link rel="stylesheet" href="../../../_static/pygments.css" type="text/css" />
+    <link rel="stylesheet" href="http://fonts.googleapis.com/css?family=Noticia+Text|Open+Sans|Droid+Sans+Mono&amp;subset=latin,latin-ext" type="text/css" />
+    <script id="documentation_options" data-url_root="../../../" src="../../../_static/documentation_options.js"></script>
+    <script src="../../../_static/jquery.js"></script>
+    <script src="../../../_static/underscore.js"></script>
+    <script src="../../../_static/doctools.js"></script>
+    <script src="../../../_static/language_data.js"></script>
+    <script async="async" src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.7/latest.js?config=TeX-AMS-MML_HTMLorMML"></script>
+    <script src="../../../_static/jquery.cookie.js"></script>
+    <script src="../../../_static/cloud.js"></script>
+    <script type="text/javascript" src="http://sagecell.sagemath.org/static/jquery.min.js"></script>
+    <script type="text/javascript" src="http://sagecell.sagemath.org/static/embedded_sagecell.js"></script>
+    <script type="text/javascript">
+        sagecell.makeSagecell({inputLocation: ".sage_linked",
+                               linked: true});
+        sagecell.makeSagecell({inputLocation: ".sage_unlinked",
+                               linked: false});
+    </script>
+
+    <style type="text/css">
+        .sagecell .CodeMirror-scroll {
+            overflow-y: hidden;
+            overflow-x: auto;
+        }
+        .sagecell .CodeMirror {
+            height: auto;
+        }
+    </style>
+    
+    <link rel="search" title="Search" href="../../../search.html" />
+ 
+  <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, minimum-scale=1">
+  </head><body>
+  <div class="relbar-top">
+    
+    <div class="related" role="navigation" aria-label="related navigation">
+      <h3>Navigation</h3>
+      <ul>
+  <li><a href="../../../index.html">Science education with SageMath</a> &#187;</li>
+  
+        <li class="nav-item nav-item-this"><a href="">Bayerisches Abitur in Mathematik 2015</a></li> 
+      </ul>
+    </div>
+  </div>
+  
+  <div class="content">  
+
+    <div class="document">
+      <div class="documentwrapper">
+        <div class="bodywrapper">
+          <div class="body">
+            
+  <div class="section" id="bayerisches-abitur-in-mathematik-2015">
+<h1>Bayerisches Abitur in Mathematik 2015<a class="headerlink" href="#bayerisches-abitur-in-mathematik-2015" title="Permalink to this headline">¶</a></h1>
+<div class="admonition-aufgabe admonition">
+<p class="admonition-title">Aufgabe</p>
+<p>Gegeben sind die in <span class="math notranslate nohighlight">\(\mathbb{R}\)</span> definierten Funktionen <span class="math notranslate nohighlight">\(f, g\)</span> und
+<span class="math notranslate nohighlight">\(h\)</span> mit <span class="math notranslate nohighlight">\(f(x)=x^2-x+1\)</span>, <span class="math notranslate nohighlight">\(g(x)=x^3-x+1\)</span> und
+<span class="math notranslate nohighlight">\(h(x)=x^4+x^2+1\)</span>.</p>
+<ol class="loweralpha simple">
+<li><p>Die Abbildung zeigt den Graphen einer der drei Funktionen. Geben Sie an, um
+welche Funktion es sich handelt. Begründen Sie, dass der Graph die anderen
+beiden Funktionen nicht darstellt.</p></li>
+</ol>
+<img alt="../../../_images/funktionen.png" class="align-center" src="../../../_images/funktionen.png" />
+<ol class="loweralpha simple" start="2">
+<li><p>Die erste Ableitungsfunktion von <span class="math notranslate nohighlight">\(h\)</span> ist <span class="math notranslate nohighlight">\(h'\)</span>. Bestimmen Sie
+den Wert von <span class="math notranslate nohighlight">\(\int_0^1h'(x)\mathrm{d}x\)</span>.</p></li>
+</ol>
+</div>
+<p><strong>Lösung zu Teil a</strong></p>
+<p>Die vorgegebene Funktion hat zwei Extrema. Damit kommt die Funktion
+<span class="math notranslate nohighlight">\(f(x)\)</span> nicht in Frage, da die Ableitung einer quadratischen Funktion nur
+eine Nullstelle besitzt. Zudem kann die vorgegebene Funktion negative Werte
+annehmen. Dies schließt die Funktion <span class="math notranslate nohighlight">\(h(x)\)</span> aus. Bei der dargestellten
+Funktion handelt es sich also offenbar um die Funktion <span class="math notranslate nohighlight">\(g(x)\)</span>. Wir
+überprüfen die Vermutung mit Sage:</p>
+<div class='sage_linked'><script type='text/x-sage'>sage: ranges = {'xmin': -2, 'xmax': 2.5, 'ymin': -2.5, 'ymax': 2.5}
+sage: p = sum([plot(x^2-x+1, color='blue', **ranges),
+...            plot(x^3-x+1, color='red', **ranges),
+...            plot(x^4+x^2+1, color='green', **ranges)])
+sage: p.show(figsize=(2.7, 3))</script></div><p>In der Tat passt der rot dargestellte Funktionsgraph der Funktion <span class="math notranslate nohighlight">\(g(x)\)</span>
+zu der Vorgabe.</p>
+<p><strong>Lösung zu Teil b</strong></p>
+<p>Die Stammfunktion der Ableitung einer Funktion ist die Funktion selbst. Daher
+folgt</p>
+<div class="math notranslate nohighlight">
+\[\int_0^1h'(x)\mathrm{d}x = h(1)-h(0) = 3-1 = 2.\]</div>
+<p>In Sage differenzieren wir zur Überprüfung zunächst die Funktion
+<span class="math notranslate nohighlight">\(h(x)\)</span> und bestimmen dann das gesuchte bestimmte Integral:</p>
+<div class='sage_linked'><script type='text/x-sage'>sage: h(x) = x^4+x^2+1
+sage: dh(x) = diff(h, x)
+sage: print 'Ableitung von h(x):', dh
+sage: print 'Wert des bestimmten Integrals:', integrate(dh(x), x, 0, 1)</script></div><p>Dieses Ergebnis erhalten wir natürlich auch, wenn wir entsprechend der obigen
+Überlegung die Funktionswerte an den Integrationsgrenzen voneinander abziehen:</p>
+<div class='sage_linked'><script type='text/x-sage'>sage: h(x) = x^4+x^2+1
+sage: h(1)-h(0)</script></div></div>
+
+
+          </div>
+        </div>
+      </div>
+      <div class="sphinxsidebar" role="navigation" aria-label="main navigation">
+        <div class="sphinxsidebarwrapper">
+<div id="searchbox" style="display: none" role="search">
+  <h3 id="searchlabel">Quick search</h3>
+    <div class="searchformwrapper">
+    <form class="search" action="../../../search.html" method="get">
+      <input type="text" name="q" aria-labelledby="searchlabel" />
+      <input type="submit" value="Go" />
+    </form>
+    </div>
+</div>
+<script>$('#searchbox').show(0);</script>
+        </div>
+      </div>
+      <div class="clearer"></div>
+    </div>
+  </div>
+  <div class="relbar-bottom">
+    
+    <div class="related" role="navigation" aria-label="related navigation">
+      <h3>Navigation</h3>
+      <ul>
+  <li><a href="../../../index.html">Science education with SageMath</a> &#187;</li>
+  
+        <li class="nav-item nav-item-this"><a href="">Bayerisches Abitur in Mathematik 2015</a></li> 
+      </ul>
+    </div>
+  </div>
+  
+  <div class="footer">
+    <a class="logo" href="http://icse.us.edu.pl/" target="_blank"><img src="../../../_static/logo-icse.png" alt="ICSE"/></a><br/>
+    &copy; Copyright Creative Commons CC-BY 4.0, iCSE-team.
+    Created using <a href="http://sphinx.pocoo.org/">Sphinx</a> 3.2.1.
+  </div>
+  </body>
+</html>

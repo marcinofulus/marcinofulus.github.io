@@ -1,0 +1,138 @@
+
+
+  
+<!DOCTYPE html>
+
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Bayerisches Abitur in Mathematik 2014 &#8212; Science education with SageMath</title>
+    <link rel="stylesheet" href="../../../_static/cloud.css" type="text/css" />
+    <link rel="stylesheet" href="../../../_static/pygments.css" type="text/css" />
+    <link rel="stylesheet" href="http://fonts.googleapis.com/css?family=Noticia+Text|Open+Sans|Droid+Sans+Mono&amp;subset=latin,latin-ext" type="text/css" />
+    <script id="documentation_options" data-url_root="../../../" src="../../../_static/documentation_options.js"></script>
+    <script src="../../../_static/jquery.js"></script>
+    <script src="../../../_static/underscore.js"></script>
+    <script src="../../../_static/doctools.js"></script>
+    <script src="../../../_static/language_data.js"></script>
+    <script async="async" src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.7/latest.js?config=TeX-AMS-MML_HTMLorMML"></script>
+    <script src="../../../_static/jquery.cookie.js"></script>
+    <script src="../../../_static/cloud.js"></script>
+    <script type="text/javascript" src="http://sagecell.sagemath.org/static/jquery.min.js"></script>
+    <script type="text/javascript" src="http://sagecell.sagemath.org/static/embedded_sagecell.js"></script>
+    <script type="text/javascript">
+        sagecell.makeSagecell({inputLocation: ".sage_linked",
+                               linked: true});
+        sagecell.makeSagecell({inputLocation: ".sage_unlinked",
+                               linked: false});
+    </script>
+
+    <style type="text/css">
+        .sagecell .CodeMirror-scroll {
+            overflow-y: hidden;
+            overflow-x: auto;
+        }
+        .sagecell .CodeMirror {
+            height: auto;
+        }
+    </style>
+    
+    <link rel="search" title="Search" href="../../../search.html" />
+ 
+  <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, minimum-scale=1">
+  </head><body>
+  <div class="relbar-top">
+    
+    <div class="related" role="navigation" aria-label="related navigation">
+      <h3>Navigation</h3>
+      <ul>
+  <li><a href="../../../index.html">Science education with SageMath</a> &#187;</li>
+  
+        <li class="nav-item nav-item-this"><a href="">Bayerisches Abitur in Mathematik 2014</a></li> 
+      </ul>
+    </div>
+  </div>
+  
+  <div class="content">  
+
+    <div class="document">
+      <div class="documentwrapper">
+        <div class="bodywrapper">
+          <div class="body">
+            
+  <div class="section" id="bayerisches-abitur-in-mathematik-2014">
+<h1>Bayerisches Abitur in Mathematik 2014<a class="headerlink" href="#bayerisches-abitur-in-mathematik-2014" title="Permalink to this headline">¶</a></h1>
+<div class="admonition-aufgabe admonition">
+<p class="admonition-title">Aufgabe</p>
+<p>Gegeben ist die Funktion <span class="math notranslate nohighlight">\(f: x\mapsto \frac{x}{\ln(x)}\)</span>
+mit Definitionsmenge <span class="math notranslate nohighlight">\(\mathbb{R}^+\backslash\{1\}\)</span>. Bestimmen Sie Lage und Art des
+Extrempunkts des Graphen von <span class="math notranslate nohighlight">\(f\)</span>.</p>
+</div>
+<p><strong>Lösung</strong></p>
+<p>Wir verschaffen uns mit Sage zunächst einen Überblick über die gegebene Funktion.</p>
+<div class='sage_linked'><script type='text/x-sage'>sage: p = plot(x/ln(x), xmin=0, xmax=10, ymin=-2, ymax=5, color='blue', detect_poles='show')
+sage: p.show(figsize=(4, 2.8))</script></div><p>Um den Extrempunkt der Funktion zu finden, müssen wir ihre Ableitung gleich Null setzen.
+Die Ableitung ergibt sich zu</p>
+<div class="math notranslate nohighlight">
+\[f'(x)=\frac{\ln(x)-1}{\ln(x)^2}\]</div>
+<p>wie man mit Sage leicht überprüft:</p>
+<div class='sage_linked'><script type='text/x-sage'>sage: f(x) = x/ln(x)
+sage: df(x) = f.derivative(x).log_simplify()
+sage: print df(x)</script></div><p>Nullsetzen der Ableitung liefert uns den einzigen Extrempunkt an der Stelle
+<span class="math notranslate nohighlight">\(x_0=e\)</span> mit dem Wert <span class="math notranslate nohighlight">\(f(x_0)=e\)</span>.</p>
+<div class='sage_linked'><script type='text/x-sage'>sage: x0 = solve(df(x)==0, x)[0].lhs()
+sage: print 'Extrempunkt an der Stelle (', x0, '|', f(x0), ')'</script></div><p>Um die Art des Extrempunkts zu bestimmen, berechnen wir die zweite Ableitung der
+Funktion <span class="math notranslate nohighlight">\(f(x)\)</span></p>
+<div class="math notranslate nohighlight">
+\[f''(x) = \frac{-\ln(x)+2}{x\ln(x)^3}\]</div>
+<p>und werten diese am Extrempunkt aus</p>
+<div class="math notranslate nohighlight">
+\[f''(x_0) = \frac{1}{\mathrm{e}} &gt; 0\]</div>
+<p>Dies lässt sich wiederum mit Sage überprüfen:</p>
+<div class='sage_linked'><script type='text/x-sage'>sage: ddf(x) = df.derivative(x).log_simplify()
+sage: print ddf(x)
+sage: print ddf(x0)</script></div><p>Bei dem Extrempunkt handelt es sich somit um ein Minimum, wie man auch schon dem
+obigen Funktionsgraphen entnehmen konnte.</p>
+</div>
+
+
+          </div>
+        </div>
+      </div>
+      <div class="sphinxsidebar" role="navigation" aria-label="main navigation">
+        <div class="sphinxsidebarwrapper">
+<div id="searchbox" style="display: none" role="search">
+  <h3 id="searchlabel">Quick search</h3>
+    <div class="searchformwrapper">
+    <form class="search" action="../../../search.html" method="get">
+      <input type="text" name="q" aria-labelledby="searchlabel" />
+      <input type="submit" value="Go" />
+    </form>
+    </div>
+</div>
+<script>$('#searchbox').show(0);</script>
+        </div>
+      </div>
+      <div class="clearer"></div>
+    </div>
+  </div>
+  <div class="relbar-bottom">
+    
+    <div class="related" role="navigation" aria-label="related navigation">
+      <h3>Navigation</h3>
+      <ul>
+  <li><a href="../../../index.html">Science education with SageMath</a> &#187;</li>
+  
+        <li class="nav-item nav-item-this"><a href="">Bayerisches Abitur in Mathematik 2014</a></li> 
+      </ul>
+    </div>
+  </div>
+  
+  <div class="footer">
+    <a class="logo" href="http://icse.us.edu.pl/" target="_blank"><img src="../../../_static/logo-icse.png" alt="ICSE"/></a><br/>
+    &copy; Copyright Creative Commons CC-BY 4.0, iCSE-team.
+    Created using <a href="http://sphinx.pocoo.org/">Sphinx</a> 3.2.1.
+  </div>
+  </body>
+</html>

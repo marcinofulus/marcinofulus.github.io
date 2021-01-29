@@ -1,0 +1,232 @@
+
+
+  
+<!DOCTYPE html>
+
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Bayerisches Abitur in Mathematik 2014 &#8212; Science education with SageMath</title>
+    <link rel="stylesheet" href="../../../_static/cloud.css" type="text/css" />
+    <link rel="stylesheet" href="../../../_static/pygments.css" type="text/css" />
+    <link rel="stylesheet" href="http://fonts.googleapis.com/css?family=Noticia+Text|Open+Sans|Droid+Sans+Mono&amp;subset=latin,latin-ext" type="text/css" />
+    <script id="documentation_options" data-url_root="../../../" src="../../../_static/documentation_options.js"></script>
+    <script src="../../../_static/jquery.js"></script>
+    <script src="../../../_static/underscore.js"></script>
+    <script src="../../../_static/doctools.js"></script>
+    <script src="../../../_static/language_data.js"></script>
+    <script async="async" src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.7/latest.js?config=TeX-AMS-MML_HTMLorMML"></script>
+    <script src="../../../_static/jquery.cookie.js"></script>
+    <script src="../../../_static/cloud.js"></script>
+    <script type="text/javascript" src="http://sagecell.sagemath.org/static/jquery.min.js"></script>
+    <script type="text/javascript" src="http://sagecell.sagemath.org/static/embedded_sagecell.js"></script>
+    <script type="text/javascript">
+        sagecell.makeSagecell({inputLocation: ".sage_linked",
+                               linked: true});
+        sagecell.makeSagecell({inputLocation: ".sage_unlinked",
+                               linked: false});
+    </script>
+
+    <style type="text/css">
+        .sagecell .CodeMirror-scroll {
+            overflow-y: hidden;
+            overflow-x: auto;
+        }
+        .sagecell .CodeMirror {
+            height: auto;
+        }
+    </style>
+    
+    <link rel="search" title="Search" href="../../../search.html" />
+ 
+  <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, minimum-scale=1">
+  </head><body>
+  <div class="relbar-top">
+    
+    <div class="related" role="navigation" aria-label="related navigation">
+      <h3>Navigation</h3>
+      <ul>
+  <li><a href="../../../index.html">Science education with SageMath</a> &#187;</li>
+  
+        <li class="nav-item nav-item-this"><a href="">Bayerisches Abitur in Mathematik 2014</a></li> 
+      </ul>
+    </div>
+  </div>
+  
+  <div class="content">  
+
+    <div class="document">
+      <div class="documentwrapper">
+        <div class="bodywrapper">
+          <div class="body">
+            
+  <div class="section" id="bayerisches-abitur-in-mathematik-2014">
+<h1>Bayerisches Abitur in Mathematik 2014<a class="headerlink" href="#bayerisches-abitur-in-mathematik-2014" title="Permalink to this headline">¶</a></h1>
+<div class="admonition-aufgabe admonition">
+<p class="admonition-title">Aufgabe</p>
+<p>In Urne A befinden sich zwei rote und drei weiße Kugeln. Urne B enthält drei
+rote und zwei weiße Kugeln. Betrachtet wird folgendes Zufallsexperiment:</p>
+<blockquote>
+<div><p>Aus Urne A wird eine Kugel zufällig entnommen und in Urne B gelegt;
+danach wird aus Urne B eine Kugel zufällig entnommen und in Urne A
+gelegt.</p>
+</div></blockquote>
+<ol class="loweralpha simple">
+<li><p>Geben Sie alle Möglichkeiten für den Inhalt der Urne A nach der
+Durchführung des Zufallsexperiments an.</p></li>
+<li><p>Betrachtet wird das Ereignis E: „Nach Durchführung des Zufallsexperiments
+befinden sich wieder drei weiße Kugeln in Urne A.“ Untersuchen
+Sie, ob das Ereignis E eine größere Wahrscheinlichkeit als sein
+Gegenereignis hat.</p></li>
+</ol>
+</div>
+<p><strong>Lösung zu Teil a</strong></p>
+<p>Da es nur zwei verschiedene Farben unter den Kugeln gibt und das Zufallsexperiment
+zwei Schritte hat, betrachten wir vier mögliche Abläufe des Experiments, bei denen
+wir die jeweils verschobenen Kugeln und den Endinhalt der Urne A betrachten:</p>
+<blockquote>
+<div><ol class="arabic simple">
+<li><p><span class="math notranslate nohighlight">\(\color{red}{\bullet} \color{red}{\bullet} \circ \circ \circ
+\overset{\color{red}{\bullet}}{\underset{\color{red}{\bullet}}{\rightleftarrows}}
+\color{red}{\bullet} \color{red}{\bullet} \color{red}{\bullet} \circ \circ
+\quad\Rightarrow
+\mathrm{A}: \color{red}{\bullet} \color{red}{\bullet} \circ \circ \circ\)</span></p></li>
+<li><p><span class="math notranslate nohighlight">\(\color{red}{\bullet} \color{red}{\bullet} \circ \circ \circ
+\overset{\color{red}{\bullet}}{\underset{\circ}{\rightleftarrows}}
+\color{red}{\bullet} \color{red}{\bullet} \color{red}{\bullet} \circ \circ
+\quad\Rightarrow
+\mathrm{A}: \color{red}{\bullet} \circ \circ \circ \circ\)</span></p></li>
+<li><p><span class="math notranslate nohighlight">\(\color{red}{\bullet} \color{red}{\bullet} \circ \circ \circ
+\overset{\circ}{\underset{\color{red}{\bullet}}{\rightleftarrows}}
+\color{red}{\bullet} \color{red}{\bullet} \color{red}{\bullet} \circ \circ
+\quad\Rightarrow
+\mathrm{A}: \color{red}{\bullet} \color{red}{\bullet} \color{red}{\bullet} \circ \circ\)</span></p></li>
+<li><p><span class="math notranslate nohighlight">\(\color{red}{\bullet} \color{red}{\bullet} \circ \circ \circ
+\overset{\circ}{\underset{\circ}{\rightleftarrows}}
+\color{red}{\bullet} \color{red}{\bullet} \color{red}{\bullet} \circ \circ
+\quad\Rightarrow
+\mathrm{A}: \color{red}{\bullet} \color{red}{\bullet} \circ \circ \circ\)</span></p></li>
+</ol>
+</div></blockquote>
+<p>Der erste und der vierte Ablauf liefern also das gleiche Ergebnis. Die drei möglichen Endkonfigurationen
+für die Urne A sind somit: <span class="math notranslate nohighlight">\(\color{red}{\bullet} \circ \circ \circ \circ\)</span>,
+<span class="math notranslate nohighlight">\(\color{red}{\bullet} \color{red}{\bullet} \circ \circ \circ\)</span> und
+<span class="math notranslate nohighlight">\(\color{red}{\bullet} \color{red}{\bullet} \color{red}{\bullet} \circ \circ\)</span>.</p>
+<p><strong>Lösung zu Teil b</strong></p>
+<p>Um die Wahrscheinlichkeit zu bestimmen, dass Urne A am Ende wieder drei weiße Kugeln enthält,
+berechnen wir die Wahrscheinlichkeiten für den ersten und den vierten
+Ablauf in Teilaufgabe a, die beide am Ende zu drei weißen Kugeln in Urne
+A führen.</p>
+<blockquote>
+<div><ol class="arabic simple">
+<li><p>Die Wahrscheinlichkeit, zunächst eine rote Kugel aus Urne A zu
+ziehen, beträgt <span class="math notranslate nohighlight">\(\frac{2}{5}\)</span>, da zwei der fünf Kugeln rot sind.
+Anschließend sind 4 der 6 Kugeln in Urne B rot.
+Die Wahrscheinlichkeit, nun wiederum eine rote Kugel
+zu ziehen, beträgt also <span class="math notranslate nohighlight">\(\frac{4}{6}=\frac{2}{3}\)</span>. Die Wahrscheinlichkeit
+des gesamten Ablaufs beträgt dann <span class="math notranslate nohighlight">\(\frac{2}{5}\cdot\frac{2}{3}=\frac{4}{15}\)</span>.</p></li>
+<li><p>Entsprechend beträgt die Wahrscheinlichkeit, beide Male eine weiße
+Kugel zu ziehen, <span class="math notranslate nohighlight">\(\frac{3}{5}\cdot\frac{1}{2}=\frac{3}{10}\)</span>.</p></li>
+</ol>
+</div></blockquote>
+<p>Die Gesamtwahrscheinlichkeit für das Ereignis E errechnet sich aus der Summe der Wahrscheinlichkeiten
+der beiden Abläufe:</p>
+<div class="math notranslate nohighlight">
+\[p(\mathrm{E}) = \frac{4}{15}+\frac{3}{10}=\frac{17}{30}\approx0.5667\]</div>
+<p>Die Wahrscheinlichkeit des Gegenereignisses</p>
+<div class="math notranslate nohighlight">
+\[p(\bar{\mathrm{E}})=1-p(\mathrm{E})=\frac{13}{30}\]</div>
+<p>ist demzufolge kleiner als die
+Wahrscheinlichkeit des Ereignisses E.</p>
+<p>Mit Sage haben wir zwei Möglichkeiten, die Wahrscheinlichkeit für das Ereignis E zu bestimmen. Die erste
+Möglichkeit besteht darin, jeden möglichen Zug von zwei (unterscheidbaren) Kugeln durchzugehen. Um die
+Wahrscheinlichkeit für das Ereignis E zu berechnen, gehen wir davon aus, dass jede Kugel mit gleicher
+Wahrscheinlichkeit gezogen werden kann. Mit dieser Lösung können wir auch alle Möglichkeiten
+für den Inhalt der Urne A (Teilaufgabe a) überprüfen.</p>
+<div class='sage_linked'><script type='text/x-sage'>sage: haeufigkeit_e = 0
+sage: gesamtzahl = 0
+sage: A0 = ['w', 'w', 'w', 'r', 'r']
+sage: B0 = ['w', 'w', 'r', 'r', 'r']
+sage: for a_kugel in A0:
+...       A1 = A0[::]
+...       B1 = B0[::]
+...       A1.remove(a_kugel)
+...       B1.append(a_kugel)
+...       for b_kugel in B1:
+...           print 'A->B:', a_kugel,
+...           A2 = A1[::]
+...           A2.append(b_kugel)
+...           print '  B->A:', b_kugel,
+...           gesamtzahl = gesamtzahl+1
+...           if A2.count('w') == 3:
+...               haeufigkeit_e = haeufigkeit_e+1
+...               print "   A: ", A2, "<==="
+...           else:
+...               print "   A: ", A2
+sage: print "p(E) = %s/%s" % (haeufigkeit_e, gesamtzahl)</script></div><p>Eine etwas leichtere Lösung besteht darin, die Wahrscheinlichkeit für
+das Ereignis E durch eine Simulation zu bestimmen. Hierfür verschieben
+wir eine zufällige Kugel von Urne A nach Urne B, sowie eine weitere
+zufällige Kugel in umgekehrter Richtung und zählen dabei, wie oft das
+Ereignis E bei einer bestimmten Anzahl an Durchführungen eintritt.
+Diese Variante liefert nur eine näherungsweise Lösung. Um eine
+hinreichende Genauigkeit zu erreichen, sind viele Wiederholungen
+erforderlich, so dass diese Lösung eine längere Laufzeit erfordert
+als die erste Lösung.</p>
+<div class='sage_linked'><script type='text/x-sage'>sage: import random
+sage: def verschiebe_kugel(urne1, urne2):
+...       kugel = random.choice(urne1)
+...       urne1.remove(kugel)
+...       urne2.append(kugel)
+...       return urne1, urne2
+sage: haeufigkeit_e = 0
+sage: iterationen = 100000
+sage: for _ in range(iterationen):
+...       A = ['w', 'w', 'w', 'r', 'r']
+...       B = ['w', 'w', 'r', 'r', 'r']
+...       verschiebe_kugel(A, B)
+...       verschiebe_kugel(B, A)
+...       if A.count('w') == 3 :
+...           haeufigkeit_e = haeufigkeit_e+1
+sage: print "Näherung für die Wahrscheinlichkeit p(E) = ", float(haeufigkeit_e/iterationen)</script></div></div>
+
+
+          </div>
+        </div>
+      </div>
+      <div class="sphinxsidebar" role="navigation" aria-label="main navigation">
+        <div class="sphinxsidebarwrapper">
+<div id="searchbox" style="display: none" role="search">
+  <h3 id="searchlabel">Quick search</h3>
+    <div class="searchformwrapper">
+    <form class="search" action="../../../search.html" method="get">
+      <input type="text" name="q" aria-labelledby="searchlabel" />
+      <input type="submit" value="Go" />
+    </form>
+    </div>
+</div>
+<script>$('#searchbox').show(0);</script>
+        </div>
+      </div>
+      <div class="clearer"></div>
+    </div>
+  </div>
+  <div class="relbar-bottom">
+    
+    <div class="related" role="navigation" aria-label="related navigation">
+      <h3>Navigation</h3>
+      <ul>
+  <li><a href="../../../index.html">Science education with SageMath</a> &#187;</li>
+  
+        <li class="nav-item nav-item-this"><a href="">Bayerisches Abitur in Mathematik 2014</a></li> 
+      </ul>
+    </div>
+  </div>
+  
+  <div class="footer">
+    <a class="logo" href="http://icse.us.edu.pl/" target="_blank"><img src="../../../_static/logo-icse.png" alt="ICSE"/></a><br/>
+    &copy; Copyright Creative Commons CC-BY 4.0, iCSE-team.
+    Created using <a href="http://sphinx.pocoo.org/">Sphinx</a> 3.2.1.
+  </div>
+  </body>
+</html>

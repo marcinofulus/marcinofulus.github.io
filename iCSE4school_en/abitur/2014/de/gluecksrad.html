@@ -1,0 +1,195 @@
+
+
+  
+<!DOCTYPE html>
+
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Bayerisches Abitur in Mathematik 2014 &#8212; Science education with SageMath</title>
+    <link rel="stylesheet" href="../../../_static/cloud.css" type="text/css" />
+    <link rel="stylesheet" href="../../../_static/pygments.css" type="text/css" />
+    <link rel="stylesheet" href="http://fonts.googleapis.com/css?family=Noticia+Text|Open+Sans|Droid+Sans+Mono&amp;subset=latin,latin-ext" type="text/css" />
+    <script id="documentation_options" data-url_root="../../../" src="../../../_static/documentation_options.js"></script>
+    <script src="../../../_static/jquery.js"></script>
+    <script src="../../../_static/underscore.js"></script>
+    <script src="../../../_static/doctools.js"></script>
+    <script src="../../../_static/language_data.js"></script>
+    <script async="async" src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.7/latest.js?config=TeX-AMS-MML_HTMLorMML"></script>
+    <script src="../../../_static/jquery.cookie.js"></script>
+    <script src="../../../_static/cloud.js"></script>
+    <script type="text/javascript" src="http://sagecell.sagemath.org/static/jquery.min.js"></script>
+    <script type="text/javascript" src="http://sagecell.sagemath.org/static/embedded_sagecell.js"></script>
+    <script type="text/javascript">
+        sagecell.makeSagecell({inputLocation: ".sage_linked",
+                               linked: true});
+        sagecell.makeSagecell({inputLocation: ".sage_unlinked",
+                               linked: false});
+    </script>
+
+    <style type="text/css">
+        .sagecell .CodeMirror-scroll {
+            overflow-y: hidden;
+            overflow-x: auto;
+        }
+        .sagecell .CodeMirror {
+            height: auto;
+        }
+    </style>
+    
+    <link rel="search" title="Search" href="../../../search.html" />
+ 
+  <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, minimum-scale=1">
+  </head><body>
+  <div class="relbar-top">
+    
+    <div class="related" role="navigation" aria-label="related navigation">
+      <h3>Navigation</h3>
+      <ul>
+  <li><a href="../../../index.html">Science education with SageMath</a> &#187;</li>
+  
+        <li class="nav-item nav-item-this"><a href="">Bayerisches Abitur in Mathematik 2014</a></li> 
+      </ul>
+    </div>
+  </div>
+  
+  <div class="content">  
+
+    <div class="document">
+      <div class="documentwrapper">
+        <div class="bodywrapper">
+          <div class="body">
+            
+  <div class="section" id="bayerisches-abitur-in-mathematik-2014">
+<h1>Bayerisches Abitur in Mathematik 2014<a class="headerlink" href="#bayerisches-abitur-in-mathematik-2014" title="Permalink to this headline">¶</a></h1>
+<div class="admonition-aufgabe admonition">
+<p class="admonition-title">Aufgabe</p>
+<p>Um Geld für die Ausstattung des örtlichen Kindergartens einzunehmen,
+veranstaltet der Supermarkt ein Gewinnspiel. Die fünf Sektoren des dabei
+eingesetzten Glücksrads sind von 1 bis 5 durchnummeriert. Die Größe der
+Sektoren ist direkt proportional zum Zahlenwert der Nummern; beispielsweise
+ist der Sektor mit der Nummer 3 dreimal so groß wie der Sektor mit der
+Nummer 1. Nachdem der Spieler sechs Euro bezahlt hat, wird das Glücksrad
+einmal gedreht. Erzielt der Spieler eine der Nummern 1 bis 4, so wird
+ihm der zugehörige Zahlenwert als Betrag in Euro ausgezahlt, erzielt er die
+Nummer 5, so erhält er eine Eintrittskarte für einen Freizeitpark im Wert von
+fünfzehn Euro.</p>
+<ol class="loweralpha">
+<li><p>Bestimmen Sie die Größe des Öffnungswinkels des Sektors mit der
+Nummer 1 sowie die Wahrscheinlichkeit dafür, dass ein Spieler bei einem
+Spiel eine Eintrittskarte gewinnt.</p>
+<p><em>(Teilergebnis: Größe des Öffnungswinkels: 24°)</em></p>
+</li>
+<li><p>Berechnen Sie den Erwartungswert der Auszahlung pro Spiel, wenn der
+Gewinn einer Eintrittskarte mit einer Auszahlung von fünfzehn Euro
+gleichgesetzt wird. Interpretieren Sie das Ergebnis.</p></li>
+<li><p>Der Supermarkt muss für jede Eintrittskarte nur zehn Euro an den
+Freizeitpark bezahlen. Damit ist bei der Spielaktion ein finanzieller
+Überschuss zu erwarten, der an den örtlichen Kindergarten gespendet werden
+soll. Ermitteln Sie den zu erwartenden Überschuss, wenn man davon
+ausgeht, dass das Spiel insgesamt 6000-mal durchgeführt wird.</p></li>
+</ol>
+</div>
+<p><strong>Lösung zu Teil 1a</strong></p>
+<p>Der Öffnungswinkel des Sektors 1 lässt sich mit Hilfe der folgenden
+Gleichung bestimmen:</p>
+<div class="math notranslate nohighlight">
+\[x+2x+3x+4x+5x =360°\quad\Leftrightarrow\quad x=24°\]</div>
+<p>Die Wahrscheinlichkeit für den Gewinn der Eintrittskarte liegt bei</p>
+<div class="math notranslate nohighlight">
+\[\frac{5}{1+2+3+4+5}=\frac{5}{15}=\frac{1}{3}.\]</div>
+<p><strong>Lösung zu Teil 1b</strong></p>
+<p>Der Erwartungswert berechnet sich mit der Formel</p>
+<div class="math notranslate nohighlight">
+\[E=\sum\limits_{X}P(X)\cdot X,\]</div>
+<p>wobei <span class="math notranslate nohighlight">\(X\)</span> der Auszahlungsbetrag ist. Unter der Annahme, dass der Gewinn der Eintrittskarte
+wie eine Auszahlung von 15 Euro zu behandeln ist, erhalten wir</p>
+<div class="math notranslate nohighlight">
+\[E=\frac{1}{15}+\frac{2}{15}\cdot2+\frac{3}{15}\cdot3+\frac{4}{15}\cdot4+\frac{5}{15}\cdot15=7.\]</div>
+<p>Ein Spieler bekommt also im Schnitt pro Runde 7 Euro ausbezahlt.</p>
+<p>Mit Sage lässt sich eine entsprechende Simulation durchführen.</p>
+<div class='sage_linked'><script type='text/x-sage'>sage: import random
+sage: gewinne = [1]*1+[2]*2+[3]*3+[4]*4+[15]*5
+sage: spiele = 6000
+sage: gewinnsumme = 0
+sage: for _ in range(spiele):
+...       gewinnsumme = gewinnsumme+random.choice(gewinne)
+sage: print "Erwartungswert = {:4.2f} Euro".format(float(gewinnsumme)/spiele)</script></div><p><strong>Lösung zu Teil 1c</strong></p>
+<p>Im Vergleich zu Teil b muss nun statt des Auszahlungsbetrags der Gewinn
+für den Supermarkt eingesetzt werden, also <span class="math notranslate nohighlight">\(5\)</span>, <span class="math notranslate nohighlight">\(4\)</span>,
+<span class="math notranslate nohighlight">\(3\)</span>, <span class="math notranslate nohighlight">\(2\)</span> und <span class="math notranslate nohighlight">\(-4\)</span>. Wir erhalten somit für den
+Erwartungswert</p>
+<div class="math notranslate nohighlight">
+\[E=\frac{1}{15}\cdot5+\frac{2}{15}\cdot4+\frac{3}{15}\cdot3+\frac{4}{15}\cdot2+\frac{5}{15}\cdot(-4)=\frac{2}{3}.\]</div>
+<p>Der Supermarkt macht also im Mittel pro Spiel etwa 67 Cent Gewinn.
+Bei 6000 Spielen müsste in etwa ein Überschuss von</p>
+<div class="math notranslate nohighlight">
+\[6000\cdot\frac{2}{3}\mathrm{Euro}=4000\mathrm{Euro}\]</div>
+<p>für den Kindergarten entstehen. Bei einer derart großen Wiederholungsanzahl
+dürfte das tatsächliche Ergebnis auch nicht allzu sehr von dem Erwartungswert
+abweichen.</p>
+<p>Wir simulieren das Spiel mit Sage aus Sicht des Supermarkts oder des
+Kindergartens.</p>
+<div class='sage_linked'><script type='text/x-sage'>sage: gewinne = [5]*1+[4]*2+[3]*3+[2]*4+[-4]*5
+sage: spiele = 6000
+sage: ueberschuss = 0
+sage: for _ in range(spiele):
+...       ueberschuss = ueberschuss+random.choice(gewinne)
+sage: print "Überschuss für den Kindergarten: {} Euro".format(ueberschuss)
+sage: print "Durchschnittlicher Gewinn pro Spiel für den Kindergarten: {:4.2f} Euro".format(
+...         float(ueberschuss/spiele))</script></div><p>Einen Eindruck von der Bandbreite der Ergebnisse liefert eine Simulation,
+die die 6000 Spiele oft wiederholt und die Häufigkeit der Überschüsse
+in einem Histogram aufträgt.</p>
+<div class='sage_linked'><script type='text/x-sage'>sage: import matplotlib.pyplot as plt
+sage: versuche = 500
+sage: spiele = 6000
+sage: ueberschuesse = []
+sage: for versuch in range(versuche):
+...       ueberschuss = 0
+...       for _ in range(spiele):
+...           ueberschuss = ueberschuss+random.choice(gewinne)
+...       ueberschuesse.append(ueberschuss)
+sage: plt.hist(ueberschuesse, bins=30)
+sage: plt.show()</script></div></div>
+
+
+          </div>
+        </div>
+      </div>
+      <div class="sphinxsidebar" role="navigation" aria-label="main navigation">
+        <div class="sphinxsidebarwrapper">
+<div id="searchbox" style="display: none" role="search">
+  <h3 id="searchlabel">Quick search</h3>
+    <div class="searchformwrapper">
+    <form class="search" action="../../../search.html" method="get">
+      <input type="text" name="q" aria-labelledby="searchlabel" />
+      <input type="submit" value="Go" />
+    </form>
+    </div>
+</div>
+<script>$('#searchbox').show(0);</script>
+        </div>
+      </div>
+      <div class="clearer"></div>
+    </div>
+  </div>
+  <div class="relbar-bottom">
+    
+    <div class="related" role="navigation" aria-label="related navigation">
+      <h3>Navigation</h3>
+      <ul>
+  <li><a href="../../../index.html">Science education with SageMath</a> &#187;</li>
+  
+        <li class="nav-item nav-item-this"><a href="">Bayerisches Abitur in Mathematik 2014</a></li> 
+      </ul>
+    </div>
+  </div>
+  
+  <div class="footer">
+    <a class="logo" href="http://icse.us.edu.pl/" target="_blank"><img src="../../../_static/logo-icse.png" alt="ICSE"/></a><br/>
+    &copy; Copyright Creative Commons CC-BY 4.0, iCSE-team.
+    Created using <a href="http://sphinx.pocoo.org/">Sphinx</a> 3.2.1.
+  </div>
+  </body>
+</html>

@@ -1,0 +1,207 @@
+
+
+  
+<!DOCTYPE html>
+
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Seminar problem &#8212; Science education with SageMath</title>
+    <link rel="stylesheet" href="../../../_static/cloud.css" type="text/css" />
+    <link rel="stylesheet" href="../../../_static/pygments.css" type="text/css" />
+    <link rel="stylesheet" href="http://fonts.googleapis.com/css?family=Noticia+Text|Open+Sans|Droid+Sans+Mono&amp;subset=latin,latin-ext" type="text/css" />
+    <script id="documentation_options" data-url_root="../../../" src="../../../_static/documentation_options.js"></script>
+    <script src="../../../_static/jquery.js"></script>
+    <script src="../../../_static/underscore.js"></script>
+    <script src="../../../_static/doctools.js"></script>
+    <script src="../../../_static/language_data.js"></script>
+    <script async="async" src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.7/latest.js?config=TeX-AMS-MML_HTMLorMML"></script>
+    <script src="../../../_static/jquery.cookie.js"></script>
+    <script src="../../../_static/cloud.js"></script>
+    <script type="text/javascript" src="http://sagecell.sagemath.org/static/jquery.min.js"></script>
+    <script type="text/javascript" src="http://sagecell.sagemath.org/static/embedded_sagecell.js"></script>
+    <script type="text/javascript">
+        sagecell.makeSagecell({inputLocation: ".sage_linked",
+                               linked: true});
+        sagecell.makeSagecell({inputLocation: ".sage_unlinked",
+                               linked: false});
+    </script>
+
+    <style type="text/css">
+        .sagecell .CodeMirror-scroll {
+            overflow-y: hidden;
+            overflow-x: auto;
+        }
+        .sagecell .CodeMirror {
+            height: auto;
+        }
+    </style>
+    
+    <link rel="search" title="Search" href="../../../search.html" />
+    <link rel="next" title="Pyramid" href="../../2013/en/pyramide.html" />
+    <link rel="prev" title="Tossing a coin" href="muenzwurf.html" />
+ 
+  <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, minimum-scale=1">
+  </head><body>
+  <div class="relbar-top">
+    
+    <div class="related" role="navigation" aria-label="related navigation">
+      <h3>Navigation</h3>
+      <ul>
+        <li class="right" style="margin-right: 10px">
+          <a href="../../2013/en/pyramide.html" title="Pyramid"
+             accesskey="N">next</a></li>
+        <li class="right" >
+          <a href="muenzwurf.html" title="Tossing a coin"
+             accesskey="P">previous</a> &nbsp; &nbsp;</li>
+  <li><a href="../../../index.html">Science education with SageMath</a> &#187;</li>
+  
+        <li class="nav-item nav-item-this"><a href="">Seminar problem</a></li> 
+      </ul>
+    </div>
+  </div>
+  
+  <div class="content">  
+
+    <div class="document">
+      <div class="documentwrapper">
+        <div class="bodywrapper">
+          <div class="body">
+            
+  <div class="section" id="seminar-problem">
+<h1>Seminar problem<a class="headerlink" href="#seminar-problem" title="Permalink to this headline">¶</a></h1>
+<div class="admonition-problem admonition">
+<p class="admonition-title">Problem</p>
+<p>Eight girls and six boys, among them Anna and Tobias, participate in a seminar.
+For a presentation, a team of four persons is formed by drawing from the participants at random.</p>
+<ol class="loweralpha">
+<li><p>For each of the following events, give an expression allowing to compute the
+respective probability.</p>
+<p><span class="math notranslate nohighlight">\(A\)</span>: “Anna and Tobias are in the team.”</p>
+<p><span class="math notranslate nohighlight">\(B\)</span>: “The team consists of the same number of boys and girls.”</p>
+</li>
+<li><p>Describe an event in this context which has the probability
+represented by the following expression:</p></li>
+</ol>
+<div class="math notranslate nohighlight">
+\[\frac{\binom{14}{4}-\binom{6}{4}}{\binom{14}{4}}\]</div>
+</div>
+<p><strong>Solution of part a</strong></p>
+<p>The combinatorial problem of forming a team of four persons from 14 participants,
+corresponds to drawing 4 balls from 14 without replacement and disregarding the order.
+Accordingly, there are</p>
+<div class="math notranslate nohighlight">
+\[\binom{14}{4} = 1001\]</div>
+<p>possibilities to form a team.</p>
+<p>Because in event <span class="math notranslate nohighlight">\(A\)</span>, the team members besides Anna and Tobias are arbitrary,
+there are <span class="math notranslate nohighlight">\(\binom{12}{2}=66\)</span> possibilities to realize that event.</p>
+<p>Accordingly, the probability for event <span class="math notranslate nohighlight">\(A\)</span> is</p>
+<div class="math notranslate nohighlight">
+\[P(A) = \frac{66}{1001} \approx 6.6\%\,.\]</div>
+<p>We can check this value by means of a simulation with Sage.
+In doing so, 4 elements from the numbers 1 to 14 are drawn and Anna and Tobias
+are assigned to the values <span class="math notranslate nohighlight">\(1\)</span> and <span class="math notranslate nohighlight">\(2\)</span>, respectively.</p>
+<div class='sage_linked'><script type='text/x-sage'>iterations = 30000
+frequency = 0
+for _ in range(iterations):
+    team = Subsets(14, 4).random_element()
+    if 1 in team and 2 in team:
+        frequency = frequency+1
+print 'Approximation for the probability P(A) = %4.1f%%' % float(100*frequency/iterations)</script></div><p>When realizing event <span class="math notranslate nohighlight">\(B\)</span>, there are <span class="math notranslate nohighlight">\(\binom{8}{2}=28\)</span> different possibilities
+to choose two girls and <span class="math notranslate nohighlight">\(\binom{6}{2}=15\)</span> for the boys.</p>
+<p>Together there are thus <span class="math notranslate nohighlight">\(28\cdot 15 = 420\)</span> possibilities to form a team of
+two girls and two boys. The corresponding probability is</p>
+<div class="math notranslate nohighlight">
+\[P(B) = \frac{420}{1001} \approx 42.0\%\,.\]</div>
+<p>As before, this result can be checked by means of a simulation.
+The girls are assigned to the numbers smaller or equal to <span class="math notranslate nohighlight">\(8\)</span> and
+the numbers above <span class="math notranslate nohighlight">\(8\)</span> correspond to boys.</p>
+<div class='sage_linked'><script type='text/x-sage'>iterations = 30000
+frequency = 0
+for _ in range(iterations):
+    team = Subsets(14, 4).random_element()
+    number_girls = 0
+    number_boys = 0
+    for member in team:
+        if member <= 8:
+            number_girls = number_girls+1
+        else:
+            number_boys = number_boys+1
+    if number_girls == number_boys:
+        frequency = frequency+1
+print 'Approximation for the probability P(B) = %4.1f%%' % float(100*frequency/iterations)</script></div><p><strong>Solution of part b</strong></p>
+<p>The given probability can be simplified to</p>
+<div class="math notranslate nohighlight">
+\[1-\frac{\binom{6}{4}}{\binom{14}{4}}\,.\]</div>
+<p>The corresponding event is hence complementary to an event with the probability</p>
+<div class="math notranslate nohighlight">
+\[\frac{\binom{6}{4}}{\binom{14}{4}}\,.\]</div>
+<p>The latter corresponds for example to the event “The team contains only boys.” because
+the number of possibilities to choose 4 boys equals <span class="math notranslate nohighlight">\(\binom{6}{4}\)</span>.
+The complementary event to this then is “The team has at least one girl.”</p>
+<p>The second simulation from part a can be easily ajusted to check our interpretation.</p>
+<div class='sage_linked'><script type='text/x-sage'>iterations = 30000
+frequency = 0
+for _ in range(iterations):
+    team = Subsets(14, 4).random_element()
+    for member in team:
+        if member <= 8:
+            frequency = frequency+1
+            break
+p = (binomial(14, 4)-binomial(6, 4))/binomial(14, 4)
+print 'given probability = %6.3f' % float(p)
+print 'simulated probability = %6.3f' % float(frequency/iterations)</script></div></div>
+
+
+          </div>
+        </div>
+      </div>
+      <div class="sphinxsidebar" role="navigation" aria-label="main navigation">
+        <div class="sphinxsidebarwrapper">
+  <h4>Previous topic</h4>
+  <p class="topless"><a href="muenzwurf.html"
+                        title="previous chapter">Tossing a coin</a></p>
+  <h4>Next topic</h4>
+  <p class="topless"><a href="../../2013/en/pyramide.html"
+                        title="next chapter">Pyramid</a></p>
+<div id="searchbox" style="display: none" role="search">
+  <h3 id="searchlabel">Quick search</h3>
+    <div class="searchformwrapper">
+    <form class="search" action="../../../search.html" method="get">
+      <input type="text" name="q" aria-labelledby="searchlabel" />
+      <input type="submit" value="Go" />
+    </form>
+    </div>
+</div>
+<script>$('#searchbox').show(0);</script>
+        </div>
+      </div>
+      <div class="clearer"></div>
+    </div>
+  </div>
+  <div class="relbar-bottom">
+    
+    <div class="related" role="navigation" aria-label="related navigation">
+      <h3>Navigation</h3>
+      <ul>
+        <li class="right" style="margin-right: 10px">
+          <a href="../../2013/en/pyramide.html" title="Pyramid"
+             >next</a></li>
+        <li class="right" >
+          <a href="muenzwurf.html" title="Tossing a coin"
+             >previous</a> &nbsp; &nbsp;</li>
+  <li><a href="../../../index.html">Science education with SageMath</a> &#187;</li>
+  
+        <li class="nav-item nav-item-this"><a href="">Seminar problem</a></li> 
+      </ul>
+    </div>
+  </div>
+  
+  <div class="footer">
+    <a class="logo" href="http://icse.us.edu.pl/" target="_blank"><img src="../../../_static/logo-icse.png" alt="ICSE"/></a><br/>
+    &copy; Copyright Creative Commons CC-BY 4.0, iCSE-team.
+    Created using <a href="http://sphinx.pocoo.org/">Sphinx</a> 3.2.1.
+  </div>
+  </body>
+</html>

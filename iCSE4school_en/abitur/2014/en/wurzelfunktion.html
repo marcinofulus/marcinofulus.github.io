@@ -1,0 +1,410 @@
+
+
+  
+<!DOCTYPE html>
+
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Properties of the square root function &#8212; Science education with SageMath</title>
+    <link rel="stylesheet" href="../../../_static/cloud.css" type="text/css" />
+    <link rel="stylesheet" href="../../../_static/pygments.css" type="text/css" />
+    <link rel="stylesheet" href="http://fonts.googleapis.com/css?family=Noticia+Text|Open+Sans|Droid+Sans+Mono&amp;subset=latin,latin-ext" type="text/css" />
+    <script id="documentation_options" data-url_root="../../../" src="../../../_static/documentation_options.js"></script>
+    <script src="../../../_static/jquery.js"></script>
+    <script src="../../../_static/underscore.js"></script>
+    <script src="../../../_static/doctools.js"></script>
+    <script src="../../../_static/language_data.js"></script>
+    <script async="async" src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.7/latest.js?config=TeX-AMS-MML_HTMLorMML"></script>
+    <script src="../../../_static/jquery.cookie.js"></script>
+    <script src="../../../_static/cloud.js"></script>
+    <script type="text/javascript" src="http://sagecell.sagemath.org/static/jquery.min.js"></script>
+    <script type="text/javascript" src="http://sagecell.sagemath.org/static/embedded_sagecell.js"></script>
+    <script type="text/javascript">
+        sagecell.makeSagecell({inputLocation: ".sage_linked",
+                               linked: true});
+        sagecell.makeSagecell({inputLocation: ".sage_unlinked",
+                               linked: false});
+    </script>
+
+    <style type="text/css">
+        .sagecell .CodeMirror-scroll {
+            overflow-y: hidden;
+            overflow-x: auto;
+        }
+        .sagecell .CodeMirror {
+            height: auto;
+        }
+    </style>
+    
+    <link rel="search" title="Search" href="../../../search.html" />
+    <link rel="next" title="Rational function" href="gebrochenrational.html" />
+    <link rel="prev" title="Optimisation problem in analytical geometry" href="rechteck.html" />
+ 
+  <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, minimum-scale=1">
+  </head><body>
+  <div class="relbar-top">
+    
+    <div class="related" role="navigation" aria-label="related navigation">
+      <h3>Navigation</h3>
+      <ul>
+        <li class="right" style="margin-right: 10px">
+          <a href="gebrochenrational.html" title="Rational function"
+             accesskey="N">next</a></li>
+        <li class="right" >
+          <a href="rechteck.html" title="Optimisation problem in analytical geometry"
+             accesskey="P">previous</a> &nbsp; &nbsp;</li>
+  <li><a href="../../../index.html">Science education with SageMath</a> &#187;</li>
+  
+        <li class="nav-item nav-item-this"><a href="">Properties of the square root function</a></li> 
+      </ul>
+    </div>
+  </div>
+  
+  <div class="content">  
+
+    <div class="document">
+      <div class="documentwrapper">
+        <div class="bodywrapper">
+          <div class="body">
+            
+  <div class="section" id="properties-of-the-square-root-function">
+<h1>Properties of the square root function<a class="headerlink" href="#properties-of-the-square-root-function" title="Permalink to this headline">¶</a></h1>
+<div class="admonition-problem-1 admonition">
+<p class="admonition-title">Problem 1</p>
+<p>Given the function <span class="math notranslate nohighlight">\(f:x\mapsto 2-\sqrt{12-2x}\)</span> with a maximal domain
+<span class="math notranslate nohighlight">\(\mathbb{D}_f=]-\infty;6]\)</span>, we denote the graph of
+<span class="math notranslate nohighlight">\(f\)</span> by <span class="math notranslate nohighlight">\(G_f\)</span>.</p>
+<ol class="loweralpha simple">
+<li><p>Calculate the coordinates of the intersection points of <span class="math notranslate nohighlight">\(G_f\)</span> and
+the coordinate axes. Determine the behavior of <span class="math notranslate nohighlight">\(f\)</span> in the limit
+<span class="math notranslate nohighlight">\(x\rightarrow-\infty\)</span> and calculate <span class="math notranslate nohighlight">\(f(6)\)</span>.</p></li>
+<li><p>Determine the derivative <span class="math notranslate nohighlight">\(f'\)</span> of <span class="math notranslate nohighlight">\(f\)</span> and indicate the
+maximal domain for <span class="math notranslate nohighlight">\(f'\)</span>. Determine <span class="math notranslate nohighlight">\(\lim\limits_{x\rightarrow6}f'(x)\)</span>.
+Which property arises from this result?</p></li>
+<li><p>Describe the monotonic behavior of <span class="math notranslate nohighlight">\(G_f\)</span> and state the codomain
+of <span class="math notranslate nohighlight">\(f\)</span>.</p></li>
+<li><p>Determine <span class="math notranslate nohighlight">\(f(-2)\)</span> and draw <span class="math notranslate nohighlight">\(G_f\)</span> in a coordinate
+system taking into account the previous results. (Space needed in view
+of the following tasks: <span class="math notranslate nohighlight">\(-3\leq y\leq 7\)</span>).</p></li>
+<li><p>The function <span class="math notranslate nohighlight">\(f\)</span> can be inverted in <span class="math notranslate nohighlight">\(\mathbb{D}_f\)</span>. Give the
+domain for the inverse function <span class="math notranslate nohighlight">\(f^{-1}\)</span> of <span class="math notranslate nohighlight">\(f\)</span> and prove that
+<span class="math notranslate nohighlight">\(f^{-1}(x)=-\frac{1}{2}x^2+2x+4\)</span>.</p></li>
+</ol>
+</div>
+<p><strong>Solution of part 1a</strong></p>
+<p>First, we make use of Sage to obtain an overview of the given function.</p>
+<div class='sage_linked'><script type='text/x-sage'>f(x) = 2 - sqrt(12 - 2*x)
+p1 = plot(f(x), x, (-7,6), figsize=(4, 2.8))
+show(p1, gridlines=True)</script></div><p>The intersection of <span class="math notranslate nohighlight">\(f\)</span> and the <span class="math notranslate nohighlight">\(y\)</span>-axis is located at
+<span class="math notranslate nohighlight">\((0|f(0))\)</span> with</p>
+<div class="math notranslate nohighlight">
+\[f(0)=2-2\sqrt{3}.\]</div>
+<p>This can be checked using Sage:</p>
+<div class='sage_linked'><script type='text/x-sage'>print "intersection with the y-axis ", f(0), u"\u2248", f(0).n(digits=4)</script></div><p>The intersection of <span class="math notranslate nohighlight">\(f\)</span> and the <span class="math notranslate nohighlight">\(x\)</span>-axis is given by the
+zero of the function <span class="math notranslate nohighlight">\(f\)</span>:</p>
+<div class="math notranslate nohighlight">
+\[f(x) = 2-\sqrt{12-2x} \overset{!}{=} 0\]</div>
+<p>Solving the equation for <span class="math notranslate nohighlight">\(x\)</span> leads to</p>
+<div class="math notranslate nohighlight">
+\[x=4,\]</div>
+<p>which is confirmed by Sage:</p>
+<div class='sage_linked'><script type='text/x-sage'>solve(f(x) == 0, x)</script></div><p>Thus, we obtain exactly one intersection of <span class="math notranslate nohighlight">\(f\)</span> and the
+<span class="math notranslate nohighlight">\(x\)</span>-axis located at <span class="math notranslate nohighlight">\((4|0)\)</span>.</p>
+<p>The two intersections with the coordinate axes are consistent with the graph of
+<span class="math notranslate nohighlight">\(f\)</span> obtained earlier by means of Sage.</p>
+<p>For the behavior of <span class="math notranslate nohighlight">\(f(x)\)</span> in the limit <span class="math notranslate nohighlight">\(x\rightarrow -\infty\)</span>,
+we find</p>
+<div class="math notranslate nohighlight">
+\[\begin{split}\lim\limits_{x\rightarrow -\infty} 2-\sqrt{12-2x} &amp;=
+\lim\limits_{x\rightarrow \infty} 2-\sqrt{12+2x}\\
+&amp;= -\lim\limits_{x\rightarrow \infty} \sqrt{2x}\\
+&amp;= -\infty.\end{split}\]</div>
+<p>This can be verified with Sage:</p>
+<div class='sage_linked'><script type='text/x-sage'>limitval = limit(f(x), x=-infinity)
+html("$\lim_{x=-\infty} f(x) = %s$" % latex(limitval))</script></div><p>The value <span class="math notranslate nohighlight">\(f(6)\)</span> can be determined as</p>
+<div class="math notranslate nohighlight">
+\[f(6) = 2-\sqrt{12-2\cdot6}=2.\]</div>
+<div class='sage_linked'><script type='text/x-sage'>print "f(6) =", f(6),</script></div><p>This result can also be obtained from the graph of the function.</p>
+<p><strong>Solution of part 1b</strong></p>
+<p>The derivative of <span class="math notranslate nohighlight">\(f\)</span> can be calculated by using the chain rule:</p>
+<div class="math notranslate nohighlight">
+\[f'(x) = -\frac{1}{2} (12-2x)^{-\frac{1}{2}}\cdot(-2) = \frac{1}{\sqrt{12-2x}}.\]</div>
+<p>The same result is obtained by means of Sage:</p>
+<div class='sage_linked'><script type='text/x-sage'>df = derivative(f,  x)
+print "The derivation of f is:", df
+p2 = plot(df(x), x, (-7,6), figsize=(4, 2.8))
+show(p2)</script></div><p>Compared to the domain of <span class="math notranslate nohighlight">\(f\)</span>, the domain of the derivative
+is obtained by taking out the zero of the denominator at <span class="math notranslate nohighlight">\(x_0=6\)</span>,
+i.e. <span class="math notranslate nohighlight">\(\mathbb{D}_{f'}=]-\infty;6[\)</span>.</p>
+<p>The limit <span class="math notranslate nohighlight">\(\lim\limits_{x\rightarrow 6}f'(x)\)</span> can be calculated as</p>
+<div class="math notranslate nohighlight">
+\[\lim\limits_{x\rightarrow 6}f'(x) = \lim\limits_{x\rightarrow 0}\frac{1}{\sqrt{x}}=\infty,\]</div>
+<p>This result can read off the graph of <span class="math notranslate nohighlight">\(f'(x)\)</span> or determined by
+means of Sage:</p>
+<div class='sage_linked'><script type='text/x-sage'>limitval = limit(df(x), x=6)
+html("$\lim_{x=6} f'(x) = %s$" % latex(limitval))</script></div><p><strong>Solution of part 1c</strong></p>
+<p>In order to determine the monotonic behavior of <span class="math notranslate nohighlight">\(f\)</span>, we have to analyze
+its derivative <span class="math notranslate nohighlight">\(f'\)</span>. From the graph of <span class="math notranslate nohighlight">\(f'\)</span> we conclude that
+<span class="math notranslate nohighlight">\(f'\)</span> is positive in every point, which means that <span class="math notranslate nohighlight">\(f\)</span> is
+monotonically increasing in its entire domain.</p>
+<p>A different argumentation is based on the function term of <span class="math notranslate nohighlight">\(f'\)</span>:
+The square root in the denominater is a continuous and positive function in the
+domain of <span class="math notranslate nohighlight">\(f'\)</span>. Together with the constant 1 in the
+numerator, we obtain a strictly positive derivative <span class="math notranslate nohighlight">\(f'\)</span>.</p>
+<p>According to part a, the codomain of <span class="math notranslate nohighlight">\(f\)</span> starts at <span class="math notranslate nohighlight">\(-\infty\)</span>. At
+the right end <span class="math notranslate nohighlight">\(x=6\)</span> of the domain, <span class="math notranslate nohighlight">\(f\)</span> takes on the value
+2. Due to the fact that <span class="math notranslate nohighlight">\(f\)</span> is continuous and monotonically increasing in its
+domain, the codomain of <span class="math notranslate nohighlight">\(f\)</span> is found as</p>
+<div class="math notranslate nohighlight">
+\[\mathbb{W}_f=]-\infty; 2]\]</div>
+<p><strong>Solution of part 1d</strong></p>
+<p>We obtain</p>
+<div class="math notranslate nohighlight">
+\[f(-2) = -2.\]</div>
+<div class='sage_linked'><script type='text/x-sage'>print f(-2)</script></div><p>The graph of <span class="math notranslate nohighlight">\(f\)</span> has already been drawn in part a.</p>
+<p><strong>Solution of part 1e</strong></p>
+<p>Domain and codomain of an inverse function <span class="math notranslate nohighlight">\(f^{-1}\)</span> are interchanged
+as compared to domain and codomain of the corresponding function <span class="math notranslate nohighlight">\(f\)</span>:</p>
+<div class="math notranslate nohighlight">
+\[\begin{split}\mathbb{D}_{f^{-1}} = \mathbb{W}_f\\
+\mathbb{W}_{f^{-1}} = \mathbb{D}_f.\end{split}\]</div>
+<p>In our case, we obtain the domain of definition</p>
+<div class="math notranslate nohighlight">
+\[\mathbb{D}_{f^{-1}} = ]-\infty; 2]\]</div>
+<p>The inverse function of <span class="math notranslate nohighlight">\(f\)</span> can be calculated by solving the equation</p>
+<div class="math notranslate nohighlight">
+\[f(y)=x\]</div>
+<p>for <span class="math notranslate nohighlight">\(y\)</span>. We obtain</p>
+<div class="math notranslate nohighlight">
+\[\begin{split}&amp;2-\sqrt{12-2y}=x\Leftrightarrow\\
+&amp;12-2y=(x-2)^2\Leftrightarrow\\
+&amp;y = f^{-1}(x) = -\frac{1}{2}x^2+2x+4,\end{split}\]</div>
+<p>which can be verified with Sage:</p>
+<div class='sage_linked'><script type='text/x-sage'>var('y')
+assume(y<2)
+solve(f(x) == y, x)</script></div><div class="admonition-problem-2 admonition">
+<p class="admonition-title">Problem 2</p>
+<p>The graph of the function <span class="math notranslate nohighlight">\(h:x\mapsto-\frac{1}{2}x^2+2x+4\)</span> with the
+domain of definition <span class="math notranslate nohighlight">\(\mathbb{R}\)</span> is the parabola <span class="math notranslate nohighlight">\(G_h\)</span>. The
+graph of the inverse function from part 1e is a part of <span class="math notranslate nohighlight">\(G_h\)</span>.</p>
+<ol class="loweralpha simple">
+<li><p>Calculate the coordinates of the intersection points of the curve
+<span class="math notranslate nohighlight">\(G_h\)</span> and the bisector of the first and third quadrant <span class="math notranslate nohighlight">\(w\)</span> given
+by the term <span class="math notranslate nohighlight">\(y=x\)</span></p></li>
+<li><p>Draw the parabola <span class="math notranslate nohighlight">\(G_h\)</span> – including the apex – on the interval
+<span class="math notranslate nohighlight">\(-2\leq x\leq4\)</span> into your graph from part 1d. Taking the mirror image
+of this part of <span class="math notranslate nohighlight">\(G_h\)</span> with respect to the angle bisector <span class="math notranslate nohighlight">\(w\)</span> leads to
+a heart-shaped figure. Complete your graph accordingly.</p></li>
+</ol>
+</div>
+<p><strong>Solution of part 2a</strong></p>
+<p>The intersection points of these two graphs can be calculated by equating their
+function terms:</p>
+<div class="math notranslate nohighlight">
+\[\begin{split}&amp; -\frac{1}{2}x^2+2x+4 = x\\
+&amp; -\frac{1}{2}x^2+x+4 = 0\\
+&amp; x_{1/2}=\frac{-1\pm\sqrt{1^2-4\cdot\left(-\frac{1}{2}\right)\cdot4}}
+               {2\cdot\left(-\frac{1}{2}\right)}\\
+&amp; x_1 = -2, \quad x_2=4\end{split}\]</div>
+<p>The <span class="math notranslate nohighlight">\(y\)</span>-coordinates of the intersection points are equal to their
+<span class="math notranslate nohighlight">\(x\)</span>-coordinates, due to the function term <span class="math notranslate nohighlight">\(y=x\)</span> of the angle bisector:</p>
+<div class="math notranslate nohighlight">
+\[y_1=-2, \quad y_2=4.\]</div>
+<p>Using Sage, we can solve the problem analytically</p>
+<div class='sage_linked'><script type='text/x-sage'>h(x)=-1/2*x^2+2*x+4
+w(x) = x
+for solution in solve(h(x) == w(x), x, solution_dict=True):
+    print "(", solution[x], "|", solution[x], ")"</script></div><p>as well as graphically:</p>
+<div class='sage_linked'><script type='text/x-sage'>p3 = plot(h(x), x, (-3, 6), fill=w, fillcolor = 'red')
+p4 = plot(w(x), x, (-3, 6), color='green')
+show(p3+p4, aspect_ratio=1, figsize=4)</script></div><p><strong>Solution of part 2b</strong></p>
+<p>The upper half of the heart-shaped figure can already be recognized in the
+graph of part 2a. Its full form can be obtained by reflection. A reflection of
+a function at the angle bisector <span class="math notranslate nohighlight">\(y=x\)</span> can be implemented by
+reversing this function. The inverse function of <span class="math notranslate nohighlight">\(h\)</span> is <span class="math notranslate nohighlight">\(f\)</span>, as we
+already know from part 1e. However, this inversion only holds within the domain
+<span class="math notranslate nohighlight">\(]-\infty;2]\)</span> (compare part 1e). For <span class="math notranslate nohighlight">\(x&gt;2\)</span> we can use</p>
+<div class="math notranslate nohighlight">
+\[f_2 = 2+\sqrt{12-2x}\]</div>
+<p>as inverse function of <span class="math notranslate nohighlight">\(h\)</span>. The only difference between <span class="math notranslate nohighlight">\(f\)</span> and
+<span class="math notranslate nohighlight">\(f_2\)</span> is the sign in front of the square root. In order to obtain the
+heart-shaped figure by reflection, we will proceed as follows:</p>
+<blockquote>
+<div><ul class="simple">
+<li><p>We draw <span class="math notranslate nohighlight">\(G_h\)</span> between the two intersection points <span class="math notranslate nohighlight">\(x_1=-2\)</span> and
+<span class="math notranslate nohighlight">\(x_2=4\)</span>.</p></li>
+<li><p>Further, we draw the inverse function <span class="math notranslate nohighlight">\(f\)</span> of <span class="math notranslate nohighlight">\(h\)</span> from
+the intersection point (-2|-2) to the maximum of its domain
+at <span class="math notranslate nohighlight">\(x_{\mathrm{max}}=6\)</span>, which represents the reflection of
+<span class="math notranslate nohighlight">\(h\)</span> at <span class="math notranslate nohighlight">\(w\)</span>, starting at the intersection point (-2|-2)
+and ending at the apex (2|6).</p></li>
+<li><p>Finally, we draw the inverse function <span class="math notranslate nohighlight">\(f_2\)</span> of <span class="math notranslate nohighlight">\(h\)</span> from the
+intersection point (4|4) to the maximum of its domain <span class="math notranslate nohighlight">\(x_{\mathrm{max}}=6\)</span>,
+which represents the reflection of <span class="math notranslate nohighlight">\(h\)</span> at <span class="math notranslate nohighlight">\(w\)</span>, starting
+at the apex (2|6) and ending at the intersection point (4|4).</p></li>
+</ul>
+</div></blockquote>
+<div class='sage_linked'><script type='text/x-sage'>f2(x) =  2 + sqrt(12-2*x)
+p5 = plot(h(x), x, (-2, 4))
+p6 = plot(f(x), x, (-2, 6))
+p7 = plot(f2(x), x, (4, 6))
+show(p5+p6+p7, aspect_ratio=1, figsize=4)</script></div><div class="admonition-problem-3 admonition">
+<p class="admonition-title">Problem 3</p>
+<p>The heart-shaped figure obtained in problem 2 represents a model for the leaf
+depicted in the figure below. One length unit in the coordinate system used
+in part 1d shall correspond to 1 cm in reality.</p>
+<img alt="../../../_images/blatt1.png" class="align-center" src="../../../_images/blatt1.png" />
+<ol class="loweralpha">
+<li><p>Calculate the area delimited by <span class="math notranslate nohighlight">\(G_h\)</span> and the angle bisector <span class="math notranslate nohighlight">\(w\)</span>.
+Use this result to determine the area of the leaf, based on our model.</p></li>
+<li><p>Determine the term of the tangent to <span class="math notranslate nohighlight">\(G_h\)</span> at the point
+<span class="math notranslate nohighlight">\(\left(-2\left|h(-2)\right.\right)\)</span>. Calculate the angle between the
+two leaf edges at the leaf apex.</p></li>
+<li><p>The current model does not describe well enough the shape of the upper leaf
+edge near the leaf apex. Therefore, we will use the graph <span class="math notranslate nohighlight">\(G_k\)</span>
+of a third order polynomial <span class="math notranslate nohighlight">\(k\)</span> in order to describe the upper leaf
+edge in the interval <span class="math notranslate nohighlight">\(-2\leq x \leq 0\)</span>. The function <span class="math notranslate nohighlight">\(k\)</span> has
+to fulfill the following conditions (<span class="math notranslate nohighlight">\(k'\)</span> and <span class="math notranslate nohighlight">\(h'\)</span> are the
+derivatives of <span class="math notranslate nohighlight">\(k\)</span> and <span class="math notranslate nohighlight">\(h\)</span>):</p>
+<div class="math notranslate nohighlight">
+\[\begin{split}\mathrm{I}  \qquad k(0)=h(0)\\
+\mathrm{II}  k'(0)=h'(0)\\
+\mathrm{III}  k(-2)=h(-2)\\
+\mathrm{IV}  k'(-2)=h'(-2)\\\end{split}\]</div>
+<p>Explain, why the conditions I, II and III are reasonable. Make plausible
+that the condition IV leads to a better description of the leaf edge near the
+leaf apex as compared to the first model.</p>
+</li>
+</ol>
+</div>
+<p><strong>Solution of part 3a</strong></p>
+<p>First, we want to calculate the area of the red region from part 2a. This can be done by
+subtracting the integrals of the functions <span class="math notranslate nohighlight">\(h(x)\)</span> and <span class="math notranslate nohighlight">\(w(x)\)</span>
+in the interval <span class="math notranslate nohighlight">\(]-2;4[\)</span>:</p>
+<div class="math notranslate nohighlight">
+\[\begin{split}\int\limits_{-2}^4 \left( h(x)-w(x) \right)\, \mathrm{d}x &amp;=
+\int\limits_{-2}^4 \left( -\frac{1}{2}x^2+2x+4 -x \right)\mathrm{d}x\\
+&amp;= \int\limits_{-2}^4 \left( -\frac{1}{2}x^2+x+4 \right)\mathrm{d}x\\
+&amp;= \left[-\frac{1}{6}x^3+\frac{1}{2}x^2+4x\right]_{-2}^4\\
+&amp;=18\end{split}\]</div>
+<p>This result can be verified with Sage:</p>
+<div class='sage_linked'><script type='text/x-sage'>print "The content of the red area is:", integrate(h(x)-w(x), x, -2, 4)</script></div><p>Having obtained the heart-shaped figure by reflection of the red region at the
+angle bisector <span class="math notranslate nohighlight">\(w\)</span>, the area enclosed by the heart-shaped figure is twice the
+red area. In view of the specified length scale, we obtain:</p>
+<div class="math notranslate nohighlight">
+\[A_{\mathrm{Leaf}}=36\mathrm{cm}^2\]</div>
+<p><strong>Solution of part 3b</strong></p>
+<p>In order to determine the term of the tangent at the point
+<span class="math notranslate nohighlight">\(\left(-2\left|h(-2)\right)\right.=(-2|-2)\)</span>, we first have to calculate
+the slope of the function <span class="math notranslate nohighlight">\(h\)</span> at the point -2. Using</p>
+<div class="math notranslate nohighlight">
+\[h'(x) = -x+2\]</div>
+<p>we obtain</p>
+<div class="math notranslate nohighlight">
+\[m = h'(-2) = 4.\]</div>
+<p>Inserting the point <span class="math notranslate nohighlight">\(x=-2, y=-2\)</span>, the equation of the tangent
+<span class="math notranslate nohighlight">\(y=m\cdot x+t\)</span> becomes</p>
+<div class="math notranslate nohighlight">
+\[y = 4x+6.\]</div>
+<p>Using Sage, we can obtain this equation directly from the conditions that the
+tangent has to include the specified point and that the slope of the tangent
+has to equal the slope of the function <span class="math notranslate nohighlight">\(h(x)\)</span> at this point.</p>
+<div class='sage_linked'><script type='text/x-sage'>m, t = var('m t')
+y(x) = m*x+t
+dh = derivative(h, x)
+dy = derivative(y, x)
+solution = solve([y(-2)==h(-2),
+                 dy(-2)==dh(-2)], m, t, solution_dict=True)[0]
+y(x) = y.subs(solution)
+print 'Equation of the tangent: y = %sx+%s' % (solution[m], solution[t])</script></div><p>Further, we use Sage to draw the tangent into our figure.</p>
+<div class='sage_linked'><script type='text/x-sage'>p8 = plot(h(x), x, (-3, 0))
+p9 = plot(y(x), x, (-3, 0), color='green')
+show(p8+p9, figsize=(4, 2.8))</script></div><p>The figure already indicates that the angle, based on our model, is considerably
+larger than the angle on the picture of the leaf. We can calculate the angle between
+the angle bisector and the tangent, based on their slopes <span class="math notranslate nohighlight">\(m_w=1\)</span> and <span class="math notranslate nohighlight">\(m_t=4\)</span>
+using the formula</p>
+<div class="math notranslate nohighlight">
+\[\alpha = \arctan\left(\frac{m_t-m_w}{1+m_w m_t}\right)
+=\arctan\left(\frac{4-1}{1+4}\right) \approx 30,9°\]</div>
+<p>The angle between the two edges is twice as large, i.e. approximately
+<span class="math notranslate nohighlight">\(62°\)</span>.</p>
+<p><strong>Solution of part 3c</strong></p>
+<p>The conditions I and III are necessary for a continuous insertion of <span class="math notranslate nohighlight">\(G_k\)</span>.
+Condition II ensures that the transition from <span class="math notranslate nohighlight">\(h\)</span> to <span class="math notranslate nohighlight">\(k\)</span> is
+smooth. Condition IV leads to a smaller angle between the leaf edges at the
+point (-2|-2) and therefore to a sharper leaf apex.</p>
+<p>The problem did not ask for the exact solution of <span class="math notranslate nohighlight">\(k\)</span>, but Sage will work
+this out for us:</p>
+<div class='sage_linked'><script type='text/x-sage'>a, b, c, d = var('a b c d')
+k(x) = a*x^3+b*x^2+c*x+d
+dk = derivative(k, x)
+equations = [k(0)==h(0),
+               dk(0)==dh(0),
+               k(-2)==h(-2),
+               dk(-2)==1.5]
+solutions = solve(equations, a, b, c, d, solution_dict=True)[0]
+k = k.subs(solutions)
+print k</script></div><p>We can use these parameters to plot the leaf according to the new model. The
+red curve is the new function <span class="math notranslate nohighlight">\(k\)</span>.</p>
+<div class='sage_linked'><script type='text/x-sage'>p10 = plot(h(x), x, (0, 4))
+p11 = plot(k(x), x, (-2, 0), color='red')
+p12 = plot(f(x), x, (-2, 6))
+p13 = plot(f2(x), x, (4, 6))
+p14 = plot(h(x), x, (-2, 0), linestyle=':')
+show(p10+p11+p12+p13+p14, aspect_ratio=1, figsize=4)</script></div><p>Obviously, the new model fits the shape of the leaf better than the old model.</p>
+</div>
+
+
+          </div>
+        </div>
+      </div>
+      <div class="sphinxsidebar" role="navigation" aria-label="main navigation">
+        <div class="sphinxsidebarwrapper">
+  <h4>Previous topic</h4>
+  <p class="topless"><a href="rechteck.html"
+                        title="previous chapter">Optimisation problem in analytical geometry</a></p>
+  <h4>Next topic</h4>
+  <p class="topless"><a href="gebrochenrational.html"
+                        title="next chapter">Rational function</a></p>
+<div id="searchbox" style="display: none" role="search">
+  <h3 id="searchlabel">Quick search</h3>
+    <div class="searchformwrapper">
+    <form class="search" action="../../../search.html" method="get">
+      <input type="text" name="q" aria-labelledby="searchlabel" />
+      <input type="submit" value="Go" />
+    </form>
+    </div>
+</div>
+<script>$('#searchbox').show(0);</script>
+        </div>
+      </div>
+      <div class="clearer"></div>
+    </div>
+  </div>
+  <div class="relbar-bottom">
+    
+    <div class="related" role="navigation" aria-label="related navigation">
+      <h3>Navigation</h3>
+      <ul>
+        <li class="right" style="margin-right: 10px">
+          <a href="gebrochenrational.html" title="Rational function"
+             >next</a></li>
+        <li class="right" >
+          <a href="rechteck.html" title="Optimisation problem in analytical geometry"
+             >previous</a> &nbsp; &nbsp;</li>
+  <li><a href="../../../index.html">Science education with SageMath</a> &#187;</li>
+  
+        <li class="nav-item nav-item-this"><a href="">Properties of the square root function</a></li> 
+      </ul>
+    </div>
+  </div>
+  
+  <div class="footer">
+    <a class="logo" href="http://icse.us.edu.pl/" target="_blank"><img src="../../../_static/logo-icse.png" alt="ICSE"/></a><br/>
+    &copy; Copyright Creative Commons CC-BY 4.0, iCSE-team.
+    Created using <a href="http://sphinx.pocoo.org/">Sphinx</a> 3.2.1.
+  </div>
+  </body>
+</html>

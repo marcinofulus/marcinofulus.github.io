@@ -1,0 +1,363 @@
+
+
+  
+<!DOCTYPE html>
+
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Please write a title for this worksheet! &#8212; Science education with SageMath</title>
+    <link rel="stylesheet" href="_static/cloud.css" type="text/css" />
+    <link rel="stylesheet" href="_static/pygments.css" type="text/css" />
+    <link rel="stylesheet" href="http://fonts.googleapis.com/css?family=Noticia+Text|Open+Sans|Droid+Sans+Mono&amp;subset=latin,latin-ext" type="text/css" />
+    <script id="documentation_options" data-url_root="./" src="_static/documentation_options.js"></script>
+    <script src="_static/jquery.js"></script>
+    <script src="_static/underscore.js"></script>
+    <script src="_static/doctools.js"></script>
+    <script src="_static/language_data.js"></script>
+    <script async="async" src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.7/latest.js?config=TeX-AMS-MML_HTMLorMML"></script>
+    <script src="_static/jquery.cookie.js"></script>
+    <script src="_static/cloud.js"></script>
+    <script type="text/javascript" src="http://sagecell.sagemath.org/static/jquery.min.js"></script>
+    <script type="text/javascript" src="http://sagecell.sagemath.org/static/embedded_sagecell.js"></script>
+    <script type="text/javascript">
+        sagecell.makeSagecell({inputLocation: ".sage_linked",
+                               linked: true});
+        sagecell.makeSagecell({inputLocation: ".sage_unlinked",
+                               linked: false});
+    </script>
+
+    <style type="text/css">
+        .sagecell .CodeMirror-scroll {
+            overflow-y: hidden;
+            overflow-x: auto;
+        }
+        .sagecell .CodeMirror {
+            height: auto;
+        }
+    </style>
+    
+    <link rel="search" title="Search" href="search.html" />
+ 
+  <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, minimum-scale=1">
+  </head><body>
+  <div class="relbar-top">
+    
+    <div class="related" role="navigation" aria-label="related navigation">
+      <h3>Navigation</h3>
+      <ul>
+  <li><a href="index.html">Science education with SageMath</a> &#187;</li>
+  
+        <li class="nav-item nav-item-this"><a href="">Please write a title for this worksheet!</a></li> 
+      </ul>
+    </div>
+  </div>
+  
+  <div class="content">  
+
+    <div class="document">
+      <div class="documentwrapper">
+        <div class="bodywrapper">
+          <div class="body">
+            
+  <div class="section" id="please-write-a-title-for-this-worksheet">
+<h1>Please write a title for this worksheet!<a class="headerlink" href="#please-write-a-title-for-this-worksheet" title="Permalink to this headline">¶</a></h1>
+<blockquote>
+<div><p><em>Revised version of teaching materials for the topic:</em></p>
+</div></blockquote>
+<p>Acoustic Effects</p>
+<p><strong>Introduction</strong></p>
+<p>The main aims of this lesson are:</p>
+<ul class="simple">
+<li><p>Explaining, what is echo and after-sound.</p></li>
+<li><p>Demonstration of acoustic resonance.</p></li>
+<li><p>Explaining the principle of operation of music instruments.</p></li>
+<li><p>Explaining, what are beats,</p></li>
+<li><p>Exercising in plotting diagrams in Python.</p></li>
+<li><p>Exercising interaction and sliders in Python.</p></li>
+<li><p>Exercising animations in SAGE</p></li>
+</ul>
+<blockquote>
+<div><p>Circumstances taken into consideration:</p>
+</div></blockquote>
+<ul class="simple">
+<li><p>Students have already basic knowledge of waves in general. In particular they know the equantion of wave, idea of standing wave and resonance.</p></li>
+<li><p>It is the second students’ contact with animations in Python. They participated in one IT lesson devoted to this problem.</p></li>
+<li><p>One should remember, that student don’t know higher mathematics, so presented IT solutions must not be too sophisticated.</p></li>
+<li><p>Gradation of difficulty level is recommended. One should start with simple examples and gradually complicate them (for example by adding more parameters or varying constants)</p></li>
+</ul>
+<p>All described below can be carried out during two hours: one in physics laboratory, the second in a class-room equiped with sufficient amount of computers</p>
+<p><strong>Theoretical part</strong></p>
+<p>Exercises in programming were preceded by a theoretical lecture about acoustic effects. This lecture was filmed and published in Polish but with English subtitles.</p>
+<p><a class="reference external" href="https://youtu.be/jWGTTD5-mFA">https://youtu.be/jWGTTD5-mFA</a></p>
+<p>Main problems discussed in this lecture are the following:</p>
+<ul class="simple">
+<li><p>Echo</p></li>
+<li><p>After-sound</p></li>
+<li><p>Acoustic resonance</p></li>
+<li><p>Standing waves (especially in instruments)</p></li>
+<li><p>Beats</p></li>
+</ul>
+<p>I will not describe the details here, because all of them are visible in the film.</p>
+<p><strong>IT part</strong></p>
+<p>Main skills exercised during lesson:</p>
+<ul class="simple">
+<li><p>Processes controlling with sliders.</p></li>
+<li><p>Puting diagrams into motion.</p></li>
+<li><p>Examining the motion of wave impulses.</p></li>
+<li><p>Composition of vibrations.</p></li>
+<li><p>Examining standing waves and beats.</p></li>
+</ul>
+<p>The physical problems discussed in the code and diagrams below, are the following:</p>
+<ul class="simple">
+<li><p>Beats - how does the shape of composite wave depend on component frequencies.</p></li>
+<li><p>How to animate a wave impulse and its reflection.</p></li>
+<li><p>Showing, that standing wave is really a result of interference betwee two waves travelling in opposite directions.</p></li>
+</ul>
+<p><strong>Beats</strong></p>
+<blockquote>
+<div><p>Easy example of plot with fixed frequencies and initial phase, which can be changed inside the code. Results of those changes can be observed on the plot.****</p>
+</div></blockquote>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">sage</span><span class="p">:</span> <span class="c1"># **kwarg allows adding additional &quot;called&quot; arguments</span>
+<span class="n">sage</span><span class="p">:</span> <span class="c1"># dudnienia (beats) is a function returning a plot of superimposed functions y1 and y2</span>
+<span class="n">sage</span><span class="p">:</span> <span class="k">def</span> <span class="nf">dudnienia</span><span class="p">(</span><span class="n">omega1</span><span class="o">=</span><span class="mi">10</span><span class="p">,</span><span class="n">omega2</span><span class="o">=</span><span class="mi">11</span><span class="p">,</span><span class="n">A1</span><span class="o">=</span><span class="mi">1</span><span class="p">,</span><span class="n">A2</span><span class="o">=</span><span class="mi">1</span><span class="p">,</span><span class="n">fi</span><span class="o">=</span><span class="mi">2</span><span class="p">,</span><span class="n">t0</span><span class="o">=</span><span class="mi">0</span><span class="p">,</span><span class="o">**</span><span class="n">kwarg</span><span class="p">):</span>
+<span class="o">...</span>       <span class="n">y1</span><span class="p">(</span><span class="n">t</span><span class="p">)</span><span class="o">=</span><span class="n">A1</span><span class="o">*</span><span class="n">sin</span><span class="p">(</span><span class="n">omega1</span><span class="o">*</span><span class="p">(</span><span class="n">t</span><span class="o">-</span><span class="n">t0</span><span class="p">))</span>
+<span class="o">...</span>       <span class="n">y2</span><span class="p">(</span><span class="n">t</span><span class="p">)</span><span class="o">=</span><span class="n">A2</span><span class="o">*</span><span class="n">sin</span><span class="p">(</span><span class="n">omega2</span><span class="o">*</span><span class="p">(</span><span class="n">t</span><span class="o">-</span><span class="n">t0</span><span class="p">)</span><span class="o">+</span><span class="n">fi</span><span class="p">)</span>
+<span class="o">...</span>       <span class="n">y</span><span class="p">(</span><span class="n">t</span><span class="p">)</span><span class="o">=</span><span class="n">y1</span><span class="p">(</span><span class="n">t</span><span class="p">)</span><span class="o">+</span><span class="n">y2</span><span class="p">(</span><span class="n">t</span><span class="p">)</span>
+<span class="o">...</span>       <span class="k">return</span>   <span class="n">plot</span><span class="p">(</span><span class="n">y</span><span class="p">,</span> <span class="p">(</span><span class="n">t</span><span class="p">,</span> <span class="mi">0</span><span class="p">,</span> <span class="mi">10</span><span class="p">),</span><span class="n">ymax</span><span class="o">=</span><span class="n">A1</span><span class="o">+</span><span class="n">A2</span><span class="p">,</span><span class="n">ymin</span><span class="o">=-</span><span class="p">(</span><span class="n">A1</span><span class="o">+</span><span class="n">A2</span><span class="p">),</span><span class="o">**</span><span class="n">kwarg</span> <span class="p">)</span>
+<span class="n">sage</span><span class="p">:</span> <span class="n">dudnienia</span><span class="p">(</span><span class="n">figsize</span><span class="o">=</span><span class="p">(</span><span class="mi">4</span><span class="p">,</span><span class="mi">2</span><span class="p">))</span>
+</pre></div>
+</div>
+<p>More complex drawing including the parameters of functions and envelope. For simplicity the amplitudes are chosen to be equal.</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">sage</span><span class="p">:</span> <span class="k">def</span> <span class="nf">envelope</span><span class="p">(</span><span class="n">omega1</span><span class="p">,</span> <span class="n">omega2</span><span class="p">,</span> <span class="n">a</span><span class="p">,</span> <span class="n">phase</span><span class="p">,</span> <span class="n">t0</span><span class="p">):</span>
+<span class="o">...</span>       <span class="n">f</span><span class="p">(</span><span class="n">t</span><span class="p">)</span> <span class="o">=</span> <span class="mi">2</span><span class="o">*</span><span class="n">a</span><span class="o">*</span><span class="n">cos</span><span class="p">((</span><span class="n">omega1</span><span class="o">-</span><span class="n">omega2</span><span class="p">)</span><span class="o">*</span><span class="p">(</span><span class="n">t</span><span class="o">-</span><span class="n">t0</span><span class="p">)</span><span class="o">/</span><span class="mi">2</span><span class="o">-</span><span class="n">phase</span><span class="o">/</span><span class="mi">2</span><span class="p">)</span>
+<span class="o">...</span>       <span class="k">return</span> <span class="n">f</span>
+<span class="n">sage</span><span class="p">:</span> <span class="k">def</span> <span class="nf">beat</span><span class="p">(</span><span class="n">omega1</span><span class="o">=</span><span class="mi">10</span><span class="p">,</span> <span class="n">omega2</span><span class="o">=</span><span class="mi">11</span><span class="p">,</span> <span class="n">a</span><span class="o">=</span><span class="mi">1</span><span class="p">,</span> <span class="n">phase</span><span class="o">=</span><span class="mi">2</span><span class="p">,</span> <span class="n">t0</span><span class="o">=</span><span class="mi">0</span><span class="p">,</span> <span class="n">plot_envelope</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span> <span class="o">**</span><span class="n">kwargs</span><span class="p">):</span>
+<span class="o">...</span>       <span class="n">y1</span><span class="p">(</span><span class="n">t</span><span class="p">)</span> <span class="o">=</span> <span class="n">a</span><span class="o">*</span><span class="n">sin</span><span class="p">(</span><span class="n">omega1</span><span class="o">*</span><span class="p">(</span><span class="n">t</span><span class="o">-</span><span class="n">t0</span><span class="p">))</span>
+<span class="o">...</span>       <span class="n">y2</span><span class="p">(</span><span class="n">t</span><span class="p">)</span> <span class="o">=</span> <span class="n">a</span><span class="o">*</span><span class="n">sin</span><span class="p">(</span><span class="n">omega2</span><span class="o">*</span><span class="p">(</span><span class="n">t</span><span class="o">-</span><span class="n">t0</span><span class="p">)</span><span class="o">+</span><span class="n">phase</span><span class="p">)</span>
+<span class="o">...</span>       <span class="n">y</span><span class="p">(</span><span class="n">t</span><span class="p">)</span> <span class="o">=</span> <span class="n">y1</span><span class="p">(</span><span class="n">t</span><span class="p">)</span><span class="o">+</span><span class="n">y2</span><span class="p">(</span><span class="n">t</span><span class="p">)</span>
+<span class="o">...</span>       <span class="n">title</span> <span class="o">=</span> <span class="s1">&#39;$t_0 = </span><span class="si">%4.2f</span><span class="s1">,\ \omega_1 = </span><span class="si">%5.2f</span><span class="s1">,\ \omega_2 = </span><span class="si">%5.2f</span><span class="s1">$&#39;</span> <span class="o">%</span> <span class="p">(</span><span class="n">t0</span><span class="p">,</span> <span class="n">omega1</span><span class="p">,</span> <span class="n">omega2</span><span class="p">)</span>
+<span class="o">...</span>       <span class="nb">range</span> <span class="o">=</span> <span class="p">(</span><span class="n">t</span><span class="p">,</span> <span class="mi">0</span><span class="p">,</span> <span class="mi">10</span><span class="p">)</span>
+<span class="o">...</span>       <span class="n">plt</span> <span class="o">=</span> <span class="n">plot</span><span class="p">(</span><span class="n">y</span><span class="p">,</span> <span class="nb">range</span><span class="p">,</span> <span class="n">ymin</span><span class="o">=-</span><span class="mi">2</span><span class="o">*</span><span class="n">a</span><span class="p">,</span> <span class="n">ymax</span><span class="o">=</span><span class="mi">2</span><span class="o">*</span><span class="n">a</span><span class="p">,</span> <span class="n">title</span><span class="o">=</span><span class="n">title</span><span class="p">,</span> <span class="o">**</span><span class="n">kwargs</span><span class="p">)</span>
+<span class="o">...</span>       <span class="k">if</span> <span class="n">plot_envelope</span><span class="p">:</span>
+<span class="o">...</span>           <span class="n">envelope_func</span> <span class="o">=</span> <span class="n">envelope</span><span class="p">(</span><span class="n">omega1</span><span class="p">,</span> <span class="n">omega2</span><span class="p">,</span> <span class="n">a</span><span class="p">,</span> <span class="n">phase</span><span class="p">,</span> <span class="n">t0</span><span class="p">)</span>
+<span class="o">...</span>           <span class="n">plt</span> <span class="o">=</span> <span class="n">plt</span><span class="o">+</span><span class="n">plot</span><span class="p">(</span><span class="n">envelope_func</span><span class="p">,</span> <span class="nb">range</span><span class="p">,</span> <span class="n">color</span><span class="o">=</span><span class="s1">&#39;red&#39;</span><span class="p">,</span> <span class="o">**</span><span class="n">kwargs</span><span class="p">)</span>
+<span class="o">...</span>           <span class="n">plt</span> <span class="o">=</span> <span class="n">plt</span><span class="o">+</span><span class="n">plot</span><span class="p">(</span><span class="o">-</span><span class="n">envelope_func</span><span class="p">,</span> <span class="nb">range</span><span class="p">,</span> <span class="n">color</span><span class="o">=</span><span class="s1">&#39;red&#39;</span><span class="p">,</span> <span class="o">**</span><span class="n">kwargs</span><span class="p">)</span>
+<span class="o">...</span>       <span class="k">return</span> <span class="n">plt</span>
+<span class="n">sage</span><span class="p">:</span> <span class="n">beat</span><span class="p">(</span><span class="n">t0</span><span class="o">=</span><span class="mf">2.5</span><span class="p">,</span> <span class="n">figsize</span><span class="o">=</span><span class="p">(</span><span class="mi">4</span><span class="p">,</span> <span class="mi">2</span><span class="p">))</span>
+</pre></div>
+</div>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">sage</span><span class="p">:</span> <span class="c1"># A slider controlling the time shift</span>
+<span class="n">sage</span><span class="p">:</span> <span class="nd">@interact</span>
+<span class="n">sage</span><span class="p">:</span> <span class="k">def</span> <span class="nf">_</span><span class="p">(</span><span class="n">t0</span><span class="o">=</span><span class="n">slider</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span> <span class="mi">2</span><span class="o">*</span><span class="n">pi</span><span class="p">,</span> <span class="mf">0.01</span><span class="p">,</span> <span class="n">label</span><span class="o">=</span><span class="s2">&quot;$t_0$&quot;</span><span class="p">)):</span>
+<span class="o">...</span>       <span class="n">plt</span> <span class="o">=</span> <span class="n">beat</span><span class="p">(</span><span class="n">t0</span><span class="o">=</span><span class="n">t0</span><span class="p">,</span> <span class="n">figsize</span><span class="o">=</span><span class="p">(</span><span class="mi">4</span><span class="p">,</span><span class="mi">2</span><span class="p">))</span>
+<span class="o">...</span>       <span class="n">show</span><span class="p">(</span><span class="n">plt</span><span class="p">)</span>
+</pre></div>
+</div>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">sage</span><span class="p">:</span> <span class="c1"># Controlling the frequency of second wave</span>
+<span class="n">sage</span><span class="p">:</span> <span class="nd">@interact</span>
+<span class="n">sage</span><span class="p">:</span> <span class="k">def</span> <span class="nf">_</span><span class="p">(</span><span class="n">t0</span><span class="o">=</span><span class="n">slider</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span> <span class="mi">10</span><span class="p">,</span> <span class="mf">0.01</span><span class="p">,</span> <span class="n">label</span><span class="o">=</span><span class="s2">&quot;$t_0$&quot;</span><span class="p">),</span>
+<span class="o">...</span>         <span class="n">omega2</span><span class="o">=</span><span class="n">slider</span><span class="p">(</span><span class="mi">10</span><span class="p">,</span> <span class="mi">12</span><span class="p">,</span> <span class="mf">0.01</span><span class="p">,</span> <span class="n">label</span><span class="o">=</span><span class="s2">&quot;$\omega_2$&quot;</span><span class="p">)):</span>
+<span class="o">...</span>       <span class="n">plt</span> <span class="o">=</span> <span class="n">beat</span><span class="p">(</span><span class="n">t0</span><span class="o">=</span><span class="n">t0</span> <span class="p">,</span> <span class="n">omega2</span><span class="o">=</span><span class="n">omega2</span><span class="p">,</span> <span class="n">figsize</span><span class="o">=</span><span class="p">(</span><span class="mi">4</span><span class="p">,</span><span class="mi">2</span><span class="p">))</span>
+<span class="o">...</span>       <span class="n">show</span><span class="p">(</span><span class="n">plt</span><span class="p">)</span>
+</pre></div>
+</div>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">sage</span><span class="p">:</span> <span class="c1"># plts - it is a collection of plots for time argument t0 iterated in a loop.</span>
+<span class="n">sage</span><span class="p">:</span> <span class="n">plts</span> <span class="o">=</span> <span class="p">[</span><span class="n">dudnienia</span><span class="p">(</span><span class="n">t0</span><span class="o">=</span><span class="n">t0_</span><span class="p">,</span><span class="n">figsize</span><span class="o">=</span><span class="p">(</span><span class="mi">4</span><span class="p">,</span><span class="mi">2</span><span class="p">))</span> <span class="k">for</span> <span class="n">t0_</span> <span class="ow">in</span> <span class="n">srange</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span><span class="mf">6.3</span><span class="p">,</span><span class="mf">0.2</span><span class="p">)]</span>
+<span class="n">sage</span><span class="p">:</span> <span class="c1"># two plots shown as an example</span>
+<span class="n">sage</span><span class="p">:</span> <span class="n">show</span><span class="p">(</span><span class="n">plts</span><span class="p">[</span><span class="mi">0</span><span class="p">])</span>
+<span class="n">sage</span><span class="p">:</span> <span class="n">show</span><span class="p">(</span><span class="n">plts</span><span class="p">[</span><span class="mi">10</span><span class="p">])</span>
+<span class="n">sage</span><span class="p">:</span> <span class="c1"># Preparation for the next box</span>
+<span class="n">sage</span><span class="p">:</span> <span class="n">anim</span> <span class="o">=</span> <span class="n">animate</span><span class="p">(</span><span class="n">plts</span><span class="p">)</span>
+</pre></div>
+</div>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">sage</span><span class="p">:</span> <span class="n">plots</span> <span class="o">=</span> <span class="p">[</span><span class="n">beat</span><span class="p">(</span><span class="n">t0</span><span class="o">=</span><span class="n">t0</span><span class="p">,</span> <span class="n">figsize</span><span class="o">=</span><span class="p">(</span><span class="mi">4</span><span class="p">,</span> <span class="mi">2</span><span class="p">))</span> <span class="k">for</span> <span class="n">t0</span> <span class="ow">in</span> <span class="n">sxrange</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span> <span class="mi">2</span><span class="o">*</span><span class="n">pi</span><span class="p">,</span> <span class="n">pi</span><span class="o">/</span><span class="mi">10</span><span class="p">)]</span>
+<span class="n">sage</span><span class="p">:</span> <span class="n">graphics_array</span><span class="p">(</span><span class="n">plots</span><span class="p">,</span> <span class="n">ncols</span><span class="o">=</span><span class="mi">4</span><span class="p">)</span><span class="o">.</span><span class="n">show</span><span class="p">()</span>
+</pre></div>
+</div>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">sage</span><span class="p">:</span> <span class="c1"># Ready animation. We see the sequence of plots for different time arguments.</span>
+<span class="n">sage</span><span class="p">:</span> <span class="c1"># %time</span>
+<span class="n">sage</span><span class="p">:</span> <span class="n">anim</span><span class="o">.</span><span class="n">show</span><span class="p">()</span>
+</pre></div>
+</div>
+<p>Another approach, making use of plots defined above</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">sage</span><span class="p">:</span> <span class="n">animate</span><span class="p">(</span><span class="n">plots</span><span class="p">)</span><span class="o">.</span><span class="n">show</span><span class="p">()</span>
+</pre></div>
+</div>
+<p>Animation showing the impact of second frequency</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">sage</span><span class="p">:</span> <span class="n">plots</span> <span class="o">=</span> <span class="p">[</span><span class="n">beat</span><span class="p">(</span><span class="n">omega2</span><span class="o">=</span><span class="n">omega2</span><span class="p">,</span> <span class="n">plot_envelope</span><span class="o">=</span><span class="kc">False</span><span class="p">,</span> <span class="n">figsize</span><span class="o">=</span><span class="p">(</span><span class="mi">4</span><span class="p">,</span> <span class="mi">2</span><span class="p">))</span> <span class="k">for</span> <span class="n">omega2</span> <span class="ow">in</span> <span class="n">sxrange</span><span class="p">(</span><span class="mi">5</span><span class="p">,</span> <span class="mi">15</span><span class="p">,</span> <span class="mf">0.2</span><span class="p">)]</span>
+<span class="n">sage</span><span class="p">:</span> <span class="n">animate</span><span class="p">(</span><span class="n">plots</span><span class="p">)</span><span class="o">.</span><span class="n">show</span><span class="p">()</span>
+</pre></div>
+</div>
+<p><strong>Reflection and standing waves</strong></p>
+<p>Standing wave as an interference of two waves travelling the opposite side. Students can manipulate all the parameters (it was an exercise).</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">sage</span><span class="p">:</span> <span class="c1"># Semi-automatic color control in the loop</span>
+<span class="n">sage</span><span class="p">:</span> <span class="n">A</span><span class="o">=</span><span class="mi">1</span>
+<span class="n">sage</span><span class="p">:</span> <span class="n">omega</span><span class="o">=</span><span class="mi">6</span>
+<span class="n">sage</span><span class="p">:</span> <span class="n">v</span><span class="o">=</span><span class="mi">13</span>
+<span class="n">sage</span><span class="p">:</span> <span class="n">delay</span><span class="o">=</span><span class="mi">30</span>
+<span class="n">sage</span><span class="p">:</span> <span class="n">t_max</span><span class="o">=</span> <span class="mi">7</span>
+<span class="n">sage</span><span class="p">:</span> <span class="c1"># This plots show time evolution of standing wave. Students may manipulate the constants</span>
+<span class="n">sage</span><span class="p">:</span> <span class="nb">sum</span><span class="p">(</span> <span class="p">[</span><span class="n">plot</span><span class="p">(</span><span class="n">A</span><span class="o">*</span><span class="n">sin</span><span class="p">(</span><span class="n">omega</span><span class="o">*</span><span class="p">(</span><span class="n">t</span><span class="o">/</span><span class="n">delay</span><span class="o">-</span><span class="n">x</span><span class="o">/</span><span class="n">v</span><span class="p">))</span><span class="o">+</span><span class="n">A</span><span class="o">*</span><span class="n">sin</span><span class="p">(</span><span class="n">omega</span><span class="o">*</span><span class="p">(</span><span class="n">t</span><span class="o">/</span><span class="n">delay</span><span class="o">+</span><span class="n">x</span><span class="o">/</span><span class="n">v</span><span class="p">)),(</span><span class="n">x</span><span class="p">,</span><span class="mi">0</span><span class="p">,</span><span class="mi">20</span><span class="p">),</span><span class="n">figsize</span><span class="o">=</span><span class="mi">6</span><span class="p">,</span><span class="n">color</span><span class="o">=</span><span class="n">hue</span><span class="p">(</span><span class="n">t</span><span class="o">/</span><span class="n">t_max</span><span class="p">))</span> <span class="k">for</span> <span class="n">t</span> <span class="ow">in</span> <span class="n">srange</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span><span class="n">t_max</span><span class="p">,</span><span class="mf">1.0</span><span class="p">)]</span> <span class="p">)</span>
+</pre></div>
+</div>
+<p>In order to make the time evolution of the standing wave more apparent, an animation is very useful.It might also be instructive to display the travelling waves.The variable delay seems to be unnecessary and the argument x-vt  is used instead of t-x/v so that no problem arises when v goes to zero.</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">sage</span><span class="p">:</span> <span class="k">def</span> <span class="nf">running_wave</span><span class="p">(</span><span class="n">a</span><span class="o">=</span><span class="mi">1</span><span class="p">,</span> <span class="n">omega</span><span class="o">=</span><span class="mi">1</span><span class="p">,</span> <span class="n">v</span><span class="o">=</span><span class="mi">10</span><span class="p">,</span> <span class="n">t</span><span class="o">=</span><span class="mi">0</span><span class="p">):</span>
+<span class="o">...</span>       <span class="n">wave</span><span class="p">(</span><span class="n">x</span><span class="p">)</span> <span class="o">=</span> <span class="n">a</span><span class="o">*</span><span class="n">sin</span><span class="p">(</span><span class="n">omega</span><span class="o">*</span><span class="p">(</span><span class="n">x</span><span class="o">-</span><span class="n">v</span><span class="o">*</span><span class="n">t</span><span class="p">))</span>
+<span class="o">...</span>       <span class="k">return</span> <span class="n">wave</span>
+<span class="n">sage</span><span class="p">:</span> <span class="nb">range</span> <span class="o">=</span> <span class="p">(</span><span class="n">x</span><span class="p">,</span> <span class="mi">0</span><span class="p">,</span> <span class="mi">20</span><span class="p">)</span>
+<span class="n">sage</span><span class="p">:</span> <span class="n">figsize</span> <span class="o">=</span> <span class="p">(</span><span class="mi">4</span><span class="p">,</span> <span class="mi">2</span><span class="p">)</span>
+<span class="n">sage</span><span class="p">:</span> <span class="n">v</span> <span class="o">=</span> <span class="mi">2</span>
+<span class="n">sage</span><span class="p">:</span> <span class="n">plts</span> <span class="o">=</span> <span class="p">[</span><span class="n">plot</span><span class="p">(</span><span class="n">running_wave</span><span class="p">(</span><span class="n">v</span><span class="o">=</span><span class="n">v</span><span class="p">,</span> <span class="n">t</span><span class="o">=</span><span class="n">t</span><span class="p">),</span> <span class="nb">range</span><span class="p">,</span> <span class="n">figsize</span><span class="o">=</span><span class="n">figsize</span><span class="p">)</span>
+<span class="o">...</span>           <span class="o">+</span> <span class="n">plot</span><span class="p">(</span><span class="n">running_wave</span><span class="p">(</span><span class="n">v</span><span class="o">=-</span><span class="n">v</span><span class="p">,</span> <span class="n">t</span><span class="o">=</span><span class="n">t</span><span class="p">),</span> <span class="nb">range</span><span class="p">,</span> <span class="n">color</span><span class="o">=</span><span class="s1">&#39;green&#39;</span><span class="p">,</span> <span class="n">figsize</span><span class="o">=</span><span class="n">figsize</span><span class="p">)</span>
+<span class="o">...</span>           <span class="o">+</span> <span class="n">plot</span><span class="p">(</span><span class="n">running_wave</span><span class="p">(</span><span class="n">v</span><span class="o">=</span><span class="n">v</span><span class="p">,</span> <span class="n">t</span><span class="o">=</span><span class="n">t</span><span class="p">)</span><span class="o">+</span><span class="n">running_wave</span><span class="p">(</span><span class="n">v</span><span class="o">=-</span><span class="n">v</span><span class="p">,</span> <span class="n">t</span><span class="o">=</span><span class="n">t</span><span class="p">),</span> <span class="nb">range</span><span class="p">,</span> <span class="n">color</span><span class="o">=</span><span class="s1">&#39;red&#39;</span><span class="p">,</span> <span class="n">ymin</span><span class="o">=-</span><span class="mi">2</span><span class="p">,</span> <span class="n">ymax</span><span class="o">=</span><span class="mi">2</span><span class="p">,</span> <span class="n">figsize</span><span class="o">=</span><span class="n">figsize</span><span class="p">)</span>
+<span class="o">...</span>           <span class="k">for</span> <span class="n">t</span> <span class="ow">in</span> <span class="n">sxrange</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span> <span class="mi">2</span><span class="o">*</span><span class="n">pi</span><span class="o">/</span><span class="n">v</span><span class="p">,</span> <span class="n">pi</span><span class="o">/</span><span class="p">(</span><span class="mi">10</span><span class="o">*</span><span class="n">v</span><span class="p">))]</span>
+<span class="n">sage</span><span class="p">:</span> <span class="n">animate</span><span class="p">(</span><span class="n">plts</span><span class="p">)</span><span class="o">.</span><span class="n">show</span><span class="p">()</span>
+</pre></div>
+</div>
+<p>Graphics array useful for a more detailed analysis.</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">sage</span><span class="p">:</span> <span class="n">graphics_array</span><span class="p">(</span><span class="n">plts</span><span class="p">[</span><span class="mi">0</span><span class="p">:</span><span class="mi">6</span><span class="p">],</span> <span class="n">ncols</span><span class="o">=</span><span class="mi">3</span><span class="p">)</span><span class="o">.</span><span class="n">show</span><span class="p">()</span>
+</pre></div>
+</div>
+<p><strong>Wave pulse and its reflection</strong></p>
+<p>Motion of wave impulse. I know, that so defined impulse is not physical because of differential discontinuity, but it is the first approach to such kind of animations. Students were informed of the physical doubts.</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">sage</span><span class="p">:</span> <span class="k">def</span> <span class="nf">pulse1</span><span class="p">(</span><span class="n">x</span><span class="p">):</span>
+<span class="o">...</span>       <span class="k">if</span> <span class="n">x</span><span class="o">&gt;=</span><span class="mi">0</span> <span class="ow">and</span> <span class="n">x</span><span class="o">&lt;=</span><span class="mi">4</span><span class="o">*</span><span class="n">pi</span><span class="p">:</span>
+<span class="o">...</span>           <span class="k">return</span> <span class="n">A1</span><span class="o">*</span><span class="n">sin</span><span class="p">(</span><span class="n">x</span><span class="p">)</span>
+<span class="o">...</span>       <span class="k">else</span><span class="p">:</span>
+<span class="o">...</span>           <span class="k">return</span> <span class="mf">0.0</span>
+</pre></div>
+</div>
+<p>Two incoming wave impulses coming from opposite directions</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">sage</span><span class="p">:</span> <span class="n">var</span><span class="p">(</span><span class="s1">&#39;x&#39;</span><span class="p">)</span>
+<span class="n">sage</span><span class="p">:</span> <span class="n">A1</span> <span class="o">=</span> <span class="mi">1</span>
+<span class="n">sage</span><span class="p">:</span> <span class="n">c</span> <span class="o">=</span> <span class="mf">1.4</span>
+<span class="n">sage</span><span class="p">:</span> <span class="n">nl</span> <span class="o">=</span> <span class="mi">2</span>
+<span class="n">sage</span><span class="p">:</span> <span class="n">nL</span> <span class="o">=</span> <span class="mi">4</span>
+<span class="n">sage</span><span class="p">:</span> <span class="n">k</span> <span class="o">=</span> <span class="mi">4</span><span class="o">*</span><span class="n">pi</span> <span class="c1"># 2pi/wavelenght</span>
+<span class="n">sage</span><span class="p">:</span> <span class="nd">@interact</span>
+<span class="n">sage</span><span class="p">:</span> <span class="k">def</span> <span class="nf">_</span><span class="p">(</span><span class="n">t</span><span class="o">=</span><span class="n">slider</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span><span class="mi">10</span><span class="p">,</span><span class="mf">0.0001</span><span class="p">,</span><span class="n">default</span><span class="o">=</span><span class="mi">1</span><span class="o">/</span><span class="n">c</span><span class="o">*</span><span class="p">(</span><span class="n">nL</span><span class="o">-</span><span class="n">nl</span><span class="p">)</span><span class="o">*</span><span class="mi">2</span><span class="o">*</span><span class="n">pi</span><span class="p">)):</span>
+<span class="o">...</span>       <span class="n">x0</span> <span class="o">=</span> <span class="o">-</span><span class="n">nL</span><span class="o">*</span><span class="mi">2</span><span class="o">*</span><span class="n">pi</span><span class="o">/</span><span class="n">k</span>
+<span class="o">...</span>       <span class="n">x1</span> <span class="o">=</span> <span class="p">(</span><span class="n">nL</span><span class="o">-</span><span class="n">nl</span><span class="p">)</span><span class="o">*</span><span class="mi">2</span><span class="o">*</span><span class="n">pi</span><span class="o">/</span><span class="n">k</span>
+<span class="o">...</span>       <span class="n">plt</span> <span class="o">=</span> <span class="n">Graphics</span><span class="p">()</span>
+<span class="o">...</span>       <span class="n">plt</span> <span class="o">+=</span> <span class="n">plot</span><span class="p">(</span> <span class="k">lambda</span> <span class="n">x</span><span class="p">:</span><span class="n">pulse1</span><span class="p">(</span><span class="n">k</span><span class="o">*</span><span class="p">(</span><span class="n">x</span><span class="o">-</span><span class="n">x0</span><span class="p">)</span><span class="o">-</span><span class="n">c</span><span class="o">*</span><span class="n">t</span><span class="p">),(</span><span class="n">x</span><span class="p">,</span><span class="n">x0</span><span class="p">,</span><span class="mi">1</span><span class="p">),</span><span class="n">figsize</span><span class="o">=</span><span class="p">(</span><span class="mi">12</span><span class="p">,</span><span class="mi">4</span><span class="p">),</span><span class="n">thickness</span><span class="o">=</span><span class="mi">1</span><span class="p">)</span>
+<span class="o">...</span>       <span class="n">plt</span> <span class="o">+=</span> <span class="n">plot</span><span class="p">(</span> <span class="k">lambda</span> <span class="n">x</span><span class="p">:</span><span class="n">pulse1</span><span class="p">(</span><span class="n">k</span><span class="o">*</span><span class="p">(</span><span class="n">x</span><span class="o">-</span><span class="n">x1</span><span class="p">)</span><span class="o">+</span><span class="n">c</span><span class="o">*</span><span class="n">t</span><span class="p">),(</span><span class="n">x</span><span class="p">,</span><span class="n">x0</span><span class="p">,</span><span class="mi">2</span><span class="p">),</span><span class="n">color</span><span class="o">=</span><span class="s1">&#39;red&#39;</span><span class="p">,</span><span class="n">thickness</span><span class="o">=</span><span class="mi">1</span><span class="p">)</span>
+<span class="o">...</span>
+<span class="o">...</span>       <span class="n">plt</span><span class="o">.</span><span class="n">show</span><span class="p">()</span>
+</pre></div>
+</div>
+<p>Superposition of impuls and its reflection</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">sage</span><span class="p">:</span> <span class="n">var</span><span class="p">(</span><span class="s1">&#39;x&#39;</span><span class="p">)</span>
+<span class="n">sage</span><span class="p">:</span> <span class="n">A1</span> <span class="o">=</span> <span class="mi">1</span>
+<span class="n">sage</span><span class="p">:</span> <span class="n">c</span> <span class="o">=</span> <span class="mf">3.4</span>
+<span class="n">sage</span><span class="p">:</span> <span class="n">nl</span> <span class="o">=</span> <span class="mi">2</span>
+<span class="n">sage</span><span class="p">:</span> <span class="n">nL</span> <span class="o">=</span> <span class="mi">4</span>
+<span class="n">sage</span><span class="p">:</span> <span class="n">k</span> <span class="o">=</span> <span class="mi">4</span><span class="o">*</span><span class="n">pi</span> <span class="c1"># 2pi/wavelenght</span>
+<span class="n">sage</span><span class="p">:</span> <span class="nd">@interact</span>
+<span class="n">sage</span><span class="p">:</span> <span class="k">def</span> <span class="nf">_</span><span class="p">(</span><span class="n">t</span><span class="o">=</span><span class="n">slider</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span><span class="mi">10</span><span class="p">,</span><span class="mi">2</span><span class="o">*</span><span class="n">pi</span><span class="o">/</span><span class="n">k</span><span class="o">/</span><span class="mi">64</span><span class="p">)):</span>
+<span class="o">...</span>       <span class="n">x0</span> <span class="o">=</span> <span class="o">-</span><span class="n">nL</span><span class="o">*</span><span class="mi">2</span><span class="o">*</span><span class="n">pi</span><span class="o">/</span><span class="n">k</span>
+<span class="o">...</span>       <span class="n">x1</span> <span class="o">=</span> <span class="p">(</span><span class="n">nL</span><span class="o">-</span><span class="n">nl</span><span class="p">)</span><span class="o">*</span><span class="mi">2</span><span class="o">*</span><span class="n">pi</span><span class="o">/</span><span class="n">k</span>
+<span class="o">...</span>       <span class="n">plt</span> <span class="o">=</span> <span class="n">Graphics</span><span class="p">()</span>
+<span class="o">...</span>       <span class="n">plt</span> <span class="o">+=</span> <span class="n">plot</span><span class="p">(</span> <span class="k">lambda</span> <span class="n">x</span><span class="p">:</span><span class="n">pulse1</span><span class="p">(</span><span class="n">k</span><span class="o">*</span><span class="p">(</span><span class="n">x</span><span class="o">-</span><span class="n">x0</span><span class="p">)</span><span class="o">-</span><span class="n">c</span><span class="o">*</span><span class="n">t</span><span class="p">)</span><span class="o">+</span><span class="n">pulse1</span><span class="p">(</span><span class="n">k</span><span class="o">*</span><span class="p">(</span><span class="n">x</span><span class="o">-</span><span class="n">x1</span><span class="p">)</span><span class="o">+</span><span class="n">c</span><span class="o">*</span><span class="n">t</span><span class="p">),(</span><span class="n">x</span><span class="p">,</span><span class="n">x0</span><span class="p">,</span><span class="mi">0</span><span class="p">),</span><span class="n">figsize</span><span class="o">=</span><span class="p">(</span><span class="mi">12</span><span class="p">,</span><span class="mi">4</span><span class="p">),</span><span class="n">thickness</span><span class="o">=</span><span class="mi">1</span><span class="p">,</span><span class="n">ymin</span><span class="o">=-</span><span class="mi">2</span><span class="p">,</span><span class="n">ymax</span><span class="o">=</span><span class="mi">2</span><span class="p">)</span>
+<span class="o">...</span>       <span class="n">plt</span><span class="o">.</span><span class="n">show</span><span class="p">()</span>
+</pre></div>
+</div>
+<p>Numerical wave reflection</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">sage</span><span class="p">:</span> <span class="o">%</span><span class="n">time</span>
+<span class="n">sage</span><span class="p">:</span> <span class="kn">import</span> <span class="nn">numpy</span> <span class="k">as</span> <span class="nn">np</span>
+<span class="n">sage</span><span class="p">:</span> <span class="n">N</span> <span class="o">=</span> <span class="mi">4048</span>
+<span class="n">sage</span><span class="p">:</span> <span class="n">l</span> <span class="o">=</span> <span class="mf">50.</span>
+<span class="n">sage</span><span class="p">:</span> <span class="n">dx</span> <span class="o">=</span> <span class="nb">float</span><span class="p">(</span><span class="n">l</span><span class="p">)</span><span class="o">/</span><span class="p">(</span><span class="n">N</span><span class="o">-</span><span class="mi">1</span><span class="p">)</span>
+<span class="n">sage</span><span class="p">:</span> <span class="n">c2</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">ones</span><span class="p">(</span><span class="n">N</span><span class="p">)</span>
+<span class="n">sage</span><span class="p">:</span> <span class="n">dt</span> <span class="o">=</span> <span class="mf">0.005</span>
+<span class="n">sage</span><span class="p">:</span> <span class="nb">print</span> <span class="n">np</span><span class="o">.</span><span class="n">sqrt</span><span class="p">(</span><span class="n">np</span><span class="o">.</span><span class="n">max</span><span class="p">(</span><span class="n">c2</span><span class="p">))</span><span class="o">*</span><span class="n">dt</span><span class="o">/</span><span class="n">dx</span>
+<span class="n">sage</span><span class="p">:</span> <span class="n">x</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">linspace</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span><span class="n">l</span><span class="p">,</span><span class="n">N</span><span class="p">)</span>
+<span class="n">sage</span><span class="p">:</span> <span class="n">u</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">zeros</span><span class="p">(</span><span class="n">N</span><span class="p">)</span>
+<span class="n">sage</span><span class="p">:</span> <span class="n">u0</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">zeros</span><span class="p">(</span><span class="n">N</span><span class="p">)</span>
+<span class="n">sage</span><span class="p">:</span> <span class="n">unew</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">zeros</span><span class="p">(</span><span class="n">N</span><span class="p">)</span>
+<span class="n">sage</span><span class="p">:</span> <span class="n">ulst</span><span class="o">=</span><span class="p">[</span><span class="n">u</span><span class="o">.</span><span class="n">copy</span><span class="p">()]</span>
+<span class="n">sage</span><span class="p">:</span> <span class="n">n</span><span class="o">=</span><span class="mf">4.</span>
+<span class="n">sage</span><span class="p">:</span> <span class="n">T</span> <span class="o">=</span> <span class="mf">1.</span><span class="o">*</span><span class="n">l</span><span class="o">/</span><span class="n">n</span>
+<span class="n">sage</span><span class="p">:</span> <span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="mi">25000</span><span class="p">):</span>
+<span class="o">...</span>       <span class="n">unew</span><span class="p">[</span><span class="mi">1</span><span class="p">:</span><span class="o">-</span><span class="mi">1</span><span class="p">]</span> <span class="o">=</span> <span class="mf">2.</span><span class="o">*</span><span class="n">u</span><span class="p">[</span><span class="mi">1</span><span class="p">:</span><span class="o">-</span><span class="mi">1</span><span class="p">]</span> <span class="o">-</span> <span class="n">u0</span><span class="p">[</span><span class="mi">1</span><span class="p">:</span><span class="o">-</span><span class="mi">1</span><span class="p">]</span> <span class="o">+</span> <span class="n">dt</span><span class="o">**</span><span class="mi">2</span> <span class="o">*</span><span class="p">(</span><span class="n">c2</span><span class="p">[</span><span class="mi">1</span><span class="p">:</span><span class="o">-</span><span class="mi">1</span><span class="p">]</span><span class="o">/</span><span class="n">dx</span><span class="o">**</span><span class="mi">2</span><span class="o">*</span><span class="n">np</span><span class="o">.</span><span class="n">diff</span><span class="p">(</span><span class="n">u</span><span class="p">,</span><span class="mi">2</span><span class="p">))</span>
+<span class="o">...</span>       <span class="n">u0</span><span class="o">=</span><span class="n">u</span><span class="o">.</span><span class="n">copy</span><span class="p">()</span>
+<span class="o">...</span>       <span class="n">u</span><span class="o">=</span><span class="n">unew</span><span class="o">.</span><span class="n">copy</span><span class="p">()</span>
+<span class="o">...</span>
+<span class="o">...</span>       <span class="n">u</span><span class="p">[</span><span class="o">-</span><span class="mi">1</span><span class="p">]</span> <span class="o">=</span> <span class="n">u</span><span class="p">[</span><span class="o">-</span><span class="mi">2</span><span class="p">]</span>
+<span class="o">...</span>       <span class="n">u</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span> <span class="o">=</span> <span class="n">u</span><span class="p">[</span><span class="mi">1</span><span class="p">]</span>
+<span class="o">...</span>
+<span class="o">...</span>       <span class="n">u</span><span class="p">[</span><span class="o">-</span><span class="mi">1</span><span class="p">]</span> <span class="o">=</span> <span class="mi">0</span>
+<span class="o">...</span>       <span class="n">u</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span> <span class="o">=</span> <span class="mi">0</span>
+<span class="o">...</span>
+<span class="o">...</span>       <span class="k">if</span> <span class="n">dt</span><span class="o">*</span><span class="n">i</span><span class="o">/</span><span class="n">T</span><span class="o">*</span><span class="mf">2.0</span><span class="o">*</span><span class="n">np</span><span class="o">.</span><span class="n">pi</span><span class="o">&lt;</span> <span class="mi">4</span><span class="o">*</span><span class="n">np</span><span class="o">.</span><span class="n">pi</span><span class="p">:</span>
+<span class="o">...</span>           <span class="n">u</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span> <span class="o">=</span> <span class="mf">0.5</span><span class="o">*</span><span class="n">np</span><span class="o">.</span><span class="n">sin</span><span class="p">(</span><span class="n">dt</span><span class="o">*</span><span class="n">i</span><span class="o">/</span><span class="n">T</span><span class="o">*</span><span class="mf">2.0</span><span class="o">*</span><span class="n">np</span><span class="o">.</span><span class="n">pi</span><span class="p">)</span>
+<span class="o">...</span>
+<span class="o">...</span>       <span class="k">if</span> <span class="n">i</span><span class="o">%</span><span class="mi">50</span><span class="o">==</span><span class="mi">0</span><span class="p">:</span>
+<span class="o">...</span>           <span class="n">ulst</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">u</span><span class="o">.</span><span class="n">copy</span><span class="p">())</span>
+<span class="mf">0.4047</span>
+<span class="n">CPU</span> <span class="n">time</span><span class="p">:</span> <span class="mf">5.31</span> <span class="n">s</span><span class="p">,</span>  <span class="n">Wall</span> <span class="n">time</span><span class="p">:</span> <span class="mf">5.30</span> <span class="n">s</span>
+</pre></div>
+</div>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">sage</span><span class="p">:</span> <span class="nd">@interact</span>
+<span class="n">sage</span><span class="p">:</span> <span class="k">def</span> <span class="nf">_</span><span class="p">(</span><span class="n">ith</span><span class="o">=</span><span class="n">slider</span><span class="p">(</span><span class="nb">range</span><span class="p">(</span><span class="nb">len</span><span class="p">(</span><span class="n">ulst</span><span class="p">)))):</span>
+<span class="o">...</span>       <span class="n">u</span> <span class="o">=</span> <span class="n">ulst</span><span class="p">[</span><span class="n">ith</span><span class="p">]</span>
+<span class="o">...</span>       <span class="n">plt</span> <span class="o">=</span>  <span class="n">line</span><span class="p">(</span><span class="nb">zip</span><span class="p">(</span><span class="n">x</span><span class="p">,</span><span class="n">u</span><span class="p">),</span><span class="n">figsize</span><span class="o">=</span><span class="p">(</span><span class="mi">12</span><span class="p">,</span><span class="mi">5</span><span class="p">),</span><span class="n">ymin</span><span class="o">=-</span><span class="mi">1</span><span class="p">,</span><span class="n">ymax</span><span class="o">=</span><span class="mi">1</span><span class="p">)</span>
+<span class="o">...</span>       <span class="n">plt</span><span class="o">.</span><span class="n">show</span><span class="p">()</span>
+</pre></div>
+</div>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">sage</span><span class="p">:</span> <span class="nb">len</span><span class="p">(</span><span class="n">ulst</span><span class="p">)</span>
+<span class="mi">501</span>
+</pre></div>
+</div>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">sage</span><span class="p">:</span> <span class="n">plts</span> <span class="o">=</span> <span class="p">[</span><span class="n">line</span><span class="p">(</span><span class="nb">zip</span><span class="p">(</span><span class="n">x</span><span class="p">,</span><span class="n">u</span><span class="p">),</span><span class="n">figsize</span><span class="o">=</span><span class="p">(</span><span class="mi">6</span><span class="p">,</span><span class="mi">2</span><span class="p">),</span><span class="n">ymin</span><span class="o">=-</span><span class="mi">1</span><span class="p">,</span><span class="n">ymax</span><span class="o">=</span><span class="mi">1</span><span class="p">)</span> <span class="k">for</span> <span class="n">u</span> <span class="ow">in</span> <span class="n">ulst</span><span class="p">[::</span><span class="mi">8</span><span class="p">]]</span>
+<span class="n">sage</span><span class="p">:</span> <span class="n">animate</span><span class="p">(</span><span class="n">plts</span><span class="p">)</span><span class="o">.</span><span class="n">show</span><span class="p">()</span>
+</pre></div>
+</div>
+<p><strong>Conclusions</strong></p>
+<p>Programming in Python became an interesting supplement of physics lesson. The benefit lies in the possibility of (more or less) easy visualisation of processes with the change of parameters. Thank this, the formulae presented during lectures are less abstract and everybody can single-handed check, how the result of interference depends on frequencies, direction of speed and so on.</p>
+<p>Animations itself were a new challenge for students. In the previous version I asked student to develop somehow the code to create some new ideas. It failed, because the code was too difficult for them (and sometimes also for me). All they are able to do is to manipulate the parameters.</p>
+<p>Nevertheless, I judge tis lesson high. Students were very interested and engaged. Their skills, both in physics and informatics, increased.</p>
+<p>Adam Ogaza, Gert-Ludwig Ingold, Marcin Kostur, 22nd October 2016</p>
+</div>
+
+
+          </div>
+        </div>
+      </div>
+      <div class="sphinxsidebar" role="navigation" aria-label="main navigation">
+        <div class="sphinxsidebarwrapper">
+<div id="searchbox" style="display: none" role="search">
+  <h3 id="searchlabel">Quick search</h3>
+    <div class="searchformwrapper">
+    <form class="search" action="search.html" method="get">
+      <input type="text" name="q" aria-labelledby="searchlabel" />
+      <input type="submit" value="Go" />
+    </form>
+    </div>
+</div>
+<script>$('#searchbox').show(0);</script>
+        </div>
+      </div>
+      <div class="clearer"></div>
+    </div>
+  </div>
+  <div class="relbar-bottom">
+    
+    <div class="related" role="navigation" aria-label="related navigation">
+      <h3>Navigation</h3>
+      <ul>
+  <li><a href="index.html">Science education with SageMath</a> &#187;</li>
+  
+        <li class="nav-item nav-item-this"><a href="">Please write a title for this worksheet!</a></li> 
+      </ul>
+    </div>
+  </div>
+  
+  <div class="footer">
+    <a class="logo" href="http://icse.us.edu.pl/" target="_blank"><img src="_static/logo-icse.png" alt="ICSE"/></a><br/>
+    &copy; Copyright Creative Commons CC-BY 4.0, iCSE-team.
+    Created using <a href="http://sphinx.pocoo.org/">Sphinx</a> 3.2.1.
+  </div>
+  </body>
+</html>

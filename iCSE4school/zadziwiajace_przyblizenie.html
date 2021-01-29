@@ -1,0 +1,378 @@
+
+
+  
+<!DOCTYPE html>
+
+<html lang="pl">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Zadziwiające przybliżenie &#8212; Metodologia nauczania przedmiotów ścisłych z perspektywą obliczeniową</title>
+    <link rel="stylesheet" href="_static/cloud.css" type="text/css" />
+    <link rel="stylesheet" href="_static/pygments.css" type="text/css" />
+    <link rel="stylesheet" href="http://fonts.googleapis.com/css?family=Noticia+Text|Open+Sans|Droid+Sans+Mono&amp;subset=latin,latin-ext" type="text/css" />
+    <script id="documentation_options" data-url_root="./" src="_static/documentation_options.js"></script>
+    <script src="_static/jquery.js"></script>
+    <script src="_static/underscore.js"></script>
+    <script src="_static/doctools.js"></script>
+    <script src="_static/language_data.js"></script>
+    <script src="_static/translations.js"></script>
+    <script async="async" src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.7/latest.js?config=TeX-AMS-MML_HTMLorMML"></script>
+    <script src="_static/jquery.cookie.js"></script>
+    <script src="_static/cloud.js"></script>
+    <script type="text/javascript" src="http://sagecell.sagemath.org/static/jquery.min.js"></script>
+    <script type="text/javascript" src="http://sagecell.sagemath.org/static/embedded_sagecell.js"></script>
+    <script type="text/javascript">
+        sagecell.makeSagecell({inputLocation: ".sage_linked",
+                               linked: true});
+        sagecell.makeSagecell({inputLocation: ".sage_unlinked",
+                               linked: false});
+    </script>
+
+    <style type="text/css">
+        .sagecell .CodeMirror-scroll {
+            overflow-y: hidden;
+            overflow-x: auto;
+        }
+        .sagecell .CodeMirror {
+            height: auto;
+        }
+    </style>
+    
+    <link rel="search" title="Szukaj" href="search.html" />
+    <link rel="next" title="RSA szyfrowanie asymetryczne" href="RSA.html" />
+    <link rel="prev" title="Wymiar fraktalny" href="fraktal.html" />
+ 
+  <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, minimum-scale=1">
+  </head><body>
+  <div class="relbar-top">
+    
+    <div class="related" role="navigation" aria-label="related navigation">
+      <h3>Nawigacja</h3>
+      <ul>
+        <li class="right" style="margin-right: 10px">
+          <a href="RSA.html" title="RSA szyfrowanie asymetryczne"
+             accesskey="N">dalej</a></li>
+        <li class="right" >
+          <a href="fraktal.html" title="Wymiar fraktalny"
+             accesskey="P">wstecz</a> &nbsp; &nbsp;</li>
+  <li><a href="index.html">Metodologia nauczania przedmiotów ścisłych z perspektywą obliczeniową</a> &#187;</li>
+  
+        <li class="nav-item nav-item-this"><a href="">Zadziwiające przybliżenie</a></li> 
+      </ul>
+    </div>
+  </div>
+  
+  <div class="content">  
+
+    <div class="document">
+      <div class="documentwrapper">
+        <div class="bodywrapper">
+          <div class="body">
+            
+  <div class="section" id="zadziwiajace-przyblizenie">
+<h1>Zadziwiające przybliżenie<a class="headerlink" href="#zadziwiajace-przyblizenie" title="Stały odnośnik do tego nagłówka">¶</a></h1>
+<div class="section" id="o-scenariuszu">
+<h2>O scenariuszu<a class="headerlink" href="#o-scenariuszu" title="Stały odnośnik do tego nagłówka">¶</a></h2>
+<p>Prezentowany scenariusz jest wynikiem zajęć (zainspirowanych podręcznikiem „Matematyka się liczy” pod redakcją prof. Wacława Zawadowskiego) prowadzonych w III Liceum Ogólnokształcącym im. Stefana Batorego w Chorzowie. Przeznaczony jest do realizacji na dwóch godzinach lekcyjnych (po jednej na każdą z części).</p>
+<p>Struktura materiału jest swego rodzaju rozmową z uczestnikiem zajęć: dopuszczamy więc podejście - także językowe - typu nieformalnego. Użyjemy komputera do zilustrowania <strong>prostego</strong> problemu, używając <strong>podstawowego</strong> programowania.</p>
+<ul class="simple">
+<li><p>Dlaczego podstawowego?</p></li>
+</ul>
+<p>Nie znamy się bowiem na Sage’u zbyt dobrze.</p>
+<ul class="simple">
+<li><p>Dlaczego prostego?</p></li>
+</ul>
+<p>Chcemy bowiem <strong>zafrapować</strong> zagadnieniem matematycznym uważanym za
+nudne. Większość uczniów nie lubi rachunków - my spróbujemy więc użyć
+komputera do powtórzeń żmudnych obliczeń. Być może doprowadzą nas one
+do zasygnalizowania pewnych nieporozumień w używaniu liczb.</p>
+<div class="admonition-uwaga admonition">
+<p class="admonition-title">Uwaga!</p>
+<p>W każdym z okien programu można zmieniać liczby, tekst, zmienne
+lub cały kod.  Nie trzeba się martwić, jeśli program przestanie
+działać, bo po odświeżeniu strony powróci do ustawień
+początkowych.  Często następny kod wynika z poprzedniego, więc
+należy ćwiczenia (algorytmy) wykonywać według kolejności.</p>
+</div>
+<p>Lekcje prowadził Krzysztof Oleś.</p>
+</div>
+<div class="section" id="wstep">
+<h2>Wstęp<a class="headerlink" href="#wstep" title="Stały odnośnik do tego nagłówka">¶</a></h2>
+<p>Matematyka, coraz częściej uznawana za jedną z podstaw kształcenia, jest przedmiotem diagnozy związanej
+z osiągnięciami wychowanków wszystkich poziomów nauczania. Przeprowadzane także i w Polsce badania
+w ramach Programu Międzynarodowej Oceny Umiejętności Uczniów OECD PISA sugerują, że nierzadko polscy słabsi uczniowie radzą sobie z zadaniami lepiej niż słabsi uczniowie krajów OECD; lepsi uczniowie polscy jednak rozwiązują zadania gorzej niż lepsi uczniowie OECD. Tego typu sytuacja dotyczy najczęściej zadań o średnim poziomie trudności. Konieczną potrzebą jest więc budowanie i pogłębianie aparatu matematycznego, tak by nabywane umiejętności mogły być solidnym fundamentem rozwiązywania problemów matematycznych – przede wszystkim tych, które rozszerzają przewidziane w podstawie programowej treści nauczania. Komputer może naszym zdaniem w pozytywny sposób wpływać na analizowanie pojęć i struktur wprowadzanych na lekcjach klasycznych - prowadzonych (niestety?) jedynie za pomocą przysłowiowych: kredy i tablicy…</p>
+</div>
+<div class="section" id="scenariusz-zajec">
+<h2>Scenariusz zajęć<a class="headerlink" href="#scenariusz-zajec" title="Stały odnośnik do tego nagłówka">¶</a></h2>
+<div class="section" id="czesc-pierwsza">
+<h3>Część pierwsza<a class="headerlink" href="#czesc-pierwsza" title="Stały odnośnik do tego nagłówka">¶</a></h3>
+<p>Rozpocznijmy przybliżaniem pierwiastka kwadratowego liczby 2. Wykorzystamy  algorytm (oparty na metodzie Newtona znajdowania miejsc zerowych funkcji) znany pod hasłem: metoda babilońska.</p>
+<div class='sage_linked'><script type='text/x-sage'>rot=2
+for n in range(1,6):    #zmień przedział
+       rot=0.5*(rot+2/rot)
+       print rot
+       print "error =",abs(N(sqrt(2)-rot))</script></div><p>Czy wiemy</p>
+<ul class="simple">
+<li><p>co znaczy zapis 2.12390141451912e-6?</p></li>
+<li><p>jak zmieni się błąd przy zmianie n?</p></li>
+</ul>
+<p>Zabaczmy jak szybki jest podany algorytm.</p>
+<div class='sage_linked'><script type='text/x-sage'>rot=2
+graph=point((0,sqrt(2)))
+for n in range(1,21):    #czy przedział (1,51) zmieni cokolwiek?
+       rot=0.5*(rot+2/rot)
+       graph=graph+point((n,rot))
+plot(graph)</script></div><p>Zaraz, zaraz… Co mamy na myśli, używając słowa „szybki”?</p>
+<p>Zróbmy pewnego rodzaju porównanie. Jedną z najbardziej popularnych liczb jest  <span class="math notranslate nohighlight">\(\pi\)</span>, użyjemy zatem algorytmu ją przybliżającego. Oprzemy się na wzorze  podanym przez Wallisa w roku 1655:</p>
+<div class="math notranslate nohighlight">
+\[\frac{\pi}{2}=\prod_{n=1}^\infty\left(\frac{2n}{2n-1}\cdot\frac{2n}{2n+1}\right).\]</div>
+<p>Wydaje się to dosyć skomplikowane - prawdopodobnie z powodu użycia dużego  <span class="math notranslate nohighlight">\(\pi\)</span>. A może poniższy zapis</p>
+<div class="math notranslate nohighlight">
+\[\frac{\pi}{2}=\frac{2}{1}\cdot\frac{2}{3}\cdot\frac{4}{3}\cdot\frac{4}{5}\cdot\frac{6}{5}\cdot\frac{6}{7}\cdot\frac{8}{7}\cdot\frac{8}{9}\cdot\cdots\]</div>
+<p>jest prostszy?</p>
+<p>Po prostu: duże  <span class="math notranslate nohighlight">\(\pi\)</span> oznacza iloczyn nieskończony (coś w rodzaju wielu, wielu mnożeń…).</p>
+<p>Jak to działa?</p>
+<p>Męczące (można to sprawdzić na kartce papieru…) obliczenia przeprowadzi komputer.</p>
+<div class='sage_linked'><script type='text/x-sage'>w=1
+for i in range(1,6):
+       w=w*((2*i)/(2*i-1))*((2*i)/(2*i+1))
+       print 2*w     #wolimy ułamki zwykłe czy dziesiętne?
+       print "error =",abs(N(pi-2*w))</script></div><p>Czy wiemy</p>
+<ul class="simple">
+<li><p>co znaczy abs()?</p></li>
+<li><p>co znaczy N()?</p></li>
+<li><p>jak zmieni się błąd przy zmianie n?</p></li>
+<li><p>ilu powtórzeń musimy użyć, by osiągnąć 3,14?</p></li>
+</ul>
+<p>Zabaczmy jak szybki jest podany algorytm.</p>
+<div class='sage_linked'><script type='text/x-sage'>w=1
+graph=point((0,pi))
+for i in range(1,21):
+       w=w*((2*i)/(2*i-1))*((2*i)/(2*i+1))
+       graph=graph+point((i,2*w))
+plot(graph)</script></div><p>Możemy teraz porównać szybkość pierwszego i drugiego algorytmu oraz zadać niewygodne pytania:</p>
+<ul class="simple">
+<li><p>Czy kiedykolwiek zastanawialiśmy się nad tym, jak nasz kalkulator przybliża liczby?</p></li>
+<li><p>Może kalkulator kolegi robi to lepiej? Co znaczy „lepiej”?</p></li>
+<li><p>Obliczaliśmy błędy - Sage musiał pierwiastek kwadratowy liczby 2 oraz <span class="math notranslate nohighlight">\(\pi\)</span> przybliżyć (nie są to liczby wymierne): czy Sage popełnił błąd? Jak duży?</p></li>
+</ul>
+</div>
+<div class="section" id="czesc-druga">
+<h3>Część druga<a class="headerlink" href="#czesc-druga" title="Stały odnośnik do tego nagłówka">¶</a></h3>
+<p>No dobrze, ale kto jest zainteresowany różnicami w przybliżeniach np. na piętnastym miejscu po przecinku?</p>
+<p>Zajmijmy się zatem pewnym problemem geometrycznym.</p>
+<p>Rozważmy walec wpisany w sześcian (podstawy walca są wpisane w równoległe ściany sześcianu). W rogu tegoż sześcianu umieszczamy stycznie do walca kulkę o maksymalnej objętości. Jaka jest ta objętość?</p>
+<div class='sage_linked'><script type='text/x-sage'>var('x,y,z')
+r=(sqrt(2)-1)/(2*sqrt(2)+2)     #a skąd to?
+a=implicit_plot3d(x^2+y^2-0.25,(x,-0.5,0.5),(y,-0.5,0.5),
+(z,-0.5,0.5), color = "green", opacity = 0.4)
+b=cube(center=(0, 0, 0), opacity=0.1, color = "green")
+c=sphere(center=(-0.5+r,-0.5+r,-0.5+r), opacity=0.9, color = "green", size=r)
+graph=a+b+c
+graph</script></div><p>Jak widzimy długość krawędzi sześcianu wynosi 1</p>
+<div class="math notranslate nohighlight">
+\[x, y, z \in (-0,5;0,5),\]</div>
+<p>a walec związany jest z okręgiem o równaniu</p>
+<div class="math notranslate nohighlight">
+\[x^2+y^2=0,25.\]</div>
+<p>Ale skąd wzięto</p>
+<div class="math notranslate nohighlight">
+\[r=\frac{\sqrt{2}-1}{2\sqrt{2}+2}?\]</div>
+<p>Niech <span class="math notranslate nohighlight">\(r\)</span> oznacza promień szukanej kulki. Z prostego związku pomiędzy przekątną kwadratu oraz promieniami odpowiednich okregów otrzymujemy:</p>
+<div class="math notranslate nohighlight">
+\[\frac{1}{2}\sqrt{2}=r\sqrt{2}+r+\frac{1}{2}\]</div>
+<div class="math notranslate nohighlight">
+\[\frac{1}{2}\sqrt{2}-\frac{1}{2}=r\left(1+\sqrt{2}\right)\]</div>
+<div class="math notranslate nohighlight">
+\[r=\frac{\frac{1}{2}\sqrt{2}-\frac{1}{2}}{1+\sqrt{2}}=\frac{\sqrt{2}-1}{2\sqrt{2}+2}\]</div>
+<p>a szukana objętość jest równa</p>
+<div class="math notranslate nohighlight">
+\[\frac{4}{3}\pi r^3=\frac{4}{3}\pi \left(\frac{1}{2}\right)^3\left(\frac{\sqrt{2}-1}{\sqrt{2}+1}\right)^3=\frac{\pi}{6}\left(\frac{\sqrt{2}-1}{\sqrt{2}+1}\right)^3.\]</div>
+<p>Wszyscy słyszeliśmy o przekształcaniu wyrażeń zawierających liczby niewymierne, zabierzmy się więc do żmudnej roboty…</p>
+<div class="math notranslate nohighlight">
+\[\left(\frac{\sqrt{2}-1}{\sqrt{2}+1}\right)^3=\left(\frac{\sqrt{2}-1}{\sqrt{2}+1}\cdot\frac{\sqrt{2}-1}{\sqrt{2}-1}\right)^3=\left(\sqrt{2}-1\right)^6,\]</div>
+<p>ale</p>
+<div class="math notranslate nohighlight">
+\[\left(\sqrt{2}-1\right)^6=\left(\left(\sqrt{2}-1\right)^2\right)^3=\left(3-2\sqrt{2}\right)^3,\]</div>
+<div class="math notranslate nohighlight">
+\[\left(\sqrt{2}-1\right)^6=\left(\left(\sqrt{2}-1\right)^3\right)^2=\left(5\sqrt{2}-7\right)^2,\]</div>
+<p>i ostatecznie</p>
+<div class="math notranslate nohighlight">
+\[\left(\sqrt{2}-1\right)^6=\left(5\sqrt{2}-7\right)^2=99-70\sqrt{2}.\]</div>
+<p>Niech</p>
+<div class="math notranslate nohighlight">
+\[w_1=99-70\sqrt{2},\quad w_2=\left(5\sqrt{2}-7\right)^2,\quad w_3=\left(3-2\sqrt{2}\right)^3,\]</div>
+<div class="math notranslate nohighlight">
+\[w_4=\left(\sqrt{2}-1\right)^6,\quad w_5=\left(\frac{\sqrt{2}-1} {\sqrt{2}+1}\right)^3.\]</div>
+<p>Oczywiście  <span class="math notranslate nohighlight">\(w_1=w_2=w_3=w_4=w_5\)</span>, ale: czy jest jakaś różnica między  <span class="math notranslate nohighlight">\(w_1,\dots,w_5\)</span> jeśli do pierwiastka kwadratowego liczby 2 będziemy się zbliżać? Zobaczmy…</p>
+<div class='sage_linked'><script type='text/x-sage'>p=1.44     #zmień p
+print 'apr=',p
+print 'w_1=',N(99-70*p)
+print 'w_2=',N((5*p-7)^2)
+print 'w_3=',N((3-2*p)^3)
+print'w_4=',N((p-1)^6)
+print 'w_5=',N(((p-1)/(p+1))^3)</script></div><p>Okazuje się, że różnice pomiędzy przybliżeniami są duże, jeśli za pierwiastek kwadratowy liczby 2 przyjmiemy 1,41 (wielu ludzi przyjmuje takie przybliżenie do części setnych). A co z: 1,414; 1,4142; 1,41421; 1,414213 i tak dalej?</p>
+<p>Różnice wciąż są duże, co możemy zobaczyć także na wykresach zwązanych z   <span class="math notranslate nohighlight">\(w_1,\dots,w_5\)</span> funkcji.</p>
+<div class='sage_linked'><script type='text/x-sage'>@interact
+def _(xlimits=range_slider(0.5, 2.5, 0.1, default=(0.5, 2.5), label="horizontal range"),
+    ylimits=range_slider(-10, 10, 0.1, default=(-10, 10), label="vertical range")):
+    plt = plot(99-70*x, xlimits, color="red")
+    plt = plt+plot((5*x-7)^2, xlimits, color="blue")
+    plt = plt+plot((3-2*x)^3, xlimits, color="green")
+    plt = plt+plot((x-1)^6, xlimits, color="orange")
+    plt = plt+plot(((x-1)/(x+1))^3, xlimits, color="purple")
+    show(plt, xmin=xlimits[0], xmax=xlimits[1], ymin=ylimits[0], ymax=ylimits[1], figsize=(4, 3))</script></div><p>Wróćmy zatem do rysunku zawierającego poszukiwaną kulkę.</p>
+<div class='sage_linked'><script type='text/x-sage'>var('x,y,z')
+p=1.41     #zmień p
+r1=N(0.5*((99-70*p)^(1/3)))     #skąd "^(1/3)"?
+r2=N(0.5*(((5*p-7)^2)^(1/3)))
+r3=N(0.5*((3-2*p)^3)^(1/3))
+r4=N(0.5*((p-1)^6)^(1/3))
+r5=N(0.5*(((p-1)/(p+1))^3)^(1/3))
+r=r5     #zmień r
+a=implicit_plot3d(x^2+y^2-0.25,(x,-0.5,0.5),(y,-0.5,0.5),
+(z,-0.5,0.5), color = "green", opacity = 0.4)
+b=cube(center=(0, 0, 0), opacity=0.1, color = "green")
+c=sphere(center=(-0.5+r,-0.5+r,-0.5+r), opacity=0.9, color = "green", size=r)
+graph=b+a+c
+graph</script></div><p>Powinniśmy zmieniać</p>
+<ul class="simple">
+<li><p><span class="math notranslate nohighlight">\(p\)</span>: 1.414, 1.4142, 1.41421, 1.414213;  nie zapomnijmy o sqrt(2),</p></li>
+<li><p><span class="math notranslate nohighlight">\(r\)</span>:  <span class="math notranslate nohighlight">\(r_1,\dots,r_5\)</span>.</p></li>
+</ul>
+<p>Zabaczmy pięć kulek jednocześnie.</p>
+<div class='sage_linked'><script type='text/x-sage'>var('x,y,z')
+p=1.41     #dlaczego mamy problem z p=1.44?
+r1=N(0.5*((99-70*p)^(1/3)))
+r2=N(0.5*(((5*p-7)^2)^(1/3)))
+r3=N(0.5*((3-2*p)^3)^(1/3))
+r4=N(0.5*((p-1)^6)^(1/3))
+r5=N(0.5*(((p-1)/(p+1))^3)^(1/3))
+a=implicit_plot3d(x^2+y^2-0.25,(x,-0.5,0.5),(y,-0.5,0.5),
+(z,-0.5,0.5), color = "green", opacity = 0.4)
+b=cube(center=(0, 0, 0), opacity=0.1, color = "green")
+c=sphere(center=(-0.5+r1,-0.5+r1,-0.5+r1), opacity=0.2, color = "grey", size=r1)
+d=sphere(center=(-0.5+r2,-0.5+r2,-0.5+r2), opacity=0.2, color = "yellow", size=r2)
+e=sphere(center=(-0.5+r3,-0.5+r3,-0.5+r3), opacity=0.2, color = "red", size=r3)
+f=sphere(center=(-0.5+r4,-0.5+r4,-0.5+r4), opacity=0.2, color = "blue", size=r4)
+g=sphere(center=(-0.5+r5,-0.5+r5,-0.5+r5), opacity=0.2, color = "orange", size=r5)
+graph=a+b+c+d+e+f+g
+graph</script></div><p>Czy to nie dziwne?</p>
+<p>Zakończmy nasze rachunki rozważeniem poszukiwanej objętości - ponieważ mamy  dość przyglądania się dalekim miejscom po przecinku, przyjmijmy, że długość krawędzi sześcianu wynosi 60.</p>
+<div class='sage_linked'><script type='text/x-sage'>p=1.41     #zmień p
+print 'apr=',p
+w_1=N(99-70*p)
+w_2=N((5*p-7)^2)
+w_3=N((3-2*p)^3)
+w_4=N((p-1)^6)
+w_5=N(((p-1)/(p+1))^3)
+print 'volume 1=',N(pi)*36000*w_1     #skąd 36000?
+print 'volume 2=',N(pi)*36000*w_2
+print 'volume 3=',N(pi)*36000*w_3
+print 'volume 4=',N(pi)*36000*w_4
+print 'volume 5=',N(pi)*36000*w_5</script></div><p>I znowu - powinniśmy zmieniać  <span class="math notranslate nohighlight">\(p\)</span>: 1,414; 1,4142; 1,41421; 1,414213;  nie zapomnijmy o sqrt(2).</p>
+<p>I po raz kolejny: czy to nie dziwne? Może nie (?!), ale powyższy przykład pokazuje, jak bardzo należy uważać, wykorzystując w rachunkach przybliżenia.</p>
+</div>
+</div>
+<div class="section" id="podsumowanie">
+<h2>Podsumowanie<a class="headerlink" href="#podsumowanie" title="Stały odnośnik do tego nagłówka">¶</a></h2>
+<p>Chcieliśmy pokazać, jak ważna jest różnica w użyciu wyrażenia algebraicznego w rodzaju</p>
+<div class="math notranslate nohighlight">
+\[\frac{\sqrt{2}-1}{2\sqrt{2}+2}\]</div>
+<p>a jego przybliżeń. Dlaczego?</p>
+<p>Po pierwsze: ponieważ używamy liczb, które nie są wymierne, a oznacza
+to konieczność ich przybliżania. Próbowaliśmy pokazać dwa różne -
+jeśli chodzi o liczbę koniecznych do odpowiedniego przybliżenia
+powtórzeń - algorytmy. Zasugerowaliśmy znalezienie niemałej liczby
+koniecznych powtórzeń, by uzyskać przybliżenia liczby <span class="math notranslate nohighlight">\(\pi\)</span>
+przysłowiowym 3,14. Ponieważ jednak dziesiętne przybliżenia mogą nie
+wydawać się interesujące - zdecydowaliśmy się zobaczyć (!) ich wagę w
+problemie geometrycznym, w którym szczególną rolę odegrały
+przybliżenia pierwiastka kwadratowego liczby 2.</p>
+<p>Po drugie: ponieważ w szkołach polskich mamy do czynienia z przewagą
+rozwiązań (np. równań) w postaci algebraicznej. Oznacza to, że
+maturalne rozwiązanie równania</p>
+<div class="math notranslate nohighlight">
+\[7x^2+27x-31=0\]</div>
+<p>powinno mieć postać</p>
+<div class="math notranslate nohighlight">
+\[x_1=\frac{-27-\sqrt{1597}}{14},\quad x_2=\frac{-27+\sqrt{1597}}{14}.\]</div>
+<p>Wydaje się, że warto czasem zwrócić uwagę na mentalną przepaść pomiędzy powyższymi „obrazkami” a poniższymi „liczbami”</p>
+<div class="math notranslate nohighlight">
+\[x_1\approx -4,78303;\quad  x_2\approx 0,92589.\]</div>
+<p>Być może nasze rozważania dotyczą jedynie (?) różnic między znakami</p>
+<div class="math notranslate nohighlight">
+\[{\Large{=}}\qquad\textrm{ oraz }\qquad{\Large{\approx}}\]</div>
+</div>
+</div>
+
+
+          </div>
+        </div>
+      </div>
+      <div class="sphinxsidebar" role="navigation" aria-label="main navigation">
+        <div class="sphinxsidebarwrapper">
+  <div class="sphinxlocaltoc">
+  <h3><a href="index.html">Table Of Contents</a></h3>
+  <ul>
+<li><a class="reference internal" href="#">Zadziwiające przybliżenie</a><ul>
+<li><a class="reference internal" href="#o-scenariuszu">O scenariuszu</a></li>
+<li><a class="reference internal" href="#wstep">Wstęp</a></li>
+<li><a class="reference internal" href="#scenariusz-zajec">Scenariusz zajęć</a><ul>
+<li><a class="reference internal" href="#czesc-pierwsza">Część pierwsza</a></li>
+<li><a class="reference internal" href="#czesc-druga">Część druga</a></li>
+</ul>
+</li>
+<li><a class="reference internal" href="#podsumowanie">Podsumowanie</a></li>
+</ul>
+</li>
+</ul>
+
+  </div>
+  <h4>Poprzedni temat</h4>
+  <p class="topless"><a href="fraktal.html"
+                        title="poprzedni rozdział">Wymiar fraktalny</a></p>
+  <h4>Następny temat</h4>
+  <p class="topless"><a href="RSA.html"
+                        title="następny rozdział">RSA szyfrowanie asymetryczne</a></p>
+<div id="searchbox" style="display: none" role="search">
+  <h3 id="searchlabel">Szybkie wyszukiwanie</h3>
+    <div class="searchformwrapper">
+    <form class="search" action="search.html" method="get">
+      <input type="text" name="q" aria-labelledby="searchlabel" />
+      <input type="submit" value="Szukaj" />
+    </form>
+    </div>
+</div>
+<script>$('#searchbox').show(0);</script>
+        </div>
+      </div>
+      <div class="clearer"></div>
+    </div>
+  </div>
+  <div class="relbar-bottom">
+    
+    <div class="related" role="navigation" aria-label="related navigation">
+      <h3>Nawigacja</h3>
+      <ul>
+        <li class="right" style="margin-right: 10px">
+          <a href="RSA.html" title="RSA szyfrowanie asymetryczne"
+             >dalej</a></li>
+        <li class="right" >
+          <a href="fraktal.html" title="Wymiar fraktalny"
+             >wstecz</a> &nbsp; &nbsp;</li>
+  <li><a href="index.html">Metodologia nauczania przedmiotów ścisłych z perspektywą obliczeniową</a> &#187;</li>
+  
+        <li class="nav-item nav-item-this"><a href="">Zadziwiające przybliżenie</a></li> 
+      </ul>
+    </div>
+  </div>
+  
+  <div class="footer">
+    <a class="logo" href="http://icse.us.edu.pl/" target="_blank"><img src="_static/logo-icse.png" alt="ICSE"/></a><br/>
+    &copy; Copyright Creative Commons CC-BY 4.0, iCSE-team.
+    Created using <a href="http://sphinx.pocoo.org/">Sphinx</a> 3.2.1.
+  </div>
+  </body>
+</html>

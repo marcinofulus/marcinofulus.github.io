@@ -1,0 +1,413 @@
+
+
+  
+<!DOCTYPE html>
+
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Przybliżanie wielomianami. &#8212; Science education with SageMath</title>
+    <link rel="stylesheet" href="_static/cloud.css" type="text/css" />
+    <link rel="stylesheet" href="_static/pygments.css" type="text/css" />
+    <link rel="stylesheet" href="http://fonts.googleapis.com/css?family=Noticia+Text|Open+Sans|Droid+Sans+Mono&amp;subset=latin,latin-ext" type="text/css" />
+    <script id="documentation_options" data-url_root="./" src="_static/documentation_options.js"></script>
+    <script src="_static/jquery.js"></script>
+    <script src="_static/underscore.js"></script>
+    <script src="_static/doctools.js"></script>
+    <script src="_static/language_data.js"></script>
+    <script async="async" src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.7/latest.js?config=TeX-AMS-MML_HTMLorMML"></script>
+    <script src="_static/jquery.cookie.js"></script>
+    <script src="_static/cloud.js"></script>
+    <script type="text/javascript" src="http://sagecell.sagemath.org/static/jquery.min.js"></script>
+    <script type="text/javascript" src="http://sagecell.sagemath.org/static/embedded_sagecell.js"></script>
+    <script type="text/javascript">
+        sagecell.makeSagecell({inputLocation: ".sage_linked",
+                               linked: true});
+        sagecell.makeSagecell({inputLocation: ".sage_unlinked",
+                               linked: false});
+    </script>
+
+    <style type="text/css">
+        .sagecell .CodeMirror-scroll {
+            overflow-y: hidden;
+            overflow-x: auto;
+        }
+        .sagecell .CodeMirror {
+            height: auto;
+        }
+    </style>
+    
+    <link rel="search" title="Search" href="search.html" />
+ 
+  <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, minimum-scale=1">
+  </head><body>
+  <div class="relbar-top">
+    
+    <div class="related" role="navigation" aria-label="related navigation">
+      <h3>Navigation</h3>
+      <ul>
+  <li><a href="index.html">Science education with SageMath</a> &#187;</li>
+  
+        <li class="nav-item nav-item-this"><a href="">Przybliżanie wielomianami.</a></li> 
+      </ul>
+    </div>
+  </div>
+  
+  <div class="content">  
+
+    <div class="document">
+      <div class="documentwrapper">
+        <div class="bodywrapper">
+          <div class="body">
+            
+  <div class="section" id="przyblizanie-wielomianami">
+<h1>Przybliżanie wielomianami.<a class="headerlink" href="#przyblizanie-wielomianami" title="Permalink to this headline">¶</a></h1>
+<div class="section" id="wprowadzenie-metodyczne">
+<h2>Wprowadzenie metodyczne.<a class="headerlink" href="#wprowadzenie-metodyczne" title="Permalink to this headline">¶</a></h2>
+<blockquote>
+<div><p>Zajęcia odbywały się na dodatkowych godzinach w ramach iCSE for school w III Liceum Ogólnokształcącym im. Stefana Batorego w Chorzowie. Celem zajęć było rozszerzenie nauczania matematyki i informatyki w drugiej klasie liceum. Powyższy temat w drugiej grupie testowej był prowadzony metodą „flip teaching”, czyli uczniowie musieli się przygotować do zajęć z wykorzystaniem internetu. Pierwsze zajęcia były poświęcone silni i pochodnej funkcji. Drugie zajęcia to wielomiany i wyznaczanie wielomianu przechodzącego przez dane punkty. Według programu nauczania na lekcjach matematyki podobne zadania dotyczą szczególnych przypadków na prostej i paraboli. Ja sam spotkałem się z pytaniami uczniów, czy da się wyznaczyć odpowiednie wzory dotyczące paraboli i czy da się to uogólnić na dowolną ilość punktów. Tak więc powstała idea napisania przeze mnie programu w SageMath, który przy zadanych punktach wyznaczy wielomian przechodzący przez te punkty oraz narysuje to na wykresie. Praca domowa uczniów to zapoznanie się z pojęciem macierzy, mnożeniem macierzy przez wektor i wyznaczaniem jej wyznacznika. Trzecie zajęcia to wyznaczanie przybliżenia funkcji wielomianem przy użyciu wzoru Taylora. Po omówieniu moich przykładów uczniowie mieli w podobny sposób wyznaczyć wielomiany dla podanych funkcji. Jeżeli zauważyli pewną prawidłowość w kolejnych współczynnikach wielomianu to mieli podać hipotezę, a następnie sprawdzić ją w internecie, czy jest ona prawdziwa.</p>
+<p>Według mnie zajęcia te mogą być dobrym uzupełnieniem i ugruntowaniem wiedzy uczniów z matematyki w trzeciej klasie liceum na poziomie rozszerzonym lub na zajęciach dodatkowych w klasie drugiej. Ponadto każdy rozdział można traktować niezależnie, czyli przeprowadzać go w czasie przeprowadzania danego materiału na lekcjach matematyki.</p>
+</div></blockquote>
+<p><strong>Uczniowie powinni znać:</strong></p>
+<blockquote>
+<div><p>Funkcję liniową i kwadratową <em>(4.6–10 mat_p)</em>, pojęcie wielomianu <em>(3.6 mat_r)</em>, definicję silnia <em>(10.1 mat_r)</em>.</p>
+<p>Podstawowe komendy programistyczne w SageMath: działania, funkcję warunkową, pętle <em>(1.0-II-5.22-23 inf_r)</em>.</p>
+</div></blockquote>
+<p><strong>Uczniowie na poniższych zajęciach poznają:</strong></p>
+<ul class="simple">
+<li><p>sposoby implementacji i obliczania silni,</p></li>
+<li><p>pochodną funkcji i sposoby jej obliczania <em>(11.2 mat_r)</em>,</p></li>
+<li><p>wyznaczanie prostej, paraboli i wielomianu przechodzącego przez dane punkty <em>(3.2 mat_p)</em>,</p></li>
+<li><p>wzór Taylora oraz jego interpretację geometryczną.</p></li>
+</ul>
+<p>Powyżej w nawiasach jest wpisany szczegółowy zakres nauczanych treści.</p>
+<p><em>mat_p – matematyka poziom podstawowy,</em></p>
+<p><em>mat_r – matematyka poziom rozszerzony,</em></p>
+<p><em>inf_r – informatyka poziom rozszerzony.</em></p>
+<p>Ilość godzin prowadzenia zajęć 3 + zadania dodatkowe.</p>
+<blockquote>
+<div><p><strong>Uwaga!</strong></p>
+</div></blockquote>
+<p>W każdym z okien programu można zmieniać liczby, tekst, zmienne lub cały kod.</p>
+<p>Nie musisz się martwić, jeśli program przestanie działać, bo po odświeżeniu powróci do ustawień początkowych.</p>
+<p>Często następny kod wynika z poprzedniego, więc należy ćwiczenia (algorytmy) wykonywać według kolejności.</p>
+</div>
+<div class="section" id="definicja-silni">
+<h2>Definicja silni.<a class="headerlink" href="#definicja-silni" title="Permalink to this headline">¶</a></h2>
+<p><strong>Silnia</strong> z liczby naturalnej <em>n</em> to iloczyn wszystkich liczb naturalnych mniejszych lub równej <em>n</em>. Symbolicznie zapisujemy <em>n!</em>.</p>
+<div class="math notranslate nohighlight">
+\[\begin{split}\left\{
+\begin{array}{ll}
+0!=1  &amp; {} \\
+n!=n \cdot (n-1)!, &amp; {} n&gt;0 \\
+\end{array}
+\right.\end{split}\]</div>
+<p>Przykład.</p>
+<div class="math notranslate nohighlight">
+\[\ 4!= 4 \cdot 3! =...= 4 \cdot 3 \cdot 2 \cdot 1 \cdot 1 = 24\]</div>
+<p><strong>Silnia</strong> w SageMath.</p>
+<p>Pierwszy przykład liczy silnię zgodnie z definicją.</p>
+<div class='sage_linked'><script type='text/x-sage'>silnia=1
+for i in range(1,6):
+     silnia=silnia*i
+     print i, '!=', silnia</script></div><p>Drugi przykład przy obliczaniu silni korzysta z wbudowanej funkcji w SageMath.</p>
+<div class='sage_linked'><script type='text/x-sage'>print 5, '!=', factorial(5)</script></div></div>
+<div class="section" id="pochodna">
+<h2>Pochodna.<a class="headerlink" href="#pochodna" title="Permalink to this headline">¶</a></h2>
+<p><strong>Pochodną</strong> będziemy interpretować jako matematyczne działanie na funkcji.</p>
+<p><strong>Podstawowe wzory:</strong></p>
+<div class="math notranslate nohighlight">
+\[\begin{split}\begin{array}{ll}
+n'=0 \\ x'=1 \\ (x^n)'= n \cdot x^{n-1}, &amp; {} n&gt;1 \\ (sin(x))'=cos(x) \\ (cos(x))'=-sin(x)
+\end{array}\end{split}\]</div>
+<p>Poniżej przykłady obliczania pochodnej w SageMath z wykorzystaniem instrukcji <em>diff</em>.</p>
+<div class='sage_linked'><script type='text/x-sage'>f=x^5  #you can change this function
+show("f(x)=",f)
+show("f'(x)=",f.diff(x))</script></div><div class='sage_linked'><script type='text/x-sage'>f=sin(x)
+show("f(x)=",f)
+show("f'(x)=",f.diff(x))</script></div><p><strong>Kolejne wzory dotyczące pochodnej funkcji.</strong></p>
+<p>Poniżej wzory na pochodną sumy, różnicy, iloczynu i ilorazu funkcji.</p>
+<div class="math notranslate nohighlight">
+\[\begin{split}\begin{array}{ll}
+f, g - funkcje, \hspace{1cm} c - liczba \hspace{0,2cm} rzeczywista\\
+(c \cdot f)' =c \cdot f' \\ (f+g)'= f' + g' \\ (f-g)'= f' - g' \\
+(f \cdot g)' = f' \cdot g + f \cdot g' \\ (f/g)'= (f' \cdot g - f \cdot g')/g^2
+\end{array}\end{split}\]</div>
+<p><strong>Komentarz</strong></p>
+<p>Liczba przed zmienną nie zmienia operacji na pochodnej.</p>
+<p>Wyrażenia algebraiczne oddzielone <em>+</em> lub <em>-</em> liczą się oddzielnie.</p>
+<p><strong>Przykłady</strong></p>
+<div class='sage_linked'><script type='text/x-sage'>f=x^3-2*x^2+3*x-4   #you can change this function
+show("1. f(x)=",f,",        f'(x)=",f.diff(x))
+f=x*cos(x)
+show("2. f(x)=",f,",       f'(x)=",f.diff(x))
+f=x^2*sin(x)
+show("3. f(x)=",f,",       f'(x)=",f.diff(x))
+f=sin(x)/x
+show("4. f(x)=",f,",      f'(x)=",f.diff(x))</script></div><p><strong>Pochodne z pochodnych - pochodne wyższych rzędów.</strong></p>
+<p>Oczywiście, możemy obliczyć pochodną z pochodnej. Pochodne wyższego rzędu zapisujemy w następujący sposób:</p>
+<div class="math notranslate nohighlight">
+\[\begin{split}f''(x) , \hspace{1,1cm}  f'''(x) , \hspace{1,1cm}  f''''(x),\hspace{1cm}... \\
+f^{(2)}(x) , \hspace{1cm}  f^{(3)}(x) , \hspace{1cm}  f^{(4)}(x),\hspace{1cm}...\end{split}\]</div>
+<p>Poniżej obliczenia wyższych rzędów pochodnej w SageMath:</p>
+<div class='sage_linked'><script type='text/x-sage'>f=x^3-3*x^2  #you can change this function
+show ("      f(x)=",f, "        f'(x)=", f.diff(x))
+show ("f''(x)=",f.diff(x,2),"         f'''(x)=", f.diff(x,3))</script></div><div class='sage_linked'><script type='text/x-sage'>f=sin(x)
+show('f(x)=',f)
+show("f'(x)=",f.diff(x))
+show("f''(x)=",f.diff(x,2))
+show("f'''(x)=",f.diff(x,3))
+show("f''''(x)=",f.diff(x,4))</script></div><p><strong>Obliczanie wartości pochodnej w punkcie.</strong></p>
+<p>Pochodna funkcji jest oczywiście funkcją, więc możemy obliczyć wartość pochodnej dla argumentu.</p>
+<p><strong>Przykłady</strong></p>
+<div class='sage_linked'><script type='text/x-sage'>f=sin(x) #you can change this function
+w1=f.diff(x).substitute(x = 0)
+w2=f.diff(x).substitute(x = pi/3)
+show("f(x)=", f, ",        f'(x)=",f.diff(x), ",        f'(0)=" , w1, ",        f'(pi/3)=", w2)</script></div><div class='sage_linked'><script type='text/x-sage'>g=x^4+3-2*x^3+5*x  #you can change this function
+w1=g.diff(x,2).subs(x = 1)
+w2=g.diff(x,2).subs(x = 2)
+show("g(x)=", g, ",      g''(x)=",g.diff(x,2), ",      g''(1)=" , w1, ",      g''(2)=", w2)</script></div></div>
+<div class="section" id="definicja-wielomianu">
+<h2>Definicja wielomianu.<a class="headerlink" href="#definicja-wielomianu" title="Permalink to this headline">¶</a></h2>
+<p><strong>Wielomianem</strong> stopnia n zmiennej x nazywamy funkcję:</p>
+<div class="math notranslate nohighlight">
+\[W(x)=a_0+a_1 \cdot x +a_2 \cdot x^2 +...+a_n \cdot x^n,  \hspace{1cm} a_0, a_1, a_2, ..., a_n - współczynniki.\]</div>
+<p><strong>Wniosek</strong></p>
+<p>Funkcja liniowa i funkcja kwadratowa jest wielomianem.</p>
+<div class="math notranslate nohighlight">
+\[\begin{split}\begin{array}{ll}
+W_1(x)=a_0+a_1 \cdot x  \\
+W_2(x)=a_0+a_1 \cdot x +a_2 \cdot x^2
+\end{array}\end{split}\]</div>
+</div>
+<div class="section" id="funkcja-liniowa">
+<h2>Funkcja liniowa.<a class="headerlink" href="#funkcja-liniowa" title="Permalink to this headline">¶</a></h2>
+<p>Wiemy, że przez dwa punkty przechodzi dokładnie jedna prosta.
+Ponadto znając współrzędne powyższych punktów, możemy określić wzór tej prostej.
+Przypomnijmy, że wzór jest funkcję liniową:</p>
+<div class="math notranslate nohighlight">
+\[y = a x + b\]</div>
+<p>Współczynnik kierunkowy i wyraz wolny możemy obliczyć z poniższych wzorów:</p>
+<div class="math notranslate nohighlight">
+\[\begin{split}a=\frac{y_2-y_1}{x_2-x_1} \\
+b=y_1-ax_1\end{split}\]</div>
+<p>Wpisując odpowiednie równania, możemy narysować linię prostą przechodzącą przez dwa punkty.</p>
+<div class='sage_linked'><script type='text/x-sage'>x1=-int(random()*4)
+y1=int(random()*9-4)
+x2=int(random()*4)+1
+y2=int(random()*9-4)
+p1=point((x1,y1),size=10)
+p2=point((x2,y2),size=10)
+a=(y2-y1)/(x2-x1)
+b=y1-a*x1
+f=a*x+b
+show ('y=',f)
+g=plot(a*x+b,xmin=x1-2, xmax=x2+2, color="green")
+show(p1+p2+g,figsize=4)</script></div></div>
+<div class="section" id="parabola">
+<h2>Parabola.<a class="headerlink" href="#parabola" title="Permalink to this headline">¶</a></h2>
+<p>Poniżej znajduje się przykład dotycżący trzech punktów, które nie są współliniowe. Możemy wyznaczyć funkcję kwadratową do której należą te punkty. Więc musimy wyznaczyć z poniższych równań współczynniki <em>a, b, c</em> funkcji kwadratowej.</p>
+<div class="math notranslate nohighlight">
+\[\begin{split}\begin{cases}
+y_1=ax_1^2+bx_1+c \\
+y_2=ax_2^2+bx_2+c \\
+y_3=ax_3^2+bx_3+c
+\end{cases}\end{split}\]</div>
+<p>Te obliczenia są żmudne i czasochłonne, nawet dla konkretnego przykładu. Gdybyśmy chcieli wyznaczyć odpowiednie wzory, jak powyżej dla funkcji liniowej, to zajęłoby to nam dużo czasu.</p>
+<p>Poniżej wykorzystamy możliwości SageMath.</p>
+<div class='sage_linked'><script type='text/x-sage'>x1=-1
+y1=0
+x2=1
+y2=4
+x3=3
+y3=-1
+p1=point((x1,y1),size=10)
+p2=point((x2,y2),size=10)
+p3=point((x3,y3),size=10)
+show(p1+p2+p3,figsize=3)</script></div><p>Obliczamy następujące równania, z których szukamy współczynniki: <em>a, b, c</em>.</p>
+<div class="math notranslate nohighlight">
+\[\begin{split}\begin{cases}
+y_1=ax_1^2+bx_1+c \\
+y_2=ax_2^2+bx_2+c \\
+y_3=ax_3^2+bx_3+c
+\end{cases}\end{split}\]</div>
+<p>Zamieniamy powyższy układ równań na odpowiednie równanie macierzowe.</p>
+<div class="math notranslate nohighlight">
+\[\begin{split}\begin{bmatrix}
+x_1^2&amp;x_1&amp;1\\x_2^2&amp;x_2&amp;1\\
+x_3^2&amp;x_3&amp;1
+\end{bmatrix}
+\begin{bmatrix} a\\b\\c\end{bmatrix} = \begin{bmatrix} y_1\\y_2\\y_3\end{bmatrix}\end{split}\]</div>
+<p>W SageMath możemy łatwo rozwiązać powyższe równanie, wystarczy zastosować poniższe działanie:</p>
+<div class="math notranslate nohighlight">
+\[M v, \hspace{3mm} where \hspace{3mm} M-matrix, \hspace{0.3cm} v-vector \hspace{0.3cm} [y1, y2, y3]\]</div>
+<div class='sage_linked'><script type='text/x-sage'>M = matrix(3,3,[[x1^2,x1,1],[x2^2,x2,1],[x3^2,x3,1]])
+v = vector([y1,y2,y3])
+wynik = M\v
+[a,b,c]=wynik
+show("a=",a,",  b=",b, ",  c=",c)
+f=a*x^2+b*x+c
+show('y=',f)
+g=plot(f,xmin=-3, xmax=5, color="green")
+show(p1+p2+p3+g,ymin=-7, ymax=8, figsize=4)</script></div></div>
+<div class="section" id="wielomian">
+<h2>Wielomian.<a class="headerlink" href="#wielomian" title="Permalink to this headline">¶</a></h2>
+<p>Oto przykład dla kilku losowych punktów. Otrzymana funkcja jest wielomianem.</p>
+<p>Jeśli podasz n punktów, to na pewno przechodzi przez te punkty wielomianem stopnia mniejszego od n.</p>
+<div class='sage_linked'><script type='text/x-sage'>points={}
+vector_x=[]
+vector_y=[]
+k=6                 #number of points
+y=int(random()*7-3)
+vector_y=[y]
+points=point((0,y),size=10)
+print '(',0,',',y,')'
+for i in range(k-1):
+    vector_x=vector_x+[0]
+vector_x=vector_x+[1]
+for n in range(k-1):
+    x=n+1
+    for i in range(k):
+        vector_x=vector_x+[x^(k-i-1)]
+    y=int(random()*7-3)
+    vector_y=vector_y+[y]
+    print '(',x,',',y,')'
+    points = points + point((x,y),size=10)
+show(points,ymin=-2,ymax=6,figsize=4)</script></div><p>Dla losowych punktów obliczamy współczynniki wielomianu.</p>
+<div class='sage_linked'><script type='text/x-sage'>M = matrix(k,k,vector_x)
+v=vector(vector_y)
+wynik = M\v
+show(M)
+show(wynik)</script></div><p>Rysujemy wielomian, który przechodzi przez podane punkty.</p>
+<div class='sage_linked'><script type='text/x-sage'>var('x')
+vector_x=[]
+for i in range(k):
+    vector_x=vector_x+[x^(k-i-1)]
+w=vector(vector_x)
+f=w*wynik
+show("f(x)=",f)
+f=plot(f,xmin=-1, xmax=k, color="green")
+show(points+f,ymin=-7,ymax=8,figsize=6)</script></div></div>
+<div class="section" id="taylor-s-formula">
+<h2>Taylor’s formula.<a class="headerlink" href="#taylor-s-formula" title="Permalink to this headline">¶</a></h2>
+<p>Z analizy matematyczna znany poniższy jest wzór, który przybliża dowolną funkcję pewnym odpowiadającym tej funkcji wielomianem.</p>
+<p><strong>Wzór Taylora</strong></p>
+<div class="math notranslate nohighlight">
+\[\begin{aligned}
+f(x)=f(a)+{\frac  {x-a}{1!}}f^{{(1)}}(a)+{\frac  {(x-a)^{2}}{2!}}f^{{(2)}}(a)+\ldots +
+{\frac  {(x-a)^{n}}{n!}}f^{{(n)}}(a)+\ldots
+\end{aligned}\]</div>
+<p>Możemy uprościć powyższy wzór podstawiajac za a=0. Otrzymujemy <strong>Wzór Taylora-Maclaurina</strong>.</p>
+<div class="math notranslate nohighlight">
+\[\begin{aligned}
+f(x)&amp;=f(0)+{\frac  {x}{1!}}f^{{(1)}}(0)+{\frac  {x^{2}}{2!}}f^{{(2)}}(0)+\ldots +
+{\frac  {x^{n}}{n!}}f^{{(n)}}(0)+\ldots
+\end{aligned}\]</div>
+<p>To jest przykład dla funkcji <span class="math notranslate nohighlight">\(f(x)=sin(x)\)</span>.</p>
+<div class='sage_linked'><script type='text/x-sage'>kolor=[]
+kolor=["yellowgreen","green","pink","orange","red","brown","black"]
+n=6
+f=x
+q=plot(f,xmin=-4,xmax=6, ymin=-3, ymax=3,color="yellow", legend_label="T(0)")
+for i in range(1, n):
+    k=2*i+1
+    f=f+(-1)^i*(1/factorial(k))*x^k
+    q=q+plot(f,xmin=-5, xmax=7, ymin=-3, ymax=3, color=kolor[(i-1)%7], legend_label=r"T( %d )" % i)
+show(sin(x),"=",f)
+q=q+plot(f,xmin=-5, xmax=7, ymin=-3, ymax=3, linestyle="--", figsize=5.5)
+show(q)</script></div><p><strong>Ćwiczenia dla uczniów.</strong></p>
+<p>Dla funkcji <span class="math notranslate nohighlight">\(f(x)=cos(x)\)</span> znajdź odpowiadający wielomian ze wzoru Taylora-Maclaurina.</p>
+<div class='sage_linked'><script type='text/x-sage'>kolor=[]
+kolor=["yellowgreen","green","pink","orange","red","brown","black"]
+n=6
+f=1
+q=plot(f,xmin=-4,xmax=6, ymin=-3, ymax=3,color="yellow", legend_label="T(0)")
+for i in range(1, n):
+    k=2*i
+    f=f+(-1)^i*(1/factorial(k))*x^k
+    q=q+plot(f,xmin=-5, xmax=7, ymin=-3, ymax=3, color=kolor[(i-1)%7], legend_label=r"T( %d )" % i)
+show(cos(x),"=",f)
+f=cos(x)
+q=q+plot(f,xmin=-5, xmax=7, ymin=-3, ymax=3, linestyle="--", figsize=5.5)
+show(q)</script></div><p>Zastosuj wzór Taylora-Maclaurina dla funkcji <span class="math notranslate nohighlight">\(f(x)=e^x\)</span>.</p>
+<div class='sage_linked'><script type='text/x-sage'>kolor=[]
+kolor=["yellowgreen","green","pink","orange","red","brown","black"]
+n=8
+f=1
+q=plot(f,xmin=-4,xmax=6, ymin=-3, ymax=3,color="yellow", legend_label="T(0)")
+for i in range(0, n):
+    k=i+1
+    f=f+(1/factorial(k))*x^k
+    #print(f(x))
+    q=q+plot(f,xmin=-5, xmax=7, ymin=-3, ymax=3, color=kolor[(i-1)%7], legend_label=r"T( %d )" % i)
+show(e^x,"=",f)
+f=e^x
+q=q+plot(f,xmin=-5, xmax=7, ymin=-3, ymax=10, linestyle="--", figsize=5.5)
+show(q)</script></div><p>Znamy już wzór Taylora. Teraz możemy uprościć nasze obliczenia i użyć wbudowanego wzoru Taylora w SageMath.</p>
+<div class='sage_linked'><script type='text/x-sage'>f=sin(x)*x^2          #your function
+k=8                   #level iteration
+t=taylor(f,x,0,k)     #Taylor function in Sage
+q=plot(t, xmin=-5, xmax=5, ymin=-5, ymax=5, color="red", legend_label=r"Taylor(f, x, 0, %d)" % k)
+show(f,"=",t)
+q=q+plot(f, xmin=-5, xmax=5, ymin=-5, ymax=5, linestyle="--", figsize=5.5, legend_label=r"Your function")
+show(q)</script></div></div>
+</div>
+
+
+          </div>
+        </div>
+      </div>
+      <div class="sphinxsidebar" role="navigation" aria-label="main navigation">
+        <div class="sphinxsidebarwrapper">
+  <div class="sphinxlocaltoc">
+  <h3><a href="index.html">Table Of Contents</a></h3>
+  <ul>
+<li><a class="reference internal" href="#">Przybliżanie wielomianami.</a><ul>
+<li><a class="reference internal" href="#wprowadzenie-metodyczne">Wprowadzenie metodyczne.</a></li>
+<li><a class="reference internal" href="#definicja-silni">Definicja silni.</a></li>
+<li><a class="reference internal" href="#pochodna">Pochodna.</a></li>
+<li><a class="reference internal" href="#definicja-wielomianu">Definicja wielomianu.</a></li>
+<li><a class="reference internal" href="#funkcja-liniowa">Funkcja liniowa.</a></li>
+<li><a class="reference internal" href="#parabola">Parabola.</a></li>
+<li><a class="reference internal" href="#wielomian">Wielomian.</a></li>
+<li><a class="reference internal" href="#taylor-s-formula">Taylor’s formula.</a></li>
+</ul>
+</li>
+</ul>
+
+  </div>
+<div id="searchbox" style="display: none" role="search">
+  <h3 id="searchlabel">Quick search</h3>
+    <div class="searchformwrapper">
+    <form class="search" action="search.html" method="get">
+      <input type="text" name="q" aria-labelledby="searchlabel" />
+      <input type="submit" value="Go" />
+    </form>
+    </div>
+</div>
+<script>$('#searchbox').show(0);</script>
+        </div>
+      </div>
+      <div class="clearer"></div>
+    </div>
+  </div>
+  <div class="relbar-bottom">
+    
+    <div class="related" role="navigation" aria-label="related navigation">
+      <h3>Navigation</h3>
+      <ul>
+  <li><a href="index.html">Science education with SageMath</a> &#187;</li>
+  
+        <li class="nav-item nav-item-this"><a href="">Przybliżanie wielomianami.</a></li> 
+      </ul>
+    </div>
+  </div>
+  
+  <div class="footer">
+    <a class="logo" href="http://icse.us.edu.pl/" target="_blank"><img src="_static/logo-icse.png" alt="ICSE"/></a><br/>
+    &copy; Copyright Creative Commons CC-BY 4.0, iCSE-team.
+    Created using <a href="http://sphinx.pocoo.org/">Sphinx</a> 3.2.1.
+  </div>
+  </body>
+</html>

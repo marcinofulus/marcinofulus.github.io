@@ -1,0 +1,208 @@
+
+
+  
+<!DOCTYPE html>
+
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>The plane &#8212; Science education with SageMath</title>
+    <link rel="stylesheet" href="../../../_static/cloud.css" type="text/css" />
+    <link rel="stylesheet" href="../../../_static/pygments.css" type="text/css" />
+    <link rel="stylesheet" href="http://fonts.googleapis.com/css?family=Noticia+Text|Open+Sans|Droid+Sans+Mono&amp;subset=latin,latin-ext" type="text/css" />
+    <script id="documentation_options" data-url_root="../../../" src="../../../_static/documentation_options.js"></script>
+    <script src="../../../_static/jquery.js"></script>
+    <script src="../../../_static/underscore.js"></script>
+    <script src="../../../_static/doctools.js"></script>
+    <script src="../../../_static/language_data.js"></script>
+    <script async="async" src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.7/latest.js?config=TeX-AMS-MML_HTMLorMML"></script>
+    <script src="../../../_static/jquery.cookie.js"></script>
+    <script src="../../../_static/cloud.js"></script>
+    <script type="text/javascript" src="http://sagecell.sagemath.org/static/jquery.min.js"></script>
+    <script type="text/javascript" src="http://sagecell.sagemath.org/static/embedded_sagecell.js"></script>
+    <script type="text/javascript">
+        sagecell.makeSagecell({inputLocation: ".sage_linked",
+                               linked: true});
+        sagecell.makeSagecell({inputLocation: ".sage_unlinked",
+                               linked: false});
+    </script>
+
+    <style type="text/css">
+        .sagecell .CodeMirror-scroll {
+            overflow-y: hidden;
+            overflow-x: auto;
+        }
+        .sagecell .CodeMirror {
+            height: auto;
+        }
+    </style>
+    
+    <link rel="search" title="Search" href="../../../search.html" />
+    <link rel="next" title="The cuboid" href="quader.html" />
+    <link rel="prev" title="Prism" href="prisma.html" />
+ 
+  <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, minimum-scale=1">
+  </head><body>
+  <div class="relbar-top">
+    
+    <div class="related" role="navigation" aria-label="related navigation">
+      <h3>Navigation</h3>
+      <ul>
+        <li class="right" style="margin-right: 10px">
+          <a href="quader.html" title="The cuboid"
+             accesskey="N">next</a></li>
+        <li class="right" >
+          <a href="prisma.html" title="Prism"
+             accesskey="P">previous</a> &nbsp; &nbsp;</li>
+  <li><a href="../../../index.html">Science education with SageMath</a> &#187;</li>
+  
+        <li class="nav-item nav-item-this"><a href="">The plane</a></li> 
+      </ul>
+    </div>
+  </div>
+  
+  <div class="content">  
+
+    <div class="document">
+      <div class="documentwrapper">
+        <div class="bodywrapper">
+          <div class="body">
+            
+  <div class="section" id="the-plane">
+<h1>The plane<a class="headerlink" href="#the-plane" title="Permalink to this headline">¶</a></h1>
+<div class="admonition-problem admonition">
+<p class="admonition-title">Problem</p>
+<p>Given the plane <span class="math notranslate nohighlight">\(E:3x_2+4x_3=5\)</span>,</p>
+<ol class="loweralpha simple">
+<li><p>explain the special location of the plane <span class="math notranslate nohighlight">\(E\)</span> in the coordinate
+system.</p></li>
+<li><p>verify by calculation whether a sphere with center <span class="math notranslate nohighlight">\(Z(1|6|3)\)</span> and
+radius <span class="math notranslate nohighlight">\(7\)</span> intersects the plane <span class="math notranslate nohighlight">\(E\)</span>.</p></li>
+</ol>
+</div>
+<p><strong>Solution of part a</strong></p>
+<p>The equation for the plane is independent of the <span class="math notranslate nohighlight">\(x_1\)</span>-component. Therefore,
+the plane <span class="math notranslate nohighlight">\(E\)</span> is aligned parallel to the <span class="math notranslate nohighlight">\(x_1\)</span>-axis.</p>
+<p>We can use Sage to depict the plane in three dimensions by solving the plane’s
+equation for <span class="math notranslate nohighlight">\(x_3\)</span>.</p>
+<div class='sage_linked'><script type='text/x-sage'>var('x1')
+var('x2')
+var('x3')
+solution = solve(3*x2+4*x3 == 5, x3, solution_dict=1)[0]
+p1 = plot3d(solution[x3], (x1, -10, 10), (x2, -10, 10))
+p1</script></div><p><strong>Solution of part b</strong></p>
+<p>First, we will use Sage to get an overview of the problem.</p>
+<div class='sage_linked'><script type='text/x-sage'>p2 = sphere(center=(1, 6, 3), size=7, color='red', opacity=1)
+show(p1 + p2, aspect_ratio=1)</script></div><p>It is easy to see that the sphere and the plane intersect.</p>
+<p>In order to analytically verify this observation, we will determine the distance
+between the plane and the center of the sphere. The normal vector of the plane
+can be derived from its Hesse normal form:</p>
+<div class="math notranslate nohighlight">
+\[\begin{split}\vec{n} = \left( \begin{matrix}
+                      0\\
+                      3\\
+                      4
+                  \end{matrix} \right),\end{split}\]</div>
+<p>or in normalized form:</p>
+<div class="math notranslate nohighlight">
+\[\begin{split}\vec{n}_0 = \left( \begin{matrix}
+                      0\\
+                      \frac{3}{5}\\
+                      \frac{4}{5}
+                  \end{matrix} \right).\end{split}\]</div>
+<p>In order to calculate the distance between the plane and the center of the
+sphere, we define points along the line aligned parallel to the normal
+<span class="math notranslate nohighlight">\(\vec{n}_0\)</span> and going through the center of the sphere as</p>
+<div class="math notranslate nohighlight">
+\[\begin{split}\left( \begin{matrix}
+                      x_1\\
+                      x_2\\
+                      x_3
+                  \end{matrix} \right) = \left( \begin{matrix}
+                      1\\
+                      6\\
+                      3
+                  \end{matrix} \right) + t\cdot \left( \begin{matrix}
+                      0\\
+                      \frac{3}{5}\\
+                      \frac{4}{5}
+                  \end{matrix} \right).\end{split}\]</div>
+<p>The value of <span class="math notranslate nohighlight">\(|t|\)</span> corresponds to the distance of the current point from the
+center of the sphere. The value <span class="math notranslate nohighlight">\(t\)</span> of the intersection point of the line
+and the plane can be determined by inserting the coordinates of the line into
+the plane’s equation. We find</p>
+<div class="math notranslate nohighlight">
+\[\begin{split}&amp;3 \cdot \left(6+\frac{3}{5}t\right) + 4 \cdot \left(3+\frac{4}{5}t\right)-5
+=0 \quad\Leftrightarrow\\
+&amp;t=-5 \quad\Leftrightarrow\\
+&amp;|t|=5.\end{split}\]</div>
+<p>Thus, the distance between the plane and the center of the sphere equals 5
+and is smaller than the radius 7 of the sphere. Therefore, the
+sphere intersects the plane. The calculation can be verified by Sage:</p>
+<div class='sage_linked'><script type='text/x-sage'>t = var('t')
+n = vector([0, 3, 4])
+n0 = n/norm(n)
+z = vector([1, 6, 3])
+radius = 7
+line = z+t*n0
+solution = solve(3*line[1]+4*line[2] == 5, t, solution_dict=True)[0]
+distance = abs(solution[t])
+print "Distance: center of the sphere - plane:", distance
+if distance < radius:
+    print('plane intersects sphere')
+else:
+    print('plane does not intersect sphere')</script></div></div>
+
+
+          </div>
+        </div>
+      </div>
+      <div class="sphinxsidebar" role="navigation" aria-label="main navigation">
+        <div class="sphinxsidebarwrapper">
+  <h4>Previous topic</h4>
+  <p class="topless"><a href="prisma.html"
+                        title="previous chapter">Prism</a></p>
+  <h4>Next topic</h4>
+  <p class="topless"><a href="quader.html"
+                        title="next chapter">The cuboid</a></p>
+<div id="searchbox" style="display: none" role="search">
+  <h3 id="searchlabel">Quick search</h3>
+    <div class="searchformwrapper">
+    <form class="search" action="../../../search.html" method="get">
+      <input type="text" name="q" aria-labelledby="searchlabel" />
+      <input type="submit" value="Go" />
+    </form>
+    </div>
+</div>
+<script>$('#searchbox').show(0);</script>
+        </div>
+      </div>
+      <div class="clearer"></div>
+    </div>
+  </div>
+  <div class="relbar-bottom">
+    
+    <div class="related" role="navigation" aria-label="related navigation">
+      <h3>Navigation</h3>
+      <ul>
+        <li class="right" style="margin-right: 10px">
+          <a href="quader.html" title="The cuboid"
+             >next</a></li>
+        <li class="right" >
+          <a href="prisma.html" title="Prism"
+             >previous</a> &nbsp; &nbsp;</li>
+  <li><a href="../../../index.html">Science education with SageMath</a> &#187;</li>
+  
+        <li class="nav-item nav-item-this"><a href="">The plane</a></li> 
+      </ul>
+    </div>
+  </div>
+  
+  <div class="footer">
+    <a class="logo" href="http://icse.us.edu.pl/" target="_blank"><img src="../../../_static/logo-icse.png" alt="ICSE"/></a><br/>
+    &copy; Copyright Creative Commons CC-BY 4.0, iCSE-team.
+    Created using <a href="http://sphinx.pocoo.org/">Sphinx</a> 3.2.1.
+  </div>
+  </body>
+</html>

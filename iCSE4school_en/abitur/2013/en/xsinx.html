@@ -1,0 +1,154 @@
+
+
+  
+<!DOCTYPE html>
+
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Properties of the x sin(x) function &#8212; Science education with SageMath</title>
+    <link rel="stylesheet" href="../../../_static/cloud.css" type="text/css" />
+    <link rel="stylesheet" href="../../../_static/pygments.css" type="text/css" />
+    <link rel="stylesheet" href="http://fonts.googleapis.com/css?family=Noticia+Text|Open+Sans|Droid+Sans+Mono&amp;subset=latin,latin-ext" type="text/css" />
+    <script id="documentation_options" data-url_root="../../../" src="../../../_static/documentation_options.js"></script>
+    <script src="../../../_static/jquery.js"></script>
+    <script src="../../../_static/underscore.js"></script>
+    <script src="../../../_static/doctools.js"></script>
+    <script src="../../../_static/language_data.js"></script>
+    <script async="async" src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.7/latest.js?config=TeX-AMS-MML_HTMLorMML"></script>
+    <script src="../../../_static/jquery.cookie.js"></script>
+    <script src="../../../_static/cloud.js"></script>
+    <script type="text/javascript" src="http://sagecell.sagemath.org/static/jquery.min.js"></script>
+    <script type="text/javascript" src="http://sagecell.sagemath.org/static/embedded_sagecell.js"></script>
+    <script type="text/javascript">
+        sagecell.makeSagecell({inputLocation: ".sage_linked",
+                               linked: true});
+        sagecell.makeSagecell({inputLocation: ".sage_unlinked",
+                               linked: false});
+    </script>
+
+    <style type="text/css">
+        .sagecell .CodeMirror-scroll {
+            overflow-y: hidden;
+            overflow-x: auto;
+        }
+        .sagecell .CodeMirror {
+            height: auto;
+        }
+    </style>
+    
+    <link rel="search" title="Search" href="../../../search.html" />
+    <link rel="next" title="Intersection point" href="schnittpunkt.html" />
+    <link rel="prev" title="Properties of the logarithm" href="ln.html" />
+ 
+  <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, minimum-scale=1">
+  </head><body>
+  <div class="relbar-top">
+    
+    <div class="related" role="navigation" aria-label="related navigation">
+      <h3>Navigation</h3>
+      <ul>
+        <li class="right" style="margin-right: 10px">
+          <a href="schnittpunkt.html" title="Intersection point"
+             accesskey="N">next</a></li>
+        <li class="right" >
+          <a href="ln.html" title="Properties of the logarithm"
+             accesskey="P">previous</a> &nbsp; &nbsp;</li>
+  <li><a href="../../../index.html">Science education with SageMath</a> &#187;</li>
+  
+        <li class="nav-item nav-item-this"><a href="">Properties of the  x sin(x) function</a></li> 
+      </ul>
+    </div>
+  </div>
+  
+  <div class="content">  
+
+    <div class="document">
+      <div class="documentwrapper">
+        <div class="bodywrapper">
+          <div class="body">
+            
+  <div class="section" id="properties-of-the-x-sin-x-function">
+<h1>Properties of the  x sin(x) function<a class="headerlink" href="#properties-of-the-x-sin-x-function" title="Permalink to this headline">¶</a></h1>
+<div class="admonition-problem admonition">
+<p class="admonition-title">Problem</p>
+<p>The graph of the function <span class="math notranslate nohighlight">\(f:x\mapsto x\cdot\sin x\)</span> defined in
+<span class="math notranslate nohighlight">\(\mathbb{R}\)</span> passes through the origin. Determine <span class="math notranslate nohighlight">\(f''(0)\)</span>
+and describe how the graph of <span class="math notranslate nohighlight">\(f\)</span> is bent close to the origin.</p>
+</div>
+<p><strong>Solution</strong></p>
+<p>The first derivative of <span class="math notranslate nohighlight">\(f(x)\)</span> is given by:</p>
+<div class="math notranslate nohighlight">
+\[\frac{\mathrm{d}}{\mathrm{d}x}\left(x \cdot \sin x\right) = \sin x + x \cdot \cos x\]</div>
+<p>Taking another derivative, one finds:</p>
+<div class="math notranslate nohighlight">
+\[\begin{split}f''(x) &amp;= \frac{\mathrm{d}^2}{\mathrm{d}x^2} x \cdot \sin x\\
+&amp; = \frac{\mathrm{d}}{\mathrm{d}x} \left( \sin x + x \cdot \cos x \right)\\
+&amp;= \cos x + \cos x + x \cdot (-\sin x)\\
+&amp; = 2 \cdot \cos x - x \cdot \sin x\end{split}\]</div>
+<p>For <span class="math notranslate nohighlight">\(x=0\)</span> one obtains
+<span class="math notranslate nohighlight">\(f''(0) = 2 \cdot \cos 0 - 0 \cdot \sin 0 = 2\)</span>.</p>
+<p>This result can be verified by means of Sage:</p>
+<div class='sage_linked'><script type='text/x-sage'>f(x) = x*sin(x)
+df(x) = derivative(f, x)
+ddf(x) = derivative(df, x)
+print("ddf(x) = " + str(ddf(x)))
+print("ddf(0) = " + str(ddf(0)))</script></div><p>A positive second derivative indicates that the function bends to the left
+as is the case for <span class="math notranslate nohighlight">\(f\)</span> at <span class="math notranslate nohighlight">\(x=0\)</span>.</p>
+<p>This behavior can also be seen by plotting the function graph.</p>
+<div class='sage_linked'><script type='text/x-sage'>pf = plot(f(x), (-6, 6))
+show(pf, aspect_ratio=1)</script></div></div>
+
+
+          </div>
+        </div>
+      </div>
+      <div class="sphinxsidebar" role="navigation" aria-label="main navigation">
+        <div class="sphinxsidebarwrapper">
+  <h4>Previous topic</h4>
+  <p class="topless"><a href="ln.html"
+                        title="previous chapter">Properties of the logarithm</a></p>
+  <h4>Next topic</h4>
+  <p class="topless"><a href="schnittpunkt.html"
+                        title="next chapter">Intersection point</a></p>
+<div id="searchbox" style="display: none" role="search">
+  <h3 id="searchlabel">Quick search</h3>
+    <div class="searchformwrapper">
+    <form class="search" action="../../../search.html" method="get">
+      <input type="text" name="q" aria-labelledby="searchlabel" />
+      <input type="submit" value="Go" />
+    </form>
+    </div>
+</div>
+<script>$('#searchbox').show(0);</script>
+        </div>
+      </div>
+      <div class="clearer"></div>
+    </div>
+  </div>
+  <div class="relbar-bottom">
+    
+    <div class="related" role="navigation" aria-label="related navigation">
+      <h3>Navigation</h3>
+      <ul>
+        <li class="right" style="margin-right: 10px">
+          <a href="schnittpunkt.html" title="Intersection point"
+             >next</a></li>
+        <li class="right" >
+          <a href="ln.html" title="Properties of the logarithm"
+             >previous</a> &nbsp; &nbsp;</li>
+  <li><a href="../../../index.html">Science education with SageMath</a> &#187;</li>
+  
+        <li class="nav-item nav-item-this"><a href="">Properties of the  x sin(x) function</a></li> 
+      </ul>
+    </div>
+  </div>
+  
+  <div class="footer">
+    <a class="logo" href="http://icse.us.edu.pl/" target="_blank"><img src="../../../_static/logo-icse.png" alt="ICSE"/></a><br/>
+    &copy; Copyright Creative Commons CC-BY 4.0, iCSE-team.
+    Created using <a href="http://sphinx.pocoo.org/">Sphinx</a> 3.2.1.
+  </div>
+  </body>
+</html>

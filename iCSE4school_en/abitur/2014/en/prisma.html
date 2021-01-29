@@ -1,0 +1,178 @@
+
+
+  
+<!DOCTYPE html>
+
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Prism &#8212; Science education with SageMath</title>
+    <link rel="stylesheet" href="../../../_static/cloud.css" type="text/css" />
+    <link rel="stylesheet" href="../../../_static/pygments.css" type="text/css" />
+    <link rel="stylesheet" href="http://fonts.googleapis.com/css?family=Noticia+Text|Open+Sans|Droid+Sans+Mono&amp;subset=latin,latin-ext" type="text/css" />
+    <script id="documentation_options" data-url_root="../../../" src="../../../_static/documentation_options.js"></script>
+    <script src="../../../_static/jquery.js"></script>
+    <script src="../../../_static/underscore.js"></script>
+    <script src="../../../_static/doctools.js"></script>
+    <script src="../../../_static/language_data.js"></script>
+    <script async="async" src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.7/latest.js?config=TeX-AMS-MML_HTMLorMML"></script>
+    <script src="../../../_static/jquery.cookie.js"></script>
+    <script src="../../../_static/cloud.js"></script>
+    <script type="text/javascript" src="http://sagecell.sagemath.org/static/jquery.min.js"></script>
+    <script type="text/javascript" src="http://sagecell.sagemath.org/static/embedded_sagecell.js"></script>
+    <script type="text/javascript">
+        sagecell.makeSagecell({inputLocation: ".sage_linked",
+                               linked: true});
+        sagecell.makeSagecell({inputLocation: ".sage_unlinked",
+                               linked: false});
+    </script>
+
+    <style type="text/css">
+        .sagecell .CodeMirror-scroll {
+            overflow-y: hidden;
+            overflow-x: auto;
+        }
+        .sagecell .CodeMirror {
+            height: auto;
+        }
+    </style>
+    
+    <link rel="search" title="Search" href="../../../search.html" />
+    <link rel="next" title="The plane" href="ebene.html" />
+    <link rel="prev" title="Straight lines in 3d" href="../../2013/en/geraden.html" />
+ 
+  <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, minimum-scale=1">
+  </head><body>
+  <div class="relbar-top">
+    
+    <div class="related" role="navigation" aria-label="related navigation">
+      <h3>Navigation</h3>
+      <ul>
+        <li class="right" style="margin-right: 10px">
+          <a href="ebene.html" title="The plane"
+             accesskey="N">next</a></li>
+        <li class="right" >
+          <a href="../../2013/en/geraden.html" title="Straight lines in 3d"
+             accesskey="P">previous</a> &nbsp; &nbsp;</li>
+  <li><a href="../../../index.html">Science education with SageMath</a> &#187;</li>
+  
+        <li class="nav-item nav-item-this"><a href="">Prism</a></li> 
+      </ul>
+    </div>
+  </div>
+  
+  <div class="content">  
+
+    <div class="document">
+      <div class="documentwrapper">
+        <div class="bodywrapper">
+          <div class="body">
+            
+  <div class="section" id="prism">
+<h1>Prism<a class="headerlink" href="#prism" title="Permalink to this headline">¶</a></h1>
+<div class="admonition-problem admonition">
+<p class="admonition-title">Problem</p>
+<p>The image shows a right prism <span class="math notranslate nohighlight">\(ABCDEF\)</span> with the points
+<span class="math notranslate nohighlight">\(A(0|0|0)\)</span>, <span class="math notranslate nohighlight">\(B(8|0|0)\)</span>, <span class="math notranslate nohighlight">\(C(0|8|0)\)</span> and <span class="math notranslate nohighlight">\(D(0|0|4)\)</span>.</p>
+<img alt="../../../_images/prisma1.png" class="align-center" src="../../../_images/prisma1.png" />
+<ol class="loweralpha simple">
+<li><p>Determine the distance between the two vertices <span class="math notranslate nohighlight">\(B\)</span> and <span class="math notranslate nohighlight">\(F\)</span>.</p></li>
+<li><p>The points <span class="math notranslate nohighlight">\(M\)</span> and <span class="math notranslate nohighlight">\(P\)</span> correspond to the midpoints of the edges
+<span class="math notranslate nohighlight">\([AD]\)</span> and <span class="math notranslate nohighlight">\([BC]\)</span>. The point <span class="math notranslate nohighlight">\(K(0|y_K|4)\)</span> is located on
+the edge <span class="math notranslate nohighlight">\([DF]\)</span>. Determine <span class="math notranslate nohighlight">\(y_K\)</span> so that the triangle
+<span class="math notranslate nohighlight">\(KMP\)</span> is orthogonal in <span class="math notranslate nohighlight">\(M\)</span>.</p></li>
+</ol>
+</div>
+<p><strong>Solution of part a</strong></p>
+<p>First, we need to calculate the coordinates of the vertex <span class="math notranslate nohighlight">\(F\)</span>
+located above the point <span class="math notranslate nohighlight">\(C\)</span> in <span class="math notranslate nohighlight">\(z\)</span>-direction, at the same height as
+the point <span class="math notranslate nohighlight">\(D\)</span>. <span class="math notranslate nohighlight">\(F\)</span> therefore has the coordinates <span class="math notranslate nohighlight">\(F(0|8|4)\)</span>.</p>
+<p>The distance between <span class="math notranslate nohighlight">\(B\)</span> and <span class="math notranslate nohighlight">\(F\)</span> can be calculated as</p>
+<div class="math notranslate nohighlight">
+\[\overline{BF} = |\vec{B} - \vec{F}| = \sqrt{8^2+(-8)^2+(-4)^2}=12.\]</div>
+<p>We can verify the result with the help of Sage by constructing the point
+<span class="math notranslate nohighlight">\(F\)</span> and determining its distance to the point <span class="math notranslate nohighlight">\(B\)</span>.</p>
+<div class='sage_linked'><script type='text/x-sage'>a = vector([0, 0, 0])
+b = vector([8, 0, 0])
+c = vector([0, 8, 0])
+d = vector([0, 0, 4])
+f = c + d - a
+print 'distance B-F:', norm(b-f)</script></div><p><strong>Solution of part b</strong></p>
+<p>The midpoint <span class="math notranslate nohighlight">\(M\)</span> of the edge between the points <span class="math notranslate nohighlight">\(A\)</span> and <span class="math notranslate nohighlight">\(D\)</span>
+can be determined by</p>
+<div class="math notranslate nohighlight">
+\[\vec{M} = \vec{A} + 1/2 \cdot (\vec{D} - \vec{A}).\]</div>
+<p>Correspondingly, we obtain the coordinates of the midpoints <span class="math notranslate nohighlight">\(M(0|0|2)\)</span>
+and <span class="math notranslate nohighlight">\(P(4|4|0)\)</span>.</p>
+<div class='sage_linked'><script type='text/x-sage'>m = a + 1/2 * (d - a)
+p = b + 1/2 * (c - b)
+print "m:", m, ", p:", p</script></div><p>In order to determine the <span class="math notranslate nohighlight">\(y\)</span>-value of the point <span class="math notranslate nohighlight">\(K\)</span>, we will use
+the condition that the triangle <span class="math notranslate nohighlight">\(KMP\)</span> has to be orthogonal in <span class="math notranslate nohighlight">\(M\)</span>.
+This implies that the inner product of the vectors <span class="math notranslate nohighlight">\(\vec k\)</span> and
+<span class="math notranslate nohighlight">\(\vec p\)</span> connecting the point <span class="math notranslate nohighlight">\(M\)</span> to the points <span class="math notranslate nohighlight">\(K\)</span> and
+<span class="math notranslate nohighlight">\(P\)</span>, respectively, must vanish. The vectors can be determined as</p>
+<div class="math notranslate nohighlight">
+\[\begin{split}\vec{k} = \begin{pmatrix} 0\\ y_K\\ 2\end{pmatrix}\qquad
+\vec{p} = \begin{pmatrix} 4\\ 4\\ -2\end{pmatrix}\end{split}\]</div>
+<p>with the inner product</p>
+<div class="math notranslate nohighlight">
+\[\vec{k}\cdot\vec{p} = 4y_k-4 \overset{!}{=} 0,\]</div>
+<p>Therefore, we find <span class="math notranslate nohighlight">\(y_K=1\)</span>.</p>
+<p>Sage offers a fast way to verify the solution:</p>
+<div class='sage_linked'><script type='text/x-sage'>y = var('y')
+k = vector([0, y, 4])
+solve((m-k).dot_product(m-p) == 0, y)</script></div></div>
+
+
+          </div>
+        </div>
+      </div>
+      <div class="sphinxsidebar" role="navigation" aria-label="main navigation">
+        <div class="sphinxsidebarwrapper">
+  <h4>Previous topic</h4>
+  <p class="topless"><a href="../../2013/en/geraden.html"
+                        title="previous chapter">Straight lines in 3d</a></p>
+  <h4>Next topic</h4>
+  <p class="topless"><a href="ebene.html"
+                        title="next chapter">The plane</a></p>
+<div id="searchbox" style="display: none" role="search">
+  <h3 id="searchlabel">Quick search</h3>
+    <div class="searchformwrapper">
+    <form class="search" action="../../../search.html" method="get">
+      <input type="text" name="q" aria-labelledby="searchlabel" />
+      <input type="submit" value="Go" />
+    </form>
+    </div>
+</div>
+<script>$('#searchbox').show(0);</script>
+        </div>
+      </div>
+      <div class="clearer"></div>
+    </div>
+  </div>
+  <div class="relbar-bottom">
+    
+    <div class="related" role="navigation" aria-label="related navigation">
+      <h3>Navigation</h3>
+      <ul>
+        <li class="right" style="margin-right: 10px">
+          <a href="ebene.html" title="The plane"
+             >next</a></li>
+        <li class="right" >
+          <a href="../../2013/en/geraden.html" title="Straight lines in 3d"
+             >previous</a> &nbsp; &nbsp;</li>
+  <li><a href="../../../index.html">Science education with SageMath</a> &#187;</li>
+  
+        <li class="nav-item nav-item-this"><a href="">Prism</a></li> 
+      </ul>
+    </div>
+  </div>
+  
+  <div class="footer">
+    <a class="logo" href="http://icse.us.edu.pl/" target="_blank"><img src="../../../_static/logo-icse.png" alt="ICSE"/></a><br/>
+    &copy; Copyright Creative Commons CC-BY 4.0, iCSE-team.
+    Created using <a href="http://sphinx.pocoo.org/">Sphinx</a> 3.2.1.
+  </div>
+  </body>
+</html>

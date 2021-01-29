@@ -1,0 +1,192 @@
+
+
+  
+<!DOCTYPE html>
+
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Random Game &#8212; Science education with SageMath</title>
+    <link rel="stylesheet" href="../../../_static/cloud.css" type="text/css" />
+    <link rel="stylesheet" href="../../../_static/pygments.css" type="text/css" />
+    <link rel="stylesheet" href="http://fonts.googleapis.com/css?family=Noticia+Text|Open+Sans|Droid+Sans+Mono&amp;subset=latin,latin-ext" type="text/css" />
+    <script id="documentation_options" data-url_root="../../../" src="../../../_static/documentation_options.js"></script>
+    <script src="../../../_static/jquery.js"></script>
+    <script src="../../../_static/underscore.js"></script>
+    <script src="../../../_static/doctools.js"></script>
+    <script src="../../../_static/language_data.js"></script>
+    <script async="async" src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.7/latest.js?config=TeX-AMS-MML_HTMLorMML"></script>
+    <script src="../../../_static/jquery.cookie.js"></script>
+    <script src="../../../_static/cloud.js"></script>
+    <script type="text/javascript" src="http://sagecell.sagemath.org/static/jquery.min.js"></script>
+    <script type="text/javascript" src="http://sagecell.sagemath.org/static/embedded_sagecell.js"></script>
+    <script type="text/javascript">
+        sagecell.makeSagecell({inputLocation: ".sage_linked",
+                               linked: true});
+        sagecell.makeSagecell({inputLocation: ".sage_unlinked",
+                               linked: false});
+    </script>
+
+    <style type="text/css">
+        .sagecell .CodeMirror-scroll {
+            overflow-y: hidden;
+            overflow-x: auto;
+        }
+        .sagecell .CodeMirror {
+            height: auto;
+        }
+    </style>
+    
+    <link rel="search" title="Search" href="../../../search.html" />
+    <link rel="next" title="Survey" href="umfrage.html" />
+    <link rel="prev" title="Statistics of a medical test" href="stoffwechsel.html" />
+ 
+  <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, minimum-scale=1">
+  </head><body>
+  <div class="relbar-top">
+    
+    <div class="related" role="navigation" aria-label="related navigation">
+      <h3>Navigation</h3>
+      <ul>
+        <li class="right" style="margin-right: 10px">
+          <a href="umfrage.html" title="Survey"
+             accesskey="N">next</a></li>
+        <li class="right" >
+          <a href="stoffwechsel.html" title="Statistics of a medical test"
+             accesskey="P">previous</a> &nbsp; &nbsp;</li>
+  <li><a href="../../../index.html">Science education with SageMath</a> &#187;</li>
+  
+        <li class="nav-item nav-item-this"><a href="">Random Game</a></li> 
+      </ul>
+    </div>
+  </div>
+  
+  <div class="content">  
+
+    <div class="document">
+      <div class="documentwrapper">
+        <div class="bodywrapper">
+          <div class="body">
+            
+  <div class="section" id="random-game">
+<h1>Random Game<a class="headerlink" href="#random-game" title="Permalink to this headline">¶</a></h1>
+<div class="admonition-problem admonition">
+<p class="admonition-title">Problem</p>
+<p>In order to earn money for the equipment of the playing area in the
+children’s unit of the hospital a prize draw is offered. After the player
+paid two euros, three balls are drawn at random without replacement from a
+container in which there are three red, three green and three blue balls.  If
+the three balls have the same colour, the player wins and receives a
+certain amount of money; otherwise he looses and obtains no money.
+Afterwards, the drawn balls are put back into the container.</p>
+<ol class="loweralpha simple">
+<li><p>Show that the probability for winning one game equals <span class="math notranslate nohighlight">\(\frac{1}{28}\)</span>.</p></li>
+<li><p>Compute which amount of money, in case of winning, has to be paid out
+so that an average gain of 1.25 euros per game for the equipment
+of the playing area can be expected.</p></li>
+</ol>
+</div>
+<p><strong>Solution of part a</strong></p>
+<p>The probability that three balls with the same colour are drawn can be computed
+as follows. First, there are 9 balls in the container. Now, one ball is drawn
+at random. Consequently, eight balls remain in the container.
+Two of these balls have the same colour as the already drawn ball.
+The probability of drawing one of these two balls in the next turn thus
+is <span class="math notranslate nohighlight">\(\frac{2}{8}\)</span>. Afterwards, the last ball with the same colour has to
+be drawn from the container with the remaining seven balls. The corresponding
+probability is <span class="math notranslate nohighlight">\(\frac{1}{7}\)</span>.</p>
+<p>The total probability of winning hence is:</p>
+<div class="math notranslate nohighlight">
+\[\frac{2}{8} \cdot \frac{1}{7} = \frac{1}{28} \approx 0.0357\,.\]</div>
+<p>This prize draw can be simulated with Sage. For that purpose, we shuffle the balls
+and consider the colour of the first three balls.</p>
+<div class='sage_linked'><script type='text/x-sage'>from random import choice
+
+def game():
+   urn = ['r', 'r', 'r', 'g', 'g', 'g', 'b', 'b', 'b']
+   shuffle(urn)
+   return urn[0] == urn[1] == urn[2]
+
+games = 100000
+winnings = 0
+
+for _ in range(games):
+   if game():
+       winnings = winnings+1
+
+print("In {} of {} cases, the three balls had the same colour.".format(winnings, games))</script></div><p><strong>Solution of part b</strong></p>
+<p>The expected earnings <span class="math notranslate nohighlight">\(E\)</span> per game are computed for a stake of 2 euros
+per game and a prize money of <span class="math notranslate nohighlight">\(x\)</span> euro to be</p>
+<div class="math notranslate nohighlight">
+\[E(x) = 2 - \frac{1}{28} \cdot x\,.\]</div>
+<p>If the earnings per game are to be 1.25 euros, i.e. <span class="math notranslate nohighlight">\(E(x)=1{,}25\)</span>, the result
+is <span class="math notranslate nohighlight">\(x=21\)</span>. The prize money hence has to be 21 euros.</p>
+<p>With Sage, we can test what impact a prize money of 21 euros has on the
+earnings per game.</p>
+<div class='sage_linked'><script type='text/x-sage'>games = 100000
+stake = 2
+prize = 21
+earnings = 0
+
+for _ in range(games):
+    earnings = earnings+stake
+    if game():
+        earnings = earnings-prize
+
+print("{} games have been played and {} euros have been earned. "
+           "This corresponds to {:.2f} euros per game.".format(
+                     games, earnings, float(earnings/games)))</script></div></div>
+
+
+          </div>
+        </div>
+      </div>
+      <div class="sphinxsidebar" role="navigation" aria-label="main navigation">
+        <div class="sphinxsidebarwrapper">
+  <h4>Previous topic</h4>
+  <p class="topless"><a href="stoffwechsel.html"
+                        title="previous chapter">Statistics of a medical test</a></p>
+  <h4>Next topic</h4>
+  <p class="topless"><a href="umfrage.html"
+                        title="next chapter">Survey</a></p>
+<div id="searchbox" style="display: none" role="search">
+  <h3 id="searchlabel">Quick search</h3>
+    <div class="searchformwrapper">
+    <form class="search" action="../../../search.html" method="get">
+      <input type="text" name="q" aria-labelledby="searchlabel" />
+      <input type="submit" value="Go" />
+    </form>
+    </div>
+</div>
+<script>$('#searchbox').show(0);</script>
+        </div>
+      </div>
+      <div class="clearer"></div>
+    </div>
+  </div>
+  <div class="relbar-bottom">
+    
+    <div class="related" role="navigation" aria-label="related navigation">
+      <h3>Navigation</h3>
+      <ul>
+        <li class="right" style="margin-right: 10px">
+          <a href="umfrage.html" title="Survey"
+             >next</a></li>
+        <li class="right" >
+          <a href="stoffwechsel.html" title="Statistics of a medical test"
+             >previous</a> &nbsp; &nbsp;</li>
+  <li><a href="../../../index.html">Science education with SageMath</a> &#187;</li>
+  
+        <li class="nav-item nav-item-this"><a href="">Random Game</a></li> 
+      </ul>
+    </div>
+  </div>
+  
+  <div class="footer">
+    <a class="logo" href="http://icse.us.edu.pl/" target="_blank"><img src="../../../_static/logo-icse.png" alt="ICSE"/></a><br/>
+    &copy; Copyright Creative Commons CC-BY 4.0, iCSE-team.
+    Created using <a href="http://sphinx.pocoo.org/">Sphinx</a> 3.2.1.
+  </div>
+  </body>
+</html>

@@ -1,0 +1,215 @@
+
+
+  
+<!DOCTYPE html>
+
+<html lang="pl">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Wartość bezwzględna &#8212; Metodologia nauczania przedmiotów ścisłych z perspektywą obliczeniową</title>
+    <link rel="stylesheet" href="_static/cloud.css" type="text/css" />
+    <link rel="stylesheet" href="_static/pygments.css" type="text/css" />
+    <link rel="stylesheet" href="http://fonts.googleapis.com/css?family=Noticia+Text|Open+Sans|Droid+Sans+Mono&amp;subset=latin,latin-ext" type="text/css" />
+    <script id="documentation_options" data-url_root="./" src="_static/documentation_options.js"></script>
+    <script src="_static/jquery.js"></script>
+    <script src="_static/underscore.js"></script>
+    <script src="_static/doctools.js"></script>
+    <script src="_static/language_data.js"></script>
+    <script src="_static/translations.js"></script>
+    <script async="async" src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.7/latest.js?config=TeX-AMS-MML_HTMLorMML"></script>
+    <script src="_static/jquery.cookie.js"></script>
+    <script src="_static/cloud.js"></script>
+    <script type="text/javascript" src="http://sagecell.sagemath.org/static/jquery.min.js"></script>
+    <script type="text/javascript" src="http://sagecell.sagemath.org/static/embedded_sagecell.js"></script>
+    <script type="text/javascript">
+        sagecell.makeSagecell({inputLocation: ".sage_linked",
+                               linked: true});
+        sagecell.makeSagecell({inputLocation: ".sage_unlinked",
+                               linked: false});
+    </script>
+
+    <style type="text/css">
+        .sagecell .CodeMirror-scroll {
+            overflow-y: hidden;
+            overflow-x: auto;
+        }
+        .sagecell .CodeMirror {
+            height: auto;
+        }
+    </style>
+    
+    <link rel="search" title="Szukaj" href="search.html" />
+ 
+  <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, minimum-scale=1">
+  </head><body>
+  <div class="relbar-top">
+    
+    <div class="related" role="navigation" aria-label="related navigation">
+      <h3>Nawigacja</h3>
+      <ul>
+  <li><a href="index.html">Metodologia nauczania przedmiotów ścisłych z perspektywą obliczeniową</a> &#187;</li>
+  
+        <li class="nav-item nav-item-this"><a href="">Wartość bezwzględna</a></li> 
+      </ul>
+    </div>
+  </div>
+  
+  <div class="content">  
+
+    <div class="document">
+      <div class="documentwrapper">
+        <div class="bodywrapper">
+          <div class="body">
+            
+  <div class="section" id="wartosc-bezwzgledna">
+<h1>Wartość bezwzględna<a class="headerlink" href="#wartosc-bezwzgledna" title="Stały odnośnik do tego nagłówka">¶</a></h1>
+<div class="section" id="o-scenariuszu">
+<h2>O scenariuszu<a class="headerlink" href="#o-scenariuszu" title="Stały odnośnik do tego nagłówka">¶</a></h2>
+<p>Scenariusz ten jest materiałem do przeprowadzenia 1 godziny zajęć lekcyjnych.</p>
+<p>Został on opracowany w ramach projektu iCSE4school na podstawie lekcji
+prowadzonych w latach 2015-2017 w III Liceum Ogólnokształcącym im. Stefana Batorego w Chorzowie przez Mariolę Strojny.</p>
+<div class="admonition-uwaga admonition">
+<p class="admonition-title">Uwaga!</p>
+<p>W każdym z okien programu można zmieniać liczby, tekst, zmienne
+lub cały kod.  Nie trzeba się martwić, jeśli program przestanie
+działać, bo po odświeżeniu strony powróci do ustawień
+początkowych.  Często następny kod wynika z poprzedniego, więc
+należy ćwiczenia (algorytmy) wykonywać według kolejności.</p>
+</div>
+</div>
+<div class="section" id="wstep">
+<h2>Wstęp<a class="headerlink" href="#wstep" title="Stały odnośnik do tego nagłówka">¶</a></h2>
+<p>Jednym z ważnych pojęć dnoszących się do liczb rzeczywistych jest wartość bezwzględna. Jej definicja mówi, wartość bezwzględna liczby rzeczywistej <span class="math notranslate nohighlight">\(a\)</span> jest równa:</p>
+<ul class="simple">
+<li><p>liczbie <span class="math notranslate nohighlight">\(a\)</span>, jeśli <span class="math notranslate nohighlight">\(a\)</span> jest nieujemna,</p></li>
+<li><p>liczbie przeciwnej do <span class="math notranslate nohighlight">\(a\)</span>, jeśli <span class="math notranslate nohighlight">\(a\)</span> jest ujemna;</p></li>
+</ul>
+<p>co symbolicznie wyrażamy w następujący sposób</p>
+<div class="math notranslate nohighlight">
+\[\begin{split}|a|= \left\{
+\begin{array}{cl}
+a &amp; \textrm{ dla } a &gt;= 0,\\
+-a &amp; \textrm{ dla } a&lt;0
+\end{array}
+\right..\end{split}\]</div>
+</div>
+<div class="section" id="zobaczmy-to">
+<h2>Zobaczmy to!<a class="headerlink" href="#zobaczmy-to" title="Stały odnośnik do tego nagłówka">¶</a></h2>
+<p>Przyjrzyjmy się przykładom, które pokazują nam, jak tworzone są wykresy funkcji zawierających wartość bezwzględną.</p>
+<p>Funkcja liniowa jest dobrym obiektem do zobrazowania przekształcenia, niech <span class="math notranslate nohighlight">\(f(x)=x\)</span>.</p>
+<div class='sage_linked'><script type='text/x-sage'>var('x')
+f(x)=x
+plot(f,x,-10,10,color='green',thickness=2, figsize=4)</script></div><p>Sporządźmy wykres funkcji <span class="math notranslate nohighlight">\(f(x)=|x|\)</span>. Zgodnie z definicją wartości bezwzględnej, odpowiedniemu odbiciu podlega część wykresu funkcji liniowej (położona poniżej osi <span class="math notranslate nohighlight">\(OX\)</span>).</p>
+<div class='sage_linked'><script type='text/x-sage'>var ('x')
+f(x)=abs(x)
+plot(f,x,-10,10, color='green',thickness=2, figsize=4)</script></div><p>Następnie: wykres funkcji <span class="math notranslate nohighlight">\(f(x)=|x|\)</span> przesuńmy o wektor <span class="math notranslate nohighlight">\([0, -2]\)</span>- otrzymamy wykres funkcji <span class="math notranslate nohighlight">\(f(x)=|x|-2\)</span>.</p>
+<div class='sage_linked'><script type='text/x-sage'>var ('x')
+f(x)=abs(x)-2
+plot(f,x,-10,10, color='green',thickness=2, figsize=4)</script></div><p>Ponownie zastosujmy wartość bezwzględną - otrzymamy wykres funkcji <span class="math notranslate nohighlight">\(f(x)=||x|-2|\)</span>.</p>
+<div class='sage_linked'><script type='text/x-sage'>var ('x')
+f(x)=abs(abs(x)-2)
+plot(f,x,-10,10, color='green',thickness=2, figsize=4)</script></div><p>Warto przyjrzeć się wykresowi funkcji kwadratowej <span class="math notranslate nohighlight">\(f(x)=x^2\)</span>, przesuniętemu o wektor <span class="math notranslate nohighlight">\([0, -2]\)</span> po zastosowaniu wartości bezwzględnej - otrzymujemy <span class="math notranslate nohighlight">\(f(x)=|x^2– 2|\)</span>. Możemy również zmieniać wartość parametru <span class="math notranslate nohighlight">\(m\)</span>.</p>
+<div class='sage_linked'><script type='text/x-sage'>var('x')
+m=10
+f(x)=abs(abs(x^2)-2)
+g(x)=m
+wykres_f=plot(f,x,-10,10,color='green',thickness=2)
+wykres_g=plot(g,x,-10,10,color='red',thickness=2,linestyle="--")
+show(wykres_f+wykres_g, figsize=4)</script></div><p>Rozważmy w tym samym ukladzie współrzędnych wykresy podstawowych funkcji trygonometrycznych: <span class="math notranslate nohighlight">\(f(x)=\sin x\)</span> oraz <span class="math notranslate nohighlight">\(g(x)=\cos x\)</span>.</p>
+<div class='sage_linked'><script type='text/x-sage'>var ('x')
+f(x)=sin(x)
+g(x)=cos(x)
+wykres_f=plot(f,x,-5,5, color='green',thickness=2, linestyle=":")
+wykres_g=plot(g,x,-5,5, color='red', thickness=2, linestyle="--")
+h(x)=abs(sin(x))
+t(x)=abs(cos(x))
+wykres_h=plot(h,x,-5,5, color='yellowgreen', thickness=2)
+wykres_t=plot(t,x,-5,5, color='pink', thickness=2)
+show(wykres_f+wykres_g+wykres_h+wykres_t, figsize=4)</script></div><p>Kolejną z funkcji, które poznają uczniowie w szkole średniej, jest funkcja logarytmiczna  <span class="math notranslate nohighlight">\(f(x)=\log x\)</span>. Po zastosowaniu wartości bezwzględnej - otrzymujemy wykres funkcji <span class="math notranslate nohighlight">\(g(x)=|\log x|\)</span>.</p>
+<div class='sage_linked'><script type='text/x-sage'>var ('x')
+f(x)=abs(log(x))
+wykres_f=plot(f,x,0,8,color='green',thickness=3)
+g(x)=log(x)
+wykres_g=plot(g,x,0,8,color='yellowgreen', thickness=3, linestyle='--')
+show(wykres_f+wykres_g, figsize=4)</script></div><p>Narysujmy wykresy innych funkcji „szkolnych”: <span class="math notranslate nohighlight">\(g(x)=|x^2|\)</span> oraz <span class="math notranslate nohighlight">\(g(x)=|x^3|\)</span>.</p>
+<div class='sage_linked'><script type='text/x-sage'>var ('x')
+f(x)=abs(x^2)
+wykres_f=plot(f, x, -5,5, color='orange', xmin=-5, xmax=5, ymin=-10, ymax=10, thickness=2)
+g(x)=abs(x^3)
+wykres_g=plot(g, x, -5,5, color='green', xmin=-5, xmax=5, ymin=-10, ymax=10, thickness=2)
+h(x)=x^3
+wykres_h=plot(h, x, -5,5, color='yellowgreen', linestyle=':', xmin=-5, xmax=5, ymin=-10, ymax=10, thickness=2)
+show(wykres_f+wykres_g+wykres_h, figsize=4)</script></div><p>Przejdźmy do następnej części naszej lekcji: wykorzystamy element interaktywny.</p>
+<p>Oto wykres z tabelą, w której możemy wybrać jedną z dwóch funkcji: <span class="math notranslate nohighlight">\(\sin x\)</span> or <span class="math notranslate nohighlight">\(\cos x\)</span>. Możemy również stworzyć zakres naszej funkcji i obserwować jak zmienia się wykres. To świetny eksperyment, aby dowiedzieć się, jak działają funkcje trygonometryczne.</p>
+<div class='sage_linked'><script type='text/x-sage'>@interact
+def para(n1= selector (values =(sin(x),cos(x))),n2 = slider(1,5,1,default = 1)):
+    p = plot((n1)^n2,-6,6,color='green',thickness=2)
+    show(p, figsize=4)</script></div><p>Następny wykres jest trochę bardziej skomplikowany, ale ma więcej funkcji i opcji, które pozwalają uczniom zobaczyć różne modyfikacje funkcji: trygonometrycznych, logarytmicznych lub pierwiastka kwadratowego.</p>
+<div class='sage_linked'><script type='text/x-sage'>  @interact
+def para_(n2=selector(values =(sin(x),cos(x),ln(x),sqrt(x),(x),), label="wybierz funkcję"),
+n3=selector(values =((x),abs(x)), label="zastosuj wartość bezwzględną"), n1=slider(-1,5,1,default = 1, label="wybierz wykładnik potęgi ")):
+    var('x')
+    p=n3(n2)^n1
+    p1= plot(p,-10,10, color='orange', thickness=3)
+    show(p1, figsize=4)
+    print (p)</script></div></div>
+<div class="section" id="podsumowanie">
+<h2>Podsumowanie<a class="headerlink" href="#podsumowanie" title="Stały odnośnik do tego nagłówka">¶</a></h2>
+<p>???</p>
+</div>
+</div>
+
+
+          </div>
+        </div>
+      </div>
+      <div class="sphinxsidebar" role="navigation" aria-label="main navigation">
+        <div class="sphinxsidebarwrapper">
+  <div class="sphinxlocaltoc">
+  <h3><a href="index.html">Table Of Contents</a></h3>
+  <ul>
+<li><a class="reference internal" href="#">Wartość bezwzględna</a><ul>
+<li><a class="reference internal" href="#o-scenariuszu">O scenariuszu</a></li>
+<li><a class="reference internal" href="#wstep">Wstęp</a></li>
+<li><a class="reference internal" href="#zobaczmy-to">Zobaczmy to!</a></li>
+<li><a class="reference internal" href="#podsumowanie">Podsumowanie</a></li>
+</ul>
+</li>
+</ul>
+
+  </div>
+<div id="searchbox" style="display: none" role="search">
+  <h3 id="searchlabel">Szybkie wyszukiwanie</h3>
+    <div class="searchformwrapper">
+    <form class="search" action="search.html" method="get">
+      <input type="text" name="q" aria-labelledby="searchlabel" />
+      <input type="submit" value="Szukaj" />
+    </form>
+    </div>
+</div>
+<script>$('#searchbox').show(0);</script>
+        </div>
+      </div>
+      <div class="clearer"></div>
+    </div>
+  </div>
+  <div class="relbar-bottom">
+    
+    <div class="related" role="navigation" aria-label="related navigation">
+      <h3>Nawigacja</h3>
+      <ul>
+  <li><a href="index.html">Metodologia nauczania przedmiotów ścisłych z perspektywą obliczeniową</a> &#187;</li>
+  
+        <li class="nav-item nav-item-this"><a href="">Wartość bezwzględna</a></li> 
+      </ul>
+    </div>
+  </div>
+  
+  <div class="footer">
+    <a class="logo" href="http://icse.us.edu.pl/" target="_blank"><img src="_static/logo-icse.png" alt="ICSE"/></a><br/>
+    &copy; Copyright Creative Commons CC-BY 4.0, iCSE-team.
+    Created using <a href="http://sphinx.pocoo.org/">Sphinx</a> 3.2.1.
+  </div>
+  </body>
+</html>

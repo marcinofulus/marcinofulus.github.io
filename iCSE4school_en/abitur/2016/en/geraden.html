@@ -1,0 +1,185 @@
+
+
+  
+<!DOCTYPE html>
+
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Lines and points in 3d &#8212; Science education with SageMath</title>
+    <link rel="stylesheet" href="../../../_static/cloud.css" type="text/css" />
+    <link rel="stylesheet" href="../../../_static/pygments.css" type="text/css" />
+    <link rel="stylesheet" href="http://fonts.googleapis.com/css?family=Noticia+Text|Open+Sans|Droid+Sans+Mono&amp;subset=latin,latin-ext" type="text/css" />
+    <script id="documentation_options" data-url_root="../../../" src="../../../_static/documentation_options.js"></script>
+    <script src="../../../_static/jquery.js"></script>
+    <script src="../../../_static/underscore.js"></script>
+    <script src="../../../_static/doctools.js"></script>
+    <script src="../../../_static/language_data.js"></script>
+    <script async="async" src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.7/latest.js?config=TeX-AMS-MML_HTMLorMML"></script>
+    <script src="../../../_static/jquery.cookie.js"></script>
+    <script src="../../../_static/cloud.js"></script>
+    <script type="text/javascript" src="http://sagecell.sagemath.org/static/jquery.min.js"></script>
+    <script type="text/javascript" src="http://sagecell.sagemath.org/static/embedded_sagecell.js"></script>
+    <script type="text/javascript">
+        sagecell.makeSagecell({inputLocation: ".sage_linked",
+                               linked: true});
+        sagecell.makeSagecell({inputLocation: ".sage_unlinked",
+                               linked: false});
+    </script>
+
+    <style type="text/css">
+        .sagecell .CodeMirror-scroll {
+            overflow-y: hidden;
+            overflow-x: auto;
+        }
+        .sagecell .CodeMirror {
+            height: auto;
+        }
+    </style>
+    
+    <link rel="search" title="Search" href="../../../search.html" />
+    <link rel="next" title="Planes and vectors" href="ebenen.html" />
+    <link rel="prev" title="The cube" href="wuerfel.html" />
+ 
+  <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, minimum-scale=1">
+  </head><body>
+  <div class="relbar-top">
+    
+    <div class="related" role="navigation" aria-label="related navigation">
+      <h3>Navigation</h3>
+      <ul>
+        <li class="right" style="margin-right: 10px">
+          <a href="ebenen.html" title="Planes and vectors"
+             accesskey="N">next</a></li>
+        <li class="right" >
+          <a href="wuerfel.html" title="The cube"
+             accesskey="P">previous</a> &nbsp; &nbsp;</li>
+  <li><a href="../../../index.html">Science education with SageMath</a> &#187;</li>
+  
+        <li class="nav-item nav-item-this"><a href="">Lines and points in 3d</a></li> 
+      </ul>
+    </div>
+  </div>
+  
+  <div class="content">  
+
+    <div class="document">
+      <div class="documentwrapper">
+        <div class="bodywrapper">
+          <div class="body">
+            
+  <div class="section" id="lines-and-points-in-3d">
+<h1>Lines and points in 3d<a class="headerlink" href="#lines-and-points-in-3d" title="Permalink to this headline">¶</a></h1>
+<div class="admonition-problem admonition">
+<p class="admonition-title">Problem</p>
+<p>The points <span class="math notranslate nohighlight">\(A(-2|1|4)\)</span> and <span class="math notranslate nohighlight">\(B(-4|0|6)\)</span> are given.</p>
+<ol class="loweralpha">
+<li><p>Determine the coordinates of the point <span class="math notranslate nohighlight">\(C\)</span> such that
+<span class="math notranslate nohighlight">\(\vec{CA} = 2\cdot \vec{AB}\)</span>.</p></li>
+<li><p>The straight line <span class="math notranslate nohighlight">\(g\)</span> passes through points <span class="math notranslate nohighlight">\(A\)</span> and <span class="math notranslate nohighlight">\(B\)</span>.
+Consider straight lines fulfilling the conditions I and II:</p>
+<ol class="upperroman simple">
+<li><p>Each of the lines intersects the line <span class="math notranslate nohighlight">\(g\)</span> orthogonally.</p></li>
+<li><p>The distance of each of these lines from point <span class="math notranslate nohighlight">\(A\)</span> is <span class="math notranslate nohighlight">\(3\)</span>.</p></li>
+</ol>
+<p>Determine an equation for one of those lines.</p>
+</li>
+</ol>
+</div>
+<p><strong>Solution of part a</strong></p>
+<p>We start by plugging <span class="math notranslate nohighlight">\(\vec{CA}=\vec A - \vec C\)</span> and <span class="math notranslate nohighlight">\(\vec{AB}=\vec B - \vec A\)</span>
+into the equation</p>
+<div class="math notranslate nohighlight">
+\[\vec A - \vec C = 2 \cdot \left(\vec B - \vec A\right)\,,\]</div>
+<p>and, subsequently, solve for <span class="math notranslate nohighlight">\(\vec C\)</span>:</p>
+<div class="math notranslate nohighlight">
+\[\begin{split}\vec C = \vec A - 2 \cdot \left(\vec B - \vec A\right) = 3\cdot\vec A - 2\cdot\vec B = 3 \cdot\begin{pmatrix} -2\\1\\4\end{pmatrix} - 2\cdot\begin{pmatrix} -4\\0\\6\end{pmatrix} = \begin{pmatrix} 2\\3\\0\end{pmatrix}\end{split}\]</div>
+<p>This calculation can quickly be checked with Sage:</p>
+<div class='sage_linked'><script type='text/x-sage'>A = vector([-2, 1, 4])
+B = vector([-4, 0, 6])
+C = A - 2*(B-A)
+print C</script></div><p>The coordinates of <span class="math notranslate nohighlight">\(C\)</span> are thus <span class="math notranslate nohighlight">\((2|3|0)\)</span>.</p>
+<p><strong>Solution of part b</strong></p>
+<p>First, we observe that the distance from <span class="math notranslate nohighlight">\(B\)</span> to <span class="math notranslate nohighlight">\(A\)</span> is <span class="math notranslate nohighlight">\(3\)</span> because
+the line <span class="math notranslate nohighlight">\([AB]\)</span> has the length</p>
+<div class="math notranslate nohighlight">
+\[\begin{split}|\vec{AB}| = \left|\begin{pmatrix}-2\\-1\\2\end{pmatrix}\right| = \sqrt{(-2)^2+(-1)^2+2^2} = 3\,.\end{split}\]</div>
+<p>Sage can also confirm this:</p>
+<div class='sage_linked'><script type='text/x-sage'>A = vector([-2, 1, 4])
+B = vector([-4, 0, 6])
+BA = B-A
+print norm(BA)</script></div><p>Therefore, we choose <span class="math notranslate nohighlight">\(B\)</span> as the point on the line
+which has the required closest distance to <span class="math notranslate nohighlight">\(A\)</span>.
+We then are left with determining the direction vector <span class="math notranslate nohighlight">\(\vec G\)</span> of the line.
+It has to be perpendicular to <span class="math notranslate nohighlight">\(\vec{AB}\)</span> and thus has to fulfill the condition</p>
+<div class="math notranslate nohighlight">
+\[\vec{AB}\cdot\vec G = 0\,.\]</div>
+<p>One can then simply guess a solution, for example</p>
+<div class="math notranslate nohighlight">
+\[\begin{split}\vec G = \begin{pmatrix}1\\0\\1\end{pmatrix}\,.\end{split}\]</div>
+<p>The equation of the line <span class="math notranslate nohighlight">\(G\)</span> thus is:</p>
+<div class="math notranslate nohighlight">
+\[\begin{split}g: \vec X = \begin{pmatrix}-4\\0\\6\end{pmatrix} + \lambda \begin{pmatrix}1\\0\\1\end{pmatrix},\quad\lambda\in\mathbb{R}\,.\end{split}\]</div>
+<p>We can determine the direction vector with Sage choosing for example the
+<span class="math notranslate nohighlight">\(x_1\)</span>- and <span class="math notranslate nohighlight">\(x_2\)</span>-coordinates at discretion. To check the above result, we set them
+to <span class="math notranslate nohighlight">\(1\)</span> and <span class="math notranslate nohighlight">\(0\)</span>, respectively.</p>
+<div class='sage_linked'><script type='text/x-sage'>var('G_3')
+G_1 = 1
+G_2 = 0
+G = vector([G_1, G_2, G_3])
+solution = solve(BA*G == 0, G_3, solution_dict=True)[0]
+print "Direction vector G:", G.substitute(solution)</script></div></div>
+
+
+          </div>
+        </div>
+      </div>
+      <div class="sphinxsidebar" role="navigation" aria-label="main navigation">
+        <div class="sphinxsidebarwrapper">
+  <h4>Previous topic</h4>
+  <p class="topless"><a href="wuerfel.html"
+                        title="previous chapter">The cube</a></p>
+  <h4>Next topic</h4>
+  <p class="topless"><a href="ebenen.html"
+                        title="next chapter">Planes and vectors</a></p>
+<div id="searchbox" style="display: none" role="search">
+  <h3 id="searchlabel">Quick search</h3>
+    <div class="searchformwrapper">
+    <form class="search" action="../../../search.html" method="get">
+      <input type="text" name="q" aria-labelledby="searchlabel" />
+      <input type="submit" value="Go" />
+    </form>
+    </div>
+</div>
+<script>$('#searchbox').show(0);</script>
+        </div>
+      </div>
+      <div class="clearer"></div>
+    </div>
+  </div>
+  <div class="relbar-bottom">
+    
+    <div class="related" role="navigation" aria-label="related navigation">
+      <h3>Navigation</h3>
+      <ul>
+        <li class="right" style="margin-right: 10px">
+          <a href="ebenen.html" title="Planes and vectors"
+             >next</a></li>
+        <li class="right" >
+          <a href="wuerfel.html" title="The cube"
+             >previous</a> &nbsp; &nbsp;</li>
+  <li><a href="../../../index.html">Science education with SageMath</a> &#187;</li>
+  
+        <li class="nav-item nav-item-this"><a href="">Lines and points in 3d</a></li> 
+      </ul>
+    </div>
+  </div>
+  
+  <div class="footer">
+    <a class="logo" href="http://icse.us.edu.pl/" target="_blank"><img src="../../../_static/logo-icse.png" alt="ICSE"/></a><br/>
+    &copy; Copyright Creative Commons CC-BY 4.0, iCSE-team.
+    Created using <a href="http://sphinx.pocoo.org/">Sphinx</a> 3.2.1.
+  </div>
+  </body>
+</html>

@@ -1,0 +1,159 @@
+
+
+  
+<!DOCTYPE html>
+
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Zeros and antiderivative &#8212; Science education with SageMath</title>
+    <link rel="stylesheet" href="../../../_static/cloud.css" type="text/css" />
+    <link rel="stylesheet" href="../../../_static/pygments.css" type="text/css" />
+    <link rel="stylesheet" href="http://fonts.googleapis.com/css?family=Noticia+Text|Open+Sans|Droid+Sans+Mono&amp;subset=latin,latin-ext" type="text/css" />
+    <script id="documentation_options" data-url_root="../../../" src="../../../_static/documentation_options.js"></script>
+    <script src="../../../_static/jquery.js"></script>
+    <script src="../../../_static/underscore.js"></script>
+    <script src="../../../_static/doctools.js"></script>
+    <script src="../../../_static/language_data.js"></script>
+    <script async="async" src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.7/latest.js?config=TeX-AMS-MML_HTMLorMML"></script>
+    <script src="../../../_static/jquery.cookie.js"></script>
+    <script src="../../../_static/cloud.js"></script>
+    <script type="text/javascript" src="http://sagecell.sagemath.org/static/jquery.min.js"></script>
+    <script type="text/javascript" src="http://sagecell.sagemath.org/static/embedded_sagecell.js"></script>
+    <script type="text/javascript">
+        sagecell.makeSagecell({inputLocation: ".sage_linked",
+                               linked: true});
+        sagecell.makeSagecell({inputLocation: ".sage_unlinked",
+                               linked: false});
+    </script>
+
+    <style type="text/css">
+        .sagecell .CodeMirror-scroll {
+            overflow-y: hidden;
+            overflow-x: auto;
+        }
+        .sagecell .CodeMirror {
+            height: auto;
+        }
+    </style>
+    
+    <link rel="search" title="Search" href="../../../search.html" />
+    <link rel="next" title="Properties of sin(ax) +c" href="sinusfunktionen.html" />
+    <link rel="prev" title="Extremum of the function" href="extremum.html" />
+ 
+  <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, minimum-scale=1">
+  </head><body>
+  <div class="relbar-top">
+    
+    <div class="related" role="navigation" aria-label="related navigation">
+      <h3>Navigation</h3>
+      <ul>
+        <li class="right" style="margin-right: 10px">
+          <a href="sinusfunktionen.html" title="Properties of sin(ax) +c"
+             accesskey="N">next</a></li>
+        <li class="right" >
+          <a href="extremum.html" title="Extremum of the function"
+             accesskey="P">previous</a> &nbsp; &nbsp;</li>
+  <li><a href="../../../index.html">Science education with SageMath</a> &#187;</li>
+  
+        <li class="nav-item nav-item-this"><a href="">Zeros and antiderivative</a></li> 
+      </ul>
+    </div>
+  </div>
+  
+  <div class="content">  
+
+    <div class="document">
+      <div class="documentwrapper">
+        <div class="bodywrapper">
+          <div class="body">
+            
+  <div class="section" id="zeros-and-antiderivative">
+<h1>Zeros and antiderivative<a class="headerlink" href="#zeros-and-antiderivative" title="Permalink to this headline">¶</a></h1>
+<div class="admonition-problem admonition">
+<p class="admonition-title">Problem</p>
+<p>You are given the function <span class="math notranslate nohighlight">\(f\)</span> defined on <span class="math notranslate nohighlight">\(\mathbb{R}\)</span> with <span class="math notranslate nohighlight">\(f(x)=e^x\cdot\left(2x+x^2\right)\)</span>.</p>
+<ol class="loweralpha simple">
+<li><p>Determine the zeros of the function <span class="math notranslate nohighlight">\(f\)</span>.</p></li>
+<li><p>Show that the function <span class="math notranslate nohighlight">\(F\)</span> defined on <span class="math notranslate nohighlight">\(\mathbb{R}\)</span> with <span class="math notranslate nohighlight">\(F(x)=x^2\cdot e^x\)</span> is an
+antiderivative of <span class="math notranslate nohighlight">\(f\)</span>. Find another antiderivative <span class="math notranslate nohighlight">\(G\)</span> of <span class="math notranslate nohighlight">\(f\)</span> for which
+<span class="math notranslate nohighlight">\(G(1)=2e\)</span>.</p></li>
+</ol>
+</div>
+<p><strong>Solution of part a</strong></p>
+<p>As the exponential function always yields positive values, the zeros of <span class="math notranslate nohighlight">\(f\)</span>
+are given by the zeros of <span class="math notranslate nohighlight">\(2x+x^2=x(2+x)\)</span>. By means of this factorization, the
+two zeros <span class="math notranslate nohighlight">\(x_1=0\)</span> und <span class="math notranslate nohighlight">\(x_2=-2\)</span> can easily be read off.</p>
+<p>The result can also be reproduced with the help of Sage:</p>
+<div class='sage_linked'><script type='text/x-sage'>f(x) = exp(x)*(2*x+x^2)
+solve(f(x)==0,x)</script></div><p><strong>Solution of part b</strong></p>
+<p>In order to demonstrate that <span class="math notranslate nohighlight">\(F\)</span> is an antiderivative of <span class="math notranslate nohighlight">\(f\)</span>, we need to
+prove that <span class="math notranslate nohighlight">\(f\)</span> is the derivative of <span class="math notranslate nohighlight">\(F\)</span>. By means of the product rule
+we find</p>
+<div class="math notranslate nohighlight">
+\[\frac{\mathrm{d}F}{\mathrm{d}x} = 2x\cdot\mathrm{e}^x+x^2\cdot\mathrm{e}^x
+ =\mathrm{e}^x\cdot(2x+x^2) = f(x) .\]</div>
+<p>This result can be verified by Sage as follows:</p>
+<div class='sage_linked'><script type='text/x-sage'>F(x) = x^2*exp(x)
+(F(x).derivative()-f(x)).simplify_rational()</script></div><p>The second antiderivative <span class="math notranslate nohighlight">\(G\)</span> can differ from the antiderivative <span class="math notranslate nohighlight">\(F\)</span> only by
+a constant. It therefore is of the form</p>
+<div class="math notranslate nohighlight">
+\[G(x)=x^2\cdot \mathrm{e}^x+c.\]</div>
+<div class='sage_linked'><script type='text/x-sage'>G(x, c) = F(x)+c
+(G(x, c).derivative(x)-f(x)).simplify_rational()</script></div><p>We use the requirement <span class="math notranslate nohighlight">\(G(1)=2e\)</span> to determine the constant <span class="math notranslate nohighlight">\(c\)</span>, yielding
+<span class="math notranslate nohighlight">\(c=\mathrm{e}\)</span>:</p>
+<div class='sage_linked'><script type='text/x-sage'>solve(G(1, c)==2*e, c)</script></div></div>
+
+
+          </div>
+        </div>
+      </div>
+      <div class="sphinxsidebar" role="navigation" aria-label="main navigation">
+        <div class="sphinxsidebarwrapper">
+  <h4>Previous topic</h4>
+  <p class="topless"><a href="extremum.html"
+                        title="previous chapter">Extremum of the function</a></p>
+  <h4>Next topic</h4>
+  <p class="topless"><a href="sinusfunktionen.html"
+                        title="next chapter">Properties of  sin(ax) +c</a></p>
+<div id="searchbox" style="display: none" role="search">
+  <h3 id="searchlabel">Quick search</h3>
+    <div class="searchformwrapper">
+    <form class="search" action="../../../search.html" method="get">
+      <input type="text" name="q" aria-labelledby="searchlabel" />
+      <input type="submit" value="Go" />
+    </form>
+    </div>
+</div>
+<script>$('#searchbox').show(0);</script>
+        </div>
+      </div>
+      <div class="clearer"></div>
+    </div>
+  </div>
+  <div class="relbar-bottom">
+    
+    <div class="related" role="navigation" aria-label="related navigation">
+      <h3>Navigation</h3>
+      <ul>
+        <li class="right" style="margin-right: 10px">
+          <a href="sinusfunktionen.html" title="Properties of sin(ax) +c"
+             >next</a></li>
+        <li class="right" >
+          <a href="extremum.html" title="Extremum of the function"
+             >previous</a> &nbsp; &nbsp;</li>
+  <li><a href="../../../index.html">Science education with SageMath</a> &#187;</li>
+  
+        <li class="nav-item nav-item-this"><a href="">Zeros and antiderivative</a></li> 
+      </ul>
+    </div>
+  </div>
+  
+  <div class="footer">
+    <a class="logo" href="http://icse.us.edu.pl/" target="_blank"><img src="../../../_static/logo-icse.png" alt="ICSE"/></a><br/>
+    &copy; Copyright Creative Commons CC-BY 4.0, iCSE-team.
+    Created using <a href="http://sphinx.pocoo.org/">Sphinx</a> 3.2.1.
+  </div>
+  </body>
+</html>

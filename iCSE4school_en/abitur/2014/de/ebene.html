@@ -1,0 +1,186 @@
+
+
+  
+<!DOCTYPE html>
+
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Bayerisches Abitur in Mathematik 2014 &#8212; Science education with SageMath</title>
+    <link rel="stylesheet" href="../../../_static/cloud.css" type="text/css" />
+    <link rel="stylesheet" href="../../../_static/pygments.css" type="text/css" />
+    <link rel="stylesheet" href="http://fonts.googleapis.com/css?family=Noticia+Text|Open+Sans|Droid+Sans+Mono&amp;subset=latin,latin-ext" type="text/css" />
+    <script id="documentation_options" data-url_root="../../../" src="../../../_static/documentation_options.js"></script>
+    <script src="../../../_static/jquery.js"></script>
+    <script src="../../../_static/underscore.js"></script>
+    <script src="../../../_static/doctools.js"></script>
+    <script src="../../../_static/language_data.js"></script>
+    <script async="async" src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.7/latest.js?config=TeX-AMS-MML_HTMLorMML"></script>
+    <script src="../../../_static/jquery.cookie.js"></script>
+    <script src="../../../_static/cloud.js"></script>
+    <script type="text/javascript" src="http://sagecell.sagemath.org/static/jquery.min.js"></script>
+    <script type="text/javascript" src="http://sagecell.sagemath.org/static/embedded_sagecell.js"></script>
+    <script type="text/javascript">
+        sagecell.makeSagecell({inputLocation: ".sage_linked",
+                               linked: true});
+        sagecell.makeSagecell({inputLocation: ".sage_unlinked",
+                               linked: false});
+    </script>
+
+    <style type="text/css">
+        .sagecell .CodeMirror-scroll {
+            overflow-y: hidden;
+            overflow-x: auto;
+        }
+        .sagecell .CodeMirror {
+            height: auto;
+        }
+    </style>
+    
+    <link rel="search" title="Search" href="../../../search.html" />
+ 
+  <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, minimum-scale=1">
+  </head><body>
+  <div class="relbar-top">
+    
+    <div class="related" role="navigation" aria-label="related navigation">
+      <h3>Navigation</h3>
+      <ul>
+  <li><a href="../../../index.html">Science education with SageMath</a> &#187;</li>
+  
+        <li class="nav-item nav-item-this"><a href="">Bayerisches Abitur in Mathematik 2014</a></li> 
+      </ul>
+    </div>
+  </div>
+  
+  <div class="content">  
+
+    <div class="document">
+      <div class="documentwrapper">
+        <div class="bodywrapper">
+          <div class="body">
+            
+  <div class="section" id="bayerisches-abitur-in-mathematik-2014">
+<h1>Bayerisches Abitur in Mathematik 2014<a class="headerlink" href="#bayerisches-abitur-in-mathematik-2014" title="Permalink to this headline">¶</a></h1>
+<div class="admonition-aufgabe admonition">
+<p class="admonition-title">Aufgabe</p>
+<p>Gegeben ist die Ebene <span class="math notranslate nohighlight">\(E:3x_2+4x_3=5\)</span>.</p>
+<ol class="loweralpha simple">
+<li><p>Beschreiben Sie die besondere Lage von <span class="math notranslate nohighlight">\(E\)</span> im Koordinatensystem.</p></li>
+<li><p>Untersuchen Sie rechnerisch, ob die Kugel mit Mittelpunkt <span class="math notranslate nohighlight">\(Z(1|6|3)\)</span>
+und Radius <span class="math notranslate nohighlight">\(7\)</span> die Ebene <span class="math notranslate nohighlight">\(E\)</span> schneidet.</p></li>
+</ol>
+</div>
+<p><strong>Lösung zu Teil a</strong></p>
+<p>Die Ebene <span class="math notranslate nohighlight">\(E\)</span> verläuft parallel zur <span class="math notranslate nohighlight">\(x_1\)</span>-Achse. Dies lässt sich
+daran erkennen, dass die Ebenengleichung keine <span class="math notranslate nohighlight">\(x_1\)</span>-Komponente enthält.</p>
+<p>Mit Sage können wir die Ebene im Dreidimensionalen darstellen. Hierfür lösen
+wir zunächst die Ebenengleichung nach der Variablen <span class="math notranslate nohighlight">\(x_3\)</span> auf.</p>
+<div class='sage_linked'><script type='text/x-sage'>sage: var('x1')
+sage: var('x2')
+sage: var('x3')
+sage: solution = solve(3*x2+4*x3 == 5, x3, solution_dict=1)[0]
+sage: p1 = plot3d(solution[x3], (x1, -10, 10), (x2, -10, 10))
+sage: p1</script></div><p><strong>Lösung zu Teil b</strong></p>
+<p>Mit Sage wollen wir uns zunächst einen Überblick über die Lage der Ebene und der Kugel
+im dreidimensionalen Raum verschaffen.</p>
+<div class='sage_linked'><script type='text/x-sage'>sage: p2 = sphere(center=(1, 6, 3), size=7, color='red', opacity=1)
+sage: show(p1 + p2, aspect_ratio=1)</script></div><p>Wir können leicht erkennen, dass die Kugel die Ebene schneidet.</p>
+<p>Um dies rechnerisch zu überprüfen, bestimmen wir zunächst den Abstand zwischen
+dem Kugelmittelpunkt und der Ebene.</p>
+<p>Aus der Hesse-Normalform der Ebene erhalten wir den Normalenvektor</p>
+<div class="math notranslate nohighlight">
+\[\begin{split}\vec{n} = \left( \begin{matrix}
+                      0\\
+                      3\\
+                      4
+                  \end{matrix} \right),\end{split}\]</div>
+<p>bzw. den normierten Normalenvektor</p>
+<div class="math notranslate nohighlight">
+\[\begin{split}\vec{n}_0 = \left( \begin{matrix}
+                      0\\
+                      \frac{3}{5}\\
+                      \frac{4}{5}
+                  \end{matrix} \right).\end{split}\]</div>
+<p>Um den Abstand des Kugelmittelpunkts zur Ebene zu bestimmen, definieren wir nun Punkte
+auf der Gerade in Richtung der Ebenennormale <span class="math notranslate nohighlight">\(\vec{n}_0\)</span>, die
+durch den Kugelmittelpunkt verläuft als</p>
+<div class="math notranslate nohighlight">
+\[\begin{split}\left( \begin{matrix}
+                      x_1\\
+                      x_2\\
+                      x_3
+                  \end{matrix} \right) = \left( \begin{matrix}
+                      1\\
+                      6\\
+                      3
+                  \end{matrix} \right) + t\cdot \left( \begin{matrix}
+                      0\\
+                      \frac{3}{5}\\
+                      \frac{4}{5}
+                  \end{matrix} \right).\end{split}\]</div>
+<p>Der Wert <span class="math notranslate nohighlight">\(|t|\)</span> gibt dabei an, welchen Abstand der Geradenpunkt vom Kugelmittelpunkt hat.
+Wir bestimmen den Wert <span class="math notranslate nohighlight">\(t\)</span>, für den die Gerade die Ebene schneidet, indem wir die
+Geradenkoordinaten in die Ebenengleichung einsetzen. Wir erhalten</p>
+<div class="math notranslate nohighlight">
+\[\begin{split}&amp;3 \cdot (6+\frac{3}{5}t) + 4 \cdot (3+\frac{4}{5}t)-5=0 \quad\Leftrightarrow\\
+&amp;t=-5 \quad\Leftrightarrow\\
+&amp;|t|=5.\end{split}\]</div>
+<p>Der Abstand des Kugelmittelpunkts von der Ebene beträgt also 5 und ist kleiner
+als der Kugelradius 7. Somit schneidet die Kugel die Ebene. Die gerade
+durchgeführte Rechnung kann man folgendermaßen in Sage nachvollziehen:</p>
+<div class='sage_linked'><script type='text/x-sage'>sage: t = var('t')
+sage: n = vector([0, 3, 4])
+sage: n0 = n/norm(n)
+sage: z = vector([1, 6, 3])
+sage: radius = 7
+sage: gerade = z+t*n0
+sage: solution = solve(3*gerade[1]+4*gerade[2] == 5, t, solution_dict=True)[0]
+sage: abstand = abs(solution[t])
+sage: print "Abstand Kugelmittelpunkt - Ebene:", abstand
+sage: if abstand < radius:
+...       print('Ebene schneidet Kugel')
+sage: else:
+...       print('Ebene schneidet Kugel nicht')</script></div></div>
+
+
+          </div>
+        </div>
+      </div>
+      <div class="sphinxsidebar" role="navigation" aria-label="main navigation">
+        <div class="sphinxsidebarwrapper">
+<div id="searchbox" style="display: none" role="search">
+  <h3 id="searchlabel">Quick search</h3>
+    <div class="searchformwrapper">
+    <form class="search" action="../../../search.html" method="get">
+      <input type="text" name="q" aria-labelledby="searchlabel" />
+      <input type="submit" value="Go" />
+    </form>
+    </div>
+</div>
+<script>$('#searchbox').show(0);</script>
+        </div>
+      </div>
+      <div class="clearer"></div>
+    </div>
+  </div>
+  <div class="relbar-bottom">
+    
+    <div class="related" role="navigation" aria-label="related navigation">
+      <h3>Navigation</h3>
+      <ul>
+  <li><a href="../../../index.html">Science education with SageMath</a> &#187;</li>
+  
+        <li class="nav-item nav-item-this"><a href="">Bayerisches Abitur in Mathematik 2014</a></li> 
+      </ul>
+    </div>
+  </div>
+  
+  <div class="footer">
+    <a class="logo" href="http://icse.us.edu.pl/" target="_blank"><img src="../../../_static/logo-icse.png" alt="ICSE"/></a><br/>
+    &copy; Copyright Creative Commons CC-BY 4.0, iCSE-team.
+    Created using <a href="http://sphinx.pocoo.org/">Sphinx</a> 3.2.1.
+  </div>
+  </body>
+</html>

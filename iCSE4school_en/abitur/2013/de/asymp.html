@@ -1,0 +1,309 @@
+
+
+  
+<!DOCTYPE html>
+
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Bayerisches Abitur in Mathematik 2013 &#8212; Science education with SageMath</title>
+    <link rel="stylesheet" href="../../../_static/cloud.css" type="text/css" />
+    <link rel="stylesheet" href="../../../_static/pygments.css" type="text/css" />
+    <link rel="stylesheet" href="http://fonts.googleapis.com/css?family=Noticia+Text|Open+Sans|Droid+Sans+Mono&amp;subset=latin,latin-ext" type="text/css" />
+    <script id="documentation_options" data-url_root="../../../" src="../../../_static/documentation_options.js"></script>
+    <script src="../../../_static/jquery.js"></script>
+    <script src="../../../_static/underscore.js"></script>
+    <script src="../../../_static/doctools.js"></script>
+    <script src="../../../_static/language_data.js"></script>
+    <script async="async" src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.7/latest.js?config=TeX-AMS-MML_HTMLorMML"></script>
+    <script src="../../../_static/jquery.cookie.js"></script>
+    <script src="../../../_static/cloud.js"></script>
+    <script type="text/javascript" src="http://sagecell.sagemath.org/static/jquery.min.js"></script>
+    <script type="text/javascript" src="http://sagecell.sagemath.org/static/embedded_sagecell.js"></script>
+    <script type="text/javascript">
+        sagecell.makeSagecell({inputLocation: ".sage_linked",
+                               linked: true});
+        sagecell.makeSagecell({inputLocation: ".sage_unlinked",
+                               linked: false});
+    </script>
+
+    <style type="text/css">
+        .sagecell .CodeMirror-scroll {
+            overflow-y: hidden;
+            overflow-x: auto;
+        }
+        .sagecell .CodeMirror {
+            height: auto;
+        }
+    </style>
+    
+    <link rel="search" title="Search" href="../../../search.html" />
+ 
+  <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, minimum-scale=1">
+  </head><body>
+  <div class="relbar-top">
+    
+    <div class="related" role="navigation" aria-label="related navigation">
+      <h3>Navigation</h3>
+      <ul>
+  <li><a href="../../../index.html">Science education with SageMath</a> &#187;</li>
+  
+        <li class="nav-item nav-item-this"><a href="">Bayerisches Abitur in Mathematik 2013</a></li> 
+      </ul>
+    </div>
+  </div>
+  
+  <div class="content">  
+
+    <div class="document">
+      <div class="documentwrapper">
+        <div class="bodywrapper">
+          <div class="body">
+            
+  <div class="section" id="bayerisches-abitur-in-mathematik-2013">
+<h1>Bayerisches Abitur in Mathematik 2013<a class="headerlink" href="#bayerisches-abitur-in-mathematik-2013" title="Permalink to this headline">¶</a></h1>
+<div class="admonition-einleitung admonition">
+<p class="admonition-title">Einleitung</p>
+<p>Gegeben ist die Funktion <span class="math notranslate nohighlight">\(f:x\mapsto \frac{1}{2}x -\frac{1}{2}
++ \frac{8}{x+1}\)</span> mit Definitionsbereich <span class="math notranslate nohighlight">\(\mathbb{R} \backslash \{-1\}\)</span>.
+Abbildung 2 zeigt den Graphen <span class="math notranslate nohighlight">\(G_f\)</span> von <span class="math notranslate nohighlight">\(f\)</span>.</p>
+<img alt="../../../_images/asymp.png" class="align-center" src="../../../_images/asymp.png" />
+</div>
+<div class="section" id="aufgabe-1">
+<h2>Aufgabe 1<a class="headerlink" href="#aufgabe-1" title="Permalink to this headline">¶</a></h2>
+<div class="admonition-aufgabe-1 admonition">
+<p class="admonition-title">Aufgabe 1</p>
+<ol class="loweralpha simple">
+<li><p>Geben Sie die Gleichungen der Asymptoten von <span class="math notranslate nohighlight">\(G_f\)</span> an und zeigen Sie
+rechnerisch, dass <span class="math notranslate nohighlight">\(G_f\)</span> seine schräge Asymptote nicht schneidet.
+Zeichnen Sie die Asymptoten in Abbildung 2 ein.</p></li>
+<li><p>Bestimmen Sie rechnerisch Lage und Art der Extrempunkte von
+<span class="math notranslate nohighlight">\(G_f\)</span>.</p></li>
+</ol>
+</div>
+<p><strong>Lösung zum Teil a</strong></p>
+<p>Am Punkt <span class="math notranslate nohighlight">\(x=-1\)</span> hat <span class="math notranslate nohighlight">\(f(x)\)</span> eine Polstelle. Damit ergibt sich
+die Gleichung der ersten Asymptoten zu: <span class="math notranslate nohighlight">\(x=-1\)</span>. Die zweite
+Asymptote ergibt sich aus der Betrachtung von <span class="math notranslate nohighlight">\(f(x)\)</span> für
+betragsmäßig sehr große Werte von <span class="math notranslate nohighlight">\(x\)</span>. Der Summand
+<span class="math notranslate nohighlight">\(\frac{8}{x+1}\)</span> geht in diesem Grenzfall gegen Null. Die Funktion
+nähert sich somit der Geraden <span class="math notranslate nohighlight">\(g(x) = \frac{1}{2}x -\frac{1}{2}\)</span>
+an.</p>
+<p>Der folgende Code verlangt von Sage, Polstellen der Funktion zu
+identifizieren. Diese werden dann durch graue gestrichelte Linien
+dargestellt. Dadurch wird bereits die vertikale Asymptote bei
+<span class="math notranslate nohighlight">\(x=-1\)</span> erfasst.  Zusätzlich muss noch die Asymptote für große
+Werte von <span class="math notranslate nohighlight">\(\vert x\vert\)</span> eingezeichnet werden.</p>
+<div class='sage_linked'><script type='text/x-sage'>sage: ranges = {'xmin': -10, 'xmax': 10, 'ymin': -10, 'ymax': 10}
+sage: f(x) = x/2- 1/2 + 8/(x+1)
+sage: pf = plot(f, detect_poles="show", **ranges)
+sage: asymptote = x/2 - 1/2
+sage: pasymp = plot(asymptote, color='green', **ranges)
+sage: show(pf + pasymp, aspect_ratio=1, figsize=4)</script></div><p>Ein Schnittpunkt der Funktion mit ihrer Asymptote kann nur vorliegen,
+wenn</p>
+<div class="math notranslate nohighlight">
+\[f(x) - g(x) = \frac{8}{x+1} = 0\]</div>
+<p>eine Lösung besitzt. Dies ist jedoch offensichtlich nicht der Fall.
+Entsprechend findet auch Sage keinen Schnittpunkt.</p>
+<div class='sage_linked'><script type='text/x-sage'>sage: solve(asymptote == f, x)</script></div><p><strong>Lösung zum Teil b</strong></p>
+<p>Um die Lage der Extrempunkte zu bestimmen, muss die Ableitung von
+<span class="math notranslate nohighlight">\(f\)</span> gleich Null gesetzt werden. Die Art der Extrema ergibt sich
+dann aus dem Vorzeichen der zweiten Ableitungen an diesen Punkten.</p>
+<p>Durch Ableiten ergibt sich:</p>
+<div class="math notranslate nohighlight">
+\[\begin{split}\frac{\mathrm{d}f}{\mathrm{d}x} &amp;= \frac{1}{2}-\frac{8}{(x+1)^2}\\
+\frac{\mathrm{d}^2f}{\mathrm{d}x^2} &amp;= \frac{16}{(x+1)^3}\end{split}\]</div>
+<p>Die erste Ableitung verschwindet wenn <span class="math notranslate nohighlight">\(x+1 = \pm 4\)</span>, also an den
+Stellen <span class="math notranslate nohighlight">\(x_1=-5\)</span> und <span class="math notranslate nohighlight">\(x_2=3\)</span>. Im ersten Fall ist die
+zweite Ableitung negativ, so dass ein Maximum vorliegt. Im zweiten Fall
+ist die zweite Ableitung dagegen positiv und es liegt ein Minimum vor.</p>
+<p>Diese Ergebnisse lassen sich mit Sage bestätigen.</p>
+<div class='sage_linked'><script type='text/x-sage'>sage: df = derivative(f)
+sage: ddf = derivative(df)
+sage: print "f'(x)  = ", df
+sage: print "f''(x) = ", ddf
+sage: for extremum in solve(df == 0, x):
+sage:     x = extremum.right()
+sage:     print "Zweite Ableitung des Extremums bei x=%s: %s" % (x, ddf(x))</script></div></div>
+<div class="section" id="aufgabe-2">
+<h2>Aufgabe 2<a class="headerlink" href="#aufgabe-2" title="Permalink to this headline">¶</a></h2>
+<div class="admonition-aufgabe-2 admonition">
+<p class="admonition-title">Aufgabe 2</p>
+<p>Abbildung 2 legt die Vermutung nahe, dass <span class="math notranslate nohighlight">\(G_f\)</span> bezüglich des
+Schnittpunkts <span class="math notranslate nohighlight">\(P(-1\vert -1)\)</span> seiner Asymptoten symmetrisch ist. Zum
+Nachweis dieser Symmetrie von <span class="math notranslate nohighlight">\(G_f\)</span> kann die Funktion <span class="math notranslate nohighlight">\(g\)</span>
+betrachtet werden, deren Graph aus <span class="math notranslate nohighlight">\(G_f\)</span> durch Verschiebung um
+<span class="math notranslate nohighlight">\(1\)</span> in positive <span class="math notranslate nohighlight">\(x\)</span>-Richtung und um <span class="math notranslate nohighlight">\(1\)</span> in positive
+<span class="math notranslate nohighlight">\(y\)</span>-Richtung hervorgeht.</p>
+<ol class="loweralpha">
+<li><p>Bestimmen Sie einen Funktionsterm von <span class="math notranslate nohighlight">\(g\)</span>. Weisen Sie anschließend
+die Punktsymmetrie von <span class="math notranslate nohighlight">\(G_f\)</span> nach, indem Sie zeigen, dass der Graph
+von <span class="math notranslate nohighlight">\(g\)</span> punktsymmetrisch bezüglich des Koordinatenursprungs ist.</p>
+<p><em>(Teilergebnis:</em> <span class="math notranslate nohighlight">\(g(x)=\frac{1}{2}x+\frac{8}{x}\)</span><em>)</em></p>
+</li>
+<li><p>Zeigen Sie, dass <span class="math notranslate nohighlight">\(\int\limits_0^4 f(x)\mathrm{d}x=2+8\cdot\ln 5\)</span>
+gilt. Bestimmen Sie nun ohne weitere Integration den Wert des Integrals
+<span class="math notranslate nohighlight">\(\int\limits_{-6}^{-2} f(x) \mathrm{d}x\)</span>; veranschaulichen Sie Ihr
+Vorgehen durch geeignete Eintragungen in Abbildung 2.</p></li>
+</ol>
+</div>
+<p><strong>Lösung zum Teil a</strong></p>
+<p>Eine positive Verschiebung um <span class="math notranslate nohighlight">\(1\)</span> in <span class="math notranslate nohighlight">\(x\)</span>-Richtung erhält man,
+indem  <span class="math notranslate nohighlight">\(x\)</span> durch <span class="math notranslate nohighlight">\(x-1\)</span> ersetzt wird. Durch Addition von <span class="math notranslate nohighlight">\(1\)</span>
+erhält man die Verschiebung in <span class="math notranslate nohighlight">\(y\)</span>-Richtung. Es ergibt sich für
+<span class="math notranslate nohighlight">\(g\)</span> in Übereinstimmung mit dem angegebenen Teilergebnis:</p>
+<div class='sage_linked'><script type='text/x-sage'>sage: g(x) = f(x-1) + 1
+sage: print(g)</script></div><p>Die Punktsymmetrie von <span class="math notranslate nohighlight">\(g\)</span> bezüglich des Ursprungs ergibt sich daraus,
+dass nur lineare oder invers lineare Terme vorliegen, und lässt sich
+wie folgt mit Sage zeigen:</p>
+<div class='sage_linked'><script type='text/x-sage'>sage: print "g(x) = ", g(x)
+sage: print "-g(-x) = ", -g(-x)
+sage: if g(x) == -g(-x):
+sage:     print "g(x) ist punktsymmetrisch."
+sage: else:
+sage:     print "g(x) ist nicht punktsymmetrisch."</script></div><p><strong>Lösung zum Teil b</strong></p>
+<p>Die Stammfunktion der Funktion <span class="math notranslate nohighlight">\(f\)</span> lautet</p>
+<div class="math notranslate nohighlight">
+\[F(x) = \frac{x^2}{4}-\frac{x}{2}+8\ln(\vert x+1\vert).\]</div>
+<p>Durch Einsetzen der Integrationsgrenzen findet man das angegebene
+Ergebnis</p>
+<div class="math notranslate nohighlight">
+\[\int_0^4f(x)\mathrm{d}x = F(4)-F(0) = 2+8\ln(5)\,.\]</div>
+<p>Mit Hilfe von Sage erhält man entsprechend</p>
+<div class='sage_linked'><script type='text/x-sage'>sage: F = f.integrate(x)
+sage: print "Stammfunktion F = ", F
+sage: pretty_print(html("$\int_0^4 f(x)\mathrm{d}x = $" + str(F(4)-F(0))))</script></div><p>Aus der Punktsymmetrie <span class="math notranslate nohighlight">\(g(-x)=-g(x)\)</span> und der Beziehung <span class="math notranslate nohighlight">\(g(x)=f(x-1)+1\)</span>
+folgt</p>
+<div class="math notranslate nohighlight">
+\[f(x) = -f(-x-2)-2\]</div>
+<p>Das zweite zu berechnende Integral lässt sich somit folgendermaßen bestimmen:</p>
+<div class="math notranslate nohighlight">
+\[\begin{split}\int_{-6}^{-2}f(x)\mathrm{d}x &amp;= -\int_{-6}^{-2}[f(-x-2)+2]\mathrm{d}x\\
+                              &amp;= -\int_2^6[f(x-2)+2]\mathrm{d}x\\
+                              &amp;= -\int_0^4[f(x)+2]\mathrm{d}x\\
+                              &amp;= -\int_0^4f(x)\mathrm{d}x-8\\
+                              &amp;= -8\ln(5)-10\,.\end{split}\]</div>
+<p>Hierbei wurde zunächst das Integrationsintervall gespiegelt und anschließend verschoben.</p>
+<p>Dieser Wert lässt sich durch Sage bestätigen:</p>
+<div class='sage_linked'><script type='text/x-sage'>sage: f.integrate(x, -6, -2)</script></div><p>In Sage kann dies graphisch dargestellt werden. Die rot eingezeichnete Fläche
+mit dem Inhalt <span class="math notranslate nohighlight">\(2\cdot4=8\)</span> ist die Korrektur zum Integral, die aus der
+Punktsymmetrie zu einem Punkt mit <span class="math notranslate nohighlight">\(y=-1\)</span> folgt.</p>
+<div class='sage_linked'><script type='text/x-sage'>sage: pf = plot(f, exclude=[-1], xmin=-10, xmax=10, ymin=-10, ymax=10)
+sage: pf1 = plot(f, -6, -2, fill=-2)
+sage: pf2 = plot(f, 0, 4, fill='axis')
+sage: rect = polygon([[-6, 0], [-2, 0], [-2, -2], [-6, -2]], color='red')
+sage: show(pf + pf1 + pf2 + rect, aspect_ratio=1, figsize=4)</script></div></div>
+<div class="section" id="aufgabe-3">
+<h2>Aufgabe 3<a class="headerlink" href="#aufgabe-3" title="Permalink to this headline">¶</a></h2>
+<div class="admonition-aufgabe-3 admonition">
+<p class="admonition-title">Aufgabe 3</p>
+<img alt="../../../_images/zylinder.png" class="align-right" src="../../../_images/zylinder.png" />
+<p>Eine vertikal stehende Getränkedose hat die Form eines geraden Zylinders. Die
+Lage des gemeinsamen Schwerpunkts <span class="math notranslate nohighlight">\(S\)</span> von Dose und enthaltener Flüssigkeit hängt
+von der Füllhöhe der Flüssigkeit über dem Dosenboden ab. Ist die Dose
+vollständig gefüllt, so beträgt die Füllhöhe 15 cm.</p>
+<p>Die bisher betrachtete Funktion <span class="math notranslate nohighlight">\(f\)</span> gibt für <span class="math notranslate nohighlight">\(0\leq x \leq 15\)</span> die
+Höhe von <span class="math notranslate nohighlight">\(S\)</span> über dem Dosenboden in Zentimetern an; dabei ist <span class="math notranslate nohighlight">\(x\)</span>
+die Füllhöhe in Zentimetern (vgl. Abbildung 3).</p>
+<ol class="loweralpha simple">
+<li><p>Berechnen Sie <span class="math notranslate nohighlight">\(f(0)\)</span> und <span class="math notranslate nohighlight">\(f(15)\)</span>. Interpretieren Sie die
+beiden Ergebnisse im Sachzusammenhang.</p></li>
+<li><p>Die zunächst leere Dose wird langsam mit Flüssigkeit gefüllt, bis die
+maximale Füllhöhe von 15 cm erreicht ist. Beschreiben Sie mithilfe von
+Abbildung 2 die Bewegung des Schwerpunkts <span class="math notranslate nohighlight">\(S\)</span> während des
+Füllvorgangs. Welche Bedeutung im Sachzusammenhang hat die Tatsche, dass
+<span class="math notranslate nohighlight">\(x\)</span>-Koordinate und <span class="math notranslate nohighlight">\(y\)</span>-Koordinate des Tiefpunkts von
+<span class="math notranslate nohighlight">\(G_f\)</span> übereinstimmen?</p></li>
+<li><p>Für welche Füllhöhen von <span class="math notranslate nohighlight">\(x\)</span> liegt der Schwerpunkt <span class="math notranslate nohighlight">\(S\)</span>
+höchstens 5 cm hoch? Beantworten Sie diese Frage zunächst näherungsweise
+mithilfe von Abbildung 2 und anschließend durch Rechnung.</p></li>
+</ol>
+</div>
+<p><strong>Lösung zu Teil a</strong></p>
+<p>Einsetzen der gegebenen Argumente in die Funktion <span class="math notranslate nohighlight">\(f\)</span> ergibt</p>
+<div class="math notranslate nohighlight">
+\[f(0)=f(15)=\frac{15}{2}\,.\]</div>
+<p>Ist die Dose vollständig leer (<span class="math notranslate nohighlight">\(x=0\)</span>) so stimmt der Schwerpunkt <span class="math notranslate nohighlight">\(S\)</span>
+mit dem Schwerpunkt der Dose überein. Bei einer gleichmäßigen Gewichtsverteilung
+liegt <span class="math notranslate nohighlight">\(S\)</span> somit in der Mitte der Dose bei einer Höhe von
+<span class="math notranslate nohighlight">\(7{,}5\,\mathrm{cm}\)</span>.  Ist die Dose bis zum Rand gefüllt, so liegt der
+Schwerpunkt der Flüssigkeit im Schwerpunkt der Dose. Der gemeinsame Schwerpunkt
+ist also gleich dem Schwerpunkt der leeren Dose.</p>
+<p><strong>Lösung zu Teil b</strong></p>
+<p>Wird die Dose mit Flüssigkeit gefüllt, so sinkt der Schwerpunkt zunächst.  Bei
+einer Füllhöhe von <span class="math notranslate nohighlight">\(3\,\mathrm{cm}\)</span> erreicht die Oberfläche der Flüssigkeit den
+Schwerpunkt. Ab dieser Füllhöhe steigt der Schwerpunkt wieder.</p>
+<p><strong>Lösung zu Teil c</strong></p>
+<p>Aus Abbildung 2 lässt sich der Bereich, in dem der Schwerpunkt unter 5 cm liegt,
+zu <span class="math notranslate nohighlight">\(0.5 &lt; x &lt; 9.5\)</span> abschätzen. Die genauen Grenzen für <span class="math notranslate nohighlight">\(x\)</span> erhält
+man, indem man die Gleichung</p>
+<div class="math notranslate nohighlight">
+\[f(x)= \frac{1}{2}x - \frac{1}{2} + \frac{8}{x+1} = 5\]</div>
+<p>nach <span class="math notranslate nohighlight">\(x\)</span> auflöst.</p>
+<p>Mit Sage lassen sich so die genauen Grenzen berechnen:</p>
+<div class='sage_linked'><script type='text/x-sage'>sage: result = solve(f(x) == 5, x)
+sage: print "Lösung der Gleichung " + str(f) + " = 5 :" + repr(result)
+sage: print "Dies entspricht etwa: x = %5.3f und x = %5.3f." % (result[0].right().n(), result[1].right().n())</script></div><p>Das gleiche Ergebnis</p>
+<div class="math notranslate nohighlight">
+\[x_{1,2} = 5\pm2\sqrt{5}\]</div>
+<p>ergibt sich auch, indem man die sich aus der obigen Gleichung ergebende
+quadratische Gleichung</p>
+<div class="math notranslate nohighlight">
+\[x^2-10x+5=0\]</div>
+<p>löst.</p>
+</div>
+</div>
+
+
+          </div>
+        </div>
+      </div>
+      <div class="sphinxsidebar" role="navigation" aria-label="main navigation">
+        <div class="sphinxsidebarwrapper">
+  <div class="sphinxlocaltoc">
+  <h3><a href="../../../index.html">Table Of Contents</a></h3>
+  <ul>
+<li><a class="reference internal" href="#">Bayerisches Abitur in Mathematik 2013</a><ul>
+<li><a class="reference internal" href="#aufgabe-1">Aufgabe 1</a></li>
+<li><a class="reference internal" href="#aufgabe-2">Aufgabe 2</a></li>
+<li><a class="reference internal" href="#aufgabe-3">Aufgabe 3</a></li>
+</ul>
+</li>
+</ul>
+
+  </div>
+<div id="searchbox" style="display: none" role="search">
+  <h3 id="searchlabel">Quick search</h3>
+    <div class="searchformwrapper">
+    <form class="search" action="../../../search.html" method="get">
+      <input type="text" name="q" aria-labelledby="searchlabel" />
+      <input type="submit" value="Go" />
+    </form>
+    </div>
+</div>
+<script>$('#searchbox').show(0);</script>
+        </div>
+      </div>
+      <div class="clearer"></div>
+    </div>
+  </div>
+  <div class="relbar-bottom">
+    
+    <div class="related" role="navigation" aria-label="related navigation">
+      <h3>Navigation</h3>
+      <ul>
+  <li><a href="../../../index.html">Science education with SageMath</a> &#187;</li>
+  
+        <li class="nav-item nav-item-this"><a href="">Bayerisches Abitur in Mathematik 2013</a></li> 
+      </ul>
+    </div>
+  </div>
+  
+  <div class="footer">
+    <a class="logo" href="http://icse.us.edu.pl/" target="_blank"><img src="../../../_static/logo-icse.png" alt="ICSE"/></a><br/>
+    &copy; Copyright Creative Commons CC-BY 4.0, iCSE-team.
+    Created using <a href="http://sphinx.pocoo.org/">Sphinx</a> 3.2.1.
+  </div>
+  </body>
+</html>

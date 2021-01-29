@@ -1,0 +1,157 @@
+
+
+  
+<!DOCTYPE html>
+
+<html lang="pl">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>O tożsamości trygonometrycznej i założeniach &#8212; Metodologia nauczania przedmiotów ścisłych z perspektywą obliczeniową</title>
+    <link rel="stylesheet" href="_static/cloud.css" type="text/css" />
+    <link rel="stylesheet" href="_static/pygments.css" type="text/css" />
+    <link rel="stylesheet" href="http://fonts.googleapis.com/css?family=Noticia+Text|Open+Sans|Droid+Sans+Mono&amp;subset=latin,latin-ext" type="text/css" />
+    <script id="documentation_options" data-url_root="./" src="_static/documentation_options.js"></script>
+    <script src="_static/jquery.js"></script>
+    <script src="_static/underscore.js"></script>
+    <script src="_static/doctools.js"></script>
+    <script src="_static/language_data.js"></script>
+    <script src="_static/translations.js"></script>
+    <script async="async" src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.7/latest.js?config=TeX-AMS-MML_HTMLorMML"></script>
+    <script src="_static/jquery.cookie.js"></script>
+    <script src="_static/cloud.js"></script>
+    <script type="text/javascript" src="http://sagecell.sagemath.org/static/jquery.min.js"></script>
+    <script type="text/javascript" src="http://sagecell.sagemath.org/static/embedded_sagecell.js"></script>
+    <script type="text/javascript">
+        sagecell.makeSagecell({inputLocation: ".sage_linked",
+                               linked: true});
+        sagecell.makeSagecell({inputLocation: ".sage_unlinked",
+                               linked: false});
+    </script>
+
+    <style type="text/css">
+        .sagecell .CodeMirror-scroll {
+            overflow-y: hidden;
+            overflow-x: auto;
+        }
+        .sagecell .CodeMirror {
+            height: auto;
+        }
+    </style>
+    
+    <link rel="search" title="Szukaj" href="search.html" />
+    <link rel="next" title="O kątach i rysowaniu" href="matura2015_p16.html" />
+    <link rel="prev" title="Jak skomplikować proste i popaść w kłopoty z funkcją tangens" href="matura2015_p14.html" />
+ 
+  <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, minimum-scale=1">
+  </head><body>
+  <div class="relbar-top">
+    
+    <div class="related" role="navigation" aria-label="related navigation">
+      <h3>Nawigacja</h3>
+      <ul>
+        <li class="right" style="margin-right: 10px">
+          <a href="matura2015_p16.html" title="O kątach i rysowaniu"
+             accesskey="N">dalej</a></li>
+        <li class="right" >
+          <a href="matura2015_p14.html" title="Jak skomplikować proste i popaść w kłopoty z funkcją tangens"
+             accesskey="P">wstecz</a> &nbsp; &nbsp;</li>
+  <li><a href="index.html">Metodologia nauczania przedmiotów ścisłych z perspektywą obliczeniową</a> &#187;</li>
+  
+        <li class="nav-item nav-item-this"><a href="">O tożsamości trygonometrycznej i założeniach</a></li> 
+      </ul>
+    </div>
+  </div>
+  
+  <div class="content">  
+
+    <div class="document">
+      <div class="documentwrapper">
+        <div class="bodywrapper">
+          <div class="body">
+            
+  <div class="section" id="o-tozsamosci-trygonometrycznej-i-zalozeniach">
+<span id="matura2015-p15-rst"></span><h1>O tożsamości trygonometrycznej i założeniach<a class="headerlink" href="#o-tozsamosci-trygonometrycznej-i-zalozeniach" title="Stały odnośnik do tego nagłówka">¶</a></h1>
+<img alt="_images/matura2015_p15.png" class="align-center" src="_images/matura2015_p15.png" />
+<p>Sprawdźmy czy Sage potrafi rozwiązać równanie <span class="math notranslate nohighlight">\(\tan(x)=2\sin(x)\)</span>?</p>
+<div class='sage_linked'><script type='text/x-sage'>var('x')
+print solve(tan(x)==2*sin(x),x)</script></div><p>Otrzymujemy dwa rozwiązania. Które jest poprawne? Zauważmy, że mamy
+podany w zadaniu warunek dla kąta, co wyklucza jedno z nich.  W Sage
+możemy spróbowac podać ten warunek używając funkcji <code class="code docutils literal notranslate"><span class="pre">assume()</span></code>:</p>
+<div class='sage_linked'><script type='text/x-sage'>var('x')
+assume(x>0)
+assume(x<pi)
+show( cos(solve(tan(x)==2*sin(x),x)[0].rhs()) )</script></div><p>Warto też przyjrzeć się wykresom lewej i prowej strony równania. Nie
+pomoże to w tym przypadku  otrzymać rozwiązanie, ale zasugeruje,
+że rozwiązanie istnieje i pokaże mniej więcej jego wartość:</p>
+<div class='sage_linked'><script type='text/x-sage'>p = plot([tan(x),2*sin(x)],(x,0,pi),\
+      ymax=5,ymin=-5,detect_poles='show')
+p.show()</script></div><div class="admonition-jak-to-dziala-code-rhs admonition">
+<p class="admonition-title">Jak to działa? - <code class="code docutils literal notranslate"><span class="pre">rhs()</span></code></p>
+<p>W Sage funkcja <code class="code docutils literal notranslate"><span class="pre">solve</span></code> standardowo zwraca listę wyrażeń w postaci:</p>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="p">[</span> <span class="n">x</span><span class="o">==</span><span class="mi">2</span><span class="p">,</span> <span class="n">x</span><span class="o">==</span><span class="mi">3</span> <span class="p">]</span>
+</pre></div>
+</div>
+<p>Czasem chcemy podstawić - bez ręcznego przepisywania wyrażenia -
+wartość rozwiązania po lewej stronie równości np. do innego
+wyrażenie. W Sage służy do tego celu metoda <code class="code docutils literal notranslate"><span class="pre">.rhs()</span></code> (z
+ang. <em>right hand side</em>), która zwraca prawą strone wyrażenia
+zawierającego logiczne (matematycznie) równa się <code class="code docutils literal notranslate"><span class="pre">==</span></code>. Na
+przykład <code class="code docutils literal notranslate"><span class="pre">(a==1).rhs()</span></code>, zwróci 1.</p>
+<p>Istnieje też metoda <code class="code docutils literal notranslate"><span class="pre">.lhs()</span></code> (z ang. <em>left hand side</em>), która
+zwraca lewą stronę wyrażenia.</p>
+</div>
+</div>
+
+
+          </div>
+        </div>
+      </div>
+      <div class="sphinxsidebar" role="navigation" aria-label="main navigation">
+        <div class="sphinxsidebarwrapper">
+  <h4>Poprzedni temat</h4>
+  <p class="topless"><a href="matura2015_p14.html"
+                        title="poprzedni rozdział">Jak skomplikować proste i popaść w kłopoty z funkcją tangens</a></p>
+  <h4>Następny temat</h4>
+  <p class="topless"><a href="matura2015_p16.html"
+                        title="następny rozdział">O kątach i rysowaniu</a></p>
+<div id="searchbox" style="display: none" role="search">
+  <h3 id="searchlabel">Szybkie wyszukiwanie</h3>
+    <div class="searchformwrapper">
+    <form class="search" action="search.html" method="get">
+      <input type="text" name="q" aria-labelledby="searchlabel" />
+      <input type="submit" value="Szukaj" />
+    </form>
+    </div>
+</div>
+<script>$('#searchbox').show(0);</script>
+        </div>
+      </div>
+      <div class="clearer"></div>
+    </div>
+  </div>
+  <div class="relbar-bottom">
+    
+    <div class="related" role="navigation" aria-label="related navigation">
+      <h3>Nawigacja</h3>
+      <ul>
+        <li class="right" style="margin-right: 10px">
+          <a href="matura2015_p16.html" title="O kątach i rysowaniu"
+             >dalej</a></li>
+        <li class="right" >
+          <a href="matura2015_p14.html" title="Jak skomplikować proste i popaść w kłopoty z funkcją tangens"
+             >wstecz</a> &nbsp; &nbsp;</li>
+  <li><a href="index.html">Metodologia nauczania przedmiotów ścisłych z perspektywą obliczeniową</a> &#187;</li>
+  
+        <li class="nav-item nav-item-this"><a href="">O tożsamości trygonometrycznej i założeniach</a></li> 
+      </ul>
+    </div>
+  </div>
+  
+  <div class="footer">
+    <a class="logo" href="http://icse.us.edu.pl/" target="_blank"><img src="_static/logo-icse.png" alt="ICSE"/></a><br/>
+    &copy; Copyright Creative Commons CC-BY 4.0, iCSE-team.
+    Created using <a href="http://sphinx.pocoo.org/">Sphinx</a> 3.2.1.
+  </div>
+  </body>
+</html>

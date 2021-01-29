@@ -1,0 +1,173 @@
+
+
+  
+<!DOCTYPE html>
+
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>The sphere &#8212; Science education with SageMath</title>
+    <link rel="stylesheet" href="../../../_static/cloud.css" type="text/css" />
+    <link rel="stylesheet" href="../../../_static/pygments.css" type="text/css" />
+    <link rel="stylesheet" href="http://fonts.googleapis.com/css?family=Noticia+Text|Open+Sans|Droid+Sans+Mono&amp;subset=latin,latin-ext" type="text/css" />
+    <script id="documentation_options" data-url_root="../../../" src="../../../_static/documentation_options.js"></script>
+    <script src="../../../_static/jquery.js"></script>
+    <script src="../../../_static/underscore.js"></script>
+    <script src="../../../_static/doctools.js"></script>
+    <script src="../../../_static/language_data.js"></script>
+    <script async="async" src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.7/latest.js?config=TeX-AMS-MML_HTMLorMML"></script>
+    <script src="../../../_static/jquery.cookie.js"></script>
+    <script src="../../../_static/cloud.js"></script>
+    <script type="text/javascript" src="http://sagecell.sagemath.org/static/jquery.min.js"></script>
+    <script type="text/javascript" src="http://sagecell.sagemath.org/static/embedded_sagecell.js"></script>
+    <script type="text/javascript">
+        sagecell.makeSagecell({inputLocation: ".sage_linked",
+                               linked: true});
+        sagecell.makeSagecell({inputLocation: ".sage_unlinked",
+                               linked: false});
+    </script>
+
+    <style type="text/css">
+        .sagecell .CodeMirror-scroll {
+            overflow-y: hidden;
+            overflow-x: auto;
+        }
+        .sagecell .CodeMirror {
+            height: auto;
+        }
+    </style>
+    
+    <link rel="search" title="Search" href="../../../search.html" />
+    <link rel="next" title="The triangle" href="dreieck.html" />
+    <link rel="prev" title="The cuboid" href="quader.html" />
+ 
+  <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, minimum-scale=1">
+  </head><body>
+  <div class="relbar-top">
+    
+    <div class="related" role="navigation" aria-label="related navigation">
+      <h3>Navigation</h3>
+      <ul>
+        <li class="right" style="margin-right: 10px">
+          <a href="dreieck.html" title="The triangle"
+             accesskey="N">next</a></li>
+        <li class="right" >
+          <a href="quader.html" title="The cuboid"
+             accesskey="P">previous</a> &nbsp; &nbsp;</li>
+  <li><a href="../../../index.html">Science education with SageMath</a> &#187;</li>
+  
+        <li class="nav-item nav-item-this"><a href="">The sphere</a></li> 
+      </ul>
+    </div>
+  </div>
+  
+  <div class="content">  
+
+    <div class="document">
+      <div class="documentwrapper">
+        <div class="bodywrapper">
+          <div class="body">
+            
+  <div class="section" id="the-sphere">
+<h1>The sphere<a class="headerlink" href="#the-sphere" title="Permalink to this headline">¶</a></h1>
+<div class="admonition-problem admonition">
+<p class="admonition-title">Problem</p>
+<p>A sphere is centered at <span class="math notranslate nohighlight">\(M(-3|2|7)\)</span>. The point
+<span class="math notranslate nohighlight">\(P(3|4|4)\)</span> is located on the surface of this sphere.</p>
+<ol class="loweralpha simple">
+<li><p>The point <span class="math notranslate nohighlight">\(Q\)</span> is also located on the surface of the sphere. The
+line segment <span class="math notranslate nohighlight">\([PQ]\)</span> contains the center <span class="math notranslate nohighlight">\(M\)</span>. Determine
+the coordinates of the point <span class="math notranslate nohighlight">\(Q\)</span>.</p></li>
+<li><p>Prove that the sphere touches the <span class="math notranslate nohighlight">\(x_1x_2\)</span>-plane.</p></li>
+</ol>
+</div>
+<p><strong>Solution of part a</strong></p>
+<p>Since both points, <span class="math notranslate nohighlight">\(P\)</span> and <span class="math notranslate nohighlight">\(Q\)</span>, are located on the
+surface of the sphere and the line segment connecting these points contains
+the center of the sphere, <span class="math notranslate nohighlight">\(Q\)</span> can be represented as:</p>
+<div class="math notranslate nohighlight">
+\[\vec{Q} = \vec{M} + \left(\vec{M}-\vec{P}\right).\]</div>
+<p>As a result, we obtain</p>
+<div class="math notranslate nohighlight">
+\[Q(-9|0|10),\]</div>
+<p>which can be verified with Sage:</p>
+<div class='sage_linked'><script type='text/x-sage'>M = vector([-3, 2, 7])
+P = vector([3, 4, 4])
+print "Q:", M + M - P</script></div><p><strong>Solution of part b</strong></p>
+<p>In order to verify whether the sphere touches the <span class="math notranslate nohighlight">\(x_1x_2\)</span>-plane,
+we only need to calculate the distance between the plane and the center of the
+sphere and compare it to the sphere’s radius. This distance is equal to the
+absolute value of the center’s <span class="math notranslate nohighlight">\(x_3\)</span>-coordinate, which equals 7.</p>
+<p>The radius of the sphere can be determined from the distance between the point
+<span class="math notranslate nohighlight">\(P\)</span> on the sphere and the sphere’s center:</p>
+<div class="math notranslate nohighlight">
+\[r = \left\vert\vec{M}-\vec{P}\right\vert = \sqrt{(-3-3)^2 + (2-4)^2 + (7-4)^2} = 7\]</div>
+<p>Thus, the distance between the plane and the center of the sphere equals
+the radius of the sphere, so that the sphere touches the plane in one point.
+The coordinates of this point can be obtained by projecting the sphere’s center
+to the <span class="math notranslate nohighlight">\(x_1x_2\)</span>-plane, yielding <span class="math notranslate nohighlight">\(S(-3|2|0)\)</span>.</p>
+<p>We can use Sage to illustrate this in three-dimensional space. The mouse can
+be used to rotate the view.</p>
+<div class='sage_linked'><script type='text/x-sage'>var('x')
+var('y')
+z = 0
+radius = norm(M-P)
+print 'sphere radius          :', radius
+print 'distance center - plane:', M[2]
+p1 = plot3d(z, (x, -15, 15), (y, -15, 15), opacity=0.7)
+p2 = sphere(center=(-3, 2, 7), size=radius, color='red', opacity=0.7)
+show(p1 + p2, aspect_ratio=1)</script></div></div>
+
+
+          </div>
+        </div>
+      </div>
+      <div class="sphinxsidebar" role="navigation" aria-label="main navigation">
+        <div class="sphinxsidebarwrapper">
+  <h4>Previous topic</h4>
+  <p class="topless"><a href="quader.html"
+                        title="previous chapter">The cuboid</a></p>
+  <h4>Next topic</h4>
+  <p class="topless"><a href="dreieck.html"
+                        title="next chapter">The triangle</a></p>
+<div id="searchbox" style="display: none" role="search">
+  <h3 id="searchlabel">Quick search</h3>
+    <div class="searchformwrapper">
+    <form class="search" action="../../../search.html" method="get">
+      <input type="text" name="q" aria-labelledby="searchlabel" />
+      <input type="submit" value="Go" />
+    </form>
+    </div>
+</div>
+<script>$('#searchbox').show(0);</script>
+        </div>
+      </div>
+      <div class="clearer"></div>
+    </div>
+  </div>
+  <div class="relbar-bottom">
+    
+    <div class="related" role="navigation" aria-label="related navigation">
+      <h3>Navigation</h3>
+      <ul>
+        <li class="right" style="margin-right: 10px">
+          <a href="dreieck.html" title="The triangle"
+             >next</a></li>
+        <li class="right" >
+          <a href="quader.html" title="The cuboid"
+             >previous</a> &nbsp; &nbsp;</li>
+  <li><a href="../../../index.html">Science education with SageMath</a> &#187;</li>
+  
+        <li class="nav-item nav-item-this"><a href="">The sphere</a></li> 
+      </ul>
+    </div>
+  </div>
+  
+  <div class="footer">
+    <a class="logo" href="http://icse.us.edu.pl/" target="_blank"><img src="../../../_static/logo-icse.png" alt="ICSE"/></a><br/>
+    &copy; Copyright Creative Commons CC-BY 4.0, iCSE-team.
+    Created using <a href="http://sphinx.pocoo.org/">Sphinx</a> 3.2.1.
+  </div>
+  </body>
+</html>

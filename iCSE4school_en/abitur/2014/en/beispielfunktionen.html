@@ -1,0 +1,172 @@
+
+
+  
+<!DOCTYPE html>
+
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>The construction of periodic functions &#8212; Science education with SageMath</title>
+    <link rel="stylesheet" href="../../../_static/cloud.css" type="text/css" />
+    <link rel="stylesheet" href="../../../_static/pygments.css" type="text/css" />
+    <link rel="stylesheet" href="http://fonts.googleapis.com/css?family=Noticia+Text|Open+Sans|Droid+Sans+Mono&amp;subset=latin,latin-ext" type="text/css" />
+    <script id="documentation_options" data-url_root="../../../" src="../../../_static/documentation_options.js"></script>
+    <script src="../../../_static/jquery.js"></script>
+    <script src="../../../_static/underscore.js"></script>
+    <script src="../../../_static/doctools.js"></script>
+    <script src="../../../_static/language_data.js"></script>
+    <script async="async" src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.7/latest.js?config=TeX-AMS-MML_HTMLorMML"></script>
+    <script src="../../../_static/jquery.cookie.js"></script>
+    <script src="../../../_static/cloud.js"></script>
+    <script type="text/javascript" src="http://sagecell.sagemath.org/static/jquery.min.js"></script>
+    <script type="text/javascript" src="http://sagecell.sagemath.org/static/embedded_sagecell.js"></script>
+    <script type="text/javascript">
+        sagecell.makeSagecell({inputLocation: ".sage_linked",
+                               linked: true});
+        sagecell.makeSagecell({inputLocation: ".sage_unlinked",
+                               linked: false});
+    </script>
+
+    <style type="text/css">
+        .sagecell .CodeMirror-scroll {
+            overflow-y: hidden;
+            overflow-x: auto;
+        }
+        .sagecell .CodeMirror {
+            height: auto;
+        }
+    </style>
+    
+    <link rel="search" title="Search" href="../../../search.html" />
+    <link rel="next" title="Graphing the antiderivative" href="qualitative_integrale.html" />
+    <link rel="prev" title="Properties of sin(ax) +c" href="sinusfunktionen.html" />
+ 
+  <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, minimum-scale=1">
+  </head><body>
+  <div class="relbar-top">
+    
+    <div class="related" role="navigation" aria-label="related navigation">
+      <h3>Navigation</h3>
+      <ul>
+        <li class="right" style="margin-right: 10px">
+          <a href="qualitative_integrale.html" title="Graphing the antiderivative"
+             accesskey="N">next</a></li>
+        <li class="right" >
+          <a href="sinusfunktionen.html" title="Properties of sin(ax) +c"
+             accesskey="P">previous</a> &nbsp; &nbsp;</li>
+  <li><a href="../../../index.html">Science education with SageMath</a> &#187;</li>
+  
+        <li class="nav-item nav-item-this"><a href="">The construction of periodic functions</a></li> 
+      </ul>
+    </div>
+  </div>
+  
+  <div class="content">  
+
+    <div class="document">
+      <div class="documentwrapper">
+        <div class="bodywrapper">
+          <div class="body">
+            
+  <div class="section" id="the-construction-of-periodic-functions">
+<h1>The construction of periodic functions<a class="headerlink" href="#the-construction-of-periodic-functions" title="Permalink to this headline">¶</a></h1>
+<div class="admonition-problem admonition">
+<p class="admonition-title">Problem</p>
+<p>For each requirement, find a corresponding term of a periodic function
+defined in <span class="math notranslate nohighlight">\(\mathbb{R}\)</span>.</p>
+<blockquote>
+<div><ol class="loweralpha simple">
+<li><p>The graph of the function <span class="math notranslate nohighlight">\(g\)</span> is obtained from the graph of the
+function <span class="math notranslate nohighlight">\(x\mapsto \sin(x)\)</span> defined in <span class="math notranslate nohighlight">\(\mathbb{R}\)</span> by
+reflection at the <span class="math notranslate nohighlight">\(y\)</span>-axis.</p></li>
+<li><p>The function <span class="math notranslate nohighlight">\(h\)</span> has the codomain <span class="math notranslate nohighlight">\([1;3]\)</span>.</p></li>
+<li><p>The function <span class="math notranslate nohighlight">\(k\)</span> possesses the period <span class="math notranslate nohighlight">\(\pi\)</span>.</p></li>
+</ol>
+</div></blockquote>
+</div>
+<p><strong>Solution of part a</strong></p>
+<p>If a function <span class="math notranslate nohighlight">\(g\)</span> is to be obtained by reflection of the function
+<span class="math notranslate nohighlight">\(f\)</span> at the <span class="math notranslate nohighlight">\(y\)</span>-axis, we have <span class="math notranslate nohighlight">\(g(x)=f(-x)\)</span>. In our case, we
+obtain <span class="math notranslate nohighlight">\(g(x)=\sin(-x)\)</span>. In view of the point symmetry of the sine function
+with respect to the origin the function <span class="math notranslate nohighlight">\(g\)</span> is of the form
+<span class="math notranslate nohighlight">\(g(x)=-\sin(x)\)</span>.</p>
+<p>We can easily check this result with the help of Sage by plotting in one graph
+the sine function (blue) and its reflection (red).</p>
+<div class='sage_linked'><script type='text/x-sage'>f(x) = sin(x)
+g(x) = -sin(x)
+p1 = plot(f(x), x, (-2*pi,2*pi), color='blue')
+p2 = plot(g(x), x, (-2*pi,2*pi), color='red')
+(p1+p2).show(figsize=(4, 2.5))</script></div><p><strong>Solution of part b</strong></p>
+<p>In this part, we again make use of the sine function. The codomain of the sine
+function with amplitude <span class="math notranslate nohighlight">\(1\)</span> is given by <span class="math notranslate nohighlight">\([-1;1]\)</span>. In order to obtain
+the required codomain, we can shift the sine function together with its codomain
+by a constant of <span class="math notranslate nohighlight">\(2\)</span> towards the top and thus obtain
+<span class="math notranslate nohighlight">\(h(x)=\sin(x)+2\)</span>.</p>
+<p>We check the codomain of the function by means of Sage:</p>
+<div class='sage_linked'><script type='text/x-sage'>h(x) = sin(x) + 2
+plot(h(x), x, (-2*pi,2*pi), figsize=(4, 2.5))</script></div><p><strong>Solution of part c</strong></p>
+<p>The period of the sine function can be adjusted by means of a parameter
+<span class="math notranslate nohighlight">\(a\)</span> in front of the function’s argument. Our function will thus be of the
+form <span class="math notranslate nohighlight">\(k(x)=\sin(ax)\)</span>. The period for <span class="math notranslate nohighlight">\(a=1\)</span> is <span class="math notranslate nohighlight">\(2\pi\)</span>. The
+requested period is only half as long so that the parameter <span class="math notranslate nohighlight">\(a\)</span> needs to
+be doubled. We thus obtain <span class="math notranslate nohighlight">\(k(x)=\sin(2x)\)</span>.</p>
+<p>The period of the function can be checked by means of Sage. In the plot, one
+period is represented in red.</p>
+<div class='sage_linked'><script type='text/x-sage'>k(x) = sin(2*x)
+p1 = plot(k(x), x, (-2*pi, 2*pi), color='blue')
+p2 = plot(k(x), x, (0, pi), color='red')
+(p1+p2).show(figsize=(4, 2.5))</script></div></div>
+
+
+          </div>
+        </div>
+      </div>
+      <div class="sphinxsidebar" role="navigation" aria-label="main navigation">
+        <div class="sphinxsidebarwrapper">
+  <h4>Previous topic</h4>
+  <p class="topless"><a href="sinusfunktionen.html"
+                        title="previous chapter">Properties of  sin(ax) +c</a></p>
+  <h4>Next topic</h4>
+  <p class="topless"><a href="qualitative_integrale.html"
+                        title="next chapter">Graphing the antiderivative</a></p>
+<div id="searchbox" style="display: none" role="search">
+  <h3 id="searchlabel">Quick search</h3>
+    <div class="searchformwrapper">
+    <form class="search" action="../../../search.html" method="get">
+      <input type="text" name="q" aria-labelledby="searchlabel" />
+      <input type="submit" value="Go" />
+    </form>
+    </div>
+</div>
+<script>$('#searchbox').show(0);</script>
+        </div>
+      </div>
+      <div class="clearer"></div>
+    </div>
+  </div>
+  <div class="relbar-bottom">
+    
+    <div class="related" role="navigation" aria-label="related navigation">
+      <h3>Navigation</h3>
+      <ul>
+        <li class="right" style="margin-right: 10px">
+          <a href="qualitative_integrale.html" title="Graphing the antiderivative"
+             >next</a></li>
+        <li class="right" >
+          <a href="sinusfunktionen.html" title="Properties of sin(ax) +c"
+             >previous</a> &nbsp; &nbsp;</li>
+  <li><a href="../../../index.html">Science education with SageMath</a> &#187;</li>
+  
+        <li class="nav-item nav-item-this"><a href="">The construction of periodic functions</a></li> 
+      </ul>
+    </div>
+  </div>
+  
+  <div class="footer">
+    <a class="logo" href="http://icse.us.edu.pl/" target="_blank"><img src="../../../_static/logo-icse.png" alt="ICSE"/></a><br/>
+    &copy; Copyright Creative Commons CC-BY 4.0, iCSE-team.
+    Created using <a href="http://sphinx.pocoo.org/">Sphinx</a> 3.2.1.
+  </div>
+  </body>
+</html>

@@ -1,0 +1,394 @@
+
+
+  
+<!DOCTYPE html>
+
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Bayerisches Abitur in Mathematik 2014 &#8212; Science education with SageMath</title>
+    <link rel="stylesheet" href="../../../_static/cloud.css" type="text/css" />
+    <link rel="stylesheet" href="../../../_static/pygments.css" type="text/css" />
+    <link rel="stylesheet" href="http://fonts.googleapis.com/css?family=Noticia+Text|Open+Sans|Droid+Sans+Mono&amp;subset=latin,latin-ext" type="text/css" />
+    <script id="documentation_options" data-url_root="../../../" src="../../../_static/documentation_options.js"></script>
+    <script src="../../../_static/jquery.js"></script>
+    <script src="../../../_static/underscore.js"></script>
+    <script src="../../../_static/doctools.js"></script>
+    <script src="../../../_static/language_data.js"></script>
+    <script async="async" src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.7/latest.js?config=TeX-AMS-MML_HTMLorMML"></script>
+    <script src="../../../_static/jquery.cookie.js"></script>
+    <script src="../../../_static/cloud.js"></script>
+    <script type="text/javascript" src="http://sagecell.sagemath.org/static/jquery.min.js"></script>
+    <script type="text/javascript" src="http://sagecell.sagemath.org/static/embedded_sagecell.js"></script>
+    <script type="text/javascript">
+        sagecell.makeSagecell({inputLocation: ".sage_linked",
+                               linked: true});
+        sagecell.makeSagecell({inputLocation: ".sage_unlinked",
+                               linked: false});
+    </script>
+
+    <style type="text/css">
+        .sagecell .CodeMirror-scroll {
+            overflow-y: hidden;
+            overflow-x: auto;
+        }
+        .sagecell .CodeMirror {
+            height: auto;
+        }
+    </style>
+    
+    <link rel="search" title="Search" href="../../../search.html" />
+ 
+  <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, minimum-scale=1">
+  </head><body>
+  <div class="relbar-top">
+    
+    <div class="related" role="navigation" aria-label="related navigation">
+      <h3>Navigation</h3>
+      <ul>
+  <li><a href="../../../index.html">Science education with SageMath</a> &#187;</li>
+  
+        <li class="nav-item nav-item-this"><a href="">Bayerisches Abitur in Mathematik 2014</a></li> 
+      </ul>
+    </div>
+  </div>
+  
+  <div class="content">  
+
+    <div class="document">
+      <div class="documentwrapper">
+        <div class="bodywrapper">
+          <div class="body">
+            
+  <div class="section" id="bayerisches-abitur-in-mathematik-2014">
+<h1>Bayerisches Abitur in Mathematik 2014<a class="headerlink" href="#bayerisches-abitur-in-mathematik-2014" title="Permalink to this headline">¶</a></h1>
+<div class="admonition-aufgabe-1 admonition">
+<p class="admonition-title">Aufgabe 1</p>
+<p>Gegeben ist die Funktion <span class="math notranslate nohighlight">\(f:x\mapsto 2-\sqrt{12-2x}\)</span> mit maximaler
+Definitionsmenge <span class="math notranslate nohighlight">\(\mathbb{D}_f=]-\infty;6]\)</span>. Der Graph von <span class="math notranslate nohighlight">\(f\)</span>
+wird mit <span class="math notranslate nohighlight">\(G_f\)</span> bezeichnet.</p>
+<ol class="loweralpha simple">
+<li><p>Berechnen Sie die Koordinaten der Schnittpunkte von <span class="math notranslate nohighlight">\(G_f\)</span> mit den
+Koordinatenachsen. Bestimmen Sie das Verhalten von <span class="math notranslate nohighlight">\(f\)</span> für
+<span class="math notranslate nohighlight">\(x\rightarrow-\infty\)</span> und geben Sie <span class="math notranslate nohighlight">\(f(6)\)</span> an.</p></li>
+<li><p>Bestimmen Sie den Term der Ableitungsfunktion <span class="math notranslate nohighlight">\(f'\)</span> von <span class="math notranslate nohighlight">\(f\)</span>
+und geben Sie die maximale Definitionsmenge von <span class="math notranslate nohighlight">\(f'\)</span> an.
+Bestimmen Sie <span class="math notranslate nohighlight">\(\lim\limits_{x\rightarrow6}f'(x)\)</span> und beschreiben Sie,
+welche Eigenschaft aus diesem Ergebnis folgt.</p></li>
+<li><p>Geben Sie das Monotonieverhalten von <span class="math notranslate nohighlight">\(G_f\)</span> und die Wertemenge von
+<span class="math notranslate nohighlight">\(f\)</span> an.</p></li>
+<li><p>Geben Sie <span class="math notranslate nohighlight">\(f(-2)\)</span> an und zeichnen Sie <span class="math notranslate nohighlight">\(G_f\)</span> unter Berücksichtigung
+der bisherigen Ergebnisse in ein Koordinatensystem ein (Platzbedarf im Hinblick
+auf die folgenden Aufgaben: <span class="math notranslate nohighlight">\(-3\leq y\leq7\)</span>).</p></li>
+<li><p>Die Funktion <span class="math notranslate nohighlight">\(f\)</span> ist in <span class="math notranslate nohighlight">\(\mathbb{D}_f\)</span> umkehrbar. Geben Sie die
+Definitionsmenge der Umkehrfunktion <span class="math notranslate nohighlight">\(f^{-1}\)</span> von <span class="math notranslate nohighlight">\(f\)</span> an und zeigen
+Sie, dass <span class="math notranslate nohighlight">\(f^{-1}(x)=-\frac{1}{2}x^2+2x+4\)</span> gilt.</p></li>
+</ol>
+</div>
+<p><strong>Lösung zu Teil 1a</strong></p>
+<p>Wir verschaffen uns mit Sage zunächst einen Überblick über die gegebene Funktion.</p>
+<div class='sage_linked'><script type='text/x-sage'>sage: f(x) = 2 - sqrt(12 - 2*x)
+sage: p1 = plot(f(x), x, (-7,6), figsize=(4, 2.8))
+sage: show(p1, gridlines=True)</script></div><p>Den Schnittpunkt mit der <span class="math notranslate nohighlight">\(y\)</span>-Achse ist durch <span class="math notranslate nohighlight">\((0|f(0))\)</span>
+gegeben, wobei</p>
+<div class="math notranslate nohighlight">
+\[f(0)=2-2\sqrt{3}.\]</div>
+<p>oder mit Hilfe von Sage</p>
+<div class='sage_linked'><script type='text/x-sage'>sage: print "Der y-Achsenabschnitt ist ", f(0), u"\u2248", f(0).n(digits=4)</script></div><p>Den Schnittpunkt mit der <span class="math notranslate nohighlight">\(x\)</span>-Achse ergibt sich aus der Nullstelle
+der Funktion <span class="math notranslate nohighlight">\(f\)</span>:</p>
+<div class="math notranslate nohighlight">
+\[&amp;f(x) = 2-\sqrt{12-2x} \overset{!}{=} 0 \Leftrightarrow\]</div>
+<p>Auflösen nach <span class="math notranslate nohighlight">\(x\)</span> liefert</p>
+<div class="math notranslate nohighlight">
+\[x=4\]</div>
+<p>oder mit Hilfe von Sage:</p>
+<div class='sage_linked'><script type='text/x-sage'>sage: solve(f(x) == 0, x)</script></div><p>Der Schnittpunkt mit der <span class="math notranslate nohighlight">\(x\)</span>-Achse befindet sich also bei <span class="math notranslate nohighlight">\((4|0)\)</span>.
+Die beiden gefundenen Schnittpunkte mit den Koordinatenachsen sind mit
+dem von Sage gelieferten Funktionsgraphen konsistent.</p>
+<p>Für das Verhalten für <span class="math notranslate nohighlight">\(x\rightarrow -\infty\)</span> ergibt sich</p>
+<div class="math notranslate nohighlight">
+\[\begin{split}\lim\limits_{x\rightarrow -\infty} 2-\sqrt{12-2x} &amp;=
+\lim\limits_{x\rightarrow \infty} 2-\sqrt{12+2x}\\
+&amp;= -\lim\limits_{x\rightarrow \infty} \sqrt{2x}\\
+&amp;= -\infty.\end{split}\]</div>
+<p>Dies können wir mit Sage überprüfen:</p>
+<div class='sage_linked'><script type='text/x-sage'>sage: limitval = limit(f(x), x=-infinity)
+sage: html("$\lim_{x=-\infty} f(x) = %s$" % latex(limitval))</script></div><p>Für <span class="math notranslate nohighlight">\(f(6)\)</span> erhalten wir</p>
+<div class="math notranslate nohighlight">
+\[f(6) = 2-\sqrt{12-2\cdot6}=2,\]</div>
+<p>bzw.</p>
+<div class='sage_linked'><script type='text/x-sage'>print "f(6) =", f(6)</script></div><p>Auch dieser Wert kann dem Funktionsgraphen entnommen werden.</p>
+<p><strong>Lösung zu Teil 1b</strong></p>
+<p>Die Ableitung von <span class="math notranslate nohighlight">\(f\)</span> erhalten mit Hilfe der Kettenregel</p>
+<div class="math notranslate nohighlight">
+\[f'(x) = -\frac{1}{2} (12-2x)^{-\frac{1}{2}}\cdot(-2) = \frac{1}{\sqrt{12-2x}}\]</div>
+<p>Selbiges Ergebnis erhalten wir mit Sage:</p>
+<div class='sage_linked'><script type='text/x-sage'>sage: df = derivative(f,  x)
+sage: print "Die Ableitung von f ist:", df
+sage: p2 = plot(df(x), x, (-7,6), figsize=(4, 2.8))
+sage: show(p2)</script></div><p>Der Definitionsbereich der Ableitung wird gegenüber dem Definitionsbereich von
+<span class="math notranslate nohighlight">\(f(x)\)</span> noch durch die Nullstelle des Nenners der Ableitung bei <span class="math notranslate nohighlight">\(x_0=6\)</span>
+eingeschränkt, so dass <span class="math notranslate nohighlight">\(\mathbb{D}_{f'}=]-\infty;6[\)</span>.</p>
+<p>Für den Grenzwert <span class="math notranslate nohighlight">\(\lim\limits_{x\rightarrow 6}f'(x)\)</span> erhalten wir</p>
+<div class="math notranslate nohighlight">
+\[\lim\limits_{x\rightarrow 6}f'(x) = \lim\limits_{x\rightarrow 0}\frac{1}{\sqrt{x}}=\infty.\]</div>
+<p>Dies lässt sich auch vom Graphen der Funktion <span class="math notranslate nohighlight">\(f'(x)\)</span> ablesen oder
+mit Sage berechnen lassen:</p>
+<div class='sage_linked'><script type='text/x-sage'>sage: limitval = limit(df(x), x=6)
+sage: html("$\lim_{x=6} f'(x) = %s$" % latex(limitval))</script></div><p><strong>Lösung zu Teil 1c</strong></p>
+<p>Das Monotonieverhalten von <span class="math notranslate nohighlight">\(f\)</span> lässt sich aus der Ableitung <span class="math notranslate nohighlight">\(f'\)</span> bestimmen.
+Aus dem Plot von Teilaufgabe b können wir ablesen, dass <span class="math notranslate nohighlight">\(f'\)</span> überall positiv ist
+und damit <span class="math notranslate nohighlight">\(f\)</span> auf dem ganzen Definitionsbereich streng monoton steigend ist.</p>
+<p>Dies lässt sich bestätigen, indem man die Ableitung <span class="math notranslate nohighlight">\(f'\)</span> genauer untersucht:
+Da die Wurzel im Nenner auf ihrem Definitionsbereich stetig ist und nur positive Werte annehmen
+kann und auch der Zähler mit dem Wert 1 immer positiv ist, ist auch <span class="math notranslate nohighlight">\(f'\)</span> stets positiv.</p>
+<p>Der Wertebereich von <span class="math notranslate nohighlight">\(f\)</span> beginnt nach Teilaufgabe a bei <span class="math notranslate nohighlight">\(-\infty\)</span> und nimmt
+für <span class="math notranslate nohighlight">\(x=6\)</span> (dem Rand des Definitionsbereichs) den Wert 2 an. Da die Funktion auf ihrem
+Definitionsbereich stetig und streng monoton steigend ist, werden auch (und ausschließlich)
+alle Werte dazwischen angenommen. Der Wertebereich von <span class="math notranslate nohighlight">\(f\)</span> ist also</p>
+<div class="math notranslate nohighlight">
+\[\mathbb{W}_f=]-\infty; 2]\]</div>
+<p><strong>Lösung zu Teil 1d</strong></p>
+<p>Wir erhalten</p>
+<div class="math notranslate nohighlight">
+\[f(-2) = -2.\]</div>
+<div class='sage_linked'><script type='text/x-sage'>sage: print f(-2)</script></div><p>Die grafische Darstellung von <span class="math notranslate nohighlight">\(f\)</span> ist Teilaufgabe a zu entnehmen.</p>
+<p><strong>Lösung zu Teil 1e</strong></p>
+<p>Wird die Umkehrfunktion <span class="math notranslate nohighlight">\(f^{-1}\)</span> zu einer Funktion <span class="math notranslate nohighlight">\(f\)</span> bestimmt, so nimmt die
+Definionsmenge von <span class="math notranslate nohighlight">\(f^{-1}\)</span> den Wertebereich der Wertemenge von <span class="math notranslate nohighlight">\(f\)</span> an
+und die Wertemenge von <span class="math notranslate nohighlight">\(f^{-1}\)</span> nimmt den Wertebereich der Definitionsmenge
+von <span class="math notranslate nohighlight">\(f\)</span> an:</p>
+<div class="math notranslate nohighlight">
+\[\begin{split}\mathbb{D}_{f^{-1}} = \mathbb{W}_f\\
+\mathbb{W}_{f^{-1}} = \mathbb{D}_f.\end{split}\]</div>
+<p>In unserem Fall ergibt sich also:</p>
+<div class="math notranslate nohighlight">
+\[\mathbb{D}_{f^{-1}} = ]-\infty; 2]\]</div>
+<p>Um die Umkehrfunktion von <span class="math notranslate nohighlight">\(f\)</span> zu bilden, müssen wir die Gleichung</p>
+<div class="math notranslate nohighlight">
+\[f(y)=x\]</div>
+<p>nach <span class="math notranslate nohighlight">\(y\)</span> auflösen. Wir erhalten:</p>
+<div class="math notranslate nohighlight">
+\[\begin{split}&amp;2-\sqrt{12-2y}=x\Leftrightarrow\\
+&amp;12-2y=(x-2)^2\Leftrightarrow\\
+&amp;y = f^{-1}(x) = -\frac{1}{2}x^2+2x+4\end{split}\]</div>
+<p>Dieses Ergebnis lässt sich auch mit Sage herleiten.</p>
+<div class='sage_linked'><script type='text/x-sage'>sage: var('y')
+sage: assume(y<2)
+sage: solve(f(x) == y, x)</script></div><div class="admonition-aufgabe-2 admonition">
+<p class="admonition-title">Aufgabe 2</p>
+<p>Der Graph der in <span class="math notranslate nohighlight">\(\mathbb{R}\)</span> definierten Funktion
+<span class="math notranslate nohighlight">\(h:x\mapsto-\frac{1}{2}x^2+2x+4\)</span> ist die Parabel <span class="math notranslate nohighlight">\(G_h\)</span>. Der Graph
+der in Aufgabe 1e betrachteten Umkehrfunktion <span class="math notranslate nohighlight">\(f^{-1}\)</span> ist ein Teil
+dieser Parabel.</p>
+<ol class="loweralpha simple">
+<li><p>Berechnen Sie die Koordinaten der Schnittpunkte von <span class="math notranslate nohighlight">\(G_h\)</span> mit der durch
+die Gleichung <span class="math notranslate nohighlight">\(y=x\)</span> gegebenen Winkelhalbierenden <span class="math notranslate nohighlight">\(w\)</span> des I. und
+III. Quadranten.</p></li>
+<li><p>Zeichnen Sie die Parabel <span class="math notranslate nohighlight">\(G_h\)</span> – unter Berücksichtigung des Scheitels –
+im Bereich <span class="math notranslate nohighlight">\(-2\leq x\leq4\)</span> in Ihre Zeichnung aus Aufgabe 1d ein.
+Spiegelt man diesen Teil von <span class="math notranslate nohighlight">\(G_h\)</span> an der Winkelhalbierenden <span class="math notranslate nohighlight">\(w\)</span>,
+so entsteht eine herzförmige Figur; ergänzen Sie Ihre Zeichnung dementsprechend.</p></li>
+</ol>
+</div>
+<p><strong>Lösung zu Teil 2a</strong></p>
+<p>Die Schnittpunkte der Graphen erhalten wir durch Gleichsetzen der beiden Funktionen:</p>
+<div class="math notranslate nohighlight">
+\[\begin{split}&amp; -\frac{1}{2}x^2+2x+4 = x\\
+&amp; -\frac{1}{2}x^2+x+4 = 0\\
+&amp; x_{1/2}=\frac{-1\pm\sqrt{1^2-4\cdot\left(-\frac{1}{2}\right)\cdot4}}
+               {2\cdot\left(-\frac{1}{2}\right)}\\
+&amp; x_1 = -2, \quad x_2=4\end{split}\]</div>
+<p>Die <span class="math notranslate nohighlight">\(y\)</span>-Werte der Schnittpunkte sind wegen der Geradengleichung <span class="math notranslate nohighlight">\(y=x\)</span> gleich den
+<span class="math notranslate nohighlight">\(x\)</span>-Werten, also</p>
+<div class="math notranslate nohighlight">
+\[y_1=-2, \quad y_2=4.\]</div>
+<p>Mit Sage können wir dieses Problem sowohl analytisch</p>
+<div class='sage_linked'><script type='text/x-sage'>sage: h(x)=-1/2*x^2+2*x+4
+sage: w(x) = x
+sage: for loesung in solve(h(x) == w(x), x, solution_dict=True):
+sage:     print "(", loesung[x], "|", loesung[x], ")"</script></div><p>als auch graphisch lösen. Für Letzteres lassen wir <span class="math notranslate nohighlight">\(G_h\)</span> und <span class="math notranslate nohighlight">\(w\)</span> von Sage zeichnen:</p>
+<div class='sage_linked'><script type='text/x-sage'>sage: p3 = plot(h(x), x, (-3, 6), fill=w, fillcolor = 'red')
+sage: p4 = plot(w(x), x, (-3, 6), color='green')
+sage: show(p3+p4, aspect_ratio=1, figsize=4)</script></div><p><strong>Lösung zu Teil 2b</strong></p>
+<p>Betrachtet man den Graphen von Teilaufgabe 2a, lässt sich bereits die
+Hälfte der Herzform durch die Parabel erkennen. Um die volle Herzform zu
+erhalten, muss <span class="math notranslate nohighlight">\(G_h\)</span> noch an der Winkelhalbierenden <span class="math notranslate nohighlight">\(w\)</span>
+gespiegelt werden. Eine Spiegelung an der Winkelhalbierenden <span class="math notranslate nohighlight">\(y =
+x\)</span> entspricht der Umkehrung der Funktion. Die Umkehrungfunktion von
+<span class="math notranslate nohighlight">\(h\)</span> ist die Funktion <span class="math notranslate nohighlight">\(f\)</span>, wie uns bereits aus Aufgabe 1e
+bekannt ist. Allerdings gilt diese Umkehrung für <span class="math notranslate nohighlight">\(h\)</span> nur im
+Definitionsbereich <span class="math notranslate nohighlight">\(]-\infty;2]\)</span>, vgl. Aufgabe 1e. Für Werte
+<span class="math notranslate nohighlight">\(x&gt;2\)</span> kann jedoch als Umkehrfunktion für <span class="math notranslate nohighlight">\(h\)</span> die Funktion</p>
+<div class="math notranslate nohighlight">
+\[f_2 = 2+\sqrt{12-2x}\]</div>
+<p>gefunden werden, die sich von <span class="math notranslate nohighlight">\(f\)</span> nur durch das Vorzeichen der Wurzel unterscheidet. Um die
+Herzform durch Spiegelung von <span class="math notranslate nohighlight">\(G_h\)</span> zu zeichnen, gehen wir nun wie folgt vor:</p>
+<blockquote>
+<div><ul class="simple">
+<li><p>Wir zeichnen <span class="math notranslate nohighlight">\(G_h\)</span> zwischen den Schnittpunkten <span class="math notranslate nohighlight">\(x_1=-2\)</span> und <span class="math notranslate nohighlight">\(x_2=4\)</span>.</p></li>
+<li><p>Anschließend zeichnen wir die Umkehrfunktion <span class="math notranslate nohighlight">\(f\)</span> von <span class="math notranslate nohighlight">\(h\)</span> vom Schnittpunkt mit der Gerade
+<span class="math notranslate nohighlight">\(w\)</span> (-2|-2) bis zum Maximum ihres Definitionsbereichs <span class="math notranslate nohighlight">\(x_{\mathrm{max}}=6\)</span>, was der
+Spiegelung von <span class="math notranslate nohighlight">\(h\)</span> an <span class="math notranslate nohighlight">\(w\)</span> vom Schnittpunkt (-2|-2) bis zu ihrem Scheitel (2|6) entspricht.</p></li>
+<li><p>Zum Schluss zeichnen wir die Umkehrfunktion <span class="math notranslate nohighlight">\(f_2\)</span> von <span class="math notranslate nohighlight">\(h\)</span> vom Schnittpunkt mit der Gerade
+<span class="math notranslate nohighlight">\(w\)</span> (4|4) bis zum Maximum ihres Definitionsbereichs <span class="math notranslate nohighlight">\(x_{\mathrm{max}}=6\)</span>, was der
+Spiegelung von <span class="math notranslate nohighlight">\(h\)</span> an <span class="math notranslate nohighlight">\(w\)</span> von ihrem Scheitel (2|6) bis zum Schnittpunkt (4|4) entspricht.</p></li>
+</ul>
+</div></blockquote>
+<div class='sage_linked'><script type='text/x-sage'>sage: f2(x) =  2 + sqrt(12-2*x)
+sage: p5 = plot(h(x), x, (-2, 4))
+sage: p6 = plot(f(x), x, (-2, 6))
+sage: p7 = plot(f2(x), x, (4, 6))
+sage: show(p5+p6+p7, aspect_ratio=1, figsize=4)</script></div><div class="admonition-aufgabe-3 admonition">
+<p class="admonition-title">Aufgabe 3</p>
+<p>Durch die in Aufgabe 2 entstandene herzförmige Figur soll das abgebildete Blatt modellhaft
+beschrieben werden. Eine Längeneinheit im Koordinatensystem aus Aufgabe 1d soll dabei 1 cm
+in der Wirklichkeit entsprechen.</p>
+<img alt="../../../_images/blatt.png" class="align-center" src="../../../_images/blatt.png" />
+<ol class="loweralpha">
+<li><p>Berechnen Sie den Inhalt des von <span class="math notranslate nohighlight">\(G_h\)</span> und der Winkelhalbierenden <span class="math notranslate nohighlight">\(w\)</span> eingeschlossenen
+Flächenstücks. Bestimmen Sie unter Verwendung dieses Werts den Flächeninhalt des Blatts auf
+der Grundlage des Modells.</p></li>
+<li><p>Ermitteln Sie die Gleichung der Tangente an <span class="math notranslate nohighlight">\(G_h\)</span> im Punkt
+<span class="math notranslate nohighlight">\(\left(-2\left|h(-2)\right.\right)\)</span>.
+Berechnen Sie den Wert, den das Modell für die Größe des Winkels liefert, den die
+Blattränder an der Blattspitze einschließen.</p></li>
+<li><p>Der Verlauf des oberen Blattrands wird in der Nähe der Blattspitze durch das bisher verwendete
+Modell nicht genau genug dargestellt. Daher soll der obere Blattrand im Modell für
+<span class="math notranslate nohighlight">\(-2\leq x \leq 0\)</span> nicht mehr durch <span class="math notranslate nohighlight">\(G_h\)</span>, sondern durch den Graphen <span class="math notranslate nohighlight">\(G_k\)</span> einer in
+<span class="math notranslate nohighlight">\(\mathbb{R}\)</span> definierten ganzrationalen Funktion <span class="math notranslate nohighlight">\(k\)</span> dritten Grades beschrieben werden.
+Für die Funktion <span class="math notranslate nohighlight">\(k\)</span> werden die folgenden Bedingungen gewählt (<span class="math notranslate nohighlight">\(k'\)</span> und <span class="math notranslate nohighlight">\(h'\)</span> sind die
+Ableitungsfunktionen von <span class="math notranslate nohighlight">\(k\)</span> bzw. <span class="math notranslate nohighlight">\(h\)</span>):</p>
+<div class="math notranslate nohighlight">
+\[\begin{split}&amp; \mathrm{I} &amp; \qquad &amp;k(0)=h(0)\\
+&amp; \mathrm{II} &amp; &amp;k'(0)=h'(0)\\
+&amp; \mathrm{III} &amp; &amp;k(-2)=h(-2)\\
+&amp; \mathrm{IV} &amp; &amp;k'(-2)=h'(-2)\\\end{split}\]</div>
+<p>Begründen Sie im Sachzusammenhang, dass die Wahl der Bedingungen I, II und III sinnvoll ist.
+Machen Sie plausibel, dass die Bedingung IV dazu führt, dass die Form des Blatts in der Nähe der
+Blattspitze im Vergleich zum ursprünglichen Modell genauer dargestellt wird.</p>
+</li>
+</ol>
+</div>
+<p><strong>Lösung zu Teil 3a</strong></p>
+<p>Zunächst wollen wir den Inhalt der roten Fläche aus Teilaufgabe 2a berechnen. Dies erreichen wir,
+indem wir die Differenz der beiden Funktionen <span class="math notranslate nohighlight">\(h(x)\)</span> und
+<span class="math notranslate nohighlight">\(w(x)\)</span> zwischen den Schnittpunkten bei <span class="math notranslate nohighlight">\(x=-2\)</span> und <span class="math notranslate nohighlight">\(4\)</span> integrieren:</p>
+<div class="math notranslate nohighlight">
+\[\begin{split}\int\limits_{-2}^4 \left( h(x)-w(x) \right)\, \mathrm{d}x &amp;=
+\int\limits_{-2}^4 \left( -\frac{1}{2}x^2+2x+4 -x \right)\mathrm{d}x\\
+&amp;= \int\limits_{-2}^4 \left( -\frac{1}{2}x^2+x+4 \right)\mathrm{d}x\\
+&amp;= \left[-\frac{1}{6}x^3+\frac{1}{2}x^2+4x\right]_{-2}^4\\
+&amp;=18\end{split}\]</div>
+<p>Dieses Ergebnis erhalten wir auch mit Hilfe von Sage:</p>
+<div class='sage_linked'><script type='text/x-sage'>sage: print "Der Inhalt der roten Fläche beträgt:", integrate(h(x)-w(x), x, -2, 4)</script></div><p>Da wir die Herzform durch Spiegelung der roten Fläche an der Geraden <span class="math notranslate nohighlight">\(w\)</span> erhalten haben,
+ist die Fläche der Herzform doppelt so groß wie die rote Fläche. Mit der angegebenen Längenskala
+erhalten wir:</p>
+<div class="math notranslate nohighlight">
+\[A_{\mathrm{Blatt}}=36\mathrm{cm}^2\]</div>
+<p><strong>Lösung zu Teil 3b</strong></p>
+<p>Zur Berechnung der Tangentengleichung im Punkt <span class="math notranslate nohighlight">\(\left(-2\left|h(-2)\right)\right.=(-2|-2)\)</span>
+müssen wir zunächst die Steigung von <span class="math notranslate nohighlight">\(h\)</span> am Punkt -2 bestimmen.
+Mit</p>
+<div class="math notranslate nohighlight">
+\[h'(x) = -x+2\]</div>
+<p>ergibt sich</p>
+<div class="math notranslate nohighlight">
+\[m = h'(-2) = 4.\]</div>
+<p>Die Gleichung der Tangente <span class="math notranslate nohighlight">\(y=m\cdot x+t\)</span> ergibt sich dann durch Einsetzen des Punktes
+<span class="math notranslate nohighlight">\(x=-2, y=-2\)</span> zu</p>
+<div class="math notranslate nohighlight">
+\[y = 4x+6.\]</div>
+<p>Diese Gleichung können wir in Sage direkt aus den Forderungen bestimmen,
+dass die Tangente durch den vorgegebenen Punkt gehen muss und die
+Steigung der Tangente in diesem Punkt gleich der Steigung der Funktion
+<span class="math notranslate nohighlight">\(h(x)\)</span> sein muss.</p>
+<div class='sage_linked'><script type='text/x-sage'>sage: m, t = var('m t')
+sage: y(x) = m*x+t
+sage: dh = derivative(h, x)
+sage: dy = derivative(y, x)
+sage: loesung = solve([y(-2)==h(-2),
+...                    dy(-2)==dh(-2)], m, t, solution_dict=True)[0]
+sage: y(x) = y.subs(loesung)
+sage: print 'Tangentengleichung: y = %sx+%s' % (loesung[m], loesung[t])</script></div><p>Zudem wollen wir Sage nutzen, um die Tangente in unsere Zeichnung einzutragen.</p>
+<div class='sage_linked'><script type='text/x-sage'>sage: p8 = plot(h(x), x, (-3, 0))
+sage: p9 = plot(y(x), x, (-3, 0), color='green')
+sage: show(p8+p9, figsize=(4, 2.8))</script></div><p>Es wird bereits aus der Zeichnung ersichtlich, dass der gesuchte Winkel deutlich größer ist als das
+Bild des Blatts in der Aufgabenstellung vermuten lässt. Den Winkel
+zwischen der Winkelhalbierenden und der Tangente erhält man aus deren
+Steigungen <span class="math notranslate nohighlight">\(m_w=1\)</span> und <span class="math notranslate nohighlight">\(m_t=4\)</span> gemäß</p>
+<div class="math notranslate nohighlight">
+\[\alpha = \arctan\left(\frac{m_t-m_w}{1+m_w m_t}\right)
+=\arctan\left(\frac{4-1}{1+4}\right) \approx 30,9°\]</div>
+<p>Der ingesamt eingeschlossene Winkel ist doppelt so groß und beträgt
+somit etwa <span class="math notranslate nohighlight">\(62°\)</span>.</p>
+<p><strong>Lösung zu Teil 3c</strong></p>
+<p>Die Bedingungen I und III sorgen dafür, dass sich <span class="math notranslate nohighlight">\(G_k\)</span> stetig in
+die restliche Blattkontur einfügt. Bedingung II stellt ferner sicher,
+dass der Übergang am oberen Ende glatt erfolgt. Bedingung IV führt dazu,
+dass die Steigung der Tangente an den oberen Blattrand im Punkt (-2|-2)
+deutlich kleiner ist als der bisherige Wert 4. Daher läuft das Blatt
+nun wesentlich spitzer zu.</p>
+<p>Da in der Aufgabe die explizite Bestimmung der Funktion <span class="math notranslate nohighlight">\(k(x)\)</span>
+nicht verlang war, überlassen wir diese Aufgabe Sage.</p>
+<div class='sage_linked'><script type='text/x-sage'>sage: a, b, c, d = var('a b c d')
+sage: k(x) = a*x^3+b*x^2+c*x+d
+sage: dk = derivative(k, x)
+sage: gleichungen = [k(0)==h(0),
+...                  dk(0)==dh(0),
+...                  k(-2)==h(-2),
+...                  dk(-2)==1.5]
+sage: loesung = solve(gleichungen, a, b, c, d, solution_dict=True)[0]
+sage: k = k.subs(loesung)
+sage: print k</script></div><p>Mit den berechneten Parametern können wir das Blattmodell mit der neuen Funktion für
+<span class="math notranslate nohighlight">\(-2\leq x\leq0\)</span> darstellen, wobei die neue Funktion <span class="math notranslate nohighlight">\(k\)</span> hier
+in rot gezeigt wird.</p>
+<div class='sage_linked'><script type='text/x-sage'>sage: p10 = plot(h(x), x, (0, 4))
+sage: p11 = plot(k(x), x, (-2, 0), color='red')
+sage: p12 = plot(f(x), x, (-2, 6))
+sage: p13 = plot(f2(x), x, (4, 6))
+sage: p14 = plot(h(x), x, (-2, 0), linestyle=':')
+sage: show(p10+p11+p12+p13+p14, aspect_ratio=1, figsize=4)</script></div><p>Wir sehen, dass die Blattform  besser getroffen ist als zuvor.</p>
+</div>
+
+
+          </div>
+        </div>
+      </div>
+      <div class="sphinxsidebar" role="navigation" aria-label="main navigation">
+        <div class="sphinxsidebarwrapper">
+<div id="searchbox" style="display: none" role="search">
+  <h3 id="searchlabel">Quick search</h3>
+    <div class="searchformwrapper">
+    <form class="search" action="../../../search.html" method="get">
+      <input type="text" name="q" aria-labelledby="searchlabel" />
+      <input type="submit" value="Go" />
+    </form>
+    </div>
+</div>
+<script>$('#searchbox').show(0);</script>
+        </div>
+      </div>
+      <div class="clearer"></div>
+    </div>
+  </div>
+  <div class="relbar-bottom">
+    
+    <div class="related" role="navigation" aria-label="related navigation">
+      <h3>Navigation</h3>
+      <ul>
+  <li><a href="../../../index.html">Science education with SageMath</a> &#187;</li>
+  
+        <li class="nav-item nav-item-this"><a href="">Bayerisches Abitur in Mathematik 2014</a></li> 
+      </ul>
+    </div>
+  </div>
+  
+  <div class="footer">
+    <a class="logo" href="http://icse.us.edu.pl/" target="_blank"><img src="../../../_static/logo-icse.png" alt="ICSE"/></a><br/>
+    &copy; Copyright Creative Commons CC-BY 4.0, iCSE-team.
+    Created using <a href="http://sphinx.pocoo.org/">Sphinx</a> 3.2.1.
+  </div>
+  </body>
+</html>

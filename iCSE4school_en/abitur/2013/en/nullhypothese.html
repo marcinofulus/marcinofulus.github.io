@@ -1,0 +1,185 @@
+
+
+  
+<!DOCTYPE html>
+
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Null hypothesis &#8212; Science education with SageMath</title>
+    <link rel="stylesheet" href="../../../_static/cloud.css" type="text/css" />
+    <link rel="stylesheet" href="../../../_static/pygments.css" type="text/css" />
+    <link rel="stylesheet" href="http://fonts.googleapis.com/css?family=Noticia+Text|Open+Sans|Droid+Sans+Mono&amp;subset=latin,latin-ext" type="text/css" />
+    <script id="documentation_options" data-url_root="../../../" src="../../../_static/documentation_options.js"></script>
+    <script src="../../../_static/jquery.js"></script>
+    <script src="../../../_static/underscore.js"></script>
+    <script src="../../../_static/doctools.js"></script>
+    <script src="../../../_static/language_data.js"></script>
+    <script async="async" src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.7/latest.js?config=TeX-AMS-MML_HTMLorMML"></script>
+    <script src="../../../_static/jquery.cookie.js"></script>
+    <script src="../../../_static/cloud.js"></script>
+    <script type="text/javascript" src="http://sagecell.sagemath.org/static/jquery.min.js"></script>
+    <script type="text/javascript" src="http://sagecell.sagemath.org/static/embedded_sagecell.js"></script>
+    <script type="text/javascript">
+        sagecell.makeSagecell({inputLocation: ".sage_linked",
+                               linked: true});
+        sagecell.makeSagecell({inputLocation: ".sage_unlinked",
+                               linked: false});
+    </script>
+
+    <style type="text/css">
+        .sagecell .CodeMirror-scroll {
+            overflow-y: hidden;
+            overflow-x: auto;
+        }
+        .sagecell .CodeMirror {
+            height: auto;
+        }
+    </style>
+    
+    <link rel="search" title="Search" href="../../../search.html" />
+    <link rel="next" title="Expected value of election process" href="erwartungswert.html" />
+    <link rel="prev" title="Survey" href="umfrage.html" />
+ 
+  <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, minimum-scale=1">
+  </head><body>
+  <div class="relbar-top">
+    
+    <div class="related" role="navigation" aria-label="related navigation">
+      <h3>Navigation</h3>
+      <ul>
+        <li class="right" style="margin-right: 10px">
+          <a href="erwartungswert.html" title="Expected value of election process"
+             accesskey="N">next</a></li>
+        <li class="right" >
+          <a href="umfrage.html" title="Survey"
+             accesskey="P">previous</a> &nbsp; &nbsp;</li>
+  <li><a href="../../../index.html">Science education with SageMath</a> &#187;</li>
+  
+        <li class="nav-item nav-item-this"><a href="">Null hypothesis</a></li> 
+      </ul>
+    </div>
+  </div>
+  
+  <div class="content">  
+
+    <div class="document">
+      <div class="documentwrapper">
+        <div class="bodywrapper">
+          <div class="body">
+            
+  <div class="section" id="null-hypothesis">
+<h1>Null hypothesis<a class="headerlink" href="#null-hypothesis" title="Permalink to this headline">¶</a></h1>
+<div class="admonition-problem admonition">
+<p class="admonition-title">Problem</p>
+<p>According to the survey, the candidate of party A would have received
+about 50% of the votes if the election had taken place at the time of
+the survey.
+A success at the first ballot, for which more than 50% of all votes are
+required, is hence questionable. Thus, the election campaign consultant
+put in place by party A suggests an additional campaign in the final stage
+of the election battle. However, the treasurer of party A would prefer
+to avoid the high costs caused by an additional campaign, if possible.</p>
+<ol class="loweralpha simple">
+<li><p>In order to come to a decision on the realization of an additional
+campaign, the null hypothesis “The candidate of party A would currently
+receive at most 50% of all votes.” is to be tested by means of a sample
+of 200 eligible voters on a level of significance of 5%. Determine the
+associated decision rule.</p></li>
+<li><p>Justify that the choice of the null hypothesis for the described test
+is in accordance with the concern of the election campaign consultant
+to achieve a success already at the first ballot.</p></li>
+</ol>
+</div>
+<p><strong>Solution of part a</strong></p>
+<p>We want to disprove the null hypothesis. For that we assume that 50% of the
+voters vote for the candidate of party A. In a survey of 200 people, we have to
+determine the number <span class="math notranslate nohighlight">\(k\)</span> of people who vote for our candidate such that
+the level of significance is 5%. Thus, the equation</p>
+<div class="math notranslate nohighlight">
+\[1- P^{200}_{0.5}(X \leq k) \leq 0.05\]</div>
+<p>has to be solved for <span class="math notranslate nohighlight">\(k\)</span>. From a mathematical table for the binomial
+distribution, we can determine <span class="math notranslate nohighlight">\(k\approx112\)</span>. Alternatively, we can
+use Sage:</p>
+<div class='sage_linked'><script type='text/x-sage'>from scipy.stats import binom
+total = 200
+p = 0.5
+for approving in (111, 112, 113):
+    print "Level of significance for {} approvals: {:4.2f}%".format(
+        approving, (1-binom.cdf(approving-1, total, p))*100)</script></div><p>Furthermore, we can simulate the survey and check in how many surveys at least
+112 people would indicate to vote for candidate A, although the probability
+that a person votes for candidate A is 50%.</p>
+<div class='sage_linked'><script type='text/x-sage'>import numpy as np
+from numpy.random import random_sample
+repetitions = 10000
+p = 0.5
+people = 200
+threshold = 112
+for_A = random_sample((people, repetitions)) < p
+above_threshold = np.sum(for_A, axis=0) >= threshold
+cases = np.sum(above_threshold)
+
+print(("The probability that at a survey of {} people at least "
+            "{} people vote for candidate A\nif the probability to "
+            "decide for candidate A is {:2.0%}, equals:  {:3.2%} ").format(
+         people, threshold, float(p), float(cases)/repetitions))</script></div><p><strong>Solution of part b</strong></p>
+<p>With the chosen null hypothesis one can relatively safely say that with at least
+112 positive statements the candidate of party A will be elected.
+If the first survey is correct about the candidate receiving only about 50% of the
+votes, the null hypothesis will probably be disproven and the funds for an additional
+campaign get approved.</p>
+</div>
+
+
+          </div>
+        </div>
+      </div>
+      <div class="sphinxsidebar" role="navigation" aria-label="main navigation">
+        <div class="sphinxsidebarwrapper">
+  <h4>Previous topic</h4>
+  <p class="topless"><a href="umfrage.html"
+                        title="previous chapter">Survey</a></p>
+  <h4>Next topic</h4>
+  <p class="topless"><a href="erwartungswert.html"
+                        title="next chapter">Expected value of election process</a></p>
+<div id="searchbox" style="display: none" role="search">
+  <h3 id="searchlabel">Quick search</h3>
+    <div class="searchformwrapper">
+    <form class="search" action="../../../search.html" method="get">
+      <input type="text" name="q" aria-labelledby="searchlabel" />
+      <input type="submit" value="Go" />
+    </form>
+    </div>
+</div>
+<script>$('#searchbox').show(0);</script>
+        </div>
+      </div>
+      <div class="clearer"></div>
+    </div>
+  </div>
+  <div class="relbar-bottom">
+    
+    <div class="related" role="navigation" aria-label="related navigation">
+      <h3>Navigation</h3>
+      <ul>
+        <li class="right" style="margin-right: 10px">
+          <a href="erwartungswert.html" title="Expected value of election process"
+             >next</a></li>
+        <li class="right" >
+          <a href="umfrage.html" title="Survey"
+             >previous</a> &nbsp; &nbsp;</li>
+  <li><a href="../../../index.html">Science education with SageMath</a> &#187;</li>
+  
+        <li class="nav-item nav-item-this"><a href="">Null hypothesis</a></li> 
+      </ul>
+    </div>
+  </div>
+  
+  <div class="footer">
+    <a class="logo" href="http://icse.us.edu.pl/" target="_blank"><img src="../../../_static/logo-icse.png" alt="ICSE"/></a><br/>
+    &copy; Copyright Creative Commons CC-BY 4.0, iCSE-team.
+    Created using <a href="http://sphinx.pocoo.org/">Sphinx</a> 3.2.1.
+  </div>
+  </body>
+</html>

@@ -1,0 +1,158 @@
+
+
+  
+<!DOCTYPE html>
+
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Bayerisches Abitur in Mathematik 2014 &#8212; Science education with SageMath</title>
+    <link rel="stylesheet" href="../../../_static/cloud.css" type="text/css" />
+    <link rel="stylesheet" href="../../../_static/pygments.css" type="text/css" />
+    <link rel="stylesheet" href="http://fonts.googleapis.com/css?family=Noticia+Text|Open+Sans|Droid+Sans+Mono&amp;subset=latin,latin-ext" type="text/css" />
+    <script id="documentation_options" data-url_root="../../../" src="../../../_static/documentation_options.js"></script>
+    <script src="../../../_static/jquery.js"></script>
+    <script src="../../../_static/underscore.js"></script>
+    <script src="../../../_static/doctools.js"></script>
+    <script src="../../../_static/language_data.js"></script>
+    <script async="async" src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.7/latest.js?config=TeX-AMS-MML_HTMLorMML"></script>
+    <script src="../../../_static/jquery.cookie.js"></script>
+    <script src="../../../_static/cloud.js"></script>
+    <script type="text/javascript" src="http://sagecell.sagemath.org/static/jquery.min.js"></script>
+    <script type="text/javascript" src="http://sagecell.sagemath.org/static/embedded_sagecell.js"></script>
+    <script type="text/javascript">
+        sagecell.makeSagecell({inputLocation: ".sage_linked",
+                               linked: true});
+        sagecell.makeSagecell({inputLocation: ".sage_unlinked",
+                               linked: false});
+    </script>
+
+    <style type="text/css">
+        .sagecell .CodeMirror-scroll {
+            overflow-y: hidden;
+            overflow-x: auto;
+        }
+        .sagecell .CodeMirror {
+            height: auto;
+        }
+    </style>
+    
+    <link rel="search" title="Search" href="../../../search.html" />
+ 
+  <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, minimum-scale=1">
+  </head><body>
+  <div class="relbar-top">
+    
+    <div class="related" role="navigation" aria-label="related navigation">
+      <h3>Navigation</h3>
+      <ul>
+  <li><a href="../../../index.html">Science education with SageMath</a> &#187;</li>
+  
+        <li class="nav-item nav-item-this"><a href="">Bayerisches Abitur in Mathematik 2014</a></li> 
+      </ul>
+    </div>
+  </div>
+  
+  <div class="content">  
+
+    <div class="document">
+      <div class="documentwrapper">
+        <div class="bodywrapper">
+          <div class="body">
+            
+  <div class="section" id="bayerisches-abitur-in-mathematik-2014">
+<h1>Bayerisches Abitur in Mathematik 2014<a class="headerlink" href="#bayerisches-abitur-in-mathematik-2014" title="Permalink to this headline">¶</a></h1>
+<div class="admonition-aufgabe admonition">
+<p class="admonition-title">Aufgabe</p>
+<p>Der Graph einer in <span class="math notranslate nohighlight">\(\mathbb R\)</span> definierten Funktion
+<span class="math notranslate nohighlight">\(g : x\mapsto g(x)\)</span> besitzt für <span class="math notranslate nohighlight">\(-5\leq x\leq 5\)</span> zwei
+Wendepunkte. Entscheiden Sie, welcher der Graphen I, II und III zur zweiten
+Ableitungsfunktion <span class="math notranslate nohighlight">\(g''\)</span> von <span class="math notranslate nohighlight">\(g\)</span> gehört. Begründen Sie Ihre
+Entscheidung.</p>
+<img alt="../../../_images/wendepunkte.png" class="align-center" src="../../../_images/wendepunkte.png" />
+</div>
+<p><strong>Lösung</strong></p>
+<p>In der zweiten Ableitung einer Funktion lässt sich das Krümmungsverhalten ablesen. Da die Funktion <span class="math notranslate nohighlight">\(g\)</span> zwei Wendepunkte im beschriebenen
+Intervall haben soll, muss die zweite Ableitung <span class="math notranslate nohighlight">\(g''\)</span> hier zwei Nullstellen mit Vorzeichenwechsel aufweisen, also Übergänge von einer
+Linkskrümmung (<span class="math notranslate nohighlight">\(g''&gt;0\)</span>) zu einer Rechtskrümmung (<span class="math notranslate nohighlight">\(g''&lt;0\)</span>), bzw. von einer Rechtskrümmung zu einer Linkskrümmung hervorrufen. Der einzige Graph, der dies erfüllt ist I.</p>
+<p>Mit Sage wollen wir nun versuchen, mögliche Formen von <span class="math notranslate nohighlight">\(g\)</span> aus den vorgegebenen zweiten Ableitungsfunktionen zu konstruieren. Die zweiten
+Ableitungsfunktionen haben die Form von Polynomen zweiter (I), dritter (II) und vierter Ordnung (III). Durch Verwenden der Nullstellen können
+wir Polynome mit ähnlichem Verhalten konstruieren:</p>
+<div class="math notranslate nohighlight">
+\[\begin{split}\begin{aligned}
+g''_I(x) &amp;= (x+4)(x-4)=x^2-16\\
+g''_{II}(x) &amp;= (x+4)(x+1{,}5)(x-4)-50\\
+g''_{III}(x)&amp; = -(x+3)^2(x-3)^2\\
+\end{aligned}\end{split}\]</div>
+<p>In den folgenden Funktionsgraphen sind die Nullstellen, die zu Wendepunkten
+gehören, durch rote Punkte markiert.</p>
+<div class='sage_linked'><script type='text/x-sage'>sage: def wendepunkte(f):
+sage:     df = f.diff()
+sage:     return [r[0] for r in f.roots() if r[0] in RR and df(r[0]) !=0]
+
+sage: dd_i(x) = x^2 - 16
+sage: p = plot(dd_i(x), x, (-6, 6), figsize=(4, 2.8))
+sage: wp = point([(x, 0) for x in wendepunkte(dd_i)], size=30, color='red')
+sage: show(p+wp)</script></div><div class='sage_linked'><script type='text/x-sage'>sage: dd_ii(x) = (x+4) * (x+1.5) * (x-4) - 50
+sage: p = plot(dd_ii(x), x, (-6, 6), figsize=(4, 2.8))
+sage: wp = point([(x, 0) for x in wendepunkte(dd_ii)], size=30, color='red')
+sage: show(p+wp)</script></div><div class='sage_linked'><script type='text/x-sage'>sage: dd_iii(x) = -(x+3)^2 * (x-3)^2
+sage: p = plot(dd_iii(x), x, (-6, 6), figsize=(4, 2.8))
+sage: wp = point([(x, 0) for x in wendepunkte(dd_iii)], size=30, color='red')
+sage: show(p+wp)</script></div><p>Abschließend bestätigen wir unsere Überlegung, indem wir die Funktionen zweifach
+integrieren. In den Graphen sind die Wendepunkte durch rote Punkte markiert.</p>
+<div class='sage_linked'><script type='text/x-sage'>sage: d_i(x) = integrate(dd_i(x), x)
+sage: g_i(x) = integrate(d_i(x), x)
+sage: p = plot(g_i(x), x, (-8, 8), figsize=(4, 2.8))
+sage: wp = point([(x, g_i(x))  for x in wendepunkte(dd_i)], size=30, color='red')
+sage: show(p+wp)</script></div><div class='sage_linked'><script type='text/x-sage'>sage: d_ii(x) = integrate(dd_ii(x), x)
+sage: g_ii(x) = integrate(d_ii(x), x)
+sage: p = plot(g_ii(x), x, (-6, 8), figsize=(4, 2.8))
+sage: wp = point([(x, g_ii(x))  for x in wendepunkte(dd_ii)], size=30, color='red')
+sage: show(p+wp)</script></div><div class='sage_linked'><script type='text/x-sage'>sage: d_iii(x) = integrate(dd_iii(x), x)
+sage: g_iii(x) = integrate(d_iii(x), x)
+sage: p = plot(g_iii(x), x, (-6, 6), figsize=(4, 2.8))
+sage: wp = point([(x, g_iii(x))  for x in wendepunkte(dd_iii)], size=30, color='red')
+sage: show(p+wp)</script></div></div>
+
+
+          </div>
+        </div>
+      </div>
+      <div class="sphinxsidebar" role="navigation" aria-label="main navigation">
+        <div class="sphinxsidebarwrapper">
+<div id="searchbox" style="display: none" role="search">
+  <h3 id="searchlabel">Quick search</h3>
+    <div class="searchformwrapper">
+    <form class="search" action="../../../search.html" method="get">
+      <input type="text" name="q" aria-labelledby="searchlabel" />
+      <input type="submit" value="Go" />
+    </form>
+    </div>
+</div>
+<script>$('#searchbox').show(0);</script>
+        </div>
+      </div>
+      <div class="clearer"></div>
+    </div>
+  </div>
+  <div class="relbar-bottom">
+    
+    <div class="related" role="navigation" aria-label="related navigation">
+      <h3>Navigation</h3>
+      <ul>
+  <li><a href="../../../index.html">Science education with SageMath</a> &#187;</li>
+  
+        <li class="nav-item nav-item-this"><a href="">Bayerisches Abitur in Mathematik 2014</a></li> 
+      </ul>
+    </div>
+  </div>
+  
+  <div class="footer">
+    <a class="logo" href="http://icse.us.edu.pl/" target="_blank"><img src="../../../_static/logo-icse.png" alt="ICSE"/></a><br/>
+    &copy; Copyright Creative Commons CC-BY 4.0, iCSE-team.
+    Created using <a href="http://sphinx.pocoo.org/">Sphinx</a> 3.2.1.
+  </div>
+  </body>
+</html>

@@ -1,0 +1,165 @@
+
+
+  
+<!DOCTYPE html>
+
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Properties of the logarithm &#8212; Science education with SageMath</title>
+    <link rel="stylesheet" href="../../../_static/cloud.css" type="text/css" />
+    <link rel="stylesheet" href="../../../_static/pygments.css" type="text/css" />
+    <link rel="stylesheet" href="http://fonts.googleapis.com/css?family=Noticia+Text|Open+Sans|Droid+Sans+Mono&amp;subset=latin,latin-ext" type="text/css" />
+    <script id="documentation_options" data-url_root="../../../" src="../../../_static/documentation_options.js"></script>
+    <script src="../../../_static/jquery.js"></script>
+    <script src="../../../_static/underscore.js"></script>
+    <script src="../../../_static/doctools.js"></script>
+    <script src="../../../_static/language_data.js"></script>
+    <script async="async" src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.7/latest.js?config=TeX-AMS-MML_HTMLorMML"></script>
+    <script src="../../../_static/jquery.cookie.js"></script>
+    <script src="../../../_static/cloud.js"></script>
+    <script type="text/javascript" src="http://sagecell.sagemath.org/static/jquery.min.js"></script>
+    <script type="text/javascript" src="http://sagecell.sagemath.org/static/embedded_sagecell.js"></script>
+    <script type="text/javascript">
+        sagecell.makeSagecell({inputLocation: ".sage_linked",
+                               linked: true});
+        sagecell.makeSagecell({inputLocation: ".sage_unlinked",
+                               linked: false});
+    </script>
+
+    <style type="text/css">
+        .sagecell .CodeMirror-scroll {
+            overflow-y: hidden;
+            overflow-x: auto;
+        }
+        .sagecell .CodeMirror {
+            height: auto;
+        }
+    </style>
+    
+    <link rel="search" title="Search" href="../../../search.html" />
+    <link rel="next" title="Properties of the x sin(x) function" href="xsinx.html" />
+    <link rel="prev" title="Properties of the graph of the function" href="kurvendiskussion.html" />
+ 
+  <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, minimum-scale=1">
+  </head><body>
+  <div class="relbar-top">
+    
+    <div class="related" role="navigation" aria-label="related navigation">
+      <h3>Navigation</h3>
+      <ul>
+        <li class="right" style="margin-right: 10px">
+          <a href="xsinx.html" title="Properties of the x sin(x) function"
+             accesskey="N">next</a></li>
+        <li class="right" >
+          <a href="kurvendiskussion.html" title="Properties of the graph of the function"
+             accesskey="P">previous</a> &nbsp; &nbsp;</li>
+  <li><a href="../../../index.html">Science education with SageMath</a> &#187;</li>
+  
+        <li class="nav-item nav-item-this"><a href="">Properties of the logarithm</a></li> 
+      </ul>
+    </div>
+  </div>
+  
+  <div class="content">  
+
+    <div class="document">
+      <div class="documentwrapper">
+        <div class="bodywrapper">
+          <div class="body">
+            
+  <div class="section" id="properties-of-the-logarithm">
+<h1>Properties of the logarithm<a class="headerlink" href="#properties-of-the-logarithm" title="Permalink to this headline">¶</a></h1>
+<div class="admonition-problem admonition">
+<p class="admonition-title">Problem</p>
+<p>State for the function <span class="math notranslate nohighlight">\(f\)</span> with <span class="math notranslate nohighlight">\(f(x)=\ln(2013-x)\)</span> the
+maximal domain <span class="math notranslate nohighlight">\(\mathbb{D}\)</span>, the behavior of <span class="math notranslate nohighlight">\(f\)</span>
+at the borders of <span class="math notranslate nohighlight">\(\mathbb{D}\)</span> as well as the intersections of
+the graph of <span class="math notranslate nohighlight">\(f\)</span> with the coordinate axes.</p>
+</div>
+<p><strong>Solution</strong></p>
+<p>The domain of the natural logarithm <span class="math notranslate nohighlight">\(\ln(x)\)</span> is <span class="math notranslate nohighlight">\((0,\infty)\)</span>.
+As a consequence, the domain of <span class="math notranslate nohighlight">\(\ln(-x)\)</span> is <span class="math notranslate nohighlight">\((-\infty,0)\)</span>.
+Adding a number to the argument of the logarithm, the same needs to be
+done for the domain. Thus, the domain of <span class="math notranslate nohighlight">\(f(x)=\ln(2013-x)\)</span> is given
+by <span class="math notranslate nohighlight">\(\mathbb{D}=(-\infty, 2013)\)</span>.</p>
+<p>By means of Sage, we obtain an idea of the function graph.</p>
+<div class='sage_linked'><script type='text/x-sage'>f(x) = log(2013-x)
+plot(f(x), x, (-2014, 2014), figsize=(4, 2.8))</script></div><p>At the borders of <span class="math notranslate nohighlight">\(\mathbb{D}\)</span> one finds the following behavior:</p>
+<div class="math notranslate nohighlight">
+\[\lim\limits_{x\rightarrow -\infty}\ln(2013-x)
+= \lim\limits_{x\rightarrow -\infty}\ln(-x)
+= \lim\limits_{\tilde{x}\rightarrow +\infty}\ln(\tilde{x})
+= +\infty\]</div>
+<p>This result can be confirmed by means of Sage by inserting <span class="math notranslate nohighlight">\(-\infty\)</span> for <span class="math notranslate nohighlight">\(x\)</span>.</p>
+<div class='sage_linked'><script type='text/x-sage'>print("f(-inf) = " + str(f(-infinity)))</script></div><p>For <span class="math notranslate nohighlight">\(x\)</span> going to <span class="math notranslate nohighlight">\(2013\)</span>, the argument of the logarithm goes to
+<span class="math notranslate nohighlight">\(0\)</span>. In this case, the logarithm goes to <span class="math notranslate nohighlight">\(-\infty\)</span>.</p>
+<div class="math notranslate nohighlight">
+\[\lim\limits_{x\rightarrow 2013^{-}}\ln(2013-x)
+= \lim\limits_{\tilde{x}\rightarrow 0^{+}}\ln(\tilde{x})
+= -\infty\]</div>
+<div class='sage_linked'><script type='text/x-sage'>print("f(2013) = " + str(f(2013)))</script></div><p>The intersection with the <span class="math notranslate nohighlight">\(y\)</span>-axis is obtained by setting
+<span class="math notranslate nohighlight">\(x=0\)</span>:</p>
+<div class="math notranslate nohighlight">
+\[f(0)=\ln(2013-0) = \ln(2013) \approx 7.61\]</div>
+<p>This result is in agreement with the function graph shown above.</p>
+<div class='sage_linked'><script type='text/x-sage'>print("f(0) = " + str(f(0)) + " = " + str(f(0).n(12)))</script></div><p>The logarithm intersects the <span class="math notranslate nohighlight">\(x\)</span>-axis if its argument equals
+<span class="math notranslate nohighlight">\(1\)</span>:</p>
+<div class="math notranslate nohighlight">
+\[2013-x \overset{!}{=}1 \rightarrow x = 2012\]</div>
+<p>This result can be confirmed with Sage:</p>
+<div class='sage_linked'><script type='text/x-sage'>solve(f(x) == 0, x)</script></div></div>
+
+
+          </div>
+        </div>
+      </div>
+      <div class="sphinxsidebar" role="navigation" aria-label="main navigation">
+        <div class="sphinxsidebarwrapper">
+  <h4>Previous topic</h4>
+  <p class="topless"><a href="kurvendiskussion.html"
+                        title="previous chapter">Properties of the graph of the function</a></p>
+  <h4>Next topic</h4>
+  <p class="topless"><a href="xsinx.html"
+                        title="next chapter">Properties of the  x sin(x) function</a></p>
+<div id="searchbox" style="display: none" role="search">
+  <h3 id="searchlabel">Quick search</h3>
+    <div class="searchformwrapper">
+    <form class="search" action="../../../search.html" method="get">
+      <input type="text" name="q" aria-labelledby="searchlabel" />
+      <input type="submit" value="Go" />
+    </form>
+    </div>
+</div>
+<script>$('#searchbox').show(0);</script>
+        </div>
+      </div>
+      <div class="clearer"></div>
+    </div>
+  </div>
+  <div class="relbar-bottom">
+    
+    <div class="related" role="navigation" aria-label="related navigation">
+      <h3>Navigation</h3>
+      <ul>
+        <li class="right" style="margin-right: 10px">
+          <a href="xsinx.html" title="Properties of the x sin(x) function"
+             >next</a></li>
+        <li class="right" >
+          <a href="kurvendiskussion.html" title="Properties of the graph of the function"
+             >previous</a> &nbsp; &nbsp;</li>
+  <li><a href="../../../index.html">Science education with SageMath</a> &#187;</li>
+  
+        <li class="nav-item nav-item-this"><a href="">Properties of the logarithm</a></li> 
+      </ul>
+    </div>
+  </div>
+  
+  <div class="footer">
+    <a class="logo" href="http://icse.us.edu.pl/" target="_blank"><img src="../../../_static/logo-icse.png" alt="ICSE"/></a><br/>
+    &copy; Copyright Creative Commons CC-BY 4.0, iCSE-team.
+    Created using <a href="http://sphinx.pocoo.org/">Sphinx</a> 3.2.1.
+  </div>
+  </body>
+</html>

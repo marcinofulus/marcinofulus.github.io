@@ -1,0 +1,143 @@
+
+
+  
+<!DOCTYPE html>
+
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Bayerisches Abitur in Mathematik 2016 &#8212; Science education with SageMath</title>
+    <link rel="stylesheet" href="../../../_static/cloud.css" type="text/css" />
+    <link rel="stylesheet" href="../../../_static/pygments.css" type="text/css" />
+    <link rel="stylesheet" href="http://fonts.googleapis.com/css?family=Noticia+Text|Open+Sans|Droid+Sans+Mono&amp;subset=latin,latin-ext" type="text/css" />
+    <script id="documentation_options" data-url_root="../../../" src="../../../_static/documentation_options.js"></script>
+    <script src="../../../_static/jquery.js"></script>
+    <script src="../../../_static/underscore.js"></script>
+    <script src="../../../_static/doctools.js"></script>
+    <script src="../../../_static/language_data.js"></script>
+    <script async="async" src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.7/latest.js?config=TeX-AMS-MML_HTMLorMML"></script>
+    <script src="../../../_static/jquery.cookie.js"></script>
+    <script src="../../../_static/cloud.js"></script>
+    <script type="text/javascript" src="http://sagecell.sagemath.org/static/jquery.min.js"></script>
+    <script type="text/javascript" src="http://sagecell.sagemath.org/static/embedded_sagecell.js"></script>
+    <script type="text/javascript">
+        sagecell.makeSagecell({inputLocation: ".sage_linked",
+                               linked: true});
+        sagecell.makeSagecell({inputLocation: ".sage_unlinked",
+                               linked: false});
+    </script>
+
+    <style type="text/css">
+        .sagecell .CodeMirror-scroll {
+            overflow-y: hidden;
+            overflow-x: auto;
+        }
+        .sagecell .CodeMirror {
+            height: auto;
+        }
+    </style>
+    
+    <link rel="search" title="Search" href="../../../search.html" />
+ 
+  <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, minimum-scale=1">
+  </head><body>
+  <div class="relbar-top">
+    
+    <div class="related" role="navigation" aria-label="related navigation">
+      <h3>Navigation</h3>
+      <ul>
+  <li><a href="../../../index.html">Science education with SageMath</a> &#187;</li>
+  
+        <li class="nav-item nav-item-this"><a href="">Bayerisches Abitur in Mathematik 2016</a></li> 
+      </ul>
+    </div>
+  </div>
+  
+  <div class="content">  
+
+    <div class="document">
+      <div class="documentwrapper">
+        <div class="bodywrapper">
+          <div class="body">
+            
+  <div class="section" id="bayerisches-abitur-in-mathematik-2016">
+<h1>Bayerisches Abitur in Mathematik 2016<a class="headerlink" href="#bayerisches-abitur-in-mathematik-2016" title="Permalink to this headline">¶</a></h1>
+<div class="admonition-aufgabe admonition">
+<p class="admonition-title">Aufgabe</p>
+<p>Geben Sie jeweils den Term und den Definitionsbereich einer Funktion an, die
+die angegebene(n) Eigenschaft(en) besitzt.</p>
+<ol class="loweralpha simple">
+<li><p>Der Punkt (2|0) is ein Wendepunkt des Graphen von <span class="math notranslate nohighlight">\(g\)</span>.</p></li>
+<li><p>Der Graph der Funktion <span class="math notranslate nohighlight">\(h\)</span> ist streng monoton fallend und
+rechtsgekrümmt.</p></li>
+</ol>
+</div>
+<p><strong>Lösung zu Teil a</strong></p>
+<p>Eine Funktion mit dem gewünschten Wendepunkt lässt sich aus den folgenden
+Forderungen erhalten:</p>
+<div class="math notranslate nohighlight">
+\[\begin{split}f(2) &amp;= 0\\
+f''(2) &amp;= 0\end{split}\]</div>
+<p>Außerdem fordern wir, dass <span class="math notranslate nohighlight">\(f'''(2)\neq0\)</span>, speziell <span class="math notranslate nohighlight">\(f'''(2)=1\)</span>.
+Die Aufintegration unter Beachtung dieser Forderungen liefert</p>
+<div class="math notranslate nohighlight">
+\[f(x) = \frac{1}{6}(x-2)^3+c(x-2)\,.\]</div>
+<p>Eine Zeichnung mit Sage kann den Wendepunkt bestätigen:</p>
+<div class='sage_linked'><script type='text/x-sage'>sage: g(x, c) = (x-2)^3/6+c*(x-2)
+sage: p1 = plot(g(x, 0), (0, 4), color='red', legend_label="$f'(2)=0$")
+sage: p2 = plot(g(x, 1), (0, 4), color='green', legend_label="$f'(2)=1$")
+sage: p3 = plot(g(x, -1), (0, 4), color='blue', legend_label="$f'(2)=-1$")
+sage: show(p1+p2+p3, figsize=(4, 2.8))</script></div><p><strong>Lösung zu Teil b</strong></p>
+<p>Die einfachste Lösung für eine streng monoton wachsende und linksgekrümmte
+Funktion ist die Exponentialfunktion. Durch ein negatives Vorzeichen lässt
+sich diese in eine streng monoton fallende rechtsgekrümmte Funktion
+umwandeln, wie sich durch Rechnung bestätigen lässt:</p>
+<div class="math notranslate nohighlight">
+\[\begin{split}h(x) &amp;= -e^x          \\
+h'(x) &amp;= -e^x &lt; 0     \\
+h''(x) &amp;= -e^x &lt; 0\end{split}\]</div>
+<p>Auch eine Zeichnung mit Sage bestätigt dies:</p>
+<div class='sage_linked'><script type='text/x-sage'>sage: h(x) = -exp(x)
+sage: plot(h(x), (-2, 2), figsize=(4, 2.8))</script></div></div>
+
+
+          </div>
+        </div>
+      </div>
+      <div class="sphinxsidebar" role="navigation" aria-label="main navigation">
+        <div class="sphinxsidebarwrapper">
+<div id="searchbox" style="display: none" role="search">
+  <h3 id="searchlabel">Quick search</h3>
+    <div class="searchformwrapper">
+    <form class="search" action="../../../search.html" method="get">
+      <input type="text" name="q" aria-labelledby="searchlabel" />
+      <input type="submit" value="Go" />
+    </form>
+    </div>
+</div>
+<script>$('#searchbox').show(0);</script>
+        </div>
+      </div>
+      <div class="clearer"></div>
+    </div>
+  </div>
+  <div class="relbar-bottom">
+    
+    <div class="related" role="navigation" aria-label="related navigation">
+      <h3>Navigation</h3>
+      <ul>
+  <li><a href="../../../index.html">Science education with SageMath</a> &#187;</li>
+  
+        <li class="nav-item nav-item-this"><a href="">Bayerisches Abitur in Mathematik 2016</a></li> 
+      </ul>
+    </div>
+  </div>
+  
+  <div class="footer">
+    <a class="logo" href="http://icse.us.edu.pl/" target="_blank"><img src="../../../_static/logo-icse.png" alt="ICSE"/></a><br/>
+    &copy; Copyright Creative Commons CC-BY 4.0, iCSE-team.
+    Created using <a href="http://sphinx.pocoo.org/">Sphinx</a> 3.2.1.
+  </div>
+  </body>
+</html>

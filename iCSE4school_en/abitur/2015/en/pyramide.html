@@ -1,0 +1,173 @@
+
+
+  
+<!DOCTYPE html>
+
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Pyramid and vectors &#8212; Science education with SageMath</title>
+    <link rel="stylesheet" href="../../../_static/cloud.css" type="text/css" />
+    <link rel="stylesheet" href="../../../_static/pygments.css" type="text/css" />
+    <link rel="stylesheet" href="http://fonts.googleapis.com/css?family=Noticia+Text|Open+Sans|Droid+Sans+Mono&amp;subset=latin,latin-ext" type="text/css" />
+    <script id="documentation_options" data-url_root="../../../" src="../../../_static/documentation_options.js"></script>
+    <script src="../../../_static/jquery.js"></script>
+    <script src="../../../_static/underscore.js"></script>
+    <script src="../../../_static/doctools.js"></script>
+    <script src="../../../_static/language_data.js"></script>
+    <script async="async" src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.7/latest.js?config=TeX-AMS-MML_HTMLorMML"></script>
+    <script src="../../../_static/jquery.cookie.js"></script>
+    <script src="../../../_static/cloud.js"></script>
+    <script type="text/javascript" src="http://sagecell.sagemath.org/static/jquery.min.js"></script>
+    <script type="text/javascript" src="http://sagecell.sagemath.org/static/embedded_sagecell.js"></script>
+    <script type="text/javascript">
+        sagecell.makeSagecell({inputLocation: ".sage_linked",
+                               linked: true});
+        sagecell.makeSagecell({inputLocation: ".sage_unlinked",
+                               linked: false});
+    </script>
+
+    <style type="text/css">
+        .sagecell .CodeMirror-scroll {
+            overflow-y: hidden;
+            overflow-x: auto;
+        }
+        .sagecell .CodeMirror {
+            height: auto;
+        }
+    </style>
+    
+    <link rel="search" title="Search" href="../../../search.html" />
+    <link rel="next" title="The cube" href="../../2016/en/wuerfel.html" />
+    <link rel="prev" title="Parallelogram" href="parallelogramm.html" />
+ 
+  <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, minimum-scale=1">
+  </head><body>
+  <div class="relbar-top">
+    
+    <div class="related" role="navigation" aria-label="related navigation">
+      <h3>Navigation</h3>
+      <ul>
+        <li class="right" style="margin-right: 10px">
+          <a href="../../2016/en/wuerfel.html" title="The cube"
+             accesskey="N">next</a></li>
+        <li class="right" >
+          <a href="parallelogramm.html" title="Parallelogram"
+             accesskey="P">previous</a> &nbsp; &nbsp;</li>
+  <li><a href="../../../index.html">Science education with SageMath</a> &#187;</li>
+  
+        <li class="nav-item nav-item-this"><a href="">Pyramid and vectors</a></li> 
+      </ul>
+    </div>
+  </div>
+  
+  <div class="content">  
+
+    <div class="document">
+      <div class="documentwrapper">
+        <div class="bodywrapper">
+          <div class="body">
+            
+  <div class="section" id="pyramid-and-vectors">
+<h1>Pyramid and vectors<a class="headerlink" href="#pyramid-and-vectors" title="Permalink to this headline">¶</a></h1>
+<div class="admonition-problem admonition">
+<p class="admonition-title">Problem</p>
+<p>We consider the pyramid ABCDS with A(0|0|0), B(4|4|2), C(8|0|2), D(4|-4|0),
+and S(1|1|-4). Its base is a parallelogram.</p>
+<ol class="loweralpha simple">
+<li><p>Prove that the parallelogram ABCD is a rectangle.</p></li>
+<li><p>The edge [AS] is normal to the base ABCD. The area of the base is
+<span class="math notranslate nohighlight">\(24\sqrt{2}\)</span>. Determine the volume of the pyramid.</p></li>
+</ol>
+</div>
+<p><strong>Solution of part a</strong></p>
+<p>ABCD forms a rectangle if starting from one of the vertices the angle between
+the shortest vectors to the othe vertices is a right angle.</p>
+<div class='sage_linked'><script type='text/x-sage'>a = vector([0, 0, 0])
+b = vector([4, 4, 2])
+c = vector([8, 0, 2])
+d = vector([4, -4, 0])
+print ' Distance A-B:', N(norm(b-a))
+print ' Distance A-C:', N(norm(c-a))
+print ' Distance A-D:', N(norm(d-a))
+(b-a).dot_product(d-a)</script></div><p>It follows that the vectors from A to B and from A to D are orthogonal
+to each other. The point C lies diagonally opposite of A. Therfore, the
+parallelogram is indeed a rectangle. Since this solution depends on the
+information that ABCD is a parallelogram, we check alos the other three
+inner angles.</p>
+<div class='sage_linked'><script type='text/x-sage'>a = vector([0, 0, 0])
+b = vector([4, 4, 2])
+c = vector([8, 0, 2])
+d = vector([4, -4, 0])
+(c-b).dot_product(a-b), (d-c).dot_product(b-c), (a-d).dot_product(c-d)</script></div><p><strong>Solution of part b</strong></p>
+<p>Since the vector from A to S is normal to the base, its length <span class="math notranslate nohighlight">\(h\)</span> equals
+the height of the pyramid. The area of the base is given as <span class="math notranslate nohighlight">\(A=24\sqrt{2}\)</span>.
+We first briefly check the latter result.</p>
+<div class='sage_linked'><script type='text/x-sage'>a = vector([0, 0, 0])
+b = vector([4, 4, 2])
+d = vector([4, -4, 0])
+norm(a-b)*norm(a-d)</script></div><p>The height of the pyramid is obtained as</p>
+<div class='sage_linked'><script type='text/x-sage'>a = vector([0, 0, 0])
+s = vector([1, 1, -4])
+norm(s-a)</script></div><p>Then, volume takes on the value <span class="math notranslate nohighlight">\(V=\frac{h}{3}A=48\)</span>. This result can be
+confirmed directly with the help of Sage.</p>
+<div class='sage_linked'><script type='text/x-sage'>a = vector([0, 0, 0])
+b = vector([4, 4, 2])
+c = vector([8, 0, 2])
+d = vector([4, -4, 0])
+s = vector([1, 1, -4])
+Polyhedron(vertices=[a, b, c, d, s]).volume()</script></div></div>
+
+
+          </div>
+        </div>
+      </div>
+      <div class="sphinxsidebar" role="navigation" aria-label="main navigation">
+        <div class="sphinxsidebarwrapper">
+  <h4>Previous topic</h4>
+  <p class="topless"><a href="parallelogramm.html"
+                        title="previous chapter">Parallelogram</a></p>
+  <h4>Next topic</h4>
+  <p class="topless"><a href="../../2016/en/wuerfel.html"
+                        title="next chapter">The cube</a></p>
+<div id="searchbox" style="display: none" role="search">
+  <h3 id="searchlabel">Quick search</h3>
+    <div class="searchformwrapper">
+    <form class="search" action="../../../search.html" method="get">
+      <input type="text" name="q" aria-labelledby="searchlabel" />
+      <input type="submit" value="Go" />
+    </form>
+    </div>
+</div>
+<script>$('#searchbox').show(0);</script>
+        </div>
+      </div>
+      <div class="clearer"></div>
+    </div>
+  </div>
+  <div class="relbar-bottom">
+    
+    <div class="related" role="navigation" aria-label="related navigation">
+      <h3>Navigation</h3>
+      <ul>
+        <li class="right" style="margin-right: 10px">
+          <a href="../../2016/en/wuerfel.html" title="The cube"
+             >next</a></li>
+        <li class="right" >
+          <a href="parallelogramm.html" title="Parallelogram"
+             >previous</a> &nbsp; &nbsp;</li>
+  <li><a href="../../../index.html">Science education with SageMath</a> &#187;</li>
+  
+        <li class="nav-item nav-item-this"><a href="">Pyramid and vectors</a></li> 
+      </ul>
+    </div>
+  </div>
+  
+  <div class="footer">
+    <a class="logo" href="http://icse.us.edu.pl/" target="_blank"><img src="../../../_static/logo-icse.png" alt="ICSE"/></a><br/>
+    &copy; Copyright Creative Commons CC-BY 4.0, iCSE-team.
+    Created using <a href="http://sphinx.pocoo.org/">Sphinx</a> 3.2.1.
+  </div>
+  </body>
+</html>

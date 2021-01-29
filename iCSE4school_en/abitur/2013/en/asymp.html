@@ -1,0 +1,324 @@
+
+
+  
+<!DOCTYPE html>
+
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Asymptotes &#8212; Science education with SageMath</title>
+    <link rel="stylesheet" href="../../../_static/cloud.css" type="text/css" />
+    <link rel="stylesheet" href="../../../_static/pygments.css" type="text/css" />
+    <link rel="stylesheet" href="http://fonts.googleapis.com/css?family=Noticia+Text|Open+Sans|Droid+Sans+Mono&amp;subset=latin,latin-ext" type="text/css" />
+    <script id="documentation_options" data-url_root="../../../" src="../../../_static/documentation_options.js"></script>
+    <script src="../../../_static/jquery.js"></script>
+    <script src="../../../_static/underscore.js"></script>
+    <script src="../../../_static/doctools.js"></script>
+    <script src="../../../_static/language_data.js"></script>
+    <script async="async" src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.7/latest.js?config=TeX-AMS-MML_HTMLorMML"></script>
+    <script src="../../../_static/jquery.cookie.js"></script>
+    <script src="../../../_static/cloud.js"></script>
+    <script type="text/javascript" src="http://sagecell.sagemath.org/static/jquery.min.js"></script>
+    <script type="text/javascript" src="http://sagecell.sagemath.org/static/embedded_sagecell.js"></script>
+    <script type="text/javascript">
+        sagecell.makeSagecell({inputLocation: ".sage_linked",
+                               linked: true});
+        sagecell.makeSagecell({inputLocation: ".sage_unlinked",
+                               linked: false});
+    </script>
+
+    <style type="text/css">
+        .sagecell .CodeMirror-scroll {
+            overflow-y: hidden;
+            overflow-x: auto;
+        }
+        .sagecell .CodeMirror {
+            height: auto;
+        }
+    </style>
+    
+    <link rel="search" title="Search" href="../../../search.html" />
+    <link rel="next" title="Extremum of the function" href="../../2014/en/extremum.html" />
+    <link rel="prev" title="Integrals of semicircle" href="inthalbkreis.html" />
+ 
+  <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, minimum-scale=1">
+  </head><body>
+  <div class="relbar-top">
+    
+    <div class="related" role="navigation" aria-label="related navigation">
+      <h3>Navigation</h3>
+      <ul>
+        <li class="right" style="margin-right: 10px">
+          <a href="../../2014/en/extremum.html" title="Extremum of the function"
+             accesskey="N">next</a></li>
+        <li class="right" >
+          <a href="inthalbkreis.html" title="Integrals of semicircle"
+             accesskey="P">previous</a> &nbsp; &nbsp;</li>
+  <li><a href="../../../index.html">Science education with SageMath</a> &#187;</li>
+  
+        <li class="nav-item nav-item-this"><a href="">Asymptotes</a></li> 
+      </ul>
+    </div>
+  </div>
+  
+  <div class="content">  
+
+    <div class="document">
+      <div class="documentwrapper">
+        <div class="bodywrapper">
+          <div class="body">
+            
+  <div class="section" id="asymptotes">
+<h1>Asymptotes<a class="headerlink" href="#asymptotes" title="Permalink to this headline">¶</a></h1>
+<div class="admonition-introduction admonition">
+<p class="admonition-title">Introduction</p>
+<p>We are given the function <span class="math notranslate nohighlight">\(f:x\mapsto \frac{1}{2}x -\frac{1}{2}
++ \frac{8}{x+1}\)</span> with domain <span class="math notranslate nohighlight">\(\mathbb{R} \backslash \{-1\}\)</span>.
+Figure 2 displays the graph <span class="math notranslate nohighlight">\(G_f\)</span> of <span class="math notranslate nohighlight">\(f\)</span>.</p>
+<img alt="../../../_images/asymp1.png" class="align-center" src="../../../_images/asymp1.png" />
+</div>
+<div class="section" id="problem-1">
+<h2>Problem 1<a class="headerlink" href="#problem-1" title="Permalink to this headline">¶</a></h2>
+<div class="admonition-problem-1 admonition">
+<p class="admonition-title">Problem 1</p>
+<ol class="loweralpha simple">
+<li><p>State the equations of the asymptotes of <span class="math notranslate nohighlight">\(G_f\)</span> and demonstrate
+by means of a calculation that <span class="math notranslate nohighlight">\(G_f\)</span> does not intersect its
+inclined asymptote. Add a sketch of the asymptotes to figure 2.</p></li>
+<li><p>Calculate the position and nature of the extrema of <span class="math notranslate nohighlight">\(G_f\)</span>.</p></li>
+</ol>
+</div>
+<p><strong>Solution of part a</strong></p>
+<p>At <span class="math notranslate nohighlight">\(x=-1\)</span> the function <span class="math notranslate nohighlight">\(f(x)\)</span> possesses a pole. Accordingly, the
+first asymptote is described by the equation <span class="math notranslate nohighlight">\(x=-1\)</span>. The second asymptote
+ist obtained by considering <span class="math notranslate nohighlight">\(f(x)\)</span> for very large absolute values of
+<span class="math notranslate nohighlight">\(x\)</span>. In this case, the term <span class="math notranslate nohighlight">\(\frac{8}{x+1}\)</span> goes to zero.
+Therefore, the function approaches the straight line <span class="math notranslate nohighlight">\(g(x) = \frac{1}{2}x
+-\frac{1}{2}\)</span>.</p>
+<p>The following code asks Sage to identify the poles of the function which are
+then displayed by grey dashed lines. In this way, the vertical asymptote
+<span class="math notranslate nohighlight">\(x=-1\)</span> is accounted for.  In addition, the asymptote for large values
+of <span class="math notranslate nohighlight">\(\vert x\vert\)</span> must be depicted.</p>
+<div class='sage_linked'><script type='text/x-sage'>ranges = {'xmin': -10, 'xmax': 10, 'ymin': -10, 'ymax': 10}
+f(x) = x/2- 1/2 + 8/(x+1)
+pf = plot(f, detect_poles="show", **ranges)
+asymptote = x/2 - 1/2
+pasymp = plot(asymptote, color='green', **ranges)
+show(pf + pasymp, aspect_ratio=1, figsize=4)</script></div><p>An intersection of the function with its asymptote can only exist provided
+that</p>
+<div class="math notranslate nohighlight">
+\[f(x) - g(x) = \frac{8}{x+1} = 0\]</div>
+<p>possesses a solution. However, this is obviously not the case. Accordingly,
+Sage does not find an intersection.</p>
+<div class='sage_linked'><script type='text/x-sage'>solve(asymptote == f, x)</script></div><p><strong>Solution of part b</strong></p>
+<p>In order to determine the positions of the extrema, the derivative of
+<span class="math notranslate nohighlight">\(f\)</span> must be set equal to zero. The nature of the extrema can
+be deduced from the sign of the second derivatives at these points.</p>
+<p>We find by taking the derivative:</p>
+<div class="math notranslate nohighlight">
+\[\begin{split}\frac{\mathrm{d}f}{\mathrm{d}x} &amp;= \frac{1}{2}-\frac{8}{(x+1)^2}\\
+\frac{\mathrm{d}^2f}{\mathrm{d}x^2} &amp;= \frac{16}{(x+1)^3}\end{split}\]</div>
+<p>The first derivative vanishes at <span class="math notranslate nohighlight">\(x+1 = \pm 4\)</span>, i.e., at <span class="math notranslate nohighlight">\(x_1=-5\)</span>
+and <span class="math notranslate nohighlight">\(x_2=3\)</span>. In the first case, the second derivative is negative and we
+have a maximum. In contrast, in the second case the second derivative is
+positive and we have a minimum.</p>
+<p>These results may be confirmed by Sage.</p>
+<div class='sage_linked'><script type='text/x-sage'>df = derivative(f)
+ddf = derivative(df)
+print "f'(x)  = ", df
+print "f''(x) = ", ddf
+for extremum in solve(df == 0, x):
+    x = extremum.right()
+    print "Second derivative for the extremum at x=%s: %s" % (x, ddf(x))</script></div></div>
+<div class="section" id="problem-2">
+<h2>Problem 2<a class="headerlink" href="#problem-2" title="Permalink to this headline">¶</a></h2>
+<div class="admonition-problem-2 admonition">
+<p class="admonition-title">Problem 2</p>
+<p>Figure 2 suggests that <span class="math notranslate nohighlight">\(G_f\)</span> is symmetric with respect to the
+intersection <span class="math notranslate nohighlight">\(P(-1\vert -1)\)</span> of its asymptotes. In order to prove
+this symmetry of <span class="math notranslate nohighlight">\(G_f\)</span>, one may consider the function <span class="math notranslate nohighlight">\(g\)</span>
+the graph of which is obtained from <span class="math notranslate nohighlight">\(G_f\)</span> by a shift in the positive
+<span class="math notranslate nohighlight">\(x\)</span> direction by <span class="math notranslate nohighlight">\(1\)</span> and in the positive <span class="math notranslate nohighlight">\(y\)</span> direction by
+<span class="math notranslate nohighlight">\(1\)</span>.</p>
+<ol class="loweralpha">
+<li><p>Determine the function term of <span class="math notranslate nohighlight">\(g\)</span>. Then demonstrate the point
+symmetry of <span class="math notranslate nohighlight">\(G_f\)</span> by proving that the graph of <span class="math notranslate nohighlight">\(g\)</span> is
+point-symmetric with respect to the origin.</p>
+<p><em>(Partial result:</em> <span class="math notranslate nohighlight">\(g(x)=\frac{1}{2}x+\frac{8}{x}\)</span><em>)</em></p>
+</li>
+<li><p>Demonstrate that <span class="math notranslate nohighlight">\(\int\limits_0^4 f(x)\mathrm{d}x=2+8\cdot\ln 5\)</span>.
+Then determine without any further integration the value of the integral
+<span class="math notranslate nohighlight">\(\int\limits_{-6}^{-2} f(x) \mathrm{d}x\)</span>; illustrate your procedure
+by appropriate additions to figure 2.</p></li>
+</ol>
+</div>
+<p><strong>Solution of part a</strong></p>
+<p>A positive shift in <span class="math notranslate nohighlight">\(x\)</span> direction by <span class="math notranslate nohighlight">\(1\)</span> is obtained by replacing
+<span class="math notranslate nohighlight">\(x\)</span> by <span class="math notranslate nohighlight">\(x-1\)</span>. Adding <span class="math notranslate nohighlight">\(1\)</span> leads to the required shift in
+the <span class="math notranslate nohighlight">\(y\)</span> direction. The function <span class="math notranslate nohighlight">\(g\)</span> is then obtained in agreement
+with the partial result stated in the problem text:</p>
+<div class='sage_linked'><script type='text/x-sage'>g(x) = f(x-1) + 1
+print(g)</script></div><p>The point symmetry of <span class="math notranslate nohighlight">\(g\)</span> with respect to the origin is a consequence of
+the presence of only linear or inversely linear terms. It can be demonstrated by
+means of Sage as follows:</p>
+<div class='sage_linked'><script type='text/x-sage'>print "g(x) = ", g(x)
+print "-g(-x) = ", -g(-x)
+if g(x) == -g(-x):
+    print "g(x) is point-symmetric."
+else:
+    print "g(x) is not point-symmetric."</script></div><p><strong>Solution of part b</strong></p>
+<p>The antiderivative of the function <span class="math notranslate nohighlight">\(f\)</span> is</p>
+<div class="math notranslate nohighlight">
+\[F(x) = \frac{x^2}{4}-\frac{x}{2}+8\ln(\vert x+1\vert).\]</div>
+<p>Inserting the limits of integration, one finds the stated result</p>
+<div class="math notranslate nohighlight">
+\[\int_0^4f(x)\mathrm{d}x = F(4)-F(0) = 2+8\ln(5)\,.\]</div>
+<p>By means of Sage, one obtains accordingly:</p>
+<div class='sage_linked'><script type='text/x-sage'>F = f.integrate(x)
+print "antiderivative F = ", F
+pretty_print(html("$\int_0^4 f(x)\mathrm{d}x = $" + str(F(4)-F(0))))</script></div><p>As a consequence of the point symmetry <span class="math notranslate nohighlight">\(g(-x)=-g(x)\)</span> and the relation
+<span class="math notranslate nohighlight">\(g(x)=f(x-1)+1\)</span> it follows that</p>
+<div class="math notranslate nohighlight">
+\[f(x) = -f(-x-2)-2\,.\]</div>
+<p>The second integral to be evaluated can then be determined as follows:</p>
+<div class="math notranslate nohighlight">
+\[\begin{split}\int_{-6}^{-2}f(x)\mathrm{d}x &amp;= -\int_{-6}^{-2}[f(-x-2)+2]\mathrm{d}x\\
+                              &amp;= -\int_2^6[f(x-2)+2]\mathrm{d}x\\
+                              &amp;= -\int_0^4[f(x)+2]\mathrm{d}x\\
+                              &amp;= -\int_0^4f(x)\mathrm{d}x-8\\
+                              &amp;= -8\ln(5)-10\,.\end{split}\]</div>
+<p>Here, we first took the mirror image of the interval of integration and then
+shifted it.</p>
+<p>The resulting value can be confirmed by Sage:</p>
+<div class='sage_linked'><script type='text/x-sage'>f.integrate(x, -6, -2)</script></div><p>The procedure can be displayed graphically by Sage. The area of size
+<span class="math notranslate nohighlight">\(2\cdot4=8\)</span> displayed in red represents the correction to the
+integral following from the point symmetry with respect to
+<span class="math notranslate nohighlight">\(y=-1\)</span>.</p>
+<div class='sage_linked'><script type='text/x-sage'>pf = plot(f, exclude=[-1], xmin=-10, xmax=10, ymin=-10, ymax=10)
+pf1 = plot(f, -6, -2, fill=-2)
+pf2 = plot(f, 0, 4, fill='axis')
+rect = polygon([[-6, 0], [-2, 0], [-2, -2], [-6, -2]], color='red')
+show(pf + pf1 + pf2 + rect, aspect_ratio=1, figsize=4)</script></div></div>
+<div class="section" id="problem-3">
+<h2>Problem 3<a class="headerlink" href="#problem-3" title="Permalink to this headline">¶</a></h2>
+<div class="admonition-problem-3 admonition">
+<p class="admonition-title">Problem 3</p>
+<img alt="../../../_images/zylinder1.png" class="align-right" src="../../../_images/zylinder1.png" />
+<p>A vertically standing beverage can is of the form of a straight cylinder.
+The position of the joint center of mass <span class="math notranslate nohighlight">\(S\)</span> of the can and the liquid
+contained in it depends on the filling height of the liquid above the bottom
+of the can. For a completely filled can, the filling height amounts to 15 cm.</p>
+<p>The function <span class="math notranslate nohighlight">\(f\)</span> considered so far, yields for <span class="math notranslate nohighlight">\(0\leq x \leq 15\)</span>
+the height of <span class="math notranslate nohighlight">\(S\)</span> in centimetres with respect to the bottom of the can.
+Here, <span class="math notranslate nohighlight">\(x\)</span> is the filling height in centimetres (cf. figure 3).</p>
+<ol class="loweralpha simple">
+<li><p>Determine <span class="math notranslate nohighlight">\(f(0)\)</span> und <span class="math notranslate nohighlight">\(f(15)\)</span>. Interprete the two results within
+the context.</p></li>
+<li><p>The initially empty can is slowly filled with a liquid until the maximal
+filling height of 15 cm is reached. Use figure 2 to describe the motion of the center of
+mass <span class="math notranslate nohighlight">\(S\)</span> during the filling process. Within the context, explain the
+meaning of the fact that the coordinates <span class="math notranslate nohighlight">\(x\)</span> and <span class="math notranslate nohighlight">\(y\)</span> of the
+minimum of <span class="math notranslate nohighlight">\(G_f\)</span> agree.</p></li>
+<li><p>For which filling heights <span class="math notranslate nohighlight">\(x\)</span> is the center of mass <span class="math notranslate nohighlight">\(S\)</span>
+situated at a height of at most 5 cm? First answer this question
+approximately with the help of figure 2 and then by means of a calculation.</p></li>
+</ol>
+</div>
+<p><strong>Solution of part a</strong></p>
+<p>Inserting the given arguments into the function <span class="math notranslate nohighlight">\(f\)</span>, we find</p>
+<div class="math notranslate nohighlight">
+\[f(0)=f(15)=\frac{15}{2}\,.\]</div>
+<p>For a completely empty can (<span class="math notranslate nohighlight">\(x=0\)</span>) the center of mass <span class="math notranslate nohighlight">\(S\)</span> agrees
+with the center of mass of the can. For a homogeneous distribution of weight,
+<span class="math notranslate nohighlight">\(S\)</span> is thus situated in the midpoint of the can at a height of
+<span class="math notranslate nohighlight">\(7.5\,\mathrm{cm}\)</span>. If the can is completely filled, the center of mass of
+the liquid corresponds to the center of mass of the empty can. Therefore, the
+joint center of mass agrees with the center of mass of the empty can.</p>
+<p><strong>Solution of part b</strong></p>
+<p>Filling the empty can with the liquid, the center of mass is first lowered.
+At a filling height of <span class="math notranslate nohighlight">\(3\,\mathrm{cm}\)</span> the surface reaches the center
+of mass. Beyond this filling height, the center of mass rises again.</p>
+<p><strong>Solution of part c</strong></p>
+<p>From figure 2 we can estimate the region in which the center of mass is below
+5 cm to <span class="math notranslate nohighlight">\(0.5 &lt; x &lt; 9.5\)</span>. The exact limits for <span class="math notranslate nohighlight">\(x\)</span> are obtained by
+solving the equation</p>
+<div class="math notranslate nohighlight">
+\[f(x)= \frac{1}{2}x - \frac{1}{2} + \frac{8}{x+1} = 5\]</div>
+<p>for <span class="math notranslate nohighlight">\(x\)</span>.</p>
+<p>By means of Sage, we can calculate the exact values:</p>
+<div class='sage_linked'><script type='text/x-sage'>result = solve(f(x) == 5, x)
+print "Solution of the equation " + str(f) + " = 5 :" + repr(result)
+print "This corresponds approximately to: x = %5.3f and x = %5.3f." % (result[0].right().n(), result[1].right().n())</script></div><p>The same result</p>
+<div class="math notranslate nohighlight">
+\[x_{1,2} = 5\pm2\sqrt{5}\]</div>
+<p>is obtained by solving the quadratic equation obtained from the above equation</p>
+<div class="math notranslate nohighlight">
+\[x^2-10x+5=0\,.\]</div>
+</div>
+</div>
+
+
+          </div>
+        </div>
+      </div>
+      <div class="sphinxsidebar" role="navigation" aria-label="main navigation">
+        <div class="sphinxsidebarwrapper">
+  <div class="sphinxlocaltoc">
+  <h3><a href="../../../index.html">Table Of Contents</a></h3>
+  <ul>
+<li><a class="reference internal" href="#">Asymptotes</a><ul>
+<li><a class="reference internal" href="#problem-1">Problem 1</a></li>
+<li><a class="reference internal" href="#problem-2">Problem 2</a></li>
+<li><a class="reference internal" href="#problem-3">Problem 3</a></li>
+</ul>
+</li>
+</ul>
+
+  </div>
+  <h4>Previous topic</h4>
+  <p class="topless"><a href="inthalbkreis.html"
+                        title="previous chapter">Integrals of semicircle</a></p>
+  <h4>Next topic</h4>
+  <p class="topless"><a href="../../2014/en/extremum.html"
+                        title="next chapter">Extremum of the function</a></p>
+<div id="searchbox" style="display: none" role="search">
+  <h3 id="searchlabel">Quick search</h3>
+    <div class="searchformwrapper">
+    <form class="search" action="../../../search.html" method="get">
+      <input type="text" name="q" aria-labelledby="searchlabel" />
+      <input type="submit" value="Go" />
+    </form>
+    </div>
+</div>
+<script>$('#searchbox').show(0);</script>
+        </div>
+      </div>
+      <div class="clearer"></div>
+    </div>
+  </div>
+  <div class="relbar-bottom">
+    
+    <div class="related" role="navigation" aria-label="related navigation">
+      <h3>Navigation</h3>
+      <ul>
+        <li class="right" style="margin-right: 10px">
+          <a href="../../2014/en/extremum.html" title="Extremum of the function"
+             >next</a></li>
+        <li class="right" >
+          <a href="inthalbkreis.html" title="Integrals of semicircle"
+             >previous</a> &nbsp; &nbsp;</li>
+  <li><a href="../../../index.html">Science education with SageMath</a> &#187;</li>
+  
+        <li class="nav-item nav-item-this"><a href="">Asymptotes</a></li> 
+      </ul>
+    </div>
+  </div>
+  
+  <div class="footer">
+    <a class="logo" href="http://icse.us.edu.pl/" target="_blank"><img src="../../../_static/logo-icse.png" alt="ICSE"/></a><br/>
+    &copy; Copyright Creative Commons CC-BY 4.0, iCSE-team.
+    Created using <a href="http://sphinx.pocoo.org/">Sphinx</a> 3.2.1.
+  </div>
+  </body>
+</html>

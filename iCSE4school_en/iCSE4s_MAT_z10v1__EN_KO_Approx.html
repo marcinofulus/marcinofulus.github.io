@@ -1,0 +1,469 @@
+
+
+  
+<!DOCTYPE html>
+
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Please write a title for this worksheet! &#8212; Science education with SageMath</title>
+    <link rel="stylesheet" href="_static/cloud.css" type="text/css" />
+    <link rel="stylesheet" href="_static/pygments.css" type="text/css" />
+    <link rel="stylesheet" href="http://fonts.googleapis.com/css?family=Noticia+Text|Open+Sans|Droid+Sans+Mono&amp;subset=latin,latin-ext" type="text/css" />
+    <script id="documentation_options" data-url_root="./" src="_static/documentation_options.js"></script>
+    <script src="_static/jquery.js"></script>
+    <script src="_static/underscore.js"></script>
+    <script src="_static/doctools.js"></script>
+    <script src="_static/language_data.js"></script>
+    <script async="async" src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.7/latest.js?config=TeX-AMS-MML_HTMLorMML"></script>
+    <script src="_static/jquery.cookie.js"></script>
+    <script src="_static/cloud.js"></script>
+    <script type="text/javascript" src="http://sagecell.sagemath.org/static/jquery.min.js"></script>
+    <script type="text/javascript" src="http://sagecell.sagemath.org/static/embedded_sagecell.js"></script>
+    <script type="text/javascript">
+        sagecell.makeSagecell({inputLocation: ".sage_linked",
+                               linked: true});
+        sagecell.makeSagecell({inputLocation: ".sage_unlinked",
+                               linked: false});
+    </script>
+
+    <style type="text/css">
+        .sagecell .CodeMirror-scroll {
+            overflow-y: hidden;
+            overflow-x: auto;
+        }
+        .sagecell .CodeMirror {
+            height: auto;
+        }
+    </style>
+    
+    <link rel="search" title="Search" href="search.html" />
+ 
+  <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, minimum-scale=1">
+  </head><body>
+  <div class="relbar-top">
+    
+    <div class="related" role="navigation" aria-label="related navigation">
+      <h3>Navigation</h3>
+      <ul>
+  <li><a href="index.html">Science education with SageMath</a> &#187;</li>
+  
+        <li class="nav-item nav-item-this"><a href="">Please write a title for this worksheet!</a></li> 
+      </ul>
+    </div>
+  </div>
+  
+  <div class="content">  
+
+    <div class="document">
+      <div class="documentwrapper">
+        <div class="bodywrapper">
+          <div class="body">
+            
+  <div class="section" id="please-write-a-title-for-this-worksheet">
+<h1>Please write a title for this worksheet!<a class="headerlink" href="#please-write-a-title-for-this-worksheet" title="Permalink to this headline">¶</a></h1>
+<p>We want to use a computer to illustrate a SIMPLE problem by using BASIC programs.</p>
+<ul class="simple">
+<li><p>Why BASIC?</p></li>
+</ul>
+<p>Because we don’t know if we are familiar enough with SAGE.</p>
+<ul class="simple">
+<li><p>Why SIMPLE?</p></li>
+</ul>
+<p>Because we are keen on making some people surprised by this part of mathematics which is told to be boring… Most of people don’t like counting, so we’ll repeat not exciting calculations and computer will lead us (perhaps) to some misunderstandings in using numbers…</p>
+<p><strong>Part 1</strong></p>
+<p>Let’s start with approximation of square-root of two. We’ll use square-root algorithm (which is based on Newton’s method for finding zeros of a function, this case is known as Babylonian method).</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">sage</span><span class="p">:</span> <span class="n">rot</span><span class="o">=</span><span class="mi">2</span>
+<span class="n">sage</span><span class="p">:</span> <span class="k">for</span> <span class="n">n</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="mi">1</span><span class="p">,</span><span class="mi">6</span><span class="p">):</span>    <span class="c1">#change range</span>
+<span class="o">...</span>       <span class="n">rot</span><span class="o">=</span><span class="mf">0.5</span><span class="o">*</span><span class="p">(</span><span class="n">rot</span><span class="o">+</span><span class="mi">2</span><span class="o">/</span><span class="n">rot</span><span class="p">)</span>
+<span class="o">...</span>       <span class="nb">print</span> <span class="n">rot</span>
+<span class="o">...</span>       <span class="nb">print</span> <span class="s2">&quot;error =&quot;</span><span class="p">,</span><span class="nb">abs</span><span class="p">(</span><span class="n">N</span><span class="p">(</span><span class="n">sqrt</span><span class="p">(</span><span class="mi">2</span><span class="p">)</span><span class="o">-</span><span class="n">rot</span><span class="p">))</span>
+<span class="mf">1.50000000000000</span>
+<span class="n">error</span> <span class="o">=</span> <span class="mf">0.0857864376269049</span>
+<span class="mf">1.41666666666667</span>
+<span class="n">error</span> <span class="o">=</span> <span class="mf">0.00245310429357137</span>
+<span class="mf">1.41421568627451</span>
+<span class="n">error</span> <span class="o">=</span> <span class="mf">2.12390141451912e-6</span>
+<span class="mf">1.41421356237469</span>
+<span class="n">error</span> <span class="o">=</span> <span class="mf">1.59472435257157e-12</span>
+<span class="mf">1.41421356237309</span>
+<span class="n">error</span> <span class="o">=</span> <span class="mf">2.22044604925031e-16</span>
+</pre></div>
+</div>
+<p>Do you know</p>
+<ul class="simple">
+<li><p>what does 2.12390141451912e-6 mean?</p></li>
+<li><p>how does error change while n changes?</p></li>
+</ul>
+<p>Let’s see how fast this algorithm is.</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">sage</span><span class="p">:</span> <span class="n">rot</span><span class="o">=</span><span class="mi">2</span>
+<span class="n">sage</span><span class="p">:</span> <span class="n">graph</span><span class="o">=</span><span class="n">point</span><span class="p">((</span><span class="mi">0</span><span class="p">,</span><span class="n">sqrt</span><span class="p">(</span><span class="mi">2</span><span class="p">)))</span>
+<span class="n">sage</span><span class="p">:</span> <span class="k">for</span> <span class="n">n</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="mi">1</span><span class="p">,</span><span class="mi">21</span><span class="p">):</span>    <span class="c1">#does range (1,51) change anything?</span>
+<span class="o">...</span>       <span class="n">rot</span><span class="o">=</span><span class="mf">0.5</span><span class="o">*</span><span class="p">(</span><span class="n">rot</span><span class="o">+</span><span class="mi">2</span><span class="o">/</span><span class="n">rot</span><span class="p">)</span>
+<span class="o">...</span>       <span class="n">graph</span><span class="o">=</span><span class="n">graph</span><span class="o">+</span><span class="n">point</span><span class="p">((</span><span class="n">n</span><span class="p">,</span><span class="n">rot</span><span class="p">))</span>
+<span class="n">sage</span><span class="p">:</span> <span class="n">plot</span><span class="p">(</span><span class="n">graph</span><span class="p">)</span>
+</pre></div>
+</div>
+<p>Wait a minute… What are we thinking about using a word “fast”?</p>
+<p>Let’s make a comparison. One of the most popular number is  <span class="math notranslate nohighlight">\(\pi\)</span>, so we’ll use an algorithm of approximation of this object. It’ll be based on Wallis’ product for  <span class="math notranslate nohighlight">\(\pi\)</span>, written down in 1655:</p>
+<div class="math notranslate nohighlight">
+\[\frac{\pi}{2}=\prod_{n=1}^\infty\left(\frac{2n}{2n-1}\cdot\frac{2n}{2n+1}\right).\]</div>
+<p>It’s quite complicated - perhaps a big  <span class="math notranslate nohighlight">\(\pi\)</span> makes us confused. What about a formula like that</p>
+<div class="math notranslate nohighlight">
+\[\frac{\pi}{2}=\frac{2}{1}\cdot\frac{2}{3}\cdot\frac{4}{3}\cdot\frac{4}{5}\cdot\frac{6}{5}\cdot\frac{6}{7}\cdot\frac{8}{7}\cdot\frac{8}{9}\cdot\cdots?\]</div>
+<p>Easier?</p>
+<p>A big  <span class="math notranslate nohighlight">\(\pi\)</span> stands for a product (something like many, many multiplications…).</p>
+<p>How does it work?</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">sage</span><span class="p">:</span> <span class="n">w</span><span class="o">=</span><span class="mi">1</span>
+<span class="n">sage</span><span class="p">:</span> <span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="mi">1</span><span class="p">,</span><span class="mi">6</span><span class="p">):</span>
+<span class="o">...</span>       <span class="n">w</span><span class="o">=</span><span class="n">w</span><span class="o">*</span><span class="p">((</span><span class="mi">2</span><span class="o">*</span><span class="n">i</span><span class="p">)</span><span class="o">/</span><span class="p">(</span><span class="mi">2</span><span class="o">*</span><span class="n">i</span><span class="o">-</span><span class="mi">1</span><span class="p">))</span><span class="o">*</span><span class="p">((</span><span class="mi">2</span><span class="o">*</span><span class="n">i</span><span class="p">)</span><span class="o">/</span><span class="p">(</span><span class="mi">2</span><span class="o">*</span><span class="n">i</span><span class="o">+</span><span class="mi">1</span><span class="p">))</span>
+<span class="o">...</span>       <span class="nb">print</span> <span class="mi">2</span><span class="o">*</span><span class="n">w</span>     <span class="c1">#do you prefer fractions or decimals?</span>
+<span class="o">...</span>       <span class="nb">print</span> <span class="s2">&quot;error =&quot;</span><span class="p">,</span><span class="nb">abs</span><span class="p">(</span><span class="n">N</span><span class="p">(</span><span class="n">pi</span><span class="o">-</span><span class="mi">2</span><span class="o">*</span><span class="n">w</span><span class="p">))</span>
+<span class="mi">8</span><span class="o">/</span><span class="mi">3</span>
+<span class="n">error</span> <span class="o">=</span> <span class="mf">0.474925986923127</span>
+<span class="mi">128</span><span class="o">/</span><span class="mi">45</span>
+<span class="n">error</span> <span class="o">=</span> <span class="mf">0.297148209145349</span>
+<span class="mi">512</span><span class="o">/</span><span class="mi">175</span>
+<span class="n">error</span> <span class="o">=</span> <span class="mf">0.215878367875507</span>
+<span class="mi">32768</span><span class="o">/</span><span class="mi">11025</span>
+<span class="n">error</span> <span class="o">=</span> <span class="mf">0.169438458578455</span>
+<span class="mi">131072</span><span class="o">/</span><span class="mi">43659</span>
+<span class="n">error</span> <span class="o">=</span> <span class="mf">0.139416699032886</span>
+</pre></div>
+</div>
+<p>Do you know</p>
+<ul class="simple">
+<li><p>what does abs() mean?</p></li>
+<li><p>what does N() mean?</p></li>
+<li><p>how does error change while n changes?</p></li>
+<li><p>how many reps do we have to do to get to 3,14?</p></li>
+</ul>
+<p>Let’s see how fast this algorthm is.</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">sage</span><span class="p">:</span> <span class="n">w</span><span class="o">=</span><span class="mi">1</span>
+<span class="n">sage</span><span class="p">:</span> <span class="n">graph</span><span class="o">=</span><span class="n">point</span><span class="p">((</span><span class="mi">0</span><span class="p">,</span><span class="n">pi</span><span class="p">))</span>
+<span class="n">sage</span><span class="p">:</span> <span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="mi">1</span><span class="p">,</span><span class="mi">21</span><span class="p">):</span>
+<span class="o">...</span>       <span class="n">w</span><span class="o">=</span><span class="n">w</span><span class="o">*</span><span class="p">((</span><span class="mi">2</span><span class="o">*</span><span class="n">i</span><span class="p">)</span><span class="o">/</span><span class="p">(</span><span class="mi">2</span><span class="o">*</span><span class="n">i</span><span class="o">-</span><span class="mi">1</span><span class="p">))</span><span class="o">*</span><span class="p">((</span><span class="mi">2</span><span class="o">*</span><span class="n">i</span><span class="p">)</span><span class="o">/</span><span class="p">(</span><span class="mi">2</span><span class="o">*</span><span class="n">i</span><span class="o">+</span><span class="mi">1</span><span class="p">))</span>
+<span class="o">...</span>       <span class="n">graph</span><span class="o">=</span><span class="n">graph</span><span class="o">+</span><span class="n">point</span><span class="p">((</span><span class="n">i</span><span class="p">,</span><span class="mi">2</span><span class="o">*</span><span class="n">w</span><span class="p">))</span>
+<span class="n">sage</span><span class="p">:</span> <span class="n">plot</span><span class="p">(</span><span class="n">graph</span><span class="p">)</span>
+</pre></div>
+</div>
+<p>Now we can compare the speed of the first and second algorithm and ask very awkward questions:</p>
+<ul class="simple">
+<li><p>Have we ever wondered about how our calculator approximates the numbers?</p></li>
+<li><p>Maybe our colleague’s calculator makes it better. What does “better” mean?</p></li>
+<li><p>We counted some errors - SAGE had to approximate square-root of two and  <span class="math notranslate nohighlight">\(\pi\)</span> (these numbers are not rational): did SAGE make a mistake? How big?</p></li>
+</ul>
+<p>Let’s finish the first part of our discussion glance at the results of the following program:</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">sage</span><span class="p">:</span> <span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="nb">range</span> <span class="p">(</span><span class="mi">2</span><span class="p">,</span><span class="mi">16</span><span class="p">):</span>
+<span class="o">...</span>       <span class="n">ap</span><span class="o">=</span><span class="n">N</span><span class="p">(</span><span class="n">pi</span><span class="p">,</span> <span class="n">digits</span><span class="o">=</span><span class="n">i</span><span class="p">)</span>
+<span class="o">...</span>       <span class="nb">print</span> <span class="n">N</span><span class="p">(</span><span class="n">pi</span><span class="p">)</span>
+<span class="o">...</span>       <span class="nb">print</span> <span class="n">ap</span>
+<span class="o">...</span>       <span class="nb">print</span> <span class="s2">&quot;error 1=&quot;</span><span class="p">,</span> <span class="n">N</span><span class="p">(</span><span class="n">pi</span><span class="o">-</span><span class="n">ap</span><span class="p">)</span>
+<span class="o">...</span>       <span class="nb">print</span> <span class="s2">&quot;error 2=&quot;</span><span class="p">,</span> <span class="n">N</span><span class="p">(</span><span class="n">pi</span><span class="p">)</span><span class="o">-</span><span class="n">N</span><span class="p">(</span><span class="n">ap</span><span class="p">)</span>
+<span class="o">...</span>       <span class="nb">print</span> <span class="s2">&quot;error 3=&quot;</span><span class="p">,</span> <span class="n">N</span><span class="p">(</span><span class="n">N</span><span class="p">(</span><span class="n">pi</span><span class="p">)</span><span class="o">-</span><span class="n">N</span><span class="p">(</span><span class="n">ap</span><span class="p">))</span>
+<span class="o">...</span>       <span class="nb">print</span> <span class="s2">&quot;error 4=&quot;</span><span class="p">,</span> <span class="n">N</span><span class="p">(</span><span class="n">pi</span><span class="o">-</span><span class="n">N</span><span class="p">(</span><span class="n">ap</span><span class="p">))</span>
+<span class="o">...</span>       <span class="nb">print</span> <span class="s2">&quot;error 5=&quot;</span><span class="p">,</span> <span class="n">N</span><span class="p">(</span><span class="n">N</span><span class="p">(</span><span class="n">pi</span><span class="p">)</span><span class="o">-</span><span class="n">ap</span><span class="p">)</span>
+<span class="mf">3.14159265358979</span>
+<span class="mf">3.1</span>
+<span class="n">error</span> <span class="mi">1</span><span class="o">=</span> <span class="mf">0.000967653589793116</span>
+<span class="n">error</span> <span class="mi">2</span><span class="o">=</span> <span class="mf">0.000967653589793116</span>
+<span class="n">error</span> <span class="mi">3</span><span class="o">=</span> <span class="mf">0.000967653589793116</span>
+<span class="n">error</span> <span class="mi">4</span><span class="o">=</span> <span class="mf">0.000967653589793116</span>
+<span class="n">error</span> <span class="mi">5</span><span class="o">=</span> <span class="mf">0.000000000000000</span>
+<span class="mf">3.14159265358979</span>
+<span class="mf">3.14</span>
+<span class="n">error</span> <span class="mi">1</span><span class="o">=</span> <span class="o">-</span><span class="mf">8.90891020688400e-6</span>
+<span class="n">error</span> <span class="mi">2</span><span class="o">=</span> <span class="o">-</span><span class="mf">8.90891020688400e-6</span>
+<span class="n">error</span> <span class="mi">3</span><span class="o">=</span> <span class="o">-</span><span class="mf">8.90891020688400e-6</span>
+<span class="n">error</span> <span class="mi">4</span><span class="o">=</span> <span class="o">-</span><span class="mf">8.90891020688400e-6</span>
+<span class="n">error</span> <span class="mi">5</span><span class="o">=</span> <span class="mf">0.000000000000000</span>
+<span class="mf">3.14159265358979</span>
+<span class="mf">3.142</span>
+<span class="n">error</span> <span class="mi">1</span><span class="o">=</span> <span class="o">-</span><span class="mf">8.90891020688400e-6</span>
+<span class="n">error</span> <span class="mi">2</span><span class="o">=</span> <span class="o">-</span><span class="mf">8.90891020688400e-6</span>
+<span class="n">error</span> <span class="mi">3</span><span class="o">=</span> <span class="o">-</span><span class="mf">8.90891020688400e-6</span>
+<span class="n">error</span> <span class="mi">4</span><span class="o">=</span> <span class="o">-</span><span class="mf">8.90891020688400e-6</span>
+<span class="n">error</span> <span class="mi">5</span><span class="o">=</span> <span class="mf">0.000000000000000</span>
+<span class="mf">3.14159265358979</span>
+<span class="mf">3.1416</span>
+<span class="n">error</span> <span class="mi">1</span><span class="o">=</span> <span class="o">-</span><span class="mf">1.27951567563400e-6</span>
+<span class="n">error</span> <span class="mi">2</span><span class="o">=</span> <span class="o">-</span><span class="mf">1.27951567563400e-6</span>
+<span class="n">error</span> <span class="mi">3</span><span class="o">=</span> <span class="o">-</span><span class="mf">1.27951567563400e-6</span>
+<span class="n">error</span> <span class="mi">4</span><span class="o">=</span> <span class="o">-</span><span class="mf">1.27951567563400e-6</span>
+<span class="n">error</span> <span class="mi">5</span><span class="o">=</span> <span class="mf">0.000000000000000</span>
+<span class="mf">3.14159265358979</span>
+<span class="mf">3.14159</span>
+<span class="n">error</span> <span class="mi">1</span><span class="o">=</span> <span class="o">-</span><span class="mf">8.74227801261895e-8</span>
+<span class="n">error</span> <span class="mi">2</span><span class="o">=</span> <span class="o">-</span><span class="mf">8.74227801261895e-8</span>
+<span class="n">error</span> <span class="mi">3</span><span class="o">=</span> <span class="o">-</span><span class="mf">8.74227801261895e-8</span>
+<span class="n">error</span> <span class="mi">4</span><span class="o">=</span> <span class="o">-</span><span class="mf">8.74227801261895e-8</span>
+<span class="n">error</span> <span class="mi">5</span><span class="o">=</span> <span class="mf">0.000000000000000</span>
+<span class="mf">3.14159265358979</span>
+<span class="mf">3.141593</span>
+<span class="n">error</span> <span class="mi">1</span><span class="o">=</span> <span class="mf">1.98418703689640e-9</span>
+<span class="n">error</span> <span class="mi">2</span><span class="o">=</span> <span class="mf">1.98418703689640e-9</span>
+<span class="n">error</span> <span class="mi">3</span><span class="o">=</span> <span class="mf">1.98418703689640e-9</span>
+<span class="n">error</span> <span class="mi">4</span><span class="o">=</span> <span class="mf">1.98418703689640e-9</span>
+<span class="n">error</span> <span class="mi">5</span><span class="o">=</span> <span class="mf">0.000000000000000</span>
+<span class="mf">3.14159265358979</span>
+<span class="mf">3.1415927</span>
+<span class="n">error</span> <span class="mi">1</span><span class="o">=</span> <span class="o">-</span><span class="mf">1.74110326156551e-9</span>
+<span class="n">error</span> <span class="mi">2</span><span class="o">=</span> <span class="o">-</span><span class="mf">1.74110326156551e-9</span>
+<span class="n">error</span> <span class="mi">3</span><span class="o">=</span> <span class="o">-</span><span class="mf">1.74110326156551e-9</span>
+<span class="n">error</span> <span class="mi">4</span><span class="o">=</span> <span class="o">-</span><span class="mf">1.74110326156551e-9</span>
+<span class="n">error</span> <span class="mi">5</span><span class="o">=</span> <span class="mf">0.000000000000000</span>
+<span class="mf">3.14159265358979</span>
+<span class="mf">3.14159265</span>
+<span class="n">error</span> <span class="mi">1</span><span class="o">=</span> <span class="o">-</span><span class="mf">1.11288755988426e-10</span>
+<span class="n">error</span> <span class="mi">2</span><span class="o">=</span> <span class="o">-</span><span class="mf">1.11288755988426e-10</span>
+<span class="n">error</span> <span class="mi">3</span><span class="o">=</span> <span class="o">-</span><span class="mf">1.11288755988426e-10</span>
+<span class="n">error</span> <span class="mi">4</span><span class="o">=</span> <span class="o">-</span><span class="mf">1.11288755988426e-10</span>
+<span class="n">error</span> <span class="mi">5</span><span class="o">=</span> <span class="mf">0.000000000000000</span>
+<span class="mf">3.14159265358979</span>
+<span class="mf">3.141592654</span>
+<span class="n">error</span> <span class="mi">1</span><span class="o">=</span> <span class="mf">5.12656583850912e-12</span>
+<span class="n">error</span> <span class="mi">2</span><span class="o">=</span> <span class="mf">5.12656583850912e-12</span>
+<span class="n">error</span> <span class="mi">3</span><span class="o">=</span> <span class="mf">5.12656583850912e-12</span>
+<span class="n">error</span> <span class="mi">4</span><span class="o">=</span> <span class="mf">5.12656583850912e-12</span>
+<span class="n">error</span> <span class="mi">5</span><span class="o">=</span> <span class="mf">0.000000000000000</span>
+<span class="mf">3.14159265358979</span>
+<span class="mf">3.1415926536</span>
+<span class="n">error</span> <span class="mi">1</span><span class="o">=</span> <span class="mf">1.48858703141741e-12</span>
+<span class="n">error</span> <span class="mi">2</span><span class="o">=</span> <span class="mf">1.48858703141741e-12</span>
+<span class="n">error</span> <span class="mi">3</span><span class="o">=</span> <span class="mf">1.48858703141741e-12</span>
+<span class="n">error</span> <span class="mi">4</span><span class="o">=</span> <span class="mf">1.48858703141741e-12</span>
+<span class="n">error</span> <span class="mi">5</span><span class="o">=</span> <span class="mf">0.000000000000000</span>
+<span class="mf">3.14159265358979</span>
+<span class="mf">3.14159265359</span>
+<span class="n">error</span> <span class="mi">1</span><span class="o">=</span> <span class="o">-</span><span class="mf">1.03028696685215e-13</span>
+<span class="n">error</span> <span class="mi">2</span><span class="o">=</span> <span class="o">-</span><span class="mf">1.03028696685215e-13</span>
+<span class="n">error</span> <span class="mi">3</span><span class="o">=</span> <span class="o">-</span><span class="mf">1.03028696685215e-13</span>
+<span class="n">error</span> <span class="mi">4</span><span class="o">=</span> <span class="o">-</span><span class="mf">1.03028696685215e-13</span>
+<span class="n">error</span> <span class="mi">5</span><span class="o">=</span> <span class="mf">0.000000000000000</span>
+<span class="mf">3.14159265358979</span>
+<span class="mf">3.141592653590</span>
+<span class="n">error</span> <span class="mi">1</span><span class="o">=</span> <span class="mf">1.06581410364015e-14</span>
+<span class="n">error</span> <span class="mi">2</span><span class="o">=</span> <span class="mf">1.06581410364015e-14</span>
+<span class="n">error</span> <span class="mi">3</span><span class="o">=</span> <span class="mf">1.06581410364015e-14</span>
+<span class="n">error</span> <span class="mi">4</span><span class="o">=</span> <span class="mf">1.06581410364015e-14</span>
+<span class="n">error</span> <span class="mi">5</span><span class="o">=</span> <span class="mf">0.000000000000000</span>
+<span class="mf">3.14159265358979</span>
+<span class="mf">3.1415926535898</span>
+<span class="n">error</span> <span class="mi">1</span><span class="o">=</span> <span class="mf">0.000000000000000</span>
+<span class="n">error</span> <span class="mi">2</span><span class="o">=</span> <span class="mf">0.000000000000000</span>
+<span class="n">error</span> <span class="mi">3</span><span class="o">=</span> <span class="mf">0.000000000000000</span>
+<span class="n">error</span> <span class="mi">4</span><span class="o">=</span> <span class="mf">0.000000000000000</span>
+<span class="n">error</span> <span class="mi">5</span><span class="o">=</span> <span class="mf">0.000000000000000</span>
+<span class="mf">3.14159265358979</span>
+<span class="mf">3.14159265358979</span>
+<span class="n">error</span> <span class="mi">1</span><span class="o">=</span> <span class="mf">0.000000000000000</span>
+<span class="n">error</span> <span class="mi">2</span><span class="o">=</span> <span class="mf">0.000000000000000</span>
+<span class="n">error</span> <span class="mi">3</span><span class="o">=</span> <span class="mf">0.000000000000000</span>
+<span class="n">error</span> <span class="mi">4</span><span class="o">=</span> <span class="mf">0.000000000000000</span>
+<span class="n">error</span> <span class="mi">5</span><span class="o">=</span> <span class="mf">0.000000000000000</span>
+</pre></div>
+</div>
+<p>Is it really all clear?</p>
+<p><strong>Part 2</strong></p>
+<p>Okay, but who is interested in differences in approximations of numbers, for example on the fifteenth decimal place?</p>
+<p>Let’s try to take care of some geometrical problem.</p>
+<p>Consider the cylinder inscribed in a cube (bases of the cylinder are  inscribed  in the two parallel faces of the cube). In the corner of the cube put the ball  of maximum volume tangent to the cylinder. What is this volume?</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">sage</span><span class="p">:</span> <span class="n">var</span><span class="p">(</span><span class="s1">&#39;x,y,z&#39;</span><span class="p">)</span>
+<span class="n">sage</span><span class="p">:</span> <span class="n">r</span><span class="o">=</span><span class="p">(</span><span class="n">sqrt</span><span class="p">(</span><span class="mi">2</span><span class="p">)</span><span class="o">-</span><span class="mi">1</span><span class="p">)</span><span class="o">/</span><span class="p">(</span><span class="mi">2</span><span class="o">*</span><span class="n">sqrt</span><span class="p">(</span><span class="mi">2</span><span class="p">)</span><span class="o">+</span><span class="mi">2</span><span class="p">)</span>     <span class="c1">#where did it come from?</span>
+<span class="n">sage</span><span class="p">:</span> <span class="n">a</span><span class="o">=</span><span class="n">implicit_plot3d</span><span class="p">(</span><span class="n">x</span><span class="o">^</span><span class="mi">2</span><span class="o">+</span><span class="n">y</span><span class="o">^</span><span class="mi">2</span><span class="o">-</span><span class="mf">0.25</span><span class="p">,(</span><span class="n">x</span><span class="p">,</span><span class="o">-</span><span class="mf">0.5</span><span class="p">,</span><span class="mf">0.5</span><span class="p">),(</span><span class="n">y</span><span class="p">,</span><span class="o">-</span><span class="mf">0.5</span><span class="p">,</span><span class="mf">0.5</span><span class="p">),(</span><span class="n">z</span><span class="p">,</span><span class="o">-</span><span class="mf">0.5</span><span class="p">,</span><span class="mf">0.5</span><span class="p">),</span> <span class="n">color</span> <span class="o">=</span> <span class="s2">&quot;green&quot;</span><span class="p">,</span> <span class="n">opacity</span> <span class="o">=</span> <span class="mf">0.4</span><span class="p">)</span>
+<span class="n">sage</span><span class="p">:</span> <span class="n">b</span><span class="o">=</span><span class="n">cube</span><span class="p">(</span><span class="n">center</span><span class="o">=</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span> <span class="mi">0</span><span class="p">,</span> <span class="mi">0</span><span class="p">),</span> <span class="n">opacity</span><span class="o">=</span><span class="mf">0.1</span><span class="p">,</span> <span class="n">color</span> <span class="o">=</span> <span class="s2">&quot;green&quot;</span><span class="p">)</span>
+<span class="n">sage</span><span class="p">:</span> <span class="n">c</span><span class="o">=</span><span class="n">sphere</span><span class="p">(</span><span class="n">center</span><span class="o">=</span><span class="p">(</span><span class="o">-</span><span class="mf">0.5</span><span class="o">+</span><span class="n">r</span><span class="p">,</span><span class="o">-</span><span class="mf">0.5</span><span class="o">+</span><span class="n">r</span><span class="p">,</span><span class="o">-</span><span class="mf">0.5</span><span class="o">+</span><span class="n">r</span><span class="p">),</span> <span class="n">opacity</span><span class="o">=</span><span class="mf">0.9</span><span class="p">,</span> <span class="n">color</span> <span class="o">=</span> <span class="s2">&quot;green&quot;</span><span class="p">,</span> <span class="n">size</span><span class="o">=</span><span class="n">r</span><span class="p">)</span>
+<span class="n">sage</span><span class="p">:</span> <span class="n">graph</span><span class="o">=</span><span class="n">a</span><span class="o">+</span><span class="n">b</span><span class="o">+</span><span class="n">c</span>
+<span class="n">sage</span><span class="p">:</span> <span class="n">graph</span>
+</pre></div>
+</div>
+<p>As we can see the edge of the cube has a length of 1</p>
+<div class="math notranslate nohighlight">
+\[x, y, z \in (-0.5,0.5),\]</div>
+<p>and the cylinder is connected with the circle pattern of</p>
+<div class="math notranslate nohighlight">
+\[x^2+y^2=0.25.\]</div>
+<p>And where was taken</p>
+<div class="math notranslate nohighlight">
+\[r=\frac{\sqrt{2}-1}{2\sqrt{2}+2}?\]</div>
+<p>Denoted by  <span class="math notranslate nohighlight">\(r\)</span> the radius of the search ball. With simple relationship between the diagonal of the square and the rays of both circles we receive:</p>
+<div class="math notranslate nohighlight">
+\[\frac{1}{2}\sqrt{2}=r\sqrt{2}+r+\frac{1}{2}\]</div>
+<div class="math notranslate nohighlight">
+\[\frac{1}{2}\sqrt{2}-\frac{1}{2}=r\left(1+\sqrt{2}\right)\]</div>
+<div class="math notranslate nohighlight">
+\[r=\frac{\frac{1}{2}\sqrt{2}-\frac{1}{2}}{1+\sqrt{2}}=\frac{\sqrt{2}-1}{2\sqrt{2}+2}\]</div>
+<p>and searched volume is equal to</p>
+<div class="math notranslate nohighlight">
+\[\frac{4}{3}\pi r^3=\frac{4}{3}\pi \left(\frac{1}{2}\right)^3\left(\frac{\sqrt{2}-1}{\sqrt{2}+1}\right)^3=\frac{\pi}{6}\left(\frac{\sqrt{2}-1}{\sqrt{2}+1}\right)^3.\]</div>
+<p>Everyone has heard about the transformation of expressions that contain numbers that are not rational, so let’s get to the tedious work …</p>
+<div class="math notranslate nohighlight">
+\[\left(\frac{\sqrt{2}-1}{\sqrt{2}+1}\right)^3=\left(\frac{\sqrt{2}-1}{\sqrt{2}+1}\cdot\frac{\sqrt{2}-1}{\sqrt{2}-1}\right)^3=\left(\sqrt{2}-1\right)^6,\]</div>
+<p>but</p>
+<div class="math notranslate nohighlight">
+\[\left(\sqrt{2}-1\right)^6=\left(\left(\sqrt{2}-1\right)^2\right)^3=\left(3-2\sqrt{2}\right)^3,\]</div>
+<div class="math notranslate nohighlight">
+\[\left(\sqrt{2}-1\right)^6=\left(\left(\sqrt{2}-1\right)^3\right)^2=\left(5\sqrt{2}-7\right)^2,\]</div>
+<p>and finally</p>
+<div class="math notranslate nohighlight">
+\[\left(\sqrt{2}-1\right)^6=\left(5\sqrt{2}-7\right)^2=99-70\sqrt{2}.\]</div>
+<p>Let</p>
+<div class="math notranslate nohighlight">
+\[w_1=99-70\sqrt{2},\quad w_2=\left(5\sqrt{2}-7\right)^2\quad w_3=\left(3-2\sqrt{2}\right)^3,\quad w_4=\left(\sqrt{2}-1\right)^6,\quad w_5=\left(\frac{\sqrt{2}-1}{\sqrt{2}+1}\right)^3.\]</div>
+<p>Of course  <span class="math notranslate nohighlight">\(w_1=w_2=w_3=w_4=w_5\)</span>, but: are there any difference among  <span class="math notranslate nohighlight">\(w_1,\dots,w_5\)</span> when when we approach the square-root of two? Let’s see…</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">sage</span><span class="p">:</span> <span class="n">p</span><span class="o">=</span><span class="mf">1.44</span>     <span class="c1">#change p</span>
+<span class="n">sage</span><span class="p">:</span> <span class="nb">print</span> <span class="s1">&#39;apr=&#39;</span><span class="p">,</span><span class="n">p</span>
+<span class="n">sage</span><span class="p">:</span> <span class="nb">print</span> <span class="s1">&#39;w_1=&#39;</span><span class="p">,</span><span class="n">N</span><span class="p">(</span><span class="mi">99</span><span class="o">-</span><span class="mi">70</span><span class="o">*</span><span class="n">p</span><span class="p">)</span>
+<span class="n">sage</span><span class="p">:</span> <span class="nb">print</span> <span class="s1">&#39;w_2=&#39;</span><span class="p">,</span><span class="n">N</span><span class="p">((</span><span class="mi">5</span><span class="o">*</span><span class="n">p</span><span class="o">-</span><span class="mi">7</span><span class="p">)</span><span class="o">^</span><span class="mi">2</span><span class="p">)</span>
+<span class="n">sage</span><span class="p">:</span> <span class="nb">print</span> <span class="s1">&#39;w_3=&#39;</span><span class="p">,</span><span class="n">N</span><span class="p">((</span><span class="mi">3</span><span class="o">-</span><span class="mi">2</span><span class="o">*</span><span class="n">p</span><span class="p">)</span><span class="o">^</span><span class="mi">3</span><span class="p">)</span>
+<span class="n">sage</span><span class="p">:</span> <span class="nb">print</span><span class="s1">&#39;w_4=&#39;</span><span class="p">,</span><span class="n">N</span><span class="p">((</span><span class="n">p</span><span class="o">-</span><span class="mi">1</span><span class="p">)</span><span class="o">^</span><span class="mi">6</span><span class="p">)</span>
+<span class="n">sage</span><span class="p">:</span> <span class="nb">print</span> <span class="s1">&#39;w_5=&#39;</span><span class="p">,</span><span class="n">N</span><span class="p">(((</span><span class="n">p</span><span class="o">-</span><span class="mi">1</span><span class="p">)</span><span class="o">/</span><span class="p">(</span><span class="n">p</span><span class="o">+</span><span class="mi">1</span><span class="p">))</span><span class="o">^</span><span class="mi">3</span><span class="p">)</span>
+<span class="n">apr</span><span class="o">=</span> <span class="mf">1.44000000000000</span>
+<span class="n">w_1</span><span class="o">=</span> <span class="o">-</span><span class="mf">1.80000000000000</span>
+<span class="n">w_2</span><span class="o">=</span> <span class="mf">0.0399999999999997</span>
+<span class="n">w_3</span><span class="o">=</span> <span class="mf">0.00172800000000000</span>
+<span class="n">w_4</span><span class="o">=</span> <span class="mf">0.00725631385599999</span>
+<span class="n">w_5</span><span class="o">=</span> <span class="mf">0.00586392693661584</span>
+</pre></div>
+</div>
+<p>We assume that the square root of two is equal to 1.44 and you should change this value.</p>
+<p>It turns out that the differences between approximations are big, if we accept the square-root of two as 1.41 (and yet many people think of approximations only to parts hundredths).</p>
+<p>What about: 1.414, 1.4142, 1.41421, 1.414213 and so on?</p>
+<p>It’s really care what form of expression involving numbers which are not rational we use, if we are going to approximate (and yet we have to do that!).</p>
+<p>The differences are large, what we can see, considering graphs related functions connected with  <span class="math notranslate nohighlight">\(w_1,\dots,w_5\)</span>.</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">sage</span><span class="p">:</span> <span class="n">a</span><span class="o">=-</span><span class="mf">0.5</span>     <span class="c1">#change a</span>
+<span class="n">sage</span><span class="p">:</span> <span class="n">b</span><span class="o">=</span><span class="mi">3</span>     <span class="c1">#change b</span>
+<span class="n">sage</span><span class="p">:</span> <span class="n">plot</span><span class="p">(</span><span class="mi">99</span><span class="o">-</span><span class="mi">70</span><span class="o">*</span><span class="n">x</span><span class="p">,(</span><span class="n">a</span><span class="p">,</span><span class="n">b</span><span class="p">),</span><span class="n">color</span><span class="o">=</span><span class="s2">&quot;red&quot;</span><span class="p">)</span><span class="o">+</span><span class="n">plot</span><span class="p">((</span><span class="mi">5</span><span class="o">*</span><span class="n">x</span><span class="o">-</span><span class="mi">7</span><span class="p">)</span><span class="o">^</span><span class="mi">2</span><span class="p">,(</span><span class="n">a</span><span class="p">,</span><span class="n">b</span><span class="p">),</span><span class="n">color</span><span class="o">=</span><span class="s2">&quot;blue&quot;</span><span class="p">)</span><span class="o">+</span><span class="n">plot</span><span class="p">((</span><span class="mi">3</span><span class="o">-</span><span class="mi">2</span><span class="o">*</span><span class="n">x</span><span class="p">)</span><span class="o">^</span><span class="mi">3</span><span class="p">,(</span><span class="n">a</span><span class="p">,</span><span class="n">b</span><span class="p">),</span><span class="n">color</span><span class="o">=</span><span class="s2">&quot;green&quot;</span><span class="p">)</span><span class="o">+</span><span class="n">plot</span><span class="p">((</span><span class="n">x</span><span class="o">-</span><span class="mi">1</span><span class="p">)</span><span class="o">^</span><span class="mi">6</span><span class="p">,(</span><span class="n">a</span><span class="p">,</span><span class="n">b</span><span class="p">),</span><span class="n">color</span><span class="o">=</span><span class="s2">&quot;yellow&quot;</span><span class="p">)</span><span class="o">+</span><span class="n">plot</span><span class="p">(((</span><span class="n">x</span><span class="o">-</span><span class="mi">1</span><span class="p">)</span><span class="o">/</span><span class="p">(</span><span class="n">x</span><span class="o">+</span><span class="mi">1</span><span class="p">))</span><span class="o">^</span><span class="mi">3</span><span class="p">,(</span><span class="n">a</span><span class="p">,</span><span class="n">b</span><span class="p">),</span><span class="n">color</span><span class="o">=</span><span class="s2">&quot;purple&quot;</span><span class="p">)</span>
+</pre></div>
+</div>
+<p>We assumed that  <span class="math notranslate nohighlight">\(x\in(-0.5,3)\)</span>. You should change this interval, approaching the square-root of two.</p>
+<p>Let’s go back to the drawing containing our ball.</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">sage</span><span class="p">:</span> <span class="n">var</span><span class="p">(</span><span class="s1">&#39;x,y,z&#39;</span><span class="p">)</span>
+<span class="n">sage</span><span class="p">:</span> <span class="n">p</span><span class="o">=</span><span class="mf">1.41</span>     <span class="c1">#change p</span>
+<span class="n">sage</span><span class="p">:</span> <span class="n">r1</span><span class="o">=</span><span class="n">N</span><span class="p">(</span><span class="mf">0.5</span><span class="o">*</span><span class="p">((</span><span class="mi">99</span><span class="o">-</span><span class="mi">70</span><span class="o">*</span><span class="n">p</span><span class="p">)</span><span class="o">^</span><span class="p">(</span><span class="mi">1</span><span class="o">/</span><span class="mi">3</span><span class="p">)))</span>     <span class="c1">#why here &quot;^(1/3)&quot;?</span>
+<span class="n">sage</span><span class="p">:</span> <span class="n">r2</span><span class="o">=</span><span class="n">N</span><span class="p">(</span><span class="mf">0.5</span><span class="o">*</span><span class="p">(((</span><span class="mi">5</span><span class="o">*</span><span class="n">p</span><span class="o">-</span><span class="mi">7</span><span class="p">)</span><span class="o">^</span><span class="mi">2</span><span class="p">)</span><span class="o">^</span><span class="p">(</span><span class="mi">1</span><span class="o">/</span><span class="mi">3</span><span class="p">)))</span>
+<span class="n">sage</span><span class="p">:</span> <span class="n">r3</span><span class="o">=</span><span class="n">N</span><span class="p">(</span><span class="mf">0.5</span><span class="o">*</span><span class="p">((</span><span class="mi">3</span><span class="o">-</span><span class="mi">2</span><span class="o">*</span><span class="n">p</span><span class="p">)</span><span class="o">^</span><span class="mi">3</span><span class="p">)</span><span class="o">^</span><span class="p">(</span><span class="mi">1</span><span class="o">/</span><span class="mi">3</span><span class="p">))</span>
+<span class="n">sage</span><span class="p">:</span> <span class="n">r4</span><span class="o">=</span><span class="n">N</span><span class="p">(</span><span class="mf">0.5</span><span class="o">*</span><span class="p">((</span><span class="n">p</span><span class="o">-</span><span class="mi">1</span><span class="p">)</span><span class="o">^</span><span class="mi">6</span><span class="p">)</span><span class="o">^</span><span class="p">(</span><span class="mi">1</span><span class="o">/</span><span class="mi">3</span><span class="p">))</span>
+<span class="n">sage</span><span class="p">:</span> <span class="n">r5</span><span class="o">=</span><span class="n">N</span><span class="p">(</span><span class="mf">0.5</span><span class="o">*</span><span class="p">(((</span><span class="n">p</span><span class="o">-</span><span class="mi">1</span><span class="p">)</span><span class="o">/</span><span class="p">(</span><span class="n">p</span><span class="o">+</span><span class="mi">1</span><span class="p">))</span><span class="o">^</span><span class="mi">3</span><span class="p">)</span><span class="o">^</span><span class="p">(</span><span class="mi">1</span><span class="o">/</span><span class="mi">3</span><span class="p">))</span>
+<span class="n">sage</span><span class="p">:</span> <span class="n">r</span><span class="o">=</span><span class="n">r5</span>     <span class="c1">#change r</span>
+<span class="n">sage</span><span class="p">:</span> <span class="n">a</span><span class="o">=</span><span class="n">implicit_plot3d</span><span class="p">(</span><span class="n">x</span><span class="o">^</span><span class="mi">2</span><span class="o">+</span><span class="n">y</span><span class="o">^</span><span class="mi">2</span><span class="o">-</span><span class="mf">0.25</span><span class="p">,(</span><span class="n">x</span><span class="p">,</span><span class="o">-</span><span class="mf">0.5</span><span class="p">,</span><span class="mf">0.5</span><span class="p">),(</span><span class="n">y</span><span class="p">,</span><span class="o">-</span><span class="mf">0.5</span><span class="p">,</span><span class="mf">0.5</span><span class="p">),(</span><span class="n">z</span><span class="p">,</span><span class="o">-</span><span class="mf">0.5</span><span class="p">,</span><span class="mf">0.5</span><span class="p">),</span> <span class="n">color</span> <span class="o">=</span> <span class="s2">&quot;green&quot;</span><span class="p">,</span> <span class="n">opacity</span> <span class="o">=</span> <span class="mf">0.4</span><span class="p">)</span>
+<span class="n">sage</span><span class="p">:</span> <span class="n">b</span><span class="o">=</span><span class="n">cube</span><span class="p">(</span><span class="n">center</span><span class="o">=</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span> <span class="mi">0</span><span class="p">,</span> <span class="mi">0</span><span class="p">),</span> <span class="n">opacity</span><span class="o">=</span><span class="mf">0.1</span><span class="p">,</span> <span class="n">color</span> <span class="o">=</span> <span class="s2">&quot;green&quot;</span><span class="p">)</span>
+<span class="n">sage</span><span class="p">:</span> <span class="n">c</span><span class="o">=</span><span class="n">sphere</span><span class="p">(</span><span class="n">center</span><span class="o">=</span><span class="p">(</span><span class="o">-</span><span class="mf">0.5</span><span class="o">+</span><span class="n">r</span><span class="p">,</span><span class="o">-</span><span class="mf">0.5</span><span class="o">+</span><span class="n">r</span><span class="p">,</span><span class="o">-</span><span class="mf">0.5</span><span class="o">+</span><span class="n">r</span><span class="p">),</span> <span class="n">opacity</span><span class="o">=</span><span class="mf">0.9</span><span class="p">,</span> <span class="n">color</span> <span class="o">=</span> <span class="s2">&quot;green&quot;</span><span class="p">,</span> <span class="n">size</span><span class="o">=</span><span class="n">r</span><span class="p">)</span>
+<span class="n">sage</span><span class="p">:</span> <span class="n">graph</span><span class="o">=</span><span class="n">b</span><span class="o">+</span><span class="n">a</span><span class="o">+</span><span class="n">c</span>
+<span class="n">sage</span><span class="p">:</span> <span class="n">graph</span>
+</pre></div>
+</div>
+<p>You should change</p>
+<ul class="simple">
+<li><p><span class="math notranslate nohighlight">\(p\)</span>: 1.414, 1.4142, 1.41421, 1.414213;  don’t forget about sqrt(2),</p></li>
+<li><p><span class="math notranslate nohighlight">\(r\)</span>:  <span class="math notranslate nohighlight">\(r_1,\dots,r_5\)</span>.</p></li>
+</ul>
+<p>Let’s look at all five balls at once.</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">sage</span><span class="p">:</span> <span class="n">var</span><span class="p">(</span><span class="s1">&#39;x,y,z&#39;</span><span class="p">)</span>
+<span class="n">sage</span><span class="p">:</span> <span class="n">p</span><span class="o">=</span><span class="mf">1.41</span>     <span class="c1">#why is there a problem with p=1.44?</span>
+<span class="n">sage</span><span class="p">:</span> <span class="n">r1</span><span class="o">=</span><span class="n">N</span><span class="p">(</span><span class="mf">0.5</span><span class="o">*</span><span class="p">((</span><span class="mi">99</span><span class="o">-</span><span class="mi">70</span><span class="o">*</span><span class="n">p</span><span class="p">)</span><span class="o">^</span><span class="p">(</span><span class="mi">1</span><span class="o">/</span><span class="mi">3</span><span class="p">)))</span>
+<span class="n">sage</span><span class="p">:</span> <span class="n">r2</span><span class="o">=</span><span class="n">N</span><span class="p">(</span><span class="mf">0.5</span><span class="o">*</span><span class="p">(((</span><span class="mi">5</span><span class="o">*</span><span class="n">p</span><span class="o">-</span><span class="mi">7</span><span class="p">)</span><span class="o">^</span><span class="mi">2</span><span class="p">)</span><span class="o">^</span><span class="p">(</span><span class="mi">1</span><span class="o">/</span><span class="mi">3</span><span class="p">)))</span>
+<span class="n">sage</span><span class="p">:</span> <span class="n">r3</span><span class="o">=</span><span class="n">N</span><span class="p">(</span><span class="mf">0.5</span><span class="o">*</span><span class="p">((</span><span class="mi">3</span><span class="o">-</span><span class="mi">2</span><span class="o">*</span><span class="n">p</span><span class="p">)</span><span class="o">^</span><span class="mi">3</span><span class="p">)</span><span class="o">^</span><span class="p">(</span><span class="mi">1</span><span class="o">/</span><span class="mi">3</span><span class="p">))</span>
+<span class="n">sage</span><span class="p">:</span> <span class="n">r4</span><span class="o">=</span><span class="n">N</span><span class="p">(</span><span class="mf">0.5</span><span class="o">*</span><span class="p">((</span><span class="n">p</span><span class="o">-</span><span class="mi">1</span><span class="p">)</span><span class="o">^</span><span class="mi">6</span><span class="p">)</span><span class="o">^</span><span class="p">(</span><span class="mi">1</span><span class="o">/</span><span class="mi">3</span><span class="p">))</span>
+<span class="n">sage</span><span class="p">:</span> <span class="n">r5</span><span class="o">=</span><span class="n">N</span><span class="p">(</span><span class="mf">0.5</span><span class="o">*</span><span class="p">(((</span><span class="n">p</span><span class="o">-</span><span class="mi">1</span><span class="p">)</span><span class="o">/</span><span class="p">(</span><span class="n">p</span><span class="o">+</span><span class="mi">1</span><span class="p">))</span><span class="o">^</span><span class="mi">3</span><span class="p">)</span><span class="o">^</span><span class="p">(</span><span class="mi">1</span><span class="o">/</span><span class="mi">3</span><span class="p">))</span>
+<span class="n">sage</span><span class="p">:</span> <span class="n">a</span><span class="o">=</span><span class="n">implicit_plot3d</span><span class="p">(</span><span class="n">x</span><span class="o">^</span><span class="mi">2</span><span class="o">+</span><span class="n">y</span><span class="o">^</span><span class="mi">2</span><span class="o">-</span><span class="mf">0.25</span><span class="p">,(</span><span class="n">x</span><span class="p">,</span><span class="o">-</span><span class="mf">0.5</span><span class="p">,</span><span class="mf">0.5</span><span class="p">),(</span><span class="n">y</span><span class="p">,</span><span class="o">-</span><span class="mf">0.5</span><span class="p">,</span><span class="mf">0.5</span><span class="p">),(</span><span class="n">z</span><span class="p">,</span><span class="o">-</span><span class="mf">0.5</span><span class="p">,</span><span class="mf">0.5</span><span class="p">),</span> <span class="n">color</span> <span class="o">=</span> <span class="s2">&quot;green&quot;</span><span class="p">,</span> <span class="n">opacity</span> <span class="o">=</span> <span class="mf">0.4</span><span class="p">)</span>
+<span class="n">sage</span><span class="p">:</span> <span class="n">b</span><span class="o">=</span><span class="n">cube</span><span class="p">(</span><span class="n">center</span><span class="o">=</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span> <span class="mi">0</span><span class="p">,</span> <span class="mi">0</span><span class="p">),</span> <span class="n">opacity</span><span class="o">=</span><span class="mf">0.1</span><span class="p">,</span> <span class="n">color</span> <span class="o">=</span> <span class="s2">&quot;green&quot;</span><span class="p">)</span>
+<span class="n">sage</span><span class="p">:</span> <span class="n">c</span><span class="o">=</span><span class="n">sphere</span><span class="p">(</span><span class="n">center</span><span class="o">=</span><span class="p">(</span><span class="o">-</span><span class="mf">0.5</span><span class="o">+</span><span class="n">r1</span><span class="p">,</span><span class="o">-</span><span class="mf">0.5</span><span class="o">+</span><span class="n">r1</span><span class="p">,</span><span class="o">-</span><span class="mf">0.5</span><span class="o">+</span><span class="n">r1</span><span class="p">),</span> <span class="n">opacity</span><span class="o">=</span><span class="mf">0.2</span><span class="p">,</span> <span class="n">color</span> <span class="o">=</span> <span class="s2">&quot;grey&quot;</span><span class="p">,</span> <span class="n">size</span><span class="o">=</span><span class="n">r1</span><span class="p">)</span>
+<span class="n">sage</span><span class="p">:</span> <span class="n">d</span><span class="o">=</span><span class="n">sphere</span><span class="p">(</span><span class="n">center</span><span class="o">=</span><span class="p">(</span><span class="o">-</span><span class="mf">0.5</span><span class="o">+</span><span class="n">r2</span><span class="p">,</span><span class="o">-</span><span class="mf">0.5</span><span class="o">+</span><span class="n">r2</span><span class="p">,</span><span class="o">-</span><span class="mf">0.5</span><span class="o">+</span><span class="n">r2</span><span class="p">),</span> <span class="n">opacity</span><span class="o">=</span><span class="mf">0.2</span><span class="p">,</span> <span class="n">color</span> <span class="o">=</span> <span class="s2">&quot;yellow&quot;</span><span class="p">,</span> <span class="n">size</span><span class="o">=</span><span class="n">r2</span><span class="p">)</span>
+<span class="n">sage</span><span class="p">:</span> <span class="n">e</span><span class="o">=</span><span class="n">sphere</span><span class="p">(</span><span class="n">center</span><span class="o">=</span><span class="p">(</span><span class="o">-</span><span class="mf">0.5</span><span class="o">+</span><span class="n">r3</span><span class="p">,</span><span class="o">-</span><span class="mf">0.5</span><span class="o">+</span><span class="n">r3</span><span class="p">,</span><span class="o">-</span><span class="mf">0.5</span><span class="o">+</span><span class="n">r3</span><span class="p">),</span> <span class="n">opacity</span><span class="o">=</span><span class="mf">0.2</span><span class="p">,</span> <span class="n">color</span> <span class="o">=</span> <span class="s2">&quot;red&quot;</span><span class="p">,</span> <span class="n">size</span><span class="o">=</span><span class="n">r3</span><span class="p">)</span>
+<span class="n">sage</span><span class="p">:</span> <span class="n">f</span><span class="o">=</span><span class="n">sphere</span><span class="p">(</span><span class="n">center</span><span class="o">=</span><span class="p">(</span><span class="o">-</span><span class="mf">0.5</span><span class="o">+</span><span class="n">r4</span><span class="p">,</span><span class="o">-</span><span class="mf">0.5</span><span class="o">+</span><span class="n">r4</span><span class="p">,</span><span class="o">-</span><span class="mf">0.5</span><span class="o">+</span><span class="n">r4</span><span class="p">),</span> <span class="n">opacity</span><span class="o">=</span><span class="mf">0.2</span><span class="p">,</span> <span class="n">color</span> <span class="o">=</span> <span class="s2">&quot;blue&quot;</span><span class="p">,</span> <span class="n">size</span><span class="o">=</span><span class="n">r4</span><span class="p">)</span>
+<span class="n">sage</span><span class="p">:</span> <span class="n">g</span><span class="o">=</span><span class="n">sphere</span><span class="p">(</span><span class="n">center</span><span class="o">=</span><span class="p">(</span><span class="o">-</span><span class="mf">0.5</span><span class="o">+</span><span class="n">r5</span><span class="p">,</span><span class="o">-</span><span class="mf">0.5</span><span class="o">+</span><span class="n">r5</span><span class="p">,</span><span class="o">-</span><span class="mf">0.5</span><span class="o">+</span><span class="n">r5</span><span class="p">),</span> <span class="n">opacity</span><span class="o">=</span><span class="mf">0.2</span><span class="p">,</span> <span class="n">color</span> <span class="o">=</span> <span class="s2">&quot;orange&quot;</span><span class="p">,</span> <span class="n">size</span><span class="o">=</span><span class="n">r5</span><span class="p">)</span>
+<span class="n">sage</span><span class="p">:</span> <span class="n">graph</span><span class="o">=</span><span class="n">a</span><span class="o">+</span><span class="n">b</span><span class="o">+</span><span class="n">c</span><span class="o">+</span><span class="n">d</span><span class="o">+</span><span class="n">e</span><span class="o">+</span><span class="n">f</span><span class="o">+</span><span class="n">g</span>
+<span class="n">sage</span><span class="p">:</span> <span class="n">graph</span>
+</pre></div>
+</div>
+<p>Is not that strange?</p>
+<p>Let’s finish our calculations, considering we’re looking for volume, whereby because we already have enough of looking at distant places after the decimal assume that the edge of the cube has a length of 60.</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">sage</span><span class="p">:</span> <span class="n">p</span><span class="o">=</span><span class="mf">1.41</span>     <span class="c1">#change p</span>
+<span class="n">sage</span><span class="p">:</span> <span class="nb">print</span> <span class="s1">&#39;apr=&#39;</span><span class="p">,</span><span class="n">p</span>
+<span class="n">sage</span><span class="p">:</span> <span class="n">w_1</span><span class="o">=</span><span class="n">N</span><span class="p">(</span><span class="mi">99</span><span class="o">-</span><span class="mi">70</span><span class="o">*</span><span class="n">p</span><span class="p">)</span>
+<span class="n">sage</span><span class="p">:</span> <span class="n">w_2</span><span class="o">=</span><span class="n">N</span><span class="p">((</span><span class="mi">5</span><span class="o">*</span><span class="n">p</span><span class="o">-</span><span class="mi">7</span><span class="p">)</span><span class="o">^</span><span class="mi">2</span><span class="p">)</span>
+<span class="n">sage</span><span class="p">:</span> <span class="n">w_3</span><span class="o">=</span><span class="n">N</span><span class="p">((</span><span class="mi">3</span><span class="o">-</span><span class="mi">2</span><span class="o">*</span><span class="n">p</span><span class="p">)</span><span class="o">^</span><span class="mi">3</span><span class="p">)</span>
+<span class="n">sage</span><span class="p">:</span> <span class="n">w_4</span><span class="o">=</span><span class="n">N</span><span class="p">((</span><span class="n">p</span><span class="o">-</span><span class="mi">1</span><span class="p">)</span><span class="o">^</span><span class="mi">6</span><span class="p">)</span>
+<span class="n">sage</span><span class="p">:</span> <span class="n">w_5</span><span class="o">=</span><span class="n">N</span><span class="p">(((</span><span class="n">p</span><span class="o">-</span><span class="mi">1</span><span class="p">)</span><span class="o">/</span><span class="p">(</span><span class="n">p</span><span class="o">+</span><span class="mi">1</span><span class="p">))</span><span class="o">^</span><span class="mi">3</span><span class="p">)</span>
+<span class="n">sage</span><span class="p">:</span> <span class="nb">print</span> <span class="s1">&#39;volume 1=&#39;</span><span class="p">,</span><span class="n">N</span><span class="p">(</span><span class="n">pi</span><span class="p">)</span><span class="o">*</span><span class="mi">36000</span><span class="o">*</span><span class="n">w_1</span>     <span class="c1">#why here 36000?</span>
+<span class="n">sage</span><span class="p">:</span> <span class="nb">print</span> <span class="s1">&#39;volume 2=&#39;</span><span class="p">,</span><span class="n">N</span><span class="p">(</span><span class="n">pi</span><span class="p">)</span><span class="o">*</span><span class="mi">36000</span><span class="o">*</span><span class="n">w_2</span>
+<span class="n">sage</span><span class="p">:</span> <span class="nb">print</span> <span class="s1">&#39;volume 3=&#39;</span><span class="p">,</span><span class="n">N</span><span class="p">(</span><span class="n">pi</span><span class="p">)</span><span class="o">*</span><span class="mi">36000</span><span class="o">*</span><span class="n">w_3</span>
+<span class="n">sage</span><span class="p">:</span> <span class="nb">print</span> <span class="s1">&#39;volume 4=&#39;</span><span class="p">,</span><span class="n">N</span><span class="p">(</span><span class="n">pi</span><span class="p">)</span><span class="o">*</span><span class="mi">36000</span><span class="o">*</span><span class="n">w_4</span>
+<span class="n">sage</span><span class="p">:</span> <span class="nb">print</span> <span class="s1">&#39;volume 5=&#39;</span><span class="p">,</span><span class="n">N</span><span class="p">(</span><span class="n">pi</span><span class="p">)</span><span class="o">*</span><span class="mi">36000</span><span class="o">*</span><span class="n">w_5</span>
+<span class="n">apr</span><span class="o">=</span> <span class="mf">1.41000000000000</span>
+<span class="n">volume</span> <span class="mi">1</span><span class="o">=</span> <span class="mf">33929.2006587711</span>
+<span class="n">volume</span> <span class="mi">2</span><span class="o">=</span> <span class="mf">282.743338823079</span>
+<span class="n">volume</span> <span class="mi">3</span><span class="o">=</span> <span class="mf">659.583660806486</span>
+<span class="n">volume</span> <span class="mi">4</span><span class="o">=</span> <span class="mf">537.224133143207</span>
+<span class="n">volume</span> <span class="mi">5</span><span class="o">=</span> <span class="mf">556.868709967303</span>
+</pre></div>
+</div>
+<p>Again - you should change  <span class="math notranslate nohighlight">\(p\)</span>: 1.414, 1.4142, 1.41421, 1.414213;  don’t forget about sqrt(2).</p>
+<p>And again: is not that strange? Perhaps not, but considered above example shows how much we have to be careful using approximations.</p>
+<p><strong>Summary</strong></p>
+<p>We wanted to show how important is the difference between manipulating algebraic expression in kind</p>
+<div class="math notranslate nohighlight">
+\[\frac{\sqrt{2}-1}{2\sqrt{2}+2}\]</div>
+<p>and its approximation.</p>
+<p>Why?</p>
+<p>Firstly, due to the fact that we usually use the numbers which are not rational and that  means the need to use their approximations. We tried to show two different - in the sense necessary number of the implementation iterations - algorithms. We suggested finding no small number of iterations leading to approximations of  <span class="math notranslate nohighlight">\(\pi\)</span> proverbial 3.14. Because the differences of decimals can not really interest many people - we decided to see (!) in a geometric problem a specific significance of the adopted approximations square-root of two.</p>
+<p>Secondly, in Polish schools, the advantage is algebraic problem solving (for example equations). This means that the matriculation examination solution of the equation</p>
+<div class="math notranslate nohighlight">
+\[7x^2+27x-31=0\]</div>
+<p>should look like</p>
+<div class="math notranslate nohighlight">
+\[x_1=\frac{-27-\sqrt{1597}}{14},\quad x_2=\frac{-27+\sqrt{1597}}{14}.\]</div>
+<p>There is a mental gap between writing the above “pictures” and the following “numbers”</p>
+<div class="math notranslate nohighlight">
+\[x_1\approx -4.78303,\quad  x_2\approx 0.92589.\]</div>
+<p>Perhaps the whole project should be considered as draw attention to the difference between the signs</p>
+<div class="math notranslate nohighlight">
+\[{\Large{=}}\qquad\textrm{ and }\qquad{\Large{\approx}}\]</div>
+<p>This project is the result of activities</p>
+<p>(inspired by the textbook “Matematyka się liczy” edited by prof. Wacław Zawadowski)</p>
+<p>conducted by Krzysztof Oleś</p>
+<p>in The Stefan Batory High School in Chorzów.</p>
+</div>
+
+
+          </div>
+        </div>
+      </div>
+      <div class="sphinxsidebar" role="navigation" aria-label="main navigation">
+        <div class="sphinxsidebarwrapper">
+<div id="searchbox" style="display: none" role="search">
+  <h3 id="searchlabel">Quick search</h3>
+    <div class="searchformwrapper">
+    <form class="search" action="search.html" method="get">
+      <input type="text" name="q" aria-labelledby="searchlabel" />
+      <input type="submit" value="Go" />
+    </form>
+    </div>
+</div>
+<script>$('#searchbox').show(0);</script>
+        </div>
+      </div>
+      <div class="clearer"></div>
+    </div>
+  </div>
+  <div class="relbar-bottom">
+    
+    <div class="related" role="navigation" aria-label="related navigation">
+      <h3>Navigation</h3>
+      <ul>
+  <li><a href="index.html">Science education with SageMath</a> &#187;</li>
+  
+        <li class="nav-item nav-item-this"><a href="">Please write a title for this worksheet!</a></li> 
+      </ul>
+    </div>
+  </div>
+  
+  <div class="footer">
+    <a class="logo" href="http://icse.us.edu.pl/" target="_blank"><img src="_static/logo-icse.png" alt="ICSE"/></a><br/>
+    &copy; Copyright Creative Commons CC-BY 4.0, iCSE-team.
+    Created using <a href="http://sphinx.pocoo.org/">Sphinx</a> 3.2.1.
+  </div>
+  </body>
+</html>

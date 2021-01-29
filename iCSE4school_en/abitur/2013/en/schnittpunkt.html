@@ -1,0 +1,168 @@
+
+
+  
+<!DOCTYPE html>
+
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Intersection point &#8212; Science education with SageMath</title>
+    <link rel="stylesheet" href="../../../_static/cloud.css" type="text/css" />
+    <link rel="stylesheet" href="../../../_static/pygments.css" type="text/css" />
+    <link rel="stylesheet" href="http://fonts.googleapis.com/css?family=Noticia+Text|Open+Sans|Droid+Sans+Mono&amp;subset=latin,latin-ext" type="text/css" />
+    <script id="documentation_options" data-url_root="../../../" src="../../../_static/documentation_options.js"></script>
+    <script src="../../../_static/jquery.js"></script>
+    <script src="../../../_static/underscore.js"></script>
+    <script src="../../../_static/doctools.js"></script>
+    <script src="../../../_static/language_data.js"></script>
+    <script async="async" src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.7/latest.js?config=TeX-AMS-MML_HTMLorMML"></script>
+    <script src="../../../_static/jquery.cookie.js"></script>
+    <script src="../../../_static/cloud.js"></script>
+    <script type="text/javascript" src="http://sagecell.sagemath.org/static/jquery.min.js"></script>
+    <script type="text/javascript" src="http://sagecell.sagemath.org/static/embedded_sagecell.js"></script>
+    <script type="text/javascript">
+        sagecell.makeSagecell({inputLocation: ".sage_linked",
+                               linked: true});
+        sagecell.makeSagecell({inputLocation: ".sage_unlinked",
+                               linked: false});
+    </script>
+
+    <style type="text/css">
+        .sagecell .CodeMirror-scroll {
+            overflow-y: hidden;
+            overflow-x: auto;
+        }
+        .sagecell .CodeMirror {
+            height: auto;
+        }
+    </style>
+    
+    <link rel="search" title="Search" href="../../../search.html" />
+    <link rel="next" title="Integrals of semicircle" href="inthalbkreis.html" />
+    <link rel="prev" title="Properties of the x sin(x) function" href="xsinx.html" />
+ 
+  <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, minimum-scale=1">
+  </head><body>
+  <div class="relbar-top">
+    
+    <div class="related" role="navigation" aria-label="related navigation">
+      <h3>Navigation</h3>
+      <ul>
+        <li class="right" style="margin-right: 10px">
+          <a href="inthalbkreis.html" title="Integrals of semicircle"
+             accesskey="N">next</a></li>
+        <li class="right" >
+          <a href="xsinx.html" title="Properties of the x sin(x) function"
+             accesskey="P">previous</a> &nbsp; &nbsp;</li>
+  <li><a href="../../../index.html">Science education with SageMath</a> &#187;</li>
+  
+        <li class="nav-item nav-item-this"><a href="">Intersection point</a></li> 
+      </ul>
+    </div>
+  </div>
+  
+  <div class="content">  
+
+    <div class="document">
+      <div class="documentwrapper">
+        <div class="bodywrapper">
+          <div class="body">
+            
+  <div class="section" id="intersection-point">
+<h1>Intersection point<a class="headerlink" href="#intersection-point" title="Permalink to this headline">¶</a></h1>
+<div class="admonition-problem admonition">
+<p class="admonition-title">Problem</p>
+<p>We are given the functions <span class="math notranslate nohighlight">\(g:x \mapsto e^{-x}\)</span> and <span class="math notranslate nohighlight">\(h:x \mapsto
+x^3\)</span> defined in <span class="math notranslate nohighlight">\(\mathbb{R}\)</span>.</p>
+<ol class="loweralpha simple">
+<li><p>Illustrate by means of a sketch, that the graphs of <span class="math notranslate nohighlight">\(g\)</span> and
+<span class="math notranslate nohighlight">\(h\)</span> possess precisely one intersection.</p></li>
+<li><p>Determine an approximate value <span class="math notranslate nohighlight">\(x_1\)</span> for the <span class="math notranslate nohighlight">\(x\)</span>-coordinate
+of this intersection by carrying out the first step of the Newton method for
+the function <span class="math notranslate nohighlight">\(d:x \mapsto g(x)-h(x)\)</span> defined in <span class="math notranslate nohighlight">\(\mathbb{R}\)</span>
+using as initial value <span class="math notranslate nohighlight">\(x_0=1\)</span>.</p></li>
+</ol>
+</div>
+<p><strong>Solution of part a</strong></p>
+<p>The graphs may easily be drawn by means of Sage:</p>
+<div class='sage_linked'><script type='text/x-sage'>g(x) = exp(-x)
+h(x) = x**3
+pg = plot(g, color='blue')
+ph = plot(h, color='red')
+show(pg + ph, ymax=1.5, aspect_ratio=1, figsize=4)</script></div><p><strong>Solution of part b</strong></p>
+<p>For an appropriately chosen initial value, the Newton method computes an
+approximate value for the zero nearby. In order to determine the zero
+of the function <span class="math notranslate nohighlight">\(f(x)\)</span>, one needs to evaluate in each step</p>
+<div class="math notranslate nohighlight">
+\[x_{n+1} = x_n - \frac{f(x_n)}{f'(x_n)}\,.\]</div>
+<p>For the first step one finds together with <span class="math notranslate nohighlight">\(f(x)=d(x)=g(x)-h(x)\)</span> and
+<span class="math notranslate nohighlight">\(x_0=1\)</span>:</p>
+<div class="math notranslate nohighlight">
+\[x_1 = 1 - \frac{g(1) - h(1)}{g'(1) - h'(1)}
+= 1 - \frac{e^{-1} - 1}{-e^{-1}-3}\approx 0{,}812\]</div>
+<p>By means of Sage, several steps of the Newton method can be executed.  As can be
+seen, already after five steps does the Newton method yield a result agreeing up
+to 12 digits with the zero determined numerically by Sage.</p>
+<div class='sage_linked'><script type='text/x-sage'>f(x) = g(x) - h(x)
+df(x) = derivative(f, x)
+zero_approx = 1
+newton(x) = x - f(x) / df(x)
+for i in range(5):
+    zero_approx = newton(zero_approx)
+    pretty_print(html("$x_%i = %s$" % (i+1, str(float(zero_approx)))))
+pretty_print(html("Zero obtained numerically by Sage: $x_\mathrm{S} = %s$"
+                  % str(find_root(f(x), -1, 1))))</script></div></div>
+
+
+          </div>
+        </div>
+      </div>
+      <div class="sphinxsidebar" role="navigation" aria-label="main navigation">
+        <div class="sphinxsidebarwrapper">
+  <h4>Previous topic</h4>
+  <p class="topless"><a href="xsinx.html"
+                        title="previous chapter">Properties of the  x sin(x) function</a></p>
+  <h4>Next topic</h4>
+  <p class="topless"><a href="inthalbkreis.html"
+                        title="next chapter">Integrals of semicircle</a></p>
+<div id="searchbox" style="display: none" role="search">
+  <h3 id="searchlabel">Quick search</h3>
+    <div class="searchformwrapper">
+    <form class="search" action="../../../search.html" method="get">
+      <input type="text" name="q" aria-labelledby="searchlabel" />
+      <input type="submit" value="Go" />
+    </form>
+    </div>
+</div>
+<script>$('#searchbox').show(0);</script>
+        </div>
+      </div>
+      <div class="clearer"></div>
+    </div>
+  </div>
+  <div class="relbar-bottom">
+    
+    <div class="related" role="navigation" aria-label="related navigation">
+      <h3>Navigation</h3>
+      <ul>
+        <li class="right" style="margin-right: 10px">
+          <a href="inthalbkreis.html" title="Integrals of semicircle"
+             >next</a></li>
+        <li class="right" >
+          <a href="xsinx.html" title="Properties of the x sin(x) function"
+             >previous</a> &nbsp; &nbsp;</li>
+  <li><a href="../../../index.html">Science education with SageMath</a> &#187;</li>
+  
+        <li class="nav-item nav-item-this"><a href="">Intersection point</a></li> 
+      </ul>
+    </div>
+  </div>
+  
+  <div class="footer">
+    <a class="logo" href="http://icse.us.edu.pl/" target="_blank"><img src="../../../_static/logo-icse.png" alt="ICSE"/></a><br/>
+    &copy; Copyright Creative Commons CC-BY 4.0, iCSE-team.
+    Created using <a href="http://sphinx.pocoo.org/">Sphinx</a> 3.2.1.
+  </div>
+  </body>
+</html>

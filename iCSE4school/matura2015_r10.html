@@ -1,0 +1,206 @@
+
+
+  
+<!DOCTYPE html>
+
+<html lang="pl">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Czworokąt wpisany w okrąg z wykorzystaniem algebry komputerowej &#8212; Metodologia nauczania przedmiotów ścisłych z perspektywą obliczeniową</title>
+    <link rel="stylesheet" href="_static/cloud.css" type="text/css" />
+    <link rel="stylesheet" href="_static/pygments.css" type="text/css" />
+    <link rel="stylesheet" href="http://fonts.googleapis.com/css?family=Noticia+Text|Open+Sans|Droid+Sans+Mono&amp;subset=latin,latin-ext" type="text/css" />
+    <script id="documentation_options" data-url_root="./" src="_static/documentation_options.js"></script>
+    <script src="_static/jquery.js"></script>
+    <script src="_static/underscore.js"></script>
+    <script src="_static/doctools.js"></script>
+    <script src="_static/language_data.js"></script>
+    <script src="_static/translations.js"></script>
+    <script async="async" src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.7/latest.js?config=TeX-AMS-MML_HTMLorMML"></script>
+    <script src="_static/jquery.cookie.js"></script>
+    <script src="_static/cloud.js"></script>
+    <script type="text/javascript" src="http://sagecell.sagemath.org/static/jquery.min.js"></script>
+    <script type="text/javascript" src="http://sagecell.sagemath.org/static/embedded_sagecell.js"></script>
+    <script type="text/javascript">
+        sagecell.makeSagecell({inputLocation: ".sage_linked",
+                               linked: true});
+        sagecell.makeSagecell({inputLocation: ".sage_unlinked",
+                               linked: false});
+    </script>
+
+    <style type="text/css">
+        .sagecell .CodeMirror-scroll {
+            overflow-y: hidden;
+            overflow-x: auto;
+        }
+        .sagecell .CodeMirror {
+            height: auto;
+        }
+    </style>
+    
+    <link rel="search" title="Szukaj" href="search.html" />
+    <link rel="next" title="Warunki wdrożenia produktu, czyli jak odnieść sukces" href="warunki_wdrozenia.html" />
+    <link rel="prev" title="Solve and substitute" href="matura2015_r09.html" />
+ 
+  <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, minimum-scale=1">
+  </head><body>
+  <div class="relbar-top">
+    
+    <div class="related" role="navigation" aria-label="related navigation">
+      <h3>Nawigacja</h3>
+      <ul>
+        <li class="right" style="margin-right: 10px">
+          <a href="warunki_wdrozenia.html" title="Warunki wdrożenia produktu, czyli jak odnieść sukces"
+             accesskey="N">dalej</a></li>
+        <li class="right" >
+          <a href="matura2015_r09.html" title="Solve and substitute"
+             accesskey="P">wstecz</a> &nbsp; &nbsp;</li>
+  <li><a href="index.html">Metodologia nauczania przedmiotów ścisłych z perspektywą obliczeniową</a> &#187;</li>
+  
+        <li class="nav-item nav-item-this"><a href="">Czworokąt wpisany w okrąg z wykorzystaniem algebry komputerowej</a></li> 
+      </ul>
+    </div>
+  </div>
+  
+  <div class="content">  
+
+    <div class="document">
+      <div class="documentwrapper">
+        <div class="bodywrapper">
+          <div class="body">
+            
+  <div class="section" id="czworokat-wpisany-w-okrag-z-wykorzystaniem-algebry-komputerowej">
+<span id="matura2015-r10-rst"></span><h1>Czworokąt wpisany w okrąg z wykorzystaniem algebry komputerowej<a class="headerlink" href="#czworokat-wpisany-w-okrag-z-wykorzystaniem-algebry-komputerowej" title="Stały odnośnik do tego nagłówka">¶</a></h1>
+<img alt="_images/matura2015_r10.png" class="align-center" src="_images/matura2015_r10.png" />
+<div class="section" id="rozwiazanie-klasyczne">
+<h2>Rozwiązanie klasyczne<a class="headerlink" href="#rozwiazanie-klasyczne" title="Stały odnośnik do tego nagłówka">¶</a></h2>
+<p>Szkolny sposób rozwiązania tego zadania korzysta z dwóch twierdzeń. Po
+pierwsze suma kątów naprzeciwległych w czworokącie opisanym na okręgu
+wynosi <span class="math notranslate nohighlight">\(\pi\)</span>. Po drugie można zastosować <a class="reference external" href="https://pl.wikipedia.org/wiki/Twierdzenie_cosinus%C3%B3w">twierdzenie cosinusów</a> dla
+trójkątów <span class="math notranslate nohighlight">\(ABC\)</span> i <span class="math notranslate nohighlight">\(ACD\)</span>.</p>
+<p>Oznaczając dla zwięzłości literami długości boków:
+<span class="math notranslate nohighlight">\(|AB|=a,|BC|=b,|CD|=c,|DA|=d,|AC|=x\)</span> oraz kąty
+<span class="math notranslate nohighlight">\(\sphericalangle ABC=\alpha\)</span> i <span class="math notranslate nohighlight">\(\sphericalangle
+CDA=\pi-\alpha\)</span> możemy w Sage napisać dla powyższych trójkątów dwa
+równania:</p>
+<div class='sage_linked'><script type='text/x-sage'>var('a,b,alpha,c,d,x')
+eq1 = a^2 + b^2 - 2*a*b*cos(alpha) == x^2
+eq2 = c^2 + d^2 - 2*c*d*cos(pi-alpha) == x^2
+table([[eq1],[eq2]])</script></div><p>Drugie równanie można uprościć i otrzymamy układ równań z dwoma
+niewiadomymi:</p>
+<div class='sage_linked'><script type='text/x-sage'>eq2 = eq2.simplify()
+table([[eq1],[eq2]])</script></div><p>Ponieważ interesuje nas tylko wartość długości przekątnej <span class="math notranslate nohighlight">\(x\)</span>
+możemy wyeliminować z powyższych równań <span class="math notranslate nohighlight">\(\cos \alpha\)</span>. Wynik
+otrzymamy natychmiast:</p>
+<div class='sage_linked'><script type='text/x-sage'>(eq1*c*d + eq2*a*b).solve(x)[1].rhs().subs({a:2,b:3,c:4,d:5})</script></div><div class="admonition-jak-to-dziala admonition">
+<p class="admonition-title">Jak to działa?</p>
+<p>Wykonaj powyższe polecenie obcinająć kolejne wyrażenia po
+„kropkach” od lewej by przekonać się jak to działa krok po kroku:</p>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="p">(</span><span class="n">eq1</span><span class="o">*</span><span class="n">c</span><span class="o">*</span><span class="n">d</span> <span class="o">+</span> <span class="n">eq2</span><span class="o">*</span><span class="n">a</span><span class="o">*</span><span class="n">b</span><span class="p">)</span>
+<span class="p">(</span><span class="n">eq1</span><span class="o">*</span><span class="n">c</span><span class="o">*</span><span class="n">d</span> <span class="o">+</span> <span class="n">eq2</span><span class="o">*</span><span class="n">a</span><span class="o">*</span><span class="n">b</span><span class="p">)</span><span class="o">.</span><span class="n">solve</span><span class="p">(</span><span class="n">x</span><span class="p">)</span>
+<span class="p">(</span><span class="n">eq1</span><span class="o">*</span><span class="n">c</span><span class="o">*</span><span class="n">d</span> <span class="o">+</span> <span class="n">eq2</span><span class="o">*</span><span class="n">a</span><span class="o">*</span><span class="n">b</span><span class="p">)</span><span class="o">.</span><span class="n">solve</span><span class="p">(</span><span class="n">x</span><span class="p">)[</span><span class="mi">1</span><span class="p">]</span>
+<span class="p">(</span><span class="n">eq1</span><span class="o">*</span><span class="n">c</span><span class="o">*</span><span class="n">d</span> <span class="o">+</span> <span class="n">eq2</span><span class="o">*</span><span class="n">a</span><span class="o">*</span><span class="n">b</span><span class="p">)</span><span class="o">.</span><span class="n">solve</span><span class="p">(</span><span class="n">x</span><span class="p">)[</span><span class="mi">1</span><span class="p">]</span><span class="o">.</span><span class="n">rhs</span><span class="p">()</span>
+</pre></div>
+</div>
+</div>
+</div>
+<div class="section" id="rozwiazanie-alternatywne">
+<h2>Rozwiązanie alternatywne<a class="headerlink" href="#rozwiazanie-alternatywne" title="Stały odnośnik do tego nagłówka">¶</a></h2>
+<p>Przypuścmy jednak, że nie pamiętamy ani twierdzenia cosinusów ani nie
+znamy własności czworokątów wpisanych w okrąg. Można by pokusić się o
+napisanie układu równań spełnionych przez współrzędne wszystkich
+punktów oraz promień okręgu, który jest też nieznany!. W sumie mamy
+<span class="math notranslate nohighlight">\(8+1=9\)</span> niewiadomych! Wynika z tego, że będziemy potrzebowali
+dziewięciu równań. Współrzędne każdego z punków spełniają równanie
+okręgu, co daje nam już cztery zależności. Następnie, ponieważ znamy
+odleglości pomiędzy kolejnymi wspólrzędnymi to mamy znowu cztery
+równości. Brakuje jeszcze jednej. Zauważmy, że nasz czworokąt wpisany
+w okrag możemy obracać o dowolny kąt względem środka okręgu. Wybierzmy
+tylko jedną orientację - na przykład taką w której pierwszy punkt leży
+na osi <span class="math notranslate nohighlight">\(X\)</span> - co nam da brakujące równanie <span class="math notranslate nohighlight">\(y_0=0\)</span>.</p>
+<p>Wszyskie te rówania zapiszemy od razu w Sage:</p>
+<div class='sage_linked'><script type='text/x-sage'>var('r,x0,y0,x1,y1,x2,y2,x3,y3')
+eqs=[x0^2+y0^2==r^2,\
+ x1^2+y1^2==r^2,\
+ x2^2+y2^2==r^2,\
+ x3^2+y3^2==r^2,\
+ (x1-x0)^2+(y1-y0)^2==2^2,\
+ (x2-x1)^2+(y2-y1)^2==3^2,\
+ (x3-x2)^2+(y3-y2)^2==4^2,\
+ (x0-x3)^2+(y0-y3)^2==5^2,\
+ y0==0]
+
+table(list(enumerate(eqs)))</script></div><p>Pozostaje rozwiązać układ dziewięciu równań wielomianowych i otrzymamy
+rozwiązanie zadania. Bez pomocy algebry komputerowej powyższy układ
+równań nie wygląda zachęcająco. Okazuje się, że nawet dla komputera
+jest on problemem i wymaga dość wyroafinowanych technik. Jednak po
+chwili otrzymamy wynik:</p>
+<div class='sage_linked'><script type='text/x-sage'>sols = solve(eqs,[x0,y0,x1,y1,x2,y2,x3,y3,r],solution_dict=True)
+print ((x0-x2)^2+(y0-y2)^2).subs(sols[0]).canonicalize_radical()</script></div><p>Udało nam się otrzymać rozwiązanie (ściśle mówiąc kwadrat rozwiązania)!</p>
+</div>
+</div>
+
+
+          </div>
+        </div>
+      </div>
+      <div class="sphinxsidebar" role="navigation" aria-label="main navigation">
+        <div class="sphinxsidebarwrapper">
+  <div class="sphinxlocaltoc">
+  <h3><a href="index.html">Table Of Contents</a></h3>
+  <ul>
+<li><a class="reference internal" href="#">Czworokąt wpisany w okrąg z wykorzystaniem algebry komputerowej</a><ul>
+<li><a class="reference internal" href="#rozwiazanie-klasyczne">Rozwiązanie klasyczne</a></li>
+<li><a class="reference internal" href="#rozwiazanie-alternatywne">Rozwiązanie alternatywne</a></li>
+</ul>
+</li>
+</ul>
+
+  </div>
+  <h4>Poprzedni temat</h4>
+  <p class="topless"><a href="matura2015_r09.html"
+                        title="poprzedni rozdział">Solve and substitute</a></p>
+  <h4>Następny temat</h4>
+  <p class="topless"><a href="warunki_wdrozenia.html"
+                        title="następny rozdział">Warunki wdrożenia produktu, czyli jak odnieść sukces</a></p>
+<div id="searchbox" style="display: none" role="search">
+  <h3 id="searchlabel">Szybkie wyszukiwanie</h3>
+    <div class="searchformwrapper">
+    <form class="search" action="search.html" method="get">
+      <input type="text" name="q" aria-labelledby="searchlabel" />
+      <input type="submit" value="Szukaj" />
+    </form>
+    </div>
+</div>
+<script>$('#searchbox').show(0);</script>
+        </div>
+      </div>
+      <div class="clearer"></div>
+    </div>
+  </div>
+  <div class="relbar-bottom">
+    
+    <div class="related" role="navigation" aria-label="related navigation">
+      <h3>Nawigacja</h3>
+      <ul>
+        <li class="right" style="margin-right: 10px">
+          <a href="warunki_wdrozenia.html" title="Warunki wdrożenia produktu, czyli jak odnieść sukces"
+             >dalej</a></li>
+        <li class="right" >
+          <a href="matura2015_r09.html" title="Solve and substitute"
+             >wstecz</a> &nbsp; &nbsp;</li>
+  <li><a href="index.html">Metodologia nauczania przedmiotów ścisłych z perspektywą obliczeniową</a> &#187;</li>
+  
+        <li class="nav-item nav-item-this"><a href="">Czworokąt wpisany w okrąg z wykorzystaniem algebry komputerowej</a></li> 
+      </ul>
+    </div>
+  </div>
+  
+  <div class="footer">
+    <a class="logo" href="http://icse.us.edu.pl/" target="_blank"><img src="_static/logo-icse.png" alt="ICSE"/></a><br/>
+    &copy; Copyright Creative Commons CC-BY 4.0, iCSE-team.
+    Created using <a href="http://sphinx.pocoo.org/">Sphinx</a> 3.2.1.
+  </div>
+  </body>
+</html>

@@ -1,0 +1,148 @@
+
+
+  
+<!DOCTYPE html>
+
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Determine parameter when the derivative vanishes &#8212; Science education with SageMath</title>
+    <link rel="stylesheet" href="../../../_static/cloud.css" type="text/css" />
+    <link rel="stylesheet" href="../../../_static/pygments.css" type="text/css" />
+    <link rel="stylesheet" href="http://fonts.googleapis.com/css?family=Noticia+Text|Open+Sans|Droid+Sans+Mono&amp;subset=latin,latin-ext" type="text/css" />
+    <script id="documentation_options" data-url_root="../../../" src="../../../_static/documentation_options.js"></script>
+    <script src="../../../_static/jquery.js"></script>
+    <script src="../../../_static/underscore.js"></script>
+    <script src="../../../_static/doctools.js"></script>
+    <script src="../../../_static/language_data.js"></script>
+    <script async="async" src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.7/latest.js?config=TeX-AMS-MML_HTMLorMML"></script>
+    <script src="../../../_static/jquery.cookie.js"></script>
+    <script src="../../../_static/cloud.js"></script>
+    <script type="text/javascript" src="http://sagecell.sagemath.org/static/jquery.min.js"></script>
+    <script type="text/javascript" src="http://sagecell.sagemath.org/static/embedded_sagecell.js"></script>
+    <script type="text/javascript">
+        sagecell.makeSagecell({inputLocation: ".sage_linked",
+                               linked: true});
+        sagecell.makeSagecell({inputLocation: ".sage_unlinked",
+                               linked: false});
+    </script>
+
+    <style type="text/css">
+        .sagecell .CodeMirror-scroll {
+            overflow-y: hidden;
+            overflow-x: auto;
+        }
+        .sagecell .CodeMirror {
+            height: auto;
+        }
+    </style>
+    
+    <link rel="search" title="Search" href="../../../search.html" />
+    <link rel="next" title="Domain and values of the lograrithm" href="../../2016/en/logarithmus.html" />
+    <link rel="prev" title="Construction of the function given its properties" href="funktionseigenschaften.html" />
+ 
+  <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, minimum-scale=1">
+  </head><body>
+  <div class="relbar-top">
+    
+    <div class="related" role="navigation" aria-label="related navigation">
+      <h3>Navigation</h3>
+      <ul>
+        <li class="right" style="margin-right: 10px">
+          <a href="../../2016/en/logarithmus.html" title="Domain and values of the lograrithm"
+             accesskey="N">next</a></li>
+        <li class="right" >
+          <a href="funktionseigenschaften.html" title="Construction of the function given its properties"
+             accesskey="P">previous</a> &nbsp; &nbsp;</li>
+  <li><a href="../../../index.html">Science education with SageMath</a> &#187;</li>
+  
+        <li class="nav-item nav-item-this"><a href="">Determine parameter when the derivative vanishes</a></li> 
+      </ul>
+    </div>
+  </div>
+  
+  <div class="content">  
+
+    <div class="document">
+      <div class="documentwrapper">
+        <div class="bodywrapper">
+          <div class="body">
+            
+  <div class="section" id="determine-parameter-when-the-derivative-vanishes">
+<h1>Determine parameter when the derivative vanishes<a class="headerlink" href="#determine-parameter-when-the-derivative-vanishes" title="Permalink to this headline">¶</a></h1>
+<div class="admonition-problem admonition">
+<p class="admonition-title">Problem</p>
+<p>We are given the set of functions <span class="math notranslate nohighlight">\(f_a : x\mapsto x\mathrm{e}^{ax}\)</span>
+defined on <span class="math notranslate nohighlight">\(\mathbb{R}\)</span> with <span class="math notranslate nohighlight">\(a\in\mathbb{R}\backslash\{0\}\)</span>.
+Determine the value of <span class="math notranslate nohighlight">\(a\)</span> for which the derivative of <span class="math notranslate nohighlight">\(f_a\)</span> at
+<span class="math notranslate nohighlight">\(x=2\)</span> vanishes.</p>
+</div>
+<p><strong>Solution</strong></p>
+<p>The derivative of the given function is obtained as</p>
+<div class="math notranslate nohighlight">
+\[\frac{\mathrm{d}f_a}{\mathrm{d}x} = (1+ax)\mathrm{e}^{ax}\]</div>
+<p>so that</p>
+<div class="math notranslate nohighlight">
+\[\left.\frac{\mathrm{d}f_a}{\mathrm{d}x}\right\vert_{x=2} =
+ (1+2a)\mathrm{e}^{2a}.\]</div>
+<p>As a consquence, the derivate vanishes provided <span class="math notranslate nohighlight">\(1+2a=0\)</span>, i.e. for
+<span class="math notranslate nohighlight">\(a=-1/2\)</span>.</p>
+<p>This calculation can be checked by means of Sage:</p>
+<div class='sage_linked'><script type='text/x-sage'>f(x, a) = x*exp(a*x)
+df = f.derivative(x)
+print 'Derivative of f:', df
+solve(df(2, a) == 0, a)</script></div></div>
+
+
+          </div>
+        </div>
+      </div>
+      <div class="sphinxsidebar" role="navigation" aria-label="main navigation">
+        <div class="sphinxsidebarwrapper">
+  <h4>Previous topic</h4>
+  <p class="topless"><a href="funktionseigenschaften.html"
+                        title="previous chapter">Construction of the function given its properties</a></p>
+  <h4>Next topic</h4>
+  <p class="topless"><a href="../../2016/en/logarithmus.html"
+                        title="next chapter">Domain and values of the lograrithm</a></p>
+<div id="searchbox" style="display: none" role="search">
+  <h3 id="searchlabel">Quick search</h3>
+    <div class="searchformwrapper">
+    <form class="search" action="../../../search.html" method="get">
+      <input type="text" name="q" aria-labelledby="searchlabel" />
+      <input type="submit" value="Go" />
+    </form>
+    </div>
+</div>
+<script>$('#searchbox').show(0);</script>
+        </div>
+      </div>
+      <div class="clearer"></div>
+    </div>
+  </div>
+  <div class="relbar-bottom">
+    
+    <div class="related" role="navigation" aria-label="related navigation">
+      <h3>Navigation</h3>
+      <ul>
+        <li class="right" style="margin-right: 10px">
+          <a href="../../2016/en/logarithmus.html" title="Domain and values of the lograrithm"
+             >next</a></li>
+        <li class="right" >
+          <a href="funktionseigenschaften.html" title="Construction of the function given its properties"
+             >previous</a> &nbsp; &nbsp;</li>
+  <li><a href="../../../index.html">Science education with SageMath</a> &#187;</li>
+  
+        <li class="nav-item nav-item-this"><a href="">Determine parameter when the derivative vanishes</a></li> 
+      </ul>
+    </div>
+  </div>
+  
+  <div class="footer">
+    <a class="logo" href="http://icse.us.edu.pl/" target="_blank"><img src="../../../_static/logo-icse.png" alt="ICSE"/></a><br/>
+    &copy; Copyright Creative Commons CC-BY 4.0, iCSE-team.
+    Created using <a href="http://sphinx.pocoo.org/">Sphinx</a> 3.2.1.
+  </div>
+  </body>
+</html>

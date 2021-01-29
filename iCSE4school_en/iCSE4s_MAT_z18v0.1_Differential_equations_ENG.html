@@ -1,0 +1,322 @@
+
+
+  
+<!DOCTYPE html>
+
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>First order differential equations &#8212; Science education with SageMath</title>
+    <link rel="stylesheet" href="_static/cloud.css" type="text/css" />
+    <link rel="stylesheet" href="_static/pygments.css" type="text/css" />
+    <link rel="stylesheet" href="http://fonts.googleapis.com/css?family=Noticia+Text|Open+Sans|Droid+Sans+Mono&amp;subset=latin,latin-ext" type="text/css" />
+    <script id="documentation_options" data-url_root="./" src="_static/documentation_options.js"></script>
+    <script src="_static/jquery.js"></script>
+    <script src="_static/underscore.js"></script>
+    <script src="_static/doctools.js"></script>
+    <script src="_static/language_data.js"></script>
+    <script async="async" src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.7/latest.js?config=TeX-AMS-MML_HTMLorMML"></script>
+    <script src="_static/jquery.cookie.js"></script>
+    <script src="_static/cloud.js"></script>
+    <script type="text/javascript" src="http://sagecell.sagemath.org/static/jquery.min.js"></script>
+    <script type="text/javascript" src="http://sagecell.sagemath.org/static/embedded_sagecell.js"></script>
+    <script type="text/javascript">
+        sagecell.makeSagecell({inputLocation: ".sage_linked",
+                               linked: true});
+        sagecell.makeSagecell({inputLocation: ".sage_unlinked",
+                               linked: false});
+    </script>
+
+    <style type="text/css">
+        .sagecell .CodeMirror-scroll {
+            overflow-y: hidden;
+            overflow-x: auto;
+        }
+        .sagecell .CodeMirror {
+            height: auto;
+        }
+    </style>
+    
+    <link rel="search" title="Search" href="search.html" />
+    <link rel="next" title="Examining string vibrations" href="Final_z01_String_AO_EN.html" />
+    <link rel="prev" title="Polynomial approximation" href="iCSE4s_MAT_z09v1_EN_Polynomial_approximations.html" />
+ 
+  <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, minimum-scale=1">
+  </head><body>
+  <div class="relbar-top">
+    
+    <div class="related" role="navigation" aria-label="related navigation">
+      <h3>Navigation</h3>
+      <ul>
+        <li class="right" style="margin-right: 10px">
+          <a href="Final_z01_String_AO_EN.html" title="Examining string vibrations"
+             accesskey="N">next</a></li>
+        <li class="right" >
+          <a href="iCSE4s_MAT_z09v1_EN_Polynomial_approximations.html" title="Polynomial approximation"
+             accesskey="P">previous</a> &nbsp; &nbsp;</li>
+  <li><a href="index.html">Science education with SageMath</a> &#187;</li>
+  
+        <li class="nav-item nav-item-this"><a href="">First order differential equations</a></li> 
+      </ul>
+    </div>
+  </div>
+  
+  <div class="content">  
+
+    <div class="document">
+      <div class="documentwrapper">
+        <div class="bodywrapper">
+          <div class="body">
+            
+  <div class="section" id="first-order-differential-equations">
+<h1>First order differential equations<a class="headerlink" href="#first-order-differential-equations" title="Permalink to this headline">¶</a></h1>
+<div class="section" id="about-this-lesson-plan">
+<h2>About this lesson plan<a class="headerlink" href="#about-this-lesson-plan" title="Permalink to this headline">¶</a></h2>
+<p>This is a lesson plan for indented for realization during  2h lesson activities.</p>
+<p>It has been developed during work in iCSE4school project based on
+lesson carried out in 2015-2017 at XXXIII LO M. Kopernika w Warszawie.</p>
+<p>It was prepared by   Mirosław Malinowski based on his lesson.</p>
+<div class="admonition-attention admonition">
+<p class="admonition-title">Attention!</p>
+<p>In each of the “code” cells you can change any number, text or
+instruction. In order to  return to the original version  refresh
+the webpage.  Sometimes the next code depends on variables defined from the previous one,
+so one has to execute cells in order of apperance.</p>
+</div>
+</div>
+<div class="section" id="lesson-plan">
+<h2>Lesson Plan<a class="headerlink" href="#lesson-plan" title="Permalink to this headline">¶</a></h2>
+<p>Based on the book C. Quinn, C. Sangwin, R. Haese. M. Haese,
+“Mathematics for the international student. Mathematics HL (Option):
+Calculus, Haese and Harris Publications 2013.</p>
+<p>We will only consider differential equations of the form:</p>
+<p><span class="math notranslate nohighlight">\(\normalsize f(x,y) \Large \frac{dy}{dx} \normalsize +g(x,y)=0\)</span>, where  <span class="math notranslate nohighlight">\(\normalsize y=y(x)\)</span>.</p>
+<p>These are known as first order differential equations since there is only one derivative in the equation, and it is a first derivative.</p>
+<p><strong>A function</strong>   <span class="math notranslate nohighlight">\(y=y(x)\)</span>  <strong>is said to be a solution</strong>  of a differential equation if it satisfies the differential equation for all values of  <span class="math notranslate nohighlight">\(x\)</span>  **  in the domain of  <span class="math notranslate nohighlight">\(y\)</span> .</p>
+</div>
+<div class="section" id="slope-fields">
+<h2>Slope Fields<a class="headerlink" href="#slope-fields" title="Permalink to this headline">¶</a></h2>
+<p>Given any first order differential equation of the form  <span class="math notranslate nohighlight">\(\normalsize f(x,y) \Large \frac{dy}{dx} \normalsize +g(x,y)=0\)</span>, where  <span class="math notranslate nohighlight">\(\normalsize y=y(x)\)</span>  we can write</p>
+<p><span class="math notranslate nohighlight">\(\Large \frac{dy}{dx} = \frac{-g(x,y)}{f(x,y)}\normalsize =h(x,y)\)</span></p>
+<p>We may therefore deduce the gradient of the solution curves to the differential equation at any point  :math:<a href="#id1"><span class="problematic" id="id2">`</span></a>(x,y)`in the plane where  :math:<a href="#id3"><span class="problematic" id="id4">`</span></a>h(x,y)`is defined, and hence the equations of the tangents to the solution curves.</p>
+<p><strong>The set of tangents at all points  :math:`(x,y)` is called the slope field of the differential equation</strong> .</p>
+<p>By representing the gradients at many different grid points as line segments, we obtain a slope field of the tangents to the solution curves. Now the tangent to a curve approximates that curve at and near the points of tangency. Therefore, by following the direction given by the slope field at a given point, we can approximate solution curves of the differential equation.</p>
+<blockquote>
+<div><p><strong>*Example 1*</strong></p>
+</div></blockquote>
+<p>Consider the differential equation  <span class="math notranslate nohighlight">\(\Large \frac{dy}{dx} \normalsize =x(y-1)\)</span>.</p>
+<ol class="loweralpha simple">
+<li><p>Construct the slope field using integer grid points for  <span class="math notranslate nohighlight">\(x, y \in [-4, 4]\)</span>.</p></li>
+<li><p>Sketch the particular solution curve through  <span class="math notranslate nohighlight">\(P(1, 2)\)</span>. Sketch the particular solution curves through several other points of your choice - adjust the parameters of the graph respectively.</p></li>
+<li><p>An  <strong>isocline</strong>  is the set of all points on a slope field at which the tangents to the solution curves have the same gradient. Identify any isoclines on your slope fields.</p></li>
+</ol>
+<p><strong>*Solution:*</strong></p>
+<div class='sage_linked'><script type='text/x-sage'>sage: a,b,x,x0,y0 = var('a b x x0 y0')
+sage: y = function('y', x)
+sage: de = diff(y,x) == x*(1-y)
+sage: general = desolve(de, y).expand()
+sage: x0 = 1
+sage: y0 = 2
+sage: particular = desolve(de, [y,x], [x0,y0]).expand()
+sage: html('General solution of the equation is $y=$' "$%s$"%latex(general) + "$")
+sage: html('The particular solution of the equation for $y=$' +latex(y0)+ ' when $x=$' +latex(x0)+ ' is $y=$ ' "$%s$"%latex(particular) + "$")
+sage: p1 = plot_slope_field(a*(1-b), (a,-2,2), (b,-2,3), figsize = (6,4), headaxislength = 3, headlength = 3)
+sage: p2 = plot (particular, (x, -2, 2))
+sage: p1+p2</script></div><p><strong>EXERCISES</strong></p>
+<p>Using SAGE solve the following problems. You can modify the procedure given above or write your own.</p>
+<ol class="arabic simple">
+<li><p>Consider the differential equation  <span class="math notranslate nohighlight">\(\Large \frac{dy}{dx} \normalsize =2x-y\)</span>.</p></li>
+</ol>
+<ol class="loweralpha simple">
+<li><p>Find the general solution to the differential equation.</p></li>
+<li><p>Construct the slope field of the differential equation.</p></li>
+<li><p>Find the solution curve which passes through  <span class="math notranslate nohighlight">\(P(0, 1)\)</span> and its equation.</p></li>
+</ol>
+<ol class="arabic simple" start="2">
+<li><p>Consider the differential equation  <span class="math notranslate nohighlight">\(\Large \frac{dy}{dx} \normalsize =10y \tan(x)\)</span>, where  <span class="math notranslate nohighlight">\(x\)</span> is measured in degrees. Draw the slope field using integer grid points, where  <span class="math notranslate nohighlight">\(x, y \in [-2, 2]\)</span>.</p></li>
+<li><p>Draw the slope field for the differential equation  <span class="math notranslate nohighlight">\(\Large \frac{dy}{dx} \normalsize  = \Large \frac{-1+x^2+4y^2}{y-5x+10}\)</span>.</p></li>
+</ol>
+<ol class="loweralpha simple">
+<li><p>Sketch the particular solution curve passing through the origin.</p></li>
+<li><p>Sketch the isocline corresponding to:</p></li>
+</ol>
+<ol class="lowerroman simple">
+<li><p><span class="math notranslate nohighlight">\(\Large \frac{dy}{dx}\)</span> being undefined.</p></li>
+<li><p><span class="math notranslate nohighlight">\(\Large \frac{dy}{dx} \normalsize =0\)</span>.</p></li>
+</ol>
+</div>
+<div class="section" id="separable-differential-equations">
+<h2>Separable Differential Equations<a class="headerlink" href="#separable-differential-equations" title="Permalink to this headline">¶</a></h2>
+<p>Differential equations which can be written in the form  <span class="math notranslate nohighlight">\(\large \frac{dy}{dx} \normalsize = \large \frac{f(x)}{g(y)}\)</span>, where  <span class="math notranslate nohighlight">\(y=y(x)\)</span>, are known as separable differential equations.</p>
+<p>We can notice that if  <span class="math notranslate nohighlight">\(\Large \frac{dy}{dx} \normalsize = \Large \frac{f(x)}{g(y)}\)</span>, then  <span class="math notranslate nohighlight">\(\normalsize g(y) \Large \frac{dy}{dx} \normalsize = f(x)\)</span>. Now, integrating both sides of the equation with respect to  <span class="math notranslate nohighlight">\(x\)</span> we get  <span class="math notranslate nohighlight">\(\large \int g(y) \large \frac{dy}{dx} \normalsize dx =\int f(x)dx\)</span> and by the Chain Rule we can reduce the problem of solving the differential equation to the problem of finding two separate integrals</p>
+<div class="math notranslate nohighlight">
+\[\large \int g(y)dy =\int f(x)dx\]</div>
+<p><strong>*Example 2:*</strong></p>
+<p>Find the general solution of the differential equation  <span class="math notranslate nohighlight">\(\Large \frac{dy}{dx} \normalsize = \Large \frac{x^2y+y}{x^2-1}\)</span>. Verify your results with SAGE and sketch the solution curve passing through the point  <span class="math notranslate nohighlight">\(P(x_0, y_0)\)</span> if:</p>
+<ol class="loweralpha simple">
+<li><p><span class="math notranslate nohighlight">\((x_0, y_0) = (2,3)\)</span></p></li>
+<li><p><span class="math notranslate nohighlight">\((x_0, y_0) = (0,0)\)</span></p></li>
+<li><p><span class="math notranslate nohighlight">\((x_0, y_0) = (-2,1)\)</span></p></li>
+</ol>
+<p><strong>*Solution:*</strong></p>
+<div class='sage_linked'><script type='text/x-sage'>sage: x, x0, y0 = var('x x0 y0')
+sage: y = function('y', x)
+sage: de = diff(y,x) == (x^2*y+y)/(x^2-1)
+sage: general = desolve(de, y)
+sage: html('General solution of the equation is $y=$'"$%s$"%latex(general) + '.' + "$")
+sage: x0 = -2
+sage: y0 = 1
+sage: particular = desolve(de, [y,x], [x0, y0]).simplify()
+sage: html('The particular solution of the equation is $y=$'"$%s$"%latex(particular) + '.' + "$")
+sage: p1 = plot (particular, x, xmin = -3, xmax = 4, ymin = -10, ymax = 10, axes_labels=['$x$','$f(x)$'], exclude = [-1], detect_poles = 'show', figsize = (6, 4), color = 'blue', legend_label="$y =$ $%s$"%latex(particular))
+sage: p1</script></div><p><strong>EXERCISES</strong></p>
+<ol class="arabic simple">
+<li><p>Solve the following initial value problems:</p></li>
+</ol>
+<ol class="loweralpha simple">
+<li><p><span class="math notranslate nohighlight">\((2-x)\Large \frac{dy}{dx} \normalsize = 1\)</span>,   <span class="math notranslate nohighlight">\(y(4) = 3\)</span>.</p></li>
+<li><p><span class="math notranslate nohighlight">\(\Large \frac{dy}{dx} \normalsize - 3x \sec(x) = 0\)</span>,   <span class="math notranslate nohighlight">\(y(1) = 0\)</span>.</p></li>
+<li><p><span class="math notranslate nohighlight">\(e^y(2x^2 + 4x +1)\Large \frac{dy}{dx} \normalsize = (x+1)(e^y +3)\)</span>,   <span class="math notranslate nohighlight">\(y(0)=2\)</span>.</p></li>
+<li><p><span class="math notranslate nohighlight">\(x \Large \frac{dy}{dx} \normalsize = \cos^2(y)\)</span>,   <span class="math notranslate nohighlight">\(y(e) = \large \frac {\pi}{4}\)</span>.</p></li>
+</ol>
+<ol class="arabic simple" start="2">
+<li><p>Solve  <span class="math notranslate nohighlight">\(\Large \frac{dy}{dx} \normalsize = \Large \frac{3y-xy}{x^2-1}\)</span>,   <span class="math notranslate nohighlight">\(y(0) = 1\)</span>.</p></li>
+</ol>
+</div>
+<div class="section" id="homogeneous-differential-equations">
+<h2>Homogeneous Differential Equations<a class="headerlink" href="#homogeneous-differential-equations" title="Permalink to this headline">¶</a></h2>
+<p>Differential equations of the form  <span class="math notranslate nohighlight">\(\large \frac{dy}{dx} \normalsize = f\large \left ( \frac{y}{x} \right)\)</span>, where  <span class="math notranslate nohighlight">\(\normalsize y=y(x)\)</span> are known as homogeneous differential equations .</p>
+<p>They can be solved using the substitution  <span class="math notranslate nohighlight">\(y=vx\)</span>, where  <span class="math notranslate nohighlight">\(v=v(x)\)</span>. The substitution will always reduce the differential equation to a separable differentiable equation.</p>
+<p><strong>*Example 3:*</strong></p>
+<p>Use the substitution  <span class="math notranslate nohighlight">\(y=vx\)</span>, where  <span class="math notranslate nohighlight">\(v=v(x)\)</span>, to find general solution of the differential equation  <span class="math notranslate nohighlight">\(\Large \frac{dy}{dx} \normalsize = \Large \frac{x+2y}{x}\)</span>. Verify your results with SAGE and find the particular solution if  <span class="math notranslate nohighlight">\(y=\large \frac{3}{2}\)</span> when  <span class="math notranslate nohighlight">\(x=3\)</span>.</p>
+<blockquote>
+<div><p><strong>*Solution:*</strong></p>
+</div></blockquote>
+<div class='sage_linked'><script type='text/x-sage'>sage: x = var('x')
+sage: y = function('y',x)
+sage: de = (diff(y,x) == (x+2*y)/x)
+sage: general = desolve (de, y).expand()
+sage: html('General solution of the equation is $y=$'"$%s$"%latex(general) + '.' + "$")
+sage: particular = desolve(de, [y,x], [3,1.5]).expand()
+sage: html('The particular solution of the equation is $y=$'"$%s$"%latex(particular) + '.' + "$")
+sage: p1 = plot (particular, x, xmin = -3, xmax = 4, ymin = -3, ymax = 10, axes_labels=['$x$','$f(x)$'], detect_poles = 'show', figsize = (6, 4), color = 'blue', legend_label="$y =$ $%s$"%latex(particular))
+sage: p1</script></div></div>
+<div class="section" id="the-integrating-factor-method">
+<h2>The Integrating Factor Method<a class="headerlink" href="#the-integrating-factor-method" title="Permalink to this headline">¶</a></h2>
+<p>Suppose a first order linear differential equation is of the form  <span class="math notranslate nohighlight">\(\Large \frac{dy}{dx} \normalsize +P(x)y=Q(x)\)</span>, where  <span class="math notranslate nohighlight">\(\normalsize y=y(x)\)</span>.</p>
+<ol class="arabic simple">
+<li><p>Calculate the integrating factor  <span class="math notranslate nohighlight">\(I(x) = e^ {\int P(x)dx}\)</span>. You do not need a constant of integration.</p></li>
+<li><p>Multiply the differential equation through by  <span class="math notranslate nohighlight">\(I(x)\)</span>.</p></li>
+<li><p>Simplify the LHS and hence obtain  <span class="math notranslate nohighlight">\(I(x)y=\int I(x)Q(x)dx +C\)</span>, where  <span class="math notranslate nohighlight">\(C\)</span> is a constant.</p></li>
+<li><p>Integrate to obtain the general solution.</p></li>
+</ol>
+<p><strong>*Example 4:*</strong></p>
+<p>Solve the differential equation  <span class="math notranslate nohighlight">\(\Large \frac{dy}{dx} \normalsize +3x^2y=6x^2\)</span>. Find the particular solution of the equation for the initial condition  <span class="math notranslate nohighlight">\(y(0) = 1\)</span>.</p>
+<blockquote>
+<div><p><strong>*Solution:*</strong></p>
+</div></blockquote>
+<div class='sage_linked'><script type='text/x-sage'>sage: var('x y C')
+sage: var('dy,dx')
+sage: var('x0 y0')
+sage: Y = function('Y', x)
+sage: de = diff(Y,x) + 3*x^2*Y == 6*x^2
+sage: I = e^(integral(3*x^2, x)) #integrating factor
+sage: html('1. The integrating factor of the equation is $I(x)=$' "$%s$"%latex(I) + '.' + "$")
+sage: de1 = ((I*de).subs({diff(Y,x):dy/dx,Y:y})*dx).full_simplify().expand()
+sage: html('2. Multiplying both sides of the equation by the integrating factor ' "$%s$"%latex(I) + ' we get ' "$%s$"%latex(de1) + '.' + "$")
+sage: RHS = integral(de1.rhs(),x).coefficient(dx) # RHS.show()
+sage: LHS = y*I
+sage: html('3. Taking integrals on both sides of the equation we get: ')
+sage: eqn = (LHS == RHS + C)
+sage: eqn.show()
+sage: solution = solve(eqn, y)[0].expand()
+sage: html('4. Therefore, general solution of the equation is ' "$%s$"%latex(solution) + '.' + "$")
+sage: x0 = 0
+sage: y0 = 1
+sage: particular = desolve(de, [Y,x], [x0,y0]).expand()
+sage: html('The particular solution of the equation for $y=$ '+latex(y0)+ ' when $x=$ ' +latex(x0)+ 'is $y=$'"$%s$"%latex(particular) + '.' + "$")</script></div><p><strong>PROBLEM</strong></p>
+<p>Using the above procedure solve the initial value problem  <span class="math notranslate nohighlight">\(\cos x \Large \frac{dy}{dx} \normalsize =y \sin x + \sin 2x\)</span>,   <span class="math notranslate nohighlight">\(y(0) = 1\)</span>.</p>
+<p><strong>EXERCISES</strong></p>
+<ol class="arabic simple">
+<li><p>Solve the following using the integrating factor method:</p></li>
+</ol>
+<ol class="loweralpha simple">
+<li><p><span class="math notranslate nohighlight">\(\Large \frac{dy}{dx} \normalsize +4y=12\)</span>.</p></li>
+<li><p><span class="math notranslate nohighlight">\(x \Large \frac{dy}{dx} \normalsize +y=x \cos x\)</span>.</p></li>
+<li><p><span class="math notranslate nohighlight">\(\Large \frac{dy}{dx} \normalsize -3y=e^x\)</span>,   <span class="math notranslate nohighlight">\(y(0) = 2\)</span>.</p></li>
+<li><p><span class="math notranslate nohighlight">\(\Large \frac{dy}{dx} \normalsize +y=x+e^x\)</span>,   <span class="math notranslate nohighlight">\(y(1) = 1.\)</span></p></li>
+</ol>
+<ol class="arabic simple" start="2">
+<li><p>Solve the differential equation  <span class="math notranslate nohighlight">\((x+1)y + x \Large \frac{dy}{dx} \normalsize =x - x^2\)</span>.</p></li>
+</ol>
+</div>
+</div>
+
+
+          </div>
+        </div>
+      </div>
+      <div class="sphinxsidebar" role="navigation" aria-label="main navigation">
+        <div class="sphinxsidebarwrapper">
+  <div class="sphinxlocaltoc">
+  <h3><a href="index.html">Table Of Contents</a></h3>
+  <ul>
+<li><a class="reference internal" href="#">First order differential equations</a><ul>
+<li><a class="reference internal" href="#about-this-lesson-plan">About this lesson plan</a></li>
+<li><a class="reference internal" href="#lesson-plan">Lesson Plan</a></li>
+<li><a class="reference internal" href="#slope-fields">Slope Fields</a></li>
+<li><a class="reference internal" href="#separable-differential-equations">Separable Differential Equations</a></li>
+<li><a class="reference internal" href="#homogeneous-differential-equations">Homogeneous Differential Equations</a></li>
+<li><a class="reference internal" href="#the-integrating-factor-method">The Integrating Factor Method</a></li>
+</ul>
+</li>
+</ul>
+
+  </div>
+  <h4>Previous topic</h4>
+  <p class="topless"><a href="iCSE4s_MAT_z09v1_EN_Polynomial_approximations.html"
+                        title="previous chapter">Polynomial  approximation</a></p>
+  <h4>Next topic</h4>
+  <p class="topless"><a href="Final_z01_String_AO_EN.html"
+                        title="next chapter">Examining string vibrations</a></p>
+<div id="searchbox" style="display: none" role="search">
+  <h3 id="searchlabel">Quick search</h3>
+    <div class="searchformwrapper">
+    <form class="search" action="search.html" method="get">
+      <input type="text" name="q" aria-labelledby="searchlabel" />
+      <input type="submit" value="Go" />
+    </form>
+    </div>
+</div>
+<script>$('#searchbox').show(0);</script>
+        </div>
+      </div>
+      <div class="clearer"></div>
+    </div>
+  </div>
+  <div class="relbar-bottom">
+    
+    <div class="related" role="navigation" aria-label="related navigation">
+      <h3>Navigation</h3>
+      <ul>
+        <li class="right" style="margin-right: 10px">
+          <a href="Final_z01_String_AO_EN.html" title="Examining string vibrations"
+             >next</a></li>
+        <li class="right" >
+          <a href="iCSE4s_MAT_z09v1_EN_Polynomial_approximations.html" title="Polynomial approximation"
+             >previous</a> &nbsp; &nbsp;</li>
+  <li><a href="index.html">Science education with SageMath</a> &#187;</li>
+  
+        <li class="nav-item nav-item-this"><a href="">First order differential equations</a></li> 
+      </ul>
+    </div>
+  </div>
+  
+  <div class="footer">
+    <a class="logo" href="http://icse.us.edu.pl/" target="_blank"><img src="_static/logo-icse.png" alt="ICSE"/></a><br/>
+    &copy; Copyright Creative Commons CC-BY 4.0, iCSE-team.
+    Created using <a href="http://sphinx.pocoo.org/">Sphinx</a> 3.2.1.
+  </div>
+  </body>
+</html>

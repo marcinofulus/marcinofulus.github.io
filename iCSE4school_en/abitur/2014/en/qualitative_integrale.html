@@ -1,0 +1,185 @@
+
+
+  
+<!DOCTYPE html>
+
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Graphing the antiderivative &#8212; Science education with SageMath</title>
+    <link rel="stylesheet" href="../../../_static/cloud.css" type="text/css" />
+    <link rel="stylesheet" href="../../../_static/pygments.css" type="text/css" />
+    <link rel="stylesheet" href="http://fonts.googleapis.com/css?family=Noticia+Text|Open+Sans|Droid+Sans+Mono&amp;subset=latin,latin-ext" type="text/css" />
+    <script id="documentation_options" data-url_root="../../../" src="../../../_static/documentation_options.js"></script>
+    <script src="../../../_static/jquery.js"></script>
+    <script src="../../../_static/underscore.js"></script>
+    <script src="../../../_static/doctools.js"></script>
+    <script src="../../../_static/language_data.js"></script>
+    <script async="async" src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.7/latest.js?config=TeX-AMS-MML_HTMLorMML"></script>
+    <script src="../../../_static/jquery.cookie.js"></script>
+    <script src="../../../_static/cloud.js"></script>
+    <script type="text/javascript" src="http://sagecell.sagemath.org/static/jquery.min.js"></script>
+    <script type="text/javascript" src="http://sagecell.sagemath.org/static/embedded_sagecell.js"></script>
+    <script type="text/javascript">
+        sagecell.makeSagecell({inputLocation: ".sage_linked",
+                               linked: true});
+        sagecell.makeSagecell({inputLocation: ".sage_unlinked",
+                               linked: false});
+    </script>
+
+    <style type="text/css">
+        .sagecell .CodeMirror-scroll {
+            overflow-y: hidden;
+            overflow-x: auto;
+        }
+        .sagecell .CodeMirror {
+            height: auto;
+        }
+    </style>
+    
+    <link rel="search" title="Search" href="../../../search.html" />
+    <link rel="next" title="Inflection points" href="wendepunkte.html" />
+    <link rel="prev" title="The construction of periodic functions" href="beispielfunktionen.html" />
+ 
+  <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, minimum-scale=1">
+  </head><body>
+  <div class="relbar-top">
+    
+    <div class="related" role="navigation" aria-label="related navigation">
+      <h3>Navigation</h3>
+      <ul>
+        <li class="right" style="margin-right: 10px">
+          <a href="wendepunkte.html" title="Inflection points"
+             accesskey="N">next</a></li>
+        <li class="right" >
+          <a href="beispielfunktionen.html" title="The construction of periodic functions"
+             accesskey="P">previous</a> &nbsp; &nbsp;</li>
+  <li><a href="../../../index.html">Science education with SageMath</a> &#187;</li>
+  
+        <li class="nav-item nav-item-this"><a href="">Graphing the antiderivative</a></li> 
+      </ul>
+    </div>
+  </div>
+  
+  <div class="content">  
+
+    <div class="document">
+      <div class="documentwrapper">
+        <div class="bodywrapper">
+          <div class="body">
+            
+  <div class="section" id="graphing-the-antiderivative">
+<h1>Graphing the antiderivative<a class="headerlink" href="#graphing-the-antiderivative" title="Permalink to this headline">¶</a></h1>
+<div class="admonition-problem admonition">
+<p class="admonition-title">Problem</p>
+<p>The figure depicts the graph of a function <span class="math notranslate nohighlight">\(f\)</span>.</p>
+<img alt="../../../_images/qualitative_integrale1.png" class="align-center" src="../../../_images/qualitative_integrale1.png" />
+<ol class="loweralpha simple">
+<li><p>Describe the shape of the graph of an antiderivative of <span class="math notranslate nohighlight">\(f\)</span> for
+<span class="math notranslate nohighlight">\(a\leq x\leq b\)</span>.</p></li>
+<li><p>Sketch in the figure the graph of an antiderivative of <span class="math notranslate nohighlight">\(f\)</span> in the
+full range represented.</p></li>
+</ol>
+</div>
+<p><strong>Solution of part a</strong></p>
+<p>We first sketch the antiderivative of the form</p>
+<div class="math notranslate nohighlight">
+\[F(x)=\int\limits_a^x f(x')\mathrm{d}x'.\]</div>
+<p>For <span class="math notranslate nohighlight">\(x=a\)</span>, the antiderivative thus vanishes. For <span class="math notranslate nohighlight">\(x&gt;a\)</span>, the
+antiderivative starts to grow initially more strongly, then more weakly until
+the zero <span class="math notranslate nohighlight">\(x=x_0\)</span> of <span class="math notranslate nohighlight">\(f\)</span> is reached. Then, the antiderivative
+decreases, first slowly and then more strongly until <span class="math notranslate nohighlight">\(x=b\)</span> is reached.</p>
+<p>In order to treat this problem with the help of Sage, we first need to find a
+function which resembles the one displayed in the figure. This is more or less
+the case for the so called Lennard-Jones potential, a function which in physics
+describes the binding energy between certain atoms. A possible form of the
+function is</p>
+<div class="math notranslate nohighlight">
+\[f(x)=\frac{a}{x^{12}}-\frac{b}{x^6},\]</div>
+<p>where <span class="math notranslate nohighlight">\(a\)</span> and <span class="math notranslate nohighlight">\(b\)</span> are constants. In order to obtain a form close
+to the one given in this problem, we shift and compress the function
+accordingly. For the use with Sage, we employ the function</p>
+<div class="math notranslate nohighlight">
+\[f(x)=\frac{1}{(x/3+1.5)^{12}}-\frac{1}{(x/3+1.5)^6}-\frac{1}{5}.\]</div>
+<div class='sage_linked'><script type='text/x-sage'>f(x) = 1/(x/3+1.5)^12-1/(x/3+1.5)^6-0.2
+plot(f(x), x, (-2, 2), ymax=1, figsize=(4, 2.8))</script></div><p>To obtain the shape of the antiderivative in the range surrounding the zero of
+the function, we determine the definite integral of the function from <span class="math notranslate nohighlight">\(a\)</span>
+to <span class="math notranslate nohighlight">\(x\)</span> where <span class="math notranslate nohighlight">\(x\)</span> runs from <span class="math notranslate nohighlight">\(a = -1.8\)</span> to <span class="math notranslate nohighlight">\(b = -1.4\)</span>.</p>
+<div class='sage_linked'><script type='text/x-sage'>a = -1.8
+b = -1.4
+F(x) = integral(f(x), x)
+sf(x) = F(x) - F(a)
+plot(sf(x), (a, b), figsize=(4, 2.8))</script></div><p><strong>Solution of part b</strong></p>
+<p>In this part of the problem we consider an antiderivative which vanishes at the
+point where the representation of the function in the figure begins, i.e., we
+consider the function</p>
+<div class="math notranslate nohighlight">
+\[F(x)=\int\limits_c^x f(x')\mathrm{d}x',\]</div>
+<p>with <span class="math notranslate nohighlight">\(c\)</span> being the left-most point where the function is depicted. Like in
+the first part of the problem, our antiderivative is growing initially rather
+strongly. The growth then slows down and, at the zero of <span class="math notranslate nohighlight">\(f\)</span>, changes its
+sign. Then, the antiderivative decreases strictly monotonic and beyond a
+certain point remains negative. The strongest decrease of the
+antiderivative is found at the minimum of the function <span class="math notranslate nohighlight">\(f\)</span>. Afterwards,
+the antiderivative decreases more slowly and approaches a straight line with a
+negative slope when reaching the end of the range represented.</p>
+<p>We proceed with Sage like in the previous part of the problem, simply adjusting
+the antiderivative and the range where it is represented.</p>
+<div class='sage_linked'><script type='text/x-sage'>c = -2
+d = 2
+sf(x) = F(x) - F(c)
+plot(sf(x), (c, d), figsize=(4, 2.8))</script></div></div>
+
+
+          </div>
+        </div>
+      </div>
+      <div class="sphinxsidebar" role="navigation" aria-label="main navigation">
+        <div class="sphinxsidebarwrapper">
+  <h4>Previous topic</h4>
+  <p class="topless"><a href="beispielfunktionen.html"
+                        title="previous chapter">The construction of periodic functions</a></p>
+  <h4>Next topic</h4>
+  <p class="topless"><a href="wendepunkte.html"
+                        title="next chapter">Inflection points</a></p>
+<div id="searchbox" style="display: none" role="search">
+  <h3 id="searchlabel">Quick search</h3>
+    <div class="searchformwrapper">
+    <form class="search" action="../../../search.html" method="get">
+      <input type="text" name="q" aria-labelledby="searchlabel" />
+      <input type="submit" value="Go" />
+    </form>
+    </div>
+</div>
+<script>$('#searchbox').show(0);</script>
+        </div>
+      </div>
+      <div class="clearer"></div>
+    </div>
+  </div>
+  <div class="relbar-bottom">
+    
+    <div class="related" role="navigation" aria-label="related navigation">
+      <h3>Navigation</h3>
+      <ul>
+        <li class="right" style="margin-right: 10px">
+          <a href="wendepunkte.html" title="Inflection points"
+             >next</a></li>
+        <li class="right" >
+          <a href="beispielfunktionen.html" title="The construction of periodic functions"
+             >previous</a> &nbsp; &nbsp;</li>
+  <li><a href="../../../index.html">Science education with SageMath</a> &#187;</li>
+  
+        <li class="nav-item nav-item-this"><a href="">Graphing the antiderivative</a></li> 
+      </ul>
+    </div>
+  </div>
+  
+  <div class="footer">
+    <a class="logo" href="http://icse.us.edu.pl/" target="_blank"><img src="../../../_static/logo-icse.png" alt="ICSE"/></a><br/>
+    &copy; Copyright Creative Commons CC-BY 4.0, iCSE-team.
+    Created using <a href="http://sphinx.pocoo.org/">Sphinx</a> 3.2.1.
+  </div>
+  </body>
+</html>

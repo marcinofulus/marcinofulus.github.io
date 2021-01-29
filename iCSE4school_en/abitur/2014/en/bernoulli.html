@@ -1,0 +1,173 @@
+
+
+  
+<!DOCTYPE html>
+
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Bernoulli process &#8212; Science education with SageMath</title>
+    <link rel="stylesheet" href="../../../_static/cloud.css" type="text/css" />
+    <link rel="stylesheet" href="../../../_static/pygments.css" type="text/css" />
+    <link rel="stylesheet" href="http://fonts.googleapis.com/css?family=Noticia+Text|Open+Sans|Droid+Sans+Mono&amp;subset=latin,latin-ext" type="text/css" />
+    <script id="documentation_options" data-url_root="../../../" src="../../../_static/documentation_options.js"></script>
+    <script src="../../../_static/jquery.js"></script>
+    <script src="../../../_static/underscore.js"></script>
+    <script src="../../../_static/doctools.js"></script>
+    <script src="../../../_static/language_data.js"></script>
+    <script async="async" src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.7/latest.js?config=TeX-AMS-MML_HTMLorMML"></script>
+    <script src="../../../_static/jquery.cookie.js"></script>
+    <script src="../../../_static/cloud.js"></script>
+    <script type="text/javascript" src="http://sagecell.sagemath.org/static/jquery.min.js"></script>
+    <script type="text/javascript" src="http://sagecell.sagemath.org/static/embedded_sagecell.js"></script>
+    <script type="text/javascript">
+        sagecell.makeSagecell({inputLocation: ".sage_linked",
+                               linked: true});
+        sagecell.makeSagecell({inputLocation: ".sage_unlinked",
+                               linked: false});
+    </script>
+
+    <style type="text/css">
+        .sagecell .CodeMirror-scroll {
+            overflow-y: hidden;
+            overflow-x: auto;
+        }
+        .sagecell .CodeMirror {
+            height: auto;
+        }
+    </style>
+    
+    <link rel="search" title="Search" href="../../../search.html" />
+    <link rel="next" title="Random variable and expected value" href="zufallsgroesse.html" />
+    <link rel="prev" title="Two red and three white balls…" href="urne.html" />
+ 
+  <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, minimum-scale=1">
+  </head><body>
+  <div class="relbar-top">
+    
+    <div class="related" role="navigation" aria-label="related navigation">
+      <h3>Navigation</h3>
+      <ul>
+        <li class="right" style="margin-right: 10px">
+          <a href="zufallsgroesse.html" title="Random variable and expected value"
+             accesskey="N">next</a></li>
+        <li class="right" >
+          <a href="urne.html" title="Two red and three white balls…"
+             accesskey="P">previous</a> &nbsp; &nbsp;</li>
+  <li><a href="../../../index.html">Science education with SageMath</a> &#187;</li>
+  
+        <li class="nav-item nav-item-this"><a href="">Bernoulli process</a></li> 
+      </ul>
+    </div>
+  </div>
+  
+  <div class="content">  
+
+    <div class="document">
+      <div class="documentwrapper">
+        <div class="bodywrapper">
+          <div class="body">
+            
+  <div class="section" id="bernoulli-process">
+<h1>Bernoulli process<a class="headerlink" href="#bernoulli-process" title="Permalink to this headline">¶</a></h1>
+<div class="admonition-problem admonition">
+<p class="admonition-title">Problem</p>
+<p>Consider a Bernoulli process with a probability of 0,9
+and a length of 20. Specify an event with the probability given by</p>
+<div class="math notranslate nohighlight">
+\[0{,}9^{20}+20\cdot0{,}1\cdot0{,}9^{19}\]</div>
+</div>
+<p><strong>Solution</strong></p>
+<p>The probability of having exactly <span class="math notranslate nohighlight">\(n\)</span> hits in a Bernoulli process with probability
+<span class="math notranslate nohighlight">\(p\)</span> and length <span class="math notranslate nohighlight">\(N\)</span> equals</p>
+<div class="math notranslate nohighlight">
+\[P(n) = \binom{N}{n}\cdot p^n\cdot (1-p)^{N-n}.\]</div>
+<p>The probability specified in this problem therefore corresponds to the sum of the probabilities
+of having exactly 20 hits</p>
+<div class="math notranslate nohighlight">
+\[\binom{20}{20}\cdot 0{,}9^{20}\cdot 0{,}1^0=0{,}9^{20}\]</div>
+<p>and having exactly 19 hits</p>
+<div class="math notranslate nohighlight">
+\[\binom{20}{19}\cdot 0{,}9^{19}\cdot 0{,}1^1=20\cdot 0{,}9^{19}\cdot 0{,}1.\]</div>
+<p>In other words, the corresponding event consists in having at least 19 hits.</p>
+<p>We will simulate the Bernoulli process by means of Sage and evaluate
+the probability of having at least 19 hits. Before doing so, we calculate the decimal value
+of the given probability.</p>
+<div class='sage_linked'><script type='text/x-sage'>p = 0.9
+q = 0.1
+p_E = p^20 + 20*q*p^19
+print "Probability p(E) =", p_E</script></div><p>Now, we determine the probability for finding a given number of hits
+based on 50000 repetitions of the Bernoulli process. Finally, we compare
+the probability <span class="math notranslate nohighlight">\(p(E)\)</span> of finding at least 19 hits with the exact
+result.</p>
+<div class='sage_linked'><script type='text/x-sage'>import numpy as np
+threshold_value = 19
+frequency_e = np.zeros(21)
+iterations = 50000
+for _ in range(iterations):
+    hits = sum(np.random.random(20) < p)
+    frequency_e[hits] = frequency_e[hits]+1
+probabilities = frequency_e/iterations
+headline = ' Hit  probability'
+print headline
+print "-"*len(headline)
+for hits, p_of_e in enumerate(probabilities):
+    print "%6i       %g" % (hits, p_of_e)
+p_geq_19 = probabilities[19]+probabilities[20]
+print "Approximation of the probability p(E) =", p_geq_19</script></div><p>The result is close to the exact result. The difference arises from the
+finite number of realizations.</p>
+</div>
+
+
+          </div>
+        </div>
+      </div>
+      <div class="sphinxsidebar" role="navigation" aria-label="main navigation">
+        <div class="sphinxsidebarwrapper">
+  <h4>Previous topic</h4>
+  <p class="topless"><a href="urne.html"
+                        title="previous chapter">Two red and three white balls…</a></p>
+  <h4>Next topic</h4>
+  <p class="topless"><a href="zufallsgroesse.html"
+                        title="next chapter">Random variable and expected value</a></p>
+<div id="searchbox" style="display: none" role="search">
+  <h3 id="searchlabel">Quick search</h3>
+    <div class="searchformwrapper">
+    <form class="search" action="../../../search.html" method="get">
+      <input type="text" name="q" aria-labelledby="searchlabel" />
+      <input type="submit" value="Go" />
+    </form>
+    </div>
+</div>
+<script>$('#searchbox').show(0);</script>
+        </div>
+      </div>
+      <div class="clearer"></div>
+    </div>
+  </div>
+  <div class="relbar-bottom">
+    
+    <div class="related" role="navigation" aria-label="related navigation">
+      <h3>Navigation</h3>
+      <ul>
+        <li class="right" style="margin-right: 10px">
+          <a href="zufallsgroesse.html" title="Random variable and expected value"
+             >next</a></li>
+        <li class="right" >
+          <a href="urne.html" title="Two red and three white balls…"
+             >previous</a> &nbsp; &nbsp;</li>
+  <li><a href="../../../index.html">Science education with SageMath</a> &#187;</li>
+  
+        <li class="nav-item nav-item-this"><a href="">Bernoulli process</a></li> 
+      </ul>
+    </div>
+  </div>
+  
+  <div class="footer">
+    <a class="logo" href="http://icse.us.edu.pl/" target="_blank"><img src="../../../_static/logo-icse.png" alt="ICSE"/></a><br/>
+    &copy; Copyright Creative Commons CC-BY 4.0, iCSE-team.
+    Created using <a href="http://sphinx.pocoo.org/">Sphinx</a> 3.2.1.
+  </div>
+  </body>
+</html>

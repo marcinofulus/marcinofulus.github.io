@@ -1,0 +1,162 @@
+
+
+  
+<!DOCTYPE html>
+
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Function and its aniderivative &#8212; Science education with SageMath</title>
+    <link rel="stylesheet" href="../../../_static/cloud.css" type="text/css" />
+    <link rel="stylesheet" href="../../../_static/pygments.css" type="text/css" />
+    <link rel="stylesheet" href="http://fonts.googleapis.com/css?family=Noticia+Text|Open+Sans|Droid+Sans+Mono&amp;subset=latin,latin-ext" type="text/css" />
+    <script id="documentation_options" data-url_root="../../../" src="../../../_static/documentation_options.js"></script>
+    <script src="../../../_static/jquery.js"></script>
+    <script src="../../../_static/underscore.js"></script>
+    <script src="../../../_static/doctools.js"></script>
+    <script src="../../../_static/language_data.js"></script>
+    <script async="async" src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.7/latest.js?config=TeX-AMS-MML_HTMLorMML"></script>
+    <script src="../../../_static/jquery.cookie.js"></script>
+    <script src="../../../_static/cloud.js"></script>
+    <script type="text/javascript" src="http://sagecell.sagemath.org/static/jquery.min.js"></script>
+    <script type="text/javascript" src="http://sagecell.sagemath.org/static/embedded_sagecell.js"></script>
+    <script type="text/javascript">
+        sagecell.makeSagecell({inputLocation: ".sage_linked",
+                               linked: true});
+        sagecell.makeSagecell({inputLocation: ".sage_unlinked",
+                               linked: false});
+    </script>
+
+    <style type="text/css">
+        .sagecell .CodeMirror-scroll {
+            overflow-y: hidden;
+            overflow-x: auto;
+        }
+        .sagecell .CodeMirror {
+            height: auto;
+        }
+    </style>
+    
+    <link rel="search" title="Search" href="../../../search.html" />
+    <link rel="next" title="Properties of the graph of the function" href="kurvendiskussion.html" />
+    <link rel="prev" title="Nonlinear equation" href="gleichungssystem.html" />
+ 
+  <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, minimum-scale=1">
+  </head><body>
+  <div class="relbar-top">
+    
+    <div class="related" role="navigation" aria-label="related navigation">
+      <h3>Navigation</h3>
+      <ul>
+        <li class="right" style="margin-right: 10px">
+          <a href="kurvendiskussion.html" title="Properties of the graph of the function"
+             accesskey="N">next</a></li>
+        <li class="right" >
+          <a href="gleichungssystem.html" title="Nonlinear equation"
+             accesskey="P">previous</a> &nbsp; &nbsp;</li>
+  <li><a href="../../../index.html">Science education with SageMath</a> &#187;</li>
+  
+        <li class="nav-item nav-item-this"><a href="">Function and its aniderivative</a></li> 
+      </ul>
+    </div>
+  </div>
+  
+  <div class="content">  
+
+    <div class="document">
+      <div class="documentwrapper">
+        <div class="bodywrapper">
+          <div class="body">
+            
+  <div class="section" id="function-and-its-aniderivative">
+<h1>Function and its aniderivative<a class="headerlink" href="#function-and-its-aniderivative" title="Permalink to this headline">¶</a></h1>
+<div class="admonition-problem admonition">
+<p class="admonition-title">Problem</p>
+<p>Figure 1 displays the graph <span class="math notranslate nohighlight">\(G_f\)</span> of a function <span class="math notranslate nohighlight">\(f\)</span>
+defined in <span class="math notranslate nohighlight">\(\mathbb{R}\)</span>. Sketch in figure 1 the graph of
+the integral function <span class="math notranslate nohighlight">\(F:x\mapsto \int\limits_1^x f(t)\mathrm{d}t\)</span>
+defined in <span class="math notranslate nohighlight">\(\mathbb{R}\)</span>. Consider with appropriate precision
+in particular the zeros and extrema of <span class="math notranslate nohighlight">\(F\)</span> as well as <span class="math notranslate nohighlight">\(F(0)\)</span>.</p>
+<img alt="../../../_images/intgraph1.png" class="align-center" src="../../../_images/intgraph1.png" />
+</div>
+<p><strong>Solution</strong></p>
+<p>If a function possesses a zero with a change of sign, the corresponding
+antiderivative possesses a local extremum at this point. It is a maximum
+if the slope of the function is negative. If, on the other hand, the slope
+is positive, the antiderivative has a minimum at that point.</p>
+<p>Considering the function given in the problem text, one finds zeros of
+<span class="math notranslate nohighlight">\(f(x)\)</span> at <span class="math notranslate nohighlight">\(x_1=0\)</span> and <span class="math notranslate nohighlight">\(x_2\approx 2.25\)</span>.
+In the first case, the slope is negative so that <span class="math notranslate nohighlight">\(F(0)\)</span> represents
+a local maximum of the antiderivative. At the other point <span class="math notranslate nohighlight">\(x_2\)</span> the
+slope of <span class="math notranslate nohighlight">\(f\)</span> is positive so that <span class="math notranslate nohighlight">\(F(x_2)\)</span> is a local minimum.</p>
+<p>Another property of <span class="math notranslate nohighlight">\(F(x)\)</span> follows from the lower limit of integration
+at <span class="math notranslate nohighlight">\(t=1\)</span>. As a consequence, <span class="math notranslate nohighlight">\(F(1)=0\)</span>.
+Finally, from counting squares, <span class="math notranslate nohighlight">\(F(0)=-\int\limits_0^1 f(t)\mathrm{d}t\)</span>
+can be estimated to equal <span class="math notranslate nohighlight">\(\frac{1}{2}\)</span>.</p>
+<p>By means of Sage, we can carry out the integration provided the function
+<span class="math notranslate nohighlight">\(f\)</span> is known. We choose</p>
+<div class="math notranslate nohighlight">
+\[f(x)=\frac{49}{5}\frac{x(4x-9)}{(2x-9)^2},\]</div>
+<p>which possesses the properties used in the above reasoning. In addition,
+its qualitative form resembles that given in figure 1.</p>
+<div class='sage_linked'><script type='text/x-sage'>var('t')
+f(x) = 49/5*x*(4*x-9)/(2*x-9)^2
+assume(1 < x, 2*x-9 < 0)
+F(x) = integrate(f(t), t, 1, x)
+ranges = {'xmin': -3, 'xmax': 4, 'ymin': -2, 'ymax': 7}
+show(plot(f, color='blue', **ranges)+plot(F, color='red', **ranges),
+          figsize=(3.5, 4.5))</script></div></div>
+
+
+          </div>
+        </div>
+      </div>
+      <div class="sphinxsidebar" role="navigation" aria-label="main navigation">
+        <div class="sphinxsidebarwrapper">
+  <h4>Previous topic</h4>
+  <p class="topless"><a href="gleichungssystem.html"
+                        title="previous chapter">Nonlinear equation</a></p>
+  <h4>Next topic</h4>
+  <p class="topless"><a href="kurvendiskussion.html"
+                        title="next chapter">Properties of the graph of the function</a></p>
+<div id="searchbox" style="display: none" role="search">
+  <h3 id="searchlabel">Quick search</h3>
+    <div class="searchformwrapper">
+    <form class="search" action="../../../search.html" method="get">
+      <input type="text" name="q" aria-labelledby="searchlabel" />
+      <input type="submit" value="Go" />
+    </form>
+    </div>
+</div>
+<script>$('#searchbox').show(0);</script>
+        </div>
+      </div>
+      <div class="clearer"></div>
+    </div>
+  </div>
+  <div class="relbar-bottom">
+    
+    <div class="related" role="navigation" aria-label="related navigation">
+      <h3>Navigation</h3>
+      <ul>
+        <li class="right" style="margin-right: 10px">
+          <a href="kurvendiskussion.html" title="Properties of the graph of the function"
+             >next</a></li>
+        <li class="right" >
+          <a href="gleichungssystem.html" title="Nonlinear equation"
+             >previous</a> &nbsp; &nbsp;</li>
+  <li><a href="../../../index.html">Science education with SageMath</a> &#187;</li>
+  
+        <li class="nav-item nav-item-this"><a href="">Function and its aniderivative</a></li> 
+      </ul>
+    </div>
+  </div>
+  
+  <div class="footer">
+    <a class="logo" href="http://icse.us.edu.pl/" target="_blank"><img src="../../../_static/logo-icse.png" alt="ICSE"/></a><br/>
+    &copy; Copyright Creative Commons CC-BY 4.0, iCSE-team.
+    Created using <a href="http://sphinx.pocoo.org/">Sphinx</a> 3.2.1.
+  </div>
+  </body>
+</html>

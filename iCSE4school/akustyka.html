@@ -1,0 +1,389 @@
+
+
+  
+<!DOCTYPE html>
+
+<html lang="pl">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Zjawiska akustyczne &#8212; Metodologia nauczania przedmiotów ścisłych z perspektywą obliczeniową</title>
+    <link rel="stylesheet" href="_static/cloud.css" type="text/css" />
+    <link rel="stylesheet" href="_static/pygments.css" type="text/css" />
+    <link rel="stylesheet" href="http://fonts.googleapis.com/css?family=Noticia+Text|Open+Sans|Droid+Sans+Mono&amp;subset=latin,latin-ext" type="text/css" />
+    <script id="documentation_options" data-url_root="./" src="_static/documentation_options.js"></script>
+    <script src="_static/jquery.js"></script>
+    <script src="_static/underscore.js"></script>
+    <script src="_static/doctools.js"></script>
+    <script src="_static/language_data.js"></script>
+    <script src="_static/translations.js"></script>
+    <script async="async" src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.7/latest.js?config=TeX-AMS-MML_HTMLorMML"></script>
+    <script src="_static/jquery.cookie.js"></script>
+    <script src="_static/cloud.js"></script>
+    <script type="text/javascript" src="http://sagecell.sagemath.org/static/jquery.min.js"></script>
+    <script type="text/javascript" src="http://sagecell.sagemath.org/static/embedded_sagecell.js"></script>
+    <script type="text/javascript">
+        sagecell.makeSagecell({inputLocation: ".sage_linked",
+                               linked: true});
+        sagecell.makeSagecell({inputLocation: ".sage_unlinked",
+                               linked: false});
+    </script>
+
+    <style type="text/css">
+        .sagecell .CodeMirror-scroll {
+            overflow-y: hidden;
+            overflow-x: auto;
+        }
+        .sagecell .CodeMirror {
+            height: auto;
+        }
+    </style>
+    
+    <link rel="search" title="Szukaj" href="search.html" />
+    <link rel="next" title="Badanie ruchu przyspieszonego" href="przyspieszony.html" />
+    <link rel="prev" title="Fale dźwiękowe" href="fale.html" />
+ 
+  <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, minimum-scale=1">
+  </head><body>
+  <div class="relbar-top">
+    
+    <div class="related" role="navigation" aria-label="related navigation">
+      <h3>Nawigacja</h3>
+      <ul>
+        <li class="right" style="margin-right: 10px">
+          <a href="przyspieszony.html" title="Badanie ruchu przyspieszonego"
+             accesskey="N">dalej</a></li>
+        <li class="right" >
+          <a href="fale.html" title="Fale dźwiękowe"
+             accesskey="P">wstecz</a> &nbsp; &nbsp;</li>
+  <li><a href="index.html">Metodologia nauczania przedmiotów ścisłych z perspektywą obliczeniową</a> &#187;</li>
+  
+        <li class="nav-item nav-item-this"><a href="">Zjawiska akustyczne</a></li> 
+      </ul>
+    </div>
+  </div>
+  
+  <div class="content">  
+
+    <div class="document">
+      <div class="documentwrapper">
+        <div class="bodywrapper">
+          <div class="body">
+            
+  <div class="section" id="zjawiska-akustyczne">
+<h1>Zjawiska akustyczne<a class="headerlink" href="#zjawiska-akustyczne" title="Stały odnośnik do tego nagłówka">¶</a></h1>
+<div class="section" id="o-scenariuszu">
+<h2>O scenariuszu<a class="headerlink" href="#o-scenariuszu" title="Stały odnośnik do tego nagłówka">¶</a></h2>
+<p>Materiał przedstawiony poniżej może być zrealizowany podczas 2 godzin
+lekcyjnych: jedna w pracowni fizycznej, druga w sali zaopatrzonej w
+wystarczającą ilość komputerów.</p>
+<p>Scenariusz został opracowany w ramach projektu iCSE4school na podstawie
+lekcji prowadzonych w latach 2015-2017 w III Liceum
+Ogólnokształcącym im. Stefana Batorego w Chorzowie przez Adama Ogazę.</p>
+<div class="admonition-uwaga admonition">
+<p class="admonition-title">Uwaga!</p>
+<p>W każdym z okien programu można zmieniać liczby, tekst, zmienne
+lub cały kod.  Nie trzeba się martwić, jeśli program przestanie
+działać, bo po odświeżeniu strony powróci do ustawień
+początkowych.  Często następny kod wynika z poprzedniego, więc
+należy ćwiczenia (algorytmy) wykonywać według kolejności.</p>
+</div>
+</div>
+<div class="section" id="wstep">
+<h2>Wstęp<a class="headerlink" href="#wstep" title="Stały odnośnik do tego nagłówka">¶</a></h2>
+<p>Główne cele lekcji są następujące:</p>
+<ul class="simple">
+<li><p>Wyjaśnienie, czym jest echo i pogłos.</p></li>
+<li><p>Zademonstrowanie rezonansu akustycznego.</p></li>
+<li><p>Wyjaśnienie zasady działania instrumentów muzycznych.</p></li>
+<li><p>Wyjaśnienie, czym są dudnienia,</p></li>
+<li><p>Ćwiczenia w tworzeniu wykresów w Pythonie.</p></li>
+<li><p>Ćwiczenia w uzyciu interaktów i suwaków w Pythonie.</p></li>
+<li><p>Ćwiczenia w tworzeniu animacji w Sage</p></li>
+</ul>
+<p>Uwarunkowania, które trzeba uwzględnić:</p>
+<ul class="simple">
+<li><p>Uczniowie posiadają już podstawową wiedzę o falach w ogólności. W
+szczególnosci znają równanie fali, koncepcję fali stojącej i
+rezonansu.</p></li>
+<li><p>Jest to drugi kontakt uczniów z animacjami w Pythonie. Uczestniczyli
+już w lekcji informatyki specjalnie poświęconej temu zagadnieniu.</p></li>
+<li><p>Należy pamiętać, że uczniowie nie znają matematyki
+wyższej. Prezentowane rozwiązania programistyczne nie mogą być zbyt
+wysublimowane.</p></li>
+<li><p>Zalecana jest gradacja trudności. Należy rozpocząć od prostych
+przykładów i stopniowo je komplikować (na przykład przez dodawanie
+nowych parametrów lub uzmiennianie stałych).</p></li>
+</ul>
+</div>
+<div class="section" id="czesc-teoretyczna">
+<h2>Część teoretyczna<a class="headerlink" href="#czesc-teoretyczna" title="Stały odnośnik do tego nagłówka">¶</a></h2>
+<p>Ćwiczenia w programowaniu zostały poprzedzone lekcją teoretyczną o zjawiskach akustycznych. Wykład został sfilmowany i opublikowany po polsku, ale z napisami w języku angielskim.</p>
+<p><a class="reference external" href="https://youtu.be/jWGTTD5-mFA">https://youtu.be/jWGTTD5-mFA</a></p>
+<center><iframe width="420" height="280" src="https://www.youtube.com/embed/jWGTTD5-mFA" frameborder="0" allowfullscreen></iframe> </center><p>Główne zagadnienia dyskutowane na wykładzie:</p>
+<ul class="simple">
+<li><p>Echo</p></li>
+<li><p>Pogłos</p></li>
+<li><p>Rezonns akustyczny</p></li>
+<li><p>Fale stojące (w szczególności w instrumentach)</p></li>
+<li><p>Dudnienia</p></li>
+</ul>
+</div>
+<div class="section" id="czesc-informatyczna">
+<h2>Część informatyczna<a class="headerlink" href="#czesc-informatyczna" title="Stały odnośnik do tego nagłówka">¶</a></h2>
+<p>Zasadnicze umiejętnosci ćwiczone na lekcji:</p>
+<ul class="simple">
+<li><p>Sterowanie zjawiskami za pomocą suwaków.</p></li>
+<li><p>Wprawianie wykresów w ruch.</p></li>
+<li><p>Badanie ruchu impulsu falowego.</p></li>
+<li><p>Składanie drgań.</p></li>
+<li><p>Badanie fal stojących i dudnień.</p></li>
+</ul>
+<p>Problemy fizyczne dyskutowane w poniższym kodzie i wykresach są następujące:</p>
+<ul class="simple">
+<li><p>Dudnienia - jak kształt fali złożonej zależy od częstotliwości fal składowych</p></li>
+<li><p>Jak dokonać animacji impulsu falowego i jego odbicia.</p></li>
+<li><p>Pokazanie, że fala stojąca jest naprawdę rezultatem nałożenia się na siebie dwóch fal biegnących w przeciwne strony.</p></li>
+</ul>
+<p><strong>Dudnienia</strong></p>
+<p>Prosty przykład wykresu z ustalonymi częstotliwościami i fazami
+początkowymi, które mogą być zmieniane wewnątrz kodu. Rezultaty tych
+zmian obserwujemy na wykresie.</p>
+<div class='sage_linked'><script type='text/x-sage'># **kwarg pozwala na dodanie kolejnych "nazwanych" parametrów
+# dudnienia to funkcja zwracająca wykres nałożonych na siebie funkcji y1 i y2
+def dudnienia(omega1=10,omega2=11,A1=1,A2=1,fi=2,t0=0,**kwarg):
+    y1(t)=A1*sin(omega1*(t-t0))
+    y2(t)=A2*sin(omega2*(t-t0)+fi)
+    y(t)=y1(t)+y2(t)
+    return   plot(y, (t, 0, 10),ymax=A1+A2,ymin=-(A1+A2),**kwarg )
+dudnienia(figsize=(4,2))</script></div><p>Bardziej złożony wykres zawierający parametry funkcji i obwiedni. Dla
+prostoty wszystkie amplitudy sa równe.</p>
+<div class='sage_linked'><script type='text/x-sage'>def envelope(omega1, omega2, a, phase, t0):
+    f(t) = 2*a*cos((omega1-omega2)*(t-t0)/2-phase/2)
+    return f
+def beat(omega1=10, omega2=11, a=1, phase=2, t0=0, plot_envelope=True, **kwargs):
+    y1(t) = a*sin(omega1*(t-t0))
+    y2(t) = a*sin(omega2*(t-t0)+phase)
+    y(t) = y1(t)+y2(t)
+    title = '$t_0 = %4.2f,\ \omega_1 = %5.2f,\ \omega_2 = %5.2f$'%\
+        (t0, omega1, omega2)
+    range = (t, 0, 10)
+    plt = plot(y, range, ymin=-2*a, ymax=2*a, title=title, **kwargs)
+    if plot_envelope:
+        envelope_func = envelope(omega1, omega2, a, phase, t0)
+        plt = plt+plot(envelope_func, range, color='red', **kwargs)
+        plt = plt+plot(-envelope_func, range, color='red', **kwargs)
+    return plt
+beat(t0=2.5, figsize=(4, 2))</script></div><p>Łatwo skonstruowac narzędzie z suwak zmieniającym argument czasowy. Pozwala na ręczne przesuwanie fali.</p>
+<div class='sage_linked'><script type='text/x-sage'>@interact
+def _(t0=slider(0, 2*pi, 0.01, label="$t_0$")):
+    plt = beat(t0=t0, figsize=(4,2))
+    show(plt)</script></div><p>Możliwa jest też regulacja częstotliwości drugiej fali. Można prześledzić, że im częstotliwości obu fal mniej się różnią, tym większy okres pulsacji.</p>
+<div class='sage_linked'><script type='text/x-sage'>@interact
+def _(t0=slider(0, 10, 0.01, label="$t_0$"),
+      omega2=slider(10, 12, 0.01, label="$\omega_2$")):
+    plt = beat(t0=t0 , omega2=omega2, figsize=(4,2))
+    show(plt)</script></div><p>Kolejne obliczenia zbliżają nas krok po kroku do stworzenia animacji.</p>
+<div class='sage_linked'><script type='text/x-sage'># plts - zbiór wykresów dla argumentu czasowego t0 iterowanego w petli.
+plts = [dudnienia(t0=t0_,figsize=(4,2)) for t0_ in srange(0,6.3,0.2)]
+# przykładowe dwa wykresy
+show(plts[0])
+show(plts[10])
+# Przygotowanie dla kolejnych obliczeń.
+anim = animate(plts)</script></div><p>Tablica wykresów fali dla kolejno zmienianego argumentu t0</p>
+<div class='sage_linked'><script type='text/x-sage'>plots = [beat(t0=t0, figsize=(4, 2)) for t0 in sxrange(0, 2*pi, pi/10)]
+graphics_array(plots, ncols=4).show()</script></div><p>Gotowa animacja. Widzimy sekwencję wykresów dla różnych wartości argumentu czasowego.</p>
+<div class='sage_linked'><script type='text/x-sage'>%time
+anim.show()</script></div><p>Animacja wskazująca wpływ drugiej częstotliwości na częstość pulsacji.</p>
+<div class='sage_linked'><script type='text/x-sage'>plots = [beat(omega2=omega2, plot_envelope=False, figsize=(4, 2)) \
+ for omega2 in sxrange(5, 15, 0.2)]
+animate(plots).show()</script></div><p><strong>Odbicie i fala stojąca</strong></p>
+<p>Fala stojąca jako złożenie dwóch fal biegnących w przeciwne strony. Uczniowie mogą manipulować wartościami wszystkich parametrów (co było przedmiotem ćwiczeń).</p>
+<div class='sage_linked'><script type='text/x-sage'># Półautomatyczne sterowanie kolorami w pętli
+A=1
+omega=6
+v=13
+delay=30
+t_max= 7
+sum( [plot(A*sin(omega*(t/delay-x/v))+\
+ A*sin(omega*(t/delay+x/v)),(x,0,20),figsize=6,color=hue(t/t_max))\
+  for t in srange(0,t_max,1.0)] )</script></div><p>Dla lepszego umaocznienia ewolucji czasowej fali stojącej, warto
+zastosować animację. Dodatkowy walor dydaktyczny stanowi wyświetlenie
+fal biegnących. Zastosowano argument w postaci <em>x-vt</em> zamiast
+<em>t-x/v</em> by uniknąć problemów matematycznych dla prędkości
+zmierzającej do zera.</p>
+<div class='sage_linked'><script type='text/x-sage'>def running_wave(a=1, omega=1, v=10, t=0):
+    wave(x) = a*sin(omega*(x-v*t))
+    return wave
+range = (x, 0, 20)
+figsize = (4, 2)
+v = 2
+plts = [plot(running_wave(v=v, t=t), range, figsize=figsize)
+        + plot(running_wave(v=-v, t=t), range, color='green', figsize=figsize)
+        + plot(running_wave(v=v, t=t)+running_wave(v=-v, t=t),\
+          range, color='red', ymin=-2, ymax=2, figsize=figsize)
+        for t in sxrange(0, 2*pi/v, pi/(10*v))]
+animate(plts).show()</script></div><p>Tablica grafik pomocna do bardziej szczegółowej analizy ewolucji czasowej.</p>
+<div class='sage_linked'><script type='text/x-sage'>graphics_array(plts[0:6], ncols=3).show()</script></div><p><strong>Impuls falowy i jego odbicie</strong></p>
+<p>Ruch impulsu falowego. Zdaję sobie sprawę, że tak zdefiniowany impuls
+jest niefizyczny z powodu nieciagłości w pochodnej, lecz jest to
+pierwsze podejście do tego typu animacji. Uczniowie zostali
+poinformowani o watpliwościach natury fizycznej; przykład ma raczej
+ilustrować jak radzić sobie z takimi animacjami z punktu widzenia
+samego programowania.</p>
+<div class='sage_linked'><script type='text/x-sage'>def pulse1(x):
+    if x>=0 and x<=4*pi:
+        return A1*sin(x)
+    else:
+        return 0.0</script></div><p>Dwa impulsy biegnące w przeciwnych kierunkach.</p>
+<div class='sage_linked'><script type='text/x-sage'>var('x')
+A1 = 1
+c = 1.4
+nl = 2
+nL = 4
+k = 4*pi # 2pi/wavelenght
+@interact
+def _(t=slider(0,10,0.0001,default=1/c*(nL-nl)*2*pi)):
+    x0 = -nL*2*pi/k
+    x1 = (nL-nl)*2*pi/k
+    plt = Graphics()
+    plt += plot( lambda x:pulse1(k*(x-x0)-c*t),(x,x0,1),figsize=(12,4),thickness=1)
+    plt += plot( lambda x:pulse1(k*(x-x1)+c*t),(x,x0,2),color='red',thickness=1)
+    plt.show()</script></div><p>Złożenie impulsu biegnącego i odbitego.</p>
+<div class='sage_linked'><script type='text/x-sage'>var('x')
+A1 = 1
+c = 3.4
+nl = 2
+nL = 4
+k = 4*pi # 2pi/wavelenght
+@interact
+def _(t=slider(0,10,2*pi/k/64)):
+    x0 = -nL*2*pi/k
+    x1 = (nL-nl)*2*pi/k
+    plt = Graphics()
+    plt += plot( lambda x:pulse1(k*(x-x0)-c*t)+\
+     pulse1(k*(x-x1)+c*t),(x,x0,0),figsize=(12,4),\
+     thickness=1,ymin=-2,ymax=2)
+    plt.show()</script></div><p>Aby precyzyjnie obliczyć przebieg procesu odbicia fali można
+numerycznie rozwiązać równanie falowe. Poniższy kod demostruje
+przykład takiego algorytmu opartego o bibliotekę <code class="code docutils literal notranslate"><span class="pre">numpy</span></code>.</p>
+<div class='sage_linked'><script type='text/x-sage'>%time
+import numpy as np
+N = 4048
+l = 50.
+dx = float(l)/(N-1)
+c2 = np.ones(N)
+dt = 0.005
+print np.sqrt(np.max(c2))*dt/dx
+x = np.linspace(0,l,N)
+u = np.zeros(N)
+u0 = np.zeros(N)
+unew = np.zeros(N)
+ulst=[u.copy()]
+n=4.
+T = 1.*l/n
+for i in range(25000):
+    unew[1:-1] = 2.*u[1:-1] - u0[1:-1] + dt**2 *(c2[1:-1]/dx**2*np.diff(u,2))
+    u0=u.copy()
+    u=unew.copy()
+    u[-1] = u[-2]
+    u[0] = u[1]
+    u[-1] = 0
+    u[0] = 0
+    if dt*i/T*2.0*np.pi< 4*np.pi:
+        u[0] = 0.5*np.sin(dt*i/T*2.0*np.pi)
+    if i%50==0:
+        ulst.append(u.copy())</script></div><div class='sage_linked'><script type='text/x-sage'>@interact
+def _(ith=slider(range(len(ulst)))):
+    u = ulst[ith]
+    plt =  line(zip(x,u),figsize=(12,5),ymin=-1,ymax=1)
+    plt.show()</script></div><div class='sage_linked'><script type='text/x-sage'>plts = [line(zip(x,u),figsize=(6,2),ymin=-1,ymax=1) for u in ulst[::8]]
+animate(plts).show()</script></div><div class="section" id="wnioski">
+<h3>Wnioski<a class="headerlink" href="#wnioski" title="Stały odnośnik do tego nagłówka">¶</a></h3>
+<p>Programowanie w Pythonie okazało się interesującym uzupełnieniem
+lekcji fizyki. Korzyści polegają na możliwości mniej lub bardziej
+łatwej wizualizacji zjawisk przy zmianie parametrów. Dzięki temu,
+wzory przedstawione na wykładach stają się mniej abstrakcyjne i każdy
+mógł się własnoręcznie przekonać, jak wynik np. interferencji fal
+zależy od ich częstotliwości, kierunku, prędkości itd.</p>
+<p>Animacje same w sobie okazały się nowym wyzwaniem dla uczniów. W
+pierwszych edycjach lekcji prosiłem uczniów o dokonanie prób
+jakiegokolwiek rozwinięcia przedstawionych idei poprzez ulepszenie
+kodu. Okazało się to niewykonalne, ponieważ kod jest dla nich zbyt
+trudny. Jedyne, do czego byli zdolni, to manipulacja wartościami
+parametrów - a to i tak dużo.</p>
+<p>Niemniej przebieg lekcji oceniam wysoko. Uczniowie byli zainteresowani
+i zaangażowani. Ich kompetencje, zarówno w zakresie fizyki, jak i
+informatyki, wzrosły.</p>
+</div>
+</div>
+</div>
+
+
+          </div>
+        </div>
+      </div>
+      <div class="sphinxsidebar" role="navigation" aria-label="main navigation">
+        <div class="sphinxsidebarwrapper">
+  <div class="sphinxlocaltoc">
+  <h3><a href="index.html">Table Of Contents</a></h3>
+  <ul>
+<li><a class="reference internal" href="#">Zjawiska akustyczne</a><ul>
+<li><a class="reference internal" href="#o-scenariuszu">O scenariuszu</a></li>
+<li><a class="reference internal" href="#wstep">Wstęp</a></li>
+<li><a class="reference internal" href="#czesc-teoretyczna">Część teoretyczna</a></li>
+<li><a class="reference internal" href="#czesc-informatyczna">Część informatyczna</a><ul>
+<li><a class="reference internal" href="#wnioski">Wnioski</a></li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+
+  </div>
+  <h4>Poprzedni temat</h4>
+  <p class="topless"><a href="fale.html"
+                        title="poprzedni rozdział">Fale dźwiękowe</a></p>
+  <h4>Następny temat</h4>
+  <p class="topless"><a href="przyspieszony.html"
+                        title="następny rozdział">Badanie ruchu przyspieszonego</a></p>
+<div id="searchbox" style="display: none" role="search">
+  <h3 id="searchlabel">Szybkie wyszukiwanie</h3>
+    <div class="searchformwrapper">
+    <form class="search" action="search.html" method="get">
+      <input type="text" name="q" aria-labelledby="searchlabel" />
+      <input type="submit" value="Szukaj" />
+    </form>
+    </div>
+</div>
+<script>$('#searchbox').show(0);</script>
+        </div>
+      </div>
+      <div class="clearer"></div>
+    </div>
+  </div>
+  <div class="relbar-bottom">
+    
+    <div class="related" role="navigation" aria-label="related navigation">
+      <h3>Nawigacja</h3>
+      <ul>
+        <li class="right" style="margin-right: 10px">
+          <a href="przyspieszony.html" title="Badanie ruchu przyspieszonego"
+             >dalej</a></li>
+        <li class="right" >
+          <a href="fale.html" title="Fale dźwiękowe"
+             >wstecz</a> &nbsp; &nbsp;</li>
+  <li><a href="index.html">Metodologia nauczania przedmiotów ścisłych z perspektywą obliczeniową</a> &#187;</li>
+  
+        <li class="nav-item nav-item-this"><a href="">Zjawiska akustyczne</a></li> 
+      </ul>
+    </div>
+  </div>
+  
+  <div class="footer">
+    <a class="logo" href="http://icse.us.edu.pl/" target="_blank"><img src="_static/logo-icse.png" alt="ICSE"/></a><br/>
+    &copy; Copyright Creative Commons CC-BY 4.0, iCSE-team.
+    Created using <a href="http://sphinx.pocoo.org/">Sphinx</a> 3.2.1.
+  </div>
+  </body>
+</html>

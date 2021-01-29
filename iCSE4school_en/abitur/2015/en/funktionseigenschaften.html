@@ -1,0 +1,163 @@
+
+
+  
+<!DOCTYPE html>
+
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Construction of the function given its properties &#8212; Science education with SageMath</title>
+    <link rel="stylesheet" href="../../../_static/cloud.css" type="text/css" />
+    <link rel="stylesheet" href="../../../_static/pygments.css" type="text/css" />
+    <link rel="stylesheet" href="http://fonts.googleapis.com/css?family=Noticia+Text|Open+Sans|Droid+Sans+Mono&amp;subset=latin,latin-ext" type="text/css" />
+    <script id="documentation_options" data-url_root="../../../" src="../../../_static/documentation_options.js"></script>
+    <script src="../../../_static/jquery.js"></script>
+    <script src="../../../_static/underscore.js"></script>
+    <script src="../../../_static/doctools.js"></script>
+    <script src="../../../_static/language_data.js"></script>
+    <script async="async" src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.7/latest.js?config=TeX-AMS-MML_HTMLorMML"></script>
+    <script src="../../../_static/jquery.cookie.js"></script>
+    <script src="../../../_static/cloud.js"></script>
+    <script type="text/javascript" src="http://sagecell.sagemath.org/static/jquery.min.js"></script>
+    <script type="text/javascript" src="http://sagecell.sagemath.org/static/embedded_sagecell.js"></script>
+    <script type="text/javascript">
+        sagecell.makeSagecell({inputLocation: ".sage_linked",
+                               linked: true});
+        sagecell.makeSagecell({inputLocation: ".sage_unlinked",
+                               linked: false});
+    </script>
+
+    <style type="text/css">
+        .sagecell .CodeMirror-scroll {
+            overflow-y: hidden;
+            overflow-x: auto;
+        }
+        .sagecell .CodeMirror {
+            height: auto;
+        }
+    </style>
+    
+    <link rel="search" title="Search" href="../../../search.html" />
+    <link rel="next" title="Determine parameter when the derivative vanishes" href="funktionenschar.html" />
+    <link rel="prev" title="Properties of sin(2x)" href="sinus.html" />
+ 
+  <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, minimum-scale=1">
+  </head><body>
+  <div class="relbar-top">
+    
+    <div class="related" role="navigation" aria-label="related navigation">
+      <h3>Navigation</h3>
+      <ul>
+        <li class="right" style="margin-right: 10px">
+          <a href="funktionenschar.html" title="Determine parameter when the derivative vanishes"
+             accesskey="N">next</a></li>
+        <li class="right" >
+          <a href="sinus.html" title="Properties of sin(2x)"
+             accesskey="P">previous</a> &nbsp; &nbsp;</li>
+  <li><a href="../../../index.html">Science education with SageMath</a> &#187;</li>
+  
+        <li class="nav-item nav-item-this"><a href="">Construction of the function given its properties</a></li> 
+      </ul>
+    </div>
+  </div>
+  
+  <div class="content">  
+
+    <div class="document">
+      <div class="documentwrapper">
+        <div class="bodywrapper">
+          <div class="body">
+            
+  <div class="section" id="construction-of-the-function-given-its-properties">
+<h1>Construction of the function given its properties<a class="headerlink" href="#construction-of-the-function-given-its-properties" title="Permalink to this headline">¶</a></h1>
+<div class="admonition-problem admonition">
+<p class="admonition-title">Problem</p>
+<p>For each of the following sets of requirements name a function satisfying them.</p>
+<ol class="loweralpha simple">
+<li><p>The function <span class="math notranslate nohighlight">\(g\)</span> has a maximum domain given by <span class="math notranslate nohighlight">\(]-\infty; 5]\)</span>.</p></li>
+<li><p>The function <span class="math notranslate nohighlight">\(k\)</span> has a zero at <span class="math notranslate nohighlight">\(x=2\)</span> as well as pole at
+<span class="math notranslate nohighlight">\(x=-3\)</span> without changing its sign. The graph of <span class="math notranslate nohighlight">\(k\)</span> has an
+asymptote the straight line given by <span class="math notranslate nohighlight">\(y=1\)</span> als Asymptote.</p></li>
+</ol>
+</div>
+<p><strong>Solution of part a</strong></p>
+<p>A function with domain <span class="math notranslate nohighlight">\([0; \infty[\)</span> is given by
+<span class="math notranslate nohighlight">\(x\mapsto\sqrt{x}\)</span>. Therefore, <span class="math notranslate nohighlight">\(g(x)=\sqrt{5-x}\)</span> is one of the
+functions with the given domain.</p>
+<p><strong>Solution of part b</strong></p>
+<p>The function <span class="math notranslate nohighlight">\(k(x)\)</span> can be chosen as rational function. Beacuase of
+the zero at <span class="math notranslate nohighlight">\(x=2\)</span> the numerator must contain at least a factor
+<span class="math notranslate nohighlight">\(x-2\)</span>. The pole at <span class="math notranslate nohighlight">\(x=-3\)</span> without change of sign is obtained
+by means of a factor <span class="math notranslate nohighlight">\((x+3)^2\)</span> in the denominator. In order to obtain
+the desired asymptotic behavior for <span class="math notranslate nohighlight">\(\vert x\vert\to\infty\)</span>, the factor
+in the numerator must be squares. We thus arrive at</p>
+<div class="math notranslate nohighlight">
+\[k(x)=\frac{(x-2)^2}{(x+3)^2}.\]</div>
+<p>We demonstrate with the help of Sage that this function indeed has the
+required properties.</p>
+<p>Zero at <span class="math notranslate nohighlight">\(x=2\)</span>:</p>
+<div class='sage_linked'><script type='text/x-sage'>k(x) = ((x-2)/(x+3))^2
+plot(k, xmin=0, xmax=4, ymin=-0.1, ymax=0.5, figsize=(4, 2.5))</script></div><p>Pole at <span class="math notranslate nohighlight">\(x=-3\)</span> without change of sign:</p>
+<div class='sage_linked'><script type='text/x-sage'>k(x) = ((x-2)/(x+3))^2
+plot(k, xmin=-6, xmax=0, ymin=0, ymax=1000, figsize=(4, 2.5))</script></div><p>Asymptotic approach to the straight line <span class="math notranslate nohighlight">\(y=1\)</span> for
+<span class="math notranslate nohighlight">\(\vert x\vert\to 1\)</span>:</p>
+<div class='sage_linked'><script type='text/x-sage'>k(x) = ((x-2)/(x+3))^2
+xmax = 1000
+xmin = -xmax
+p = plot(k, xmin=xmin, xmax=xmax, ymin=0.5, ymax=1.5)
+p = p+line([(xmin, 1), (xmax, 1)], linestyle='dashed')
+p.show(figsize=(4, 2.5))</script></div></div>
+
+
+          </div>
+        </div>
+      </div>
+      <div class="sphinxsidebar" role="navigation" aria-label="main navigation">
+        <div class="sphinxsidebarwrapper">
+  <h4>Previous topic</h4>
+  <p class="topless"><a href="sinus.html"
+                        title="previous chapter">Properties of sin(2x)</a></p>
+  <h4>Next topic</h4>
+  <p class="topless"><a href="funktionenschar.html"
+                        title="next chapter">Determine parameter when the derivative vanishes</a></p>
+<div id="searchbox" style="display: none" role="search">
+  <h3 id="searchlabel">Quick search</h3>
+    <div class="searchformwrapper">
+    <form class="search" action="../../../search.html" method="get">
+      <input type="text" name="q" aria-labelledby="searchlabel" />
+      <input type="submit" value="Go" />
+    </form>
+    </div>
+</div>
+<script>$('#searchbox').show(0);</script>
+        </div>
+      </div>
+      <div class="clearer"></div>
+    </div>
+  </div>
+  <div class="relbar-bottom">
+    
+    <div class="related" role="navigation" aria-label="related navigation">
+      <h3>Navigation</h3>
+      <ul>
+        <li class="right" style="margin-right: 10px">
+          <a href="funktionenschar.html" title="Determine parameter when the derivative vanishes"
+             >next</a></li>
+        <li class="right" >
+          <a href="sinus.html" title="Properties of sin(2x)"
+             >previous</a> &nbsp; &nbsp;</li>
+  <li><a href="../../../index.html">Science education with SageMath</a> &#187;</li>
+  
+        <li class="nav-item nav-item-this"><a href="">Construction of the function given its properties</a></li> 
+      </ul>
+    </div>
+  </div>
+  
+  <div class="footer">
+    <a class="logo" href="http://icse.us.edu.pl/" target="_blank"><img src="../../../_static/logo-icse.png" alt="ICSE"/></a><br/>
+    &copy; Copyright Creative Commons CC-BY 4.0, iCSE-team.
+    Created using <a href="http://sphinx.pocoo.org/">Sphinx</a> 3.2.1.
+  </div>
+  </body>
+</html>

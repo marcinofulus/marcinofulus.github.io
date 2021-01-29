@@ -1,0 +1,152 @@
+
+
+  
+<!DOCTYPE html>
+
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Bayerisches Abitur in Mathematik 2014 &#8212; Science education with SageMath</title>
+    <link rel="stylesheet" href="../../../_static/cloud.css" type="text/css" />
+    <link rel="stylesheet" href="../../../_static/pygments.css" type="text/css" />
+    <link rel="stylesheet" href="http://fonts.googleapis.com/css?family=Noticia+Text|Open+Sans|Droid+Sans+Mono&amp;subset=latin,latin-ext" type="text/css" />
+    <script id="documentation_options" data-url_root="../../../" src="../../../_static/documentation_options.js"></script>
+    <script src="../../../_static/jquery.js"></script>
+    <script src="../../../_static/underscore.js"></script>
+    <script src="../../../_static/doctools.js"></script>
+    <script src="../../../_static/language_data.js"></script>
+    <script async="async" src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.7/latest.js?config=TeX-AMS-MML_HTMLorMML"></script>
+    <script src="../../../_static/jquery.cookie.js"></script>
+    <script src="../../../_static/cloud.js"></script>
+    <script type="text/javascript" src="http://sagecell.sagemath.org/static/jquery.min.js"></script>
+    <script type="text/javascript" src="http://sagecell.sagemath.org/static/embedded_sagecell.js"></script>
+    <script type="text/javascript">
+        sagecell.makeSagecell({inputLocation: ".sage_linked",
+                               linked: true});
+        sagecell.makeSagecell({inputLocation: ".sage_unlinked",
+                               linked: false});
+    </script>
+
+    <style type="text/css">
+        .sagecell .CodeMirror-scroll {
+            overflow-y: hidden;
+            overflow-x: auto;
+        }
+        .sagecell .CodeMirror {
+            height: auto;
+        }
+    </style>
+    
+    <link rel="search" title="Search" href="../../../search.html" />
+ 
+  <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, minimum-scale=1">
+  </head><body>
+  <div class="relbar-top">
+    
+    <div class="related" role="navigation" aria-label="related navigation">
+      <h3>Navigation</h3>
+      <ul>
+  <li><a href="../../../index.html">Science education with SageMath</a> &#187;</li>
+  
+        <li class="nav-item nav-item-this"><a href="">Bayerisches Abitur in Mathematik 2014</a></li> 
+      </ul>
+    </div>
+  </div>
+  
+  <div class="content">  
+
+    <div class="document">
+      <div class="documentwrapper">
+        <div class="bodywrapper">
+          <div class="body">
+            
+  <div class="section" id="bayerisches-abitur-in-mathematik-2014">
+<h1>Bayerisches Abitur in Mathematik 2014<a class="headerlink" href="#bayerisches-abitur-in-mathematik-2014" title="Permalink to this headline">¶</a></h1>
+<div class="admonition-aufgabe admonition">
+<p class="admonition-title">Aufgabe</p>
+<p>Eine Kugel besitzt den Mittelpunkt <span class="math notranslate nohighlight">\(M(-3|2|7)\)</span>. Der Punkt <span class="math notranslate nohighlight">\(P(3|4|4)\)</span>
+liegt auf der Kugel.</p>
+<ol class="loweralpha simple">
+<li><p>Der Punkt <span class="math notranslate nohighlight">\(Q\)</span> liegt ebenfalls auf der Kugel, die Strecke <span class="math notranslate nohighlight">\([PQ]\)</span>
+verläuft durch deren Mittelpunkt. Ermitteln Sie die Koordinaten von <span class="math notranslate nohighlight">\(Q\)</span>.</p></li>
+<li><p>Weisen Sie nach, dass die Kugel die <span class="math notranslate nohighlight">\(x_1x_2\)</span>-Ebene berührt.</p></li>
+</ol>
+</div>
+<p><strong>Lösung zu Teil a</strong></p>
+<p>Da die beiden Punkte <span class="math notranslate nohighlight">\(P\)</span> und <span class="math notranslate nohighlight">\(Q\)</span> sich auf der Kugeloberfläche befinden
+und ihre Verbindungsstrecke durch den Mittelpunkt verläuft, lässt sich <span class="math notranslate nohighlight">\(Q\)</span>
+darstellen als</p>
+<div class="math notranslate nohighlight">
+\[\vec{Q} = \vec{M} + \left(\vec{M}-\vec{P}\right).\]</div>
+<p>Wir erhalten</p>
+<div class="math notranslate nohighlight">
+\[Q(-9|0|10)\]</div>
+<p>Selbiges Ergebnis erhalten wir mit Sage:</p>
+<div class='sage_linked'><script type='text/x-sage'>sage: M = vector([-3, 2, 7])
+sage: P = vector([3, 4, 4])
+sage: print "Q:", M + M - P</script></div><p><strong>Lösung zu Teil b</strong></p>
+<p>Um zu überprüfen, ob die Kugel die <span class="math notranslate nohighlight">\(x_1x_2\)</span>-Ebene berührt, reicht es aus, den Abstand zwischen
+der Ebene und dem Kugelmittelpunkt mit dem Radius der Kugel zu
+vergleichen. Der Abstand des Kugelmittelpunkts von der
+<span class="math notranslate nohighlight">\(x_1x_2\)</span>-Ebene ist gleich der <span class="math notranslate nohighlight">\(x_3\)</span>-Koordinate von
+<span class="math notranslate nohighlight">\(M\)</span>. Er ist also gleich 7.</p>
+<p>Den Radius der Kugel erhält man durch den Abstand zwischen dem Punkt <span class="math notranslate nohighlight">\(P\)</span>, der sich auf der Kugeloberfläche
+befindet, und dem Mittelpunkt der Kugel:</p>
+<div class="math notranslate nohighlight">
+\[r = \left\vert\vec{M}-\vec{P}\right\vert = \sqrt{(-3-3)^2 + (2-4)^2 + (7-4)^2} = 7\]</div>
+<p>Da der Abstand zwischen Kugelmittelpunkt und Ebene gleich dem Radius der Kugel ist,
+berührt die Kugel die Ebene in genau einem Punkt. Der Berührungspunkt ist dabei die
+Projektion des Kugelmittelpunkts auf die <span class="math notranslate nohighlight">\(x_1x_2\)</span>-Ebene: <span class="math notranslate nohighlight">\(S(-3|2|0)\)</span>.</p>
+<p>Dies wollen wir uns mit Sage veranschaulichen. Die 3-dimensionale Darstellung von Kugel und Ebene
+lässt sich dabei mit der Maus rotieren.</p>
+<div class='sage_linked'><script type='text/x-sage'>sage: var('x')
+sage: var('y')
+sage: z = 0
+sage: radius = norm(M-P)
+sage: print 'Kugelradius                     :', radius
+sage: print 'Abstand Kugelmittelpunkt - Ebene:', M[2]
+sage: p1 = plot3d(z, (x, -15, 15), (y, -15, 15), opacity=0.7)
+sage: p2 = sphere(center=(-3, 2, 7), size=radius, color='red', opacity=0.7)
+sage: show(p1 + p2, aspect_ratio=1)</script></div></div>
+
+
+          </div>
+        </div>
+      </div>
+      <div class="sphinxsidebar" role="navigation" aria-label="main navigation">
+        <div class="sphinxsidebarwrapper">
+<div id="searchbox" style="display: none" role="search">
+  <h3 id="searchlabel">Quick search</h3>
+    <div class="searchformwrapper">
+    <form class="search" action="../../../search.html" method="get">
+      <input type="text" name="q" aria-labelledby="searchlabel" />
+      <input type="submit" value="Go" />
+    </form>
+    </div>
+</div>
+<script>$('#searchbox').show(0);</script>
+        </div>
+      </div>
+      <div class="clearer"></div>
+    </div>
+  </div>
+  <div class="relbar-bottom">
+    
+    <div class="related" role="navigation" aria-label="related navigation">
+      <h3>Navigation</h3>
+      <ul>
+  <li><a href="../../../index.html">Science education with SageMath</a> &#187;</li>
+  
+        <li class="nav-item nav-item-this"><a href="">Bayerisches Abitur in Mathematik 2014</a></li> 
+      </ul>
+    </div>
+  </div>
+  
+  <div class="footer">
+    <a class="logo" href="http://icse.us.edu.pl/" target="_blank"><img src="../../../_static/logo-icse.png" alt="ICSE"/></a><br/>
+    &copy; Copyright Creative Commons CC-BY 4.0, iCSE-team.
+    Created using <a href="http://sphinx.pocoo.org/">Sphinx</a> 3.2.1.
+  </div>
+  </body>
+</html>
