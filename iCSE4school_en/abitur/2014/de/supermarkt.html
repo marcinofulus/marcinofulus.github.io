@@ -10,7 +10,7 @@
     <title>Bayerisches Abitur in Mathematik 2014 &#8212; Science education with SageMath</title>
     <link rel="stylesheet" href="../../../_static/cloud.css" type="text/css" />
     <link rel="stylesheet" href="../../../_static/pygments.css" type="text/css" />
-    <link rel="stylesheet" href="http://fonts.googleapis.com/css?family=Noticia+Text|Open+Sans|Droid+Sans+Mono&amp;subset=latin,latin-ext" type="text/css" />
+    <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Noticia+Text|Open+Sans|Droid+Sans+Mono&amp;subset=latin,latin-ext" type="text/css" />
     <script id="documentation_options" data-url_root="../../../" src="../../../_static/documentation_options.js"></script>
     <script src="../../../_static/jquery.js"></script>
     <script src="../../../_static/underscore.js"></script>
@@ -103,8 +103,8 @@ durch Multiplikation der entsprechenden Wahrscheinlichkeiten:</p>
 <div class="math notranslate nohighlight">
 \[\frac{200\cdot199\cdot198\cdot197\cdot196}{200^5}\]</div>
 <p>Wertet man diesen Ausdruck mit Sage aus, ergibt sich</p>
-<div class='sage_linked'><script type='text/x-sage'>sage: print "Die Wahrscheinlichkeit 5 verschiedene Bilder zu erhalten liegt bei {:4.1%}.".format(
-...         float(200*199*198*197*196/200**5))</script></div><p>Dieser Wert kann empirisch durch eine Simulation mit Sage bestätigt werden:</p>
+<div class='sage_linked'><script type='text/x-sage'>sage: print("Die Wahrscheinlichkeit 5 verschiedene Bilder zu erhalten liegt bei {:4.1%}.".format(
+...         float(200*199*198*197*196/200**5)))</script></div><p>Dieser Wert kann empirisch durch eine Simulation mit Sage bestätigt werden:</p>
 <div class='sage_linked'><script type='text/x-sage'>sage: from numpy.random import randint
 sage: iterationen = 100000
 sage: verschiedene = 0
@@ -112,8 +112,8 @@ sage: for _ in range(iterationen):
 ...       a = set(randint(200, size=5))
 ...       if len(a) == 5:
 ...           verschiedene +=1
-sage: print "Empirische Wahrscheinlichkeit 5 verschiedene Bilder zu erhalten: {:4.1%}".format(
-...         float(verschiedene)/iterationen)</script></div><p><strong>Lösung zu Teil b</strong></p>
+sage: print("Empirische Wahrscheinlichkeit 5 verschiedene Bilder zu erhalten: {:4.1%}".format(
+...         float(verschiedene)/iterationen))</script></div><p><strong>Lösung zu Teil b</strong></p>
 <p>Die Wahrscheinlichkeit, dass sich ein Bild, das der Junge aus einem der
 beiden Päckchen zieht, bereits in seiner Sammlung befindet beträgt</p>
 <p>Die Wahrscheinlichkeit, dass sich alle 10 Bilder, die der Junge aus den beiden
@@ -122,7 +122,7 @@ durch Multiplikation:</p>
 <div class="math notranslate nohighlight">
 \[P=\left(\frac{37}{40}\right)^{10}\]</div>
 <p>Mit Sage kann man diesen Ausdruck auswerten</p>
-<div class='sage_linked'><script type='text/x-sage'>sage: print "Wahrscheinlichkeit kein neues Bild zu erhalten: {:4.1%}".format(float((37/40)**10))</script></div><p>und mit einer Simulation überprüfen</p>
+<div class='sage_linked'><script type='text/x-sage'>sage: print("Wahrscheinlichkeit kein neues Bild zu erhalten: {:4.1%}".format(float((37/40)**10)))</script></div><p>und mit einer Simulation überprüfen</p>
 <div class='sage_linked'><script type='text/x-sage'>sage: iterationen = 100000
 sage: besitz = set(range(185))
 sage: kein_neues = 0
@@ -130,8 +130,8 @@ sage: for _ in range(iterationen):
 ...       bilder = set(randint(200, size=10))
 ...       if bilder.issubset(besitz):
 ...           kein_neues = kein_neues+1
-sage: print "Empirische Wahrscheinlichkeit kein neues Bild zu erhalten: {:4.1%}".format(
-...         float(kein_neues/iterationen))</script></div><p><strong>Lösung zu Teil c</strong></p>
+sage: print("Empirische Wahrscheinlichkeit kein neues Bild zu erhalten: {:4.1%}".format(
+...         float(kein_neues/iterationen)))</script></div><p><strong>Lösung zu Teil c</strong></p>
 <p>Die Wahrscheinlichkeit, dass ein Bild kein 3D-Bild ist, liegt bei</p>
 <div class="math notranslate nohighlight">
 \[\frac{200-20}{200}=\frac{9}{10}\]</div>
@@ -158,8 +158,8 @@ sage: for _ in range(iterationen):
 ...       meinebilder = set(randint(200, size=nr_paeckchen*bilder_je_paeckchen))
 ...       if not meinebilder.isdisjoint(dreiDBilder):
 ...           dreiD_gefunden = dreiD_gefunden+1
-sage: print "Empirische Wahrscheinlichkeit mindestens ein 3D-Bild zu erhalten: {:4.1%}".format(
-...         float(dreiD_gefunden/iterationen))</script></div></div>
+sage: print("Empirische Wahrscheinlichkeit mindestens ein 3D-Bild zu erhalten: {:4.1%}".format(
+...         float(dreiD_gefunden/iterationen)))</script></div></div>
 
 
           </div>

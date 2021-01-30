@@ -10,7 +10,7 @@
     <title>Bayerisches Abitur in Mathematik 2014 &#8212; Science education with SageMath</title>
     <link rel="stylesheet" href="../../../_static/cloud.css" type="text/css" />
     <link rel="stylesheet" href="../../../_static/pygments.css" type="text/css" />
-    <link rel="stylesheet" href="http://fonts.googleapis.com/css?family=Noticia+Text|Open+Sans|Droid+Sans+Mono&amp;subset=latin,latin-ext" type="text/css" />
+    <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Noticia+Text|Open+Sans|Droid+Sans+Mono&amp;subset=latin,latin-ext" type="text/css" />
     <script id="documentation_options" data-url_root="../../../" src="../../../_static/documentation_options.js"></script>
     <script src="../../../_static/jquery.js"></script>
     <script src="../../../_static/underscore.js"></script>
@@ -137,7 +137,7 @@ von <span class="math notranslate nohighlight">\(f\)</span> an der Stelle <span 
 \[\alpha = \arctan\left(-\frac{4}{5}\right)=-38,7°.\]</div>
 <p>Wir überprüfen das Ergebnis mit Sage, und zeichnen die Tangente im Punkt <span class="math notranslate nohighlight">\(x=0\)</span> ein.</p>
 <div class='sage_linked'><script type='text/x-sage'>sage: m = df(0)
-sage: print u"\u03b1 =", RDF(180/pi*arctan(m))
+sage: print(u"\u03b1 =", RDF(180/pi*arctan(m)))
 sage: w(x) = m*x
 sage: p6 = plot(f(x), x, (-4, 4), ymax=5, ymin=-5)
 sage: p7 = plot(w(x), x, (-4, 4), color='green')
@@ -185,7 +185,7 @@ Stammfunktion finden:</p>
 sage: s = var('s')
 sage: assume(s > 10)
 sage: A(s) = definite_integral(f(x), x, 10, s)
-sage: print "Die Fläche ist A(s) =", A(s)</script></div><p>Wir können die beschriebene Fläche in dem Graph von <span class="math notranslate nohighlight">\(f\)</span> gelb hervorheben, dabei den Wert <span class="math notranslate nohighlight">\(s\)</span> variabel
+sage: print("Die Fläche ist A(s) =", A(s))</script></div><p>Wir können die beschriebene Fläche in dem Graph von <span class="math notranslate nohighlight">\(f\)</span> gelb hervorheben, dabei den Wert <span class="math notranslate nohighlight">\(s\)</span> variabel
 halten und den Flächeninhalt in Abhängigkeit von <span class="math notranslate nohighlight">\(s\)</span> ausgeben.</p>
 <div class='sage_linked'><script type='text/x-sage'>sage: @interact
 sage: def _(s=slider(10.1, 19.9, 0.1)):
@@ -193,14 +193,14 @@ sage: def _(s=slider(10.1, 19.9, 0.1)):
 ...       p11 = plot(f(x), x, (10, s), fill = 0, fillcolor='yellow')
 ...       p12 = plot(f(x), x, (s, 20))
 ...       show(p10+p11+p12, aspect_ratio=1, ymax=10, figsize=4)
-...       print "Die gelbe Fläche hat den Inhalt:", float(A(s))</script></div><p><strong>Lösung zu Teil 1f</strong></p>
+...       print("Die gelbe Fläche hat den Inhalt:", float(A(s)))</script></div><p><strong>Lösung zu Teil 1f</strong></p>
 <p>Um das Flächenstück mit dem Inhalt 100 zu bestimmen, lassen wir die Gleichung</p>
 <div class="math notranslate nohighlight">
 \[A(s) = 100\]</div>
 <p>von Sage auflösen. Dabei ist es wichtig, dass wir Sage weiter oben
 gesagt haben, dass <span class="math notranslate nohighlight">\(s&gt;10\)</span> sein soll. Der gesuchte Wert für
 <span class="math notranslate nohighlight">\(s\)</span> ergibt sich zu</p>
-<div class='sage_linked'><script type='text/x-sage'>sage: print float(solve(A(s) == 100, s)[0].right())</script></div><p><strong>Lösung zu Teil 1g</strong></p>
+<div class='sage_linked'><script type='text/x-sage'>sage: print(float(solve(A(s) == 100, s)[0].right()))</script></div><p><strong>Lösung zu Teil 1g</strong></p>
 <p>Das Argument des Logarithmus geht für große Argumente gegen unendlich.
 Daher ist auch der Grenzwert von <span class="math notranslate nohighlight">\(A(s)\)</span> für <span class="math notranslate nohighlight">\(s\rightarrow+\infty\)</span> unendlich.</p>
 <p>Dieses Ergebnis liefert auch Sage:</p>
@@ -251,8 +251,8 @@ stellen wir die Fahrtdauer in Abhängigkeit von der Geschwindigkeit
 zwischen <span class="math notranslate nohighlight">\(10\frac{\mathrm{km}}{\mathrm{h}}\)</span> und
 <span class="math notranslate nohighlight">\(20\frac{\mathrm{km}}{\mathrm{h}}\)</span> dar.</p>
 <div class='sage_linked'><script type='text/x-sage'>sage: t(x) = 10/(x+5)+10/(x-5)
-sage: print "Fahrtdauer bei 10 km/h:", 60*t(10), "Minuten"
-sage: print "Fahrtdauer bei 20 km/h:", 60*t(20), "Minuten"
+sage: print("Fahrtdauer bei 10 km/h:", 60*t(10), "Minuten")
+sage: print("Fahrtdauer bei 20 km/h:", 60*t(20), "Minuten")
 sage: p1 = plot(60*t(x), x, (10, 20))
 sage: show(p1, figsize=(4, 2.8))</script></div><p><strong>Lösung zu Teil 2b</strong></p>
 <p>Die Zeit, die benötigt wird, um eine Strecke der Länge <span class="math notranslate nohighlight">\(s\)</span> mit
@@ -290,8 +290,8 @@ sage: show(p13, figsize=(4, 2.8))</script></div><p><strong>Lösung zu Teil 2d</s
 beiden Funktionen verifizieren. Dabei muss man allerdings die Methode
 <code class="docutils literal notranslate"><span class="pre">rational_simplify()</span></code> verwenden, da Sage sonst die erforderlichen
 Umformungen nicht vornimmt.</p>
-<div class='sage_linked'><script type='text/x-sage'>sage: print t(x)-f(x)
-sage: print (t(x)-f(x)).rational_simplify()</script></div><p><strong>Lösung zu Teil 2e</strong></p>
+<div class='sage_linked'><script type='text/x-sage'>sage: print(t(x)-f(x))
+sage: print((t(x)-f(x)).rational_simplify())</script></div><p><strong>Lösung zu Teil 2e</strong></p>
 <p>Die Eigengeschwindigkeit lässt sich aus der Abbildung ablesen, indem man
 den Punkt auf dem Graphen sucht, dessen <span class="math notranslate nohighlight">\(y\)</span>-Wert der
 Gesamtfahrzeit entspricht. Der zugehörige <span class="math notranslate nohighlight">\(x\)</span>-Wert gibt die
@@ -304,7 +304,7 @@ mit Hilfe der in Teilaufgabe 1d bestimmten Umkehrfunktion
 \[f^{*-1}(4) = 5\frac{1+\sqrt{5}}{2}.\]</div>
 <p>Mit Sage ergibt sich der Wert zu</p>
 <div class='sage_linked'><script type='text/x-sage'>sage: gesamtzeit = 4
-sage: print "Eigengeschwindigkeit für Gesamtfahrtzeit von {}h: {}km/h".format(
+sage: print("Eigengeschwindigkeit für Gesamtfahrtzeit von {}h: {}km/h".format()
 ...         gesamtzeit, f_inv(gesamtzeit).n(10))</script></div><p>Die graphische Konstruktion ergibt sich mit Hilfe von Sage
 folgendermaßen:</p>
 <div class='sage_linked'><script type='text/x-sage'>sage: p14 = plot(f(x), x, (5.1, 14))

@@ -10,7 +10,7 @@
     <title>RSA szyfrowanie asymetryczne &#8212; Metodologia nauczania przedmiotów ścisłych z perspektywą obliczeniową</title>
     <link rel="stylesheet" href="_static/cloud.css" type="text/css" />
     <link rel="stylesheet" href="_static/pygments.css" type="text/css" />
-    <link rel="stylesheet" href="http://fonts.googleapis.com/css?family=Noticia+Text|Open+Sans|Droid+Sans+Mono&amp;subset=latin,latin-ext" type="text/css" />
+    <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Noticia+Text|Open+Sans|Droid+Sans+Mono&amp;subset=latin,latin-ext" type="text/css" />
     <script id="documentation_options" data-url_root="./" src="_static/documentation_options.js"></script>
     <script src="_static/jquery.js"></script>
     <script src="_static/underscore.js"></script>
@@ -127,13 +127,13 @@ należy ćwiczenia (algorytmy) wykonywać według kolejności.</p>
 <p>Znajdź <em>x</em> takie, że: <span class="math notranslate nohighlight">\(3x = 1 (mod \hspace{2mm} 4), \hspace{2mm} 5&lt;x&lt;10\)</span>.</p>
 <div class='sage_linked'><script type='text/x-sage'>for x in range(5,11):        #You can change this range
     if (3*x - 1) % 4 == 0:   #You can change this equation
-        print "x =",x</script></div></div>
+        print("x =",x)</script></div></div>
 <div class="section" id="cwiczenie-2">
 <h3>Ćwiczenie 2.<a class="headerlink" href="#cwiczenie-2" title="Stały odnośnik do tego nagłówka">¶</a></h3>
 <p>Znajdź <em>x</em> takie, że: <span class="math notranslate nohighlight">\(3x+2 = 1 (mod \hspace{2mm} 5)\)</span>.</p>
 <div class='sage_linked'><script type='text/x-sage'>for x in range(40):
     if (3*x+2 - 1) % 5 == 0:
-        print x</script></div><p>Oczywiście istnieje nieskończenie takich rozwiązań. Dodatkowo te rozwiązania wyznaczają ciąg arytmetyczny.</p>
+        print(x)</script></div><p>Oczywiście istnieje nieskończenie takich rozwiązań. Dodatkowo te rozwiązania wyznaczają ciąg arytmetyczny.</p>
 </div>
 <div class="section" id="cwiczenie-3">
 <h3>Ćwiczenie 3.<a class="headerlink" href="#cwiczenie-3" title="Stały odnośnik do tego nagłówka">¶</a></h3>
@@ -142,7 +142,7 @@ należy ćwiczenia (algorytmy) wykonywać według kolejności.</p>
 for x in range(100):
     if (3*x-1) % 6 == 0:
         odp = x
-print odp</script></div><p>W powyższym ćwiczeniu nie istnieje żadna liczba, która spełnia powyższą kongruencję.</p>
+print(odp)</script></div><p>W powyższym ćwiczeniu nie istnieje żadna liczba, która spełnia powyższą kongruencję.</p>
 <div class="admonition note">
 <p class="admonition-title">Informacja</p>
 <p>Chińskie twierdzenie o resztach.</p>
@@ -164,7 +164,7 @@ równych części, pozostają 2 kawałki.</p>
 <p>x = 2 mod 7.</p>
 <div class='sage_linked'><script type='text/x-sage'>for x in range(100):
     if (x-1) % 3 == 0 and (x-3) % 5 == 0 and (x-2) % 7 == 0:
-        print x</script></div><div class="admonition-male-twierdzenie-fermata admonition">
+        print(x)</script></div><div class="admonition-male-twierdzenie-fermata admonition">
 <p class="admonition-title">Małe twierdzenie Fermata.</p>
 <p><strong>Jeśli</strong> <em>p</em> jest liczbą pierwszą oraz <em>a</em>, <em>p</em> są względnie pierwsze, <strong>wtedy</strong> <span class="math notranslate nohighlight">\(a^{p-1} - 1\)</span> jest wielokrotnością liczby <em>p</em>. Zapisujemy to symbolicznie: <span class="math notranslate nohighlight">\(a^{p-1}=1 (mod \hspace{2mm} p)\)</span>.</p>
 </div>
@@ -199,14 +199,14 @@ M = a*b-1
 e = a1*M+a
 d = b1*M+b
 n = (e*d-1)/M
-print "public key:", (d, n)
-print "private key:",(e, n)
+print("public key:", (d, n))
+print("private key:",(e, n))
  # encryption
 szyfr = (number*d) % n
-print "encryption:", szyfr
+print("encryption:", szyfr)
 # decryption
 deszyfr = (szyfr*e) % n
-print "decryption:", deszyfr</script></div><p><strong>Co zrobić gdy liczba jest więsza od n?</strong></p>
+print("decryption:", deszyfr)</script></div><p><strong>Co zrobić gdy liczba jest więsza od n?</strong></p>
 <ol class="arabic simple">
 <li><p>Obliczamy resztę z dzielenia przez n (otrzymujemy „porcję” do zaszyfrowania).</p></li>
 <li><p>Szyfrujemy otrzymaną „porcję”.</p></li>
@@ -222,7 +222,7 @@ while number>0:                           # 5
     szyfr = szyfr + ((pomoc*d) % n)*n^i   # 2, 3
     i=i+1
     number = int(number/n)                # 4
-print szyfr</script></div><p>W podobny sposób deszyfrujemy wiadomość:</p>
+print(szyfr)</script></div><p>W podobny sposób deszyfrujemy wiadomość:</p>
 <p>Pomoc:</p>
 <table class="docutils align-default">
 <colgroup>
@@ -244,7 +244,7 @@ while number>0:                             # 5
     szyfr = szyfr + ((pomoc*d) % n)*n^i     # 2, 3
     i=i+1
     number = int(number/n)                  # 4
-print szyfr</script></div><p>Zazwyczaj chcemy zaszyfrować tekst, a nie liczbę, czyli musimy zamienić litery (znaki) na liczbę. Do tego posłużymy się kodem ASCII.</p>
+print(szyfr)</script></div><p>Zazwyczaj chcemy zaszyfrować tekst, a nie liczbę, czyli musimy zamienić litery (znaki) na liczbę. Do tego posłużymy się kodem ASCII.</p>
 <p>Każdej literze, znakowi przyporządkowana jest liczba z przedziału od 1 do 128.</p>
 <p>Poniżej algorytm szyfrowania wiadomości tekstowej (ten kod został napisany i wprowadzony przez uczniów na zajęciach).</p>
 <div class='sage_linked'><script type='text/x-sage'>number=0
@@ -252,25 +252,24 @@ i=0
 tekst="This is the secret message or anything."
 for x in tekst:
     i=i+1
-    print x,"->", ord(x)," ",
+    print(x,"->", ord(x)," ",)
     if (i%10==0):
-        print
+        print()
     number=number + ord(x)*128^i
-print
-print "number =", number</script></div><div class="section" id="pelny-algorytm-szyfrujacy">
+print("number =", number)</script></div><div class="section" id="pelny-algorytm-szyfrujacy">
 <h3>Pełny algorytm szyfrujący<a class="headerlink" href="#pelny-algorytm-szyfrujacy" title="Stały odnośnik do tego nagłówka">¶</a></h3>
 <p>Po złożeniu powyższych programów otrzymujemy pełny algorytm szyfrowania i deszyfrowania wiadomości tekstowych.</p>
 <div class='sage_linked'><script type='text/x-sage'>number = 0
 i = 0
 tekst = "This is the secret message or anything." #message
 tekst2 = ""
-print "message:", tekst
+print("message:", tekst)
 # change text to number
 for x in tekst:
     i = i + 1
     number = number + ord(x)*128^i
-print "number:", number
-print ""
+print("number:", number)
+print()
 # encription
 szyfr = 0
 i=0
@@ -279,27 +278,27 @@ while number>0:
     szyfr = szyfr + ((pomoc*d) % n)*n^i
     i = i + 1
     number = int(number/n)
-print "encription:", szyfr</script></div></div>
+print("encription:", szyfr)</script></div></div>
 <div class="section" id="pelny-algorytm-deszyfrujacy">
 <h3>Pełny algorytm deszyfrujący<a class="headerlink" href="#pelny-algorytm-deszyfrujacy" title="Stały odnośnik do tego nagłówka">¶</a></h3>
 <div class='sage_linked'><script type='text/x-sage'>tekst2 = ""
 deszyfr = 0
 i = 0
-print "encription:", szyfr
+print("encription:", szyfr)
 # decription
 while szyfr>0:
     pomoc = szyfr%n
     deszyfr = deszyfr + ((pomoc*e) % n)*n^i
     i = i+1
     szyfr = int(szyfr/n)
-print "decription: ", deszyfr
+print("decription: ", deszyfr)
 ## change number to text
 i = 0
 while deszyfr>0:
     i = i+1
     deszyfr = int(deszyfr/128)
     tekst2 = tekst2 + chr(deszyfr%128)
-print "message: ", tekst2</script></div></div>
+print("message: ", tekst2)</script></div></div>
 </div>
 <div class="section" id="szyfrowanie-asymetryczne-rsa">
 <h2>Szyfrowanie asymetryczne RSA<a class="headerlink" href="#szyfrowanie-asymetryczne-rsa" title="Stały odnośnik do tego nagłówka">¶</a></h2>
@@ -316,22 +315,22 @@ print "message: ", tekst2</script></div></div>
 def _(n=slider( srange(20,32,2))):
     a = int(random()*10^n)
     a = next_prime(a)
-    print a
+    print(a)
     b = int(random()*10^n)
     b = next_prime(b)
-    print b
+    print(b)
     n = a*b
     print(factor(n))</script></div><p><strong>Zobacz jeszcze przewidywania dla dłuższych liczb.</strong></p>
 <div class='sage_linked'><script type='text/x-sage'>@interact
 def _(n=slider( range(34,101,2))):
     t = 2^((n-34)/2)
-    print n,"-digits prime numbers, factoring time:", t, "minutes"
+    print(n,"-digits prime numbers, factoring time:", t, "minutes")
     if t>100 and t<60*24:
-        print n,"-digits prime numbers, factoring time:", int(t/60), "hours"
+        print(n,"-digits prime numbers, factoring time:", int(t/60), "hours")
     elif t>60*24 and t<60*24*365:
-        print n,"-digits prime numbers, factoring time:", int(t/60/24), "days"
+        print(n,"-digits prime numbers, factoring time:", int(t/60/24), "days")
     elif t>60*24*365:
-        print n,"-digits prime numbers, factoring time:", int(t/60/24/365), "year"</script></div></div>
+        print(n,"-digits prime numbers, factoring time:", int(t/60/24/365), "year")</script></div></div>
 <div class="section" id="generowanie-szyfru-rsa">
 <h3>Generowanie szyfru RSA<a class="headerlink" href="#generowanie-szyfru-rsa" title="Stały odnośnik do tego nagłówka">¶</a></h3>
 <ol class="arabic simple">
@@ -350,7 +349,7 @@ n = p*q
 f = (p-1)*(q-1)
 los = int(f*random())
 e = next_prime(los)
-print "p =",p, ", q =",q, ", e =",e, ", n =", n, ", f =", f</script></div><p>Ostatecznie należy wyznaczyć liczbę <span class="math notranslate nohighlight">\(e\)</span> taką, że: <span class="math notranslate nohighlight">\((d \cdot e) \hspace{1mm} mod f=1\)</span>.</p>
+print("p =",p, ", q =",q, ", e =",e, ", n =", n, ", f =", f)</script></div><p>Ostatecznie należy wyznaczyć liczbę <span class="math notranslate nohighlight">\(e\)</span> taką, że: <span class="math notranslate nohighlight">\((d \cdot e) \hspace{1mm} mod f=1\)</span>.</p>
 <p>Możemy użyć rozszerzonego algorytmu Euklidesa do wyznaczenia liczby e.
 Moi uczniowie zmieniając istniejący program w Internecie napisali poniższy program, ale nie zawsze generuje on prawidłową liczbę.
 Spróbuj poprawić ten kod!</p>
@@ -374,9 +373,9 @@ while (r > 0):
     q  = int(n0/a0)
     r  = n0 % a0
 d = p1
-print "verification : (d*e)%f =", (d*e)%f
-print " public key:", d, n
-print "private key:", e, n</script></div></div>
+print("verification : (d*e)%f =", (d*e)%f)
+print(" public key:", d, n)
+print("private key:", e, n)</script></div></div>
 <div class="section" id="pelny-algorytm-szyfrowania-rsa">
 <h3>Pełny algorytm szyfrowania RSA<a class="headerlink" href="#pelny-algorytm-szyfrowania-rsa" title="Stały odnośnik do tego nagłówka">¶</a></h3>
 <p>Wystarczy skopiować algorytm szyfrowania z punktu 2 i zamienić: pomoc*d na pomoc^d.</p>
@@ -384,13 +383,13 @@ print "private key:", e, n</script></div></div>
 i = 0
 tekst = "This is secret message or anything." #message
 tekst2 = ""
-print "message:", tekst
+print("message:", tekst)
 # change text to number
 for x in tekst:
     i = i+1
     number = number + ord(x)*128^i
-print "number:", number
-print ""
+print("number:", number)
+print("")
 # encription
 szyfr = 0
 i = 0
@@ -399,28 +398,28 @@ while number>0:
     szyfr = szyfr + ((pomoc^d) % n)*n^i
     i = i + 1
     number = int(number/n)
-print "encription:", szyfr</script></div></div>
+print("encription:", szyfr)</script></div></div>
 <div class="section" id="pelen-algorym-deszyfrujacy-rsa">
 <h3>Pełen algorym deszyfrujący RSA<a class="headerlink" href="#pelen-algorym-deszyfrujacy-rsa" title="Stały odnośnik do tego nagłówka">¶</a></h3>
 <p>Wystarczy skopiować algorytm deszyfrowania z punktu 2 i zamienić: pomoc*d na pomoc^d.</p>
 <div class='sage_linked'><script type='text/x-sage'>tekst2 = ""
 deszyfr = 0
 i = 0
-print "encription:", szyfr
+print("encription:", szyfr)
 # decription
 while szyfr>0:
     pomoc = szyfr%n
     deszyfr = deszyfr + ((pomoc^e) % n)*n^i
     i = i + 1
     szyfr = int(szyfr/n)
-print "decription: ", deszyfr
+print("decription: ", deszyfr)
 ## change number to text
 i = 0
 while deszyfr>0:
     i = i + 1
     deszyfr = int(deszyfr/128)
     tekst2 = tekst2 + chr(deszyfr%128)
-print "message: ", tekst2</script></div></div>
+print("message: ", tekst2)</script></div></div>
 </div>
 <div class="section" id="wnioski">
 <h2>Wnioski<a class="headerlink" href="#wnioski" title="Stały odnośnik do tego nagłówka">¶</a></h2>

@@ -10,7 +10,7 @@
     <title>Rational function &#8212; Science education with SageMath</title>
     <link rel="stylesheet" href="../../../_static/cloud.css" type="text/css" />
     <link rel="stylesheet" href="../../../_static/pygments.css" type="text/css" />
-    <link rel="stylesheet" href="http://fonts.googleapis.com/css?family=Noticia+Text|Open+Sans|Droid+Sans+Mono&amp;subset=latin,latin-ext" type="text/css" />
+    <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Noticia+Text|Open+Sans|Droid+Sans+Mono&amp;subset=latin,latin-ext" type="text/css" />
     <script id="documentation_options" data-url_root="../../../" src="../../../_static/documentation_options.js"></script>
     <script src="../../../_static/jquery.js"></script>
     <script src="../../../_static/underscore.js"></script>
@@ -154,7 +154,7 @@ their intersection point, we calculate the slope of
 <p>We check the result with Sage and draw the tangent of <span class="math notranslate nohighlight">\(f\)</span> at the point
 <span class="math notranslate nohighlight">\(x=0\)</span>.</p>
 <div class='sage_linked'><script type='text/x-sage'>m = df(0)
-print u"\u03b1 =", RDF(180/pi*arctan(m))
+print(u"\u03b1 =", RDF(180/pi*arctan(m)))
 w(x) = m*x
 p6 = plot(f(x), x, (-4, 4), ymax=5, ymin=-5)
 p7 = plot(w(x), x, (-4, 4), color='green')
@@ -202,7 +202,7 @@ can be expressed in terms of a logarithm:</p>
 s = var('s')
 assume(s > 10)
 A(s) = definite_integral(f(x), x, 10, s)
-print "The area is given by A(s) =", A(s)</script></div><p>In the following figure, the area is highlighted in yellow. The value of
+print("The area is given by A(s) =", A(s))</script></div><p>In the following figure, the area is highlighted in yellow. The value of
 <span class="math notranslate nohighlight">\(s\)</span> can be changed dynamically and the content of the area is calculated
 and presented under the figure.</p>
 <div class='sage_linked'><script type='text/x-sage'>@interact
@@ -211,14 +211,14 @@ def _(s=slider(10.1, 19.9, 0.1)):
     p11 = plot(f(x), x, (10, s), fill = 0, fillcolor='yellow')
     p12 = plot(f(x), x, (s, 20))
     show(p10+p11+p12, aspect_ratio=1, ymax=10, figsize=4)
-    print "Area of the yellow region:", float(A(s))</script></div><p><strong>Solution of part 1f</strong></p>
+    print("Area of the yellow region:", float(A(s)))</script></div><p><strong>Solution of part 1f</strong></p>
 <p>The area with the content 100 can be calculated by solving the equation</p>
 <div class="math notranslate nohighlight">
 \[A(s) = 100\]</div>
 <p>with Sage. At this point, it is important that we had specified
 <span class="math notranslate nohighlight">\(s&gt;10\)</span> in the code above. The requested value of <span class="math notranslate nohighlight">\(s\)</span> is
 found as</p>
-<div class='sage_linked'><script type='text/x-sage'>print float(solve(A(s) == 100, s)[0].right())</script></div><p><strong>Solution of part 1g</strong></p>
+<div class='sage_linked'><script type='text/x-sage'>print(float(solve(A(s) == 100, s)[0].right()))</script></div><p><strong>Solution of part 1g</strong></p>
 <p>In the limit <span class="math notranslate nohighlight">\(x\rightarrow\infty\)</span> the logarithm goes to
 infinity. Therefore, the content of the area <span class="math notranslate nohighlight">\(A(s)\)</span> also goes to infinity
 in this case.</p>
@@ -273,8 +273,8 @@ respect to the proper speed in the interval between
 <span class="math notranslate nohighlight">\(10\frac{\mathrm{km}}{\mathrm{h}}\)</span> and
 <span class="math notranslate nohighlight">\(20\frac{\mathrm{km}}{\mathrm{h}}\)</span>.</p>
 <div class='sage_linked'><script type='text/x-sage'>t(x) = 10/(x+5)+10/(x-5)
-print "Total time for 10 km/h:", 60*t(10), "minutes"
-print "Total time for 20 km/h:", 60*t(20), "minutes"
+print("Total time for 10 km/h:", 60*t(10), "minutes")
+print("Total time for 20 km/h:", 60*t(20), "minutes")
 p1 = plot(60*t(x), x, (10, 20))
 show(p1, figsize=(4, 2.8))</script></div><p><strong>Solution of part 2b</strong></p>
 <p>The time needed to travel a distance <span class="math notranslate nohighlight">\(s\)</span> with constant speed
@@ -307,8 +307,8 @@ show(p13, figsize=(4, 2.8))</script></div><p><strong>Solution of part 2d</strong
 <p>With Sage, we can verify this result by calculating the difference of the two
 functions. However, the method <code class="docutils literal notranslate"><span class="pre">rational_simplify()</span></code> is essential for the
 program to work.</p>
-<div class='sage_linked'><script type='text/x-sage'>print t(x)-f(x)
-print (t(x)-f(x)).rational_simplify()</script></div><p><strong>Solution of part 2e</strong></p>
+<div class='sage_linked'><script type='text/x-sage'>print(t(x)-f(x))
+print((t(x)-f(x)).rational_simplify())</script></div><p><strong>Solution of part 2e</strong></p>
 <p>The proper speed can be read off the graph by searching the point of the
 curve where the <span class="math notranslate nohighlight">\(y\)</span>-value matches the specified total time. The
 corresponding <span class="math notranslate nohighlight">\(x\)</span>-value represents the proper speed of the boat.
@@ -319,8 +319,8 @@ means of the inverse function <span class="math notranslate nohighlight">\(f^{*-
 \[f^{*-1}(4) = 5\frac{1+\sqrt{5}}{2}.\]</div>
 <p>Sage confirms this result:</p>
 <div class='sage_linked'><script type='text/x-sage'>totaltime = 4
-print "Proper speed for a total time of {}h: {}km/h".format(
-      totaltime, f_inv(totaltime).n(10))</script></div><p>The graphic construction can be visualized with Sage as follows:</p>
+print("Proper speed for a total time of {}h: {}km/h".format(
+      totaltime, f_inv(totaltime).n(10)))</script></div><p>The graphic construction can be visualized with Sage as follows:</p>
 <div class='sage_linked'><script type='text/x-sage'>p14 = plot(f(x), x, (5.1, 14))
 x4, y4 = f_inv(totaltime), totaltime
 l1 = line([(x4, y4), (0, y4)], color='red')

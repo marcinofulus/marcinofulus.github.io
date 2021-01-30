@@ -10,7 +10,7 @@
     <title>Zadziwiające przybliżenie &#8212; Metodologia nauczania przedmiotów ścisłych z perspektywą obliczeniową</title>
     <link rel="stylesheet" href="_static/cloud.css" type="text/css" />
     <link rel="stylesheet" href="_static/pygments.css" type="text/css" />
-    <link rel="stylesheet" href="http://fonts.googleapis.com/css?family=Noticia+Text|Open+Sans|Droid+Sans+Mono&amp;subset=latin,latin-ext" type="text/css" />
+    <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Noticia+Text|Open+Sans|Droid+Sans+Mono&amp;subset=latin,latin-ext" type="text/css" />
     <script id="documentation_options" data-url_root="./" src="_static/documentation_options.js"></script>
     <script src="_static/jquery.js"></script>
     <script src="_static/underscore.js"></script>
@@ -111,8 +111,8 @@ w ramach Programu Międzynarodowej Oceny Umiejętności Uczniów OECD PISA suger
 <div class='sage_linked'><script type='text/x-sage'>rot=2
 for n in range(1,6):    #zmień przedział
        rot=0.5*(rot+2/rot)
-       print rot
-       print "error =",abs(N(sqrt(2)-rot))</script></div><p>Czy wiemy</p>
+       print(rot)
+       print("error =",abs(N(sqrt(2)-rot)))</script></div><p>Czy wiemy</p>
 <ul class="simple">
 <li><p>co znaczy zapis 2.12390141451912e-6?</p></li>
 <li><p>jak zmieni się błąd przy zmianie n?</p></li>
@@ -137,8 +137,8 @@ plot(graph)</script></div><p>Zaraz, zaraz… Co mamy na myśli, używając słow
 <div class='sage_linked'><script type='text/x-sage'>w=1
 for i in range(1,6):
        w=w*((2*i)/(2*i-1))*((2*i)/(2*i+1))
-       print 2*w     #wolimy ułamki zwykłe czy dziesiętne?
-       print "error =",abs(N(pi-2*w))</script></div><p>Czy wiemy</p>
+       print(2*w     #wolimy ułamki zwykłe czy dziesiętne?)
+       print("error =",abs(N(pi-2*w)))</script></div><p>Czy wiemy</p>
 <ul class="simple">
 <li><p>co znaczy abs()?</p></li>
 <li><p>co znaczy N()?</p></li>
@@ -207,12 +207,12 @@ graph</script></div><p>Jak widzimy długość krawędzi sześcianu wynosi 1</p>
 \[w_4=\left(\sqrt{2}-1\right)^6,\quad w_5=\left(\frac{\sqrt{2}-1} {\sqrt{2}+1}\right)^3.\]</div>
 <p>Oczywiście  <span class="math notranslate nohighlight">\(w_1=w_2=w_3=w_4=w_5\)</span>, ale: czy jest jakaś różnica między  <span class="math notranslate nohighlight">\(w_1,\dots,w_5\)</span> jeśli do pierwiastka kwadratowego liczby 2 będziemy się zbliżać? Zobaczmy…</p>
 <div class='sage_linked'><script type='text/x-sage'>p=1.44     #zmień p
-print 'apr=',p
-print 'w_1=',N(99-70*p)
-print 'w_2=',N((5*p-7)^2)
-print 'w_3=',N((3-2*p)^3)
+print('apr=',p)
+print('w_1=',N(99-70*p))
+print('w_2=',N((5*p-7)^2))
+print('w_3=',N((3-2*p)^3))
 print'w_4=',N((p-1)^6)
-print 'w_5=',N(((p-1)/(p+1))^3)</script></div><p>Okazuje się, że różnice pomiędzy przybliżeniami są duże, jeśli za pierwiastek kwadratowy liczby 2 przyjmiemy 1,41 (wielu ludzi przyjmuje takie przybliżenie do części setnych). A co z: 1,414; 1,4142; 1,41421; 1,414213 i tak dalej?</p>
+print('w_5=',N(((p-1)/(p+1))^3))</script></div><p>Okazuje się, że różnice pomiędzy przybliżeniami są duże, jeśli za pierwiastek kwadratowy liczby 2 przyjmiemy 1,41 (wielu ludzi przyjmuje takie przybliżenie do części setnych). A co z: 1,414; 1,4142; 1,41421; 1,414213 i tak dalej?</p>
 <p>Różnice wciąż są duże, co możemy zobaczyć także na wykresach zwązanych z   <span class="math notranslate nohighlight">\(w_1,\dots,w_5\)</span> funkcji.</p>
 <div class='sage_linked'><script type='text/x-sage'>@interact
 def _(xlimits=range_slider(0.5, 2.5, 0.1, default=(0.5, 2.5), label="horizontal range"),
@@ -261,17 +261,17 @@ graph=a+b+c+d+e+f+g
 graph</script></div><p>Czy to nie dziwne?</p>
 <p>Zakończmy nasze rachunki rozważeniem poszukiwanej objętości - ponieważ mamy  dość przyglądania się dalekim miejscom po przecinku, przyjmijmy, że długość krawędzi sześcianu wynosi 60.</p>
 <div class='sage_linked'><script type='text/x-sage'>p=1.41     #zmień p
-print 'apr=',p
+print('apr=',p)
 w_1=N(99-70*p)
 w_2=N((5*p-7)^2)
 w_3=N((3-2*p)^3)
 w_4=N((p-1)^6)
 w_5=N(((p-1)/(p+1))^3)
-print 'volume 1=',N(pi)*36000*w_1     #skąd 36000?
-print 'volume 2=',N(pi)*36000*w_2
-print 'volume 3=',N(pi)*36000*w_3
-print 'volume 4=',N(pi)*36000*w_4
-print 'volume 5=',N(pi)*36000*w_5</script></div><p>I znowu - powinniśmy zmieniać  <span class="math notranslate nohighlight">\(p\)</span>: 1,414; 1,4142; 1,41421; 1,414213;  nie zapomnijmy o sqrt(2).</p>
+print('volume 1=',N(pi)*36000*w_1)    #skąd 36000?
+print('volume 2=',N(pi)*36000*w_2)
+print('volume 3=',N(pi)*36000*w_3)
+print('volume 4=',N(pi)*36000*w_4)
+print('volume 5=',N(pi)*36000*w_5)</script></div><p>I znowu - powinniśmy zmieniać  <span class="math notranslate nohighlight">\(p\)</span>: 1,414; 1,4142; 1,41421; 1,414213;  nie zapomnijmy o sqrt(2).</p>
 <p>I po raz kolejny: czy to nie dziwne? Może nie (?!), ale powyższy przykład pokazuje, jak bardzo należy uważać, wykorzystując w rachunkach przybliżenia.</p>
 </div>
 </div>

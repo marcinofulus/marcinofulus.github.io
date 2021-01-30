@@ -10,7 +10,7 @@
     <title>JIM - survey data analysis &#8212; Science education with SageMath</title>
     <link rel="stylesheet" href="../../../_static/cloud.css" type="text/css" />
     <link rel="stylesheet" href="../../../_static/pygments.css" type="text/css" />
-    <link rel="stylesheet" href="http://fonts.googleapis.com/css?family=Noticia+Text|Open+Sans|Droid+Sans+Mono&amp;subset=latin,latin-ext" type="text/css" />
+    <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Noticia+Text|Open+Sans|Droid+Sans+Mono&amp;subset=latin,latin-ext" type="text/css" />
     <script id="documentation_options" data-url_root="../../../" src="../../../_static/documentation_options.js"></script>
     <script src="../../../_static/jquery.js"></script>
     <script src="../../../_static/underscore.js"></script>
@@ -156,8 +156,8 @@ for _ in range(iterations):
     key = random.choice(adolescents)
     frequencies[key] = frequencies[key]+1
 table(list(frequencies.items()))</script></div><p>Now we can determine the probability of finding a girl without a TV set.</p>
-<div class='sage_linked'><script type='text/x-sage'>print "Probability for a girl without TV set: {:4.1%}".format(
-      (float(frequencies["Girls without TV"])/iterations))</script></div><p><strong>Solution of part 1b</strong></p>
+<div class='sage_linked'><script type='text/x-sage'>print("Probability for a girl without TV set: {:4.1%}".format(
+      (float(frequencies["Girls without TV"])/iterations)))</script></div><p><strong>Solution of part 1b</strong></p>
 <p>It is stated in the problem text that the randomly chosen person owns a TV
 set and thus is either one of the 65 boys owning a TV set or one of the 54 girls
 with a TV set. The total number of persons owning a TV set thus amounts to 119.
@@ -166,8 +166,8 @@ The probability that this person is a girl then is found as</p>
 \[\frac{54}{119}\approx 45.4\%\]</div>
 <p>We make use of the simulation of part a) in order to empirically check this result.</p>
 <div class='sage_linked'><script type='text/x-sage'>with_tv = frequencies["Girls with TV"]+frequencies["Boys with TV"]
-print "Probability for a person with TV to be female: {:4.1%}".format(
-      (float(frequencies["Girls with TV"])/with_tv))</script></div><p><strong>Solution of part 1c</strong></p>
+print("Probability for a person with TV to be female: {:4.1%}".format(
+      (float(frequencies["Girls with TV"])/with_tv)))</script></div><p><strong>Solution of part 1c</strong></p>
 <p>The two events <span class="math notranslate nohighlight">\(A\)</span> ”One person chosen at random out of 200 adolescents
 possesses a TV set“ and <span class="math notranslate nohighlight">\(B\)</span> ”One person chosen at random out of 200 adolescents
 is a girl.“ were independent provided</p>
@@ -194,9 +194,9 @@ nmax = 12
 probsum = 0
 for i in range(nmax+1):
     probsum = probsum+bernoulli(ntot, p, i)
-print "The sum amounts to {:4.1%}".format(float(probsum))</script></div><p>Alternatively, the result can be obtained directly as:</p>
+print("The sum amounts to {:4.1%}".format(float(probsum)))</script></div><p>Alternatively, the result can be obtained directly as:</p>
 <div class='sage_linked'><script type='text/x-sage'>from scipy.special import bdtr
-print "The sum amounts to {:4.1%}".format(bdtr(nmax, ntot, p))</script></div><p>The survey was carried out with adolescents between the ages of 12 and 19.
+print("The sum amounts to {:4.1%}".format(bdtr(nmax, ntot, p)))</script></div><p>The survey was carried out with adolescents between the ages of 12 and 19.
 However, it is not known whether it is representative for the 9th grade (about
 14 to 15 years of age). Therefore, it is not premissible to make use of the
 value of the sum as the probability that out of 25 girls of 9th grade less
@@ -279,8 +279,8 @@ print("Empirical probability, that at 90% probability to own a computer "
 <div class="math notranslate nohighlight">
 \[P(X=85) = B(100;0.82;85)\]</div>
 <p>With Sage we find <span class="math notranslate nohighlight">\(P(X=85) \approx8.1\%\)</span>.</p>
-<div class='sage_linked'><script type='text/x-sage'>print "Probability to find exactly 85 adolescents owning a computer: {:3.1%}".format(
-       float(bernoulli(100, 0.82, 85)))</script></div><div class="admonition-problem-3 admonition">
+<div class='sage_linked'><script type='text/x-sage'>print("Probability to find exactly 85 adolescents owning a computer: {:3.1%}".format(
+       float(bernoulli(100, 0.82, 85))))</script></div><div class="admonition-problem-3 admonition">
 <p class="admonition-title">Problem 3</p>
 <p>It can be assumed that among the adolescents owning a smart phone, the
 percentage of those owning a stationary game console is larger than among
@@ -325,8 +325,8 @@ equations = [p_b + p_nb == 1,
              p_aub/p_b == p_aunb/p_nb]
 solution = solve(equations + probabilities, p_aub, p_aunb, p_b, p_nb, p_a,
              solution_dict=True)[0]
-print "Statistical independence requires P(A∩B) = {:4.1%}".format(
-      float(solution[p_aub]))</script></div></div>
+print("Statistical independence requires P(A∩B) = {:4.1%}".format(
+      float(solution[p_aub])))</script></div></div>
 
 
           </div>
