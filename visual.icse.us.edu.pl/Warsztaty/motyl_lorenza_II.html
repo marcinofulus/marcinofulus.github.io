@@ -1,0 +1,242 @@
+
+
+  <!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+  "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+
+
+<html xmlns="http://www.w3.org/1999/xhtml">
+  <head>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    
+    <title>Od układu Lorenza do równania logistycznego &mdash; Warsztaty</title>
+    
+    <link rel="stylesheet" href="_static/cloud.css" type="text/css" />
+    <link rel="stylesheet" href="_static/pygments.css" type="text/css" />
+    <link rel="stylesheet" href="http://fonts.googleapis.com/css?family=Noticia+Text|Open+Sans|Droid+Sans+Mono&subset=latin,latin-ext" type="text/css" />
+    
+    <script type="text/javascript">
+      var DOCUMENTATION_OPTIONS = {
+        URL_ROOT:    './',
+        VERSION:     'I',
+        COLLAPSE_INDEX: false,
+        FILE_SUFFIX: '.html',
+        HAS_SOURCE:  true
+      };
+    </script>
+    <script type="text/javascript" src="_static/jquery.js"></script>
+    <script type="text/javascript" src="_static/underscore.js"></script>
+    <script type="text/javascript" src="_static/doctools.js"></script>
+    <script type="text/javascript" src="_static/translations.js"></script>
+    <script type="text/javascript" src="http://cdn.mathjax.org/mathjax/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML"></script>
+    <script type="text/javascript" src="_static/jquery.cookie.js"></script>
+    <script type="text/javascript" src="_static/cloud.js"></script>
+
+
+
+    <script src="http://sagecell.icse.us.edu.pl:6363/static/jquery.min.js"></script>
+	<script src="http://sagecell.icse.us.edu.pl:6363/static/embedded_sagecell.js"></script>
+
+	<script>sagecell.makeSagecell({inputLocation: ".sage",
+                                       evalButtonText: 'Wykonaj',
+                                       linked: true});</script>
+
+	<style type="text/css">
+		.sagecell .CodeMirror-scroll {
+			overflow-y: hidden;
+			overflow-x: auto;
+		}
+		.sagecell .CodeMirror {
+			height: auto;
+		}
+	</style>
+
+    
+    <link rel="top" title="Warsztaty" href="index.html" />
+    <link rel="next" title="Równanie logistyczne" href="rownanie_logistyczne.html" />
+    <link rel="prev" title="Zabawa w chaos" href="motyl_lorenza.html" />
+ 
+  <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, minimum-scale=1">
+  </head>
+  <body>
+  <div class="relbar-top">
+    
+    <div class="related">
+      <h3>Nawigacja</h3>
+      <ul>
+        <li class="right" style="margin-right: 10px">
+          <a href="rownanie_logistyczne.html" title="Równanie logistyczne"
+             accesskey="N">dalej</a></li>
+        <li class="right" >
+          <a href="motyl_lorenza.html" title="Zabawa w chaos"
+             accesskey="P">wstecz</a> &nbsp; &nbsp;</li>
+  <li><a href="index.html">Warsztaty</a> &raquo;</li>
+   
+      </ul>
+    </div>
+  </div>
+  
+  <div class="content">  
+
+    <div class="document">
+      <div class="documentwrapper">
+        <div class="bodywrapper">
+          <div class="body">
+            
+  <div class="section" id="od-ukladu-lorenza-do-rownania-logistycznego">
+<h1>Od układu Lorenza do równania logistycznego<a class="headerlink" href="motyl_lorenza_II.html#od-ukladu-lorenza-do-rownania-logistycznego" title="Stały odnośnik do tego nagłówka">¶</a></h1>
+<p>Edward Lorenz analizując zachowanie tego układu w 1963 roku, dokonał
+jeszcze jednego ważnego kroku - powiązał on dynamikę ciągłego
+trójwymiarowego układu dynamicznego z zachowaniem tzw. dyskretnego
+układu dynamicznego. Przeanalizujmy po kolei kroki, które wykonał
+Lorenz.  Mając trajektorię układu, dla zmiennej <span class="math">\(z(t)\)</span> obliczył
+on wartości <span class="math">\(z_i\)</span> wszystkich lokalnych maksimów. Następnie na
+wykresie naniósł ich kolejne wartości tzn. narysował pary
+<span class="math">\((z_i,z_{i+1})\)</span>. Okazało się, że dla parametrów w których układ
+jest chaotyczny pary te układają się na pewnej krzywej <span class="math">\(F\)</span>
+takiej, że <span class="math">\(z_{i+1}=F(z_i)\)</span>. Można by teraz zapomnieć skąd
+wzięły się wartości <span class="math">\(z_i\)</span> bo dysponując jedynie krzywą
+<span class="math">\(F\)</span>, z jednego stanu możemy otrzymać kolejny. Układ po takiej
+operacji jest jednowymiarowy, gdyż stan określony jest przez jedną
+liczbę <span class="math">\(z_i\)</span>, ale ewolucja w czasie jest dokonywana w sposób
+skokowy, za pomocą przekształcenia <span class="math">\(z_{i+1}=F(z_i)\)</span>. Taki układ
+dynamiczny ze skokową ewolucją w czasie nazywa się właśnie dyskretnym
+układem dynamicznym. Można się też spotkać z określeniem &#8220;system
+funkcji iterowanych&#8221; ( z ang. iterated function system, IFS). Układy
+te stanowią są znaną już dziś z zaskakująco skomplikowanego
+zachowania, pomimo swojej prostoty. W dalszej części przejdziemy do
+analizy fascynujących własności tych układów. Zanim jednak to zrobimy,
+spróbujmy samodzielnie odtworzyć wynik Edwarda Lorenza.</p>
+<p>Mając trajektorię układu Lorenza musimy się zastanowić jak z niej
+wyłowić lokalne maksima? Oczywiście ponieważ rozwiązanie układu
+Lorenza jest ciągłą funkcją czasu, powinniśmy zastosowywać metody
+badania przebiegu zmienności funkcji, czyli policzyć pierwszą
+pochodną, znaleźć jej wszystkie zera na zadanym odcinku i sprawdzić czy
+tak uzyskane ekstrema są maksimami. Niestety rozwiązanie układu
+Lorenza nie jest dane wzorem analitycznym. I tu jest pies pogrzebany,
+bo metodologia postępowania znana ze szkoły średniej wymaga
+algebraicznego obliczenia pochodnej. Dlatego zrobimy
+inaczej. Procedura <tt class="code docutils literal"><span class="pre">desolve_odeint</span></tt> daje nam tabelę z
+wynikami. Zakładając ze odstępy pomiędzy kolejnymi punktami czasu w
+tej tabeli są odpowiednio małe, możemy policzyć lokalne maksima dla
+ciągu, zauważając, że punkt <span class="math">\(z_i\)</span> jest lokalnym maksimum jeżeli
+jego otoczenie jest od niego mniejsze czyli zachodzi
+<span class="math">\(z_{i-1}&lt;z_{i}\)</span> i <span class="math">\(z_{i+1}&lt;z_i\)</span>. Oczywiście nie będą to
+&#8220;prawdziwe&#8221; maksima funkcji <span class="math">\(z(t)\)</span> a jedynie ich przybliżenie.
+Jedną z możliwości jest napisanie pętli (zachęcamy do zrobienia tego
+własnoręcznie), która dla każdego punktu z tabeli sprawdziła by czy
+zachodzą powyższe warunki i jeśli tak, to zapisałaby punkt na listę
+maksimów. Mając jednak do dyspozycji &#8220;oręż&#8221; w postaci biblioteki
+<strong>numpy</strong> możemy zrobić to w praktycznie jednej linii kodu. Oznaczając
+przez <tt class="code docutils literal"><span class="pre">Z</span></tt> tablicę z wartościami trzeciej zmiennej układu Lorenza
+obliczamy najpierw tablicę różnic kolejnych elementów:</p>
+<div class="highlight-python"><div class="highlight"><pre><span class="n">Zp</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">diff</span><span class="p">(</span><span class="n">Z</span><span class="p">)</span>
+</pre></div>
+</div>
+<p>następnie znajdujemy miejsca (<tt class="code docutils literal"><span class="pre">np.nonzero</span></tt>) w których kolejne
+różnice mają przeciwny znak:</p>
+<div class="highlight-python"><div class="highlight"><pre><span class="n">idx</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">nonzero</span><span class="p">(</span><span class="n">Zp</span><span class="p">[</span><span class="mi">1</span><span class="p">:]</span><span class="o">*</span><span class="n">Zp</span><span class="p">[:</span><span class="o">-</span><span class="mi">1</span><span class="p">]</span><span class="o">&lt;</span><span class="mi">0</span><span class="p">)[</span><span class="mi">0</span><span class="p">]</span>
+</pre></div>
+</div>
+<p>i ostatecznie wyciągamy z tablicy <tt class="code docutils literal"><span class="pre">Z</span></tt> te elementy:</p>
+<div class="highlight-python"><div class="highlight"><pre><span class="n">Zm</span> <span class="o">=</span> <span class="n">Z</span><span class="p">[</span><span class="n">idx</span><span class="o">+</span><span class="mi">1</span><span class="p">]</span>
+</pre></div>
+</div>
+<p>(pytanie do czytelnika - skąd to +1?)</p>
+<p>Wypróbujmy czy taka procedura zadziała np. na funkcji <span class="math">\(\sin(x)\)</span>:</p>
+<div class='sage'><script type='text/x-sage'>import numpy as np
+t = np.linspace(0,50,550)
+Z = np.sin(t)
+Zp = np.diff(Z)
+idx = np.nonzero(Zp[1:]*Zp[:-1]<0)[0]
+Zm = Z[idx+1]
+point(zip(t[idx+1][::2],Zm[::2]),color='red',figsize=(8,2),size=40) + line(zip(t,Z))</script></div><div class='sage'><script type='text/x-sage'>import numpy as np
+x,y,z = var('x,y,z')
+sigma = 10
+rho = 28
+beta = 8/3
+lorenz = [sigma*(y-x),x*(rho-z)-y,x*y-beta*z]
+times = srange(0,500,0.015)
+ics = [0,1,1]
+sol = desolve_odeint(lorenz,ics,times,[x,y,z])
+
+Z = sol[:,2]
+times = np.array(times)
+
+Zp = np.diff(Z)
+idx = np.nonzero(Zp[1:]*Zp[:-1]<0)[0]
+Zm = Z[idx+1]
+
+point(zip(Zm[1::2][::2],Zm[1::2][1::2]),figsize=6)
+# point(zip(np.zeros_like(Zm[1::2][::2]),Zm[1::2][1::2]))</script></div><p>Zaskakujące jest to, że wszystkie punkty znajdują się na jednej
+linii. Oznacza to bowiem, że otrzymany obrazek jest wykresem funkcji
+przeprowadzającej jedno maximum w kolejne.  Możemy więc zapomnieć o
+układzie równań różniczkowych a jedynie badać jak jedno maksimum
+przechodzi w drugie. Skoro wyjściowy układ Lorenza ma własności
+chaotyczne: nieregularność i czułość na warunki początkowe, to
+powinniśmy zaobserwować to również w zachowaniu się ciągu <span class="math">\(z_i\)</span>
+generowanym przez iteracje funkcji, której wykres wcześniej
+narysowaliśmy:</p>
+<div class="math" id="equation-ifs">
+<span class="eqno">(1)</span>\[z_{i+1} = F(z_{i})\]</div>
+<p>Można również odwrócić problem i zastanowić się dla jakich funkcji
+<span class="math">\(F\)</span>, układ dynamiczny ze skokowym, lub jak częściej się mówi,
+dyskretnym czasem, będzie posiadał własności chaotyczne. Przekonamy
+się, że takie rozważania doprowadzą nas do kolejnej rodziny zagadnień
+matematycznych. Zanim jednak do tego przejdziemy, musimy się
+zastanowić nad populacją karaluchów.</p>
+</div>
+
+
+          </div>
+        </div>
+      </div>
+      <div class="sphinxsidebar">
+        <div class="sphinxsidebarwrapper">
+  <h4>Poprzedni temat</h4>
+  <p class="topless"><a href="motyl_lorenza.html"
+                        title="poprzedni rozdział">Zabawa w chaos</a></p>
+  <h4>Następny temat</h4>
+  <p class="topless"><a href="rownanie_logistyczne.html"
+                        title="następny rozdział">Równanie  logistyczne</a></p>
+<div id="searchbox" style="display: none">
+  <h3>Szybkie wyszukiwanie</h3>
+    <form class="search" action="http://visual.icse.us.edu.pl/Warsztaty/search.html" method="get">
+      <input type="text" name="q" />
+      <input type="submit" value="Szukaj" />
+      <input type="hidden" name="check_keywords" value="yes" />
+      <input type="hidden" name="area" value="default" />
+    </form>
+    <p class="searchtip" style="font-size: 90%">
+    Wprowadź szukany termin lub nazwę modułu, klasy lub funkcji.
+    </p>
+</div>
+<script type="text/javascript">$('#searchbox').show(0);</script>
+        </div>
+      </div>
+      <div class="clearer"></div>
+    </div>
+  </div>
+  <div class="relbar-bottom">
+    
+    <div class="related">
+      <h3>Nawigacja</h3>
+      <ul>
+        <li class="right" style="margin-right: 10px">
+          <a href="rownanie_logistyczne.html" title="Równanie logistyczne"
+             >dalej</a></li>
+        <li class="right" >
+          <a href="motyl_lorenza.html" title="Zabawa w chaos"
+             >wstecz</a> &nbsp; &nbsp;</li>
+  <li><a href="index.html">Warsztaty</a> &raquo;</li>
+   
+      </ul>
+    </div>
+  </div>
+  
+  <div class="footer">
+    <a class="logo" href="../../icse.us.edu.pl/index.html" target="_blank"><img src="_static/logo-icse.png" alt="ICSE"/></a><br/>
+    &copy; Copyright 2013, CubeProject.
+    Created using <a href="http://sphinx.pocoo.org/">Sphinx</a> 1.2.2.
+  </div>
+  </body>
+</html>

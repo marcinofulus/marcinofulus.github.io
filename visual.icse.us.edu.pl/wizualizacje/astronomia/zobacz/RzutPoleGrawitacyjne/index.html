@@ -1,0 +1,161 @@
+<!DOCTYPE html> 
+<html> 
+<head> 
+<title>Rzut w polu grawitacyjnym planety</title> 
+<meta http-equiv="Content-Type" content="text/html; charset=UTF-8" /> 
+<meta http-equiv="X-UA-Compatible" content="IE=EmulateIE7" /> 
+
+<script type="text/x-mathjax-config"> 
+  MathJax.Hub.Config({
+    extensions: ["tex2jax.js"],
+    jax: ["input/TeX","output/HTML-CSS"],
+    tex2jax: {inlineMath: [["$","$"],["\\(","\\)"]]}
+  });
+</script> 
+
+<!-- <script type="text/javascript" src="js/mathjax/MathJax.js"></script> -->
+<script type="text/javascript" src="http://cdn.mathjax.org/mathjax/latest/MathJax.js"></script>
+
+<link rel="stylesheet" type="text/css" href="css/mainstyle.css" />
+<link rel="stylesheet" type="text/css" href="css/jsxgraph.css" />
+<script type="text/javascript" src="js/jsxgraphcore-0.91.js"></script>
+
+<script type="text/javascript" src="js/vtip/jquery.js"></script>
+<script type="text/javascript" src="js/vtip/vtip.js"></script>
+<link rel="stylesheet" type="text/css" href="js/vtip/css/vtip.css" />
+
+</head>
+<body>
+
+	<noscript> 
+	<div style="color:#CC0000; text-align:center">
+	<b>Uwaga: do prawidłowego działania, biblioteki <a href="http://www.mathjax.org/">MathJax</a>
+	oraz <a href="http://jsxgraph.uni-bayreuth.de/wp/">jsxgraph</a> wymagają obsługi JavaScript.<br />
+	Upewnij się, że JavaScript jest aktywowany w twojej przeglądarce.
+	</div>
+	<hr>
+	</noscript>
+
+
+<div id="container">
+
+<div id="header">
+	<h1>Rzut w polu grawitacyjnym planety</h1>
+	<p class="text">
+	Punkt materialny został wyrzucony pod pewnym kątem $\alpha$ (mierzonym od linii prostopadłej do przedłużenia promienia planety), 
+	z pewną prędkością początkową $v_0$. W poniższym przykładzie zakładamy, że masa planety jest dużo większa od masy punktu materialnego 
+	tj. $M >> m$, natomiast kształt planety jest idealnie symetryczny. 
+	</p> 
+</div>
+
+<div id="content">
+
+
+<div id="input" class="formstyle">
+
+	<form name="form">
+	<table>
+ 	<tr>
+  		<td>$\alpha_0$</td> <td><input class="inputtext vtip" type="text" title="Kąt w stopniach pod jakim wyrzucane jest ciało" id="alpha0" value="0" onKeyUp="resetAnimation()"/></td>
+  		<td>$h_0$</td> <td><input class="inputtext vtip" type="text" title="Początkowa wysokość nad powierzchnią planety w km" id="h0" value="1000" onKeyUp="resetAnimation()"/></td> 
+  		<td>$v_0$</td> <td><input class="inputtext vtip" type="text" title="Prędkość początkowa w km/s" id="v0" value="7.3537" onKeyUp="resetAnimation()"/></td> 
+  		<td>$R$</td> <td><input class="inputtext vtip" type="text" title="Promień planety w km" id="R" value="6371" onKeyUp="resetAnimation()"/></td>
+  		<td>$\mu = GM$</td> <td><input class="inputtext vtip" type="text" title="Iloczyn stałej grawitacyjnej i masy planety w km^3/s^-2" id="GM" value="398600.4419" onKeyUp="resetAnimation()"/></td>
+ 	</tr>
+
+ 	<tr>
+ 	  	<td>$t$</td> <td><input class="outputtext vtip" type="text" title="Aktualny czas symulacji w sekundach" id="t" value="0" readonly/></td> 
+  		<td>$h$</td> <td><input class="outputtext vtip" type="text" title="Aktualna wysokość nad powierzchnią planety w km" id="h" value="" readonly/></td> 
+  		<td>$v$</td> <td><input class="outputtext vtip" type="text" title="Aktualna prędkość orbitalna km/s" id="v" value="" readonly/></td> 
+  		<td>$r$</td> <td><input class="outputtext vtip" type="text" title="Aktualna odległość od środka planety w km" id="r" value="" readonly/></td>
+  	</tr>
+ 
+ 	<tr>
+  		<td></td>
+  		<td>
+			<input type="button" value="start / stop" onClick="startStopAnimation()">
+  			<input type="button" value="reset" onClick="resetAnimation()">
+  		</td>   
+ 	</tr>
+	</table>
+	</form>
+
+</div>
+
+
+
+<div id="plots">
+<table class="plotarea">    
+    <tr>
+        <td colspan="2" align="center">
+        <div id="box1" class="jxgbox" style="width:900px; height:500px;"></div>
+        </td>
+    </tr>
+    
+</table>
+</div>
+
+
+<div class="theory">
+	<h3>Równania ruchu</h2>
+	<p class="text">
+	Na ciało znajdujące się w pewnej odległości $r$ od środka ciała niebieskiego (planety) działa siła grawitacji $F$ skierowana wzdłuż linii 
+	łączącej oba ciała. Dobrze ilustruje to poniższy rysunek:<br /><br />
+	
+	<img src="image/planetmotion.png" /><br /><br /> 
+	
+	Z rysunku możemy zauważyć, że:<br /><br /> 
+	
+	$\frac{F_x}{|F|} = -\frac{x}{r}$<br /><br /> 
+	$F_x = -|F|\frac{x}{r} = -\frac{GMmx}{r^3}$<br /><br /> 
+	
+	podobnie wyznaczamy składową $F_y$. Korzystając z równania Newtona łatwo znajdujemy równania ruchu 
+	$m\ddot{x} = -\frac{GMmx}{r^3}$ oraz $m\ddot{y} = -\frac{GMmy}{r^3}$, ostatecznie:<br /><br />
+	
+	$\ddot{x} = -\frac{GMx}{r^3}$<br /><br />
+	$\ddot{y} = -\frac{GMy}{r^3}$<br /><br /> 
+	$r = \sqrt{x^2 + y^2}$
+	
+	</p>
+
+	<h3>Pierwsza prędkość kosmiczna</h2>
+	<p class="text">
+	Jest to minimalna prędkość pozioma jaką należy nadać ciału względem przyciągającego go ciała niebieskiego aby ciało to poruszało się po zamkniętej 
+	orbicie kołowej. Aby wyprowadzić tą zależność należy zauważyć, że na orbicie kołowej siła dośrodkowa i siła grawitacyjna wzajemnie się 
+	równoważą:<br /><br />
+	
+	$\frac{mv_I^2}{r} = \frac{GMm}{r^2}$<br /><br />
+	$v_I = \sqrt{\frac{GM}{r}} = \sqrt{\frac{GM}{R + h}}$<br /><br />
+	gdzie $r$ - odległość ciała od środka planety, $R$ - promień planety, $h$ - wysokość nad powierzchnią planety.<br /><br />
+
+	<u>Przykład</u><br />
+	Wyrzucamy ciało pod kątem $\alpha = 0$ na wysokości $h = 1000 km$ nad Ziemią. Jaką należy mu nadać prędkość aby poruszało się po orbicie kołowej o 
+	promieniu $r = R + 1000 km$. Zakładamy, że promień Ziemi to $R = 6371 km$, natomiast iloczyn $GM = 398600.4419 km^3/s^{-2}$.<br /><br />
+	
+	$v = \sqrt{\frac{GM}{R + h}} = \sqrt{\frac{398600.4419}{6371 + 1000}} \approx 7.3537 km/s$
+
+	</p>
+	
+	<h3>Druga prędkość kosmiczna</h2>
+	<p class="text">
+ 	Jest to prędkość, jaką należy nadać obiektowi, aby opuścił na zawsze dane ciało niebieskie poruszając się dalej ruchem swobodnym, 
+ 	czyli jest to prędkość, jaką trzeba nadać obiektowi na powierzchni tego ciała niebieskiego, aby tor jego ruchu stał się parabolą lub 
+ 	hiperbolą.<br />
+ 	Wyprowadzenie polega na porównaniu energii obiektu znajdującego się na powierzchni oraz w nieskończoności. Energia w nieskończoności 
+ 	równa jest 0 (zarówno kinetyczna, jak i potencjalna pola grawitacyjnego), zatem na powierzchni sumaryczna energia 
+ 	też musi się równać 0:<br /><br />
+ 	$E = -\frac{Gmm}{R} + \frac{mv_{II}^2}{2} = 0$<br /><br />
+ 	$v_{II} = \sqrt{\frac{2GM}{R}}$<br /><br />
+ 	gdzie $R$ - promień planety. W przypadku Ziemi wynosi ona około $11.19 km/s$. 
+	</p>
+</div>
+
+</div>
+
+
+</div>
+
+<script type="text/javascript" src="js/phys.js"></script><br />
+
+</body>
+</html>

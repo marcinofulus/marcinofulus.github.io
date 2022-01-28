@@ -1,0 +1,310 @@
+
+
+  <!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+  "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+
+
+<html xmlns="http://www.w3.org/1999/xhtml">
+  <head>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    
+    <title>Przekształcenia liniowe &mdash; Algebra Liniowa</title>
+    
+    <link rel="stylesheet" href="_static/cloud.css" type="text/css" />
+    <link rel="stylesheet" href="_static/pygments.css" type="text/css" />
+    <link rel="stylesheet" href="http://fonts.googleapis.com/css?family=Noticia+Text|Open+Sans|Droid+Sans+Mono&subset=latin,latin-ext" type="text/css" />
+    
+    <script type="text/javascript">
+      var DOCUMENTATION_OPTIONS = {
+        URL_ROOT:    './',
+        VERSION:     'I',
+        COLLAPSE_INDEX: false,
+        FILE_SUFFIX: '.html',
+        HAS_SOURCE:  true
+      };
+    </script>
+    <script type="text/javascript" src="_static/jquery.js"></script>
+    <script type="text/javascript" src="_static/underscore.js"></script>
+    <script type="text/javascript" src="_static/doctools.js"></script>
+    <script type="text/javascript" src="_static/translations.js"></script>
+    <script type="text/javascript" src="http://cdn.mathjax.org/mathjax/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML"></script>
+    <script type="text/javascript" src="_static/jquery.cookie.js"></script>
+    <script type="text/javascript" src="_static/cloud.js"></script>
+
+	<script src="http://sagecell.icse.us.edu.pl:6363/static/jquery.min.js"></script>
+	<script src="http://sagecell.icse.us.edu.pl:6363/static/embedded_sagecell.js"></script>
+
+	<!-- <script src="http://sagecell.sagemath.org/static/jquery.min.js"></script> -->
+	<!-- <script src="http://sagecell.sagemath.org/static/embedded_sagecell.js"></script> -->
+
+	<script>sagecell.makeSagecell({inputLocation: ".sage",
+                                       evalButtonText: 'Wykonaj',
+                                       linked: true});</script>
+
+	<style type="text/css">
+		.sagecell .CodeMirror-scroll {
+			overflow-y: hidden;
+			overflow-x: auto;
+		}
+		.sagecell .CodeMirror {
+			height: auto;
+		}
+	</style>
+
+    
+    <link rel="top" title="Algebra Liniowa" href="http://visual.icse.us.edu.pl/LA/index.html" />
+    <link rel="next" title="Wartości i wektory własne" href="dowody_problem_wlasny.html" />
+    <link rel="prev" title="Operacje na macierzach" href="dowody_operacje_na_macierzach.html" />
+ 
+  <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, minimum-scale=1">
+  </head>
+  <body>
+  <div class="relbar-top">
+    
+    <div class="related">
+      <h3>Nawigacja</h3>
+      <ul>
+        <li class="right" style="margin-right: 10px">
+          <a href="dowody_problem_wlasny.html" title="Wartości i wektory własne"
+             accesskey="N">dalej</a></li>
+        <li class="right" >
+          <a href="dowody_operacje_na_macierzach.html" title="Operacje na macierzach"
+             accesskey="P">wstecz</a> &nbsp; &nbsp;</li>
+  <li><a href="http://visual.icse.us.edu.pl/LA/index.html">Algebra Liniowa</a> &raquo;</li>
+   
+      </ul>
+    </div>
+  </div>
+  
+  <div class="content">  
+
+    <div class="document">
+      <div class="documentwrapper">
+        <div class="bodywrapper">
+          <div class="body">
+            
+  <div class="section" id="przeksztalcenia-liniowe">
+<h1>Przekształcenia liniowe<a class="headerlink" href="dowody_przeksztalcenia_lin.html#przeksztalcenia-liniowe" title="Stały odnośnik do tego nagłówka">¶</a></h1>
+<div class="admonition-twierdzenie-1-math admonition">
+<p class="first admonition-title">Twierdzenie 1. <span class="math">\(\\\)</span></p>
+<p>Niech <span class="math">\(\,V\ \)</span> i <span class="math">\(\,W\ \)</span> będą przestrzeniami wektorowymi
+nad ciałem <span class="math">\(\,K,\ \ F\in\text{Hom}(V,W).\)</span> <span class="math">\(\\\)</span>
+Przekształcenie <span class="math">\(\,F\ \)</span> jest odwzorowaniem injektywnym
+wtedy i tylko wtedy, gdy</p>
+<div class="last math">
+\[\text{Ker}\,F\,=\,\{\,\theta_V\}\,,\qquad\text{czyli}\qquad\text{def}\,F = 0\,.\]</div>
+</div>
+<p><strong>Dyskusja i dowód.</strong></p>
+<p>Przekształcenie <span class="math">\(\;F\;\)</span> jest injekcją, <span class="math">\(\,\)</span>
+gdy różnym argumentom odpowiadają różne obrazy:</p>
+<div class="math">
+\[v_1\neq v_2\qquad\Rightarrow\qquad F(v_1)\neq F(v_2)\,,\qquad v_1,v_2\in V\,.\]</div>
+<a class="reference internal image-reference" href="_images/Rys_7.png"><img alt="_images/Rys_7.png" class="align-center" src="_images/Rys_7.png" style="width: 207.2px; height: 265.3px;" /></a>
+<p>Obraz przestrzeni <span class="math">\(\;V\;\)</span> przy przekształceniu <span class="math">\(\;F\;\)</span> może być
+(jak w tym schemacie) właściwym podzbiorem przestrzeni
+<span class="math">\(\;W:\ \ \text{Im}\,F\equiv F(V)\subsetneq W\,,\ \)</span>
+ale każdemu elementowi <span class="math">\(\;w\in\text{Im}\,F\ \)</span> odpowiada
+dokładnie jeden element <span class="math">\(\;v\in V,\ \)</span> którego <span class="math">\(\;w\;\)</span> jest obrazem.</p>
+<p>Jądro przekształcenia <span class="math">\(\;F\in\text{Hom}(V,W)\ \)</span> jest z definicji zbiorem tych wektorów
+przestrzeni <span class="math">\(\;V,\ \)</span> których obrazem jest wektor zerowy przestrzeni <span class="math">\(\;W,\ \)</span>
+a defekt <span class="math">\(\;F\ \)</span> jest wymiarem jądra:</p>
+<div class="math">
+\[\text{Ker}\,F\,=\,\{\,v\in V:\ F(v)=\theta_W\}\,,\qquad\text{def}\,F\,=\,\dim\,\text{Ker}\,F\,.\]</div>
+<p><span class="math">\(\;\Rightarrow\,:\ \)</span> Zakładamy, że <span class="math">\(\;F\ \)</span> jest injekcją.
+Wtedy wektor zerowy <span class="math">\(\;\theta_W\ \)</span> przestrzeni <span class="math">\(\;W\ \)</span>
+jest obrazem tylko wektora zerowego <span class="math">\(\;\theta_V,\ \)</span> co oznacza,
+że <span class="math">\(\ \,\text{Ker}\,F=\{\,\theta_V\}\ \ \text{oraz}\ \ \text{def}\,F=0\,.\)</span></p>
+<p><span class="math">\(\;\Leftarrow\,:\ \)</span> Załóżmy, że <span class="math">\(\;F\ \)</span> nie jest injekcją. <span class="math">\(\\\)</span>
+Wtedy istnieją dwa różne wektory <span class="math">\(\;v_1\ \,\text{i}\ \ v_2,\ \)</span>
+które przy odwzorowaniu <span class="math">\(\;F\ \)</span> mają ten sam obraz:</p>
+<div class="math">
+\[v_1\neq v_2\quad\land\quad F(v_1)\,=\,F(v_2)\,,\]\[\qquad\text{czyli}\qquad
+v_1-v_2\neq\theta_V\quad\land\quad F(v_1)-F(v_2)=F(v_1-v_2)=\theta_W.\;\]</div>
+<p>Wynika stąd, że <span class="math">\(\ \,\theta_V\neq v_1-v_2\in\text{Ker}\,F,\ \,\)</span>
+wobec czego <span class="math">\(\ \,\text{Ker}\,F\neq\{\,\theta_V\}\ \ \text{oraz}\ \ \text{def}\,F\neq 0\,.\)</span></p>
+<p>Przez kontrapozycję wnioskujemy stąd,
+że jeśli <span class="math">\(\ \text{def}\,F=0,\ \)</span>
+to <span class="math">\(\ F\ \)</span> jest injekcją.</p>
+<div class="admonition-twierdzenie-2 admonition">
+<p class="first admonition-title">Twierdzenie 2.</p>
+<p class="last">Przekształcenie <span class="math">\(\,F\in\text{Hom}(V,W)\,\)</span> zachowuje liniową niezależność
+dowolnego układu wektorów przestrzeni <span class="math">\(\,V\,\)</span> wtedy i tylko wtedy, gdy jest injekcją.</p>
+</div>
+<p><strong>Dowód</strong> opiera się na <span class="math">\(\,\)</span> (poprzednim) <span class="math">\(\,\)</span> twierdzeniu,
+że injektywność przekształcenia <span class="math">\(\ F\ \)</span> jest równoważna znikaniu jego defektu.</p>
+<p><span class="math">\(\;\Rightarrow\,:\ \)</span> Załóżmy, że <span class="math">\(\;F\ \)</span> nie jest injekcją.</p>
+<p>Wtedy <span class="math">\(\ \text{def}\,F=\dim\,\text{Ker}\,F=k&gt;0.\ \)</span>
+Niech <span class="math">\(\,\mathcal{U}=(\,u_1,\,u_2,\,\dots,\,u_k)\ \)</span> będzie bazą <span class="math">\(\,\text{Ker}\,F.\ \)</span>
+Układ <span class="math">\(\,\mathcal{U}\ \)</span> jest liniowo niezależny,
+ale jego obraz przy przekształceniu <span class="math">\(\,F:\)</span></p>
+<div class="math">
+\[F(\mathcal{U})\,=\,(\,Fu_1,\,Fu_2,\,\dots,\,Fu_k\,)\,=\,
+                 (\,\theta_W,\,\theta_W,\,\dots,\,\theta_W)\]</div>
+<p>jest oczywiście liniowo zależny (mówiąc obrazowo - jest maksymalnie liniowo zależny).</p>
+<p>Jeżeli zatem <span class="math">\(\,F\ \)</span> nie jest injekcją, to istnieją układy wektorów, których liniowa niezależność przy przekształceniu <span class="math">\(\,F\,\)</span> nie jest zachowana.
+Przeciwstawnie, jeżeli przekształcenie <span class="math">\(\,F\,\)</span> zachowuje liniową niezależność
+dowolnego układu wektorów, to jest injekcją.</p>
+<p><span class="math">\(\;\Leftarrow\,:\ \)</span> Zakładamy, że <span class="math">\(\;F\ \)</span> jest injekcją, <span class="math">\(\,\)</span>
+czyli że <span class="math">\(\;\text{Ker}\,F=\{\,\theta_V\}\,.\)</span></p>
+<p>Niech układ <span class="math">\(\;(x_1,\,x_2,\,\dots,\,x_r)\ \)</span> wektorów przestrzeni <span class="math">\(\,V\,\)</span>
+będzie liniowo niezależny. <span class="math">\(\\\)</span>
+Wtedy, <span class="math">\(\,\)</span> dla <span class="math">\(\,a_1,\,a_2,\,\dots,\,a_r\in K:\)</span></p>
+<div class="math">
+\[\begin{split}\begin{array}{rcc}
+\text{jeżeli} &amp; \qquad &amp; a_1\,Fx_1\,+\,a_2\,Fx_2\,+\,\ldots\,+\,a_r\,Fx_r\,=\,\theta_W\,,
+\\ \\
+\text{to:}    &amp; \qquad &amp; F(a_1\,x_1+\,a_2\,x_2+\ldots+\,a_r\,x_r)\,=\,\theta_W\,,
+\\
+              &amp; \qquad &amp; a_1\,x_1+a_2\,x_2+\ldots+a_r\,x_r\in\text{Ker}\,F\,,
+\\
+              &amp; \qquad &amp; a_1\,x_1\,+a_2\,x_2\,+\ldots+\,a_r\,x_r\,=\,\theta_V\,,
+\\
+              &amp; \qquad &amp; a_1=\,a_2=\,\dots\,=\,a_r=0\,.
+\end{array}\end{split}\]</div>
+<p>A zatem wektory <span class="math">\(\ Fx_1,\,Fx_2,\,\dots,\,Fx_r\ \)</span> są również liniowo niezależne.</p>
+<p>Udowodniliśmy więc, że dla dowolnych wektorów <span class="math">\(\ \,x_1,\,x_2,\,\dots,\,x_r\,\in V\ \)</span>
+zachodzi implikacja (l.n. = liniowo niezależny):</p>
+<div class="math">
+\[(\,x_1,\,x_2,\,\dots,\,x_r)\ \ -\ \ \text{l.n.}
+\qquad\Rightarrow\qquad
+(\,Fx_1,\,Fx_2,\,\dots,\,Fx_r)\ \ -\ \ \text{l.n.}\]</div>
+<p>która właśnie oznacza, że <span class="math">\(\,F\ \)</span> zachowuje liniową niezależność dowolnego układu wektorów.</p>
+<p><strong>Dyskusja i wnioski.</strong> <span class="math">\(\,\)</span>
+Niech będzie dana <span class="math">\(\,n\)</span>-wymiarowa przestrzeń wektorowa <span class="math">\(\,V(K)\ \)</span>
+z bazą <span class="math">\(\,\mathcal{B}=(v_1,\,v_2,\,\dots,\,v_n).\ \)</span> Odwzorowanie</p>
+<div class="math">
+\[\begin{split}I_{\mathcal{B}}:\quad V\,\ni\, x\,=\,\sum_{i\,=\,1}^n\ a_i\,v_i
+\quad\rightarrow\quad
+I_{\mathcal{B}}(x)\,:\,=\,
+\left[\begin{array}{c} a_1 \\ a_2 \\ \dots \\ a_n \end{array}\right]
+\,\in\,K^n\end{split}\]</div>
+<p>które przekształca wektor <span class="math">\(\,x\ \)</span> w kolumnę współrzędnych
+tego wektora w bazie <span class="math">\(\,\mathcal{B},\ \)</span>
+jest izomorfizmem przestrzeni <span class="math">\(\,V\ \)</span> na przestrzeń <span class="math">\(\,K^n,\ \)</span> a więc injekcją.
+<span class="math">\(\,I_{\mathcal{B}}\ \)</span> zachowuje zatem liniową niezależność wektorów.
+Tę samą własność ma odwzorowanie odwrotne do <span class="math">\(\,I_{\mathcal{B}},\ \)</span>
+które również jest izomorfizmem.</p>
+<p>Rozważmy układ wektorów <span class="math">\(\,(x_1,\,x_2,\,\dots,\,x_r),\ \)</span> przy czym niech</p>
+<div class="math">
+\[\begin{split}x_j\,=\;\sum_{i\,=\,1}^n\ a_{ij}\,v_i\,,
+\qquad\text{czyli}\qquad
+I_{\mathcal{B}}(x_j)\,=\,
+\left[\begin{array}{c} a_{1j} \\ a_{2j} \\ \dots \\ a_{nj} \end{array}\right]
+\,,\quad j=1,2,\dots,r.\end{split}\]</div>
+<p>Z wymienionej własności izomorfizmów
+<span class="math">\(\ I_{\mathcal{B}}\ \ \text{i}\ \ I_{\mathcal{B}}^{-1}\ \)</span>
+wynika, że <span class="math">\(\,\)</span> (l.n. = liniowo niezależny):</p>
+<div class="math">
+\[(\,x_1,\,x_2,\,\dots,\,x_r)\ \ -\ \ \text{l.n.}
+\qquad\Leftrightarrow\qquad
+\left(\;
+I_{\mathcal{B}}(x_1),\,I_{\mathcal{B}}(x_2),\,\dots,\,I_{\mathcal{B}}(x_r)\;
+\right)
+\ \ -\ \ \text{l.n.}\]</div>
+<div class="admonition-wniosek-1a admonition">
+<p class="first admonition-title">Wniosek 1a.</p>
+<p class="last">W <span class="math">\(\,n\)</span>-wymiarowej przestrzeni wektorowej <span class="math">\(\,V(K)\ \)</span> wektory są
+liniowo niezależne wtedy i tylko wtedy, gdy kolumny ich współrzędnych <span class="math">\(\,\)</span>
+(jako wektory przestrzeni <span class="math">\(\,K^n\)</span>) <span class="math">\(\,\)</span> w dowolnej bazie przestrzeni
+<span class="math">\(\,V\ \)</span> są liniowo niezależne.</p>
+</div>
+<p>Ponieważ liniowa zależność jest zaprzeczeniem liniowej niezależności,
+można również zapisać <span class="math">\(\,\)</span> (l.z. = liniowo zależny):</p>
+<div class="math">
+\[(\,x_1,\,x_2,\,\dots,\,x_r)\ \ -\ \ \text{l.z.}
+\qquad\Leftrightarrow\qquad
+\left(\;
+I_{\mathcal{B}}(x_1),\,I_{\mathcal{B}}(x_2),\,\dots,\,I_{\mathcal{B}}(x_r)\;
+\right)
+\ \ -\ \ \text{l.z.}\]</div>
+<div class="admonition-wniosek-1b admonition">
+<p class="first admonition-title">Wniosek 1b.</p>
+<p class="last">W <span class="math">\(\,n\)</span>-wymiarowej przestrzeni wektorowej <span class="math">\(\,V(K)\ \)</span> wektory są
+liniowo zależne wtedy i tylko wtedy, gdy kolumny ich współrzędnych
+(jako wektory przestrzeni <span class="math">\(\,K^n\)</span>) w dowolnej bazie przestrzeni <span class="math">\(\,V\ \)</span>
+są liniowo zależne.</p>
+</div>
+<p>Jeżeli <span class="math">\(\,r=n,\ \)</span> to kolumny współrzędnych tworzą kwadratową macierz</p>
+<div class="math">
+\[\boldsymbol{A}\ =\ [\,a_{ij}\,]_{n\times n}\ =\
+[\,I_{\mathcal{B}}(x_1)\,|\,I_{\mathcal{B}}(x_2)\,|\,\dots\,|\,I_{\mathcal{B}}(x_n)\,]\,.\]</div>
+<p>Element <span class="math">\(\,a_{ij}\ \)</span> tej macierzy jest <span class="math">\(\,i\)</span>-tą współrzędną <span class="math">\(\,j\)</span>-tego
+wektora układu <span class="math">\(\,(x_1,\,x_2,\,\dots,\,x_n).\ \\\)</span>
+Z własności wyznaczników wynika, że</p>
+<div class="math">
+\[(\,x_1,\,x_2,\,\dots,\,x_n)\ \ -\ \ \text{l.n.}
+\qquad\Leftrightarrow\qquad
+\det\,\boldsymbol{A}\neq 0\,.\]</div>
+<div class="admonition-wniosek-2 admonition">
+<p class="first admonition-title">Wniosek 2.</p>
+<p class="last">W <span class="math">\(\,n\)</span>-wymiarowej przestrzeni <span class="math">\(\,V(K)\ \)</span>
+układ <span class="math">\(\,n\ \)</span> wektorów jest liniowo niezależny
+wtedy i tylko wtedy,
+gdy wyznacznik macierzy złożonej ze współrzędnych tych wektorów
+jest różny od zera.</p>
+</div>
+<p>Biorąc pod uwagę fakt, że w <span class="math">\(\,n\)</span>-wymiarowej przestrzeni wektorowej
+każdy liniowo niezależny układ <span class="math">\(\,n\ \)</span> wektorów jest bazą, <span class="math">\(\,\)</span>
+można sformułować</p>
+<div class="admonition-wniosek-3 admonition">
+<p class="first admonition-title">Wniosek 3.</p>
+<p class="last">W <span class="math">\(\,n\)</span>-wymiarowej przestrzeni <span class="math">\(\,V(K)\ \)</span> układ <span class="math">\(\,n\ \)</span> wektorów jest bazą
+tej przestrzeni wtedy i tylko wtedy,
+gdy wyznacznik macierzy złożonej ze współrzędnych tych wektorów jest różny od zera.</p>
+</div>
+</div>
+
+
+          </div>
+        </div>
+      </div>
+      <div class="sphinxsidebar">
+        <div class="sphinxsidebarwrapper">
+  <h4>Poprzedni temat</h4>
+  <p class="topless"><a href="dowody_operacje_na_macierzach.html"
+                        title="poprzedni rozdział">Operacje na macierzach</a></p>
+  <h4>Następny temat</h4>
+  <p class="topless"><a href="dowody_problem_wlasny.html"
+                        title="następny rozdział">Wartości i wektory własne</a></p>
+<div id="searchbox" style="display: none">
+  <h3>Szybkie wyszukiwanie</h3>
+    <form class="search" action="search.html" method="get">
+      <input type="text" name="q" />
+      <input type="submit" value="Szukaj" />
+      <input type="hidden" name="check_keywords" value="yes" />
+      <input type="hidden" name="area" value="default" />
+    </form>
+    <p class="searchtip" style="font-size: 90%">
+    Wprowadź szukany termin lub nazwę modułu, klasy lub funkcji.
+    </p>
+</div>
+<script type="text/javascript">$('#searchbox').show(0);</script>
+        </div>
+      </div>
+      <div class="clearer"></div>
+    </div>
+  </div>
+  <div class="relbar-bottom">
+    
+    <div class="related">
+      <h3>Nawigacja</h3>
+      <ul>
+        <li class="right" style="margin-right: 10px">
+          <a href="dowody_problem_wlasny.html" title="Wartości i wektory własne"
+             >dalej</a></li>
+        <li class="right" >
+          <a href="dowody_operacje_na_macierzach.html" title="Operacje na macierzach"
+             >wstecz</a> &nbsp; &nbsp;</li>
+  <li><a href="http://visual.icse.us.edu.pl/LA/index.html">Algebra Liniowa</a> &raquo;</li>
+   
+      </ul>
+    </div>
+  </div>
+  
+  <div class="footer">
+    <a class="logo" href="../../icse.us.edu.pl/index.html" target="_blank"><img src="_static/logo-icse.png" alt="ICSE"/></a><br/>
+    &copy; Copyright 2013, Marcin Kostur.
+    Created using <a href="http://sphinx.pocoo.org/">Sphinx</a> 1.2.2.
+  </div>
+  </body>
+</html>

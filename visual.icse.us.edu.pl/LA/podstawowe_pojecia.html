@@ -1,0 +1,287 @@
+
+
+  <!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+  "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+
+
+<html xmlns="http://www.w3.org/1999/xhtml">
+  <head>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    
+    <title>Podstawowe pojęcia i oznaczenia &mdash; Algebra Liniowa</title>
+    
+    <link rel="stylesheet" href="_static/cloud.css" type="text/css" />
+    <link rel="stylesheet" href="_static/pygments.css" type="text/css" />
+    <link rel="stylesheet" href="http://fonts.googleapis.com/css?family=Noticia+Text|Open+Sans|Droid+Sans+Mono&subset=latin,latin-ext" type="text/css" />
+    
+    <script type="text/javascript">
+      var DOCUMENTATION_OPTIONS = {
+        URL_ROOT:    './',
+        VERSION:     'I',
+        COLLAPSE_INDEX: false,
+        FILE_SUFFIX: '.html',
+        HAS_SOURCE:  true
+      };
+    </script>
+    <script type="text/javascript" src="_static/jquery.js"></script>
+    <script type="text/javascript" src="_static/underscore.js"></script>
+    <script type="text/javascript" src="_static/doctools.js"></script>
+    <script type="text/javascript" src="_static/translations.js"></script>
+    <script type="text/javascript" src="http://cdn.mathjax.org/mathjax/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML"></script>
+    <script type="text/javascript" src="_static/jquery.cookie.js"></script>
+    <script type="text/javascript" src="_static/cloud.js"></script>
+
+	<script src="http://sagecell.icse.us.edu.pl:6363/static/jquery.min.js"></script>
+	<script src="http://sagecell.icse.us.edu.pl:6363/static/embedded_sagecell.js"></script>
+
+	<!-- <script src="http://sagecell.sagemath.org/static/jquery.min.js"></script> -->
+	<!-- <script src="http://sagecell.sagemath.org/static/embedded_sagecell.js"></script> -->
+
+	<script>sagecell.makeSagecell({inputLocation: ".sage",
+                                       evalButtonText: 'Wykonaj',
+                                       linked: true});</script>
+
+	<style type="text/css">
+		.sagecell .CodeMirror-scroll {
+			overflow-y: hidden;
+			overflow-x: auto;
+		}
+		.sagecell .CodeMirror {
+			height: auto;
+		}
+	</style>
+
+    
+    <link rel="top" title="Algebra Liniowa" href="http://visual.icse.us.edu.pl/LA/index.html" />
+    <link rel="next" title="Najważniejsze struktury algebraiczne" href="struktury_algebraiczne.html" />
+    <link rel="prev" title="Uwagi techniczne" href="uwagi_techniczne.html" />
+ 
+  <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, minimum-scale=1">
+  </head>
+  <body>
+  <div class="relbar-top">
+    
+    <div class="related">
+      <h3>Nawigacja</h3>
+      <ul>
+        <li class="right" style="margin-right: 10px">
+          <a href="struktury_algebraiczne.html" title="Najważniejsze struktury algebraiczne"
+             accesskey="N">dalej</a></li>
+        <li class="right" >
+          <a href="uwagi_techniczne.html" title="Uwagi techniczne"
+             accesskey="P">wstecz</a> &nbsp; &nbsp;</li>
+  <li><a href="http://visual.icse.us.edu.pl/LA/index.html">Algebra Liniowa</a> &raquo;</li>
+   
+      </ul>
+    </div>
+  </div>
+  
+  <div class="content">  
+
+    <div class="document">
+      <div class="documentwrapper">
+        <div class="bodywrapper">
+          <div class="body">
+            
+  <div class="section" id="podstawowe-pojecia-i-oznaczenia">
+<h1>Podstawowe pojęcia i oznaczenia<a class="headerlink" href="podstawowe_pojecia.html#podstawowe-pojecia-i-oznaczenia" title="Stały odnośnik do tego nagłówka">¶</a></h1>
+<div class="section" id="elementy-logiki">
+<h2>Elementy logiki<a class="headerlink" href="podstawowe_pojecia.html#elementy-logiki" title="Stały odnośnik do tego nagłówka">¶</a></h2>
+<p><em>Zdanie</em> (w sensie logicznym) jest wypowiedzią, o której można stwierdzić
+(na gruncie pewnej wiedzy, teorii), że jest prawdziwa albo fałszywa,
+czyli że ma określoną <em>wartość logiczną</em>.
+Zdania będą tutaj oznaczane symbolami <span class="math">\(\,p,\,q,\,\dots\)</span></p>
+<p>Przy pomocy <em>spójników logicznych</em>:</p>
+<div class="math">
+\[\begin{split}\begin{array}{ccccc}
+\qquad\sim\qquad &amp; \qquad\lor\qquad &amp; \qquad\land\qquad &amp;
+\quad\Rightarrow\qquad &amp; \Leftrightarrow \\
+\qquad\text{nie}\qquad &amp; \qquad\text{lub}\qquad &amp; \qquad\ \text{i}\qquad &amp;
+\quad\text{implikuje}\quad &amp; \ \ \text{jest równoważne}
+\end{array}\end{split}\]</div>
+<p>można ze zdań składowych tworzyć zdania złożone. Najważniejsze zdania złożone to:</p>
+<p><em>negacja</em>: <span class="math">\(\quad\sim p\quad\)</span> (nie <span class="math">\(\,p;\ \)</span> nieprawda, że <span class="math">\(\,p\)</span>);</p>
+<p><em>alternatywa</em>: <span class="math">\(\quad p\lor q\quad\)</span> (<span class="math">\(\,p\ \)</span> lub <span class="math">\(\ q\)</span>);</p>
+<p><em>koniunkcja</em>: <span class="math">\(\quad p\land q\quad\)</span> (<span class="math">\(\,p\ \)</span> i <span class="math">\(\ q\)</span>);</p>
+<p><em>implikacja</em>: <span class="math">\(\quad p\Rightarrow q\quad\)</span>
+(jeśli <span class="math">\(\ p,\ \,\text{to}\ \ q\,;\quad\)</span> z <span class="math">\(\ p\ \)</span> wynika <span class="math">\(\ q\,;\quad\)</span>
+<span class="math">\(\ p\ \)</span> implikuje <span class="math">\(\ q\)</span>);</p>
+<p><em>równoważność</em>: <span class="math">\(\quad p\Leftrightarrow q\quad\)</span>
+(<span class="math">\(\ p\ \)</span> wtedy i tylko wtedy, gdy <span class="math">\(\ q\)</span>).</p>
+<p>Jeżeli twierdzenie matematyczne jest sformułowane w postaci implikacji
+<span class="math">\(\ p\Rightarrow q\,,\ \)</span>
+to używa się następujących określeń:</p>
+<p><span class="math">\(\ p\ \)</span> - <span class="math">\(\,\)</span> założenie twierdzenia <span class="math">\(\,\)</span>
+(warunek wystarczający dla <span class="math">\(\ q\)</span>) <span class="math">\(;\ \ \\\)</span>
+<span class="math">\(\ q\ \)</span> - <span class="math">\(\,\)</span> teza twierdzenia <span class="math">\(\,\)</span>
+(warunek konieczny dla <span class="math">\(\ p\)</span>).</p>
+<p>Przy dowodzeniu twierdzeń często stosuje się <em>tautologie logiczne</em>.
+Są to wyrażenia, które zawsze przechodzą w zdania prawdziwe, niezależnie od
+wartości logicznych zdań <span class="math">\(\,p\ \,\text{i}\ \ q,\ \ \)</span> np.:</p>
+<div class="math">
+\[\begin{split}\begin{array}{ccl}
+(p\Leftrightarrow q)\ \ \Leftrightarrow\ \ [\,(p\Rightarrow q)\land(q\Rightarrow p)\,] &amp; &amp;
+\\ \\
+(p\Rightarrow q)\ \Leftrightarrow\ [\,(\sim q)\Rightarrow (\sim p)\,] &amp;
+\quad &amp; \text{(prawo kontrapozycji)}
+\\ \\
+\sim (p\lor q)\ \Leftrightarrow\ [\,(\sim p) \land (\sim q)\,] &amp;
+\quad &amp; \text{(prawo negacji alternatywy)}
+\\
+\sim (p\land q)\ \Leftrightarrow\ [\,(\sim p) \lor (\sim q)\,] &amp;
+\quad &amp; \text{(prawo negacji koniunkcji)}
+\end{array}\end{split}\]</div>
+</div>
+<div class="section" id="oznaczenia-teoriomnogosciowe">
+<h2>Oznaczenia teoriomnogościowe<a class="headerlink" href="podstawowe_pojecia.html#oznaczenia-teoriomnogosciowe" title="Stały odnośnik do tego nagłówka">¶</a></h2>
+<div class="line-block">
+<div class="line">Zbiory oznaczamy zazwyczaj dużymi literami: <span class="math">\(\ A,\,B,\,\dots,\,X,\,Y,\,Z,\,\dots\)</span></div>
+<div class="line">a ich elementy <span class="math">\(\,\)</span> - <span class="math">\(\,\)</span> małymi: <span class="math">\(\ a,\,b,\,c,\,\dots,\,x,\,y,\,z,\,\dots\)</span></div>
+<div class="line"><br /></div>
+<div class="line">Przynależność do zbioru zapisujemy następująco:</div>
+<div class="line"><span class="math">\(\,a\in A\ \ \)</span> - <span class="math">\(\ \ a\,\)</span> jest elementem zbioru <span class="math">\(\,A\,\)</span>
+(<span class="math">\(a\,\)</span> należy do <span class="math">\(\,A\)</span>) ;</div>
+<div class="line"><span class="math">\(\,a\notin A\ \ \)</span> - <span class="math">\(\ \ a\,\)</span> nie jest elementem zbioru <span class="math">\(\,A\,\)</span>
+(<span class="math">\(a\,\)</span> nie należy do <span class="math">\(\,A\)</span>) .</div>
+<div class="line">Symbol <span class="math">\(\ \emptyset\ \)</span> oznacza <span class="math">\(\,\)</span> <em>zbiór pusty</em>, <span class="math">\(\,\)</span>
+do którego nie należy żaden element.</div>
+<div class="line"><br /></div>
+<div class="line">Jeżeli określamy zbiór wymieniając jego elementy, używamy nawiasów klamrowych:</div>
+<div class="line"><span class="math">\(\,\{a_1,a_2,\dots,a_k\}\)</span> <span class="math">\(\,\)</span> - <span class="math">\(\,\)</span>
+zbiór złożony z elementów <span class="math">\(\,a_1,a_2,\dots,a_k\ \)</span> (kolejność nieokreślona).</div>
+<div class="line">Natomiast zwykłe nawiasy okrągłe oznaczają <em>układ</em>, czyli ciąg elementów:</div>
+<div class="line"><span class="math">\(\,(a_1,a_2,\dots,a_k)\)</span> <span class="math">\(\,\)</span> - <span class="math">\(\,\)</span>
+układ elementów <span class="math">\(\,a_1,a_2,\dots,a_k\ \)</span> (ich kolejność jest istotna).</div>
+<div class="line">Układ dwóch elementów, <span class="math">\(\,(a_1,a_2),\,\)</span> nazywany jest <span class="math">\(\,\)</span> <em>parą uporządkowaną</em>.</div>
+<div class="line"><br /></div>
+<div class="line">Zapis <span class="math">\(\ \{\,x\in X:\ \phi(x)\,\}\ \,\)</span> przedstawia zbiór tych elementów <span class="math">\(\,x\in X,\ \)</span>
+dla których spełniony jest warunek <span class="math">\(\,\phi.\ \)</span>
+Dla przykładu stwierdzenie <span class="math">\(\ \{\,x\in R:\ x^2+x-2=0\,\}\ =\ \{-2,\,1\,\}\ \)</span>
+należy odczytać następująco: zbiór liczb rzeczywistych <span class="math">\(\,x,\ \)</span>
+dla których <span class="math">\(\,x^2+x-2=0,\ \)</span> jest zbiorem dwuelementowym, składającym się z liczb
+<span class="math">\(\,-2\ \ \text{i}\ \ 1\,.\)</span></div>
+</div>
+</div>
+<div class="section" id="odwzorowania-i-dzialania">
+<h2>Odwzorowania i działania<a class="headerlink" href="podstawowe_pojecia.html#odwzorowania-i-dzialania" title="Stały odnośnik do tego nagłówka">¶</a></h2>
+<p><em>Odwzorowanie</em> <span class="math">\(\ f: X\to Y\ \)</span> zbioru <span class="math">\(\,X\,\)</span> w zbiór <span class="math">\(\,Y\,\)</span>
+jest przyporządkowaniem każdemu elementowi zbioru <span class="math">\(\,X\,\)</span>
+dokładnie jednego elementu zbioru <span class="math">\(\,Y.\ \)</span>
+Jeżeli elementowi <span class="math">\(\,x\in X\,\)</span> odpowiada element <span class="math">\(\,y\in Y,\,\)</span>
+to mówimy, że <span class="math">\(\,y\,\)</span> jest <em>obrazem</em> elementu <span class="math">\(\,x\,\)</span> przy odwzorowaniu
+<span class="math">\(\,f:\ \ y=f(x).\)</span></p>
+<p>Zbiór <span class="math">\(\,X\,\)</span> nazywamy <em>dziedziną</em> (<em>zbiorem argumentów</em>) odwzorowania <span class="math">\(\,f,\ \)</span>
+a zbiór <span class="math">\(\,f(X)\ \)</span> złożony z obrazów <span class="math">\(\,f(x)\ \)</span> wszystkich elementów <span class="math">\(\,x\in X\ \)</span>
+jest <span class="math">\(\,\)</span> <em>zbiorem wartości</em> <span class="math">\(\,\)</span> tego odwzorowania.</p>
+<p>Odwzorowanie <span class="math">\(\ f: X\to Y\ \)</span> jest:</p>
+<ul>
+<li><div class="first line-block">
+<div class="line"><em>surjekcją</em> <span class="math">\(\,\)</span> (odwzorowaniem zbioru <span class="math">\(\ X\ \)</span> <em>na</em> zbiór <span class="math">\(\ Y\)</span>), <span class="math">\(\,\)</span>
+gdy <span class="math">\(\ f(X)=Y\,.\ \)</span></div>
+<div class="line">Wtedy każdemu elementowi <span class="math">\(\,y\in Y\ \)</span>
+odpowiada <em>co najmniej jeden</em> element <span class="math">\(\,x\in X.\)</span></div>
+</div>
+</li>
+<li><div class="first line-block">
+<div class="line"><em>injekcją</em> <span class="math">\(\,\)</span> (odwzorowaniem różnowartościowym), <span class="math">\(\,\)</span> gdy
+<span class="math">\(\ \ x_1\neq x_2\ \Rightarrow\ f(x_1)\neq f(x_2)\ \)</span></div>
+<div class="line">(czyli gdy różnym argumentom <span class="math">\(\ x_1,x_2\in X\ \)</span> odpowiadają różne obrazy).</div>
+<div class="line">Wtedy każdemu elementowi <span class="math">\(\,y\in Y\ \)</span>
+odpowiada <em>co najwyżej jeden</em> element <span class="math">\(\,x\in X.\)</span></div>
+</div>
+</li>
+<li><div class="first line-block">
+<div class="line"><em>bijekcją</em> <span class="math">\(\,\)</span> (odwzorowaniem wzajemnie jednoznacznym),
+gdy jest surjekcją i injekcją.</div>
+<div class="line">Wtedy każdemu elementowi <span class="math">\(\,y\in Y\ \)</span>
+odpowiada <em>dokładnie jeden</em> element <span class="math">\(\,x\in X.\)</span></div>
+</div>
+</li>
+</ul>
+<p><em>Iloczyn kartezjański</em> <span class="math">\(\,\)</span> zbiorów <span class="math">\(\,A\ \ \text{i}\ \ B\,\)</span> jest z definicji
+zbiorem wszystkich par uporządkowanych <span class="math">\(\,(a,b)\,\)</span> takich, że element <span class="math">\(\,a\,\)</span>
+należy do zbioru <span class="math">\(\,A\ \)</span> i <span class="math">\(\,\)</span> element <span class="math">\(\,b\,\)</span> należy do zbioru <span class="math">\(\,B\,\)</span> :</p>
+<div class="math">
+\[A\times B\ :\,=\ \{\,(a,b):\ a\in A \,\land\, b\in B\,\}\,.\]</div>
+<p><em>Działanie wewnętrzne</em> <span class="math">\(\,\odot\,\)</span> w zbiorze <span class="math">\(\,A\,\)</span> jest odwzorowaniem
+<span class="math">\(\,\odot: A\times A\to A.\ \)</span>
+Jeżeli dla <span class="math">\(\,a_1,a_2,a_3\in A\,\)</span> zachodzi <span class="math">\(\,\odot\,(a_1,a_2)=a_3,\ \)</span>
+to mówimy, że <span class="math">\(\,a_3\,\)</span> jest wynikiem działania <span class="math">\(\,\odot\,\)</span>
+na elementach <span class="math">\(\,a_1\ \ \text{i}\ \ a_2,\ \)</span> co zapisujemy <span class="math">\(\ a_3=a_1\odot a_2.\ \)</span>
+Przykłady: dodawanie liczb naturalnych, odejmowanie liczb całkowitych, dodawanie wektorów geometrycznych, mnożenie wektorów w sensie iloczynu wektorowego.
+W tych przykładach każdej uporządkowanej parze elementów pewnego zbioru <span class="math">\(\,A\,\)</span> odpowiada dokładnie jeden element tego samego zbioru.</p>
+<p><em>Działanie zewnętrzne</em> <span class="math">\(\,\boxdot\,\)</span> w zbiorze <span class="math">\(\,A\,\)</span> jest odwzorowaniem
+<span class="math">\(\,\boxdot: K\times A\to A,\ \)</span> gdzie <span class="math">\(\,K\,\)</span> jest pewnym zbiorem.
+Wynik <span class="math">\(\ \boxdot\,(\lambda,a)\ \)</span> działania <span class="math">\(\,\boxdot\,\)</span> na elementach
+<span class="math">\(\,\lambda\in K\ \ \text{i}\ \ a\in A\,\)</span> zapisujemy jako <span class="math">\(\,\lambda\boxdot a.\ \)</span>
+Przykłady: mnożenie wektorów geometrycznych przez liczby rzeczywiste, mnożenie macierzy przez liczby, mnożenie funkcji przez liczby.
+Teraz każdej uporządkowanej parze elementów należących odpowiednio do zbioru <span class="math">\(\,K\,\)</span> oraz do zbioru <span class="math">\(\,A\,\)</span> odpowiada dokładnie jeden element zbioru <span class="math">\(\,A.\)</span></p>
+</div>
+</div>
+
+
+          </div>
+        </div>
+      </div>
+      <div class="sphinxsidebar">
+        <div class="sphinxsidebarwrapper">
+  <div class="sphinxlocaltoc">
+  <h3><a href="http://visual.icse.us.edu.pl/LA/index.html">Spis treści</a></h3>
+  <ul>
+<li><a class="reference internal" href="podstawowe_pojecia.html#">Podstawowe pojęcia i oznaczenia</a><ul>
+<li><a class="reference internal" href="podstawowe_pojecia.html#elementy-logiki">Elementy logiki</a></li>
+<li><a class="reference internal" href="podstawowe_pojecia.html#oznaczenia-teoriomnogosciowe">Oznaczenia teoriomnogościowe</a></li>
+<li><a class="reference internal" href="podstawowe_pojecia.html#odwzorowania-i-dzialania">Odwzorowania i działania</a></li>
+</ul>
+</li>
+</ul>
+
+  </div>
+  <h4>Poprzedni temat</h4>
+  <p class="topless"><a href="uwagi_techniczne.html"
+                        title="poprzedni rozdział">Uwagi techniczne</a></p>
+  <h4>Następny temat</h4>
+  <p class="topless"><a href="struktury_algebraiczne.html"
+                        title="następny rozdział">Najważniejsze struktury algebraiczne</a></p>
+<div id="searchbox" style="display: none">
+  <h3>Szybkie wyszukiwanie</h3>
+    <form class="search" action="search.html" method="get">
+      <input type="text" name="q" />
+      <input type="submit" value="Szukaj" />
+      <input type="hidden" name="check_keywords" value="yes" />
+      <input type="hidden" name="area" value="default" />
+    </form>
+    <p class="searchtip" style="font-size: 90%">
+    Wprowadź szukany termin lub nazwę modułu, klasy lub funkcji.
+    </p>
+</div>
+<script type="text/javascript">$('#searchbox').show(0);</script>
+        </div>
+      </div>
+      <div class="clearer"></div>
+    </div>
+  </div>
+  <div class="relbar-bottom">
+    
+    <div class="related">
+      <h3>Nawigacja</h3>
+      <ul>
+        <li class="right" style="margin-right: 10px">
+          <a href="struktury_algebraiczne.html" title="Najważniejsze struktury algebraiczne"
+             >dalej</a></li>
+        <li class="right" >
+          <a href="uwagi_techniczne.html" title="Uwagi techniczne"
+             >wstecz</a> &nbsp; &nbsp;</li>
+  <li><a href="http://visual.icse.us.edu.pl/LA/index.html">Algebra Liniowa</a> &raquo;</li>
+   
+      </ul>
+    </div>
+  </div>
+  
+  <div class="footer">
+    <a class="logo" href="../../icse.us.edu.pl/index.html" target="_blank"><img src="_static/logo-icse.png" alt="ICSE"/></a><br/>
+    &copy; Copyright 2013, Marcin Kostur.
+    Created using <a href="http://sphinx.pocoo.org/">Sphinx</a> 1.2.2.
+  </div>
+  </body>
+</html>

@@ -1,0 +1,511 @@
+
+
+  <!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+  "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+
+
+<html xmlns="http://www.w3.org/1999/xhtml">
+  <head>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    
+    <title>Ortogonalizacja Grama-Schmidta. Rozkład QR &mdash; Algebra Liniowa</title>
+    
+    <link rel="stylesheet" href="_static/cloud.css" type="text/css" />
+    <link rel="stylesheet" href="_static/pygments.css" type="text/css" />
+    <link rel="stylesheet" href="http://fonts.googleapis.com/css?family=Noticia+Text|Open+Sans|Droid+Sans+Mono&subset=latin,latin-ext" type="text/css" />
+    
+    <script type="text/javascript">
+      var DOCUMENTATION_OPTIONS = {
+        URL_ROOT:    './',
+        VERSION:     'I',
+        COLLAPSE_INDEX: false,
+        FILE_SUFFIX: '.html',
+        HAS_SOURCE:  true
+      };
+    </script>
+    <script type="text/javascript" src="_static/jquery.js"></script>
+    <script type="text/javascript" src="_static/underscore.js"></script>
+    <script type="text/javascript" src="_static/doctools.js"></script>
+    <script type="text/javascript" src="_static/translations.js"></script>
+    <script type="text/javascript" src="http://cdn.mathjax.org/mathjax/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML"></script>
+    <script type="text/javascript" src="_static/jquery.cookie.js"></script>
+    <script type="text/javascript" src="_static/cloud.js"></script>
+
+	<script src="http://sagecell.icse.us.edu.pl:6363/static/jquery.min.js"></script>
+	<script src="http://sagecell.icse.us.edu.pl:6363/static/embedded_sagecell.js"></script>
+
+	<!-- <script src="http://sagecell.sagemath.org/static/jquery.min.js"></script> -->
+	<!-- <script src="http://sagecell.sagemath.org/static/embedded_sagecell.js"></script> -->
+
+	<script>sagecell.makeSagecell({inputLocation: ".sage",
+                                       evalButtonText: 'Wykonaj',
+                                       linked: true});</script>
+
+	<style type="text/css">
+		.sagecell .CodeMirror-scroll {
+			overflow-y: hidden;
+			overflow-x: auto;
+		}
+		.sagecell .CodeMirror {
+			height: auto;
+		}
+	</style>
+
+    
+    <link rel="top" title="Algebra Liniowa" href="http://visual.icse.us.edu.pl/LA/index.html" />
+    <link rel="next" title="Macierze hermitowskie i unitarne" href="p_unitarne_macierze_hermit_i_unit.html" />
+    <link rel="prev" title="Ortogonalność wektorów" href="p_unitarne_ortogonalnosc.html" />
+ 
+  <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, minimum-scale=1">
+  </head>
+  <body>
+  <div class="relbar-top">
+    
+    <div class="related">
+      <h3>Nawigacja</h3>
+      <ul>
+        <li class="right" style="margin-right: 10px">
+          <a href="p_unitarne_macierze_hermit_i_unit.html" title="Macierze hermitowskie i unitarne"
+             accesskey="N">dalej</a></li>
+        <li class="right" >
+          <a href="p_unitarne_ortogonalnosc.html" title="Ortogonalność wektorów"
+             accesskey="P">wstecz</a> &nbsp; &nbsp;</li>
+  <li><a href="http://visual.icse.us.edu.pl/LA/index.html">Algebra Liniowa</a> &raquo;</li>
+   
+      </ul>
+    </div>
+  </div>
+  
+  <div class="content">  
+
+    <div class="document">
+      <div class="documentwrapper">
+        <div class="bodywrapper">
+          <div class="body">
+            
+  <div class="section" id="ortogonalizacja-grama-schmidta-rozklad-qr">
+<h1>Ortogonalizacja Grama-Schmidta. Rozkład QR<a class="headerlink" href="p_unitarne_Gram-Schmidt_QR.html#ortogonalizacja-grama-schmidta-rozklad-qr" title="Stały odnośnik do tego nagłówka">¶</a></h1>
+<div class="admonition-twierdzenie-4 admonition">
+<p class="first admonition-title">Twierdzenie 4.</p>
+<p class="last">W każdej skończenie wymiarowej przestrzeni unitarnej (euklidesowej) istnieje baza ortonormalna.</p>
+</div>
+<p><strong>Dowód</strong> twierdzenia, który podaje efektywną metodę konstrukcji takiej bazy,
+przebiega w dwóch realizowanych równolegle etapach. Biorąc za punkt wyjścia dowolną bazę, buduje się metodą <em>ortogonalizacji Grama-Schmidta</em> bazę ortogonalną, z której po unormowaniu powstaje baza ortonormalna.</p>
+<div class="section" id="konstrukcja-bazy-ortonormalnej">
+<h2>Konstrukcja bazy ortonormalnej<a class="headerlink" href="p_unitarne_Gram-Schmidt_QR.html#konstrukcja-bazy-ortonormalnej" title="Stały odnośnik do tego nagłówka">¶</a></h2>
+<p>Niech <span class="math">\(\,\dim\,V=n.\ \)</span> Dowód przebiega według następującego schematu:</p>
+<div class="math">
+\[\begin{split}\begin{array}{cccccc}
+             &amp; \mathcal{B}=(v_1,v_2,\dots,v_n) &amp; \longrightarrow &amp; \mathcal{P}=(y_1,y_2,\dots,y_n) &amp; \longrightarrow &amp; \mathcal{Q}=(u_1,u_2,\dots,u_n) \\
+\text{Baza:} &amp; \text{wyjściowa}                &amp;                 &amp; \text{ortogonalna}              &amp;                 &amp; \text{ortonormalna}
+\end{array}\end{split}\]</div>
+<p>Kolejne wektory baz <span class="math">\(\ \mathcal{P}\ \ \text{i}\ \ \,\mathcal{Q}\ \,\)</span>
+przyjmujemy w następującej postaci:</p>
+<p><span class="math">\(\triangleright\quad y_1\,=\,v_1,\quad u_1\,=\,\displaystyle\frac{y_1}{\|y_1\|}\,;\)</span></p>
+<p><span class="math">\(\triangleright\quad y_2\,=\,\alpha_1\,y_1+\,v_2\ =\
+v_2\,-\ \displaystyle\frac{\langle\,y_1,v_2\rangle}{\|y_1\|^2}\ \ y_1\ =\
+v_2-\,\langle\,u_1,v_2\rangle\ u_1\,,\qquad u_2\,=\,\displaystyle\frac{y_2}{\|y_2\|}\ ,\)</span></p>
+<p>gdzie <span class="math">\(\ \alpha_1\ \)</span> zostało wyznaczone z warunku <span class="math">\(\ \langle\,y_1,y_2\rangle=0\,;\)</span></p>
+<p><span class="math">\(\triangleright\quad y_3\,=\,\beta_1\,y_1+\,\beta_2\,y_2+\,v_3\ =\
+v_3\,-\ \displaystyle\frac{\langle y_1,v_3\rangle}{\|y_1\|^2}\ \ y_1\,-\
+\displaystyle\frac{\langle y_2,v_3\rangle}{\|y_2\|^2}\ \ y_2\ =\
+v_3\,-\,\langle u_1,v_3\rangle\ u_1 - \langle u_2,v_3\rangle\ u_2\,,\)</span></p>
+<p>gdzie <span class="math">\(\ \beta_1,\,\beta_2\ \)</span> zostały wyznaczone z warunków
+<span class="math">\(\,\langle\,y_1,y_3\rangle = \langle\,y_2,y_3\rangle = 0\,;\qquad
+u_3\,=\,\displaystyle\frac{y_3}{\|y_3\|}\,;\)</span></p>
+<p>Przypuśćmy, że zbudowaliśmy w ten sposób układ ortogonalny
+<span class="math">\(\ (y_1,y_2,\dots,y_{j-1}),\ \)</span> przy czym, jak wynika z przyjętej metody konstrukcji</p>
+<div class="math" id="equation-y_k">
+<span class="eqno">(1)</span>\[y_k\,\in\,L(v_1,v_2,\dots,v_k)\qquad k=1,2,\dots,j-1\,,\]</div>
+<p>to znaczy, że każdy <span class="math">\(\,k\)</span>-ty wektor układu <span class="math">\(\,(y_1,y_2,\dots,y_{j-1})\ \)</span>
+jest kombinacją liniową jedynie pierwszych <span class="math">\(\,k\ \)</span> wektorów bazy <span class="math">\(\,\mathcal{B}.\ \)</span>
+Następnymi wektorami baz <span class="math">\(\ \mathcal{P}\ \ \text{i}\ \ \,\mathcal{Q}\ \,\)</span> będą <span class="math">\(\\\)</span></p>
+<p><span class="math">\(\begin{array}{rcl} \triangleright\quad y_j &amp; = &amp;
+\lambda_1\,y_1\,+\;\lambda_2\,y_2\,+\;\dots\,+\;\lambda_{j-1}\,y_{j-1}\,+\;v_j\ \ =
+\\ \\
+&amp; = &amp; v_j\ -\ \,
+\displaystyle\frac{\langle\,y_1,v_j\rangle}{\|y_1\|^2}\ \ y_1\ \,-\ \,
+\displaystyle\frac{\langle\,y_2,v_j\rangle}{\|y_2\|^2}\ \ y_2\ \,-\ \,
+\ldots\ -\ \,
+\displaystyle\frac{\langle\,y_{j-1},v_j\rangle}{\|y_{j-1}\|^2}\ \ y_{j-1}\ \ =
+\\ \\
+&amp; = &amp; v_j\,-\,\langle\,u_1,v_j\rangle\ u_1 - \langle\,u_2,v_j\rangle\ u_2
+\ -\ \ldots\ -\ \langle\,u_{j-1},v_j\rangle\ u_{j-1}\,,
+\qquad u_j\ =\ \displaystyle\frac{y_j}{\|y_j\|}\ ,
+\end{array}\)</span></p>
+<p>gdzie współczynniki <span class="math">\(\ \lambda_1,\,\lambda_2,\,\dots,\,\lambda_{j-1}\ \,\)</span>
+zostały wyznaczone z warunków ortogonalności</p>
+<div class="math">
+\[\langle\,y_1,y_j\rangle\ \ =\ \ \langle\,y_2,y_j\rangle\ \ =\ \ldots\ \ =\ \
+\langle\,y_{j-1},y_j\rangle\ \ =\ \ 0\,.\]</div>
+<p>Wektor <span class="math">\(\,y_j\ \)</span> jest kombinacją liniowo niezależnych wektorów
+<span class="math">\(\,v_1,\,v_2,\,\dots,\,v_j.\ \)</span>
+Z własności <a href="p_unitarne_Gram-Schmidt_QR.html#equation-y_k">(1)</a> wynika, że jest to kombinacja nietrywialna, bo współczynnik przy wektorze
+<span class="math">\(\,v_j\ \)</span> równa się <span class="math">\(\,+1.\ \)</span> Oznacza to, że wszystkie
+wektory <span class="math">\(\,y_j\ \)</span> są niezerowe: <span class="math">\(\,y_j\neq\theta,\ j=1,2,\dots,n.\ \)</span>
+Stąd mamy pewność, że <span class="math">\(\,\mathcal{P}\ \)</span> jest układem ortogonalnym
+oraz że dzieląc każdy kolejny wektor <span class="math">\(\,y_j\ \)</span> przez jego normę otrzymamy
+wektor jednostkowy <span class="math">\(\,u_j\,.\)</span></p>
+<p>Ortogonalizację Grama-Schmidta można zastosować do dowolnego (niekoniecznie liniowo niezależnego)
+układu wektorów. W wyniku otrzymamy układ <span class="math">\(\,\mathcal{Y},\ \)</span> którego wektory będą parami ortogonalne, ale może to nie być układ ortogonalny, bo wśród jego wektorów mogą wystąpić wektory zerowe.</p>
+<p>Po ostatnim kroku procedury, w którym <span class="math">\(\,j=n,\ \)</span> otrzymujemy
+ortogonalną bazę <span class="math">\(\ \mathcal{P}\ \\\)</span>
+i ortonormalną bazę <span class="math">\(\ \mathcal{Q}\ \)</span> przestrzeni <span class="math">\(\,V.\)</span></p>
+<p><strong>Przykład:</strong> konstrukcja wielomianów Legendre&#8217;a.</p>
+<p>Rozważmy przestrzeń euklidesową <span class="math">\(\,P\ \)</span> wielomianów rzeczywistych z iloczynem skalarnym</p>
+<div class="math">
+\[\langle\,p,q\,\rangle\ \,=\ \,\int_{-1}^{+1}\ p(x)\,q(x)\,dx\,,\qquad p,q\in P\,.\]</div>
+<p>Przyjmując za punkt wyjścia bazę <span class="math">\(\,\mathcal{B}\,=\,(1,\,x,\,x^2,\,x^3,\,\dots)\ \)</span>
+zbudujemy bazę ortogonalną <span class="math">\(\,\mathcal{P}\,=\,(p_0,\,p_1,\,p_2,\,p_3,\,\dots)\ \,\)</span>
+i <span class="math">\(\,\)</span> bazę ortonormalną <span class="math">\(\,\mathcal{Q}\,=\,(q_0,\,q_1,\,q_2,\,q_3,\,\dots)\,.\\\)</span></p>
+<ol class="arabic" start="0">
+<li><p class="first"><span class="math">\(\ p_0(x)\,=\,1\,;\qquad
+\|\,p_0\|^2\,=\,\langle\,p_0,p_0\,\rangle\ =\ \int_{-1}^{+1}\ 1\cdot 1\ \ dx\ =\ 2\,;\qquad
+\|\,p_0\|\,=\,\sqrt{2}\,.\)</span></p>
+<p><span class="math">\(\blacktriangleright\quad q_0(x)\ \,=\ \,
+\displaystyle\frac{1}{\|\,p_0\|}\ \ p_0(x)\ \,=\ \,
+\frac{1}{\sqrt{2}}\ \ .\\\)</span></p>
+</li>
+<li><p class="first"><span class="math">\(\ p_1(x)\ =\ \alpha_0\cdot 1+x\,,\ \ \)</span>
+gdzie <span class="math">\(\ \ \alpha_0\ \)</span> wyznacza się z warunku <span class="math">\(\ \ \langle\,p_0,p_1\rangle\ =\ 0\,.\)</span></p>
+<p><span class="math">\(\ \langle\,p_0,p_1\rangle\ =\ \int_{-1}^{+1}\ 1\cdot(\alpha_0+x)\ dx\ \ =\ \
+\int_{-1}^{+1}\ (\alpha_0+x)\,dx\ =\ 2\,\alpha_0\ =\ 0\,:\quad\alpha_0=0\,.\)</span></p>
+<p><span class="math">\(\ p_1(x)\,=\,x\,;\qquad \|p_1\|^2\,=\,\int_{-1}^{+1}\ x^2\;dx\ =\
+\left.\frac{1}{3}\ x^3\,\right|_{-1}^{+1}\ =\ \frac{2}{3}\ ;\qquad
+\|\,p_1\|\ =\ \sqrt{\frac{2}{3}}\ .\)</span></p>
+<p><span class="math">\(\blacktriangleright\quad q_1(x)\ \,=\ \,
+\displaystyle\frac{1}{\|\,p_1\|}\ \ p_1(x)\ \,=\ \,
+\sqrt{\,\frac{3}{2}}\ \ x\ .\\\)</span></p>
+</li>
+<li><p class="first"><span class="math">\(\ p_2(x)\ =\ \beta_0\cdot 1+\beta_1\cdot x+x^2\,,\ \ \)</span>
+gdzie <span class="math">\(\ \ \beta_0,\,\beta_1:\ \
+\langle\,p_0,p_2\rangle\ =\ \langle\,p_1,p_2\rangle\ =\ 0\,.\)</span></p>
+<p><span class="math">\(\ \langle\,p_0,p_2\rangle\ =\ \int_{-1}^{+1}\ (\beta_0+\beta_1\,x+x^2)\,dx\ =\
+2\,\beta_0+\frac{2}{3}\ =\ 0\,:\quad\,\beta_0\,=\ -\ \frac{1}{3}\,;\)</span></p>
+<p><span class="math">\(\ \langle\,p_1,p_2\rangle\ =\ \int_{-1}^{+1}\ x\,(\beta_0+\beta_1\,x+x^2)\,dx\ =\
+\frac{2}{3}\,\beta_1\ =\ 0\,:\qquad\beta_1\,=\,0\,.\)</span></p>
+<p><span class="math">\(\ p_2(x)\,=\,x^2-\;\frac{1}{3}\ ;\)</span></p>
+<p><span class="math">\(\ \|\,p_2\|^2\,=\,\int_{-1}^{+1}\ (x^2-\,\frac{1}{3})^2\,dx\ =\
+\int_{-1}^{+1}\ (x^4-\frac{2}{3}\,x^2+\frac{1}{9})\,dx\ =\ \frac{8}{45}\ ;\quad
+\|\,p_2\|\ =\ \frac{2}{3}\ \sqrt{\frac{2}{5}}\,.\)</span></p>
+<p><span class="math">\(\blacktriangleright\quad q_2(x)\ \,=\ \,
+\displaystyle\frac{1}{\|\,p_2\|}\ \ p_2(x)\ \ =\ \
+\frac{3}{2}\ \ \sqrt{\,\frac{5}{2}}\ \ \left(x^2-\;\frac{1}{3}\right)\ \ =\ \
+\frac{1}{2}\ \ \sqrt{\,\frac{5}{2}}\ \ (3\,x^2-\,1)\,.\\\)</span></p>
+</li>
+<li><p class="first"><span class="math">\(\ p_3(x)\ =\
+\widetilde{\gamma_0}\cdot 1+\gamma_1\cdot x+\gamma_2\cdot(x^2-\;\frac{1}{3})+x^3\ =\
+\gamma_0+\,\gamma_1\,x\,+\,\gamma_2\,x^2\,+\,x^3\,,\)</span></p>
+<p><span class="math">\(\ \text{gdzie}\quad\gamma_0,\,\gamma_1,\,\gamma_2:\quad
+\langle\,p_0,p_3\rangle\,=\,\langle\,p_1,p_3\rangle\,=\,\langle\,p_2,p_3\rangle\,=\,0\,.\)</span></p>
+<p><span class="math">\(\ \langle\,p_0,p_3\rangle\,=\,2\,\gamma_0+\frac{2}{3}\,\gamma_2\,=\,0\,;\quad
+\langle\,p_1,p_3\rangle\,=\,\frac{2}{3}\,\gamma_1+\frac{2}{5}\,=\,0\,;\quad
+\langle\,p_2,p_3\rangle\,=\,\frac{8}{45}\,\gamma_2\,=\,0\,;\)</span></p>
+<p><span class="math">\(\ \text{skąd}\quad\gamma_0=\gamma_2=0\,,\quad\gamma_1=-\ \frac{3}{5}\,.\)</span></p>
+<p><span class="math">\(\ p_3(x)\,=\,x^3-\,\frac{3}{5}\,x\,;\qquad\|\,p_3\|\ =\ \frac{2}{5}\ \sqrt{\frac{2}{7}}\,.\)</span></p>
+<p><span class="math">\(\blacktriangleright\quad q_3(x)\ \,=\ \,
+\displaystyle\frac{1}{\|\,p_3\|}\ \ p_3(x)\ \ =\ \
+\frac{5}{2}\ \ \sqrt{\,\frac{7}{2}}\ \ \left(x^3-\,\frac{3}{5}\,x\right)\ =\
+\frac{1}{2}\ \ \sqrt{\,\frac{7}{2}}\ \ (5\,x^3-3\,x)\,.\)</span></p>
+</li>
+</ol>
+<div class="math">
+\[\mathcal{Q}\ \ =\ \ \left(\ \ \frac{1}{\sqrt{2}}\ ,\quad
+                            \sqrt{\,\frac{3}{2}}\ \ x\ ,\quad
+                            \frac{1}{2}\ \ \sqrt{\,\frac{5}{2}}\ \ (3\,x^2-\,1)\ ,\quad
+                            \frac{1}{2}\ \ \sqrt{\,\frac{7}{2}}\ \ (5\,x^3-3\,x)\ ,\ \
+                            \dots\
+                    \right)\]</div>
+</div>
+<div class="section" id="macierze-ortogonalne-i-rozklad-qr">
+<h2>Macierze ortogonalne i rozkład QR<a class="headerlink" href="p_unitarne_Gram-Schmidt_QR.html#macierze-ortogonalne-i-rozklad-qr" title="Stały odnośnik do tego nagłówka">¶</a></h2>
+<p>Rozważania w tej sekcji dotyczą dziedziny rzeczywistej,
+a więc macierzy rzeczywistych <span class="math">\(\\\)</span> i <span class="math">\(\,\)</span> przestrzeni euklidesowych.
+Później wprowadzone tu pojęcia i twierdzenia będą przeniesione do dziedziny zespolonej.</p>
+<div class="admonition-definicja admonition">
+<p class="first admonition-title">Definicja.</p>
+<p>Macierz <span class="math">\(\ \boldsymbol{B}\,=\,[\,\boldsymbol{b}_1\,|\,\boldsymbol{b}_2\,|\,\dots\,|\,
+\boldsymbol{b}_n\,]\,=\,[\,\beta_{ij}\,]_{n\times n}\in M_n(R)\ \,\)</span> jest <span class="math">\(\,\)</span>
+<em>ortogonalna</em>, <span class="math">\(\,\)</span> gdy</p>
+<div class="last math" id="equation-orthogonal">
+<span class="eqno">(2)</span>\[\boldsymbol{B}^T\boldsymbol{B}\,=\,\boldsymbol{I}_n\,.\]</div>
+</div>
+<p><strong>Własności</strong> macierzy ortogonalnych.</p>
+<ol class="arabic">
+<li><p class="first">Przyrównując do siebie wyznaczniki obu stron równania <a href="p_unitarne_Gram-Schmidt_QR.html#equation-orthogonal">(2)</a> otrzymujemy</p>
+<div class="math">
+\[\det\,(\boldsymbol{B}^T\boldsymbol{B})=\det\boldsymbol{B}^T\cdot\,\det\boldsymbol{B}=
+(\det\boldsymbol{B})^2\quad=\quad\det\boldsymbol{I}_n=1\,,\]</div>
+<p>skąd <span class="math">\(\,\det\boldsymbol{B}=\pm 1.\ \)</span> Macierz ortogonalna jest zatem nieosobliwa,
+a więc odwracalna: <span class="math">\(\ \boldsymbol{B}^{-1}=\,\boldsymbol{B}^T\,.\ \)</span>
+Mnożąc tę równość z lewej strony przez <span class="math">\(\ \boldsymbol{B}\ \)</span> otrzymamy
+<span class="math">\(\ \boldsymbol{B}\boldsymbol{B}^T=\boldsymbol{I}_n\,.\ \)</span> Macierze ortogonalne
+spełniają więc równości <span class="math">\(\ \ \boldsymbol{B}^T\boldsymbol{B}\,=\,
+\boldsymbol{B}\boldsymbol{B}^T=\boldsymbol{I}_n\,.\)</span></p>
+</li>
+<li><p class="first">Warunek <span class="math">\(\ \boldsymbol{B}\boldsymbol{B}^T=\boldsymbol{I}_n\ \)</span> można przepisać jako
+<span class="math">\(\ (\boldsymbol{B}^T)^T\boldsymbol{B}^T=\boldsymbol{I}_n\,,\ \)</span> z czego wynika,
+że jeśli <span class="math">\(\ \boldsymbol{B}\in M_n(R)\ \)</span> jest macierzą ortogonalną, to ortogonalna
+jest również macierz transponowana <span class="math">\(\ \boldsymbol{B}^T\ \)</span> oraz macierz odwrotna
+<span class="math">\(\ \boldsymbol{B}^{-1}\,.\)</span></p>
+</li>
+<li><p class="first">Niech <span class="math">\(\ \boldsymbol{B}_1,\boldsymbol{B}_2\in M_n(R)\ \)</span> będą macierzami ortogonalnymi:
+<span class="math">\(\ \ \boldsymbol{B}_1^T\,\boldsymbol{B}_1=\boldsymbol{B}_2^T\,\boldsymbol{B}_2=
+\boldsymbol{I}_n\,.\ \)</span>
+Wtedy, korzystając z własności operacji transponowania macierzy, otrzymujemy</p>
+<div class="math">
+\[(\boldsymbol{B}_1\boldsymbol{B}_2)^T(\boldsymbol{B}_1\boldsymbol{B}_2)\ =\
+\boldsymbol{B}_2^T\,(\boldsymbol{B}_1^T\boldsymbol{B}_1)\,\boldsymbol{B}_2\ =\
+\boldsymbol{B}_2^T\,\boldsymbol{I}_n\,\boldsymbol{B}_2\ =\
+\boldsymbol{B}_2^T\,\boldsymbol{B}_2\ =\ \boldsymbol{I}_n\,.\]</div>
+<p>Tak więc iloczyn macierzy ortogonalnych jest macierzą ortogonalną.
+Ponieważ macierz jednostkowa <span class="math">\(\ \boldsymbol{I}_n\ \)</span> jest ortogonalna,
+można zapisać</p>
+<div class="admonition-wniosek-1 admonition">
+<p class="first admonition-title">Wniosek 1.</p>
+<p class="last">Macierze ortogonalne stopnia <span class="math">\(\,n\ \)</span> tworzą (nieprzemienną) grupę
+ze względu na mnożenie  macierzowe.</p>
+</div>
+</li>
+<li><p class="first">Przechodząc do elementów macierzowych, warunek <a href="p_unitarne_Gram-Schmidt_QR.html#equation-orthogonal">(2)</a> można przepisać jako</p>
+<div class="math">
+\[\sum_{k\,=\,1}^n\ \beta_{ik}^T\;\beta_{kj}\,=\ \sum_{k\,=\,1}^n\ \beta_{ki}\;\beta_{kj}\,=\
+\langle\,\boldsymbol{b}_i,\boldsymbol{b}_j\rangle\ =\ \delta_{ij}\,,\qquad
+i,j=1,2,\dots,n\,.\]</div>
+<p>Oznacza to, że kolumny macierzy <span class="math">\(\,\boldsymbol{B},\,\)</span> interpretowane jako wektory
+przestrzeni <span class="math">\(\,R^n\,,\ \,\)</span> tworzą układ ortonormalny.
+Ponieważ macierz <span class="math">\(\ \boldsymbol{B}^T\ \)</span> jest również ortogonalna,
+to samo można powiedzieć o wierszach macierzy <span class="math">\(\ \boldsymbol{B}.\)</span></p>
+<div class="admonition-wniosek-2 admonition">
+<p class="first admonition-title">Wniosek 2.</p>
+<p class="last">Macierz <span class="math">\(\ \boldsymbol{B}\in M_n(R)\ \)</span> jest ortogonalna
+wtedy <span class="math">\(\,\)</span> i <span class="math">\(\,\)</span> tylko wtedy,
+gdy jej kolumny <span class="math">\(\,\)</span> (a także wiersze) <span class="math">\(\,\)</span>
+tworzą w przestrzeni <span class="math">\(\,R^n\ \)</span> układ ortonormalny.</p>
+</div>
+</li>
+</ol>
+<p>Niech będzie dana nieosobliwa macierz <span class="math">\(\ \boldsymbol{A}\,=\,
+[\,\boldsymbol{a}_1\,|\,\boldsymbol{a}_2\,|\,\dots\,|\,\boldsymbol{a}_n\,]\in M_n(R).\ \)</span>
+Jej kolumny są liniowo niezależne i tworzą w przestrzeni <span class="math">\(\,R^n\ \)</span> bazę
+<span class="math">\(\,\mathcal{B}=(\boldsymbol{a}_1\,,\,\boldsymbol{a}_2\,,\,\dots,\,\boldsymbol{a}_n)\,.\)</span>
+Zastosujemy do niej ortogonalizację Grama-Schmidta otrzymując ortogonalną bazę
+<span class="math">\(\,\mathcal{P}=(\boldsymbol{y}_1\,,\,\boldsymbol{y}_2\,,\,\dots,\,\boldsymbol{y}_n)\ \ \)</span>
+i <span class="math">\(\,\)</span> ortonormalną bazę
+<span class="math">\(\,\mathcal{Q}=(\boldsymbol{u}_1\,,\,\boldsymbol{u}_2\,,\,\dots,\,\boldsymbol{u}_n).\ \)</span>
+Wektory baz <span class="math">\(\,\mathcal{P}\ \,\text{i}\ \ \mathcal{Q}\ \)</span> są związane relacjami</p>
+<div class="math">
+\[\boldsymbol{u}_i\ =\ \,\frac{1}{\|\,\boldsymbol{y}_i\|}\ \ \boldsymbol{y}_i\,,
+\qquad i=1,2,\dots,n.\]</div>
+<p>Celem będzie przedstawienie macierzy <span class="math">\(\ \boldsymbol{A}\ \)</span>
+w postaci iloczynu ortogonalnej macierzy <span class="math">\(\\ \boldsymbol{Q}\,=\,
+[\,\boldsymbol{u}_1\,|\,\boldsymbol{u}_2\,|\,\dots\,|\,\boldsymbol{u}_n\,]\ \,\)</span>
+i <span class="math">\(\,\)</span> pewnej górnej (czyli prawej) macierzy trójkątnej <span class="math">\(\ \boldsymbol{R} :
+\ \boldsymbol{A}=\boldsymbol{Q}\boldsymbol{R}\,.\)</span></p>
+<p>Procedura Grama-Schmidta zastosowana do bazy <span class="math">\(\,\mathcal{B}\ \,\)</span> daje (<span class="math">\(j=2,\dots,n\)</span>) :</p>
+<div class="math">
+\[\begin{split}\begin{array}{rcl}
+\boldsymbol{y}_1 &amp; = &amp; \boldsymbol{a}_1\,, \\
+\boldsymbol{y}_j &amp; = &amp;
+\lambda_1\,\boldsymbol{y}_1\;+\ \lambda_2\,\boldsymbol{y}_2\;+\ \ldots\ +\
+\lambda_{j-1}\,\boldsymbol{y}_{j-1}\;+\ \boldsymbol{a}_j\;\ = \\
+&amp; = &amp; \boldsymbol{a}_j
+                \;-\ \langle\,\boldsymbol{u}_1,\boldsymbol{a}_j\rangle\ \,\boldsymbol{u}_1
+                \;-\ \langle\,\boldsymbol{u}_2,\boldsymbol{a}_j\rangle\ \,\boldsymbol{u}_2
+                \;-\ \ldots
+                \;-\ \langle\,\boldsymbol{u}_{j-1},\boldsymbol{a}_j\rangle\ \,
+                \boldsymbol{u}_{j-1}\,;
+\end{array}\end{split}\]</div>
+<p>(<span class="math">\(\,\lambda_i\ \)</span> zostały wyznaczone z warunków ortogonalności
+<span class="math">\(\,\langle\,\boldsymbol{y}_i,\boldsymbol{y}_j\rangle=0\,,\ \ i=1,2,\dots,j-1.\)</span>)</p>
+<p>Przedstawienie wektorów wyjściowej bazy <span class="math">\(\,\mathcal{B}\,\)</span>
+w ortonormalnej bazie <span class="math">\(\,\mathcal{Q}\,\)</span> jest więc następujące:</p>
+<div class="math">
+\[\begin{split}\begin{array}{rcl}
+\boldsymbol{a}_j &amp; = &amp; \langle\,\boldsymbol{u}_1,\boldsymbol{a}_j\rangle\ \,\boldsymbol{u}_1
+                  \;+\ \langle\,\boldsymbol{u}_2,\boldsymbol{a}_j\rangle\ \,\boldsymbol{u}_2
+                  \;+\ \ldots
+                  \;+\ \langle\,\boldsymbol{u}_{j-1},\boldsymbol{a}_j\rangle\ \,
+                                                     \boldsymbol{u}_{j-1}
+                  \;+\ \,\boldsymbol{y}_j\ \,= \\
+                 &amp; = &amp; \langle\,\boldsymbol{u}_1,\boldsymbol{a}_j\rangle\ \,\boldsymbol{u}_1
+                  \;+\ \langle\,\boldsymbol{u}_2,\boldsymbol{a}_j\rangle\ \,\boldsymbol{u}_2
+                  \;+\ \ldots
+                  \;+\ \langle\,\boldsymbol{u}_{j-1},\boldsymbol{a}_j\rangle\ \,
+                                                     \boldsymbol{u}_{j-1}
+                  \;+\ \,\|\,y_j\|\ \,\boldsymbol{u}_j\ \,= \\
+                 &amp; = &amp; \langle\,\boldsymbol{u}_1,\boldsymbol{a}_j\rangle\ \,\boldsymbol{u}_1
+                  \;+\ \langle\,\boldsymbol{u}_2,\boldsymbol{a}_j\rangle\ \,\boldsymbol{u}_2
+                  \;+\ \ldots
+                  \;+\ \langle\,\boldsymbol{u}_{j-1},\boldsymbol{a}_j\rangle\ \,
+                                                     \boldsymbol{u}_{j-1}
+                  \;+\ \langle\,\boldsymbol{u}_j,\boldsymbol{a}_j\rangle\ \,
+                                                 \boldsymbol{u}_j\,.
+\end{array}\end{split}\]</div>
+<p>Związki te można zapisać przy użyciu (górnej trójkątnej) macierzy
+<span class="math">\(\ \boldsymbol{R}\,=\,[\,\rho_{ij}\,]_{n\times n}\,:\)</span></p>
+<div class="math">
+\[\begin{split}\rho_{ij}\ \ :\,=\ \
+\left\{\
+\begin{array}{ccc}
+\langle\,\boldsymbol{u}_i,\boldsymbol{a}_j\rangle &amp; \text{dla} &amp; i\leq j \\
+                         0                        &amp; \text{dla} &amp;  i &gt; j
+\end{array}
+\right.,\quad i,j=1,2,\dots,n\,.\end{split}\]\[\boldsymbol{a}_j\ \;=\ \
+\sum_{i\,=\,1}^j\ \langle\,\boldsymbol{u}_i,\boldsymbol{a}_j\rangle\ \boldsymbol{u}_i\ \ =\ \
+\sum_{i\,=\,1}^n\ \rho_{ij}\;\boldsymbol{u}_i\,,\qquad j=1,2,\dots,n.\]</div>
+<p>Ostatnia równość stwierdza, że <span class="math">\(\,j\)</span>-ta kolumna macierzy <span class="math">\(\,\boldsymbol{A}\ \)</span>
+jest kombinacją liniową kolumn macierzy <span class="math">\(\,\boldsymbol{Q},\ \)</span> o współczynnikach
+z <span class="math">\(\,j\)</span>-tej kolumny macierzy <span class="math">\(\,\boldsymbol{R}.\ \)</span>
+Według kolumnowej reguły mnożenia macierzowego oznacza to zależność
+<span class="math">\(\ \boldsymbol{A}=\boldsymbol{Q}\boldsymbol{R}\,,\ \)</span> jaką właśnie należało wyprowadzić.</p>
+<p><strong>Zastosowanie rozkładu QR.</strong> <span class="math">\(\ \)</span></p>
+<p>Niech będzie dany kramerowski układ równań nad ciałem <span class="math">\(\,R\ \)</span> z macierzą współczynników
+<span class="math">\(\,\boldsymbol{A}\in M_n(R)\ \)</span>
+i kolumną wolnych wyrazów <span class="math">\(\,\boldsymbol{b}\in R^n\,.\ \)</span>
+Dysponując rozkładem <span class="math">\(\ \boldsymbol{A}=\boldsymbol{Q}\boldsymbol{R}\ \)</span>
+można ten układ przekształcić następująco:</p>
+<div class="math">
+\[\begin{eqnarray*}
+\boldsymbol{A}\,\boldsymbol{x}                 & \!\! = \!\! & \boldsymbol{b}\,, \\
+(\boldsymbol{Q}\boldsymbol{R})\,\boldsymbol{x} & \!\! = \!\! & \boldsymbol{b}\,, \\
+\boldsymbol{Q}(\boldsymbol{R}\boldsymbol{x})   & \!\! = \!\! & \boldsymbol{b}\,.
+\end{eqnarray*}\]</div><p>Ortogonalność macierzy <span class="math">\(\,\boldsymbol{Q}\,\)</span> pozwala zastąpić kosztowną operację wyliczenia odwrotności przez transpozycję: <span class="math">\(\ \ \boldsymbol{Q}^{-1}=\;\boldsymbol{Q}^T,\ \ \)</span>
+wobec czego</p>
+<div class="math">
+\[\boldsymbol{R}\,\boldsymbol{x}\ =\ \boldsymbol{Q}^T\,\boldsymbol{b}\,.\]</div>
+<p>Układ równań z trójkątną macierzą <span class="math">\(\,\boldsymbol{R}\ \)</span> rozwiązuje się
+szybko metodą podstawiania &#8220;wstecz&#8221;.</p>
+<p>Dla przykładu przeprowadzimy rozkład QR dla macierzy</p>
+<div class="math">
+\[\begin{split}\boldsymbol{A}\ =\
+\left[\begin{array}{rrr}
+-2 &amp;  8 &amp;  19 \\
+-2 &amp; 11 &amp; -14 \\
+ 1 &amp; -7 &amp;  -8
+\end{array}\right]\,.\end{split}\]</div>
+<p>Ortogonalizacja Grama-Schmidta zastosowana do układu kolumn macierzy <span class="math">\(\,\boldsymbol{A}\ \)</span>
+da macierz <span class="math">\(\,\boldsymbol{P}\ \)</span> o kolumnach tworzących układ ortogonalny oraz docelową
+ortogonalną macierz <span class="math">\(\,\boldsymbol{Q}.\ \\\)</span>
+Znając <span class="math">\(\,\boldsymbol{Q},\ \)</span> macierz <span class="math">\(\,\boldsymbol{R}\ \)</span>
+można łatwo wyliczyć jako <span class="math">\(\ \boldsymbol{R}=\boldsymbol{Q}^T\boldsymbol{A}\,.\)</span></p>
+<div class="highlight-python"><div class="highlight"><pre><span class="n">sage</span><span class="p">:</span> <span class="n">A</span> <span class="o">=</span> <span class="n">matrix</span><span class="p">(</span><span class="n">QQ</span><span class="p">,[[</span><span class="o">-</span><span class="mi">2</span><span class="p">,</span>  <span class="mi">8</span><span class="p">,</span>  <span class="mi">19</span><span class="p">],</span>
+<span class="o">...</span>                  <span class="p">[</span><span class="o">-</span><span class="mi">2</span><span class="p">,</span> <span class="mi">11</span><span class="p">,</span> <span class="o">-</span><span class="mi">14</span><span class="p">],</span>
+<span class="o">...</span>                  <span class="p">[</span> <span class="mi">1</span><span class="p">,</span> <span class="o">-</span><span class="mi">7</span><span class="p">,</span>  <span class="o">-</span><span class="mi">8</span><span class="p">]])</span>
+
+<span class="n">sage</span><span class="p">:</span> <span class="n">P</span><span class="p">,</span><span class="n">Q</span> <span class="o">=</span> <span class="n">copy</span><span class="p">(</span><span class="n">A</span><span class="p">),</span><span class="n">copy</span><span class="p">(</span><span class="n">A</span><span class="p">)</span>
+
+<span class="n">sage</span><span class="p">:</span> <span class="n">P</span><span class="p">[:,</span><span class="mi">0</span><span class="p">]</span> <span class="o">=</span> <span class="n">A</span><span class="p">[:,</span><span class="mi">0</span><span class="p">]</span>
+<span class="n">sage</span><span class="p">:</span> <span class="n">Q</span><span class="p">[:,</span><span class="mi">0</span><span class="p">]</span> <span class="o">=</span> <span class="n">P</span><span class="p">[:,</span><span class="mi">0</span><span class="p">]</span><span class="o">/</span><span class="n">P</span><span class="p">[:,</span><span class="mi">0</span><span class="p">]</span><span class="o">.</span><span class="n">norm</span><span class="p">()</span>
+
+<span class="n">sage</span><span class="p">:</span> <span class="n">P</span><span class="p">[:,</span><span class="mi">1</span><span class="p">]</span> <span class="o">=</span> <span class="n">A</span><span class="p">[:,</span><span class="mi">1</span><span class="p">]</span> <span class="o">-</span> <span class="n">Q</span><span class="o">.</span><span class="n">column</span><span class="p">(</span><span class="mi">0</span><span class="p">)</span><span class="o">*</span><span class="n">A</span><span class="o">.</span><span class="n">column</span><span class="p">(</span><span class="mi">1</span><span class="p">)</span><span class="o">*</span><span class="n">Q</span><span class="p">[:,</span><span class="mi">0</span><span class="p">]</span>
+<span class="n">sage</span><span class="p">:</span> <span class="n">Q</span><span class="p">[:,</span><span class="mi">1</span><span class="p">]</span> <span class="o">=</span> <span class="n">P</span><span class="p">[:,</span><span class="mi">1</span><span class="p">]</span><span class="o">/</span><span class="n">P</span><span class="p">[:,</span><span class="mi">1</span><span class="p">]</span><span class="o">.</span><span class="n">norm</span><span class="p">()</span>
+
+<span class="n">sage</span><span class="p">:</span> <span class="n">P</span><span class="p">[:,</span><span class="mi">2</span><span class="p">]</span> <span class="o">=</span> <span class="n">A</span><span class="p">[:,</span><span class="mi">2</span><span class="p">]</span> <span class="o">-</span> <span class="n">Q</span><span class="o">.</span><span class="n">column</span><span class="p">(</span><span class="mi">0</span><span class="p">)</span><span class="o">*</span><span class="n">A</span><span class="o">.</span><span class="n">column</span><span class="p">(</span><span class="mi">2</span><span class="p">)</span><span class="o">*</span><span class="n">Q</span><span class="p">[:,</span><span class="mi">0</span><span class="p">]</span>\
+<span class="o">...</span>                   <span class="o">-</span> <span class="n">Q</span><span class="o">.</span><span class="n">column</span><span class="p">(</span><span class="mi">1</span><span class="p">)</span><span class="o">*</span><span class="n">A</span><span class="o">.</span><span class="n">column</span><span class="p">(</span><span class="mi">2</span><span class="p">)</span><span class="o">*</span><span class="n">Q</span><span class="p">[:,</span><span class="mi">1</span><span class="p">]</span>
+
+<span class="n">sage</span><span class="p">:</span> <span class="n">Q</span><span class="p">[:,</span><span class="mi">2</span><span class="p">]</span> <span class="o">=</span> <span class="n">P</span><span class="p">[:,</span><span class="mi">2</span><span class="p">]</span><span class="o">/</span><span class="n">P</span><span class="p">[:,</span><span class="mi">2</span><span class="p">]</span><span class="o">.</span><span class="n">norm</span><span class="p">()</span>
+
+<span class="n">sage</span><span class="p">:</span> <span class="n">R</span> <span class="o">=</span> <span class="n">Q</span><span class="o">.</span><span class="n">T</span><span class="o">*</span><span class="n">A</span>
+
+<span class="n">sage</span><span class="p">:</span> <span class="n">html</span><span class="o">.</span><span class="n">table</span><span class="p">([[</span><span class="s">&#39;$A$&#39;</span><span class="p">,</span><span class="s">&#39;&#39;</span><span class="p">,</span><span class="s">&#39;$Q$&#39;</span><span class="p">,</span><span class="s">&#39;&#39;</span><span class="p">,</span><span class="s">&#39;$R$&#39;</span><span class="p">],[</span><span class="n">A</span><span class="p">,</span><span class="s">&#39;=&#39;</span><span class="p">,</span><span class="n">Q</span><span class="p">,</span><span class="s">&#39;*&#39;</span><span class="p">,</span><span class="n">R</span><span class="p">]])</span>
+</pre></div>
+</div>
+<div class="math">
+\[\begin{split}\begin{array}{ccccc}
+A &amp; &amp; Q &amp; &amp; R \\ \\
+\left(\begin{array}{rrr} -2 &amp; 8 &amp; 19 \\ -2 &amp; 11 &amp; -14 \\ 1 &amp; -7 &amp; -8 \end{array}\right) &amp; = &amp;
+\left(\begin{array}{rrr}
+-\textstyle\frac{2}{3} &amp; -\textstyle\frac{2}{3} &amp; \textstyle\frac{1}{3} \\
+-\textstyle\frac{2}{3} &amp; \textstyle\frac{1}{3} &amp; -\textstyle\frac{2}{3} \\
+ \textstyle\frac{1}{3} &amp; -\textstyle\frac{2}{3} &amp; -\textstyle\frac{2}{3} \end{array}\right) &amp; * &amp;
+\left(\begin{array}{rrr} 3 &amp; -15 &amp; -6 \\ 0 &amp; 3 &amp; -12 \\ 0 &amp; 0 &amp; 21 \end{array}\right)
+\end{array}\end{split}\]</div>
+<p>W systemie Sage istnieje funkcja (metoda) <tt class="docutils literal"><span class="pre">QR()</span></tt>, która wykonuje rozkład QR dla zadanej macierzy
+<span class="math">\(\,\boldsymbol{A}\ \)</span> i zwraca parę macierzy <span class="math">\(\,(\boldsymbol{Q},\boldsymbol{R})\,.\ \)</span>
+Wymagany jest dokładny pierścień, zawierający liczby wymierne i pierwiastki kwadratowe (np. ciało liczb algebraicznych <tt class="docutils literal"><span class="pre">QQbar</span></tt>). Obliczenia numeryczne powinny być wykonane w ciele <tt class="docutils literal"><span class="pre">RDF</span></tt> liczb podwójnej precyzji.</p>
+<div class="highlight-python"><div class="highlight"><pre><span class="n">sage</span><span class="p">:</span> <span class="n">B</span> <span class="o">=</span> <span class="n">A</span><span class="o">.</span><span class="n">change_ring</span><span class="p">(</span><span class="n">RDF</span><span class="p">)</span>
+<span class="n">sage</span><span class="p">:</span> <span class="p">(</span><span class="n">Q</span><span class="p">,</span><span class="n">R</span><span class="p">)</span> <span class="o">=</span> <span class="n">B</span><span class="o">.</span><span class="n">QR</span><span class="p">()</span>
+<span class="n">sage</span><span class="p">:</span> <span class="n">show</span><span class="p">((</span><span class="n">Q</span><span class="o">.</span><span class="n">round</span><span class="p">(</span><span class="mi">2</span><span class="p">),</span><span class="n">R</span><span class="p">))</span>
+</pre></div>
+</div>
+<div class="math">
+\[\begin{split}\left(\left(
+\begin{array}{rrr}
+-0.67 &amp; 0.67 &amp; -0.33 \\
+-0.67 &amp; -0.33 &amp; 0.67 \\
+ 0.33 &amp; 0.67 &amp; 0.67
+\end{array}\right),
+\left(\begin{array}{rrr}
+ 3.0 &amp; -15.0 &amp; -6.0 \\
+ 0.0 &amp; -3.0 &amp; 12.0 \\
+-0.0 &amp; -0.0 &amp; -21.0
+\end{array}\right)\right)\end{split}\]</div>
+</div>
+</div>
+
+
+          </div>
+        </div>
+      </div>
+      <div class="sphinxsidebar">
+        <div class="sphinxsidebarwrapper">
+  <div class="sphinxlocaltoc">
+  <h3><a href="http://visual.icse.us.edu.pl/LA/index.html">Spis treści</a></h3>
+  <ul>
+<li><a class="reference internal" href="p_unitarne_Gram-Schmidt_QR.html#">Ortogonalizacja Grama-Schmidta. Rozkład QR</a><ul>
+<li><a class="reference internal" href="p_unitarne_Gram-Schmidt_QR.html#konstrukcja-bazy-ortonormalnej">Konstrukcja bazy ortonormalnej</a></li>
+<li><a class="reference internal" href="p_unitarne_Gram-Schmidt_QR.html#macierze-ortogonalne-i-rozklad-qr">Macierze ortogonalne i rozkład QR</a></li>
+</ul>
+</li>
+</ul>
+
+  </div>
+  <h4>Poprzedni temat</h4>
+  <p class="topless"><a href="p_unitarne_ortogonalnosc.html"
+                        title="poprzedni rozdział">Ortogonalność wektorów</a></p>
+  <h4>Następny temat</h4>
+  <p class="topless"><a href="p_unitarne_macierze_hermit_i_unit.html"
+                        title="następny rozdział">Macierze hermitowskie i unitarne</a></p>
+<div id="searchbox" style="display: none">
+  <h3>Szybkie wyszukiwanie</h3>
+    <form class="search" action="search.html" method="get">
+      <input type="text" name="q" />
+      <input type="submit" value="Szukaj" />
+      <input type="hidden" name="check_keywords" value="yes" />
+      <input type="hidden" name="area" value="default" />
+    </form>
+    <p class="searchtip" style="font-size: 90%">
+    Wprowadź szukany termin lub nazwę modułu, klasy lub funkcji.
+    </p>
+</div>
+<script type="text/javascript">$('#searchbox').show(0);</script>
+        </div>
+      </div>
+      <div class="clearer"></div>
+    </div>
+  </div>
+  <div class="relbar-bottom">
+    
+    <div class="related">
+      <h3>Nawigacja</h3>
+      <ul>
+        <li class="right" style="margin-right: 10px">
+          <a href="p_unitarne_macierze_hermit_i_unit.html" title="Macierze hermitowskie i unitarne"
+             >dalej</a></li>
+        <li class="right" >
+          <a href="p_unitarne_ortogonalnosc.html" title="Ortogonalność wektorów"
+             >wstecz</a> &nbsp; &nbsp;</li>
+  <li><a href="http://visual.icse.us.edu.pl/LA/index.html">Algebra Liniowa</a> &raquo;</li>
+   
+      </ul>
+    </div>
+  </div>
+  
+  <div class="footer">
+    <a class="logo" href="../../icse.us.edu.pl/index.html" target="_blank"><img src="_static/logo-icse.png" alt="ICSE"/></a><br/>
+    &copy; Copyright 2013, Marcin Kostur.
+    Created using <a href="http://sphinx.pocoo.org/">Sphinx</a> 1.2.2.
+  </div>
+  </body>
+</html>

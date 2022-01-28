@@ -1,0 +1,438 @@
+
+
+  <!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+  "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+
+
+<html xmlns="http://www.w3.org/1999/xhtml">
+  <head>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    
+    <title>Zmienne &mdash; Warsztaty</title>
+    
+    <link rel="stylesheet" href="_static/cloud.css" type="text/css" />
+    <link rel="stylesheet" href="_static/pygments.css" type="text/css" />
+    <link rel="stylesheet" href="http://fonts.googleapis.com/css?family=Noticia+Text|Open+Sans|Droid+Sans+Mono&subset=latin,latin-ext" type="text/css" />
+    
+    <script type="text/javascript">
+      var DOCUMENTATION_OPTIONS = {
+        URL_ROOT:    './',
+        VERSION:     'I',
+        COLLAPSE_INDEX: false,
+        FILE_SUFFIX: '.html',
+        HAS_SOURCE:  true
+      };
+    </script>
+    <script type="text/javascript" src="_static/jquery.js"></script>
+    <script type="text/javascript" src="_static/underscore.js"></script>
+    <script type="text/javascript" src="_static/doctools.js"></script>
+    <script type="text/javascript" src="_static/translations.js"></script>
+    <script type="text/javascript" src="http://cdn.mathjax.org/mathjax/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML"></script>
+    <script type="text/javascript" src="_static/jquery.cookie.js"></script>
+    <script type="text/javascript" src="_static/cloud.js"></script>
+
+
+
+    <script src="http://sagecell.icse.us.edu.pl:6363/static/jquery.min.js"></script>
+	<script src="http://sagecell.icse.us.edu.pl:6363/static/embedded_sagecell.js"></script>
+
+	<script>sagecell.makeSagecell({inputLocation: ".sage",
+                                       evalButtonText: 'Wykonaj',
+                                       linked: true});</script>
+
+	<style type="text/css">
+		.sagecell .CodeMirror-scroll {
+			overflow-y: hidden;
+			overflow-x: auto;
+		}
+		.sagecell .CodeMirror {
+			height: auto;
+		}
+	</style>
+
+    
+    <link rel="top" title="Warsztaty" href="index.html" />
+    <link rel="up" title="&lt;no title&gt;" href="sagewfizyce.html" />
+    <link rel="next" title="Typy złożone i pętle" href="iCSE_ITechninf03_z77_typy_zlozone_i_petle.html" />
+    <link rel="prev" title="Zadania z fizyki" href="iCSE_ITechninf05_z80_mechanika.html" />
+ 
+  <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, minimum-scale=1">
+  </head>
+  <body>
+  <div class="relbar-top">
+    
+    <div class="related">
+      <h3>Nawigacja</h3>
+      <ul>
+        <li class="right" style="margin-right: 10px">
+          <a href="iCSE_ITechninf03_z77_typy_zlozone_i_petle.html" title="Typy złożone i pętle"
+             accesskey="N">dalej</a></li>
+        <li class="right" >
+          <a href="iCSE_ITechninf05_z80_mechanika.html" title="Zadania z fizyki"
+             accesskey="P">wstecz</a> &nbsp; &nbsp;</li>
+  <li><a href="index.html">Warsztaty</a> &raquo;</li>
+  
+          <li><a href="sagewfizyce.html" accesskey="U">&lt;no title&gt;</a> &raquo;</li> 
+      </ul>
+    </div>
+  </div>
+  
+  <div class="content">  
+
+    <div class="document">
+      <div class="documentwrapper">
+        <div class="bodywrapper">
+          <div class="body">
+            
+  <div class="section" id="zmienne">
+<h1>Zmienne<a class="headerlink" href="iCSE_ITechninf02_z11.html#zmienne" title="Stały odnośnik do tego nagłówka">¶</a></h1>
+<div class="section" id="uzywanie-zmiennych">
+<h2>Używanie zmiennych<a class="headerlink" href="iCSE_ITechninf02_z11.html#uzywanie-zmiennych" title="Stały odnośnik do tego nagłówka">¶</a></h2>
+<p>Wróćmy na chwilę do zadania z podrzucaniem piłki w górę.</p>
+<p><strong>Zadanie: Ruch pionowy w polu grawitacyjnym Ziemi</strong></p>
+<p>W górę rzucono piłkę. Zaniedbując siły oporu, oblicz na jaką wysokość  wzniesie się piłka po 0.54 sekundy, jeżeli wartość początkowa prędkości wynosiła 3.44 m/s.</p>
+<p>Rozwiązaliśmy ten problem już dwukrotnie - raz bez zmiennych, a drugi raz ze zmiennymi. Zatrzymajmy się teraz na tym samym problemie, ale skupmy się nie na rozwiązaniu, a na metodyce wykorzystania zmiennych. Pamiętamy, że rozwiązanie dane jest wzorem</p>
+<div class="math" id="equation-Z1">
+<span class="eqno">(1)</span>\[h(t) = {v}_{0}t -{1\over 2}g{t}^{2}\]</div>
+<p>możemy  zatem  napisać  w  Sage</p>
+<div class="highlight-python"><div class="highlight"><pre><span class="n">sage</span><span class="p">:</span> <span class="n">a</span> <span class="o">=</span> <span class="mf">9.81</span>
+<span class="n">sage</span><span class="p">:</span> <span class="n">b</span> <span class="o">=</span> <span class="mf">0.54</span>
+<span class="n">sage</span><span class="p">:</span> <span class="n">c</span> <span class="o">=</span> <span class="mf">3.44</span>
+<span class="n">sage</span><span class="p">:</span> <span class="n">d</span> <span class="o">=</span> <span class="n">c</span> <span class="o">*</span> <span class="n">b</span> <span class="o">-</span> <span class="mf">0.5</span> <span class="o">*</span> <span class="n">a</span> <span class="o">*</span> <span class="n">b</span> <span class="o">^</span> <span class="mi">2</span>
+<span class="n">sage</span><span class="p">:</span> <span class="n">d</span>
+</pre></div>
+</div>
+<p>co zwróci nam oczywiście poprawne rozwiązanie. Jeżeli teraz ktoś zapyta się nas  a jak wysoko owa piłka poleci po 0.1 sekundy?</p>
+<p>Mając dostępny wzór <a href="iCSE_ITechninf02_z11.html#equation-Z1">(1)</a> bez problemu zidentyfikujemy zmienne jako: <span class="math">\({v}_{0} = c,t = b\)</span> i <span class="math">\(g = a\)</span>. Gorzej, jeżeli wzoru nie widzimy. Może pamiętacie w jaki sposób podano rozwiązanie za pomocą zmiennych na poprzedniej lekcji? Wybór nazw zmiennych nie był przypadkowy – dobrano je tak, aby jak najbardziej przypominały równanie <a href="iCSE_ITechninf02_z11.html#equation-Z1">(1)</a>.</p>
+<div class="highlight-python"><div class="highlight"><pre><span class="n">sage</span><span class="p">:</span> <span class="n">g</span> <span class="o">=</span> <span class="mf">9.81</span>
+<span class="n">sage</span><span class="p">:</span> <span class="n">t</span> <span class="o">=</span> <span class="mf">0.54</span>
+<span class="n">sage</span><span class="p">:</span> <span class="n">v0</span> <span class="o">=</span> <span class="mf">3.44</span>
+<span class="n">sage</span><span class="p">:</span> <span class="n">h</span> <span class="o">=</span> <span class="n">v0</span> <span class="o">*</span> <span class="n">t</span> <span class="o">-</span> <span class="mf">0.5</span> <span class="o">*</span> <span class="n">g</span> <span class="o">*</span> <span class="n">t</span> <span class="o">^</span> <span class="mi">2</span>
+</pre></div>
+</div>
+<p>W przypadku dość intuicyjnego (dla fizyka) nazewnictwa zmiennych w równaniu <a href="iCSE_ITechninf02_z11.html#equation-Z1">(1)</a>, zrozumienie powyższego kodu nie powinno dla nikogo (z nas) stanowić problemu. Pamiętajcie: możemy jednak zapisać powyższe równanie w dowolny sposób</p>
+<ul class="simple">
+<li>niezrozumiale, wykorzystując pierwsze lepsze nazwy dla zmiennych</li>
+<li>bardziej  zrozumiale,  choć  nieco  hermetycznie,  wykorzystując  naturalne  nazewnictwo zmiennych, np: z podręcznika do fizyki</li>
+<li>stosując  pełne  nazwy,  co  daje  nam  pełne  informacje  o  problemie     (zazwyczaj)</li>
+</ul>
+<div class="highlight-python"><div class="highlight"><pre><span class="n">sage</span><span class="p">:</span> <span class="n">przyspieszenie_ziemskie</span> <span class="o">=</span> <span class="mf">9.81</span>
+<span class="n">sage</span><span class="p">:</span> <span class="n">czas</span> <span class="o">=</span> <span class="mf">0.54</span>
+<span class="n">sage</span><span class="p">:</span> <span class="n">predkosc_poczatkowa</span> <span class="o">=</span> <span class="mf">3.44</span>
+<span class="o">...</span>
+<span class="n">sage</span><span class="p">:</span> <span class="n">wysokosc_pilki</span> <span class="o">=</span> <span class="n">predkosc_poczatkowa</span> <span class="o">*</span> <span class="n">czas</span> <span class="o">-</span> <span class="mf">0.5</span> <span class="o">*</span>
+<span class="o">...</span>      <span class="n">przyspieszenie_ziemskie</span> <span class="o">*</span> <span class="n">czas</span> <span class="o">^</span> <span class="mi">2</span>
+</pre></div>
+</div>
+<p>Takie podejście do użycia zmiennych ma swoje plusy i minusy. Plusem jest czytelność rozwiązania. Minusem długość kodu i czas potrzebny na wprowadzenie takiej ilości tekstu (z czasem ten problem znika). Plusem łatwość modyfikacji i rozszerzania problemu (możemy dodać np: zmienną  przyspieszenie_ksiezyc = 1.622 i później łatwo i czytelnie wykorzystać ją w kodzie). Minusem (ale tylko dla alfabetów niespójnych z  <a class="reference external" href="http://pl.wikipedia.org/wiki/ASCII">ASCII</a> ) jest konieczność pisania  po polsku. Sami zdecydujecie w toku nauki programowania jaki styl kodu najbardziej Wam odpowiada - bardziej hermetyczny i szybszy kod wykorzystujący typowe stałe matematyczno/fizyczne oraz intuicję programisty, czy sposób wykorzystujący pełne nazwy. Często stosuje się też swego rodzaju mieszaninę ich obu, ale  nigdy nie powinniśmy programować używając pierwszych z brzegu nazw zmiennych.</p>
+<p>Istnieją pewne reguły, do których można i powinno się stosować. Część z nich powoduje po prostu błędy, inne są wynikiem pewnych przyjętych standardów programowania.</p>
+<p>W Sage (i w języku Python) nie musimy deklarować typu zmiennej, typ jest ściśle związany z wartością zmiennej, nie z jej identyfikatorem. Identyfikator (nazwa) zmiennej, może się składać z dowolnych liter, znaku podkreślenia oraz cyfr. Zwykłe zmienne powinny się rozpoczynać od litery, zmienne zaczynające lub kończące się od znaku podkreślenia mają zwykle specjalne znaczenie, zatem lepiej ich unikać, choć znak podkreślenia wewnątrz zmiennej jest dozwolony. Nazwy zmiennych nie mogą zaczynać się od cyfry. Należy zwrócić uwagę na fakt, że Sage (Python) rozróżnia wielkość liter.</p>
+<div class="highlight-python"><div class="highlight"><pre><span class="n">sage</span><span class="p">:</span> <span class="n">x</span> <span class="o">=</span> <span class="mi">0</span>
+<span class="n">sage</span><span class="p">:</span> <span class="n">X</span> <span class="o">=</span> <span class="mi">0</span>
+<span class="n">sage</span><span class="p">:</span> <span class="n">zmienna</span> <span class="o">=</span> <span class="mi">0</span> <span class="c"># zalecane dla nazw modulw</span>
+<span class="n">sage</span><span class="p">:</span> <span class="n">ZMIENNA</span> <span class="o">=</span> <span class="mi">0</span>
+<span class="n">sage</span><span class="p">:</span> <span class="n">pewna_zmienna</span> <span class="o">=</span> <span class="mi">0</span> <span class="c"># zalecane dla nazw funkcji i metod</span>
+<span class="n">sage</span><span class="p">:</span> <span class="n">PEWNA_ZMIENNA</span> <span class="o">=</span> <span class="mi">0</span> <span class="c"># zalecane dla stalych</span>
+<span class="n">sage</span><span class="p">:</span> <span class="n">pewnaZmienna</span> <span class="o">=</span> <span class="mi">0</span>
+<span class="n">sage</span><span class="p">:</span> <span class="n">PewnaZmienna</span> <span class="o">=</span> <span class="mi">0</span> <span class="c"># zalecane dla nazw klas</span>
+</pre></div>
+</div>
+<p>Do przypisania wartości do zmiennej służy operator przypisania (=). Powyżej do wszystkich zmiennych przypisaliśmy wartość <span class="math">\(0\)</span>. Oczywiście musimy być ostrożni, nie powinniśmy przypisywać nowych wartości nazwom już zdefiniowanym, może to prowadzić do nieoczekiwanych rezultatów:</p>
+<div class="highlight-python"><div class="highlight"><pre><span class="n">sage</span><span class="p">:</span> <span class="n">sin</span><span class="p">(</span><span class="n">pi</span><span class="p">)</span>
+</pre></div>
+</div>
+<p>teraz  przypiszemy  sobie</p>
+<div class="highlight-python"><div class="highlight"><pre><span class="n">sage</span><span class="p">:</span> <span class="n">sin</span> <span class="o">=</span> <span class="s">&#39;Ala ma kota&#39;</span>
+<span class="o">...</span>
+<span class="o">...</span>
+<span class="n">sage</span><span class="p">:</span> <span class="n">sin</span><span class="p">(</span><span class="n">pi</span><span class="p">)</span>
+</pre></div>
+</div>
+<p>W ten sposób uszkodziliśmy funkcję sinus, przypisując pod nazwę sin napis. Pakiet Sage dostarcza funkcję  restore, która pozwala na przywrócenie domyślnej definicji danej nazwy:</p>
+<div class="highlight-python"><div class="highlight"><pre><span class="n">sage</span><span class="p">:</span> <span class="n">restore</span><span class="p">(</span><span class="s">&#39;sin&#39;</span><span class="p">)</span>
+<span class="n">sage</span><span class="p">:</span> <span class="n">sin</span><span class="p">(</span><span class="n">pi</span><span class="p">)</span>
+</pre></div>
+</div>
+<p>Jak widzieliśmy już wcześniej, aby podzielić długą linię, należy użyć znaku  \  (wsteczny ukośnik, lewy ukośnik).</p>
+<div class="highlight-python"><div class="highlight"><pre><span class="n">sage</span><span class="p">:</span> <span class="n">zmienna</span> <span class="o">=</span> \
+<span class="o">...</span>       <span class="mi">0</span>
+</pre></div>
+</div>
+<p>należy jednak pamiętać, żeby po znaku ukośnika nie wpisywać żadnych znaków (w tym znaków białych).</p>
+<div class="section" id="nazwy-zarezerwowane">
+<h3>Nazwy zarezerwowane<a class="headerlink" href="iCSE_ITechninf02_z11.html#nazwy-zarezerwowane" title="Stały odnośnik do tego nagłówka">¶</a></h3>
+<p>W Sage jako pewnego rodzaju potomku języka Python występują nazwy, których nie możemy użyć jako nazw zmiennych, tzw. nazwy zarezerwowane. Oto ich lista:</p>
+<p><tt class="docutils literal"><span class="pre">and</span> <span class="pre">&nbsp;assert</span> <span class="pre">&nbsp;break</span> <span class="pre">&nbsp;class</span> <span class="pre">&nbsp;continue</span></tt></p>
+<p><tt class="docutils literal"><span class="pre">def</span> <span class="pre">&nbsp;del</span> <span class="pre">&nbsp;elif</span> <span class="pre">&nbsp;else</span> <span class="pre">&nbsp;except</span></tt></p>
+<p><tt class="docutils literal"><span class="pre">exec</span> <span class="pre">&nbsp;finally</span> <span class="pre">&nbsp;for</span> <span class="pre">&nbsp;from</span> <span class="pre">&nbsp;global</span></tt></p>
+<p><tt class="docutils literal"><span class="pre">if</span> <span class="pre">&nbsp;import</span> <span class="pre">&nbsp;in</span> <span class="pre">&nbsp;is</span> <span class="pre">&nbsp;lambda</span></tt></p>
+<p><tt class="docutils literal"><span class="pre">not</span> <span class="pre">&nbsp;or</span> <span class="pre">&nbsp;pass</span> <span class="pre">&nbsp;print</span> <span class="pre">&nbsp;raise</span></tt></p>
+<p><tt class="docutils literal"><span class="pre">return</span> <span class="pre">&nbsp;try</span> <span class="pre">&nbsp;while</span></tt></p>
+<p>Nie powinno się również używać poniższych nazw, aczkolwiek nie są to słowa zarezerwowane. Użycie ich spowoduje jednak konflikt z dość szeroko używanymi funkcjami Python-a.</p>
+<p><tt class="docutils literal"><span class="pre">Data</span> <span class="pre">&nbsp;float</span> <span class="pre">&nbsp;Int</span> <span class="pre">&nbsp;Numeric</span> <span class="pre">&nbsp;Oxphys</span></tt></p>
+<p><tt class="docutils literal"><span class="pre">array</span> <span class="pre">&nbsp;close</span> <span class="pre">&nbsp;float</span> <span class="pre">&nbsp;int</span> <span class="pre">&nbsp;input</span></tt></p>
+<p><tt class="docutils literal"><span class="pre">open</span> <span class="pre">&nbsp;range</span> <span class="pre">&nbsp;type</span> <span class="pre">&nbsp;write</span> <span class="pre">&nbsp;zeros</span></tt></p>
+<p>Powinno się również unikać stosowania nazw popularnych funkcji matematycznych.</p>
+<p><tt class="docutils literal"><span class="pre">acos</span> <span class="pre">&nbsp;asin</span> <span class="pre">&nbsp;atan</span> <span class="pre">&nbsp;cos</span> <span class="pre">&nbsp;e</span></tt></p>
+<p><tt class="docutils literal"><span class="pre">exp</span> <span class="pre">&nbsp;fabs</span> <span class="pre">&nbsp;floor</span> <span class="pre">&nbsp;log</span> <span class="pre">&nbsp;log10</span></tt></p>
+<p><tt class="docutils literal"><span class="pre">pi</span> <span class="pre">&nbsp;sin</span> <span class="pre">&nbsp;sqrt</span> <span class="pre">&nbsp;tan</span></tt></p>
+<p><strong>Uwaga:</strong>  Jeżeli jednak zdarzy się nam użyć którejś z powyższych nazw (oprócz tych zastrzeżonych), zawsze można odzyskać ją funkcją  restore().</p>
+</div>
+</div>
+<div class="section" id="komentarze">
+<h2>Komentarze<a class="headerlink" href="iCSE_ITechninf02_z11.html#komentarze" title="Stały odnośnik do tego nagłówka">¶</a></h2>
+<p>Komentarze w języku Python, a więc i w Sage zaczynają się od znaku  #. Wszystko co znajduje się za tym znakiem będzie pomijane przez interpreter. Komentarze stosujesię w kilku celach. Można nimi zablokować na jakiś czas kawałek kodu stwarzający problemy. Zwykle jednak służy on do bezpośredniego opisu samego kodu. Przykładowo</p>
+<div class="highlight-python"><div class="highlight"><pre><span class="n">sage</span><span class="p">:</span> <span class="c">###</span>
+<span class="n">sage</span><span class="p">:</span> <span class="c"># ten program oblicza wysokosc na jaka doleci</span>
+<span class="n">sage</span><span class="p">:</span> <span class="c"># pilka wyrzucona w gore w polu ziemskim</span>
+<span class="n">sage</span><span class="p">:</span> <span class="c">###</span>
+<span class="n">sage</span><span class="p">:</span> <span class="n">g</span> <span class="o">=</span> <span class="mf">9.81</span> <span class="c"># przyspieszenie grawitacyjne Ziemi</span>
+<span class="n">sage</span><span class="p">:</span> <span class="n">t</span> <span class="o">=</span> <span class="mf">0.54</span> <span class="c"># czas koncowy</span>
+<span class="n">sage</span><span class="p">:</span> <span class="n">v0</span> <span class="o">=</span> <span class="mf">3.44</span> <span class="c"># predkosc poczatkowa</span>
+<span class="n">sage</span><span class="p">:</span> <span class="n">h</span> <span class="o">=</span> <span class="n">v0</span> <span class="o">*</span> <span class="n">t</span> <span class="o">-</span> <span class="mf">0.5</span> <span class="o">*</span> <span class="n">g</span> <span class="o">*</span> <span class="n">t</span><span class="o">^</span><span class="mi">2</span> <span class="c"># wysokosc po czasie t</span>
+</pre></div>
+</div>
+<p>W ten sposób praktycznie każdy program przez nas napisany będzie czytelny.</p>
+<p>Jest jeszcze jedna możliwość dodawanie komentarza do skryptów/programów Sage/Python - używanie ciągów znakowych</p>
+<div class="highlight-python"><div class="highlight"><pre><span class="n">sage</span><span class="p">:</span> <span class="s">&quot;&quot;&quot;to jest komentarz, ktory</span>
+<span class="s">sage: moze</span>
+<span class="s">sage: sie</span>
+<span class="s">sage: ciagnac wiele linii&quot;&quot;&quot;</span>
+</pre></div>
+</div>
+<p>O ciągach znakowych poniżej.</p>
+</div>
+<div class="section" id="ciagi-znakow">
+<h2>Ciągi znaków<a class="headerlink" href="iCSE_ITechninf02_z11.html#ciagi-znakow" title="Stały odnośnik do tego nagłówka">¶</a></h2>
+<p>Ciągi znaków w Sage traktowane są jako kolejny typ danych. Jedyną różnicą jest to, że należy podawać je używając cudzysłowów  &#8221;  lub apostrofów  ’.</p>
+<div class="highlight-python"><div class="highlight"><pre><span class="n">sage</span><span class="p">:</span> <span class="s">&quot;Ala ma kota&quot;</span>
+</pre></div>
+</div>
+<p>W przeciwnym wypadku Sage potraktuje nasz ciąg jako funkcję i będzie chciał ją wywołać. W wyniku dostaniemy  Syntax Error.</p>
+<div class="highlight-python"><div class="highlight"><pre><span class="n">sage</span><span class="p">:</span> <span class="n">Ala</span> <span class="n">ma</span> <span class="n">kota</span>
+</pre></div>
+</div>
+<p>Ciągi znaków możemy dowolnie przypisywać do zmiennych</p>
+<div class="highlight-python"><div class="highlight"><pre><span class="n">sage</span><span class="p">:</span> <span class="n">k</span> <span class="o">=</span> <span class="s">&quot;www.onet.pl&quot;</span>
+<span class="n">sage</span><span class="p">:</span> <span class="n">znaki</span> <span class="o">=</span> <span class="s">&quot;Ala ma kota&quot;</span>
+</pre></div>
+</div>
+<p>Istnieje specjalna konstrukcja ciągu znaków zaczynająca i kończąca się trzema cudzysłowami  &#8220;&#8221;&#8221;. Jest to ciąg znaków charakterystyczny dla języka Python i może on ciągnąć się przez wiele linii. Odstępy użyte w środku zostaną zachowane. Ponadto możemy w takim środowisku używać pojedynczych apostrofów i cudzysłowów w zasadzie dowolnie. Przed literałem łańcuchowym takim jak powyżej  &#8220;ala ma kota&#8221; możemy użyć prefiksów  r,u,b. Oznaczają one odpowiednio (pod warunkiem, że jako baza Sage mamy język Python w wersji 2.*)</p>
+<p><tt class="docutils literal"><span class="pre">r</span></tt> (row, raw string literal) w tak oznaczonym literale łańcuchowym wszystkie znaki traktowane będą dosłownie, np. ukośnik wsteczny traktowany będzie jak zwykły ukośnik wsteczny
+np: r&#8221;ala&nbsp;ma&nbsp;kota&#8221;, r’sin&nbsp;to&nbsp;komenda&nbsp;LaTeX’a</p>
+<p><tt class="docutils literal"><span class="pre">u</span></tt> (unicode) napis w Unikodzie
+np: u&#8221;ala&nbsp;ma kota&#8221;, u’zażółć&nbsp;gęślą&nbsp;jaźń’</p>
+<p><tt class="docutils literal"><span class="pre">b</span></tt> napis w ASCII
+np: b&#8221;ala&nbsp;ma&nbsp;kota&#8221;, b’A quick&nbsp;brown&nbsp;fox&nbsp;jumps&nbsp;over&nbsp;the&nbsp;lazy&nbsp;dog’</p>
+<p>Oczywiście jest spora różnica pomiędzy  1  i  &#8220;1&#8221;</p>
+<div class="highlight-python"><div class="highlight"><pre><span class="n">sage</span><span class="p">:</span> <span class="mi">1</span> <span class="o">==</span> <span class="s">&quot;1&quot;</span>
+<span class="bp">False</span>
+</pre></div>
+</div>
+<p>Ma to związek z typami danych.</p>
+</div>
+<div class="section" id="typy-danych">
+<h2>Typy danych<a class="headerlink" href="iCSE_ITechninf02_z11.html#typy-danych" title="Stały odnośnik do tego nagłówka">¶</a></h2>
+<p>Na chwilę skupimy się na języku Python. Język ten, jak wiemy, stanowi bazę dla Sage-a, więc wszystko co powiemy o nim jest prawdziwe również w przypadku Sage.</p>
+<div class="section" id="typy-danych-w-pythonie">
+<h3>Typy danych w Pythonie<a class="headerlink" href="iCSE_ITechninf02_z11.html#typy-danych-w-pythonie" title="Stały odnośnik do tego nagłówka">¶</a></h3>
+<p>W Pythonie wartości, a nie zmienne, posiadają typ – tak więc Python jest językiem z typami dynamicznymi. Wszystkie wartości przekazywane są przez referencję. W porównaniu z innymi językami z typami dynamicznymi Python sprawdza typy w umiarkowanym stopniu. Dla typów numerycznych zdefiniowana jest automatyczna konwersja, tak więc możliwe jest np. mnożenie liczby zespolonej przez liczbę całkowitą typu long bez rzutowania. Nie ma natomiast automatycznej konwersji pomiędzy napisami i liczbami.</p>
+<p>Tutaj podamy jedynie podstawowe informacje na temat typów danych. Po nieco obszerniejszą lekturę odsyłamy np. do części  <em>Wbudowane typy danych</em> podręcznika <a class="reference external" href="http://pl.wikibooks.org/wiki/Zanurkuj_w_Pythonie">Zanurkuj w Pythonie</a>.</p>
+<p><tt class="docutils literal"><span class="pre">bool</span></tt> typ logiczny True, False</p>
+<p><tt class="docutils literal"><span class="pre">int</span></tt> liczba całkowita 1, 13</p>
+<p><tt class="docutils literal"><span class="pre">float</span></tt> liczba zmiennoprzecinkowa 3.1415</p>
+<p><tt class="docutils literal"><span class="pre">complex</span></tt> liczba zespolona 1&nbsp;+&nbsp;3j</p>
+<p><tt class="docutils literal"><span class="pre">str</span></tt> napis (niezmienny) ”To jest napis”</p>
+<p><tt class="docutils literal"><span class="pre">unicode</span></tt> napis w Unikodzie (niezmienny) ”To jest napis”</p>
+<p><tt class="docutils literal"><span class="pre">bytes</span></tt> napis w ASCII b”To jest napis ASCII”</p>
+<p><tt class="docutils literal"><span class="pre">list</span></tt> lista (zmienna zawartość i długość) [2,&nbsp;&#8220;Ala&#8221;,&nbsp;-12.32]</p>
+<p><tt class="docutils literal"><span class="pre">tuple</span></tt> krotka (niezmienna) (2, &#8220;Ala&#8221;, -12.32)</p>
+<p><tt class="docutils literal"><span class="pre">set</span></tt> zbiór (zmienny) set([2,&nbsp;&#8220;Ala&#8221;, -12.32])</p>
+<p><tt class="docutils literal"><span class="pre">frozenset</span></tt> zbiór (niezmienny) frozenset([2, &#8220;Ala&#8221;, -12.32])</p>
+<p><tt class="docutils literal"><span class="pre">dict</span></tt> słownik (tablica asocjacyjna) (zmienny) {1: &#8220;jeden&#8221;, &#8220;dwa&#8221;:&nbsp;2}</p>
+<p><tt class="docutils literal"><span class="pre">type(None)</span></tt> odpowiednik null None</p>
+<p>Większość, jeżeli nie wszystkie powyższe typy poznacie w ramach tego kursu. Sage domyślnie posiada jednak swoje własne typy danych, które w większości odpowiadają typom Pythona, ale zbudowane są od nowa. Jako, że Sage pomyślany został jako program przede wszystkim do obliczeń symbolicznych czy ich wizualizacji, typy wbudowane w Sage skonstruowane są podobnie jak w matematyce. Typy liczbowe budowane są w oparciu odpowiednie pierścienie (liczb całkowitych, wymiernych, itp.). Więcej na temat pierścieni znajdziesz w  <a class="reference external" href="https://sage.phys.us.edu.pl/doc/live/tutorial/index.html">Samouczku</a>  lub w podręczniku  <a class="reference external" href="https://sage.phys.us.edu.pl/doc/live/constructions/index.html">Konstrukcje Sage</a> .</p>
+<p>Aby dowiedzieć się, jakiego typu jest dana zmienna należy użyć funkcji  type(). Np:</p>
+<div class="highlight-python"><div class="highlight"><pre><span class="n">sage</span><span class="p">:</span> <span class="n">z</span> <span class="o">=</span> <span class="mi">1</span>
+<span class="n">sage</span><span class="p">:</span> <span class="nb">type</span><span class="p">(</span><span class="n">z</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+</div>
+<div class="section" id="zadania">
+<h2>Zadania<a class="headerlink" href="iCSE_ITechninf02_z11.html#zadania" title="Stały odnośnik do tego nagłówka">¶</a></h2>
+<p><strong>Zadanie 1: Określ jaki typ mają poniższe zmienne</strong></p>
+<div class="line-block">
+<div class="line">czas: 5 min.</div>
+<div class="line">i=1</div>
+<div class="line">k=(1,2,3)</div>
+<div class="line">zmienna_z_zadania=(&#8220;Ala&#8221;, 21, 4.5)</div>
+<div class="line">ocena=3.5</div>
+<div class="line">imie=&#8221;Feliks&#8221;</div>
+</div>
+<p><strong>Zadanie 2: Konwersja ze stopni Celsiusa do Fahrenheita</strong></p>
+<p>czas: 5 min.</p>
+<p>Napisz program konwertujący temperaturę mierzoną w stopniach Celsjusza do stopni Fahrenheita według równania</p>
+<div class="math">
+\[F = {9\over 5}C + 32\]</div>
+<p>Użyj identycznych nazw zmiennych. Następnie napisz program konwertujący temperaturę w drugą stronę.</p>
+<p><strong>Zadanie 3: Oblicz z wykorzystaniem tych samych zmiennych</strong></p>
+<p>czas: 10 min.</p>
+<div class="math">
+\[\text{Area} = \pi r^2, \quad \text{gdzie} \quad r = \pi ^{1\over 3} - 1\]\[\_0 ={\cosh }^{2}(x) +{\sinh }^{2}(x), \quad \text{gdzie} \quad x = 32 \pi\]\[f = {{(x + y^{0.4})^{0.25x}}\over {0.8}}  +\log \Big( {x\over y} \Big) + 10^{x+ y^2}, \quad \text{gdzie} \quad x =\sinh (1), y =\tanh (20)\]</div>
+<p><strong>Zadanie 4: Rzut ukośny</strong></p>
+<p>czas: 20 min.</p>
+<p>Jeżeli w polu grawitacyjnym wyrzucimy piłkę z wysokości  <span class="math">\(h_0\)</span> i z prędkością  początkową <span class="math">\({v}_{0}\)</span>  zorientowaną pod kątem <span class="math">\(\alpha\)</span>  w stosunku do poziomu otrzymujemy zagadnienie rzutu ukośnego.  Rozwiązywać je będziecie analitycznie na zajęciach z mechaniki. Równanie  toru takiego ruchu we współrzędnych kartezjańskich (x,y) dane jest wzorem:</p>
+<div class="math">
+\[y = h_0 + x\mathop {tg} (\alpha) - {g\over {2v_0 ^2 \mathop{ cos}^{2}(\alpha)}} x^2\]</div>
+<p>Napisz program znajdujący ”wysokość” piłki <span class="math">\(y\)</span>  dla zadanych wartości przyspieszenia grawitacyjnego  <span class="math">\(g\)</span>, kąta <span class="math">\(\alpha\)</span>, prędkości początkowej <span class="math">\({v}_{0}\)</span> i odległości <span class="math">\(x\)</span>.  Postaraj się napisać jak najbardziej czytelny kod.</p>
+</div>
+<div class="section" id="formatowanie-tekstu">
+<h2>Formatowanie tekstu<a class="headerlink" href="iCSE_ITechninf02_z11.html#formatowanie-tekstu" title="Stały odnośnik do tego nagłówka">¶</a></h2>
+<p>Polecenie (które może być używane jak funkcja)  <strong>print</strong>  służy do wyświetlania tekstu. Tekstem nie musi być ciąg znaków (literał łańcuchowy). Może nim być zmienna bądź literał dowolnego typu.</p>
+<div class="highlight-python"><div class="highlight"><pre><span class="n">sage</span><span class="p">:</span> <span class="k">print</span> <span class="mi">4</span>
+<span class="n">sage</span><span class="p">:</span> <span class="k">print</span> <span class="s">&quot;cztery&quot;</span>
+<span class="n">sage</span><span class="p">:</span> <span class="n">cztery</span> <span class="o">=</span> <span class="mi">4</span>
+<span class="n">sage</span><span class="p">:</span> <span class="k">print</span> <span class="n">cztery</span>
+<span class="n">sage</span><span class="p">:</span> <span class="n">cztery</span> <span class="o">=</span> <span class="mf">4.0</span>
+<span class="n">sage</span><span class="p">:</span> <span class="k">print</span> <span class="n">cztery</span>
+<span class="n">sage</span><span class="p">:</span> <span class="k">print</span><span class="p">(</span><span class="n">cztery</span><span class="p">)</span>
+</pre></div>
+</div>
+<p>Polecenie  <strong>print</strong>  łamie końcową linię przechodząc do nowego wiersza, chyba, że na końcu polecenia umieścimy przecinek</p>
+<div class="highlight-python"><div class="highlight"><pre><span class="n">sage</span><span class="p">:</span> <span class="k">print</span> <span class="s">&quot;pi =&quot;</span><span class="p">,</span>
+<span class="n">sage</span><span class="p">:</span> <span class="k">print</span> <span class="mf">3.14154</span>
+</pre></div>
+</div>
+<p>Oczywiście przecinkiem możemy również oddzielać kolejne obiekty</p>
+<div class="highlight-python"><div class="highlight"><pre><span class="n">sage</span><span class="p">:</span> <span class="k">print</span> <span class="s">&quot;liczba pi =&quot;</span><span class="p">,</span> <span class="mf">3.1415</span><span class="p">,</span> <span class="s">&quot;a jej kwadrat to&quot;</span><span class="p">,</span> <span class="mf">3.1415</span> <span class="o">*</span> <span class="mf">3.1415</span>
+<span class="n">liczba</span> <span class="n">pi</span> <span class="o">=</span> <span class="mf">3.14150000000000</span> <span class="n">a</span> <span class="n">jej</span> <span class="n">kwadrat</span> <span class="n">to</span> <span class="mf">9.86902225000000</span>
+</pre></div>
+</div>
+<p>To samo możemy osiągnąć stosując formatowanie tekstu w poleceniu  <strong>print</strong>.</p>
+<div class="highlight-python"><div class="highlight"><pre><span class="n">sage</span><span class="p">:</span> <span class="k">print</span> <span class="s">&quot;liczba pi = </span><span class="si">%f</span><span class="s"> a jej kwadrat to </span><span class="si">%f</span><span class="s">&quot;</span>
+<span class="o">...</span>      <span class="o">%</span> <span class="p">(</span><span class="mf">3.1415</span><span class="p">,</span> <span class="mf">3.1415</span> <span class="o">*</span> <span class="mf">3.1415</span><span class="p">)</span>
+</pre></div>
+</div>
+<p>Po kolei. Polecenie  <strong>print</strong>  drukuje na ekran ciąg znaków - wszystko, co zawarte jest pomiędzy cudzysłowami (lub apostrofami). Pomiędzy nimi występują specjalne znaki zaczynające się od znaku  %. W ich miejsce podstawiane są odpowiednio interpretowane wartości zmiennych (bądź literały) występujące za identycznym znakiem znajdującym się za ciągiem zawartym w cudzysłowach. Pierwsza wartość z nawiasu podstawiana jest w miejsce pierwszego wystąpienia  %f. Analogicznie druga wartość podstawiana jest w miejsce drugiego wystąpienia  %f. Znak  f  występujący po procencie wymusza interpretację argumentu jako liczby zmiennoprzecinkowej (float). Inne możliwe formatowania print</p>
+<p><tt class="docutils literal"><span class="pre">%s</span></tt> ciąg znaków</p>
+<p><tt class="docutils literal"><span class="pre">%d</span></tt> liczba całkowita</p>
+<p><tt class="docutils literal"><span class="pre">%0Nd</span></tt> liczba całkowita poprzedzona zerami w taki sposób, że otrzymujemy N cyfr na wyjściu (pod warunkiem, że N ¡ liczby cyfr danej liczby)</p>
+<p><tt class="docutils literal"><span class="pre">%f</span></tt> liczba zmiennoprzecinkowa</p>
+<p><tt class="docutils literal"><span class="pre">%e</span></tt> notacja naukowa (e przy eksponencie)</p>
+<p><tt class="docutils literal"><span class="pre">%E</span></tt> notacja naukowa (E przy eksponencie)</p>
+<p><tt class="docutils literal"><span class="pre">%g,%G</span></tt> notacja dziesiątkowa</p>
+<p><tt class="docutils literal"><span class="pre">%Xz</span></tt> formatowanie liczby z do prawej dla pola o szerokości X
+print &#8220;%31f&#8221; % 0.0123412</p>
+<p><tt class="docutils literal"><span class="pre">%-Xz</span></tt> formatowanie liczby z do lewej dla pola o szerokości X
+print &#8220;%-31f&#8221; % 0.0123412</p>
+<p><tt class="docutils literal"><span class="pre">%.Yz</span></tt> formatowanie liczby <span class="math">\(z\)</span> z Y miejscami po przecinku</p>
+<p><tt class="docutils literal"><span class="pre">%X.Yz</span></tt> formatowanie liczby <span class="math">\(z\)</span> z Y miejscami po przecinku w polu o szerokości X</p>
+<p><tt class="docutils literal"><span class="pre">%%</span></tt> znak procenta</p>
+<div class="section" id="id1">
+<h3>Zadania<a class="headerlink" href="iCSE_ITechninf02_z11.html#id1" title="Stały odnośnik do tego nagłówka">¶</a></h3>
+<p><strong>Zadanie 5: Rzut ukośny</strong></p>
+<p>czas: 10 min.</p>
+<p>Przepisz kod tak, aby zwracał m/w taką informację</p>
+<div class="line-block">
+<div class="line"><tt class="docutils literal"><span class="pre">Na</span> <span class="pre">odległości</span> <span class="pre">2.963</span> <span class="pre">m</span> <span class="pre">ciało</span> <span class="pre">rzucone</span> <span class="pre">z</span> <span class="pre">wysokości</span> <span class="pre">12.5</span> <span class="pre">m</span> <span class="pre">z</span></tt></div>
+<div class="line"><tt class="docutils literal"><span class="pre">prędkością</span> <span class="pre">początkową</span> <span class="pre">3</span> <span class="pre">m/s</span> <span class="pre">pod</span> <span class="pre">kątem</span> <span class="pre">0.12</span> <span class="pre">rad</span></tt></div>
+<div class="line"><tt class="docutils literal"><span class="pre">znajduje</span> <span class="pre">się</span> <span class="pre">na</span> <span class="pre">wysokości</span> <span class="pre">8.0</span> <span class="pre">m</span> <span class="pre">w</span> <span class="pre">polu</span> <span class="pre">grawitacyjnym</span> <span class="pre">Ziemi.</span></tt></div>
+</div>
+<p><strong>Zadanie 6: Słownik przyspieszeń</strong></p>
+<p>czas: 10 min.</p>
+<p>Zbuduj słownik zawierający jako klucz nazwę ciała niebieskiego  a jako wartość wartość przyspieszenia na nim podają w  <span class="math">\(m/s^2\)</span>. Słowinik powinien zawierać wpisy dla conajmniej 7 ciał niebieskich.</p>
+<p><strong>Zadanie 7: Przyrost pieniędzy w banku</strong></p>
+<p>czas: 15 min.</p>
+<p>Niech <span class="math">\(p\)</span> oznacza stopę procentową banku wyrażoną w procentach na rok. Początkowa  wartość odłożonej gotówki w tym banku urośnie zgodnie ze wzorem</p>
+<p><span class="math">\(W = A\Big( 1 + {p \over   100}\Big )^n\)</span></p>
+<p>po <span class="math">\(n\)</span> latach. Oblicz do jakiej kwoty wzrośnie</p>
+<ol class="arabic simple">
+<li>1000 Euro po 3 latach dla stopy 5 procentowej</li>
+<li>23513 zł po 5 latach dla stopy 3,54%</li>
+<li>112,12 miliona Rubli po 1 roku dla stopy 7.14%</li>
+</ol>
+<p>Powyższe wielkości sformatuj odpowiednio dla wszystkich trzech przypadków  tak, by inwestor otrzymał pełną, czytelną informację.</p>
+</div>
+</div>
+</div>
+
+
+          </div>
+        </div>
+      </div>
+      <div class="sphinxsidebar">
+        <div class="sphinxsidebarwrapper">
+  <div class="sphinxlocaltoc">
+  <h3><a href="index.html">Spis treści</a></h3>
+  <ul>
+<li><a class="reference internal" href="iCSE_ITechninf02_z11.html#">Zmienne</a><ul>
+<li><a class="reference internal" href="iCSE_ITechninf02_z11.html#uzywanie-zmiennych">Używanie zmiennych</a><ul>
+<li><a class="reference internal" href="iCSE_ITechninf02_z11.html#nazwy-zarezerwowane">Nazwy zarezerwowane</a></li>
+</ul>
+</li>
+<li><a class="reference internal" href="iCSE_ITechninf02_z11.html#komentarze">Komentarze</a></li>
+<li><a class="reference internal" href="iCSE_ITechninf02_z11.html#ciagi-znakow">Ciągi znaków</a></li>
+<li><a class="reference internal" href="iCSE_ITechninf02_z11.html#typy-danych">Typy danych</a><ul>
+<li><a class="reference internal" href="iCSE_ITechninf02_z11.html#typy-danych-w-pythonie">Typy danych w Pythonie</a></li>
+</ul>
+</li>
+<li><a class="reference internal" href="iCSE_ITechninf02_z11.html#zadania">Zadania</a></li>
+<li><a class="reference internal" href="iCSE_ITechninf02_z11.html#formatowanie-tekstu">Formatowanie tekstu</a><ul>
+<li><a class="reference internal" href="iCSE_ITechninf02_z11.html#id1">Zadania</a></li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+
+  </div>
+  <h4>Poprzedni temat</h4>
+  <p class="topless"><a href="iCSE_ITechninf05_z80_mechanika.html"
+                        title="poprzedni rozdział">Zadania z fizyki</a></p>
+  <h4>Następny temat</h4>
+  <p class="topless"><a href="iCSE_ITechninf03_z77_typy_zlozone_i_petle.html"
+                        title="następny rozdział">Typy złożone i pętle</a></p>
+<div id="searchbox" style="display: none">
+  <h3>Szybkie wyszukiwanie</h3>
+    <form class="search" action="http://visual.icse.us.edu.pl/Warsztaty/search.html" method="get">
+      <input type="text" name="q" />
+      <input type="submit" value="Szukaj" />
+      <input type="hidden" name="check_keywords" value="yes" />
+      <input type="hidden" name="area" value="default" />
+    </form>
+    <p class="searchtip" style="font-size: 90%">
+    Wprowadź szukany termin lub nazwę modułu, klasy lub funkcji.
+    </p>
+</div>
+<script type="text/javascript">$('#searchbox').show(0);</script>
+        </div>
+      </div>
+      <div class="clearer"></div>
+    </div>
+  </div>
+  <div class="relbar-bottom">
+    
+    <div class="related">
+      <h3>Nawigacja</h3>
+      <ul>
+        <li class="right" style="margin-right: 10px">
+          <a href="iCSE_ITechninf03_z77_typy_zlozone_i_petle.html" title="Typy złożone i pętle"
+             >dalej</a></li>
+        <li class="right" >
+          <a href="iCSE_ITechninf05_z80_mechanika.html" title="Zadania z fizyki"
+             >wstecz</a> &nbsp; &nbsp;</li>
+  <li><a href="index.html">Warsztaty</a> &raquo;</li>
+  
+          <li><a href="sagewfizyce.html" >&lt;no title&gt;</a> &raquo;</li> 
+      </ul>
+    </div>
+  </div>
+  
+  <div class="footer">
+    <a class="logo" href="../../icse.us.edu.pl/index.html" target="_blank"><img src="_static/logo-icse.png" alt="ICSE"/></a><br/>
+    &copy; Copyright 2013, CubeProject.
+    Created using <a href="http://sphinx.pocoo.org/">Sphinx</a> 1.2.2.
+  </div>
+  </body>
+</html>

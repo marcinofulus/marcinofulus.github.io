@@ -1,0 +1,153 @@
+<!DOCTYPE html> 
+<html> 
+<head> 
+<title>Układ trzech ciał (pole grawitacyjne)</title> 
+<meta http-equiv="Content-Type" content="text/html; charset=UTF-8" /> 
+<meta http-equiv="X-UA-Compatible" content="IE=EmulateIE7" /> 
+
+<script type="text/x-mathjax-config"> 
+  MathJax.Hub.Config({
+    extensions: ["tex2jax.js"],
+    jax: ["input/TeX","output/HTML-CSS"],
+    tex2jax: {inlineMath: [["$","$"],["\\(","\\)"]]}
+  });
+</script> 
+
+<!-- <script type="text/javascript" src="js/mathjax/MathJax.js"></script> -->
+<script type="text/javascript" src="http://cdn.mathjax.org/mathjax/latest/MathJax.js"></script>
+
+<link rel="stylesheet" type="text/css" href="UkladTrzechCial/css/mainstyle.css" />
+<link rel="stylesheet" type="text/css" href="UkladTrzechCial/css/jsxgraph.css" />
+<script type="text/javascript" src="UkladTrzechCial/js/jsxgraphcore-0.91.js"></script>
+
+<script type="text/javascript" src="UkladTrzechCial/js/vtip/jquery.js"></script>
+<script type="text/javascript" src="UkladTrzechCial/js/vtip/vtip.js"></script>
+<link rel="stylesheet" type="text/css" href="UkladTrzechCial/js/vtip/css/vtip.css" />
+
+</head>
+<body>
+
+	<noscript> 
+	<div style="color:#CC0000; text-align:center">
+	<b>Uwaga: do prawidłowego działania, biblioteki <a href="http://www.mathjax.org/">MathJax</a>
+	oraz <a href="http://jsxgraph.uni-bayreuth.de/wp/">jsxgraph</a> wymagają obsługi JavaScript.<br />
+	Upewnij się, że JavaScript jest aktywowany w twojej przeglądarce.
+	</div>
+	<hr>
+	</noscript>
+
+
+<div id="container">
+
+<div id="header">
+	<h1>Układ trzech ciał (pole grawitacyjne)</h1>
+	<p class="text">
+	Wizualizacja wzajemnego ruchu układu trzech ciał o masach $M_1$, $M_2$ oraz $M_3$ oddziałujących grawitacyjnie.
+	</p> 
+</div>
+
+<div id="content">
+
+
+<div id="input" class="formstyle">
+
+	<form name="form">
+	<table>
+	
+	<tr>
+		<td></td>
+		<td>$G$</td> <td><input class="inputtext vtip" type="text" title="Stała grawitacyjna" id="G" value="1" onKeyUp="resetAnimation()"/></td>
+		<td>$\epsilon$</td> <td><input class="inputtext vtip" type="text" title="Czynnik zmiękczający (softening factor)" id="eps" value="0.001" onKeyUp="resetAnimation()"/></td>
+		<td>$s$</td> <td><input class="inputtext vtip" type="text" title="Skala rysowania wektora prędkości" id="s" value="10" onKeyUp="resetAnimation()"/></td>
+	</tr>
+	
+	<tr>
+		<td style="color: red;"><b>Cząstka 1</b></td>
+  		<td>$M_1$</td> <td><input class="inputtext vtip" type="text" title="Masa cząstki nr 1" id="M1" value="15" onKeyUp="resetAnimation()"/></td>
+		<td>$r_{01}$</td> <td><input class="inputtext vtip" type="text" title="Początkowa odległość od punktu [0, 0] dla cząstki nr 1" id="r01" value="10" onKeyUp="resetAnimation()"/></td>
+		<td>$\phi_{01}$</td> <td><input class="inputtext vtip" type="text" title="Kąt mierzony od osi OX określający położenie cząstki nr 1 w stopniach" id="phi01" value="0" onKeyUp="resetAnimation()"/></td>
+		<td>$v_{01}$</td> <td><input class="inputtext vtip" type="text" title="Prędkość początkowa cząstki nr 1" id="v01" value="0.5" onKeyUp="resetAnimation()"/></td>
+		<td>$\alpha_{01}$</td> <td><input class="inputtext vtip" type="text" title="Kąt mierzony od osi OX pod jakim wyrzucana jest cząstka nr 1 w stopniach" id="alpha01" value="90" onKeyUp="resetAnimation()"/></td>
+	</tr>	
+
+	<tr>
+		<td style="color: green;"><b>Cząstka 2</b></td>
+  		<td>$M_2$</td> <td><input class="inputtext vtip" type="text" title="Masa cząstki nr 2" id="M2" value="15" onKeyUp="resetAnimation()"/></td>
+		<td>$r_{02}$</td> <td><input class="inputtext vtip" type="text" title="Początkowa odległość od punktu [0, 0] dla cząstki nr 2" id="r02" value="10" onKeyUp="resetAnimation()"/></td>
+		<td>$\phi_{02}$</td> <td><input class="inputtext vtip" type="text" title="Kąt mierzony od osi OX określający położenie cząstki nr 2 w stopniach" id="phi02" value="180" onKeyUp="resetAnimation()"/></td>
+		<td>$v_{02}$</td> <td><input class="inputtext vtip" type="text" title="Prędkość początkowa cząstki nr 2" id="v02" value="0.5" onKeyUp="resetAnimation()"/></td>
+		<td>$\alpha_{02}$</td> <td><input class="inputtext vtip" type="text" title="Kąt mierzony od osi OX pod jakim wyrzucana jest cząstka nr 2 w stopniach" id="alpha02" value="270" onKeyUp="resetAnimation()"/></td>
+	</tr>
+	
+	<tr>
+		<td style="color: blue;"><b>Cząstka 3</b></td>
+  		<td>$M_3$</td> <td><input class="inputtext vtip" type="text" title="Masa cząstki nr 3" id="M3" value="1" onKeyUp="resetAnimation()"/></td>
+		<td>$r_{03}$</td> <td><input class="inputtext vtip" type="text" title="Początkowa odległość od punktu [0, 0] dla cząstki nr 3" id="r03" value="5" onKeyUp="resetAnimation()"/></td>
+		<td>$\phi_{03}$</td> <td><input class="inputtext vtip" type="text" title="Kąt mierzony od osi OX określający położenie cząstki nr 3 w stopniach" id="phi03" value="300" onKeyUp="resetAnimation()"/></td>
+		<td>$v_{03}$</td> <td><input class="inputtext vtip" type="text" title="Prędkość początkowa cząstki nr 3" id="v03" value="1" onKeyUp="resetAnimation()"/></td>
+		<td>$\alpha_{03}$</td> <td><input class="inputtext vtip" type="text" title="Kąt mierzony od osi OX pod jakim wyrzucana jest cząstka nr 3 w stopniach" id="alpha03" value="1" onKeyUp="resetAnimation()"/></td>
+	</tr>
+ 
+ 	<tr>
+  		<td></td>
+  		<td></td>
+  		<td>
+			<input type="button" value="start / stop" onClick="startStopAnimation()">
+  			<input type="button" value="reset" onClick="resetAnimation()">
+  		</td>   
+  		<td class="vtip" title="Pole wyboru szybkości odświeżania animacji" colspan="6" align="center">	
+ 			<input id="slower10x" type="radio" name=speed value="slower10x" onClick="GetSelectedRadioItem(this)" />10x wolniej 
+ 			<input id="slower5x" type="radio" name=speed value="slower5x" onClick="GetSelectedRadioItem(this)" />5x wolniej 
+ 			<input id="normal" type="radio" name=speed value="normal" onClick="GetSelectedRadioItem(this)" checked />1x normalny
+ 			<input id="faster5x" type="radio" name=speed value="faster5x" onClick="GetSelectedRadioItem(this)" />5x szybciej
+ 			<input id="faster10x" type="radio" name=speed value="faster10x" onClick="GetSelectedRadioItem(this)" />10x szybciej
+ 		</td>
+ 		<td></td>
+ 		<td>
+ 			<select onChange="swapOpts(this.options[selectedIndex].value);">
+  				<option value="przyklad1">Przykład 1</option>
+  				<option value="przyklad2">Przykład 2</option>
+  				<option value="przyklad3">Przykład 3</option>
+  				<option value="przyklad4">Przykład 4</option>
+  				<option value="przyklad5">Przykład 5</option>
+  				<option value="przyklad6">Przykład 6</option>
+			</select> 
+ 		</td>
+ 	</tr>
+	</table>
+	</form>
+
+</div>
+
+
+
+<div id="plots">
+<table class="plotarea">    
+    <tr>
+        <td colspan="2" align="center">
+        <div id="box1" class="jxgbox" style="width:810px; height:450px;"></div>
+        </td>
+    </tr>
+    
+</table>
+</div>
+
+
+<div class="theory">
+	<h3>Równania ruchu dla $i$-tej cząstki</h3>
+	<p class="text">
+	$\textbf{a}_i \approx G \sum\limits_{j = 1}^{2} \frac{M_j \textbf{r}_{ij}}{(||\textbf{r}||^2 + \epsilon^2)^{3/2}}$<br /><br />
+	Stała $\epsilon^2 > 0$ jest pewnym czynnikiem zmiękczającym. W przypadku jego braku siła między dwoma zbliżającymi się obiektami 
+	rosła by bez ograniczeń co w konsekwencji nikorzystnie wpłynęłoby na obliczenia numeryczne.
+	</p>
+</div>
+
+</div>
+
+
+</div>
+
+<script type="text/javascript" src="UkladTrzechCial/js/phys.js"></script><br />
+
+</body>
+</html>

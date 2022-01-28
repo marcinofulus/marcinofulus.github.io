@@ -1,0 +1,528 @@
+
+
+  <!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+  "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+
+
+<html xmlns="http://www.w3.org/1999/xhtml">
+  <head>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    
+    <title>Instrukcje sterujące &mdash; Warsztaty</title>
+    
+    <link rel="stylesheet" href="_static/cloud.css" type="text/css" />
+    <link rel="stylesheet" href="_static/pygments.css" type="text/css" />
+    <link rel="stylesheet" href="http://fonts.googleapis.com/css?family=Noticia+Text|Open+Sans|Droid+Sans+Mono&subset=latin,latin-ext" type="text/css" />
+    
+    <script type="text/javascript">
+      var DOCUMENTATION_OPTIONS = {
+        URL_ROOT:    './',
+        VERSION:     'I',
+        COLLAPSE_INDEX: false,
+        FILE_SUFFIX: '.html',
+        HAS_SOURCE:  true
+      };
+    </script>
+    <script type="text/javascript" src="_static/jquery.js"></script>
+    <script type="text/javascript" src="_static/underscore.js"></script>
+    <script type="text/javascript" src="_static/doctools.js"></script>
+    <script type="text/javascript" src="_static/translations.js"></script>
+    <script type="text/javascript" src="http://cdn.mathjax.org/mathjax/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML"></script>
+    <script type="text/javascript" src="_static/jquery.cookie.js"></script>
+    <script type="text/javascript" src="_static/cloud.js"></script>
+
+
+
+    <script src="http://sagecell.icse.us.edu.pl:6363/static/jquery.min.js"></script>
+	<script src="http://sagecell.icse.us.edu.pl:6363/static/embedded_sagecell.js"></script>
+
+	<script>sagecell.makeSagecell({inputLocation: ".sage",
+                                       evalButtonText: 'Wykonaj',
+                                       linked: true});</script>
+
+	<style type="text/css">
+		.sagecell .CodeMirror-scroll {
+			overflow-y: hidden;
+			overflow-x: auto;
+		}
+		.sagecell .CodeMirror {
+			height: auto;
+		}
+	</style>
+
+    
+    <link rel="top" title="Warsztaty" href="index.html" />
+    <link rel="up" title="&lt;no title&gt;" href="sagewfizyce.html" />
+    <link rel="next" title="Listy, Funkcje" href="iCSE_ITechninf03_z77_listy_funkcje.html" />
+    <link rel="prev" title="Typy złożone i pętle" href="iCSE_ITechninf03_z77_typy_zlozone_i_petle.html" />
+ 
+  <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, minimum-scale=1">
+  </head>
+  <body>
+  <div class="relbar-top">
+    
+    <div class="related">
+      <h3>Nawigacja</h3>
+      <ul>
+        <li class="right" style="margin-right: 10px">
+          <a href="iCSE_ITechninf03_z77_listy_funkcje.html" title="Listy, Funkcje"
+             accesskey="N">dalej</a></li>
+        <li class="right" >
+          <a href="iCSE_ITechninf03_z77_typy_zlozone_i_petle.html" title="Typy złożone i pętle"
+             accesskey="P">wstecz</a> &nbsp; &nbsp;</li>
+  <li><a href="index.html">Warsztaty</a> &raquo;</li>
+  
+          <li><a href="sagewfizyce.html" accesskey="U">&lt;no title&gt;</a> &raquo;</li> 
+      </ul>
+    </div>
+  </div>
+  
+  <div class="content">  
+
+    <div class="document">
+      <div class="documentwrapper">
+        <div class="bodywrapper">
+          <div class="body">
+            
+  <div class="section" id="instrukcje-sterujace">
+<h1>Instrukcje sterujące<a class="headerlink" href="iCSE_ITechninf03_z77.html#instrukcje-sterujace" title="Stały odnośnik do tego nagłówka">¶</a></h1>
+<div class="section" id="pomoc">
+<h2>Pomoc<a class="headerlink" href="iCSE_ITechninf03_z77.html#pomoc" title="Stały odnośnik do tego nagłówka">¶</a></h2>
+<p>Sage posiada olbrzymią wbudowaną dokumentację. Dostępna jest ona po wpisaniu żądanej nazwy (funkcji, stałej...) i pytajnika</p>
+<div class="highlight-python"><div class="highlight"><pre><span class="n">sage</span><span class="p">:</span> <span class="n">sin</span>
+</pre></div>
+</div>
+<div class="highlight-python"><div class="highlight"><pre>file: /opt/sage/sage-4.7.1/local/lib/python2.6/site-packages/sage/
+functions/trig.py
+
+Type: &lt;class ‘sage.functions.trig.Function_sin’&gt;
+
+Definition: sin(*args, coerce=True, hold=False,
+dont_call_method_on_arg=False)
+
+Docstring:
+
+ The sine function.
+
+ EXAMPLES:
+
+ sage: sin(0)
+ 0
+ sage: sin(x).subs(x==0)
+ 0
+ sage: sin(2).n(100)
+ 0.90929742682568169539601986591
+ sage: loads(dumps(sin))
+ sin
+
+ We can prevent evaluation using the hold parameter:
+
+ sage: sin(0,hold=True)
+ sin(0)
+
+ To then evaluate again, we currently must use Maxima via
+ sage.symbolic.expression.Expression.simplify():
+
+ sage: a = sin(0,hold=True); a.simplify()
+ 0
+
+ TESTS:
+
+ sage: conjugate(sin(x))
+ sin(conjugate(x))
+</pre></div>
+</div>
+<p>Oprócz instrukcji użycia znajdziemy tam za każdym razem szereg przykładów i zastosowań danego obiektu Sage. Po wpisaniu na końcu interesującej nas nazwy dwóch pytajników, np:  sin??  dostaniemy definicję odpowiedniej klasy. W ten sposób mamy dostęp do większości zmiannych, stałych, funkcji czy klas właściwych dla Sage.</p>
+</div>
+<div class="section" id="id1">
+<h2>Instrukcje sterujące<a class="headerlink" href="iCSE_ITechninf03_z77.html#id1" title="Stały odnośnik do tego nagłówka">¶</a></h2>
+<p>Na poprzedniej lekcji poznaliśmy dwie instrukcje sterujące: pętle  <tt class="docutils literal"><span class="pre">for</span></tt>  oraz  <tt class="docutils literal"><span class="pre">while</span></tt>. Pierwsza z nich bazuje na iterowaniu kolejnych elementów jakiegoś zbioru danych (najczęściej listy). Druga bazuje na spełnieniu warunku logicznego. Jest zatem w pewnym sensie zarówno pętlą jak i instrukcją warunkową. Instrukcje tego typu bazują na porównaniach.</p>
+<div class="section" id="porownania">
+<h3>Porównania<a class="headerlink" href="iCSE_ITechninf03_z77.html#porownania" title="Stały odnośnik do tego nagłówka">¶</a></h3>
+<p>Najprostszymi porównaniami jakie znamy jest porównywanie dwóch liczb. Sage stosując podstawowe operatory porównania  <tt class="docutils literal"><span class="pre">==,</span> <span class="pre">!=,</span> <span class="pre">&lt;=,</span> <span class="pre">&gt;=,</span> <span class="pre">&gt;,</span> <span class="pre">&lt;</span></tt> zawsze będzie się starał automatycznie skonwertować typy liczb do takich samych (jeżeli jest to wykonalne to rzutowanie typu odbędzie się na typ nadrzędny). W wyniku zastosowania porównania dwóch liczb otrzymamy jedną z dwóch możliwych logicznych odpowiedzi  <strong>True</strong>  lub  <strong>False</strong>.</p>
+<div class="highlight-python"><div class="highlight"><pre><span class="n">sage</span><span class="p">:</span> <span class="mi">3</span> <span class="o">!=</span> <span class="mi">2</span>
+</pre></div>
+</div>
+<p>True</p>
+<div class="highlight-python"><div class="highlight"><pre><span class="n">sage</span><span class="p">:</span> <span class="mi">10</span> <span class="o">&gt;=</span> <span class="mi">2</span>
+</pre></div>
+</div>
+<p>True</p>
+<div class="highlight-python"><div class="highlight"><pre><span class="n">sage</span><span class="p">:</span> <span class="mi">2</span><span class="o">/</span><span class="mi">3</span> <span class="o">&gt;</span> <span class="mi">3</span><span class="o">/</span><span class="mi">2</span>
+</pre></div>
+</div>
+<p>False</p>
+<p>Porównywać możemy praktycznie wszystkie obiekty, czasami dostaniemy jednak odpowiedź losową (kiedy pytanie będzie źle postawione). Porównywać można również wielkości symboliczne,</p>
+<div class="highlight-python"><div class="highlight"><pre><span class="n">sage</span><span class="p">:</span> <span class="n">x</span> <span class="o">&lt;</span> <span class="n">x</span> <span class="o">+</span> <span class="mi">1</span>
+</pre></div>
+</div>
+<p>x &lt; x + 1</p>
+<p>należy  do  tego  użyć  funkcji   <tt class="docutils literal"><span class="pre">bool()</span></tt></p>
+<div class="highlight-python"><div class="highlight"><pre><span class="n">sage</span><span class="p">:</span> <span class="nb">bool</span><span class="p">(</span><span class="n">x</span> <span class="o">&lt;</span> <span class="n">x</span> <span class="o">+</span> <span class="mi">1</span><span class="p">)</span>
+</pre></div>
+</div>
+<p>True</p>
+<p>Jeżeli chcemy porównać dwa obiekty włączając w to porównanie ich typów należy użyć operatora  <tt class="docutils literal"><span class="pre">is</span></tt>.</p>
+<div class="highlight-python"><div class="highlight"><pre><span class="n">sage</span><span class="p">:</span> <span class="mi">1</span> <span class="o">==</span> <span class="mi">2</span><span class="o">/</span><span class="mi">2</span>
+</pre></div>
+</div>
+<p>True</p>
+<p><strong>Uwaga:</strong> Proszę zwrócić uwagę na podwójny znak równości przy porównaniach.</p>
+<div class="highlight-python"><div class="highlight"><pre><span class="n">sage</span><span class="p">:</span> <span class="nb">type</span><span class="p">(</span><span class="mi">1</span><span class="p">);</span> <span class="nb">type</span><span class="p">(</span><span class="mi">2</span><span class="o">-</span><span class="mi">1</span><span class="p">)</span>
+</pre></div>
+</div>
+<div class="line-block">
+<div class="line">&lt;type &#8216;sage.rings.integer.Integer&#8217;&gt;</div>
+<div class="line">&lt;type &#8216;sage.rings.integer.Integer&#8217;&gt;</div>
+</div>
+<div class="highlight-python"><div class="highlight"><pre><span class="n">sage</span><span class="p">:</span> <span class="mi">1</span> <span class="ow">is</span> <span class="mi">2</span><span class="o">-</span><span class="mi">1</span>
+</pre></div>
+</div>
+<p>False</p>
+<div class="highlight-python"><div class="highlight"><pre><span class="n">sage</span><span class="p">:</span> <span class="mi">1</span> <span class="ow">is</span> <span class="mi">2</span><span class="o">/</span><span class="mi">2</span>
+</pre></div>
+</div>
+<p>False</p>
+<div class="highlight-python"><div class="highlight"><pre><span class="n">sage</span><span class="p">:</span> <span class="mi">1</span> <span class="ow">is</span> <span class="mi">1</span>
+</pre></div>
+</div>
+<p>True</p>
+<p>Oczywiście dostępny jest operator przeciwny <tt class="docutils literal"><span class="pre">is</span>&nbsp; <span class="pre">not</span></tt> również testujący identyczność obiektów.</p>
+<p><strong>Zadanie 1: Sprawdź.</strong></p>
+<p>czas: 15 min.</p>
+<ol class="arabic simple">
+<li>Która wartość jest większa</li>
+<li><span class="math">\(x =\sin(\pi / 2 - 0.1)\)</span>, <span class="math">\(y =\sin(\pi / 2 + 0.1)\)</span></li>
+<li>Niech <span class="math">\(({u}_{1},{u}_{2})\)</span> będą pierwiastkami równania kwadratowego <span class="math">\(2{u}^{2} - 10 = 0\)</span>. Który pierwiastek jest większy <span class="math">\({u}_{1}\)</span> czy <span class="math">\({u}_{2}\)</span> ?</li>
+<li>Proszę zbudować dwie listy, których elementy będą wartościami wielomianów Legendre’a pierwszego (lista o nazwie <tt class="docutils literal"><span class="pre">L1</span></tt> i drugiego (lista <tt class="docutils literal"><span class="pre">L2</span></tt>) rzędu w punkcie <span class="math">\(x = 0.1\)</span>. Indeksy list mają zgadzać się z kolejnymi stopniami wielomianów od stopnia <span class="math">\(n = 0\)</span> aż do stopnia <span class="math">\(n = 33\)</span>. Proszę następnie porównać parami kolejno odpowiadające sobie elementy obu list (element pierwszy z pierwszym, drugi z drugim itd...).</li>
+</ol>
+<p><strong>Uwaga:</strong> Wielomiany Legendre’a rzędu pierwszego dostajemy wywołując funkcję <tt class="docutils literal"><span class="pre">legendre_P(n,x)</span></tt>
+natomiast wielomiany Legendre’a rzędu drugiego dostaniemy wywołując funkcję <tt class="docutils literal"><span class="pre">legendre_Q(n,x)</span></tt>
+gdzie <span class="math">\(n\)</span> to stopień wielomianu, a <span class="math">\(x\)</span> to argument danego wielomianu.</p>
+</div>
+<div class="section" id="nieco-logiki">
+<h3>Nieco logiki<a class="headerlink" href="iCSE_ITechninf03_z77.html#nieco-logiki" title="Stały odnośnik do tego nagłówka">¶</a></h3>
+<p>Z analizy matematycznej wiecie co to takiego jest zdanie, warunek zdaniowy, funktory zdaniotwórcze (negacja, alternatywa, koniunkcja, implikacja, równoważność). Poznaliście też podstawowe prawa logiki (tautologie).</p>
+<p>Sage bardzo naturalnie korzysta z owych funktorów zdaniotwórczych</p>
+<ul class="simple">
+<li><tt class="docutils literal"><span class="pre">and:</span></tt> logiczne  i</li>
+<li><tt class="docutils literal"><span class="pre">or:</span></tt> logiczne  lub</li>
+<li><tt class="docutils literal"><span class="pre">not:</span></tt> logiczne zaprzeczenie</li>
+</ul>
+<p>Możemy  je  łączyć  ze  sobą</p>
+<div class="highlight-python"><div class="highlight"><pre><span class="n">sage</span><span class="p">:</span> <span class="n">t</span> <span class="o">=</span> <span class="bp">True</span>
+<span class="n">sage</span><span class="p">:</span> <span class="n">f</span> <span class="o">=</span> <span class="bp">False</span>
+<span class="n">sage</span><span class="p">:</span> <span class="k">print</span> <span class="s">&quot;t and f:&quot;</span><span class="p">,</span> <span class="n">t</span> <span class="ow">and</span> <span class="n">f</span>
+<span class="n">sage</span><span class="p">:</span> <span class="k">print</span> <span class="s">&quot;not t and f:&quot;</span><span class="p">,</span> <span class="ow">not</span> <span class="n">t</span> <span class="ow">and</span> <span class="n">f</span>
+<span class="n">sage</span><span class="p">:</span> <span class="k">print</span> <span class="s">&quot;(not t) and f:&quot;</span><span class="p">,</span> <span class="ow">not</span> <span class="n">t</span> <span class="ow">and</span> <span class="n">f</span>
+<span class="n">sage</span><span class="p">:</span> <span class="k">print</span> <span class="s">&quot;not (t and f):&quot;</span><span class="p">,</span> <span class="ow">not</span> <span class="p">(</span><span class="n">t</span> <span class="ow">and</span> <span class="n">f</span><span class="p">)</span>
+</pre></div>
+</div>
+<div class="line-block">
+<div class="line">t and f: False</div>
+<div class="line">not t and f: False</div>
+<div class="line">(not t) and f: False</div>
+<div class="line">not (t and f): True</div>
+</div>
+<p>jak  i  z  innymi  operatorami  porównania</p>
+<div class="highlight-python"><div class="highlight"><pre><span class="n">sage</span><span class="p">:</span> <span class="n">wiek</span> <span class="o">=</span> <span class="mi">19</span>
+<span class="n">sage</span><span class="p">:</span> <span class="n">uni</span> <span class="o">=</span> <span class="s">&quot;Uniwersytet w Katowicach&quot;</span>
+<span class="n">sage</span><span class="p">:</span> <span class="n">wiek</span> <span class="o">&gt;</span> <span class="mi">18</span> <span class="ow">and</span> <span class="n">uni</span> <span class="o">==</span> <span class="s">&quot;Uniwersytet w Katowicach&quot;</span>
+</pre></div>
+</div>
+<p>True</p>
+<p><strong>Zadanie 2: Tabele prawdy.</strong></p>
+<p>czas: 10 min.</p>
+<p>Korzystając z pętli zbuduj tabele prawdy (matryce logiczne) dla</p>
+<ul class="simple">
+<li>dla alternatywy (or)</li>
+<li>dla koniunkcji (and)</li>
+</ul>
+<div class="highlight-python"><div class="highlight"><pre><span class="n">sage</span><span class="p">:</span> <span class="k">for</span> <span class="n">p</span> <span class="ow">in</span> <span class="p">[</span><span class="mi">0</span><span class="p">,</span> <span class="mi">1</span><span class="p">]:</span>
+<span class="o">...</span>       <span class="k">for</span> <span class="n">q</span> <span class="ow">in</span> <span class="p">[</span><span class="mi">0</span><span class="p">,</span> <span class="mi">1</span><span class="p">]:</span>
+<span class="o">...</span>           <span class="k">print</span> <span class="s">&quot;</span><span class="si">%d</span><span class="s"> lub </span><span class="si">%d</span><span class="s"> =&gt; </span><span class="si">%d</span><span class="s">&quot;</span> <span class="o">%</span> <span class="p">(</span><span class="n">p</span><span class="p">,</span> <span class="n">q</span><span class="p">,</span> <span class="n">p</span> <span class="ow">or</span> <span class="n">q</span><span class="p">)</span>
+<span class="o">...</span>
+<span class="n">sage</span><span class="p">:</span> <span class="k">for</span> <span class="n">p</span> <span class="ow">in</span> <span class="p">[</span><span class="mi">0</span><span class="p">,</span> <span class="mi">1</span><span class="p">]:</span>
+<span class="o">...</span>       <span class="k">for</span> <span class="n">q</span> <span class="ow">in</span> <span class="p">[</span><span class="mi">0</span><span class="p">,</span> <span class="mi">1</span><span class="p">]:</span>
+<span class="o">...</span>           <span class="k">print</span> <span class="s">&quot;</span><span class="si">%d</span><span class="s">|</span><span class="se">\t</span><span class="si">%d</span><span class="s">|</span><span class="se">\t</span><span class="si">%d</span><span class="s">&quot;</span> <span class="o">%</span> <span class="p">(</span><span class="n">p</span><span class="p">,</span> <span class="n">q</span><span class="p">,</span> <span class="n">p</span> <span class="ow">and</span> <span class="n">q</span><span class="p">)</span>
+</pre></div>
+</div>
+<div class="line-block">
+<div class="line">0 lub 0 =&gt; 0</div>
+<div class="line">0 lub 1 =&gt; 1</div>
+<div class="line">1 lub 0 =&gt; 1</div>
+<div class="line">1 lub 1 =&gt; 1</div>
+<div class="line">0|   0|     0</div>
+<div class="line">0|   1|     0</div>
+<div class="line">1|   0|     0</div>
+<div class="line">1|   1|     1</div>
+</div>
+<p><strong>Zadanie 3: Rachunek zdań.</strong></p>
+<p>czas: 30 min.</p>
+<p>Korzystając z tabel prawdy udowodnij:</p>
+<ul class="simple">
+<li>prawo podwójnego przeczenia</li>
+<li>prawo przemienności koniunkcji</li>
+<li>prawo łączności koniunkcji</li>
+<li>prawo łączności alternatywy</li>
+<li>prawo idempotentności koniunkcji</li>
+<li>prawo idempotentności alternatywy</li>
+<li>prawo rozdzielności koniunkcji względem alternatywy</li>
+<li>prawo rozdzielności alternatywy względem koniunkcji</li>
+<li>prawa pochłaniania</li>
+<li>prawa De Morgana (pierwsze i drugie)</li>
+</ul>
+<p><strong>Uwaga:</strong> Skorzystaj z pętli <tt class="docutils literal"><span class="pre">for</span></tt> lub <tt class="docutils literal"><span class="pre">while</span></tt>.</p>
+</div>
+<div class="section" id="instrukcje-warunkowe">
+<h3>Instrukcje warunkowe<a class="headerlink" href="iCSE_ITechninf03_z77.html#instrukcje-warunkowe" title="Stały odnośnik do tego nagłówka">¶</a></h3>
+<p>Instrukcje tego typu pozwalają na wykonanie zadeklarowanych przez programistę instrukcji w zależności od tego, czy dane wyrażenie logiczne jest prawdziwe czy fałszywe. Najogólniejszą postacią instrukcji warunkowej  <strong>if-elif-else</strong>  jest</p>
+<p>if warunek_1:</p>
+<blockquote>
+<div>blok instrukcji #1</div></blockquote>
+<p>elif warunek_2:</p>
+<blockquote>
+<div>blok instrukcji #2</div></blockquote>
+<p>...:</p>
+<blockquote>
+<div>...</div></blockquote>
+<p>elif warunek_k:</p>
+<blockquote>
+<div>blok instrukcji #k</div></blockquote>
+<p>else:</p>
+<blockquote>
+<div>blok instrukcji domyślnych</div></blockquote>
+<p>Jeżeli spełniony jest  <tt class="docutils literal"><span class="pre">warunek_1</span></tt> program wykona instrukcje zawarte w bloku 1. Jeżeli warunek pierwszy nie będzie spełniony, Sage sprawdzi warunek drugi, trzeci itd... aż do napotkania prawdziwego logicznie warunku. Wtedy wykonane zostaną instrukcje z odpowiadającego bloku. Jeżeli nie będzie spełniony żaden warunek (opisany przy instrukcji  <tt class="docutils literal"><span class="pre">if</span></tt> lub  <tt class="docutils literal"><span class="pre">elif</span></tt>) wtedy wykona się domyślny blok instrukcji zlokalizowany przy słowie  <tt class="docutils literal"><span class="pre">else</span></tt>.</p>
+<p><strong>Uwaga:</strong>  Nie trzeba za każdym razem budować instrukcji warunkowej używając wszystkich charakterystycznych instrukcji  <tt class="docutils literal"><span class="pre">if</span></tt>, <tt class="docutils literal"><span class="pre">elif</span></tt>  czy  <tt class="docutils literal"><span class="pre">else</span></tt>. Obowiązkowo musi występować tylko słowo  <tt class="docutils literal"><span class="pre">if</span></tt>. Inne są nieobowiązkowe.</p>
+<div class="highlight-python"><div class="highlight"><pre><span class="n">sage</span><span class="p">:</span> <span class="k">if</span> <span class="mi">2</span> <span class="o">&gt;</span> <span class="mi">3</span><span class="p">:</span>
+<span class="o">...</span>     <span class="k">print</span> <span class="s">&quot;niemozliwe staje sie mozliwe&quot;</span>
+</pre></div>
+</div>
+<p>Bądź  też  coś  nieco  bardziej  skomplikowanego.</p>
+<div class="highlight-python"><div class="highlight"><pre><span class="n">sage</span><span class="p">:</span> <span class="k">print</span> <span class="s">&quot;Rownanie kwadratowe postaci&quot;</span>
+<span class="n">sage</span><span class="p">:</span> <span class="n">show</span><span class="p">(</span><span class="s">&quot;$ax^2 + bx + c = 0$&quot;</span><span class="p">)</span>
+<span class="n">sage</span><span class="p">:</span> <span class="n">a</span> <span class="o">=</span> <span class="mi">2</span><span class="p">;</span> <span class="k">print</span> <span class="s">&quot;a:&quot;</span><span class="p">,</span> <span class="n">a</span>
+<span class="n">sage</span><span class="p">:</span> <span class="n">b</span> <span class="o">=</span> <span class="mi">3</span><span class="p">;</span> <span class="k">print</span> <span class="s">&quot;b:&quot;</span><span class="p">,</span> <span class="n">b</span>
+<span class="n">sage</span><span class="p">:</span> <span class="n">c</span> <span class="o">=</span> <span class="mi">1</span><span class="p">;</span> <span class="k">print</span> <span class="s">&quot;c:&quot;</span><span class="p">,</span> <span class="n">c</span>
+<span class="n">sage</span><span class="p">:</span> <span class="n">delta</span> <span class="o">=</span> <span class="n">b</span><span class="o">^</span><span class="mi">2</span> <span class="o">-</span> <span class="mi">4</span> <span class="o">*</span> <span class="n">a</span> <span class="o">*</span> <span class="n">c</span>
+<span class="n">sage</span><span class="p">:</span> <span class="k">if</span> <span class="n">delta</span> <span class="o">&gt;</span> <span class="mi">0</span><span class="p">:</span>
+<span class="o">...</span>     <span class="k">print</span> <span class="s">&quot;Rownanie ma 2 rozne pierwiastki rzeczywiste&quot;</span>
+<span class="n">sage</span><span class="p">:</span> <span class="k">elif</span> <span class="n">delta</span> <span class="o">==</span> <span class="mi">0</span><span class="p">:</span>
+<span class="o">...</span>     <span class="k">print</span> <span class="s">&quot;Rownanie ma jeden podwojny pierwiastek rzeczywisty&quot;</span>
+<span class="n">sage</span><span class="p">:</span> <span class="k">else</span><span class="p">:</span>
+<span class="o">...</span>     <span class="k">print</span> <span class="s">&quot;Rownanie nie ma rozwiazan w ciele liczb rzeczywistych&quot;</span>
+</pre></div>
+</div>
+<div class="line-block">
+<div class="line">Rownanie kwadratowe postaci</div>
+<div class="line">a: 2</div>
+<div class="line">b: 3</div>
+<div class="line">c: 1</div>
+<div class="line">Rownanie ma 2 rozne pierwiastki rzeczywiste</div>
+</div>
+<div class="math">
+\[\hbox{$ax^2 + bx + c = 0$}\]</div>
+</div>
+<div class="section" id="jeszcze-jedno-przydatne-porownanie">
+<h3>Jeszcze jedno przydatne porównanie<a class="headerlink" href="iCSE_ITechninf03_z77.html#jeszcze-jedno-przydatne-porownanie" title="Stały odnośnik do tego nagłówka">¶</a></h3>
+<p>Czasami trafimy na problem, w którym mając jakąś listę (krotkę, słownik, zbiór...) zastanawiamy się, czy dany obiekt zawiera np: interesującą nas liczbę  <tt class="docutils literal"><span class="pre">12</span></tt>. Można oczywiście w pętli przeiterować wszystkie elementy listy (czy innego obiektu) i sprawdzić <tt class="docutils literal"><span class="pre">if</span></tt> -em czy dana liczba w niej &#8220;siedzi&#8221;. Szybciej można to osiągnąć korzystając z operatora  <tt class="docutils literal"><span class="pre">in</span></tt> (lub  <tt class="docutils literal"><span class="pre">not</span> <span class="pre">in</span></tt>)</p>
+<div class="line-block">
+<div class="line">zmienna&nbsp;in&nbsp;lista</div>
+<div class="line"><br /></div>
+<div class="line">zmienna_2&nbsp;not&nbsp;in&nbsp;lista</div>
+</div>
+<p>Na  przykład</p>
+<div class="highlight-python"><div class="highlight"><pre><span class="n">sage</span><span class="p">:</span> <span class="n">szukana_liczba</span> <span class="o">=</span> <span class="mi">12</span>
+<span class="n">sage</span><span class="p">:</span> <span class="n">lista</span> <span class="o">=</span> <span class="p">[</span><span class="mi">12</span><span class="p">,</span> <span class="mi">3</span><span class="p">,</span> <span class="s">&quot;aa&quot;</span><span class="p">,</span> <span class="s">&quot;ala&quot;</span><span class="p">,</span> <span class="mf">3.14</span><span class="p">,</span> <span class="n">pi</span><span class="p">]</span>
+<span class="n">sage</span><span class="p">:</span> <span class="n">krotka</span> <span class="o">=</span> <span class="mi">12</span><span class="p">,</span> <span class="mi">3</span><span class="p">,</span> <span class="s">&quot;aa&quot;</span><span class="p">,</span> <span class="s">&quot;ala&quot;</span><span class="p">,</span> <span class="mf">3.14</span><span class="p">,</span> <span class="n">pi</span>
+<span class="n">sage</span><span class="p">:</span> <span class="n">slownik</span> <span class="o">=</span> <span class="p">{</span><span class="mi">0</span><span class="p">:</span> <span class="mi">12</span><span class="p">,</span> <span class="mi">1</span><span class="p">:</span> <span class="mi">3</span><span class="p">,</span> <span class="mi">2</span><span class="p">:</span> <span class="s">&quot;aa&quot;</span><span class="p">,</span> <span class="mi">3</span><span class="p">:</span> <span class="s">&quot;ala&quot;</span><span class="p">,</span> <span class="mi">4</span><span class="p">:</span> <span class="mf">3.14</span><span class="p">,</span> <span class="mi">5</span><span class="p">:</span> <span class="n">pi</span><span class="p">}</span>
+<span class="n">sage</span><span class="p">:</span> <span class="n">zbior</span> <span class="o">=</span> <span class="nb">set</span><span class="p">([</span><span class="mi">2</span><span class="p">,</span><span class="mi">3</span><span class="p">,</span><span class="mi">4</span><span class="p">,</span><span class="mi">12</span><span class="p">])</span>
+<span class="n">sage</span><span class="p">:</span> <span class="k">print</span> <span class="s">&quot;szukana_liczba in lista:&quot;</span><span class="p">,</span> <span class="n">szukana_liczba</span> <span class="ow">in</span> <span class="n">lista</span>
+<span class="n">sage</span><span class="p">:</span> <span class="k">print</span> <span class="s">&quot;szukana_liczba in krotka:&quot;</span><span class="p">,</span> <span class="n">szukana_liczba</span> <span class="ow">in</span> <span class="n">krotka</span>
+<span class="n">sage</span><span class="p">:</span> <span class="k">print</span> <span class="s">&quot;szukana_liczba in slownik:&quot;</span><span class="p">,</span> <span class="n">szukana_liczba</span> <span class="ow">in</span> <span class="n">slownik</span>
+<span class="n">sage</span><span class="p">:</span> <span class="k">print</span> <span class="s">&quot;szukana_liczba in zbior:&quot;</span><span class="p">,</span> <span class="n">szukana_liczba</span> <span class="ow">in</span> <span class="n">zbior</span>
+</pre></div>
+</div>
+<div class="line-block">
+<div class="line">szukana_liczba in lista: True</div>
+<div class="line">szukana_liczba in krotka: True</div>
+<div class="line">szukana_liczba in slownik: False</div>
+<div class="line">szukana_liczba in zbior: True</div>
+</div>
+<p>Hmmm... W słowniku istnieje wpis  <tt class="docutils literal"><span class="pre">12</span></tt> odpowiadający problemowi... Dostaliśmy jednak odpowiedź ”fałsz”. Problem polega na tym, że niewłaściwie szukamy. Należy przeszukać listę wartości słownika  <tt class="docutils literal"><span class="pre">slownik</span></tt>:</p>
+<div class="highlight-python"><div class="highlight"><pre><span class="n">sage</span><span class="p">:</span> <span class="n">szukana_liczba</span> <span class="ow">in</span> <span class="n">slownik</span><span class="o">.</span><span class="n">values</span><span class="p">()</span>
+<span class="bp">True</span>
+</pre></div>
+</div>
+<p>i jest w porządku.</p>
+<p><strong>Uwaga:</strong> W ten sam sposób możemy przeszukiwać ciągi znaków, szukając jakiegoś podciągu znaków. Ciągi znaków traktowane są niejako jak listy (choć nie do końca to prawda...).</p>
+<div class="highlight-python"><div class="highlight"><pre><span class="n">sage</span><span class="p">:</span> <span class="n">txt</span> <span class="o">=</span> <span class="s">&quot;Ala ma kota&quot;</span>
+<span class="n">sage</span><span class="p">:</span> <span class="k">print</span> <span class="s">&quot;&quot;&quot;&quot;ala&quot; in txt:&quot;&quot;&quot;</span><span class="p">,</span> <span class="s">&quot;ala&quot;</span> <span class="ow">in</span> <span class="n">txt</span>
+<span class="n">sage</span><span class="p">:</span> <span class="k">print</span> <span class="s">&quot;&quot;&quot;&quot;Ala&quot; in txt:&quot;&quot;&quot;</span><span class="p">,</span> <span class="s">&quot;Ala&quot;</span> <span class="ow">in</span> <span class="n">txt</span>
+<span class="n">sage</span><span class="p">:</span> <span class="k">print</span> <span class="s">&quot;txt[4]:&quot;</span><span class="p">,</span> <span class="n">txt</span><span class="p">[</span><span class="mi">4</span><span class="p">]</span> <span class="c"># powinno byc m</span>
+</pre></div>
+</div>
+<div class="line-block">
+<div class="line">&#8220;ala&#8221; in txt: False</div>
+<div class="line">&#8220;Ala&#8221; in txt: True</div>
+<div class="line">txt[4]: m</div>
+</div>
+</div>
+</div>
+<div class="section" id="zadania">
+<h2>Zadania<a class="headerlink" href="iCSE_ITechninf03_z77.html#zadania" title="Stały odnośnik do tego nagłówka">¶</a></h2>
+<p>Korzystając z wiedzy zdobytej na lekcjach 1-4 podaj rozwiązania zadań.</p>
+<p><strong>Zadanie 4: Pętla</strong> <tt class="docutils literal"><span class="pre">while</span></tt> <strong>i liczby nieparzyste.</strong></p>
+<p>czas: 10 min.</p>
+<p>Z użyciem pętli <tt class="docutils literal"><span class="pre">while</span></tt> napisz program generujący wszystkie liczby nieparzyste od 1 do <span class="math">\(n\)</span>.      Ustaw zmienną <span class="math">\(n\)</span> na początku komórki, w której napiszesz program. Upewnij się, że jeżeli podane <span class="math">\(n\)</span> będzie parzyste, to największą liczbą jaką zwróci program będzie <span class="math">\(n  -1\)</span>.</p>
+<p><strong>Zadanie 5: Lista liczb nieparzystych.</strong></p>
+<p>czas: 10 min.</p>
+<p>Zmodyfikuj program z poprzedniego zadania, tak aby składował generowane liczby nieparzyste w liście o      nazwie <tt class="docutils literal"><span class="pre">liczby_nieparzyste</span></tt>. Zacznij od zadeklarowania pustej listy a następnie za pomocą pętli <tt class="docutils literal"><span class="pre">while</span></tt> dodaj sukcesywnie wszystkie żądane liczby do listy. Na koniec wydrukuj całą listę.</p>
+<p><strong>Zadanie 6: Oblicz sumę</strong></p>
+<p>czas: 10 min.</p>
+<p>Poniższy kod powinien obliczać sumę <span class="math">\(s =\sum_{k=1}^{M}{1\over  k}\)</span>.</p>
+<div class="line-block">
+<div class="line">s = 0; k = 1; M = 100</div>
+<div class="line">while k &lt; M:</div>
+<div class="line-block">
+<div class="line">s += 1/k</div>
+</div>
+<div class="line">print s</div>
+</div>
+<p>Nie działa jednak poprawnie. Dlaczego? Postaraj się go poprawić. (Dla podanych wartości zmiennych wartość sumy powinna wynieść <span class="math">\(5.1773775176396208408391430566553026437759399414062\)</span>.)</p>
+<p><strong>Uwaga:</strong> Pamiętaj, że zawsze możesz zatrzymać obliczenia poprzez wybranie <strong>Interrupt</strong> w liście rozwijalnej <strong>Action</strong>  na samej górze notatnika.</p>
+<p><strong>Uwaga:</strong> Metodyka znajdowania problemów w kodzie programu. Ogólnie istnieją dwie proste metody znajdywania  błędów w programach:</p>
+<ol class="lowerroman simple">
+<li>można przeczytać program powoli i dokładnie zastanowić się nad każdą linijką i  konsekwencją jej wywołania, oraz</li>
+<li>można drukować sobie kolejne kroki na ekran (postać zmiennych, ich wartości...)  i na podstawie ich zmian próbować znaleźć problem.</li>
+</ol>
+<p>Na początku zastosuj metodę (i) i znajdź tak wiele błędów  jak zdołasz. Popraw je. Jeżeli program dalej nie będzie działać poprawnie spróbuj metody (ii). Ustaw na wstępie  <span class="math">\(M = 3\)</span> i  porównaj obliczenia kolejnych kroków programu ze swoimi własnymi, sprawdzając co przechowują zmienne <span class="math">\(s\)</span> i <span class="math">\(k\)</span>.</p>
+<p><strong>Zadanie 7: Prędkość i przyspieszenie</strong>.*</p>
+<p>czas: 10 min.</p>
+<p>Niech <span class="math">\(x(t)\)</span>  oznacza położenie ciała. Jeżeli położenie to zmienia się w sposób dyskretny to prędkość ciała  <span class="math">\(v(t)\)</span> i  przyspieszenie <span class="math">\(a(t)\)</span>  możemy obliczyć z przybliżonych wzorów</p>
+<div class="math">
+\[v(t) \simeq {x(t + \Delta t) - x(t - \Delta t)\over  2 \Delta t},\qquad a(t) \simeq {x(t + \Delta t) - 2x(t) + x(t - \Delta t)\over  {\Delta t}^{2}}\]</div>
+<p>gdzie owo <span class="math">\(\Delta t\)</span> to stały (mały) odstęp czasowy. Oba wzory przechodzą w znany wzór różniczkowy na prędkość i przyspieszenie w granicy  <span class="math">\(\Delta t \to 0\)</span>.
+Napisz program obliczający prędkość i przyspieszenie dla położeń zawartych w liście</p>
+<div class="line-block">
+<div class="line"><tt class="docutils literal"><span class="pre">x</span> <span class="pre">=</span> <span class="pre">[0.5,</span> <span class="pre">0.5,</span> <span class="pre">0.5,</span> <span class="pre">0.71,</span> <span class="pre">0.712,</span> <span class="pre">0.331,</span> <span class="pre">0.331,</span> <span class="pre">0.331,</span> <span class="pre">0.24,</span> <span class="pre">0.245,</span> <span class="pre">0.246,</span> <span class="pre">0.247,</span> <span class="pre">0.248]</span></tt></div>
+<div class="line"><tt class="docutils literal"><span class="pre">t</span> <span class="pre">=</span> <span class="pre">[ti\*0.1</span> <span class="pre">for</span> <span class="pre">ti</span> <span class="pre">in</span> <span class="pre">range(len(x))]</span></tt></div>
+</div>
+<p>Wartości prędkości i przyspieszenia dla poszczególnych przedziałów proszę zapisać w tablicach odpowiednio <tt class="docutils literal"><span class="pre">v</span></tt> i <tt class="docutils literal"><span class="pre">a</span></tt>.</p>
+<div class="section" id="zadania-domowe">
+<h3>Zadania domowe<a class="headerlink" href="iCSE_ITechninf03_z77.html#zadania-domowe" title="Stały odnośnik do tego nagłówka">¶</a></h3>
+<p>Stwórz notatnik ’Zadania domowe L04, Imię Nazwisko’. W tym notatniku rozwiąż poniższe zadania. Postaraj się jasno opisać jakie zadanie rozwiązujesz oraz metodykę rozwiązania tego zadania. Notatnik uwspólnij (tylko) z prowadzącym ćwiczenia.</p>
+<p><strong>Zadanie ZD1.1: Trójkąt.</strong></p>
+<p>czas: – min.</p>
+<p>Napisz program sprawdzający czy z trzech odcinków o podanych długościach <tt class="docutils literal"><span class="pre">a,</span> <span class="pre">b,</span> <span class="pre">c</span></tt> można skonstruować  trójkąt. W przypadku, kiedy jest to wykonalne oblicz jego obwód i pole. Cały program powinien być      zawarty w jednej komórce, łącznie z deklaracją długości boków trójkąta.</p>
+<p><strong>Zadanie ZD1.2: Wielkość największa i najmniejsza</strong></p>
+<p>czas: – min.</p>
+<p>Napisz program znajdujący najmniejszą i największą wartość z listy (zakładamy, że lista będzie miała      wartości liczbowe). Sprawdź swoje obliczenia używając funkcji <tt class="docutils literal"><span class="pre">max()</span></tt> oraz <tt class="docutils literal"><span class="pre">min()</span></tt> działających na listach.</p>
+<p><strong>Zadanie ZD1.3: Jak ugotować doskonałe jajko?</strong></p>
+<p>czas: – min.</p>
+<p>Kiedy gotujemy jajko, białka zawarte w jajku najpierw ulegają denaturacji, a dopiero później się ścinają. Po osiągnięciu temperatury krytycznej rozpoczyna się właściwa reakcja, która  przyspiesza wraz ze wzrostem temperatury. W białku jajka białka ścinają się już w temperaturze  <span class="math">\(63^{o}\)</span> C, natomiast w      żółtku dopiero przy <span class="math">\(70^{o}\)</span> C.  Aby ugotować jajko na miękko należy grzać białko jajka w temperaturze co najmniej  <span class="math">\(63^{o}\)</span> C  wystarczająco długo, ale żółtko nie powinno zostać rozgrzane powyżej  <span class="math">\(70^{o}\)</span> C.  Aby ugotować jajko na twardo, środek jajka powinien zostać ogrzany do temperatury  <span class="math">\(70^{o}\)</span> C. Poniższy wzór  szacuje ile czasu <span class="math">\(t\)</span> (w sekundach) potrzebuje żółtko do osiągnięcia temperatury  <span class="math">\({T}_{y}\)</span> (w  stopniach Celsjusza)</p>
+<div class="math">
+\[t =  {{M}^{2/3}c \rho ^{1/3}\over   K \pi^{2}{(4\pi/3)}^{2/3}}\ln [0.76{{T}_{0} - {T}_{w}\over { T}_{y} - {T}_{w}}].\]</div>
+<p>gdzie <span class="math">\(M\)</span> to masa   jajka, <span class="math">\(\rho\)</span> jego gęstość, <span class="math">\(c\)</span> to specyficzna pojemność  cieplna a <span class="math">\(K\)</span> to przewodność cieplna  jajka. Rzeczywiste wartości to <span class="math">\(M = 47\)</span> g dla małego i <span class="math">\(M = 67\)</span> g dla  dużego jajka, <span class="math">\(\rho = 1.038\)</span> g  cm <span class="math">\({}^{1}\)</span>,  <span class="math">\(c = 3.7\)</span> J g <span class="math">\({}^{-1}\)</span> K <span class="math">\({}^{-1}\)</span> a  <span class="math">\(K = 5.4 *10^{-3}\)</span> W cm <span class="math">\({}^{-1}\)</span> K <span class="math">\({}^{-1}\)</span>. Ponadto <span class="math">\({T}_{w}\)</span> to temperatura gotującej  się wody (w st. Celsjusza), <span class="math">\({T}_{0}\)</span>  to początkowa temperatura jajka (w st. Celsjusza) przed włożeniem go do wody. Sprawdź ile będzie gotować  się</p>
+<ol class="arabic simple">
+<li>wyjęte z lodówki małe jajko na miękko</li>
+<li>duże jajko leżące w temperaturze pokojowej, na twardo</li>
+<li>przyniesione z bazaru w Słubicach (woj. lubuskie) w dniu 30 lipca 1994, duże jajko na twardo.</li>
+</ol>
+<p><strong>Zadanie ZD1.4: Funkcja Heaviside’a.</strong></p>
+<p>czas: – min.</p>
+<p>Funkcja</p>
+<div class="math">
+\[\begin{split}H(x) = 0, x&lt;0 \\
+H(x) = 1, x&gt;0\end{split}\]</div>
+<p>nazywana jest funkcją schodkową lub funkcja Heaviside’a. Zaimplementuj tą funkcję w Sage z użyciem instrukcji warunkowej <tt class="docutils literal"><span class="pre">if</span></tt>.  Przetestuj ją dla <span class="math">\(x = 1/2,0,3\)</span>.</p>
+<p><strong>Zadanie ZD1.5: Przybliżanie funkcji</strong> <span class="math">\(\mathop{cos}\nolimits (x)\)</span></p>
+<p>czas: 10 min.</p>
+<p>Funkcja <span class="math">\(\mathop{cos}\nolimits (x)\)</span> może być przybliżona poprzez sumę</p>
+<div class="math">
+\[C = \sum_{j=0}^{n}{c}_{ j}\]</div>
+<p>gdzie</p>
+<div class="math">
+\[{c}_{j} = -{c}_{j-1}       {{x}^{2}\over   2j(2j -1)},\qquad j = 1,2,...,n,\]</div>
+<p>a <span class="math">\({c}_{0} = 1\)</span>. Używając pętli <tt class="docutils literal"><span class="pre">for</span></tt> napisz program obliczający wartość funkcji <span class="math">\(\mathop{cos}\nolimits ({x}_{k})\)</span> w punkcie  <span class="math">\({x}_{k}\)</span> dla  danego <span class="math">\(n\)</span>, deklarowanych w odpowiednich zmiennych na początku komórki. Korzystając z  wbudowanej w Sage funkcji <tt class="docutils literal"><span class="pre">cos</span></tt> policz jaki błąd generuje powyższy algorytm dla <span class="math">\(n = 5,25,50,100,200,1000\)</span> w punktach  <span class="math">\({x}_{k} = 0,2,4,6,8,10\)</span>.</p>
+<p><strong>Uwaga:</strong> Dla <span class="math">\(n = 1000\)</span> należy użyć wartości numerycznych dla <span class="math">\({x}_{k}\)</span>.</p>
+</div>
+</div>
+</div>
+
+
+          </div>
+        </div>
+      </div>
+      <div class="sphinxsidebar">
+        <div class="sphinxsidebarwrapper">
+  <div class="sphinxlocaltoc">
+  <h3><a href="index.html">Spis treści</a></h3>
+  <ul>
+<li><a class="reference internal" href="iCSE_ITechninf03_z77.html#">Instrukcje sterujące</a><ul>
+<li><a class="reference internal" href="iCSE_ITechninf03_z77.html#pomoc">Pomoc</a></li>
+<li><a class="reference internal" href="iCSE_ITechninf03_z77.html#id1">Instrukcje sterujące</a><ul>
+<li><a class="reference internal" href="iCSE_ITechninf03_z77.html#porownania">Porównania</a></li>
+<li><a class="reference internal" href="iCSE_ITechninf03_z77.html#nieco-logiki">Nieco logiki</a></li>
+<li><a class="reference internal" href="iCSE_ITechninf03_z77.html#instrukcje-warunkowe">Instrukcje warunkowe</a></li>
+<li><a class="reference internal" href="iCSE_ITechninf03_z77.html#jeszcze-jedno-przydatne-porownanie">Jeszcze jedno przydatne porównanie</a></li>
+</ul>
+</li>
+<li><a class="reference internal" href="iCSE_ITechninf03_z77.html#zadania">Zadania</a><ul>
+<li><a class="reference internal" href="iCSE_ITechninf03_z77.html#zadania-domowe">Zadania domowe</a></li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+
+  </div>
+  <h4>Poprzedni temat</h4>
+  <p class="topless"><a href="iCSE_ITechninf03_z77_typy_zlozone_i_petle.html"
+                        title="poprzedni rozdział">Typy złożone i pętle</a></p>
+  <h4>Następny temat</h4>
+  <p class="topless"><a href="iCSE_ITechninf03_z77_listy_funkcje.html"
+                        title="następny rozdział">Listy, Funkcje</a></p>
+<div id="searchbox" style="display: none">
+  <h3>Szybkie wyszukiwanie</h3>
+    <form class="search" action="http://visual.icse.us.edu.pl/Warsztaty/search.html" method="get">
+      <input type="text" name="q" />
+      <input type="submit" value="Szukaj" />
+      <input type="hidden" name="check_keywords" value="yes" />
+      <input type="hidden" name="area" value="default" />
+    </form>
+    <p class="searchtip" style="font-size: 90%">
+    Wprowadź szukany termin lub nazwę modułu, klasy lub funkcji.
+    </p>
+</div>
+<script type="text/javascript">$('#searchbox').show(0);</script>
+        </div>
+      </div>
+      <div class="clearer"></div>
+    </div>
+  </div>
+  <div class="relbar-bottom">
+    
+    <div class="related">
+      <h3>Nawigacja</h3>
+      <ul>
+        <li class="right" style="margin-right: 10px">
+          <a href="iCSE_ITechninf03_z77_listy_funkcje.html" title="Listy, Funkcje"
+             >dalej</a></li>
+        <li class="right" >
+          <a href="iCSE_ITechninf03_z77_typy_zlozone_i_petle.html" title="Typy złożone i pętle"
+             >wstecz</a> &nbsp; &nbsp;</li>
+  <li><a href="index.html">Warsztaty</a> &raquo;</li>
+  
+          <li><a href="sagewfizyce.html" >&lt;no title&gt;</a> &raquo;</li> 
+      </ul>
+    </div>
+  </div>
+  
+  <div class="footer">
+    <a class="logo" href="../../icse.us.edu.pl/index.html" target="_blank"><img src="_static/logo-icse.png" alt="ICSE"/></a><br/>
+    &copy; Copyright 2013, CubeProject.
+    Created using <a href="http://sphinx.pocoo.org/">Sphinx</a> 1.2.2.
+  </div>
+  </body>
+</html>

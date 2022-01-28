@@ -1,0 +1,818 @@
+
+
+  <!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+  "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+
+
+<html xmlns="http://www.w3.org/1999/xhtml">
+  <head>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    
+    <title>Zmiana bazy przestrzeni wektorowej &mdash; Algebra Liniowa</title>
+    
+    <link rel="stylesheet" href="_static/cloud.css" type="text/css" />
+    <link rel="stylesheet" href="_static/pygments.css" type="text/css" />
+    <link rel="stylesheet" href="http://fonts.googleapis.com/css?family=Noticia+Text|Open+Sans|Droid+Sans+Mono&subset=latin,latin-ext" type="text/css" />
+    
+    <script type="text/javascript">
+      var DOCUMENTATION_OPTIONS = {
+        URL_ROOT:    './',
+        VERSION:     'I',
+        COLLAPSE_INDEX: false,
+        FILE_SUFFIX: '.html',
+        HAS_SOURCE:  true
+      };
+    </script>
+    <script type="text/javascript" src="_static/jquery.js"></script>
+    <script type="text/javascript" src="_static/underscore.js"></script>
+    <script type="text/javascript" src="_static/doctools.js"></script>
+    <script type="text/javascript" src="_static/translations.js"></script>
+    <script type="text/javascript" src="http://cdn.mathjax.org/mathjax/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML"></script>
+    <script type="text/javascript" src="_static/jquery.cookie.js"></script>
+    <script type="text/javascript" src="_static/cloud.js"></script>
+
+	<script src="http://sagecell.icse.us.edu.pl:6363/static/jquery.min.js"></script>
+	<script src="http://sagecell.icse.us.edu.pl:6363/static/embedded_sagecell.js"></script>
+
+	<!-- <script src="http://sagecell.sagemath.org/static/jquery.min.js"></script> -->
+	<!-- <script src="http://sagecell.sagemath.org/static/embedded_sagecell.js"></script> -->
+
+	<script>sagecell.makeSagecell({inputLocation: ".sage",
+                                       evalButtonText: 'Wykonaj',
+                                       linked: true});</script>
+
+	<style type="text/css">
+		.sagecell .CodeMirror-scroll {
+			overflow-y: hidden;
+			overflow-x: auto;
+		}
+		.sagecell .CodeMirror {
+			height: auto;
+		}
+	</style>
+
+    
+    <link rel="top" title="Algebra Liniowa" href="http://visual.icse.us.edu.pl/LA/index.html" />
+    <link rel="next" title="Zadania" href="przeksztalcenia_lin_zadania.html" />
+    <link rel="prev" title="Operatory liniowe" href="przeksztalcenia_lin_operatory.html" />
+ 
+  <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, minimum-scale=1">
+  </head>
+  <body>
+  <div class="relbar-top">
+    
+    <div class="related">
+      <h3>Nawigacja</h3>
+      <ul>
+        <li class="right" style="margin-right: 10px">
+          <a href="przeksztalcenia_lin_zadania.html" title="Zadania"
+             accesskey="N">dalej</a></li>
+        <li class="right" >
+          <a href="przeksztalcenia_lin_operatory.html" title="Operatory liniowe"
+             accesskey="P">wstecz</a> &nbsp; &nbsp;</li>
+  <li><a href="http://visual.icse.us.edu.pl/LA/index.html">Algebra Liniowa</a> &raquo;</li>
+   
+      </ul>
+    </div>
+  </div>
+  
+  <div class="content">  
+
+    <div class="document">
+      <div class="documentwrapper">
+        <div class="bodywrapper">
+          <div class="body">
+            
+  <div class="section" id="zmiana-bazy-przestrzeni-wektorowej">
+<h1>Zmiana bazy przestrzeni wektorowej<a class="headerlink" href="przeksztalcenia_lin_zmiana_bazy.html#zmiana-bazy-przestrzeni-wektorowej" title="Stały odnośnik do tego nagłówka">¶</a></h1>
+<p>Jeżeli w przestrzeni wektorowej została wybrana baza, to każdy wektor jest jednoznacznie
+określony przez swoje współrzędne, a każdy operator liniowy <span class="math">\(\,\)</span> - <span class="math">\(\,\)</span> przez
+swoją macierz w tej bazie. W różnych bazach ten sam wektor ma jednak różne współrzędne,
+a ten sam operator <span class="math">\(\,\)</span> - <span class="math">\(\,\)</span> różne macierze.</p>
+<p>W tej sekcji wyprowadzimy wzory, opisujące transformację współrzędnych wektorów
+i macierzy operatorów liniowych przy przejściu od jednej do drugiej bazy.</p>
+<div class="section" id="macierz-przejscia">
+<h2>Macierz przejścia<a class="headerlink" href="przeksztalcenia_lin_zmiana_bazy.html#macierz-przejscia" title="Stały odnośnik do tego nagłówka">¶</a></h2>
+<p>Niech układy <span class="math">\(\ \mathcal{B}\,=\,(v_1,\,v_2,\,\dots,\,v_n)\ \)</span>
+i <span class="math">\(\ \,\mathcal{B'}\,=\,(v_1',\,v_2',\,\dots,\,v_n')\ \)</span> będą dwiema bazami
+przestrzeni wektorowej <span class="math">\(\,V\ \)</span> nad ciałem <span class="math">\(\,K.\)</span></p>
+<div class="admonition-lemat admonition">
+<p class="first admonition-title">Lemat.</p>
+<p>Przekształcenie liniowe <span class="math">\(\ T:\,V\rightarrow V,\ \)</span> zadane równaniem</p>
+<div class="math">
+\[Tv_i\ :\,=\ v_i'\,,\qquad i=1,2,\dots,n,\]</div>
+<p class="last">jest automorfizmem przestrzeni wektorowej <span class="math">\(\,V.\ \\\)</span>
+Nazywamy go <span class="math">\(\,\)</span> <em>automorfizmem przejścia</em> <span class="math">\(\,\)</span>
+od bazy <span class="math">\(\ \mathcal{B}\ \)</span> do bazy <span class="math">\(\ \mathcal{B'}.\)</span></p>
+</div>
+<p><strong>Dowód.</strong> <span class="math">\(\, \\\)</span>
+Zadanie obrazów wektorów bazy <span class="math">\(\ \mathcal{B}\ \)</span> określa przekształcenie liniowe <span class="math">\(\,T\ \)</span> jednoznacznie (patrz wniosek do Twierdzenia 5.).</p>
+<p>Dla dowolnego wektora <span class="math">\(\displaystyle\ \,v=\sum_{i\,=\,1}^n\ a_i\,v_i\,\in\,V\ \,\)</span> mamy</p>
+<div class="math">
+\[T\,\left(\,\sum_{i\,=\,1}^n\ a_i\,v_i\right)\ \ =\ \
+\sum_{i\,=\,1}^n\ a_i\;Tv_i\ \ =\ \ \sum_{i\,=\,1}^n\ a_i\,v_i'\,.\]</div>
+<p>Wektor, którego współrzędnymi w bazie <span class="math">\(\ \mathcal{B}\ \,\)</span> są
+<span class="math">\(\ \,\,a_1,\,a_2,\,\dots,\,a_n\,,\ \,\)</span>
+jest przekształcony w wektor o tych samych współrzędnych w bazie <span class="math">\(\ \mathcal{B}'.\ \)</span>
+Ponieważ, przy ustalonej bazie, przyporządkowanie wektorom układów współrzędnych
+jest wzajemnie jednoznaczne,
+przekształcenie <span class="math">\(\ T\ \)</span> jest endomorfizmem bijektywnym, czyli automorfizmem.</p>
+<div class="admonition-definicja admonition">
+<p class="first admonition-title">Definicja.</p>
+<div class="last line-block">
+<div class="line"><em>Macierz przejścia</em> <span class="math">\(\ \boldsymbol{S}\ \)</span>
+od bazy <span class="math">\(\ \mathcal{B}\ \)</span> do bazy <span class="math">\(\ \mathcal{B}'\ \)</span>
+przestrzeni wektorowej <span class="math">\(\,V\,\)</span></div>
+<div class="line">jest macierzą automorfizmu przejścia <span class="math">\(\,T\ \)</span>
+w bazie <span class="math">\(\,\mathcal{B}:\quad\boldsymbol{S}\ :\,=\ M_{\mathcal{B}}(T)\,.\)</span></div>
+</div>
+</div>
+<p>Niech <span class="math">\(\ \boldsymbol{S}\ =\ [\,s_{ij}\,]_{n\times n}\,.\ \)</span>
+Z definicji macierzy operatora liniowego wynikają związki</p>
+<div class="math" id="equation-base_0">
+<span class="eqno">(1)</span>\[\begin{split}\begin{array}{lcl}
+&amp; &amp; v_j'\;=\ Tv_j\;=\ \displaystyle\sum_{i\,=\,1}^n\ s_{ij}\:v_i\,,\qquad j=1,2,\dots,n\,, \\ \\
+\text{czyli} &amp; \qquad\quad &amp;
+\begin{array}{l}
+v_1'\ =\ s_{11}\,v_1\,+\ s_{21}\,v_2\,+\ \dots\ +\ s_{n1}\,v_n \\
+v_2'\ =\ s_{12}\,v_1\,+\ s_{22}\,v_2\,+\ \dots\ +\ s_{n2}\,v_n \\
+\ \dots \\
+v_n'\ =\ s_{1n}\,v_1\,+\ s_{2n}\,v_2\,+\ \dots\ +\ s_{nn}\,v_n
+\end{array}
+\end{array}\end{split}\]</div>
+<p>z których wynika praktyczny sposób konstrukcji macierzy przejścia:</p>
+<div class="admonition-wniosek-1-math admonition">
+<p class="first admonition-title">Wniosek 1. <span class="math">\(\\\)</span></p>
+<p><span class="math">\(j\)</span>-ta kolumna macierzy przejścia <span class="math">\(\ \boldsymbol{S}\ \)</span>
+od bazy <span class="math">\(\ \mathcal{B}\ \)</span> do bazy <span class="math">\(\ \mathcal{B}'\ \)</span> przestrzeni <span class="math">\(\,V\,\)</span>
+jest kolumną współrzędnych <span class="math">\(\,\)</span> (w bazie <span class="math">\(\ \mathcal{B}\)</span>) <span class="math">\(\,\)</span>
+<span class="math">\(j\)</span>-tego wektora bazy <span class="math">\(\ \mathcal{B}',\ \ j=1,2,\dots,n:\)</span></p>
+<div class="last math" id="equation-S_col">
+<span class="eqno">(2)</span>\[\boldsymbol{S}\ \,=\ \,\left[\,I_{\mathcal{B}}(v_1')\,|\,
+                               I_{\mathcal{B}}(v_2')\,|\,
+                               \dots\,|\,
+                               I_{\mathcal{B}}(v_n')\,\right]\,.\]</div>
+</div>
+<p>Istotną własność macierzy przejścia stwierdza</p>
+<div class="admonition-wniosek-2 admonition">
+<p class="first admonition-title">Wniosek 2.</p>
+<p class="last">Macierz przejścia jest nieosobliwa: <span class="math">\(\ \ \det\,\boldsymbol{S}\neq 0\,.\)</span></p>
+</div>
+<p><strong>Dowód.</strong> <span class="math">\(\,\)</span> Odwzorowanie <span class="math">\(\,I_{\mathcal{B}},\ \)</span> jako izomorfizm
+przestrzeni <span class="math">\(\,V\ \)</span> na przestrzeń <span class="math">\(\,K^n,\ \)</span> zachowuje liniową niezależność wektorów.
+Z liniowej niezależności wektorów <span class="math">\(\ v_1',\,v_2',\,\dots,\,v_n'\ \)</span> bazy <span class="math">\(\ \mathcal{B'}\ \)</span>
+wynika więc liniowa niezależność kolumn macierzy <span class="math">\(\ \boldsymbol{S},\ \,\)</span>
+a to implikuje niezerową wartość jej wyznacznika.</p>
+<p><strong>Przykład.</strong></p>
+<p>Rozważmy trójwymiarową przestrzeń <span class="math">\(\,V\ \)</span> z bazami
+<span class="math">\(\ \mathcal{B}=(v_1,\,v_2,\,v_3)\ \,\text{i}\ \ \mathcal{B'}=(v_1',\,v_2',\,v_3'),\ \,\)</span>
+gdzie <span class="math">\(\ \ v_1'=\,v_1,\)</span> <span class="math">\(\ \ v_2'=\,v_1+\,v_2,\)</span> <span class="math">\(\ \ v_3'=\,v_1+\,v_2+\,v_3\,.\)</span></p>
+<p>Związki pomiędzy wektorami obydwu baz można zapisać jako</p>
+<div class="math">
+\[\begin{split}\begin{array}{l}
+v_1'\ =\ 1\cdot v_1\,+\;0\cdot v_2\,+\;0\cdot v_3 \\
+v_2'\ =\ 1\cdot v_1\,+\;1\cdot v_2\,+\;0\cdot v_3 \\
+v_3'\ =\ 1\cdot v_1\,+\;1\cdot v_2\,+\;1\cdot v_3\,,
+\end{array}
+\qquad\text{skąd macierz przejścia}\qquad
+\boldsymbol{S}\ =\
+\left[\begin{array}{ccc} 1 &amp; 1 &amp; 1 \\ 0 &amp; 1 &amp; 1 \\ 0 &amp; 0 &amp; 1 \end{array}\right]\,.\end{split}\]</div>
+</div>
+<div class="section" id="wzory-transformacyjne">
+<h2>Wzory transformacyjne<a class="headerlink" href="przeksztalcenia_lin_zmiana_bazy.html#wzory-transformacyjne" title="Stały odnośnik do tego nagłówka">¶</a></h2>
+<p>Odtąd bazy <span class="math">\(\ \mathcal{B}\,=\,(v_1,\,v_2,\,\dots,\,v_n)\ \)</span>
+i <span class="math">\(\ \,\mathcal{B'}\,=\,(v_1',\,v_2',\,\dots,\,v_n')\ \)</span>
+będą nazywane odpowiednio starą i nową bazą.
+Relacje <a href="przeksztalcenia_lin_zmiana_bazy.html#equation-base_0">(1)</a> pomiędzy ich wektorami można przepisać następująco:</p>
+<div class="math">
+\[\begin{split}\begin{array}{lcl}
+&amp; &amp; v_i'\;=\ Tv_i\;=\ \displaystyle\sum_{j\,=\,1}^n\ s_{ij}^T\:v_j\,,\qquad i=1,2,\dots,n\,, \\ \\
+\text{czyli} &amp; \qquad\quad &amp;
+\begin{array}{l}
+v_1'\ =\ s_{11}^T\,v_1\,+\ s_{12}^T\,v_2\,+\ \dots\ +\ s_{1n}^T\,v_n \\
+v_2'\ =\ s_{21}^T\,v_1\,+\ s_{22}^T\,v_2\,+\ \dots\ +\ s_{2n}^T\,v_n \\
+\ \dots \\
+v_n'\ =\ s_{n1}^T\,v_1\,+\ s_{n2}^T\,v_2\,+\ \dots\ +\ s_{nn}^T\,v_n
+\end{array}
+\end{array}\end{split}\]</div>
+<p>Ten układ <span class="math">\(\,n\ \)</span> równości jest równoważny jednemu równaniu macierzowemu</p>
+<div class="math" id="equation-trans_base">
+<span class="eqno">(3)</span>\[\begin{split}\blacktriangleright\quad
+\left[\begin{array}{c} v_1' \\ v_2' \\ \dots \\ v_n' \end{array}\right]\ \,=\ \,
+\boldsymbol{S}^{\,T}\,
+\left[\begin{array}{c} v_1 \\ v_2 \\ \dots \\ v_n \end{array}\right]\,.\end{split}\]</div>
+<div class="admonition-regula-0-math-transformacja-wektorow-bazy admonition">
+<p class="first admonition-title">Reguła 0. <span class="math">\(\,\)</span> Transformacja wektorów bazy.</p>
+<p class="last">Kolumna złożona z wektorów nowej bazy równa się iloczynowi transponowanej macierzy przejścia
+przez kolumnę, złożoną z wektorów starej bazy.</p>
+</div>
+<p>Warto zauważyć, że (inaczej niż w dotychczasowych równaniach macierzowych) elementami kolumn
+po obydwu stronach są nie <em>skalary</em> (liczby), ale <em>wektory</em>.
+Natomiast macierz w tym równaniu jest zwykłą macierzą liczbową.</p>
+<p>Aby określić sposób transformowania się współrzędnych wektorów przy zmianie bazy,
+zapiszemy przedstawienie dowolnego wektora <span class="math">\(\,v\in V\ \)</span> w starej i nowej bazie:</p>
+<div class="math">
+\[\begin{eqnarray*}
+\sum_{i\,=\,1}^n\ a_i\:v_i\  & = & \ \sum_{j\,=\,1}^n\ a_j'\ v_j' \ \ = \\
+                             & = & \ \sum_{j\,=\,1}^n\ a_j'\ \left(\,
+                                     \sum_{i\,=\,1}^n\ s_{ij}\:v_i\right) \ \ = \\
+                             & = & \ \sum_{i\,=\,1}^n\ \left(\,
+                                     \sum_{j\,=\,1}^n\ s_{ij}\:a_j'\right)\;v_i\,.
+\end{eqnarray*}\]</div><p>Z jednoznaczności przedstawienia wektora w bazie <span class="math">\(\ \mathcal{B}\ \)</span> wynikają związki</p>
+<div class="math">
+\[\begin{split}\begin{array}{lcl}
+&amp; &amp; a_i\ =\ \displaystyle\sum_{j\,=\,1}^n\ s_{ij}\:a_j'\,,\qquad i=1,2,\dots,n\,, \\ \\
+\text{czyli} &amp; \qquad\quad &amp;
+\begin{array}{l}
+a_1\ =\ s_{11}\,a_1'\,+\ s_{12}\,a_2'\,+\ \dots\ +\ s_{1n}\,a_n' \\
+a_2\ =\ s_{21}\,a_1'\,+\ s_{22}\,a_2'\,+\ \dots\ +\ s_{2n}\,a_n' \\
+\ \dots \\
+a_n\ =\ s_{n1}\,a_1'\,+\ s_{n2}\,a_2'\,+\ \dots\ +\ s_{nn}\,a_n'
+\end{array}
+\end{array}\end{split}\]</div>
+<p>Przechodząc do zapisu macierzowego, otrzymujemy</p>
+<div class="math" id="equation-trans_coord">
+<span class="eqno">(4)</span>\[\begin{split}\left[\begin{array}{c} a_1 \\ a_2 \\ \dots \\ a_n \end{array}\right]
+\ \,=\ \,\boldsymbol{S}\;
+\left[\begin{array}{c} a_1' \\ a_2' \\ \dots \\ a_n' \end{array}\right]\,,
+\qquad\qquad\blacktriangleright\quad
+\left[\begin{array}{c} a_1' \\ a_2' \\ \dots \\ a_n' \end{array}\right]
+\ \,=\ \,\boldsymbol{S}^{-1}\,
+\left[\begin{array}{c} a_1 \\ a_2 \\ \dots \\ a_n \end{array}\right]\,.\end{split}\]</div>
+<div class="admonition-regula-1-math-transformacja-wspolrzednych-wektora admonition">
+<p class="first admonition-title">Reguła 1. <span class="math">\(\,\)</span> Transformacja współrzędnych wektora.</p>
+<p>Kolumna współrzędnych wektora w nowej bazie równa się iloczynowi odwrotności macierzy przejścia
+przez kolumnę współrzędnych w starej bazie.</p>
+<div class="last math">
+\[I_{\mathcal{B}'}(v)\ \ =\ \ \boldsymbol{S}^{-1}\,\cdot\,I_{\mathcal{B}}(v)\,,\qquad
+v\in V.\]</div>
+</div>
+<p>Zajmiemy się teraz transformacją macierzy operatora liniowego.</p>
+<p>Niech <span class="math">\(\,F\in\text{End}(V),\quad
+M_{\mathcal{B}}(F)=\boldsymbol{F}=[\,f_{ij}\,]_{n\times n}\,,\quad
+M_{\mathcal{B}'}(F)=\boldsymbol{F}'=[\,f_{ij}'\,]_{n\times n}\,.\)</span></p>
+<p>Wychodząc z definicji macierzy operatora <span class="math">\(\,F\ \)</span> w bazie <span class="math">\(\,\mathcal{B}'\ \)</span>
+otrzymujemy (<span class="math">\(j=1,2,\dots,n\)</span>):</p>
+<div class="math">
+\[\begin{eqnarray*}
+Fv_j' & = & \sum_{i\,=\,1}^n\ f_{ij}'\ v_i'\,, \\
+F\left(Tv_j\right) & = & \sum_{i\,=\,1}^n\ f_{ij}'\ Tv_i\,, \\
+T^{-1}\left[\,F\left(Tv_j\right)\,\right] & = & \sum_{i\,=\,1}^n\ f_{ij}'\ T^{-1}(Tv_i)\,, \\
+(T^{-1}\circ\,F\,\circ\,T)\ v_j & = & \sum_{i\,=\,1}^n\ f_{ij}'\ v_i\,.
+\end{eqnarray*}\]</div><p>Ostatnie równanie stwierdza, że <span class="math">\(\,\boldsymbol{F}'\ \)</span> jest macierzą
+<span class="math">\(\,\)</span> (w bazie <span class="math">\(\,\mathcal{B}\)</span>) <span class="math">\(\,\)</span> operatora
+<span class="math">\(\ \,T^{-1}\circ\,F\,\circ\,T\)</span> :</p>
+<div class="math">
+\[\boldsymbol{F}'\ =\ M_{\mathcal{B}}\left(\,T^{-1}\circ\,F\,\circ\,T\,\right)\ \,=\ \,
+M_{\mathcal{B}}(T^{-1})\,\cdot\,M_{\mathcal{B}}(F)\,\cdot\,M_{\mathcal{B}}(T)\ =\]\[=\
+[\,M_{\mathcal{B}}(T)\,]^{-1}\,\cdot\,M_{\mathcal{B}}(F)\,\cdot\,M_{\mathcal{B}}(T)\ \,=\ \,
+\boldsymbol{S}^{-1}\,\boldsymbol{F}\ \boldsymbol{S}\,.\]</div>
+<p>W ten sposób macierz <span class="math">\(\,\boldsymbol{F}'\ \)</span> operatora liniowego <span class="math">\(\,F\ \)</span>
+w bazie <span class="math">\(\,\mathcal{B}'\ \)</span> dana jest przez</p>
+<div class="math" id="equation-F_prim">
+<span class="eqno">(5)</span>\[\blacktriangleright\quad
+\boldsymbol{F}'\ =\ \boldsymbol{S}^{-1}\,\boldsymbol{F}\ \boldsymbol{S}\,.\]</div>
+<div class="admonition-regula-2-math-transformacja-macierzy-operatora-liniowego admonition">
+<p class="first admonition-title">Reguła 2. <span class="math">\(\,\)</span> Transformacja macierzy operatora liniowego.</p>
+<p>Przy zmianie bazy opisanej przez macierz przejścia <span class="math">\(\,\boldsymbol{S}\ \)</span>
+macierz operatora liniowego <span class="math">\(\,F\ \)</span> transformuje się według wzoru:</p>
+<div class="last math">
+\[M_{\mathcal{B}'}(F)\ \,=\ \,
+\boldsymbol{S}^{-1}\,\cdot\,M_{\mathcal{B}}(F)\,\cdot\,\boldsymbol{S}\,.\]</div>
+</div>
+<p><strong>Uwaga.</strong></p>
+<p>Z porównania wzorów <a href="przeksztalcenia_lin_zmiana_bazy.html#equation-trans_base">(3)</a> oraz <a href="przeksztalcenia_lin_zmiana_bazy.html#equation-trans_coord">(4)</a> wynika, że przy zmianie bazy
+współrzędne wektorów transformują się inaczej niż wektory bazy, <span class="math">\(\,\)</span> chyba że</p>
+<div class="math" id="equation-orth_mat">
+<span class="eqno">(6)</span>\[\boldsymbol{S}^{-1}\;=\ \boldsymbol{S}^{\,T}\,,
+\qquad\text{czyli}\qquad
+\boldsymbol{S}^{\,T}\boldsymbol{S}\ =\ \boldsymbol{I}_n\,.\]</div>
+<p>Macierz <span class="math">\(\,\boldsymbol{S}\in M_n(K)\ \)</span> spełniająca warunek <a href="przeksztalcenia_lin_zmiana_bazy.html#equation-orth_mat">(6)</a>
+nazywa się <span class="math">\(\,\)</span> <em>macierzą ortogonalną</em>.</p>
+<p>Przykładem jest macierz <span class="math">\(\,\boldsymbol{S}\,\)</span> przedstawiająca obrót
+bazy <span class="math">\(\,\mathcal{B}=(\vec{e}_1,\,\vec{e}_2,\,\vec{e}_3)\ \)</span> trójwymiarowej przestrzeni
+wektorów geometrycznych, gdzie <span class="math">\(\,(\vec{e}_1,\,\vec{e}_2,\,\vec{e}_3)\ \)</span>
+jest trójką wzajemnie prostopadłych wektorów jednostkowych.
+Ortogonalne są również macierze permutacji.</p>
+<p><strong>Ćwiczenie.</strong></p>
+<ol class="arabic">
+<li><p class="first">Uzasadnij, że macierz przejścia <span class="math">\(\ \boldsymbol{S}\ \)</span> od bazy <span class="math">\(\,\mathcal{B}\ \)</span>
+do bazy <span class="math">\(\,\mathcal{B}'\ \)</span> można równoważnie zdefiniować
+jako macierz automorfizmu przejścia <span class="math">\(\,T\ \)</span> w nowej bazie <span class="math">\(\,\mathcal{B}':\)</span></p>
+<div class="math">
+\[\boldsymbol{S}\ :\,=\ M_{\mathcal{B}}(T)\ =\ M_{\mathcal{B}'}(T)\,.\]</div>
+</li>
+<li><p class="first">W uzupełnieniu wyprowadzenia wzoru <a href="przeksztalcenia_lin_zmiana_bazy.html#equation-F_prim">(5)</a> pokaż,
+że jeżeli <span class="math">\(\,T\in\text{Aut}(V),\ \)</span> to</p>
+<div class="math">
+\[M_{\mathcal{B}}(T^{-1})\ \ =\ \ [\,M_{\mathcal{B}}(T)\,]^{-1}\,.\]</div>
+</li>
+</ol>
+</div>
+<div class="section" id="przyklady">
+<h2>Przykłady<a class="headerlink" href="przeksztalcenia_lin_zmiana_bazy.html#przyklady" title="Stały odnośnik do tego nagłówka">¶</a></h2>
+<p><strong>Przykład 0.</strong></p>
+<p>W przestrzeni <span class="math">\(\,R^4\,\)</span> należy znaleźć macierz przejścia:</p>
+<ol class="loweralpha">
+<li><div class="first line-block">
+<div class="line">od bazy kanonicznej <span class="math">\(\ \mathcal{E}\,=\,
+(\boldsymbol{e}_1,\,\boldsymbol{e}_2,\,\boldsymbol{e}_3,\,\boldsymbol{e}_4)\ =\
+\left(\
+\left[\begin{array}{c} 1 \\ 0 \\ 0 \\ 0 \end{array}\right]\,,
+\left[\begin{array}{c} 0 \\ 1 \\ 0 \\ 0 \end{array}\right]\,,
+\left[\begin{array}{c} 0 \\ 0 \\ 1 \\ 0 \end{array}\right]\,,
+\left[\begin{array}{c} 0 \\ 0 \\ 0 \\ 1 \end{array}\right]
+\ \right)\)</span></div>
+<div class="line"><br /></div>
+<div class="line">do bazy <span class="math">\(\ \mathcal{F}\,=\,
+(\boldsymbol{f}_1,\,\boldsymbol{f}_2,\,\boldsymbol{f}_3,\,\boldsymbol{f}_4)\ =\
+\left(\
+\left[\begin{array}{r}  1 \\  2 \\ -1 \\ 0 \end{array}\right]\,,
+\left[\begin{array}{r}  1 \\ -1 \\  1 \\ 1 \end{array}\right]\,,
+\left[\begin{array}{r} -1 \\  2 \\  1 \\ 1 \end{array}\right]\,,
+\left[\begin{array}{r} -1 \\ -1 \\  0 \\ 1 \end{array}\right]
+\ \right)\,.\)</span></div>
+</div>
+</li>
+<li><div class="first line-block">
+<div class="line">od bazy <span class="math">\(\,\mathcal{F}\,=\,
+(\boldsymbol{f}_1,\,\boldsymbol{f}_2,\,\boldsymbol{f}_3,\,\boldsymbol{f}_4)\)</span></div>
+<div class="line">do bazy <span class="math">\(\,\mathcal{G}\,=\,
+(\boldsymbol{g}_1,\,\boldsymbol{g}_2,\,\boldsymbol{g}_3,\,\boldsymbol{g}_4)\,=\,
+\left(\
+\left[\begin{array}{r}  2 \\ 1 \\ 0 \\ 1 \end{array}\right],
+\left[\begin{array}{r}  0 \\ 1 \\ 2 \\ 2 \end{array}\right],
+\left[\begin{array}{r} -2 \\ 1 \\ 1 \\ 2 \end{array}\right],
+\left[\begin{array}{r}  1 \\ 3 \\ 1 \\ 2 \end{array}\right]
+\ \right).\)</span></div>
+</div>
+</li>
+</ol>
+<p><strong>Rozwiązanie.</strong></p>
+<p>Wprowadzamy macierz <span class="math">\(\,\boldsymbol{F},\ \)</span> złożoną kolumnowo
+z wektorów bazy <span class="math">\(\,\mathcal{F}:\)</span></p>
+<div class="math">
+\[\begin{split}\boldsymbol{F}\ :\,=\
+[\,\boldsymbol{f}_1\,|\,\boldsymbol{f}_2\,|\,\boldsymbol{f}_3\,|\,\boldsymbol{f}_4\,]\ =\
+\left[\begin{array}{rrrr}
+       1 &amp;  1 &amp; -1 &amp; -1 \\
+       2 &amp; -1 &amp;  2 &amp; -1 \\
+      -1 &amp;  1 &amp;  1 &amp;  0 \\
+       0 &amp;  1 &amp;  1 &amp;  1 \end{array}\right]\,.\end{split}\]</div>
+<p>Kolumny macierzy przejścia od bazy <span class="math">\(\,\mathcal{E}\,\)</span> do bazy <span class="math">\(\,\mathcal{F}\,\)</span>
+składają się ze współrzędnych wektorów bazy <span class="math">\(\ \mathcal{F}\ \,\)</span> w bazie <span class="math">\(\ \mathcal{E}:\)</span></p>
+<div class="math">
+\[\boldsymbol{S}_{\mathcal{E}\rightarrow\mathcal{F}}\ =\
+[\,I_{\mathcal{E}}(\boldsymbol{f}_1)\,|\,
+   I_{\mathcal{E}}(\boldsymbol{f}_2)\,|\,
+   I_{\mathcal{E}}(\boldsymbol{f}_3)\,|\,
+   I_{\mathcal{E}}(\boldsymbol{f}_4)\,]\,.\]</div>
+<p>Ale w przestrzeni <span class="math">\(\,R^4\ \)</span> każdy wektor jest kolumną swoich współrzędnych w bazie kanonicznej:</p>
+<div class="math">
+\[I_{\mathcal{E}}(\boldsymbol{x})\ =\ \boldsymbol{x}\,,\qquad \boldsymbol{x}\in R^4\,.\]</div>
+<p>W takim razie szukana macierz przejścia jest dana po prostu przez</p>
+<div class="math" id="equation-S_EF">
+<span class="eqno">(7)</span>\[\begin{split}\blacktriangleright\quad
+\boldsymbol{S}_{\mathcal{E}\rightarrow\mathcal{F}}\ =\
+[\,\boldsymbol{f}_1\,|\,\boldsymbol{f}_2\,|\,\boldsymbol{f}_3\,|\,\boldsymbol{f}_4\,]\,=\,
+\boldsymbol{F}\ =\
+\left[\begin{array}{rrrr}
+       1 &amp;  1 &amp; -1 &amp; -1 \\
+       2 &amp; -1 &amp;  2 &amp; -1 \\
+      -1 &amp;  1 &amp;  1 &amp;  0 \\
+       0 &amp;  1 &amp;  1 &amp;  1 \end{array}\right]\,.\end{split}\]</div>
+<p><strong>Wniosek</strong> (uogólnienie).</p>
+<p>W przestrzeni <span class="math">\(\,K^n\ \)</span> macierz przejścia od bazy kanonicznej <span class="math">\(\ \mathcal{E}\ \)</span>
+do bazy <span class="math">\(\,\mathcal{B}\ \)</span> jest macierzą <span class="math">\(\,\boldsymbol{B},\ \)</span>
+otrzymaną przez zestawienie wektorów bazy <span class="math">\(\,\mathcal{B}\ \)</span>
+zapisanych w postaci kolumnowej.</p>
+<p>Przy opisie przejścia <span class="math">\(\ \mathcal{F}\rightarrow\mathcal{G}\ \)</span> przydatna będzie,
+oprócz macierzy <span class="math">\(\,\boldsymbol{F},\ \)</span> również macierz</p>
+<div class="math">
+\[\begin{split}\boldsymbol{G}\ :\,=\
+[\,\boldsymbol{g}_1\,|\,\boldsymbol{g}_2\,|\,\boldsymbol{g}_3\,|\,\boldsymbol{g}_4\,]\ =\
+\left[\begin{array}{rrrr}
+       2 &amp; 0 &amp; -2 &amp; 1 \\
+       1 &amp; 1 &amp;  1 &amp; 3 \\
+       0 &amp; 2 &amp;  1 &amp; 1 \\
+       1 &amp; 2 &amp;  2 &amp; 2 \end{array}\right]\,.\end{split}\]</div>
+<p>Z definicji (patrz wzór <a href="przeksztalcenia_lin_zmiana_bazy.html#equation-base_0">(1)</a>), <span class="math">\(\,j\)</span>-ta kolumna macierzy
+<span class="math">\(\,\boldsymbol{S}_{\mathcal{F}\rightarrow\mathcal{G}}\equiv\boldsymbol{S}=
+[\,s_{ij}\,]_{4\times 4}(R)\ \)</span>
+przejścia od bazy <span class="math">\(\ \mathcal{F}\ \)</span> do bazy <span class="math">\(\ \mathcal{G}\ \)</span> jest
+kolumną współrzędnych (w bazie <span class="math">\(\ \mathcal{F}\)</span>) <span class="math">\(\,j\)</span>-tego wektora
+bazy <span class="math">\(\ \mathcal{G}:\)</span></p>
+<div class="math" id="equation-S_4">
+<span class="eqno">(8)</span>\[\boldsymbol{g}_j\ =\ \sum_{i\,=\,1}^4\ s_{ij}\:\boldsymbol{f}_i\,,\qquad j=1,2,3,4.\]</div>
+<p>Relację <a href="przeksztalcenia_lin_zmiana_bazy.html#equation-S_4">(8)</a> można zinterpretować w duchu kolumnowej reguły mnożenia macierzowego:
+<span class="math">\(\,j\)</span>-ta kolumna macierzy <span class="math">\(\,\boldsymbol{G}\ \)</span> jest kombinacją liniową
+kolumn macierzy <span class="math">\(\,\boldsymbol{F},\ \)</span> o współczynnikach z <span class="math">\(\,j\)</span>-tej kolumny
+macierzy <span class="math">\(\,\boldsymbol{S},\ \ j=1,2,3,4.\ \)</span> Oznacza to, że</p>
+<div class="math">
+\[\boldsymbol{G}\ =\ \boldsymbol{F}\boldsymbol{S}\,.\]</div>
+<p>Macierz <span class="math">\(\,\boldsymbol{F},\ \)</span> złożona z liniowo niezależnych kolumn
+<span class="math">\(\ \boldsymbol{f}_1\,,\,\boldsymbol{f}_2\,,\,\boldsymbol{f}_3\,,\,\boldsymbol{f}_4\,,\ \)</span>
+jest nieosobliwa: <span class="math">\(\ \det\,\boldsymbol{F}\neq 0,\ \,\)</span> a więc odwracalna. Stąd szukana macierz przejścia</p>
+<div class="math" id="equation-S_FG">
+<span class="eqno">(9)</span>\[\blacktriangleright\quad
+\boldsymbol{S}_{\mathcal{F}\rightarrow\mathcal{G}}\ =\
+\boldsymbol{F}^{-1}\,\boldsymbol{G}\,.\]</div>
+<p><strong>Wariant rozwiązania.</strong></p>
+<p>Niech <span class="math">\(\ T\in\text{Aut}(R^4)\ \)</span> będzie automorfizmem przejścia
+od bazy <span class="math">\(\ \mathcal{F}\ \)</span> do bazy <span class="math">\(\ \mathcal{G}.\ \)</span> Wtedy
+szukana macierz przejścia jest macierzą automorfizmu <span class="math">\(\,T\,\)</span> w bazie
+<span class="math">\(\,\mathcal{F}:\ \boldsymbol{S}_{\mathcal{F}\rightarrow\mathcal{G}}\equiv\boldsymbol{S}=
+M_{\mathcal{F}}(T).\ \)</span> Ponadto</p>
+<div class="math">
+\[\boldsymbol{g}_j\,=\,T\,\boldsymbol{f}_j\,,
+\qquad\text{skąd}\qquad
+\boldsymbol{g}_j\,=\,\boldsymbol{T}\cdot\boldsymbol{f}_j\,,
+\qquad j=1,2,3,4\,,\]</div>
+<p>gdzie <span class="math">\(\ \,\boldsymbol{T}:\,=M_{\mathcal{E}}(T)\ \,\)</span>
+jest macierzą automorfizmu <span class="math">\(\,T\ \)</span> w bazie kanonicznej.
+Na podstawie kolumnowej reguły mnożenia macierzowego stwierdzamy, że z równości wektorowych</p>
+<div class="math">
+\[\boldsymbol{g}_1\,=\,\boldsymbol{T}\cdot\boldsymbol{f}_1\,,\quad
+\boldsymbol{g}_2\,=\,\boldsymbol{T}\cdot\boldsymbol{f}_2\,,\quad
+\boldsymbol{g}_3\,=\,\boldsymbol{T}\cdot\boldsymbol{f}_3\,,\quad
+\boldsymbol{g}_4\,=\,\boldsymbol{T}\cdot\boldsymbol{f}_4\,,\]</div>
+<p>wynika równość macierzowa</p>
+<div class="math">
+\[[\,\boldsymbol{g}_1\,|\,\boldsymbol{g}_2\,|\,\boldsymbol{g}_3\,|\,\boldsymbol{g}_4\,]\ =\
+\boldsymbol{T}\,\cdot\,
+[\,\boldsymbol{f}_1\,|\,\boldsymbol{f}_2\,|\,\boldsymbol{f}_3\,|\,\boldsymbol{f}_4\,]\,,
+\qquad\text{czyli}\qquad
+\boldsymbol{G}\ =\ \boldsymbol{T}\boldsymbol{F}\,.\]</div>
+<p>Stąd <span class="math">\(\ \,\boldsymbol{T}\equiv M_{\mathcal{E}}(T)\ =\ \boldsymbol{G}\boldsymbol{F}^{-1}.\ \,\)</span>
+Potrzebną macierz <span class="math">\(\,\boldsymbol{S}\equiv M_{\mathcal{F}}(T)\ \)</span> można wyliczyć ze wzoru</p>
+<div class="math">
+\[M_{\mathcal{F}}(T)\ =\ \boldsymbol{S}_{\mathcal{E}\rightarrow\mathcal{F}}^{-1}\,\cdot\,
+                       M_{\mathcal{E}}(T)\,\cdot\,
+                       \boldsymbol{S}_{\mathcal{E}\rightarrow\mathcal{F}}\,.\]</div>
+<p>Ale, jak zostało wcześniej pokazane (równanie <a href="przeksztalcenia_lin_zmiana_bazy.html#equation-S_EF">(7)</a>):
+<span class="math">\(\ \,\boldsymbol{S}_{\mathcal{E}\rightarrow\mathcal{F}}=\boldsymbol{F},\ \,\)</span> wobec czego</p>
+<div class="math">
+\[\boldsymbol{S}_{\mathcal{F}\rightarrow\mathcal{G}}\ =\
+\boldsymbol{F}^{-1}\,(\boldsymbol{G}\boldsymbol{F}^{-1})\,\boldsymbol{F}\ =\
+\boldsymbol{F}^{-1}\,\boldsymbol{G}\,.\]</div>
+<p>Dla sprawdzenia poprawności rozwiązania <a href="przeksztalcenia_lin_zmiana_bazy.html#equation-S_FG">(9)</a> rozważmy szczególny przypadek, gdy
+baza <span class="math">\(\ \mathcal{F}\ \,\)</span> jest bazą kanoniczną: <span class="math">\(\ \mathcal{F}=\mathcal{E}.\ \,\)</span>
+Wtedy <span class="math">\(\ \boldsymbol{F}=\boldsymbol{I}_4\ \ \)</span> i <span class="math">\(\,\)</span> dochodzimy do wzoru
+<span class="math">\(\ \boldsymbol{S}_{\mathcal{E}\rightarrow\mathcal{G}}\ =\ \boldsymbol{G},\ \)</span>
+zgodnego (przy innym oznaczeniu) z poprzednim wynikiem <a href="przeksztalcenia_lin_zmiana_bazy.html#equation-S_EF">(7)</a>.</p>
+<p>Przechodząc do rachunków, trzeba obliczyć iloczyn macierzowy</p>
+<div class="math">
+\[\begin{split}\boldsymbol{F}^{-1}\,\boldsymbol{G}\ =\
+   \left[\begin{array}{rrrr}
+       1 &amp;  1 &amp; -1 &amp; -1 \\
+       2 &amp; -1 &amp;  2 &amp; -1 \\
+      -1 &amp;  1 &amp;  1 &amp;  0 \\
+       0 &amp;  1 &amp;  1 &amp;  1 \end{array}\right]^{-1}
+\left[\begin{array}{rrrr}
+       2 &amp; 0 &amp; -2 &amp; 1 \\
+       1 &amp; 1 &amp;  1 &amp; 3 \\
+       0 &amp; 2 &amp;  1 &amp; 1 \\
+       1 &amp; 2 &amp;  2 &amp; 2 \end{array}\right]\,.\end{split}\]</div>
+<p>Komputerowe obliczenia przedstawiają się następująco:</p>
+<div class="highlight-python"><div class="highlight"><pre><span class="n">sage</span><span class="p">:</span> <span class="n">F</span> <span class="o">=</span> <span class="n">matrix</span><span class="p">(</span><span class="n">QQ</span><span class="p">,[[</span> <span class="mi">1</span><span class="p">,</span> <span class="mi">1</span><span class="p">,</span><span class="o">-</span><span class="mi">1</span><span class="p">,</span><span class="o">-</span><span class="mi">1</span><span class="p">],</span>
+<span class="o">...</span>                  <span class="p">[</span> <span class="mi">2</span><span class="p">,</span><span class="o">-</span><span class="mi">1</span><span class="p">,</span> <span class="mi">2</span><span class="p">,</span><span class="o">-</span><span class="mi">1</span><span class="p">],</span>
+<span class="o">...</span>                  <span class="p">[</span><span class="o">-</span><span class="mi">1</span><span class="p">,</span> <span class="mi">1</span><span class="p">,</span> <span class="mi">1</span><span class="p">,</span> <span class="mi">0</span><span class="p">],</span>
+<span class="o">...</span>                  <span class="p">[</span> <span class="mi">0</span><span class="p">,</span> <span class="mi">1</span><span class="p">,</span> <span class="mi">1</span><span class="p">,</span> <span class="mi">1</span><span class="p">]])</span>
+
+<span class="n">sage</span><span class="p">:</span> <span class="n">G</span> <span class="o">=</span> <span class="n">matrix</span><span class="p">(</span><span class="n">QQ</span><span class="p">,[[</span> <span class="mi">2</span><span class="p">,</span> <span class="mi">0</span><span class="p">,</span><span class="o">-</span><span class="mi">2</span><span class="p">,</span> <span class="mi">1</span><span class="p">],</span>
+<span class="o">...</span>                  <span class="p">[</span> <span class="mi">1</span><span class="p">,</span> <span class="mi">1</span><span class="p">,</span> <span class="mi">1</span><span class="p">,</span> <span class="mi">3</span><span class="p">],</span>
+<span class="o">...</span>                  <span class="p">[</span> <span class="mi">0</span><span class="p">,</span> <span class="mi">2</span><span class="p">,</span> <span class="mi">1</span><span class="p">,</span> <span class="mi">1</span><span class="p">],</span>
+<span class="o">...</span>                  <span class="p">[</span> <span class="mi">1</span><span class="p">,</span> <span class="mi">2</span><span class="p">,</span> <span class="mi">2</span><span class="p">,</span> <span class="mi">2</span><span class="p">]])</span>
+
+<span class="n">sage</span><span class="p">:</span> <span class="n">F</span><span class="o">.</span><span class="n">I</span><span class="o">*</span><span class="n">G</span>
+
+<span class="p">[</span><span class="mi">1</span> <span class="mi">0</span> <span class="mi">0</span> <span class="mi">1</span><span class="p">]</span>
+<span class="p">[</span><span class="mi">1</span> <span class="mi">1</span> <span class="mi">0</span> <span class="mi">1</span><span class="p">]</span>
+<span class="p">[</span><span class="mi">0</span> <span class="mi">1</span> <span class="mi">1</span> <span class="mi">1</span><span class="p">]</span>
+<span class="p">[</span><span class="mi">0</span> <span class="mi">0</span> <span class="mi">1</span> <span class="mi">0</span><span class="p">]</span>
+</pre></div>
+</div>
+<p><strong>Przykład 1.</strong></p>
+<p>W 4-wymiarowej przestrzeni <span class="math">\(\,V(R)\ \)</span> wektor <span class="math">\(\,v\ \)</span> ma w bazie
+<span class="math">\(\,\mathcal{B}=(v_1,\,v_2,\,v_3,\,v_4)\ \)</span> współrzędne <span class="math">\(\ 2,\ -3,\ 0,\ 4.\ \)</span>
+Jakie współrzędne ma ten wektor w bazie <span class="math">\(\,\mathcal{B}'=(v_1',\,v_2',\,v_3',\,v_4'),\ \)</span>
+gdzie</p>
+<div class="math">
+\[v_1'\,=\,-\ v_1\,,\quad v_2'\,=\,2\,v_1-\,v_3\,,\quad v_3'\,=\,v_1+\,v_2-\,v_3-\,2\,v_4\,,\quad
+v_4'\,=\,v_2-\,v_3+\,v_4\quad ?\]</div>
+<p><strong>Rozwiązanie.</strong> <span class="math">\(\,\)</span>
+Punktem wyjścia jest Reguła 1. przedstawiająca transformację współrzędnych:</p>
+<div class="math">
+\[I_{\mathcal{B}'}(v)\ \ =\ \ \boldsymbol{S}^{-1}\,\cdot\,I_{\mathcal{B}}(v)\,.\]</div>
+<p>Macierz przejścia <span class="math">\(\,\boldsymbol{S}\ \)</span> wyznaczymy z relacji
+pomiędzy wektorami starej i nowej bazy:</p>
+<div class="math">
+\[\begin{alignat*}{5}
+v_1' & {\ } = {\ } & -\ v_1 &             &     &             &     &                      \\
+v_2' & {\ } = {\ } & 2\,v_1 &             &     & {\,} - {\;} & v_3 &                      \\
+v_3' & {\ } = {\ } &    v_1 & {\,} + {\;} & v_2 & {\,} - {\;} & v_3 & {\,} - {\;} & 2\,v_4 \\
+v_4' & {\ } = {\ } &        &             & v_2 & {\,} - {\;} & v_3 & {\,} + {\;} &    v_4
+\end{alignat*}\]</div><p>Mianowicie, na podstawie Wniosku 1. po definicji macierzy przejścia (równanie <a href="przeksztalcenia_lin_zmiana_bazy.html#equation-S_col">(2)</a>) :</p>
+<div class="math">
+\[\begin{split}\boldsymbol{S}
+\ \ =\ \
+\left[\begin{array}{rrrr} -1 &amp;  2 &amp;  1 &amp;  0 \\
+                           0 &amp;  0 &amp;  1 &amp;  1 \\
+                           0 &amp; -1 &amp; -1 &amp; -1 \\
+                           0 &amp;  0 &amp; -2 &amp;  1 \end{array}\right]\,.\end{split}\]</div>
+<p>Z treści zadania:
+<span class="math">\(\quad I_{\mathcal{B}}(v)\ =\
+\left[\begin{array}{r} 2 \\ -3 \\ 0 \\ 4 \end{array}\right]\,;\quad\)</span>
+przy oznaczeniu
+<span class="math">\(\quad I_{\mathcal{B}'}(v)\ =\
+\left[\begin{array}{r} a_1' \\ a_2' \\ a_3' \\ a_4' \end{array}\right]\quad\)</span>
+mamy</p>
+<div class="math" id="equation-ex_1">
+<span class="eqno">(10)</span>\[\begin{split}\left[\begin{array}{r} a_1' \\ a_2' \\ a_3' \\ a_4' \end{array}\right]\quad=\quad
+\left[\begin{array}{rrrr} -1 &amp;  2 &amp;  1 &amp;  0 \\
+                           0 &amp;  0 &amp;  1 &amp;  1 \\
+                           0 &amp; -1 &amp; -1 &amp; -1 \\
+                           0 &amp;  0 &amp; -2 &amp;  1 \end{array}\right]^{-1}\cdot\quad
+\left[\begin{array}{r} 2 \\ -3 \\ 0 \\ 4 \end{array}\right]\,.\end{split}\]</div>
+<p>Dalsze obliczenia można wykonać dwoma sposobami. <span class="math">\(\\\)</span></p>
+<p><strong>Sposób 1.</strong> <span class="math">\(\,\)</span> Bezpośrednie wyliczenie macierzy odwrotnej do <span class="math">\(\,\boldsymbol{S}.\)</span></p>
+<p>Macierz <span class="math">\(\,\boldsymbol{S}^{-1}\ \)</span> można wyliczyć odręcznie, korzystając ze wzoru</p>
+<div class="math">
+\[(\boldsymbol{S}^{-1})_{ij}\ \,=\ \ \frac{1}{\det\boldsymbol{S}}\ \ S_{ji}\,,\qquad
+i,j=1,2,\dots,n\,,\]</div>
+<p>gdzie <span class="math">\(\,S_{ij}\,\)</span> jest dopełnieniem algebraicznym elementu <span class="math">\(\,s_{ij}\,\)</span>
+macierzy <span class="math">\(\,\boldsymbol{S},\ \\\)</span>
+albo komputerowo, korzystając z funkcji wbudowanych do pakietu Sage. <span class="math">\(\\\)</span></p>
+<p>W drugim przypadku, po wyliczeniu macierzy <span class="math">\(\,\boldsymbol{S}^{-1}\ \)</span>
+można od razu wykonać mnożenie macierzowe po prawej stronie równania <a href="przeksztalcenia_lin_zmiana_bazy.html#equation-ex_1">(10)</a>,
+co daje wynik w postaci kolumny współrzędnych wektora <span class="math">\(\,v\,\)</span> w bazie <span class="math">\(\,\mathcal{B}'.\)</span></p>
+<div class="highlight-python"><div class="highlight"><pre><span class="n">sage</span><span class="p">:</span> <span class="n">S</span> <span class="o">=</span> <span class="n">matrix</span><span class="p">(</span><span class="n">QQ</span><span class="p">,[[</span><span class="o">-</span><span class="mi">1</span><span class="p">,</span> <span class="mi">2</span><span class="p">,</span> <span class="mi">1</span><span class="p">,</span> <span class="mi">0</span><span class="p">],</span>
+<span class="o">...</span>                  <span class="p">[</span> <span class="mi">0</span><span class="p">,</span> <span class="mi">0</span><span class="p">,</span> <span class="mi">1</span><span class="p">,</span> <span class="mi">1</span><span class="p">],</span>
+<span class="o">...</span>                  <span class="p">[</span> <span class="mi">0</span><span class="p">,</span><span class="o">-</span><span class="mi">1</span><span class="p">,</span><span class="o">-</span><span class="mi">1</span><span class="p">,</span><span class="o">-</span><span class="mi">1</span><span class="p">],</span>
+<span class="o">...</span>                  <span class="p">[</span> <span class="mi">0</span><span class="p">,</span> <span class="mi">0</span><span class="p">,</span><span class="o">-</span><span class="mi">2</span><span class="p">,</span> <span class="mi">1</span><span class="p">]])</span>
+
+<span class="c"># Macierz odwrotna do S:</span>
+<span class="n">sage</span><span class="p">:</span> <span class="n">S_1</span> <span class="o">=</span> <span class="n">S</span><span class="o">.</span><span class="n">I</span>
+
+<span class="c"># Kolumna współrzędnych w bazie B:</span>
+<span class="n">sage</span><span class="p">:</span> <span class="n">I_B</span> <span class="o">=</span> <span class="n">vector</span><span class="p">(</span><span class="n">QQ</span><span class="p">,[</span><span class="mi">2</span><span class="p">,</span><span class="o">-</span><span class="mi">3</span><span class="p">,</span><span class="mi">0</span><span class="p">,</span><span class="mi">4</span><span class="p">])</span><span class="o">.</span><span class="n">column</span><span class="p">()</span>
+
+<span class="n">sage</span><span class="p">:</span> <span class="n">html</span><span class="o">.</span><span class="n">table</span><span class="p">([[</span><span class="n">S_1</span><span class="p">,</span><span class="s">&#39;*&#39;</span><span class="p">,</span><span class="n">I_B</span><span class="p">,</span><span class="s">&#39;=&#39;</span><span class="p">,</span><span class="n">S_1</span><span class="o">*</span><span class="n">I_B</span><span class="p">]])</span>
+</pre></div>
+</div>
+<div class="math" id="equation-calc_comp">
+<span class="eqno">(11)</span>\[\begin{split}\textstyle
+\left(\begin{array}{rrrr}
+-1 &amp; -\frac{5}{3} &amp; -2 &amp; -\frac{1}{3} \\
+ 0 &amp; -1           &amp; -1 &amp; 0            \\
+ 0 &amp; \frac{1}{3}  &amp;  0 &amp; -\frac{1}{3} \\
+ 0 &amp; \frac{2}{3}  &amp;  0 &amp; \frac{1}{3}
+\end{array}\right)
+\quad\ast\quad
+\left(\begin{array}{r} 2 \\ -3 \\ 0 \\ 4 \end{array}\right)
+\quad=\quad
+\left(\begin{array}{r} \frac{5}{3} \\ 3 \\ -\frac{7}{3} \\ -\frac{2}{3} \end{array}\right)\end{split}\]</div>
+<p>Dla przejrzystego zapisu liczbowych elementów macierzy i wektorów obliczenia zostały wykonane w ciele <span class="math">\(\,Q\,\)</span> liczb wymiernych.</p>
+<p><strong>Odpowiedź.</strong> <span class="math">\(\,\)</span>
+Współrzędne wektora <span class="math">\(\,v\ \)</span> w bazie <span class="math">\(\,\mathcal{B}'\ \)</span> wynoszą:
+<span class="math">\(\textstyle\quad\frac{5}{3}\,,\ \ \ 3\,,\ \ -\ \frac{7}{3}\,,\ \ -\ \frac{2}{3}\,. \\\)</span></p>
+<p><strong>Sposób 2.</strong> <span class="math">\(\,\)</span>
+Zamiast bezpośredniego wyliczania macierzy <span class="math">\(\,\boldsymbol{S}^{-1},\ \)</span> odwrócimy relacje</p>
+<div class="math">
+\[\begin{alignat*}{6}
+v_1' & {\ } = {\ } & Tv_1 & {\ \,} = {\ \,} & -\ v_1 &             &     &             &     &                      \\
+v_2' & {\ } = {\ } & Tv_2 & {\ \,} = {\ \,} & 2\ v_1 &             &     & {\,} - {\;} & v_3 &                      \\
+v_3' & {\ } = {\ } & Tv_3 & {\ \,} = {\ \,} &    v_1 & {\,} + {\;} & v_2 & {\,} - {\;} & v_3 & {\,} - {\;} & 2\ v_4 \\
+v_4' & {\ } = {\ } & Tv_4 & {\ \,} = {\ \,} &        &             & v_2 & {\,} - {\;} & v_3 & {\,} + {\;} &    v_4
+\end{alignat*}\]</div><p>Po prostych elementarnych rachunkach otrzymujemy wzory</p>
+<div class="math">
+\[\begin{alignat*}{6}
+v_1 & {\ } = {\ } & T^{-1}\,v_1' & {\ \,} = {\ \,} & -\ v_1'                        &             &      &             &                             &                                           \\
+v_2 & {\ } = {\ } & T^{-1}\,v_2' & {\ \,} = {\ \,} & -\ \textstyle\frac{5}{3}\ v_1' & {\,} - {\;} & v_2' & {\,} + {\;} & \textstyle\frac{1}{3}\ v_3' & {\,} + {\;} & \textstyle\frac{2}{3}\ v_4' \\
+v_3 & {\ } = {\ } & T^{-1}\,v_3' & {\ \,} = {\ \,} & -\ 2\ v_1'                     & {\,} - {\;} & v_2' &             &                             &                                           \\
+v_4 & {\ } = {\ } & T^{-1}\,v_4' & {\ \,} = {\ \,} & -\ \textstyle\frac{1}{3}\ v_1' &             &      & {\,} - {\;} & \textstyle\frac{1}{3}\ v_3' & {\,} + {\;} & \textstyle\frac{1}{3}\ v_4'
+\end{alignat*}\]</div><p>na podstawie których można wypisać macierz automorfizmu <span class="math">\(\,T^{-1}\ \)</span>
+w bazie <span class="math">\(\,\mathcal{B}':\)</span></p>
+<div class="math" id="equation-MB_prim_T_1">
+<span class="eqno">(12)</span>\[\begin{split}M_{\mathcal{B}'}(T^{-1})\ \ =\ \ \textstyle
+\left[\begin{array}{rrrr}
+      -1 &amp; -\frac{5}{3} &amp; -2 &amp; -\frac{1}{3} \\
+       0 &amp; -1           &amp; -1 &amp;   0          \\
+       0 &amp;  \frac{1}{3} &amp;  0 &amp; -\frac{1}{3} \\
+       0 &amp;  \frac{2}{3} &amp;  0 &amp;  \frac{1}{3}
+      \end{array}\right]\,.\end{split}\]</div>
+<p>Nas interesuje raczej macierz <span class="math">\(\ \boldsymbol{S}^{-1}=[\,M_{\mathcal{B}}(T)\,]^{-1}.\ \,\)</span>
+Ale, zgodnie z Regułą 2.:</p>
+<div class="math">
+\[M_{\mathcal{B}'}(T^{-1})\ \,=\ \,
+\boldsymbol{S}^{-1}\cdot M_{\mathcal{B}}(T^{-1})\cdot\boldsymbol{S}\ \,=\ \,
+\boldsymbol{S}^{-1}\cdot [\,M_{\mathcal{B}}(T)\,]^{-1}\cdot\boldsymbol{S}\ \,=\ \,
+\boldsymbol{S}^{-1}\cdot\boldsymbol{S}^{-1}\cdot\boldsymbol{S}\ \,=\ \,\boldsymbol{S}^{-1}\,.\]</div>
+<p>Równanie <a href="przeksztalcenia_lin_zmiana_bazy.html#equation-MB_prim_T_1">(12)</a> daje więc szukaną macierz <span class="math">\(\ \boldsymbol{S}^{-1},\ \)</span>
+co prowadzi dalej do wyniku <a href="przeksztalcenia_lin_zmiana_bazy.html#equation-calc_comp">(11)</a>.</p>
+<p><strong>Wariant rozwiązania.</strong> <span class="math">\(\,\)</span></p>
+<p>Związek <a href="przeksztalcenia_lin_zmiana_bazy.html#equation-trans_coord">(4)</a> pomiędzy współrzędnymi wektora w nowej i starej bazie, zapisany w postaci</p>
+<div class="math">
+\[\begin{split}\boldsymbol{S}\cdot I_{\mathcal{B}'}(v)\ =\  I_{\mathcal{B}}(v)
+\qquad\text{czyli}\qquad
+\left[\begin{array}{rrrr} -1 &amp;  2 &amp;  1 &amp;  0 \\
+                           0 &amp;  0 &amp;  1 &amp;  1 \\
+                           0 &amp; -1 &amp; -1 &amp; -1 \\
+                           0 &amp;  0 &amp; -2 &amp;  1 \end{array}\right]
+\left[\begin{array}{r} a_1' \\ a_2' \\ a_3' \\ a_4' \end{array}\right]\ =\
+\left[\begin{array}{r} 2 \\ -3 \\ 0 \\ 4 \end{array}\right]\end{split}\]</div>
+<p>przedstawia kramerowski układ równań</p>
+<div class="math">
+\[\begin{alignat*}{5}
+-\ a_1' & {\,} + {\,} & 2\,a_2' & {\,} + {\,} &    a_3' &             &      & {\;} = {} &  2 \\
+        &             &         &             &    a_3' & {\,} + {\,} & a_4' & {\;} = {} & -3 \\
+        & {\,} - {\,} &    a_2' & {\,} - {\,} &    a_3' & {\,} - {\,} & a_4' & {\;} = {} &  0 \\
+        &             &         & {\,} - {\,} & 2\,a_3' & {\,} + {\,} & a_4' & {\;} = {} &  4
+\end{alignat*}\]</div><p>który można rozwiązać odręcznie albo komputerowo z użyciem funkcji pakietu Sage:</p>
+<div class="highlight-python"><div class="highlight"><pre><span class="n">sage</span><span class="p">:</span> <span class="n">S</span> <span class="o">=</span> <span class="n">matrix</span><span class="p">(</span><span class="n">QQ</span><span class="p">,[[</span><span class="o">-</span><span class="mi">1</span><span class="p">,</span> <span class="mi">2</span><span class="p">,</span> <span class="mi">1</span><span class="p">,</span> <span class="mi">0</span><span class="p">],</span>
+<span class="o">...</span>                  <span class="p">[</span> <span class="mi">0</span><span class="p">,</span> <span class="mi">0</span><span class="p">,</span> <span class="mi">1</span><span class="p">,</span> <span class="mi">1</span><span class="p">],</span>
+<span class="o">...</span>                  <span class="p">[</span> <span class="mi">0</span><span class="p">,</span><span class="o">-</span><span class="mi">1</span><span class="p">,</span><span class="o">-</span><span class="mi">1</span><span class="p">,</span><span class="o">-</span><span class="mi">1</span><span class="p">],</span>
+<span class="o">...</span>                  <span class="p">[</span> <span class="mi">0</span><span class="p">,</span> <span class="mi">0</span><span class="p">,</span><span class="o">-</span><span class="mi">2</span><span class="p">,</span> <span class="mi">1</span><span class="p">]])</span>
+
+<span class="n">sage</span><span class="p">:</span> <span class="n">I_B</span> <span class="o">=</span> <span class="n">vector</span><span class="p">(</span><span class="n">QQ</span><span class="p">,[</span><span class="mi">2</span><span class="p">,</span><span class="o">-</span><span class="mi">3</span><span class="p">,</span><span class="mi">0</span><span class="p">,</span><span class="mi">4</span><span class="p">])</span> <span class="c"># wektor wolnych wyrazów</span>
+
+<span class="n">sage</span><span class="p">:</span> <span class="n">S</span> \ <span class="n">I_B</span>
+
+<span class="p">(</span><span class="mi">5</span><span class="o">/</span><span class="mi">3</span><span class="p">,</span> <span class="mi">3</span><span class="p">,</span> <span class="o">-</span><span class="mi">7</span><span class="o">/</span><span class="mi">3</span><span class="p">,</span> <span class="o">-</span><span class="mi">2</span><span class="o">/</span><span class="mi">3</span><span class="p">)</span>
+</pre></div>
+</div>
+<p><span class="math">\(\;\)</span></p>
+<p><strong>Przykład 2.</strong></p>
+<p>W bazie <span class="math">\(\,\mathcal{B}=(v_1,\,v_2,\,v_3)\ \)</span> przestrzeni wektorowej
+<span class="math">\(\,V(R)\ \)</span> operator <span class="math">\(\,F\in\text{End}(V)\ \)</span> ma macierz</p>
+<div class="math">
+\[\begin{split}\boldsymbol{F}\ =\
+\left[\begin{array}{rrr}
+      3 &amp; -2 &amp; -1 \\
+      2 &amp;  1 &amp; -3 \\
+      1 &amp;  3 &amp;  2 \end{array}\right]\,.\end{split}\]</div>
+<p>Należy podać macierz <span class="math">\(\,\boldsymbol{F}'\ \)</span> tego operatora w bazie
+<span class="math">\(\,\mathcal{B}'=(v_1',\,v_2',\,v_3'):\,=(v_3,\,v_2,\,v_1).\)</span></p>
+<p><strong>Rozwiązanie.</strong></p>
+<p><strong>Sposób 1.</strong> (bezpośredni) <span class="math">\(\,\)</span></p>
+<p>Z definicji macierzy <span class="math">\(\,\boldsymbol{F}=[\,f_{ij}\,]_{3\times 3}\ \)</span> oraz
+<span class="math">\(\,\boldsymbol{F}'=[\,f_{ij}'\,]_{3\times 3}\ \)</span> operatora <span class="math">\(\,F\ \)</span>
+w bazach <span class="math">\(\,\mathcal{B}\ \)</span> oraz <span class="math">\(\,\mathcal{B}':\)</span></p>
+<div class="math">
+\[Fv_j\,=\ f_{1j}\,v_1+\,f_{2j}\,v_2+\,f_{3j}\,v_3\,,
+\qquad
+Fv_j'\,=\ f_{1j}'\,v_1'+\,f_{2j}'\,v_2'+\,f_{3j}'\,v_3'\,,
+\qquad j=1,2,3,\]</div>
+<p>oraz z zależności <span class="math">\(\ v_1'=v_3,\ v_2'=v_2,\ v_3'=v_1\ \)</span> wynikają związki</p>
+<div class="math">
+\[\begin{split}\begin{array}{l}
+Fv_1\,=\quad 3\,v_1+\,2\,v_2+\,1\,v_3 \\
+Fv_2\,=\  -2\,v_1+\,1\,v_2+\,3\,v_3 \\
+Fv_3\,=\  -1\,v_1-\,3\,v_2+\,2\,v_3\,,
+\end{array}
+\qquad\qquad
+\begin{array}{l}
+Fv_1'\,=\ 2\,v_1'-\,3\,v_2'-\,1\,v_3' \\
+Fv_2'\,=\ 3\,v_1'+\,1\,v_2'-\,2\,v_3' \\
+Fv_3'\,=\ 1\,v_1'+\,2\,v_2'+\,3\,v_3'\,.
+\end{array}\end{split}\]</div>
+<p>Z drugiego układu równości odczytujemy:</p>
+<div class="math">
+\[\begin{split}\boldsymbol{F}'\ =\
+\left[\begin{array}{rrr}
+       2 &amp;  3 &amp; 1 \\
+      -3 &amp;  1 &amp; 2 \\
+      -1 &amp; -2 &amp; 3 \end{array}\right]\,.\end{split}\]</div>
+<p><strong>Sposób 2.</strong> (standardowy)</p>
+<p>Stosujemy Regułę 2. transformacji macierzy operatora liniowego (wzór <a href="przeksztalcenia_lin_zmiana_bazy.html#equation-F_prim">(5)</a>):</p>
+<div class="math" id="equation-F_prim_bis">
+<span class="eqno">(13)</span>\[\boldsymbol{F}'\ =\ \boldsymbol{S}^{-1}\,\boldsymbol{F}\ \boldsymbol{S}\,,\]</div>
+<p>gdzie <span class="math">\(\,\boldsymbol{S}\ \)</span> jest macierzą przejścia
+od bazy <span class="math">\(\,\mathcal{B}=(v_1,\,v_2,\,v_3)\ \)</span>
+do bazy <span class="math">\(\,\mathcal{B}'=(v_3,\,v_2,\,v_1).\)</span></p>
+<p>Zapisując związki pomiędzy wektorami nowej i starej bazy</p>
+<div class="math">
+\[\begin{split}\begin{array}{l}
+v_1'\,=\ 0\,v_1+\,0\,v_2+\,1\,v_3 \\
+v_2'\,=\ 0\,v_1+\,1\,v_2+\,0\,v_3 \\
+v_3'\,=\ 1\,v_1+\,0\,v_2+\,0\,v_3
+\end{array}
+\qquad\text{otrzymujemy}\qquad
+\boldsymbol{S}\ =\
+\left[\begin{array}{ccc} 0 &amp; 0 &amp; 1 \\
+                         0 &amp; 1 &amp; 0 \\
+                         1 &amp; 0 &amp; 0 \end{array}\right]\,.\end{split}\]</div>
+<p>Zamiast wyliczać bezpośrednio macierz <span class="math">\(\,\boldsymbol{S}^{-1}\ \)</span>
+zauważmy, że automorfizm przejścia <span class="math">\(\,T,\ \)</span> który przekształca
+wektory bazy <span class="math">\(\,\mathcal{B}\ \)</span> w odpowiednie
+wektory bazy <span class="math">\(\,\mathcal{B}':\ \ Tv_i=v_i',\ \ i=1,2,3,\ \ \)</span>
+spełnia warunek <span class="math">\(\,T^2=I,\ \)</span> gdzie <span class="math">\(\,I\ \)</span> jest przekształceniem identycznościowym:</p>
+<div class="math">
+\[\begin{split}\begin{array}{l} Tv_1=v_3 \\ Tv_2=v_2 \\ Tv_3=v_1 \end{array}
+\qquad\Rightarrow\qquad
+\begin{array}{l}
+T^2\,v_1=\,Tv_3=\,v_1=\,I\,v_1 \\ T^2\,v_2=\,Tv_2=\,v_2=\,I\,v_2 \\ T^2\,v_3=\,Tv_1=\,v_3=\,I\,v_3
+\end{array}\end{split}\]</div>
+<p>Z multiplikatywności macierzowej reprezentacji operatorów liniowych wynika, że analogiczną własność ma macierz przejścia: <span class="math">\(\ \boldsymbol{S}^2\ =\ \boldsymbol{I}_3,\ \,\)</span>
+skąd <span class="math">\(\ \boldsymbol{S}^{-1}=\,\boldsymbol{S}.\)</span></p>
+<p>Wyznaczone macierze podstawiamy do wzoru <a href="przeksztalcenia_lin_zmiana_bazy.html#equation-F_prim_bis">(13)</a>. <span class="math">\(\\\)</span></p>
+<div class="highlight-python"><div class="highlight"><pre><span class="n">sage</span><span class="p">:</span> <span class="n">F</span> <span class="o">=</span> <span class="n">matrix</span><span class="p">(</span><span class="n">QQ</span><span class="p">,[[</span><span class="mi">3</span><span class="p">,</span> <span class="o">-</span><span class="mi">2</span><span class="p">,</span> <span class="o">-</span><span class="mi">1</span><span class="p">],</span>
+<span class="o">...</span>                  <span class="p">[</span><span class="mi">2</span><span class="p">,</span>  <span class="mi">1</span><span class="p">,</span> <span class="o">-</span><span class="mi">3</span><span class="p">],</span>
+<span class="o">...</span>                  <span class="p">[</span><span class="mi">1</span><span class="p">,</span>  <span class="mi">3</span><span class="p">,</span>  <span class="mi">2</span><span class="p">]])</span>
+
+<span class="n">sage</span><span class="p">:</span> <span class="n">S</span> <span class="o">=</span> <span class="n">matrix</span><span class="p">(</span><span class="n">QQ</span><span class="p">,[[</span><span class="mi">0</span><span class="p">,</span>  <span class="mi">0</span><span class="p">,</span>  <span class="mi">1</span><span class="p">],</span>
+<span class="o">...</span>                  <span class="p">[</span><span class="mi">0</span><span class="p">,</span>  <span class="mi">1</span><span class="p">,</span>  <span class="mi">0</span><span class="p">],</span>
+<span class="o">...</span>                  <span class="p">[</span><span class="mi">1</span><span class="p">,</span>  <span class="mi">0</span><span class="p">,</span>  <span class="mi">0</span><span class="p">]])</span>
+
+<span class="n">sage</span><span class="p">:</span> <span class="n">F_1</span> <span class="o">=</span> <span class="n">S</span><span class="o">*</span><span class="n">F</span><span class="o">*</span><span class="n">S</span>
+
+<span class="n">sage</span><span class="p">:</span> <span class="n">html</span><span class="o">.</span><span class="n">table</span><span class="p">([[</span><span class="n">S</span><span class="p">,</span> <span class="s">&#39;*&#39;</span><span class="p">,</span> <span class="n">F</span><span class="p">,</span> <span class="s">&#39;*&#39;</span><span class="p">,</span> <span class="n">S</span><span class="p">,</span> <span class="s">&#39;=&#39;</span><span class="p">,</span> <span class="n">F_1</span><span class="p">]])</span>
+</pre></div>
+</div>
+<div class="math">
+\[\begin{split}\left(\begin{array}{ccc} 0 &amp; 0 &amp; 1 \\
+                         0 &amp; 1 &amp; 0 \\
+                         1 &amp; 0 &amp; 0 \end{array}\right)
+\ \ast\
+\left(\begin{array}{rrr} 3 &amp; -2 &amp; -1 \\
+                         2 &amp;  1 &amp; -3 \\
+                         1 &amp;  3 &amp;  2 \end{array}\right)
+\ \ast\
+\left(\begin{array}{ccc} 0 &amp; 0 &amp; 1 \\
+                         0 &amp; 1 &amp; 0 \\
+                         1 &amp; 0 &amp; 0 \end{array}\right)
+\ =\
+\left(\begin{array}{rrr}
+       2 &amp;  3 &amp; 1 \\
+      -3 &amp;  1 &amp; 2 \\
+      -1 &amp; -2 &amp; 3 \end{array}\right)\,.\end{split}\]</div>
+<p><span class="math">\(\\\)</span></p>
+</div>
+</div>
+
+
+          </div>
+        </div>
+      </div>
+      <div class="sphinxsidebar">
+        <div class="sphinxsidebarwrapper">
+  <div class="sphinxlocaltoc">
+  <h3><a href="http://visual.icse.us.edu.pl/LA/index.html">Spis treści</a></h3>
+  <ul>
+<li><a class="reference internal" href="przeksztalcenia_lin_zmiana_bazy.html#">Zmiana bazy przestrzeni wektorowej</a><ul>
+<li><a class="reference internal" href="przeksztalcenia_lin_zmiana_bazy.html#macierz-przejscia">Macierz przejścia</a></li>
+<li><a class="reference internal" href="przeksztalcenia_lin_zmiana_bazy.html#wzory-transformacyjne">Wzory transformacyjne</a></li>
+<li><a class="reference internal" href="przeksztalcenia_lin_zmiana_bazy.html#przyklady">Przykłady</a></li>
+</ul>
+</li>
+</ul>
+
+  </div>
+  <h4>Poprzedni temat</h4>
+  <p class="topless"><a href="przeksztalcenia_lin_operatory.html"
+                        title="poprzedni rozdział">Operatory liniowe</a></p>
+  <h4>Następny temat</h4>
+  <p class="topless"><a href="przeksztalcenia_lin_zadania.html"
+                        title="następny rozdział">Zadania</a></p>
+<div id="searchbox" style="display: none">
+  <h3>Szybkie wyszukiwanie</h3>
+    <form class="search" action="search.html" method="get">
+      <input type="text" name="q" />
+      <input type="submit" value="Szukaj" />
+      <input type="hidden" name="check_keywords" value="yes" />
+      <input type="hidden" name="area" value="default" />
+    </form>
+    <p class="searchtip" style="font-size: 90%">
+    Wprowadź szukany termin lub nazwę modułu, klasy lub funkcji.
+    </p>
+</div>
+<script type="text/javascript">$('#searchbox').show(0);</script>
+        </div>
+      </div>
+      <div class="clearer"></div>
+    </div>
+  </div>
+  <div class="relbar-bottom">
+    
+    <div class="related">
+      <h3>Nawigacja</h3>
+      <ul>
+        <li class="right" style="margin-right: 10px">
+          <a href="przeksztalcenia_lin_zadania.html" title="Zadania"
+             >dalej</a></li>
+        <li class="right" >
+          <a href="przeksztalcenia_lin_operatory.html" title="Operatory liniowe"
+             >wstecz</a> &nbsp; &nbsp;</li>
+  <li><a href="http://visual.icse.us.edu.pl/LA/index.html">Algebra Liniowa</a> &raquo;</li>
+   
+      </ul>
+    </div>
+  </div>
+  
+  <div class="footer">
+    <a class="logo" href="../../icse.us.edu.pl/index.html" target="_blank"><img src="_static/logo-icse.png" alt="ICSE"/></a><br/>
+    &copy; Copyright 2013, Marcin Kostur.
+    Created using <a href="http://sphinx.pocoo.org/">Sphinx</a> 1.2.2.
+  </div>
+  </body>
+</html>

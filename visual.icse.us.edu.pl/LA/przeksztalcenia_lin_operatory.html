@@ -1,0 +1,304 @@
+
+
+  <!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+  "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+
+
+<html xmlns="http://www.w3.org/1999/xhtml">
+  <head>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    
+    <title>Operatory liniowe &mdash; Algebra Liniowa</title>
+    
+    <link rel="stylesheet" href="_static/cloud.css" type="text/css" />
+    <link rel="stylesheet" href="_static/pygments.css" type="text/css" />
+    <link rel="stylesheet" href="http://fonts.googleapis.com/css?family=Noticia+Text|Open+Sans|Droid+Sans+Mono&subset=latin,latin-ext" type="text/css" />
+    
+    <script type="text/javascript">
+      var DOCUMENTATION_OPTIONS = {
+        URL_ROOT:    './',
+        VERSION:     'I',
+        COLLAPSE_INDEX: false,
+        FILE_SUFFIX: '.html',
+        HAS_SOURCE:  true
+      };
+    </script>
+    <script type="text/javascript" src="_static/jquery.js"></script>
+    <script type="text/javascript" src="_static/underscore.js"></script>
+    <script type="text/javascript" src="_static/doctools.js"></script>
+    <script type="text/javascript" src="_static/translations.js"></script>
+    <script type="text/javascript" src="http://cdn.mathjax.org/mathjax/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML"></script>
+    <script type="text/javascript" src="_static/jquery.cookie.js"></script>
+    <script type="text/javascript" src="_static/cloud.js"></script>
+
+	<script src="http://sagecell.icse.us.edu.pl:6363/static/jquery.min.js"></script>
+	<script src="http://sagecell.icse.us.edu.pl:6363/static/embedded_sagecell.js"></script>
+
+	<!-- <script src="http://sagecell.sagemath.org/static/jquery.min.js"></script> -->
+	<!-- <script src="http://sagecell.sagemath.org/static/embedded_sagecell.js"></script> -->
+
+	<script>sagecell.makeSagecell({inputLocation: ".sage",
+                                       evalButtonText: 'Wykonaj',
+                                       linked: true});</script>
+
+	<style type="text/css">
+		.sagecell .CodeMirror-scroll {
+			overflow-y: hidden;
+			overflow-x: auto;
+		}
+		.sagecell .CodeMirror {
+			height: auto;
+		}
+	</style>
+
+    
+    <link rel="top" title="Algebra Liniowa" href="http://visual.icse.us.edu.pl/LA/index.html" />
+    <link rel="next" title="Zmiana bazy przestrzeni wektorowej" href="przeksztalcenia_lin_zmiana_bazy.html" />
+    <link rel="prev" title="Macierze przekształceń liniowych" href="przeksztalcenia_lin_macierze.html" />
+ 
+  <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, minimum-scale=1">
+  </head>
+  <body>
+  <div class="relbar-top">
+    
+    <div class="related">
+      <h3>Nawigacja</h3>
+      <ul>
+        <li class="right" style="margin-right: 10px">
+          <a href="przeksztalcenia_lin_zmiana_bazy.html" title="Zmiana bazy przestrzeni wektorowej"
+             accesskey="N">dalej</a></li>
+        <li class="right" >
+          <a href="przeksztalcenia_lin_macierze.html" title="Macierze przekształceń liniowych"
+             accesskey="P">wstecz</a> &nbsp; &nbsp;</li>
+  <li><a href="http://visual.icse.us.edu.pl/LA/index.html">Algebra Liniowa</a> &raquo;</li>
+   
+      </ul>
+    </div>
+  </div>
+  
+  <div class="content">  
+
+    <div class="document">
+      <div class="documentwrapper">
+        <div class="bodywrapper">
+          <div class="body">
+            
+  <div class="section" id="operatory-liniowe">
+<h1>Operatory liniowe<a class="headerlink" href="przeksztalcenia_lin_operatory.html#operatory-liniowe" title="Stały odnośnik do tego nagłówka">¶</a></h1>
+<p>Operatorami liniowymi nazywamy endomorfizmy,
+czyli przekształcenia liniowe przestrzeni wektorowej w siebie.
+Wszystkie twierdzenia, udowodnione dla homomorfizmów, obowiązują również w zbiorze endomorfizmów.
+Ponieważ jednak mamy do czynienia tylko z jedną przestrzenią i jedną wybraną w niej bazą,
+niektóre oznaczenia można uprościć.</p>
+<p>Niech <span class="math">\(\,F\ \)</span> będzie operatorem liniowym określonym na <span class="math">\(\,n\)</span>-wymiarowej przestrzeni <span class="math">\(\,V\ \)</span> nad <span class="math">\(\,K.\ \)</span>
+Dla macierzy operatora <span class="math">\(\,F\ \)</span> w bazie <span class="math">\(\ \mathcal{B}=(v_1,v_2,\dots,v_n)\ \)</span>
+przestrzeni <span class="math">\(\,V\ \)</span> wprowadzamy oznaczenia:
+<span class="math">\(\ M_{\mathcal{B}}(F)=\boldsymbol{F}=[\,f_{ij}\,]_{n\times n}\in M_n(K).\ \)</span>
+Jej elementy są określone przez układ równości, które przedstawiają obrazy kolejnych wektorów
+bazy <span class="math">\(\ \mathcal{B}\ \)</span> <em>w tej samej bazie</em>:</p>
+<div class="math">
+\[\begin{split}\begin{array}{l}
+Fv_1\ =\ f_{11}\,v_1\,+\ f_{21}\,v_2\,+\ \dots\ +\ f_{n1}\,v_n \\
+Fv_2\ =\ f_{12}\,v_1\,+\ f_{22}\,v_2\,+\ \dots\ +\ f_{n2}\,v_n \\
+\ \dots \\
+Fv_n\ =\ f_{1n}\,v_1\,+\ f_{2n}\,v_2\,+\ \dots\ +\ f_{nn}\,v_n
+\end{array}\end{split}\]</div>
+<p>czyli, w zapisie skróconym:
+<span class="math">\(\displaystyle\quad Fv_j\;=\;\sum_{i\,=\,1}^n\ f_{ij}\:v_i\,,\quad j=1,2,\dots,n.\)</span></p>
+<p>Stosując kolumnowy zapis macierzy, otrzymujemy:</p>
+<div class="math">
+\[M_{\mathcal{B}}(F)\ \,=\ \,
+\left[\;I_{\mathcal{B}}(Fv_1\,|\,I_{\mathcal{B}}(Fv_2\,|\ \dots\ |\,
+I_{\mathcal{B}}(Fv_n\,\right]\,,\]</div>
+<p>gdzie <span class="math">\(\ I_{\mathcal{B}}(v)\ \)</span> jest kolumną współrzędnych
+<span class="math">\(\,\)</span> (w bazie <span class="math">\(\,\mathcal{B}\)</span>) <span class="math">\(\,\)</span> wektora <span class="math">\(\,v\in V.\)</span></p>
+<p>Twierdzenie 10. można teraz zapisać następująco</p>
+<div class="math" id="equation-fund_end">
+<span class="eqno">(1)</span>\[v'\,=\,F(v)\qquad\Rightarrow\qquad
+I_{\mathcal{B}}(v')\ =\ M_{\mathcal{B}}(F)\,\cdot\,I_{\mathcal{B}}(v)\,,
+\qquad v,v'\in V.\]</div>
+<p>W zbiorze <span class="math">\(\ \text{End}(V)\ \)</span> operatorów liniowych na przestrzeni <span class="math">\(\,V\ \)</span>
+zdefiniowane są działania dodawania, mnożenia przez liczby z <span class="math">\(\,K\ \)</span> i składania
+(przy tych działaniach <span class="math">\(\,\text{End}(V)\,\)</span> jest algebrą nad ciałem <span class="math">\(\,K\)</span>). <span class="math">\(\,\)</span>
+Zajmiemy się macierzą złożenia dwóch operatorów liniowych.</p>
+<div class="admonition-twierdzenie-12-math admonition">
+<p class="first admonition-title">Twierdzenie 12. <span class="math">\(\\\)</span></p>
+<p>Niech <span class="math">\(\,F,\,G\in\text{End}(V),\ \)</span> gdzie <span class="math">\(\,V\,\)</span> jest skończenie wymiarową
+przestrzenią wektorową z bazą <span class="math">\(\,\mathcal{B}.\ \)</span>
+Wtedy macierz <span class="math">\(\,\)</span> (w bazie <span class="math">\(\,\mathcal{B}\)</span>) <span class="math">\(\,\)</span>
+złożenia operatorów <span class="math">\(\,F\ \,\text{i}\ \ G\ \)</span> równa się iloczynowi ich macierzy
+w tej bazie:</p>
+<div class="last math" id="equation-multi">
+<span class="eqno">(2)</span>\[M_{\mathcal{B}}(F\circ G)\ =\ M_{\mathcal{B}}(F)\,\cdot\,M_{\mathcal{B}}(G)\,.\]</div>
+</div>
+<p><strong>Dowód.</strong> <span class="math">\(\,\)</span></p>
+<p>Przypomnimy określenie złożenia dwóch operatorów liniowych
+<span class="math">\(\,F,\,G\in\text{End}(V):\)</span></p>
+<div class="math">
+\[(F\circ G)(v)\ :\,=\ F\,[\,G(v)\,]\,,\qquad v\in V\,.\]</div>
+<p>Przyjmujemy oznaczenia:
+<span class="math">\(\quad\dim\,V=n,\quad\mathcal{B}=(v_1,v_2,\dots,v_n)\quad\)</span> oraz</p>
+<div class="math">
+\[M_{\mathcal{B}}(F)=\boldsymbol{F}=[\,f_{ij}\,]_{n\times n}\,,\quad
+M_{\mathcal{B}}(G)=\boldsymbol{G}=[\,g_{ij}\,]_{n\times n}\,,\quad
+M_{\mathcal{B}}(F\circ G)=\boldsymbol{H}=[\,h_{ij}\,]_{n\times n}\ \ \in\ M_n(K)\,.\]</div>
+<p>Obraz <span class="math">\(\,j\)</span>-tego wektora bazy <span class="math">\(\,\mathcal{B}\ \)</span> przy odwzorowaniu <span class="math">\(\,F\circ G\ \)</span>
+można na dwa sposoby przedstawić w postaci kombinacji liniowej wektorów bazy <span class="math">\(\,\mathcal{B}:\)</span></p>
+<div class="math">
+\[\triangleright\quad (F\circ G)(v_j)\ =\ \sum_{i\,=\,1}^n\ h_{ij}\:v_i\,;\]\[\triangleright\quad (F\circ G)(v_j)
+\ \,=\ \,F\,\left[\,G(v_j)\,\right]
+\ \,=\ \,F\,\left(\ \sum_{k\,=\,1}^n\ g_{kj}\:v_k\right)
+\ \ =\ \ \sum_{k\,=\,1}^n\ g_{kj}\:F(v_k)\ \ =\]\[\ \ =\ \ \sum_{k\,=\,1}^n\ g_{kj} \left(\ \sum_{i\,=\,1}^n\ f_{ik}\:v_i\right)
+\ \ =\ \ \sum_{i\,=\,1}^n\,\left(\ \sum_{k\,=\,1}^n\ f_{ik}\:g_{kj}\right)\,v_i\,,
+\qquad j=1,2,\dots,n.\]</div>
+<p>Z jednoznaczności przedstawienia wektora w bazie wynika, że</p>
+<div class="math">
+\[h_{ij}\ \,=\ \ \sum_{k\,=\,1}^n\ f_{ik}\:g_{kj}\,,\qquad i,j=1,2,\dots,n,\]</div>
+<p>co oznacza, że <span class="math">\(\quad\boldsymbol{H}=\boldsymbol{F}\boldsymbol{G},\quad\)</span>
+czyli <span class="math">\(\quad M_{\mathcal{B}}(F\circ G)\,=\,M_{\mathcal{B}}(F)\cdot M_{\mathcal{B}}(G)\,.\)</span></p>
+<p>Przyporządkowanie (przy wybranej bazie przestrzeni) operatorom liniowym macierzy
+jest więc nie tylko addytywne i jednorodne (patrz dowód Twierdzenia 11.), ale również
+multiplikatywne w sensie <a href="przeksztalcenia_lin_operatory.html#equation-multi">(2)</a>. Pozwala to sformułować</p>
+<div class="admonition-wniosek-math admonition">
+<p class="first admonition-title">Wniosek. <span class="math">\(\\\)</span></p>
+<p>Jeżeli <span class="math">\(\,V\,\)</span> jest przestrzenią nad ciałem <span class="math">\(\,K\,\)</span> z bazą
+<span class="math">\(\,\mathcal{B}=(v_1,\dots,v_n),\ \)</span> to odwzorowanie</p>
+<div class="math">
+\[M_{\mathcal{B}}:\quad
+\text{End}(V)\ni F\ \rightarrow\ M_{\mathcal{B}}(F):\,=
+\left[\;I_{\mathcal{B}}(Fv_1\,|\,\dots\,|\,
+I_{\mathcal{B}}(Fv_n\,\right]\in M_n(K)\]</div>
+<p class="last">jest izomorfizmem algebr
+<span class="math">\(\ \ \text{End}(V)\ \ \,\text{i}\ \ \,M_n(K).\)</span></p>
+</div>
+<p><strong>Dygresja.</strong></p>
+<p>Obowiązująca definicja mnożenia macierzowego została przyjęta m.in. dlatego,
+że przy niej odwzorowanie <span class="math">\(\,M_{\mathcal{B}}\,\)</span> jest multiplikatywne:
+iloczynowi (tzn. złożeniu) operatorów odpowiada iloczyn ich macierzy.
+Innym uzasadnieniem takiej definicji jest to, że wyznacznik iloczynu macierzy równa się iloczynowi ich wyznaczników.</p>
+<p><strong>Przykład.</strong></p>
+<p>Omówimy macierzową reprezentację operatora liniowego <span class="math">\(\,F\,\)</span> określonego w trójwymiarowej
+rzeczywistej przestrzeni <span class="math">\(\,V\,\)</span> wektorów geometrycznych wzorem</p>
+<div class="math">
+\[F(\vec{r})\ :\,=\,\vec{a}\times \vec{r}\,,\qquad\vec{r}\in V,\]</div>
+<p>gdzie <span class="math">\(\,\vec{a}\,\)</span> jest ustalonym wektorem.
+Liniowość <span class="math">\(\,F\,\)</span> wynika z własności iloczynu wektorowego.</p>
+<p>Jako bazę przestrzeni <span class="math">\(\,V\,\)</span> wybieramy prawoskrętną trójkę wzajemnie prostopadłych wektorów jednostkowych <span class="math">\(\ \mathcal{E}=(\vec{e}_1,\,\vec{e}_2,\,\vec{e}_3).\ \)</span> Niech
+<span class="math">\(\ \,\vec{a}=a_1\,\vec{e}_1+a_2\,\vec{e}_2+a_3\,\vec{e}_3,\ \,
+\vec{r}=x_1\,\vec{e}_1+x_2\,\vec{e}_2+x_3\,\vec{e}_3.\ \)</span>
+Korzystając z przedstawienia iloczynu wektorowego w postaci wyznacznika, otrzymujemy</p>
+<div class="math" id="equation-prod_det">
+<span class="eqno">(3)</span>\[\begin{split}F(\vec{r})\ \,=\ \,
+\left|\begin{array}{ccc}
+\vec{e}_1 &amp; \vec{e}_2 &amp; \vec{e}_3 \\
+  a_1     &amp;   a_2     &amp;   a_3     \\
+  x_1     &amp;   x_2     &amp;   x_3
+\end{array}\right|\,.\end{split}\]</div>
+<p>Aby wyznaczyć macierz operatora <span class="math">\(\,F\,\)</span> w bazie <span class="math">\(\ \mathcal{E},\ \)</span>
+wyliczamy obrazy wektorów tej bazy:</p>
+<div class="math">
+\[\begin{split}\begin{array}{l}
+F(\vec{e}_1)\ \,=\ \,\vec{a}\times\vec{e}_1\ \;=\ \
+\left|\begin{array}{ccc}
+\vec{e}_1 &amp; \vec{e}_2 &amp; \vec{e}_3 \\
+  a_1     &amp;   a_2     &amp;   a_3     \\
+    1     &amp;     0     &amp;     0
+\end{array}\right|\ \ \,=\ \ \,
+0\,\cdot\,\vec{e}_1\ \,+\ \,a_3\,\cdot\;\vec{e}_2\ \,-\ \,a_2\,\cdot\;\vec{e}_3\,, \\
+F(\vec{e}_2)\ \,=\ \,\vec{a}\times\vec{e}_2\ \;=\ \
+\left|\begin{array}{ccc}
+\vec{e}_1 &amp; \vec{e}_2 &amp; \vec{e}_3 \\
+  a_1     &amp;   a_2     &amp;   a_3     \\
+    0     &amp;     1     &amp;     0
+\end{array}\right|\ \ \,=\ \ \,
+-\ a_3\,\cdot\,\vec{e}_1\ \,+\ \,0\,\cdot\;\vec{e}_2\ \,+\ \,a_1\,\cdot\;\vec{e}_3\,, \\
+F(\vec{e}_3)\ \,=\ \,\vec{a}\times\vec{e}_3\ \;=\ \
+\left|\begin{array}{ccc}
+\vec{e}_1 &amp; \vec{e}_2 &amp; \vec{e}_3 \\
+  a_1     &amp;   a_2     &amp;   a_3     \\
+    0     &amp;     0     &amp;     1
+\end{array}\right|\ \ \,=\ \ \,
+a_2\,\cdot\,\vec{e}_1\ \,-\ \,a_1\,\cdot\;\vec{e}_2\ \,+\ \,0\,\cdot\;\vec{e}_3\,.
+\end{array}\end{split}\]</div>
+<p>Stąd szukana macierz:
+<span class="math">\(\quad M_{\mathcal{E}}(F)\ =\ \left[\begin{array}{ccc}
+0 &amp; -\ a_3 &amp; a_2 \\ a_3 &amp; 0 &amp; -\ a_1 \\ -\ a_2 &amp; a_1 &amp; 0
+\end{array}\right]\,.\)</span></p>
+<p>(Zauważmy na marginesie, że macierz <span class="math">\(\ M_{\mathcal{E}}(F)\equiv\boldsymbol{F}\,\)</span>
+jest antysymetryczna: <span class="math">\(\ \boldsymbol{F}^{\,T}=-\,\boldsymbol{F}.\)</span>)</p>
+<p>Oznaczając
+<span class="math">\(\ \,F(\vec{r})\,=\,\vec{r}\;'\,=\ x_1'\;\vec{e}_1+\,x_2'\;\vec{e}_2+\,x_3'\;\vec{e}_3\,,\ \,\)</span>
+mamy z równania <a href="przeksztalcenia_lin_operatory.html#equation-prod_det">(3)</a> :</p>
+<div class="math">
+\[\begin{split}\begin{array}{l}
+x_1'\ =\ a_2\;x_3\ -\ a_3\;x_2 \\
+x_2'\ =\ a_3\;x_1\ -\ a_1\;x_3 \\
+x_3'\ =\ a_1\;x_2\ -\ a_2\;x_1
+\end{array}
+\qquad\text{czyli}\qquad
+\left[\begin{array}{c} x_1' \\ x_2' \\ x_3' \end{array}\right]
+\ =\
+\left[\begin{array}{ccc}
+          0  &amp; -\ a_3 &amp;    a_2 \\
+         a_3 &amp;     0  &amp; -\ a_1 \\
+      -\ a_2 &amp;    a_1 &amp;     0
+\end{array}\right]
+\left[\begin{array}{c} x_1 \\ x_2 \\ x_3 \end{array}\right]\,.\end{split}\]</div>
+<p>Ostatnia równość stwierdza, <span class="math">\(\,\)</span> zgodnie z <a href="przeksztalcenia_lin_operatory.html#equation-fund_end">(1)</a>, <span class="math">\(\,\)</span> że
+<span class="math">\(\ \ I_{\mathcal{E}}(\vec{r}\;')\,=\,M_{\mathcal{E}}(F)\cdot I_{\mathcal{E}}(\vec{r})\,.\)</span></p>
+</div>
+
+
+          </div>
+        </div>
+      </div>
+      <div class="sphinxsidebar">
+        <div class="sphinxsidebarwrapper">
+  <h4>Poprzedni temat</h4>
+  <p class="topless"><a href="przeksztalcenia_lin_macierze.html"
+                        title="poprzedni rozdział">Macierze przekształceń liniowych</a></p>
+  <h4>Następny temat</h4>
+  <p class="topless"><a href="przeksztalcenia_lin_zmiana_bazy.html"
+                        title="następny rozdział">Zmiana bazy przestrzeni wektorowej</a></p>
+<div id="searchbox" style="display: none">
+  <h3>Szybkie wyszukiwanie</h3>
+    <form class="search" action="search.html" method="get">
+      <input type="text" name="q" />
+      <input type="submit" value="Szukaj" />
+      <input type="hidden" name="check_keywords" value="yes" />
+      <input type="hidden" name="area" value="default" />
+    </form>
+    <p class="searchtip" style="font-size: 90%">
+    Wprowadź szukany termin lub nazwę modułu, klasy lub funkcji.
+    </p>
+</div>
+<script type="text/javascript">$('#searchbox').show(0);</script>
+        </div>
+      </div>
+      <div class="clearer"></div>
+    </div>
+  </div>
+  <div class="relbar-bottom">
+    
+    <div class="related">
+      <h3>Nawigacja</h3>
+      <ul>
+        <li class="right" style="margin-right: 10px">
+          <a href="przeksztalcenia_lin_zmiana_bazy.html" title="Zmiana bazy przestrzeni wektorowej"
+             >dalej</a></li>
+        <li class="right" >
+          <a href="przeksztalcenia_lin_macierze.html" title="Macierze przekształceń liniowych"
+             >wstecz</a> &nbsp; &nbsp;</li>
+  <li><a href="http://visual.icse.us.edu.pl/LA/index.html">Algebra Liniowa</a> &raquo;</li>
+   
+      </ul>
+    </div>
+  </div>
+  
+  <div class="footer">
+    <a class="logo" href="../../icse.us.edu.pl/index.html" target="_blank"><img src="_static/logo-icse.png" alt="ICSE"/></a><br/>
+    &copy; Copyright 2013, Marcin Kostur.
+    Created using <a href="http://sphinx.pocoo.org/">Sphinx</a> 1.2.2.
+  </div>
+  </body>
+</html>

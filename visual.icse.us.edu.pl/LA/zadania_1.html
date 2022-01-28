@@ -1,0 +1,383 @@
+
+
+  <!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+  "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+
+
+<html xmlns="http://www.w3.org/1999/xhtml">
+  <head>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    
+    <title>Układy równań liniowych - eliminacja Gaussa &mdash; Algebra Liniowa</title>
+    
+    <link rel="stylesheet" href="_static/cloud.css" type="text/css" />
+    <link rel="stylesheet" href="_static/pygments.css" type="text/css" />
+    <link rel="stylesheet" href="http://fonts.googleapis.com/css?family=Noticia+Text|Open+Sans|Droid+Sans+Mono&subset=latin,latin-ext" type="text/css" />
+    
+    <script type="text/javascript">
+      var DOCUMENTATION_OPTIONS = {
+        URL_ROOT:    './',
+        VERSION:     'I',
+        COLLAPSE_INDEX: false,
+        FILE_SUFFIX: '.html',
+        HAS_SOURCE:  true
+      };
+    </script>
+    <script type="text/javascript" src="_static/jquery.js"></script>
+    <script type="text/javascript" src="_static/underscore.js"></script>
+    <script type="text/javascript" src="_static/doctools.js"></script>
+    <script type="text/javascript" src="_static/translations.js"></script>
+    <script type="text/javascript" src="http://cdn.mathjax.org/mathjax/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML"></script>
+    <script type="text/javascript" src="_static/jquery.cookie.js"></script>
+    <script type="text/javascript" src="_static/cloud.js"></script>
+
+	<script src="http://sagecell.icse.us.edu.pl:6363/static/jquery.min.js"></script>
+	<script src="http://sagecell.icse.us.edu.pl:6363/static/embedded_sagecell.js"></script>
+
+	<!-- <script src="http://sagecell.sagemath.org/static/jquery.min.js"></script> -->
+	<!-- <script src="http://sagecell.sagemath.org/static/embedded_sagecell.js"></script> -->
+
+	<script>sagecell.makeSagecell({inputLocation: ".sage",
+                                       evalButtonText: 'Wykonaj',
+                                       linked: true});</script>
+
+	<style type="text/css">
+		.sagecell .CodeMirror-scroll {
+			overflow-y: hidden;
+			overflow-x: auto;
+		}
+		.sagecell .CodeMirror {
+			height: auto;
+		}
+	</style>
+
+    
+    <link rel="top" title="Algebra Liniowa" href="http://visual.icse.us.edu.pl/LA/index.html" />
+    <link rel="next" title="Macierze" href="zadania_2.html" />
+    <link rel="prev" title="Przestrzenie unitarne" href="dowody_p_unitarne.html" />
+ 
+  <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, minimum-scale=1">
+  </head>
+  <body>
+  <div class="relbar-top">
+    
+    <div class="related">
+      <h3>Nawigacja</h3>
+      <ul>
+        <li class="right" style="margin-right: 10px">
+          <a href="zadania_2.html" title="Macierze"
+             accesskey="N">dalej</a></li>
+        <li class="right" >
+          <a href="dowody_p_unitarne.html" title="Przestrzenie unitarne"
+             accesskey="P">wstecz</a> &nbsp; &nbsp;</li>
+  <li><a href="http://visual.icse.us.edu.pl/LA/index.html">Algebra Liniowa</a> &raquo;</li>
+   
+      </ul>
+    </div>
+  </div>
+  
+  <div class="content">  
+
+    <div class="document">
+      <div class="documentwrapper">
+        <div class="bodywrapper">
+          <div class="body">
+            
+  <div class="section" id="uklady-rownan-liniowych-eliminacja-gaussa">
+<h1>Układy równań liniowych - eliminacja Gaussa<a class="headerlink" href="zadania_1.html#uklady-rownan-liniowych-eliminacja-gaussa" title="Stały odnośnik do tego nagłówka">¶</a></h1>
+<p><strong>Zadanie 0.</strong> <span class="math">\(\\\)</span>
+Zapisz następujące problemy w postaci układu równań liniowych <span class="math">\(\\\)</span>
+i znajdź (dowolnym sposobem) rozwiązania.</p>
+<ol class="arabic">
+<li><div class="first line-block">
+<div class="line">Andrzej jest dwa razy starszy od Piotra, a suma ich lat życia wynosi 33.</div>
+<div class="line">Podaj wiek Andrzeja i Piotra.</div>
+</div>
+</li>
+<li><div class="first line-block">
+<div class="line">Punkty <span class="math">\(\ P_1=(2,5)\ \)</span> i <span class="math">\(\ P_2=(3,7)\ \)</span> leżą na prostej o równaniu
+<span class="math">\(\ y=ax+b.\ \)</span></div>
+<div class="line">Określ <span class="math">\(\ a\ \)</span> i  <span class="math">\(\ b.\)</span></div>
+</div>
+</li>
+<li><div class="first line-block">
+<div class="line">Parabola przechodzi przez punkty <span class="math">\(\ P_1=(1,4),\ P_2=(2,8)\ \)</span> i <span class="math">\(\ P_3=(3,14).\ \)</span></div>
+<div class="line">Wyznacz współczynniki <span class="math">\(\ a,\,b,\,c\ \)</span> w jej równaniu <span class="math">\(\ y=ax^2+bx+c.\)</span></div>
+</div>
+</li>
+</ol>
+<p><strong>Zadanie 1.</strong> <span class="math">\(\\\)</span>
+Wykonując operacje elementarne na całych równaniach (patrz sekcja 2.3.2)
+albo na wierszach odpowiednich macierzy (sekcja 4.1.3), bez używania funkcji  <tt class="docutils literal"><span class="pre">solve()</span></tt>,
+<span class="math">\(\,\)</span>   <tt class="docutils literal"><span class="pre">X.solve_right()</span></tt>, <span class="math">\(\,\)</span> <tt class="docutils literal"><span class="pre">X\y</span></tt>, <span class="math">\(\,\)</span> <tt class="docutils literal"><span class="pre">X.rref()</span></tt>, <span class="math">\(\,\)</span>
+rozwiąż układy równań nad ciałem <span class="math">\(\ Q:\)</span></p>
+<ol class="arabic">
+<li><div class="first math">
+\[\begin{alignat*}{3}
+   x_1 & \ -\  &    x_2 & \ =\  & 0 \\
+-\,x_1 & \ +\  & 2\,x_2 & \ =\  & \ \textstyle\frac{1}{36}
+\end{alignat*}\]</div></li>
+<li><div class="first math">
+\[\begin{alignat*}{3}
+-\,2\,x_1 & \ -\  & 3\,x_2 & \ =\  & 0 \\
+   3\,x_1 & \ +\  & 4\,x_2 & \ =\  & \ \textstyle\frac{16}{7}
+\end{alignat*}\]</div></li>
+<li><div class="first math">
+\[\begin{alignat*}{4}
+  16\,x_1 & \ +\ & 41\,x_2 & \ -\ & 101\,x_3 & \ =\ & -\,\textstyle\frac{1}{10} \\
+      x_1 & \ +\ &  3\,x_2 & \ -\ &   7\,x_3 & \ =\ &  \ \textstyle\frac{1}{2}  \\
+-\,5\,x_1 & \ -\ & 13\,x_2 & \ +\ &  32\,x_3 & \ =\ &  1
+\end{alignat*}\]</div></li>
+<li><div class="first math">
+\[\begin{alignat*}{4}
+   -\,x_1 & \ -\ & 3\,x_2 & \ +\ & 9\,x_3 & \ =\ &    1 \\
+      x_1 & \  \ &        & \ +\ &    x_3 & \ =\ & -\,2 \\
+-\,2\,x_1 & \ -\ & 2\,x_2 & \ +\ & 5\,x_3 & \ =\ &    2
+\end{alignat*}\]</div></li>
+<li><div class="first math">
+\[\begin{alignat*}{4}
+-\,11\,x_1 & \ +\ & 44\,x_2 & \ -\ & 135\,x_3 & \ =\ &    0                     \\
+    2\,x_1 & \ -\ &  7\,x_2 & \ +\ &  20\,x_3 & \ =\ &    \textstyle\frac{1}{3} \\
+    4\,x_1 & \ -\ & 16\,x_2 & \ +\ &  49\,x_3 & \ =\ & -\ \textstyle\frac{1}{7}
+\end{alignat*}\]</div></li>
+<li><div class="first math">
+\[\begin{alignat*}{5}
+      x_1 &\ +\ &  3\,x_2 &\ -\ &    x_3 &\ +\ &  23 \,x_4 &\ =\ & -\,1 \\
+   4\,x_1 &\ +\ & 13\,x_2 &\ -\ & 3\,x_3 &\ +\ &  93 \,x_4 &\ =\ & -\,1 \\
+-\,5\,x_1 &\ -\ & 17\,x_2 &\ +\ & 4\,x_3 &\ -\ & 121 \,x_4 &\ =\ & -\ \textstyle\frac{1}{2} \\
+          &\  \ &     x_2 &\ +\ & 3\,x_3 &\ -\ &   6 \,x_4 &\ =\ &  \textstyle\frac{1}{2}
+\end{alignat*}\]</div></li>
+</ol>
+<p><strong>Zadanie 2.</strong> <span class="math">\(\,\)</span>
+Wykorzystując teraz wszystkie potrzebne funkcje Sage&#8217;a (patrz sekcja 6.2), <span class="math">\(\\\)</span>
+rozwiąż rzeczywiste problemy liniowe postaci <span class="math">\(\ \boldsymbol{A}\,\boldsymbol{x}=\boldsymbol{b}\ \,\)</span>
+dla następujących danych:</p>
+<ol class="arabic">
+<li><div class="first math">
+\[\begin{split}\boldsymbol{A}\ =\
+\left[\begin{array}{rrrr}
+ 1 &amp; -5 &amp;   9 &amp;  11 \\
+ 1 &amp; -4 &amp;   8 &amp;   9 \\
+-3 &amp; 15 &amp; -26 &amp; -33 \\
+-2 &amp;  7 &amp; -10 &amp; -16
+\end{array}\right]\,,\qquad
+\boldsymbol{b}\ =\
+\left[\begin{array}{r}
+-1 \\ 0 \\ 4 \\ 4
+\end{array}\right]\,;\end{split}\]</div>
+</li>
+<li><div class="first math">
+\[\begin{split}\boldsymbol{A}\ =\
+\left[\begin{array}{rrrr}
+ 1 &amp;   4 &amp;   5 &amp; -1 \\
+-3 &amp; -12 &amp; -14 &amp;  3 \\
+ 3 &amp;  12 &amp;  19 &amp; -3 \\
+-2 &amp;  -8 &amp; -12 &amp;  2
+\end{array}\right]\,,\qquad
+\boldsymbol{b}\ =\
+\left[\begin{array}{r}
+13 \\ -38 \\ 43 \\ -28
+\end{array}\right]\,;\end{split}\]</div>
+</li>
+</ol>
+<ol class="arabic">
+<li><div class="first math">
+\[\begin{split}\boldsymbol{A}\ =\
+\left[\begin{array}{rrr}
+1 &amp;  -5 &amp; -11 \\
+2 &amp;  -9 &amp; -20 \\
+4 &amp; -16 &amp; -36
+\end{array}\right]\,,\qquad
+\boldsymbol{b}\ =\
+\left[\begin{array}{r}
+-1 \\ -5 \\ 1
+\end{array}\right]\,.\end{split}\]</div>
+</li>
+</ol>
+<p>Dowolną bazę przestrzeni rozwiązań jednorodnego problemu liniowego
+<span class="math">\(\ \boldsymbol{A}\,\boldsymbol{x}=\boldsymbol{0}\ \)</span> nazywamy <span class="math">\(\,\)</span>
+<em>fundamentalnym układem rozwiązań</em> <span class="math">\(\,\)</span> tego problemu.</p>
+<p><strong>Zadanie 3.</strong> <span class="math">\(\,\)</span>
+Wyznacz fundamentalny układ rozwiązań jednorodnego problemu liniowego <span class="math">\(\\\)</span>
+nad ciałem <span class="math">\(\ Q\ \)</span> o macierzy współczynników</p>
+<div class="math">
+\[\begin{split}\boldsymbol{A}\ =\
+\left[\begin{array}{rrrr}
+    1 &amp;   4 &amp;   5 &amp; -1 \\
+   -3 &amp; -12 &amp; -14 &amp;  3 \\
+    3 &amp;  12 &amp;  19 &amp; -3 \\
+   -2 &amp;  -8 &amp; -12 &amp;  2
+\end{array}\right]\,.\end{split}\]</div>
+<p><strong>Zadanie 4.</strong> <span class="math">\(\,\)</span>
+Znajdź jednorodny układ równań, składający się z
+<span class="math">\(\,\)</span> a.) dwóch <span class="math">\(\,\)</span> b.) trzech <span class="math">\(\,\)</span> równań,
+dla którego wektory</p>
+<div class="math">
+\[\begin{split}\left[\begin{array}{r} 1 \\  4 \\ -2 \\ 2 \\ -1 \end{array}\right]\,,\quad
+\left[\begin{array}{r} 3 \\ 13 \\ -1 \\ 2 \\  1 \end{array}\right]\,,\quad
+\left[\begin{array}{r} 2 \\  7 \\ -8 \\ 4 \\ -5 \end{array}\right]\end{split}\]</div>
+<p>tworzą fundamentalny układ rozwiązań.</p>
+<p><strong>Zadanie 5.</strong> <span class="math">\(\,\)</span>
+Czy istnieje jednorodny układ równań liniowych,
+którego fundamentalnym układem rozwiązań jest układ wektorów
+<span class="math">\(\ (\boldsymbol{x}_1,\boldsymbol{x}_2,\boldsymbol{x}_3),\ \)</span> a także
+<span class="math">\(\ (\boldsymbol{y}_1,\boldsymbol{y}_2,\boldsymbol{y}_3),\ \)</span> gdzie</p>
+<div class="math">
+\[\begin{split}\begin{array}{lll}
+\boldsymbol{x}_1=
+\left[\begin{array}{r} 2 \\ 3 \\ 1 \\ 2 \end{array}\right], &amp;
+\boldsymbol{x}_2=
+\left[\begin{array}{r} 1 \\ 1 \\ -2 \\ -2 \end{array}\right], &amp;
+\boldsymbol{x}_3=
+\left[\begin{array}{r} 3 \\ 4 \\ 2 \\ 1 \end{array}\right],
+\\ \\
+\boldsymbol{y}_1=
+\left[\begin{array}{r} 1 \\ 0 \\ 2 \\ -5 \end{array}\right], &amp;
+\boldsymbol{y}_2=
+\left[\begin{array}{r} 0 \\ 1 \\ 8 \\ 7 \end{array}\right], &amp;
+\boldsymbol{y}_3=
+\left[\begin{array}{r} 4 \\ 5 \\ -2 \\ 0 \end{array}\right].
+\end{array}\end{split}\]</div>
+<p><strong>Zadanie 6.</strong> <span class="math">\(\\\)</span>
+Czy istnieje <span class="math">\(\ \lambda\in Q,\ \)</span> dla którego układ równań nad ciałem liczb wymiernych</p>
+<div class="math">
+\[\begin{alignat*}{4}
+     x_1 & \ +\ & 2\,x_2 & \ +\ & 3\,\lambda\,x_3 & \ =\ & -1 \\
+     x_1 & \ +\ &    x_2 & \ -\ &             x_3 & \ =\ &  1 \\
+\,2\,x_1 & \ +\ &    x_2 & \ +\ &          5\,x_3 & \ =\ &  3
+\end{alignat*}\]</div><p>ma nieskończenie wiele rozwiązań ?</p>
+<p><strong>Wskazówka.</strong> <span class="math">\(\\\)</span> Odpowiedź (negatywną) można dać
+po wyliczeniu tylko jednego wyznacznika 3. stopnia.</p>
+<p><strong>Zadanie 7.</strong> <span class="math">\(\\\)</span>
+Dla jakich <span class="math">\(\ \lambda\in R\ \)</span> układ równań nad ciałem <span class="math">\(\ R\ \)</span>
+ma rozwiązanie ? <span class="math">\(\,\)</span> Znajdź to rozwiązanie.</p>
+<div class="math">
+\[\begin{alignat*}{5}
+2\,x_1 &\ -\ &    x_2 &\ +\ &    x_3 &\ +\ &     x_4 &\ =\ & 1 \\
+   x_1 &\ +\ & 2\,x_2 &\ -\ &    x_3 &\ +\ &  4\,x_4 &\ =\ & 2 \\
+   x_1 &\ +\ & 7\,x_2 &\ -\ & 4\,x_3 &\ +\ & 11\,x_4 &\ =\ & \lambda
+\end{alignat*}
+
+\;
+
+\;\]</div><p><strong>Zadanie 8.</strong> <span class="math">\(\,\)</span>
+Przedyskutuj ze względu na <span class="math">\(\ \lambda\ \)</span> i rozwiąż układy równań:</p>
+<ol class="arabic">
+<li><div class="first math">
+\[\begin{alignat*}{4}
+3\,x_1 & \ +\ & 2\,x_2 & \ +\ &    x_3 & \ =\ & -1      \\
+7\,x_1 & \ +\ & 6\,x_2 & \ +\ & 5\,x_3 & \ =\ & \lambda \\
+5\,x_1 & \ +\ & 4\,x_2 & \ +\ & 3\,x_3 & \ =\ & 2
+\end{alignat*}\]</div></li>
+<li><div class="first math">
+\[\begin{alignat*}{4}
+\lambda\,x_1 & \ +\ &    x_2 & \ +\ &    x_3 & \ =\ &  0 \\
+      5\,x_1 & \ +\ &    x_2 & \ -\ & 2\,x_3 & \ =\ &  2 \\
+     -2\,x_1 & \ -\ & 2\,x_2 & \ +\ &    x_3 & \ =\ & -3
+\end{alignat*}\]</div></li>
+<li><div class="first math">
+\[\begin{alignat*}{4}
+         x_1 & \ +\ &          x_2 & \ +\ & \lambda\,x_3 & \ =\ & 1 \\
+         x_1 & \ +\ & \lambda\,x_2 & \ +\ &          x_3 & \ =\ & 1 \\
+\lambda\,x_1 & \ +\ &          x_2 & \ +\ &          x_3 & \ =\ & 1
+\end{alignat*}\]</div></li>
+</ol>
+<p><strong>Zadanie 9.</strong> <span class="math">\(\,\)</span>
+Wyznacz wszystkie wartości <span class="math">\(\ \lambda\in R,\ \)</span> dla których
+wektor <span class="math">\(\ \boldsymbol{b}\ \)</span> wyraża się liniowo
+przez wektory <span class="math">\(\ \boldsymbol{a}_1,\,\boldsymbol{a}_2,\,\boldsymbol{a}_3:\)</span></p>
+<div class="math">
+\[\begin{split}\begin{array}{lllll}
+1.) &amp; \qquad
+\boldsymbol{a}_1=\left[\begin{array}{r} 2 \\  3 \\ 5       \end{array}\right], &amp;
+\boldsymbol{a}_2=\left[\begin{array}{r} 3 \\  7 \\ 8       \end{array}\right], &amp;
+\boldsymbol{a}_3=\left[\begin{array}{r} 1 \\ -6 \\ 1       \end{array}\right], &amp; \quad
+\boldsymbol{b} = \left[\begin{array}{r} 7 \\ -2 \\ \lambda \end{array}\right]; \\ \\
+2.) &amp; \qquad
+\boldsymbol{a}_1=\left[\begin{array}{r} 4 \\ 4 \\ 3       \end{array}\right], &amp;
+\boldsymbol{a}_2=\left[\begin{array}{r} 7 \\ 2 \\ 1       \end{array}\right], &amp;
+\boldsymbol{a}_3=\left[\begin{array}{r} 4 \\ 1 \\ 6       \end{array}\right], &amp; \quad
+\boldsymbol{b} = \left[\begin{array}{r} 5 \\ 9 \\ \lambda \end{array}\right]; \\ \\
+3.) &amp; \qquad
+\boldsymbol{a}_1=\left[\begin{array}{r} 3       \\ 2 \\ 6 \end{array}\right], &amp;
+\boldsymbol{a}_2=\left[\begin{array}{r} 7       \\ 3 \\ 9 \end{array}\right], &amp;
+\boldsymbol{a}_3=\left[\begin{array}{r} 5       \\ 1 \\ 3 \end{array}\right], &amp; \quad
+\boldsymbol{b} = \left[\begin{array}{r} \lambda \\ 2 \\ 5 \end{array}\right]; \\ \\
+4.) &amp; \qquad
+\boldsymbol{a}_1=\left[\begin{array}{r} 3 \\ 2 \\ 5       \end{array}\right], &amp;
+\boldsymbol{a}_2=\left[\begin{array}{r} 2 \\ 4 \\ 7       \end{array}\right], &amp;
+\boldsymbol{a}_3=\left[\begin{array}{r} 5 \\ 6 \\ \lambda \end{array}\right], &amp; \quad
+\boldsymbol{b} = \left[\begin{array}{r} 1 \\ 3 \\ 5       \end{array}\right].
+\end{array}\end{split}\]</div>
+<p><strong>Wskazówka.</strong> <span class="math">\(\,\)</span>
+Zbadaj istnienie rozwiązań problemu liniowego o postaci kolumnowej</p>
+<div class="math">
+\[x_1\,\boldsymbol{a}_1+x_2\,\boldsymbol{a}_2+x_3\,\boldsymbol{a}_3=\boldsymbol{b}.\]</div>
+<p><strong>Zadanie 10.</strong> <span class="math">\(\,\)</span>
+Rozważmy przestrzeń wektorową wielomianów rzeczywistych zmiennej <span class="math">\(\ x\ \)</span>
+stopnia (nie większego od) <span class="math">\(\ n.\ \)</span>
+Jaki jest wymiar podprzestrzeni, złożonej z wielomianów spełniających warunki
+<span class="math">\(\ w(x_1)=w(x_2)=\ldots=w(x_k)=0,\ \)</span> gdzie <span class="math">\(\ x_1,x_2,\ldots,x_k\ \)</span>
+są różnymi liczbami <span class="math">\(\ (k\le n).\)</span></p>
+<p><strong>Wskazówka.</strong> <span class="math">\(\,\)</span>
+Wykorzystaj wzór dla wyznacznika Vandermonde&#8217;a (sekcja 10.4).</p>
+<p><strong>Zadanie 11.</strong> <span class="math">\(\,\)</span>
+W przestrzeni wielomianów rzeczywistych stopnia (nie większego od) 5
+podaj przykładową bazę podprzestrzeni, utworzonej przez wielomiany spełniające
+warunki <span class="math">\(\ w(0)=w(1)=w(2)=w(3)=0.\)</span></p>
+</div>
+
+
+          </div>
+        </div>
+      </div>
+      <div class="sphinxsidebar">
+        <div class="sphinxsidebarwrapper">
+  <h4>Poprzedni temat</h4>
+  <p class="topless"><a href="dowody_p_unitarne.html"
+                        title="poprzedni rozdział">Przestrzenie unitarne</a></p>
+  <h4>Następny temat</h4>
+  <p class="topless"><a href="zadania_2.html"
+                        title="następny rozdział">Macierze</a></p>
+<div id="searchbox" style="display: none">
+  <h3>Szybkie wyszukiwanie</h3>
+    <form class="search" action="search.html" method="get">
+      <input type="text" name="q" />
+      <input type="submit" value="Szukaj" />
+      <input type="hidden" name="check_keywords" value="yes" />
+      <input type="hidden" name="area" value="default" />
+    </form>
+    <p class="searchtip" style="font-size: 90%">
+    Wprowadź szukany termin lub nazwę modułu, klasy lub funkcji.
+    </p>
+</div>
+<script type="text/javascript">$('#searchbox').show(0);</script>
+        </div>
+      </div>
+      <div class="clearer"></div>
+    </div>
+  </div>
+  <div class="relbar-bottom">
+    
+    <div class="related">
+      <h3>Nawigacja</h3>
+      <ul>
+        <li class="right" style="margin-right: 10px">
+          <a href="zadania_2.html" title="Macierze"
+             >dalej</a></li>
+        <li class="right" >
+          <a href="dowody_p_unitarne.html" title="Przestrzenie unitarne"
+             >wstecz</a> &nbsp; &nbsp;</li>
+  <li><a href="http://visual.icse.us.edu.pl/LA/index.html">Algebra Liniowa</a> &raquo;</li>
+   
+      </ul>
+    </div>
+  </div>
+  
+  <div class="footer">
+    <a class="logo" href="../../icse.us.edu.pl/index.html" target="_blank"><img src="_static/logo-icse.png" alt="ICSE"/></a><br/>
+    &copy; Copyright 2013, Marcin Kostur.
+    Created using <a href="http://sphinx.pocoo.org/">Sphinx</a> 1.2.2.
+  </div>
+  </body>
+</html>

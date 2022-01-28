@@ -1,0 +1,831 @@
+
+
+  <!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+  "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+
+
+<html xmlns="http://www.w3.org/1999/xhtml">
+  <head>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    
+    <title>Reakcje Biełusowa-Żabotyńskiego &mdash; Procesy nieliniowe w Biologii</title>
+    
+    <link rel="stylesheet" href="_static/cloud.css" type="text/css" />
+    <link rel="stylesheet" href="_static/pygments.css" type="text/css" />
+    <link rel="stylesheet" href="http://fonts.googleapis.com/css?family=Noticia+Text|Open+Sans|Droid+Sans+Mono&subset=latin,latin-ext" type="text/css" />
+    
+    <script type="text/javascript">
+      var DOCUMENTATION_OPTIONS = {
+        URL_ROOT:    './',
+        VERSION:     'I',
+        COLLAPSE_INDEX: false,
+        FILE_SUFFIX: '.html',
+        HAS_SOURCE:  true
+      };
+    </script>
+    <script type="text/javascript" src="_static/jquery.js"></script>
+    <script type="text/javascript" src="_static/underscore.js"></script>
+    <script type="text/javascript" src="_static/doctools.js"></script>
+    <script type="text/javascript" src="_static/translations.js"></script>
+    <script type="text/javascript" src="http://cdn.mathjax.org/mathjax/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML"></script>
+    <script type="text/javascript" src="_static/jquery.cookie.js"></script>
+    <script type="text/javascript" src="_static/cloud.js"></script>
+
+	<script src="http://sagecell.icse.us.edu.pl:6363/static/jquery.min.js"></script>
+	<script src="http://sagecell.icse.us.edu.pl:6363/static/embedded_sagecell.js"></script>
+	
+	<!-- <script src="http://sagecell.sagemath.org/static/jquery.min.js"></script> -->
+        <!-- <script src="http://sagecell.sagemath.org/static/embedded_sagecell.js"></script> -->
+
+
+	<script>sagecell.makeSagecell({inputLocation: ".sage",
+                                       evalButtonText: 'Wykonaj',
+                                       linked: true});</script>
+
+
+	<style type="text/css">
+		.sagecell .CodeMirror-scroll {
+			overflow-y: hidden;
+			overflow-x: auto;
+		}
+		.sagecell .CodeMirror {
+			height: auto;
+		}
+	</style>
+
+    
+    <link rel="top" title="Procesy nieliniowe w Biologii" href="index.html" />
+    <link rel="prev" title="Numeryczna analiza rozwiązań układu Hodgkina-Huxley’a" href="iCSE_BProcnielin07_z133_Hodgkin-Huxley_numeryka.html" />
+ 
+  <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, minimum-scale=1">
+  </head>
+  <body>
+  <div class="relbar-top">
+    
+    <div class="related">
+      <h3>Nawigacja</h3>
+      <ul>
+        <li class="right" style="margin-right: 10px">
+          <a href="iCSE_BProcnielin07_z133_Hodgkin-Huxley_numeryka.html" title="Numeryczna analiza rozwiązań układu Hodgkina-Huxley’a"
+             accesskey="P">wstecz</a></li>
+  <li><a href="index.html">Procesy nieliniowe w Biologii</a> &raquo;</li>
+   
+      </ul>
+    </div>
+  </div>
+  
+  <div class="content">  
+
+    <div class="document">
+      <div class="documentwrapper">
+        <div class="bodywrapper">
+          <div class="body">
+            
+  <div class="section" id="reakcje-bielusowa-zabotynskiego">
+<h1>Reakcje Biełusowa-Żabotyńskiego<a class="headerlink" href="iCSE_BProcnielin08_z161_BZ.html#reakcje-bielusowa-zabotynskiego" title="Stały odnośnik do tego nagłówka">¶</a></h1>
+<div class="section" id="wstep-opis-reakcji">
+<h2>Wstęp: opis reakcji<a class="headerlink" href="iCSE_BProcnielin08_z161_BZ.html#wstep-opis-reakcji" title="Stały odnośnik do tego nagłówka">¶</a></h2>
+<p>Istnieje wiele przykładów reakcji Biełousowa-Żabotyńskiego (będziemy czasami używali skrótu B-Ż). Są one niezwykłe i mają niezwykłą historię. Dlaczego? Ponieważ są to reakcje oscylacyjne. W 1951 roku Biełousow opisał taką reakcję i napisał pracę na ten temat. Edytorzy czasopisma, do którego został wysłany maszynopis pracy, nie zaakceptowali  jej do druku, nie wierząc w jej wyniki. Sześć lat później, Biełousow znowu wysłał pracę do publikacji, ale tym razem do innego czasopisma. I znowu edytorzy byli sceptyczni. Zaproponowali aby przedstawić tylko opis reakcji, ale Bielousow nie zgodził się. Obrażony postanowił nie wysyłać więcej jej do publikacji. W 1961 roku inny adept radzieckiej nauki, Żabotyński odkrył odkrytą  już reakcję, ale o tym nie wiedział. Na szczęście opiekun naukowy Żabotyńskiego znał wyniki prac Biełousowa i prosił swego podopiecznego o kontakt z Biełousowem. Niestety, w tamtych czasach nie było ani telefonii komórkowej, ani internetu. Dopiero w 1968 roku, w czasie obrad sympozjum w Pradze, świat zachodni dowiedział się o tych niezwykłych reakcjach.</p>
+<p>Reakcje oscylacyjne  występują np.  w wodnym roztworze w temperaturze pokojowej, w której zachodzą okresowe zmiany barwy roztworu z okresem ok. jednej minuty.  Na podstawowy mechanizm reakcji  składa się utlenianie kwasu malanowego w środowisku kwaśnym przez jony bromianowe BrO <sub>3</sub> w obecności katalizatora - jonów ceru. Okresowe oscylacje obserwowane są w stężeniu jonów ceru. Oscylacje przejawiają  się jako zmiany koloru przy przejściu Ce <sup>3+</sup> w Ce <sup>4+</sup> . Obecnie znanych jest wiele reakcji, które mogą zachowywać się okresowo. Mianem reakcji BŻ nazywa się klasę reakcji, w których związek organiczny jest utleniany przez jony bromianowe wspomagane jonami metalu w środowisku kwaśnym. Jeśli substraty dyfundują mogą się wówczas wytwarzać wzory przestrzenne. Dla katalizatorów będących jonami innych metali np. żelaza Fe <sup>2+</sup> i Fe <sup>3+</sup> zmiany barw mogą być bardziej spektakularne czerwony ↔ niebieski.  Istnieją jeszcze inne reakcje tego typu.  Np. reakcja Briggsa-Rauschera jest jeszcze atrakcyjniejsza, bo oscylacje są bardzo kontrastowe (bezbarwny-złoty-granatowy) i bardzo szybkie: co kilkanaście sekund; a jej uruchomienie jest bardzo proste. Reagenty: zakwaszony roztwór jodanu, kwasu malonowego, nadtlenku wodoru, katalizowany solą manganawą, z dodatkiem skrobi. Mechanizm tej reakcji jest słabo poznany; prawdopodobnie są to dwie sprzężone reakcje oscylacyjne.</p>
+<p>W przykładowej  reakcji  miesza się trzy wyjściowe roztwory wodne, które zaraz po zmieszaniu dają barwę zieloną, która po chwili przechodzi w niebieską, purpurową, czerwoną aż do powrotu do zieleni. Roztworami tymi są:</p>
+<blockquote>
+<div><p>0,23 M KBrO <sub>3</sub> (bromian(V) potasu)</p>
+<p>0,31 M kwas malonowy (lub kwas cytrynowy) + 0,059 M KBr</p>
+<p>0,019 M (NH <sub>4</sub>) <sub>2</sub> Ce(NO <sub>3</sub>) <sub>6</sub> + 2,7 M H <sub>2</sub> SO <sub>4</sub></p>
+</div></blockquote>
+<p>Oprócz tego do układu reakcji dodaje się niewielką ilość ferroiny, która zmienia barwę w wyniku ubocznej reakcji redoks, lecz nie wpływa bezpośrednio na przebieg całego procesu.</p>
+<p>W sprzyjających warunkach, przy bardzo dokładnym utrzymaniu proporcji i przy zachowaniu idealnej czystości cykl powtarza się kilkanaście razy.  Po zmieszaniu zakwaszonego roztworu bromianu, kwasu malonowego, soli ceru oraz wskaźnika - ferroiny, przez pewien czas istnieje stan indukcji. Szczegółowy mechanizm reakcji jest bardzo zawiły.  Obejmuje trzy grupy złożonych procesów, które skrótowo opiszemy poniżej.</p>
+<p>W roztworze początkowo istnieje pewne stężenie jonów bromkowych, które pełnią kluczową rolę w całym mechanizmie. Jony bromkowe są powoli usuwane w wyniku utleniania bromianem:</p>
+<ol class="upperalpha simple">
+<li>2Br <sup>–</sup> + BrO <sub>3</sub> <sup>-</sup>  + 3CH <sub>2</sub> (COOH) <sub>2</sub> + 3H <sup>+</sup>  = 3CHBr(COOH) <sub>2</sub> + 3H <sub>2</sub> O</li>
+</ol>
+<p>W wyniku reakcji A stężenie jonów bromkowych stopniowo maleje. Z chwilą, gdy spadnie ono poniżej pewnej dolnej wartości progowej, zachodzi raptowne utlenienie jonów cerawych do jonów cerowych:</p>
+<ol class="upperalpha simple" start="2">
+<li>4Ce <sup>3+</sup> + BrO <sub>3</sub> <sup>–</sup>  + CH <sub>2</sub> (COOH) <sub>2</sub> + 5H <sup>+</sup>  = 4Ce <sup>4+</sup> + CHBr(COOH) <sub>2</sub> + 3H <sub>2</sub> O</li>
+</ol>
+<p>Jest to reakcja autokatalityczna, która jest skutecznie hamowana przez jony bromkowe. Aby mogła zajść, trzeba poczekać, aż stężenie jonów bromkowych spadnie poniżej pewnej dolnej wartości progowej. W wyniku autokatalizy jony ceru bardzo raptownie przechodzą w postać utlenioną; towarzyszy temu gwałtowna zmiana barwy wskaźnika na niebieski.</p>
+<p>W kolejnej fazie powstały kwas bromomalonowy zostaje utleniany, uwalniane są aniony bromkowe, których stężenie rośnie w wyniku reakcji C szybciej, niż ich konsumpcja w reakcji A. Stężenie utlenionej postaci ceru maleje, a wskaźnik stopniowo zmienia barwę na różową.</p>
+<ol class="upperalpha simple" start="3">
+<li>4Ce <sup>4+</sup> + CHBr(COOH) <sub>2</sub> + 2H <sub>2</sub> O = Br <sup>–</sup> + 4Ce <sup>3+</sup> +  HCOOH + 2CO <sub>2</sub> + 5H <sup>+</sup></li>
+</ol>
+<p>Po przekroczeniu pewnej górnej wartości progowej stężenia bromku, następuje ponowne zablokowanie autokatalitycznej reakcji B (autoinhibicja). Powstają duże ilości jonów bromkowych. Trzeba odczekać, aż zostaną one skonsumowane w reakcji A. Potem cykl zostaje kolejny raz odtworzony. Oscylacje zachodzą tylko do czasu osiągnięcia minimalnego granicznego odchylenia od stanu równowagi; dalszy przebieg ma charakter monotoniczny.</p>
+<p>Sumarycznie reakcja ta sprowadza się do odwracalnego utlenienia kwasu malonowego do dwutlenku węgla przez jony bromianowe, zaś jony ceru pełnią w procesie rolę katalizatora:</p>
+<p>3 CH <sub>2</sub> (COOH) <sub>2</sub> + 4 BrO <sub>3</sub> <sup>-</sup> → 4 Br <sup>-</sup> + 9 CO <sub>2</sub> + 6 H <sub>2</sub> O</p>
+<p>W istocie jednak reakcja ta składa się z dwóch procesów zachodzących cyklicznie jeden po drugim.</p>
+<p>Pierwszy proces (A) przebiega sumarycznie wg równania:</p>
+<p>BrO <sub>3</sub> <sup>-</sup> + 5 Br <sup>-</sup> + 6 H <sup>+</sup> → 3 Br <sub>2</sub> + 3 H <sub>2</sub> O</p>
+<p>i składa się z następujących reakcji elementarnych:</p>
+<p>BrO <sub>3</sub> <sup>-</sup> + Br <sup>-</sup> + 2 H <sup>+</sup> → HBrO <sub>2</sub> + HOBr</p>
+<p>HBrO <sub>2</sub> + Br <sup>-</sup> + H <sup>+</sup> → 2 HOBr</p>
+<p>HOBr + Br <sup>-</sup> + H <sup>+</sup> → Br <sub>2</sub> + H <sub>2</sub> O</p>
+<p>Powstający brom reaguje z kwasem malonowym wg równania:</p>
+<p>Br <sub>2</sub> + CH <sub>2</sub> (COOH) <sub>2</sub> → BrCH(COOH) <sub>2</sub> + Br <sup>-</sup> + H <sup>+</sup></p>
+<p>Druga reakcja (B) przebiega sumarycznie następująco:</p>
+<p>2 BrO <sub>3</sub> <sup>-</sup> + 12 H <sup>+</sup> + 10 Ce <sup>3+</sup> → Br <sub>2</sub> + 6 H <sub>2</sub> O + 10 Ce <sup>4+</sup></p>
+<p>i składa się z następujących aktów elementarnych:</p>
+<p>BrO <sub>3</sub> <sup>-</sup> + HBrO <sub>2</sub> + H <sup>+</sup> → 2 BrO <sub>2</sub> • + H <sub>2</sub> O</p>
+<p>BrO <sub>2</sub> • + Ce <sup>3+</sup> + H <sup>+</sup> → HBrO <sub>2</sub> + Ce <sup>4+</sup></p>
+<p>2 HBrO <sub>2</sub> → HOBr + BrO <sub>3</sub> <sup>-</sup> + H <sup>+</sup></p>
+<p>2 HOBr → HBrO <sub>2</sub> + Br <sup>-</sup> + H <sup>+</sup></p>
+<p>HOBr + Br <sup>-</sup> + H <sup>+</sup> → Br <sub>2</sub> + H <sub>2</sub> O</p>
+<p>Kluczowy wpływ na zmianę barwy ma cykliczna zmiana stężenia jonów Ce <sup>3+</sup> i Ce <sup>4+</sup>, które sumarycznie można przedstawić w formie następującego równania:</p>
+<p>2 Ce <sup>3+</sup> + BrO <sub>3</sub> <sup>-</sup> + HBrO <sub>2</sub> + 3 H <sup>+</sup> → 2 Ce <sup>4+</sup> + H <sub>2</sub> O + 2 HBrO <sub>2</sub></p>
+<p>4Ce <sup>4+</sup>  + CHBr(COOH) <sub>2</sub> + 2H <sub>2</sub> O = Br <sup>–</sup> + 4Ce <sup>3+</sup> +  HCOOH + 2CO <sub>2</sub> + 5H <sup>+</sup></p>
+<p>Powstające jony ceru Ce <sup>4+</sup> utleniają atomy żelaza(II) do żelaza(III). Jony Ce <sup>3+</sup> są bezbarwne, jony Ce <sup>4+</sup>  posiadają intensywnie żółtą barwę. Kompleks ferroiny z atomami żelaza(II) ma barwę czerwoną, zaś z atomami żelaza(III) niebieską. Kombinacja żółtej barwy jonów Ce <sup>4+</sup>  i niebieskiej kompleksu ferroiny z atomami żelaza(III) daje w efekcie barwę zieloną.</p>
+<p>Cykliczne zmiany stężenia jonów Ce <sup>3+</sup> i Ce <sup>4+</sup> wynikają z następującej kombinacji zjawisk:</p>
+<p>reakcja (B) ma charakter autokatalityczny - początkowo zatem przebiega bardzo powoli, aby w pewnym momencie nagle gwałtownie przyspieszyć</p>
+<p>reakcja (A) zachodzi przy odpowiednio wysokim, granicznym stężeniu jonów bromianowych (BrO <sub>3</sub> <sup>-</sup>), które są generowanie w reakcji (B)</p>
+<p>Stężenie początkowych roztworów jest tak dobrane, aby najpierw zaszła szybko reakcja (A), zanim reakcja (B) zdąży nabrać tempa i jednocześnie tak, aby reakcja (B) zdążyła się &#8220;rozpędzić&#8221;, zanim w układzie całkowicie nie zanikną jony bromkowe  Br <sup>-</sup>  i H <sup>+</sup>. W związku z tym, w układzie dominuje najpierw reakcja (A), która nie ma bezpośredniego wpływu na zmianę barwy, a następnie większą rolę zaczyna odgrywać reakcja (B), która jednak jednocześnie dostarcza substratu dla reakcji (A), co po pewnym czasie powoduje ponowne przyspieszenie (A) i spowolnienie (B).</p>
+</div>
+<div class="section" id="rownania-kinetyczne-oregonator">
+<h2>Równania kinetyczne: oregonator<a class="headerlink" href="iCSE_BProcnielin08_z161_BZ.html#rownania-kinetyczne-oregonator" title="Stały odnośnik do tego nagłówka">¶</a></h2>
+<p>W literaturze opis reakcji B-Ż  nie jest jednolity. Można pogubić się w tym, ile jest reakcji elementarnych, ile istotnych, ile pośrednich, itd. Opisane powyżej wszystkie reakcje chamiczne są trudne do modelowania matematycznego. Jednak praktyka i doświadczenie w modelowaniu  pokazuje, że należy uwzględnić tylko najbardziej istotne elementy jakie pojawiają się w powyższych reakcjach. Innymi słowy, należy umiejętnie zredukować ilość reakcji i sformułować efektywne reakcje. Jeden z takich zredukowanych modeli został opracowany przez Fielda, Korosa i  Noyesa (1974)  z  University of  Oregon. Dlatego nazywa się &#8220;oregonatorem&#8221; lub mechanizmem FKN. Jest zbudowany z 5 elementarnych reakcji jakie pojawiają sie w reakcjach Biełousowa-Żabotyńskiego.  Niech student/studentka (hm, nie jestem pewien: jeżeli minister/ministra to może student/studenta??)  postara się je odszukać w powyższym gąszczu i porówna z poniżej zaprezentowanymi 5 reakcjami.   Wprowadźmy oznaczenia dla odpowiednich stężeń:</p>
+<p>X = [HBrO <sub>2</sub> ] ,     Y = [Br <sup>−</sup> ],        Z = [Ce <sup>4+</sup>],         A= [BrO <sub>3</sub> <sup>−</sup> ],            B = [CH <sub>2</sub> (COOH) <sub>2</sub> ],           P = [HOBr]  lub  P=[BrCH(COOH) <sub>2</sub>]</p>
+<p>Koncentracje A,  B oraz P  nie zmieniają się (lub zmieniają sie bardzo wolno w porównaniu do zamian stężeń X, Y oraz Z.   Efektywne reakcje to reakcje:</p>
+<p>A+Y → X +P w tempie <span class="math">\(k_1\)</span></p>
+<p>X + Y → 2P w tempie <span class="math">\(k_2\)</span></p>
+<p>A + X → 2X + 2Z w tempie <span class="math">\(k_3\)</span></p>
+<p>2X → A + P w tempie <span class="math">\(k_4\)</span></p>
+<p>B + Z →  u Y w tempie <span class="math">\(k_5\)</span></p>
+<p>Symbol u w ostatniej reakcji to  <strong>współczynnik stechiometryczny</strong> (liczba przypisana do określonego reagenta określająca proporcję w jakiej uczestniczy on w reakcji w stosunku do innych reagentów).</p>
+<p>Uwaga: W prawie wszystkich źródłach (ksiązkach, pracach, in ternecie), używa się oznaczenia f na ten współczynnik. Ale  my rezerwujemy f do tradycyjnego oznaczania funkcji.</p>
+<p>Odpowiedznie równania kinetyczne są postaci:</p>
+<div class="math">
+\[\begin{split}\begin{array}{l}
+\frac{dX}{dt} =  k_1  A  Y − k_2  X  Y + k_3  A  X − k_4  X^ 2 , \\ \frac{dY}{dt} =  −k_1  A  Y − k_2  X  Y + u  k_5  B  Z , \\ \frac{dZ}{dt} =  2  k_3  A  X − k_5  B  Z
+\end{array}\end{split}\]</div>
+<p>Należy te równania przeskalować do nowych zmiennych</p>
+<div class="math">
+\[x=\frac{X}{X_0}, \quad \quad y=\frac{Y}{Y_0}, \quad \quad z=\frac{Z}{Z_0}, \quad \quad \tau=\frac{t}{t_0}\]</div>
+<p>gdzie</p>
+<div class="math">
+\[\begin{split}\begin{array}{l}
+X_0=\frac{k_3 A}{k_4}, \quad \quad Y_0=\frac{k_3 A}{k_2}, \quad \quad Z_0=\frac{ (k_3 A)^2}{k_4 k_5 B}, \\ t_0=\frac{1}{k_5 B}, \quad \quad  c=\frac{k_5 B}{k_3 A}, \quad \quad  \delta =\frac{k_4 k_5 B}{k_2 k_3 A}, \quad \quad q=\frac{k_1 k_4}{k_2 k_3}
+\end{array}\end{split}\]</div>
+<p>Przeskalowane równania redukują się do postaci zwanej &#8220;oregonatorem&#8221;:</p>
+<div class="math">
+\[\begin{split}\begin{array}{l}
+  c \, \frac{dx}{d\tau}= q y -x y + x(1 - x) \equiv f(x, y, z), \\ \delta\,  \frac{dy}{d\tau} = -q y - x y +u z \equiv g(x, y, z), \\ \frac{dz}{d\tau} = x-z \equiv h(x, y, z) \quad \mbox{OREGONATOR}
+\end{array}\end{split}\]</div>
+<p>Ta postać równań jest powszechnie stosowana do opisu reakcji B-Ż. W równanich tych występują 4 parametry: <span class="math">\(c, q, \delta, u\)</span>. Rząd ich wielkości jest następujący:</p>
+<div class="math">
+\[c = 5 \times 10^{-5}, \quad q = 8 \times 10^{-4}, \quad  \delta = 2 \times 10^{-4}, \quad  u =1\]</div>
+<p>Znalazłem też taki zestaw danych (patrz:  <a class="reference external" href="http://www.rose-hulman.edu/search.aspx?q=bielousov">http://www.rose-hulman.edu/search.aspx?q=bielousov</a>):</p>
+<div class="math">
+\[c = 4 \times 10^{−2} , \quad  q = 8 \times  10^{−4}, \quad  \delta  = 4 \times  10^{−4}.\]</div>
+</div>
+</div>
+<div class="section" id="wlasnosci-oregonatora">
+<h1>Własności &#8220;oregonatora&#8221;<a class="headerlink" href="iCSE_BProcnielin08_z161_BZ.html#wlasnosci-oregonatora" title="Stały odnośnik do tego nagłówka">¶</a></h1>
+<p>Reakcje opisywane za pomocą &#8220;oregonatora&#8221; posiadają bogactwo własności dynamicznych ponieważ &#8220;oregonator&#8221; to układ dynamiczny opisywany przez układ 3 równań różniczkowych zwyczajnych pierwszego rzędu. Jego tzw. przestrzeń fazowa to zbiór możliwych wartości <span class="math">\(\{x, y, z\}\)</span>, a  wymiar tej przestrzeni oczywiście  wynosi 3. Jak udowodnili nasi przyjaciele matematycy, jest to minimalny wymiar przestrzeni, aby układ mógł wykazywać  <strong>własności chaotyczne.</strong>   Dynamika takiego układu może w ogólności wykazywać następujące cechy:</p>
+<ol class="arabic simple">
+<li>istnienie stanów  stacjonarnych</li>
+<li>istnienie orbit periodycznych</li>
+<li>istnienie orbit chaotycznych</li>
+<li>istnienie dziwnych atraktorów</li>
+</ol>
+<p>Okazuje się, że oryginalny  &#8220;oregonator&#8221; przedstawiony tutaj, nie wykazuje własności chaotycznych.  Oznacza to,  że własności 3 oraz 4 nie można zaobserwować dla tego modelu. W 1992 roku, zaproponowano zmodyfikowany model reakcji    B-Ż który wykazuje chaos. Szczegóły można znależć w oryginalnej pracy:</p>
+<ol class="upperalpha simple" start="12">
+<li>Gyorgyi and  R. J.  Field,  (1992) <em>A Three-Variable Model of Deterministic Chaos in the Belousov-Zhabotinsky Reaction</em>. Nature, 355, 808-810.</li>
+</ol>
+<div class="section" id="stany-stacjonarne">
+<h2>Stany stacjonarne<a class="headerlink" href="iCSE_BProcnielin08_z161_BZ.html#stany-stacjonarne" title="Stały odnośnik do tego nagłówka">¶</a></h2>
+<p>Zbadajmy, czy istnieją stany stacjonarne i czy są one stabilne.  Podobnie jak w analizie dynamiki populacyjnej, warunkiem na istnienie stanów stacjonarnych jest istnienie rozwiązań układu 3 równań algebraicznych  otrzymanych jako prawe strony &#8220;oregonatora&#8221;</p>
+<div class="math">
+\[f(x, y, z)=0, \quad \quad \quad    g(x, y, z) =0, \quad \quad \quad h(x, y, z)=0\]</div>
+<p>czyli</p>
+<div class="math">
+\[q y -x y + x(1 - x) =0, \quad \quad \quad    -q y - x y +u z  =0,  \quad \quad \quad  x-z  =0 \quad \quad \quad \quad \mbox{stany stacjonarne}\]</div>
+<p>Na szczęście układ tych równań jest łatwo rozwiązać. Z trzeciego równania otrzymujemy równość <span class="math">\(z=x\)</span>. Wstawiamy to do drugiego równania, z którego wyznaczamy <span class="math">\(y\)</span> i to wstawiamy do pierwszego równania. W wynku otrzymujemy:</p>
+<div class="math">
+\[z=x, \quad \quad \quad y = \frac{ u x}{q+x}, \quad \quad \quad x[1-x]  + u x   \frac {q-x}{q+x} = 0\]</div>
+<p>Łatwo spoztrzegamy, że <span class="math">\(x=0\)</span>   spełnia trzecie równanie. wstawiając to do pierwszego i drugiego równania otrzymujemy <span class="math">\(y=0\)</span>   oraz   <span class="math">\(z=0\)</span>.  Tak więc mamy jeden stan stacjonarmy:</p>
+<div class="math">
+\[(x_0, y_0, z_0) = (0, 0, 0)\]</div>
+<p>Pozostale stany stacjonarne są wyznaczone przez równania:</p>
+<div class="math">
+\[z=x, \quad \quad \quad y = \frac{ u x}{q+x}, \quad \quad \quad  1-x + u    \frac {q-x}{q+x} = 0\]</div>
+<p>Z ostatniego  równania wynika, że musi być spełnione równanie kwadratowe:</p>
+<div class="math">
+\[x^2  - (1 - q - u) x -  q (1+u) = 0\]</div>
+<p>Wyróżnik tego równania jest zawsze dodatni:</p>
+<div class="math">
+\[\Delta = (1 - q - u)^2  +  4 q (1 + u)  \gt  0\]</div>
+<p>Ponieważ wielkości stacjonarne to stężenia stacjonarne, więc są one dodatnie. Jedyny dodatni pierwiastek równania kwadratowego ma postać:</p>
+<div class="math">
+\[x_1=  z_1 = \frac{1}{2} \left\{(1 - q - u) + \sqrt{\Delta}\right\} \quad \quad \quad \mbox{oraz } \quad\quad\quad y_1 = \frac{ u x_1}{q+x_1}\]</div>
+<p>Badanie stabilności powyższych stanów stacjonarnych wymaga wyznaczenia wartości własnych macierzy Jacobiego, której wymiar wynosi 3. Oznacza to, że otrzymujemy wielomian  3-stopnia dla wartości własnej <span class="math">\(\lambda\)</span>. Mamy kilka możliwości:</p>
+<ol class="loweralpha simple">
+<li>wykonać obliczenia &#8220;na piechotę&#8221; (horror  z  kiepskim  scenariuszem, patrz żmudne obliczenia w książce J. D.  Murraya); to można zrobić relatywnie łatwo dla  stanu stacjonarnego <span class="math">\((0, 0, 0)\)</span>, ktory okazuje się być zawsze niestabilny.</li>
+<li>posiadać pewną wiedzę na temat pierwiastków wielomianów, jak np. kryterium Routha-Hurwitza albo  reguła znaku Kartezjusza (drugi horror, ale scenariusz bardziej wyrafinowany)</li>
+<li>zastosować SAGE - i to jest to!</li>
+</ol>
+<p>Bedziemy badać stabilność niezerowego stanu stacjonarnego. W stanie tym ustala się stężenie trzech składników: X = [HBrO <sub>2</sub> ] ,     Y = [Br <sup>−</sup> ],        Z = [Ce <sup>4+</sup> ].</p>
+<p>Poniżej jest program, który możemy wykorzystać  do &#8220;zabawy&#8221; jednocześnie się ucząc. Możemy zmieniać wartości różnych parametrów i warunków początkowych. Pamiętajmy, że stacjonarne wartości <span class="math">\(x\)</span>  oraz  <span class="math">\(z\)</span>  są sobie zawsze równe: <span class="math">\(x=z\)</span>. Natomiast wartość <span class="math">\(y\)</span> jest na ogół różniąca się.</p>
+<p>Proponuję pozostawić wartości  <span class="math">\(c, \delta=d, q\)</span>, a zmieniać wartość <span class="math">\(u\)</span> oraz  wartości początkowe  początkowe  <span class="math">\(x_0, y_0, z_0\)</span>, które są w drugim oknie poniżej. Taka &#8220;zabawa&#8221; wyrobi w nas intuicję, jaki jest wpływ poszczególnych elementów.   Trzecie okno  pozwala otrzymywać krzywą fazową na płaszczyżnie <span class="math">\((x, z)\)</span>.</p>
+<p>Istotny jest zakres parametrów w okolicach</p>
+<div class="math">
+\[u \approx 0.5\]</div>
+<p>Można zaobserwować bifurkację Hopfa, czyli przejście od stałych wartości stacjonarnych do periodycznie zmieniających się w czasie, czyli oscylacji Biełousowa.  Oscylacje te pojawiają się dla poniższych wartości parametrów w oknie wartościach  parametru  z  grubsza z przedziału <span class="math">\(u \in (0.512, 2.35)\)</span>.</p>
+<p>Proponuję taki ciąg zmian:</p>
+<p><span class="math">\(u=0.1,   0.3,   0.4,   0.5,   0.51,  0.5125,   0.5126,    0.5127      \quad \quad \quad  (x_0, y_0, z_0) = (0.8, 0.2, 0.7),  (0.08, 0.4, 0.07)\)</span></p>
+<p>Zmieniaj dalej wartość parametru <span class="math">\(u\)</span> do <span class="math">\(u \approx 2.35\)</span> i dalej.</p>
+<div class="highlight-python"><div class="highlight"><pre><span class="n">sage</span><span class="p">:</span> <span class="n">var</span><span class="p">(</span><span class="s">&#39;x,y,z&#39;</span><span class="p">)</span>
+<span class="n">sage</span><span class="p">:</span> <span class="n">c</span><span class="o">=</span><span class="mf">0.04</span>
+<span class="n">sage</span><span class="p">:</span> <span class="n">d</span><span class="o">=</span><span class="mf">0.0004</span> <span class="c">## to jest parametr delta</span>
+<span class="n">sage</span><span class="p">:</span> <span class="n">q</span><span class="o">=</span><span class="mf">0.0008</span>
+<span class="n">sage</span><span class="p">:</span> <span class="n">u</span><span class="o">=</span><span class="mf">0.512</span> <span class="c">## zmiana tego parametru powoduje bifurkacje</span>
+<span class="n">sage</span><span class="p">:</span> <span class="n">f</span><span class="p">(</span><span class="n">x</span><span class="p">,</span><span class="n">y</span><span class="p">,</span><span class="n">z</span><span class="p">)</span><span class="o">=</span> <span class="p">(</span><span class="n">q</span><span class="o">*</span><span class="n">y</span> <span class="o">-</span><span class="n">x</span><span class="o">*</span><span class="n">y</span> <span class="o">+</span> <span class="n">x</span> <span class="o">-</span><span class="n">x</span><span class="o">*</span><span class="n">x</span><span class="p">)</span><span class="o">/</span><span class="n">c</span>
+<span class="n">sage</span><span class="p">:</span> <span class="n">g</span><span class="p">(</span><span class="n">x</span><span class="p">,</span><span class="n">y</span><span class="p">,</span><span class="n">z</span><span class="p">)</span><span class="o">=</span><span class="p">(</span><span class="o">-</span><span class="n">q</span><span class="o">*</span><span class="n">y</span> <span class="o">-</span> <span class="n">x</span><span class="o">*</span><span class="n">y</span> <span class="o">+</span><span class="n">u</span><span class="o">*</span><span class="n">z</span><span class="p">)</span><span class="o">/</span><span class="n">d</span>
+<span class="n">sage</span><span class="p">:</span> <span class="n">h</span><span class="p">(</span><span class="n">x</span><span class="p">,</span><span class="n">y</span><span class="p">,</span><span class="n">z</span><span class="p">)</span><span class="o">=</span> <span class="n">x</span><span class="o">-</span><span class="n">z</span>
+</pre></div>
+</div>
+<div class="highlight-python"><div class="highlight"><pre><span class="n">sage</span><span class="p">:</span> <span class="n">T</span> <span class="o">=</span> <span class="n">srange</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span> <span class="mi">30</span><span class="p">,</span><span class="mf">0.001</span><span class="p">)</span> <span class="c">## tu można zmieniać czas  zmieniając drugą wartość, czyli wydłużać wartość poziomej osi</span>
+<span class="n">sage</span><span class="p">:</span> <span class="n">sol1</span><span class="o">=</span><span class="n">desolve_odeint</span><span class="p">([</span><span class="n">f</span><span class="p">,</span><span class="n">g</span><span class="p">,</span><span class="n">h</span><span class="p">],</span> <span class="p">[</span><span class="mf">0.08</span><span class="p">,</span><span class="mf">0.5</span><span class="p">,</span><span class="mf">0.07</span><span class="p">],</span> <span class="n">T</span><span class="p">,</span> <span class="p">[</span><span class="n">x</span><span class="p">,</span><span class="n">y</span><span class="p">,</span><span class="n">z</span><span class="p">])</span> <span class="c">## w 2 nawiasie są warunki początkowe dla x, y, z</span>
+<span class="n">sage</span><span class="p">:</span> <span class="n">line</span><span class="p">(</span> <span class="nb">zip</span> <span class="p">(</span> <span class="n">T</span><span class="p">,</span><span class="n">sol1</span><span class="p">[:,</span><span class="mi">2</span><span class="p">])</span> <span class="p">,</span><span class="n">color</span><span class="o">=</span><span class="s">&#39;black&#39;</span><span class="p">,</span><span class="n">legend_label</span><span class="o">=</span><span class="s">&quot;z&quot;</span><span class="p">)</span> <span class="o">+</span>\
+<span class="o">...</span>    <span class="n">line</span><span class="p">(</span> <span class="nb">zip</span> <span class="p">(</span> <span class="n">T</span><span class="p">,</span><span class="n">sol1</span><span class="p">[:,</span><span class="mi">0</span><span class="p">])</span> <span class="p">,</span><span class="n">color</span><span class="o">=</span><span class="s">&#39;red&#39;</span><span class="p">,</span><span class="n">legend_label</span><span class="o">=</span><span class="s">&quot;x&quot;</span><span class="p">)</span> <span class="c">##  + line( zip ( T,sol1[:,1]) ,color=&#39;green&#39;,legend_label=&quot;y&quot;)</span>
+</pre></div>
+</div>
+<img alt="_images/cell_37_sage01.png" class="align-center" src="_images/cell_37_sage01.png" />
+<p>Powyżej przedstawiony jest przebieg czasowy koncentracji substancji <span class="math">\(x\)</span> oraz <span class="math">\(z\)</span>.</p>
+<p>Aby dołączyć do rysunku ewolucję zmiennej <span class="math">\(y\)</span> należy w oknie powyżej zlikwidować symbol  # #  w dolnej linii. Czasami wartość <span class="math">\(y\)</span> jest bardzo duża w relacji do pozostałych. W tym przypadku lepiej nie dokładać wykresu dla <span class="math">\(y\)</span>.</p>
+<p><strong>W poniższym oknie możemy obserwować kształt krzywej fazowej dla paramatrów z okna pierwszego i drugiego.</strong></p>
+<p>Zamkniętej krzywej fazowej odpowiadają rozwiązania periodyczne. W takim reżimie można obserwować oscylacje, które  w 1951 roku odkrył Biełousow.</p>
+<div class="highlight-python"><div class="highlight"><pre><span class="n">sage</span><span class="p">:</span> <span class="n">X</span> <span class="o">=</span> <span class="n">sol1</span><span class="p">[:,</span><span class="mi">0</span><span class="p">]</span>
+<span class="n">sage</span><span class="p">:</span> <span class="n">Y</span> <span class="o">=</span> <span class="n">sol1</span><span class="p">[:,</span><span class="mi">1</span><span class="p">]</span>
+<span class="n">sage</span><span class="p">:</span> <span class="n">Z</span> <span class="o">=</span> <span class="n">sol1</span><span class="p">[:,</span><span class="mi">2</span><span class="p">]</span>
+<span class="n">sage</span><span class="p">:</span> <span class="n">list_plot</span><span class="p">(</span><span class="nb">zip</span><span class="p">(</span><span class="n">X</span><span class="p">,</span><span class="n">Z</span><span class="p">),</span> <span class="n">plotjoined</span><span class="o">=</span><span class="mi">1</span><span class="p">)</span>
+</pre></div>
+</div>
+<img alt="_images/cell_20_sage01.png" class="align-center" src="_images/cell_20_sage01.png" />
+</div>
+<div class="section" id="uklad-zredukowany">
+<h2>Układ zredukowany <span class="math">\(\delta =0\)</span><a class="headerlink" href="iCSE_BProcnielin08_z161_BZ.html#uklad-zredukowany" title="Stały odnośnik do tego nagłówka">¶</a></h2>
+<p>Badanie stabilności &#8220;oregonatora&#8221; jest dość uciążliwe.  Dokonamy teraz przybliżenia układu, dla którego badanie stabilności jest prostsze.  Porównamy też wyniki dla pełnego układu i przybliżonego. Zobaczymy, czy pojawiają sie istotne różnice.</p>
+<p>W drugim zestawie parametrów:</p>
+<div class="math">
+\[c=4 \times 10^{-2}, q=8 \times 10^{-4}, \delta = 4 \times 10^{-4}\]</div>
+<p>Zauważmy, że</p>
+<div class="math">
+\[\delta \lt \lt c\]</div>
+<p>i  dlatego dokonamy przybliżenia <span class="math">\(\delta  \approx 0\)</span>.  Wówczas równania &#8220;oregonatora&#8221; są postaci:</p>
+<div class="math">
+\[c \, \frac{dx}{d\tau}= q y -x y + x(1 - x),  \quad \quad \quad \delta\,  \frac{dy}{d\tau} =  0 = -q y - x y +u z ,  \quad \quad \quad \frac{dz}{d\tau} = x-z\]</div>
+<p>Z drugiego równania wyznaczamy zmienną <span class="math">\(y\)</span>:</p>
+<div class="math" id="equation-BZ1">
+<span class="eqno">(1)</span>\[y = \frac{u z}{q+x}\]</div>
+<p>i wstawiamy do pierwszego równania otrzymując układ zredukowany:</p>
+<div class="math">
+\[c  \frac{dx}{d\tau}= x (1 - x) + u  z  \frac{q - x}{q + x} \equiv F(x, z),  \quad \quad \quad \frac{dz}{d\tau} = x-z  = \equiv H(x, z) \quad \quad \quad \mbox{zredukowany układ}\]</div>
+<p>Stany stacjonarne tego układu pokrywają się ze stanami stacjonarnymi pełnego układu.
+Tak więc mamy stan stacjonarmy:</p>
+<div class="math">
+\[(x_0, y_0) = (0, 0)\]</div>
+<p>Drugi stan stacjonarny określony jest  przez równania:</p>
+<div class="math" id="equation-BZ2">
+<span class="eqno">(2)</span>\[1-x + u    \frac {q-x}{q+x} = 0,  \quad \quad \quad z=x\]</div>
+<p>Stan dla <span class="math">\(y\)</span> jest wyznaczony przez równanie <a href="iCSE_BProcnielin08_z161_BZ.html#equation-BZ1">(1)</a>.  Aby zbadać stabilność stanu określonego przez równanie <a href="iCSE_BProcnielin08_z161_BZ.html#equation-BZ2">(2)</a>, musimy zbadać wartości własne macierzy Jacobiego:</p>
+<div class="math">
+\[\begin{split}J = \begin{bmatrix} A&amp;   B\\ C &amp;  D   \end{bmatrix},\end{split}\]</div>
+<div class="math">
+\[A =  \frac {\partial  F}{\partial x} , \quad \quad B  =  \frac{\partial F}{\partial z}  ,  \quad \quad         C = \frac{\partial H}{\partial x} ,    \quad \quad       D =  \frac{\partial H}{\partial z}\]</div>
+<p>Wartości własne <span class="math">\(\lambda\)</span> określone są przez równanie:</p>
+<div class="math">
+\[\begin{split}\left\| \begin{matrix} A -\lambda&amp;  B\\  C&amp;   D-\lambda \end{matrix}\right\| = 0\end{split}\]</div>
+<p>Stąd  otrzymujemy równanie dla <span class="math">\(\lambda\)</span>. Jest to równanie kwadratowe:</p>
+<div class="math">
+\[\lambda ^2 - (A+D)  \lambda + (A D - B C) = 0\]</div>
+<p>Zauważamy, że <span class="math">\(A+D\)</span> to ślad macierzy Jacobiego <span class="math">\({\text Tr} J\)</span> , a wielkość <span class="math">\(A D - B C\)</span> to wyznacznik macierzy <span class="math">\({\text Det} J\)</span>, czyli równanie to przepiszemy w postaci:</p>
+<div class="math">
+\[\lambda ^2 - ({\text Tr} J)  \lambda + ({\text Det} J) = 0\]</div>
+<p>Pierwiastki tego równania są dane przez wzór:</p>
+<div class="math">
+\[\lambda_{1/2} = (1/2) \left[ {\text Tr} J \pm \sqrt{ ({\text Tr} J)^2 - 4 ({\text Det} J)}\right]\]</div>
+<p>Jeżeli  przy zmianie parametrów pojawiają się  relacje</p>
+<div class="math">
+\[{\text Tr} J = 0 \quad \quad \quad \mbox{oraz} \quad \quad \quad {\text Det} J \gt  0\]</div>
+<p>to dwie wartości własne stają się liczbami urojonymi, czyli obserwuje się  <strong>bifurkację Hopfa.</strong>
+Obliczamy pochodne cząstkowe funkcji <span class="math">\(F\)</span> oraz <span class="math">\(H\)</span>. Warunek <span class="math">\({\text Tr} J = 0\)</span> ma postać</p>
+<div class="math" id="equation-BZ3">
+<span class="eqno">(3)</span>\[c=1-2 x - \frac{2u q x}{(q + x)^2}\]</div>
+<p>gdzie <span class="math">\(x\)</span> jest wyznaczone przez równanie <a href="iCSE_BProcnielin08_z161_BZ.html#equation-BZ2">(2)</a>.  Te dwa równanie, przy naszej ustalonej wartości <span class="math">\(q = 0.0008\)</span>, wyznaczają granicę rozwiązań oscylacyjnych. Na płaszczyźnie (u, c) otrzymujemy diagram bifurkacyjny dla zredukowanego układu.  Dla wartości  <span class="math">\((u \gt  0,  c \gt  0)\)</span>  między krzywą a osią poziomą pojawiają się oscylacje. Jak widać z poniższego wykresu, zwiększanie  wartości <span class="math">\(q\)</span> powoduje zmiejszanie się obszaru  parametrów <span class="math">\((u, c)\)</span> dla których pojawiają się oscylacje.  Powyżej   pewnej wartości krytycznej <span class="math">\(q \gt   q_c\)</span>  oscylacje zanikają całkowicie.</p>
+<div class="highlight-python"><div class="highlight"><pre><span class="n">sage</span><span class="p">:</span> <span class="n">var</span><span class="p">(</span><span class="s">&#39;u,q&#39;</span><span class="p">)</span>
+<span class="n">sage</span><span class="p">:</span> <span class="n">D</span><span class="p">(</span><span class="n">u</span><span class="p">,</span><span class="n">q</span><span class="p">)</span><span class="o">=</span><span class="p">(</span><span class="mi">1</span><span class="o">-</span><span class="n">q</span><span class="o">-</span><span class="n">u</span><span class="p">)</span><span class="o">^</span><span class="mi">2</span> <span class="o">+</span> <span class="mi">4</span><span class="o">*</span><span class="n">q</span><span class="o">*</span><span class="p">(</span><span class="mi">1</span><span class="o">+</span><span class="n">u</span><span class="p">)</span>
+<span class="n">sage</span><span class="p">:</span> <span class="n">x1</span><span class="p">(</span><span class="n">u</span><span class="p">,</span><span class="n">q</span><span class="p">)</span><span class="o">=</span><span class="mf">0.5</span><span class="o">*</span><span class="p">(</span><span class="mi">1</span><span class="o">-</span><span class="n">q</span><span class="o">-</span><span class="n">u</span><span class="o">+</span><span class="n">sqrt</span><span class="p">(</span><span class="n">D</span><span class="p">(</span><span class="n">u</span><span class="p">,</span><span class="n">q</span><span class="p">)))</span>
+<span class="n">sage</span><span class="p">:</span> <span class="n">c</span><span class="p">(</span><span class="n">u</span><span class="p">,</span><span class="n">q</span><span class="p">)</span><span class="o">=</span><span class="mi">1</span><span class="o">-</span><span class="mi">2</span><span class="o">*</span><span class="n">x1</span><span class="p">(</span><span class="n">u</span><span class="p">,</span><span class="n">q</span><span class="p">)</span> <span class="o">-</span> <span class="mi">2</span><span class="o">*</span><span class="n">u</span><span class="o">*</span><span class="n">q</span><span class="o">*</span><span class="n">x1</span><span class="p">(</span><span class="n">u</span><span class="p">,</span><span class="n">q</span><span class="p">)</span><span class="o">/</span><span class="p">(</span><span class="n">q</span> <span class="o">+</span> <span class="n">x1</span><span class="p">(</span><span class="n">u</span><span class="p">,</span><span class="n">q</span><span class="p">))</span><span class="o">^</span><span class="mi">2</span>
+<span class="n">sage</span><span class="p">:</span> <span class="n">pr1</span><span class="o">=</span><span class="n">plot</span><span class="p">(</span><span class="n">c</span><span class="p">(</span><span class="n">u</span><span class="p">,</span><span class="mf">0.0008</span><span class="p">),</span> <span class="p">(</span><span class="n">u</span><span class="p">,</span><span class="mi">0</span><span class="p">,</span><span class="mi">3</span><span class="p">),</span> <span class="n">legend_label</span><span class="o">=</span><span class="s">&quot;q=0.0008&quot;</span><span class="p">)</span>
+<span class="n">sage</span><span class="p">:</span> <span class="n">pr2</span><span class="o">=</span><span class="n">plot</span><span class="p">(</span><span class="n">c</span><span class="p">(</span><span class="n">u</span><span class="p">,</span><span class="mf">0.04</span><span class="p">),</span> <span class="p">(</span><span class="n">u</span><span class="p">,</span><span class="mi">0</span><span class="p">,</span><span class="mi">3</span><span class="p">),</span> <span class="n">color</span><span class="o">=</span><span class="s">&#39;red&#39;</span><span class="p">,</span> <span class="n">legend_label</span><span class="o">=</span><span class="s">&quot;q=0.040&quot;</span><span class="p">)</span>
+<span class="n">sage</span><span class="p">:</span> <span class="n">pr3</span><span class="o">=</span><span class="n">plot</span><span class="p">(</span><span class="n">c</span><span class="p">(</span><span class="n">u</span><span class="p">,</span><span class="mf">0.075</span><span class="p">),</span> <span class="p">(</span><span class="n">u</span><span class="p">,</span><span class="mi">0</span><span class="p">,</span><span class="mi">3</span><span class="p">),</span> <span class="n">color</span><span class="o">=</span><span class="s">&#39;green&#39;</span><span class="p">,</span> <span class="n">legend_label</span><span class="o">=</span><span class="s">&quot;q=0.075&quot;</span><span class="p">)</span>
+<span class="n">sage</span><span class="p">:</span> <span class="n">show</span><span class="p">(</span><span class="n">pr1</span><span class="o">+</span><span class="n">pr2</span><span class="o">+</span><span class="n">pr3</span><span class="p">,</span> <span class="p">,</span><span class="n">fontsize</span><span class="o">=</span><span class="mi">12</span> <span class="p">)</span>
+</pre></div>
+</div>
+<img alt="_images/cell_44_sage0.png" class="align-center" src="_images/cell_44_sage0.png" />
+<p><strong>Wyprowadzenie powyższych wzorów wykorzystując algebrę komputerową:</strong></p>
+<div class="highlight-python"><div class="highlight"><pre><span class="n">sage</span><span class="p">:</span> <span class="n">var</span><span class="p">(</span><span class="s">&#39;x u q c z&#39;</span><span class="p">)</span>
+<span class="n">sage</span><span class="p">:</span> <span class="n">F</span><span class="p">(</span><span class="n">x</span><span class="p">,</span> <span class="n">z</span><span class="p">)</span> <span class="o">=</span><span class="p">(</span> <span class="n">x</span><span class="o">*</span><span class="p">(</span><span class="mi">1</span><span class="o">-</span><span class="n">x</span><span class="p">)</span> <span class="o">+</span> <span class="n">u</span><span class="o">*</span><span class="n">z</span><span class="o">*</span><span class="p">(</span><span class="n">q</span><span class="o">-</span><span class="n">x</span><span class="p">)</span><span class="o">/</span><span class="p">(</span><span class="n">q</span><span class="o">+</span><span class="n">x</span><span class="p">)</span> <span class="p">)</span><span class="o">/</span><span class="n">c</span>
+<span class="n">sage</span><span class="p">:</span> <span class="n">H</span><span class="p">(</span><span class="n">x</span><span class="p">,</span><span class="n">z</span><span class="p">)</span><span class="o">=</span> <span class="n">x</span><span class="o">-</span><span class="n">z</span>
+<span class="n">sage</span><span class="p">:</span> <span class="n">x0</span> <span class="o">=</span> <span class="n">solve</span><span class="p">([</span><span class="n">F</span><span class="p">(</span><span class="n">x</span><span class="p">,</span><span class="n">z</span><span class="p">),</span><span class="n">H</span><span class="p">(</span><span class="n">x</span><span class="p">,</span><span class="n">z</span><span class="p">)],[</span><span class="n">x</span><span class="p">,</span><span class="n">z</span><span class="p">])[</span><span class="mi">1</span><span class="p">][</span><span class="mi">0</span><span class="p">]</span><span class="o">.</span><span class="n">rhs</span><span class="p">()</span>
+<span class="n">sage</span><span class="p">:</span> <span class="n">J</span> <span class="o">=</span> <span class="n">jacobian</span><span class="p">(</span><span class="n">vector</span><span class="p">([</span><span class="n">F</span><span class="p">,</span><span class="n">H</span><span class="p">]),(</span><span class="n">x</span><span class="p">,</span><span class="n">z</span><span class="p">)</span> <span class="p">)</span>
+<span class="n">sage</span><span class="p">:</span> <span class="k">print</span> <span class="s">&quot;Tr(J) łatwo rozwiazać na c!&quot;</span>
+<span class="n">sage</span><span class="p">:</span> <span class="n">show</span><span class="p">(</span><span class="n">J</span><span class="o">.</span><span class="n">trace</span><span class="p">())</span>
+<span class="n">sage</span><span class="p">:</span> <span class="n">Tr</span><span class="p">(</span><span class="n">u</span><span class="p">,</span><span class="n">q</span><span class="p">,</span><span class="n">c</span><span class="p">)</span> <span class="o">=</span> <span class="n">J</span><span class="o">.</span><span class="n">trace</span><span class="p">()</span><span class="o">.</span><span class="n">subs</span><span class="p">({</span><span class="n">x</span><span class="p">:</span><span class="n">x0</span><span class="p">,</span><span class="n">z</span><span class="p">:</span><span class="n">x0</span><span class="p">})</span>
+<span class="n">sage</span><span class="p">:</span> <span class="n">C</span><span class="p">(</span><span class="n">u</span><span class="p">,</span><span class="n">q</span><span class="p">)</span> <span class="o">=</span> <span class="n">Tr</span><span class="p">(</span><span class="n">u</span><span class="p">,</span><span class="n">q</span><span class="p">,</span><span class="n">c</span><span class="p">)</span><span class="o">.</span><span class="n">solve</span><span class="p">(</span><span class="n">c</span><span class="p">)[</span><span class="mi">0</span><span class="p">]</span><span class="o">.</span><span class="n">rhs</span><span class="p">()</span><span class="o">.</span><span class="n">simplify</span><span class="p">()</span>
+</pre></div>
+</div>
+<p>Tr(J) łatwo rozwiazać na c!</p>
+<div class="math">
+\[\left( x, z \right) \ {\mapsto} \ -\frac{\frac{{\left(q - x\right)} u z}{{\left(q + x\right)}^{2}} + \frac{u z}{q + x} + 2 \, x - 1}{c} - 1\]</div>
+<div class="highlight-python"><div class="highlight"><pre><span class="n">sage</span><span class="p">:</span> <span class="nb">sum</span><span class="p">([</span><span class="n">plot</span><span class="p">(</span><span class="n">C</span><span class="p">(</span><span class="n">u</span><span class="p">,</span><span class="n">q_</span><span class="p">),(</span><span class="n">u</span><span class="p">,</span><span class="o">.</span><span class="mo">01</span><span class="p">,</span><span class="mi">3</span><span class="p">),</span><span class="n">figsize</span><span class="o">=</span><span class="p">(</span><span class="mi">6</span><span class="p">,</span><span class="mi">4</span><span class="p">),</span><span class="n">axes_labels</span><span class="o">=</span><span class="p">[</span><span class="s">&#39;u&#39;</span><span class="p">,</span><span class="s">&#39;c&#39;</span><span class="p">],</span><span class="n">legend_label</span><span class="o">=</span><span class="s">&quot;q=</span><span class="si">%0.4f</span><span class="s">&quot;</span><span class="o">%</span><span class="n">q_</span><span class="p">)</span> <span class="k">for</span> <span class="n">q_</span> <span class="ow">in</span> <span class="n">srange</span><span class="p">(</span><span class="mf">0.0001</span><span class="p">,</span><span class="mf">0.2</span><span class="p">,</span><span class="mf">0.02</span><span class="p">)</span> <span class="p">]</span> <span class="p">)</span>
+</pre></div>
+</div>
+<img alt="_images/cell_52_sage0.png" class="align-center" src="_images/cell_52_sage0.png" />
+<p>Obszar pod czerwoną krzywą zawiera miejsca gdzie Tr(J)&gt;0 co sugeruje oscylacje (punkt stały jest niestabilny).</p>
+<div class="highlight-python"><div class="highlight"><pre><span class="n">sage</span><span class="p">:</span> <span class="n">contour_plot</span><span class="p">(</span><span class="n">C</span><span class="p">(</span><span class="n">u</span><span class="p">,</span><span class="n">q</span><span class="p">),(</span><span class="n">u</span><span class="p">,</span><span class="o">.</span><span class="mo">01</span><span class="p">,</span><span class="mi">3</span><span class="p">),(</span><span class="n">q</span><span class="p">,</span><span class="mf">1e-6</span><span class="p">,</span><span class="o">.</span><span class="mi">1</span><span class="p">),</span> <span class="n">axes_labels</span><span class="o">=</span><span class="p">[</span><span class="s">&#39;u&#39;</span><span class="p">,</span><span class="s">&#39;q&#39;</span><span class="p">],</span><span class="n">contours</span><span class="o">=</span><span class="n">srange</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span><span class="o">.</span><span class="mi">61</span><span class="p">,</span><span class="mf">0.01</span><span class="p">),</span><span class="n">aspect_ratio</span><span class="o">=</span><span class="mf">30.</span><span class="p">)</span><span class="o">+</span>\
+<span class="o">...</span>    <span class="n">implicit_plot</span><span class="p">(</span><span class="n">C</span><span class="p">(</span><span class="n">u</span><span class="p">,</span><span class="n">q</span><span class="p">),(</span><span class="n">u</span><span class="p">,</span><span class="o">.</span><span class="mo">01</span><span class="p">,</span><span class="mi">3</span><span class="p">),(</span><span class="n">q</span><span class="p">,</span><span class="mf">1e-6</span><span class="p">,</span><span class="o">.</span><span class="mi">1</span><span class="p">),</span> <span class="n">axes_labels</span><span class="o">=</span><span class="p">[</span><span class="s">&#39;u&#39;</span><span class="p">,</span><span class="s">&#39;q&#39;</span><span class="p">],</span><span class="n">color</span><span class="o">=</span><span class="s">&#39;red&#39;</span><span class="p">)</span>
+</pre></div>
+</div>
+<img alt="_images/cell_51_sage0.png" class="align-center" src="_images/cell_51_sage0.png" />
+</div>
+<div class="section" id="porownanie-rozwiazan-pelnego-oregonatora-i-ukladu-zredukowanego">
+<h2>Porównanie rozwiązań  pełnego &#8220;Oregonatora&#8221; i układu zredukowanego<a class="headerlink" href="iCSE_BProcnielin08_z161_BZ.html#porownanie-rozwiazan-pelnego-oregonatora-i-ukladu-zredukowanego" title="Stały odnośnik do tego nagłówka">¶</a></h2>
+<div class="highlight-python"><div class="highlight"><pre><span class="n">sage</span><span class="p">:</span> <span class="n">var</span><span class="p">(</span><span class="s">&#39;x,y,z&#39;</span><span class="p">)</span>
+<span class="n">sage</span><span class="p">:</span> <span class="n">c</span><span class="o">=</span><span class="mf">0.04</span>
+<span class="n">sage</span><span class="p">:</span> <span class="n">d</span><span class="o">=</span><span class="mf">0.0004</span> <span class="c">## to jest parametr delta: zmieniaj go od małej wartości, np. 0.0004 (brak różnic) do np. 0.04 (obserwuje się różnice)</span>
+<span class="n">sage</span><span class="p">:</span> <span class="n">q</span><span class="o">=</span><span class="mf">0.0008</span>
+<span class="n">sage</span><span class="p">:</span> <span class="n">u</span><span class="o">=</span><span class="mf">0.51</span> <span class="c">## zmieniaj też ten parametr bifurkacyjny</span>
+<span class="n">sage</span><span class="p">:</span> <span class="n">f</span><span class="p">(</span><span class="n">x</span><span class="p">,</span><span class="n">y</span><span class="p">,</span><span class="n">z</span><span class="p">)</span><span class="o">=</span> <span class="p">(</span><span class="n">q</span><span class="o">*</span><span class="n">y</span> <span class="o">-</span><span class="n">x</span><span class="o">*</span><span class="n">y</span> <span class="o">+</span> <span class="n">x</span> <span class="o">-</span><span class="n">x</span><span class="o">*</span><span class="n">x</span><span class="p">)</span><span class="o">/</span><span class="n">c</span>
+<span class="n">sage</span><span class="p">:</span> <span class="n">g</span><span class="p">(</span><span class="n">x</span><span class="p">,</span><span class="n">y</span><span class="p">,</span><span class="n">z</span><span class="p">)</span><span class="o">=</span><span class="p">(</span><span class="o">-</span><span class="n">q</span><span class="o">*</span><span class="n">y</span> <span class="o">-</span> <span class="n">x</span><span class="o">*</span><span class="n">y</span> <span class="o">+</span><span class="n">u</span><span class="o">*</span><span class="n">z</span><span class="p">)</span><span class="o">/</span><span class="n">d</span>
+<span class="n">sage</span><span class="p">:</span> <span class="n">h</span><span class="p">(</span><span class="n">x</span><span class="p">,</span><span class="n">y</span><span class="p">,</span><span class="n">z</span><span class="p">)</span><span class="o">=</span> <span class="n">x</span><span class="o">-</span><span class="n">z</span>
+</pre></div>
+</div>
+<div class="highlight-python"><div class="highlight"><pre><span class="n">sage</span><span class="p">:</span> <span class="n">T</span> <span class="o">=</span> <span class="n">srange</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span> <span class="mi">30</span><span class="p">,</span><span class="mf">0.001</span><span class="p">)</span> <span class="c">## tu można zmieniać czas  zmieniając drugą wartość, czyli wydłużać wartość poziomej osi</span>
+<span class="n">sage</span><span class="p">:</span> <span class="n">sol1</span><span class="o">=</span><span class="n">desolve_odeint</span><span class="p">([</span><span class="n">f</span><span class="p">,</span><span class="n">g</span><span class="p">,</span><span class="n">h</span><span class="p">],</span> <span class="p">[</span><span class="mf">0.08</span><span class="p">,</span><span class="mf">0.5</span><span class="p">,</span><span class="mf">0.07</span><span class="p">],</span> <span class="n">T</span><span class="p">,</span> <span class="p">[</span><span class="n">x</span><span class="p">,</span><span class="n">y</span><span class="p">,</span><span class="n">z</span><span class="p">])</span> <span class="c">## w 2 nawiasie są warunki początkowe dla x, y, z</span>
+</pre></div>
+</div>
+<div class="highlight-python"><div class="highlight"><pre><span class="n">sage</span><span class="p">:</span> <span class="n">var</span><span class="p">(</span><span class="s">&#39;x z&#39;</span><span class="p">)</span>
+<span class="n">sage</span><span class="p">:</span> <span class="n">c</span><span class="o">=</span><span class="mf">0.04</span>
+<span class="n">sage</span><span class="p">:</span> <span class="n">q</span><span class="o">=</span><span class="mf">0.0008</span>
+<span class="n">sage</span><span class="p">:</span> <span class="n">u</span><span class="o">=</span><span class="mf">0.51</span> <span class="c">## zmieniaj tę wartość</span>
+<span class="n">sage</span><span class="p">:</span> <span class="n">F</span><span class="p">(</span><span class="n">x</span><span class="p">,</span> <span class="n">z</span><span class="p">)</span> <span class="o">=</span><span class="p">(</span><span class="mi">1</span><span class="o">/</span><span class="n">c</span><span class="p">)</span><span class="o">*</span><span class="p">(</span> <span class="n">x</span><span class="o">*</span><span class="p">(</span><span class="mi">1</span><span class="o">-</span><span class="n">x</span><span class="p">)</span> <span class="o">+</span> <span class="n">u</span><span class="o">*</span><span class="n">z</span><span class="o">*</span><span class="p">(</span><span class="n">q</span><span class="o">-</span><span class="n">x</span><span class="p">)</span><span class="o">/</span><span class="p">(</span><span class="n">q</span><span class="o">+</span><span class="n">x</span><span class="p">)</span> <span class="p">)</span>
+<span class="n">sage</span><span class="p">:</span> <span class="n">H</span><span class="p">(</span><span class="n">x</span><span class="p">,</span><span class="n">z</span><span class="p">)</span><span class="o">=</span> <span class="n">x</span><span class="o">-</span><span class="n">z</span>
+</pre></div>
+</div>
+<div class="highlight-python"><div class="highlight"><pre><span class="n">sage</span><span class="p">:</span> <span class="n">Ts</span> <span class="o">=</span> <span class="n">srange</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span> <span class="mi">30</span><span class="p">,</span><span class="mf">0.001</span><span class="p">)</span> <span class="c">## tu można zmieniać czas  zmieniając drugą wartość, czyli wydłużać wartość poziomej osi</span>
+<span class="n">sage</span><span class="p">:</span> <span class="n">solR</span><span class="o">=</span><span class="n">desolve_odeint</span><span class="p">([</span><span class="n">F</span><span class="p">,</span><span class="n">H</span><span class="p">],</span> <span class="p">[</span><span class="mf">0.08</span><span class="p">,</span><span class="mf">0.07</span><span class="p">],</span> <span class="n">Ts</span><span class="p">,</span> <span class="p">[</span><span class="n">x</span><span class="p">,</span><span class="n">z</span><span class="p">])</span> <span class="c">## w 2 nawiasie są warunki początkowe dla x, y, z</span>
+<span class="n">sage</span><span class="p">:</span> <span class="n">line</span><span class="p">(</span> <span class="nb">zip</span> <span class="p">(</span> <span class="n">T</span><span class="p">,</span><span class="n">solR</span><span class="p">[:,</span><span class="mi">0</span><span class="p">]),</span><span class="n">legend_label</span><span class="o">=</span><span class="s">&quot;zredukowany&quot;</span> <span class="p">)</span><span class="o">+</span><span class="n">line</span><span class="p">(</span> <span class="nb">zip</span> <span class="p">(</span> <span class="n">T</span><span class="p">,</span><span class="n">sol1</span><span class="p">[:,</span><span class="mi">0</span><span class="p">]),</span> <span class="n">color</span><span class="o">=</span><span class="s">&#39;red&#39;</span><span class="p">,</span><span class="n">legend_label</span><span class="o">=</span><span class="s">&quot;Oregonator&quot;</span><span class="p">)</span>
+</pre></div>
+</div>
+<img alt="_images/cell_46_sage0.png" class="align-center" src="_images/cell_46_sage0.png" />
+</div>
+<div class="section" id="demostracja-uzycia-cas-do-selektywnego-uproszczenia-wzorow">
+<h2>Demostracja użycia CAS do selektywnego uproszczenia wzorów<a class="headerlink" href="iCSE_BProcnielin08_z161_BZ.html#demostracja-uzycia-cas-do-selektywnego-uproszczenia-wzorow" title="Stały odnośnik do tego nagłówka">¶</a></h2>
+<div class="highlight-python"><div class="highlight"><pre><span class="n">sage</span><span class="p">:</span> <span class="n">tr</span> <span class="o">=</span> <span class="n">J</span><span class="p">(</span><span class="n">x</span><span class="p">,</span><span class="n">x</span><span class="p">)</span><span class="o">.</span><span class="n">trace</span><span class="p">()</span>
+<span class="n">sage</span><span class="p">:</span> <span class="n">show</span><span class="p">(</span><span class="n">tr</span><span class="p">)</span>
+<span class="n">sage</span><span class="p">:</span> <span class="n">show</span><span class="p">(</span> <span class="n">tr</span><span class="o">.</span><span class="n">operands</span><span class="p">()[</span><span class="mi">0</span><span class="p">]</span> <span class="p">)</span>
+<span class="n">sage</span><span class="p">:</span> <span class="n">show</span><span class="p">(</span> <span class="n">tr</span><span class="o">.</span><span class="n">operands</span><span class="p">()[</span><span class="mi">0</span><span class="p">]</span><span class="o">.</span><span class="n">operands</span><span class="p">()</span> <span class="p">)</span>
+<span class="n">sage</span><span class="p">:</span> <span class="n">show</span><span class="p">(</span> <span class="p">(</span><span class="o">-</span><span class="n">tr</span><span class="o">.</span><span class="n">operands</span><span class="p">()[</span><span class="mi">0</span><span class="p">]</span><span class="o">.</span><span class="n">operands</span><span class="p">()[</span><span class="mi">0</span><span class="p">])</span> <span class="p">)</span>
+<span class="n">sage</span><span class="p">:</span> <span class="n">show</span><span class="p">(</span> <span class="p">(</span><span class="o">-</span><span class="n">tr</span><span class="o">.</span><span class="n">operands</span><span class="p">()[</span><span class="mi">0</span><span class="p">]</span><span class="o">.</span><span class="n">operands</span><span class="p">()[</span><span class="mi">0</span><span class="p">])</span><span class="o">.</span><span class="n">operands</span><span class="p">()</span> <span class="p">)</span>
+<span class="n">sage</span><span class="p">:</span> <span class="n">show</span><span class="p">(</span> <span class="p">(</span><span class="o">-</span><span class="n">tr</span><span class="o">.</span><span class="n">operands</span><span class="p">()[</span><span class="mi">0</span><span class="p">]</span><span class="o">.</span><span class="n">operands</span><span class="p">()[</span><span class="mi">0</span><span class="p">])</span><span class="o">.</span><span class="n">operands</span><span class="p">()[</span><span class="mi">0</span><span class="p">:</span><span class="mi">2</span><span class="p">]</span> <span class="p">)</span>
+<span class="n">sage</span><span class="p">:</span> <span class="n">show</span><span class="p">(</span><span class="nb">sum</span><span class="p">(</span> <span class="p">(</span><span class="o">-</span><span class="n">tr</span><span class="o">.</span><span class="n">operands</span><span class="p">()[</span><span class="mi">0</span><span class="p">]</span><span class="o">.</span><span class="n">operands</span><span class="p">()[</span><span class="mi">0</span><span class="p">])</span><span class="o">.</span><span class="n">operands</span><span class="p">()[</span><span class="mi">0</span><span class="p">:</span><span class="mi">2</span><span class="p">]</span> <span class="p">)</span><span class="o">.</span><span class="n">factor</span><span class="p">()</span> <span class="p">)</span>
+<span class="n">sage</span><span class="p">:</span> <span class="k">print</span> <span class="s">&quot;Ma być:&quot;</span>
+<span class="n">sage</span><span class="p">:</span> <span class="n">show</span><span class="p">(</span> <span class="mi">1</span><span class="o">-</span><span class="mi">2</span><span class="o">*</span><span class="n">x</span> <span class="o">-</span> <span class="mi">2</span><span class="o">*</span><span class="n">u</span><span class="o">*</span><span class="n">q</span><span class="o">*</span><span class="n">x</span><span class="o">/</span><span class="p">(</span><span class="n">q</span> <span class="o">+</span> <span class="n">x</span><span class="p">)</span><span class="o">^</span><span class="mi">2</span> <span class="p">)</span>
+</pre></div>
+</div>
+<div class="math">
+\[-\frac{\frac{{\left(q - x\right)} u x}{{\left(q + x\right)}^{2}} + \frac{u x}{q + x} + 2 \, x - 1}{c} - 1\]</div>
+<div class="math">
+\[-\frac{\frac{{\left(q - x\right)} u x}{{\left(q + x\right)}^{2}} + \frac{u x}{q + x} + 2 \, x - 1}{c}\]</div>
+<div class="math">
+\[\left[\frac{{\left(q - x\right)} u x}{{\left(q + x\right)}^{2}} + \frac{u x}{q + x} + 2 \, x - 1, \frac{1}{c}, -1\right]\]</div>
+<div class="math">
+\[-\frac{{\left(q - x\right)} u x}{{\left(q + x\right)}^{2}} - \frac{u x}{q + x} - 2 \, x + 1\]</div>
+<div class="math">
+\[\left[-\frac{{\left(q - x\right)} u x}{{\left(q + x\right)}^{2}}, -\frac{u x}{q + x}, -2 \, x, 1\right]\]</div>
+<div class="math">
+\[\left[-\frac{{\left(q - x\right)} u x}{{\left(q + x\right)}^{2}}, -\frac{u x}{q + x}\right]\]</div>
+<div class="math">
+\[-\frac{2 \, q u x}{{\left(q + x\right)}^{2}}\]</div>
+<p>Ma być:</p>
+<div class="math">
+\[-\frac{2 \, q u x}{{\left(q + x\right)}^{2}} - 2 \, x + 1\]</div>
+</div>
+<div class="section" id="diagram-bifurkacyjny-ukladu-zredukowanego">
+<h2>Diagram bifurkacyjny układu zredukowanego <span class="math">\(x^*(q)\)</span><a class="headerlink" href="iCSE_BProcnielin08_z161_BZ.html#diagram-bifurkacyjny-ukladu-zredukowanego" title="Stały odnośnik do tego nagłówka">¶</a></h2>
+<div class="highlight-python"><div class="highlight"><pre><span class="n">sage</span><span class="p">:</span> <span class="n">var</span><span class="p">(</span><span class="s">&#39;x u q c z&#39;</span><span class="p">)</span>
+<span class="n">sage</span><span class="p">:</span> <span class="n">F</span><span class="p">(</span><span class="n">x</span><span class="p">,</span> <span class="n">z</span><span class="p">)</span> <span class="o">=</span><span class="p">(</span> <span class="n">x</span><span class="o">*</span><span class="p">(</span><span class="mi">1</span><span class="o">-</span><span class="n">x</span><span class="p">)</span> <span class="o">+</span> <span class="n">u</span><span class="o">*</span><span class="n">z</span><span class="o">*</span><span class="p">(</span><span class="n">q</span><span class="o">-</span><span class="n">x</span><span class="p">)</span><span class="o">/</span><span class="p">(</span><span class="n">q</span><span class="o">+</span><span class="n">x</span><span class="p">)</span> <span class="p">)</span><span class="o">/</span><span class="n">c</span>
+<span class="n">sage</span><span class="p">:</span> <span class="n">H</span><span class="p">(</span><span class="n">x</span><span class="p">,</span><span class="n">z</span><span class="p">)</span><span class="o">=</span> <span class="n">x</span><span class="o">-</span><span class="n">z</span>
+<span class="n">sage</span><span class="p">:</span> <span class="n">x0</span> <span class="o">=</span> <span class="n">solve</span><span class="p">([</span><span class="n">F</span><span class="p">(</span><span class="n">x</span><span class="p">,</span><span class="n">z</span><span class="p">),</span><span class="n">H</span><span class="p">(</span><span class="n">x</span><span class="p">,</span><span class="n">z</span><span class="p">)],[</span><span class="n">x</span><span class="p">,</span><span class="n">z</span><span class="p">])[</span><span class="mi">1</span><span class="p">][</span><span class="mi">0</span><span class="p">]</span><span class="o">.</span><span class="n">rhs</span><span class="p">()</span>
+<span class="n">sage</span><span class="p">:</span> <span class="n">J</span> <span class="o">=</span> <span class="n">jacobian</span><span class="p">(</span><span class="n">vector</span><span class="p">([</span><span class="n">F</span><span class="p">,</span><span class="n">H</span><span class="p">]),(</span><span class="n">x</span><span class="p">,</span><span class="n">z</span><span class="p">)</span> <span class="p">)</span>
+<span class="n">sage</span><span class="p">:</span> <span class="n">Tr</span><span class="p">(</span><span class="n">u</span><span class="p">,</span><span class="n">q</span><span class="p">,</span><span class="n">c</span><span class="p">)</span> <span class="o">=</span> <span class="n">J</span><span class="o">.</span><span class="n">trace</span><span class="p">()</span><span class="o">.</span><span class="n">subs</span><span class="p">({</span><span class="n">x</span><span class="p">:</span><span class="n">x0</span><span class="p">,</span><span class="n">z</span><span class="p">:</span><span class="n">x0</span><span class="p">})</span>
+<span class="n">sage</span><span class="p">:</span> <span class="n">C</span><span class="p">(</span><span class="n">u</span><span class="p">,</span><span class="n">q</span><span class="p">)</span> <span class="o">=</span> <span class="n">Tr</span><span class="p">(</span><span class="n">u</span><span class="p">,</span><span class="n">q</span><span class="p">,</span><span class="n">c</span><span class="p">)</span><span class="o">.</span><span class="n">solve</span><span class="p">(</span><span class="n">c</span><span class="p">)[</span><span class="mi">0</span><span class="p">]</span><span class="o">.</span><span class="n">rhs</span><span class="p">()</span><span class="o">.</span><span class="n">simplify</span><span class="p">()</span>
+</pre></div>
+</div>
+<p>Narysujmy jak zmienia sie punkt stały z <span class="math">\(q\)</span> przy ustalonych pozostałych parametrach. Kolorem czerwonym zaznaczamy punkt stały niestabilny (<span class="math">\({\text Tr} J \gt 0\)</span>) a niebieskim stabilny.</p>
+<div class="highlight-python"><div class="highlight"><pre><span class="n">sage</span><span class="p">:</span> <span class="n">fix_stable</span> <span class="o">=</span> <span class="p">[]</span>
+<span class="n">sage</span><span class="p">:</span> <span class="n">fix_unstable</span> <span class="o">=</span> <span class="p">[]</span>
+<span class="n">sage</span><span class="p">:</span> <span class="k">for</span> <span class="n">q_</span> <span class="ow">in</span> <span class="n">srange</span><span class="p">(</span><span class="o">.</span><span class="mo">0001</span><span class="p">,</span><span class="o">.</span><span class="mi">1</span><span class="p">,</span><span class="mf">0.0002</span><span class="p">):</span>
+<span class="o">...</span>       <span class="n">pars</span> <span class="o">=</span> <span class="p">{</span><span class="n">c</span><span class="p">:</span><span class="mf">0.3</span><span class="p">,</span><span class="n">q</span><span class="p">:</span><span class="n">q_</span><span class="p">,</span><span class="n">u</span><span class="p">:</span><span class="mf">1.1</span><span class="p">}</span>
+<span class="o">...</span>       <span class="k">if</span> <span class="n">Tr</span><span class="p">(</span><span class="n">u</span><span class="p">,</span><span class="n">q</span><span class="p">,</span><span class="n">c</span><span class="p">)</span><span class="o">.</span><span class="n">subs</span><span class="p">(</span><span class="n">pars</span><span class="p">)</span><span class="o">&lt;</span><span class="mi">0</span><span class="p">:</span>
+<span class="o">...</span>           <span class="n">fix_stable</span><span class="o">.</span><span class="n">append</span><span class="p">((</span><span class="n">q_</span><span class="p">,</span><span class="n">x0</span><span class="o">.</span><span class="n">subs</span><span class="p">(</span><span class="n">pars</span><span class="p">)))</span>
+<span class="o">...</span>       <span class="k">else</span><span class="p">:</span>
+<span class="o">...</span>           <span class="n">fix_unstable</span><span class="o">.</span><span class="n">append</span><span class="p">((</span><span class="n">q_</span><span class="p">,</span><span class="n">x0</span><span class="o">.</span><span class="n">subs</span><span class="p">(</span><span class="n">pars</span><span class="p">)))</span>
+<span class="n">sage</span><span class="p">:</span> <span class="n">point</span><span class="p">(</span> <span class="n">fix_stable</span><span class="p">)</span><span class="o">+</span><span class="n">point</span><span class="p">(</span> <span class="n">fix_unstable</span><span class="p">,</span><span class="n">color</span><span class="o">=</span><span class="s">&#39;red&#39;</span><span class="p">)</span>
+</pre></div>
+</div>
+<img alt="_images/cell_55_sage0.png" class="align-center" src="_images/cell_55_sage0.png" />
+<p>Niestabilny punkt stały i brak innych stabilnych punktów sugeruje możliwość rozwiązań okresowych typu cykl graniczny.</p>
+<p>Powtarzając poprzedni algorytm, jeśli punkt jest niestabilny</p>
+<blockquote>
+<div><ul class="simple">
+<li>rozwiązujemy ODE</li>
+<li>nanosimy na diagramie ekstremalne wartości trajektorii <span class="math">\(x(t)\)</span>  po pewnym czasie umożliwiającym relaksację warunku początkowego.</li>
+<li>dodatkowo rysujemy trajektorię na prawym rysunku z wyróżnieniem ostatnich stu punktów. Trajektorią jest wyliczana dla <span class="math">\(t\in(0,T_{end}).\)</span></li>
+</ul>
+</div></blockquote>
+<div class="highlight-python"><div class="highlight"><pre><span class="n">sage</span><span class="p">:</span> <span class="n">fix_stable</span> <span class="o">=</span> <span class="p">[]</span>
+<span class="n">sage</span><span class="p">:</span> <span class="n">fix_unstable</span> <span class="o">=</span> <span class="p">[]</span>
+<span class="n">sage</span><span class="p">:</span> <span class="n">times</span> <span class="o">=</span> <span class="n">srange</span><span class="p">(</span><span class="mi">1</span><span class="p">,</span><span class="mi">125</span><span class="p">,</span><span class="o">.</span><span class="mi">2</span><span class="p">)</span>
+<span class="n">sage</span><span class="p">:</span> <span class="n">IC</span> <span class="o">=</span> <span class="p">(</span><span class="o">.</span><span class="mi">51</span><span class="p">,</span><span class="o">.</span><span class="mi">51</span><span class="p">)</span>
+<span class="n">sage</span><span class="p">:</span> <span class="k">print</span> <span class="s">&quot;wyliczam diagram bifurkacyjny - chwilka...&quot;</span>
+<span class="n">sage</span><span class="p">:</span> <span class="k">for</span> <span class="n">q_</span> <span class="ow">in</span> <span class="n">srange</span><span class="p">(</span><span class="o">.</span><span class="mo">0001</span><span class="p">,</span><span class="o">.</span><span class="mi">1</span><span class="p">,</span><span class="mf">0.002</span><span class="p">)</span><span class="o">+</span><span class="n">srange</span><span class="p">(</span><span class="o">.</span><span class="mo">035</span><span class="p">,</span><span class="o">.</span><span class="mo">03</span><span class="mi">8</span><span class="p">,</span><span class="mf">0.00001</span><span class="p">):</span>
+<span class="o">...</span>       <span class="n">pars</span> <span class="o">=</span> <span class="p">{</span><span class="n">c</span><span class="p">:</span><span class="mf">0.3</span><span class="p">,</span><span class="n">q</span><span class="p">:</span><span class="n">q_</span><span class="p">,</span><span class="n">u</span><span class="p">:</span><span class="mf">1.1</span><span class="p">}</span>
+<span class="o">...</span>
+<span class="o">...</span>       <span class="k">if</span> <span class="n">Tr</span><span class="p">(</span><span class="n">u</span><span class="p">,</span><span class="n">q</span><span class="p">,</span><span class="n">c</span><span class="p">)</span><span class="o">.</span><span class="n">subs</span><span class="p">(</span><span class="n">pars</span><span class="p">)</span><span class="o">&lt;</span><span class="mi">0</span><span class="p">:</span>
+<span class="o">...</span>           <span class="n">fix_stable</span><span class="o">.</span><span class="n">append</span><span class="p">((</span><span class="n">q_</span><span class="p">,</span><span class="n">x0</span><span class="o">.</span><span class="n">subs</span><span class="p">(</span><span class="n">pars</span><span class="p">)))</span>
+<span class="o">...</span>       <span class="k">else</span><span class="p">:</span>
+<span class="o">...</span>           <span class="n">sol</span><span class="o">=</span><span class="n">desolve_odeint</span><span class="p">([</span><span class="n">F</span><span class="o">.</span><span class="n">subs</span><span class="p">(</span><span class="n">pars</span><span class="p">),</span><span class="n">H</span><span class="o">.</span><span class="n">subs</span><span class="p">(</span><span class="n">pars</span><span class="p">)],</span><span class="n">IC</span><span class="p">,</span><span class="n">times</span><span class="p">,[</span><span class="n">x</span><span class="p">,</span><span class="n">z</span><span class="p">])</span>
+<span class="o">...</span>           <span class="n">X</span> <span class="o">=</span> <span class="n">sol</span><span class="p">[</span><span class="n">sol</span><span class="o">.</span><span class="n">shape</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span><span class="o">/</span><span class="mi">2</span><span class="p">:,</span><span class="mi">0</span><span class="p">]</span>
+<span class="o">...</span>           <span class="n">fix_stable</span><span class="o">.</span><span class="n">append</span><span class="p">((</span><span class="n">q_</span><span class="p">,</span><span class="n">X</span><span class="o">.</span><span class="n">min</span><span class="p">()))</span>
+<span class="o">...</span>           <span class="n">fix_stable</span><span class="o">.</span><span class="n">append</span><span class="p">((</span><span class="n">q_</span><span class="p">,</span><span class="n">X</span><span class="o">.</span><span class="n">max</span><span class="p">()))</span>
+<span class="o">...</span>           <span class="n">fix_unstable</span><span class="o">.</span><span class="n">append</span><span class="p">((</span><span class="n">q_</span><span class="p">,</span><span class="n">x0</span><span class="o">.</span><span class="n">subs</span><span class="p">(</span><span class="n">pars</span><span class="p">)))</span>
+<span class="n">sage</span><span class="p">:</span> <span class="k">print</span> <span class="s">&quot;ok&quot;</span>
+<span class="n">sage</span><span class="p">:</span> <span class="nd">@interact</span>
+<span class="n">sage</span><span class="p">:</span> <span class="k">def</span> <span class="nf">_</span><span class="p">(</span><span class="n">qsel</span>  <span class="o">=</span><span class="n">slider</span><span class="p">(</span><span class="mf">0.03</span><span class="p">,</span><span class="mf">0.041</span><span class="p">,</span><span class="mf">0.000001</span><span class="p">,</span><span class="n">default</span><span class="o">=</span> <span class="mf">0.037</span><span class="p">),</span><span class="n">Tend</span><span class="o">=</span><span class="n">slider</span><span class="p">(</span><span class="mi">10</span><span class="p">,</span><span class="mi">100000</span><span class="p">,</span><span class="mf">0.1</span><span class="p">,</span><span class="n">default</span><span class="o">=</span> <span class="mi">120</span><span class="p">)):</span>
+<span class="o">...</span>       <span class="n">pars</span><span class="p">[</span><span class="n">q</span><span class="p">]</span><span class="o">=</span><span class="n">qsel</span><span class="c"># = {c:0.3,q:qsel,u:1.1}</span>
+<span class="o">...</span>       <span class="n">times</span> <span class="o">=</span> <span class="n">srange</span><span class="p">(</span><span class="mi">1</span><span class="p">,</span><span class="n">Tend</span><span class="p">,</span><span class="o">.</span><span class="mi">2</span><span class="p">)</span>
+<span class="o">...</span>       <span class="n">sol</span><span class="o">=</span><span class="n">desolve_odeint</span><span class="p">([</span><span class="n">F</span><span class="o">.</span><span class="n">subs</span><span class="p">(</span><span class="n">pars</span><span class="p">),</span><span class="n">H</span><span class="o">.</span><span class="n">subs</span><span class="p">(</span><span class="n">pars</span><span class="p">)],</span><span class="n">IC</span><span class="p">,</span><span class="n">times</span><span class="p">,[</span><span class="n">x</span><span class="p">,</span><span class="n">z</span><span class="p">])</span>
+<span class="o">...</span>       <span class="n">html</span><span class="o">.</span><span class="n">table</span><span class="p">([[</span><span class="n">point</span><span class="p">(</span> <span class="n">fix_stable</span><span class="p">)</span><span class="o">+</span><span class="n">point</span><span class="p">(</span> <span class="n">fix_unstable</span><span class="p">,</span><span class="n">color</span><span class="o">=</span><span class="s">&#39;red&#39;</span><span class="p">,</span><span class="n">gridlines</span><span class="o">=</span><span class="p">[[</span><span class="n">qsel</span><span class="p">],[]]),</span><span class="n">line</span><span class="p">(</span><span class="n">sol</span><span class="p">)</span><span class="o">+</span><span class="n">line</span><span class="p">(</span><span class="n">sol</span><span class="p">[</span><span class="o">-</span><span class="mi">20</span><span class="p">:,:],</span><span class="n">color</span><span class="o">=</span><span class="s">&#39;red&#39;</span><span class="p">)]])</span>
+</pre></div>
+</div>
+<div class="highlight-python"><div class="highlight"><pre><span class="n">sage</span><span class="p">:</span> <span class="n">times</span> <span class="o">=</span> <span class="n">srange</span><span class="p">(</span><span class="mi">1</span><span class="p">,</span><span class="mi">125</span><span class="p">,</span><span class="o">.</span><span class="mi">2</span><span class="p">)</span>
+<span class="n">sage</span><span class="p">:</span> <span class="n">IC</span> <span class="o">=</span> <span class="p">(</span><span class="mi">1</span><span class="p">,</span><span class="mi">1</span><span class="p">)</span><span class="c"># (x0.subs(pars),x0.subs(pars)+1e-3)</span>
+<span class="n">sage</span><span class="p">:</span> <span class="n">sol</span><span class="o">=</span><span class="n">desolve_odeint</span><span class="p">([</span><span class="n">F</span><span class="o">.</span><span class="n">subs</span><span class="p">(</span><span class="n">pars</span><span class="p">),</span><span class="n">H</span><span class="o">.</span><span class="n">subs</span><span class="p">(</span><span class="n">pars</span><span class="p">)],</span><span class="n">IC</span><span class="p">,</span><span class="n">times</span><span class="p">,[</span><span class="n">x</span><span class="p">,</span><span class="n">z</span><span class="p">])</span>
+<span class="n">sage</span><span class="p">:</span> <span class="n">X</span> <span class="o">=</span> <span class="n">sol</span><span class="p">[</span><span class="n">sol</span><span class="o">.</span><span class="n">shape</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span><span class="o">/</span><span class="mi">2</span><span class="p">:,</span><span class="mi">0</span><span class="p">]</span>
+<span class="n">sage</span><span class="p">:</span> <span class="n">X</span><span class="o">.</span><span class="n">min</span><span class="p">()</span>
+<span class="n">sage</span><span class="p">:</span> <span class="n">X</span><span class="o">.</span><span class="n">max</span><span class="p">()</span>
+</pre></div>
+</div>
+<div class="highlight-python"><div class="highlight"><pre><span class="n">sage</span><span class="p">:</span> <span class="n">X</span> <span class="o">=</span> <span class="n">sol</span><span class="p">[</span><span class="n">sol</span><span class="o">.</span><span class="n">shape</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span><span class="o">/</span><span class="mi">2</span><span class="p">:,</span><span class="mi">0</span><span class="p">]</span><span class="c">#- x0.subs(pars).n()</span>
+<span class="n">sage</span><span class="p">:</span> <span class="k">print</span> <span class="n">X</span><span class="o">.</span><span class="n">min</span><span class="p">(),</span><span class="n">X</span><span class="o">.</span><span class="n">max</span><span class="p">()</span>
+<span class="n">sage</span><span class="p">:</span> <span class="n">list_plot</span><span class="p">(</span><span class="nb">list</span><span class="p">(</span><span class="n">X</span><span class="p">))</span>
+</pre></div>
+</div>
+<p>0.0500712624079 0.506595108388</p>
+<img alt="_images/cell_63_sage0.png" class="align-center" src="_images/cell_63_sage0.png" />
+<div class="highlight-python"><div class="highlight"><pre><span class="n">sage</span><span class="p">:</span> <span class="n">line</span><span class="p">(</span><span class="nb">zip</span><span class="p">(</span><span class="n">times</span><span class="p">,</span><span class="n">sol</span><span class="p">[:,</span><span class="mi">1</span><span class="p">]),</span><span class="n">gridlines</span><span class="o">=</span><span class="p">[[],[</span><span class="n">x0</span><span class="o">.</span><span class="n">subs</span><span class="p">(</span><span class="n">pars</span><span class="p">)</span><span class="o">.</span><span class="n">n</span><span class="p">()]])</span>
+</pre></div>
+</div>
+<img alt="_images/cell_61_sage0.png" class="align-center" src="_images/cell_61_sage0.png" />
+<div class="highlight-python"><div class="highlight"><pre><span class="n">sage</span><span class="p">:</span> <span class="n">line</span><span class="p">(</span><span class="n">sol</span><span class="p">)</span><span class="o">+</span><span class="n">point</span><span class="p">(</span><span class="n">IC</span><span class="p">)</span>
+</pre></div>
+</div>
+<img alt="_images/cell_60_sage0.png" class="align-center" src="_images/cell_60_sage0.png" />
+<div class="highlight-python"><div class="highlight"><pre><span class="n">sage</span><span class="p">:</span> <span class="n">pars</span> <span class="o">=</span> <span class="p">{</span><span class="n">c</span><span class="p">:</span><span class="mf">0.04</span><span class="p">,</span><span class="n">q</span><span class="p">:</span><span class="mf">0.0008</span><span class="p">,</span><span class="n">u</span><span class="p">:</span><span class="mf">0.8</span><span class="p">}</span>
+<span class="n">sage</span><span class="p">:</span> <span class="n">fix_pointsR</span> <span class="o">=</span>  <span class="n">solve</span><span class="p">([</span><span class="n">F</span><span class="o">.</span><span class="n">subs</span><span class="p">(</span><span class="n">pars</span><span class="p">),</span><span class="n">H</span><span class="o">.</span><span class="n">subs</span><span class="p">(</span><span class="n">pars</span><span class="p">)],</span><span class="n">x</span><span class="p">,</span><span class="n">z</span><span class="p">,</span><span class="n">solution_dict</span><span class="o">=</span><span class="bp">True</span><span class="p">)</span>
+<span class="n">sage</span><span class="p">:</span> <span class="n">plt_fpR</span> <span class="o">=</span> <span class="n">point</span><span class="p">(</span> <span class="p">[</span> <span class="p">(</span><span class="n">x</span><span class="o">.</span><span class="n">subs</span><span class="p">(</span><span class="n">fp</span><span class="p">)</span><span class="o">.</span><span class="n">n</span><span class="p">(),</span><span class="n">z</span><span class="o">.</span><span class="n">subs</span><span class="p">(</span><span class="n">fp</span><span class="p">)</span><span class="o">.</span><span class="n">n</span><span class="p">())</span> <span class="k">for</span> <span class="n">fp</span> <span class="ow">in</span> <span class="n">fix_pointsR</span><span class="p">],</span><span class="n">color</span><span class="o">=</span><span class="s">&#39;red&#39;</span><span class="p">)</span>
+<span class="n">sage</span><span class="p">:</span> <span class="n">plt_fpR</span>
+</pre></div>
+</div>
+<img alt="_images/cell_21_sage01.png" class="align-center" src="_images/cell_21_sage01.png" />
+<div class="highlight-python"><div class="highlight"><pre><span class="n">sage</span><span class="p">:</span> <span class="n">pars</span> <span class="o">=</span> <span class="p">{</span><span class="n">c</span><span class="p">:</span><span class="mf">0.04</span><span class="p">,</span><span class="n">d</span><span class="p">:</span><span class="mf">0.0002</span><span class="p">,</span><span class="n">q</span><span class="p">:</span><span class="mf">0.0008</span><span class="p">,</span> <span class="n">u</span><span class="p">:</span><span class="mf">0.8</span><span class="p">}</span>
+<span class="n">sage</span><span class="p">:</span> <span class="n">fix_points</span> <span class="o">=</span>  <span class="n">solve</span><span class="p">([</span><span class="n">f</span><span class="o">.</span><span class="n">subs</span><span class="p">(</span><span class="n">pars</span><span class="p">),</span><span class="n">g</span><span class="o">.</span><span class="n">subs</span><span class="p">(</span><span class="n">pars</span><span class="p">),</span><span class="n">h</span><span class="o">.</span><span class="n">subs</span><span class="p">(</span><span class="n">pars</span><span class="p">)],</span><span class="n">x</span><span class="p">,</span><span class="n">y</span><span class="p">,</span><span class="n">z</span><span class="p">,</span><span class="n">solution_dict</span><span class="o">=</span><span class="bp">True</span><span class="p">)</span>
+<span class="n">sage</span><span class="p">:</span> <span class="n">plt_fp</span> <span class="o">=</span> <span class="n">point</span><span class="p">(</span> <span class="p">[</span> <span class="p">(</span><span class="n">z</span><span class="o">.</span><span class="n">subs</span><span class="p">(</span><span class="n">fp</span><span class="p">)</span><span class="o">.</span><span class="n">n</span><span class="p">(),</span><span class="n">z</span><span class="o">.</span><span class="n">subs</span><span class="p">(</span><span class="n">fp</span><span class="p">)</span><span class="o">.</span><span class="n">n</span><span class="p">())</span> <span class="k">for</span> <span class="n">fp</span> <span class="ow">in</span> <span class="n">fix_points</span><span class="p">],</span><span class="n">color</span><span class="o">=</span><span class="s">&#39;red&#39;</span><span class="p">)</span>
+</pre></div>
+</div>
+<div class="highlight-python"><div class="highlight"><pre><span class="n">sage</span><span class="p">:</span> <span class="n">times</span> <span class="o">=</span> <span class="n">srange</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span><span class="mf">0.1</span><span class="p">,</span><span class="o">.</span><span class="mo">0001</span><span class="p">)</span><span class="o">+</span><span class="n">srange</span><span class="p">(</span><span class="mf">0.1</span><span class="p">,</span><span class="mf">1.0</span><span class="p">,</span><span class="o">.</span><span class="mo">001</span><span class="p">)</span><span class="o">+</span><span class="n">srange</span><span class="p">(</span><span class="mi">1</span><span class="p">,</span><span class="mi">45</span><span class="p">,</span><span class="o">.</span><span class="mo">01</span><span class="p">)</span>
+<span class="n">sage</span><span class="p">:</span> <span class="n">IC</span> <span class="o">=</span> <span class="p">[</span><span class="mf">0.8</span><span class="p">,</span><span class="mf">120.2</span><span class="p">,</span><span class="o">.</span><span class="mi">3</span><span class="p">]</span>
+<span class="n">sage</span><span class="p">:</span> <span class="n">sol</span><span class="o">=</span><span class="n">desolve_odeint</span><span class="p">([</span><span class="n">f</span><span class="o">.</span><span class="n">subs</span><span class="p">(</span><span class="n">pars</span><span class="p">),</span><span class="n">g</span><span class="o">.</span><span class="n">subs</span><span class="p">(</span><span class="n">pars</span><span class="p">),</span><span class="n">h</span><span class="o">.</span><span class="n">subs</span><span class="p">(</span><span class="n">pars</span><span class="p">)],</span><span class="n">IC</span><span class="p">,</span><span class="n">times</span><span class="p">,[</span><span class="n">x</span><span class="p">,</span><span class="n">y</span><span class="p">,</span><span class="n">z</span><span class="p">])</span>
+<span class="n">sage</span><span class="p">:</span> <span class="n">p</span><span class="o">=</span><span class="n">line</span><span class="p">(</span><span class="nb">zip</span><span class="p">(</span><span class="n">times</span><span class="p">,</span><span class="n">sol</span><span class="p">[:,</span><span class="mi">0</span><span class="p">]))</span> <span class="o">+</span> <span class="n">line</span><span class="p">(</span><span class="nb">zip</span><span class="p">(</span><span class="n">times</span><span class="p">,</span><span class="n">sol</span><span class="p">[:,</span><span class="mi">2</span><span class="p">]),</span><span class="n">color</span><span class="o">=</span><span class="s">&#39;red&#39;</span><span class="p">)</span>
+<span class="n">sage</span><span class="p">:</span> <span class="n">p</span><span class="o">.</span><span class="n">show</span><span class="p">(</span><span class="n">figsize</span><span class="o">=</span><span class="p">(</span><span class="mi">6</span><span class="p">,</span><span class="mi">2</span><span class="p">))</span>
+</pre></div>
+</div>
+<img alt="_images/cell_13_sage0.png" class="align-center" src="_images/cell_13_sage0.png" />
+<div class="highlight-python"><div class="highlight"><pre><span class="n">sage</span><span class="p">:</span> <span class="n">solR</span><span class="o">=</span><span class="n">desolve_odeint</span><span class="p">([</span><span class="n">f1</span><span class="o">.</span><span class="n">subs</span><span class="p">(</span><span class="n">pars</span><span class="p">),</span><span class="n">h1</span><span class="o">.</span><span class="n">subs</span><span class="p">(</span><span class="n">pars</span><span class="p">)],[</span><span class="n">IC</span><span class="p">[</span><span class="mi">0</span><span class="p">],</span><span class="n">IC</span><span class="p">[</span><span class="mi">2</span><span class="p">]],</span><span class="n">times</span><span class="p">,[</span><span class="n">x</span><span class="p">,</span><span class="n">z</span><span class="p">])</span>
+<span class="n">sage</span><span class="p">:</span> <span class="n">p</span><span class="o">=</span><span class="n">line</span><span class="p">(</span><span class="nb">zip</span><span class="p">(</span><span class="n">times</span><span class="p">,</span><span class="n">solR</span><span class="p">[:,</span><span class="mi">0</span><span class="p">]))</span><span class="o">+</span><span class="n">line</span><span class="p">(</span><span class="nb">zip</span><span class="p">(</span><span class="n">times</span><span class="p">,</span><span class="n">solR</span><span class="p">[:,</span><span class="mi">1</span><span class="p">]),</span><span class="n">color</span><span class="o">=</span><span class="s">&#39;red&#39;</span><span class="p">)</span>
+<span class="n">sage</span><span class="p">:</span> <span class="n">p</span><span class="o">.</span><span class="n">show</span><span class="p">(</span><span class="n">figsize</span><span class="o">=</span><span class="p">(</span><span class="mi">6</span><span class="p">,</span><span class="mi">2</span><span class="p">))</span>
+</pre></div>
+</div>
+<img alt="_images/cell_23_sage0.png" class="align-center" src="_images/cell_23_sage0.png" />
+<p>Porównanie układu 2d i 3d:</p>
+<div class="highlight-python"><div class="highlight"><pre><span class="n">sage</span><span class="p">:</span> <span class="n">line</span><span class="p">(</span><span class="nb">zip</span><span class="p">(</span><span class="n">sol</span><span class="p">[:,</span><span class="mi">0</span><span class="p">],</span><span class="n">sol</span><span class="p">[:,</span><span class="mi">2</span><span class="p">]))</span><span class="o">+</span><span class="n">line</span><span class="p">(</span><span class="nb">zip</span><span class="p">(</span><span class="n">solR</span><span class="p">[:,</span><span class="mi">0</span><span class="p">],</span><span class="n">solR</span><span class="p">[:,</span><span class="mi">1</span><span class="p">]),</span><span class="n">color</span><span class="o">=</span><span class="s">&#39;red&#39;</span><span class="p">)</span>
+</pre></div>
+</div>
+<img alt="_images/cell_14_sage0.png" class="align-center" src="_images/cell_14_sage0.png" />
+<div class="highlight-python"><div class="highlight"><pre><span class="n">sage</span><span class="p">:</span> <span class="n">surf</span> <span class="o">=</span> <span class="n">implicit_plot3d</span><span class="p">((</span><span class="o">-</span><span class="n">q</span><span class="o">*</span><span class="n">y</span> <span class="o">-</span> <span class="n">x</span><span class="o">*</span><span class="n">y</span> <span class="o">+</span> <span class="n">u</span><span class="o">*</span><span class="n">z</span><span class="p">)</span><span class="o">.</span><span class="n">subs</span><span class="p">(</span><span class="n">pars</span><span class="p">),(</span><span class="n">x</span><span class="p">,</span><span class="mi">0</span><span class="p">,</span><span class="mi">1</span><span class="p">),(</span><span class="n">y</span><span class="p">,</span><span class="mi">0</span><span class="p">,</span><span class="mi">230</span><span class="p">),(</span><span class="n">z</span><span class="p">,</span><span class="mi">0</span><span class="p">,</span><span class="o">.</span><span class="mi">4</span><span class="p">))</span>
+<span class="n">sage</span><span class="p">:</span> <span class="n">traj</span> <span class="o">=</span> <span class="n">line</span><span class="p">(</span><span class="nb">zip</span><span class="p">(</span><span class="n">sol</span><span class="p">[::</span><span class="mi">1</span><span class="p">,</span><span class="mi">0</span><span class="p">],</span><span class="n">sol</span><span class="p">[::</span><span class="mi">1</span><span class="p">,</span><span class="mi">1</span><span class="p">],</span><span class="n">sol</span><span class="p">[::</span><span class="mi">1</span><span class="p">,</span><span class="mi">2</span><span class="p">]),</span><span class="n">color</span><span class="o">=</span><span class="s">&#39;red&#39;</span><span class="p">,</span><span class="n">thickness</span><span class="o">=</span><span class="mi">9</span><span class="p">)</span>
+<span class="n">sage</span><span class="p">:</span> <span class="n">plt_IC</span> <span class="o">=</span> <span class="n">point</span><span class="p">(</span><span class="n">IC</span><span class="p">,</span><span class="n">size</span><span class="o">=</span><span class="mi">20</span><span class="p">,</span><span class="n">color</span><span class="o">=</span><span class="s">&#39;yellow&#39;</span><span class="p">)</span>
+<span class="n">sage</span><span class="p">:</span> <span class="n">surf</span><span class="o">+</span><span class="n">traj</span><span class="o">+</span><span class="n">plt_IC</span>
+<span class="n">Traceback</span> <span class="p">(</span><span class="n">most</span> <span class="n">recent</span> <span class="n">call</span> <span class="n">last</span><span class="p">):</span>
+<span class="o">...</span>
+<span class="ne">NameError</span><span class="p">:</span> <span class="n">name</span> <span class="s">&#39;y&#39;</span> <span class="ow">is</span> <span class="ow">not</span> <span class="n">defined</span>
+</pre></div>
+</div>
+<div class="highlight-python"><div class="highlight"><pre><span class="n">sage</span><span class="p">:</span> <span class="n">surf_form</span><span class="o">=</span><span class="n">solve</span><span class="p">(</span><span class="o">-</span><span class="n">q</span><span class="o">*</span><span class="n">y</span> <span class="o">-</span> <span class="n">x</span><span class="o">*</span><span class="n">y</span> <span class="o">+</span> <span class="n">u</span><span class="o">*</span><span class="n">z</span><span class="p">,</span><span class="n">y</span><span class="p">)[</span><span class="mi">0</span><span class="p">]</span><span class="o">.</span><span class="n">rhs</span><span class="p">()</span><span class="o">.</span><span class="n">subs</span><span class="p">(</span><span class="n">pars</span><span class="p">)</span>
+<span class="n">sage</span><span class="p">:</span> <span class="n">show</span><span class="p">(</span><span class="n">surf_form</span><span class="p">)</span>
+</pre></div>
+</div>
+<div class="math">
+\[\frac{640 \, z}{1250 \, x + 1}\]</div>
+<div class="highlight-python"><div class="highlight"><pre><span class="n">sage</span><span class="p">:</span> <span class="n">solR_3d</span> <span class="o">=</span> <span class="p">[(</span><span class="n">x</span><span class="p">,</span><span class="n">surf_form</span><span class="p">(</span><span class="n">z</span><span class="o">=</span><span class="n">z</span><span class="p">,</span><span class="n">x</span><span class="o">=</span><span class="n">x</span><span class="p">),</span><span class="n">z</span><span class="p">)</span> <span class="k">for</span> <span class="n">x</span><span class="p">,</span><span class="n">z</span> <span class="ow">in</span> <span class="n">solR</span><span class="p">]</span>
+<span class="n">sage</span><span class="p">:</span> <span class="n">trajR</span> <span class="o">=</span> <span class="n">point</span><span class="p">(</span><span class="n">solR_3d</span><span class="p">,</span><span class="n">color</span><span class="o">=</span><span class="s">&#39;green&#39;</span><span class="p">,</span><span class="n">size</span><span class="o">=</span><span class="mi">14</span><span class="p">)</span>
+<span class="n">sage</span><span class="p">:</span> <span class="n">surf</span><span class="o">+</span><span class="n">traj</span><span class="o">+</span><span class="n">plt_IC</span><span class="o">+</span><span class="n">trajR</span>
+</pre></div>
+</div>
+<img alt="_images/indeks.jpeg" class="align-center" src="_images/indeks.jpeg" />
+<div class="highlight-python"><div class="highlight"><pre><span class="n">sage</span><span class="p">:</span> <span class="n">fp_n</span> <span class="o">=</span> <span class="p">[</span> <span class="p">(</span><span class="n">x</span><span class="o">.</span><span class="n">subs</span><span class="p">(</span><span class="n">fp</span><span class="p">)</span><span class="o">.</span><span class="n">n</span><span class="p">(),</span><span class="n">z</span><span class="o">.</span><span class="n">subs</span><span class="p">(</span><span class="n">fp</span><span class="p">)</span><span class="o">.</span><span class="n">n</span><span class="p">())</span> <span class="k">for</span> <span class="n">fp</span> <span class="ow">in</span> <span class="n">fix_pointsR</span><span class="p">]</span>
+</pre></div>
+</div>
+<div class="highlight-python"><div class="highlight"><pre><span class="n">sage</span><span class="p">:</span> <span class="n">html</span><span class="o">.</span><span class="n">table</span><span class="p">(</span><span class="n">fp_n</span>  <span class="p">)</span>
+</pre></div>
+</div>
+<dl class="docutils">
+<dt></dt>
+<dd><table border="1" class="first last docutils">
+<colgroup>
+<col width="49%" />
+<col width="51%" />
+</colgroup>
+<tbody valign="top">
+<tr class="row-odd"><td>−0.604242327531896</td>
+<td>−0.604242327531896</td>
+</tr>
+<tr class="row-even"><td>0.00344232753189605</td>
+<td>0.00344232753189605</td>
+</tr>
+<tr class="row-odd"><td>0.000000000000000</td>
+<td>0.000000000000000</td>
+</tr>
+</tbody>
+</table>
+</dd>
+</dl>
+<div class="highlight-python"><div class="highlight"><pre><span class="n">sage</span><span class="p">:</span> <span class="n">var</span><span class="p">(</span><span class="s">&#39;x z&#39;</span><span class="p">)</span>
+<span class="n">sage</span><span class="p">:</span> <span class="n">vf</span> <span class="o">=</span> <span class="n">vector</span><span class="p">(</span> <span class="p">[</span><span class="n">f1</span><span class="o">.</span><span class="n">subs</span><span class="p">(</span><span class="n">pars</span><span class="p">),</span><span class="n">h1</span><span class="o">.</span><span class="n">subs</span><span class="p">(</span><span class="n">pars</span><span class="p">)</span> <span class="p">])</span>
+<span class="n">sage</span><span class="p">:</span> <span class="n">vf</span> <span class="o">=</span> <span class="n">vf</span><span class="o">/</span><span class="n">vf</span><span class="o">.</span><span class="n">norm</span><span class="p">()</span>
+<span class="n">sage</span><span class="p">:</span> <span class="n">domx</span><span class="p">,</span><span class="n">domy</span> <span class="o">=</span><span class="p">(</span><span class="n">x</span><span class="p">,</span><span class="o">-</span><span class="mf">0.0020</span><span class="p">,</span><span class="mf">0.01</span><span class="p">),(</span><span class="n">z</span><span class="p">,</span><span class="o">-</span><span class="mf">0.002</span><span class="p">,</span><span class="o">.</span><span class="mo">014</span><span class="p">)</span>
+<span class="n">sage</span><span class="p">:</span> <span class="n">plt_fp</span> <span class="o">=</span> <span class="n">point</span><span class="p">(</span> <span class="n">fp_n</span><span class="p">[</span><span class="mi">1</span><span class="p">:],</span><span class="n">color</span><span class="o">=</span><span class="s">&#39;red&#39;</span><span class="p">,</span><span class="n">size</span><span class="o">=</span><span class="mi">30</span><span class="p">)</span>
+<span class="n">sage</span><span class="p">:</span> <span class="n">vec_plt</span> <span class="o">=</span> <span class="n">plot_vector_field</span><span class="p">(</span> <span class="n">vf</span><span class="p">,</span>  <span class="n">domx</span><span class="p">,</span><span class="n">domy</span><span class="p">)</span>
+<span class="n">sage</span><span class="p">:</span> <span class="n">nullc1</span><span class="o">=</span><span class="n">implicit_plot</span><span class="p">(</span> <span class="n">f1</span><span class="o">.</span><span class="n">subs</span><span class="p">(</span><span class="n">pars</span><span class="p">),</span> <span class="n">domx</span><span class="p">,</span><span class="n">domy</span><span class="p">)</span>
+<span class="n">sage</span><span class="p">:</span> <span class="n">nullc2</span><span class="o">=</span><span class="n">implicit_plot</span><span class="p">(</span> <span class="n">h1</span><span class="o">.</span><span class="n">subs</span><span class="p">(</span><span class="n">pars</span><span class="p">),</span> <span class="n">domx</span><span class="p">,</span><span class="n">domy</span><span class="p">)</span>
+<span class="n">sage</span><span class="p">:</span> <span class="n">vec_plt</span><span class="o">+</span><span class="n">plt_fp</span><span class="o">+</span><span class="n">nullc1</span><span class="o">+</span><span class="n">nullc2</span>
+</pre></div>
+</div>
+<img alt="_images/cell_4_sage01.png" class="align-center" src="_images/cell_4_sage01.png" />
+<div class="highlight-python"><div class="highlight"><pre><span class="n">sage</span><span class="p">:</span> <span class="k">for</span> <span class="n">x_</span><span class="p">,</span><span class="n">z_</span> <span class="ow">in</span> <span class="n">fp_n</span><span class="p">:</span>
+<span class="o">...</span>       <span class="k">print</span> <span class="n">x_</span><span class="p">,</span><span class="n">z_</span>
+<span class="o">...</span>       <span class="n">A</span> <span class="o">=</span>  <span class="n">jacobian</span><span class="p">([</span><span class="n">f1</span><span class="o">.</span><span class="n">subs</span><span class="p">(</span><span class="n">pars</span><span class="p">),</span><span class="n">h1</span><span class="o">.</span><span class="n">subs</span><span class="p">(</span><span class="n">pars</span><span class="p">)</span> <span class="p">],[</span><span class="n">x</span><span class="p">,</span><span class="n">y</span><span class="p">])(</span><span class="n">x</span><span class="o">=</span><span class="n">x_</span><span class="p">,</span><span class="n">z</span><span class="o">=</span><span class="n">z_</span><span class="p">)</span>
+<span class="o">...</span>       <span class="n">show</span><span class="p">(</span><span class="n">A</span><span class="p">)</span>
+<span class="o">...</span>
+<span class="o">...</span>       <span class="k">print</span> <span class="nb">map</span><span class="p">(</span><span class="n">N</span><span class="p">,</span><span class="n">A</span><span class="o">.</span><span class="n">eigenvalues</span><span class="p">())</span>
+<span class="o">...</span>       <span class="k">print</span> <span class="n">A</span><span class="o">.</span><span class="n">eigenvectors_right</span><span class="p">()</span>
+</pre></div>
+</div>
+<p>-0.604242327531896 -0.604242327531896</p>
+<div class="math">
+\[\begin{split}\left(\begin{array}{rr}
+55.3183151691335 &amp; 0.000000000000000 \\
+1 &amp; 0
+\end{array}\right)\end{split}\]</div>
+<p>[55.3183153770813, 0.000000000000000]
+[(56480/1021, [], 1), (0, [(0, 1)], 1)]</p>
+<p>0.00344232753189605 0.00344232753189605</p>
+<div class="math">
+\[\begin{split}\left(\begin{array}{rr}
+12.5866898308665 &amp; 0.000000000000000 \\
+1 &amp; 0
+\end{array}\right)\end{split}\]</div>
+<p>[12.5866900175131, 0.000000000000000]
+[(7187/571, [], 1), (0, [(0, 1)], 1)]</p>
+<p>0.000000000000000 0.000000000000000</p>
+<div class="math">
+\[\begin{split}\left(\begin{array}{rr}
+25.0000000000000 &amp; 0.000000000000000 \\
+1 &amp; 0
+\end{array}\right)\end{split}\]</div>
+<p>[0.000000000000000, 25.0000000000000]
+[(0, [(0, 1)], 1), (25, [(1, 1/25)], 1)]</p>
+<div class="highlight-python"><div class="highlight"><pre><span class="n">sage</span><span class="p">:</span> <span class="n">m</span><span class="o">=</span><span class="n">matrix</span><span class="p">(</span><span class="n">QQ</span><span class="p">,[[</span><span class="mf">12.5966</span><span class="p">,</span><span class="mi">0</span><span class="p">],[</span><span class="mi">1</span><span class="p">,</span><span class="mi">0</span><span class="p">]])</span>
+<span class="n">sage</span><span class="p">:</span> <span class="n">m</span>
+</pre></div>
+</div>
+<div class="line-block">
+<div class="line">[62983/5000          0]</div>
+<div class="line">[         1          0]</div>
+</div>
+<div class="highlight-python"><div class="highlight"><pre><span class="n">sage</span><span class="p">:</span> <span class="n">m</span><span class="o">.</span><span class="n">eigenvectors_right</span><span class="p">()</span>
+</pre></div>
+</div>
+<div class="line-block">
+<div class="line">[(62983/5000, [</div>
+<div class="line">(1, 5000/62983)</div>
+<div class="line">], 1), (0, [</div>
+<div class="line">(0, 1)</div>
+<div class="line">], 1)]</div>
+</div>
+<div class="highlight-python"><div class="highlight"><pre><span class="n">sage</span><span class="p">:</span> <span class="n">var</span><span class="p">(</span><span class="s">&#39;y&#39;</span><span class="p">)</span>
+<span class="n">sage</span><span class="p">:</span> <span class="n">plot_vector_field</span><span class="p">(</span><span class="n">m</span><span class="o">*</span><span class="n">vector</span><span class="p">([</span><span class="n">x</span><span class="p">,</span><span class="n">y</span><span class="p">]),(</span><span class="n">x</span><span class="p">,</span><span class="o">-</span><span class="mi">1</span><span class="p">,</span><span class="mi">1</span><span class="p">),(</span><span class="n">y</span><span class="p">,</span><span class="o">-</span><span class="mi">1</span><span class="p">,</span><span class="mi">1</span><span class="p">))</span>
+</pre></div>
+</div>
+<img alt="_images/cell_6_sage02.png" class="align-center" src="_images/cell_6_sage02.png" />
+</div>
+<div class="section" id="rozwiazania-spiralne-w-ukladzie-reakcji-z-dyfuzja-bielousow-zabotynski">
+<h2>Rozwiązania spiralne w układzie reakcji z dyfuzją (Bielousow-Zabotyński)<a class="headerlink" href="iCSE_BProcnielin08_z161_BZ.html#rozwiazania-spiralne-w-ukladzie-reakcji-z-dyfuzja-bielousow-zabotynski" title="Stały odnośnik do tego nagłówka">¶</a></h2>
+<div class="highlight-python"><div class="highlight"><pre><span class="n">sage</span><span class="p">:</span> <span class="n">a</span><span class="o">=</span><span class="mf">1.0</span>
+<span class="n">sage</span><span class="p">:</span> <span class="n">b</span><span class="o">=</span><span class="mf">0.1</span>
+<span class="n">sage</span><span class="p">:</span> <span class="n">eps</span><span class="o">=</span><span class="mf">0.1</span>
+<span class="n">sage</span><span class="p">:</span> <span class="n">a</span> <span class="o">=</span> <span class="mf">0.75</span>
+<span class="n">sage</span><span class="p">:</span> <span class="n">b</span> <span class="o">=</span> <span class="mf">0.0006</span>
+<span class="n">sage</span><span class="p">:</span> <span class="n">eps</span> <span class="o">=</span> <span class="mf">0.072</span>
+<span class="n">sage</span><span class="p">:</span> <span class="n">var</span><span class="p">(</span><span class="s">&#39;u v&#39;</span><span class="p">)</span>
+<span class="n">sage</span><span class="p">:</span> <span class="n">f</span><span class="p">(</span><span class="n">u</span><span class="p">,</span><span class="n">v</span><span class="p">)</span> <span class="o">=</span> <span class="n">u</span><span class="o">*</span><span class="p">(</span><span class="mi">1</span><span class="o">-</span><span class="n">u</span><span class="p">)</span><span class="o">*</span><span class="p">(</span><span class="n">u</span><span class="o">-</span><span class="p">(</span><span class="n">v</span><span class="o">-</span><span class="n">b</span><span class="p">)</span><span class="o">/</span><span class="n">a</span><span class="p">)</span>
+<span class="n">sage</span><span class="p">:</span> <span class="n">g</span><span class="p">(</span><span class="n">u</span><span class="p">,</span><span class="n">v</span><span class="p">)</span> <span class="o">=</span> <span class="n">u</span><span class="o">-</span><span class="n">v</span>
+<span class="n">sage</span><span class="p">:</span> <span class="n">V</span> <span class="o">=</span> <span class="n">vector</span><span class="p">(</span> <span class="p">(</span><span class="mi">1</span><span class="o">/</span><span class="n">eps</span><span class="o">*</span><span class="n">f</span><span class="p">,</span><span class="n">g</span><span class="p">))</span>
+<span class="n">sage</span><span class="p">:</span> <span class="n">V</span><span class="o">=</span><span class="n">V</span><span class="o">/</span><span class="n">V</span><span class="o">.</span><span class="n">norm</span><span class="p">()</span>
+<span class="n">sage</span><span class="p">:</span> <span class="n">vfield</span><span class="o">=</span><span class="n">plot_vector_field</span><span class="p">(</span><span class="n">V</span><span class="p">,(</span><span class="n">u</span><span class="p">,</span><span class="mi">0</span><span class="p">,</span><span class="mi">1</span><span class="p">),(</span><span class="n">v</span><span class="p">,</span><span class="mi">0</span><span class="p">,</span><span class="mi">1</span><span class="p">))</span><span class="o">+</span><span class="n">implicit_plot</span><span class="p">(</span><span class="n">g</span><span class="p">,(</span><span class="n">u</span><span class="p">,</span><span class="mi">0</span><span class="p">,</span><span class="mi">1</span><span class="p">),(</span><span class="n">v</span><span class="p">,</span><span class="mi">0</span><span class="p">,</span><span class="mi">1</span><span class="p">))</span>
+<span class="n">sage</span><span class="p">:</span> <span class="n">t</span> <span class="o">=</span> <span class="n">srange</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span><span class="mi">4</span><span class="o">/</span><span class="n">eps</span><span class="p">,</span><span class="mf">0.01</span><span class="p">)</span>
+<span class="n">sage</span><span class="p">:</span> <span class="n">sol</span> <span class="o">=</span> <span class="n">desolve_odeint</span><span class="p">([</span><span class="mi">19</span><span class="o">*</span><span class="n">f</span><span class="p">,</span><span class="n">g</span><span class="p">],</span> <span class="p">[</span><span class="mf">0.5</span><span class="p">,</span><span class="mf">0.0</span><span class="p">],</span> <span class="n">t</span><span class="p">,</span> <span class="p">[</span><span class="n">u</span><span class="p">,</span><span class="n">v</span><span class="p">])</span>
+<span class="n">sage</span><span class="p">:</span> <span class="n">plt_phase</span> <span class="o">=</span> <span class="n">vfield</span><span class="o">+</span><span class="n">line</span><span class="p">(</span><span class="n">sol</span><span class="p">,</span><span class="n">color</span><span class="o">=</span><span class="s">&#39;red&#39;</span><span class="p">,</span><span class="n">figsize</span><span class="o">=</span><span class="mi">5</span><span class="p">)</span>
+<span class="n">sage</span><span class="p">:</span> <span class="n">plt_time</span> <span class="o">=</span> <span class="n">line</span><span class="p">(</span><span class="nb">zip</span><span class="p">(</span><span class="n">t</span><span class="p">,</span><span class="n">sol</span><span class="p">[:,</span><span class="mi">0</span><span class="p">]),</span><span class="n">figsize</span><span class="o">=</span><span class="mi">5</span><span class="p">)</span>
+<span class="n">sage</span><span class="p">:</span> <span class="n">html</span><span class="o">.</span><span class="n">table</span><span class="p">([[</span><span class="n">plt_phase</span><span class="p">,</span><span class="n">plt_time</span><span class="p">]])</span>
+</pre></div>
+</div>
+<img alt="_images/cell_65_sage0.png" class="align-center" src="_images/cell_65_sage0.png" />
+<img alt="_images/cell_65_sage1.png" class="align-center" src="_images/cell_65_sage1.png" />
+<div class="highlight-python"><div class="highlight"><pre><span class="n">sage</span><span class="p">:</span> <span class="o">%</span><span class="n">timeit</span>
+<span class="n">sage</span><span class="p">:</span> <span class="kn">import</span> <span class="nn">numpy</span> <span class="kn">as</span> <span class="nn">np</span>
+<span class="n">sage</span><span class="p">:</span> <span class="n">sparse</span> <span class="o">=</span> <span class="bp">True</span>
+<span class="n">sage</span><span class="p">:</span> <span class="n">slicing</span> <span class="o">=</span> <span class="bp">True</span>
+<span class="n">sage</span><span class="p">:</span> <span class="n">Dyf_u</span> <span class="o">=</span> <span class="mf">1.0</span>
+<span class="n">sage</span><span class="p">:</span> <span class="n">Dyf_v</span> <span class="o">=</span> <span class="mf">0.052</span>
+<span class="n">sage</span><span class="p">:</span> <span class="n">Dyf</span> <span class="o">=</span> <span class="nb">max</span><span class="p">(</span><span class="n">Dyf_u</span><span class="p">,</span><span class="n">Dyf_v</span><span class="p">)</span>
+<span class="n">sage</span><span class="p">:</span> <span class="n">a</span> <span class="o">=</span> <span class="mf">1.0</span>
+<span class="n">sage</span><span class="p">:</span> <span class="n">b</span> <span class="o">=</span> <span class="mf">0.001</span>
+<span class="n">sage</span><span class="p">:</span> <span class="n">eps</span> <span class="o">=</span> <span class="mf">0.072</span>
+<span class="n">sage</span><span class="p">:</span> <span class="n">l</span> <span class="o">=</span> <span class="mf">100.0</span> <span class="c"># dlugosc ukladu</span>
+<span class="n">sage</span><span class="p">:</span> <span class="n">t_end</span> <span class="o">=</span> <span class="mi">100</span> <span class="c"># czas symulacje</span>
+<span class="n">sage</span><span class="p">:</span> <span class="n">N</span> <span class="o">=</span> <span class="mi">160</span> <span class="c"># dyskretyzacja przestrzeni</span>
+<span class="n">sage</span><span class="p">:</span> <span class="n">h</span> <span class="o">=</span> <span class="n">l</span><span class="o">/</span><span class="p">(</span><span class="n">N</span><span class="o">-</span><span class="mi">1</span><span class="p">)</span>
+<span class="n">sage</span><span class="p">:</span> <span class="n">dt</span> <span class="o">=</span> <span class="mf">0.052</span><span class="o">/</span><span class="p">(</span><span class="n">Dyf</span><span class="o">*</span><span class="p">(</span><span class="n">N</span><span class="o">-</span><span class="mi">1</span><span class="p">)</span><span class="o">**</span><span class="mi">2</span><span class="o">/</span><span class="n">l</span><span class="o">**</span><span class="mi">2</span><span class="p">)</span> <span class="c"># 0.2 z warunku CFL, krok nie moze byc wiekszy</span>
+<span class="n">sage</span><span class="p">:</span> <span class="n">dt_dyn</span> <span class="o">=</span> <span class="p">(</span><span class="mf">1.0</span><span class="o">/</span><span class="n">eps</span><span class="p">)</span><span class="o">/</span><span class="mf">125.0</span>
+<span class="n">sage</span><span class="p">:</span> <span class="n">sps</span> <span class="o">=</span> <span class="nb">int</span><span class="p">(</span><span class="mi">1</span><span class="o">/</span><span class="n">dt</span><span class="p">)</span> <span class="c"># liczba krokow na jednostke czasu</span>
+<span class="n">sage</span><span class="p">:</span> <span class="n">Nsteps</span><span class="o">=</span><span class="n">sps</span><span class="o">*</span><span class="n">t_end</span>  <span class="c"># calkowita liczba krotkow</span>
+<span class="n">sage</span><span class="p">:</span> <span class="k">print</span> <span class="s">&quot;dt,dt_dyn&quot;</span><span class="p">,</span><span class="n">dt</span><span class="p">,</span><span class="n">dt_dyn</span>
+<span class="n">sage</span><span class="p">:</span> <span class="n">dt</span> <span class="o">=</span> <span class="nb">min</span><span class="p">(</span><span class="n">dt</span><span class="p">,</span><span class="n">dt_dyn</span><span class="p">)</span>
+<span class="n">sage</span><span class="p">:</span> <span class="k">print</span> <span class="s">&quot;sps=&quot;</span><span class="p">,</span><span class="n">sps</span><span class="p">,</span><span class="s">&quot;dt=&quot;</span><span class="p">,</span><span class="n">dt</span><span class="p">,</span><span class="s">&#39;Nsteps=&#39;</span><span class="p">,</span><span class="n">Nsteps</span>
+<span class="n">sage</span><span class="p">:</span> <span class="c"># warunek poczatkowy</span>
+<span class="n">sage</span><span class="p">:</span> <span class="n">u</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">zeros</span><span class="p">((</span><span class="n">N</span><span class="p">,</span><span class="n">N</span><span class="p">))</span>
+<span class="n">sage</span><span class="p">:</span> <span class="n">v</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">zeros</span><span class="p">((</span><span class="n">N</span><span class="p">,</span><span class="n">N</span><span class="p">))</span>
+<span class="n">sage</span><span class="p">:</span> <span class="c">#u[int(N/2)-5:int(N/2)+5,int(N/2)-5:int(N/2)+5]=1 # step</span>
+<span class="n">sage</span><span class="p">:</span> <span class="c">#u[:int(N/2)+5,:]=1.0 # step</span>
+<span class="n">sage</span><span class="p">:</span> <span class="c">#u[int(N/2)-5:int(N/2)+5,int(N/2)-20:int(N/2)+20]=1.0</span>
+<span class="n">sage</span><span class="p">:</span> <span class="c">#v[int(N/2)-5:int(N/2)+3,int(N/2)-20:int(N/2)+20]=1.0</span>
+<span class="n">sage</span><span class="p">:</span> <span class="c">#u[int(N/2)-5:int(N/2)+5,int(N/2)-20:int(N/2)+20]=1.0</span>
+<span class="n">sage</span><span class="p">:</span> <span class="c">#v[int(N/2)-5:int(N/2)+5,int(N/2)-22:int(N/2)+18]=1.0</span>
+<span class="n">sage</span><span class="p">:</span> <span class="c">#u[-20:-1,int(N/2)-5:int(N/2)+5]=1.0</span>
+<span class="n">sage</span><span class="p">:</span> <span class="c">#v[-20:-1,int(N/2)-6:int(N/2)+4]=1.0</span>
+<span class="n">sage</span><span class="p">:</span> <span class="c">#u[:5,:]=1.0</span>
+<span class="n">sage</span><span class="p">:</span> <span class="c">#v[:4,:]=1.0</span>
+<span class="n">sage</span><span class="p">:</span> <span class="c">#u[-10:,:]=1.0</span>
+<span class="n">sage</span><span class="p">:</span> <span class="c">#v[-4:,:]=1.0</span>
+<span class="n">sage</span><span class="p">:</span> <span class="n">u</span><span class="p">[:</span><span class="nb">int</span><span class="p">(</span><span class="n">N</span><span class="o">/</span><span class="mi">2</span><span class="p">),</span><span class="nb">int</span><span class="p">(</span><span class="n">N</span><span class="o">/</span><span class="mi">2</span><span class="p">)</span><span class="o">-</span><span class="mi">5</span><span class="p">:</span><span class="nb">int</span><span class="p">(</span><span class="n">N</span><span class="o">/</span><span class="mi">2</span><span class="p">)</span><span class="o">+</span><span class="mi">5</span><span class="p">]</span><span class="o">=</span><span class="mf">1.0</span>
+<span class="n">sage</span><span class="p">:</span> <span class="n">v</span><span class="p">[:</span><span class="nb">int</span><span class="p">(</span><span class="n">N</span><span class="o">/</span><span class="mi">2</span><span class="p">),</span><span class="nb">int</span><span class="p">(</span><span class="n">N</span><span class="o">/</span><span class="mi">2</span><span class="p">)</span><span class="o">-</span><span class="mi">6</span><span class="p">:</span><span class="nb">int</span><span class="p">(</span><span class="n">N</span><span class="o">/</span><span class="mi">2</span><span class="p">)</span><span class="o">+</span><span class="mi">4</span><span class="p">]</span><span class="o">=</span><span class="mf">1.0</span>
+<span class="n">sage</span><span class="p">:</span> <span class="c"># aby wymusic ruch falowy, przesuwamy u wzgledem v</span>
+<span class="n">sage</span><span class="p">:</span> <span class="k">def</span> <span class="nf">essential_boundary_conditions</span><span class="p">(</span><span class="n">u</span><span class="p">):</span>
+<span class="o">...</span>       <span class="n">u</span><span class="p">[:,</span><span class="mi">0</span><span class="p">]</span> <span class="o">=</span> <span class="mf">0.0</span>
+<span class="o">...</span>       <span class="n">u</span><span class="p">[:,</span><span class="o">-</span><span class="mi">1</span><span class="p">]</span> <span class="o">=</span> <span class="mf">0.0</span>
+<span class="o">...</span>       <span class="n">u</span><span class="p">[</span><span class="o">-</span><span class="mi">1</span><span class="p">,:]</span> <span class="o">=</span> <span class="mf">0.0</span>
+<span class="o">...</span>       <span class="n">u</span><span class="p">[</span><span class="mi">0</span><span class="p">,:]</span> <span class="o">=</span> <span class="mf">0.0</span>
+<span class="o">...</span>       <span class="n">v</span><span class="p">[:,</span><span class="mi">0</span><span class="p">]</span> <span class="o">=</span> <span class="mf">0.0</span>
+<span class="o">...</span>       <span class="n">v</span><span class="p">[:,</span><span class="o">-</span><span class="mi">1</span><span class="p">]</span> <span class="o">=</span> <span class="mf">0.0</span>
+<span class="o">...</span>       <span class="n">v</span><span class="p">[</span><span class="o">-</span><span class="mi">1</span><span class="p">,:]</span> <span class="o">=</span> <span class="mf">0.0</span>
+<span class="o">...</span>       <span class="n">v</span><span class="p">[</span><span class="mi">0</span><span class="p">,:]</span> <span class="o">=</span> <span class="mf">0.0</span>
+<span class="o">...</span>
+<span class="n">sage</span><span class="p">:</span> <span class="n">Tlst</span><span class="o">=</span><span class="p">[]</span>
+<span class="n">sage</span><span class="p">:</span> <span class="n">Tvlst</span><span class="o">=</span><span class="p">[]</span>
+<span class="n">sage</span><span class="p">:</span> <span class="n">essential_boundary_conditions</span><span class="p">(</span><span class="n">u</span><span class="p">)</span>
+<span class="n">sage</span><span class="p">:</span> <span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="n">Nsteps</span><span class="p">):</span>
+<span class="o">...</span>       <span class="k">if</span> <span class="ow">not</span> <span class="n">i</span><span class="o">%</span><span class="n">sps</span><span class="p">:</span>
+<span class="o">...</span>           <span class="n">Tlst</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">u</span><span class="o">.</span><span class="n">copy</span><span class="p">())</span>
+<span class="o">...</span>           <span class="n">Tvlst</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">v</span><span class="o">.</span><span class="n">copy</span><span class="p">())</span>
+<span class="o">...</span>
+<span class="o">...</span>       <span class="n">u</span><span class="p">[</span><span class="mi">1</span><span class="p">:</span><span class="o">-</span><span class="mi">1</span><span class="p">,</span><span class="mi">1</span><span class="p">:</span><span class="o">-</span><span class="mi">1</span><span class="p">]</span> <span class="o">=</span> <span class="n">u</span><span class="p">[</span><span class="mi">1</span><span class="p">:</span><span class="o">-</span><span class="mi">1</span><span class="p">,</span><span class="mi">1</span><span class="p">:</span><span class="o">-</span><span class="mi">1</span><span class="p">]</span> <span class="o">+</span> <span class="n">dt</span><span class="o">*</span><span class="p">(</span><span class="mf">1.0</span><span class="o">/</span><span class="n">eps</span><span class="o">*</span><span class="n">u</span><span class="p">[</span><span class="mi">1</span><span class="p">:</span><span class="o">-</span><span class="mi">1</span><span class="p">,</span><span class="mi">1</span><span class="p">:</span><span class="o">-</span><span class="mi">1</span><span class="p">]</span><span class="o">*</span><span class="p">(</span><span class="mi">1</span><span class="o">-</span><span class="n">u</span><span class="p">[</span><span class="mi">1</span><span class="p">:</span><span class="o">-</span><span class="mi">1</span><span class="p">,</span><span class="mi">1</span><span class="p">:</span><span class="o">-</span><span class="mi">1</span><span class="p">])</span><span class="o">*</span><span class="p">(</span> <span class="n">u</span><span class="p">[</span><span class="mi">1</span><span class="p">:</span><span class="o">-</span><span class="mi">1</span><span class="p">,</span><span class="mi">1</span><span class="p">:</span><span class="o">-</span><span class="mi">1</span><span class="p">]</span><span class="o">-</span><span class="p">(</span><span class="n">v</span><span class="p">[</span><span class="mi">1</span><span class="p">:</span><span class="o">-</span><span class="mi">1</span><span class="p">,</span><span class="mi">1</span><span class="p">:</span><span class="o">-</span><span class="mi">1</span><span class="p">]</span><span class="o">+</span><span class="n">b</span><span class="p">)</span><span class="o">/</span><span class="n">a</span> <span class="p">)</span> <span class="o">+</span> \
+<span class="o">...</span>        <span class="n">Dyf_u</span><span class="o">*</span><span class="p">(</span><span class="n">N</span><span class="o">-</span><span class="mi">1</span><span class="p">)</span><span class="o">**</span><span class="mi">2</span><span class="o">/</span><span class="n">l</span><span class="o">**</span><span class="mi">2</span><span class="o">*</span><span class="p">(</span><span class="n">np</span><span class="o">.</span><span class="n">diff</span><span class="p">(</span><span class="n">u</span><span class="p">,</span><span class="mi">2</span><span class="p">,</span><span class="n">axis</span><span class="o">=</span><span class="mi">0</span><span class="p">)[:,</span><span class="mi">1</span><span class="p">:</span><span class="o">-</span><span class="mi">1</span><span class="p">]</span><span class="o">+</span><span class="n">np</span><span class="o">.</span><span class="n">diff</span><span class="p">(</span><span class="n">u</span><span class="p">,</span><span class="mi">2</span><span class="p">,</span><span class="n">axis</span><span class="o">=</span><span class="mi">1</span><span class="p">)[</span><span class="mi">1</span><span class="p">:</span><span class="o">-</span><span class="mi">1</span><span class="p">,:]))</span>
+<span class="o">...</span>       <span class="n">v</span><span class="p">[</span><span class="mi">1</span><span class="p">:</span><span class="o">-</span><span class="mi">1</span><span class="p">,</span><span class="mi">1</span><span class="p">:</span><span class="o">-</span><span class="mi">1</span><span class="p">]</span> <span class="o">=</span> <span class="n">v</span><span class="p">[</span><span class="mi">1</span><span class="p">:</span><span class="o">-</span><span class="mi">1</span><span class="p">,</span><span class="mi">1</span><span class="p">:</span><span class="o">-</span><span class="mi">1</span><span class="p">]</span> <span class="o">+</span> <span class="n">dt</span><span class="o">*</span><span class="p">(</span> <span class="p">(</span><span class="n">u</span><span class="p">[</span><span class="mi">1</span><span class="p">:</span><span class="o">-</span><span class="mi">1</span><span class="p">,</span><span class="mi">1</span><span class="p">:</span><span class="o">-</span><span class="mi">1</span><span class="p">]</span><span class="o">-</span><span class="n">v</span><span class="p">[</span><span class="mi">1</span><span class="p">:</span><span class="o">-</span><span class="mi">1</span><span class="p">,</span><span class="mi">1</span><span class="p">:</span><span class="o">-</span><span class="mi">1</span><span class="p">])</span> <span class="p">)</span>
+<span class="o">...</span>       <span class="c"># + \</span>
+<span class="o">...</span>       <span class="c"># Dyf*(N-1)**2/l**2*(np.diff(v,2,axis=0)[:,1:-1]+np.diff(v,2,axis=1)[1:-1,:]))</span>
+<span class="o">...</span>       <span class="n">essential_boundary_conditions</span><span class="p">(</span><span class="n">u</span><span class="p">)</span>
+<span class="o">...</span>
+<span class="n">sage</span><span class="p">:</span> <span class="k">print</span> <span class="s">&quot;Saved &quot;</span><span class="p">,</span><span class="nb">len</span><span class="p">(</span><span class="n">Tlst</span><span class="p">),</span> <span class="s">&quot; from &quot;</span><span class="p">,</span> <span class="n">Nsteps</span>
+</pre></div>
+</div>
+<div class="line-block">
+<div class="line">dt,dt_dyn 0.0205688066136624 0.111111111111111</div>
+<div class="line">sps= 48 dt= 0.0205688066136624 Nsteps= 4800</div>
+<div class="line">Saved  100  from  4800</div>
+<div class="line">CPU time: 9.54 s,  Wall time: 9.54 s</div>
+</div>
+<div class="highlight-python"><div class="highlight"><pre><span class="n">sage</span><span class="p">:</span> <span class="n">anim</span><span class="o">=</span><span class="n">animate</span><span class="p">([</span><span class="n">matrix_plot</span><span class="p">(</span><span class="n">u</span><span class="p">,</span><span class="n">cmap</span><span class="o">=</span><span class="s">&#39;jet&#39;</span><span class="p">,</span><span class="n">figsize</span><span class="o">=</span><span class="p">(</span><span class="mi">4</span><span class="p">,</span><span class="mi">4</span><span class="p">))</span> <span class="k">for</span> <span class="n">u</span> <span class="ow">in</span> <span class="n">Tlst</span><span class="p">[:]])</span>
+<span class="n">sage</span><span class="p">:</span> <span class="n">anim</span><span class="o">.</span><span class="n">show</span><span class="p">()</span>
+</pre></div>
+</div>
+<img alt="_images/cell_70_sage0.gif" class="align-center" src="_images/cell_70_sage0.gif" />
+<div class="highlight-python"><div class="highlight"><pre><span class="n">sage</span><span class="p">:</span> <span class="kn">import</span> <span class="nn">pylab</span>
+<span class="n">sage</span><span class="p">:</span> <span class="nd">@interact</span>
+<span class="n">sage</span><span class="p">:</span> <span class="k">def</span> <span class="nf">_</span><span class="p">(</span><span class="n">ti</span><span class="o">=</span><span class="n">slider</span><span class="p">(</span><span class="nb">range</span><span class="p">(</span><span class="nb">len</span><span class="p">(</span><span class="n">Tlst</span><span class="p">)))):</span>
+<span class="o">...</span>       <span class="k">print</span> <span class="s">r&quot;t=&quot;</span><span class="p">,</span><span class="n">dt</span><span class="o">*</span><span class="n">ti</span><span class="o">*</span><span class="n">sps</span>
+<span class="o">...</span>       <span class="k">if</span> <span class="bp">True</span><span class="p">:</span>
+<span class="o">...</span>           <span class="n">pylab</span><span class="o">.</span><span class="n">subplot</span><span class="p">(</span><span class="mi">1</span><span class="p">,</span><span class="mi">2</span><span class="p">,</span><span class="mi">1</span><span class="p">)</span>
+<span class="o">...</span>           <span class="n">pylab</span><span class="o">.</span><span class="n">imshow</span><span class="p">(</span><span class="n">Tlst</span><span class="p">[</span><span class="n">ti</span><span class="p">],</span><span class="n">vmin</span><span class="o">=</span><span class="mi">0</span><span class="p">,</span><span class="n">vmax</span><span class="o">=</span><span class="mi">1</span><span class="p">,</span><span class="n">origin</span><span class="o">=</span><span class="s">&#39;top&#39;</span><span class="p">)</span>
+<span class="o">...</span>           <span class="n">pylab</span><span class="o">.</span><span class="n">subplot</span><span class="p">(</span><span class="mi">1</span><span class="p">,</span><span class="mi">2</span><span class="p">,</span><span class="mi">2</span><span class="p">)</span>
+<span class="o">...</span>           <span class="n">pylab</span><span class="o">.</span><span class="n">imshow</span><span class="p">(</span><span class="n">Tvlst</span><span class="p">[</span><span class="n">ti</span><span class="p">],</span><span class="n">vmin</span><span class="o">=</span><span class="mi">0</span><span class="p">,</span><span class="n">vmax</span><span class="o">=</span><span class="mi">1</span><span class="p">,</span><span class="n">origin</span><span class="o">=</span><span class="s">&#39;top&#39;</span><span class="p">)</span>
+<span class="o">...</span>           <span class="n">pylab</span><span class="o">.</span><span class="n">savefig</span><span class="p">(</span><span class="s">&#39;1.png&#39;</span><span class="p">,</span><span class="n">dpi</span><span class="o">=</span><span class="mi">70</span><span class="p">)</span>
+<span class="o">...</span>       <span class="k">else</span><span class="p">:</span>
+<span class="o">...</span>           <span class="n">p</span> <span class="o">=</span>  <span class="n">matrix_plot</span><span class="p">(</span><span class="n">Tlst</span><span class="p">[</span><span class="n">ti</span><span class="p">])</span>
+<span class="o">...</span>           <span class="n">p</span><span class="o">.</span><span class="n">show</span><span class="p">(</span><span class="n">figsize</span><span class="o">=</span><span class="p">(</span><span class="mi">4</span><span class="p">,</span><span class="mi">4</span><span class="p">))</span>
+</pre></div>
+</div>
+<div class="highlight-python"><div class="highlight"><pre><span class="n">sage</span><span class="p">:</span> <span class="n">anim</span><span class="o">=</span><span class="n">animate</span><span class="p">([</span><span class="n">matrix_plot</span><span class="p">(</span><span class="n">u</span><span class="p">,</span><span class="n">cmap</span><span class="o">=</span><span class="s">&#39;jet&#39;</span><span class="p">,</span><span class="n">figsize</span><span class="o">=</span><span class="p">(</span><span class="mi">2</span><span class="p">,</span><span class="mi">2</span><span class="p">))</span> <span class="k">for</span> <span class="n">u</span> <span class="ow">in</span> <span class="n">Tlst</span><span class="p">[</span><span class="mi">40</span><span class="p">:</span><span class="mi">72</span><span class="p">:</span><span class="mi">2</span><span class="p">]])</span>
+<span class="n">sage</span><span class="p">:</span> <span class="n">anim</span><span class="o">.</span><span class="n">show</span><span class="p">()</span>
+</pre></div>
+</div>
+</div>
+</div>
+
+
+          </div>
+        </div>
+      </div>
+      <div class="sphinxsidebar">
+        <div class="sphinxsidebarwrapper">
+  <div class="sphinxlocaltoc">
+  <h3><a href="index.html">Spis treści</a></h3>
+  <ul>
+<li><a class="reference internal" href="iCSE_BProcnielin08_z161_BZ.html#">Reakcje Biełusowa-Żabotyńskiego</a><ul>
+<li><a class="reference internal" href="iCSE_BProcnielin08_z161_BZ.html#wstep-opis-reakcji">Wstęp: opis reakcji</a></li>
+<li><a class="reference internal" href="iCSE_BProcnielin08_z161_BZ.html#rownania-kinetyczne-oregonator">Równania kinetyczne: oregonator</a></li>
+</ul>
+</li>
+<li><a class="reference internal" href="iCSE_BProcnielin08_z161_BZ.html#wlasnosci-oregonatora">Własności &#8220;oregonatora&#8221;</a><ul>
+<li><a class="reference internal" href="iCSE_BProcnielin08_z161_BZ.html#stany-stacjonarne">Stany stacjonarne</a></li>
+<li><a class="reference internal" href="iCSE_BProcnielin08_z161_BZ.html#uklad-zredukowany">Układ zredukowany <span class="math">\(\delta =0\)</span></a></li>
+<li><a class="reference internal" href="iCSE_BProcnielin08_z161_BZ.html#porownanie-rozwiazan-pelnego-oregonatora-i-ukladu-zredukowanego">Porównanie rozwiązań  pełnego &#8220;Oregonatora&#8221; i układu zredukowanego</a></li>
+<li><a class="reference internal" href="iCSE_BProcnielin08_z161_BZ.html#demostracja-uzycia-cas-do-selektywnego-uproszczenia-wzorow">Demostracja użycia CAS do selektywnego uproszczenia wzorów</a></li>
+<li><a class="reference internal" href="iCSE_BProcnielin08_z161_BZ.html#diagram-bifurkacyjny-ukladu-zredukowanego">Diagram bifurkacyjny układu zredukowanego <span class="math">\(x^*(q)\)</span></a></li>
+<li><a class="reference internal" href="iCSE_BProcnielin08_z161_BZ.html#rozwiazania-spiralne-w-ukladzie-reakcji-z-dyfuzja-bielousow-zabotynski">Rozwiązania spiralne w układzie reakcji z dyfuzją (Bielousow-Zabotyński)</a></li>
+</ul>
+</li>
+</ul>
+
+  </div>
+  <h4>Poprzedni temat</h4>
+  <p class="topless"><a href="iCSE_BProcnielin07_z133_Hodgkin-Huxley_numeryka.html"
+                        title="poprzedni rozdział">Numeryczna analiza rozwiązań układu Hodgkina-Huxley&#8217;a</a></p>
+<div id="searchbox" style="display: none">
+  <h3>Szybkie wyszukiwanie</h3>
+    <form class="search" action="http://visual.icse.us.edu.pl/PNB/search.html" method="get">
+      <input type="text" name="q" />
+      <input type="submit" value="Szukaj" />
+      <input type="hidden" name="check_keywords" value="yes" />
+      <input type="hidden" name="area" value="default" />
+    </form>
+    <p class="searchtip" style="font-size: 90%">
+    Wprowadź szukany termin lub nazwę modułu, klasy lub funkcji.
+    </p>
+</div>
+<script type="text/javascript">$('#searchbox').show(0);</script>
+        </div>
+      </div>
+      <div class="clearer"></div>
+    </div>
+  </div>
+  <div class="relbar-bottom">
+    
+    <div class="related">
+      <h3>Nawigacja</h3>
+      <ul>
+        <li class="right" style="margin-right: 10px">
+          <a href="iCSE_BProcnielin07_z133_Hodgkin-Huxley_numeryka.html" title="Numeryczna analiza rozwiązań układu Hodgkina-Huxley’a"
+             >wstecz</a></li>
+  <li><a href="index.html">Procesy nieliniowe w Biologii</a> &raquo;</li>
+   
+      </ul>
+    </div>
+  </div>
+  
+  <div class="footer">
+    <a class="logo" href="../../icse.us.edu.pl/index.html" target="_blank"><img src="_static/logo-icse.png" alt="ICSE"/></a><br/>
+    &copy; Copyright 2013, Jerzy Łuczka, Marcin Kostur.
+    Created using <a href="http://sphinx.pocoo.org/">Sphinx</a> 1.2.2.
+  </div>
+  </body>
+</html>

@@ -1,0 +1,640 @@
+
+
+  <!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+  "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+
+
+<html xmlns="http://www.w3.org/1999/xhtml">
+  <head>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    
+    <title>Najważniejsze struktury algebraiczne &mdash; Algebra Liniowa</title>
+    
+    <link rel="stylesheet" href="_static/cloud.css" type="text/css" />
+    <link rel="stylesheet" href="_static/pygments.css" type="text/css" />
+    <link rel="stylesheet" href="http://fonts.googleapis.com/css?family=Noticia+Text|Open+Sans|Droid+Sans+Mono&subset=latin,latin-ext" type="text/css" />
+    
+    <script type="text/javascript">
+      var DOCUMENTATION_OPTIONS = {
+        URL_ROOT:    './',
+        VERSION:     'I',
+        COLLAPSE_INDEX: false,
+        FILE_SUFFIX: '.html',
+        HAS_SOURCE:  true
+      };
+    </script>
+    <script type="text/javascript" src="_static/jquery.js"></script>
+    <script type="text/javascript" src="_static/underscore.js"></script>
+    <script type="text/javascript" src="_static/doctools.js"></script>
+    <script type="text/javascript" src="_static/translations.js"></script>
+    <script type="text/javascript" src="http://cdn.mathjax.org/mathjax/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML"></script>
+    <script type="text/javascript" src="_static/jquery.cookie.js"></script>
+    <script type="text/javascript" src="_static/cloud.js"></script>
+
+	<script src="http://sagecell.icse.us.edu.pl:6363/static/jquery.min.js"></script>
+	<script src="http://sagecell.icse.us.edu.pl:6363/static/embedded_sagecell.js"></script>
+
+	<!-- <script src="http://sagecell.sagemath.org/static/jquery.min.js"></script> -->
+	<!-- <script src="http://sagecell.sagemath.org/static/embedded_sagecell.js"></script> -->
+
+	<script>sagecell.makeSagecell({inputLocation: ".sage",
+                                       evalButtonText: 'Wykonaj',
+                                       linked: true});</script>
+
+	<style type="text/css">
+		.sagecell .CodeMirror-scroll {
+			overflow-y: hidden;
+			overflow-x: auto;
+		}
+		.sagecell .CodeMirror {
+			height: auto;
+		}
+	</style>
+
+    
+    <link rel="top" title="Algebra Liniowa" href="http://visual.icse.us.edu.pl/LA/index.html" />
+    <link rel="next" title="Podstawy algebry liniowej" href="podstawy_algebry_liniowej.html" />
+    <link rel="prev" title="Podstawowe pojęcia i oznaczenia" href="podstawowe_pojecia.html" />
+ 
+  <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, minimum-scale=1">
+  </head>
+  <body>
+  <div class="relbar-top">
+    
+    <div class="related">
+      <h3>Nawigacja</h3>
+      <ul>
+        <li class="right" style="margin-right: 10px">
+          <a href="podstawy_algebry_liniowej.html" title="Podstawy algebry liniowej"
+             accesskey="N">dalej</a></li>
+        <li class="right" >
+          <a href="podstawowe_pojecia.html" title="Podstawowe pojęcia i oznaczenia"
+             accesskey="P">wstecz</a> &nbsp; &nbsp;</li>
+  <li><a href="http://visual.icse.us.edu.pl/LA/index.html">Algebra Liniowa</a> &raquo;</li>
+   
+      </ul>
+    </div>
+  </div>
+  
+  <div class="content">  
+
+    <div class="document">
+      <div class="documentwrapper">
+        <div class="bodywrapper">
+          <div class="body">
+            
+  <div class="section" id="najwazniejsze-struktury-algebraiczne">
+<h1>Najważniejsze struktury algebraiczne<a class="headerlink" href="struktury_algebraiczne.html#najwazniejsze-struktury-algebraiczne" title="Stały odnośnik do tego nagłówka">¶</a></h1>
+<div class="section" id="definicje-i-przyklady">
+<h2>Definicje i przykłady<a class="headerlink" href="struktury_algebraiczne.html#definicje-i-przyklady" title="Stały odnośnik do tego nagłówka">¶</a></h2>
+<p><strong>Struktura algebraiczna</strong> składa się z jednego albo kilku zbiorów oraz działań określonych na tych zbiorach.
+Definicja konkretnej struktury wymienia te zbiory i podaje postulaty, które powinny spełniać działania.</p>
+<p>Najważniejsze struktury to: <span class="math">\(\ \)</span> grupa, <span class="math">\(\ \)</span> pierścień, <span class="math">\(\ \)</span> ciało, <span class="math">\(\ \)</span> przestrzeń wektorowa,  <span class="math">\(\ \)</span> algebra.</p>
+<div class="line-block">
+<div class="line"><strong>Grupa</strong> <span class="math">\(\ \,\mathbb{G}\ \,\)</span> składa się z jednego zbioru <span class="math">\(\ G\ \)</span>
+i <span class="math">\(\ \)</span> jednego działania wewnętrznego <span class="math">\(\ \bot:\)</span></div>
+<div class="line"><span class="math">\(\mathbb{G}\;=\;(G,\,\bot\,)\,,\ \ \)</span> gdzie <span class="math">\(\ \ \bot:\ \ G\times G \to G.\)</span></div>
+<div class="line"><br /></div>
+<div class="line">Działanie grupowe <span class="math">\(\ \bot\ \)</span> spełnia następujące warunki:</div>
+</div>
+<ol class="arabic">
+<li><p class="first">jest łączne:</p>
+<div class="math">
+\[(g_1\,\bot\;g_2)\ \bot\ g_3\ \ =\ \ g_1\ \bot\ (g_2\;\bot\;g_3)\qquad
+\text{dla dowolnych}\quad g_1,g_2,g_3\in G\,;\]</div>
+</li>
+<li><p class="first">istnieje element neutralny <span class="math">\(\ e\in G\ \,\)</span> taki, że</p>
+<div class="math">
+\[e\;\bot\;g\ \,=\ \,g\;\bot\;e\ \,=\ \,g \qquad\text{dla każdego}\quad\ g\in G\,;\]</div>
+</li>
+<li><p class="first">każdy element <span class="math">\(\ g\in G\ \)</span> ma swoją odwrotność <span class="math">\(\ g^{-1}\in\,G\ \)</span> taką, że</p>
+<div class="math">
+\[g\;\bot\;g^{-1}\ \,=\ \,g^{-1}\;\bot\;g\ \,=\ \,e\,.\]</div>
+</li>
+</ol>
+<p>Jeżeli ponadto działanie <span class="math">\(\ \,\bot\,\ \)</span> jest przemienne:</p>
+<div class="math">
+\[g_1\,\bot\;g_2 \ \,=\ \,g_2\;\bot\;g_1\quad\text{dla dowolnych}\quad g_1, g_2\,\in\,G\,,\]</div>
+<p>to grupę nazywamy przemienną.</p>
+<p>Przykłady grup przemiennych:</p>
+<ul class="simple">
+<li>grupa addytywna liczb całkowitych <span class="math">\(\ (Z,\,+)\,;\ \ \)</span></li>
+<li>grupa multiplikatywna liczb rzeczywistych różnych od zera <span class="math">\(\ (R\smallsetminus\{0\}\,,\;\cdot\ )\,;\)</span></li>
+<li>grupa wektorów geometrycznych na płaszczyźnie albo w przestrzeni <span class="math">\(\ (V,\,+)\,;\)</span></li>
+</ul>
+<p>Przykłady grup nieprzemiennych:</p>
+<ul>
+<li><p class="first">grupa permutacji zbioru <span class="math">\(\,n\)</span>-elementowego <span class="math">\(\,(S_n,\,\circ\,)\,;\)</span></p>
+</li>
+<li><div class="first line-block">
+<div class="line">grupa nieosobliwych rzeczywistych macierzy kwadratowych stopnia <span class="math">\(\,n\,\)</span></div>
+<div class="line">(z mnożeniem macierzowym jako działaniem grupowym);</div>
+</div>
+</li>
+<li><div class="first line-block">
+<div class="line">grupa przekształceń symetrii figury na płaszczyźnie albo bryły w przestrzeni</div>
+<div class="line">(działaniem grupowym jest składanie przekształceń symetrii).</div>
+</div>
+</li>
+</ul>
+<div class="line-block">
+<div class="line"><strong>Pierścień</strong> <span class="math">\(\ \,\mathbb{P}\ \,\)</span> (ang.: ring) <span class="math">\(\,\)</span>
+składa się z jednego zbioru <span class="math">\(\,P\ \,\)</span>
+i <span class="math">\(\ \)</span> dwóch działań wewnętrznych:</div>
+<div class="line">&#8220;dodawania&#8221; <span class="math">\(\,\)</span> oraz <span class="math">\(\,\)</span> &#8220;mnożenia&#8221; :
+<span class="math">\(\ \ \mathbb{P}\;=\;(P,\,+\,,\,\cdot\,)\,,\ \ \)</span>
+gdzie <span class="math">\(\ \ \,+\,,\ \cdot\ :\ \,P\times P \to P\,.\)</span></div>
+<div class="line"><br /></div>
+<div class="line">Działania w pierścieniu spełniają następujące warunki:</div>
+</div>
+<ol class="arabic">
+<li><p class="first">struktura <span class="math">\(\ (P,\,+)\ \ \)</span> jest grupą przemienną;</p>
+</li>
+<li><p class="first">mnożenie jest działaniem łącznym:</p>
+<div class="math">
+\[(a_1\cdot a_2)\cdot a_3 \ =\ a_1\cdot (a_2\cdot a_3)\qquad
+\text{dla dowolnych}\quad a_1,\,a_2,\,a_3\,\in\,P\,;\]</div>
+</li>
+<li><p class="first">mnożenie jest rozdzielne względem dodawania:</p>
+<div class="math">
+\[a\cdot(b_1+b_2)\ =\ (a\cdot b_1)\ +\ (a\cdot b_2)\qquad
+\text{dla dowolnych}\quad a,\,b_1,\,b_2\,\in\, P\,,\]\[(a_1+a_2)\cdot b\ =\ (a_1\cdot b)\ +\ (a_2\cdot b)\qquad
+\text{dla dowolnych}\quad a_1,\,a_2,\,b\,\in\, P\,.\]</div>
+</li>
+</ol>
+<p>Jeżeli dodatkowo mnożenie jest przemienne:</p>
+<div class="math">
+\[a_1\cdot a_2 \ =\ a_2\cdot a_1\qquad\text{dla dowolnych}\quad a_1,\,a_2\,\in\,P,\]</div>
+<p>to pierścień nazywamy przemiennym.</p>
+<p>Jeśli natomiast istnieje element neutralny ze względu na mnożenie
+(nazywamy go jednością pierścienia i oznaczamy 1), a więc taki, że</p>
+<div class="math">
+\[1\cdot a\ =\ a\cdot 1\ =\ a\qquad\text{dla każdego}\quad a\in P\,,\]</div>
+<p>to mówimy o pierścieniu z jednością.</p>
+<div class="line-block">
+<div class="line">Przykłady przemiennych pierścieni z jednością:</div>
+</div>
+<ul>
+<li><div class="first line-block">
+<div class="line">pierścień liczb całkowitych: <span class="math">\(\ \ \mathbb{Z} \,=\, (Z,\ +\,,\ \cdot\,)\)</span></div>
+<div class="line">ze zwykłym dodawaniem i mnożeniem liczb;</div>
+</div>
+</li>
+<li><div class="first line-block">
+<div class="line">pierścień reszt modulo <span class="math">\(\,n:\ \ \mathbb{Z}_n = (Z_n,\ +_n\,,\ \cdot_n\,)\,,\ \)</span>
+gdzie <span class="math">\(\ Z_n\,=\,\{0,1,\ldots,n-1\}\,,\ \)</span></div>
+<div class="line">a działania <span class="math">\(\ \,+_n\ \ \,\text{i}\ \ \,\cdot_n\ \)</span> są dodawaniem  i  mnożeniem modulo <span class="math">\(\,n,\ \ n=2,3,\ldots\)</span></div>
+</div>
+</li>
+<li><div class="first line-block">
+<div class="line">struktura <span class="math">\(\,(X,\ \oplus,\ \odot\,)\,,\ \)</span> gdzie <span class="math">\(\,X\,=\,Z,\,Q\ \ \text{albo}\ \,R,\ \)</span>
+a działania są określone</div>
+<div class="line">następująco: <span class="math">\(\quad a\oplus b\,:\,=\,a+b+1,\quad a\odot b\,:\,=\,a+b+ab,\quad a,b\in X\,;\)</span></div>
+<div class="line">zerem tego pierścienia jest liczba -1, a jednością <span class="math">\(\ -\ \)</span> liczba 0;</div>
+</div>
+</li>
+<li><div class="first line-block">
+<div class="line">zbiór wszystkich funkcji odwzorowujących przedział <span class="math">\(\ [\,0,\,1\,]\ \ \text{w}\ \ R\)</span></div>
+<div class="line">tworzy pierścień razem z działaniami dodawania i mnożenia funkcji;</div>
+<div class="line">zerem jest funkcja <span class="math">\(\ \,\theta(x)=0,\ \,\)</span>
+a jednością funkcja <span class="math">\(\ e(x)=1,\ \ x\in [\,0,\,1\,]\,.\)</span></div>
+</div>
+</li>
+</ul>
+<p>Nieprzemienny pierścień z jednością tworzą macierze kwadratowe stopnia <span class="math">\(\,n\,\)</span>
+nad pierścieniem z jednością (na przykład macierze rzeczywiste albo zespolone)
+ze względu na dodawanie i mnożenie macierzowe.</p>
+<p><strong>Ciało</strong> <span class="math">\(\ \,\mathbb{K}\ \,\)</span> (ang.: field) <span class="math">\(\,\)</span> podobnie jak pierścień
+składa się z jednego zbioru <span class="math">\(\,K\ \)</span> i <span class="math">\(\ \)</span> dwóch działań wewnętrznych:
+<span class="math">\(\ \)</span> &#8220;dodawania&#8221; <span class="math">\(\,\)</span> oraz <span class="math">\(\,\)</span>
+&#8220;mnożenia&#8221; : <span class="math">\(\ \ \mathbb{K}\;=\;(K,\,+\,,\,\cdot\,)\,.\)</span></p>
+<p>Działania w ciele spełniają następujące warunki:</p>
+<ol class="arabic">
+<li><p class="first"><span class="math">\((K,\,+)\ \ \)</span> jest grupą przemienną z elementem neutralnym <span class="math">\(\,\)</span> 0 <span class="math">\(\,\)</span> (zero ciała);</p>
+</li>
+<li><p class="first"><span class="math">\((K\smallsetminus\{0\},\ \cdot\;)\ \ \)</span> jest grupą przemienną
+z elementem neutralnym <span class="math">\(\,\)</span> 1 <span class="math">\(\,\)</span> (jedność ciała);</p>
+</li>
+<li><p class="first">mnożenie jest rozdzielne względem dodawania:</p>
+<div class="math">
+\[\alpha\cdot(\beta_1+\beta_2)\ =\ (\alpha\cdot \beta_1)\ +\ (\alpha\cdot \beta_2)\quad
+\text{dla dowolnych}\quad\alpha,\,\beta_1,\,\beta_2\,\in\, K\,.\]</div>
+</li>
+</ol>
+<p>Grupę <span class="math">\(\,(K,\,+)\,\)</span> nazywamy <em>grupą addytywną ciała</em>.</p>
+<p>Łatwo zauważyć, że każde ciało jest pierścieniem.
+Dokładnie: ciało jest pierścieniem przemiennym z jednością,
+w którym dla każdego elementu niezerowego istnieje odwrotność. <span class="math">\(\\\)</span></p>
+<p>Podstawowe stwierdzenia:</p>
+<ol class="loweralpha simple">
+<li><span class="math">\(\ \ 1\neq 0\,;\)</span></li>
+<li><span class="math">\(\ \ 0\,\cdot\,\alpha\ =\ 0\,,\quad\alpha\in K\,;\)</span></li>
+<li><span class="math">\(\ \ (-1)\,\cdot\,\alpha\ =\ -\ \alpha\,,\quad\alpha\in K\,;\)</span></li>
+<li><span class="math">\(\ \ \alpha\,\cdot\,\beta\ =\ 0 \quad\Leftrightarrow\quad
+(\alpha=0\ \ \lor\ \ \beta=0)\,,\qquad\alpha,\,\beta\in K\,.\)</span> <span class="math">\(\\\)</span></li>
+</ol>
+<p>Przykłady ciał:</p>
+<ul>
+<li><p class="first">ciało liczb wymiernych: <span class="math">\(\ \mathbb{Q}\,=\,(Q,\,+\,,\;\cdot\;)\;;\ \)</span></p>
+</li>
+<li><p class="first">ciało liczb rzeczywistych: <span class="math">\(\ \mathbb{R}\,=\,(R,\,+\,,\;\cdot\;)\;;\ \)</span></p>
+</li>
+<li><p class="first">ciało liczb zespolonych: <span class="math">\(\ \mathbb{C}\,=\,(C,\,+\,,\;\cdot\;)\,;\)</span></p>
+</li>
+<li><div class="first line-block">
+<div class="line">zbiór liczb <span class="math">\(\,Q(\sqrt{2})\,:\,=\,\{\,a+b\sqrt{2}\,:\ a,b\in Q\,\}\)</span></div>
+<div class="line">tworzy ciało ze zwykłym dodawaniem i mnożeniem liczb rzeczywistych;</div>
+</div>
+</li>
+<li><div class="first line-block">
+<div class="line">struktura <span class="math">\(\,(X,\ \oplus,\ \odot\,)\,,\ \)</span> gdzie <span class="math">\(\,X\,=\,Q\ \ \text{albo}\ \,R,\ \)</span>
+a działania są określone następująco:</div>
+<div class="line"><span class="math">\(\ a\oplus b\,:\,=\,a+b+1,\quad a\odot b\,:\,=\,a+b+ab,\quad a,b\in X\,,\ \,\)</span> jest ciałem</div>
+<div class="line">(zerem ciała jest tutaj liczba -1, a jednością <span class="math">\(\ -\ \)</span> liczba 0);</div>
+</div>
+</li>
+<li><div class="first line-block">
+<div class="line">pierścień <span class="math">\(\ \mathbb{Z}_n\ \)</span> reszt modulo <span class="math">\(\,n\ \)</span> jest ciałem (skończonym)</div>
+<div class="line">wtedy i tylko wtedy, gdy <span class="math">\(\ n\ \)</span> jest liczbą pierwszą.</div>
+<div class="line"><br /></div>
+</div>
+</li>
+</ul>
+<div class="admonition-uwaga admonition">
+<p class="first admonition-title">Uwaga:</p>
+<div class="last line-block">
+<div class="line">Często grupą (pierścieniem, ciałem) nazywa się sam zbiór <span class="math">\(\ G\ (P,\ K),\ \)</span></div>
+<div class="line">o ile są w nim określone działania spełniające odpowiednie postulaty.</div>
+</div>
+</div>
+<p><span class="math">\(\;\)</span></p>
+<div class="line-block">
+<div class="line"><strong>Przestrzeń wektorowa nad ciałem</strong> <span class="math">\(\,K\ \)</span> jest strukturą
+<span class="math">\(\ \ \mathbb{V}\,=\,(\,V,\,\oplus\,;\ \,K,\,+\,,\,\cdot\ \,;\ \;\boxdot\,)\,,\ \)</span></div>
+<div class="line">gdzie
+<span class="math">\(\quad\oplus:\ V\times V\rightarrow V\,;
+\quad +\ ,\ \cdot\,:\ K\times K\rightarrow K\,;
+\quad\boxdot\,:\ K\times V\rightarrow V\,,\)</span></div>
+<div class="line">w której są spełnione następujące warunki:</div>
+</div>
+<ol class="arabic">
+<li><p class="first"><span class="math">\(\ (V,\,\oplus\,)\ \ \)</span> jest grupą przemienną (jest to <em>grupa addytywna przestrzeni</em>);</p>
+</li>
+<li><p class="first"><span class="math">\(\ (K,\,+\,,\,\cdot\,)\ \ \)</span> jest ciałem;</p>
+</li>
+<li><div class="first line-block">
+<div class="line"><span class="math">\(\ (\alpha + \beta)\,\boxdot\,v \ \,=\ \,
+(\alpha\,\boxdot\,v)\,\oplus\,(\beta\,\boxdot\,v),\)</span></div>
+<div class="line"><span class="math">\(\ \ \alpha\,\boxdot\,(v\,\oplus\,w) \ \,=\ \,
+(\alpha\,\boxdot\,v)\ \oplus\ (\alpha\,\boxdot\,w);\)</span></div>
+</div>
+</li>
+<li><p class="first"><span class="math">\(\ \ \alpha\,\boxdot\,(\beta\,\boxdot\,v) \ \,=\ \,(\alpha\cdot\beta)\,\boxdot\,v;\)</span></p>
+</li>
+<li><p class="first"><span class="math">\(\ \ 1\ \boxdot\ v \ \,=\ \,v.\)</span></p>
+</li>
+</ol>
+<p>W powyższych wyrażeniach <span class="math">\(\ \alpha\ \,\text{i}\ \,\beta\ \)</span> są dowolnymi elementami ciała <span class="math">\(\,K\ \)</span>
+(1 jest jednością tego ciała), <span class="math">\(\ \)</span> natomiast <span class="math">\(\ v\ \ \text{i}\ \ w\ \)</span> są dowolnymi elementami zbioru <span class="math">\(\,V.\)</span></p>
+<p>Elementy zbioru <span class="math">\(\,K\ \)</span> nazywamy skalarami, <span class="math">\(\ \)</span> a <span class="math">\(\ \)</span>
+elementy zbioru <span class="math">\(\,V\ \)</span> - <span class="math">\(\ \)</span> wektorami.</p>
+<p>W praktyce sam zbiór wektorów <span class="math">\(\,V\,\)</span> nazywany jest przestrzenią wektorową.
+W tym ujęciu przestrzeń wektorowa to zbiór wektorów, które można dodawać
+(i które tworzą grupę przemienną ze względu na dodawanie) oraz mnożyć przez skalary z ciała <span class="math">\(\,K\,\)</span>
+(przy czym działanie to jest rozdzielne zarówno ze względu na dodawanie skalarów, jak i dodawania wektorów,
+jest łączne w sensie warunku 4. oraz  spełnia warunek <span class="math">\(\,\)</span> 5.).</p>
+<p>Najczęściej ciałem <span class="math">\(\,K\,\)</span> jest zbiór liczb rzeczywistych <span class="math">\(\,R\,\)</span> bądź liczb zespolonych <span class="math">\(\,C.\ \)</span>
+Mówimy wtedy odpowiednio o przestrzeni wektorowej rzeczywistej <span class="math">\(\ V(R)\ \)</span> bądź zespolonej <span class="math">\(\ V(C).\)</span></p>
+<p>Przykłady:</p>
+<ul>
+<li><div class="first line-block">
+<div class="line">Zbiór liczb rzeczywistych <span class="math">\(\,R\,\)</span> jest przestrzenią wektorową <span class="math">\(\,R(Q)\,\)</span> nad ciałem
+liczb wymiernych <span class="math">\(\,Q\,,\ \)</span>
+jak również przestrzenią wektorową <span class="math">\(\,R(R)\,\)</span> nad ciałem liczb rzeczywistych <span class="math">\(\,R\,.\)</span></div>
+<div class="line">Na tej samej zasadzie zbiór liczb zespolonych <span class="math">\(\,C\,\)</span> tworzy przestrzeń
+rzeczywistą <span class="math">\(\,C(R)\)</span>
+oraz przestrzeń zespoloną <span class="math">\(\,C(C)\,.\)</span></div>
+</div>
+</li>
+<li><p class="first">Zbiór wektorów geometrycznych jest przestrzenią wektorową rzeczywistą
+ze względu na dodawanie wektorów i mnożenie ich przez liczby rzeczywiste.</p>
+</li>
+<li><p class="first">Zbiór <span class="math">\(\,K^n,\,\)</span> złożony z <span class="math">\(\ n\)</span>-elementowych wektorów kolumnowych
+nad ciałem <span class="math">\(\,K,\,\)</span> jest przestrzenią wektorową
+nad tym ciałem ze względu na dodawanie wektorów i mnożenie ich przez skalary z <span class="math">\(\,K.\)</span></p>
+</li>
+<li><p class="first">Również zbiór <span class="math">\(\,M_{m\times n}(K)\,\)</span> macierzy prostokątnych nad ciałem <span class="math">\(\,K\ \)</span>
+o <span class="math">\(\,m\,\)</span> wierszach i <span class="math">\(\,n\,\)</span> kolumnach jest przestrzenią wektorową nad <span class="math">\(\,K.\)</span></p>
+</li>
+</ul>
+<p>Przyjmując, że mnożenie ma wyższy priorytet niż dodawanie, można wprowadzić zapis uproszczony,
+który będzie w dalszym ciągu stosowany:</p>
+<div class="math">
+\[(\alpha\,\boxdot\,v)\ \oplus\ (\alpha\,\boxdot\,w)\quad\rightarrow\quad
+\alpha\cdot v\,+\,\alpha\cdot w\quad\rightarrow\quad
+\alpha\,v\,+\,\alpha\,w\,.\]</div>
+<p>Przestrzeń wektorowa nad ciałem <span class="math">\(\,R\ \)</span> albo <span class="math">\(\,C\ \)</span>
+jest podstawowym obiektem klasycznej algebry liniowej.
+System algebry komputerowej Sage bazuje jednak na bardziej ogólnym pojęciu modułu nad pierścieniem.</p>
+<div class="line-block">
+<div class="line"><strong>Lewostronny moduł nad pierścieniem</strong> <span class="math">\(\,P\ \)</span> jest strukturą
+<span class="math">\(\ \ \mathbb{M}\,=\,(\,M,\,\oplus\,;\ \,P,\,+\,,\,\cdot\ \,;\ \;\boxdot\,)\,,\ \)</span></div>
+<div class="line">gdzie
+<span class="math">\(\quad\oplus:\ M\times M\rightarrow M\,;
+\quad +\ ,\ \cdot\,:\ P\times P\rightarrow P\,;
+\quad\boxdot\,:\ P\times M\rightarrow M\,,\)</span></div>
+<div class="line">w której są spełnione następujące warunki:</div>
+</div>
+<ol class="arabic">
+<li><p class="first"><span class="math">\(\ (M,\,\oplus\,)\ \ \)</span> jest grupą przemienną (jest to <em>grupa addytywna modułu</em>);</p>
+</li>
+<li><p class="first"><span class="math">\(\ (P,\,+\,,\,\cdot\,)\ \ \)</span> jest pierścieniem z jednością;</p>
+</li>
+<li><div class="first line-block">
+<div class="line"><span class="math">\(\ (a + b)\,\boxdot\,m \ \,=\ \,
+(a\,\boxdot\,m)\,\oplus\,(b\,\boxdot\,m)\,,\)</span></div>
+<div class="line"><span class="math">\(\ \ a\,\boxdot\,(m_1\,\oplus\,m_2) \ \,=\ \,
+(a\,\boxdot\,m_1)\ \oplus\ (a\,\boxdot\,m_2)\,;\)</span></div>
+</div>
+</li>
+<li><p class="first"><span class="math">\(\ \ a\,\boxdot\,(b\,\boxdot\,m) \ \,=\ \,(a\cdot b)\,\boxdot\,m\,;\)</span></p>
+</li>
+<li><p class="first"><span class="math">\(\ \ 1\ \boxdot\ m \ \,=\ \,m\,;\qquad\quad
+a,b\in P\,,\quad m,m_1,m_2\in M.\)</span></p>
+</li>
+</ol>
+<p>Lewostronny moduł <span class="math">\(\,M\ \)</span> nad pierścieniem <span class="math">\(\,P\ \)</span>
+(krótko: lewostronny <span class="math">\(\,P\)</span>-moduł) jest więc grupą przemienną,
+której elementy można mnożyć przez skalary z pierścienia <span class="math">\(\,P\,,\ \)</span>
+przy czym spełnione są warunki rozdzielności i łączności <span class="math">\(\,\)</span> 3. - 5.</p>
+<p>Definicję prawostronnego <span class="math">\(\,P\)</span>-modułu otrzymamy zastępując postulat 4. przez</p>
+<ol class="arabic simple" start="4">
+<li><span class="math">\(\ \ a\,\boxdot\,(b\,\boxdot\,m) \ \,=\ \,(b\cdot a)\,\boxdot\,m\,;\qquad
+a,b\in P\,,\quad m\in M.\)</span></li>
+</ol>
+<p>Wtedy bardziej naturalny będzie zmieniony zapis: <span class="math">\(\quad\boxdot\,:\ M\times P\rightarrow M\,,\)</span></p>
+<ol class="arabic" start="3">
+<li><div class="first line-block">
+<div class="line"><span class="math">\(\ m\,\boxdot\,(a + b)\ \,=\ \,
+(m\,\boxdot\,a)\,\oplus\,(m\,\boxdot\,b)\,,\)</span></div>
+<div class="line"><span class="math">\(\ \ (m_1\,\oplus\,m_2)\,\boxdot\,a \ \,=\ \,
+(m_1\,\boxdot\,a)\ \oplus\ (m_2\,\boxdot\,a)\,;\)</span></div>
+</div>
+</li>
+<li><p class="first"><span class="math">\(\ \ (m\,\boxdot\,a)\,\boxdot\,b \ \,=\ \,m\,\boxdot\,(a\cdot b)\,;\)</span></p>
+</li>
+<li><p class="first"><span class="math">\(\ \ m\ \boxdot\ 1 \ \,=\ \,m\,;\qquad\quad
+a,b\in P\,,\quad m,m_1,m_2\in M.\)</span></p>
+</li>
+</ol>
+<p>Jeżeli pierścień <span class="math">\(\,P\ \)</span> jest przemienny, znika różnica pomiędzy
+lewostronnym i prawostronnym <span class="math">\(\,P\)</span>-modułem,
+a jeśli <span class="math">\(\,P\ \)</span> jest ciałem, <span class="math">\(\,P\)</span>-moduł staje się przestrzenią wektorową
+nad tym ciałem.</p>
+<p>Przykłady.</p>
+<ol class="arabic simple" start="0">
+<li>Pierścień <span class="math">\(\,P\ \)</span> jest (lewo- i prawostronnym) modułem nad sobą samym.</li>
+<li>Rozważmy zbiór <span class="math">\(\,P^n\ \,n\)</span>-elementowych ciągów o wyrazach
+z pierścienia <span class="math">\(\,P,\ \)</span> zapisanych kolumnowo. Przy naturalnie określonych działaniach
+dodawania i mnożenia przez <span class="math">\(\\\)</span> skalary z <span class="math">\(\,P\ \)</span> zbiór ten jest grupą przemienną
+i jednocześnie (lewo- i prawostronnym) <span class="math">\(\,P\)</span>-modułem.
+Ważnym przykładem jest moduł <span class="math">\(\,Z^n\,,\ \)</span> złożony z <span class="math">\(\,n\)</span>-elementowych kolumn
+o wyrazach całkowitych. Gdy <span class="math">\(\,P\ \)</span> jest ciałem: <span class="math">\(\,P=K,\ \)</span> otrzymujemy
+przestrzeń <span class="math">\(\,K^n.\)</span></li>
+<li>Na tej samej zasadzie zbiór <span class="math">\(\,M_{m\times n}(P)\ \)</span> macierzy prostokątnych
+o elementach z pierścienia <span class="math">\(\,P\ \)</span> jest (lewo- i prawostronnym) <span class="math">\(\,P\)</span>-modułem.
+W szczególności może to być moduł <span class="math">\(\,M_{m\times n}(Z)\ \)</span> macierzy o elementach całkowitych.</li>
+<li>Zbiór <span class="math">\(\,M_n(P)\ \)</span> macierzy kwadratowych stopnia <span class="math">\(\,n\ \)</span> nad pierścieniem
+<span class="math">\(\,P\ \)</span> jest pierścieniem z jednością ze względu na dodawanie i mnożenie macierzowe.
+Mnożenie z lewej strony kolumn ze zbioru <span class="math">\(\,P^n\ \)</span> przez macierze z pierścienia
+<span class="math">\(\,M_n(P)\ \)</span> jest działaniem w zbiorze <span class="math">\(\,P^n,\ \)</span>
+spełniającym warunki 3.-5. definicji modułu. Wobec tego <span class="math">\(\,P^n\ \)</span> jest modułem
+(wyłącznie lewostronnym) nad pierścieniem <span class="math">\(\,M_n(P).\)</span></li>
+<li>Każda grupa przemienna jest modułem nad pierścieniem liczb całkowitych <span class="math">\(\,Z.\ \)</span></li>
+</ol>
+<div class="line-block">
+<div class="line"><strong>Algebra nad ciałem</strong> <span class="math">\(\,K\ \)</span> jest strukturą
+<span class="math">\(\ \ \mathbb{A}\,=\,(\,A,\,\oplus,\,\odot\,;\ \,K,\,+\ ,\,\cdot\ \,;\ \boxdot\,)\,,\ \)</span></div>
+<div class="line">gdzie
+<span class="math">\(\quad\oplus,\,\odot:\ A\times A\rightarrow A\,;
+\quad +\ ,\ \cdot\,:\ K\times K\rightarrow K\,;
+\quad\boxdot\,:\ K\times A\rightarrow A\,,\)</span></div>
+<div class="line">w której są spełnione następujące warunki:</div>
+</div>
+<ol class="arabic simple">
+<li><span class="math">\(\ (\,A,\,\oplus,\,\odot\,)\ \ \)</span> jest pierścieniem;</li>
+<li><span class="math">\(\ (\,K,\,+\,,\,\cdot\,)\ \ \)</span> jest ciałem;</li>
+<li><span class="math">\(\ (\,A,\,\oplus\,;\ \,K,\,+\,,\,\cdot\ \,;\ \boxdot\,)\ \)</span> jest przestrzenią wektorową;</li>
+<li><span class="math">\(\ \ (\lambda\boxdot x)\,\odot\,y \ \,=\ \,x\,\odot\,(\lambda\boxdot y) \ \,=\ \,
+\lambda\,\boxdot\,(x\odot y)\,,\quad\lambda\in K,\quad x,y\in A\,.\)</span></li>
+</ol>
+<p>A zatem algebra nad ciałem <span class="math">\(\,K\ \)</span> jest przestrzenią wektorową nad tym ciałem,
+w której dodatkowo jest określone mnożenie wektorów, łączne i rozdzielne względem ich dodawania,
+oraz związane z mnożeniem wektorów przez skalary równościami w punkcie 4.</p>
+<p>Do algebry stosują się określenia, dotyczące zarówno pierścieni, jak i przestrzeni wektorowych:</p>
+<ul class="simple">
+<li>algebra jest przemienna, gdy mnożenie wektorów jest przemienne,</li>
+<li>algebra z jednością zawiera element neutralny dla mnożenia,</li>
+<li>baza i wymiar algebry to odpowiednio baza i wymiar przestrzeni wektorowej,
+którą jest algebra.</li>
+</ul>
+<p>Najprostszym przykładem algebry jest dowolne ciało: jest to 1-wymiarowa przemienna algebra
+z jednością nad tymże ciałem. Nieprzemienną algebrę z jednością tworzą macierze kwadratowe stopnia <span class="math">\(\,n\,\)</span> nad ciałem <span class="math">\(\,K\,\)</span> ze względu na dodawanie i mnożenie macierzowe
+oraz mnożenie macierzy przez liczby z <span class="math">\(\,K.\)</span></p>
+</div>
+<div class="section" id="podstruktury">
+<h2>Podstruktury<a class="headerlink" href="struktury_algebraiczne.html#podstruktury" title="Stały odnośnik do tego nagłówka">¶</a></h2>
+<p>Załóżmy, że struktura <span class="math">\(\,\mathbb{G} = (G,\,\,\bot\,)\,\)</span> jest grupą.
+Może się zdarzyć, że podzbiór <span class="math">\(H\)</span> zbioru <span class="math">\(G\)</span>
+również tworzy grupę z (odpowiednio zwężonym) działaniem <span class="math">\(\,\,\bot\,\,.\ \)</span>
+Mówimy wtedy, że <span class="math">\(\,H\,\)</span> jest <em>podgrupą</em> grupy <span class="math">\(\,G\,,\,\)</span>
+co zapisujemy: <span class="math">\(\ H\,&lt;\,G\,.\)</span></p>
+<p>Przykłady podgrup:</p>
+<ul class="simple">
+<li>Zbiór <span class="math">\(\,2Z\,\)</span> parzystych liczb całkowitych jest podgrupą
+grupy addytywnej wszystkich liczb całkowitych.</li>
+<li>Dwuelementowy zbiór <span class="math">\(\,\{-1,\,1\}\,\)</span> jest podgrupą grupy multiplikatywnej
+liczb rzeczywistych różnych od zera.</li>
+</ul>
+<p>Analogicznie określamy <em>podpierścienie</em>, <em>podciała</em>, <em>podprzestrzenie wektorowe</em> i <em>podalgebry</em>.</p>
+<p>Podzbiór może być podstrukturą tylko wtedy, gdy działania w danej strukturze
+nie wyprowadzają elementów poza ten podzbiór, czyli gdy podzbiór jest domknięty
+ze względu na te działania (np. podzbiór <span class="math">\(\,2Z+1\,\)</span> liczb nieparzystych nie jest podgrupą
+grupy addytywnej <span class="math">\(\,Z,\,\)</span> bo suma dwóch liczb nieparzystych jest liczbą parzystą,
+nie należącą do podzbioru). Ponadto w podzbiorze powinny być spełnione wszystkie postulaty
+z definicji wyjściowej struktury.</p>
+<p>W praktyce istnieją prostsze kryteria dla upewnienia się, że mamy do czynienia z podstrukturą.
+Na przykład dla grup można udowodnić</p>
+<p><strong>Twierdzenie:</strong></p>
+<p>Niech <span class="math">\(\ \mathbb{G}\;=\;(G,\;\bot\,)\ \)</span> będzie grupą,
+<span class="math">\(\ \,\emptyset\neq H\,\subset G\,.\)</span></p>
+<p>Wówczas <span class="math">\(\ H &lt; G\ \)</span> wtedy i tylko wtedy, <span class="math">\(\,\)</span> gdy dla dowolnych
+<span class="math">\(\ a,b \in G\ \)</span> spełniony jest warunek:</p>
+<div class="math">
+\[a,b\,\in\, H\quad \Rightarrow\quad
+\left(\ a\;\bot\;b\ \in\ H\ \ \wedge\ \ a^{-1}\,\in\,H \ \right)\,.\]</div>
+<p>(niepusty podzbiór <span class="math">\(\,H\,\)</span> grupy <span class="math">\(\,G\,\)</span> jest podgrupą wtedy i tylko wtedy, gdy
+<span class="math">\(\,H\,\)</span> jest domknięty ze względu na działanie grupowe oraz zawiera odwrotności
+wszystkich swoich elementów).</p>
+<p>Kryterium dla podprzestrzeni można sformułować dwojako:</p>
+<p><strong>Twierdzenie:</strong></p>
+<p>Niech <span class="math">\(\ W \subset V(K)\,.\ \)</span> Wówczas <span class="math">\(\,W &lt; V\ \)</span>
+wtedy i tylko wtedy, <span class="math">\(\,\)</span> gdy dla dowolnych wektorów <span class="math">\(\,w_1,w_2 \in V\,\)</span>
+oraz dla dowolnego skalara <span class="math">\(\,\alpha \in K\,\)</span> spełniony jest warunek:</p>
+<div class="math" id="equation-01">
+<span class="eqno">(1)</span>\[w_1,w_2\,\in\,W \quad\Rightarrow\quad
+\left(\ w_1+w_2\,\in\,W\ \ \wedge\ \ \alpha\,w_1\,\in\,W \ \right)\,,\]</div>
+<p>czyli, <span class="math">\(\,\)</span> gdy dla dowolnych wektorów <span class="math">\(\,w_1,w_2 \in V\,\)</span> i dla dowolnych skalarów
+<span class="math">\(\,\alpha_1,\alpha_2 \in K\,:\)</span></p>
+<div class="math" id="equation-02">
+<span class="eqno">(2)</span>\[w_1,w_2\,\in\,W \quad\Rightarrow\quad
+\alpha_1\,w_1 + \alpha_2\,w_2\,\in\,W\,.\]</div>
+<p>(podzbiór <span class="math">\(\,W\,\)</span> przestrzeni wektorowej <span class="math">\(\,V\,\)</span> nad ciałem <span class="math">\(\,K\,\)</span>
+jest podprzestrzenią wtedy i tylko wtedy, <span class="math">\(\,\)</span> gdy jest domknięty
+ze względu na dodawanie wektorów i mnożenie ich przez skalary z <span class="math">\(\,K\,,\ \)</span>
+czyli <span class="math">\(\,\)</span> gdy dla dowolnych dwóch wektorów z <span class="math">\(\,W\,\)</span> każda kombinacja liniowa
+tych wektorów też należy do <span class="math">\(\,W)\,\)</span>.</p>
+<p>Każda przestrzeń wektorowa <span class="math">\(\,V\,\)</span> ma dwie <em>podprzestrzenie niewłaściwe</em>.
+Są to: <span class="math">\(\,\)</span> cała przestrzeń <span class="math">\(\,V\ \)</span> oraz jednoelementowy podzbiór zawierający
+tylko wektor zerowy <span class="math">\(\,\theta:\ \{\theta\}\,.\)</span>
+Pozostałe podprzestrzenie są <em>właściwe</em>.</p>
+<p>Przykłady podprzestrzeni:</p>
+<ol class="arabic">
+<li><div class="first line-block">
+<div class="line">Niech <span class="math">\(\,V\,\)</span> oznacza zbiór wektorów geometrycznych w przestrzeni,</div>
+<div class="line"><span class="math">\(\,V_x,\,V_y,\,V_z\ \,-\ \,\)</span> podzbiory wektorów leżących odpowiednio
+na osiach <span class="math">\(\,Ox,\,Oy,\,Oz\,,\)</span></div>
+<div class="line"><span class="math">\(\,V_{xy},\,V_{yz},\,V_{xz}\ \,-\ \,\)</span> podzbiory wektorów leżących
+w płaszczyznach <span class="math">\(\,Oxy,\,Oyz,\,Oxz\,.\)</span></div>
+<div class="line">Podzbiory te są podprzestrzeniami przestrzeni <span class="math">\(\,V:\ \ \)</span>
+<span class="math">\(\,V_x,\,V_y,\,V_z,\,V_{xy},\,V_{yz},\,V_{xz}\,&lt; \,V,\)</span></div>
+<div class="line">a ponadto zachodzą relacje:
+<span class="math">\(\quad V_x,\,V_y\,&lt;\,V_{xy}\,,\quad V_y,\,V_z\,&lt;\,V_{yz}\,,\quad V_x,\,V_z\,&lt;\,V_{xz}\,.\)</span></div>
+</div>
+</li>
+<li><p class="first">Rozważmy przestrzeń <span class="math">\(\,K^n\ \,n\)</span>-wyrazowych
+wektorów kolumnowych nad ciałem <span class="math">\(\,K\,:\)</span></p>
+<div class="math">
+\[\begin{split}K^n\ \ =\ \ \,\left\{\quad\left[\begin{array}{c}
+                     x_1 \\ \ldots \\ x_p \\ x_{p+1} \\ \ldots \\ x_n
+                     \end{array}\right]\ :\quad x_i\in K\,,\ \ i = 1,2,\ldots,n.\;\right\}\,,\end{split}\]</div>
+<p>oraz podzbiór <span class="math">\(\ W_p\ =\ \{\ \boldsymbol{x}\in K^n\,:\ \ x_{p+1}=\ldots = x_n = 0\,\}\,,\ \)</span>
+gdzie <span class="math">\(\ 1 \leq p &lt; n\,:\)</span></p>
+<div class="math">
+\[\begin{split}W_p\ \ \,=\ \ \,\left\{\quad\left[\begin{array}{c}
+                       x_1 \\ \ldots \\ x_p \\ 0 \\ \ldots \\ 0
+                       \end{array}\right]\ :\quad x_i\in K\,,\ \ i = 1,2,\ldots,p.\;\right\}\,.\end{split}\]</div>
+<p>Stosując warunki <a href="struktury_algebraiczne.html#equation-01">(1)</a> albo <a href="struktury_algebraiczne.html#equation-02">(2)</a> łatwo sprawdzić,
+że <span class="math">\(\,W_p\,\)</span> jest podprzestrzenią:</p>
+<div class="math">
+\[\begin{split}W_p\,&lt;\,K^n\,.\end{split}\]</div>
+</li>
+<li><p class="first">Zbiór <span class="math">\(\,M_n(K)\,\)</span> macierzy kwadratowych stopnia <span class="math">\(\,n\,\)</span>
+nad ciałem <span class="math">\(\,K\,\)</span> jest przestrzenią wektorową nad <span class="math">\(\,K\,\)</span>
+ze względu na dodawanie macierzy i mnożenie ich przez skalary z <span class="math">\(\,K\,\)</span>:</p>
+<div class="math">
+\[\begin{split}M_n(K)\ \ =\ \ \left\{\quad\left[\ \begin{array}{cccc}
+                                  a_{11} &amp; a_{12} &amp; \ldots &amp; a_{1n} \\
+                                  a_{21} &amp; a_{22} &amp; \ldots &amp; a_{2n} \\
+                                  \ldots &amp; \ldots &amp; \ldots &amp; \ldots \\
+                                  a_{n1} &amp; a_{n2} &amp; \ldots &amp; a_{nn}
+                                  \end{array}\ \right]\ :\quad
+                          a_{ij}\in K,\ \ i,j\,=\,1,2,\ldots,n.\;\right\}\,.\end{split}\]</div>
+<p>Podzbiór macierzy diagonalnych
+(w których elementy niezerowe występują tylko na głównej przekątnej):</p>
+<div class="math">
+\[\begin{split}D_n(K)\ \ =\ \ \left\{\quad\left[\ \begin{array}{cccc}
+                                  a_{11} &amp;   0    &amp; \ldots &amp;   0    \\
+                                    0    &amp; a_{22} &amp; \ldots &amp;   0    \\
+                                  \ldots &amp; \ldots &amp; \ldots &amp; \ldots \\
+                                    0    &amp;   0    &amp; \ldots &amp; a_{nn}
+                                  \end{array}\ \right]\ :\quad
+                          a_{ii}\in K,\ \ i\,=\,1,2,\ldots,n.\;\right\}\,.\end{split}\]</div>
+<p>jest podprzestrzenią:</p>
+<div class="math">
+\[\begin{split}D_n(K)&lt;M_n(K)\end{split}\]</div>
+<p>co znowu wynika z kryterium <a href="struktury_algebraiczne.html#equation-01">(1)</a> lub równoważnego mu <a href="struktury_algebraiczne.html#equation-02">(2)</a>.</p>
+</li>
+</ol>
+<p>Kryterium dla podalgebry jest rozszerzeniem warunku dla podprzestrzeni.</p>
+<p><strong>Twierdzenie:</strong></p>
+<p>Podzbiór <span class="math">\(\ B\ \)</span> algebry <span class="math">\(\ A\ \)</span> nad ciałem <span class="math">\(\ K\ \)</span> jest podalgebrą
+wtedy i tylko wtedy, gdy jest domknięty ze względu na dodawanie i mnożenie elementów algebry
+oraz mnożenie tych elementów przez skalary z ciała <span class="math">\(\,K,\ \)</span>
+czyli gdy dla dowolnych <span class="math">\(\ x_1,x_2\in A\ \ \ \text{i}\ \ \ \lambda\in K\ \)</span>
+spełniony jest warunek:</p>
+<div class="math">
+\[x_1,x_2\,\in\,B \quad\Rightarrow\quad
+\left(\
+x_1+x_2\,\in\,B\ \ \wedge\ \ x_1\,x_2\,\in B\,\ \ \wedge\ \ \lambda\,x_1\,\in\,B\
+\right)\,.\]</div>
+<p>Na tej zasadzie podzbiór <span class="math">\(\ D_n(K)\ \)</span> macierzy diagonalnych
+jest podalgebrą algebry <span class="math">\(\,M_n(K).\)</span></p>
+</div>
+</div>
+
+
+          </div>
+        </div>
+      </div>
+      <div class="sphinxsidebar">
+        <div class="sphinxsidebarwrapper">
+  <div class="sphinxlocaltoc">
+  <h3><a href="http://visual.icse.us.edu.pl/LA/index.html">Spis treści</a></h3>
+  <ul>
+<li><a class="reference internal" href="struktury_algebraiczne.html#">Najważniejsze struktury algebraiczne</a><ul>
+<li><a class="reference internal" href="struktury_algebraiczne.html#definicje-i-przyklady">Definicje i przykłady</a></li>
+<li><a class="reference internal" href="struktury_algebraiczne.html#podstruktury">Podstruktury</a></li>
+</ul>
+</li>
+</ul>
+
+  </div>
+  <h4>Poprzedni temat</h4>
+  <p class="topless"><a href="podstawowe_pojecia.html"
+                        title="poprzedni rozdział">Podstawowe pojęcia i oznaczenia</a></p>
+  <h4>Następny temat</h4>
+  <p class="topless"><a href="podstawy_algebry_liniowej.html"
+                        title="następny rozdział">Podstawy algebry liniowej</a></p>
+<div id="searchbox" style="display: none">
+  <h3>Szybkie wyszukiwanie</h3>
+    <form class="search" action="search.html" method="get">
+      <input type="text" name="q" />
+      <input type="submit" value="Szukaj" />
+      <input type="hidden" name="check_keywords" value="yes" />
+      <input type="hidden" name="area" value="default" />
+    </form>
+    <p class="searchtip" style="font-size: 90%">
+    Wprowadź szukany termin lub nazwę modułu, klasy lub funkcji.
+    </p>
+</div>
+<script type="text/javascript">$('#searchbox').show(0);</script>
+        </div>
+      </div>
+      <div class="clearer"></div>
+    </div>
+  </div>
+  <div class="relbar-bottom">
+    
+    <div class="related">
+      <h3>Nawigacja</h3>
+      <ul>
+        <li class="right" style="margin-right: 10px">
+          <a href="podstawy_algebry_liniowej.html" title="Podstawy algebry liniowej"
+             >dalej</a></li>
+        <li class="right" >
+          <a href="podstawowe_pojecia.html" title="Podstawowe pojęcia i oznaczenia"
+             >wstecz</a> &nbsp; &nbsp;</li>
+  <li><a href="http://visual.icse.us.edu.pl/LA/index.html">Algebra Liniowa</a> &raquo;</li>
+   
+      </ul>
+    </div>
+  </div>
+  
+  <div class="footer">
+    <a class="logo" href="../../icse.us.edu.pl/index.html" target="_blank"><img src="_static/logo-icse.png" alt="ICSE"/></a><br/>
+    &copy; Copyright 2013, Marcin Kostur.
+    Created using <a href="http://sphinx.pocoo.org/">Sphinx</a> 1.2.2.
+  </div>
+  </body>
+</html>

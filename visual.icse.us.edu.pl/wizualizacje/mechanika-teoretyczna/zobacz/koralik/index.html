@@ -1,0 +1,130 @@
+<!DOCTYPE html> 
+<html> 
+<head> 
+<title>Koralik na obręczy</title> 
+<meta http-equiv="Content-Type" content="text/html; charset=UTF-8" /> 
+<meta http-equiv="X-UA-Compatible" content="IE=EmulateIE7" /> 
+
+<script type="text/x-mathjax-config"> 
+  MathJax.Hub.Config({
+    extensions: ["tex2jax.js"],
+    jax: ["input/TeX","output/HTML-CSS"],
+    tex2jax: {inlineMath: [["$","$"],["\\(","\\)"]]}
+  });
+</script> 
+
+<!-- <script type="text/javascript" src="js/mathjax/MathJax.js"></script> -->
+<script type="text/javascript" src="http://cdn.mathjax.org/mathjax/latest/MathJax.js"></script>
+
+<link rel="stylesheet" type="text/css" href="css/mainstyle.css" />
+<link rel="stylesheet" type="text/css" href="css/jsxgraph.css" />
+<script type="text/javascript" src="js/jsxgraphcore-0.95.js"></script>
+
+<script type="text/javascript" src="js/vtip/jquery.js"></script>
+<script type="text/javascript" src="js/vtip/vtip.js"></script>
+<link rel="stylesheet" type="text/css" href="js/vtip/css/vtip.css" />
+
+</head>
+<body>
+
+	<noscript> 
+	<div style="color:#CC0000; text-align:center">
+	<b>Uwaga: do prawidłowego działania, biblioteki <a href="http://www.mathjax.org/">MathJax</a>
+	oraz <a href="http://jsxgraph.uni-bayreuth.de/wp/">jsxgraph</a> wymagają obsługi JavaScript.<br />
+	Upewnij się, że JavaScript jest aktywowany w twojej przeglądarce.
+	</div>
+	<hr>
+	</noscript>
+
+<div id="container">
+
+<div id="header">
+	<h1>Koralik poruszający się po pierścieniu</h1>
+	<p class="text">
+	Ruch punktu materialnego (koralika) o masie $m$ w polu grawitacyjnym, po pionowym okręgu o promieniu $R$ obracającym się z częstością 
+	$\omega$ wokół pionowej osi, przechodzącej przez środek okręgu. 
+	</p> 
+</div>
+
+<div id="content">
+
+<div id="input" class="formstyle">
+
+	<form class="form">
+		<table>
+ 		<tr>
+  		<td>$g$</td> <td class="vtip" title="Przyśpieszenie grawitacyjne"><input class="inputtext" type="text" id="g" value="9.81" onKeyUp="resetAnimation()" /></td>
+  		<td >$m$</td> <td class="vtip" title="Masa koralika"><input class="inputtext" type="text" id="m" value="1" onKeyUp="resetAnimation()" /></td>
+  		<td>$\theta_0$</td> <td class="vtip" title="Wychylenie początkowe"><input class="inputtext" type="text" id="theta0" value="1.4" onKeyUp="resetAnimation()" /></td> 
+  		<td>$\gamma$</td> <td class="vtip" title="Współczynnik tarcia"><input class="inputtext" type="text" id="gamma" value="0" onKeyUp="resetAnimation()" /></td> 
+  		<td>$\Omega^2 = \frac{g}{R}$</td> <td><input class="outputtext" type="text" id="BigOmega2" readonly />
+  		<td>$\theta$</td> <td class="vtip" title="Aktualne wychylenie"><input class="outputtext" type="text" id="theta" readonly />
+ 		</tr>
+ 
+ 		<tr>
+  		<td>$R$</td> <td class="vtip" title="Promień obręczy po której porusza się koralik"><input class="inputtext" type="text" id="R" value="0.3" onKeyUp="resetAnimation()" /></td>  
+  		<td>$\omega$</td> <td class="vtip" title="Częstość z jaką obraca się obręcz"><input class="inputtext" type="text" id="omega" value="8.85" onKeyUp="resetAnimation()" /></td> 
+  		<td>$\dot \theta_0$</td> <td class="vtip" title="Początkowa prędkość kątowa"><input class="inputtext" type="text" id="thetaDot0" value="0" onKeyUp="resetAnimation()" /></td>
+  		<td></td>
+  		<td></td>
+  		<td>$\Omega = \sqrt{\frac{g}{R}}$</td> <td><input class="outputtext" type="text" id="BigOmega" readonly/>
+  		<td>$\dot \theta$</td> <td class="vtip" title="Aktualna prędkość kątowa"><input class="outputtext" type="text" id="thetaDot" readonly />
+ 		</tr>
+ 
+		<tr>
+  		<td></td>
+  		<td>
+  			<input type="button" value="start / stop" onClick="startStopAnimation()" />
+  			<input type="button" value="reset" onClick="resetAnimation()" />
+  		</td>   
+ 		</tr>
+		</table>
+	</form>
+</div>
+
+<div id="plots">
+	<table class="plotarea">    
+    	<tr>
+       	<td>
+        <div id="box1" class="jxgbox vtip" title="Położenie koralika na obręczy. Układ związany z obracającym sie pierścieniem" style="width:400px; height:400px;"></div>
+        </td>
+        <td>
+        <div id="box2" class="jxgbox vtip" title="Wykres potencjału" style="width:670px; height:400px;"></div>
+        </td>
+    	</tr>
+    	<tr>
+    	<td></td>
+    	<td>
+        <div id="box3" class="jxgbox vtip" title="Wykres przestrzeni fazowej koralika" style="width:670px; height:470px;"></div>
+        </td>
+    	</tr>
+	</table>
+</div>
+
+<div class="theory">
+	<h3>Funkcja Lagrange'a dla naszego układu:</h3>
+	<p class="text">
+	$L = L(\theta, \dot\theta) = \frac{m R^2}{2} \dot{\theta}^2 + \frac{1}{2} m R^2 \omega^2 \sin^2(\theta) - mgR \cos(\theta)$<br />
+	Funkcja Lagrange'a ma podobną postać jak funkcja Lagrange'a dla cząstki poruszającej się ruchem jednowymiarowym w efektywnym potencjale:<br />
+	$ \quad (1) \quad L = L(\theta, \dot\theta) = \frac{M}{2} \dot{\theta}^2 - [ mgR \cos(\theta) - \frac{1}{2} m R^2 \omega^2 \sin^2(\theta) ] = \hat{E}_k -\hat{E}_{p}$<br />
+	gdzie część znajdującą się z nawiasach kwadratowych możemy traktować jako jednowymiarowy  potencjał efektywny, w jakim porusza się 
+	cząstka (koralik)<br />
+	$ \quad (2) \quad \hat{E}_p (\theta) = mgR \cos(\theta) - \frac{1}{2} m R^2 \omega^2 \sin^2(\theta)$.
+	</p>
+	<h3>Równania ruchu:</h3>
+	<p class="text">	
+	$\frac{d}{dt} \left (\frac{\partial L}{\partial \dot{\theta}}\right ) - \frac{\partial L}{\partial \theta} = 0$<br />
+	$\frac{\partial L}{\partial \theta} = -\frac{\partial \hat{E}p(\theta)}{\partial \theta} = R m \sin(\theta) [R \omega^{2} \cos\left(\theta\right) + g ]$<br />
+	$\frac{d}{dt} \left (\frac{\partial L}{\partial \dot{\theta}}\right ) = m R^2 \ddot{\theta}$<br />
+	z czego dostajemy równanie ruchu<br />
+	$R \ddot{\theta} = \sin(\theta) [R \omega^{2} \cos\left(\theta\right) + g ]$.
+	</p>
+</div>
+
+</div>
+</div>
+
+<script type="text/javascript" src="js/phys.js"></script><br />
+
+</body>
+</html>

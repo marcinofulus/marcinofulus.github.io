@@ -1,0 +1,363 @@
+
+
+  <!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+  "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+
+
+<html xmlns="http://www.w3.org/1999/xhtml">
+  <head>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    
+    <title>Wartości i wektory własne &mdash; Algebra Liniowa</title>
+    
+    <link rel="stylesheet" href="_static/cloud.css" type="text/css" />
+    <link rel="stylesheet" href="_static/pygments.css" type="text/css" />
+    <link rel="stylesheet" href="http://fonts.googleapis.com/css?family=Noticia+Text|Open+Sans|Droid+Sans+Mono&subset=latin,latin-ext" type="text/css" />
+    
+    <script type="text/javascript">
+      var DOCUMENTATION_OPTIONS = {
+        URL_ROOT:    './',
+        VERSION:     'I',
+        COLLAPSE_INDEX: false,
+        FILE_SUFFIX: '.html',
+        HAS_SOURCE:  true
+      };
+    </script>
+    <script type="text/javascript" src="_static/jquery.js"></script>
+    <script type="text/javascript" src="_static/underscore.js"></script>
+    <script type="text/javascript" src="_static/doctools.js"></script>
+    <script type="text/javascript" src="_static/translations.js"></script>
+    <script type="text/javascript" src="http://cdn.mathjax.org/mathjax/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML"></script>
+    <script type="text/javascript" src="_static/jquery.cookie.js"></script>
+    <script type="text/javascript" src="_static/cloud.js"></script>
+
+	<script src="http://sagecell.icse.us.edu.pl:6363/static/jquery.min.js"></script>
+	<script src="http://sagecell.icse.us.edu.pl:6363/static/embedded_sagecell.js"></script>
+
+	<!-- <script src="http://sagecell.sagemath.org/static/jquery.min.js"></script> -->
+	<!-- <script src="http://sagecell.sagemath.org/static/embedded_sagecell.js"></script> -->
+
+	<script>sagecell.makeSagecell({inputLocation: ".sage",
+                                       evalButtonText: 'Wykonaj',
+                                       linked: true});</script>
+
+	<style type="text/css">
+		.sagecell .CodeMirror-scroll {
+			overflow-y: hidden;
+			overflow-x: auto;
+		}
+		.sagecell .CodeMirror {
+			height: auto;
+		}
+	</style>
+
+    
+    <link rel="top" title="Algebra Liniowa" href="http://visual.icse.us.edu.pl/LA/index.html" />
+    <link rel="next" title="Przestrzenie unitarne" href="dowody_p_unitarne.html" />
+    <link rel="prev" title="Przekształcenia liniowe" href="dowody_przeksztalcenia_lin.html" />
+ 
+  <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, minimum-scale=1">
+  </head>
+  <body>
+  <div class="relbar-top">
+    
+    <div class="related">
+      <h3>Nawigacja</h3>
+      <ul>
+        <li class="right" style="margin-right: 10px">
+          <a href="dowody_p_unitarne.html" title="Przestrzenie unitarne"
+             accesskey="N">dalej</a></li>
+        <li class="right" >
+          <a href="dowody_przeksztalcenia_lin.html" title="Przekształcenia liniowe"
+             accesskey="P">wstecz</a> &nbsp; &nbsp;</li>
+  <li><a href="http://visual.icse.us.edu.pl/LA/index.html">Algebra Liniowa</a> &raquo;</li>
+   
+      </ul>
+    </div>
+  </div>
+  
+  <div class="content">  
+
+    <div class="document">
+      <div class="documentwrapper">
+        <div class="bodywrapper">
+          <div class="body">
+            
+  <div class="section" id="wartosci-i-wektory-wlasne">
+<h1>Wartości i wektory własne<a class="headerlink" href="dowody_problem_wlasny.html#wartosci-i-wektory-wlasne" title="Stały odnośnik do tego nagłówka">¶</a></h1>
+<p><em>Widmem</em> operatora liniowego nazywamy zbiór jego wartości własnych.
+Udowodnimy, że wektory własne operatora liniowego należące do różnych wartości własnych
+są liniowo niezależne.</p>
+<div class="admonition-twierdzenie-1 admonition">
+<p class="first admonition-title">Twierdzenie 1.</p>
+<p class="last">Niech <span class="math">\(\,F\in\text{End}(V)\,,\ \ V=V(K)\,,\ \ \dim V=n\geq 2.\ \,\)</span>
+Jeżeli w widmie operatora <span class="math">\(\,F\ \)</span> istnieje <span class="math">\(\,k\leq n\ \)</span>
+różnych wartości własnych <span class="math">\(\ \lambda_1,\,\lambda_2,\,\ldots,\,\lambda_k\,,\ \)</span>
+to odpowiednie wektory własne <span class="math">\(\,v_1,\,v_2,\,\ldots,\,v_k\ \)</span>
+są liniowo niezależne.</p>
+</div>
+<p><strong>Dowód</strong> <span class="math">\(\,\)</span> (indukcja względem <span class="math">\(\,k\)</span>).</p>
+<ol class="upperroman">
+<li><p class="first"><span class="math">\(\ k=2.\ \ \)</span> Niech <span class="math">\(\quad
+Fv_1=\lambda_1\,v_1\,,\quad Fv_2=\lambda_2\,v_2\,,\quad
+v_1,v_2\in V\!\smallsetminus\!\{\theta\}\,.\)</span></p>
+<p>Przypuśćmy, że <span class="math">\(\ v_1,\,v_2\ \)</span> są liniowo zależne,
+tzn. że istnieje nietrywialna kombinacja liniowa tych wektorów równa wektorowi zerowemu:</p>
+<div class="math">
+\[\alpha_1\,v_1\,+\;\alpha_2\,v_2\ =\ \theta\,,\qquad\alpha_1\neq 0\ \ \lor\ \ \alpha_2\neq 0\,.\]</div>
+<p>Gdyby <span class="math">\(\ \alpha_2 = 0\,,\ \)</span> to mielibyśmy <span class="math">\(\ \alpha_1\,v_1=\theta\ \,\)</span>
+przy <span class="math">\(\ \alpha_1\neq 0\,,\ \,\)</span> z czego wynikałoby, <span class="math">\(\\\)</span>
+że <span class="math">\(\ v_1=\theta.\ \)</span> A zatem <span class="math">\(\ \alpha_2\neq 0\,,\ \)</span> wobec czego można zapisać:</p>
+<div class="math">
+\[v_2\,=\;\beta\,v_1\,,\qquad\beta\ =\ -\ \frac{\alpha_1}{\alpha_2}\ \,\neq\ \,0\,.\]</div>
+<p>Obliczając na dwa sposoby wynik działania operatora <span class="math">\(\,F\ \)</span> na wektor <span class="math">\(\,v_2\ \)</span>
+otrzymamy</p>
+<div class="math">
+\[\begin{split}\begin{array}{l}
+Fv_2\ =\ \lambda_2\,v_2\ =\ \lambda_2\,(\beta\,v_1)\ =\ (\beta\,\lambda_2)\ v_1\,, \\
+Fv_2\ =\ F(\beta\,v_1)\ =\ \beta\ Fv_1
+    \ =\ \beta\,(\lambda_1\,v_1)\ =\ (\beta\,\lambda_1)\ v_1\,.
+\end{array}\end{split}\]\[\text{Stąd}\qquad(\beta\,\lambda_2)\ v_1\ =\ (\beta\,\lambda_1)\ v_1\,,\qquad
+\text{czyli}\qquad\beta\,(\lambda_2-\lambda_1)\ v_1\ =\ \theta\,.\]</div>
+<p>Wobec <span class="math">\(\ \beta\neq 0\ \)</span> i <span class="math">\(\ v_1\neq\theta\ \)</span> oznacza to,
+że <span class="math">\(\,\lambda_1=\lambda_2\,.\ \)</span>
+Z liniowej zależności wektorów własnych <span class="math">\(\,v_1,\ v_2\ \)</span>
+wynika więc równość odpowiednich wartości własnych <span class="math">\(\,\lambda_1,\,\lambda_2\,.\)</span> <span class="math">\(\\\)</span>
+Przez kontrapozycję wnioskujemy, że jeżeli wartości własne <span class="math">\(\,\lambda_1,\,\lambda_2\ \)</span>
+są różne, to <span class="math">\(\\\)</span>
+odpowiadające im wektory własne <span class="math">\(\ v_1,\ v_2\ \)</span> są liniowo niezależne,
+co należało tu pokazać.</p>
+</li>
+<li><div class="first line-block">
+<div class="line">Zakładamy, że twierdzenie jest prawdziwe dla pewnego <span class="math">\(\ k&lt;n.\ \)</span></div>
+<div class="line">Trzeba udowodnić tezę dla <span class="math">\(\ k+1\,.\)</span></div>
+</div>
+<p>Niech operator liniowy <span class="math">\(\,F\ \)</span> ma <span class="math">\(\,k+1\ \)</span> różnych wartości własnych
+<span class="math">\(\ \lambda_1,\,\ldots,\,\lambda_k,\,\lambda_{k+1}\,,\)</span> <span class="math">\(\\\)</span>
+którym odpowiadają wektory własne <span class="math">\(\ v_1,\,\ldots,\,v_k,\,v_{k+1}\,.\)</span> <span class="math">\(\\\)</span>
+Z założenia indukcyjnego wektory <span class="math">\(\ v_1,\ldots,v_k\ \)</span> są liniowo niezależne. <span class="math">\(\\\)</span>
+Mamy pokazać, że liniowo niezależny jest cały układ <span class="math">\(\ (v_1,\ldots,v_k,v_{k+1})\,.\)</span></p>
+<p>Przypuśćmy, że wektory <span class="math">\(\ v_1,\ldots,v_k,v_{k+1}\ \)</span> są liniowo zależne,
+to znaczy że <span class="math">\(\\\)</span>
+istnieje nietrywialna kombinacja liniowa tych wektorów, równa wektorowi zerowemu:</p>
+<div class="math" id="equation-lin_dep">
+<span class="eqno">(1)</span>\[\alpha_1\,v_1\,+\,\ldots\,+\,\alpha_k\,v_k\,+\,\alpha_{k+1}\,v_{k+1}\ =\ \theta\,,\]</div>
+<p>przy czym nie wszystkie <span class="math">\(\ \,\alpha_i\,,\ \ i=1,\ldots,k,\,k+1\,,\ \,\)</span> znikają. <span class="math">\(\\\)</span>
+Gdyby <span class="math">\(\,\alpha_{k+1}=0\,,\ \,\)</span>
+to <span class="math">\(\,\)</span> z <span class="math">\(\,\)</span> <a href="dowody_problem_wlasny.html#equation-lin_dep">(1)</a> <span class="math">\(\,\)</span> mielibyśmy</p>
+<div class="math">
+\[\alpha_1\,v_1\,+\,\ldots\,+\,\alpha_k\,v_k\ = \theta\]</div>
+<p>gdzie nie wszystkie <span class="math">\(\ \,\alpha_i\,,\ \ i=1,\ldots,k\,,\ \,\)</span> znikają. <span class="math">\(\\\)</span>
+Byłoby to sprzeczne z założeniem o liniowej niezależności wektorów <span class="math">\(\ v_1,\ldots,v_k\,.\ \)</span></p>
+<p>Tak więc musi być <span class="math">\(\ \alpha_{k+1}\neq 0\,,\ \,\)</span>
+wobec czego związek <a href="dowody_problem_wlasny.html#equation-lin_dep">(1)</a> można przepisać jako:</p>
+<div class="math">
+\[v_{k+1}\ =\ \beta_1\,v_1\,+\,\ldots\,+\,\beta_k\,v_k\,,\qquad
+\beta_i\ =\ -\ \frac{\alpha_i}{\alpha_{k+1}}\ ,\quad i=1,\ldots,k\,.\]</div>
+<p>Ponieważ <span class="math">\(\ v_{k+1}\neq\theta,\ \,\)</span> to nie wszystkie współczynniki
+<span class="math">\(\ \beta_i\ \)</span> są równe zeru: <span class="math">\(\\\)</span>
+istnieje (co najmniej jeden) wskaźnik <span class="math">\(\ i_0\in\{\,1,\ldots,k\,\}\,,\ \,\)</span>
+dla którego <span class="math">\(\ \beta_{i_0}\neq 0\,.\)</span></p>
+<p>Obliczymy na dwa sposoby wynik działania operatora <span class="math">\(\,F\ \)</span> na wektor <span class="math">\(\,v_{k+1}:\)</span></p>
+<div class="math">
+\[\begin{split}\begin{array}{l}
+F\,v_{k+1}\ =\ \lambda_{k+1}\,v_{k+1}\ =\
+\lambda_{k+1}\ \displaystyle\sum_{i\,=\,1}^k\ \beta_i\,v_i\ =\
+\displaystyle\sum_{i\,=\,1}^k\ (\beta_i\,\lambda_{k+1})\ v_i\ , \\
+F\,v_{k+1}\ =\ F\,\left(\:\displaystyle\sum_{i\,=\,1}^k\ \beta_i\,v_i\right)\ =\
+\displaystyle\sum_{i\,=\,1}^k\ \beta_i\ Fv_i\ =\
+\displaystyle\sum_{i\,=\,1}^k\ (\beta_i\,\lambda_i)\ v_i\ .
+\end{array}\end{split}\]\[\begin{split}\begin{array}{l}
+\text{Stąd}\qquad
+\displaystyle\sum_{i\,=\,1}^k\ (\beta_i\,\lambda_{k+1})\ v_i\ =\
+\displaystyle\sum_{i\,=\,1}^k\ (\beta_i\,\lambda_i)\ v_i\,, \\
+\text{czyli}\qquad
+\displaystyle\sum_{i\,=\,1}^k\ \beta_i\ (\lambda_{k+1}-\lambda_i)\ v_i\ =\ \theta\,.
+\end{array}\end{split}\]</div>
+<p>Z liniowej niezależności wektorów <span class="math">\(\ v_1,\ldots,v_k\ \)</span> wynika zerowanie się
+wszystkich współczynników w kombinacji liniowej po lewej stronie równości:</p>
+<div class="math">
+\[\beta_i\ (\lambda_{k+1}-\lambda_i)\ =\ 0\qquad\text{dla}\quad i=1,\ldots,k\,.\]</div>
+<p>W szczególności, <span class="math">\(\,\)</span> dla <span class="math">\(\,i=i_0\ \)</span> otrzymujemy
+<span class="math">\(\ \beta_{i_0}\ (\lambda_{k+1}-\lambda_{i_0})\ =\ 0\,,\ \,\)</span> <span class="math">\(\\\)</span>
+co, <span class="math">\(\,\)</span> wobec <span class="math">\(\ \beta_{i_0}\neq 0\,,\ \,\)</span> oznacza <span class="math">\(\,\)</span> że
+<span class="math">\(\ \,\lambda_{k+1}=\lambda_{i_0}\,.\)</span></p>
+<p>Tak więc przypuszczenie, że wektory <span class="math">\(\ v_1,\ldots,v_k,\,v_{k+1}\ \)</span> są liniowo zależne,
+doprowadziło do sprzeczności z założeniem, że wszystkie wartości własne
+<span class="math">\(\ \lambda_1,\,\ldots,\,\lambda_k,\,\lambda_{k+1}\ \)</span> są różne.
+Wynika stąd, że wymienione wektory są liniowo niezależne, co kończy dowód.</p>
+</li>
+</ol>
+<p>Jak wiadomo, w <span class="math">\(\,n\)</span>-wymiarowej przestrzeni wektorowej
+każdy liniowo niezależny układ <span class="math">\(\,n\ \)</span> wektorów jest bazą.
+Jeżeli więc operator liniowy <span class="math">\(\,F\in\text{End}(V),\ \)</span> gdzie <span class="math">\(\,\dim V=n,\ \,\)</span>
+ma <span class="math">\(\,n\ \)</span> różnych wartości własnych, to istnieje baza przestrzeni <span class="math">\(\,V,\ \)</span>
+złożona z jego wektorów własnych. Dokładniej przedstawia to</p>
+<div class="admonition-wniosek admonition">
+<p class="first admonition-title">Wniosek.</p>
+<p>Jeżeli operator liniowy <span class="math">\(\,F,\ \)</span> określony na <span class="math">\(\,n\)</span>-wymiarowej
+przestrzeni wektorowej <span class="math">\(\,V(K),\ \,\)</span> ma <span class="math">\(\ \,n\ \,\)</span> różnych wartości własnych
+<span class="math">\(\ \,\lambda_1,\,\lambda_2,\,\ldots,\,\lambda_n\,,\ \,\)</span>
+którym odpowiadają wektory własne <span class="math">\(\ v_1,\,v_2,\,\ldots,\,v_n\,:\)</span></p>
+<div class="math">
+\[Fv_i\ =\ \lambda_i\,v_i\,,\quad v_i\neq\theta\,,\qquad i=1,2,\ldots,n\,,\]</div>
+<p class="last">to <span class="math">\(\,\)</span> układ <span class="math">\(\ \,\mathcal{B}=(v_1,v_2,\ldots,v_n)\ \,\)</span>
+jest bazą przestrzeni <span class="math">\(\,V.\)</span></p>
+</div>
+<p>Gdy <span class="math">\(\,V\ \)</span> jest przestrzenią unitarną albo euklidesową,
+a <span class="math">\(\ \,F\ \)</span> jest operatorem normalnym <span class="math">\(\\\)</span>
+(np. hermitowskim bądź unitarnym), <span class="math">\(\,\)</span>
+to wektory własne dla różnych wartości własnych są ortogonalne, wobec czego
+układ <span class="math">\(\,\mathcal{B}\ \,\)</span> jest wtedy bazą ortogonalną.</p>
+<p>Wniosek można też udowodnić jako niezależne</p>
+<div class="admonition-twierdzenie-2 admonition">
+<p class="first admonition-title">Twierdzenie 2.</p>
+<p class="last">Jeżeli operator liniowy <span class="math">\(\,F,\ \,\)</span> określony na <span class="math">\(\,n\)</span>-wymiarowej
+przestrzeni wektorowej <span class="math">\(\ V,\ \)</span> ma <span class="math">\(\,n\,\)</span> różnych wartości własnych,
+to odpowiednie wektory własne są liniowo niezależne, a więc tworzą bazę przestrzeni <span class="math">\(\ V.\)</span></p>
+</div>
+<p><strong>Dowód.</strong> <span class="math">\(\,\)</span> Zakładamy, że <span class="math">\(\ \ F\in\text{End}(V)\,,\ \ \)</span>
+gdzie <span class="math">\(\ \ V=V(K)\,,\ \ \dim V=n\,,\ \ \)</span> oraz <span class="math">\(\,\)</span> że</p>
+<div class="math">
+\[Fv_i=\lambda_i\,v_i\,,\ \ v_i\in V\!\smallsetminus\!\{\theta\}\,,\ \ \lambda_i\in K\,,\ \
+\text{przy czym}\ \ \lambda_i\neq\lambda_j\ \ \text{dla}\ \ i\neq j,\quad i,j=1,2,\ldots,n.\]</div>
+<p>Aby udowodnić liniową niezależność układu wektorów <span class="math">\(\ (v_1,v_2,\ldots,v_n)\ \)</span>
+stwierdzimy, że każda kombinacja liniowa tych wektorów, równa wektorowi zerowemu,
+jest kombinacją trywialną.</p>
+<p>Przypuśćmy więc, <span class="math">\(\,\)</span> że
+<span class="math">\(\quad\alpha_1\,v_1+\alpha_2\,v_2+\ldots+\alpha_n\,v_n=\theta\,,\quad
+\alpha_i\in K\,,\ \ i=1,2,\ldots,n\,.\)</span></p>
+<p>Działając na obie strony równości kolejno <span class="math">\(\,n-1\ \)</span> razy <span class="math">\(\,\)</span>
+operatorem <span class="math">\(\,F,\ \)</span> otrzymujemy:</p>
+<div class="math">
+\[\begin{alignat*}{5}
+1\ \,(\alpha_1\,v_1) & {\ \,} + {\ }   &
+1\ \,(\alpha_2\,v_2) & {\ \,} + {\ \,} &
+\ldots               & {\ \,} + {\ }   &
+1\ \,(\alpha_n\,v_n) & {\ \ } = {\ }   & \ \theta\,, \\
+\lambda_1\ \,(\alpha_1\,v_1) & {\ \,} + {\ }   &
+\lambda_2\ \,(\alpha_2\,v_2) & {\ \,} + {\ \,} &
+\ldots                       & {\ \,} + {\ }   &
+\lambda_n\ \,(\alpha_n\,v_n) & {\ \ } = {\ }   & \ \theta\,, \\
+\lambda_1^2\ \,(\alpha_1\,v_1) & {\ \,} + {\ }   &
+\lambda_2^2\ \,(\alpha_2\,v_2) & {\ \,} + {\ \,} &
+\ldots                         & {\ \,} + {\ }   &
+\lambda_n^2\ \,(\alpha_n\,v_n) & {\ \ } = {\ }   & \ \theta\,, \\
+\ldots\quad & {\ \,}   {\ }   &
+\ldots\quad & {\ \,}   {\ \,} &
+\ldots      & {\ \,}   {\ }   &
+\ldots\quad & {\ \ }   {\ }   & \ \\
+\lambda_1^{n-1}\ \,(\alpha_1\,v_1) & {\ \,} + {\ }   &
+\lambda_2^{n-1}\ \,(\alpha_2\,v_2) & {\ \,} + {\ \,} &
+\ldots                             & {\ \,} + {\ }   &
+\lambda_n^{n-1}\ \,(\alpha_n\,v_n) & {\ \ } = {\ }   & \ \theta\,.
+\end{alignat*}\]</div><p>Otrzymany układ równości można zapisać w postaci równania macierzowego:</p>
+<div class="math">
+\[\begin{split}\left[\begin{array}{cccc} 1               &amp; 1               &amp; \dots &amp; 1               \\
+                          \lambda_1       &amp; \lambda_2       &amp; \dots &amp; \lambda_n       \\
+                          \lambda_1^2     &amp; \lambda_2^2     &amp; \dots &amp; \lambda_n^2     \\
+                          \cdots          &amp; \cdots          &amp;\cdots &amp; \cdots          \\
+                          \lambda_1^{n-1} &amp; \lambda_2^{n-1} &amp; \dots &amp; \lambda_n^{n-1}
+\end{array}\right]
+\left[\begin{array}{c}
+\alpha_1\,v_1 \\ \alpha_2\,v_2 \\ \alpha_3\,v_3 \\ \cdots \\ \alpha_n\,v_n
+\end{array}\right]
+\ \ =\ \
+\left[\begin{array}{c}
+\theta \\ \theta \\ \theta \\ \cdots \\ \theta
+\end{array}\right]\,.\end{split}\]</div>
+<p>Gdy wartości własne <span class="math">\(\ \lambda_1,\,\lambda_2,\,\dots,\lambda_n\ \)</span> są wszystkie różne,
+to macierz kwadratowa po lewej stronie równania jest nieosobliwa, co wynika ze wzoru
+dla wyznacznika Vandermonde&#8217;a:</p>
+<div class="math">
+\[\begin{split}\left|\begin{array}{cccc} 1               &amp; 1               &amp; \dots &amp; 1               \\
+                          \lambda_1       &amp; \lambda_2       &amp; \dots &amp; \lambda_n       \\
+                          \lambda_1^2     &amp; \lambda_2^2     &amp; \dots &amp; \lambda_n^2     \\
+                          \cdots          &amp; \cdots          &amp;\cdots &amp; \cdots          \\
+                          \lambda_1^{n-1} &amp; \lambda_2^{n-1} &amp; \dots &amp; \lambda_n^{n-1}
+\end{array}\right|
+\quad =\ \
+\prod_{1\,\leq\,l\,&lt;\,k\,\leq\,n}^n\ (\lambda_k-\lambda_l)\quad\neq\quad0\,.\end{split}\]</div>
+<p>Wykorzystując istnienie macierzy odwrotnej, otrzymujemy</p>
+<div class="math">
+\[\begin{split}\left[\begin{array}{c}
+\alpha_1\,v_1 \\ \alpha_2\,v_2 \\ \alpha_3\,v_3 \\ \cdots \\ \alpha_n\,v_n
+\end{array}\right]
+\ \ =\ \
+\left[\begin{array}{cccc} 1               &amp; 1               &amp; \dots &amp; 1               \\
+                          \lambda_1       &amp; \lambda_2       &amp; \dots &amp; \lambda_n       \\
+                          \lambda_1^2     &amp; \lambda_2^2     &amp; \dots &amp; \lambda_n^2     \\
+                          \cdots          &amp; \cdots          &amp;\cdots &amp; \cdots          \\
+                          \lambda_1^{n-1} &amp; \lambda_2^{n-1} &amp; \dots &amp; \lambda_n^{n-1}
+\end{array}\right]^{-1}\
+\left[\begin{array}{c}
+\theta \\ \theta \\ \theta \\ \cdots \\ \theta
+\end{array}\right]\  =\
+\left[\begin{array}{c}
+\theta \\ \theta \\ \theta \\ \cdots \\ \theta
+\end{array}\right]\,.\end{split}\]</div>
+<p>Tak więc <span class="math">\(\ \ \alpha_i\,v_i=\theta\,,\ \ \)</span>
+skąd, <span class="math">\(\ \)</span> wobec <span class="math">\(\ \ v_i\neq\theta\,,\ \ \)</span>
+wynika, że <span class="math">\(\ \ \alpha_i=0\,,\quad i=1,2,\dots,n\,.\ \,\)</span>
+Zachodzi więc implikacja</p>
+<div class="math">
+\[\alpha_1\,v_1+\,\alpha_2\,v_2+\,\ldots\,+\,\alpha_n\,v_n\,=\,\theta
+\qquad\Rightarrow\qquad
+\alpha_1\,=\;\alpha_2\,=\;\ldots\;=\;\alpha_n\,=\;0\]</div>
+<p>która stwierdza liniową niezależność wektorów <span class="math">\(\ v_1,\,v_2,\,\ldots,\,v_n\,.\)</span></p>
+</div>
+
+
+          </div>
+        </div>
+      </div>
+      <div class="sphinxsidebar">
+        <div class="sphinxsidebarwrapper">
+  <h4>Poprzedni temat</h4>
+  <p class="topless"><a href="dowody_przeksztalcenia_lin.html"
+                        title="poprzedni rozdział">Przekształcenia liniowe</a></p>
+  <h4>Następny temat</h4>
+  <p class="topless"><a href="dowody_p_unitarne.html"
+                        title="następny rozdział">Przestrzenie unitarne</a></p>
+<div id="searchbox" style="display: none">
+  <h3>Szybkie wyszukiwanie</h3>
+    <form class="search" action="search.html" method="get">
+      <input type="text" name="q" />
+      <input type="submit" value="Szukaj" />
+      <input type="hidden" name="check_keywords" value="yes" />
+      <input type="hidden" name="area" value="default" />
+    </form>
+    <p class="searchtip" style="font-size: 90%">
+    Wprowadź szukany termin lub nazwę modułu, klasy lub funkcji.
+    </p>
+</div>
+<script type="text/javascript">$('#searchbox').show(0);</script>
+        </div>
+      </div>
+      <div class="clearer"></div>
+    </div>
+  </div>
+  <div class="relbar-bottom">
+    
+    <div class="related">
+      <h3>Nawigacja</h3>
+      <ul>
+        <li class="right" style="margin-right: 10px">
+          <a href="dowody_p_unitarne.html" title="Przestrzenie unitarne"
+             >dalej</a></li>
+        <li class="right" >
+          <a href="dowody_przeksztalcenia_lin.html" title="Przekształcenia liniowe"
+             >wstecz</a> &nbsp; &nbsp;</li>
+  <li><a href="http://visual.icse.us.edu.pl/LA/index.html">Algebra Liniowa</a> &raquo;</li>
+   
+      </ul>
+    </div>
+  </div>
+  
+  <div class="footer">
+    <a class="logo" href="../../icse.us.edu.pl/index.html" target="_blank"><img src="_static/logo-icse.png" alt="ICSE"/></a><br/>
+    &copy; Copyright 2013, Marcin Kostur.
+    Created using <a href="http://sphinx.pocoo.org/">Sphinx</a> 1.2.2.
+  </div>
+  </body>
+</html>

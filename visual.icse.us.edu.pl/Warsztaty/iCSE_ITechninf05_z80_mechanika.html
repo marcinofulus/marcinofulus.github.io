@@ -1,0 +1,514 @@
+
+
+  <!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+  "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+
+
+<html xmlns="http://www.w3.org/1999/xhtml">
+  <head>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    
+    <title>Zadania z fizyki &mdash; Warsztaty</title>
+    
+    <link rel="stylesheet" href="_static/cloud.css" type="text/css" />
+    <link rel="stylesheet" href="_static/pygments.css" type="text/css" />
+    <link rel="stylesheet" href="http://fonts.googleapis.com/css?family=Noticia+Text|Open+Sans|Droid+Sans+Mono&subset=latin,latin-ext" type="text/css" />
+    
+    <script type="text/javascript">
+      var DOCUMENTATION_OPTIONS = {
+        URL_ROOT:    './',
+        VERSION:     'I',
+        COLLAPSE_INDEX: false,
+        FILE_SUFFIX: '.html',
+        HAS_SOURCE:  true
+      };
+    </script>
+    <script type="text/javascript" src="_static/jquery.js"></script>
+    <script type="text/javascript" src="_static/underscore.js"></script>
+    <script type="text/javascript" src="_static/doctools.js"></script>
+    <script type="text/javascript" src="_static/translations.js"></script>
+    <script type="text/javascript" src="http://cdn.mathjax.org/mathjax/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML"></script>
+    <script type="text/javascript" src="_static/jquery.cookie.js"></script>
+    <script type="text/javascript" src="_static/cloud.js"></script>
+
+
+
+    <script src="http://sagecell.icse.us.edu.pl:6363/static/jquery.min.js"></script>
+	<script src="http://sagecell.icse.us.edu.pl:6363/static/embedded_sagecell.js"></script>
+
+	<script>sagecell.makeSagecell({inputLocation: ".sage",
+                                       evalButtonText: 'Wykonaj',
+                                       linked: true});</script>
+
+	<style type="text/css">
+		.sagecell .CodeMirror-scroll {
+			overflow-y: hidden;
+			overflow-x: auto;
+		}
+		.sagecell .CodeMirror {
+			height: auto;
+		}
+	</style>
+
+    
+    <link rel="top" title="Warsztaty" href="index.html" />
+    <link rel="up" title="&lt;no title&gt;" href="sagewfizyce.html" />
+    <link rel="next" title="Zmienne" href="iCSE_ITechninf02_z11.html" />
+    <link rel="prev" title="Wykresy" href="iCSE_ITechninf04_z78.html" />
+ 
+  <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, minimum-scale=1">
+  </head>
+  <body>
+  <div class="relbar-top">
+    
+    <div class="related">
+      <h3>Nawigacja</h3>
+      <ul>
+        <li class="right" style="margin-right: 10px">
+          <a href="iCSE_ITechninf02_z11.html" title="Zmienne"
+             accesskey="N">dalej</a></li>
+        <li class="right" >
+          <a href="iCSE_ITechninf04_z78.html" title="Wykresy"
+             accesskey="P">wstecz</a> &nbsp; &nbsp;</li>
+  <li><a href="index.html">Warsztaty</a> &raquo;</li>
+  
+          <li><a href="sagewfizyce.html" accesskey="U">&lt;no title&gt;</a> &raquo;</li> 
+      </ul>
+    </div>
+  </div>
+  
+  <div class="content">  
+
+    <div class="document">
+      <div class="documentwrapper">
+        <div class="bodywrapper">
+          <div class="body">
+            
+  <div class="section" id="zadania-z-fizyki">
+<h1>Zadania z fizyki<a class="headerlink" href="iCSE_ITechninf05_z80_mechanika.html#zadania-z-fizyki" title="Stały odnośnik do tego nagłówka">¶</a></h1>
+<p>Rozwiążmy teraz kilka wybranych zadań z fizyki (Resnick, Halliday) przy pomocy Sage&#8217;a.</p>
+<p><strong>Zadanie (ResHol10r3t1)</strong></p>
+<p>Położenie punktu materialnego poruszającego się wzdłuż osi <span class="math">\(x\)</span> zależy od czasu jak</p>
+<p><span class="math">\(x = \frac{v_{0}}{k}(1 - e^{-kt})\)</span></p>
+<p>gdzie <span class="math">\(v_{0}\)</span> oraz <span class="math">\(k\)</span> są wielkościami stałymi.</p>
+<blockquote>
+<div><ol class="arabic simple">
+<li>zrób wykres zależności <span class="math">\(x\)</span> od <span class="math">\(t\)</span>; jaką wartość przyjmuje <span class="math">\(x\)</span> dla <span class="math">\(t=0\)</span> i <span class="math">\(t=\infty\)</span>?</li>
+<li>Jaka jest całkowita odległość jaką pokonuje punkt?</li>
+<li>Znajdź równanie na prędkość i przyspieszenie. Jaka jest zależność między prędkością i przyspieszeniem?</li>
+</ol>
+</div></blockquote>
+<p>Uwaga: w rysunkach opisz osie, użyj różnych kolorów jeżeli będziesz umieszczał więcej niż jedną linię na wykresie, zrób legendę opisującą konkretne funkcje.</p>
+<p>Rozwiązanie:</p>
+<div class="highlight-python"><div class="highlight"><pre><span class="n">sage</span><span class="p">:</span> <span class="n">reset</span><span class="p">()</span>
+<span class="n">sage</span><span class="p">:</span> <span class="n">t</span><span class="p">,</span> <span class="n">v_0</span><span class="p">,</span> <span class="n">k</span> <span class="o">=</span> <span class="n">var</span><span class="p">(</span><span class="s">&#39;t v_0 k&#39;</span><span class="p">)</span>
+<span class="n">sage</span><span class="p">:</span> <span class="n">x</span><span class="p">(</span><span class="n">t</span><span class="p">,</span><span class="n">v_0</span><span class="p">,</span><span class="n">k</span><span class="p">)</span> <span class="o">=</span> <span class="n">v_0</span> <span class="o">/</span> <span class="n">k</span> <span class="o">*</span> <span class="p">(</span><span class="mi">1</span> <span class="o">-</span> <span class="n">e</span><span class="o">^</span><span class="p">(</span><span class="o">-</span><span class="n">k</span><span class="o">*</span><span class="n">t</span><span class="p">))</span>
+</pre></div>
+</div>
+<div class="highlight-python"><div class="highlight"><pre><span class="n">sage</span><span class="p">:</span> <span class="c"># punkt 1</span>
+<span class="n">sage</span><span class="p">:</span> <span class="n">plot</span><span class="p">(</span><span class="n">x</span><span class="p">(</span><span class="n">t</span><span class="p">,</span><span class="mi">1</span><span class="p">,</span><span class="mi">1</span><span class="p">),</span> <span class="p">(</span><span class="n">t</span><span class="p">,</span><span class="mi">0</span><span class="p">,</span><span class="mi">10</span><span class="p">))</span><span class="o">.</span><span class="n">show</span><span class="p">(</span><span class="n">axes_labels</span><span class="o">=</span><span class="p">[</span><span class="s">&quot;$t$&quot;</span><span class="p">,</span><span class="s">&quot;$x(t)$&quot;</span><span class="p">],</span>
+<span class="o">...</span>      <span class="n">fontsize</span><span class="o">=</span><span class="mi">14</span><span class="p">,</span> <span class="n">legend_loc</span><span class="o">=</span><span class="s">&#39;lower right&#39;</span><span class="p">)</span>
+<span class="n">sage</span><span class="p">:</span> <span class="c"># t = 0</span>
+<span class="n">sage</span><span class="p">:</span> <span class="n">asympt1</span> <span class="o">=</span> <span class="n">x</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span> <span class="n">v_0</span><span class="p">,</span> <span class="n">k</span><span class="p">);</span> <span class="n">show</span><span class="p">(</span><span class="s">&quot;$x(0) = </span><span class="si">%s</span><span class="s">$&quot;</span><span class="o">%</span><span class="n">asympt1</span><span class="p">)</span>
+<span class="n">sage</span><span class="p">:</span> <span class="c"># t = inf</span>
+<span class="n">sage</span><span class="p">:</span> <span class="n">asympt2</span> <span class="o">=</span> <span class="n">x</span><span class="p">(</span><span class="n">Infinity</span><span class="p">,</span> <span class="n">v_0</span><span class="p">,</span> <span class="n">k</span><span class="p">);</span> <span class="n">show</span><span class="p">(</span><span class="s">&quot;$x(\infty) = </span><span class="si">%s</span><span class="s">$&quot;</span><span class="o">%</span><span class="n">asympt2</span><span class="p">)</span>
+</pre></div>
+</div>
+<img alt="_images/cell_26_sage01.png" class="align-center" src="_images/cell_26_sage01.png" />
+<div class="math">
+\[\hbox{$x(0) = 0$}\]</div>
+<div class="math">
+\[\hbox{$x(\infty) = v_0/k$}\]</div>
+<div class="highlight-python"><div class="highlight"><pre>sage: # punkt 2
+sage: droga = asympt2 - asympt1;
+...      show(&quot;Całkowita droga pokonana przez punkt to
+...      $x(\infty) - x(0) = %s$&quot;%droga)
+</pre></div>
+</div>
+<div class="math">
+\[\hbox{Całkowita droga pokonana przez punkt to $x(\infty) - x(0) = v_0/k$}\]</div>
+<div class="highlight-python"><div class="highlight"><pre><span class="n">sage</span><span class="p">:</span> <span class="n">v</span> <span class="o">=</span> <span class="n">x</span><span class="o">.</span><span class="n">diff</span><span class="p">(</span><span class="n">t</span><span class="p">);</span> <span class="k">print</span> <span class="s">&quot;prędkość&quot;</span><span class="p">;</span> <span class="n">show</span><span class="p">(</span><span class="n">v</span><span class="p">)</span>
+<span class="n">sage</span><span class="p">:</span> <span class="n">a</span> <span class="o">=</span> <span class="n">x</span><span class="o">.</span><span class="n">diff</span><span class="p">(</span><span class="n">t</span><span class="p">,</span><span class="mi">2</span><span class="p">);</span> <span class="k">print</span> <span class="s">&quot;przyspieszenie&quot;</span><span class="p">;</span> <span class="n">show</span><span class="p">(</span><span class="n">a</span><span class="p">)</span>
+</pre></div>
+</div>
+<p>prędkość</p>
+<div class="math">
+\[\left( t, v_{0}, k \right) \ {\mapsto} \ v_{0} e^{\left(-k t\right)}\]</div>
+<p>przyspieszenie</p>
+<div class="math">
+\[\left( t, v_{0}, k \right) \ {\mapsto} \ -k v_{0} e^{\left(-k t\right)}\]</div>
+<div class="highlight-python"><div class="highlight"><pre><span class="n">sage</span><span class="p">:</span> <span class="c"># ustawiamy parametry dla dodatniej prędkości początkowej</span>
+<span class="n">sage</span><span class="p">:</span> <span class="n">v0n</span><span class="p">,</span> <span class="n">kn</span> <span class="o">=</span> <span class="mi">2</span><span class="p">,</span> <span class="mi">1</span>
+<span class="n">sage</span><span class="p">:</span> <span class="k">print</span> <span class="s">&quot;v_n = </span><span class="si">%s</span><span class="s">, k = </span><span class="si">%s</span><span class="s">&quot;</span> <span class="o">%</span> <span class="p">(</span><span class="n">v0n</span><span class="p">,</span> <span class="n">kn</span><span class="p">)</span>
+<span class="n">sage</span><span class="p">:</span> <span class="n">show</span><span class="p">(</span><span class="s">&quot;asymptota $x(\infty) =</span><span class="si">%s</span><span class="s">$&quot;</span><span class="o">%</span> <span class="n">asympt2</span><span class="p">(</span><span class="n">v_0</span><span class="o">=</span><span class="n">v0n</span><span class="p">,</span><span class="n">k</span><span class="o">=</span><span class="n">kn</span><span class="p">))</span>
+<span class="n">sage</span><span class="p">:</span> <span class="c"># i rysujemy krzywe</span>
+<span class="n">sage</span><span class="p">:</span> <span class="p">(</span><span class="n">plot</span><span class="p">(</span><span class="n">x</span><span class="p">(</span><span class="n">t</span><span class="p">,</span><span class="n">v_0</span><span class="o">=</span><span class="n">v0n</span><span class="p">,</span><span class="n">k</span><span class="o">=</span><span class="n">kn</span><span class="p">),</span> <span class="p">(</span><span class="n">t</span><span class="p">,</span><span class="mi">0</span><span class="p">,</span><span class="mi">10</span><span class="p">),</span> <span class="n">legend_label</span><span class="o">=</span><span class="s">r&quot;$x(t)$&quot;</span><span class="p">)</span> <span class="o">+</span>
+<span class="n">sage</span><span class="p">:</span> <span class="n">plot</span><span class="p">(</span><span class="n">v</span><span class="p">(</span><span class="n">t</span><span class="p">,</span><span class="n">v_0</span><span class="o">=</span><span class="n">v0n</span><span class="p">,</span><span class="n">k</span><span class="o">=</span><span class="n">kn</span><span class="p">),</span> <span class="p">(</span><span class="n">t</span><span class="p">,</span><span class="mi">0</span><span class="p">,</span><span class="mi">10</span><span class="p">),</span> <span class="n">color</span><span class="o">=</span><span class="s">&#39;red&#39;</span><span class="p">,</span>
+<span class="o">...</span>      <span class="n">legend_label</span><span class="o">=</span><span class="s">r&quot;$v(t)$&quot;</span><span class="p">)</span> <span class="o">+</span>
+<span class="n">sage</span><span class="p">:</span> <span class="n">plot</span><span class="p">(</span><span class="n">a</span><span class="p">(</span><span class="n">t</span><span class="p">,</span><span class="n">v_0</span><span class="o">=</span><span class="n">v0n</span><span class="p">,</span><span class="n">k</span><span class="o">=</span><span class="n">kn</span><span class="p">),</span> <span class="p">(</span><span class="n">t</span><span class="p">,</span><span class="mi">0</span><span class="p">,</span><span class="mi">10</span><span class="p">),</span> <span class="n">color</span><span class="o">=</span><span class="s">&#39;green&#39;</span><span class="p">,</span>
+<span class="o">...</span>      <span class="n">legend_label</span><span class="o">=</span><span class="s">r&quot;$a(t)$&quot;</span><span class="p">)</span> <span class="o">+</span>
+<span class="n">sage</span><span class="p">:</span> <span class="n">plot</span><span class="p">(</span><span class="n">asympt1</span><span class="p">(</span><span class="n">v_0</span><span class="o">=</span><span class="n">v0n</span><span class="p">,</span><span class="n">k</span><span class="o">=</span><span class="n">kn</span><span class="p">),</span> <span class="p">(</span><span class="n">t</span><span class="p">,</span><span class="mi">0</span><span class="p">,</span><span class="mi">10</span><span class="p">),</span> <span class="n">color</span><span class="o">=</span><span class="s">&#39;black&#39;</span><span class="p">,</span>
+<span class="o">...</span>      <span class="n">legend_label</span><span class="o">=</span><span class="s">r&quot;asymptota $x(0) = </span><span class="si">%s</span><span class="s">$&quot;</span><span class="o">%</span><span class="n">asympt1</span><span class="p">,</span> <span class="n">linestyle</span><span class="o">=</span><span class="s">&#39;dotted&#39;</span><span class="p">)</span> <span class="o">+</span>
+<span class="n">sage</span><span class="p">:</span> <span class="n">plot</span><span class="p">(</span><span class="n">asympt2</span><span class="p">(</span><span class="n">v_0</span><span class="o">=</span><span class="n">v0n</span><span class="p">,</span><span class="n">k</span><span class="o">=</span><span class="n">kn</span><span class="p">),</span> <span class="p">(</span><span class="n">t</span><span class="p">,</span><span class="mi">0</span><span class="p">,</span><span class="mi">10</span><span class="p">),</span> <span class="n">color</span><span class="o">=</span><span class="s">&#39;black&#39;</span><span class="p">,</span>
+<span class="o">...</span>      <span class="n">legend_label</span><span class="o">=</span><span class="s">r&quot;asymptota $x(\infty) = </span><span class="si">%s</span><span class="s">$&quot;</span><span class="o">%</span><span class="n">asympt2</span><span class="p">,</span>
+<span class="o">...</span>      <span class="n">linestyle</span><span class="o">=</span><span class="s">&#39;dotted&#39;</span><span class="p">))</span><span class="o">.</span><span class="n">show</span><span class="p">(</span><span class="n">axes_labels</span><span class="o">=</span><span class="p">[</span><span class="s">&quot;$t$&quot;</span><span class="p">,</span><span class="s">&quot;$x,v,a$&quot;</span><span class="p">],</span>
+<span class="o">...</span>      <span class="n">fontsize</span><span class="o">=</span><span class="mi">14</span><span class="p">,</span> <span class="n">legend_loc</span><span class="o">=</span><span class="s">&#39;lower right&#39;</span><span class="p">)</span>
+</pre></div>
+</div>
+<p>v_n = 2, k = 1</p>
+<div class="math">
+\[\hbox{asymptota $x(\infty) =2$}\]</div>
+<img alt="_images/cell_20_sage0.png" class="align-center" src="_images/cell_20_sage0.png" />
+<p>Znak prędkości zawsze jest odwrotny do znaku przyspieszenia, bo <span class="math">\(a(t) = - k v(t)\)</span>.</p>
+<div class="highlight-python"><div class="highlight"><pre><span class="n">sage</span><span class="p">:</span> <span class="c"># ustawiamy parametry dla ujemnej prędkości początkowej</span>
+<span class="n">sage</span><span class="p">:</span> <span class="n">v0n</span><span class="p">,</span> <span class="n">kn</span> <span class="o">=</span> <span class="o">-</span><span class="mi">2</span><span class="p">,</span> <span class="mf">0.3</span>
+<span class="n">sage</span><span class="p">:</span> <span class="k">print</span> <span class="s">&quot;v_n = </span><span class="si">%s</span><span class="s">, k = </span><span class="si">%s</span><span class="s">&quot;</span> <span class="o">%</span> <span class="p">(</span><span class="n">v0n</span><span class="p">,</span> <span class="n">kn</span><span class="p">)</span>
+<span class="n">sage</span><span class="p">:</span> <span class="n">show</span><span class="p">(</span><span class="s">&quot;asymptota $x(\infty) =</span><span class="si">%.2f</span><span class="s">$&quot;</span><span class="o">%</span> <span class="n">asympt2</span><span class="p">(</span><span class="n">v_0</span><span class="o">=</span><span class="n">v0n</span><span class="p">,</span><span class="n">k</span><span class="o">=</span><span class="n">kn</span><span class="p">))</span>
+<span class="n">sage</span><span class="p">:</span> <span class="c"># i rysujemy krzywe</span>
+<span class="n">sage</span><span class="p">:</span> <span class="p">(</span><span class="n">plot</span><span class="p">(</span><span class="n">x</span><span class="p">(</span><span class="n">t</span><span class="p">,</span><span class="n">v_0</span><span class="o">=</span><span class="n">v0n</span><span class="p">,</span><span class="n">k</span><span class="o">=</span><span class="n">kn</span><span class="p">),</span> <span class="p">(</span><span class="n">t</span><span class="p">,</span><span class="mi">0</span><span class="p">,</span><span class="mi">10</span><span class="p">),</span> <span class="n">legend_label</span><span class="o">=</span><span class="s">r&quot;$x(t)$&quot;</span><span class="p">)</span> <span class="o">+</span>
+<span class="n">sage</span><span class="p">:</span> <span class="n">plot</span><span class="p">(</span><span class="n">v</span><span class="p">(</span><span class="n">t</span><span class="p">,</span><span class="n">v_0</span><span class="o">=</span><span class="n">v0n</span><span class="p">,</span><span class="n">k</span><span class="o">=</span><span class="n">kn</span><span class="p">),</span> <span class="p">(</span><span class="n">t</span><span class="p">,</span><span class="mi">0</span><span class="p">,</span><span class="mi">10</span><span class="p">),</span> <span class="n">color</span><span class="o">=</span><span class="s">&#39;red&#39;</span><span class="p">,</span>
+<span class="o">...</span>      <span class="n">legend_label</span><span class="o">=</span><span class="s">r&quot;$v(t)$&quot;</span><span class="p">)</span> <span class="o">+</span>
+<span class="n">sage</span><span class="p">:</span> <span class="n">plot</span><span class="p">(</span><span class="n">a</span><span class="p">(</span><span class="n">t</span><span class="p">,</span><span class="n">v_0</span><span class="o">=</span><span class="n">v0n</span><span class="p">,</span><span class="n">k</span><span class="o">=</span><span class="n">kn</span><span class="p">),</span> <span class="p">(</span><span class="n">t</span><span class="p">,</span><span class="mi">0</span><span class="p">,</span><span class="mi">10</span><span class="p">),</span> <span class="n">color</span><span class="o">=</span><span class="s">&#39;green&#39;</span><span class="p">,</span>
+<span class="o">...</span>      <span class="n">legend_label</span><span class="o">=</span><span class="s">r&quot;$a(t)$&quot;</span><span class="p">)</span> <span class="o">+</span>
+<span class="n">sage</span><span class="p">:</span> <span class="n">plot</span><span class="p">(</span><span class="n">asympt1</span><span class="p">(</span><span class="n">v_0</span><span class="o">=</span><span class="n">v0n</span><span class="p">,</span><span class="n">k</span><span class="o">=</span><span class="n">kn</span><span class="p">),</span> <span class="p">(</span><span class="n">t</span><span class="p">,</span><span class="mi">0</span><span class="p">,</span><span class="mi">10</span><span class="p">),</span> <span class="n">color</span><span class="o">=</span><span class="s">&#39;black&#39;</span><span class="p">,</span>
+<span class="o">...</span>      <span class="n">legend_label</span><span class="o">=</span><span class="s">r&quot;asymptota $x(0) = </span><span class="si">%s</span><span class="s">$&quot;</span><span class="o">%</span><span class="n">asympt1</span><span class="p">,</span> <span class="n">linestyle</span><span class="o">=</span><span class="s">&#39;dotted&#39;</span><span class="p">)</span> <span class="o">+</span>
+<span class="n">sage</span><span class="p">:</span> <span class="n">plot</span><span class="p">(</span><span class="n">asympt2</span><span class="p">(</span><span class="n">v_0</span><span class="o">=</span><span class="n">v0n</span><span class="p">,</span><span class="n">k</span><span class="o">=</span><span class="n">kn</span><span class="p">),</span> <span class="p">(</span><span class="n">t</span><span class="p">,</span><span class="mi">0</span><span class="p">,</span><span class="mi">10</span><span class="p">),</span> <span class="n">color</span><span class="o">=</span><span class="s">&#39;black&#39;</span><span class="p">,</span>
+<span class="o">...</span>      <span class="n">legend_label</span><span class="o">=</span><span class="s">r&quot;asymptota $x(\infty) = </span><span class="si">%s</span><span class="s">$&quot;</span><span class="o">%</span><span class="n">asympt2</span><span class="p">,</span>
+<span class="o">...</span>      <span class="n">linestyle</span><span class="o">=</span><span class="s">&#39;dotted&#39;</span><span class="p">))</span><span class="o">.</span><span class="n">show</span><span class="p">(</span><span class="n">axes_labels</span><span class="o">=</span><span class="p">[</span><span class="s">&quot;$t$&quot;</span><span class="p">,</span><span class="s">&quot;$x,v,a$&quot;</span><span class="p">],</span>
+<span class="o">...</span>      <span class="n">fontsize</span><span class="o">=</span><span class="mi">14</span><span class="p">,</span> <span class="n">legend_loc</span><span class="o">=</span><span class="mi">0</span><span class="p">)</span>
+</pre></div>
+</div>
+<p>v_n = -2, k = 0.300000000000000</p>
+<div class="math">
+\[\hbox{asymptota $x(\infty) =-6.67$}\]</div>
+<img alt="_images/cell_32_sage0.png" class="align-center" src="_images/cell_32_sage0.png" />
+<p><strong>Zadanie 2, (ResHol29r3t1)</strong></p>
+<p>Zależność położenia punktu poruszającego się wzdłuż osi <span class="math">\(x\)</span> od czasu dana jest wzorem</p>
+<p><span class="math">\(x = at^2 - bt^3\)</span>.</p>
+<p>Jednostkami <span class="math">\(x\)</span> i <span class="math">\(t\)</span> są <span class="math">\([x] = m\)</span>, a czasu <span class="math">\([t] = s\)</span>.</p>
+<p>Pytania (przyjmijmy, że <span class="math">\(a = 3\)</span>, <span class="math">\(b=1\)</span>):</p>
+<blockquote>
+<div><ol class="arabic simple">
+<li>Jakie wymiary powinny mieć stałe <span class="math">\(a\)</span> i <span class="math">\(b\)</span>.</li>
+<li>Po jakim czasie punkt osiągnie maksymalną odległość w kierunku dodatnim osi <span class="math">\(x\)</span>?</li>
+<li>Jaka będzie całkowita droga przebyta przez pierwsze 4s?</li>
+<li>Jakie jest przemieszczenie punktu po owych 4s?</li>
+<li>Jaka jest prędkość punktu po upływie każdej z czterech pierwszych sekund?</li>
+</ol>
+</div></blockquote>
+<div class="highlight-python"><div class="highlight"><pre><span class="n">sage</span><span class="p">:</span> <span class="n">reset</span><span class="p">()</span>
+<span class="n">sage</span><span class="p">:</span> <span class="n">var</span><span class="p">(</span><span class="s">&#39;t a b&#39;</span><span class="p">)</span>
+<span class="n">sage</span><span class="p">:</span> <span class="n">an</span><span class="p">,</span> <span class="n">bn</span> <span class="o">=</span> <span class="mi">3</span><span class="p">,</span> <span class="mi">1</span>
+<span class="n">sage</span><span class="p">:</span> <span class="n">x</span><span class="p">(</span><span class="n">t</span><span class="p">,</span><span class="n">a</span><span class="p">,</span><span class="n">b</span><span class="p">)</span> <span class="o">=</span> <span class="n">a</span><span class="o">*</span><span class="n">t</span><span class="o">^</span><span class="mi">2</span> <span class="o">-</span> <span class="n">b</span><span class="o">*</span><span class="n">t</span><span class="o">^</span><span class="mi">3</span>
+</pre></div>
+</div>
+<div class="highlight-python"><div class="highlight"><pre><span class="n">sage</span><span class="p">:</span> <span class="c"># punkt 1, jednostki</span>
+<span class="n">sage</span><span class="p">:</span> <span class="n">var</span><span class="p">(</span><span class="s">&#39;m s&#39;</span><span class="p">)</span>
+<span class="n">sage</span><span class="p">:</span> <span class="n">r_jednostka_a</span> <span class="o">=</span> <span class="n">m</span> <span class="o">==</span> <span class="n">a</span> <span class="o">*</span> <span class="n">s</span><span class="o">^</span><span class="mi">2</span>
+<span class="n">sage</span><span class="p">:</span> <span class="n">jednostka_a</span> <span class="o">=</span> <span class="n">solve</span><span class="p">(</span><span class="n">r_jednostka_a</span><span class="p">,</span><span class="n">a</span><span class="p">)</span>
+<span class="n">sage</span><span class="p">:</span> <span class="n">r_jednostka_b</span> <span class="o">=</span> <span class="n">m</span> <span class="o">==</span> <span class="n">b</span> <span class="o">*</span> <span class="n">s</span><span class="o">^</span><span class="mi">3</span>
+<span class="n">sage</span><span class="p">:</span> <span class="n">jednostka_b</span> <span class="o">=</span> <span class="n">solve</span><span class="p">(</span><span class="n">r_jednostka_b</span><span class="p">,</span><span class="n">b</span><span class="p">)</span>
+<span class="n">sage</span><span class="p">:</span> <span class="c"># odp, punkt 1</span>
+<span class="n">sage</span><span class="p">:</span> <span class="n">show</span><span class="p">(</span><span class="s">&quot;[a] = $</span><span class="si">%s</span><span class="s">$, [b] = $</span><span class="si">%s</span><span class="s">$&quot;</span> <span class="o">%</span> <span class="p">(</span><span class="n">jednostka_a</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span><span class="o">.</span><span class="n">rhs</span><span class="p">(),</span>
+<span class="o">...</span>      <span class="n">jednostka_b</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span><span class="o">.</span><span class="n">rhs</span><span class="p">()))</span>
+</pre></div>
+</div>
+<div class="math">
+\[\hbox{[a] = $m/s^2$, [b] = $m/s^3$}\]</div>
+<div class="highlight-python"><div class="highlight"><pre><span class="n">sage</span><span class="p">:</span> <span class="c"># punkt 2, maksymalna odległość w kierunku dodatnim osi x</span>
+<span class="n">sage</span><span class="p">:</span> <span class="c"># najpierw zobaczymy jak wygląda x</span>
+<span class="n">sage</span><span class="p">:</span> <span class="n">plot</span><span class="p">(</span><span class="n">x</span><span class="p">(</span><span class="n">t</span><span class="p">,</span><span class="n">an</span><span class="p">,</span><span class="n">bn</span><span class="p">),</span> <span class="p">(</span><span class="n">t</span><span class="p">,</span><span class="mi">0</span><span class="p">,</span><span class="mi">4</span><span class="p">),</span> <span class="n">fill</span><span class="o">=</span><span class="bp">True</span><span class="p">,</span> <span class="n">fillcolor</span><span class="o">=</span><span class="s">&quot;yellow&quot;</span><span class="p">,</span>
+<span class="o">...</span>          <span class="n">thickness</span><span class="o">=</span><span class="mi">2</span><span class="p">,</span> <span class="p">)</span><span class="o">.</span><span class="n">show</span><span class="p">(</span><span class="n">axes_labels</span><span class="o">=</span><span class="p">[</span><span class="s">&quot;$t$&quot;</span><span class="p">,</span><span class="s">&quot;$x(t)$&quot;</span><span class="p">],</span> <span class="n">fontsize</span><span class="o">=</span><span class="mi">12</span><span class="p">)</span>
+</pre></div>
+</div>
+<img alt="_images/cell_35_sage01.png" class="align-center" src="_images/cell_35_sage01.png" />
+<div class="highlight-python"><div class="highlight"><pre><span class="n">sage</span><span class="p">:</span> <span class="c"># widzimy, że maksymalna odległość w kierunku dodatniej osi dana jest</span>
+<span class="n">sage</span><span class="p">:</span> <span class="c"># przez maksimum funkcji x</span>
+<span class="n">sage</span><span class="p">:</span> <span class="c"># obliczmy t dla którego mamy owo maksimum -</span>
+<span class="n">sage</span><span class="p">:</span> <span class="c"># wystarczy znajeźć miejsca zerowe pochodnej</span>
+<span class="n">sage</span><span class="p">:</span> <span class="n">v</span> <span class="o">=</span> <span class="n">x</span><span class="o">.</span><span class="n">diff</span><span class="p">(</span><span class="n">t</span><span class="p">);</span> <span class="k">print</span> <span class="n">v</span>
+<span class="n">sage</span><span class="p">:</span> <span class="n">zerav</span> <span class="o">=</span> <span class="n">solve</span><span class="p">(</span><span class="n">v</span> <span class="o">==</span> <span class="mi">0</span><span class="p">,</span> <span class="n">t</span><span class="p">)</span>
+</pre></div>
+</div>
+<p>(t, a, b) &#8211;&gt; -3*b*t^2 + 2*a*t</p>
+<div class="highlight-python"><div class="highlight"><pre><span class="n">sage</span><span class="p">:</span> <span class="c"># czas po jakim osiągamy maksimum</span>
+<span class="n">sage</span><span class="p">:</span> <span class="n">maksimumx_t</span><span class="p">(</span><span class="n">a</span><span class="p">,</span><span class="n">b</span><span class="p">)</span> <span class="o">=</span> <span class="n">zerav</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span><span class="o">.</span><span class="n">rhs</span><span class="p">();</span> <span class="k">print</span> <span class="n">maksimumx_t</span>
+</pre></div>
+</div>
+<p>(a, b) &#8211;&gt; 2/3*a/b</p>
+<div class="highlight-python"><div class="highlight"><pre><span class="n">sage</span><span class="p">:</span> <span class="c"># zatem, dla naszych parametrów</span>
+<span class="n">sage</span><span class="p">:</span> <span class="k">print</span> <span class="s">&quot;maks. odl. w kierunku dodatnim osi x osiągnięta zostanie po &quot;</span><span class="p">,</span>
+<span class="o">...</span>          <span class="n">maksimumx_t</span><span class="p">(</span><span class="n">an</span><span class="p">,</span><span class="n">bn</span><span class="p">),</span> <span class="s">&quot;sekundach&quot;</span>
+</pre></div>
+</div>
+<p>maks. odl. w kierunku dodatnim osi x osiągnięta zostanie po  2 sekundach</p>
+<div class="highlight-python"><div class="highlight"><pre><span class="n">sage</span><span class="p">:</span> <span class="c"># pytanie 3: Jaka będzie całkowita droga przbyta przez pierwsze 4s?</span>
+<span class="n">sage</span><span class="p">:</span> <span class="c"># należy wziąść pod uwagę, że punkt na początku poruszał się</span>
+<span class="n">sage</span><span class="p">:</span> <span class="c"># w kierunku dodatnich x</span>
+<span class="n">sage</span><span class="p">:</span> <span class="c"># a później w kierunku ujemnych, więc najprościej jest napisać</span>
+<span class="n">sage</span><span class="p">:</span> <span class="n">droga</span> <span class="o">=</span> <span class="nb">abs</span><span class="p">(</span><span class="n">x</span><span class="p">(</span><span class="mi">4</span><span class="p">,</span><span class="n">an</span><span class="p">,</span><span class="n">bn</span><span class="p">))</span> <span class="o">+</span> <span class="n">x</span><span class="p">(</span><span class="n">maksimumx_t</span><span class="p">(</span><span class="n">an</span><span class="p">,</span><span class="n">bn</span><span class="p">),</span><span class="n">an</span><span class="p">,</span> <span class="n">bn</span><span class="p">)</span> <span class="o">*</span> <span class="mi">2</span><span class="p">;</span>
+<span class="o">...</span>          <span class="k">print</span> <span class="s">&quot;droga po 4 sekundach wynosi </span><span class="si">%d</span><span class="s">m&quot;</span> <span class="o">%</span> <span class="n">droga</span>
+</pre></div>
+</div>
+<p>droga po 4 sekundach wynosi 24m</p>
+<div class="highlight-python"><div class="highlight"><pre><span class="n">sage</span><span class="p">:</span> <span class="c"># lub nieco bardziej rozsądnie, czyli długość krzywej</span>
+<span class="n">sage</span><span class="p">:</span> <span class="c"># (choć nie za dokładnie toto liczy...)</span>
+<span class="n">sage</span><span class="p">:</span> <span class="n">xn</span><span class="p">(</span><span class="n">t</span><span class="p">)</span> <span class="o">=</span> <span class="n">x</span><span class="p">(</span><span class="n">t</span><span class="p">,</span><span class="n">an</span><span class="p">,</span><span class="n">bn</span><span class="p">)</span>
+<span class="n">sage</span><span class="p">:</span> <span class="c">#s = integral_numerical(sqrt(1 + (diff(xn,t))^2), (t,0, 4))</span>
+<span class="n">sage</span><span class="p">:</span> <span class="n">droga</span> <span class="o">=</span> <span class="n">integral_numerical</span><span class="p">(</span><span class="n">sqrt</span><span class="p">(</span><span class="mi">1</span><span class="o">+</span><span class="p">(</span><span class="n">xn</span><span class="o">.</span><span class="n">diff</span><span class="p">(</span><span class="n">t</span><span class="p">))</span><span class="o">^</span><span class="mi">2</span><span class="p">),</span><span class="mi">0</span><span class="p">,</span><span class="mi">4</span><span class="p">)[</span><span class="mi">0</span><span class="p">];</span>
+<span class="o">...</span>          <span class="k">print</span> <span class="s">&quot;droga po 4 sekundach wynosi </span><span class="si">%d</span><span class="s">m&quot;</span> <span class="o">%</span> <span class="n">droga</span>
+</pre></div>
+</div>
+<p>droga po 4 sekundach wynosi 24m</p>
+<div class="highlight-python"><div class="highlight"><pre><span class="n">sage</span><span class="p">:</span> <span class="c"># 4. przemieszczenie po 4 s?</span>
+<span class="n">sage</span><span class="p">:</span> <span class="k">print</span> <span class="s">&quot;przemieszczenie po 4 sekundach wynosi </span><span class="si">%d</span><span class="s">m&quot;</span> <span class="o">%</span> <span class="n">x</span><span class="p">(</span><span class="mi">4</span><span class="p">,</span><span class="n">an</span><span class="p">,</span><span class="n">bn</span><span class="p">)</span>
+</pre></div>
+</div>
+<p>przemieszczenie po 4 sekundach wynosi -16m</p>
+<div class="highlight-python"><div class="highlight"><pre><span class="n">sage</span><span class="p">:</span> <span class="c"># 5. Jaka jest prędkość punktu po upływie każdej z czterech</span>
+<span class="n">sage</span><span class="p">:</span> <span class="c"># pierwszych sekund?</span>
+<span class="n">sage</span><span class="p">:</span> <span class="c"># jako, że już obliczyliśmy prędkość, bo była potrzebna</span>
+<span class="n">sage</span><span class="p">:</span> <span class="c"># do znalezienia maksimum,</span>
+<span class="n">sage</span><span class="p">:</span> <span class="c"># wystarczy teraz zapisać</span>
+<span class="n">sage</span><span class="p">:</span> <span class="k">for</span> <span class="n">tn</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="mi">1</span><span class="p">,</span><span class="mi">5</span><span class="p">):</span>
+<span class="o">...</span>       <span class="k">print</span> <span class="s">&quot;Prędkość dla t = </span><span class="si">%d</span><span class="s"> wynosi v(</span><span class="si">%d</span><span class="s">) = </span><span class="si">%d</span><span class="s">&quot;</span>
+<span class="o">...</span>       <span class="o">%</span><span class="p">(</span><span class="n">tn</span><span class="p">,</span> <span class="n">tn</span><span class="p">,</span> <span class="n">v</span><span class="p">(</span><span class="n">tn</span><span class="p">,</span><span class="n">an</span><span class="p">,</span><span class="n">bn</span><span class="p">))</span>
+</pre></div>
+</div>
+<div class="line-block">
+<div class="line">Prędkość dla t = 1 wynosi v(1) = 3</div>
+<div class="line">Prędkość dla t = 2 wynosi v(2) = 0</div>
+<div class="line">Prędkość dla t = 3 wynosi v(3) = -9</div>
+<div class="line">Prędkość dla t = 4 wynosi v(4) = -24</div>
+</div>
+<p><strong>Zadanie 3, (ResHol45r3t1)</strong></p>
+<p>Winda wznosi się do góry z przyspieszeniem <span class="math">\(1.2 m/s^2\)</span>. W momencie gdy jej prędkość wynosi <span class="math">\(2.4 m/s\)</span> obluzowana śruba spada z sufitu na podłogę windy. Winda ma <span class="math">\(2.7m\)</span> wysokości. Oblicz</p>
+<blockquote>
+<div><ol class="arabic simple">
+<li>Czas, po jakim śruba spadnie z sufitu na podłogę.</li>
+<li>Odległość, która pokona śruba względem ścian domu.</li>
+</ol>
+</div></blockquote>
+<div class="highlight-python"><div class="highlight"><pre>sage: reset()
+sage: h_windy = 2.7 # [m]
+sage: a_windy = 1.2 # [m/s^2]
+sage: gZ = 9.81 # [m/s^2]
+sage: #as = gZ + a_windy
+sage: # równanie ruchu dla śruby
+sage: show(&quot;$m\ddot{x}_s(t) = ma_{w} +
+...      mg \qquad \Rightarrow \qquad \ddot{x}_s = a_{w} + g$&quot;)
+sage: t, aw, g, h0, v0 = var(&#39;t, aw, g, h0, v0&#39;)
+sage: x = function(&#39;x&#39;, t); print x
+sage: xs(t,aw,g,h0,v0) = desolve(diff(x,t,2) - aw - g == 0, x, ivar=t,
+...      ics=[0,h0,v0], contrib_ode=True)
+sage: xs
+</pre></div>
+</div>
+<div class="math">
+\[\hbox{$m\ddot{x}_s(t) = ma_{w} + mg \qquad \Rightarrow \qquad \ddot{x}_s = a_{w} + g$}\]</div>
+<div class="line-block">
+<div class="line">x(t)</div>
+<div class="line">(t, aw, g, h0, v0) &#8211;&gt; 1/2*(aw + g)*t^2 + t*v0 + h0</div>
+</div>
+<div class="highlight-python"><div class="highlight"><pre>sage: # równanie ruchu dla windy (żeby znaleźć czas,
+sage: # po którym winda ma v = 2.4 m/s)
+sage: show(&quot;$m\ddot{x}_w(t) = ma_{w}\qquad \Rightarrow \qquad
+...      \ddot{x}_w = a_{w}$&quot;)
+sage: # potrzebujemy tylko wzoru na prędkość
+sage: vw(t,aw,h0,v0) = desolve(diff(x,t) - aw == 0, x, ivar=t, ics=[0,h0],
+...      contrib_ode=True); print vw
+sage: plot(vw(t,a_windy, 0, 0),0,4).show(axes_labels=[&quot;$t$&quot;,&quot;$v_w(t)$&quot;],
+...      fontsize=28, dpi=40)
+</pre></div>
+</div>
+<div class="math">
+\[\hbox{$m\ddot{x}_w(t) = ma_{w}\qquad \Rightarrow \qquad \ddot{x}_w = a_{w}$}\]</div>
+<p>(t, aw, h0, v0) &#8211;&gt; aw*t + h0</p>
+<img alt="_images/cell_51_sage02.png" class="align-center" src="_images/cell_51_sage02.png" />
+<div class="highlight-python"><div class="highlight"><pre><span class="n">sage</span><span class="p">:</span> <span class="c"># czas, przy którym winda ma 2.4 m/s</span>
+<span class="n">sage</span><span class="p">:</span> <span class="c"># (przy którym zaczyna spadać śrubka)</span>
+<span class="n">sage</span><span class="p">:</span> <span class="n">t0</span><span class="p">(</span><span class="n">aw</span><span class="p">,</span><span class="n">h0</span><span class="p">,</span><span class="n">v0</span><span class="p">)</span> <span class="o">=</span> <span class="n">solve</span><span class="p">(</span><span class="n">vw</span><span class="p">(</span><span class="n">t</span><span class="p">,</span><span class="n">aw</span><span class="p">,</span><span class="n">h0</span><span class="p">,</span><span class="n">v0</span><span class="p">)</span> <span class="o">==</span> <span class="mf">2.4</span><span class="p">,</span> <span class="n">t</span><span class="p">)[</span><span class="mi">0</span><span class="p">]</span><span class="o">.</span><span class="n">rhs</span><span class="p">();</span> <span class="k">print</span> <span class="n">t0</span>
+<span class="n">sage</span><span class="p">:</span> <span class="c"># czyli</span>
+<span class="n">sage</span><span class="p">:</span> <span class="n">t0n</span> <span class="o">=</span> <span class="n">t0</span><span class="p">(</span><span class="n">a_windy</span><span class="p">,</span> <span class="mi">0</span><span class="p">,</span> <span class="mi">0</span><span class="p">);</span>
+<span class="o">...</span>      <span class="k">print</span> <span class="s">&quot;czas do prędkośći windy = 2.4 wynosi </span><span class="si">%.2f</span><span class="s">s&quot;</span> <span class="o">%</span> <span class="n">t0n</span>
+<span class="n">sage</span><span class="p">:</span> <span class="c"># wysokość windy po t0n</span>
+<span class="n">sage</span><span class="p">:</span> <span class="n">xw</span><span class="p">(</span><span class="n">t</span><span class="p">,</span><span class="n">aw</span><span class="p">,</span><span class="n">h0</span><span class="p">,</span><span class="n">v0</span><span class="p">)</span> <span class="o">=</span> <span class="n">desolve</span><span class="p">(</span><span class="n">diff</span><span class="p">(</span><span class="n">x</span><span class="p">,</span><span class="n">t</span><span class="p">,</span><span class="mi">2</span><span class="p">)</span> <span class="o">-</span> <span class="n">aw</span> <span class="o">==</span> <span class="mi">0</span><span class="p">,</span> <span class="n">x</span><span class="p">,</span> <span class="n">ivar</span><span class="o">=</span><span class="n">t</span><span class="p">,</span>
+<span class="o">...</span>      <span class="n">ics</span><span class="o">=</span><span class="p">[</span><span class="mi">0</span><span class="p">,</span><span class="n">h0</span><span class="p">,</span><span class="n">v0</span><span class="p">],</span> <span class="n">contrib_ode</span><span class="o">=</span><span class="bp">True</span><span class="p">);</span> <span class="k">print</span> <span class="n">xw</span>
+<span class="n">sage</span><span class="p">:</span> <span class="n">plot</span><span class="p">(</span><span class="n">xw</span><span class="p">(</span><span class="n">t</span><span class="p">,</span><span class="n">a_windy</span><span class="p">,</span> <span class="mi">0</span><span class="p">,</span> <span class="mi">0</span><span class="p">),</span><span class="mi">0</span><span class="p">,</span><span class="mi">3</span><span class="p">)</span><span class="o">.</span><span class="n">show</span><span class="p">(</span><span class="n">axes_labels</span><span class="o">=</span><span class="p">[</span><span class="s">&quot;$t$&quot;</span><span class="p">,</span><span class="s">&quot;$x_w(t)$&quot;</span><span class="p">],</span>
+<span class="o">...</span>      <span class="n">fontsize</span><span class="o">=</span><span class="mi">28</span><span class="p">,</span> <span class="n">dpi</span><span class="o">=</span><span class="mi">40</span><span class="p">)</span>
+<span class="n">sage</span><span class="p">:</span> <span class="n">xw0</span> <span class="o">=</span> <span class="n">xw</span><span class="p">(</span><span class="n">t0n</span><span class="p">,</span><span class="n">a_windy</span><span class="p">,</span> <span class="mi">0</span><span class="p">,</span> <span class="mi">0</span><span class="p">)</span>
+<span class="n">sage</span><span class="p">:</span> <span class="k">print</span> <span class="s">&quot;wysokość windy po </span><span class="si">%.2f</span><span class="s">s wynosi </span><span class="si">%.2f</span><span class="s">m&quot;</span> <span class="o">%</span><span class="p">(</span><span class="n">t0n</span><span class="p">,</span> <span class="n">xw0</span><span class="p">)</span>
+</pre></div>
+</div>
+<div class="line-block">
+<div class="line">(aw, h0, v0) &#8211;&gt; -1/5*(5*h0 - 12)/aw</div>
+<div class="line">czas do prędkośći windy = 2.4 wynosi 2.00s</div>
+<div class="line">(t, aw, h0, v0) &#8211;&gt; 1/2*aw*t^2 + t*v0 + h0</div>
+</div>
+<img alt="_images/cell_52_sage0.png" class="align-center" src="_images/cell_52_sage0.png" />
+<p>wysokość windy po 2.00s wynosi 2.40m</p>
+<div class="highlight-python"><div class="highlight"><pre><span class="n">sage</span><span class="p">:</span> <span class="n">tmp</span> <span class="o">=</span> <span class="n">solve</span><span class="p">(</span><span class="n">xs</span><span class="p">(</span><span class="n">t</span><span class="p">,</span><span class="n">a_windy</span><span class="p">,</span><span class="n">gZ</span><span class="p">,</span><span class="mi">0</span><span class="p">,</span><span class="mi">0</span><span class="p">)</span> <span class="o">==</span> <span class="n">h_windy</span><span class="p">,</span> <span class="n">t</span><span class="p">);</span> <span class="k">print</span> <span class="n">tmp</span>
+</pre></div>
+</div>
+<div class="line-block">
+<div class="line">[</div>
+<div class="line">t == -6/367*sqrt(5)*sqrt(367),</div>
+<div class="line">t == 6/367*sqrt(5)*sqrt(367)</div>
+<div class="line">]</div>
+</div>
+<div class="highlight-python"><div class="highlight"><pre><span class="n">sage</span><span class="p">:</span> <span class="c"># jako, że czas musi byc &gt; 0, to</span>
+<span class="n">sage</span><span class="p">:</span> <span class="n">czas_spadku</span> <span class="o">=</span> <span class="n">tmp</span><span class="p">[</span><span class="mi">1</span><span class="p">]</span><span class="o">.</span><span class="n">rhs</span><span class="p">()</span><span class="o">.</span><span class="n">n</span><span class="p">();</span>
+<span class="o">...</span>      <span class="k">print</span> <span class="s">&quot;czas spadku śruby to </span><span class="si">%.2f</span><span class="s">s&quot;</span><span class="o">%</span><span class="n">czas_spadku</span>
+</pre></div>
+</div>
+<p>czas spadku śruby to 0.70s</p>
+<div class="highlight-python"><div class="highlight"><pre><span class="n">sage</span><span class="p">:</span> <span class="k">print</span> <span class="s">&quot;odległość jaką pokona śruba względem ścian domu wynosi</span>
+<span class="o">...</span>          <span class="o">%.</span><span class="mi">2</span><span class="n">fm</span><span class="s">&quot; % (xw0 + h_windy - xw(t0n+czas_spadku,a_windy,0,0))</span>
+<span class="n">sage</span><span class="p">:</span> <span class="n">html</span><span class="p">(</span><span class="s">&quot;&lt;hr&gt;&quot;</span><span class="p">)</span>
+</pre></div>
+</div>
+<p>odległość jaką pokona śruba względem ścian domu wynosi 0.72m</p>
+<hr class="docutils" />
+<p><strong>Zadanie, (ResHolP1r4t1)</strong></p>
+<p>Samolot leci ze stałą poziomą prędkością 500 km/h na wysokości 5000 m, w kierunku punktu znajdującego się dokładnie nad jego celem. Pod jakim kątem <span class="math">\(\phi\)</span> względem pionu powinien być widoczny cel w chwili zrzucenia paczki, tak aby trafiła ona w ten właśnie cel?</p>
+<div class="highlight-python"><div class="highlight"><pre><span class="n">sage</span><span class="p">:</span> <span class="c"># problem: rzut ukośny</span>
+<span class="n">sage</span><span class="p">:</span> <span class="c"># równanie ruchu</span>
+<span class="n">sage</span><span class="p">:</span> <span class="n">show</span><span class="p">(</span><span class="s">&quot;$\ddot{x} = 0, \quad \ddot{y} = -g$&quot;</span><span class="p">)</span>
+</pre></div>
+</div>
+<div class="math">
+\[\hbox{$\ddot{x} = 0, \quad \ddot{y} = -g$}\]</div>
+<div class="highlight-python"><div class="highlight"><pre><span class="n">sage</span><span class="p">:</span> <span class="n">reset</span><span class="p">()</span>
+<span class="n">sage</span><span class="p">:</span> <span class="n">x0n</span> <span class="o">=</span> <span class="mi">0</span> <span class="c"># m</span>
+<span class="n">sage</span><span class="p">:</span> <span class="n">y0n</span> <span class="o">=</span> <span class="mi">5000</span> <span class="c"># m</span>
+<span class="n">sage</span><span class="p">:</span> <span class="n">vx0n</span> <span class="o">=</span> <span class="mi">500</span> <span class="o">*</span> <span class="mi">1000</span> <span class="o">/</span> <span class="mi">3600</span> <span class="c"># m/s</span>
+<span class="n">sage</span><span class="p">:</span> <span class="n">vy0n</span> <span class="o">=</span> <span class="mi">0</span> <span class="c"># m/s</span>
+<span class="n">sage</span><span class="p">:</span> <span class="n">gZ</span> <span class="o">=</span> <span class="mf">9.81</span> <span class="c"># m/s^2</span>
+<span class="n">sage</span><span class="p">:</span> <span class="n">t</span><span class="p">,</span> <span class="n">x0</span><span class="p">,</span> <span class="n">y0</span><span class="p">,</span> <span class="n">vx0</span><span class="p">,</span> <span class="n">vy0</span><span class="p">,</span> <span class="n">g</span><span class="p">,</span> <span class="n">v0</span> <span class="o">=</span> <span class="n">var</span><span class="p">(</span><span class="s">&#39;t, x0, y0, vx0, vy0, g, v0&#39;</span><span class="p">)</span>
+<span class="n">sage</span><span class="p">:</span> <span class="n">x</span> <span class="o">=</span> <span class="n">function</span><span class="p">(</span><span class="s">&#39;x&#39;</span><span class="p">,</span><span class="n">t</span><span class="p">)</span>
+<span class="n">sage</span><span class="p">:</span> <span class="n">y</span> <span class="o">=</span> <span class="n">function</span><span class="p">(</span><span class="s">&#39;y&#39;</span><span class="p">,</span><span class="n">t</span><span class="p">)</span>
+</pre></div>
+</div>
+<div class="highlight-python"><div class="highlight"><pre><span class="n">sage</span><span class="p">:</span> <span class="n">eqx</span> <span class="o">=</span> <span class="n">diff</span><span class="p">(</span><span class="n">x</span><span class="p">,</span><span class="n">t</span><span class="p">,</span><span class="n">t</span><span class="p">)</span> <span class="o">==</span> <span class="mi">0</span><span class="p">;</span> <span class="k">print</span> <span class="n">eqx</span>
+<span class="n">sage</span><span class="p">:</span> <span class="n">xs</span><span class="p">(</span><span class="n">t</span><span class="p">,</span> <span class="n">v0</span><span class="p">)</span> <span class="o">=</span> <span class="n">desolve</span><span class="p">(</span><span class="n">eqx</span><span class="p">,</span> <span class="n">x</span><span class="p">,</span> <span class="n">ics</span><span class="o">=</span><span class="p">[</span><span class="mi">0</span><span class="p">,</span><span class="mi">0</span><span class="p">,</span><span class="n">v0</span><span class="p">]);</span> <span class="k">print</span> <span class="n">xs</span>
+</pre></div>
+</div>
+<div class="line-block">
+<div class="line">D[0, 0](x)(t) == 0</div>
+<div class="line">(t, v0) &#8211;&gt; t*v0</div>
+</div>
+<div class="highlight-python"><div class="highlight"><pre><span class="n">sage</span><span class="p">:</span> <span class="n">eqy</span> <span class="o">=</span> <span class="n">diff</span><span class="p">(</span><span class="n">y</span><span class="p">,</span><span class="n">t</span><span class="p">,</span><span class="n">t</span><span class="p">)</span> <span class="o">==</span> <span class="o">-</span><span class="n">g</span><span class="p">;</span> <span class="k">print</span> <span class="n">eqy</span>
+<span class="n">sage</span><span class="p">:</span> <span class="n">ys</span><span class="p">(</span><span class="n">t</span><span class="p">,</span> <span class="n">y0</span><span class="p">,</span> <span class="n">g</span><span class="p">)</span> <span class="o">=</span> <span class="n">desolve</span><span class="p">(</span><span class="n">eqy</span><span class="p">,</span> <span class="n">y</span><span class="p">,</span> <span class="n">ics</span><span class="o">=</span><span class="p">[</span><span class="mi">0</span><span class="p">,</span><span class="n">y0</span><span class="p">,</span><span class="mi">0</span><span class="p">],</span> <span class="n">ivar</span><span class="o">=</span><span class="n">t</span><span class="p">,</span>
+<span class="o">...</span>      <span class="n">contrib_ode</span><span class="o">=</span><span class="bp">True</span><span class="p">);</span> <span class="k">print</span> <span class="n">ys</span>
+</pre></div>
+</div>
+<div class="line-block">
+<div class="line">D[0, 0](y)(t) == -g</div>
+<div class="line">(t, y0, g) &#8211;&gt; -1/2*g*t^2 + y0</div>
+</div>
+<div class="highlight-python"><div class="highlight"><pre><span class="n">sage</span><span class="p">:</span> <span class="n">tt</span> <span class="o">=</span> <span class="n">solve</span><span class="p">(</span><span class="n">xs</span> <span class="o">==</span> <span class="n">x</span><span class="p">,</span><span class="n">t</span><span class="p">)[</span><span class="mi">0</span><span class="p">]</span><span class="o">.</span><span class="n">rhs</span><span class="p">()</span>
+</pre></div>
+</div>
+<div class="highlight-python"><div class="highlight"><pre><span class="n">sage</span><span class="p">:</span> <span class="c"># równanie parametr. na (x,y) tutaj niepotrzebne, ale jakby co...</span>
+<span class="n">sage</span><span class="p">:</span> <span class="n">ys</span><span class="p">(</span><span class="n">tt</span><span class="p">,</span> <span class="n">y0</span><span class="p">,</span> <span class="n">g</span><span class="p">)</span>
+</pre></div>
+</div>
+<p>-1/2*g*x(t)^2/v0^2 + y0</p>
+<div class="highlight-python"><div class="highlight"><pre><span class="n">sage</span><span class="p">:</span> <span class="c"># czas spadku na ziemię</span>
+<span class="n">sage</span><span class="p">:</span> <span class="n">tmp</span> <span class="o">=</span> <span class="n">solve</span><span class="p">(</span><span class="n">ys</span> <span class="o">==</span> <span class="mi">0</span><span class="p">,</span> <span class="n">t</span><span class="p">);</span> <span class="k">print</span> <span class="n">tmp</span>
+</pre></div>
+</div>
+<div class="line-block">
+<div class="line">[</div>
+<div class="line">t == -sqrt(y0/g)*sqrt(2),</div>
+<div class="line">t == sqrt(y0/g)*sqrt(2)</div>
+<div class="line">]</div>
+</div>
+<div class="highlight-python"><div class="highlight"><pre><span class="n">sage</span><span class="p">:</span> <span class="c"># znów bierzemy tylko czas &gt; 0</span>
+<span class="n">sage</span><span class="p">:</span> <span class="n">czas_spadku</span><span class="p">(</span><span class="n">y0</span><span class="p">,</span> <span class="n">g</span><span class="p">)</span> <span class="o">=</span> <span class="n">tmp</span><span class="p">[</span><span class="mi">1</span><span class="p">]</span><span class="o">.</span><span class="n">rhs</span><span class="p">()</span>
+<span class="n">sage</span><span class="p">:</span> <span class="n">t_end</span> <span class="o">=</span> <span class="n">czas_spadku</span><span class="p">(</span><span class="n">y0n</span><span class="p">,</span> <span class="n">gZ</span><span class="p">)</span><span class="o">.</span><span class="n">n</span><span class="p">()</span>
+<span class="n">sage</span><span class="p">:</span> <span class="k">print</span> <span class="s">&quot;czas spadku na ziemię = </span><span class="si">%.2f</span><span class="s">s&quot;</span> <span class="o">%</span> <span class="n">t_end</span>
+</pre></div>
+</div>
+<p>czas spadku na ziemię = 31.93s</p>
+<div class="highlight-python"><div class="highlight"><pre><span class="n">sage</span><span class="p">:</span> <span class="n">x_zero</span> <span class="o">=</span> <span class="n">xs</span><span class="p">(</span><span class="n">czas_spadku</span><span class="p">(</span><span class="n">y0n</span><span class="p">,</span> <span class="n">gZ</span><span class="p">)</span><span class="o">.</span><span class="n">n</span><span class="p">(),</span> <span class="n">vx0n</span><span class="p">)</span>
+<span class="n">sage</span><span class="p">:</span> <span class="k">print</span> <span class="s">&quot;odległość w kierunku poziomym jest zatem równa </span><span class="si">%.2f</span><span class="s">m&quot;</span> <span class="o">%</span><span class="n">x_zero</span>
+</pre></div>
+</div>
+<p>odległość w kierunku poziomym jest zatem równa 4434.38m</p>
+<div class="highlight-python"><div class="highlight"><pre><span class="n">sage</span><span class="p">:</span> <span class="c"># kąt pod jakim widać cel</span>
+<span class="n">sage</span><span class="p">:</span> <span class="n">phi</span> <span class="o">=</span> <span class="n">arctan</span><span class="p">(</span><span class="n">x_zero</span><span class="o">/</span><span class="n">y0n</span><span class="p">)</span>
+<span class="n">sage</span><span class="p">:</span> <span class="k">print</span> <span class="s">&quot;Kąt = </span><span class="si">%.2f</span><span class="s"> radiany&quot;</span> <span class="o">%</span> <span class="n">phi</span>
+<span class="n">sage</span><span class="p">:</span> <span class="k">print</span> <span class="s">&quot;Kąt = </span><span class="si">%.2f</span><span class="s"> stopnie&quot;</span> <span class="o">%</span> <span class="p">(</span><span class="n">phi</span><span class="o">*</span><span class="mi">180</span><span class="o">/</span><span class="n">pi</span><span class="p">)</span>
+</pre></div>
+</div>
+<div class="line-block">
+<div class="line">Kąt = 0.73 radiany</div>
+<div class="line">Kąt = 41.57 stopnie</div>
+</div>
+<div class="highlight-python"><div class="highlight"><pre><span class="n">sage</span><span class="p">:</span> <span class="p">(</span><span class="n">parametric_plot</span><span class="p">((</span><span class="n">xs</span><span class="p">(</span><span class="n">t</span><span class="p">,</span><span class="n">vx0n</span><span class="p">),</span><span class="n">ys</span><span class="p">(</span><span class="n">t</span><span class="p">,</span><span class="n">y0n</span><span class="p">,</span><span class="n">gZ</span><span class="p">)),(</span><span class="n">t</span><span class="p">,</span><span class="mi">0</span><span class="p">,</span><span class="n">t_end</span><span class="p">))</span> <span class="o">+</span>
+<span class="o">...</span>      <span class="n">line</span><span class="p">([[</span><span class="mi">0</span><span class="p">,</span><span class="n">y0n</span><span class="p">],[</span><span class="n">x_zero</span><span class="p">,</span><span class="mi">0</span><span class="p">]],</span> <span class="n">linestyle</span><span class="o">=</span><span class="s">&#39;dotted&#39;</span><span class="p">,</span> <span class="n">thickness</span><span class="o">=</span><span class="mi">1</span><span class="p">,</span>
+<span class="o">...</span>      <span class="n">color</span><span class="o">=</span><span class="s">&#39;firebrick&#39;</span><span class="p">)</span> <span class="o">+</span> <span class="n">text</span><span class="p">(</span><span class="s">r&quot;$\phi$&quot;</span><span class="p">,(</span><span class="mi">200</span><span class="p">,</span><span class="mi">4000</span><span class="p">),</span> <span class="n">color</span><span class="o">=</span><span class="s">&#39;firebrick&#39;</span><span class="p">,</span>
+<span class="o">...</span>      <span class="n">horizontal_alignment</span><span class="o">=</span><span class="s">&#39;left&#39;</span><span class="p">,</span>
+<span class="o">...</span>      <span class="n">vertical_alignment</span><span class="o">=</span><span class="s">&#39;center&#39;</span><span class="p">))</span><span class="o">.</span><span class="n">show</span><span class="p">(</span><span class="n">axes_labels</span><span class="o">=</span><span class="p">[</span><span class="s">&quot;$x(t)$&quot;</span><span class="p">,</span><span class="s">&quot;$y(t)$&quot;</span><span class="p">],</span>
+<span class="o">...</span>      <span class="n">fontsize</span><span class="o">=</span><span class="mi">10</span><span class="p">,</span> <span class="n">dpi</span><span class="o">=</span><span class="mi">172</span><span class="p">,</span> <span class="n">aspect_ratio</span><span class="o">=.</span><span class="mi">42</span><span class="p">)</span>
+</pre></div>
+</div>
+<img alt="_images/cell_75_sage0.png" class="align-center" src="_images/cell_75_sage0.png" />
+</div>
+
+
+          </div>
+        </div>
+      </div>
+      <div class="sphinxsidebar">
+        <div class="sphinxsidebarwrapper">
+  <h4>Poprzedni temat</h4>
+  <p class="topless"><a href="iCSE_ITechninf04_z78.html"
+                        title="poprzedni rozdział">Wykresy</a></p>
+  <h4>Następny temat</h4>
+  <p class="topless"><a href="iCSE_ITechninf02_z11.html"
+                        title="następny rozdział">Zmienne</a></p>
+<div id="searchbox" style="display: none">
+  <h3>Szybkie wyszukiwanie</h3>
+    <form class="search" action="http://visual.icse.us.edu.pl/Warsztaty/search.html" method="get">
+      <input type="text" name="q" />
+      <input type="submit" value="Szukaj" />
+      <input type="hidden" name="check_keywords" value="yes" />
+      <input type="hidden" name="area" value="default" />
+    </form>
+    <p class="searchtip" style="font-size: 90%">
+    Wprowadź szukany termin lub nazwę modułu, klasy lub funkcji.
+    </p>
+</div>
+<script type="text/javascript">$('#searchbox').show(0);</script>
+        </div>
+      </div>
+      <div class="clearer"></div>
+    </div>
+  </div>
+  <div class="relbar-bottom">
+    
+    <div class="related">
+      <h3>Nawigacja</h3>
+      <ul>
+        <li class="right" style="margin-right: 10px">
+          <a href="iCSE_ITechninf02_z11.html" title="Zmienne"
+             >dalej</a></li>
+        <li class="right" >
+          <a href="iCSE_ITechninf04_z78.html" title="Wykresy"
+             >wstecz</a> &nbsp; &nbsp;</li>
+  <li><a href="index.html">Warsztaty</a> &raquo;</li>
+  
+          <li><a href="sagewfizyce.html" >&lt;no title&gt;</a> &raquo;</li> 
+      </ul>
+    </div>
+  </div>
+  
+  <div class="footer">
+    <a class="logo" href="../../icse.us.edu.pl/index.html" target="_blank"><img src="_static/logo-icse.png" alt="ICSE"/></a><br/>
+    &copy; Copyright 2013, CubeProject.
+    Created using <a href="http://sphinx.pocoo.org/">Sphinx</a> 1.2.2.
+  </div>
+  </body>
+</html>

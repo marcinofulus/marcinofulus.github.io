@@ -1,0 +1,450 @@
+
+
+  <!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+  "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+
+
+<html xmlns="http://www.w3.org/1999/xhtml">
+  <head>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    
+    <title>Skydiving - part 1 &mdash; Warsztaty</title>
+    
+    <link rel="stylesheet" href="_static/cloud.css" type="text/css" />
+    <link rel="stylesheet" href="_static/pygments.css" type="text/css" />
+    <link rel="stylesheet" href="http://fonts.googleapis.com/css?family=Noticia+Text|Open+Sans|Droid+Sans+Mono&subset=latin,latin-ext" type="text/css" />
+    
+    <script type="text/javascript">
+      var DOCUMENTATION_OPTIONS = {
+        URL_ROOT:    './',
+        VERSION:     'I',
+        COLLAPSE_INDEX: false,
+        FILE_SUFFIX: '.html',
+        HAS_SOURCE:  true
+      };
+    </script>
+    <script type="text/javascript" src="_static/jquery.js"></script>
+    <script type="text/javascript" src="_static/underscore.js"></script>
+    <script type="text/javascript" src="_static/doctools.js"></script>
+    <script type="text/javascript" src="_static/translations.js"></script>
+    <script type="text/javascript" src="http://cdn.mathjax.org/mathjax/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML"></script>
+    <script type="text/javascript" src="_static/jquery.cookie.js"></script>
+    <script type="text/javascript" src="_static/cloud.js"></script>
+
+
+
+    <script src="http://sagecell.icse.us.edu.pl:6363/static/jquery.min.js"></script>
+	<script src="http://sagecell.icse.us.edu.pl:6363/static/embedded_sagecell.js"></script>
+
+	<script>sagecell.makeSagecell({inputLocation: ".sage",
+                                       evalButtonText: 'Wykonaj',
+                                       linked: true});</script>
+
+	<style type="text/css">
+		.sagecell .CodeMirror-scroll {
+			overflow-y: hidden;
+			overflow-x: auto;
+		}
+		.sagecell .CodeMirror {
+			height: auto;
+		}
+	</style>
+
+    
+    <link rel="top" title="Warsztaty" href="index.html" />
+    <link rel="next" title="Skydiving - part 2" href="Skydiving2.html" />
+    <link rel="prev" title="&lt;no title&gt;" href="bungeeCode.html" />
+ 
+  <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, minimum-scale=1">
+  </head>
+  <body>
+  <div class="relbar-top">
+    
+    <div class="related">
+      <h3>Nawigacja</h3>
+      <ul>
+        <li class="right" style="margin-right: 10px">
+          <a href="Skydiving2.html" title="Skydiving - part 2"
+             accesskey="N">dalej</a></li>
+        <li class="right" >
+          <a href="bungeeCode.html" title="&lt;no title&gt;"
+             accesskey="P">wstecz</a> &nbsp; &nbsp;</li>
+  <li><a href="index.html">Warsztaty</a> &raquo;</li>
+   
+      </ul>
+    </div>
+  </div>
+  
+  <div class="content">  
+
+    <div class="document">
+      <div class="documentwrapper">
+        <div class="bodywrapper">
+          <div class="body">
+            
+  <div class="section" id="skydiving-part-1">
+<h1>Skydiving - part 1<a class="headerlink" href="Skydiving1.html#skydiving-part-1" title="Stały odnośnik do tego nagłówka">¶</a></h1>
+<p>We will now begin to look at how the velocity of a skydiver changes over
+time. We will find mathematical equations based on our physical
+understanding of the forces acting on the jumper. We will then discuss
+these equations and see why they are impossible to solve with pen and
+paper alone. Finally, we will see how we can solve the equations with
+programming.</p>
+<p>A parachuting jump consists mainly of two parts. The first part happens
+before the parachute is deployed, this is commonly known as free-fall.
+Most sport skydivers experience about a minute of free-fall each jump.
+After this, the jumper deploys their parachute which dramatically
+reduces the velocity of the fall. The jumper normally falls between one
+and three more minutes before landing, dependent on the altitude and the
+size of the parachute.</p>
+<p>In both parts of the jump there are only two forces acting on the
+jumper, gravity and air resistance. That is</p>
+<div class="math">
+\[\sum F = F_G + F_D,\]</div>
+<p>where <span class="math">\(F_G\)</span> is gravity and <span class="math">\(F_D\)</span> is air resistance. You
+probably already know that if the jumper has mass <span class="math">\(m\)</span> and the
+standard acceleration due to gravity is <span class="math">\(g\)</span>, which we define to be
+<span class="math">\(g = 9.81 m/s^2\)</span>, then the gravitational force is
+<span class="math">\(F_G = mg\)</span>.</p>
+<p>Furthermore, a skydiver will fall with high velocity so we use quadratic
+air resistance, that is</p>
+<div class="math">
+\[F_D = \frac{1}{2}\rho C A v^2,\]</div>
+<p>where <span class="math">\(\rho\)</span> is the air density, <span class="math">\(C\)</span> is the drag coefficient
+that is dependent on the shape of the falling body and <span class="math">\(A\)</span> is the
+silhouette area.</p>
+<p>To avoid having to write all this, we define a constant <span class="math">\(D\)</span> to be
+all of these numbers together like this</p>
+<div class="math">
+\[\frac{1}{2}\rho C A = D,\]</div>
+<div class="math">
+\[F_D = -Dv^2.\]</div>
+<p>The equation we want to solve can then be written as</p>
+<div class="math">
+\[ma = mg - D v^2.\]</div>
+<p>In mathematics, this is what is known as a <em>differential equation</em>. Let
+us talk a bit about what exactly that means.</p>
+<div class="section" id="differential-equations">
+<h2>Differential equations<a class="headerlink" href="Skydiving1.html#differential-equations" title="Stały odnośnik do tego nagłówka">¶</a></h2>
+<p>Previously when we have worked with equations, they have been
+mathematical expressions, where we solve for one unknown variable. For
+example</p>
+<div class="math">
+\[x^2 + 7 = 56.\]</div>
+<p>We recognize this as an equation because there is an &#8216;equality&#8217;, and we
+know that we can solve this by subtracting the constant, and taking the
+square root to get</p>
+<div class="math">
+\[x = \pm 7.\]</div>
+<p>So we have solved the equation and found that <span class="math">\(x\)</span> equals 7. A
+differential equation is also an equation because it contains an
+&#8216;equality&#8217; just like our example, and we can solve it to find something
+unknown. The difference is that for a differential equation the unknown
+is no longer a number, but a function.</p>
+<p>Newtons 2nd equation is a perfect example of a differential equation,
+which we solve to find either the velocity or the position of an object.
+In this case both the velocity and the position are examples of
+functions because they differ with time: <span class="math">\(v(t)\)</span>, <span class="math">\(x(t)\)</span>. A
+differential equation contains the derivative of the function we want,
+which is easier to see if we write the acceleration as the derivative of
+the velocity in newtons second law:</p>
+<div class="math">
+\[\sum F = ma = m\frac{d v}{d t}.\]</div>
+<p>Then, the differential equation we are trying to solve can we written as</p>
+<div class="math">
+\[m\frac{d v}{d t} = mg - D v(t)^2.\]</div>
+<p>But how do we solve an equation like this? There exists a huge number of
+different types of differential equations and even more ways to solve
+them, but we don&#8217;t have time to cover that much of this subject for now.</p>
+</div>
+<div class="section" id="unsolvable-differential-equations">
+<h2>Unsolvable differential equations<a class="headerlink" href="Skydiving1.html#unsolvable-differential-equations" title="Stały odnośnik do tego nagłówka">¶</a></h2>
+<p>We want to solve the following differential equation:</p>
+<div class="math">
+\[m\frac{d v}{d t} = mg - D v(t)^2.\]</div>
+<p>and we want to find the velocity <span class="math">\(v(t)\)</span>, but we cannot do that
+because the acceleration is dependent on the velocity. This is exactly
+why we often ignore air resistance when we solve Newtons 2nd law. A lot
+of the time, ignoring air resistance is okay, because the result is more
+or less the same anyway. But in some cases, air resistance makes a big
+difference, and skydiving is one of those cases</p>
+</div>
+<div class="section" id="solving-the-unsolvable">
+<h2>Solving the unsolvable<a class="headerlink" href="Skydiving1.html#solving-the-unsolvable" title="Stały odnośnik do tego nagłówka">¶</a></h2>
+<p>How do we solve an unsolvable equation with programming? The idea is
+quite simple, but let us try to approach it step by step.</p>
+<p>Let us begin by looking at what would have happened if we did ignore air
+resistance. We would have free-fall, i.e.</p>
+<div class="math">
+\[ma = \sum F = mg,\]</div>
+<p>And so the acceleration would be constant</p>
+<div class="math">
+\[a = g\]</div>
+<p>In this case we could easily solve the equations of motion to get</p>
+<div class="math">
+\[v(t) = v_0 + at.\]</div>
+<p>And similarly</p>
+<div class="math">
+\[x(t) = x_0 + v_0 t + \frac{1}{2}at^2.\]</div>
+<p>We notice that the velocity keeps growing constantly for ever. This of
+cource, has to be incorrect, because we know that in reality, a skydiver
+would quickly hit terminal velocity.</p>
+</div>
+<div class="section" id="terminal-velocity">
+<h2>Terminal velocity<a class="headerlink" href="Skydiving1.html#terminal-velocity" title="Stały odnośnik do tego nagłówka">¶</a></h2>
+<p>Terminal velocity is the highest velocity attainable by a falling
+object. We can easily derive the terminal velocity of the jumper without
+using our differential equation. We know that when the air resistance
+equals the gravity, the sum of all forces acting on the jumper equals
+zero. Then the acceleration equals zero, and the skydiver falls with a
+constant velocity, the terminal velocity. This means that</p>
+<div class="math">
+\[mg = \frac{1}{2}\rho C A v_T^2,\]</div>
+<p>By solving this for the terminal velocity, <span class="math">\(v_T\)</span>, we get</p>
+<div class="math">
+\[v_T = \sqrt{\frac{2mg}{\rho C A}}.\]</div>
+<p>And when we substitute in some reasonable values (<span class="math">\(m=90\)</span> kg,
+<span class="math">\(C=1.4\)</span>, <span class="math">\(\rho=1\)</span> kg/m<span class="math">\(^3\)</span>, <span class="math">\(A=0.7\)</span>
+m<span class="math">\(^2\)</span>, <span class="math">\(g=9.81\)</span> m/s<span class="math">\(^2\)</span>), we get the answer</p>
+<div class="math">
+\[v_T = 42.4 {\rm\ m/s} = 153 {\rm\ km/h}.\]</div>
+<p>So the terminal velocity in this case is 153 km/h.</p>
+</div>
+<div class="section" id="solving-the-equations-of-motion-with-air-resistance">
+<h2>Solving the equations of motion with air resistance.<a class="headerlink" href="Skydiving1.html#solving-the-equations-of-motion-with-air-resistance" title="Stały odnośnik do tego nagłówka">¶</a></h2>
+<p>If we now add air resistance again, we know that we cannot use the
+equations of motion because the acceleration is not constant. The
+acceleration is dependent on the velocity</p>
+<div class="math">
+\[a(v) = g - \frac{1}{2m}Dv^2.\]</div>
+<p>And since we know that the velocity increases with time, we can see that
+the acceleration will decrease. Notice that we write <span class="math">\(a(v)\)</span>
+because the acceleration is a function of the velocity. If we instead
+look at a tiny difference in time, <span class="math">\(\Delta t\)</span>, we know that the
+change in velocity is very small, and then the acceleration is almost
+constant. This means that we can use the equations of motion to take a
+short step in time by regarding the acceleration as essentially constant
+for a short time interval.</p>
+<div class="math">
+\[v_1 = v_0 + a(v_0)\Delta t.\]</div>
+<p>This gives us an approximation to the velocity of the skydiver shortly
+after he jumped. We can move further in time by updating the
+acceleration with the new velocity, and have it be constant for another
+time interval.</p>
+<div class="math">
+\[v_2 = v_1 + a(v_1)\Delta t.\]</div>
+<p>The trick is to let <span class="math">\(\Delta t\)</span> be very small, so that the
+acceleration is very close to constant. Thus we have to take a lot of
+tiny steps in time like this</p>
+<div class="math">
+\[v_{n+1} = v_n + a(t_n)\Delta t.\]</div>
+<p>With this method, we can solve our differential equation step by step
+until we have the entire solution</p>
+</div>
+<div class="section" id="a-more-mathematical-approach">
+<h2>A more mathematical approach<a class="headerlink" href="Skydiving1.html#a-more-mathematical-approach" title="Stały odnośnik do tego nagłówka">¶</a></h2>
+<p>Alternatively, we can look at the definition of the of the derivative</p>
+<div class="math">
+\[a(t) = \frac{d v}{d t} = \lim_{\Delta t \to 0} \frac{v(t+\Delta t) - v(t)}{\Delta t}\]</div>
+<p>We can approximate the derivative by removing the limit and making
+<span class="math">\(\Delta t\)</span> a very small constant</p>
+<div class="math">
+\[a(t) \approx \frac{v(t+\Delta t) - v(t)}{\Delta t}\]</div>
+<p>As long as we choose a small enough <span class="math">\(\Delta t\)</span>, we get a good
+approximation. Now, we can solve for <span class="math">\(v(t+\Delta t)\)</span> and get</p>
+<div class="math">
+\[v(t+\Delta t) \approx v(t) + a(t)\cdot \Delta t\]</div>
+<p>So if we know the velocity and acceleration at a time <span class="math">\(t\)</span>, we can
+approximate the velocity at the the time <span class="math">\(t+\Delta t\)</span> by</p>
+<div class="math">
+\[v(t+\Delta t) = v(t) + a(t)\cdot \Delta t\]</div>
+</div>
+<div class="section" id="parameters">
+<h2>Parameters<a class="headerlink" href="Skydiving1.html#parameters" title="Stały odnośnik do tego nagłówka">¶</a></h2>
+<p>The numbers <span class="math">\(m\)</span>, <span class="math">\(g\)</span>, <span class="math">\(\rho\)</span>, <span class="math">\(C\)</span>, <span class="math">\(A\)</span> is
+what is known as parameters, that is values we choose. We choose the
+parameters based on what kind of simulation we want to run, but we
+generally consider them to be known. In our simulation we want to use
+the following parameters</p>
+<table border="1" class="docutils">
+<colgroup>
+<col width="33%" />
+<col width="67%" />
+</colgroup>
+<tbody valign="top">
+<tr class="row-odd"><td>Free fall</td>
+<td>&nbsp;</td>
+</tr>
+<tr class="row-even"><td><span class="math">\(m\)</span></td>
+<td><span class="math">\(90kg\)</span></td>
+</tr>
+<tr class="row-odd"><td><span class="math">\(g\)</span></td>
+<td><span class="math">\(9.81\frac{m}{s^2}\)</span></td>
+</tr>
+<tr class="row-even"><td><span class="math">\(\rho\)</span></td>
+<td><span class="math">\(1\frac{kg}{m^3}\)</span></td>
+</tr>
+<tr class="row-odd"><td><span class="math">\(C_p\)</span></td>
+<td><span class="math">\(1.4\)</span></td>
+</tr>
+<tr class="row-even"><td><span class="math">\(A_p\)</span></td>
+<td><span class="math">\(0.7 m^2\)</span></td>
+</tr>
+</tbody>
+</table>
+<table border="1" class="docutils">
+<colgroup>
+<col width="41%" />
+<col width="59%" />
+</colgroup>
+<tbody valign="top">
+<tr class="row-odd"><td>Under parachute</td>
+<td>&nbsp;</td>
+</tr>
+<tr class="row-even"><td><span class="math">\(C_p\)</span></td>
+<td><span class="math">\(1.8\)</span></td>
+</tr>
+<tr class="row-odd"><td><span class="math">\(A_p\)</span></td>
+<td><span class="math">\(44 m^2\)</span></td>
+</tr>
+</tbody>
+</table>
+<p>(<strong>Hint:</strong> name the variable <span class="math">\(\verb+dt+\)</span> in your program)</p>
+</div>
+<div class="section" id="writing-the-code">
+<h2>Writing the code<a class="headerlink" href="Skydiving1.html#writing-the-code" title="Stały odnośnik do tego nagłówka">¶</a></h2>
+<p>We are now ready to get started! This is the template for the program
+you are going to write</p>
+<ol class="arabic simple">
+<li>Import pylab, that is everything we will need.</li>
+<li>Declare all the parameters we need, i.e. <span class="math">\(m\)</span>, <span class="math">\(g\)</span>,
+<span class="math">\(\rho\)</span>, <span class="math">\(A\)</span>, <span class="math">\(C\)</span>, <span class="math">\(A_{p}\)</span>, <span class="math">\(C_{\rm p}\)</span>,
+<span class="math">\(v_0\)</span></li>
+<li>Define the acceleration as a function of the velocity. <strong>Hint:</strong>
+<span class="math">\(\verb+Def a(V)+\)</span>. and remember to return something.</li>
+<li>Define <span class="math">\(\Delta t = 0.01\)</span> (<strong>Hint:</strong> name the variable
+<span class="math">\(\verb+dt+\)</span> in your program) <span class="math">\(T = 60\)</span> and <span class="math">\(n =
+T/dt\)</span></li>
+<li>Declare two arrays, one for the velocity <span class="math">\(v\)</span> and one for the
+time <span class="math">\(t\)</span>. We want the arrays to be empty and have room for
+<span class="math">\(\verb!n+1!\)</span> elements, so use the <span class="math">\(\verb+zeros+\)</span> command.
+Notice that <span class="math">\(\verb+v[i]+\)</span> in your code corresponds to
+<span class="math">\(v_i\)</span>.</li>
+<li>Create a <span class="math">\(\verb+for+\)</span> loop that that iterates over $i =
+0,1,2,..,n $ (<strong>Hint:</strong> use <span class="math">\(\verb+range+\)</span>)</li>
+<li>Inside the loop, calculate <span class="math">\(\verb!v[i+1]!\)</span> from
+<span class="math">\(\verb+v[i]+\)</span> by using the formula we found earlier. Remember
+to update the time (<strong>Hint:</strong> <span class="math">\(\verb!t[i+1] = t[i] + dt!\)</span>).</li>
+<li>Plot the result to see if everything is correct (<strong>Hint:</strong>
+<span class="math">\(\verb+plot(t,v)+\)</span>).</li>
+</ol>
+</div>
+<div class="section" id="exercises">
+<h2>Exercises<a class="headerlink" href="Skydiving1.html#exercises" title="Stały odnośnik do tego nagłówka">¶</a></h2>
+<p>When you have a working program, you can try to do the following
+exercises:</p>
+<ol class="arabic simple">
+<li>Make the plot look nicer. You can for example add a grid
+(<span class="math">\(\verb+grid()+\)</span>), a title, and label the axes
+(<span class="math">\(\verb+xlabel+\)</span> and <span class="math">\(\verb+ylabel+\)</span>)</li>
+<li>At what time will the jumper reach terminal velocity? Look at the
+plot</li>
+<li>Have the program print out the terminal velocity. (<strong>Hint:</strong> The
+function <span class="math">\(\verb+max+\)</span>, fetches the maximal element from an
+array) Compare this with the terminal velocity you found earlier. How
+similar are the values? Does it look like your program is calculating
+correctly?</li>
+</ol>
+</div>
+<div class="section" id="what-now">
+<h2>What now?<a class="headerlink" href="Skydiving1.html#what-now" title="Stały odnośnik do tego nagłówka">¶</a></h2>
+<p>By now we have created a program that finds the velocity of a jumper in
+free-fall with air resistance. But we still need to include deployment
+of the parachute. The main idea is as follows: When the parachute is
+deployed, only the silhouette area <span class="math">\(A\)</span>, and the drag coefficient
+<span class="math">\(C\)</span> changes. And so if we can change these values at the right
+time, we can simulate that the parachute is deployed. In our loop we
+have the time, <span class="math">\(t_i\)</span>, so perhaps we can use an
+<span class="math">\(\verb+if+\)</span>-statement to change <span class="math">\(A\)</span> and <span class="math">\(C\)</span> at the
+right time?</p>
+<p>We will look at this in the next part, but if you want, you can try for
+yourself to figure out what we need to add to the code as an exercise.</p>
+<p>In the next part, we will also calculate and plot the g-forces that the
+jumper experiences, and we will find the velocity of a bungee jumper
+with the same approach we used for the skydiver.</p>
+</div>
+</div>
+
+
+          </div>
+        </div>
+      </div>
+      <div class="sphinxsidebar">
+        <div class="sphinxsidebarwrapper">
+  <div class="sphinxlocaltoc">
+  <h3><a href="index.html">Spis treści</a></h3>
+  <ul>
+<li><a class="reference internal" href="Skydiving1.html#">Skydiving - part 1</a><ul>
+<li><a class="reference internal" href="Skydiving1.html#differential-equations">Differential equations</a></li>
+<li><a class="reference internal" href="Skydiving1.html#unsolvable-differential-equations">Unsolvable differential equations</a></li>
+<li><a class="reference internal" href="Skydiving1.html#solving-the-unsolvable">Solving the unsolvable</a></li>
+<li><a class="reference internal" href="Skydiving1.html#terminal-velocity">Terminal velocity</a></li>
+<li><a class="reference internal" href="Skydiving1.html#solving-the-equations-of-motion-with-air-resistance">Solving the equations of motion with air resistance.</a></li>
+<li><a class="reference internal" href="Skydiving1.html#a-more-mathematical-approach">A more mathematical approach</a></li>
+<li><a class="reference internal" href="Skydiving1.html#parameters">Parameters</a></li>
+<li><a class="reference internal" href="Skydiving1.html#writing-the-code">Writing the code</a></li>
+<li><a class="reference internal" href="Skydiving1.html#exercises">Exercises</a></li>
+<li><a class="reference internal" href="Skydiving1.html#what-now">What now?</a></li>
+</ul>
+</li>
+</ul>
+
+  </div>
+  <h4>Poprzedni temat</h4>
+  <p class="topless"><a href="bungeeCode.html"
+                        title="poprzedni rozdział">&lt;no title&gt;</a></p>
+  <h4>Następny temat</h4>
+  <p class="topless"><a href="Skydiving2.html"
+                        title="następny rozdział">Skydiving - part 2</a></p>
+<div id="searchbox" style="display: none">
+  <h3>Szybkie wyszukiwanie</h3>
+    <form class="search" action="http://visual.icse.us.edu.pl/Warsztaty/search.html" method="get">
+      <input type="text" name="q" />
+      <input type="submit" value="Szukaj" />
+      <input type="hidden" name="check_keywords" value="yes" />
+      <input type="hidden" name="area" value="default" />
+    </form>
+    <p class="searchtip" style="font-size: 90%">
+    Wprowadź szukany termin lub nazwę modułu, klasy lub funkcji.
+    </p>
+</div>
+<script type="text/javascript">$('#searchbox').show(0);</script>
+        </div>
+      </div>
+      <div class="clearer"></div>
+    </div>
+  </div>
+  <div class="relbar-bottom">
+    
+    <div class="related">
+      <h3>Nawigacja</h3>
+      <ul>
+        <li class="right" style="margin-right: 10px">
+          <a href="Skydiving2.html" title="Skydiving - part 2"
+             >dalej</a></li>
+        <li class="right" >
+          <a href="bungeeCode.html" title="&lt;no title&gt;"
+             >wstecz</a> &nbsp; &nbsp;</li>
+  <li><a href="index.html">Warsztaty</a> &raquo;</li>
+   
+      </ul>
+    </div>
+  </div>
+  
+  <div class="footer">
+    <a class="logo" href="../../icse.us.edu.pl/index.html" target="_blank"><img src="_static/logo-icse.png" alt="ICSE"/></a><br/>
+    &copy; Copyright 2013, CubeProject.
+    Created using <a href="http://sphinx.pocoo.org/">Sphinx</a> 1.2.2.
+  </div>
+  </body>
+</html>

@@ -1,0 +1,286 @@
+
+
+  <!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+  "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+
+
+<html xmlns="http://www.w3.org/1999/xhtml">
+  <head>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    
+    <title>Macierze permutacji &mdash; Algebra Liniowa</title>
+    
+    <link rel="stylesheet" href="_static/cloud.css" type="text/css" />
+    <link rel="stylesheet" href="_static/pygments.css" type="text/css" />
+    <link rel="stylesheet" href="http://fonts.googleapis.com/css?family=Noticia+Text|Open+Sans|Droid+Sans+Mono&subset=latin,latin-ext" type="text/css" />
+    
+    <script type="text/javascript">
+      var DOCUMENTATION_OPTIONS = {
+        URL_ROOT:    './',
+        VERSION:     'I',
+        COLLAPSE_INDEX: false,
+        FILE_SUFFIX: '.html',
+        HAS_SOURCE:  true
+      };
+    </script>
+    <script type="text/javascript" src="_static/jquery.js"></script>
+    <script type="text/javascript" src="_static/underscore.js"></script>
+    <script type="text/javascript" src="_static/doctools.js"></script>
+    <script type="text/javascript" src="_static/translations.js"></script>
+    <script type="text/javascript" src="http://cdn.mathjax.org/mathjax/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML"></script>
+    <script type="text/javascript" src="_static/jquery.cookie.js"></script>
+    <script type="text/javascript" src="_static/cloud.js"></script>
+
+	<script src="http://sagecell.icse.us.edu.pl:6363/static/jquery.min.js"></script>
+	<script src="http://sagecell.icse.us.edu.pl:6363/static/embedded_sagecell.js"></script>
+
+	<!-- <script src="http://sagecell.sagemath.org/static/jquery.min.js"></script> -->
+	<!-- <script src="http://sagecell.sagemath.org/static/embedded_sagecell.js"></script> -->
+
+	<script>sagecell.makeSagecell({inputLocation: ".sage",
+                                       evalButtonText: 'Wykonaj',
+                                       linked: true});</script>
+
+	<style type="text/css">
+		.sagecell .CodeMirror-scroll {
+			overflow-y: hidden;
+			overflow-x: auto;
+		}
+		.sagecell .CodeMirror {
+			height: auto;
+		}
+	</style>
+
+    
+    <link rel="top" title="Algebra Liniowa" href="http://visual.icse.us.edu.pl/LA/index.html" />
+    <link rel="next" title="Macierze trójkątne" href="macierze_trojkatne.html" />
+    <link rel="prev" title="Wyznaczenie macierzy odwrotnej metodą eliminacji" href="macierz_odwrotna_eliminacja.html" />
+ 
+  <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, minimum-scale=1">
+  </head>
+  <body>
+  <div class="relbar-top">
+    
+    <div class="related">
+      <h3>Nawigacja</h3>
+      <ul>
+        <li class="right" style="margin-right: 10px">
+          <a href="macierze_trojkatne.html" title="Macierze trójkątne"
+             accesskey="N">dalej</a></li>
+        <li class="right" >
+          <a href="macierz_odwrotna_eliminacja.html" title="Wyznaczenie macierzy odwrotnej metodą eliminacji"
+             accesskey="P">wstecz</a> &nbsp; &nbsp;</li>
+  <li><a href="http://visual.icse.us.edu.pl/LA/index.html">Algebra Liniowa</a> &raquo;</li>
+   
+      </ul>
+    </div>
+  </div>
+  
+  <div class="content">  
+
+    <div class="document">
+      <div class="documentwrapper">
+        <div class="bodywrapper">
+          <div class="body">
+            
+  <div class="section" id="macierze-permutacji">
+<h1>Macierze permutacji<a class="headerlink" href="macierze_permutacji.html#macierze-permutacji" title="Stały odnośnik do tego nagłówka">¶</a></h1>
+<p>Niech będzie dana macierz
+<span class="math">\(\,\boldsymbol{A}=[a_{ij}]_{m\times n}\in M_{m\times n}(K)\,\)</span> o postaci wierszowej</p>
+<div class="math">
+\[\begin{split}\boldsymbol{A}\ \ =\ \
+\left[\begin{array}{c} \boldsymbol{A}_1 \\
+                       \boldsymbol{A}_2 \\
+                       \ldots           \\
+                       \boldsymbol{A}_m\end{array}\right],\qquad
+\text{gdzie}\quad\boldsymbol{A}_i\ =\ [\,a_{i1}\ \,a_{i2}\ \,\dots\ \,a_{in}\,]\,,\quad
+i=1,2,\dots,m\,,\end{split}\]</div>
+<p>oraz permutacja
+<span class="math">\(\ \ \sigma\ =\
+\left(\begin{array}{cccc}
+1 &amp; 2 &amp; \ldots &amp; m \\ \sigma(1) &amp; \sigma(2) &amp; \ldots &amp; \sigma(m)
+\end{array}\right)\ \in\ S_m.\)</span></p>
+<p><span class="math">\(\;\)</span></p>
+<p>Permutacja <span class="math">\(\,\sigma\,\)</span> wyznacza operację <span class="math">\(\,O_\sigma\,\)</span>
+zmieniającą kolejność wierszy macierzy <span class="math">\(\,\boldsymbol{A}\,:\)</span></p>
+<div class="math" id="equation-perm_verse">
+<span class="eqno">(1)</span>\[\begin{split}O_\sigma\,\boldsymbol{A}\ :\,=\
+\left[\begin{array}{c} \boldsymbol{A}_{\,\sigma(1)} \\
+                       \boldsymbol{A}_{\,\sigma(2)} \\
+                       \ldots           \\
+                       \boldsymbol{A}_{\,\sigma(m)}\end{array}\right]\,.\end{split}\]</div>
+<p><span class="math">\(\;\)</span></p>
+<p>Zastosowanie operacji <span class="math">\(\,O_\sigma\,\)</span> do macierzy jednostkowej</p>
+<div class="math">
+\[\begin{split}\boldsymbol{I}_m\ \ =\ \ \left[\begin{array}{c}
+                         \boldsymbol{e}_1 \\
+                         \boldsymbol{e}_2 \\
+                         \ldots \\
+                         \boldsymbol{e}_m
+                         \end{array}\right]\,,\end{split}\]</div>
+<p>(<span class="math">\(\,\boldsymbol{e}_i\,\)</span> jest wierszem zawierającym jedynkę na <span class="math">\(\,i\)</span>-tym miejscu,
+poza tym zera) daje macierz <span class="math">\(\,\boldsymbol{P}_\sigma\,\)</span>
+nazywaną <em>macierzą permutacji</em> <span class="math">\(\,\sigma:\)</span></p>
+<div class="math">
+\[\begin{split}\boldsymbol{P}_\sigma\ \ :\,=\ \ O_\sigma\,\boldsymbol{I}_m\ \ =\ \
+                                 \left[\begin{array}{c}
+                                 \boldsymbol{e}_{\,\sigma(1)} \\
+                                 \boldsymbol{e}_{\,\sigma(2)} \\
+                                 \ldots \\
+                                 \boldsymbol{e}_{\,\sigma(m)}
+                                 \end{array}\right]\,.\end{split}\]</div>
+<p><strong>Przykład.</strong> <span class="math">\(\,\)</span> Niech
+<span class="math">\(\quad\sigma\ =\ \left(\begin{array}{ccccc}
+1 &amp; 2 &amp; 3 &amp; 4 &amp; 5 \\
+4 &amp; 3 &amp; 5 &amp; 1 &amp; 2
+\end{array}\right)\,\in S_5\,.\)</span></p>
+<p><span class="math">\(\;\)</span></p>
+<p>Macierz tej permutacji przedstawia się następująco:</p>
+<div class="math">
+\[\begin{split}\boldsymbol{P}_\sigma\ =\
+\left[\begin{array}{c} \boldsymbol{e}_{\,\sigma(1)} \\
+                       \boldsymbol{e}_{\,\sigma(2)} \\
+                       \boldsymbol{e}_{\,\sigma(3)} \\
+                       \boldsymbol{e}_{\,\sigma(4)} \\
+                       \boldsymbol{e}_{\,\sigma(5)}
+\end{array}\right]\ =\
+\left[\begin{array}{c} \boldsymbol{e}_4 \\
+                       \boldsymbol{e}_3 \\
+                       \boldsymbol{e}_5 \\
+                       \boldsymbol{e}_1 \\
+                       \boldsymbol{e}_2
+\end{array}\right]\ =\
+\left[\begin{array}{ccccc} 0 &amp; 0 &amp; 0 &amp; 1 &amp; 0 \\
+                           0 &amp; 0 &amp; 1 &amp; 0 &amp; 0 \\
+                           0 &amp; 0 &amp; 0 &amp; 0 &amp; 1 \\
+                           1 &amp; 0 &amp; 0 &amp; 0 &amp; 0 \\
+                           0 &amp; 1 &amp; 0 &amp; 0 &amp; 0
+\end{array}\right]\,.\end{split}\]</div>
+<p><span class="math">\(\;\)</span></p>
+<p>W analogii do Twierdzenia 3. o operacjach i macierzach elementarnych,
+wykonanie operacji <span class="math">\(\,O_\sigma\,\)</span> na macierzy
+<span class="math">\(\,\boldsymbol{A}\in M_{m\times n}(K)\,\)</span> jest równoważne pomnożeniu
+<span class="math">\(\,\boldsymbol{A}  \,\)</span> z lewej strony przez <span class="math">\(\,\boldsymbol{P}_\sigma:\)</span></p>
+<div class="math">
+\[O_\sigma\,\boldsymbol{A}\ \ =\ \
+\boldsymbol{P}_\sigma\,\boldsymbol{A}\,,
+\qquad\sigma\in S_m\,.\]</div>
+<p><span class="math">\(\;\)</span></p>
+<p><strong>Własności macierzy permutacji.</strong></p>
+<ol class="arabic">
+<li><p class="first">Każda macierz permutacji jest iloczynem macierzy elementarnych pierwszego rodzaju
+(odpowiadających przestawieniom wierszy macierzy).</p>
+<p>Wynika to stąd, że każdą permutację <span class="math">\(\,\sigma\in S_m\,\)</span> można zapisać jako złożenie
+pewnej liczby transpozycji, którym odpowiadają operacje elementarne pierwszego rodzaju.</p>
+</li>
+<li><p class="first">Macierze permutacji są <span class="math">\(\,\)</span> <em>ortogonalne</em>:
+<span class="math">\(\quad\boldsymbol{P}_\sigma^{\,T}\,\boldsymbol{P}_\sigma\ =
+\ \boldsymbol{I}_m\,,\quad\sigma\in S_m\,.\)</span></p>
+</li>
+<li><p class="first">Iloczyn dwóch macierzy permutacji jest macierzą permutacji, przy czym</p>
+<div class="math">
+\[\boldsymbol{P}_\rho\,\boldsymbol{P}_\sigma\ =\ \boldsymbol{P}_{\sigma\,\circ\,\rho}\,,
+\qquad\rho,\sigma\in S_m\,.\]</div>
+</li>
+<li><p class="first">Permutacji identycznościowej <span class="math">\(\,\text{id}\in S_m\,\)</span> odpowiada macierz jednostkowa
+<span class="math">\(\,\boldsymbol{I}_m.\)</span></p>
+</li>
+<li><p class="first">Macierze permutacji są odwracalne, przy czym
+odwrotność macierzy permutacji jest macierzą permutacji odwrotnej:</p>
+<div class="math">
+\[\boldsymbol{P}_\sigma^{-1}\ =\ \boldsymbol{P}_{\sigma^{-1}}\ =\ \,\boldsymbol{P}_\sigma^T\,,
+\qquad\sigma\in S_m\,.\]</div>
+</li>
+</ol>
+<div class="admonition-wniosek-math admonition">
+<p class="first admonition-title">Wniosek. <span class="math">\(\,\)</span></p>
+<p class="last">Zbiór <span class="math">\(\,P=\{\,\boldsymbol{P}_\sigma:\ \sigma\in S_m\,\}\ \)</span>
+jest grupą ze względu na mnożenie macierzowe. <span class="math">\(\\\)</span>
+Dla <span class="math">\(\,m&gt;2\,\)</span> jest to grupa nieprzemienna.</p>
+</div>
+<p>Polecenie <tt class="docutils literal"><span class="pre">SymmetricGroup(n)</span></tt> konstruuje grupę permutacji zbioru
+<span class="math">\(X=\{\,1,2,\ldots,n\}.\)</span> Jej elementy są wyświetlane w postaci cyklicznej.</p>
+<div class="highlight-python"><div class="highlight"><pre><span class="n">sage</span><span class="p">:</span> <span class="n">G</span> <span class="o">=</span> <span class="n">SymmetricGroup</span><span class="p">(</span><span class="mi">4</span><span class="p">)</span>
+<span class="n">sage</span><span class="p">:</span> <span class="n">L</span> <span class="o">=</span> <span class="n">G</span><span class="o">.</span><span class="n">list</span><span class="p">()</span>
+<span class="n">sage</span><span class="p">:</span> <span class="k">print</span> <span class="n">L</span>
+
+<span class="p">[(),</span> <span class="p">(</span><span class="mi">3</span><span class="p">,</span><span class="mi">4</span><span class="p">),</span> <span class="p">(</span><span class="mi">2</span><span class="p">,</span><span class="mi">3</span><span class="p">),</span> <span class="p">(</span><span class="mi">2</span><span class="p">,</span><span class="mi">3</span><span class="p">,</span><span class="mi">4</span><span class="p">),</span> <span class="p">(</span><span class="mi">2</span><span class="p">,</span><span class="mi">4</span><span class="p">,</span><span class="mi">3</span><span class="p">),</span> <span class="p">(</span><span class="mi">2</span><span class="p">,</span><span class="mi">4</span><span class="p">),</span> <span class="p">(</span><span class="mi">1</span><span class="p">,</span><span class="mi">2</span><span class="p">),</span> <span class="p">(</span><span class="mi">1</span><span class="p">,</span><span class="mi">2</span><span class="p">)(</span><span class="mi">3</span><span class="p">,</span><span class="mi">4</span><span class="p">),</span> <span class="p">(</span><span class="mi">1</span><span class="p">,</span><span class="mi">2</span><span class="p">,</span><span class="mi">3</span><span class="p">),</span>
+<span class="p">(</span><span class="mi">1</span><span class="p">,</span><span class="mi">2</span><span class="p">,</span><span class="mi">3</span><span class="p">,</span><span class="mi">4</span><span class="p">),</span> <span class="p">(</span><span class="mi">1</span><span class="p">,</span><span class="mi">2</span><span class="p">,</span><span class="mi">4</span><span class="p">,</span><span class="mi">3</span><span class="p">),</span> <span class="p">(</span><span class="mi">1</span><span class="p">,</span><span class="mi">2</span><span class="p">,</span><span class="mi">4</span><span class="p">),</span> <span class="p">(</span><span class="mi">1</span><span class="p">,</span><span class="mi">3</span><span class="p">,</span><span class="mi">2</span><span class="p">),</span> <span class="p">(</span><span class="mi">1</span><span class="p">,</span><span class="mi">3</span><span class="p">,</span><span class="mi">4</span><span class="p">,</span><span class="mi">2</span><span class="p">),</span> <span class="p">(</span><span class="mi">1</span><span class="p">,</span><span class="mi">3</span><span class="p">),</span> <span class="p">(</span><span class="mi">1</span><span class="p">,</span><span class="mi">3</span><span class="p">,</span><span class="mi">4</span><span class="p">),</span>
+<span class="p">(</span><span class="mi">1</span><span class="p">,</span><span class="mi">3</span><span class="p">)(</span><span class="mi">2</span><span class="p">,</span><span class="mi">4</span><span class="p">),</span> <span class="p">(</span><span class="mi">1</span><span class="p">,</span><span class="mi">3</span><span class="p">,</span><span class="mi">2</span><span class="p">,</span><span class="mi">4</span><span class="p">),</span> <span class="p">(</span><span class="mi">1</span><span class="p">,</span><span class="mi">4</span><span class="p">,</span><span class="mi">3</span><span class="p">,</span><span class="mi">2</span><span class="p">),</span> <span class="p">(</span><span class="mi">1</span><span class="p">,</span><span class="mi">4</span><span class="p">,</span><span class="mi">2</span><span class="p">),</span> <span class="p">(</span><span class="mi">1</span><span class="p">,</span><span class="mi">4</span><span class="p">,</span><span class="mi">3</span><span class="p">),</span> <span class="p">(</span><span class="mi">1</span><span class="p">,</span><span class="mi">4</span><span class="p">),</span> <span class="p">(</span><span class="mi">1</span><span class="p">,</span><span class="mi">4</span><span class="p">,</span><span class="mi">2</span><span class="p">,</span><span class="mi">3</span><span class="p">),</span>
+<span class="p">(</span><span class="mi">1</span><span class="p">,</span><span class="mi">4</span><span class="p">)(</span><span class="mi">2</span><span class="p">,</span><span class="mi">3</span><span class="p">)]</span>
+</pre></div>
+</div>
+<p>Metoda <tt class="docutils literal"><span class="pre">matrix()</span></tt> zastosowana do elementu grupy permutacji daje macierz tego elementu.
+Dla przykładu znajdziemy macierz transpozycji <span class="math">\(\,\tau=(2,4)\in S_4\,:\)</span></p>
+<div class="math">
+\[\begin{split}\tau\ =\ (2,4)\ =\ \left(\begin{array}{cccc}
+                      1 &amp; 2 &amp; 3 &amp; 4 \\
+                      1 &amp; 4 &amp; 3 &amp; 2
+                   \end{array}\right)\,.\end{split}\]</div>
+<div class="highlight-python"><div class="highlight"><pre><span class="n">sage</span><span class="p">:</span> <span class="n">p</span> <span class="o">=</span> <span class="n">L</span><span class="p">[</span><span class="mi">5</span><span class="p">]</span>
+<span class="n">sage</span><span class="p">:</span> <span class="n">show</span><span class="p">((</span><span class="n">p</span><span class="p">,</span> <span class="n">p</span><span class="o">.</span><span class="n">matrix</span><span class="p">()))</span>
+</pre></div>
+</div>
+<div class="math">
+\[\begin{split}\left(\ (2,4),\ \left(\begin{array}{rrrr}
+                   1 &amp; 0 &amp; 0 &amp; 0 \\
+                   0 &amp; 0 &amp; 0 &amp; 1 \\
+                   0 &amp; 0 &amp; 1 &amp; 0 \\
+                   0 &amp; 1 &amp; 0 &amp; 0
+                \end{array}\right)\ \right)\end{split}\]</div>
+</div>
+
+
+          </div>
+        </div>
+      </div>
+      <div class="sphinxsidebar">
+        <div class="sphinxsidebarwrapper">
+  <h4>Poprzedni temat</h4>
+  <p class="topless"><a href="macierz_odwrotna_eliminacja.html"
+                        title="poprzedni rozdział">Wyznaczenie macierzy odwrotnej metodą eliminacji</a></p>
+  <h4>Następny temat</h4>
+  <p class="topless"><a href="macierze_trojkatne.html"
+                        title="następny rozdział">Macierze trójkątne</a></p>
+<div id="searchbox" style="display: none">
+  <h3>Szybkie wyszukiwanie</h3>
+    <form class="search" action="search.html" method="get">
+      <input type="text" name="q" />
+      <input type="submit" value="Szukaj" />
+      <input type="hidden" name="check_keywords" value="yes" />
+      <input type="hidden" name="area" value="default" />
+    </form>
+    <p class="searchtip" style="font-size: 90%">
+    Wprowadź szukany termin lub nazwę modułu, klasy lub funkcji.
+    </p>
+</div>
+<script type="text/javascript">$('#searchbox').show(0);</script>
+        </div>
+      </div>
+      <div class="clearer"></div>
+    </div>
+  </div>
+  <div class="relbar-bottom">
+    
+    <div class="related">
+      <h3>Nawigacja</h3>
+      <ul>
+        <li class="right" style="margin-right: 10px">
+          <a href="macierze_trojkatne.html" title="Macierze trójkątne"
+             >dalej</a></li>
+        <li class="right" >
+          <a href="macierz_odwrotna_eliminacja.html" title="Wyznaczenie macierzy odwrotnej metodą eliminacji"
+             >wstecz</a> &nbsp; &nbsp;</li>
+  <li><a href="http://visual.icse.us.edu.pl/LA/index.html">Algebra Liniowa</a> &raquo;</li>
+   
+      </ul>
+    </div>
+  </div>
+  
+  <div class="footer">
+    <a class="logo" href="../../icse.us.edu.pl/index.html" target="_blank"><img src="_static/logo-icse.png" alt="ICSE"/></a><br/>
+    &copy; Copyright 2013, Marcin Kostur.
+    Created using <a href="http://sphinx.pocoo.org/">Sphinx</a> 1.2.2.
+  </div>
+  </body>
+</html>

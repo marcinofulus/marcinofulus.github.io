@@ -1,0 +1,288 @@
+
+
+  <!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+  "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+
+
+<html xmlns="http://www.w3.org/1999/xhtml">
+  <head>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    
+    <title>Rozgrywki Playoffs – wyłanianie najlepszych &mdash; Warsztaty</title>
+    
+    <link rel="stylesheet" href="_static/cloud.css" type="text/css" />
+    <link rel="stylesheet" href="_static/pygments.css" type="text/css" />
+    <link rel="stylesheet" href="http://fonts.googleapis.com/css?family=Noticia+Text|Open+Sans|Droid+Sans+Mono&subset=latin,latin-ext" type="text/css" />
+    
+    <script type="text/javascript">
+      var DOCUMENTATION_OPTIONS = {
+        URL_ROOT:    './',
+        VERSION:     'I',
+        COLLAPSE_INDEX: false,
+        FILE_SUFFIX: '.html',
+        HAS_SOURCE:  true
+      };
+    </script>
+    <script type="text/javascript" src="_static/jquery.js"></script>
+    <script type="text/javascript" src="_static/underscore.js"></script>
+    <script type="text/javascript" src="_static/doctools.js"></script>
+    <script type="text/javascript" src="_static/translations.js"></script>
+    <script type="text/javascript" src="http://cdn.mathjax.org/mathjax/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML"></script>
+    <script type="text/javascript" src="_static/jquery.cookie.js"></script>
+    <script type="text/javascript" src="_static/cloud.js"></script>
+
+
+
+    <script src="http://sagecell.icse.us.edu.pl:6363/static/jquery.min.js"></script>
+	<script src="http://sagecell.icse.us.edu.pl:6363/static/embedded_sagecell.js"></script>
+
+	<script>sagecell.makeSagecell({inputLocation: ".sage",
+                                       evalButtonText: 'Wykonaj',
+                                       linked: true});</script>
+
+	<style type="text/css">
+		.sagecell .CodeMirror-scroll {
+			overflow-y: hidden;
+			overflow-x: auto;
+		}
+		.sagecell .CodeMirror {
+			height: auto;
+		}
+	</style>
+
+    
+    <link rel="top" title="Warsztaty" href="index.html" />
+    <link rel="next" title="Paradoks Monty Halla – problem z mylącą intuicją" href="iCSE_4_MontyHall_CubeProject.html" />
+    <link rel="prev" title="Demokracja – co dwie głowy, to nie jedna" href="iCSE_2_Demokracja_CubeProject.html" />
+ 
+  <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, minimum-scale=1">
+  </head>
+  <body>
+  <div class="relbar-top">
+    
+    <div class="related">
+      <h3>Nawigacja</h3>
+      <ul>
+        <li class="right" style="margin-right: 10px">
+          <a href="iCSE_4_MontyHall_CubeProject.html" title="Paradoks Monty Halla – problem z mylącą intuicją"
+             accesskey="N">dalej</a></li>
+        <li class="right" >
+          <a href="iCSE_2_Demokracja_CubeProject.html" title="Demokracja – co dwie głowy, to nie jedna"
+             accesskey="P">wstecz</a> &nbsp; &nbsp;</li>
+  <li><a href="index.html">Warsztaty</a> &raquo;</li>
+   
+      </ul>
+    </div>
+  </div>
+  
+  <div class="content">  
+
+    <div class="document">
+      <div class="documentwrapper">
+        <div class="bodywrapper">
+          <div class="body">
+            
+  <div class="section" id="rozgrywki-playoffs-wylanianie-najlepszych">
+<h1>Rozgrywki Playoffs &#8211; wyłanianie najlepszych<a class="headerlink" href="iCSE_3_Playoffs_CubeProject.html#rozgrywki-playoffs-wylanianie-najlepszych" title="Stały odnośnik do tego nagłówka">¶</a></h1>
+<div class="section" id="czy-playoffy-nagradzaja-zawsze-najlepszych-symulacja-monte-carlo">
+<h2>Czy playoffy nagradzają zawsze najlepszych &#8211; symulacja Monte Carlo<a class="headerlink" href="iCSE_3_Playoffs_CubeProject.html#czy-playoffy-nagradzaja-zawsze-najlepszych-symulacja-monte-carlo" title="Stały odnośnik do tego nagłówka">¶</a></h2>
+<div class="section" id="wstep">
+<h3>Wstęp<a class="headerlink" href="iCSE_3_Playoffs_CubeProject.html#wstep" title="Stały odnośnik do tego nagłówka">¶</a></h3>
+<p><strong>Szczegółowy opis zagadnienia:</strong></p>
+<a class="reference internal image-reference" href="_images/playoffs.jpg"><img alt="schemat playoffs" class="align-right" src="_images/playoffs.jpg" style="height: 320px;" /></a>
+<p>rzecz dotyczy rozgrywek sportowych. Załóżmy, że pewne drużyny rywalizują w ramach rozgrywek ligowych. Po zakończeniu fazy ligowej ropozczyna się walka o mistrzostwo,
+która odbywa się w oparciu o formułę playoffs, przy czym przyjmiemy, że reguły tej fazy playoffs są następujące (nasze założenia):</p>
+<ol class="arabic simple">
+<li>Do fazy playoffs wchodzą tylko najlepsze drużyny; ponieważ mecze w playoffs rozgrywane są parami, to by zapewnić, że na każdym etapie mamy parzystą liczbę współzawodniczących drużyn, zakładamy, że liczba drużyn zakwalifikowanych do playoffs jest potęgą liczby 2 &#8211; u nas <span class="math">\(2^6=64\)</span> drużyny;</li>
+<li>Zakładamy, że drużyny można dobrze uporządkować od najlepszej do najgorszej, tzn. zakładamy, choć nikt tego porządku nie zna, że jednak taki porządek istnieje, czyli istnieje drużyna która jest najlepsza (pod względem poziomu gry i skuteczności) &#8211; tej drużynie w naszych rozważaniach przyporządkujemy etykietę &#8216;1&#8217;, a następnie drużyny: druga (oznaczona przez &#8216;2&#8217;), trzecia (oznaczona &#8216;3&#8217;) itd. aż do najsłabszej drużyny oznaczonej przez &#8216;64&#8217;;</li>
+<li>Zakładamy, że na pierwszym etapie rozgrywek playoffs drużyny łączone są w pary losowo; pary są numerowane;</li>
+<li>Na każdym etapie playoffs każda z drużyn gra tylko z jednym przeciwnikiem (z jedną drużyną, w której jest w parze); drużyna przegrana odpada z rozgrywek a wygrana przechodzi do kolejnego etapu (z wyjątkiem półfinałów, gdzie przegrani nie odpadają, lecz walczą o 3. miejsce)</li>
+<li>Po rozegraniu danego etapu playoffs, w kolejnym etapie tworzone są nowe pary w ten sposób, że wygrany z pierwszej pary gra z wygranym z drugiej pary, wygrany z trzeciej pary gra z wygranym z czwartej pary itd., przy czym tak utworzone nowe pary są również na nowo numerowane i rozgrywany jest kolejny etap;</li>
+<li>Przyjmujemy, że drużyna lepsza zawsze wygrywa z drużyną słabszą, czyli że porządek opisany w punkcie 2. oznacza, że drużyna &#8216;1&#8217; zawsze wygrywa z wszystkimi (nawet jeśli ma ,,gorszy dzień&#8221;, to wygrywa), drużyna oznaczona &#8216;2&#8217; zawsze wygrywa z wszystkimi z wyjątkiem drużyny &#8216;1&#8217;, itd.</li>
+</ol>
+<p>System rozgrywek playoffs ma za zadanie wyłonić najlepszych. Pytanie czy faktycznie tak jest? Nietrudno wykazać, że przy przyjętych założeniach, drużyna najlepsza zawsze wygrywa playoffy (zdobywa mistrzostwo), ale ciekawe jest zagadnienie, kto zdobywa miejsce drugie i trzecie? Jak często zdarza się, że rozgrywki playoffs odzwierciedlą faktyczny, choć nieznany porządek i najwyższe miejsca zdobywają odpowiednio drużyny &#8216;1&#8217;, &#8216;2&#8217; i &#8216;3&#8217;. Można się domyślić, że czasem w wyniku losowego doboru par na pierwszym etapie, drużyna oznaczona &#8216;2&#8217; trafi na drużynę &#8216;1&#8217; wcześniej niż w finale i przegra odpadając z dalszych rozgrywek (czyli drużyna &#8216;2&#8217; może w ogóle nie znaleźć się na podium). Możemy też zadać pytanie, czy np. jest prawdopodobne, żeby dziesiąta pod względem poziomu gry i skuteczności drużyna zdobyła wicemistrzostwo?</p>
+<p>Spróbujmy zapisać kod programu, który będzie symulował opisane rozgrywki playoffs. Będzie to typowa symulacja Monte Carlo, w której przyjmuje się pewne założenia dotyczące zachowań uwzględnianych obiektów oraz zakłada się losowy układ początkowy i następnie uruchamia się symulacje reprezentujące mechanizmy rządzące działaniem systemu i obserwuje się wyniki.</p>
+</div>
+<div class="section" id="rozegranie-pojedynczego-etapu-rozgrywek-playoffs">
+<h3>Rozegranie pojedynczego etapu rozgrywek playoffs<a class="headerlink" href="iCSE_3_Playoffs_CubeProject.html#rozegranie-pojedynczego-etapu-rozgrywek-playoffs" title="Stały odnośnik do tego nagłówka">¶</a></h3>
+<p>Rozbijmy pisanie programu realizującego naszą symulację na kilka modułów. Zacznijmy od krótkiego modułu odpowiedzialnego za rozegranie pojedynczego etapu
+rozgrywek playoffs. Napiszemy ten moduł w postaci ,,funkcji&#8221;, która na wejściu (jako argument) dostaje listę zespołów poukładanych tak, że pierwsza drużyna
+z listy ma grać z drugą, druga z trzecią itd., a na wyjściu (jako wartość funkcji) zwraca listę zwycięzców danego etapu (lista zwycięzców jest oczywiście
+krótsza o połowę od listy wejściowej). Ponieważ do oznaczenia drużyn użyliśmy kolejnych liczb naturyalnych a &#8216;1&#8217; to najlepsza drużyna, to wyłonienie zwycięzcy
+a danej pary (a,b) polega na sprawdzeniu, która etykieta jest mniejsza, czyli, że mecz wygrywa drużyna, która wskazuje min(a,b).</p>
+<p>UWAGA! W poniższym kodzie w drugiej linii użyto pewnego sprytnego zapisu, który z pojedynczej listy, np. drużyny=[14, 8, 37, 2, 12, 23, ...], tworzy dwie rozłączne
+listy a następnie z nich tworzy wiele par postaci [14, 8], [37, 2], [12, 23], ...</p>
+<p>Przy tworzeniu takich par posłużono się funkcją zip(...), która działa na dwóch listach tak, jak zamek błyskawiczny spinający/łączący odpowiadające sobie elementy
+w dwóch listach. Pierwszą listę tworzą elementy listy o nazwie &#8216;druzyny&#8217; zaczynając od elementu początkowego aż do ostatniego osiąganego w tej liście skacząc
+co drugi. Drugą listę, czyli drugi argument funkcji zip tworzą elementy listy o nazwie &#8216;druzyny&#8217; zaczynając od elementu drugiego aż do ostatniego osiąganego w tej
+liście skacząc co drugi [pamiętamy, że elementy listy w Pythonie są numerowane od zera, więc drugi element listy ma numer 1].</p>
+<p>Jako wynik działania funkcji rozegraj_etap na przykładzie przedstawionym powyżej, otrzymamy nową listę postaci: [8, 2, 12, ...] i oczywiście w dalszej części powtórzymy w pętli wywołanie funkcji rozegraj_etap na takiej nowej liście (tworząc nowe pary i &#8220;rozgrywając&#8221; nowe mecze).</p>
+<div class='sage'><script type='text/x-sage'>def rozegraj_etap(druzyny):
+    mecze = zip(druzyny[::2], druzyny[1::2])
+    wyniki = []
+    for mecz in mecze:
+        wyniki.append(min(mecz))
+    return wyniki
+
+# Spawdźmy jak działa nasza funkcja:
+moje_druzyny = [42, 17, 32, 29, 9, 19, 30, 12]
+mecze = zip(moje_druzyny[::2], moje_druzyny[1::2])
+print("Na pewnym etapie playoffs grają drużyny:")
+print(moje_druzyny)
+print(mecze)
+print("Rozegrano mecze w danym etapie i do kolejnego etapu playoffs wchodzą drużyny:")
+print(rozegraj_etap(moje_druzyny))</script></div></div>
+<div class="section" id="symulacja-calych-rozgrywek-playoffs">
+<h3>Symulacja całych rozgrywek playoffs<a class="headerlink" href="iCSE_3_Playoffs_CubeProject.html#symulacja-calych-rozgrywek-playoffs" title="Stały odnośnik do tego nagłówka">¶</a></h3>
+<p>Spróbujemy teraz napisać funkcję, która będzie realizować rozegranie playoffów. Do tego celu oczywiście wykorzystamy wcześniej napisaną funkcję rozegraj_etap(...).</p>
+<p>Przypomnijmy, że przyjęliśmy założenie, że w pierwszym etapie playoffs mamy pewną liczbę zespołów, która jest potęgą dwójki, i że te zespoły są uporządkowane, ale do
+pierwszego etapu są łączone w pary losowo. Będziemy zatem przekazywać do naszej funkcji jako argument liczbę &#8216;n&#8217;, która wskazywać będzie jaką potęgę dwójki mamy
+rozważać, następnie utworzymy listę zespołów numerując je po kolei od <span class="math">\(1\)</span> do <span class="math">\(2^n\)</span> a do rozegrania pierwszego etapu (przed pierwszym użyciem funkcji rozegraj_etap(...))
+zastosujemy funkcję shuffle(...) która losowo wymiesza elementy listy &#8216;druzyny&#8217;. To losowe wymieszanie spowoduje, że dobór w pary na pierwszym etapie będzie losowy
+zgodnie z założeniami. Listy drużyn z wszystkich etapów rozgrywek będziemy zapisywać i przechowywać jako &#8216;playoff_etapy&#8217;.</p>
+<p>Wiadomo, że należy wielokrotnie skorzystać z funkcji rozegraj_etap(...). Po chwili zastanowienia dojdziemy do wniosku, że aby wyłonić mistrza w playoffach, gdzie
+zaczyna rozgrywki <span class="math">\(2^n\)</span> drużyn, trzeba rozegrać <span class="math">\(n\)</span> etapów. Tym razem jednak zamiast korzystać z tej wiedzy i uruchamiać <span class="math">\(n\)</span>&#8211;krotnie funkcję
+rozegraj_etap(...) w pętli &#8216;for&#8217;, wykorzystamy inny typ pętli, mianowicie pętlę &#8216;while&#8217; podając warunek, że chcemy powtarzać zawarte w pętli instrukcje tak długo,
+aż na polu bitwy pozostanie tylko jedna drużyna (zwycięzca tytułu mistrzowskiego), czyli dopóki liczba drużyn po rozegraniu etapu jest większa od 1.</p>
+<div class='sage'><script type='text/x-sage'>def rozegraj_playoffs(n):
+    playoff_etapy = []
+    druzyny = [1..2^n]
+    shuffle(druzyny)
+    playoff_etapy.append(druzyny)
+
+    while len(druzyny)>1:
+        druzyny = rozegraj_etap(druzyny)
+        playoff_etapy.append(druzyny)
+
+    return playoff_etapy
+
+# Zobaczmy jak działa nasza funkcja rozegraj_playoffs(...) dla 16 drużyn (czyli dla n=4):
+wyniki = rozegraj_playoffs(4)
+print("Mistrzostwo w playoffach zdobyła drużyna oznaczona:")
+print(wyniki[-1])
+print("Finał playoffów rozgrywały drużyny oznaczone:")
+print(wyniki[-2])
+print("półfinały playoffów rozgrywały drużyny oznaczone:")
+print(wyniki[-3])</script></div><p>Widać z wyników powyższego programu, że funkcja, którą napisaliśmy identyfikuje zwycięzcę (mistrza), ale wicemistrza i drużynę zdobywającą
+trzecie miejsce musimy jeszcze sami wyłuskać ze struktury, którą zwraca funkcja rozegraj_playoffs(...) &#8211; ta struktura jest złożona i jest
+to ,,lista list&#8221;. Musimy ostrożnie odwołać się do poszczególnych elementów tych list składowych pisząc program do wychwytywania miejsc na podium:</p>
+</div>
+<div class="section" id="wychwytywanie-druzyn-ktore-znalazly-sie-na-podium">
+<h3>Wychwytywanie drużyn, które znalazły się na podium<a class="headerlink" href="iCSE_3_Playoffs_CubeProject.html#wychwytywanie-druzyn-ktore-znalazly-sie-na-podium" title="Stały odnośnik do tego nagłówka">¶</a></h3>
+<div class='sage'><script type='text/x-sage'>def wychwyc_pierwsze_trzy_miejsca(playoff_etapy):
+    pierwsze_miejsce = playoff_etapy[-1][0]
+    drugie_miejsce = max(playoff_etapy[-2])
+    pierwszy_przegrany_polfinalu = max(playoff_etapy[-3][0],playoff_etapy[-3][1])
+    drugi_przegrany_polfinalu = max(playoff_etapy[-3][2],playoff_etapy[-3][3])
+    trzecie_miejsce = min(pierwszy_przegrany_polfinalu, drugi_przegrany_polfinalu)
+    return [pierwsze_miejsce,drugie_miejsce,trzecie_miejsce]
+
+n = 6
+
+# Przykład jak to działa:
+playoff_etapy= rozegraj_playoffs(n)
+for etap in playoff_etapy:
+    print etap
+print "Trzy pierwsze miejsca to:"
+print wychwyc_pierwsze_trzy_miejsca(playoff_etapy)</script></div></div>
+<div class="section" id="jak-czesto-dana-druzyna-zajmuje-trzecie-miejsce">
+<h3>Jak często dana drużyna zajmuje trzecie miejsce<a class="headerlink" href="iCSE_3_Playoffs_CubeProject.html#jak-czesto-dana-druzyna-zajmuje-trzecie-miejsce" title="Stały odnośnik do tego nagłówka">¶</a></h3>
+<p>Wykorzystajmy wszystkie napisane funkcje do zbadania problemu przedstawionego na początku &#8211; która drużyna i jak często zdobywa trzecie miejsce
+w rozgrywkach playoffs? Załóżmy że powtórzymy symulację, czyli rozegramy całe playoffy 10 000 razy. Przedstawmy wyniki symulacji na wykresie:</p>
+<div class='sage'><script type='text/x-sage'>ilosc_prob = 10000
+
+ilosc_2 = [1..2^n]
+ilosc_3 = [1..2^n]
+
+for i in range(2^n):
+    ilosc_2[i] = 0
+    ilosc_3[i] = 0
+
+for i in range(ilosc_prob):
+    playoff_etapy= rozegraj_playoffs(n)
+    podium = wychwyc_pierwsze_trzy_miejsca(playoff_etapy)
+    ilosc_2[podium[1]] += 1/ilosc_prob
+    ilosc_3[podium[2]] += 1/ilosc_prob
+
+#bar_chart(ilosc_2)
+bar_chart(ilosc_3)</script></div><p>Z powyższego wykresu widać, że drużyna oznaczona &#8216;3&#8217; w około 33% rozgrywek playoffs zdobywa miejsce trzecie, ale np. średnio co czwarte playoffy
+kończą się tak, że druga drużyna pod względem umiejętności i skuteczności zajmuje miejsce trzecie. Widać z wykresu, że wprawdzie rzadko,
+ale zdarza się, że drużyna &#8216;10&#8217; czy nawet &#8216;11&#8217; zdobywa miejsce trzecie.</p>
+<p>Wynika z przeprowadzonych symulacji, że schemat rozgrywek playoffs przy przyjętych założeniach, jest skuteczny w wyłanianiu drużyny mistrzowskiej,
+ale zdecydowanie nie jest już tak skuteczny i sprawiedliwy we wskazywaniu wicemistrza lub trzeciej drużyny na podium.</p>
+<p>Zachęcamy do ,,pobawienia się&#8221; powyższym kodem programu!</p>
+</div>
+</div>
+</div>
+
+
+          </div>
+        </div>
+      </div>
+      <div class="sphinxsidebar">
+        <div class="sphinxsidebarwrapper">
+  <div class="sphinxlocaltoc">
+  <h3><a href="index.html">Spis treści</a></h3>
+  <ul>
+<li><a class="reference internal" href="iCSE_3_Playoffs_CubeProject.html#">Rozgrywki Playoffs &#8211; wyłanianie najlepszych</a><ul>
+<li><a class="reference internal" href="iCSE_3_Playoffs_CubeProject.html#czy-playoffy-nagradzaja-zawsze-najlepszych-symulacja-monte-carlo">Czy playoffy nagradzają zawsze najlepszych &#8211; symulacja Monte Carlo</a><ul>
+<li><a class="reference internal" href="iCSE_3_Playoffs_CubeProject.html#wstep">Wstęp</a></li>
+<li><a class="reference internal" href="iCSE_3_Playoffs_CubeProject.html#rozegranie-pojedynczego-etapu-rozgrywek-playoffs">Rozegranie pojedynczego etapu rozgrywek playoffs</a></li>
+<li><a class="reference internal" href="iCSE_3_Playoffs_CubeProject.html#symulacja-calych-rozgrywek-playoffs">Symulacja całych rozgrywek playoffs</a></li>
+<li><a class="reference internal" href="iCSE_3_Playoffs_CubeProject.html#wychwytywanie-druzyn-ktore-znalazly-sie-na-podium">Wychwytywanie drużyn, które znalazły się na podium</a></li>
+<li><a class="reference internal" href="iCSE_3_Playoffs_CubeProject.html#jak-czesto-dana-druzyna-zajmuje-trzecie-miejsce">Jak często dana drużyna zajmuje trzecie miejsce</a></li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+
+  </div>
+  <h4>Poprzedni temat</h4>
+  <p class="topless"><a href="iCSE_2_Demokracja_CubeProject.html"
+                        title="poprzedni rozdział">Demokracja &#8211; co dwie głowy, to nie jedna</a></p>
+  <h4>Następny temat</h4>
+  <p class="topless"><a href="iCSE_4_MontyHall_CubeProject.html"
+                        title="następny rozdział">Paradoks Monty Halla &#8211; problem z mylącą intuicją</a></p>
+<div id="searchbox" style="display: none">
+  <h3>Szybkie wyszukiwanie</h3>
+    <form class="search" action="http://visual.icse.us.edu.pl/Warsztaty/search.html" method="get">
+      <input type="text" name="q" />
+      <input type="submit" value="Szukaj" />
+      <input type="hidden" name="check_keywords" value="yes" />
+      <input type="hidden" name="area" value="default" />
+    </form>
+    <p class="searchtip" style="font-size: 90%">
+    Wprowadź szukany termin lub nazwę modułu, klasy lub funkcji.
+    </p>
+</div>
+<script type="text/javascript">$('#searchbox').show(0);</script>
+        </div>
+      </div>
+      <div class="clearer"></div>
+    </div>
+  </div>
+  <div class="relbar-bottom">
+    
+    <div class="related">
+      <h3>Nawigacja</h3>
+      <ul>
+        <li class="right" style="margin-right: 10px">
+          <a href="iCSE_4_MontyHall_CubeProject.html" title="Paradoks Monty Halla – problem z mylącą intuicją"
+             >dalej</a></li>
+        <li class="right" >
+          <a href="iCSE_2_Demokracja_CubeProject.html" title="Demokracja – co dwie głowy, to nie jedna"
+             >wstecz</a> &nbsp; &nbsp;</li>
+  <li><a href="index.html">Warsztaty</a> &raquo;</li>
+   
+      </ul>
+    </div>
+  </div>
+  
+  <div class="footer">
+    <a class="logo" href="../../icse.us.edu.pl/index.html" target="_blank"><img src="_static/logo-icse.png" alt="ICSE"/></a><br/>
+    &copy; Copyright 2013, CubeProject.
+    Created using <a href="http://sphinx.pocoo.org/">Sphinx</a> 1.2.2.
+  </div>
+  </body>
+</html>

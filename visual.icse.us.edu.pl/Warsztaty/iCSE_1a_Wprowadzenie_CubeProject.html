@@ -1,0 +1,392 @@
+
+
+  <!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+  "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+
+
+<html xmlns="http://www.w3.org/1999/xhtml">
+  <head>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    
+    <title>Wprowadzenie do SAGE’a – matematyka bez bólu, obliczenia, wykresy &mdash; Warsztaty</title>
+    
+    <link rel="stylesheet" href="_static/cloud.css" type="text/css" />
+    <link rel="stylesheet" href="_static/pygments.css" type="text/css" />
+    <link rel="stylesheet" href="http://fonts.googleapis.com/css?family=Noticia+Text|Open+Sans|Droid+Sans+Mono&subset=latin,latin-ext" type="text/css" />
+    
+    <script type="text/javascript">
+      var DOCUMENTATION_OPTIONS = {
+        URL_ROOT:    './',
+        VERSION:     'I',
+        COLLAPSE_INDEX: false,
+        FILE_SUFFIX: '.html',
+        HAS_SOURCE:  true
+      };
+    </script>
+    <script type="text/javascript" src="_static/jquery.js"></script>
+    <script type="text/javascript" src="_static/underscore.js"></script>
+    <script type="text/javascript" src="_static/doctools.js"></script>
+    <script type="text/javascript" src="_static/translations.js"></script>
+    <script type="text/javascript" src="http://cdn.mathjax.org/mathjax/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML"></script>
+    <script type="text/javascript" src="_static/jquery.cookie.js"></script>
+    <script type="text/javascript" src="_static/cloud.js"></script>
+
+
+
+    <script src="http://sagecell.icse.us.edu.pl:6363/static/jquery.min.js"></script>
+	<script src="http://sagecell.icse.us.edu.pl:6363/static/embedded_sagecell.js"></script>
+
+	<script>sagecell.makeSagecell({inputLocation: ".sage",
+                                       evalButtonText: 'Wykonaj',
+                                       linked: true});</script>
+
+	<style type="text/css">
+		.sagecell .CodeMirror-scroll {
+			overflow-y: hidden;
+			overflow-x: auto;
+		}
+		.sagecell .CodeMirror {
+			height: auto;
+		}
+	</style>
+
+    
+    <link rel="top" title="Warsztaty" href="index.html" />
+    <link rel="next" title="Wprowadzenie do SAGE’a – problem wspólnego dnia urodzin" href="iCSE_1b_Wprowadzenie_CubeProject.html" />
+    <link rel="prev" title="Parrondo’s paradox" href="Parrondos_paradox.html" />
+ 
+  <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, minimum-scale=1">
+  </head>
+  <body>
+  <div class="relbar-top">
+    
+    <div class="related">
+      <h3>Nawigacja</h3>
+      <ul>
+        <li class="right" style="margin-right: 10px">
+          <a href="iCSE_1b_Wprowadzenie_CubeProject.html" title="Wprowadzenie do SAGE’a – problem wspólnego dnia urodzin"
+             accesskey="N">dalej</a></li>
+        <li class="right" >
+          <a href="Parrondos_paradox.html" title="Parrondo’s paradox"
+             accesskey="P">wstecz</a> &nbsp; &nbsp;</li>
+  <li><a href="index.html">Warsztaty</a> &raquo;</li>
+   
+      </ul>
+    </div>
+  </div>
+  
+  <div class="content">  
+
+    <div class="document">
+      <div class="documentwrapper">
+        <div class="bodywrapper">
+          <div class="body">
+            
+  <div class="section" id="wprowadzenie-do-sage-a-matematyka-bez-bolu-obliczenia-wykresy">
+<h1>Wprowadzenie do SAGE&#8217;a &#8211; matematyka bez bólu, obliczenia, wykresy<a class="headerlink" href="iCSE_1a_Wprowadzenie_CubeProject.html#wprowadzenie-do-sage-a-matematyka-bez-bolu-obliczenia-wykresy" title="Stały odnośnik do tego nagłówka">¶</a></h1>
+<div class="section" id="wprowadzenie-do-obliczen-w-systemie-sage">
+<h2>Wprowadzenie do obliczeń w systemie <strong>SAGE</strong><a class="headerlink" href="iCSE_1a_Wprowadzenie_CubeProject.html#wprowadzenie-do-obliczen-w-systemie-sage" title="Stały odnośnik do tego nagłówka">¶</a></h2>
+<a class="reference internal image-reference" href="http://www.math.washington.edu/newsletter/2006/Stein.jpg"><img alt="William Stein" class="align-right" src="http://www.math.washington.edu/newsletter/2006/Stein.jpg" style="height: 160px;" /></a>
+<a class="reference internal image-reference" href="_images/sage_logo_new.png"><img alt="William Stein" class="align-right" src="_images/sage_logo_new.png" style="height: 52px;" /></a>
+<p><strong>SAGE</strong> jest dosyć młodym przedsięwzięciem &#8211; został udostępniony w 2005 roku. Głównym twórcą tego pakietu jest dr William Stein (na zdjęciu obok) z University of Washington w Seattle.</p>
+<p><strong>SAGE</strong> to pakiet darmowy i w pełni otwarty nie tylko pod względem kodu, ale i metodologii rozwoju. <strong>SAGE</strong> nie wyważa otwartych drzwi &#8211; korzysta pełnymi garściami
+z tego, co ktoś już kiedyś dobrze wymyślił i co się sprawdziło. Pakiet nie bazuje na własnym języku, lecz wykorzystuje język programowania <strong>Python</strong>. Jest to język
+stosunkowo prosty i umożliwiający wykonywanie <strong>działań symbolicznych</strong>. Możliwe jest jednak używanie wielu innych języków, które można łączyć.</p>
+<p>My będziemy pracować w <strong>notatniku SAGE&#8217;a</strong>, czyli w wygodnym środowisku o określonych elementach graficznych ułatwiających programowanie.</p>
+<p>Komunikacja z pakietem obejmuje 3 typy komórek:</p>
+<ol class="arabic simple">
+<li><strong>Komórki wejścia</strong> (gdzie wpisujemy nasze komendy, które SAGE będzie wykonywał); żeby otworzyć taką nową komórkę wystarczy przesunąć kursor myszki w odpowiednie miejsce i kliknąć kiedy na ekranie pojawi się długi, poziomy niebieski pasek;</li>
+<li><strong>Komórki wyjścia</strong> (gdzie SAGE umieszcza rezultaty wykonania naszych poleceń); żeby nakazać SAGE&#8217;owi wykonanie naszych komend/poleceń, należy kliknąć w przycisk <tt class="docutils literal"><span class="pre">Wykonaj</span></tt>, znajdujący się pod komórką wejścia, lub użyć skrótu klawiszowego <tt class="docutils literal"><span class="pre">SHIFT</span></tt> + <tt class="docutils literal"><span class="pre">ENTER</span></tt> (przy czym kursor musi znajdować się wewnątrz komórki do wykonania);</li>
+<li><strong>Komórki tekstowe</strong> zawierające komentarze (takie jak ten), notatki, uwagi itp.; żeby otworzyć komórkę tekstową należy w wybranym miejscu ruchem kursora myszki wymusić pojawienie się wspomnianego niebieskiego paska, lecz w porównaniu do tworzenia nowej komórki wejścia należy przed kliknięciem w pasek nacisnąć i przytrzymać <tt class="docutils literal"><span class="pre">SHIFT</span></tt>;</li>
+</ol>
+<p>Dodatkowe komentarze w kodzie (w komórkach wejścia) możemy umieszczać za znakiem <tt class="docutils literal"><span class="pre">#</span></tt>.</p>
+<div class="section" id="zapoznanie-ze-sposobami-realizowania-podstawowych-operacji-algebraicznych">
+<h3>Zapoznanie ze sposobami realizowania podstawowych operacji algebraicznych<a class="headerlink" href="iCSE_1a_Wprowadzenie_CubeProject.html#zapoznanie-ze-sposobami-realizowania-podstawowych-operacji-algebraicznych" title="Stały odnośnik do tego nagłówka">¶</a></h3>
+<p>Rozpocznijmy przygodę z SAGEm!</p>
+<p>Otwieramy w notatniku SAGE&#8217;a nowy arkusz i nadajemy mu jakąś własną nazwę.</p>
+</div>
+</div>
+<div class="section" id="sage-jako-kalkulator-na-poczatek">
+<h2>SAGE jako kalkulator (na początek)<a class="headerlink" href="iCSE_1a_Wprowadzenie_CubeProject.html#sage-jako-kalkulator-na-poczatek" title="Stały odnośnik do tego nagłówka">¶</a></h2>
+<p>W okienku wejścia wpisujemy działanie do wykonania, np.:</p>
+<div class="highlight-python"><div class="highlight"><pre><span class="n">sage</span><span class="p">:</span>   <span class="mi">23</span> <span class="o">+</span> <span class="mi">12</span>
+</pre></div>
+</div>
+<p>Jako wynik otrzymujemy oczywiście:</p>
+<div class="highlight-python"><div class="highlight"><pre><span class="mi">25</span>
+</pre></div>
+</div>
+<p>Spróbujmy jednak czegoś nieco bardziej wymagającego niż dodawanie:</p>
+<div class="highlight-python"><div class="highlight"><pre><span class="n">sage</span><span class="p">:</span>   <span class="mi">38</span><span class="o">/</span><span class="mi">12</span>
+<span class="mi">19</span><span class="o">/</span><span class="mi">6</span>
+</pre></div>
+</div>
+<p>Od razu zwracamy uwagę, że SAGE nie zachowuje się jak zwyczajny kalkulator, gdyż podał dokładną wartość będącą wynikiem dzielenia.</p>
+<div class="admonition note">
+<p class="first admonition-title">Informacja</p>
+<p class="last">UWAGA! SAGE ma wysokie standardy i nie zaokrągla, jeśli tylko nie jest mu to polecone, np.:</p>
+</div>
+<div class="highlight-python"><div class="highlight"><pre><span class="n">sage</span><span class="p">:</span>   <span class="mi">1</span><span class="o">/</span><span class="mi">9</span><span class="o">+</span><span class="mi">5</span><span class="o">/</span><span class="mi">12</span>
+<span class="mi">19</span><span class="o">/</span><span class="mi">36</span>
+</pre></div>
+</div>
+<p>Widać, że SAGE wykonuje obliczenia dokładnie &#8211; sprowadzając do wspólnego mianownika i wypisując wynik w możliwie najprostszej postaci (po skróceniu).</p>
+<p>Żeby SAGE pokazał nam przybliżoną wartość w zapisie dziesiętnym, trzeba o to poprosić [używamy odpowiedniej funkcji &#8211; tu funkcji <tt class="docutils literal"><span class="pre">n(...)</span></tt>, która jest odpowiedzialna za obliczenia numeryczne]:</p>
+<div class="highlight-python"><div class="highlight"><pre><span class="n">sage</span><span class="p">:</span>   <span class="n">n</span><span class="p">(</span><span class="mi">1</span><span class="o">/</span><span class="mi">9</span><span class="o">+</span><span class="mi">5</span><span class="o">/</span><span class="mi">12</span><span class="p">)</span>
+<span class="mf">0.527777777777778</span>
+</pre></div>
+</div>
+<p>Możemy SAGE&#8217;a zapytać ile dokładnie jest równe <span class="math">\(\pi\)</span>, a przy okazji zapytajmy również, jaka jest wartość <span class="math">\(\pi\)</span> z dokładnością do 30 cyfr znaczących.
+Należy zwrócić uwagę, że SAGE wypisuje wynik tylko ostatniej operacji, jeśli kod poleceń zawiera więcej niż jedną linijkę (SAGE wykona wszystkie polecenia,
+ale domyślnie wypisze wynik tylko ostatniej). Żeby wymusić wypisanie wyników pośrednich należy użyć funkcji <tt class="docutils literal"><span class="pre">print</span></tt> lub <tt class="docutils literal"><span class="pre">show</span></tt>:</p>
+<div class='sage'><script type='text/x-sage'>print(pi)
+print(n(pi, digits=30))</script></div><p>W odpowiedzi SAGE nas poinformował, że dokładna wartość <span class="math">\(\pi\)</span> jest równa <span class="math">\(\pi\)</span> :) [trudno go za to winić &#8211; w końcu ma rację].</p>
+<p>Możemy, korzystając ze znanych SAGE&#8217;owi stałych, policzyć dokładne wartości funkcji trygonometrycznych:</p>
+<div class="highlight-python"><div class="highlight"><pre><span class="n">sage</span><span class="p">:</span>   <span class="k">print</span><span class="p">(</span><span class="n">cos</span><span class="p">(</span><span class="n">pi</span><span class="p">))</span>
+<span class="n">sage</span><span class="p">:</span>   <span class="k">print</span><span class="p">(</span><span class="n">sin</span><span class="p">(</span><span class="n">pi</span><span class="o">/</span><span class="mi">3</span><span class="p">))</span>
+<span class="o">-</span><span class="mi">1</span>
+<span class="mi">1</span><span class="o">/</span><span class="mi">2</span><span class="o">*</span><span class="n">sqrt</span><span class="p">(</span><span class="mi">3</span><span class="p">)</span>
+</pre></div>
+</div>
+<p>W odpowiedzi na prośbę o obliczenie <span class="math">\(\sin\frac{\pi}{3}\)</span> SAGE podał wynik dokładny równy <span class="math">\(\frac{\sqrt{3}}{2}\)</span>. Dowiedzieliśmy się przy okazji, że pierwiastek kwadratowy
+realizuje funkcja o nazwie <tt class="docutils literal"><span class="pre">sqrt</span></tt>. Spróbujmy policzyć wartość jakiegoś pierwiastka kwadratowego:</p>
+<div class="highlight-python"><div class="highlight"><pre><span class="n">sage</span><span class="p">:</span>   <span class="k">print</span><span class="p">(</span><span class="n">sqrt</span><span class="p">(</span><span class="mi">32</span><span class="p">))</span>
+<span class="n">sage</span><span class="p">:</span>   <span class="k">print</span><span class="p">(</span><span class="n">n</span><span class="p">(</span><span class="n">sqrt</span><span class="p">(</span><span class="mi">32</span><span class="p">),</span> <span class="n">digits</span><span class="o">=</span><span class="mi">6</span><span class="p">))</span>
+<span class="mi">4</span><span class="o">*</span><span class="n">sqrt</span><span class="p">(</span><span class="mi">2</span><span class="p">)</span>
+<span class="mf">5.65685</span>
+</pre></div>
+</div>
+<p>Kolejny raz przekonaliśmy się, że SAGE podaje dokładne wyniki (upraszaczając o ile tylko to możliwe: <span class="math">\(\sqrt{32}=4 \, \sqrt{2}\)</span>).</p>
+<div class="admonition note">
+<p class="first admonition-title">Informacja</p>
+<p class="last">Chcąc uzyskać szczegółowe informacje nt. działania różnych funkcji w SAGE&#8217;u (aby skorzystać z pomocy) wystarczy wpisać nazwę funkcji i znak zapytania</p>
+</div>
+<div class="highlight-python"><div class="highlight"><pre>sage:   sqrt?
+
+File: /usr/lib/sagemath/local/lib/python2.7/site-packages/sage/functions/other.py
+
+Type: &lt;type ‘function’&gt;
+
+Definition: sqrt(x, *args, **kwds)
+
+Docstring:
+
+INPUT:
+
+x - a number
+prec - integer (default: None): if None, returns an exact square root; otherwise returns a numerical square root if necessary, to the given bits of precision.
+extend - bool (default: True); this is a place holder, and is always ignored or passed to the sqrt function for x, since in the symbolic ring everything has a square root.
+all - bool (default: False); if True, return all square roots of self, instead of just one.
+EXAMPLES:
+
+sage: sqrt(-1)
+I
+sage: sqrt(2)
+sqrt(2)
+sage: sqrt(2)^2
+2
+sage: sqrt(4)
+2
+sage: sqrt(4,all=True)
+[2, -2]
+sage: sqrt(x^2)
+sqrt(x^2)
+sage: sqrt(2).n()
+1.41421356237310
+To prevent automatic evaluation, one can use the hold parameter after coercing to the symbolic ring:
+
+sage: sqrt(SR(4),hold=True)
+sqrt(4)
+sage: sqrt(4,hold=True)
+Traceback (click to the left of this block for traceback)
+...
+</pre></div>
+</div>
+<p>Przy okazji dowiedzieliśmy się z przykładów z dokumentacji, że SAGE potrafi również liczyć pierwiastki z liczb ujemnych, co jest kolejnym elementem wychodzącym poza standardy
+zwykłych kalkulatorów. Żeby zrozumieć wynik  pierwiastkowania liczb ujemnych trzeba znać pojęcie <strong>liczb zespolonych</strong>, jednak nie czas i miejsce, żeby wyjaśniać,
+czym one są. Liczby zespolone są na ogół omawiane w pierwszym semestrze studiów, ale nie jest zabronione poszukanie informacji i zapoznanie się z liczbami zespolonymi wcześniej,
+jeśli tylko ktoś ma ochotę...</p>
+<p>Przedstawmy jeszcze tylko dwa inne użyteczne działania na liczbach &#8211; potęgowanie oraz dzielenie z resztą:</p>
+<div class="highlight-python"><div class="highlight"><pre><span class="n">sage</span><span class="p">:</span>   <span class="k">print</span><span class="p">(</span><span class="mi">2</span><span class="o">^</span><span class="mi">3</span><span class="p">)</span>
+<span class="n">sage</span><span class="p">:</span>   <span class="k">print</span><span class="p">(</span><span class="mi">13</span><span class="o">%</span><span class="mi">5</span><span class="p">)</span>
+<span class="mi">8</span>
+<span class="mi">3</span>
+</pre></div>
+</div>
+<p>Oprócz działań na liczbach możemy wykonywać operacje porównania (operacje logiczne):</p>
+<div class="highlight-python"><div class="highlight"><pre><span class="n">sage</span><span class="p">:</span>   <span class="k">print</span><span class="p">(</span><span class="mi">2</span> <span class="o">==</span> <span class="mi">5</span><span class="p">)</span>
+<span class="n">sage</span><span class="p">:</span>   <span class="k">print</span><span class="p">(</span><span class="mi">2</span> <span class="o">&lt;</span> <span class="mi">5</span><span class="p">)</span>
+<span class="n">sage</span><span class="p">:</span>   <span class="k">print</span><span class="p">(</span><span class="mi">5</span> <span class="o">!=</span> <span class="mi">10</span><span class="o">/</span><span class="mi">3</span><span class="p">)</span>
+<span class="n">sage</span><span class="p">:</span>   <span class="k">print</span><span class="p">(</span><span class="mi">6</span><span class="o">/</span><span class="mi">7</span> <span class="o">&lt;=</span> <span class="mi">14</span><span class="o">/</span><span class="mi">17</span><span class="p">)</span>
+<span class="bp">False</span>
+<span class="bp">True</span>
+<span class="bp">True</span>
+<span class="bp">False</span>
+</pre></div>
+</div>
+</div>
+<div class="section" id="sage-jako-narzedzie-do-operacji-na-funkcjach-w-tym-do-rysowania-wykresow-funkcji">
+<h2>SAGE jako narzędzie do operacji na funkcjach, w tym do rysowania wykresów funkcji<a class="headerlink" href="iCSE_1a_Wprowadzenie_CubeProject.html#sage-jako-narzedzie-do-operacji-na-funkcjach-w-tym-do-rysowania-wykresow-funkcji" title="Stały odnośnik do tego nagłówka">¶</a></h2>
+<p>Wykorzystamy tu bardzo ważną cechę SAGE&#8217;a, który świetnie radzi sobie z zapisem symbolicznym, przez co możemy się nim posługiwać bardzo podobnie, jak to robimy rozwiązując
+problemy matematyczne na kartce papieru. Na przykład zdefiniowanie funkcji odbywa się niemal tak samo jak na tablicy w szkole (należy jednak pamiętać, że każde mnożenie
+trzeba zaznaczyć symbolem &#8216;*&#8217;):</p>
+<div class="highlight-python"><div class="highlight"><pre><span class="n">sage</span><span class="p">:</span>   <span class="n">f</span><span class="p">(</span><span class="n">x</span><span class="p">)</span> <span class="o">=</span> <span class="o">-</span><span class="mi">2</span><span class="o">*</span><span class="n">x</span><span class="o">^</span><span class="mi">2</span><span class="o">-</span><span class="mi">11</span><span class="o">*</span><span class="n">x</span><span class="o">+</span><span class="mi">6</span>
+<span class="n">sage</span><span class="p">:</span>   <span class="n">plot</span><span class="p">(</span><span class="n">f</span><span class="p">(</span><span class="n">x</span><span class="p">),</span> <span class="p">(</span><span class="n">x</span><span class="p">,</span><span class="o">-</span><span class="mi">10</span><span class="p">,</span><span class="mi">10</span><span class="p">))</span>
+</pre></div>
+</div>
+<img alt="_images/cell_71_sage01.png" class="align-center" src="_images/cell_71_sage01.png" />
+<p>Z wykresu widać mniej więcej jakie są miejsca zerowe tego wielomianu, ale na pytanie jak rozwiązać analityczne równanie kwadratowe z wykorzystaniem SAGE&#8217;a odpowiemy
+w dalszej części.</p>
+<p>Możemy rysować wykresy nie tylko dla funkcji elementarnych, ale również dla bardziej skomplikowanych funkcji, np.:</p>
+<div class="highlight-python"><div class="highlight"><pre><span class="n">sage</span><span class="p">:</span>   <span class="n">f</span><span class="p">(</span><span class="n">x</span><span class="p">)</span> <span class="o">=</span> <span class="n">x</span><span class="o">^</span><span class="mi">2</span> <span class="o">*</span> <span class="n">cos</span><span class="p">(</span><span class="n">x</span><span class="p">)</span>
+<span class="n">sage</span><span class="p">:</span>   <span class="n">plot</span><span class="p">(</span><span class="n">f</span><span class="p">(</span><span class="n">x</span><span class="p">),</span> <span class="p">(</span><span class="n">x</span><span class="p">,</span><span class="o">-</span><span class="mi">100</span><span class="p">,</span><span class="mi">100</span><span class="p">),</span> <span class="n">figsize</span><span class="o">=</span><span class="mi">5</span><span class="p">)</span>
+</pre></div>
+</div>
+<img alt="_images/cell_45_sage01.png" class="align-center" src="_images/cell_45_sage01.png" />
+<p>Alternatywny sposób wywołania wykresu funkcji:</p>
+<div class="highlight-python"><div class="highlight"><pre><span class="n">sage</span><span class="p">:</span>   <span class="n">f</span><span class="p">(</span><span class="n">x</span><span class="p">)</span><span class="o">.</span><span class="n">plot</span><span class="p">(</span><span class="o">-</span><span class="mi">5</span><span class="p">,</span> <span class="mi">5</span><span class="p">,</span> <span class="n">figsize</span><span class="o">=</span><span class="mi">5</span><span class="p">)</span>
+</pre></div>
+</div>
+<div class="admonition note">
+<p class="first admonition-title">Informacja</p>
+<p class="last">Możemy w łatwy sposób zamieścić wykresy kilku funkcji na jednym rysunku. W SAGE&#8217;u realizuje się to w bardzo intuicyjny sposób &#8211; poprzez dodawanie wykresów do siebie (dodawanie ,,plot&#8217;ów&#8221;).</p>
+</div>
+<p>Jednocześnie możemy się zastanownić co jeszcze możemy zrobić ze zdefiniowaną funkcją? Można podejrzeć możliwości pisząc <tt class="docutils literal"><span class="pre">f.</span></tt> i naciskając
+klawisz <tt class="docutils literal"><span class="pre">TAB</span></tt>. Na przykład możemy policzyć pochodną funkcji <tt class="docutils literal"><span class="pre">f</span></tt> (Ups! ale ze szkoły średniej został wycofany rachunek różniczkowy, więc chyba jeszcze nie wiecie,
+co to jest pochodna... No nic, ale wiedzcie, że SAGE potafi je liczyć).
+To może się przydać w przyszłości.</p>
+<div class='sage'><script type='text/x-sage'>f(x) = x^2 * cos(x)
+g(x) = -1/2*x - 1
+h(x) = log(x)
+show(plot(f(x), -5, 5) + plot(g(x), -5, 5, color='red') + plot(h(x), 0, 5, color='green', figsize=5))
+f.diff()
+print(f.diff())
+show(f.diff())</script></div><p>Przy okazji zaprezentowano różnice między sposobami wypisywania (formatowaniem) wyniku przez <tt class="docutils literal"><span class="pre">print</span></tt> oraz <tt class="docutils literal"><span class="pre">show</span></tt>.</p>
+<p>Mała próbka tworzenia wykresów 3D:</p>
+<div class="highlight-python"><div class="highlight"><pre><span class="n">sage</span><span class="p">:</span>   <span class="n">var</span><span class="p">(</span><span class="s">&#39;x,y&#39;</span><span class="p">)</span>
+<span class="n">sage</span><span class="p">:</span>   <span class="n">plot3d</span><span class="p">(</span><span class="mi">2</span><span class="o">^</span><span class="p">(</span><span class="o">-</span><span class="p">(</span><span class="n">x</span><span class="o">^</span><span class="mi">2</span><span class="o">+</span><span class="n">y</span><span class="o">^</span><span class="mi">2</span><span class="p">))</span><span class="o">*</span><span class="n">cos</span><span class="p">(</span><span class="n">x</span><span class="o">^</span><span class="mi">2</span><span class="o">+</span><span class="n">y</span><span class="o">^</span><span class="mi">2</span><span class="p">),</span> <span class="p">(</span><span class="n">x</span><span class="p">,</span><span class="o">-</span><span class="n">pi</span><span class="p">,</span><span class="n">pi</span><span class="p">),</span> <span class="p">(</span><span class="n">y</span><span class="p">,</span><span class="o">-</span><span class="n">pi</span><span class="p">,</span><span class="n">pi</span><span class="p">),</span> <span class="n">figsize</span><span class="o">=</span><span class="mi">5</span><span class="p">)</span>
+</pre></div>
+</div>
+<img alt="_images/sage0-size500_jmol.png" class="align-center" src="_images/sage0-size500_jmol.png" />
+</div>
+<div class="section" id="sage-jako-maszynka-do-rozwiazywania-zadan-sprawdzania-wynikow">
+<h2>SAGE jako ,,maszynka&#8221; do rozwiązywania zadań (sprawdzania wyników)<a class="headerlink" href="iCSE_1a_Wprowadzenie_CubeProject.html#sage-jako-maszynka-do-rozwiazywania-zadan-sprawdzania-wynikow" title="Stały odnośnik do tego nagłówka">¶</a></h2>
+<p>Można łatwo rozwiązać równanie lub układ równań:</p>
+<div class="highlight-python"><div class="highlight"><pre><span class="n">sage</span><span class="p">:</span>   <span class="n">rownanie</span> <span class="o">=</span> <span class="o">-</span><span class="mi">2</span><span class="o">*</span><span class="n">x</span><span class="o">^</span><span class="mi">2</span><span class="o">-</span><span class="mi">11</span><span class="o">*</span><span class="n">x</span><span class="o">+</span><span class="mi">6</span><span class="o">==</span><span class="mi">0</span>
+<span class="n">sage</span><span class="p">:</span>   <span class="n">show</span><span class="p">(</span><span class="n">rownanie</span><span class="p">)</span>
+<span class="n">sage</span><span class="p">:</span>   <span class="n">rozwiazanie</span> <span class="o">=</span> <span class="n">solve</span><span class="p">(</span><span class="n">rownanie</span><span class="p">,</span> <span class="n">x</span><span class="p">)</span>
+<span class="n">sage</span><span class="p">:</span>   <span class="k">print</span><span class="p">(</span><span class="s">&quot;Rozwiązania powyższego równiania:&quot;</span><span class="p">)</span>
+<span class="n">sage</span><span class="p">:</span>   <span class="n">show</span><span class="p">(</span><span class="n">rozwiazanie</span><span class="p">)</span>
+</pre></div>
+</div>
+<div class="math">
+\[-2 \, x^{2} - 11 \, x + 6 = 0\]\[\text{Rozwiązania powyższego równiania:}\]\[\left[x = \left(-6\right), x = \left(\frac{1}{2}\right)\right]\]</div>
+<p>Gdyby ktoś zapomniał jak wygladają wzory na rozwiązania równania kwadratowego, to możemy poprosić SAGE&#8217;a o symboliczne rozwiązanie równiania kwadratowego w ogólnej postaci:</p>
+<div class="highlight-python"><div class="highlight"><pre><span class="n">sage</span><span class="p">:</span>   <span class="n">var</span><span class="p">(</span><span class="s">&#39;x,a,b,c&#39;</span><span class="p">)</span>
+<span class="n">sage</span><span class="p">:</span>   <span class="n">rownanie</span> <span class="o">=</span> <span class="n">a</span><span class="o">*</span><span class="n">x</span><span class="o">^</span><span class="mi">2</span><span class="o">+</span><span class="n">b</span><span class="o">*</span><span class="n">x</span><span class="o">+</span><span class="n">c</span><span class="o">==</span><span class="mi">0</span>
+<span class="n">sage</span><span class="p">:</span>   <span class="n">show</span><span class="p">(</span><span class="n">rownanie</span><span class="p">)</span>
+<span class="n">sage</span><span class="p">:</span>   <span class="n">rozwiazanie</span> <span class="o">=</span> <span class="n">solve</span><span class="p">(</span><span class="n">rownanie</span><span class="p">,</span> <span class="n">x</span><span class="p">)</span>
+<span class="n">sage</span><span class="p">:</span>   <span class="k">print</span><span class="p">(</span><span class="s">&quot;Rozwiązania powyższego równiania:&quot;</span><span class="p">)</span>
+<span class="n">sage</span><span class="p">:</span>   <span class="n">show</span><span class="p">(</span><span class="n">rozwiazanie</span><span class="p">)</span>
+</pre></div>
+</div>
+<div class="math">
+\[a \, x^{2} + b \, x + c = 0\]\[\text{Rozwiązania powyższego równiania:}\]\[\left[x = -\frac{b + \sqrt{-4 \, a c + b^{2}}}{2 \, a}, x = -\frac{b - \sqrt{-4 \, a c + b^{2}}}{2 \, a}\right]\]</div>
+<p>Podkreślić należy, że powyższe wzory, to nie są informacje wyświetlone z jakiejś bazy danych, tylko SAGE rozwiązał, wykorzystując zapis symboliczny, podane równanie z parametrami.</p>
+<p>Oczywiście każdy potrafi w miarę szybko znaleźć pierwiastki trójmianów kwadratowych. Sprawa nie jest już taka prosta kiedy mamy znaleźć pierwiastki wielomianu
+stopnia trzeciego. Dla SAGE&#8217;a nie stanowi to problemu, podobnie jak narysowanie wykresu takiego wielomianu, czy rozwiązanie równania przy dodatkowym założeniu,
+np. że interesują nas tylko dodatnie wartości <span class="math">\(x&gt;0\)</span> [funkcja <tt class="docutils literal"><span class="pre">lhs</span></tt> w poniższym kodzie zwraca wyrażenie występujące po lewej stronie równiania (lhs = left hand side)]:</p>
+<div class='sage'><script type='text/x-sage'>rownanie = x^3-6*x^2-19*x+84 == 0
+show(rownanie)
+rozwiazanie = solve(rownanie, x)
+print("Rozwiązania powyższego równiania:")
+show(rozwiazanie)
+f(x) = rownanie.lhs()
+show(plot(f(x), (x,-10,10), figsize=5))
+
+assume(x>0)    # wprowadzamy dodatkowe założenie
+print("Wyznaczamy tylko pierwiastki dodatnie:")
+rozwiazanie = solve(rownanie, x)
+show(rozwiazanie)
+forget()   # anulowanie dodatkowego założenia, które jest aktywne dopóki nie użyjemy 'forget()'</script></div><p>W SAGE&#8217;u możemy również szybko rozwiązać układy równań (w tym również układy równań nieliniowych):</p>
+<div class="highlight-python"><div class="highlight"><pre><span class="n">sage</span><span class="p">:</span>   <span class="n">var</span><span class="p">(</span><span class="s">&#39;x,y&#39;</span><span class="p">)</span>
+<span class="n">sage</span><span class="p">:</span>   <span class="n">rozwiazanie_ukladu</span> <span class="o">=</span> <span class="n">solve</span><span class="p">([</span><span class="mi">3</span><span class="o">*</span><span class="n">x</span><span class="o">+</span><span class="n">y</span><span class="o">==</span><span class="mi">3</span><span class="p">,</span> <span class="n">x</span><span class="o">^</span><span class="mi">2</span><span class="o">-</span><span class="mi">2</span><span class="o">*</span><span class="n">x</span><span class="o">-</span><span class="mi">3</span><span class="o">+</span><span class="n">y</span><span class="o">==</span><span class="mi">0</span><span class="p">],</span> <span class="n">x</span><span class="p">,</span> <span class="n">y</span><span class="p">)</span>
+<span class="n">sage</span><span class="p">:</span>   <span class="n">show</span><span class="p">(</span><span class="n">rozwiazanie_ukladu</span><span class="p">)</span>
+</pre></div>
+</div>
+<div class="math">
+\[\left[\left[x = 5, y = \left(-12\right)\right], \left[x = 0, y = 3\right]\right]\]</div>
+<p>To oczywiście tylko namiastka możliwości SAGEa, ale już ta namiastka pokazuje jak duże są możliwości tej platformy. Tylko korzystać! Zachęcamy!</p>
+</div>
+</div>
+
+
+          </div>
+        </div>
+      </div>
+      <div class="sphinxsidebar">
+        <div class="sphinxsidebarwrapper">
+  <div class="sphinxlocaltoc">
+  <h3><a href="index.html">Spis treści</a></h3>
+  <ul>
+<li><a class="reference internal" href="iCSE_1a_Wprowadzenie_CubeProject.html#">Wprowadzenie do SAGE&#8217;a &#8211; matematyka bez bólu, obliczenia, wykresy</a><ul>
+<li><a class="reference internal" href="iCSE_1a_Wprowadzenie_CubeProject.html#wprowadzenie-do-obliczen-w-systemie-sage">Wprowadzenie do obliczeń w systemie <strong>SAGE</strong></a><ul>
+<li><a class="reference internal" href="iCSE_1a_Wprowadzenie_CubeProject.html#zapoznanie-ze-sposobami-realizowania-podstawowych-operacji-algebraicznych">Zapoznanie ze sposobami realizowania podstawowych operacji algebraicznych</a></li>
+</ul>
+</li>
+<li><a class="reference internal" href="iCSE_1a_Wprowadzenie_CubeProject.html#sage-jako-kalkulator-na-poczatek">SAGE jako kalkulator (na początek)</a></li>
+<li><a class="reference internal" href="iCSE_1a_Wprowadzenie_CubeProject.html#sage-jako-narzedzie-do-operacji-na-funkcjach-w-tym-do-rysowania-wykresow-funkcji">SAGE jako narzędzie do operacji na funkcjach, w tym do rysowania wykresów funkcji</a></li>
+<li><a class="reference internal" href="iCSE_1a_Wprowadzenie_CubeProject.html#sage-jako-maszynka-do-rozwiazywania-zadan-sprawdzania-wynikow">SAGE jako ,,maszynka&#8221; do rozwiązywania zadań (sprawdzania wyników)</a></li>
+</ul>
+</li>
+</ul>
+
+  </div>
+  <h4>Poprzedni temat</h4>
+  <p class="topless"><a href="Parrondos_paradox.html"
+                        title="poprzedni rozdział">Parrondo&#8217;s paradox</a></p>
+  <h4>Następny temat</h4>
+  <p class="topless"><a href="iCSE_1b_Wprowadzenie_CubeProject.html"
+                        title="następny rozdział">Wprowadzenie do SAGE&#8217;a &#8211; problem wspólnego dnia urodzin</a></p>
+<div id="searchbox" style="display: none">
+  <h3>Szybkie wyszukiwanie</h3>
+    <form class="search" action="http://visual.icse.us.edu.pl/Warsztaty/search.html" method="get">
+      <input type="text" name="q" />
+      <input type="submit" value="Szukaj" />
+      <input type="hidden" name="check_keywords" value="yes" />
+      <input type="hidden" name="area" value="default" />
+    </form>
+    <p class="searchtip" style="font-size: 90%">
+    Wprowadź szukany termin lub nazwę modułu, klasy lub funkcji.
+    </p>
+</div>
+<script type="text/javascript">$('#searchbox').show(0);</script>
+        </div>
+      </div>
+      <div class="clearer"></div>
+    </div>
+  </div>
+  <div class="relbar-bottom">
+    
+    <div class="related">
+      <h3>Nawigacja</h3>
+      <ul>
+        <li class="right" style="margin-right: 10px">
+          <a href="iCSE_1b_Wprowadzenie_CubeProject.html" title="Wprowadzenie do SAGE’a – problem wspólnego dnia urodzin"
+             >dalej</a></li>
+        <li class="right" >
+          <a href="Parrondos_paradox.html" title="Parrondo’s paradox"
+             >wstecz</a> &nbsp; &nbsp;</li>
+  <li><a href="index.html">Warsztaty</a> &raquo;</li>
+   
+      </ul>
+    </div>
+  </div>
+  
+  <div class="footer">
+    <a class="logo" href="../../icse.us.edu.pl/index.html" target="_blank"><img src="_static/logo-icse.png" alt="ICSE"/></a><br/>
+    &copy; Copyright 2013, CubeProject.
+    Created using <a href="http://sphinx.pocoo.org/">Sphinx</a> 1.2.2.
+  </div>
+  </body>
+</html>

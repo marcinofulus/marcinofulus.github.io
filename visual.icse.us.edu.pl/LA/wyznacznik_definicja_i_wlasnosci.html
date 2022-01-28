@@ -1,0 +1,325 @@
+
+
+  <!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+  "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+
+
+<html xmlns="http://www.w3.org/1999/xhtml">
+  <head>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    
+    <title>Definicja i własności wyznacznika &mdash; Algebra Liniowa</title>
+    
+    <link rel="stylesheet" href="_static/cloud.css" type="text/css" />
+    <link rel="stylesheet" href="_static/pygments.css" type="text/css" />
+    <link rel="stylesheet" href="http://fonts.googleapis.com/css?family=Noticia+Text|Open+Sans|Droid+Sans+Mono&subset=latin,latin-ext" type="text/css" />
+    
+    <script type="text/javascript">
+      var DOCUMENTATION_OPTIONS = {
+        URL_ROOT:    './',
+        VERSION:     'I',
+        COLLAPSE_INDEX: false,
+        FILE_SUFFIX: '.html',
+        HAS_SOURCE:  true
+      };
+    </script>
+    <script type="text/javascript" src="_static/jquery.js"></script>
+    <script type="text/javascript" src="_static/underscore.js"></script>
+    <script type="text/javascript" src="_static/doctools.js"></script>
+    <script type="text/javascript" src="_static/translations.js"></script>
+    <script type="text/javascript" src="http://cdn.mathjax.org/mathjax/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML"></script>
+    <script type="text/javascript" src="_static/jquery.cookie.js"></script>
+    <script type="text/javascript" src="_static/cloud.js"></script>
+
+	<script src="http://sagecell.icse.us.edu.pl:6363/static/jquery.min.js"></script>
+	<script src="http://sagecell.icse.us.edu.pl:6363/static/embedded_sagecell.js"></script>
+
+	<!-- <script src="http://sagecell.sagemath.org/static/jquery.min.js"></script> -->
+	<!-- <script src="http://sagecell.sagemath.org/static/embedded_sagecell.js"></script> -->
+
+	<script>sagecell.makeSagecell({inputLocation: ".sage",
+                                       evalButtonText: 'Wykonaj',
+                                       linked: true});</script>
+
+	<style type="text/css">
+		.sagecell .CodeMirror-scroll {
+			overflow-y: hidden;
+			overflow-x: auto;
+		}
+		.sagecell .CodeMirror {
+			height: auto;
+		}
+	</style>
+
+    
+    <link rel="top" title="Algebra Liniowa" href="http://visual.icse.us.edu.pl/LA/index.html" />
+    <link rel="next" title="Rozwinięcie permutacyjne" href="wyznacznik_rozwiniecie_permutacyjne.html" />
+    <link rel="prev" title="Zadania" href="operacje_na_macierzach_zadania.html" />
+ 
+  <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, minimum-scale=1">
+  </head>
+  <body>
+  <div class="relbar-top">
+    
+    <div class="related">
+      <h3>Nawigacja</h3>
+      <ul>
+        <li class="right" style="margin-right: 10px">
+          <a href="wyznacznik_rozwiniecie_permutacyjne.html" title="Rozwinięcie permutacyjne"
+             accesskey="N">dalej</a></li>
+        <li class="right" >
+          <a href="operacje_na_macierzach_zadania.html" title="Zadania"
+             accesskey="P">wstecz</a> &nbsp; &nbsp;</li>
+  <li><a href="http://visual.icse.us.edu.pl/LA/index.html">Algebra Liniowa</a> &raquo;</li>
+   
+      </ul>
+    </div>
+  </div>
+  
+  <div class="content">  
+
+    <div class="document">
+      <div class="documentwrapper">
+        <div class="bodywrapper">
+          <div class="body">
+            
+  <div class="section" id="definicja-i-wlasnosci-wyznacznika">
+<h1>Definicja i własności wyznacznika<a class="headerlink" href="wyznacznik_definicja_i_wlasnosci.html#definicja-i-wlasnosci-wyznacznika" title="Stały odnośnik do tego nagłówka">¶</a></h1>
+<p>Przyjmiemy aksjomatyczną definicję wyznacznika, która z góry określa jego podstawowe własności.
+Posłużymy się przy tym kolumnowym zapisem kwadratowej macierzy <span class="math">\(\,\boldsymbol{A}\,\)</span>
+stopnia <span class="math">\(\,n:\)</span></p>
+<div class="math">
+\[\begin{split}M_n(K)\ni\boldsymbol{A}\ =\ [a_{ij}]_{n\times n}\ =\
+\left[\,\boldsymbol{A}_1\,|\;\boldsymbol{A}_2\,|\,\dots\,|\,\boldsymbol{A}_n\,\right]\,,\quad
+\text{gdzie}\quad
+\boldsymbol{A}_j\ =\
+\left[\begin{array}{c}
+      a_{1j} \\ a_{2j} \\ \dots \\ a_{nj}
+      \end{array}
+\right]\,,\quad j=1,2,\ldots,n.\end{split}\]</div>
+<div class="admonition-definicja-math admonition">
+<p class="first admonition-title">Definicja. <span class="math">\(\\\)</span></p>
+<p>Wyznacznik stopnia <span class="math">\(\ n\ \)</span> jest funkcją <span class="math">\(\ \det : M_n(K)\to K\ \)</span>
+spełniającą  następujące warunki <span class="math">\(\,\)</span>
+(<span class="math">\(j\;-\)</span> dowolny numer kolumny, <span class="math">\(\ \lambda\in K\)</span>) : <span class="math">\(\\\)</span></p>
+<ol class="last arabic simple">
+<li><span class="math">\(\det\ [\,\boldsymbol{A}_1\,|\,\dots\,|\,\boldsymbol{A}_j+\boldsymbol{A}'_j\,|\,\dots\,|\,
+\boldsymbol{A}_n\,]\ \ =\ \ \\
+\det\ [\,\boldsymbol{A}_1\,|\,\dots\,|\,\boldsymbol{A}_j\,|\,\dots\,|\,\boldsymbol{A}_n\,]\ +\
+\det\ [\,\boldsymbol{A}_1\,|\,\dots\,|\,\boldsymbol{A}'_j\,|\,\dots\,|\,
+\boldsymbol{A}_n\,]\,;\\\)</span></li>
+<li><span class="math">\(\det\ [\,\boldsymbol{A}_1\,|\,\dots\,|\,
+\lambda\,\boldsymbol{A}_j\,|\,\dots\,|\,\boldsymbol{A}_n\,]\ \ =\ \
+\lambda\,\cdot\,\det\ [\,\boldsymbol{A}_1\,|\,\dots\,|\,
+\boldsymbol{A}_j\,|\,\dots\,|\,\boldsymbol{A}_n\,]\,;\\\)</span></li>
+<li><span class="math">\(\boldsymbol{A}_j\ =\ \boldsymbol{A}_{j+1}
+\quad\Rightarrow\quad
+\det\ [\,\boldsymbol{A}_1\,|\,\dots\,|\,\boldsymbol{A}_j\,|\,\boldsymbol{A}_{j+1}\,|\,
+\dots\,|\,\boldsymbol{A}_n\,]\ =\ 0\,;\\\)</span></li>
+<li><span class="math">\(\det\ \boldsymbol{I}_n\ =\ 1\,,\qquad
+\boldsymbol{I}_n\ -\ \text{macierz jednostkowa.}\)</span></li>
+</ol>
+</div>
+<p>Oznaczenia:</p>
+<div class="math">
+\[\begin{split}\det\boldsymbol{A}\ =\
+\det\ [a_{ij}]_{n\times n}\ =\
+\det
+\left[\begin{array}{cccc}
+      a_{11} &amp; a_{12} &amp; \dots &amp; a_{1n} \\
+      a_{21} &amp; a_{22} &amp; \dots &amp; a_{2n} \\
+       \dots &amp;  \dots &amp; \dots &amp;  \dots \\
+      a_{n1} &amp; a_{n2} &amp; \dots &amp; a_{nn}
+      \end{array}
+\right]\ \ =\ \
+\left|\begin{array}{cccc}
+      a_{11} &amp; a_{12} &amp; \dots &amp; a_{1n} \\
+      a_{21} &amp; a_{22} &amp; \dots &amp; a_{2n} \\
+       \dots &amp;  \dots &amp; \dots &amp;  \dots \\
+      a_{n1} &amp; a_{n2} &amp; \dots &amp; a_{nn}
+      \end{array}
+\right|\,.\end{split}\]</div>
+<p><strong>Uwagi i komentarze.</strong></p>
+<ul>
+<li><p class="first">Wyznacznik jest funkcją, która przypisuje liczby macierzom kwadratowym.</p>
+<p>Warunki <span class="math">\(\,\)</span> 1. <span class="math">\(\,\)</span> i <span class="math">\(\ \)</span> 2. <span class="math">\(\,\)</span> stwierdzają,
+że jest to funkcja liniowa ze względu na każdą kolumnę macierzy
+<span class="math">\(\,\boldsymbol{A}\ \)</span> z osobna. Trzeba natomiast zaznaczyć,
+że wyznacznik <span class="math">\(\,\det\boldsymbol{A}\ \)</span>
+<em>nie jest</em> <span class="math">\(\,\)</span> liniowy ze względu na samą macierz <span class="math">\(\,\boldsymbol{A}:\)</span></p>
+<div class="math">
+\[\det\ (\boldsymbol{A} + \boldsymbol{B})\ \ne\ \det\ \boldsymbol{A} + \det\ \boldsymbol{B}\,,
+\quad\det\ (\lambda\,\boldsymbol{A})\ \ne\ \lambda\cdot\boldsymbol{A}\,,
+\quad\boldsymbol{A},\boldsymbol{B}\in M_n(K).\]</div>
+<p>Z postulatu <span class="math">\(\,\)</span> 2. <span class="math">\(\,\)</span> wynika mianowicie, że
+<span class="math">\(\ \ \det\ (\lambda\,\boldsymbol{A})\ =\ \lambda^n\cdot\boldsymbol{A},\quad n=1,2,\ldots\)</span></p>
+<p>Warunek <span class="math">\(\,\)</span> 3. <span class="math">\(\,\)</span> oznacza, <span class="math">\(\,\)</span> że jeżeli jakiekolwiek dwie
+<span class="math">\(\,\)</span> <em>sąsiednie</em> <span class="math">\(\,\)</span> kolumny macierzy <span class="math">\(\,\boldsymbol{A}\ \)</span> są identyczne,
+<span class="math">\(\,\)</span> to wyznacznik tej macierzy znika.</p>
+<p>Punkt <span class="math">\(\,\)</span> 4. <span class="math">\(\,\)</span> postuluje, że wyznacznik macierzy jednostkowej równa się jedności.</p>
+</li>
+<li><p class="first">Wyznacznik jest określony tylko dla macierzy kwadratowych:
+nie istnieje wyznacznik macierzy prostokątnej niekwadratowej.</p>
+</li>
+<li><p class="first">W zapisie trzeba odróżniać macierz od wyznacznika tej macierzy
+(nawiasy dla macierzy, proste kreski dla wyznacznika). <span class="math">\(\\\)</span></p>
+</li>
+</ul>
+<p>Bezpośrednio z definicji wynikają dalsze własności wyznacznika. <span class="math">\(\\\)</span></p>
+<div class="admonition-wlasnosc-math-i-math admonition">
+<p class="first admonition-title">Własność <span class="math">\(\,\)</span> I. <span class="math">\(\,\)</span></p>
+<p class="last">Jeżeli jakaś kolumna macierzy <span class="math">\(\,\boldsymbol{A}\ \)</span>
+składa się z samych zer, <span class="math">\(\,\)</span> to <span class="math">\(\ \det\boldsymbol{A}=0.\)</span></p>
+</div>
+<p><strong>Dowód.</strong> <span class="math">\(\,\)</span> Niech
+<span class="math">\(\ \ d\,:\,=\,\det\ [\,\boldsymbol{A}_1\,|\,\dots\,|\,
+\boldsymbol{A}_j\,|\,\dots\,|\,\boldsymbol{A}_n\,]\,,\quad j\in\{1,2,\ldots,n\}\,.\ \ \\\)</span>
+Jeżeli <span class="math">\(\ \boldsymbol{A}_j=\boldsymbol{0},\ \,\)</span>
+to <span class="math">\(\ \boldsymbol{A}_j=0\cdot\boldsymbol{A}_j\,.\ \)</span>
+Z postulatu 2. wynika wtedy, że <span class="math">\(\ \,d = 0\cdot d = 0\,.\\\)</span></p>
+<div class="admonition-wlasnosc-math-iia-math admonition">
+<p class="first admonition-title">Własność <span class="math">\(\,\)</span> IIa. <span class="math">\(\,\)</span></p>
+<p class="last">Przestawienie dwóch <span class="math">\(\,\)</span> <em>sąsiednich</em> <span class="math">\(\,\)</span> kolumn zmienia znak wyznacznika.</p>
+</div>
+<p><strong>Dowód.</strong> <span class="math">\(\,\)</span>
+Na podstawie postulatów <span class="math">\(\,\)</span> 1. <span class="math">\(\,\)</span> i <span class="math">\(\,\)</span> 3. <span class="math">\(\,\)</span>  można zapisać:</p>
+<div class="math">
+\[\det\ [\,\boldsymbol{A}_1\,|\,\dots\,|\,\boldsymbol{A}' + \boldsymbol{A}''\,|\,
+\boldsymbol{A}' + \boldsymbol{A}''\,|\,\dots\,|\,\boldsymbol{A}_n\,]\ \ =\]\[=\ \
+\det\ [\,\boldsymbol{A}_1\,|\,\dots\,|\,\boldsymbol{A}'\,|\,
+\boldsymbol{A}'\,|\,\dots\,|\,\boldsymbol{A}_n\,]\ +\
+\det\ [\,\boldsymbol{A}_1\,|\,\dots\,|\,\boldsymbol{A}'\,|\,
+\boldsymbol{A}''\,|\,\dots\,|\,\boldsymbol{A}_n\,]\ \ +\]\[\ \ +\ \
+\det\ [\,\boldsymbol{A}_1\,|\,\dots\,|\,\boldsymbol{A}''\,|\,
+\boldsymbol{A}'\,|\,\dots\,|\,\boldsymbol{A}_n\,]\ +\
+\det\ [\,\boldsymbol{A}_1\,|\,\dots\,|\,\boldsymbol{A}''\,|\,
+\boldsymbol{A}''\,|\,\dots\,|\,\boldsymbol{A}_n\,]\ \ =\]\[=\ \
+\det\ [\,\boldsymbol{A}_1\,|\,\dots\,|\,\boldsymbol{A}'\,|\,
+\boldsymbol{A}''\,|\,\dots\,|\,\boldsymbol{A}_n\,]\ +\
+\det\ [\,\boldsymbol{A}_1\,|\,\dots\,|\,\boldsymbol{A}''\,|\,
+\boldsymbol{A}'\,|\,\dots\,|\,\boldsymbol{A}_n\,]\ \ =\ \ 0\,.\]</div>
+<div class="math">
+\[\text{A zatem}\qquad\det\ [\,\boldsymbol{A}_1\,|\,\dots\,|\,\boldsymbol{A}''\,|\,
+\boldsymbol{A}'\,|\,\dots\,|\,\boldsymbol{A}_n\,]\ \ =\ \ -\
+\det\ [\,\boldsymbol{A}_1\,|\,\dots\,|\,\boldsymbol{A}'\,|\,
+\boldsymbol{A}''\,|\,\dots\,|\,\boldsymbol{A}_n\,]\,.\]</div>
+<div class="admonition-wlasnosc-math-iib-math admonition">
+<p class="first admonition-title">Własność <span class="math">\(\,\)</span> IIb. <span class="math">\(\,\)</span></p>
+<p class="last">Przestawienie dwóch <span class="math">\(\,\)</span> <em>dowolnych</em>  <span class="math">\(\,\)</span> kolumn zmienia znak wyznacznika.</p>
+</div>
+<p><strong>Dowód.</strong> <span class="math">\(\,\)</span> Przestawienie dwóch dowolnych kolumn jest złożeniem nieparzystej ilości przestawień kolumn sąsiednich, a każde z nich powoduje zmianę znaku wyznacznika.</p>
+<p><span class="math">\(\;\)</span></p>
+<div class="admonition-wlasnosc-math-iic-math admonition">
+<p class="first admonition-title">Własność <span class="math">\(\,\)</span> IIc. <span class="math">\(\,\)</span></p>
+<p>Dla dowolnej permutacji <span class="math">\(\,\sigma\in S_n:\)</span></p>
+<div class="last math">
+\[\det\ [\,
+\boldsymbol{A}_{\sigma(1)}\,|\;\boldsymbol{A}_{\sigma(2)}\,|\,\dots\,|\,
+\boldsymbol{A}_{\sigma(n)}\,]
+\ \ =\ \
+\text{sgn}\,\sigma\,\cdot\,
+\det\ [\,\boldsymbol{A}_1\,|\;\boldsymbol{A}_2\,|\,\dots\,|\,\boldsymbol{A}_n\,]\,,\]</div>
+</div>
+<p><strong>Dowód.</strong> <span class="math">\(\,\)</span> Przejście od wyjściowego układu kolumn do układu określonego
+przez permutację <span class="math">\(\,\sigma\ \)</span> wymaga wykonania parzystej
+(gdy <span class="math">\(\,\text{sgn}\,\sigma=+1\)</span>) bądź nieparzystej
+(gdy <span class="math">\(\,\text{sgn}\,\sigma=-1\)</span>) ilości transpozycji kolumn, z których każda
+zmienia znak wyznacznika.</p>
+<p><strong>Wniosek.</strong> <span class="math">\(\,\)</span> Zmiana kolejności kolumn macierzy zmienia co najwyżej znak wyznacznika.</p>
+<p><span class="math">\(\;\)</span></p>
+<div class="admonition-wlasnosc-math-iiia-math admonition">
+<p class="first admonition-title">Własność <span class="math">\(\,\)</span> IIIa. <span class="math">\(\,\)</span></p>
+<p class="last">Gdy <span class="math">\(\,\)</span> <em>jakiekolwiek</em> <span class="math">\(\,\)</span> dwie kolumny macierzy są sobie równe, <span class="math">\(\,\)</span>
+to jej wyznacznik znika.</p>
+</div>
+<p><strong>Dowód.</strong> <span class="math">\(\,\)</span> Niech
+<span class="math">\(\ d\,:\,=\,\det\ [\,\boldsymbol{A}_1\,|\,\dots\,|\,
+\boldsymbol{A}_j\,|\,\dots\,|\,\boldsymbol{A}_k\,|\,
+\dots\,|\,\boldsymbol{A}_n\,]\,,\quad j&lt;k\in\{1,2,\dots,n\}\,.\)</span></p>
+<p>Jeżeli <span class="math">\(\ \boldsymbol{A}_j = \boldsymbol{A}_k\,,\ \)</span>
+to na podstawie własności IIb. mamy <span class="math">\(\ \,d = -\ d,\ \,\)</span> skąd <span class="math">\(\ \,d = 0.\)</span></p>
+<p><span class="math">\(\;\)</span></p>
+<div class="admonition-wlasnosc-math-iiib-math admonition">
+<p class="first admonition-title">Własność <span class="math">\(\,\)</span> IIIb. <span class="math">\(\,\)</span></p>
+<p class="last">Jeżeli dwie kolumny macierzy są proporcjonalne, to jej wyznacznik znika.</p>
+</div>
+<p><strong>Dowód.</strong> <span class="math">\(\,\)</span> Rzeczywiście, <span class="math">\(\,\)</span> z <span class="math">\(\,\)</span> 2. postulatu <span class="math">\(\,\)</span> i <span class="math">\(\,\)</span>
+własności <span class="math">\(\,\)</span> IIIa. <span class="math">\(\,\)</span> wynika, <span class="math">\(\,\)</span> że dla <span class="math">\(\,\lambda\in K\)</span></p>
+<div class="math">
+\[\det\ [\,\boldsymbol{A}_1\,|\,\dots\,|\,\boldsymbol{A}'\,|\,\dots\,|\,
+\lambda\,\boldsymbol{A}'\,|\,\dots\,|\,\boldsymbol{A}_n\,]\ \ =\ \
+\lambda\,\cdot\,\det\ [\,\boldsymbol{A}_1\,|\,\dots\,|\,\boldsymbol{A}'\,|\,\dots\,|\,
+\boldsymbol{A}'\,|\,\dots\,|\,\boldsymbol{A}_n\,]\ =\ 0\,.\]</div>
+<p><span class="math">\(\;\)</span></p>
+<div class="admonition-wlasnosc-math-iiic-math admonition">
+<p class="first admonition-title">Własność <span class="math">\(\,\)</span> IIIc. <span class="math">\(\,\)</span></p>
+<p class="last">Dodanie do pewnej kolumny innej kolumny pomnożonej przez dowolną liczbę
+nie zmienia wartości wyznacznika.</p>
+</div>
+<p><strong>Dowód.</strong> <span class="math">\(\,\)</span> Własność ta wynika z <span class="math">\(\,\)</span> 1. <span class="math">\(\,\)</span> i <span class="math">\(\,\)</span> 2. <span class="math">\(\,\)</span> postulatu oraz z udowodnionej już własności IIIb.:</p>
+<div class="math">
+\[\det\ [\,\boldsymbol{A}_1\,|\,\dots\,|\,\boldsymbol{A}_j\,|\,\dots\,|\,
+\boldsymbol{A}_k + \lambda\,\boldsymbol{A}_j\,|\,\dots\,|\,\boldsymbol{A}_n\,]\ \ =\]\[=\ \
+\det\ [\,\boldsymbol{A}_1\,|\,\dots\,|\,\boldsymbol{A}_j\,|\,\dots\,|\,\boldsymbol{A}_k\,|\,
+\dots\,|\,\boldsymbol{A}_n\,]\ +\
+\lambda\
+\det\ [\,\boldsymbol{A}_1\,|\,\dots\,|\,\boldsymbol{A}_j\,|\,\dots\,|\,\boldsymbol{A}_j\,|\,
+\dots\,|\,\boldsymbol{A}_n\,]\ \ =\]\[=\ \
+\det\ [\,\boldsymbol{A}_1\,|\,\dots\,|\,\boldsymbol{A}_j\,|\,\dots\,|\,\boldsymbol{A}_k\,|\,
+\dots\,|\,\boldsymbol{A}_n\,]\,.\]</div>
+</div>
+
+
+          </div>
+        </div>
+      </div>
+      <div class="sphinxsidebar">
+        <div class="sphinxsidebarwrapper">
+  <h4>Poprzedni temat</h4>
+  <p class="topless"><a href="operacje_na_macierzach_zadania.html"
+                        title="poprzedni rozdział">Zadania</a></p>
+  <h4>Następny temat</h4>
+  <p class="topless"><a href="wyznacznik_rozwiniecie_permutacyjne.html"
+                        title="następny rozdział">Rozwinięcie permutacyjne</a></p>
+<div id="searchbox" style="display: none">
+  <h3>Szybkie wyszukiwanie</h3>
+    <form class="search" action="search.html" method="get">
+      <input type="text" name="q" />
+      <input type="submit" value="Szukaj" />
+      <input type="hidden" name="check_keywords" value="yes" />
+      <input type="hidden" name="area" value="default" />
+    </form>
+    <p class="searchtip" style="font-size: 90%">
+    Wprowadź szukany termin lub nazwę modułu, klasy lub funkcji.
+    </p>
+</div>
+<script type="text/javascript">$('#searchbox').show(0);</script>
+        </div>
+      </div>
+      <div class="clearer"></div>
+    </div>
+  </div>
+  <div class="relbar-bottom">
+    
+    <div class="related">
+      <h3>Nawigacja</h3>
+      <ul>
+        <li class="right" style="margin-right: 10px">
+          <a href="wyznacznik_rozwiniecie_permutacyjne.html" title="Rozwinięcie permutacyjne"
+             >dalej</a></li>
+        <li class="right" >
+          <a href="operacje_na_macierzach_zadania.html" title="Zadania"
+             >wstecz</a> &nbsp; &nbsp;</li>
+  <li><a href="http://visual.icse.us.edu.pl/LA/index.html">Algebra Liniowa</a> &raquo;</li>
+   
+      </ul>
+    </div>
+  </div>
+  
+  <div class="footer">
+    <a class="logo" href="../../icse.us.edu.pl/index.html" target="_blank"><img src="_static/logo-icse.png" alt="ICSE"/></a><br/>
+    &copy; Copyright 2013, Marcin Kostur.
+    Created using <a href="http://sphinx.pocoo.org/">Sphinx</a> 1.2.2.
+  </div>
+  </body>
+</html>

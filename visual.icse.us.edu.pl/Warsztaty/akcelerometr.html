@@ -1,0 +1,240 @@
+
+
+  <!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+  "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+
+
+<html xmlns="http://www.w3.org/1999/xhtml">
+  <head>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    
+    <title>Kinematyka &mdash; Warsztaty</title>
+    
+    <link rel="stylesheet" href="_static/cloud.css" type="text/css" />
+    <link rel="stylesheet" href="_static/pygments.css" type="text/css" />
+    <link rel="stylesheet" href="http://fonts.googleapis.com/css?family=Noticia+Text|Open+Sans|Droid+Sans+Mono&subset=latin,latin-ext" type="text/css" />
+    
+    <script type="text/javascript">
+      var DOCUMENTATION_OPTIONS = {
+        URL_ROOT:    './',
+        VERSION:     'I',
+        COLLAPSE_INDEX: false,
+        FILE_SUFFIX: '.html',
+        HAS_SOURCE:  true
+      };
+    </script>
+    <script type="text/javascript" src="_static/jquery.js"></script>
+    <script type="text/javascript" src="_static/underscore.js"></script>
+    <script type="text/javascript" src="_static/doctools.js"></script>
+    <script type="text/javascript" src="_static/translations.js"></script>
+    <script type="text/javascript" src="http://cdn.mathjax.org/mathjax/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML"></script>
+    <script type="text/javascript" src="_static/jquery.cookie.js"></script>
+    <script type="text/javascript" src="_static/cloud.js"></script>
+
+
+
+    <script src="http://sagecell.icse.us.edu.pl:6363/static/jquery.min.js"></script>
+	<script src="http://sagecell.icse.us.edu.pl:6363/static/embedded_sagecell.js"></script>
+
+	<script>sagecell.makeSagecell({inputLocation: ".sage",
+                                       evalButtonText: 'Wykonaj',
+                                       linked: true});</script>
+
+	<style type="text/css">
+		.sagecell .CodeMirror-scroll {
+			overflow-y: hidden;
+			overflow-x: auto;
+		}
+		.sagecell .CodeMirror {
+			height: auto;
+		}
+	</style>
+
+    
+    <link rel="top" title="Warsztaty" href="index.html" />
+    <link rel="next" title="&lt;no title&gt;" href="sagewfizyce.html" />
+    <link rel="prev" title="Rzut ukośny" href="rzut_ukosny.html" />
+ 
+  <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, minimum-scale=1">
+  </head>
+  <body>
+  <div class="relbar-top">
+    
+    <div class="related">
+      <h3>Nawigacja</h3>
+      <ul>
+        <li class="right" style="margin-right: 10px">
+          <a href="sagewfizyce.html" title="&lt;no title&gt;"
+             accesskey="N">dalej</a></li>
+        <li class="right" >
+          <a href="rzut_ukosny.html" title="Rzut ukośny"
+             accesskey="P">wstecz</a> &nbsp; &nbsp;</li>
+  <li><a href="index.html">Warsztaty</a> &raquo;</li>
+   
+      </ul>
+    </div>
+  </div>
+  
+  <div class="content">  
+
+    <div class="document">
+      <div class="documentwrapper">
+        <div class="bodywrapper">
+          <div class="body">
+            
+  <div class="section" id="kinematyka">
+<h1>Kinematyka<a class="headerlink" href="akcelerometr.html#kinematyka" title="Stały odnośnik do tego nagłówka">¶</a></h1>
+<p>Pociąg przebył drogę ze stacji <span class="math">\(A\)</span> do <span class="math">\(B\)</span> w ciągu
+<span class="math">\(10\)</span> minut, oblicz średnią prędkość jeśli odległość miedzy
+stacjami wynosi <span class="math">\(10\)</span> km.&#8221;</p>
+<p>Dana jest droga przebyta w czasie, a chcemy policzyć prędkość i
+przyśpieszenie. Zadanie to nie wykracza poza materiał ze szkoły
+średniej. Przypuśćmy jednak, że mamy dane wiecej niż szkolne dwa
+punkty pomiaru <span class="math">\(A\)</span> i <span class="math">\(B\)</span>:</p>
+<div class="highlight-python"><div class="highlight"><pre><span class="n">sage</span><span class="p">:</span> <span class="n">t</span><span class="o">=</span><span class="p">[</span><span class="mi">0</span><span class="p">,</span> <span class="mi">1</span><span class="p">,</span> <span class="mi">2</span><span class="p">,</span> <span class="mi">3</span><span class="p">,</span> <span class="mi">4</span><span class="p">,</span> <span class="mi">5</span><span class="p">,</span> <span class="mi">6</span><span class="p">,</span> <span class="mi">7</span><span class="p">]</span>
+<span class="n">sage</span><span class="p">:</span> <span class="n">x</span> <span class="o">=</span> <span class="p">[</span><span class="mf">0.96</span><span class="p">,</span> <span class="mf">2.03</span><span class="p">,</span> <span class="mf">2.88</span><span class="p">,</span> <span class="mf">3.67</span><span class="p">,</span> <span class="mf">5.71</span><span class="p">,</span> <span class="mf">6.66</span><span class="p">,</span> <span class="mf">8.19</span><span class="p">,</span> <span class="mf">8.99</span><span class="p">]</span>
+</pre></div>
+</div>
+<p>Oblicznamy z drogi przędkośc korzystając ze wzoru na prędkość średnią:</p>
+<div class="math" id="equation-dxdt">
+<span class="eqno">(1)</span>\[v=\frac{\Delta x}{\Delta t}\]</div>
+<div class="highlight-python"><div class="highlight"><pre><span class="n">sage</span><span class="p">:</span> <span class="n">v</span><span class="o">=</span><span class="p">[]</span>
+<span class="n">sage</span><span class="p">:</span> <span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span><span class="nb">len</span><span class="p">(</span><span class="n">x</span><span class="p">)</span><span class="o">-</span><span class="mi">1</span><span class="p">):</span>
+<span class="o">...</span>       <span class="n">v</span><span class="o">.</span><span class="n">append</span> <span class="p">((</span><span class="n">x</span><span class="p">[</span><span class="n">i</span><span class="o">+</span><span class="mi">1</span><span class="p">]</span><span class="o">-</span><span class="n">x</span><span class="p">[</span><span class="n">i</span><span class="p">])</span><span class="o">/</span><span class="p">(</span><span class="n">t</span><span class="p">[</span><span class="n">i</span><span class="o">+</span><span class="mi">1</span><span class="p">]</span><span class="o">-</span><span class="n">t</span><span class="p">[</span><span class="n">i</span><span class="p">]))</span>
+</pre></div>
+</div>
+<div class="highlight-python"><div class="highlight"><pre><span class="n">sage</span><span class="p">:</span> <span class="n">line</span><span class="p">(</span><span class="nb">zip</span><span class="p">(</span><span class="n">t</span><span class="p">[</span><span class="mi">1</span><span class="p">:],</span><span class="n">v</span><span class="p">),</span><span class="n">figsize</span><span class="o">=</span><span class="mi">4</span><span class="p">)</span>
+</pre></div>
+</div>
+<img alt="_images/cell_22_sage0.png" class="align-center" src="_images/cell_22_sage0.png" />
+<p>Podobnie możemy obliczyć z przyśpieszenia, prędkość lub odwrotnie stosując:</p>
+<div class="math" id="equation-dvdt">
+<span class="eqno">(2)</span>\[a=\frac{\Delta v}{\Delta t}\]</div>
+<p>Co nam daje algorytmiczne zautomatyzowanie powyższych rachunków?</p>
+<p>Zyskiem jest możliwość przetworzenia dowolnej ilości danych. Jednym z
+fascynujących przykładów jest próba wykorzystania nowoczesnego
+telefonu jako źródła danych. Tak zwane smartfony maja wiele czujników
+- między innymi akcelerometr.</p>
+<div class="admonition-eksperyment admonition">
+<p class="first admonition-title">Eksperyment</p>
+<p>Wyobraźmy sobie, że chcemy się dowiedzieć na jaką wysokość wjedzie
+winda w której przebywamy. Możemy dokonywać pomiaru przyśpieszenia,
+od momentu wejścia do windy, tzn. kiedy ona się jeszcze nie porusza,
+do momentu jej zatrzymania. Winda, z reguły dość szybko przyśpiesza
+do prędkości marszowej, porusza się ruchem jednostajnie
+prostoliniowym i hamuje. Jeżeli będziemy mierzyli chwilowe
+przyśpieszenie, najlepiej kilkaset razy na sekundę, do ze wzorów
+<a href="akcelerometr.html#equation-dxdt">(1)</a> i <a href="akcelerometr.html#equation-dvdt">(2)</a> będziemy mogli otrzymać informację o
+prędkości i drodze.</p>
+<p class="last">Pomiar dokonuje w następujący sposób. Bierzemy telefon komórkowy i
+po wejsciu do windy włączamy tzw. logger czujników (sensor
+logger). Z włączonym zapisem pomiarów kładziemy telefon na
+podłodze. Powinniśmy zdążyć zrobić do zanim winda ruszy. Następnie
+czekamy aż winda zatrzyma się, podnosimy telefon i zatrzymujemy
+zapis danych. Plik z danymi posłuży nam do dalszej analizy.</p>
+</div>
+<p>Weźmy realne dane z pomiaru akcelerometrem z telefonu komórkowego,
+który leżał na podłodze windy. Doświadczenie to może wykonać każdy
+samodzielnie - do czego gorąco zachęcamy. W takim przypadku, należy
+jednak pamiętać, że sposób zapisu danych może zależeć od programu
+(tzn. loggera) i być może trzeba będzie zmodyfikować sposób ich
+parsowania.</p>
+<p><strong>Pytanie brzmi: na jaką wysokośc wjechała winda?</strong></p>
+<p>Wczytajmy dane z eksperymentu (zostały one umieszczone na dropboxie):</p>
+<div class='sage'><script type='text/x-sage'>import urllib2
+import numpy as np
+file = "https://dl.dropboxusercontent.com/u/11718006/sensorlog_2011082200122729_acc.csv"
+data = urllib2.urlopen(file)
+waveII = np.loadtxt(data, delimiter=";")</script></div><p>Analizę danych można przeprowadzić korzystając z samodzielnie
+napisanego, kilkulinijkowego skryptu, który wykorzystując technikę
+interact umożliwi w wygodny sposób wybranie właściwego podzbioru
+danych.</p>
+<p>Po pierwsze objerzyjmy dane, by wybrać moment w którym telefon leży na
+podłodze windy.</p>
+<div class='sage'><script type='text/x-sage'>N=waveII.shape[0]
+@interact
+def _(i1=slider(0,N,default=int(N/6)),i2=slider(0,N,default=int(N-N/6))  ):
+    l=list_plot( zip( waveII[i1:i2,0]-waveII[0,0],waveII[i1:i2,3] ) ,plotjoined=True,figsize=(7,4),gridlines=True)
+    show(l)</script></div><p>Mając wybrane zakresy dokonujemy  przeliczeń, korzystając z:</p>
+<div class="math">
+\[v_{i+1} = v_{i}+a_i*\Delta t
+x_{i+1} = x_{i}+v_i*\Delta t\]</div>
+<p>W ten sposób zaczynając od <span class="math">\(x_0=0\)</span> i <span class="math">\(v_0=0\)</span>, możemy
+otrzymać zależność dorgi od czasu:</p>
+<div class='sage'><script type='text/x-sage'>t=waveII[1057:2020,0]
+a=waveII[1057:2020,3]
+bg_a=waveII[1214:1839,3].mean()
+a=(a-bg_a)*9.81
+t=t/1000.0
+xc=[]
+vc=[]
+xc.append(0)
+vc.append(0)
+N=a.shape[0]
+for i in range(0,N-1):
+    vc.append( vc[i]+a[i]*(t[i+1]-t[i]) )
+for i in range(0,len(vc)-1):
+    xc.append( xc[i]+vc[i]*(t[i+1]-t[i]) )</script></div><p>i oglądamy wyniki.</p>
+<div class='sage'><script type='text/x-sage'>p1 = list_plot(zip(t-t[0],a),plotjoined=True,gridlines=True,fontsize=14,axes_labels=['$t$','$a_z$'],figsize=[5,2] )
+p2 = list_plot(zip(t-t[0],vc),plotjoined=True,gridlines=True,fontsize=14,axes_labels=['$t$','$v_z$'],figsize=[5,2])
+p3 = list_plot(zip(t-t[0],xc),plotjoined=True,gridlines=True,fontsize=14,axes_labels=['$t$','$z$'],figsize=[5,2])
+
+show(p1)
+show(p2)
+show(p3)</script></div><p>Po wykonaniu powyższego kodu można się przekonać, że winda zjechała w dół na ok. <span class="math">\(10\)</span> m.</p>
+</div>
+
+
+          </div>
+        </div>
+      </div>
+      <div class="sphinxsidebar">
+        <div class="sphinxsidebarwrapper">
+  <h4>Poprzedni temat</h4>
+  <p class="topless"><a href="rzut_ukosny.html"
+                        title="poprzedni rozdział">Rzut ukośny</a></p>
+  <h4>Następny temat</h4>
+  <p class="topless"><a href="sagewfizyce.html"
+                        title="następny rozdział">&lt;no title&gt;</a></p>
+<div id="searchbox" style="display: none">
+  <h3>Szybkie wyszukiwanie</h3>
+    <form class="search" action="http://visual.icse.us.edu.pl/Warsztaty/search.html" method="get">
+      <input type="text" name="q" />
+      <input type="submit" value="Szukaj" />
+      <input type="hidden" name="check_keywords" value="yes" />
+      <input type="hidden" name="area" value="default" />
+    </form>
+    <p class="searchtip" style="font-size: 90%">
+    Wprowadź szukany termin lub nazwę modułu, klasy lub funkcji.
+    </p>
+</div>
+<script type="text/javascript">$('#searchbox').show(0);</script>
+        </div>
+      </div>
+      <div class="clearer"></div>
+    </div>
+  </div>
+  <div class="relbar-bottom">
+    
+    <div class="related">
+      <h3>Nawigacja</h3>
+      <ul>
+        <li class="right" style="margin-right: 10px">
+          <a href="sagewfizyce.html" title="&lt;no title&gt;"
+             >dalej</a></li>
+        <li class="right" >
+          <a href="rzut_ukosny.html" title="Rzut ukośny"
+             >wstecz</a> &nbsp; &nbsp;</li>
+  <li><a href="index.html">Warsztaty</a> &raquo;</li>
+   
+      </ul>
+    </div>
+  </div>
+  
+  <div class="footer">
+    <a class="logo" href="../../icse.us.edu.pl/index.html" target="_blank"><img src="_static/logo-icse.png" alt="ICSE"/></a><br/>
+    &copy; Copyright 2013, CubeProject.
+    Created using <a href="http://sphinx.pocoo.org/">Sphinx</a> 1.2.2.
+  </div>
+  </body>
+</html>

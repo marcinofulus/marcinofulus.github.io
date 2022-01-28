@@ -1,0 +1,424 @@
+
+
+  <!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+  "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+
+
+<html xmlns="http://www.w3.org/1999/xhtml">
+  <head>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    
+    <title>Zabawa w chaos &mdash; Warsztaty</title>
+    
+    <link rel="stylesheet" href="_static/cloud.css" type="text/css" />
+    <link rel="stylesheet" href="_static/pygments.css" type="text/css" />
+    <link rel="stylesheet" href="http://fonts.googleapis.com/css?family=Noticia+Text|Open+Sans|Droid+Sans+Mono&subset=latin,latin-ext" type="text/css" />
+    
+    <script type="text/javascript">
+      var DOCUMENTATION_OPTIONS = {
+        URL_ROOT:    './',
+        VERSION:     'I',
+        COLLAPSE_INDEX: false,
+        FILE_SUFFIX: '.html',
+        HAS_SOURCE:  true
+      };
+    </script>
+    <script type="text/javascript" src="_static/jquery.js"></script>
+    <script type="text/javascript" src="_static/underscore.js"></script>
+    <script type="text/javascript" src="_static/doctools.js"></script>
+    <script type="text/javascript" src="_static/translations.js"></script>
+    <script type="text/javascript" src="http://cdn.mathjax.org/mathjax/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML"></script>
+    <script type="text/javascript" src="_static/jquery.cookie.js"></script>
+    <script type="text/javascript" src="_static/cloud.js"></script>
+
+
+
+    <script src="http://sagecell.icse.us.edu.pl:6363/static/jquery.min.js"></script>
+	<script src="http://sagecell.icse.us.edu.pl:6363/static/embedded_sagecell.js"></script>
+
+	<script>sagecell.makeSagecell({inputLocation: ".sage",
+                                       evalButtonText: 'Wykonaj',
+                                       linked: true});</script>
+
+	<style type="text/css">
+		.sagecell .CodeMirror-scroll {
+			overflow-y: hidden;
+			overflow-x: auto;
+		}
+		.sagecell .CodeMirror {
+			height: auto;
+		}
+	</style>
+
+    
+    <link rel="top" title="Warsztaty" href="index.html" />
+    <link rel="next" title="Od układu Lorenza do równania logistycznego" href="motyl_lorenza_II.html" />
+    <link rel="prev" title="Dynamika populacyjna: ciągłe modele jednowymiarowe" href="dynamika_populacyjna.html" />
+ 
+  <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, minimum-scale=1">
+  </head>
+  <body>
+  <div class="relbar-top">
+    
+    <div class="related">
+      <h3>Nawigacja</h3>
+      <ul>
+        <li class="right" style="margin-right: 10px">
+          <a href="motyl_lorenza_II.html" title="Od układu Lorenza do równania logistycznego"
+             accesskey="N">dalej</a></li>
+        <li class="right" >
+          <a href="dynamika_populacyjna.html" title="Dynamika populacyjna: ciągłe modele jednowymiarowe"
+             accesskey="P">wstecz</a> &nbsp; &nbsp;</li>
+  <li><a href="index.html">Warsztaty</a> &raquo;</li>
+   
+      </ul>
+    </div>
+  </div>
+  
+  <div class="content">  
+
+    <div class="document">
+      <div class="documentwrapper">
+        <div class="bodywrapper">
+          <div class="body">
+            
+  <div class="section" id="zabawa-w-chaos">
+<h1>Zabawa w chaos<a class="headerlink" href="motyl_lorenza.html#zabawa-w-chaos" title="Stały odnośnik do tego nagłówka">¶</a></h1>
+<div class="section" id="teoria-chaosu">
+<h2>Teoria chaosu<a class="headerlink" href="motyl_lorenza.html#teoria-chaosu" title="Stały odnośnik do tego nagłówka">¶</a></h2>
+<div class="section" id="wstep">
+<h3>Wstęp<a class="headerlink" href="motyl_lorenza.html#wstep" title="Stały odnośnik do tego nagłówka">¶</a></h3>
+<a class="reference internal image-reference" href="http://upload.wikimedia.org/wikipedia/en/d/dc/Edward_lorenz.jpg"><img alt="Edward Norton Lorenz" class="align-right" src="http://upload.wikimedia.org/wikipedia/en/d/dc/Edward_lorenz.jpg" style="height: 160px;" /></a>
+<p>W połowie lat 50-tych XX wieku, Edward Lorenz, prowadził projekt
+badawczy z zakresu statystycznego modelowania pogody. Lorenz był
+matematykiem, jednak podczas wojny służąc w siłach powietrznych
+zajmował się prognozowaniem pogody. W rezultacie w 1948 obronił
+doktorat wydziale meteorologii MIT i podjął tam pracę naukową. Jako
+matematyk Lorenz szybko stał się sceptyczny co do możliwości
+stosowania liniowej statystyki do długoterminowych przewidywań tak
+nieliniowego zjawiska jakim jest pogoda. Na marginesie, ówczesny stan
+wiedzy i stosowane podejście było do złudzenia po podobne do
+dzisiejszych prób modelowania dynamiki rynków finansowych. W każdym
+razie Lorenz rozpoczął poszukiwania modeli opartych na leżących u
+podstaw meteorologii zjawisk fizycznych. Skoncentrował się na
+stworzeniu uproszczonego modelu konwekcji energii cieplnej w
+atmosferze - jednego z podstawowych zjawisk fizycznych w meteorologii.</p>
+<div class="sidebar">
+<p class="first sidebar-title">Konwekcja w atmosferze</p>
+<a class="reference internal image-reference" href="http://upload.wikimedia.org/wikipedia/commons/6/6d/Earth_Global_Circulation.jpg"><img alt="Konwekcja w atmosferze" class="align-right" src="http://upload.wikimedia.org/wikipedia/commons/6/6d/Earth_Global_Circulation.jpg" style="width: 300px; height: 300px;" /></a>
+<p class="last">Konwekcja to proces przekazywania ciepła związany z makroskopowym
+ruchem materii w płynie. W atmosferze, powietrze jest nagrzewane
+przez słońce przy powierzchni ziemi i jako lżejsze unosi się do
+góry, gdzie z kolei się oziębia i znowu opada. Taki opis jest
+oczywiście jedynie jakościowym wnioskiem z obserwacji. Jedyną
+ścisłą metodą badania takich zjawisk jest rozwiązywanie
+odpowiednich równań transportu, w tym równania
+Naviera-Stokesa. Lorenz w swojej pracy analizował numerycznie
+radykalnie uproszczony przypadek konwekcji, do tego stopnia
+uproszczony, że nie miał żadnego zastosowania w modelowaniu realnej
+atmosfery, ale zapoczątkował rewolucję w i nową dyscyplinę -
+teorię chaosu.</p>
+</div>
+<p>Radykalne uproszczenie było konieczne. W owych czasach komputer miał
+16kb pamięci i mógł wykonać jedynie kilkadziesiąt operacji
+zmiennoprzecinkowych na sekundę. Dla porównania dzisiejszy telefon
+komórkowy wykonuje nawet miliardy operacji na sekundę!  Wysiłki
+zostały skierowane na stworzenie maksymalnie prostego modelu, który by
+jednak oddawał istotę zjawiska. Lorenz stworzył model składający się z
+dwunastu zmiennych, który ostatecznie został uproszczony do trzech.</p>
+<p>Publikując ten wynik, Lorenz mógł nie spodziewać się dwóch rzeczy. Po
+pierwsze, okazało się, że jego model nie miał większego praktycznego
+wpływu na meteorologię (w kraju, oznaczało by to, że projekt nie
+zostałby rozliczony ;). Dzisiejsze podejście do prognozowania jest
+oparte na modelach zawierających miliardy zmiennych, które są
+rozwiązywane na największych dostępnych komputerach i nie wydaje się
+by cokolwiek mogło zmienić ten trend. Po drugie, Lorenz mógł nie
+przewidzieć, że jego praca doprowadzi do powstania &#8220;teorii chaosu&#8221; i
+nieodwracalnie zmieni sposób patrzenia na rzeczywistość.</p>
+<p>Co takiego nieoczekiwanego wynikło z modelu Lorenza? Otrzymany przez
+niego układ, którego stan jest opisywany przez trzy zmienne
+<span class="math">\(x(t),y(t),z(t)\)</span>. Zmienne te podlegają ewolucji w czasie zgodnie
+w trzema równaniami różniczkowymi. Oznacza to, że znając stan układu w
+pewnej chwili <span class="math">\(t_0\)</span>, możemy, korzystając z równań różniczkowych,
+wyliczyć stan układu w dowolnej późniejszej chwili
+<span class="math">\(t\)</span>. Spełnienie takiego prawa, jest ogólnie zwane determinizmem:
+&#8220;teraźniejszość w pełni determinuje przyszłość&#8221;. W otaczającym nas
+świecie jest wiele zjawisk, które podlegają deterministycznym
+prawom. Na przykład położenie samochodu jadącego po prostej z
+prędkością 10 metrów na sekundę jest zdeterminowane w każdej chwili i
+może być wyliczone ze znanego wzoru na drogę w ruchu jednostajnie
+prostoliniowym. Gdyby jednak zapytać jaką drogę przejedzie ten sam
+samochód w mieście to odpowiedź nie będzie łatwa bo zależy to od
+natężenia ruchu w mieście, ilości świateł. Można jednak przewidzieć,
+co bardzo dobrze robią programy do nawigacji satelitarnej, średni czas
+oczekiwany na pokonanie wyznaczonej drogi przez miasto. W takich
+obliczeniach wiele zależy od zmiennych, które są losowe - jak czas
+oczekiwania na zielone światło. Mówimy więc, że model szacujący czas
+przejazdu przez miasto jest probabilistyczny.</p>
+<p>Wróćmy jednak do modelu Lorenza. Mając do dyspozycji komputer Lorenz
+rozpoczął badanie wyprowadzonych, jak już ustaliliśmy -
+deterministycznych - równań. Okazało się, że pomimo prostoty samych
+równań, rozwiązania w pewnych przypadkach były wysoce nieregularne i
+zachowanie układu czułe na warunki początkowe. Co więcej czułość na
+warunki początkowe była tak duża, że praktycznie przewidzenie dokładne
+dalekiej przyszłości w tym modelu było tak samo niemożliwe jak w
+modelach probabilistycznych. Nawet, zakładając, że obliczenia
+przeprowadzamy z dowolną dokładnością, to w każdym modelu warunki
+początkowe pochodzą z pewnych pomiarów fizycznych a te z kolei zawsze
+obarczone są pewnym błędem. W efekcie, dysponując prostą i w pełni
+deterministyczną regułą &#8220;przepowiadania&#8221; przyszłości i nie możemy z
+niej w pełni skorzystać. Paradoks ten jest dzisiaj określany terminem
+&#8220;Chaos Deterministyczny&#8221; - oksymoronem, który dobrze oddaje naturę
+tego zjawiska.</p>
+<p>W meteorologii, już w tych latach panował pogląd o wrażliwości pogody
+na niewielkie zaburzenie stanu początkowego, jednak przypisywano tą
+cechę efektowi złożoności układu. Zaskakującym wynikiem otrzymanym
+przez Lorenza było to, że własność ta tkwi już bardzo prostym,
+tzw. niskowymiarowym, modelu.</p>
+<p>W poniższym rozdziale zachęcamy czytelnika do przeniesienia się w lata
+60-te i powtórzenia obliczeń komputerowych. Fascynujące jest, że w tej
+chwili mamy do dyspozycji milion razy szybszy sprzęt komputerowy. Do
+obliczeń wykorzystamy otwarte oprogramowanie &#8220;Sage&#8221;, które umożliwia
+wykonywanie eksperymentów na zasadzie podobnej do klocków Lego - można
+korzystać z wielu gotowych procedur, niekoniecznie wnikając od razu w
+szczegóły ich implementacji. Zatem, dowiedzmy się jakie równania badał
+Lorenz?</p>
+</div>
+<div class="section" id="uklad-lorenza">
+<h3>Układ Lorenza<a class="headerlink" href="motyl_lorenza.html#uklad-lorenza" title="Stały odnośnik do tego nagłówka">¶</a></h3>
+<div class="sidebar">
+<p class="first sidebar-title">Układ równań różniczkowych</p>
+<p>Układem równań różniczkowych to układ równań w którym występują
+pochodne. Często spotyka się następującą postać:</p>
+<div class="math" id="equation-odesys1">
+<span class="eqno">(1)</span>\[\begin{split} \frac{dx}{dt} = f(x,y) \\
+ \frac{dy}{dt} = g(x,y)\end{split}\]</div>
+<p>gdzie <span class="math">\(x=x(t)\)</span> i <span class="math">\(y=y(t)\)</span> są szukanymi funkcjami czasu
+a np. <span class="math">\(\frac{dx}{dt}\)</span> pochodna funkcji <span class="math">\(x(t)\)</span> po
+czasie. Funkcje dwóch zmiennych <span class="math">\(f\)</span> i <span class="math">\(g\)</span> są
+dane. Układ taki, zwany też układem dynamicznym ma bardzo prostą
+interpretacje. Lewe strony opisują nam szybkość zmiany wielkości w
+czasie - jeśli <span class="math">\(x\)</span> było by położeniem to
+<span class="math">\(\frac{dx}{dt}\)</span> prędkością pewnego ciała. Prawe strony mówią
+nam jak szybkości zmian poszczególnych zmiennych zależą od stanu w
+którym znajduję się układ.  Prostym przykładem jest równanie
+wzrostu populacji <span class="math">\(N(t)\)</span> w którym prędkość urodzeń jest
+proporcjonalna do liczebności: <span class="math">\(\frac{N(t)}{dt}=aN(t)\)</span>. Łatwo
+sprawdzić, że równanie takie ma rozwiązanie <span class="math">\(N(t)=N(0)e^{at}\)</span>.</p>
+<p>Narzędziem stosowanym do analizy równań różniczkowych na komputerze
+są metody numeryczne. Najprostsza jest metoda Eulera. Polega ona na
+zastąpieniu pochodnych ilorazami różnicowymi. Niech
+<span class="math">\(h=t_{1}-t_0\)</span> będzie małym przyrostem czasu, wtedy mamy:</p>
+<div class="math">
+\[\frac{dx}{dt} \sim \frac{x(t+h)-x(t)}{h}\]</div>
+<p>Podstawiając to przybliżenie do równań (<a href="motyl_lorenza.html#equation-odesys1">(1)</a>) i po
+przeniesieniu wszystkich wyrazów zawierających <span class="math">\(x(t+h),y(t+h)\)</span> na
+lewą a wyrazów z <span class="math">\(x(t),y(t)\)</span> na prawą stronę otrzymujemy:</p>
+<div class="math" id="equation-euler">
+<span class="eqno">(2)</span>\[\begin{split}x(t+h) = x(t) + h \cdot f(x(t),y(t)) \\
+y(t+h) = y(t) + h \cdot g(x(t),y(t))\end{split}\]</div>
+<p class="last">Taka postać sugeruje, że można uzyskać rozwiązanie w kolejnych
+chwilach czasu stosując kolejne iteracje (czyli powtórzenia):
+Startując w chwili <span class="math">\(t\)</span> z punktu <span class="math">\(x(t),y(t)\)</span> obliczamy
+nowy punkt <span class="math">\(x(t+h),y(t+h)\)</span> w chwili <span class="math">\(t+h\)</span>. <span class="math">\(h\)</span>
+jest zwany krokiem czasowym. Następnie przyjmujemy obliczony nowy
+punkt jako początkowy i powtarzamy całą operację.</p>
+</div>
+<p>Równania, które wyprowadził Edward Lorenz w 1963 roku, jako
+uproszczony model konwekcji, mają następującą postać:</p>
+<blockquote>
+<div><div class="math" id="equation-lorenz">
+<span class="eqno">(3)</span>\[\begin{split}\frac{\mathrm{d}x}{\mathrm{d}t} &amp;= \sigma (y - x), \\
+\frac{\mathrm{d}y}{\mathrm{d}t} &amp;= x (\rho - z) - y, \\
+\frac{\mathrm{d}z}{\mathrm{d}t} &amp;= x y - \beta z.\end{split}\]</div>
+</div></blockquote>
+<p>Od tego czasu ten układ równań jest zwany modelem Lorenza i stał się
+archetypem chaotycznego układu dynamicznego. Taki układ równań można
+rozwiązać stosując metody numeryczne dla równań różniczkowych (patrz
+box). Mając do dyspozycji pakiet Sage napisanie programu nie jest
+specjalnie trudne:</p>
+<div class='sage'><script type='text/x-sage'>var('x,y,z')
+sigma = 10
+rho = 28
+beta = 8/3
+lorenz = [sigma*(y-x),x*(rho-z)-y,x*y-beta*z]
+times = srange(0,200,0.01)
+ics = [0,1,1]
+sol = desolve_odeint(lorenz,ics,times,[x,y,z])
+line( sol[-3000:,[0,2]],thickness=1,color='green',figsize=4)</script></div><p>Otrzymany wykres przedstawia kształt atraktora Lorenza,
+przypominającego motyla.</p>
+<p>Po krótce omówmy elementy powyższego programu. Kluczowym elementem
+jest wykorzystanie funkcji <tt class="code docutils literal"><span class="pre">desolve_odeint</span></tt>. Rozwiązuje ona
+numerycznie dowolny układ równań różniczkowych z wykorzystaniem bardzo
+efektywnych schematów numerycznych, których idea jest jednak taka sama
+jak w metodzie Eulera (patrz box). Minimalna liczba parametrów to:
+lista lewych stroń układu równań różniczkowych, warunek początkowy,
+punkty czasowe w których ma być obliczone rozwiązanie oraz lista
+zmiennych symbolicznych w takiej kolejności w jakiej zostały podane
+równania. Po wykonaniu obliczeń funkcja ta zwraca tablicę zawierającą
+wartości wszystkich zmiennych czyli <span class="math">\(x,y,z\)</span> w żądanych momentach
+czasu. Tablica ta jest obiektem typu <tt class="code docutils literal"><span class="pre">numpy.ndarray</span></tt> więc możemy
+sprawdzić jaki jest rozmiar danych wyjściowych poleceniem:</p>
+<div class="highlight-python"><div class="highlight"><pre><span class="k">print</span> <span class="n">sol</span><span class="o">.</span><span class="n">shape</span>
+</pre></div>
+</div>
+<p>Widzimy, że zostaną zwrócone dwie liczby, które odpowiadają zakresom
+zmienności wskaźników tabeli <tt class="code docutils literal"><span class="pre">sol</span></tt>.</p>
+<p>Procedura <tt class="code docutils literal"><span class="pre">line3d</span></tt> rysuje wykres krzywej w przestrzeni
+<span class="math">\(x,y,z\)</span>. Przestrzeń ta jest tak zwaną przestrzenią fazową dla
+układu równań różniczkowych. Choć brzmi to skomplikowanie, idea jest
+bardzo prosta. Jest to przestrzeń wszystkich możliwych stanów układu
+równań różniczkowych (<a href="motyl_lorenza.html#equation-lorenz">(3)</a>). Ponieważ mamy trzy zmienne to
+przestrzeń ta jest trójwymiarowa. Ewolucja czasowa układu jest krzywą
+w takiej przestrzeni i jest zwana krzywą fazową. Ciekawą własnością
+jest to, że dwie krzywe fazowe się nie przecinają - jest to skutek
+twierdzenia o jednoznaczności rozwiązań układu równań
+różniczkowych. Intuicyjnie oznacza to, że przyszłość jest
+jednoznacznie określona przez stan w pewnej chwili czasu. Jeśli krzywe
+fazowe przecinały by się to jeśli wybralibyśmy punkt przecięcia jako
+stan początkowy to układ &#8220;nie wiedział&#8221; na którą gałąź ma się udać.</p>
+<p>Wróćmy jeszcze do naszego wykresu. Jeżeli nasz komputer jest
+wyposażony we wtyczkę Java to możemy dokonać inspekcji trójwymiarowej
+geometrii, zastępując ostatnią linijke w programie przez:</p>
+<div class="highlight-python"><div class="highlight"><pre><span class="n">line3d</span><span class="p">(</span> <span class="n">sol</span><span class="p">[</span><span class="o">-</span><span class="mi">3000</span><span class="p">:],</span><span class="n">thickness</span><span class="o">=</span><span class="mi">2</span><span class="p">,</span><span class="n">color</span><span class="o">=</span><span class="s">&#39;green&#39;</span><span class="p">)</span>
+</pre></div>
+</div>
+<p>Zanim przejdziemy do badania jego własności, musimy dowiedzieć się co
+to jest atraktor. Pewne układy dynamiczne opisywane równaniami
+różniczkowymi (należy do ich model Lorenza), mają taką własność, że
+wszystkie rozwiązania dążą do jednego (lub wielu) rozwiązania
+granicznego. Takie rozwiązanie do którego inne dążą właśnie nazwana
+atraktorem (z pewnością od angielskiego słowa attract -
+przyciągać). Aby lepiej zrozumieć tą koncepcję rozważmy następujący
+przykład. Rozważmy równanie, mogące modelować rozpad radioaktywny:</p>
+<div class="math" id="equation-rozpad">
+<span class="eqno">(4)</span>\[ \frac{dN(t)}{dt}=-\alpha N(t).\]</div>
+<p>Przez bezpośrednie sprawdzenie możemy się przekonać, że funkcja
+<span class="math">\(N(t)=N(0)e^{-\alpha t}\)</span> jest rozwiązaniem tego równania. W
+szczególności jeśli <span class="math">\(N(0)=0\)</span> rozwiązanie stałe <span class="math">\(N(t)=0\)</span>
+też jest rozwiązaniem. Ma ono jednak szczególną własność: każde inne
+rozwiązanie dąży do niego. Mówimy, że punkt <span class="math">\(N=0\)</span> jest
+atraktorem układu (<a href="motyl_lorenza.html#equation-rozpad">(4)</a>).</p>
+<p>Jakie jeszcze geometryczne formy może przyjmować atraktor? Z przykładu
+widać, że może być pojedynczym punktem. Można też łatwo znaleźć
+przykłady gdy jest zbiorem wielu izolowanych punktów. Dla układów
+dwuwymiarowych może być też krzywą zamkniętą, zwaną cyklem
+granicznym. Najbardziej fascynująca jest jednak możliwość, która
+pojawia się dla układów trój- lub więcej wymiarowych. Atraktor może
+przyjmować formę zbioru z wymiarem ułamkowym i mieć strukturę
+fraktalną. Taki atraktor jest zwany &#8220;dziwnym atraktorem&#8221; i attraktor
+Lorenzta jest właśnie jego przykładem.</p>
+<p>Czas w którym dowolne rozwiązanie układu Lorenza zbliży się do
+atraktora Lorenza na odległość, która jest poniżej grubości linii go
+przedstawiającej dla wybranych przez nas parametrów -  jest
+rzędu 10. Dlatego, odcinając pierwsze kilkadziesiąt jednostek czasu
+wykres trajektorii fazowej praktycznie jest obrazem punktów leżących
+na atrraktorze Lorenza. Ponieważ ma on naturę fraktalną nie można do
+&#8220;dokładnie&#8221; narysować, ale można pokazać jego przybliżenie w pewnej
+skali, w naszym przypadku tę skalę wyznacza właśnie grubość linii.</p>
+<p>Co ciekawego jest w tym wykresie? Po pierwsze w oczy rzuca się
+nieregularność, którą jeszcze lepiej widać jeśli by narysować wykres
+wybranej współrzędnej od czasu, .... ale po co gdybać, narysujmy!</p>
+<div class='sage'><script type='text/x-sage'>c=['red','blue','black']
+sum([line( zip(times,sol[-2000:,i]),color=c[i]) for i in range(3)])</script></div><p>Taki wykres, a właściwie trzy wykresy, to zależność każdej zmiennej
+układu od czasu podczas jego ewolucji. Gdyby kontynuować ewolucje
+dalej, to żaden kawałek wykresu nigdy by się nie powtórzył (warto
+spróbować!). Niezwykłość układu Lorenza polega na tym, że
+nieskończony i niepowtarzający się obraz, &#8220;zakodowany&#8221; jest w jedynie
+trzech równaniach różniczkowych.</p>
+<p>Układ Lorenza nie dla każdego zestawu parametrów posiada własności
+chaotyczne. Weźmy na przykład dowolne <span class="math">\(\rho&lt;24\)</span>. Łatwo się
+przekonać wykonując powyższy kod, że rozwiązanie w takim przypadku
+będzie regularne i będzie dążyło do skończonej wartości.</p>
+<p>Kolejną cechą układu jest czułość na warunki początkowe. Rozwiążmy
+układ dla dwóch zestawów warunków początkowych, różniących się o bardzo
+małą wartość (ciekawostką jest fakt, że Lorenz to spostrzeżenie
+opublikował dopiero sześć lat po pierwszym artykule).</p>
+<div class='sage'><script type='text/x-sage'>x,y,z = var('x,y,z')
+sigma = 10
+rho = 28
+beta = 8/3
+lorenz = [sigma*(y-x),x*(rho-z)-y,x*y-beta*z]
+times = srange(0,31,0.01)
+ics = [0,1,0]
+sol = desolve_odeint(lorenz,ics,times,[x,y,z])
+ics2 = [0,1.01,0]
+sol2 = desolve_odeint(lorenz,ics2,times,[x,y,z])
+line( zip(times,sol[:,0]) )+line( zip(times,sol2[:,0]),color='red' )</script></div><p>W powyższym kodzie można próbować zmniejszać różnicę między warunkami
+początkowymi np. dla drugiego układu kładąc <span class="math">\(y(0)=1.001\)</span> lub
+<span class="math">\(y(0)=1.0001\)</span> a następnie obserwować w jakim momencie
+rozwiązania zaczynają się różnić od siebie. Warto też spróbować
+zbadań jak wyglądają trajektorie układu dla parametrów przy których
+nie jest on chaotyczny.</p>
+</div>
+</div>
+</div>
+
+
+          </div>
+        </div>
+      </div>
+      <div class="sphinxsidebar">
+        <div class="sphinxsidebarwrapper">
+  <div class="sphinxlocaltoc">
+  <h3><a href="index.html">Spis treści</a></h3>
+  <ul>
+<li><a class="reference internal" href="motyl_lorenza.html#">Zabawa w chaos</a><ul>
+<li><a class="reference internal" href="motyl_lorenza.html#teoria-chaosu">Teoria chaosu</a><ul>
+<li><a class="reference internal" href="motyl_lorenza.html#wstep">Wstęp</a></li>
+<li><a class="reference internal" href="motyl_lorenza.html#uklad-lorenza">Układ Lorenza</a></li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+
+  </div>
+  <h4>Poprzedni temat</h4>
+  <p class="topless"><a href="dynamika_populacyjna.html"
+                        title="poprzedni rozdział">Dynamika populacyjna: ciągłe modele jednowymiarowe</a></p>
+  <h4>Następny temat</h4>
+  <p class="topless"><a href="motyl_lorenza_II.html"
+                        title="następny rozdział">Od układu Lorenza do równania logistycznego</a></p>
+<div id="searchbox" style="display: none">
+  <h3>Szybkie wyszukiwanie</h3>
+    <form class="search" action="http://visual.icse.us.edu.pl/Warsztaty/search.html" method="get">
+      <input type="text" name="q" />
+      <input type="submit" value="Szukaj" />
+      <input type="hidden" name="check_keywords" value="yes" />
+      <input type="hidden" name="area" value="default" />
+    </form>
+    <p class="searchtip" style="font-size: 90%">
+    Wprowadź szukany termin lub nazwę modułu, klasy lub funkcji.
+    </p>
+</div>
+<script type="text/javascript">$('#searchbox').show(0);</script>
+        </div>
+      </div>
+      <div class="clearer"></div>
+    </div>
+  </div>
+  <div class="relbar-bottom">
+    
+    <div class="related">
+      <h3>Nawigacja</h3>
+      <ul>
+        <li class="right" style="margin-right: 10px">
+          <a href="motyl_lorenza_II.html" title="Od układu Lorenza do równania logistycznego"
+             >dalej</a></li>
+        <li class="right" >
+          <a href="dynamika_populacyjna.html" title="Dynamika populacyjna: ciągłe modele jednowymiarowe"
+             >wstecz</a> &nbsp; &nbsp;</li>
+  <li><a href="index.html">Warsztaty</a> &raquo;</li>
+   
+      </ul>
+    </div>
+  </div>
+  
+  <div class="footer">
+    <a class="logo" href="../../icse.us.edu.pl/index.html" target="_blank"><img src="_static/logo-icse.png" alt="ICSE"/></a><br/>
+    &copy; Copyright 2013, CubeProject.
+    Created using <a href="http://sphinx.pocoo.org/">Sphinx</a> 1.2.2.
+  </div>
+  </body>
+</html>

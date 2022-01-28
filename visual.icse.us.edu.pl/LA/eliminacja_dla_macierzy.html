@@ -1,0 +1,697 @@
+
+
+  <!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+  "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+
+
+<html xmlns="http://www.w3.org/1999/xhtml">
+  <head>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    
+    <title>Metoda eliminacji w ujęciu macierzowym &mdash; Algebra Liniowa</title>
+    
+    <link rel="stylesheet" href="_static/cloud.css" type="text/css" />
+    <link rel="stylesheet" href="_static/pygments.css" type="text/css" />
+    <link rel="stylesheet" href="http://fonts.googleapis.com/css?family=Noticia+Text|Open+Sans|Droid+Sans+Mono&subset=latin,latin-ext" type="text/css" />
+    
+    <script type="text/javascript">
+      var DOCUMENTATION_OPTIONS = {
+        URL_ROOT:    './',
+        VERSION:     'I',
+        COLLAPSE_INDEX: false,
+        FILE_SUFFIX: '.html',
+        HAS_SOURCE:  true
+      };
+    </script>
+    <script type="text/javascript" src="_static/jquery.js"></script>
+    <script type="text/javascript" src="_static/underscore.js"></script>
+    <script type="text/javascript" src="_static/doctools.js"></script>
+    <script type="text/javascript" src="_static/translations.js"></script>
+    <script type="text/javascript" src="http://cdn.mathjax.org/mathjax/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML"></script>
+    <script type="text/javascript" src="_static/jquery.cookie.js"></script>
+    <script type="text/javascript" src="_static/cloud.js"></script>
+
+	<script src="http://sagecell.icse.us.edu.pl:6363/static/jquery.min.js"></script>
+	<script src="http://sagecell.icse.us.edu.pl:6363/static/embedded_sagecell.js"></script>
+
+	<!-- <script src="http://sagecell.sagemath.org/static/jquery.min.js"></script> -->
+	<!-- <script src="http://sagecell.sagemath.org/static/embedded_sagecell.js"></script> -->
+
+	<script>sagecell.makeSagecell({inputLocation: ".sage",
+                                       evalButtonText: 'Wykonaj',
+                                       linked: true});</script>
+
+	<style type="text/css">
+		.sagecell .CodeMirror-scroll {
+			overflow-y: hidden;
+			overflow-x: auto;
+		}
+		.sagecell .CodeMirror {
+			height: auto;
+		}
+	</style>
+
+    
+    <link rel="top" title="Algebra Liniowa" href="http://visual.icse.us.edu.pl/LA/index.html" />
+    <link rel="next" title="Transpozycja macierzy" href="transpozycja_macierzy.html" />
+    <link rel="prev" title="Zadania" href="algebra_macierzy_zadania.html" />
+ 
+  <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, minimum-scale=1">
+  </head>
+  <body>
+  <div class="relbar-top">
+    
+    <div class="related">
+      <h3>Nawigacja</h3>
+      <ul>
+        <li class="right" style="margin-right: 10px">
+          <a href="transpozycja_macierzy.html" title="Transpozycja macierzy"
+             accesskey="N">dalej</a></li>
+        <li class="right" >
+          <a href="algebra_macierzy_zadania.html" title="Zadania"
+             accesskey="P">wstecz</a> &nbsp; &nbsp;</li>
+  <li><a href="http://visual.icse.us.edu.pl/LA/index.html">Algebra Liniowa</a> &raquo;</li>
+   
+      </ul>
+    </div>
+  </div>
+  
+  <div class="content">  
+
+    <div class="document">
+      <div class="documentwrapper">
+        <div class="bodywrapper">
+          <div class="body">
+            
+  <div class="section" id="metoda-eliminacji-w-ujeciu-macierzowym">
+<h1>Metoda eliminacji w ujęciu macierzowym<a class="headerlink" href="eliminacja_dla_macierzy.html#metoda-eliminacji-w-ujeciu-macierzowym" title="Stały odnośnik do tego nagłówka">¶</a></h1>
+<p>Omówiona wcześniej metoda eliminacji wykorzystuje przekształcenia elementarne dla doprowadzenia układu równań liniowych do postaci schodkowej.</p>
+<p>Ten sam efekt można osiągnąć, zastępując operacje elementarne na równaniach odpowiednimi operacjami na wierszach macierzy rozszerzonej, reprezentującej układ równań.</p>
+<div class="section" id="macierz-rozszerzona-ukladu-rownan">
+<h2>Macierz rozszerzona układu równań<a class="headerlink" href="eliminacja_dla_macierzy.html#macierz-rozszerzona-ukladu-rownan" title="Stały odnośnik do tego nagłówka">¶</a></h2>
+<p>Dla układu <span class="math">\(\,m\,\)</span> równań o <span class="math">\(\,n\,\)</span> niewiadomych:</p>
+<div class="math" id="equation-01">
+<span class="eqno">(1)</span>\[\begin{split}\begin{array}{c}
+   a_{11}\,x_1\; + \ \,a_{12}\,x_2\; + \ \,\ldots\  + \ \;a_{1n}\,x_n \ \, = \ \ b_1 \\
+   a_{21}\,x_1\; + \ \,a_{22}\,x_2\; + \ \,\ldots\  + \ \;a_{2n}\,x_n \ \, = \ \ b_2 \\
+   \quad\,\ldots\qquad\quad\ldots\qquad\ \,\ldots\qquad\ \ \ldots\qquad\ \ \,\ldots    \\
+   a_{m1}\,x_1\; + \ \,a_{m2}\,x_2\; + \ \,\ldots\  + \ \;a_{mn}\,x_n \ \, = \ \ b_m
+\end{array}\end{split}\]</div>
+<p>gdzie współczynniki <span class="math">\(\,a_{ij}\,\)</span>
+oraz wolne wyrazy <span class="math">\(\,b_i\ \ (i=1,2,\ldots,m;\ j=1,2,\ldots,n)\,\)</span>
+należą do pewnego ciała <span class="math">\(\,K,\,\)</span>
+definiujemy <span class="math">\(\,\)</span> <em>macierz współczynników</em> <span class="math">\(\,\boldsymbol{A},\ \ \)</span>
+<em>kolumnę wolnych wyrazów</em> <span class="math">\(\,\boldsymbol{b}\ \,\)</span> i <span class="math">\(\ \)</span>
+<em>kolumnę niewiadomych</em> <span class="math">\(\,\boldsymbol{x}:\)</span></p>
+<div class="math">
+\[\begin{split}\boldsymbol{A}\  =\  \left[\;\begin{array}{cccc}
+                        a_{11} &amp; a_{12} &amp; \ldots &amp; a_{1n} \\
+                        a_{21} &amp; a_{22} &amp; \ldots &amp; a_{2n} \\
+                        \ldots &amp; \ldots &amp; \ldots &amp; \ldots \\
+                        a_{m1} &amp; a_{m2} &amp; \ldots &amp; a_{mn}
+                     \end{array}\right]\,,\qquad
+\boldsymbol{b}\,=\,\left[\begin{array}{c} b_{1} \\ b_{2} \\ \ldots \\ b_{m} \end{array}\right]\,,\qquad
+\boldsymbol{x}\,=\,\left[\begin{array}{c} x_{1} \\ x_{2} \\ \ldots \\ x_{n} \end{array}\right]\,.\end{split}\]</div>
+<p>Układ <a href="eliminacja_dla_macierzy.html#equation-01">(1)</a> można wtedy zapisać zwięźle jako</p>
+<div class="math" id="equation-02">
+<span class="eqno">(2)</span>\[\boldsymbol{A}\,\boldsymbol{x}\,=\,\boldsymbol{b}.\]</div>
+<p>Gdy wszystkie wolne wyrazy znikają: <span class="math">\(\ \boldsymbol{b} = \boldsymbol{0},\ \)</span>
+układ równań jest <em>jednorodny</em>. Jednorodny układ równań</p>
+<div class="math">
+\[\boldsymbol{A}\,\boldsymbol{x}\ =\ \boldsymbol{0}\]</div>
+<p>jest <span class="math">\(\,\)</span> <em>stowarzyszony</em> <span class="math">\(\,\)</span> z niejednorodnym układem <a href="eliminacja_dla_macierzy.html#equation-02">(2)</a>.</p>
+<p>Dwa układy równań są <span class="math">\(\,\)</span> <em>równoważne</em>, <span class="math">\(\,\)</span> gdy mają ten sam zbiór rozwiązań. <span class="math">\(\\\)</span></p>
+<p>Dla układu <a href="eliminacja_dla_macierzy.html#equation-01">(1)</a> definiujemy również <span class="math">\(\,\)</span> <em>macierz rozszerzoną</em> <span class="math">\(\ \boldsymbol{B}\,:\)</span></p>
+<div class="math">
+\[\begin{split}\boldsymbol{B}\ \,:\,=\ \,[\,\boldsymbol{A}\,|\,\boldsymbol{b}\;]\ \,
+                  =\ \,\left[\begin{array}{ccccc}
+                             a_{11} &amp; a_{12} &amp; \ldots &amp; a_{1n} &amp; b_1    \\
+                             a_{21} &amp; a_{22} &amp; \ldots &amp; a_{2n} &amp; b_2    \\
+                             \ldots &amp; \ldots &amp; \ldots &amp; \ldots &amp; \ldots \\
+                             a_{m1} &amp; a_{m2} &amp; \ldots &amp; a_{mn} &amp; b_m
+                       \end{array}\right]\,.\end{split}\]</div>
+<p>Podanie macierzy <span class="math">\(\ \boldsymbol{B}\,\)</span>
+określa całkowicie układ równań <a href="eliminacja_dla_macierzy.html#equation-01">(1)</a>,
+a operacjom elementarnym na równaniach odpowiadają
+analogiczne operacje na wierszach tej macierzy:</p>
+<ol class="arabic">
+<li><p class="first">przestawienie dwóch wierszy,</p>
+</li>
+<li><p class="first">pomnożenie dowolnego wiersza przez liczbę różną od zera,</p>
+</li>
+<li><div class="first line-block">
+<div class="line">dodanie do jednego z wierszy dowolnej wielokrotności innego wiersza</div>
+<div class="line">(w szczególności: <span class="math">\(\,\)</span> dodanie bądź odjęcie dwóch wierszy).</div>
+</div>
+</li>
+</ol>
+<p>Przekształcenia te dają układ równoważny wyjściowemu.
+Operacje elementarne na kolumnach macierzy <span class="math">\(\,\boldsymbol{B}\,\)</span>
+zmieniają na ogół zbiór rozwiązań, a więc nie są dopuszczalne przy rozwiązywaniu problemów liniowych.
+Czasem warto jednak zmienić kolejność kolumn macierzy <span class="math">\(\,\boldsymbol{A},\,\)</span>
+co prowadzi do układu równań różniącego się od wyjściowego jedynie numeracją niewiadomych.</p>
+</div>
+<div class="section" id="postac-schodkowa-macierzy">
+<h2>Postać schodkowa macierzy<a class="headerlink" href="eliminacja_dla_macierzy.html#postac-schodkowa-macierzy" title="Stały odnośnik do tego nagłówka">¶</a></h2>
+<p>Zaczniemy od kilku definicji.</p>
+<ul class="simple">
+<li>Wiersz macierzy składający się z samych zer nazywamy <em>wierszem zerowym</em>.</li>
+<li>Wiersz, w którym nie wszystkie elementy znikają, jest <em>wierszem niezerowym</em>.</li>
+<li><em>Element wiodący</em> (ang. pivot) danego wiersza niezerowego jest pierwszym
+od lewej elementem różnym od zera.</li>
+</ul>
+<p>Macierz ma <span class="math">\(\,\)</span> <em>wierszową postać schodkową</em>, <span class="math">\(\,\)</span> gdy:</p>
+<ol class="arabic simple">
+<li>wszystkie wiersze zerowe (jeśli takie występują) są pod wierszami niezerowymi;</li>
+<li>jeżeli dwa sąsiednie wiersze są niezerowe, to element wiodący wiersza dolnego
+jest przesunięty w prawo względem elementu wiodącego wiersza górnego.</li>
+</ol>
+<p>Wynika stąd, że jeżeli w danej kolumnie występuje element wiodący pewnego wiersza,
+to wszystkie elementy tej kolumny leżące pod tym elementem wiodącym są równe zeru
+(a zatem poniżej głównej przekątnej macierzy występują tylko zera).</p>
+<p>Przykład macierzy w wierszowej postaci schodkowej (zaznaczone elementy wiodące):</p>
+<div class="math">
+\[\begin{split}\left[
+\begin{array}{rrrrr}
+\boxed{2} &amp;       -1  &amp; 0 &amp;        5  &amp;        4 \\
+       0  &amp; \boxed{5} &amp; 3 &amp;        1  &amp;       -1 \\
+       0  &amp;        0  &amp; 0 &amp; \boxed{1} &amp;        8 \\
+       0  &amp;        0  &amp; 0 &amp;        0  &amp; \boxed{7}
+\end{array}
+\right]\,.\end{split}\]\[\;\]</div>
+<p>Macierz jest w <span class="math">\(\,\)</span> <em>zredukowanej wierszowej postaci schodkowej</em>, <span class="math">\(\,\)</span> gdy dodatkowo:</p>
+<ol class="arabic simple" start="3">
+<li>wszystkie elementy wiodące są równe 1 <span class="math">\(\,\)</span> (nazywamy je wtedy jedynkami wiodącymi);</li>
+<li>każda jedynka wiodąca jest jedynym elementem niezerowym w swojej kolumnie.</li>
+</ol>
+<p>Przykład zredukowanej wierszowej postaci schodkowej (zaznaczone jedynki wiodące):</p>
+<div class="math">
+\[\begin{split}\left[
+\begin{array}{rrrrr}
+\boxed{1} &amp;        0  &amp; 6 &amp;        0  &amp;  2 \\
+       0  &amp; \boxed{1} &amp; 3 &amp;        0  &amp; -1 \\
+       0  &amp;        0  &amp; 0 &amp; \boxed{1} &amp;  4 \\
+       0  &amp;        0  &amp; 0 &amp;        0  &amp;  0
+\end{array}
+\right]\,.\end{split}\]\[\;\]</div>
+<p>W analogiczny sposób można zdefiniować (<em>zredukowaną</em>) <em>kolumnową postać schodkową</em> macierzy.
+Macierz będzie w (zredukowanej) kolumnowej postaci schodkowej wtedy,
+gdy jej transpozycja ma (zredukowaną) wierszową postać schodkową.</p>
+<p>Ponieważ operacjom na równaniach odpowiadają odpowiednie operacje na wierszach macierzy rozszerzonej,
+w dalszym ciągu interesować nas będzie wyłącznie wierszowa wersja postaci schodkowej. <span class="math">\(\\\)</span></p>
+<p>Rozważania te można uogólnić na przypadek macierzy
+określonej nad dowolnym pierścieniem <span class="math">\(\,P\,\)</span> z jednością
+(np. nad pierścieniem liczb całkowitych <span class="math">\(\,Z).\)</span></p>
+<p>Operacje elementarne na wierszach są teraz następujące:</p>
+<ol class="arabic simple">
+<li>przestawienie dwóch wierszy,</li>
+<li>pomnożenie wybranego wiersza przez dowolny <em>odwracalny</em> element pierścienia,</li>
+<li>dodanie do jednego z wierszy innego wiersza, pomnożonego przez dowolny element pierścienia
+(w szczególności: dodanie bądź odjęcie dwóch wierszy).</li>
+</ol>
+<p>Wykonując operacje elementarne na wierszach, można każdą macierz nad pierścieniem <span class="math">\(\,P\,\)</span>
+z jednością przekształcić do postaci schodkowej. Postępowanie takie nazywa się eliminacją Gaussa.
+Natomiast każdą macierz nad ciałem <span class="math">\(\,K\,\)</span> da się w ten sposób doprowadzić
+do (jednoznacznie określonej) zredukowanej postaci schodkowej
+<span class="math">\(\,\)</span> - <span class="math">\(\,\)</span> mówi się wtedy o eliminacji Gaussa-Jordana.</p>
+<p>Poniższa macierz <span class="math">\(\,\boldsymbol{A}\,\)</span> może być określona
+zarówno nad pierścieniem liczb całkowitych <span class="math">\(\,Z,\,\)</span>
+jak i nad ciałem liczb wymiernych <span class="math">\(\,Q:\)</span></p>
+<div class="math">
+\[\begin{split}\boldsymbol{A}\ =\
+\left[\begin{array}{rrrr}
+   2 &amp; 5 &amp;  3 &amp;  0 \\
+   2 &amp; 0 &amp; -2 &amp; -1 \\
+   0 &amp; 0 &amp;  4 &amp;  5
+\end{array}\right]\,.\end{split}\]</div>
+<p>Jeżeli <span class="math">\(\,\boldsymbol{A}\,\)</span> jest macierzą nad pierścieniem <span class="math">\(\,Z,\,\)</span>
+to wykonując operacje elementarne na jej wierszach <span class="math">\(\,r0,\,r1,\,r2\,\)</span>
+(w Sage numeracja zaczyna się od zera!)
+da się ją doprowadzić jedynie do postaci schodkowej:</p>
+<div class="math">
+\[\begin{split}\begin{array}{ccccc}
+   &amp; &amp; \begin{array}{c}\small{r1=r1-r0,} \\
+                       \small{r1=r1+r2:}\end{array}
+   &amp; &amp; \begin{array}{c}\small{r0=r0+r1,} \\
+                       \small{r1=-r1:} \end{array} \\ \\
+   \left[\begin{array}{rrrr}
+      2 &amp; 5 &amp;  3 &amp;  0 \\
+      2 &amp; 0 &amp; -2 &amp; -1 \\
+      0 &amp; 0 &amp;  4 &amp;  5
+   \end{array}\right] &amp; \rightarrow &amp;
+   \left[\begin{array}{rrrr}
+      2 &amp;  5 &amp;  3 &amp; 0 \\
+      0 &amp; -5 &amp; -1 &amp; 4 \\
+      0 &amp;  0 &amp;  4 &amp; 5
+   \end{array}\right] &amp; \rightarrow &amp;
+   \left[\begin{array}{rrrr}
+      2 &amp; 0 &amp; 2 &amp;  4 \\
+      0 &amp; 5 &amp; 1 &amp; -4 \\
+      0 &amp; 0 &amp; 4 &amp;  5
+   \end{array}\right]
+\end{array}\end{split}\]</div>
+<p>Postać schodkowa jest faktycznie osiągnięta już w pierwszym kroku.
+Dalsze przekształcenia zmierzają do postaci zredukowanej, której jednak nie da się otrzymać
+w ramach operacji elementarnych w pierścieniu <span class="math">\(\,Z.\)</span></p>
+<p>Jeżeli przyjąć, że <span class="math">\(\,\boldsymbol{A}\,\)</span> jest macierzą nad ciałem <span class="math">\(\,Q,\,\)</span>
+to przekształcenia można kontynuować aż do zredukowanej postaci schodkowej:</p>
+<div class="math">
+\[\begin{split}\begin{array}{cccccc}
+     &amp; \begin{array}{c} \small{r0=2\ r0,} \\
+                        \small{r1=4\ r1:} \end{array}
+   &amp; &amp; \begin{array}{c} \small{r0=r0-r2,} \\
+                        \small{r1=r1-r2:} \end{array}
+   &amp; &amp; \begin{array}{c} \small{r0=r0/4,}  \\
+                        \small{r1=r1/20,} \\
+                        \small{r2=r2/4:} \end{array} \\ \\
+   \rightarrow &amp;
+   \left[\begin{array}{rrrr}
+      4 &amp;  0 &amp; 4 &amp;   8 \\
+      0 &amp; 20 &amp; 4 &amp; -16 \\
+      0 &amp;  0 &amp; 4 &amp;   5
+   \end{array}\right] &amp; \rightarrow &amp;
+   \left[\begin{array}{rrrr}
+      4 &amp;  0 &amp; 0 &amp;   3 \\
+      0 &amp; 20 &amp; 0 &amp; -21 \\
+      0 &amp;  0 &amp; 4 &amp;   5
+   \end{array}\right] &amp; \rightarrow &amp;
+   \left[\begin{array}{cccc}
+      1 &amp; 0 &amp; 0 &amp;   3/4  \\
+      0 &amp; 1 &amp; 0 &amp; -21/20 \\
+      0 &amp; 0 &amp; 1 &amp;   5/4
+   \end{array}\right]\,.
+\end{array}\end{split}\]\[\;\]</div>
+</div>
+<div class="section" id="praktyczna-eliminacja-w-sage">
+<h2>Praktyczna eliminacja w Sage<a class="headerlink" href="eliminacja_dla_macierzy.html#praktyczna-eliminacja-w-sage" title="Stały odnośnik do tego nagłówka">¶</a></h2>
+<p>W systemie Sage istnieją funkcje (dokładnie: metody),
+które wykonują operacje elementarne na macierzach:</p>
+<ol class="arabic simple">
+<li><tt class="docutils literal"><span class="pre">swap_rows(i,j)</span></tt> przestawia wiersze i-ty oraz j-ty;</li>
+<li><tt class="docutils literal"><span class="pre">rescale_row(i,a)</span></tt> mnoży i-ty wiersz przez czynnik a;</li>
+<li><tt class="docutils literal"><span class="pre">add_multiple_of_row(i,j,a)</span></tt> do i-tego wiersza dodaje wiersz j-ty pomnożony przez czynnik a.</li>
+</ol>
+<p>Jeżeli <span class="math">\(\,\boldsymbol{A}\,\)</span> jest macierzą, <span class="math">\(\ \,\boldsymbol{b}\ \ \,\text{-}\ \)</span>
+macierzą albo wektorem, <span class="math">\(\,\)</span> to polecenie <tt class="docutils literal"><span class="pre">A.augment(b)</span></tt> zwraca macierz,
+otrzymaną z <span class="math">\(\,\boldsymbol{A}\,\)</span> przez dopisanie  z prawej strony kolumny
+<span class="math">\(\,\boldsymbol{b}\,\)</span> (wektor <span class="math">\(\,\boldsymbol{b}\,\)</span> jest przekształcony wcześniej do macierzy 1-kolumnowej). Metodę <tt class="docutils literal"><span class="pre">augment()</span></tt> można więc użyć do utworzenia macierzy rozszerzonej
+z macierzy współczynników i kolumny wolnych wyrazów.</p>
+<p>Metoda <tt class="docutils literal"><span class="pre">echelon_form()</span></tt> zwraca macierz (zadaną nad dowolnym pierścieniem z jednością)
+przekształconą do postaci schodkowej, natomiast <tt class="docutils literal"><span class="pre">rref()</span></tt> (ang.: reduced row echelon form)
+daje w wyniku zredukowaną postać schodkową. Jeżeli pierścieniem bazowym macierzy nie jest ciało,
+to operacja <tt class="docutils literal"><span class="pre">rref()</span></tt> jest wykonywana na równoważnej macierzy nad ciałem liczb wymiernych.</p>
+<p>Wykorzystamy opisane operacje do sprawdzenia wyniku z końca poprzedniej sekcji:</p>
+<div class='sage'><script type='text/x-sage'>A = matrix([[2, 5, 3, 0],
+            [2, 0,-2,-1],
+            [0, 0, 4, 5]])
+
+show((A, A.echelon_form(), A.rref()))</script></div><p><span class="math">\(\;\)</span></p>
+<p><strong>Przykład 1.</strong> <span class="math">\(\,\)</span> <strong>Układ oznaczony.</strong></p>
+<p>Zastosujemy metodę eliminacji
+do układu równań nad ciałem <span class="math">\(\,Q:\)</span></p>
+<div class="math">
+\[\begin{alignat*}{4}
+   2\,x_1 & {\,} - {\,} &    x_2 & {\,} - {\,} &    x_3 & {\;} = {\;} &  4 \\
+   3\,x_1 & {\,} + {\,} & 4\,x_2 & {\,} - {\,} & 2\,x_3 & {\;} = {\;} & 11 \\
+   3\,x_1 & {\,} - {\,} & 2\,x_2 & {\,} + {\,} & 4\,x_3 & {\;} = {\;} & 11
+\end{alignat*}\]</div><p>Macierz współczynników <span class="math">\(\,\boldsymbol{A},\,\)</span>
+kolumna wolnych wyrazów <span class="math">\(\,\boldsymbol{b}\,\)</span>
+oraz macierz rozszerzona <span class="math">\(\,\boldsymbol{B}:\)</span></p>
+<div class="math">
+\[\begin{split}\boldsymbol{A}\ =\
+\left[\begin{array}{rrr}
+   2 &amp; -1 &amp; -1 \\
+   3 &amp;  4 &amp; -2 \\
+   3 &amp; -2 &amp;  4
+\end{array}\right]\,,\quad
+\boldsymbol{b}\ =\
+\left[\begin{array}{r}
+   4 \\ 11 \\ 11
+\end{array}\right]\,,\qquad
+\boldsymbol{B}\ =\
+\left[\begin{array}{rrrr}
+   2 &amp; -1 &amp; -1 &amp;  4 \\
+   3 &amp;  4 &amp; -2 &amp; 11 \\
+   3 &amp; -2 &amp;  4 &amp; 11
+\end{array}\right]\,.\end{split}\]\[\;\]</div>
+<p>Operacje elementarne na wierszach <span class="math">\(\,r0,\,r1,\,r2\,\)</span> macierzy <span class="math">\(\,\boldsymbol{B}:\)</span></p>
+<div class="math">
+\[\begin{split}\begin{array}{cccccc}
+   &amp; &amp; \small{r2=r2-r1:}
+   &amp; &amp; \begin{array}{c} \small{r1=r1-r0,} \\
+                        \small{r2=-r2/6:} \end{array} &amp; \\ \\
+   \left[\begin{array}{rrrr}
+      2 &amp; -1 &amp; -1 &amp;  4 \\
+      3 &amp;  4 &amp; -2 &amp; 11 \\
+      3 &amp; -2 &amp;  4 &amp; 11
+   \end{array}\right] &amp; \rightarrow &amp;
+   \left[\begin{array}{rrrr}
+      2 &amp; -1 &amp; -1 &amp;  4 \\
+      3 &amp;  4 &amp; -2 &amp; 11 \\
+      0 &amp; -6 &amp;  6 &amp;  0
+   \end{array}\right] &amp; \rightarrow &amp;
+   \left[\begin{array}{rrrr}
+      2 &amp; -1 &amp; -1 &amp; 4 \\
+      1 &amp;  5 &amp; -1 &amp; 7 \\
+      0 &amp;  1 &amp; -1 &amp; 0
+   \end{array}\right] &amp; \rightarrow \\ \\ \\ \\
+   \small{r0=r0-2\,r1:} &amp; &amp; \small{r0,r1,r2=r1,r2,r0:} &amp; &amp; \small{r2=r2+11\,r1:} &amp; \\ \\
+   \left[\begin{array}{rrrr}
+      0 &amp; -11 &amp;  1 &amp; -10 \\
+      1 &amp;   5 &amp; -1 &amp;   7 \\
+      0 &amp;   1 &amp; -1 &amp;   0
+   \end{array}\right] &amp; \rightarrow &amp;
+   \left[\begin{array}{rrrr}
+      1 &amp;   5 &amp; -1 &amp;   7 \\
+      0 &amp;   1 &amp; -1 &amp;   0 \\
+      0 &amp; -11 &amp;  1 &amp; -10
+   \end{array}\right] &amp; \rightarrow &amp;
+   \left[\begin{array}{rrrr}
+      1 &amp; 5 &amp;  -1 &amp;   7 \\
+      0 &amp; 1 &amp;  -1 &amp;   0 \\
+      0 &amp; 0 &amp; -10 &amp; -10
+   \end{array}\right] &amp; \rightarrow \\ \\
+   \small{r2=-r2/10:} &amp; &amp; \begin{array}{l}\small{r0=r0+r2,} \\
+                                          \small{r1=r1+r2:} \end{array}
+                      &amp; &amp; \small{r0=r0-5\,r1:} &amp; \\ \\
+   \left[\begin{array}{rrrr}
+      1 &amp; 5 &amp; -1 &amp; 7 \\
+      0 &amp; 1 &amp; -1 &amp; 0 \\
+      0 &amp; 0 &amp;  1 &amp; 1
+   \end{array}\right] &amp; \rightarrow &amp;
+   \left[\begin{array}{rrrr}
+      1 &amp; 5 &amp; 0 &amp; 8 \\
+      0 &amp; 1 &amp; 0 &amp; 1 \\
+      0 &amp; 0 &amp; 1 &amp; 1
+   \end{array}\right] &amp; \rightarrow &amp;
+   \left[\begin{array}{rrrr}
+      1 &amp; 0 &amp; 0 &amp; 3 \\
+      0 &amp; 1 &amp; 0 &amp; 1 \\
+      0 &amp; 0 &amp; 1 &amp; 1
+   \end{array}\right]\,. &amp;
+\end{array}\end{split}\]</div>
+<p>Program, wykonujący krok po kroku te operacje, przedstawia się następująco:</p>
+<div class="highlight-python"><div class="highlight"><pre><span class="n">sage</span><span class="p">:</span> <span class="n">A</span> <span class="o">=</span> <span class="n">matrix</span><span class="p">(</span><span class="n">QQ</span><span class="p">,[[</span><span class="mi">2</span><span class="p">,</span><span class="o">-</span><span class="mi">1</span><span class="p">,</span><span class="o">-</span><span class="mi">1</span><span class="p">],</span>      <span class="c"># macierz współczynników</span>
+<span class="o">...</span>                  <span class="p">[</span><span class="mi">3</span><span class="p">,</span> <span class="mi">4</span><span class="p">,</span><span class="o">-</span><span class="mi">2</span><span class="p">],</span>
+<span class="o">...</span>                  <span class="p">[</span><span class="mi">3</span><span class="p">,</span><span class="o">-</span><span class="mi">2</span><span class="p">,</span> <span class="mi">4</span><span class="p">]])</span>
+
+<span class="n">sage</span><span class="p">:</span> <span class="n">b</span> <span class="o">=</span> <span class="n">vector</span><span class="p">([</span><span class="mi">4</span><span class="p">,</span><span class="mi">11</span><span class="p">,</span><span class="mi">11</span><span class="p">])</span>          <span class="c"># wektor wolnych wyrazów</span>
+
+<span class="n">sage</span><span class="p">:</span> <span class="n">B</span> <span class="o">=</span> <span class="n">A</span><span class="o">.</span><span class="n">augment</span><span class="p">(</span><span class="n">b</span><span class="p">)</span>               <span class="c"># macierz rozszerzona</span>
+
+<span class="n">sage</span><span class="p">:</span> <span class="n">B</span><span class="o">.</span><span class="n">add_multiple_of_row</span><span class="p">(</span><span class="mi">2</span><span class="p">,</span><span class="mi">1</span><span class="p">,</span><span class="o">-</span><span class="mi">1</span><span class="p">)</span>  <span class="c"># od trzeciego wiersza odejmij drugi</span>
+
+<span class="n">sage</span><span class="p">:</span> <span class="n">B</span><span class="o">.</span><span class="n">add_multiple_of_row</span><span class="p">(</span><span class="mi">1</span><span class="p">,</span><span class="mi">0</span><span class="p">,</span><span class="o">-</span><span class="mi">1</span><span class="p">)</span>  <span class="c"># od drugiego wiersza odejmij pierwszy</span>
+<span class="n">sage</span><span class="p">:</span> <span class="n">B</span><span class="o">.</span><span class="n">rescale_row</span><span class="p">(</span><span class="mi">2</span><span class="p">,</span><span class="o">-</span><span class="mi">1</span><span class="o">/</span><span class="mi">6</span><span class="p">)</span>          <span class="c"># trzeci wiersz podziel przez -6</span>
+
+<span class="n">sage</span><span class="p">:</span> <span class="n">B</span><span class="o">.</span><span class="n">add_multiple_of_row</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span><span class="mi">1</span><span class="p">,</span><span class="o">-</span><span class="mi">2</span><span class="p">)</span>  <span class="c"># od pierwszego wiersza odejmij podwojony drugi</span>
+
+<span class="n">sage</span><span class="p">:</span> <span class="n">B</span><span class="o">.</span><span class="n">swap_rows</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span><span class="mi">1</span><span class="p">)</span>               <span class="c"># przestaw wiersz pierwszy z drugim</span>
+<span class="n">sage</span><span class="p">:</span> <span class="n">B</span><span class="o">.</span><span class="n">swap_rows</span><span class="p">(</span><span class="mi">1</span><span class="p">,</span><span class="mi">2</span><span class="p">)</span>               <span class="c"># przestaw wiersz drugi z trzecim</span>
+
+<span class="n">sage</span><span class="p">:</span> <span class="n">B</span><span class="o">.</span><span class="n">add_multiple_of_row</span><span class="p">(</span><span class="mi">2</span><span class="p">,</span><span class="mi">1</span><span class="p">,</span><span class="mi">11</span><span class="p">)</span>  <span class="c"># do trzeciego wiersza dodaj drugi</span>
+                                     <span class="c"># pomnożony przez 11</span>
+
+<span class="n">sage</span><span class="p">:</span> <span class="n">B</span><span class="o">.</span><span class="n">rescale_row</span><span class="p">(</span><span class="mi">2</span><span class="p">,</span><span class="o">-</span><span class="mi">1</span><span class="o">/</span><span class="mi">10</span><span class="p">)</span>         <span class="c"># trzeci wiersz podziel przez -10</span>
+
+<span class="n">sage</span><span class="p">:</span> <span class="n">B</span><span class="o">.</span><span class="n">add_multiple_of_row</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span><span class="mi">2</span><span class="p">,</span><span class="mi">1</span><span class="p">)</span>   <span class="c"># do pierwszego wiersza dodaj trzeci</span>
+<span class="n">sage</span><span class="p">:</span> <span class="n">B</span><span class="o">.</span><span class="n">add_multiple_of_row</span><span class="p">(</span><span class="mi">1</span><span class="p">,</span><span class="mi">2</span><span class="p">,</span><span class="mi">1</span><span class="p">)</span>   <span class="c"># do drugiego wiersza dodaj trzeci</span>
+
+<span class="n">sage</span><span class="p">:</span> <span class="n">B</span><span class="o">.</span><span class="n">add_multiple_of_row</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span><span class="mi">1</span><span class="p">,</span><span class="o">-</span><span class="mi">5</span><span class="p">)</span>  <span class="c"># od pierwszego wiersza odejmij drugi</span>
+                                     <span class="c"># pomnożony przez 5</span>
+
+<span class="n">sage</span><span class="p">:</span> <span class="n">B</span>                              <span class="c"># pokaż przekształconą macierz B</span>
+</pre></div>
+</div>
+<p>Funkcja <tt class="docutils literal"><span class="pre">rref()</span></tt> daje wynik bezpośrednio:</p>
+<div class="highlight-python"><div class="highlight"><pre><span class="n">sage</span><span class="p">:</span> <span class="n">A</span> <span class="o">=</span> <span class="n">matrix</span><span class="p">(</span><span class="n">QQ</span><span class="p">,[[</span><span class="mi">2</span><span class="p">,</span><span class="o">-</span><span class="mi">1</span><span class="p">,</span><span class="o">-</span><span class="mi">1</span><span class="p">],</span>      <span class="c"># macierz współczynników</span>
+<span class="o">...</span>                  <span class="p">[</span><span class="mi">3</span><span class="p">,</span> <span class="mi">4</span><span class="p">,</span><span class="o">-</span><span class="mi">2</span><span class="p">],</span>
+<span class="o">...</span>                  <span class="p">[</span><span class="mi">3</span><span class="p">,</span><span class="o">-</span><span class="mi">2</span><span class="p">,</span> <span class="mi">4</span><span class="p">]])</span>
+
+<span class="n">sage</span><span class="p">:</span> <span class="n">b</span> <span class="o">=</span> <span class="n">vector</span><span class="p">([</span><span class="mi">4</span><span class="p">,</span><span class="mi">11</span><span class="p">,</span><span class="mi">11</span><span class="p">])</span>          <span class="c"># wektor wolnych wyrazów</span>
+
+<span class="n">sage</span><span class="p">:</span> <span class="n">B</span> <span class="o">=</span> <span class="n">A</span><span class="o">.</span><span class="n">augment</span><span class="p">(</span><span class="n">b</span><span class="p">)</span>               <span class="c"># macierz rozszerzona</span>
+
+<span class="n">sage</span><span class="p">:</span> <span class="n">B</span><span class="o">.</span><span class="n">rref</span><span class="p">()</span>                       <span class="c"># pokaż zredukowaną schodkową postać macierzy B</span>
+
+<span class="p">[</span><span class="mi">1</span> <span class="mi">0</span> <span class="mi">0</span> <span class="mi">3</span><span class="p">]</span>
+<span class="p">[</span><span class="mi">0</span> <span class="mi">1</span> <span class="mi">0</span> <span class="mi">1</span><span class="p">]</span>
+<span class="p">[</span><span class="mi">0</span> <span class="mi">0</span> <span class="mi">1</span> <span class="mi">1</span><span class="p">]</span>
+</pre></div>
+</div>
+<p>Zredukowanej schodkowej macierzy <span class="math">\(\,\boldsymbol{B}\,\)</span>
+odpowiada trywialna postać układu równań:</p>
+<div class="math">
+\[\begin{alignat*}{4}
+   1\,x_1 & {\,} + {\,} & 0\,x_2 & {\,} + {\,} & 0\,x_3 & {\;} = {\;} & 3 \\
+   0\,x_1 & {\,} + {\,} & 1\,x_2 & {\,} + {\,} & 0\,x_3 & {\;} = {\;} & 1 \\
+   0\,x_1 & {\,} + {\,} & 0\,x_2 & {\,} + {\,} & 1\,x_3 & {\;} = {\;} & 1
+\end{alignat*}\]</div><p>z której odczytujemy od razu rozwiązanie: <span class="math">\(\ \ x_1 = 3,\ x_2=x_3 = 1.\)</span> <span class="math">\(\\\)</span></p>
+<p><strong>Ćwiczenie.</strong> <span class="math">\(\,\)</span>
+W komórce z kodem programu zadana jest macierz współczynników <span class="math">\(\boldsymbol{A}\,\)</span>
+i wektor wolnych wyrazów <span class="math">\(\,\boldsymbol{b}\,\)</span> pewnego układu czterech równań
+o czterech niewiadomych nad ciałem liczb wymiernych.</p>
+<ol class="arabic simple">
+<li>Utwórz macierz rozszerzoną <span class="math">\(\,\boldsymbol{B}\,\)</span>
+i sprowadź ją do zredukowanej postaci schodkowej.</li>
+<li>Dla sprawdzenia otrzymanego rozwiązania zbadaj,
+czy iloczyn macierzy <span class="math">\(\boldsymbol{A}\,\)</span> przez kolumnę wyliczonych wartości niewiadomych
+równa się kolumnie wolnych wyrazów.</li>
+</ol>
+<p>Wskazówki do punktu 2.: <span class="math">\(\,\)</span>
+Kolumna wartości niewiadomych jest ostatnią kolumną
+macierzy rozszerzonej w zredukowanej postaci schodkowej;
+można ją wyodrębnić operacją wycinania.
+Do przekształcenia wektora w macierz jednokolumnową służy metoda <tt class="docutils literal"><span class="pre">column()</span></tt>. <span class="math">\(\\\)</span></p>
+<div class='sage'><script type='text/x-sage'>A = matrix(QQ,[[1, 2, 3,-2],
+               [2,-1,-2,-3],
+               [3, 2,-1, 2],
+               [2,-3, 2, 1]])
+
+b = vector([6,8,4,-8])</script></div><p><span class="math">\(\,\)</span></p>
+<p><strong>Przykład 2.</strong> <span class="math">\(\,\)</span> <strong>Układ nieoznaczony.</strong></p>
+<p>Zajmiemy się teraz układem trzech równań o czterech niewiadomych
+nad ciałem liczb wymiernych <span class="math">\(\,Q:\)</span></p>
+<div class="math">
+\[\begin{alignat*}{5}
+   x_1 & {\,} - {\,} &    x_2 & {\,} + {\,} & 2\,x_3 & {\,} - {\,} &    x_4 & {\;} = {\;} &  1 \\
+2\,x_1 & {\,} - {\,} & 3\,x_2 & {\,} - {\,} &    x_3 & {\,} + {\,} &    x_4 & {\;} = {\;} & -1 \\
+   x_1 & {\,}   {\,} &        & {\,} + {\,} & 7\,x_3 & {\,} - {\,} & 4\,x_4 & {\;} = {\;} &  4
+\end{alignat*}
+
+\;\]</div><p>Macierz rozszerzoną przekształcamy od razu do zredukowanej postaci schodkowej:</p>
+<div class="highlight-python"><div class="highlight"><pre><span class="n">sage</span><span class="p">:</span> <span class="n">B</span> <span class="o">=</span> <span class="n">matrix</span><span class="p">(</span><span class="n">QQ</span><span class="p">,[[</span><span class="mi">1</span><span class="p">,</span><span class="o">-</span><span class="mi">1</span><span class="p">,</span> <span class="mi">2</span><span class="p">,</span><span class="o">-</span><span class="mi">1</span><span class="p">,</span> <span class="mi">1</span><span class="p">],</span>
+<span class="o">...</span>                  <span class="p">[</span><span class="mi">2</span><span class="p">,</span><span class="o">-</span><span class="mi">3</span><span class="p">,</span><span class="o">-</span><span class="mi">1</span><span class="p">,</span> <span class="mi">1</span><span class="p">,</span><span class="o">-</span><span class="mi">1</span><span class="p">],</span>
+<span class="o">...</span>                  <span class="p">[</span><span class="mi">1</span><span class="p">,</span> <span class="mi">0</span><span class="p">,</span> <span class="mi">7</span><span class="p">,</span><span class="o">-</span><span class="mi">4</span><span class="p">,</span> <span class="mi">4</span><span class="p">]])</span>
+
+<span class="n">sage</span><span class="p">:</span> <span class="n">html</span><span class="o">.</span><span class="n">table</span><span class="p">([[</span><span class="n">B</span><span class="p">,</span> <span class="s">&#39;$</span><span class="se">\\</span><span class="s">rightarrow$&#39;</span><span class="p">,</span> <span class="n">B</span><span class="o">.</span><span class="n">rref</span><span class="p">()]])</span>
+</pre></div>
+</div>
+<div class="math">
+\[\begin{split}\left(\begin{array}{rrrrr}
+      1 &amp; -1 &amp;  2 &amp; -1 &amp;  1 \\
+      2 &amp; -3 &amp; -1 &amp;  1 &amp; -1 \\
+      1 &amp;  0 &amp;  7 &amp; -4 &amp;  4
+      \end{array}\right)\quad\rightarrow\quad\left(\begin{array}{rrrrr}
+                                                   1 &amp; 0 &amp; 7 &amp; -4 &amp; 4 \\
+                                                   0 &amp; 1 &amp; 5 &amp; -3 &amp; 3 \\
+                                                   0 &amp; 0 &amp; 0 &amp;  0 &amp; 0
+                                                   \end{array}\right)\,,\end{split}\]\[\;\]</div>
+<p>której odpowiada równoważny wyjściowemu układ dwóch równań o czterech niewiadomych
+(trzecie równanie o wszystkich współczynnikach zerowych jest spełnione tożsamościowo):</p>
+<div class="math">
+\[\begin{split}\begin{array}{l}
+1\,x_1 \ + \ 0\,x_2 \ + \ 7\,x_3 \ - \ 4\,x_4 \ = \ 4 \\
+0\,x_1 \ + \ 1\,x_2 \ + \ 5\,x_3 \ - \ 3\,x_4 \ = \ 3 \,.
+\end{array}\end{split}\]\[\;\]</div>
+<p>Przepisując go w postaci</p>
+<div class="math">
+\[\begin{split}\begin{array}{c}
+x_1\ =\ 4\ -\ 7\,x_3\ +\ 4\,x_4 \\ x_2\ =\ 3\ -\ 5\,x_3\ +\ 3\,x_4
+\end{array}\end{split}\]</div>
+<p>stwierdzamy, że każdemu układowi wartości <span class="math">\(\,x_3,\,x_4\,\)</span>
+odpowiada dokładnie jedna para wartości <span class="math">\(\,x_1,\,x_2,\)</span> dla których układ jest spełniony.
+W tej sytuacji przyjmujemy <span class="math">\(\,x_3,\,x_4\,\)</span> za dowolne parametry:
+<span class="math">\(\ x_3 = s,\ x_4 = t,\ \)</span> a rozwiązanie zapisujemy jako</p>
+<div class="math">
+\[\begin{alignat*}{4}
+   x_1 & {\;} = {\;} & 4 & {\,} - {\,} & 7\,s & {\,} + {\,} & 4\,t \\
+   x_2 & {\;} = {\;} & 3 & {\,} - {\,} & 5\,s & {\,} + {\,} & 3\,t \\
+   x_3 & {\;} = {\;} & s \\
+   x_4 & {\;} = {\;} & t
+\end{alignat*}\]</div><p>gdzie <span class="math">\(\,s\ \,\text{i}\ \,t\,\)</span> są dowolnymi liczbami wymiernymi. <span class="math">\(\,\)</span>
+W zapisie wektorowym:</p>
+<div class="math" id="equation-03">
+<span class="eqno">(3)</span>\[\begin{split}\left[\begin{array}{c} x_1 \\ x_2 \\ x_3 \\ x_4 \end{array}\right]\ \ =\ \
+\left[\begin{array}{c}
+   4 - 7\,s + 4\,t \\
+   3 - 5\,s + 3\,t \\
+   s               \\
+   t
+\end{array}\right]\ \  =\ \
+\left[\begin{array}{r}  4 \\  3 \\ 0 \\ 0 \end{array}\right]\ +\ s\ \,
+\left[\begin{array}{r} -7 \\ -5 \\ 1 \\ 0 \end{array}\right]\ +\ t\ \,
+\left[\begin{array}{r} 4 \\ 3 \\ 0 \\ 1 \end{array}\right],\quad
+s,t\in Q.\end{split}\]\[\;\]</div>
+<p>Omówiony przykład sugeruje ogólną metodę postępowania z nieoznaczonym układem równań:
+po doprowadzeniu macierzy rozszerzonej do zredukowanej postaci schodkowej
+niewiadome, odpowiadające kolumnom z jedynkami wiodącymi wyrażamy poprzez pozostałe niewiadome,
+po czym te ostatnie przyjmujemy za parametry o dowolnych wartościach. <span class="math">\(\\\)</span></p>
+<p><strong>Przykład 3.</strong> <span class="math">\(\,\)</span> <strong>Układ sprzeczny.</strong></p>
+<p>Zbadamy układ równań, różniący się od poprzedniego tylko jednym wolnym wyrazem:</p>
+<div class="math">
+\[\begin{alignat*}{5}
+   x_1 & {\,} - {\,} &    x_2 & {\,} + {\,} & 2\,x_3 & {\,} - {\,} &    x_4 & {\;} = {\;} & 1 \\
+2\,x_1 & {\,} - {\,} & 3\,x_2 & {\,} - {\,} &    x_3 & {\,} + {\,} &    x_4 & {\;} = {\;} & 1 \\
+   x_1 & {\,}   {\,} &        & {\,} + {\,} & 7\,x_3 & {\,} - {\,} & 4\,x_4 & {\;} = {\;} & 4
+\end{alignat*}\]</div><p>Ta drobna zmiana powoduje, że układ staje się sprzeczny.</p>
+<p>Rzeczywiście, macierzy rozszerzonej przekształconej do zredukowanej postaci schodkowej:</p>
+<div class="math">
+\[\begin{split}\left[\begin{array}{rrrrr}
+      1 &amp; -1 &amp;  2 &amp; -1 &amp;  1 \\
+      2 &amp; -3 &amp; -1 &amp;  1 &amp;  1 \\
+      1 &amp;  0 &amp;  7 &amp; -4 &amp;  4
+      \end{array}\right]\quad\rightarrow\quad\left[\begin{array}{rrrrr}
+                                                   1 &amp; 0 &amp; 7 &amp; -4 &amp; 0 \\
+                                                   0 &amp; 1 &amp; 5 &amp; -3 &amp; 0 \\
+                                                   0 &amp; 0 &amp; 0 &amp;  0 &amp; 1
+                                                   \end{array}\right]\end{split}\]</div>
+<p>odpowiada teraz (równoważny wyjściowemu) układ równań</p>
+<div class="math">
+\[\begin{alignat*}{5}
+1\,x_1 & {\,} + {\,} & 0\,x_2 & {\,} + {\,} & 7\,x_3 & {\,} - {\,} & 4\,x_4 & {\;} = {\;} &  0 \\
+0\,x_1 & {\,} + {\,} & 1\,x_2 & {\,} + {\,} & 5\,x_3 & {\,} - {\,} & 3\,x_4 & {\;} = {\;} &  0 \\
+0\,x_1 & {\,} + {\,} & 0\,x_2 & {\,} + {\,} & 0\,x_3 & {\,} + {\,} & 0\,x_4 & {\;} = {\;} &  1
+\end{alignat*}\]</div><p>który ewidentnie nie ma żadnych rozwiązań,
+bo dla żadnych wartości <span class="math">\(\,x_1,\,x_2,\,x_3,\,x_4\,\)</span>
+nie będzie spełnione ostatnie równanie <span class="math">\(\ 0=1.\)</span></p>
+<p><strong>Przykład 4.</strong> <span class="math">\(\,\)</span> <strong>Układ jednorodny.</strong> <span class="math">\(\\\)</span></p>
+<p>Rozwiążemy teraz układ jednorodny
+stowarzyszony z układem w przykładzie 2.:</p>
+<div class="math">
+\[\begin{alignat*}{5}
+   x_1 & {\,} - {\,} &    x_2 & {\,} + {\,} & 2\,x_3 & {\,} - {\,} &    x_4 & {\;} = {\;} & 0 \\
+2\,x_1 & {\,} - {\,} & 3\,x_2 & {\,} - {\,} &    x_3 & {\,} + {\,} &    x_4 & {\;} = {\;} & 0 \\
+   x_1 & {\,}   {\,} &        & {\,} + {\,} & 7\,x_3 & {\,} - {\,} & 4\,x_4 & {\;} = {\;} & 0
+\end{alignat*}\]</div><p>Po przekształceniu macierzy rozszerzonej do zredukowanej postaci schodkowej:</p>
+<div class="highlight-python"><div class="highlight"><pre><span class="n">sage</span><span class="p">:</span> <span class="n">B</span> <span class="o">=</span> <span class="n">matrix</span><span class="p">(</span><span class="n">QQ</span><span class="p">,[[</span><span class="mi">1</span><span class="p">,</span><span class="o">-</span><span class="mi">1</span><span class="p">,</span> <span class="mi">2</span><span class="p">,</span><span class="o">-</span><span class="mi">1</span><span class="p">,</span> <span class="mi">0</span><span class="p">],</span>
+<span class="o">...</span>                  <span class="p">[</span><span class="mi">2</span><span class="p">,</span><span class="o">-</span><span class="mi">3</span><span class="p">,</span><span class="o">-</span><span class="mi">1</span><span class="p">,</span> <span class="mi">1</span><span class="p">,</span> <span class="mi">0</span><span class="p">],</span>
+<span class="o">...</span>                  <span class="p">[</span><span class="mi">1</span><span class="p">,</span> <span class="mi">0</span><span class="p">,</span> <span class="mi">7</span><span class="p">,</span><span class="o">-</span><span class="mi">4</span><span class="p">,</span> <span class="mi">0</span><span class="p">]])</span>
+
+<span class="n">sage</span><span class="p">:</span> <span class="n">html</span><span class="o">.</span><span class="n">table</span><span class="p">([[</span><span class="n">B</span><span class="p">,</span> <span class="s">&#39;$</span><span class="se">\\</span><span class="s">rightarrow$&#39;</span><span class="p">,</span> <span class="n">B</span><span class="o">.</span><span class="n">rref</span><span class="p">()]])</span>
+</pre></div>
+</div>
+<div class="math">
+\[\begin{split}\left(\begin{array}{rrrrr}
+      1 &amp; -1 &amp;  2 &amp; -1 &amp;  0 \\
+      2 &amp; -3 &amp; -1 &amp;  1 &amp;  0 \\
+      1 &amp;  0 &amp;  7 &amp; -4 &amp;  0
+      \end{array}\right)\quad\rightarrow\quad\left(\begin{array}{rrrrr}
+                                                   1 &amp; 0 &amp; 7 &amp; -4 &amp; 0 \\
+                                                   0 &amp; 1 &amp; 5 &amp; -3 &amp; 0 \\
+                                                   0 &amp; 0 &amp; 0 &amp;  0 &amp; 0
+                                                   \end{array}\right)\end{split}\]\[\;\]</div>
+<p>otrzymujemy równoważny układ dwóch równań (trzecie jest spełnione tożsamościowo): <span class="math">\(\\\)</span></p>
+<div class="math">
+\[\begin{alignat*}{5}
+1\,x_1 & {\,} + {\,} & 0\,x_2 & {\,} + {\,} & 7\,x_3 & {\,} - {\,} & 4\,x_4 & {\;} = {\;} &  0 \\
+0\,x_1 & {\,} + {\,} & 1\,x_2 & {\,} + {\,} & 5\,x_3 & {\,} - {\,} & 3\,x_4 & {\;} = {\;} &  0
+\end{alignat*}\]</div><p>Przepisujemy go jako</p>
+<div class="math">
+\[\begin{alignat*}{3}
+   x_1 & {\;} = {\,} - {\,} & 7\,x_3 & {\,} + {\,} & 4\,x_4 \\
+   x_2 & {\;} = {\,} - {\,} & 5\,x_3 & {\,} + {\,} & 3\,x_4
+\end{alignat*}\]</div><p>i <span class="math">\(\,\)</span> tak jak w przykładzie 2., <span class="math">\(\,\)</span>
+przyjmujemy <span class="math">\(\,x_3,\,x_4\,\)</span> za dowolne parametry: <span class="math">\(\ x_3 = s,\ x_4 = t :\)</span></p>
+<div class="math">
+\[\begin{split}\begin{array}{l}
+   x_1 \ =\ - 7\,s\ +\ 4\,t \\
+   x_2 \ =\ - 5\,s\ +\ 3\,t \\
+   x_3 \ =\quad s                                \\
+   x_4 \ =\quad t
+\end{array}
+\qquad\qquad s,t\in Q\,.\end{split}\]</div>
+<p>Ostatecznie, rozwiązanie w postaci wektorowej dane jest przez <span class="math">\(\\\)</span></p>
+<div class="math" id="equation-04">
+<span class="eqno">(4)</span>\[\begin{split}\left[\begin{array}{c} x_1 \\ x_2 \\ x_3 \\ x_4 \end{array}\right]\quad =\quad
+\left[\begin{array}{c}
+   - 7\,s + 4\,t \\
+   - 5\,s + 3\,t \\
+   s             \\
+   t
+\end{array}\right]\quad =\quad
+s\ \left[\begin{array}{r} -7 \\ -5 \\ 1 \\ 0 \end{array}\right]\ \, +\ \:
+t\ \left[\begin{array}{r} 4 \\ 3 \\ 0 \\ 1 \end{array}\right]\,,\qquad
+s,t\in Q\,.\end{split}\]\[\;\]</div>
+<p>Porównanie rozwiązań <a href="eliminacja_dla_macierzy.html#equation-03">(3)</a> i <a href="eliminacja_dla_macierzy.html#equation-04">(4)</a> układów w przykładach 2. i 4. sugeruje związek
+pomiędzy rozwiązaniami układu niejednorodnego i stowarzyszonego z nim układu jednorodnego.
+Sprawa ta będzie omówiona ogólnie w dalszym rozdziale.</p>
+</div>
+</div>
+
+
+          </div>
+        </div>
+      </div>
+      <div class="sphinxsidebar">
+        <div class="sphinxsidebarwrapper">
+  <div class="sphinxlocaltoc">
+  <h3><a href="http://visual.icse.us.edu.pl/LA/index.html">Spis treści</a></h3>
+  <ul>
+<li><a class="reference internal" href="eliminacja_dla_macierzy.html#">Metoda eliminacji w ujęciu macierzowym</a><ul>
+<li><a class="reference internal" href="eliminacja_dla_macierzy.html#macierz-rozszerzona-ukladu-rownan">Macierz rozszerzona układu równań</a></li>
+<li><a class="reference internal" href="eliminacja_dla_macierzy.html#postac-schodkowa-macierzy">Postać schodkowa macierzy</a></li>
+<li><a class="reference internal" href="eliminacja_dla_macierzy.html#praktyczna-eliminacja-w-sage">Praktyczna eliminacja w Sage</a></li>
+</ul>
+</li>
+</ul>
+
+  </div>
+  <h4>Poprzedni temat</h4>
+  <p class="topless"><a href="algebra_macierzy_zadania.html"
+                        title="poprzedni rozdział">Zadania</a></p>
+  <h4>Następny temat</h4>
+  <p class="topless"><a href="transpozycja_macierzy.html"
+                        title="następny rozdział">Transpozycja macierzy</a></p>
+<div id="searchbox" style="display: none">
+  <h3>Szybkie wyszukiwanie</h3>
+    <form class="search" action="search.html" method="get">
+      <input type="text" name="q" />
+      <input type="submit" value="Szukaj" />
+      <input type="hidden" name="check_keywords" value="yes" />
+      <input type="hidden" name="area" value="default" />
+    </form>
+    <p class="searchtip" style="font-size: 90%">
+    Wprowadź szukany termin lub nazwę modułu, klasy lub funkcji.
+    </p>
+</div>
+<script type="text/javascript">$('#searchbox').show(0);</script>
+        </div>
+      </div>
+      <div class="clearer"></div>
+    </div>
+  </div>
+  <div class="relbar-bottom">
+    
+    <div class="related">
+      <h3>Nawigacja</h3>
+      <ul>
+        <li class="right" style="margin-right: 10px">
+          <a href="transpozycja_macierzy.html" title="Transpozycja macierzy"
+             >dalej</a></li>
+        <li class="right" >
+          <a href="algebra_macierzy_zadania.html" title="Zadania"
+             >wstecz</a> &nbsp; &nbsp;</li>
+  <li><a href="http://visual.icse.us.edu.pl/LA/index.html">Algebra Liniowa</a> &raquo;</li>
+   
+      </ul>
+    </div>
+  </div>
+  
+  <div class="footer">
+    <a class="logo" href="../../icse.us.edu.pl/index.html" target="_blank"><img src="_static/logo-icse.png" alt="ICSE"/></a><br/>
+    &copy; Copyright 2013, Marcin Kostur.
+    Created using <a href="http://sphinx.pocoo.org/">Sphinx</a> 1.2.2.
+  </div>
+  </body>
+</html>

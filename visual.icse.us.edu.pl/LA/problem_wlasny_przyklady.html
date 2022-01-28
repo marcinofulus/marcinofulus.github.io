@@ -1,0 +1,692 @@
+
+
+  <!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+  "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+
+
+<html xmlns="http://www.w3.org/1999/xhtml">
+  <head>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    
+    <title>Przykłady problemów własnych &mdash; Algebra Liniowa</title>
+    
+    <link rel="stylesheet" href="_static/cloud.css" type="text/css" />
+    <link rel="stylesheet" href="_static/pygments.css" type="text/css" />
+    <link rel="stylesheet" href="http://fonts.googleapis.com/css?family=Noticia+Text|Open+Sans|Droid+Sans+Mono&subset=latin,latin-ext" type="text/css" />
+    
+    <script type="text/javascript">
+      var DOCUMENTATION_OPTIONS = {
+        URL_ROOT:    './',
+        VERSION:     'I',
+        COLLAPSE_INDEX: false,
+        FILE_SUFFIX: '.html',
+        HAS_SOURCE:  true
+      };
+    </script>
+    <script type="text/javascript" src="_static/jquery.js"></script>
+    <script type="text/javascript" src="_static/underscore.js"></script>
+    <script type="text/javascript" src="_static/doctools.js"></script>
+    <script type="text/javascript" src="_static/translations.js"></script>
+    <script type="text/javascript" src="http://cdn.mathjax.org/mathjax/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML"></script>
+    <script type="text/javascript" src="_static/jquery.cookie.js"></script>
+    <script type="text/javascript" src="_static/cloud.js"></script>
+
+	<script src="http://sagecell.icse.us.edu.pl:6363/static/jquery.min.js"></script>
+	<script src="http://sagecell.icse.us.edu.pl:6363/static/embedded_sagecell.js"></script>
+
+	<!-- <script src="http://sagecell.sagemath.org/static/jquery.min.js"></script> -->
+	<!-- <script src="http://sagecell.sagemath.org/static/embedded_sagecell.js"></script> -->
+
+	<script>sagecell.makeSagecell({inputLocation: ".sage",
+                                       evalButtonText: 'Wykonaj',
+                                       linked: true});</script>
+
+	<style type="text/css">
+		.sagecell .CodeMirror-scroll {
+			overflow-y: hidden;
+			overflow-x: auto;
+		}
+		.sagecell .CodeMirror {
+			height: auto;
+		}
+	</style>
+
+    
+    <link rel="top" title="Algebra Liniowa" href="http://visual.icse.us.edu.pl/LA/index.html" />
+    <link rel="next" title="Problem własny w układach równań różniczkowych" href="problem_wlasny_rownania_rozniczkowe.html" />
+    <link rel="prev" title="Problem własny operatora liniowego" href="problem_wlasny_definicja.html" />
+ 
+  <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, minimum-scale=1">
+  </head>
+  <body>
+  <div class="relbar-top">
+    
+    <div class="related">
+      <h3>Nawigacja</h3>
+      <ul>
+        <li class="right" style="margin-right: 10px">
+          <a href="problem_wlasny_rownania_rozniczkowe.html" title="Problem własny w układach równań różniczkowych"
+             accesskey="N">dalej</a></li>
+        <li class="right" >
+          <a href="problem_wlasny_definicja.html" title="Problem własny operatora liniowego"
+             accesskey="P">wstecz</a> &nbsp; &nbsp;</li>
+  <li><a href="http://visual.icse.us.edu.pl/LA/index.html">Algebra Liniowa</a> &raquo;</li>
+   
+      </ul>
+    </div>
+  </div>
+  
+  <div class="content">  
+
+    <div class="document">
+      <div class="documentwrapper">
+        <div class="bodywrapper">
+          <div class="body">
+            
+  <div class="section" id="przyklady-problemow-wlasnych">
+<h1>Przykłady problemów własnych<a class="headerlink" href="problem_wlasny_przyklady.html#przyklady-problemow-wlasnych" title="Stały odnośnik do tego nagłówka">¶</a></h1>
+<div class="section" id="operator-w-przestrzeni-wektorow-na-plaszczyznie">
+<h2>Operator w przestrzeni wektorów na płaszczyźnie<a class="headerlink" href="problem_wlasny_przyklady.html#operator-w-przestrzeni-wektorow-na-plaszczyznie" title="Stały odnośnik do tego nagłówka">¶</a></h2>
+<p>W dwuwymiarowej przestrzeni wektorów geometrycznych <span class="math">\(\,V\ \)</span> z bazą
+<span class="math">\(\,\mathcal{B}=\{\vec{e}_1,\vec{e}_2\}\,,\ \)</span> gdzie <span class="math">\(\\\)</span>
+<span class="math">\(\,|\vec{e}_1|=|\vec{e}_2|=1,\  \ \vec{e}_1\perp\vec{e}_2\,,\ \)</span>
+zadajemy operator liniowy <span class="math">\(\,F\ \)</span> podając obrazy wektorów bazy <span class="math">\(\,\mathcal{B}:\)</span></p>
+<div class="math">
+\[F\vec{e}_1\,=\,2\,\vec{e}_1+\vec{e}_2\,,\qquad
+F\vec{e}_2\,=\,\vec{e}_1+2\,\vec{e}_2\,.\]</div>
+<p>Szukamy wektorów <span class="math">\(\ \vec{r}\,\in\,V\!\smallsetminus\!\{\vec{0}\}\ \)</span> spełniających równanie
+<span class="math">\(\,F\vec{r}=\lambda\,\vec{r}\ \)</span> dla pewnego <span class="math">\(\ \lambda\in R\,.\ \)</span>
+Działając na te wektory, operator <span class="math">\(\,F\ \)</span> nie zmienia ich kierunku, chociaż może
+zmienić długość lub zwrot. Pewną orientację w sytuacji daje program, który wyświetla kolejne
+wektory <span class="math">\(\ \vec{r}\ \)</span> z pewnego zbioru oraz ich obrazy, eksponując przypadki,
+gdy <span class="math">\(\ F(\vec{r})\parallel\vec{r}\ \)</span>
+(po uruchomieniu programu przygotowanie animacji trwa kilkadziesiąt sekund). <span class="math">\(\\\)</span></p>
+<div class='sage'><script type='text/x-sage'>e1 = vector([1,0]); e2 = vector([0,1])
+
+P0 = point((0,0), color='white',
+           faceted=True, size=20, zorder=8)
+
+n = 24          # określa liczbę klatek animacji
+dt = 2*pi/n     # krok parametru między kolejnymi klatkami
+L = []          # inicjacja listy klatek
+
+for k in range(1,n+1):
+
+    a1 = cos(k*dt); a2 = sin(k*dt)
+
+    plt = P0 + arrow((0,0),a1*e1+a2*e2, color='green',
+                     legend_label=' $\\ \\ \\vec{r}$', zorder=5) +\
+               arrow((0,0),(2*a1+a2)*e1+(a1+2*a2)*e2,
+                     color='red', legend_label=' $F(\\vec{r})$', zorder=5)
+
+    for l in range(1+3*(not mod(k-3,6))): L.append(plt)
+
+a = animate(L, aspect_ratio=1, axes_labels=['x','y'], figsize=6,
+            xmin=-2.25, xmax=+2.25, ymin=-2.25, ymax=+2.25)
+
+a; a.show(delay=25, iterations=5)</script></div><p>Problem własny dla operatora <span class="math">\(\,F\ \)</span> rozwiążemy w tym przykładzie bezpośrednio,
+nie odwołując się do ogólnych wzorów z poprzedniej sekcji.</p>
+<p>Podstawiając <span class="math">\(\ \vec{r}=\alpha_1\,\vec{e}_1+\alpha_2\,\vec{e}_2\ \)</span>
+do równania własnego otrzymujemy kolejno:</p>
+<div class="math">
+\[\begin{eqnarray*}
+F\,\vec{r} & = & \lambda\;\vec{r}\,,\quad\vec{r}\neq\vec{0}\,, \\
+F(\alpha_1\,\vec{e}_1+\alpha_2\,\vec{e}_2) & = & \lambda\;(\alpha_1\,\vec{e}_1+\alpha_2\,\vec{e}_2)\,, \\
+\alpha_1\,F\vec{e}_1+\alpha_2\,F\vec{e}_2 & = & \lambda\;(\alpha_1\,\vec{e}_1+\alpha_2\,\vec{e}_2)\,, \\
+\alpha_1\,(2\,\vec{e}_1+\vec{e}_2)+\alpha_2\,(\vec{e}_1+2\,\vec{e}_2) & = & \lambda\;(\alpha_1\,\vec{e}_1+\alpha_2\,\vec{e}_2)\,, \\
+2\,\alpha_1\,\vec{e}_1+\alpha_1\,\vec{e}_2+\alpha_2\,\vec{e}_1+2\,\alpha_2\,\vec{e}_2 & = & \lambda\,\alpha_1\,\vec{e}_1+\lambda\,\alpha_2\,\vec{e}_2\,, \\
+\left[\,(2-\lambda)\,\alpha_1+\alpha_2\,\right]\,\vec{e}_1+\left[\,\alpha_1+(2-\lambda)\,\alpha_2\,\right]\,\vec{e}_2 & = & \vec{0}\,.
+\end{eqnarray*}\]</div><p>Kombinacja niezależnych liniowo wektorów <span class="math">\(\ \vec{e}_1,\,\vec{e}_2\ \)</span>
+bazy <span class="math">\(\ \mathcal{B}\ \)</span> równa się wektorowi zerowemu wtedy i tylko wtedy,
+gdy jej współczynniki znikają:</p>
+<div class="math" id="equation-2_set">
+<span class="eqno">(1)</span>\[\begin{split}\begin{cases}\ \ \begin{array}{c}
+(2-\lambda)\,\alpha_1+\alpha_2\,=\,0 \\
+\alpha_1+(2-\lambda)\,\alpha_2\,=\,0
+\end{array}\end{cases}\end{split}\]</div>
+<p>Wzór <a href="problem_wlasny_przyklady.html#equation-2_set">(1)</a> przedstawia jednorodny układ dwóch równań liniowych na niewiadome
+<span class="math">\(\ \alpha_1,\,\alpha_2\)</span> <span class="math">\(\\\)</span> z parametrem <span class="math">\(\ \lambda.\ \)</span>
+Rozwiązania niezerowe: <span class="math">\(\ \alpha_1^2+\alpha_2^2\,&gt;\,0\,,\ \)</span>
+istnieją wtedy i tylko wtedy, gdy</p>
+<div class="math" id="equation-det_eqn">
+<span class="eqno">(2)</span>\[\begin{split}\left|\begin{array}{cc} 2-\lambda &amp; 1 \\
+                        1 &amp; 2-\lambda \end{array}\right|\ =\
+\lambda^2-4\,\lambda+3\ =\ (\lambda-1)(\lambda-3)\ =\ 0\,.\end{split}\]</div>
+<p>Otrzymaliśmy w ten sposób dwie wartości własne operatora
+<span class="math">\(\,F:\quad\blacktriangleright\quad\lambda_1=1\,,\ \ \lambda_2=3\,.\ \)</span></p>
+<p>Podstawienie <span class="math">\(\ \lambda=\lambda_1=1\ \)</span> w <a href="problem_wlasny_przyklady.html#equation-2_set">(1)</a>
+daje nieoznaczony układ równań
+<span class="math">\(\quad\begin{cases}\ \begin{array}{c}
+\alpha_1+\alpha_2\,=\,0 \\ \alpha_1+\alpha_2\,=\,0
+\end{array}\end{cases}\)</span></p>
+<p>którego rozwiązania mają ogólną postać:
+<span class="math">\(\quad\alpha_1=\alpha\,,\ \ \alpha_2=-\;\alpha\,,\ \ \alpha\in R.\)</span></p>
+<p>Wektory własne odpowiadające tej wartości:</p>
+<div class="math" id="equation-eigen_vectors_1">
+<span class="eqno">(3)</span>\[\blacktriangleright\quad
+\vec{r}_1\,=\ \alpha\,\vec{e}_1-\alpha\,\vec{e}_2\,=\
+\alpha\,(\vec{e}_1-\vec{e}_2)\ \equiv\ \alpha\,\vec{f}_1\,,\quad
+\alpha\in R\!\smallsetminus\!\{0\}\,,\]</div>
+<p>tworzą <span class="math">\(\,\)</span> (wespół z wektorem zerowym <span class="math">\(\,\vec{0}\)</span>) <span class="math">\(\,\)</span>
+1-wymiarową podprzestrzeń <span class="math">\(\,V_1\ \)</span> przestrzeni <span class="math">\(\,V,\)</span> <span class="math">\(\\\)</span>
+generowaną przez wektor <span class="math">\(\,\vec{f}_1=\vec{e}_1-\vec{e}_2:\)</span> <span class="math">\(\ V_1=L(\vec{f}_1)\,.\)</span></p>
+<p>Podstawiając <span class="math">\(\ \lambda=\lambda_2=3\ \)</span> w <span class="math">\(\,\)</span> <a href="problem_wlasny_przyklady.html#equation-2_set">(1)</a> <span class="math">\(\,\)</span>
+otrzymujemy układ
+<span class="math">\(\quad\begin{cases}\ \begin{array}{r}
+-\ \alpha_1+\alpha_2\,=\,0 \\ \alpha_1-\alpha_2\,=\,0
+\end{array}\end{cases}\)</span></p>
+<p>o rozwiązaniach:
+<span class="math">\(\quad\alpha_1=\alpha_2=\alpha\,,\ \ \alpha\in R.\ \)</span>
+Odpowiednie wektory własne</p>
+<div class="math" id="equation-eigen_vectors_2">
+<span class="eqno">(4)</span>\[\blacktriangleright\quad
+\vec{r}_2\,=\ \alpha\,\vec{e}_1+\alpha\,\vec{e}_2\,=\
+\alpha\,(\vec{e}_1+\vec{e}_2)\ \equiv\ \alpha\,\vec{f}_2\,,\quad
+\alpha\in R\!\smallsetminus\!\{0\}\]</div>
+<p>również tworzą <span class="math">\(\,\)</span> (łącznie z wektorem zerowym) <span class="math">\(\,\)</span>
+1-wymiarową podprzestrzeń, <span class="math">\(\\\)</span>
+generowaną tym razem przez wektor <span class="math">\(\,\vec{f}_2=\vec{e}_1+\vec{e}_2:\ \ V_2=L(\vec{f}_2)\,.\)</span></p>
+<p>Zauważmy, że wektory <span class="math">\(\,\vec{f}_1\,,\ \vec{f}_2\ \,\)</span>
+są wzajemnie prostopadłe oraz mają tę samą długość:</p>
+<div class="math">
+\[\vec{f}_1\cdot\vec{f}_2\ =\ (\vec{e}_1-\vec{e}_2)\cdot(\vec{e}_1+\vec{e}_2)\ =\
+\vec{e}_1\cdot\vec{e}_1-\vec{e}_2\cdot\vec{e}_2\ =\ |\vec{e}_1|^2-|\vec{e}_2|^2\ =\
+1-1\ =\ 0\,,\]\[|\,\vec{f}_{1,2}\,|^2\ =\ (\vec{e}_1\mp\vec{e}_2)^2\ =\
+\vec{e}_1\cdot\vec{e}_1\mp 2\ \,\vec{e}_1\cdot\vec{e}_2+\vec{e}_2\cdot\vec{e}_2\ =\ 2\,.\]</div>
+<p>Dzieląc każdy z wektorów <span class="math">\(\ \vec{f}_1,\,\vec{f}_2\ \)</span> przez jego długość:</p>
+<div class="math" id="equation-normal">
+<span class="eqno">(5)</span>\[\vec{f}_1\ \ \rightarrow\ \ \frac{1}{|\,\vec{f}_1\,|}\ \,\vec{f}_1\ \ =\ \
+                            \frac{1}{\sqrt{2}}\ \,(\vec{e}_1-\vec{e}_2)\,,\]\[\vec{f}_2\ \ \rightarrow\ \ \frac{1}{|\,\vec{f}_2\,|}\ \,\vec{f}_2\ \ =\ \
+                            \frac{1}{\sqrt{2}}\ \,(\vec{e}_1+\vec{e}_2)\,,\]</div>
+<p>otrzymamy parę <span class="math">\(\ (\vec{f}_1,\,\vec{f}_2)\ \)</span>
+wzajemnie prostopadłych wektorów jednostkowych.</p>
+<p>W ten sposób w przestrzeni <span class="math">\(\,V\ \)</span> istnieją dwie bazy <em>ortonormalne</em>:
+wyjściowa baza <span class="math">\(\,\mathcal{B}=(\vec{e}_1,\vec{e}_2)\ \)</span> oraz
+baza <span class="math">\(\,\mathcal{F}=(\vec{f}_1,\,\vec{f}_2)\ \)</span>
+złożona z wektorów własnych operatora <span class="math">\(\,F:\)</span></p>
+<a class="reference internal image-reference" href="_images/Rys_8.png"><img alt="_images/Rys_8.png" class="align-center" src="_images/Rys_8.png" style="width: 263.25px; height: 300.3px;" /></a>
+<p><strong>Uwagi i komentarze.</strong></p>
+<p>Operator <span class="math">\(\,F\ \)</span> jest hermitowski,
+bo jego macierz w ortonormalnej bazie <span class="math">\(\,\mathcal{B}:\)</span></p>
+<div class="math" id="equation-mat_AF">
+<span class="eqno">(6)</span>\[\begin{split}\boldsymbol{A}\ =\ M_{\mathcal{B}}(F)\ =\
+\left[\,I_{\mathcal{B}}(F\vec{e}_1)\,|\,I_{\mathcal{B}}(F\vec{e}_2)\,\right]\ =\
+\left[\begin{array}{cc} 2 &amp; 1 \\ 1 &amp; 2 \end{array}\right]\end{split}\]</div>
+<p>jest rzeczywista i symetryczna, a więc hermitowska. Ortogonalność należących do różnych wartości
+wektorów własnych <span class="math">\(\ \,\vec{f}_1\ \ \text{i}\ \ \vec{f}_2\ \,\)</span>
+oraz istnienie ortonormalnej bazy <span class="math">\(\ \mathcal{F}\ \,\)</span> przestrzeni <span class="math">\(\,V,\ \)</span>
+złożonej z wektorów własnych operatora <span class="math">\(\,F,\ \,\)</span> jest konsekwencją tej hermitowskości.</p>
+<p>Wzór <a href="problem_wlasny_przyklady.html#equation-det_eqn">(2)</a> przedstawia równanie charakterystyczne macierzy <span class="math">\(\,\boldsymbol{A}.\ \)</span>
+Stąd, a także ze wzorów <span class="math">\(\,\)</span> <a href="problem_wlasny_przyklady.html#equation-eigen_vectors_1">(3)</a> <span class="math">\(\,\)</span> i <span class="math">\(\,\)</span> <a href="problem_wlasny_przyklady.html#equation-eigen_vectors_2">(4)</a> <span class="math">\(\,\)</span> wynika, że obydwie wartości własne,
+<span class="math">\(\,\)</span> <span class="math">\(\ \lambda_1=1\ \ \text{i}\ \ \lambda_2=3\,,\ \ \)</span>
+są algebraicznie i geometrycznie 1-krotne. To, że krotność algebraiczna każdej wartości własnej
+równa się jej krotności geometrycznej, jest również cechą operatorów hermitowskich.</p>
+<p>Baza <span class="math">\(\,\mathcal{F}\ \)</span> jest wynikiem obrotu bazy <span class="math">\(\,\mathcal{B}\ \)</span>
+o kąt <span class="math">\(\,\pi/4.\ \)</span>
+Jak należało oczekiwać, macierz przejścia między tymi dwiema ortonormalnymi bazami,
+wyznaczona przez związki <a href="problem_wlasny_przyklady.html#equation-normal">(5)</a>:</p>
+<div class="math">
+\[\begin{split}\boldsymbol{S}\ =\ \frac{1}{\sqrt{2}}\ \,
+\left[\begin{array}{rr} 1 &amp; 1 \\ -1 &amp; 1 \end{array}\right]\end{split}\]</div>
+<p>jest unitarna (w tym wypadku: rzeczywista ortogonalna):
+<span class="math">\(\ \,\boldsymbol{S}^+\boldsymbol{S}=\boldsymbol{S}^{\,T}\boldsymbol{S}=\boldsymbol{I}_2\,.\)</span></p>
+<p>Wzór <a href="problem_wlasny_przyklady.html#equation-mat_AF">(6)</a> przedstawia macierz <span class="math">\(\,\boldsymbol{A}\ \)</span> operatora <span class="math">\(\,F\ \)</span>
+w wyjściowej bazie <span class="math">\(\ \mathcal{B}.\)</span> <span class="math">\(\\\)</span>
+Wyliczymy teraz dwoma sposobami macierz <span class="math">\(\,\boldsymbol{F}=[\varphi_{ij}]\ \)</span>
+tego operatora w bazie <span class="math">\(\ \mathcal{F}.\)</span></p>
+<ul>
+<li><p class="first">Według wzorów transformacyjnych dla przejścia
+od bazy <span class="math">\(\,\mathcal{B}\ \)</span> do bazy <span class="math">\(\,\mathcal{F}:\)</span></p>
+<div class="math">
+\[\begin{split}\boldsymbol{F}\ =\
+\boldsymbol{S}^{-1}\boldsymbol{A}\,\boldsymbol{S}\ =\
+\boldsymbol{S}^T\boldsymbol{A}\,\boldsymbol{S}\ \,=\ \,
+\textstyle\frac12\ \,
+\left[\begin{array}{rr} 1 &amp; -1 \\ 1 &amp; 1 \end{array}\right]\
+\left[\begin{array}{cc} 2 &amp; 1 \\ 1 &amp; 2 \end{array}\right]\
+\left[\begin{array}{rr} 1 &amp; 1 \\ -1 &amp; 1 \end{array}\right]\ =\
+\left[\begin{array}{cc} 1 &amp; 0 \\ 0 &amp; 3 \end{array}\right]\,.\end{split}\]</div>
+</li>
+<li><p class="first">To samo dają wzory dla elementów macierzowych operatora w bazie ortonormalnej:</p>
+<div class="math">
+\[\varphi_{11}\,=\,\boldsymbol{f}_1\cdot F\boldsymbol{f}_1\,=\,
+1\ \ \boldsymbol{f}_1\cdot\boldsymbol{f}_1\,=\,1\,, \qquad
+\varphi_{12}\,=\,\boldsymbol{f}_1\cdot F\boldsymbol{f}_2\,=\,
+3\ \ \boldsymbol{f}_1\cdot\boldsymbol{f}_2\,=\,0\,,\]\[\varphi_{21}\,=\,\boldsymbol{f}_2\cdot F\boldsymbol{f}_1\,=\,
+1\ \ \boldsymbol{f}_2\cdot\boldsymbol{f}_1\,=\,0\,, \qquad
+\varphi_{22}\,=\,\boldsymbol{f}_2\cdot F\boldsymbol{f}_2\,=\,
+3\ \ \boldsymbol{f}_2\cdot\boldsymbol{f}_2\,=\,3\,.\]</div>
+</li>
+</ul>
+<p>Macierz operatora <span class="math">\(\,F\ \)</span> w ortonormalnej bazie <span class="math">\(\ \mathcal{F}\ \)</span>
+złożonej z jego wektorów własnych jest diagonalna, z wartościami własnymi na przekątnej.</p>
+<p><strong>Dygresja.</strong></p>
+<p>Każdy wektor <span class="math">\(\,\vec{r}\ \)</span> przestrzeni <span class="math">\(\,V\ \)</span>
+wektorów geometrycznych na płaszczyźnie
+można zapisać jednoznacznie w postaci kombinacji liniowej
+wektorów bazowych <span class="math">\(\,\vec{f}_1,\,\vec{f}_2:\)</span></p>
+<div class="math">
+\[\vec{r}\,=\,\beta_1\,\vec{f}_1+\beta_2\,\vec{f}_2\,,\qquad\beta_1,\,\beta_1\in R\,.\]</div>
+<p>Ale <span class="math">\(\ \,\beta_1\,\vec{f}_1\in V_1\,,\ \ \beta_2\,\vec{f}_2\in V_2\,,\ \,\)</span>
+gdzie <span class="math">\(\ \,V_1=L(\vec{f}_1)\ \ \text{i}\ \ \,V_2=L(\vec{f}_2)\ \,\)</span>
+są podprzestrzeniami wektorów własnych operatora <span class="math">\(\,F\ \)</span>
+odpowiednio dla wartości <span class="math">\(\ \lambda_1\ \ \text{i}\ \ \lambda_2.\ \,\)</span>
+Wobec tego dla każdego wektora <span class="math">\(\,\vec{r}\in V\ \)</span> zachodzi jednoznaczny rozkład</p>
+<div class="math">
+\[\vec{r}\,=\,\vec{r}_1\,+\,\vec{r}_2\,,\qquad\vec{r}_1\in V_1\,,\ \ \vec{r}_2\in V_2\,.\]</div>
+<div class="admonition-definicja admonition">
+<p class="first admonition-title">Definicja.</p>
+<p class="last">Niech <span class="math">\(\ V_1\,,\ \,V_2\ \,\)</span> będą podprzestrzeniami
+przestrzeni wektorowej <span class="math">\(\,V.\ \)</span> <span class="math">\(\\\)</span>
+Jeżeli każdy wektor <span class="math">\(\,x\in V\ \)</span> można przedstawić jednoznacznie w postaci
+<span class="math">\(\,x_1+x_2\,,\ \)</span> gdzie <span class="math">\(\,x_1\in V_1\ \ \text{i}\ \ x_2\in V_2\,,\ \)</span>
+to mówimy, że przestrzeń <span class="math">\(\,V\ \)</span> <em>rozkłada się na sumę prostą</em> swoich podprzestrzeni
+<span class="math">\(\,V_1\ \ \text{i}\ \ V_2\,,\ \)</span> co zapisujemy: <span class="math">\(\ \  V\,=\,V_1\,\oplus\,V_2\,.\)</span></p>
+</div>
+<p>W naszym przykładzie przestrzeń <span class="math">\(\ V,\ \)</span> w której działa operator <span class="math">\(\,F,\ \)</span>
+rozkłada się na sumę prostą podprzestrzeni <span class="math">\(\ V_1\ \ \text{i}\ \ V_2\,,\ \)</span>
+odpowiadających dwóm wartościom własnym <span class="math">\(\ \lambda_1\ \ \text{i}\ \ \lambda_2\ \)</span>
+tego operatora.</p>
+</div>
+<div class="section" id="transpozycja-macierzy-kwadratowych-2-stopnia">
+<h2>Transpozycja macierzy kwadratowych 2. stopnia<a class="headerlink" href="problem_wlasny_przyklady.html#transpozycja-macierzy-kwadratowych-2-stopnia" title="Stały odnośnik do tego nagłówka">¶</a></h2>
+<p>Definiujemy operator transpozycji <span class="math">\(\ T\ \)</span> określony na algebrze <span class="math">\(\ M_2(R)\)</span> <span class="math">\(\\\)</span>
+rzeczywistych kwadratowych macierzy 2. stopnia:</p>
+<div class="math">
+\[\begin{split}T\
+\left[\begin{array}{cc}
+\alpha_1 &amp; \alpha_2 \\ \alpha_3 &amp; \alpha_4
+\end{array}\right]\ \,:\,=\ \,
+\left[\begin{array}{cc}
+\alpha_1 &amp; \alpha_2 \\ \alpha_3 &amp; \alpha_4
+\end{array}\right]^{\,T}=\ \;
+\left[\begin{array}{cc}
+\alpha_1 &amp; \alpha_3 \\ \alpha_2 &amp; \alpha_4
+\end{array}\right]\,,\quad
+\alpha_1,\,\alpha_2,\,\alpha_3,\,\alpha_4\in R\,.\end{split}\]</div>
+<p>Ze względu na bijektywność i liniowość, <span class="math">\(\,\)</span> operator <span class="math">\(\,T\ \)</span>
+jest automorfizmem algebry <span class="math">\(\,M_2(R).\)</span></p>
+<p>Problem własny operatora <span class="math">\(\,T\ \)</span> rozwiążemy stosując schemat postępowania
+z poprzedniej sekcji.</p>
+<p>0.) Konstrukcja macierzy <span class="math">\(\,\boldsymbol{A}=M_{\mathcal{B}}(T)\ \)</span>
+automorfizmu <span class="math">\(\,T\ \)</span> w bazie
+<span class="math">\(\ \mathcal{B}=(\boldsymbol{e}_1,\boldsymbol{e}_2,\boldsymbol{e}_3,\boldsymbol{e}_4)\,,\ \)</span>
+gdzie</p>
+<div class="math">
+\[\begin{split}\boldsymbol{e}_1\ =\ \left[\begin{array}{cc} 1 &amp; 0 \\ 0 &amp; 0 \end{array}\right]\,,\quad
+\boldsymbol{e}_2\ =\ \left[\begin{array}{cc} 0 &amp; 1 \\ 0 &amp; 0 \end{array}\right]\,,\quad
+\boldsymbol{e}_3\ =\ \left[\begin{array}{cc} 0 &amp; 0 \\ 1 &amp; 0 \end{array}\right]\,,\quad
+\boldsymbol{e}_4\ =\ \left[\begin{array}{cc} 0 &amp; 0 \\ 0 &amp; 1 \end{array}\right]\,.\end{split}\]</div>
+<p>Jeżeli obrazy kolejnych macierzy z bazy <span class="math">\(\ \mathcal{B}\ \)</span> przedstawimy
+w tej samej bazie <span class="math">\(\ \mathcal{B}:\)</span></p>
+<div class="math">
+\[\begin{alignat*}{6}
+T\,\boldsymbol{e}_1 & {\ } = {\ \,} &
+   \boldsymbol{e}_1 & {\ } = {\ \,} & 1\cdot\boldsymbol{e}_1 & {\ } + {\ \,} &
+                                      0\cdot\boldsymbol{e}_2 & {\ } + {\ \,} &
+                                      0\cdot\boldsymbol{e}_3 & {\ } + {\ \,} &
+                                      0\cdot\boldsymbol{e}_4\,, \\
+T\,\boldsymbol{e}_2 & {\ } = {\ \,} &
+   \boldsymbol{e}_3 & {\ } = {\ \,} & 0\cdot\boldsymbol{e}_1 & {\ } + {\ \,} &
+                                      0\cdot\boldsymbol{e}_2 & {\ } + {\ \,} &
+                                      1\cdot\boldsymbol{e}_3 & {\ } + {\ \,} &
+                                      0\cdot\boldsymbol{e}_4\,, \\
+T\,\boldsymbol{e}_3 & {\ } = {\ \,} &
+   \boldsymbol{e}_2 & {\ } = {\ \,} & 0\cdot\boldsymbol{e}_1 & {\ } + {\ \,} &
+                                      1\cdot\boldsymbol{e}_2 & {\ } + {\ \,} &
+                                      0\cdot\boldsymbol{e}_3 & {\ } + {\ \,} &
+                                      0\cdot\boldsymbol{e}_4\,, \\
+T\,\boldsymbol{e}_4 & {\ } = {\ \,} &
+   \boldsymbol{e}_4 & {\ } = {\ \,} & 0\cdot\boldsymbol{e}_1 & {\ } + {\ \,} &
+                                      0\cdot\boldsymbol{e}_2 & {\ } + {\ \,} &
+                                      0\cdot\boldsymbol{e}_3 & {\ } + {\ \,} &
+                                      1\cdot\boldsymbol{e}_4\,,
+\end{alignat*}\]</div><p>to <span class="math">\(\ j\)</span>-ta kolumna macierzy <span class="math">\(\,\boldsymbol{A}\ \)</span>
+składa się ze współrzędnych macierzy <span class="math">\(\,T\boldsymbol{e}_j\,,\ \ j=1,2,3,4:\)</span></p>
+<div class="math" id="equation-mat_AT">
+<span class="eqno">(7)</span>\[\begin{split}\boldsymbol{A}\ =\ M_{\mathcal{B}}(T)\ =\
+\left[\begin{array}{cccc} 1 &amp; 0 &amp; 0 &amp; 0 \\
+                          0 &amp; 0 &amp; 1 &amp; 0 \\
+                          0 &amp; 1 &amp; 0 &amp; 0 \\
+                          0 &amp; 0 &amp; 0 &amp; 1 \end{array}\right]\,.\end{split}\]</div>
+<p>Teraz równanie własne dla operatora <span class="math">\(\,T:\)</span></p>
+<div class="math">
+\[\begin{split}T\
+\left[\begin{array}{cc}
+\alpha_1 &amp; \alpha_2 \\ \alpha_3 &amp; \alpha_4
+\end{array}\right]\ \,=\ \,
+\lambda\
+\left[\begin{array}{cc}
+\alpha_1 &amp; \alpha_2 \\ \alpha_3 &amp; \alpha_4
+\end{array}\right]\end{split}\]</div>
+<p>przyjmuje postać jednorodnego problemu liniowego:</p>
+<div class="math" id="equation-hom_eqn">
+<span class="eqno">(8)</span>\[\begin{split}\left[\begin{array}{cccc}
+1-\lambda &amp;      0      &amp;      0     &amp;     0 \\
+    0     &amp; -\ \lambda  &amp;      1     &amp;     0 \\
+    0     &amp;      1      &amp; -\ \lambda &amp;     0 \\
+    0     &amp;      0      &amp;      0     &amp; 1-\lambda
+\end{array}\right]\
+\left[\begin{array}{c}
+\alpha_1 \\ \alpha_2 \\ \alpha_3 \\ \alpha_4
+\end{array}\right]\ =\
+\left[\begin{array}{c}
+0 \\ 0 \\ 0 \\ 0
+\end{array}\right]\,.\end{split}\]</div>
+<p>1.) Wyliczenie wartości własnych jako pierwiastków równania charakterystycznego.</p>
+<div class="math">
+\[\begin{split}w(\lambda)\ =\
+\left|\begin{array}{cccc}
+1-\lambda &amp;      0      &amp;      0     &amp;     0 \\
+    0     &amp; -\ \lambda  &amp;      1     &amp;     0 \\
+    0     &amp;      1      &amp; -\ \lambda &amp;     0 \\
+    0     &amp;      0      &amp;      0     &amp; 1-\lambda
+\end{array}\right|\ =\
+(1-\lambda)^2\,(\lambda^2-1)\ =\ (\lambda-1)^3\,(\lambda+1)\ =\ 0\,.\end{split}\]</div>
+<p>Wartości własne (i ich krotności algebraiczne) są więc następujące:</p>
+<div class="math">
+\[\blacktriangleright\qquad\lambda_1=1\quad(3)\,,\qquad\lambda_2=-1\quad(1)\,.\]</div>
+<p>2.) Wyznaczenie wektorów (tutaj: macierzy) własnych.</p>
+<p>Wstawiając <span class="math">\(\,\lambda=\lambda_1=1\ \)</span> do równania <a href="problem_wlasny_przyklady.html#equation-hom_eqn">(8)</a> otrzymujemy</p>
+<div class="math">
+\[\begin{split}\left[\begin{array}{rrrr}
+0 &amp;  0 &amp;  0 &amp; 0 \\
+0 &amp; -1 &amp;  1 &amp; 0 \\
+0 &amp;  1 &amp; -1 &amp; 0 \\
+0 &amp;  0 &amp;  0 &amp; 0
+\end{array}\right]\
+\left[\begin{array}{c}
+\alpha_1 \\ \alpha_2 \\ \alpha_3 \\ \alpha_4
+\end{array}\right]\ =\
+\left[\begin{array}{c}
+0 \\ 0 \\ 0 \\ 0
+\end{array}\right]\qquad\text{czyli}\qquad
+\begin{cases}\ \begin{array}{r}
+-\ \alpha_2+\alpha_3\,=\,0\,, \\ \alpha_2-\alpha_3\,=\,0\,.
+\end{array}\end{cases}\end{split}\]</div>
+<p>Rozwiązanie ma postać:
+<span class="math">\(\quad\alpha_1=\alpha\,,\ \ \alpha_2=\alpha_3=\beta\,,\ \ \alpha_4=\gamma\,,\quad
+\alpha,\,\beta,\,\gamma\in R.\)</span></p>
+<p>Macierze własne operatora <span class="math">\(\,T\ \)</span> dla wartości <span class="math">\(\,\lambda_1=1\,:\)</span></p>
+<div class="math">
+\[\begin{split}\blacktriangleright\quad
+\left[\begin{array}{cc}
+\alpha &amp; \beta \\ \beta &amp; \gamma
+\end{array}\right]\ =\
+\alpha\
+\left[\begin{array}{cc}
+1 &amp; 0 \\ 0 &amp; 0
+\end{array}\right]\ +\
+\beta\
+\left[\begin{array}{cc}
+0 &amp; 1 \\ 1 &amp; 0
+\end{array}\right]\ +\
+\gamma\
+\left[\begin{array}{cc}
+0 &amp; 0 \\ 0 &amp; 1
+\end{array}\right]\,,\quad
+\begin{array}{l}
+\alpha,\,\beta,\,\gamma\in R\,, \\
+\alpha^2+\beta^2+\gamma^2&gt;0
+\end{array}\end{split}\]</div>
+<p>tworzą <span class="math">\(\,\)</span> (po dodaniu macierzy zerowej) <span class="math">\(\,\)</span>
+trójwymiarową podprzestrzeń <span class="math">\(\ V_1\ \)</span> przestrzeni <span class="math">\(\\\)</span>
+wektorowej <span class="math">\(\ V=M_2(R),\ \)</span> generowaną przez liniowo niezależne macierze</p>
+<div class="math">
+\[\begin{split}\boldsymbol{t}_1\ =\
+\left[\begin{array}{cc}
+1 &amp; 0 \\ 0 &amp; 0
+\end{array}\right]\,,\quad
+\boldsymbol{t}_2\ =\
+\left[\begin{array}{cc}
+0 &amp; 1 \\ 1 &amp; 0
+\end{array}\right]\,,\quad
+\boldsymbol{t}_3\ =\
+\left[\begin{array}{cc}
+0 &amp; 0 \\ 0 &amp; 1
+\end{array}\right]\,:\qquad
+V_1=L(\boldsymbol{t}_1,\boldsymbol{t}_2,\boldsymbol{t}_3)\,.\end{split}\]</div>
+<p>Wartość własna <span class="math">\(\ \lambda_1=1\ \)</span> jest zatem algebraicznie i geometrycznie 3-krotna.</p>
+<p>Podstawienie <span class="math">\(\ \lambda=\lambda_2=-1\ \)</span> do równania <a href="problem_wlasny_przyklady.html#equation-hom_eqn">(8)</a> daje</p>
+<div class="math">
+\[\begin{split}\left[\begin{array}{rrrr}
+2 &amp; 0 &amp; 0 &amp; 0 \\
+0 &amp; 1 &amp; 1 &amp; 0 \\
+0 &amp; 1 &amp; 1 &amp; 0 \\
+0 &amp; 0 &amp; 0 &amp; 2
+\end{array}\right]\
+\left[\begin{array}{c}
+\alpha_1 \\ \alpha_2 \\ \alpha_3 \\ \alpha_4
+\end{array}\right]\ =\
+\left[\begin{array}{c}
+0 \\ 0 \\ 0 \\ 0
+\end{array}\right]\qquad\text{czyli}\qquad
+\begin{cases}\ \begin{array}{r}
+2\,\alpha_1\,=\,0\,, \\ \alpha_2+\alpha_3\,=\,0\,, \\
+\alpha_2+\alpha_3\,=\,0\,, \\ 2\,\alpha_4\,=\,0\,.
+\end{array}\end{cases}\end{split}\]</div>
+<p>Stąd <span class="math">\(\ \ \alpha_1=\alpha_4=0\,,\ \ \alpha_2=-\ \alpha_3=\delta\,,\ \ \delta\in R\,,\ \,\)</span>
+a macierze własne dla wartości <span class="math">\(\ \lambda_2=-1:\)</span></p>
+<div class="math">
+\[\begin{split}\blacktriangleright\quad
+\left[\begin{array}{rr}
+0 &amp; \delta \\ -\delta &amp; 0
+\end{array}\right]\ =\
+\delta\
+\left[\begin{array}{rr}
+0 &amp; 1 \\ -1 &amp; 0
+\end{array}\right]\ =\
+\delta\ \boldsymbol{t}_4\,,\qquad
+\boldsymbol{t}_4\,=\,
+\left[\begin{array}{rr}
+0 &amp; 1 \\ -1 &amp; 0
+\end{array}\right]\,,\quad
+\delta\in R\smallsetminus\!\{0\}\,,\end{split}\]</div>
+<p>tworzą <span class="math">\(\,\)</span> (razem z macierzą zerową) <span class="math">\(\,\)</span>
+1-wymiarową podprzestrzeń <span class="math">\(\ V_{-1}=L(\boldsymbol{t}_4)\,.\)</span> <span class="math">\(\\\)</span>
+Krotność geometryczna wartości własnej <span class="math">\(\ \lambda_2\ \)</span>
+równa się jej krotności algebraicznej i wynosi 1.</p>
+<p><strong>Uwagi i komentarze.</strong></p>
+<p>Macierze własne
+<span class="math">\(\ \boldsymbol{t}_1,\,\boldsymbol{t}_2,\,\boldsymbol{t}_3,\,\boldsymbol{t}_4\ \)</span>
+są liniowo niezależne. <span class="math">\(\\\)</span>
+Rzeczywiście, jeżeli ich kombinacja liniowa równa się macierzy zerowej:</p>
+<div class="math">
+\[\alpha\ \boldsymbol{t}_1\,+\,\beta\ \boldsymbol{t}_2\,+\,
+\gamma\ \boldsymbol{t}_3\,+\,\delta\ \boldsymbol{t}_4\ =\
+\boldsymbol{0}\,,\]</div>
+<p>to, wykonując działania po lewej stronie równości, otrzymujemy</p>
+<div class="math">
+\[\begin{split}\left[\begin{array}{cc}
+\alpha &amp; \beta+\delta \\ \beta-\delta &amp; \gamma
+\end{array}\right]\ =\
+\left[\begin{array}{cc}
+0 &amp; 0 \\ 0 &amp; 0
+\end{array}\right]\quad\text{czyli}\quad
+\begin{cases}\ \begin{array}{r}
+\alpha=0\,, \\ \beta+\delta=0\,, \\ \beta-\delta=0\,, \\ \gamma=0\,,
+\end{array}\end{cases}\quad\text{skąd}\quad
+\begin{cases}\ \begin{array}{r}
+\alpha=0\,, \\ \beta=0\,, \\ \gamma=0\,, \\ \delta=0\,.
+\end{array}\end{cases}\end{split}\]</div>
+<p>Układ <span class="math">\(\ \mathcal{T}=(\boldsymbol{t}_1,\boldsymbol{t}_2,\boldsymbol{t}_3,\boldsymbol{t}_4)\ \)</span>
+jest więc bazą algebry <span class="math">\(\,M_2(R),\ \)</span> alternatywną względem wyjściowej bazy
+<span class="math">\(\ \mathcal{B}=(\boldsymbol{e}_1,\boldsymbol{e}_2,\boldsymbol{e}_3,\boldsymbol{e}_4)\,.\ \)</span>
+Związki między wektorami tych baz:</p>
+<div class="math">
+\[\begin{alignat*}{5}
+\boldsymbol{t}_1 & {\ \,} = {\ \,} & 1\cdot\boldsymbol{e}_1 {\ } + {\ }
+                                     0\cdot\boldsymbol{e}_2 {\ } + {\ }
+                                     0\cdot\boldsymbol{e}_3 {\ } + {\ }
+                                     0\cdot\boldsymbol{e}_4 \,, \\
+\boldsymbol{t}_2 & {\ \,} = {\ \,} & 0\cdot\boldsymbol{e}_1 {\ } + {\ }
+                                     1\cdot\boldsymbol{e}_2 {\ } + {\ }
+                                     1\cdot\boldsymbol{e}_3 {\ } + {\ }
+                                     0\cdot\boldsymbol{e}_4 \,, \\
+\boldsymbol{t}_3 & {\ \,} = {\ \,} & 0\cdot\boldsymbol{e}_1 {\ } + {\ }
+                                     0\cdot\boldsymbol{e}_2 {\ } + {\ }
+                                     0\cdot\boldsymbol{e}_3 {\ } + {\ }
+                                     1\cdot\boldsymbol{e}_4 \,, \\
+\boldsymbol{t}_4 & {\ \,} = {\ \,} & 0\cdot\boldsymbol{e}_1 {\ } + {\ }
+                                     1\cdot\boldsymbol{e}_2 {\ } - {\ }
+                                     1\cdot\boldsymbol{e}_3 {\ } + {\ }
+                                     0\cdot\boldsymbol{e}_4 \,,
+\end{alignat*}\]</div><p>dają macierz przejścia <span class="math">\(\,\boldsymbol{S}\ \)</span> od bazy <span class="math">\(\,\mathcal{B}\ \)</span>
+do bazy <span class="math">\(\,\mathcal{T}:\)</span></p>
+<div class="math">
+\[\begin{split}\boldsymbol{S}\ =\
+\left[\begin{array}{rrrr}
+1 &amp; 0 &amp; 0 &amp;  0 \\
+0 &amp; 1 &amp; 0 &amp;  1 \\
+0 &amp; 1 &amp; 0 &amp; -1 \\
+0 &amp; 0 &amp; 1 &amp;  0
+\end{array}\right]\,.\end{split}\]</div>
+<p>Wzór <span class="math">\(\,\)</span> <a href="problem_wlasny_przyklady.html#equation-mat_AT">(7)</a> <span class="math">\(\,\)</span> przedstawia
+macierz <span class="math">\(\,\boldsymbol{A}\ \)</span> operatora <span class="math">\(\,T\ \)</span>
+w wyjściowej bazie <span class="math">\(\ \mathcal{B}.\)</span> <span class="math">\(\\\)</span>
+Macierz <span class="math">\(\ \boldsymbol{T}=[\tau_{ij}]\ \)</span> operatora <span class="math">\(\ T\ \)</span>
+w bazie <span class="math">\(\ \mathcal{T}\ \)</span> wyliczymy dwoma sposobami.</p>
+<ul>
+<li><p class="first">Z definicji, <span class="math">\(\,\)</span> elementy <span class="math">\(\,\tau_{ij}\ \)</span> macierzy <span class="math">\(\,\boldsymbol{T}\ \)</span>
+określone są przez związki</p>
+<div class="math">
+\[T\ \boldsymbol{t}_j\ =\
+\tau_{1j}\ \boldsymbol{t}_1\ +\
+\tau_{2j}\ \boldsymbol{t}_2\ +\
+\tau_{3j}\ \boldsymbol{t}_3\ +\
+\tau_{4j}\ \boldsymbol{t}_4\,,\qquad j=1,2,3,4.\]</div>
+<p>Biorąc pod uwagę, że <span class="math">\(\,\boldsymbol{t}_i\,,\ i=1,2,3,4,\ \)</span>
+są macierzami własnymi operatora <span class="math">\(\,T,\ \)</span> mamy:</p>
+<div class="math">
+\[\begin{alignat*}{6}
+T\ \boldsymbol{t}_1 & {\ \,} = {\ \,} &
+   \boldsymbol{t}_1 & {\ \,} = {\ \,} & 1\cdot\boldsymbol{t}_1 {\ } + {\ }
+                                        0\cdot\boldsymbol{t}_2 {\ } + {\ }
+                                        0\cdot\boldsymbol{t}_3 {\ } + {\ }
+                                        0\cdot\boldsymbol{t}_4 \,, \\
+T\ \boldsymbol{t}_2 & {\ \,} = {\ \,} &
+   \boldsymbol{t}_2 & {\ \,} = {\ \,} & 0\cdot\boldsymbol{t}_1 {\ } + {\ }
+                                        1\cdot\boldsymbol{t}_2 {\ } + {\ }
+                                        0\cdot\boldsymbol{t}_3 {\ } + {\ }
+                                        0\cdot\boldsymbol{t}_4 \,, \\
+T\ \boldsymbol{t}_3 & {\ \,} = {\ \,} &
+   \boldsymbol{t}_3 & {\ \,} = {\ \,} & 0\cdot\boldsymbol{t}_1 {\ } + {\ }
+                                        0\cdot\boldsymbol{t}_2 {\ } + {\ }
+                                        1\cdot\boldsymbol{t}_3 {\ } + {\ }
+                                        0\cdot\boldsymbol{t}_4 \,, \\
+T\ \boldsymbol{t}_4 & {\ \,} = {\ \,} &
+-\ \boldsymbol{t}_4 & {\ \,} = {\ \,} & 0\cdot\boldsymbol{t}_1 {\ } + {\ }
+                                        0\cdot\boldsymbol{t}_2 {\ } + {\ }
+                                        0\cdot\boldsymbol{t}_3 {\ } - {\ }
+                                        1\cdot\boldsymbol{t}_4 \,.
+\end{alignat*}\]</div><p>Macierz <span class="math">\(\,\boldsymbol{T}\ \)</span> jest więc diagonalna,
+z wartościami własnymi operatora <span class="math">\(\,T\ \)</span> na przekątnej:</p>
+<div class="math">
+\[\begin{split}\boldsymbol{T}\ =\ M_{\mathcal{T}}(T)\ =\
+\left[\begin{array}{rrrr}
+1 &amp; 0 &amp; 0 &amp;  0 \\
+0 &amp; 1 &amp; 0 &amp;  0 \\
+0 &amp; 0 &amp; 1 &amp;  0 \\
+0 &amp; 0 &amp; 0 &amp; -1
+\end{array}\right]\,.\end{split}\]</div>
+</li>
+<li><div class="first line-block">
+<div class="line">Wzory transformacyjne dla przejścia od bazy <span class="math">\(\ \mathcal{B}\ \)</span>
+do bazy <span class="math">\(\ \mathcal{T}\ \)</span> dają:
+<span class="math">\(\ \ \boldsymbol{T}\ =\ \boldsymbol{S}^{-1}\boldsymbol{A}\,\boldsymbol{S}\,.\)</span></div>
+<div class="line">W rachunkach macierzowych wykorzystamy pakiet Sage:</div>
+</div>
+<div class="highlight-python"><div class="highlight"><pre><span class="n">sage</span><span class="p">:</span> <span class="n">A</span> <span class="o">=</span> <span class="n">matrix</span><span class="p">(</span><span class="n">QQ</span><span class="p">,[[</span><span class="mi">1</span><span class="p">,</span><span class="mi">0</span><span class="p">,</span><span class="mi">0</span><span class="p">,</span><span class="mi">0</span><span class="p">],</span>
+<span class="o">...</span>                  <span class="p">[</span><span class="mi">0</span><span class="p">,</span><span class="mi">0</span><span class="p">,</span><span class="mi">1</span><span class="p">,</span><span class="mi">0</span><span class="p">],</span>
+<span class="o">...</span>                  <span class="p">[</span><span class="mi">0</span><span class="p">,</span><span class="mi">1</span><span class="p">,</span><span class="mi">0</span><span class="p">,</span><span class="mi">0</span><span class="p">],</span>
+<span class="o">...</span>                  <span class="p">[</span><span class="mi">0</span><span class="p">,</span><span class="mi">0</span><span class="p">,</span><span class="mi">0</span><span class="p">,</span><span class="mi">1</span><span class="p">]])</span>
+
+<span class="n">sage</span><span class="p">:</span> <span class="n">S</span> <span class="o">=</span> <span class="n">matrix</span><span class="p">(</span><span class="n">QQ</span><span class="p">,[[</span><span class="mi">1</span><span class="p">,</span><span class="mi">0</span><span class="p">,</span><span class="mi">0</span><span class="p">,</span> <span class="mi">0</span><span class="p">],</span>
+<span class="o">...</span>                  <span class="p">[</span><span class="mi">0</span><span class="p">,</span><span class="mi">1</span><span class="p">,</span><span class="mi">0</span><span class="p">,</span> <span class="mi">1</span><span class="p">],</span>
+<span class="o">...</span>                  <span class="p">[</span><span class="mi">0</span><span class="p">,</span><span class="mi">1</span><span class="p">,</span><span class="mi">0</span><span class="p">,</span><span class="o">-</span><span class="mi">1</span><span class="p">],</span>
+<span class="o">...</span>                  <span class="p">[</span><span class="mi">0</span><span class="p">,</span><span class="mi">0</span><span class="p">,</span><span class="mi">1</span><span class="p">,</span> <span class="mi">0</span><span class="p">]])</span>
+<span class="n">sage</span><span class="p">:</span> <span class="n">S</span><span class="o">.</span><span class="n">I</span><span class="o">*</span><span class="n">A</span><span class="o">*</span><span class="n">S</span>
+
+<span class="p">[</span> <span class="mi">1</span>  <span class="mi">0</span>  <span class="mi">0</span>  <span class="mi">0</span><span class="p">]</span>
+<span class="p">[</span> <span class="mi">0</span>  <span class="mi">1</span>  <span class="mi">0</span>  <span class="mi">0</span><span class="p">]</span>
+<span class="p">[</span> <span class="mi">0</span>  <span class="mi">0</span>  <span class="mi">1</span>  <span class="mi">0</span><span class="p">]</span>
+<span class="p">[</span> <span class="mi">0</span>  <span class="mi">0</span>  <span class="mi">0</span> <span class="o">-</span><span class="mi">1</span><span class="p">]</span>
+</pre></div>
+</div>
+</li>
+</ul>
+<p>Powtarzając argumentację z poprzedniego przykładu
+można stwierdzić, że przestrzeń <span class="math">\(\ M_2(R)\ \)</span>
+rozkłada się na sumę prostą podprzestrzeni
+<span class="math">\(\,V_1=L(\boldsymbol{t}_1,\boldsymbol{t}_2,\boldsymbol{t}_3)\ \)</span> macierzy symetrycznych
+oraz podprzestrzeni <span class="math">\(\,V_{-1}=L(\boldsymbol{t}_4)\ \)</span> macierzy antysymetrycznych:</p>
+<div class="math">
+\[M_2(R)\ =\ V_1\,\oplus\,V_{-1}\,.\]</div>
+</div>
+</div>
+
+
+          </div>
+        </div>
+      </div>
+      <div class="sphinxsidebar">
+        <div class="sphinxsidebarwrapper">
+  <div class="sphinxlocaltoc">
+  <h3><a href="http://visual.icse.us.edu.pl/LA/index.html">Spis treści</a></h3>
+  <ul>
+<li><a class="reference internal" href="problem_wlasny_przyklady.html#">Przykłady problemów własnych</a><ul>
+<li><a class="reference internal" href="problem_wlasny_przyklady.html#operator-w-przestrzeni-wektorow-na-plaszczyznie">Operator w przestrzeni wektorów na płaszczyźnie</a></li>
+<li><a class="reference internal" href="problem_wlasny_przyklady.html#transpozycja-macierzy-kwadratowych-2-stopnia">Transpozycja macierzy kwadratowych 2. stopnia</a></li>
+</ul>
+</li>
+</ul>
+
+  </div>
+  <h4>Poprzedni temat</h4>
+  <p class="topless"><a href="problem_wlasny_definicja.html"
+                        title="poprzedni rozdział">Problem własny operatora liniowego</a></p>
+  <h4>Następny temat</h4>
+  <p class="topless"><a href="problem_wlasny_rownania_rozniczkowe.html"
+                        title="następny rozdział">Problem własny w układach równań różniczkowych</a></p>
+<div id="searchbox" style="display: none">
+  <h3>Szybkie wyszukiwanie</h3>
+    <form class="search" action="search.html" method="get">
+      <input type="text" name="q" />
+      <input type="submit" value="Szukaj" />
+      <input type="hidden" name="check_keywords" value="yes" />
+      <input type="hidden" name="area" value="default" />
+    </form>
+    <p class="searchtip" style="font-size: 90%">
+    Wprowadź szukany termin lub nazwę modułu, klasy lub funkcji.
+    </p>
+</div>
+<script type="text/javascript">$('#searchbox').show(0);</script>
+        </div>
+      </div>
+      <div class="clearer"></div>
+    </div>
+  </div>
+  <div class="relbar-bottom">
+    
+    <div class="related">
+      <h3>Nawigacja</h3>
+      <ul>
+        <li class="right" style="margin-right: 10px">
+          <a href="problem_wlasny_rownania_rozniczkowe.html" title="Problem własny w układach równań różniczkowych"
+             >dalej</a></li>
+        <li class="right" >
+          <a href="problem_wlasny_definicja.html" title="Problem własny operatora liniowego"
+             >wstecz</a> &nbsp; &nbsp;</li>
+  <li><a href="http://visual.icse.us.edu.pl/LA/index.html">Algebra Liniowa</a> &raquo;</li>
+   
+      </ul>
+    </div>
+  </div>
+  
+  <div class="footer">
+    <a class="logo" href="../../icse.us.edu.pl/index.html" target="_blank"><img src="_static/logo-icse.png" alt="ICSE"/></a><br/>
+    &copy; Copyright 2013, Marcin Kostur.
+    Created using <a href="http://sphinx.pocoo.org/">Sphinx</a> 1.2.2.
+  </div>
+  </body>
+</html>

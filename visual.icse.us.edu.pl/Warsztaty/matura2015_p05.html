@@ -1,0 +1,186 @@
+
+
+  <!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+  "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+
+
+<html xmlns="http://www.w3.org/1999/xhtml">
+  <head>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    
+    <title>Zadanie 5 - jak implicit_plot pomoże graficznie zinterpretować rozwiązania układu równań &mdash; Warsztaty</title>
+    
+    <link rel="stylesheet" href="_static/cloud.css" type="text/css" />
+    <link rel="stylesheet" href="_static/pygments.css" type="text/css" />
+    <link rel="stylesheet" href="http://fonts.googleapis.com/css?family=Noticia+Text|Open+Sans|Droid+Sans+Mono&subset=latin,latin-ext" type="text/css" />
+    
+    <script type="text/javascript">
+      var DOCUMENTATION_OPTIONS = {
+        URL_ROOT:    './',
+        VERSION:     'I',
+        COLLAPSE_INDEX: false,
+        FILE_SUFFIX: '.html',
+        HAS_SOURCE:  true
+      };
+    </script>
+    <script type="text/javascript" src="_static/jquery.js"></script>
+    <script type="text/javascript" src="_static/underscore.js"></script>
+    <script type="text/javascript" src="_static/doctools.js"></script>
+    <script type="text/javascript" src="_static/translations.js"></script>
+    <script type="text/javascript" src="http://cdn.mathjax.org/mathjax/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML"></script>
+    <script type="text/javascript" src="_static/jquery.cookie.js"></script>
+    <script type="text/javascript" src="_static/cloud.js"></script>
+
+
+
+    <script src="http://sagecell.icse.us.edu.pl:6363/static/jquery.min.js"></script>
+	<script src="http://sagecell.icse.us.edu.pl:6363/static/embedded_sagecell.js"></script>
+
+	<script>sagecell.makeSagecell({inputLocation: ".sage",
+                                       evalButtonText: 'Wykonaj',
+                                       linked: true});</script>
+
+	<style type="text/css">
+		.sagecell .CodeMirror-scroll {
+			overflow-y: hidden;
+			overflow-x: auto;
+		}
+		.sagecell .CodeMirror {
+			height: auto;
+		}
+	</style>
+
+    
+    <link rel="top" title="Warsztaty" href="index.html" />
+    <link rel="up" title="Zadania z Matury 2015 z komputerem" href="matura.html" />
+    <link rel="next" title="Zadanie 7 - o tym jak nakłonić funkcję plot do współpracy" href="matura2015_p07.html" />
+    <link rel="prev" title="Zadanie 4 - o tym jak solve wykona pracę za nas i kiedy nas zawiedzie" href="matura2015_p04.html" />
+ 
+  <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, minimum-scale=1">
+  </head>
+  <body>
+  <div class="relbar-top">
+    
+    <div class="related">
+      <h3>Nawigacja</h3>
+      <ul>
+        <li class="right" style="margin-right: 10px">
+          <a href="matura2015_p07.html" title="Zadanie 7 - o tym jak nakłonić funkcję plot do współpracy"
+             accesskey="N">dalej</a></li>
+        <li class="right" >
+          <a href="matura2015_p04.html" title="Zadanie 4 - o tym jak solve wykona pracę za nas i kiedy nas zawiedzie"
+             accesskey="P">wstecz</a> &nbsp; &nbsp;</li>
+  <li><a href="index.html">Warsztaty</a> &raquo;</li>
+  
+          <li><a href="matura.html" accesskey="U">Zadania z Matury 2015 <em>z komputerem</em></a> &raquo;</li> 
+      </ul>
+    </div>
+  </div>
+  
+  <div class="content">  
+
+    <div class="document">
+      <div class="documentwrapper">
+        <div class="bodywrapper">
+          <div class="body">
+            
+  <div class="section" id="zadanie-5-jak-implicit-plot-pomoze-graficznie-zinterpretowac-rozwiazania-ukladu-rownan">
+<h1>Zadanie 5 - jak <cite>implicit_plot</cite> pomoże  graficznie zinterpretować rozwiązania  układu równań<a class="headerlink" href="matura2015_p05.html#zadanie-5-jak-implicit-plot-pomoze-graficznie-zinterpretowac-rozwiazania-ukladu-rownan" title="Stały odnośnik do tego nagłówka">¶</a></h1>
+<p>Pytanie jest o liczbę rozwiązań układu równań. Ponownie możemy uzyskać
+odpowiedź od systemu rozkazując komputerowi rozwiązać nasz układ:</p>
+<div class='sage'><script type='text/x-sage'>var('x,y,m')
+solve( [x-y==3,2*x+0.5*y==4],[x,y])</script></div><p>Jednak ponieważ nie potrzebne są nam wartości pierwiastków tego układu
+równań, to możemy posłużyć się metodą graficzną! Rozwiązania układu
+równań to miejsca przecięć się wykresów obu krzywych. Narysujmy
+wykresy i zobaczmy czy udzielimy na podstawie ich oględzin poprawne
+odpowiedzi:</p>
+<div class='sage'><script type='text/x-sage'>var('x,y')
+p = implicit_plot(x-y==3,(x,-3,3),(y,-3,3))
+p += implicit_plot(2*x+0.5*y==4,(x,-3,3),(y,-3,3),color='red')
+p.show()</script></div><div class="admonition-dlaczego-code-implicit-plot admonition">
+<p class="first admonition-title">Dlaczego <tt class="code docutils literal"><span class="pre">implicit_plot</span></tt>?</p>
+<p><tt class="code docutils literal"><span class="pre">implicit_plot</span></tt> jest narzędziem do rysowania tak zwanych
+funkcji uwikłanych, czyli w postaci <span class="math">\(F(x,y)==0\)</span>. &#8220;Pod maską&#8221;
+jest to o wiele bardziej złożona machineria od zwykłego <cite>plot</cite>, ale
+dla nas ma on pewne zalety. Po pierwsze nie musimy rozwiązywać
+równania na <span class="math">\(y\)</span>. Po drugie mamy pewność, że wykres nie
+wyjdzie z zadanego obszaru. Implicit plot potrafi narysować też
+krzywe które nie są wykresami funkcji. Sprawdź sam, na przykad
+rysując okrąg <span class="math">\(x^2+y^2==1\)</span> lub prostą <span class="math">\(x==0\)</span>.</p>
+<dl class="last docutils">
+<dt><tt class="code docutils literal"><span class="pre">plot(</span> <span class="pre">f(x),(x,x1,x2))</span></tt> rysujące wykres <span class="math">\(f(x)\)</span> w</dt>
+<dd>przedziale <span class="math">\(x\in(x_1,x_2)\)</span>. Zakresy osi <span class="math">\(y\)</span>
+ustalane są automatycznie.</dd>
+</dl>
+</div>
+<p>Czy możemy użyć zwykłego <tt class="code docutils literal"><span class="pre">plot</span></tt>?</p>
+<p>Oczywiście! Rozwiążmy oba równania ze względu na <span class="math">\(y\)</span>:</p>
+<div class='sage'><script type='text/x-sage'>var('x,y')
+show( solve(x-y==3,y) )
+show( solve(2*x+0.5*y==4 ,y) )</script></div><p>Teraz możemy narysować funkcję standardową procedurą rysującą wykresy
+funkcji jednej zmiennej:</p>
+<div class='sage'><script type='text/x-sage'>p = plot(x-3,(x,-3,3))
+p += plot(-4*x+8,(x,-3,3),color='red')
+p.show()</script></div><p>Ale zaraz! Wyszły inne wykresy! A może się nam to wydaje? Zmieńmy
+zakres wartości funkcji na taki jak po pierwszym przypadku i bedzie to
+samo. Wystarczy zmienić przedostatnią linijke na:</p>
+<div class="highlight-python"><div class="highlight"><pre><span class="n">p</span> <span class="o">+=</span> <span class="n">plot</span><span class="p">(</span><span class="o">-</span><span class="mi">4</span><span class="o">*</span><span class="n">x</span><span class="o">+</span><span class="mi">8</span><span class="p">,(</span><span class="n">x</span><span class="p">,</span><span class="o">-</span><span class="mi">3</span><span class="p">,</span><span class="mi">3</span><span class="p">),</span><span class="n">color</span><span class="o">=</span><span class="s">&#39;red&#39;</span><span class="p">,</span><span class="n">ymax</span><span class="o">=</span><span class="mi">3</span><span class="p">,</span><span class="n">ymin</span><span class="o">=-</span><span class="mi">3</span><span class="p">,</span><span class="n">aspect_ratio</span><span class="o">=</span><span class="mi">1</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+
+
+          </div>
+        </div>
+      </div>
+      <div class="sphinxsidebar">
+        <div class="sphinxsidebarwrapper">
+  <h4>Poprzedni temat</h4>
+  <p class="topless"><a href="matura2015_p04.html"
+                        title="poprzedni rozdział">Zadanie 4 - o tym jak <tt class="code docutils literal"><span class="pre">solve</span></tt> wykona pracę za nas i kiedy nas zawiedzie</a></p>
+  <h4>Następny temat</h4>
+  <p class="topless"><a href="matura2015_p07.html"
+                        title="następny rozdział">Zadanie 7 - o tym jak nakłonić funkcję <tt class="code docutils literal"><span class="pre">plot</span></tt> do współpracy</a></p>
+<div id="searchbox" style="display: none">
+  <h3>Szybkie wyszukiwanie</h3>
+    <form class="search" action="http://visual.icse.us.edu.pl/Warsztaty/search.html" method="get">
+      <input type="text" name="q" />
+      <input type="submit" value="Szukaj" />
+      <input type="hidden" name="check_keywords" value="yes" />
+      <input type="hidden" name="area" value="default" />
+    </form>
+    <p class="searchtip" style="font-size: 90%">
+    Wprowadź szukany termin lub nazwę modułu, klasy lub funkcji.
+    </p>
+</div>
+<script type="text/javascript">$('#searchbox').show(0);</script>
+        </div>
+      </div>
+      <div class="clearer"></div>
+    </div>
+  </div>
+  <div class="relbar-bottom">
+    
+    <div class="related">
+      <h3>Nawigacja</h3>
+      <ul>
+        <li class="right" style="margin-right: 10px">
+          <a href="matura2015_p07.html" title="Zadanie 7 - o tym jak nakłonić funkcję plot do współpracy"
+             >dalej</a></li>
+        <li class="right" >
+          <a href="matura2015_p04.html" title="Zadanie 4 - o tym jak solve wykona pracę za nas i kiedy nas zawiedzie"
+             >wstecz</a> &nbsp; &nbsp;</li>
+  <li><a href="index.html">Warsztaty</a> &raquo;</li>
+  
+          <li><a href="matura.html" >Zadania z Matury 2015 <em>z komputerem</em></a> &raquo;</li> 
+      </ul>
+    </div>
+  </div>
+  
+  <div class="footer">
+    <a class="logo" href="../../icse.us.edu.pl/index.html" target="_blank"><img src="_static/logo-icse.png" alt="ICSE"/></a><br/>
+    &copy; Copyright 2013, CubeProject.
+    Created using <a href="http://sphinx.pocoo.org/">Sphinx</a> 1.2.2.
+  </div>
+  </body>
+</html>

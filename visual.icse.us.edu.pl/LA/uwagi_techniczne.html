@@ -1,0 +1,171 @@
+
+
+  <!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+  "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+
+
+<html xmlns="http://www.w3.org/1999/xhtml">
+  <head>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    
+    <title>Uwagi techniczne &mdash; Algebra Liniowa</title>
+    
+    <link rel="stylesheet" href="_static/cloud.css" type="text/css" />
+    <link rel="stylesheet" href="_static/pygments.css" type="text/css" />
+    <link rel="stylesheet" href="http://fonts.googleapis.com/css?family=Noticia+Text|Open+Sans|Droid+Sans+Mono&subset=latin,latin-ext" type="text/css" />
+    
+    <script type="text/javascript">
+      var DOCUMENTATION_OPTIONS = {
+        URL_ROOT:    './',
+        VERSION:     'I',
+        COLLAPSE_INDEX: false,
+        FILE_SUFFIX: '.html',
+        HAS_SOURCE:  true
+      };
+    </script>
+    <script type="text/javascript" src="_static/jquery.js"></script>
+    <script type="text/javascript" src="_static/underscore.js"></script>
+    <script type="text/javascript" src="_static/doctools.js"></script>
+    <script type="text/javascript" src="_static/translations.js"></script>
+    <script type="text/javascript" src="http://cdn.mathjax.org/mathjax/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML"></script>
+    <script type="text/javascript" src="_static/jquery.cookie.js"></script>
+    <script type="text/javascript" src="_static/cloud.js"></script>
+
+	<script src="http://sagecell.icse.us.edu.pl:6363/static/jquery.min.js"></script>
+	<script src="http://sagecell.icse.us.edu.pl:6363/static/embedded_sagecell.js"></script>
+
+	<!-- <script src="http://sagecell.sagemath.org/static/jquery.min.js"></script> -->
+	<!-- <script src="http://sagecell.sagemath.org/static/embedded_sagecell.js"></script> -->
+
+	<script>sagecell.makeSagecell({inputLocation: ".sage",
+                                       evalButtonText: 'Wykonaj',
+                                       linked: true});</script>
+
+	<style type="text/css">
+		.sagecell .CodeMirror-scroll {
+			overflow-y: hidden;
+			overflow-x: auto;
+		}
+		.sagecell .CodeMirror {
+			height: auto;
+		}
+	</style>
+
+    
+    <link rel="top" title="Algebra Liniowa" href="http://visual.icse.us.edu.pl/LA/index.html" />
+    <link rel="next" title="Podstawowe pojęcia i oznaczenia" href="podstawowe_pojecia.html" />
+    <link rel="prev" title="Wykłady z Algebry Liniowej" href="http://visual.icse.us.edu.pl/LA/index.html" />
+ 
+  <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, minimum-scale=1">
+  </head>
+  <body>
+  <div class="relbar-top">
+    
+    <div class="related">
+      <h3>Nawigacja</h3>
+      <ul>
+        <li class="right" style="margin-right: 10px">
+          <a href="podstawowe_pojecia.html" title="Podstawowe pojęcia i oznaczenia"
+             accesskey="N">dalej</a></li>
+        <li class="right" >
+          <a href="http://visual.icse.us.edu.pl/LA/index.html" title="Wykłady z Algebry Liniowej"
+             accesskey="P">wstecz</a> &nbsp; &nbsp;</li>
+  <li><a href="http://visual.icse.us.edu.pl/LA/index.html">Algebra Liniowa</a> &raquo;</li>
+   
+      </ul>
+    </div>
+  </div>
+  
+  <div class="content">  
+
+    <div class="document">
+      <div class="documentwrapper">
+        <div class="bodywrapper">
+          <div class="body">
+            
+  <div class="section" id="uwagi-techniczne">
+<h1>Uwagi techniczne<a class="headerlink" href="uwagi_techniczne.html#uwagi-techniczne" title="Stały odnośnik do tego nagłówka">¶</a></h1>
+<p>Komórki Sage&#8217;a uruchamiane przyciskiem &#8220;Wykonaj&#8221; są ze sobą powiązane (linked) w tym sensie,
+że obiekty, wprowadzone w danej komórce są dostępne w komórkach następnych.
+Pozwala to na przykład wywołać funkcję zdefiniowaną w poprzedniej komórce.</p>
+<p>Napis &#8220;Wykonaj&#8221; odróżnia komórki z tą dodatkową funkcjonalnością od komórek standardowych,
+które jej nie posiadają. Dla jednolitości można oczywiście zastąpić go przez &#8220;Evaluate&#8221;.</p>
+<p>Dla ilustracji rozważmy procedurę wypisującą układ równań liniowych,
+zadany przez macierz kwadratową <span class="math">\(\ \boldsymbol{A}\ \)</span> stopnia <span class="math">\(\ n\ \)</span>
+i  kolumnę  wolnych  wyrazów  <span class="math">\(\ \boldsymbol{b}:\)</span></p>
+<div class='sage'><script type='text/x-sage'>def display_set_of_lin_eqns(n, A, b):
+
+    x = vector([var('x%d'%i) for i in range(1,n+1)])
+
+    t = ["\ " + latex(l) + " & \!\! = & \!\! " +
+    latex(r) for (l,r) in zip(A*x,b)]
+
+    html("$\\left\{\\begin{array}{rcr} %s \\end{array}\\right.$"
+    % join(t," \\\ "))
+
+    return</script></div><p>Procedura może być teraz wywołana w następnej komórce:</p>
+<div class='sage'><script type='text/x-sage'>n = 4
+
+A = random_matrix(ZZ, n, algorithm='echelonizable', upper_bound=6, rank=n)
+b = random_vector(ZZ, n, x=-5, y=6)
+
+try: display_set_of_lin_eqns(n, A, b)
+except NameError: html("Wykonaj kod w poprzedniej komórce!")</script></div><p>To powiązanie komórek ma zastosowanie w sekcji Geometria układów równań liniowych.
+Zdefiniowana jest tam funkcja <tt class="docutils literal"><span class="pre">verse3column()</span></tt>, zapisująca dany układ trzech równań w postaci kolumnowej.
+Funkcja ta jest potem wywołana w następnej komórce dla konkretnych argumentów.</p>
+</div>
+
+
+          </div>
+        </div>
+      </div>
+      <div class="sphinxsidebar">
+        <div class="sphinxsidebarwrapper">
+  <h4>Poprzedni temat</h4>
+  <p class="topless"><a href="http://visual.icse.us.edu.pl/LA/index.html"
+                        title="poprzedni rozdział">Wykłady z Algebry Liniowej</a></p>
+  <h4>Następny temat</h4>
+  <p class="topless"><a href="podstawowe_pojecia.html"
+                        title="następny rozdział">Podstawowe pojęcia i oznaczenia</a></p>
+<div id="searchbox" style="display: none">
+  <h3>Szybkie wyszukiwanie</h3>
+    <form class="search" action="search.html" method="get">
+      <input type="text" name="q" />
+      <input type="submit" value="Szukaj" />
+      <input type="hidden" name="check_keywords" value="yes" />
+      <input type="hidden" name="area" value="default" />
+    </form>
+    <p class="searchtip" style="font-size: 90%">
+    Wprowadź szukany termin lub nazwę modułu, klasy lub funkcji.
+    </p>
+</div>
+<script type="text/javascript">$('#searchbox').show(0);</script>
+        </div>
+      </div>
+      <div class="clearer"></div>
+    </div>
+  </div>
+  <div class="relbar-bottom">
+    
+    <div class="related">
+      <h3>Nawigacja</h3>
+      <ul>
+        <li class="right" style="margin-right: 10px">
+          <a href="podstawowe_pojecia.html" title="Podstawowe pojęcia i oznaczenia"
+             >dalej</a></li>
+        <li class="right" >
+          <a href="http://visual.icse.us.edu.pl/LA/index.html" title="Wykłady z Algebry Liniowej"
+             >wstecz</a> &nbsp; &nbsp;</li>
+  <li><a href="http://visual.icse.us.edu.pl/LA/index.html">Algebra Liniowa</a> &raquo;</li>
+   
+      </ul>
+    </div>
+  </div>
+  
+  <div class="footer">
+    <a class="logo" href="../../icse.us.edu.pl/index.html" target="_blank"><img src="_static/logo-icse.png" alt="ICSE"/></a><br/>
+    &copy; Copyright 2013, Marcin Kostur.
+    Created using <a href="http://sphinx.pocoo.org/">Sphinx</a> 1.2.2.
+  </div>
+  </body>
+</html>

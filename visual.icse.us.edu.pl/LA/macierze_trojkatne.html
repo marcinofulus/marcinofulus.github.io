@@ -1,0 +1,198 @@
+
+
+  <!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+  "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+
+
+<html xmlns="http://www.w3.org/1999/xhtml">
+  <head>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    
+    <title>Macierze trójkątne &mdash; Algebra Liniowa</title>
+    
+    <link rel="stylesheet" href="_static/cloud.css" type="text/css" />
+    <link rel="stylesheet" href="_static/pygments.css" type="text/css" />
+    <link rel="stylesheet" href="http://fonts.googleapis.com/css?family=Noticia+Text|Open+Sans|Droid+Sans+Mono&subset=latin,latin-ext" type="text/css" />
+    
+    <script type="text/javascript">
+      var DOCUMENTATION_OPTIONS = {
+        URL_ROOT:    './',
+        VERSION:     'I',
+        COLLAPSE_INDEX: false,
+        FILE_SUFFIX: '.html',
+        HAS_SOURCE:  true
+      };
+    </script>
+    <script type="text/javascript" src="_static/jquery.js"></script>
+    <script type="text/javascript" src="_static/underscore.js"></script>
+    <script type="text/javascript" src="_static/doctools.js"></script>
+    <script type="text/javascript" src="_static/translations.js"></script>
+    <script type="text/javascript" src="http://cdn.mathjax.org/mathjax/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML"></script>
+    <script type="text/javascript" src="_static/jquery.cookie.js"></script>
+    <script type="text/javascript" src="_static/cloud.js"></script>
+
+	<script src="http://sagecell.icse.us.edu.pl:6363/static/jquery.min.js"></script>
+	<script src="http://sagecell.icse.us.edu.pl:6363/static/embedded_sagecell.js"></script>
+
+	<!-- <script src="http://sagecell.sagemath.org/static/jquery.min.js"></script> -->
+	<!-- <script src="http://sagecell.sagemath.org/static/embedded_sagecell.js"></script> -->
+
+	<script>sagecell.makeSagecell({inputLocation: ".sage",
+                                       evalButtonText: 'Wykonaj',
+                                       linked: true});</script>
+
+	<style type="text/css">
+		.sagecell .CodeMirror-scroll {
+			overflow-y: hidden;
+			overflow-x: auto;
+		}
+		.sagecell .CodeMirror {
+			height: auto;
+		}
+	</style>
+
+    
+    <link rel="top" title="Algebra Liniowa" href="http://visual.icse.us.edu.pl/LA/index.html" />
+    <link rel="next" title="Rozkład LU" href="rozklad_LU.html" />
+    <link rel="prev" title="Macierze permutacji" href="macierze_permutacji.html" />
+ 
+  <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, minimum-scale=1">
+  </head>
+  <body>
+  <div class="relbar-top">
+    
+    <div class="related">
+      <h3>Nawigacja</h3>
+      <ul>
+        <li class="right" style="margin-right: 10px">
+          <a href="rozklad_LU.html" title="Rozkład LU"
+             accesskey="N">dalej</a></li>
+        <li class="right" >
+          <a href="macierze_permutacji.html" title="Macierze permutacji"
+             accesskey="P">wstecz</a> &nbsp; &nbsp;</li>
+  <li><a href="http://visual.icse.us.edu.pl/LA/index.html">Algebra Liniowa</a> &raquo;</li>
+   
+      </ul>
+    </div>
+  </div>
+  
+  <div class="content">  
+
+    <div class="document">
+      <div class="documentwrapper">
+        <div class="bodywrapper">
+          <div class="body">
+            
+  <div class="section" id="macierze-trojkatne">
+<h1>Macierze trójkątne<a class="headerlink" href="macierze_trojkatne.html#macierze-trojkatne" title="Stały odnośnik do tego nagłówka">¶</a></h1>
+<p>Jeżeli w macierzy <span class="math">\(\,\boldsymbol{L}=[l_{ij}]_{n\times n}\in M_n(K)\,\)</span>
+wszystkie elementy powyżej głównej przekątnej są równe zeru,
+czyli <span class="math">\(\,l_{ij}=0\ \)</span> dla <span class="math">\(\ i&lt;j,\ \)</span> <span class="math">\(\ i,j=1,2,\dots,n\,,\ \)</span>
+to <span class="math">\(\,\boldsymbol{L}\,\)</span> nazywamy <em>dolną macierzą trójkątną</em>.</p>
+<p>Odpowiednio, w <em>górnej macierzy trójkątnej</em> <span class="math">\(\,\boldsymbol{U}=[u_{ij}]_{n\times n}\in M_n(K)\,\)</span>
+znikają wszystkie elementy poniżej głównej przekątnej, czyli
+<span class="math">\(\,u_{ij}=0\ \ \text{dla}\ \ i&gt;j,\ \ i,j=1,2,\dots,n\,.\)</span></p>
+<p>Dla przykładu, przy <span class="math">\(\,n=4\,\)</span> ogólna postać tych macierzy jest następująca:</p>
+<div class="math" id="equation-MLU">
+<span class="eqno">(1)</span>\[\begin{split}\boldsymbol{L}\ =\
+\left[\begin{array}{cccc} l_{11} &amp;    0   &amp;    0   &amp;    0   \\
+                          l_{21} &amp; l_{22} &amp;    0   &amp;    0   \\
+                          l_{31} &amp; l_{32} &amp; l_{33} &amp;    0   \\
+                          l_{41} &amp; l_{42} &amp; l_{43} &amp; l_{44} \end{array}\right]\,,
+\qquad
+\boldsymbol{U}\ =\
+\left[\begin{array}{cccc} u_{11} &amp; u_{12} &amp; u_{13} &amp; u_{14} \\
+                             0   &amp; u_{22} &amp; u_{23} &amp; u_{24} \\
+                             0   &amp;    0   &amp; u_{33} &amp; u_{34} \\
+                             0   &amp;    0   &amp;    0   &amp; u_{44} \end{array}\right]\,.\end{split}\]</div>
+<p><strong>Własności macierzy trójkątnych.</strong></p>
+<ul class="simple">
+<li>Suma dwóch dolnych macierzy trójkątnych jest dolną macierzą trójkątną.</li>
+<li>Pomnożenie dolnej macierzy trójkątnej przez liczbę daje dolną macierz trójkątną.</li>
+<li>Iloczyn dwóch dolnych macierzy trójkątnych jest dolną macierzą trójkątną.</li>
+<li>Odwrotność odwracalnej dolnej macierzy trójkątnej jest dolną macierzą trójkątną.</li>
+</ul>
+<p>Analogiczne własności mają górne macierze trójkątne.
+Wobec tego zarówno dolne, jak i górne macierze trójkątne tworzą podalgebrę
+algebry macierzy kwadratowych stopnia <span class="math">\(\,n\,\)</span> nad <span class="math">\(\,K.\)</span></p>
+<p>Układ równań liniowych o kwadratowej macierzy współczynników <span class="math">\(\boldsymbol{A}\,\)</span>
+można łatwo rozwiązać, gdy <span class="math">\(\,\boldsymbol{A}\,\)</span> jest dolną albo górną macierzą trójkątną.
+Dla przykładu rozważmy układ o macierzy <span class="math">\(\,\boldsymbol{L}\,\)</span> z równania <a href="macierze_trojkatne.html#equation-MLU">(1)</a>
+przy założeniu, że <span class="math">\(\ l_{ii}\neq 0,\ \ i=1,2,3,4\,:\)</span></p>
+<div class="math">
+\[\begin{alignat*}{5}
+l_{11}\,x_1 & {\,}   {\,} &             & {\,}   {\,} &             & {\,}   {\,} &             & {\ \ } = {\ \ } & b_1 \\
+l_{21}\,x_1 & {\,} + {\,} & l_{22}\,x_2 & {\,}   {\,} &             & {\,}   {\,} &             & {\ \ } = {\ \ } & b_2 \\
+l_{31}\,x_1 & {\,} + {\,} & l_{32}\,x_2 & {\,} + {\,} & l_{33}\,x_3 & {\,}   {\,} &             & {\ \ } = {\ \ } & b_3 \\
+l_{41}\,x_1 & {\,} + {\,} & l_{42}\,x_2 & {\,} + {\,} & l_{43}\,x_3 & {\,} + {\,} & l_{44}\,x_4 & {\ \ } = {\ \ } & b_4
+\end{alignat*}\]</div><p>Rozwiązanie otrzymujemy metodą podstawiania &#8220;w przód&#8221; (ang. forward substitution):</p>
+<div class="math">
+\[\begin{eqnarray*}
+x_1 & = & l_{11}^{-1}\ b_1 \\
+x_2 & = & l_{22}^{-1}\ (b_2-l_{21}\,x_1) \\
+x_3 & = & l_{33}^{-1}\ (b_3-l_{31}\,x_1-l_{32}\,x_2) \\
+x_4 & = & l_{44}^{-1}\ (b_4-l_{41}\,x_1-l_{42}\,x_2-l_{43}\,x_3)
+\end{eqnarray*}\]</div><p>Ogólnie, gdy macierz współczynników jest dolną macierzą trójkątną stopnia <span class="math">\(\,n\,\)</span>
+o niezerowych elementach diagonalnych (wtedy i tylko wtedy układ jest oznaczony), to</p>
+<div class="math">
+\[x_k\ \,=\ \,l_{kk}^{-1}\
+\left(\,b_k\ -\ \sum_{i=1}^{k-1}\ l_{ki}\,x_i\,\right)\,,\qquad
+k=1,2,\dots,n\,.\]</div>
+<p>Analogiczne postępowanie <span class="math">\(\,\)</span> - <span class="math">\(\,\)</span> podstawianie &#8220;wstecz&#8221; (backward substitution)
+<span class="math">\(\,\)</span> - <span class="math">\(\,\)</span> daje rozwiązanie układu równań liniowych z górną trójkątną macierzą współczynników. <span class="math">\(\\\)</span></p>
+</div>
+
+
+          </div>
+        </div>
+      </div>
+      <div class="sphinxsidebar">
+        <div class="sphinxsidebarwrapper">
+  <h4>Poprzedni temat</h4>
+  <p class="topless"><a href="macierze_permutacji.html"
+                        title="poprzedni rozdział">Macierze permutacji</a></p>
+  <h4>Następny temat</h4>
+  <p class="topless"><a href="rozklad_LU.html"
+                        title="następny rozdział">Rozkład LU</a></p>
+<div id="searchbox" style="display: none">
+  <h3>Szybkie wyszukiwanie</h3>
+    <form class="search" action="search.html" method="get">
+      <input type="text" name="q" />
+      <input type="submit" value="Szukaj" />
+      <input type="hidden" name="check_keywords" value="yes" />
+      <input type="hidden" name="area" value="default" />
+    </form>
+    <p class="searchtip" style="font-size: 90%">
+    Wprowadź szukany termin lub nazwę modułu, klasy lub funkcji.
+    </p>
+</div>
+<script type="text/javascript">$('#searchbox').show(0);</script>
+        </div>
+      </div>
+      <div class="clearer"></div>
+    </div>
+  </div>
+  <div class="relbar-bottom">
+    
+    <div class="related">
+      <h3>Nawigacja</h3>
+      <ul>
+        <li class="right" style="margin-right: 10px">
+          <a href="rozklad_LU.html" title="Rozkład LU"
+             >dalej</a></li>
+        <li class="right" >
+          <a href="macierze_permutacji.html" title="Macierze permutacji"
+             >wstecz</a> &nbsp; &nbsp;</li>
+  <li><a href="http://visual.icse.us.edu.pl/LA/index.html">Algebra Liniowa</a> &raquo;</li>
+   
+      </ul>
+    </div>
+  </div>
+  
+  <div class="footer">
+    <a class="logo" href="../../icse.us.edu.pl/index.html" target="_blank"><img src="_static/logo-icse.png" alt="ICSE"/></a><br/>
+    &copy; Copyright 2013, Marcin Kostur.
+    Created using <a href="http://sphinx.pocoo.org/">Sphinx</a> 1.2.2.
+  </div>
+  </body>
+</html>

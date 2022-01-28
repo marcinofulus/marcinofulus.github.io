@@ -1,0 +1,306 @@
+
+
+  <!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+  "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+
+
+<html xmlns="http://www.w3.org/1999/xhtml">
+  <head>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    
+    <title>Jądro i obraz przekształcenia liniowego &mdash; Algebra Liniowa</title>
+    
+    <link rel="stylesheet" href="_static/cloud.css" type="text/css" />
+    <link rel="stylesheet" href="_static/pygments.css" type="text/css" />
+    <link rel="stylesheet" href="http://fonts.googleapis.com/css?family=Noticia+Text|Open+Sans|Droid+Sans+Mono&subset=latin,latin-ext" type="text/css" />
+    
+    <script type="text/javascript">
+      var DOCUMENTATION_OPTIONS = {
+        URL_ROOT:    './',
+        VERSION:     'I',
+        COLLAPSE_INDEX: false,
+        FILE_SUFFIX: '.html',
+        HAS_SOURCE:  true
+      };
+    </script>
+    <script type="text/javascript" src="_static/jquery.js"></script>
+    <script type="text/javascript" src="_static/underscore.js"></script>
+    <script type="text/javascript" src="_static/doctools.js"></script>
+    <script type="text/javascript" src="_static/translations.js"></script>
+    <script type="text/javascript" src="http://cdn.mathjax.org/mathjax/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML"></script>
+    <script type="text/javascript" src="_static/jquery.cookie.js"></script>
+    <script type="text/javascript" src="_static/cloud.js"></script>
+
+	<script src="http://sagecell.icse.us.edu.pl:6363/static/jquery.min.js"></script>
+	<script src="http://sagecell.icse.us.edu.pl:6363/static/embedded_sagecell.js"></script>
+
+	<!-- <script src="http://sagecell.sagemath.org/static/jquery.min.js"></script> -->
+	<!-- <script src="http://sagecell.sagemath.org/static/embedded_sagecell.js"></script> -->
+
+	<script>sagecell.makeSagecell({inputLocation: ".sage",
+                                       evalButtonText: 'Wykonaj',
+                                       linked: true});</script>
+
+	<style type="text/css">
+		.sagecell .CodeMirror-scroll {
+			overflow-y: hidden;
+			overflow-x: auto;
+		}
+		.sagecell .CodeMirror {
+			height: auto;
+		}
+	</style>
+
+    
+    <link rel="top" title="Algebra Liniowa" href="http://visual.icse.us.edu.pl/LA/index.html" />
+    <link rel="next" title="Rozwiązania jednorodnych układów równań" href="przeksztalcenia_lin_uklady_rownan.html" />
+    <link rel="prev" title="Własności i przykłady" href="przeksztalcenia_lin_wlasnosci_i_przyklady.html" />
+ 
+  <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, minimum-scale=1">
+  </head>
+  <body>
+  <div class="relbar-top">
+    
+    <div class="related">
+      <h3>Nawigacja</h3>
+      <ul>
+        <li class="right" style="margin-right: 10px">
+          <a href="przeksztalcenia_lin_uklady_rownan.html" title="Rozwiązania jednorodnych układów równań"
+             accesskey="N">dalej</a></li>
+        <li class="right" >
+          <a href="przeksztalcenia_lin_wlasnosci_i_przyklady.html" title="Własności i przykłady"
+             accesskey="P">wstecz</a> &nbsp; &nbsp;</li>
+  <li><a href="http://visual.icse.us.edu.pl/LA/index.html">Algebra Liniowa</a> &raquo;</li>
+   
+      </ul>
+    </div>
+  </div>
+  
+  <div class="content">  
+
+    <div class="document">
+      <div class="documentwrapper">
+        <div class="bodywrapper">
+          <div class="body">
+            
+  <div class="section" id="jadro-i-obraz-przeksztalcenia-liniowego">
+<h1>Jądro i obraz przekształcenia liniowego<a class="headerlink" href="przeksztalcenia_lin_jadro_i_obraz.html#jadro-i-obraz-przeksztalcenia-liniowego" title="Stały odnośnik do tego nagłówka">¶</a></h1>
+<p>Niech <span class="math">\(\,V\ \,\text{i}\ \ W\ \)</span> będą przestrzeniami wektorowymi nad ciałem <span class="math">\(\,K.\)</span></p>
+<div class="admonition-definicja-math admonition">
+<p class="first admonition-title">Definicja. <span class="math">\(\\\)</span></p>
+<p><em>Jądro</em> (ang. kernel) przekształcenia liniowego <span class="math">\(\,F\in\text{Hom}(V,W)\ \)</span>
+jest zbiorem tych wektorów przestrzeni <span class="math">\(\,V,\ \)</span> których obrazem jest wektor zerowy
+przestrzeni <span class="math">\(\,W:\)</span></p>
+<div class="last math">
+\[\text{Ker}\,F\ :\,=\ \{\,v\in V:\ F(v)=\theta_W\}\,.\]</div>
+</div>
+<p>Jądro homomorfizmu <span class="math">\(\,F\ \)</span> można też określić jako przeciwobraz
+jednoelementowego zbioru zawierającego wektor zerowy przestrzeni
+<span class="math">\(\,W:\ \ \text{Ker}\,F\,=\,F^{\leftarrow}\{\,\theta_W\}.\)</span></p>
+<div class="admonition-definicja-math admonition">
+<p class="first admonition-title">Definicja. <span class="math">\(\\\)</span></p>
+<p><em>Obraz</em> (ang. image) przekształcenia liniowego <span class="math">\(\,F\in\text{Hom}(V,W)\ \)</span>
+jest obrazem przestrzeni <span class="math">\(\,V\ \)</span> przy odwzorowaniu <span class="math">\(\,F,\ \)</span>
+czyli zbiorem wartości odwzorowania <span class="math">\(\,F:\)</span></p>
+<div class="last math">
+\[\text{Im}\,F\ :\,=\ F(V)\ \equiv\ \{\,F(v):\ v\in V\,\}\,.\]</div>
+</div>
+<p>Oczywiście <span class="math">\(\,\text{Ker}\,F\subset V,\ \text{Im}\,F\subset W.\ \)</span> <span class="math">\(\,\)</span> Co więcej, zachodzi</p>
+<div class="admonition-twierdzenie-6-math admonition">
+<p class="first admonition-title">Twierdzenie 6. <span class="math">\(\\\)</span></p>
+<p>Jądro przekształcenia liniowego <span class="math">\(\,F\in\text{Hom}(V,W)\ \)</span>
+jest podprzestrzenią przestrzeni <span class="math">\(\,V,\ \)</span> a jego obraz <span class="math">\(\ \)</span> - <span class="math">\(\ \)</span>
+podprzestrzenią przestrzeni <span class="math">\(\,W:\)</span></p>
+<div class="last math">
+\[\begin{split}\text{Ker}\,F &lt; V,\qquad\text{Im}\,F &lt; W.\end{split}\]</div>
+</div>
+<p><strong>Dowód</strong> opiera się na kryterium dla podprzestrzeni: <span class="math">\(\,\)</span>
+podzbiór <span class="math">\(\,X\,\)</span> przestrzeni wektorowej <span class="math">\(\,V\,\)</span> nad ciałem <span class="math">\(\,K\,\)</span>
+jest podprzestrzenią wtedy i tylko wtedy, <span class="math">\(\,\)</span>
+gdy dla dowolnych dwóch wektorów z <span class="math">\(\,X\,\)</span> każda kombinacja liniowa
+tych wektorów też należy do <span class="math">\(\,X\,\)</span>.</p>
+<p>Niech więc <span class="math">\(\ \ v_1,\,v_2\in\text{Ker}\,F:\quad F(v_1)=F(v_2)=\theta_W\,.\)</span></p>
+<p>Wtedy <span class="math">\(\ \ F(a_1\,v_1+a_2\,v_2)\ =\ a_1\,F(v_1)+a_2\,F(v_2)\ =\ \theta_W\,,\\\)</span>
+co oznacza, że <span class="math">\(\ \,a_1\,v_1+a_2\,v_2\in\text{Ker}\,F\ \,\)</span>
+dla dowolnych współczynników <span class="math">\(\ a_1,a_2\in K.\ \\\)</span>
+Stwierdziliśmy w ten sposób, że <span class="math">\(\ \text{Ker}\,F &lt; V.\)</span></p>
+<p>Niech teraz <span class="math">\(\ \ w_1,\,w_2\in\text{Im}\,F.\ \ \)</span>
+Wtedy <span class="math">\(\ \ w_1=F(v_1),\ \,w_2=F(v_2)\ \,\)</span> dla pewnych <span class="math">\(\ \,v_1,v_2\in V.\)</span></p>
+<p>Wówczas dla <span class="math">\(\ b_1,b_2\in K:\ \ b_1\,w_1+\,b_2\,w_2\ =\
+b_1\,F(v_1)\,+\,b_2\,F(v_2)\ =\ F(b_1\,v_1+\,b_2\,v_2)\in\text{Im}\,F.\ \)</span>
+Wynika z tego, że <span class="math">\(\ \ \text{Im}\,F &lt; W.\)</span></p>
+<p>W tej sytuacji mają sens następujące definicje:</p>
+<div class="math">
+\[\begin{split}\begin{array}{rclcl}
+\text{def}\,F &amp; :\,= &amp; \dim\,\text{Ker}\,F &amp; \qquad\quad &amp; \text{defekt homomorfizmu}\ F \\
+\text{rz}\,F  &amp; :\,= &amp; \dim\,\text{Im}\,F  &amp; \qquad\quad &amp; \text{rząd homomorfizmu}\ F
+\end{array}\end{split}\]</div>
+<div class="admonition-twierdzenie-7 admonition">
+<p class="first admonition-title">Twierdzenie 7.</p>
+<p>Jeżeli <span class="math">\(\,F\ \)</span> jest przekształceniem liniowym przestrzeni <span class="math">\(\,V\ \)</span>
+w przestrzeń <span class="math">\(\,W,\ \)</span> to</p>
+<div class="last math" id="equation-def_rz">
+<span class="eqno">(1)</span>\[\text{def}\,F\ +\ \text{rz}\,F\ =\ \dim\,V\,.\]</div>
+</div>
+<p><strong>Dowód.</strong> <span class="math">\(\,\)</span>
+Załóżmy, że <span class="math">\(\ \text{def}\,F=k,\ \)</span> przy czym <span class="math">\(\ \mathcal{U}=(u_1,\,u_2,\,\dots,\,u_k)\ \)</span> jest bazą <span class="math">\(\ \text{Ker}\,F.\ \)</span>
+Ponieważ <span class="math">\(\,\text{Ker}\,F &lt; V,\ \,\)</span> układ  <span class="math">\(\ \mathcal{U}\ \)</span> można uzupełnić
+do bazy <span class="math">\(\ \mathcal{B}\ \)</span> całej przestrzeni <span class="math">\(\,V:\)</span></p>
+<div class="math">
+\[\mathcal{B}\ =\ (\mathcal{U},\,\mathcal{Y})\ =\
+(u_1,\,u_2,\,\dots,\,u_k,\,y_1,\,y_2,\,\dots,\,y_r).\]</div>
+<p>Przy tych oznaczeniach <span class="math">\(\ \dim\,V=\,k+r.\ \,\)</span>
+Udowodnimy, że obraz układu <span class="math">\(\,\mathcal{Y}:\)</span></p>
+<div class="math" id="equation-set_FY">
+<span class="eqno">(2)</span>\[F(\mathcal{Y})\ :\,=\ (Fy_1,\,Fy_2,\,\dots,\,Fy_r)\]</div>
+<p>jest bazą <span class="math">\(\,\text{Im}\,F.\ \,\)</span>
+Będzie to oznaczać, że <span class="math">\(\ r=\dim\,\text{Im}\,F=\text{rz}\,F,\ \,\)</span>
+co doprowadzi do tezy <a href="przeksztalcenia_lin_jadro_i_obraz.html#equation-def_rz">(1)</a>.</p>
+<ol class="arabic">
+<li><p class="first">Chcemy stwierdzić, że układ <a href="przeksztalcenia_lin_jadro_i_obraz.html#equation-set_FY">(2)</a> jest liniowo niezależny. Załóżmy że</p>
+<div class="math">
+\[c_1\,Fy_1\,+\;c_2\,Fy_2\,+\;\ldots\;+\;c_r\,Fy_r\ =\ \theta_W\,,\qquad
+c_1,\,c_2,\,\ldots,\,c_r\,\in\,K.\]</div>
+<p>Na podstawie liniowej niezależności wektorów bazy <span class="math">\(\,\mathcal{B}\ \)</span> otrzymujemy:</p>
+<div class="math">
+\[F\left(c_1\,y_1\,+\;c_2\,y_2\,+\;\ldots\;+\;c_r\,y_r\right)\ =\ \theta_W\,,\]\[c_1\,y_1\,+\;c_2\,y_2\,+\;\ldots\;+\;c_r\,y_r\ \in\ \text{Ker}\,F\,,\]\[c_1\,y_1\,+\;c_2\,y_2\,+\;\ldots\;+\;c_r\,y_r\ =\
+-\ b_1\,u_1\,-\;b_2\,u_2\,+\;\ldots\;-\ b_k\,u_k\,,\]\[b_1\,u_1\,+\;b_2\,u_2\,+\;\ldots\;+\;b_k\,u_k\ +\
+c_1\,y_1\,+\;c_2\,y_2\,+\;\ldots\;+\;c_r\,y_r\ =\ \theta_V\,,\]\[b_1=\,b_2=\;\ldots\;=\;b_k\,=\;c_1=\,c_2=\;\ldots\;=\;c_r\ =\ 0\,.\]</div>
+<p>W ten sposób została udowodniona implikacja</p>
+<div class="math">
+\[c_1\,Fy_1\,+\;c_2\,Fy_2\,+\;\ldots\;+\;c_r\,Fy_r\ =\ \theta_W
+\quad\Rightarrow\quad
+c_1\,=\,c_2\,=\,\ldots\,=\,c_r\ =\ 0\,,\]</div>
+<p>która stwierdza liniową niezależność układu <span class="math">\(\ (Fy_1,\,Fy_2,\,\dots,\,Fy_r)\)</span>.</p>
+</li>
+<li><p class="first">Aby wykazać, że układ <a href="przeksztalcenia_lin_jadro_i_obraz.html#equation-set_FY">(2)</a> generuje <span class="math">\(\,\text{Im}\,F,\ \)</span>
+rozważmy dowolny wektor <span class="math">\(\,w\in \text{Im}\,F:\)</span></p>
+<div class="math">
+\[w\ =\ F(v),\quad v=b_1\,u_1+\;\ldots\;+\;b_k\,u_k\;+\ c_1\,y_1+\;\ldots\;+\;c_r\,y_r\,.\]</div>
+<p>Biorąc pod uwagę to, że <span class="math">\(\ \,Fu_i=\theta_W,\ \,i=1,2,\dots,k,\ \,\)</span> mamy</p>
+<div class="math">
+\[\begin{eqnarray*}
+w & = & F\,(b_1\,u_1+\;\ldots\;+\;b_k\,u_k\;+\ c_1\,y_1+\;\ldots\;+\;c_r\,y_r)  \\
+  & = & b_1\,Fu_1+\;\ldots\;+\;b_k\,Fu_k\;+\ c_1\,Fy_1+\;\ldots\;+\;c_r\,Fy_r \\
+  & = & c_1\,Fy_1+\;\ldots\;+\;c_r\,Fy_r\,\in\,L(Fy_1,\dots,Fy_r)\,.
+\end{eqnarray*}\]</div><p>A zatem <span class="math">\(\ \text{Im}\,F\subset L(Fy_1,\dots,Fy_r).\ \)</span>
+Ale jednocześnie <span class="math">\(\ \text{Im}\,F\supset L(Fy_1,\dots,Fy_r),\ \)</span>
+więc <span class="math">\(\ \text{Im}\,F=L(Fy_1,\dots,Fy_r),\ \)</span> co należało tutaj wykazać.</p>
+</li>
+</ol>
+<p>Jako liniowo niezależny układ generatorów,
+układ <span class="math">\(\ (Fy_1,\dots,Fy_r)\ \)</span> jest więc bazą <span class="math">\(\ \text{Im}\,F.\ \)</span></p>
+<p>Wobec tego <span class="math">\(\ \,r=\dim\,\text{Im}\,F=\text{rz}\,F.\ \,\)</span>
+Ponieważ z oznaczenia <span class="math">\(\ \,k=\text{def}\,F,\ \,\)</span> to</p>
+<div class="math">
+\[\dim\,V\,=\,k+r\ =\ \text{def}\,F\,+\,\text{rz}\,F.\]</div>
+<p>Udowodnione właśnie Twierdzenie 7. wykorzystamy w dowodzie kryterium dla izomorfizmu
+przestrzeni wektorowych o wymiarach skończonych.</p>
+<div class="admonition-twierdzenie-8-math admonition">
+<p class="first admonition-title">Twierdzenie 8. <span class="math">\(\\\)</span></p>
+<p>Dwie skończenie wymiarowe przestrzenie wektorowe nad ciałem <span class="math">\(\,K\ \)</span>
+są izomorficzne wtedy i tylko wtedy, gdy są tego samego wymiaru:</p>
+<div class="last math">
+\[V\,\simeq\,W\qquad\Leftrightarrow\qquad\dim\,V\,=\,\dim\,W\,.\]</div>
+</div>
+<p><strong>Dowód.</strong></p>
+<p><span class="math">\(\Rightarrow\ :\ \)</span> Zakładamy, że przestrzenie <span class="math">\(\ V\ \,\text{i}\ \ W\ \)</span>
+są izomorficzne: <span class="math">\(\ V\simeq W,\ \,\text{czyli}\ \ \text{Izo}(V,W)\neq\emptyset.\)</span></p>
+<p>Niech <span class="math">\(\ F\ \)</span> będzie izomorfizmem przestrzeni <span class="math">\(\ V\ \)</span> na <span class="math">\(\ W.\ \,\)</span>
+Ponieważ izomorfizm jest bijekcją, to każdemu wektorowi <span class="math">\(\,w\in W\,\)</span> odpowiada
+dokładnie jeden wektor <span class="math">\(\,v\in V,\ \)</span> którego <span class="math">\(\,w\ \)</span> jest obrazem.
+W szczególności, wektor zerowy <span class="math">\(\ \theta_W\ \)</span>
+jest obrazem tylko wektora zerowego <span class="math">\(\ \theta_V.\\\)</span>
+To oznacza, że <span class="math">\(\ \text{Ker}\,F=\{\,\theta_V\},\ \)</span>
+wobec czego <span class="math">\(\ \text{def}\,F=\,\dim\,\text{Ker}\,F=0.\)</span></p>
+<p>Z drugiej strony, <span class="math">\(\ F\ \)</span> jest surjekcją: <span class="math">\(\ F(V)=\text{Im}\,F=W,\ \,\)</span>
+skąd <span class="math">\(\ \text{rz}\,F=\dim\,\text{Im}\,F=\,\dim\,W.\ \)</span></p>
+<p>Stosując Twierdzenie 7. otrzymujemy:</p>
+<div class="math">
+\[\dim\,V=\,\text{def}\,F+\,\text{rz}\,F\,=\,0+\dim\,W\,=\,\dim\,W.\]</div>
+<p><span class="math">\(\Leftarrow\ :\ \)</span> Niech <span class="math">\(\ \,\dim\,V=\,\dim\,W=n.\)</span></p>
+<p>Oznacza to, że każda baza przestrzeni <span class="math">\(\,V\ \,\text{i}\ \ W\ \)</span> liczy <span class="math">\(\,n\ \)</span> elementów.
+Załóżmy, że układ <span class="math">\(\ \mathcal{B}=(v_1,v_2,\,\dots,\,v_n)\ \)</span> jest bazą przestrzeni <span class="math">\(\,V,\ \)</span>
+a <span class="math">\(\ \ \mathcal{C}=(w_1,w_2,\,\dots,\,w_n)\ \)</span> <span class="math">\(\,\)</span> - <span class="math">\(\,\)</span>
+bazą przestrzeni <span class="math">\(\,W.\ \)</span>
+Wykorzystując wniosek z Twierdzenia 5.
+definiujemy przekształcenie liniowe <span class="math">\(\,F:\,V\rightarrow W\ \)</span>
+określając obrazy wektorów bazy <span class="math">\(\ \mathcal{B}:\)</span></p>
+<div class="math">
+\[F(v_i)\ :\,=\ w_i\,,\qquad i=1,2,\dots,n.\]</div>
+<p>Wtedy obraz dowolnego wektora <span class="math">\(\ \,v = \displaystyle\sum_{i\,=\,1}^n\ a_i\,v_i \in V\ \,\)</span>
+dany jest przez</p>
+<div class="math">
+\[F\left(\,\sum_{i\,=\,1}^n\ a_i\,v_i\right)\ \ =\ \
+\sum_{i\,=\,1}^n\ a_i\,Fv_i\ \ =\ \
+\sum_{i\,=\,1}^n\ a_i\,w_i\,.\]</div>
+<p>Przy przekształceniu <span class="math">\(F\,\)</span> obrazem wektora przestrzeni <span class="math">\(V\,\)</span>
+o współrzędnych (w bazie <span class="math">\(\mathcal{B}\)</span>) <span class="math">\(\,a_1,\,a_2,\,\dots,\,a_n\,,\ \,\)</span>
+jest więc wektor przestrzeni <span class="math">\(\,W\ \)</span> o tych samych współrzędnych
+w bazie <span class="math">\(\,\mathcal{C}.\)</span></p>
+<p>Ponieważ przy ustalonej bazie odpowiedniość pomiędzy wektorami i układami ich współrzędnych jest
+wzajemnie jednoznaczna, to <span class="math">\(\,F\ \)</span> jest bijekcją, a więc izomorfizmem:
+<span class="math">\(\,F\in\text{Izo}\,(V,W).\ \)</span>
+Skoro zaś <span class="math">\(\,\text{Izo}(V,W)\neq\emptyset,\ \ \text{to}\ \ V\simeq W.\)</span></p>
+<p>Izomorficzne przestrzenie mogą składać się z różnych obiektów, ale mają tę samą strukturę, są więc matematycznie równoważne.</p>
+<div class="admonition-wniosek admonition">
+<p class="first admonition-title">Wniosek.</p>
+<p class="last">Wszystkie <span class="math">\(\,n\)</span>-wymiarowe przestrzenie wektorowe nad ciałem <span class="math">\(\,K\ \)</span>
+są izomorficzne z przestrzenią <span class="math">\(\,K^n.\)</span></p>
+</div>
+</div>
+
+
+          </div>
+        </div>
+      </div>
+      <div class="sphinxsidebar">
+        <div class="sphinxsidebarwrapper">
+  <h4>Poprzedni temat</h4>
+  <p class="topless"><a href="przeksztalcenia_lin_wlasnosci_i_przyklady.html"
+                        title="poprzedni rozdział">Własności i przykłady</a></p>
+  <h4>Następny temat</h4>
+  <p class="topless"><a href="przeksztalcenia_lin_uklady_rownan.html"
+                        title="następny rozdział">Rozwiązania jednorodnych układów równań</a></p>
+<div id="searchbox" style="display: none">
+  <h3>Szybkie wyszukiwanie</h3>
+    <form class="search" action="search.html" method="get">
+      <input type="text" name="q" />
+      <input type="submit" value="Szukaj" />
+      <input type="hidden" name="check_keywords" value="yes" />
+      <input type="hidden" name="area" value="default" />
+    </form>
+    <p class="searchtip" style="font-size: 90%">
+    Wprowadź szukany termin lub nazwę modułu, klasy lub funkcji.
+    </p>
+</div>
+<script type="text/javascript">$('#searchbox').show(0);</script>
+        </div>
+      </div>
+      <div class="clearer"></div>
+    </div>
+  </div>
+  <div class="relbar-bottom">
+    
+    <div class="related">
+      <h3>Nawigacja</h3>
+      <ul>
+        <li class="right" style="margin-right: 10px">
+          <a href="przeksztalcenia_lin_uklady_rownan.html" title="Rozwiązania jednorodnych układów równań"
+             >dalej</a></li>
+        <li class="right" >
+          <a href="przeksztalcenia_lin_wlasnosci_i_przyklady.html" title="Własności i przykłady"
+             >wstecz</a> &nbsp; &nbsp;</li>
+  <li><a href="http://visual.icse.us.edu.pl/LA/index.html">Algebra Liniowa</a> &raquo;</li>
+   
+      </ul>
+    </div>
+  </div>
+  
+  <div class="footer">
+    <a class="logo" href="../../icse.us.edu.pl/index.html" target="_blank"><img src="_static/logo-icse.png" alt="ICSE"/></a><br/>
+    &copy; Copyright 2013, Marcin Kostur.
+    Created using <a href="http://sphinx.pocoo.org/">Sphinx</a> 1.2.2.
+  </div>
+  </body>
+</html>

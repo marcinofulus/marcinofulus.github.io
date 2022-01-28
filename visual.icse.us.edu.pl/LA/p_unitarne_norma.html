@@ -1,0 +1,260 @@
+
+
+  <!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+  "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+
+
+<html xmlns="http://www.w3.org/1999/xhtml">
+  <head>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    
+    <title>Norma wektora &mdash; Algebra Liniowa</title>
+    
+    <link rel="stylesheet" href="_static/cloud.css" type="text/css" />
+    <link rel="stylesheet" href="_static/pygments.css" type="text/css" />
+    <link rel="stylesheet" href="http://fonts.googleapis.com/css?family=Noticia+Text|Open+Sans|Droid+Sans+Mono&subset=latin,latin-ext" type="text/css" />
+    
+    <script type="text/javascript">
+      var DOCUMENTATION_OPTIONS = {
+        URL_ROOT:    './',
+        VERSION:     'I',
+        COLLAPSE_INDEX: false,
+        FILE_SUFFIX: '.html',
+        HAS_SOURCE:  true
+      };
+    </script>
+    <script type="text/javascript" src="_static/jquery.js"></script>
+    <script type="text/javascript" src="_static/underscore.js"></script>
+    <script type="text/javascript" src="_static/doctools.js"></script>
+    <script type="text/javascript" src="_static/translations.js"></script>
+    <script type="text/javascript" src="http://cdn.mathjax.org/mathjax/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML"></script>
+    <script type="text/javascript" src="_static/jquery.cookie.js"></script>
+    <script type="text/javascript" src="_static/cloud.js"></script>
+
+	<script src="http://sagecell.icse.us.edu.pl:6363/static/jquery.min.js"></script>
+	<script src="http://sagecell.icse.us.edu.pl:6363/static/embedded_sagecell.js"></script>
+
+	<!-- <script src="http://sagecell.sagemath.org/static/jquery.min.js"></script> -->
+	<!-- <script src="http://sagecell.sagemath.org/static/embedded_sagecell.js"></script> -->
+
+	<script>sagecell.makeSagecell({inputLocation: ".sage",
+                                       evalButtonText: 'Wykonaj',
+                                       linked: true});</script>
+
+	<style type="text/css">
+		.sagecell .CodeMirror-scroll {
+			overflow-y: hidden;
+			overflow-x: auto;
+		}
+		.sagecell .CodeMirror {
+			height: auto;
+		}
+	</style>
+
+    
+    <link rel="top" title="Algebra Liniowa" href="http://visual.icse.us.edu.pl/LA/index.html" />
+    <link rel="next" title="Ortogonalność wektorów" href="p_unitarne_ortogonalnosc.html" />
+    <link rel="prev" title="Iloczyn skalarny" href="p_unitarne_iloczyn_skalarny.html" />
+ 
+  <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, minimum-scale=1">
+  </head>
+  <body>
+  <div class="relbar-top">
+    
+    <div class="related">
+      <h3>Nawigacja</h3>
+      <ul>
+        <li class="right" style="margin-right: 10px">
+          <a href="p_unitarne_ortogonalnosc.html" title="Ortogonalność wektorów"
+             accesskey="N">dalej</a></li>
+        <li class="right" >
+          <a href="p_unitarne_iloczyn_skalarny.html" title="Iloczyn skalarny"
+             accesskey="P">wstecz</a> &nbsp; &nbsp;</li>
+  <li><a href="http://visual.icse.us.edu.pl/LA/index.html">Algebra Liniowa</a> &raquo;</li>
+   
+      </ul>
+    </div>
+  </div>
+  
+  <div class="content">  
+
+    <div class="document">
+      <div class="documentwrapper">
+        <div class="bodywrapper">
+          <div class="body">
+            
+  <div class="section" id="norma-wektora">
+<h1>Norma wektora<a class="headerlink" href="p_unitarne_norma.html#norma-wektora" title="Stały odnośnik do tego nagłówka">¶</a></h1>
+<div class="admonition-definicja admonition">
+<p class="first admonition-title">Definicja.</p>
+<div class="line-block">
+<div class="line">Niech <span class="math">\(\,V\ \)</span> będzie przestrzenią wektorową rzeczywistą albo zespoloną.</div>
+<div class="line"><em>Norma</em> w przestrzeni <span class="math">\(\,V\ \)</span> jest funkcją <span class="math">\(\,f:\,V\rightarrow R\ \)</span>
+spełniającą następujące warunki</div>
+<div class="line">(z oznaczenia <span class="math">\(\,f(x)=\| x\|,\ \ x\in V\)</span>) :</div>
+</div>
+<ol class="last arabic simple">
+<li><span class="math">\(\ \|x\|\,\geq\,0
+\qquad\land\qquad
+(\ \,\|x\|=0\quad\Leftrightarrow\quad x=\theta\ \,)\,,\)</span></li>
+<li><span class="math">\(\ \|\alpha\,x\|\ =\ |\alpha|\,\|x\|\,,\qquad
+\alpha\in R\ \ \lor\ \ \alpha\in C\,,\)</span></li>
+<li><span class="math">\(\ \|\,x+y\,\|\ \leq\ \|x\|\,+\,\|y\|\,,\qquad x,y\in V\,.\)</span></li>
+</ol>
+</div>
+<p><strong>Uwagi i komentarze.</strong></p>
+<ul>
+<li><div class="first line-block">
+<div class="line">Norma wektora jest nieujemną liczbą rzeczywistą,</div>
+<div class="line">przy czym jedynym wektorem o zerowej normie jest wektor zerowy.</div>
+</div>
+</li>
+<li><div class="first line-block">
+<div class="line">Pomnożenie wektora przez liczbę <span class="math">\(\,\alpha\in K\ \)</span> mnoży jego normę przez</div>
+<div class="line">wartość bezwzględną <span class="math">\(\,\alpha\ \)</span> (gdy <span class="math">\(\,K=R\)</span>) <span class="math">\(\,\)</span>
+albo przez moduł <span class="math">\(\,\alpha\ \)</span> (gdy <span class="math">\(\,K=C\)</span>).</div>
+</div>
+</li>
+<li><div class="first line-block">
+<div class="line">Norma sumy dwóch wektorów jest nie większa od sumy ich norm.</div>
+<div class="line">Warunek ten nazywany jest nierównością trójkąta.</div>
+<div class="line">Jak widać, norma jest uogólnieniem długości wektora geometrycznego.</div>
+</div>
+</li>
+</ul>
+<p>Przestrzeń <span class="math">\(\,V,\ \)</span> na której jest określona norma,
+nazywa się <em>przestrzenią unormowaną</em>.</p>
+<p><strong>Przykłady.</strong></p>
+<ol class="arabic">
+<li><p class="first"><span class="math">\(\ V=R^1\,;\quad\|x\|=|x|\,,\quad x\in R\ \ \)</span> (wartość bezwzględna liczby <span class="math">\(\,x\)</span>).</p>
+</li>
+<li><p class="first"><span class="math">\(\ V=C^1\,;\quad\|z\|=|z|\,,\quad z\in C\ \ \)</span> (moduł liczby <span class="math">\(\,z\)</span>).</p>
+</li>
+<li><p class="first"><span class="math">\(\ V=R^3\,;\quad\text{dla}\ \
+x\,=\,\left[\begin{array}{c} \alpha_1 \\ \alpha_2 \\ \alpha_3 \end{array}\right] :\quad
+\|x\|\,=\,\sqrt{\alpha_1^2+\alpha_2^2+\alpha_3^2}\ .\)</span></p>
+</li>
+<li><p class="first">W przestrzeni wektorów geometrycznych normą jest długość wektora.
+Wprowadzając bazę <span class="math">\(\,\mathcal{E}=(\vec{e}_1,\vec{e}_2,\vec{e}_3)\,\)</span> w postaci trójki
+wzajemnie prostopadłych
+wektorów jednostkowych, normę wektora
+<span class="math">\(\ \vec{a}=\alpha_1\,\vec{e}_1+\alpha_2\,\vec{e}_2+\alpha_3\,\vec{e}_3\ \)</span>
+można zapisać jako</p>
+<div class="math">
+\[\|\,\vec{a}\,\|\ =\ |\,\vec{a}\,|\ =\ \sqrt{\alpha_1^2+\alpha_2^2+\alpha_3^2}\ \ =\ \
+\sqrt{\,\vec{a}\cdot\vec{a}}\ .\]</div>
+<p>Norma równa się tutaj pierwiastkowi z kwadratu skalarnego wektora.</p>
+</li>
+</ol>
+<p>Ostatni wynik, wyrażający normę przez iloczyn skalarny, można uogólnić i zastosować do dowolnej przestrzeni unitarnej (euklidesowej).</p>
+<div class="admonition-twierdzenie-2 admonition">
+<p class="first admonition-title">Twierdzenie 2.</p>
+<p>W przestrzeni unitarnej (euklidesowej) <span class="math">\(\ V\ \)</span> jako normę można przyjąć funkcję</p>
+<div class="last math" id="equation-norm">
+<span class="eqno">(1)</span>\[f(x)\ =\ \sqrt{\,\langle x,x\rangle}\ ,\qquad x\in V\,.\]</div>
+</div>
+<p><strong>Dowód</strong> polega na sprawdzeniu, że funkcja <a href="p_unitarne_norma.html#equation-norm">(1)</a> spełnia postulaty w definicji normy. <span class="math">\(\\\)</span>
+W oparciu o definicję iloczynu skalarnego stwierdzamy, że</p>
+<ol class="arabic">
+<li><p class="first"><span class="math">\(\ f(x)\ \geq 0\qquad\land\qquad[\ \,f(x)\,=\,0\quad\Leftrightarrow\quad x=\theta\ \,]\,;\)</span></p>
+</li>
+<li><p class="first"><span class="math">\(\ f(\alpha\,x)\ \,=\ \,\sqrt{\,\langle\alpha\,x,\,\alpha\,x\rangle}\ \,=\ \,
+\sqrt{\,\alpha^*\,\alpha\,\langle x,x\rangle}\ \,=\ \,
+\sqrt{\,|\alpha|^2\,\langle x,x\rangle}\ \ =\ \
+|\alpha|\ \,f(x)\,;\)</span></p>
+</li>
+<li><div class="first line-block">
+<div class="line"><span class="math">\(\ [\,f(x+y)\,]^2\ \ =\ \ \langle\,x+y,\,x+y\,\rangle\ \ =\)</span></div>
+<div class="line-block">
+<div class="line"><span class="math">\(=\ \ \langle x,x\rangle\,+\,\langle x,y\rangle\,+\,\langle y,x\rangle\,+\,
+\langle y,y\rangle\ \ =\ \
+\langle x,x\rangle\,+\,\langle x,y\rangle\,+\,\langle x,y\rangle^*+\,\langle y,y\rangle\ \ =\)</span></div>
+<div class="line"><span class="math">\(=\ \ \langle x,x\rangle\,+\,2\;\text{re}\,\langle x,y\rangle\,+\,
+\langle y,y\rangle\ \ \leq\ \
+\langle x,x\rangle\,+\,2\ |\langle x,y\rangle|\,+\,\langle y,y\rangle\ \ \leq\)</span></div>
+<div class="line"><span class="math">\(\leq\ \ \langle x,x\rangle\,+\,2\,\sqrt{\langle x,x\rangle\,\langle y,y\rangle}\,+\,
+\langle y,y\rangle\ \ =\ \
+[\,f(x)\,]^2\,+\,2\,f(x)\,f(y)\,+\,[\,f(y)\,]^2\ \ =\)</span></div>
+</div>
+<div class="line"><span class="math">\(\ =\ \ [\,f(x)+f(y)\,]^2\,;\)</span></div>
+<div class="line"><br /></div>
+<div class="line"><span class="math">\(\ [\,f(x+y)\,]^2\ \leq\ [\,f(x)+f(y)\,]^2\qquad\Rightarrow\qquad
+f(x+y)\ \leq\ f(x)+f(y)\,.\)</span></div>
+<div class="line"><br /></div>
+</div>
+</li>
+</ol>
+<p>W punkcie 3. zostały wykorzystane związki</p>
+<div class="math">
+\[z+z^*=\,2\ \text{re}\,z\,,\quad \text{re}\,z\,\leq |z|\,,\qquad z\in C\]</div>
+<p>oraz nierówność Schwarza
+<span class="math">\(\ \ |\langle x,y\rangle|\ \leq\ \sqrt{\langle x,x\rangle\langle y,y\rangle}\,.\)</span></p>
+<p>Na podstawie Twierdzenia 2. każdą przestrzeń unitarną (euklidesową) <span class="math">\(\,V\,\)</span>
+można unormować przyjmując <span class="math">\(\ \|x\|\,=\,\sqrt{\langle x,x\rangle}\,,\ \ x\in V.\ \)</span>
+Wtedy nierówność Schwarza zapiszemy jako</p>
+<div class="math">
+\[|\langle x,y\rangle|\ \ \leq\ \ \|x\|\,\|y\|\,,\qquad x,y\in V\,.\]</div>
+<p>W przestrzeni <span class="math">\(\,V\,\)</span> mogą jednak istnieć też inne normy,
+np. w przestrzeni <span class="math">\(\,C^n\ \)</span> normą wektora</p>
+<p><span class="math">\(\ x\ =\
+\left[\begin{array}{c} \alpha_1 \\ \alpha_2 \\ \dots \\ \alpha_n \end{array}\right]\quad\)</span>
+może być
+<span class="math">\(\quad\|x\|\ =\ \sqrt{\langle x,x\rangle}\ =\
+\sqrt{\,|\alpha_1|^2+|\alpha_2|^2+\ldots+|\alpha_n|^2\,}\,,\)</span></p>
+<p>ale również <span class="math">\(\quad\|x\|\ =\ |\alpha_1|+|\alpha_2|+\ldots+|\alpha_n|\,.\)</span></p>
+</div>
+
+
+          </div>
+        </div>
+      </div>
+      <div class="sphinxsidebar">
+        <div class="sphinxsidebarwrapper">
+  <h4>Poprzedni temat</h4>
+  <p class="topless"><a href="p_unitarne_iloczyn_skalarny.html"
+                        title="poprzedni rozdział">Iloczyn skalarny</a></p>
+  <h4>Następny temat</h4>
+  <p class="topless"><a href="p_unitarne_ortogonalnosc.html"
+                        title="następny rozdział">Ortogonalność wektorów</a></p>
+<div id="searchbox" style="display: none">
+  <h3>Szybkie wyszukiwanie</h3>
+    <form class="search" action="search.html" method="get">
+      <input type="text" name="q" />
+      <input type="submit" value="Szukaj" />
+      <input type="hidden" name="check_keywords" value="yes" />
+      <input type="hidden" name="area" value="default" />
+    </form>
+    <p class="searchtip" style="font-size: 90%">
+    Wprowadź szukany termin lub nazwę modułu, klasy lub funkcji.
+    </p>
+</div>
+<script type="text/javascript">$('#searchbox').show(0);</script>
+        </div>
+      </div>
+      <div class="clearer"></div>
+    </div>
+  </div>
+  <div class="relbar-bottom">
+    
+    <div class="related">
+      <h3>Nawigacja</h3>
+      <ul>
+        <li class="right" style="margin-right: 10px">
+          <a href="p_unitarne_ortogonalnosc.html" title="Ortogonalność wektorów"
+             >dalej</a></li>
+        <li class="right" >
+          <a href="p_unitarne_iloczyn_skalarny.html" title="Iloczyn skalarny"
+             >wstecz</a> &nbsp; &nbsp;</li>
+  <li><a href="http://visual.icse.us.edu.pl/LA/index.html">Algebra Liniowa</a> &raquo;</li>
+   
+      </ul>
+    </div>
+  </div>
+  
+  <div class="footer">
+    <a class="logo" href="../../icse.us.edu.pl/index.html" target="_blank"><img src="_static/logo-icse.png" alt="ICSE"/></a><br/>
+    &copy; Copyright 2013, Marcin Kostur.
+    Created using <a href="http://sphinx.pocoo.org/">Sphinx</a> 1.2.2.
+  </div>
+  </body>
+</html>

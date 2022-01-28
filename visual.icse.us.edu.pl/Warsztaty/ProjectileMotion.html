@@ -1,0 +1,397 @@
+
+
+  <!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+  "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+
+
+<html xmlns="http://www.w3.org/1999/xhtml">
+  <head>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    
+    <title>Workshop: Projectile Motion &mdash; Warsztaty</title>
+    
+    <link rel="stylesheet" href="_static/cloud.css" type="text/css" />
+    <link rel="stylesheet" href="_static/pygments.css" type="text/css" />
+    <link rel="stylesheet" href="http://fonts.googleapis.com/css?family=Noticia+Text|Open+Sans|Droid+Sans+Mono&subset=latin,latin-ext" type="text/css" />
+    
+    <script type="text/javascript">
+      var DOCUMENTATION_OPTIONS = {
+        URL_ROOT:    './',
+        VERSION:     'I',
+        COLLAPSE_INDEX: false,
+        FILE_SUFFIX: '.html',
+        HAS_SOURCE:  true
+      };
+    </script>
+    <script type="text/javascript" src="_static/jquery.js"></script>
+    <script type="text/javascript" src="_static/underscore.js"></script>
+    <script type="text/javascript" src="_static/doctools.js"></script>
+    <script type="text/javascript" src="_static/translations.js"></script>
+    <script type="text/javascript" src="http://cdn.mathjax.org/mathjax/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML"></script>
+    <script type="text/javascript" src="_static/jquery.cookie.js"></script>
+    <script type="text/javascript" src="_static/cloud.js"></script>
+
+
+
+    <script src="http://sagecell.icse.us.edu.pl:6363/static/jquery.min.js"></script>
+	<script src="http://sagecell.icse.us.edu.pl:6363/static/embedded_sagecell.js"></script>
+
+	<script>sagecell.makeSagecell({inputLocation: ".sage",
+                                       evalButtonText: 'Wykonaj',
+                                       linked: true});</script>
+
+	<style type="text/css">
+		.sagecell .CodeMirror-scroll {
+			overflow-y: hidden;
+			overflow-x: auto;
+		}
+		.sagecell .CodeMirror {
+			height: auto;
+		}
+	</style>
+
+    
+    <link rel="top" title="Warsztaty" href="index.html" />
+    <link rel="next" title="Battleship!" href="Battleship.html" />
+    <link rel="prev" title="Skydiving - part 2" href="Skydiving2.html" />
+ 
+  <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, minimum-scale=1">
+  </head>
+  <body>
+  <div class="relbar-top">
+    
+    <div class="related">
+      <h3>Nawigacja</h3>
+      <ul>
+        <li class="right" style="margin-right: 10px">
+          <a href="Battleship.html" title="Battleship!"
+             accesskey="N">dalej</a></li>
+        <li class="right" >
+          <a href="Skydiving2.html" title="Skydiving - part 2"
+             accesskey="P">wstecz</a> &nbsp; &nbsp;</li>
+  <li><a href="index.html">Warsztaty</a> &raquo;</li>
+   
+      </ul>
+    </div>
+  </div>
+  
+  <div class="content">  
+
+    <div class="document">
+      <div class="documentwrapper">
+        <div class="bodywrapper">
+          <div class="body">
+            
+  <div class="section" id="workshop-projectile-motion">
+<h1>Workshop: Projectile Motion<a class="headerlink" href="ProjectileMotion.html#workshop-projectile-motion" title="Stały odnośnik do tego nagłówka">¶</a></h1>
+<div class="section" id="an-introduction-to-computing-trajectories">
+<h2>An introduction to computing trajectories<a class="headerlink" href="ProjectileMotion.html#an-introduction-to-computing-trajectories" title="Stały odnośnik do tego nagłówka">¶</a></h2>
+<p>This workshop focuses on introducing computations to introductory
+physics. Introducing computations should lead to a sense of empowerment
+For this to be possible, the computations must 1. Relate to well-known
+problems 2. Must be shown to be a powerful tool 3. Understable. Students
+should write their own code</p>
+<div class="section" id="the-goal-is-to-find-the-velocity-and-position-of-an-object-as-functions-of-time">
+<h3>The goal is to find the velocity and position of an object as functions of time: <span class="math">\(\vec{v}(t)\)</span>, <span class="math">\(\vec{r}(t)\)</span><a class="headerlink" href="ProjectileMotion.html#the-goal-is-to-find-the-velocity-and-position-of-an-object-as-functions-of-time" title="Stały odnośnik do tego nagłówka">¶</a></h3>
+<p><img alt="cannonball" src="_images/cannonball.svg" /> Equations of motion:</p>
+<div class="math">
+\[\frac{d \vec{r}}{d t} = \vec{v}(t), \qquad \frac{d \vec{v}}{d t} = \vec{a}(t)\]</div>
+<img src="_images/cannonball.svg" /><p>Newtons 2. law of motion:</p>
+<div class="math">
+\[\vec{F} = m\vec{a}\]</div>
+<p><img alt="cannonballforces" src="_images/cannonballforces.svg" /></p>
+<div class="math">
+\[\vec{F}(r,v,t) = m\vec{a}(r,v,t).\]</div>
+<p>Our algorithm is now as follows 1. Find the physical forces of the
+system. 2. Use Newtons 2. law to find the acceleration 3. Calculate ~
+v(t) and~ r(t) by solving the equations of motion In this workshop, we
+will solve step number 3 numerically, using the Euler method.</p>
+</div>
+<div class="section" id="the-euler-method">
+<h3>The Euler Method<a class="headerlink" href="ProjectileMotion.html#the-euler-method" title="Stały odnośnik do tego nagłówka">¶</a></h3>
+</div>
+</div>
+<div class="section" id="a-method-for-solving-ordinary-differential-equations-odes">
+<h2>A method for solving ordinary differential equations (ODEs)<a class="headerlink" href="ProjectileMotion.html#a-method-for-solving-ordinary-differential-equations-odes" title="Stały odnośnik do tego nagłówka">¶</a></h2>
+<p>We can solve the equations of motion numerically using the Euler method
+From the definition of the derivative</p>
+<div class="math">
+\[\frac{d v}{d t} = \lim_{\Delta t \to 0} \frac{v(t+\Delta t) - v(t)}{\Delta t} =  a(t)\]</div>
+<p>We now remove the limit, making <span class="math">\(\Delta t\)</span> a very small constant</p>
+<div class="math">
+\[\frac{v(t+\Delta t) - v(t)}{\Delta t} \approx  a(t)\]</div>
+<p>Solving for <span class="math">\(v(t+\Delta t)\)</span> gives</p>
+<div class="math">
+\[v(t+\Delta t) \approx v(t) + a(t)\cdot \Delta t\]</div>
+<p>We can solve the equations of motion by stepping forward in time</p>
+<div class="math">
+\[v(t+\Delta t) = v(t) + a(t)\cdot \Delta t\]</div>
+<p>If <span class="math">\(a(t)\)</span> and <span class="math">\(v(t)\)</span> are known, we can calculate
+<span class="math">\(v(t+\Delta t)\)</span> <img alt="plot of eulers method" src="_images/eulers0.svg" /></p>
+<div class="section" id="our-functions-are-no-longer-continuous-they-have-become-discretized">
+<h3>Our functions are no longer continuous, they have become discretized<a class="headerlink" href="ProjectileMotion.html#our-functions-are-no-longer-continuous-they-have-become-discretized" title="Stały odnośnik do tego nagłówka">¶</a></h3>
+<p>We only focus on multiples of our time-step</p>
+<p>Introduce the shorthand</p>
+<div class="figure">
+<img alt="time discretization" src="_images/time_discretization.svg" /><p class="caption">time discretization</p>
+</div>
+</div>
+<div class="section" id="we-solve-the-equations-of-motion-iteratively">
+<h3>We solve the equations of motion iteratively<a class="headerlink" href="ProjectileMotion.html#we-solve-the-equations-of-motion-iteratively" title="Stały odnośnik do tego nagłówka">¶</a></h3>
+<div class="math">
+\[v_{i+1} = v_i + a_i\cdot\Delta t\]</div>
+<div class="math">
+\[r_{i+1} = r_i + v_i\cdot \Delta t\]</div>
+<p>For each time step, we must calculate the acceleration</p>
+<div class="math">
+\[a_i = a(r_i, v_i, t_i).\]</div>
+<p>We repeat these steps, starting at our initial conditions <span class="math">\(v_0\)</span>
+and <span class="math">\(r_0\)</span>, until we have reached our end-time <span class="math">\(t_N\)</span></p>
+<div class="math">
+\[i = 0,1,2,3,\ldots, N.\]</div>
+</div>
+<div class="section" id="algorithm-for-the-euler-method">
+<h3>Algorithm for the Euler method<a class="headerlink" href="ProjectileMotion.html#algorithm-for-the-euler-method" title="Stały odnośnik do tego nagłówka">¶</a></h3>
+<p>for <span class="math">\(i=0,1,2,3,\ldots, N-1\)</span>: 1. Use the previous results
+<span class="math">\(x_i\)</span> and <span class="math">\(v_i\)</span> to compute the acceleration: $ a_i =
+F(x_i, v_i, t_i)/m$. 2. Compute the new velocity: $ v_{i+1} = v_i +
+a_i:raw-latex:<cite>Delta `t$. 3. Compute the new position: $ r_{i+1} =
+r_i + v_i:raw-latex:</cite>Delta <a href="ProjectileMotion.html#id1"><span class="problematic" id="id2">`</span></a>t$.</p>
+</div>
+<div class="section" id="implementation">
+<h3>Implementation<a class="headerlink" href="ProjectileMotion.html#implementation" title="Stały odnośnik do tego nagłówka">¶</a></h3>
+</div>
+</div>
+<div class="section" id="moving-from-physics-and-math-to-actual-computer-code">
+<h2>Moving from physics and math to actual computer code<a class="headerlink" href="ProjectileMotion.html#moving-from-physics-and-math-to-actual-computer-code" title="Stały odnośnik do tego nagłówka">¶</a></h2>
+<p>for <span class="math">\(i=0,1,2,3,\ldots, N-1\)</span>: 1. Use the previous results
+<span class="math">\(x_i\)</span> and <span class="math">\(v_i\)</span> to compute the acceleration: $ a_i =
+F(x_i, v_i, t_i)/m$. 2. Compute the new velocity: $ v_{i+1} = v_i +
+a_i:raw-latex:<cite>Delta `t$. 3. Compute the new position: $ r_{i+1} =
+r_i + v_i:raw-latex:</cite>Delta <a href="ProjectileMotion.html#id3"><span class="problematic" id="id4">`</span></a>t$.</p>
+<div class="code python highlight-python"><div class="highlight"><pre><span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="n">N</span><span class="p">):</span>
+    <span class="n">a</span><span class="p">[</span><span class="n">i</span><span class="p">]</span> <span class="o">=</span> <span class="n">F</span><span class="p">(</span><span class="n">r</span><span class="p">[</span><span class="n">i</span><span class="p">],</span> <span class="n">v</span><span class="p">[</span><span class="n">i</span><span class="p">],</span> <span class="n">t</span><span class="p">[</span><span class="n">i</span><span class="p">])</span><span class="o">/</span><span class="n">m</span>
+    <span class="n">v</span><span class="p">[</span><span class="n">i</span><span class="o">+</span><span class="mi">1</span><span class="p">]</span> <span class="o">=</span> <span class="n">v</span><span class="p">[</span><span class="n">i</span><span class="p">]</span> <span class="o">+</span> <span class="n">a</span><span class="p">[</span><span class="n">i</span><span class="p">]</span><span class="o">*</span><span class="n">dt</span>
+    <span class="n">r</span><span class="p">[</span><span class="n">i</span><span class="o">+</span><span class="mi">1</span><span class="p">]</span> <span class="o">=</span> <span class="n">r</span><span class="p">[</span><span class="n">i</span><span class="p">]</span> <span class="o">+</span> <span class="n">v</span><span class="p">[</span><span class="n">i</span><span class="p">]</span><span class="o">*</span><span class="n">dt</span>
+</pre></div>
+</div>
+<p>We want the code to look as much as possible like the physics and math
+we write on paper</p>
+<div class="math">
+\[t_i \Rightarrow \texttt{t[i]} \qquad  v_i \Rightarrow \texttt{v[i]} \qquad  r_i  \Rightarrow \texttt{r[i]}\]</div>
+<div class="section" id="we-also-need-various-bookeeping-code">
+<h3>We also need various bookeeping code<a class="headerlink" href="ProjectileMotion.html#we-also-need-various-bookeeping-code" title="Stały odnośnik do tego nagłówka">¶</a></h3>
+<p>Here we define the arrays we will be using</p>
+<div class="code python highlight-python"><div class="highlight"><pre><span class="c"># Import various functions meant for numerical science</span>
+<span class="kn">import</span> <span class="nn">numpy</span> <span class="kn">as</span> <span class="nn">np</span>
+<span class="kn">from</span> <span class="nn">math</span> <span class="kn">import</span> <span class="n">cos</span><span class="p">,</span><span class="n">sin</span><span class="p">,</span><span class="n">pi</span>
+
+<span class="n">t_0</span> <span class="o">=</span> <span class="mi">0</span> <span class="c"># Start time, s</span>
+<span class="n">t_end</span> <span class="o">=</span> <span class="mi">10</span> <span class="c"># End time, s</span>
+<span class="n">N</span> <span class="o">=</span> <span class="mi">1000</span> <span class="c"># Number of time steps</span>
+
+<span class="c"># Create a uniformly spaced time-array</span>
+<span class="n">t</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">linspace</span><span class="p">(</span><span class="n">t_0</span><span class="p">,</span> <span class="n">t_end</span><span class="p">,</span> <span class="n">N</span><span class="o">+</span><span class="mi">1</span><span class="p">)</span>
+
+<span class="c"># Calculate the size of a time step</span>
+<span class="n">dt</span> <span class="o">=</span> <span class="n">t</span><span class="p">[</span><span class="mi">1</span><span class="p">]</span> <span class="o">-</span> <span class="n">t</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span>
+
+<span class="c"># Create empty acceleration, velocity and position arrays</span>
+<span class="n">a</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">zeros</span><span class="p">((</span><span class="n">N</span><span class="o">+</span><span class="mi">1</span><span class="p">,</span><span class="mi">2</span><span class="p">))</span>
+<span class="n">v</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">zeros</span><span class="p">((</span><span class="n">N</span><span class="o">+</span><span class="mi">1</span><span class="p">,</span><span class="mi">2</span><span class="p">))</span>
+<span class="n">r</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">zeros</span><span class="p">((</span><span class="n">N</span><span class="o">+</span><span class="mi">1</span><span class="p">,</span><span class="mi">2</span><span class="p">))</span>
+
+<span class="c"># Set initial conditions</span>
+<span class="n">v</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span> <span class="o">=</span> <span class="p">(</span><span class="mi">100</span><span class="o">*</span><span class="n">cos</span><span class="p">(</span><span class="n">pi</span><span class="o">/</span><span class="mi">6</span><span class="p">),</span> <span class="mi">100</span><span class="o">*</span><span class="n">sin</span><span class="p">(</span><span class="n">pi</span><span class="o">/</span><span class="mi">6</span><span class="p">))</span> <span class="c"># inital velocity, m/s</span>
+<span class="n">r</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span> <span class="o">=</span> <span class="p">(</span><span class="mi">0</span><span class="p">,</span><span class="mi">1</span><span class="p">)</span>  <span class="c"># initial position, m</span>
+</pre></div>
+</div>
+<p>Here we define physical constants for our system and define the function
+that describes the forces</p>
+<div class="code python highlight-python"><div class="highlight"><pre><span class="n">m</span> <span class="o">=</span> <span class="mf">5.5</span> <span class="c"># mass, kg</span>
+<span class="n">g</span> <span class="o">=</span> <span class="mf">9.81</span> <span class="c"># acceleration of gravity, m/s^2</span>
+<span class="n">rho</span> <span class="o">=</span> <span class="mf">1.3</span> <span class="c"># air density, kg/m^3</span>
+<span class="n">C_D</span> <span class="o">=</span> <span class="mf">0.45</span> <span class="c"># drag coefficient</span>
+<span class="n">d</span> <span class="o">=</span> <span class="mf">0.11</span> <span class="c"># diameter of cannonball, m</span>
+<span class="n">A</span> <span class="o">=</span> <span class="n">pi</span><span class="o">*</span><span class="n">d</span><span class="o">**</span><span class="mi">2</span> <span class="c"># cross-sectional area, m^2</span>
+
+<span class="k">def</span> <span class="nf">F</span><span class="p">(</span><span class="n">r</span><span class="p">,</span> <span class="n">v</span><span class="p">,</span> <span class="n">t</span><span class="p">):</span>
+    <span class="k">return</span> <span class="p">(</span><span class="mi">0</span><span class="p">,</span> <span class="o">-</span><span class="n">m</span><span class="o">*</span><span class="n">g</span><span class="p">)</span> <span class="o">-</span> <span class="mf">0.5</span><span class="o">*</span><span class="n">rho</span><span class="o">*</span><span class="n">C_D</span><span class="o">*</span><span class="n">A</span><span class="o">*</span><span class="nb">abs</span><span class="p">(</span><span class="n">v</span><span class="p">)</span><span class="o">*</span><span class="n">v</span>
+</pre></div>
+</div>
+<p>This example show the forces acting on the cannonball as it sails
+through the air</p>
+<div class="math">
+\[F(x,v,t) = F_g + F_d(\vec{v}) = -mg\vec{k} - \frac{1}{2}\rho C_D A |\vec{v}|\vec{v}\]</div>
+<p>As soon as we have solved the equations of motion, we can plot the
+result</p>
+<div class="code python highlight-python"><div class="highlight"><pre># Solving equations of motion iteratively
+for i in range(N):
+    a[i] = F(r[i], v[i], t[i])/m
+    v[i+1] = v[i] + a[i]*dt
+    r[i+1] = r[i] + v[i]*dt
+
+# Extract x and y coordinates
+x = r[:,0]
+y = r[:,1]
+
+# Import functionality for plotting
+import matplotlib.pyplot as plt
+%matplotlib inline
+
+# Plot figure
+plt.plot(x,y)
+
+# Prettify the plot
+plt.xlabel(&#39;Horizontal distance, [m]&#39;)
+plt.ylabel(&#39;Vertical distance, [m]&#39;)
+plt.title(&#39;Trajectory of a fired cannonball&#39;)
+plt.grid()
+plt.axis([0, 900, 0, 250])
+
+# Makes the plot appear on the screen
+plt.show()
+</pre></div>
+</div>
+<img alt="output_30_0.png" src="http://visual.icse.us.edu.pl/Warsztaty/output_30_0.png" />
+<div class="figure">
+<img alt="plot\_cannonball1" src="_images/plot_cannonball1.svg" /><p class="caption">plot_cannonball1</p>
+</div>
+</div>
+<div class="section" id="numerical-experimentation">
+<h3>Numerical Experimentation<a class="headerlink" href="ProjectileMotion.html#numerical-experimentation" title="Stały odnośnik do tego nagłówka">¶</a></h3>
+<p>Altering parameters let’s us immediately see the consequences</p>
+<p><img alt="plot_cannonball2" src="_images/plot_cannonball2.svg" /> <img alt="plot_cannonball3" src="_images/plot_cannonball3.svg" /></p>
+</div>
+<div class="section" id="students-can-use-numerical-experimentation-to-build-intuition-and-knowledge">
+<h3>Students can use numerical experimentation to build intuition and knowledge<a class="headerlink" href="ProjectileMotion.html#students-can-use-numerical-experimentation-to-build-intuition-and-knowledge" title="Stały odnośnik do tego nagłówka">¶</a></h3>
+<ul class="simple">
+<li>Numerical results can be compared to known analytical solutions. Are
+numerical results trustworthy?</li>
+<li>Can study how results are directly changed by parameter choice. Are
+the parameters chosen reasonable?</li>
+<li>Can look at systems with and without certain contributions, such as
+air drag. What is important, and what can be ignored?</li>
+</ul>
+</div>
+<div class="section" id="examples-of-possible-projects">
+<h3>Examples of possible projects<a class="headerlink" href="ProjectileMotion.html#examples-of-possible-projects" title="Stały odnośnik do tego nagłówka">¶</a></h3>
+<p>You will have a chance to look at some of these today</p>
+<p>Catapults and cannons and sports such as baseball
+* Easy to compare with experimental data, either before or after simulation.
+* Can look into studies of air drag, Reynolds number etc. <img alt="cannonball" src="_images/cannonball.svg" /></p>
+</div>
+<div class="section" id="skydiving-and-bungeejumping">
+<h3>Skydiving and bungeejumping<a class="headerlink" href="ProjectileMotion.html#skydiving-and-bungeejumping" title="Stały odnośnik do tego nagłówka">¶</a></h3>
+<ul class="simple">
+<li>Great study on free fall and terminal velocity</li>
+<li>Can study how parameters such as cross-sectional area and drag
+coefficient change as the parachute is opened</li>
+<li>Can plot the g-forces affecting the jumper. Which sport is more
+“extreme”?</li>
+</ul>
+</div>
+<div class="section" id="pendulum-and-angular-motion">
+<h3>Pendulum and angular motion<a class="headerlink" href="ProjectileMotion.html#pendulum-and-angular-motion" title="Stały odnośnik do tego nagłówka">¶</a></h3>
+<p><img alt="pendulum" src="_images/pendulum.svg" /></p>
+<ul class="simple">
+<li>Can solve pendulum also for large angles!</li>
+<li>Energy can beplotted as functions of time</li>
+<li>Can also simulate double pendulum and chaotic systems</li>
+</ul>
+</div>
+<div class="section" id="modelling-the-solar-system">
+<h3>Modelling the solar system<a class="headerlink" href="ProjectileMotion.html#modelling-the-solar-system" title="Stały odnośnik do tego nagłówka">¶</a></h3>
+<ul class="simple">
+<li>Students can gather real data of planetary orbits from NASA webpages</li>
+<li>Can combine numerical simulation with better graphics</li>
+</ul>
+</div>
+</div>
+</div>
+
+
+          </div>
+        </div>
+      </div>
+      <div class="sphinxsidebar">
+        <div class="sphinxsidebarwrapper">
+  <div class="sphinxlocaltoc">
+  <h3><a href="index.html">Spis treści</a></h3>
+  <ul>
+<li><a class="reference internal" href="ProjectileMotion.html#">Workshop: Projectile Motion</a><ul>
+<li><a class="reference internal" href="ProjectileMotion.html#an-introduction-to-computing-trajectories">An introduction to computing trajectories</a><ul>
+<li><a class="reference internal" href="ProjectileMotion.html#the-goal-is-to-find-the-velocity-and-position-of-an-object-as-functions-of-time">The goal is to find the velocity and position of an object as functions of time: <span class="math">\(\vec{v}(t)\)</span>, <span class="math">\(\vec{r}(t)\)</span></a></li>
+<li><a class="reference internal" href="ProjectileMotion.html#the-euler-method">The Euler Method</a></li>
+</ul>
+</li>
+<li><a class="reference internal" href="ProjectileMotion.html#a-method-for-solving-ordinary-differential-equations-odes">A method for solving ordinary differential equations (ODEs)</a><ul>
+<li><a class="reference internal" href="ProjectileMotion.html#our-functions-are-no-longer-continuous-they-have-become-discretized">Our functions are no longer continuous, they have become discretized</a></li>
+<li><a class="reference internal" href="ProjectileMotion.html#we-solve-the-equations-of-motion-iteratively">We solve the equations of motion iteratively</a></li>
+<li><a class="reference internal" href="ProjectileMotion.html#algorithm-for-the-euler-method">Algorithm for the Euler method</a></li>
+<li><a class="reference internal" href="ProjectileMotion.html#implementation">Implementation</a></li>
+</ul>
+</li>
+<li><a class="reference internal" href="ProjectileMotion.html#moving-from-physics-and-math-to-actual-computer-code">Moving from physics and math to actual computer code</a><ul>
+<li><a class="reference internal" href="ProjectileMotion.html#we-also-need-various-bookeeping-code">We also need various bookeeping code</a></li>
+<li><a class="reference internal" href="ProjectileMotion.html#numerical-experimentation">Numerical Experimentation</a></li>
+<li><a class="reference internal" href="ProjectileMotion.html#students-can-use-numerical-experimentation-to-build-intuition-and-knowledge">Students can use numerical experimentation to build intuition and knowledge</a></li>
+<li><a class="reference internal" href="ProjectileMotion.html#examples-of-possible-projects">Examples of possible projects</a></li>
+<li><a class="reference internal" href="ProjectileMotion.html#skydiving-and-bungeejumping">Skydiving and bungeejumping</a></li>
+<li><a class="reference internal" href="ProjectileMotion.html#pendulum-and-angular-motion">Pendulum and angular motion</a></li>
+<li><a class="reference internal" href="ProjectileMotion.html#modelling-the-solar-system">Modelling the solar system</a></li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+
+  </div>
+  <h4>Poprzedni temat</h4>
+  <p class="topless"><a href="Skydiving2.html"
+                        title="poprzedni rozdział">Skydiving - part 2</a></p>
+  <h4>Następny temat</h4>
+  <p class="topless"><a href="Battleship.html"
+                        title="następny rozdział">Battleship!</a></p>
+<div id="searchbox" style="display: none">
+  <h3>Szybkie wyszukiwanie</h3>
+    <form class="search" action="http://visual.icse.us.edu.pl/Warsztaty/search.html" method="get">
+      <input type="text" name="q" />
+      <input type="submit" value="Szukaj" />
+      <input type="hidden" name="check_keywords" value="yes" />
+      <input type="hidden" name="area" value="default" />
+    </form>
+    <p class="searchtip" style="font-size: 90%">
+    Wprowadź szukany termin lub nazwę modułu, klasy lub funkcji.
+    </p>
+</div>
+<script type="text/javascript">$('#searchbox').show(0);</script>
+        </div>
+      </div>
+      <div class="clearer"></div>
+    </div>
+  </div>
+  <div class="relbar-bottom">
+    
+    <div class="related">
+      <h3>Nawigacja</h3>
+      <ul>
+        <li class="right" style="margin-right: 10px">
+          <a href="Battleship.html" title="Battleship!"
+             >dalej</a></li>
+        <li class="right" >
+          <a href="Skydiving2.html" title="Skydiving - part 2"
+             >wstecz</a> &nbsp; &nbsp;</li>
+  <li><a href="index.html">Warsztaty</a> &raquo;</li>
+   
+      </ul>
+    </div>
+  </div>
+  
+  <div class="footer">
+    <a class="logo" href="../../icse.us.edu.pl/index.html" target="_blank"><img src="_static/logo-icse.png" alt="ICSE"/></a><br/>
+    &copy; Copyright 2013, CubeProject.
+    Created using <a href="http://sphinx.pocoo.org/">Sphinx</a> 1.2.2.
+  </div>
+  </body>
+</html>

@@ -1,0 +1,973 @@
+
+
+  <!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+  "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+
+
+<html xmlns="http://www.w3.org/1999/xhtml">
+  <head>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    
+    <title>Wektory i macierze w systemie Sage &mdash; Algebra Liniowa</title>
+    
+    <link rel="stylesheet" href="_static/cloud.css" type="text/css" />
+    <link rel="stylesheet" href="_static/pygments.css" type="text/css" />
+    <link rel="stylesheet" href="http://fonts.googleapis.com/css?family=Noticia+Text|Open+Sans|Droid+Sans+Mono&subset=latin,latin-ext" type="text/css" />
+    
+    <script type="text/javascript">
+      var DOCUMENTATION_OPTIONS = {
+        URL_ROOT:    './',
+        VERSION:     'I',
+        COLLAPSE_INDEX: false,
+        FILE_SUFFIX: '.html',
+        HAS_SOURCE:  true
+      };
+    </script>
+    <script type="text/javascript" src="_static/jquery.js"></script>
+    <script type="text/javascript" src="_static/underscore.js"></script>
+    <script type="text/javascript" src="_static/doctools.js"></script>
+    <script type="text/javascript" src="_static/translations.js"></script>
+    <script type="text/javascript" src="http://cdn.mathjax.org/mathjax/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML"></script>
+    <script type="text/javascript" src="_static/jquery.cookie.js"></script>
+    <script type="text/javascript" src="_static/cloud.js"></script>
+
+	<script src="http://sagecell.icse.us.edu.pl:6363/static/jquery.min.js"></script>
+	<script src="http://sagecell.icse.us.edu.pl:6363/static/embedded_sagecell.js"></script>
+
+	<!-- <script src="http://sagecell.sagemath.org/static/jquery.min.js"></script> -->
+	<!-- <script src="http://sagecell.sagemath.org/static/embedded_sagecell.js"></script> -->
+
+	<script>sagecell.makeSagecell({inputLocation: ".sage",
+                                       evalButtonText: 'Wykonaj',
+                                       linked: true});</script>
+
+	<style type="text/css">
+		.sagecell .CodeMirror-scroll {
+			overflow-y: hidden;
+			overflow-x: auto;
+		}
+		.sagecell .CodeMirror {
+			height: auto;
+		}
+	</style>
+
+    
+    <link rel="top" title="Algebra Liniowa" href="http://visual.icse.us.edu.pl/LA/index.html" />
+    <link rel="next" title="Zadania" href="algebra_macierzy_zadania.html" />
+    <link rel="prev" title="Własności działań na macierzach" href="algebra_macierzy_wlasnosci_dzialan.html" />
+ 
+  <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, minimum-scale=1">
+  </head>
+  <body>
+  <div class="relbar-top">
+    
+    <div class="related">
+      <h3>Nawigacja</h3>
+      <ul>
+        <li class="right" style="margin-right: 10px">
+          <a href="algebra_macierzy_zadania.html" title="Zadania"
+             accesskey="N">dalej</a></li>
+        <li class="right" >
+          <a href="algebra_macierzy_wlasnosci_dzialan.html" title="Własności działań na macierzach"
+             accesskey="P">wstecz</a> &nbsp; &nbsp;</li>
+  <li><a href="http://visual.icse.us.edu.pl/LA/index.html">Algebra Liniowa</a> &raquo;</li>
+   
+      </ul>
+    </div>
+  </div>
+  
+  <div class="content">  
+
+    <div class="document">
+      <div class="documentwrapper">
+        <div class="bodywrapper">
+          <div class="body">
+            
+  <div class="section" id="wektory-i-macierze-w-systemie-sage">
+<h1>Wektory i macierze w systemie Sage<a class="headerlink" href="algebra_macierze_w_sage.html#wektory-i-macierze-w-systemie-sage" title="Stały odnośnik do tego nagłówka">¶</a></h1>
+<p>W poprzedniej sekcji przyjmowaliśmy, że elementami macierzy są
+liczby rzeczywiste z ciała <span class="math">\(\ R\ \)</span> albo liczby zespolone z ciała <span class="math">\(\ C.\)</span>
+Tymczasem działania na macierzach są możliwe, a własności tych działań są zachowane
+również wtedy, gdy elementy należą do prostszej struktury
+<span class="math">\(\,\)</span> - <span class="math">\(\,\)</span> pierścienia z jednością (którym w szczególności może być ciało).</p>
+<p>Właśnie pierścień jest w systemie Sage podstawową strukturą algebraiczną,
+na której zbudowana jest algebra wielomianów i macierzy.</p>
+<p>Poniżej znajduje się przegląd najważniejszych pierścieni stosowanych w Sage:</p>
+<table border="1" class="docutils">
+<colgroup>
+<col width="47%" />
+<col width="53%" />
+</colgroup>
+<thead valign="bottom">
+<tr class="row-odd"><th class="head"><div class="first last line-block">
+<div class="line"><span class="math">\(\qquad\qquad\quad\text{Symbol}\)</span>:</div>
+</div>
+</th>
+<th class="head"><div class="first last line-block">
+<div class="line">Określenie <span class="math">\(\,\)</span> i <span class="math">\(\,\)</span> nazwa  w Sage:</div>
+</div>
+</th>
+</tr>
+</thead>
+<tbody valign="top">
+<tr class="row-even"><td><div class="first last line-block">
+<div class="line"><span class="math">\(\qquad\qquad\qquad\text{ZZ}\)</span></div>
+</div>
+</td>
+<td><div class="first last line-block">
+<div class="line">Pierścień liczb całkowitych</div>
+<div class="line">Integer Ring</div>
+</div>
+</td>
+</tr>
+<tr class="row-odd"><td><div class="first last line-block">
+<div class="line"><span class="math">\(\qquad\qquad\qquad\text{QQ}\)</span></div>
+</div>
+</td>
+<td><div class="first last line-block">
+<div class="line">Ciało liczb wymiernych</div>
+<div class="line">Rational Field</div>
+</div>
+</td>
+</tr>
+<tr class="row-even"><td><div class="first last line-block">
+<div class="line"><span class="math">\(\qquad\qquad\qquad\text{RR}\)</span></div>
+</div>
+</td>
+<td><div class="first last line-block">
+<div class="line">Ciało liczb rzeczywistych</div>
+<div class="line">Real Field with 53 bits of precision</div>
+</div>
+</td>
+</tr>
+<tr class="row-odd"><td><div class="first last line-block">
+<div class="line"><span class="math">\(\qquad\qquad\qquad\text{CC}\)</span></div>
+</div>
+</td>
+<td><div class="first last line-block">
+<div class="line">Ciało liczb zespolonych</div>
+<div class="line">Complex Field with 53 bits of precision</div>
+</div>
+</td>
+</tr>
+<tr class="row-even"><td><div class="first last line-block">
+<div class="line"><span class="math">\(\qquad\qquad\qquad\text{RDF}\)</span></div>
+</div>
+</td>
+<td><div class="first last line-block">
+<div class="line">Ciało liczb rzeczywistych</div>
+<div class="line">o podwójnej precyzji</div>
+<div class="line">Real Double Field</div>
+</div>
+</td>
+</tr>
+<tr class="row-odd"><td><div class="first last line-block">
+<div class="line"><span class="math">\(\qquad\qquad\qquad\text{CDF}\)</span></div>
+</div>
+</td>
+<td><div class="first last line-block">
+<div class="line">Ciało liczb zespolonych</div>
+<div class="line">o podwójnej precyzji</div>
+<div class="line">Complex Double Field</div>
+</div>
+</td>
+</tr>
+<tr class="row-even"><td><div class="first last line-block">
+<div class="line"><span class="math">\(\qquad\qquad\text{RealField(12)}\)</span></div>
+</div>
+</td>
+<td><div class="first last line-block">
+<div class="line">Ciało liczb rzeczywistych o zadanej precyzji</div>
+<div class="line">Real Field with 12 bits of precision</div>
+</div>
+</td>
+</tr>
+<tr class="row-odd"><td><div class="first last line-block">
+<div class="line"><span class="math">\(\qquad\qquad\text{ComplexField(248)}\)</span></div>
+</div>
+</td>
+<td><div class="first last line-block">
+<div class="line">Ciało liczb zespolonych o zadanej precyzji</div>
+<div class="line">Complex Field with 248 bits of precision</div>
+</div>
+</td>
+</tr>
+<tr class="row-even"><td><div class="first last line-block">
+<div class="line"><span class="math">\(\qquad\qquad\qquad\text{SR}\)</span></div>
+</div>
+</td>
+<td><div class="first last line-block">
+<div class="line">Pierścień symboliczny</div>
+<div class="line">Symbolic Ring</div>
+</div>
+</td>
+</tr>
+</tbody>
+</table>
+<p>Istnieją dwie strategie rachunków na wektorach i macierzach:</p>
+<ul class="simple">
+<li>dokładna algebra liniowa: elementy wektorów i macierzy należą do zbiorów ZZ, QQ, SR;
+operacje są dokładne, ale nie wszystkie mogą być wykonane i wydajność jest ograniczona.</li>
+<li>numeryczna algebra liniowa: elementami wektorów i macierzy są
+liczby o skończonej precyzji
+ze zbiorów RR, CC, RDF, CDF; błędy zaokrągleń kumulują się,
+co należy brać pod uwagę przy wykonywaniu różnych operacji.</li>
+</ul>
+<div class="admonition important">
+<p class="first admonition-title">Ważne</p>
+<p class="last">Pierścieniem bazowym macierzy, której elementy zależą od pewnych zmiennych,
+jest pierścień symboliczny SR. Po nadaniu konkretnych wartości liczbowych tym zmiennym,
+pierścieniem bazowym jest nadal SR, chociaż macierz składa się z samych liczb.
+Aby skorzystać z metod numerycznych dostępnych tylko dla macierzy liczbowych,
+należy jawnie zmienić pierścień przy użyciu funkcji <tt class="docutils literal"><span class="pre">change_ring()</span></tt>.</p>
+</div>
+<p>Poniżej mamy przykład takiego postępowania:</p>
+<div class="highlight-python"><div class="highlight"><pre><span class="n">sage</span><span class="p">:</span> <span class="n">var</span><span class="p">(</span><span class="s">&#39;phi&#39;</span><span class="p">)</span>
+<span class="n">sage</span><span class="p">:</span> <span class="n">A</span> <span class="o">=</span> <span class="n">matrix</span><span class="p">([[</span><span class="n">cos</span><span class="p">(</span><span class="n">phi</span><span class="p">),</span><span class="o">-</span><span class="n">sin</span><span class="p">(</span><span class="n">phi</span><span class="p">)],</span>
+<span class="o">...</span>               <span class="p">[</span><span class="n">sin</span><span class="p">(</span><span class="n">phi</span><span class="p">),</span> <span class="n">cos</span><span class="p">(</span><span class="n">phi</span><span class="p">)]])</span>
+
+<span class="n">sage</span><span class="p">:</span> <span class="n">html</span><span class="o">.</span><span class="n">table</span><span class="p">([[</span><span class="s">&#39;A&#39;</span><span class="p">,</span> <span class="s">&#39;=&#39;</span><span class="p">,</span> <span class="n">A</span><span class="p">]])</span>
+<span class="n">sage</span><span class="p">:</span> <span class="k">print</span> <span class="s">&quot;Pierścień bazowy macierzy A:&quot;</span><span class="p">,</span> <span class="n">A</span><span class="o">.</span><span class="n">base_ring</span><span class="p">()</span>
+</pre></div>
+</div>
+<p><span class="math">\(\begin{array}{ccc}
+A &amp; = &amp;
+\left(\begin{array}{rr}
+\cos\left(\phi\right) &amp; -\sin\left(\phi\right) \\
+\sin\left(\phi\right) &amp; \cos\left(\phi\right)
+\end{array}\right)
+\end{array}\)</span></p>
+<p><tt class="docutils literal"><span class="pre">Pierścień</span> <span class="pre">bazowy</span> <span class="pre">macierzy</span> <span class="pre">A:</span> <span class="pre">Symbolic</span> <span class="pre">Ring</span></tt></p>
+<div class="highlight-python"><div class="highlight"><pre><span class="n">sage</span><span class="p">:</span> <span class="n">B</span> <span class="o">=</span> <span class="n">A</span><span class="o">.</span><span class="n">subs</span><span class="p">(</span><span class="n">phi</span><span class="o">=</span><span class="n">pi</span><span class="o">/</span><span class="mi">4</span><span class="p">)</span>
+
+<span class="n">sage</span><span class="p">:</span> <span class="n">html</span><span class="o">.</span><span class="n">table</span><span class="p">([[</span><span class="s">&#39;B&#39;</span><span class="p">,</span> <span class="s">&#39;=&#39;</span><span class="p">,</span> <span class="n">B</span><span class="p">]])</span>
+<span class="n">sage</span><span class="p">:</span> <span class="k">print</span> <span class="s">&quot;Pierścień bazowy macierzy B:&quot;</span><span class="p">,</span> <span class="n">B</span><span class="o">.</span><span class="n">base_ring</span><span class="p">()</span>
+</pre></div>
+</div>
+<p><span class="math">\(\begin{array}{ccc}
+B &amp; = &amp;
+\left(\begin{array}{rr}
+\frac{1}{2} \, \sqrt{2} &amp; -\frac{1}{2} \, \sqrt{2} \\
+\frac{1}{2} \, \sqrt{2} &amp; \frac{1}{2} \, \sqrt{2}
+\end{array}\right)
+\end{array}\)</span></p>
+<p><tt class="docutils literal"><span class="pre">Pierścień</span> <span class="pre">bazowy</span> <span class="pre">macierzy</span> <span class="pre">B:</span> <span class="pre">Symbolic</span> <span class="pre">Ring</span></tt></p>
+<div class="highlight-python"><div class="highlight"><pre><span class="n">sage</span><span class="p">:</span> <span class="n">C</span> <span class="o">=</span> <span class="n">B</span><span class="o">.</span><span class="n">change_ring</span><span class="p">(</span><span class="n">RDF</span><span class="p">)</span>
+
+<span class="n">sage</span><span class="p">:</span> <span class="n">html</span><span class="o">.</span><span class="n">table</span><span class="p">([[</span><span class="s">&#39;C&#39;</span><span class="p">,</span> <span class="s">&#39;=&#39;</span><span class="p">,</span> <span class="n">C</span><span class="p">]])</span>
+<span class="n">sage</span><span class="p">:</span> <span class="k">print</span> <span class="s">&quot;Pierścień bazowy macierzy C:&quot;</span><span class="p">,</span> <span class="n">C</span><span class="o">.</span><span class="n">base_ring</span><span class="p">()</span>
+</pre></div>
+</div>
+<p><span class="math">\(\begin{array}{ccc}
+C &amp; = &amp;
+\left(\begin{array}{rr}
+0.707106781187 &amp; -0.707106781187 \\
+0.707106781187 &amp; 0.707106781187
+\end{array}\right)
+\end{array}\)</span></p>
+<p><tt class="docutils literal"><span class="pre">Pierścień</span> <span class="pre">bazowy</span> <span class="pre">macierzy</span> <span class="pre">C:</span> <span class="pre">Real</span> <span class="pre">Double</span> <span class="pre">Field</span></tt></p>
+<p>Sage preferuje podejście wierszowe do wektorów i macierzy.
+Wektor wyświetlany jest w postaci &#8220;poziomej&#8221;, a macierz jest układem (listą) wierszy.
+Trzeba też podkreślić, że w Sage wektor jest obiektem różnym zarówno od macierzy jednowierszowej,
+jak i jednokolumnowej (czyli różnym od wektora kolumnowego).
+Jest to po prostu skończony ciąg elementów pewnego pierścienia.
+Dopiero odpowiednie funkcje przekształcają go w wymienione macierze.</p>
+<div class="section" id="konstrukcja-wektorow-i-macierzy">
+<h2>Konstrukcja wektorów i macierzy<a class="headerlink" href="algebra_macierze_w_sage.html#konstrukcja-wektorow-i-macierzy" title="Stały odnośnik do tego nagłówka">¶</a></h2>
+<div class="sidebar">
+<p class="first sidebar-title">Programowanie obiektowe.</p>
+<div class="last line-block">
+<div class="line"><strong>Obiekt</strong> jest strukturą zawierającą <em>dane</em> i <em>metody</em>.</div>
+<div class="line">Metody dają dostęp do danych i umożliwiają wykonywanie na nich operacji.</div>
+<div class="line"><strong>Klasa</strong> to szablon do tworzenia obiektów określonego typu.
+Obiekt utworzony na podstawie danej klasy nazywa się jej <em>instancją</em>.</div>
+</div>
+</div>
+<p>W systemie Sage wektory i macierze są obiektami języka Python,
+należącymi do odpowiedniej klasy.
+Obiekty te powołuje się do życia używając konstruktorów <tt class="docutils literal"><span class="pre">vector()</span></tt>
+<span class="math">\(\ \ \text{i}\ \ \)</span> <tt class="docutils literal"><span class="pre">matrix()</span></tt>. <span class="math">\(\\\)</span></p>
+<p>W podanych dalej przykładach zastosowana jest standardowa składnia programowania obiektowego:
+jeżeli funkcja <tt class="docutils literal"><span class="pre">func()</span></tt> jest metodą pewnej klasy, to wynik jej zastosowania do obiektu <tt class="docutils literal"><span class="pre">obj</span></tt>
+tej klasy zapisuje się jako <tt class="docutils literal"><span class="pre">obj.func()</span></tt>. <span class="math">\(\\\)</span></p>
+<p><strong>Wektory.</strong></p>
+<p>Przy wywołaniu konstruktora <tt class="docutils literal"><span class="pre">vector()</span></tt> podaje się pierścień bazowy,
+do którego należą elementy wektora, liczbę elementów i listę tych elementów.
+Przy braku określenia pierścienia zostanie wybrana struktura,
+w której znajdują się wszystkie elementy (domyślnie pierścień liczb całkowitych).
+Gdy lista wartości elementów nie jest podana, powstanie wektor zerowy. <span class="math">\(\\\)</span></p>
+<p>W poniższych przykładach metoda <tt class="docutils literal"><span class="pre">base_ring()</span></tt> podaje pierścień bazowy,
+<span class="math">\(\ \)</span> a <span class="math">\(\ \)</span> <tt class="docutils literal"><span class="pre">parent()</span></tt> <span class="math">\(\ \)</span>- <span class="math">\(\ \)</span> strukturę nadrzędną (klasę),
+do której należy badany obiekt. <span class="math">\(\\\)</span></p>
+<div class="highlight-python"><div class="highlight"><pre><span class="n">sage</span><span class="p">:</span> <span class="c"># Typowe użycie konstruktora:</span>
+<span class="n">sage</span><span class="p">:</span> <span class="n">v</span> <span class="o">=</span> <span class="n">vector</span><span class="p">(</span><span class="n">QQ</span><span class="p">,</span> <span class="p">[</span><span class="mf">1.2</span><span class="p">,</span> <span class="mf">3.6</span><span class="p">,</span> <span class="o">-</span><span class="mf">0.48</span><span class="p">])</span>
+<span class="n">sage</span><span class="p">:</span> <span class="n">v</span><span class="p">;</span> <span class="n">v</span><span class="o">.</span><span class="n">base_ring</span><span class="p">();</span> <span class="n">v</span><span class="o">.</span><span class="n">parent</span><span class="p">()</span>
+
+<span class="p">(</span><span class="mi">6</span><span class="o">/</span><span class="mi">5</span><span class="p">,</span> <span class="mi">18</span><span class="o">/</span><span class="mi">5</span><span class="p">,</span> <span class="o">-</span><span class="mi">12</span><span class="o">/</span><span class="mi">25</span><span class="p">)</span>
+<span class="n">Rational</span> <span class="n">Field</span>
+<span class="n">Vector</span> <span class="n">space</span> <span class="n">of</span> <span class="n">dimension</span> <span class="mi">3</span> <span class="n">over</span> <span class="n">Rational</span> <span class="n">Field</span>
+</pre></div>
+</div>
+<div class="highlight-python"><div class="highlight"><pre><span class="n">sage</span><span class="p">:</span> <span class="c"># Wywołanie bez deklaracji pierścienia:</span>
+<span class="n">sage</span><span class="p">:</span> <span class="n">v</span> <span class="o">=</span> <span class="n">vector</span><span class="p">([</span><span class="mi">3</span><span class="p">,</span> <span class="mi">5</span><span class="p">,</span> <span class="o">-</span><span class="mi">11</span><span class="p">])</span>
+<span class="n">sage</span><span class="p">:</span> <span class="n">v</span><span class="p">;</span> <span class="n">v</span><span class="o">.</span><span class="n">base_ring</span><span class="p">()</span>
+
+<span class="p">(</span><span class="mi">3</span><span class="p">,</span> <span class="mi">5</span><span class="p">,</span> <span class="o">-</span><span class="mi">11</span><span class="p">)</span>
+<span class="n">Integer</span> <span class="n">Ring</span>
+</pre></div>
+</div>
+<div class="highlight-python"><div class="highlight"><pre><span class="n">sage</span><span class="p">:</span> <span class="c"># Zadana tylko liczba elementów, bez ich wartości:</span>
+<span class="n">sage</span><span class="p">:</span> <span class="n">v</span> <span class="o">=</span> <span class="n">vector</span><span class="p">(</span><span class="n">RDF</span><span class="p">,</span><span class="mi">5</span><span class="p">)</span>
+<span class="n">sage</span><span class="p">:</span> <span class="n">v</span><span class="p">;</span> <span class="n">v</span><span class="o">.</span><span class="n">parent</span><span class="p">()</span>
+
+<span class="p">(</span><span class="mf">0.0</span><span class="p">,</span> <span class="mf">0.0</span><span class="p">,</span> <span class="mf">0.0</span><span class="p">,</span> <span class="mf">0.0</span><span class="p">,</span> <span class="mf">0.0</span><span class="p">)</span>
+<span class="n">Vector</span> <span class="n">space</span> <span class="n">of</span> <span class="n">dimension</span> <span class="mi">5</span> <span class="n">over</span> <span class="n">Real</span> <span class="n">Double</span> <span class="n">Field</span>
+</pre></div>
+</div>
+<p>Polecenie systemu Sage <tt class="docutils literal"><span class="pre">VectorSpace(K,n)</span></tt> konstruuje <span class="math">\(n\)</span>-wymiarową przestrzeń wektorową,
+złożoną z <span class="math">\(n\)</span>-elementowych wektorów nad ciałem <span class="math">\(\,K.\)</span>
+Dysponując taką przestrzenią, można tworzyć wektory jako jej instancje:</p>
+<div class="highlight-python"><div class="highlight"><pre><span class="n">sage</span><span class="p">:</span> <span class="n">VS</span> <span class="o">=</span> <span class="n">VectorSpace</span><span class="p">(</span><span class="n">QQ</span><span class="p">,</span><span class="mi">3</span><span class="p">)</span>
+<span class="n">sage</span><span class="p">:</span> <span class="n">v</span> <span class="o">=</span> <span class="n">VS</span><span class="p">([</span><span class="o">-</span><span class="mi">1</span><span class="p">,</span> <span class="mi">4</span><span class="p">,</span> <span class="mf">3.5</span><span class="p">])</span>
+<span class="n">sage</span><span class="p">:</span> <span class="n">VS</span><span class="p">;</span> <span class="n">v</span>
+
+<span class="n">Vector</span> <span class="n">space</span> <span class="n">of</span> <span class="n">dimension</span> <span class="mi">3</span> <span class="n">over</span> <span class="n">Rational</span> <span class="n">Field</span>
+<span class="p">(</span><span class="o">-</span><span class="mi">1</span><span class="p">,</span> <span class="mi">4</span><span class="p">,</span> <span class="mi">7</span><span class="o">/</span><span class="mi">2</span><span class="p">)</span>
+</pre></div>
+</div>
+<p><span class="math">\(\;\)</span></p>
+<p><strong>Macierze.</strong></p>
+<p>Konstruktor <tt class="docutils literal"><span class="pre">matrix()</span></tt> macierzy działa według tych samych zasad co <tt class="docutils literal"><span class="pre">vector()</span></tt>.
+Opcjonalnymi argumentami są: pierścień bazowy (domyślnie pierścień liczb całkowitych),
+liczba wierszy, liczba kolumn (domyślnie równa liczbie wierszy),
+elementy macierzy w postaci płaskiej listy albo listy list (wierszy)
+albo listy wektorów (jako wierszy).</p>
+<div class="highlight-python"><div class="highlight"><pre><span class="n">sage</span><span class="p">:</span> <span class="c"># Konstruktor domyślny tworzy pustą macierz:</span>
+<span class="n">sage</span><span class="p">:</span> <span class="n">M</span> <span class="o">=</span> <span class="n">matrix</span><span class="p">()</span>
+<span class="n">sage</span><span class="p">:</span> <span class="n">M</span><span class="p">;</span> <span class="n">M</span><span class="o">.</span><span class="n">base_ring</span><span class="p">();</span> <span class="n">M</span><span class="o">.</span><span class="n">parent</span><span class="p">()</span>
+
+<span class="p">[]</span>
+<span class="n">Integer</span> <span class="n">Ring</span>
+<span class="n">Full</span> <span class="n">MatrixSpace</span> <span class="n">of</span> <span class="mi">0</span> <span class="n">by</span> <span class="mi">0</span> <span class="n">dense</span> <span class="n">matrices</span> <span class="n">over</span> <span class="n">Integer</span> <span class="n">Ring</span>
+</pre></div>
+</div>
+<div class="highlight-python"><div class="highlight"><pre><span class="n">sage</span><span class="p">:</span> <span class="c"># Typowe użycie konstruktora macierzy:</span>
+<span class="n">sage</span><span class="p">:</span> <span class="n">M1</span> <span class="o">=</span> <span class="n">matrix</span><span class="p">(</span><span class="n">RDF</span><span class="p">,</span> <span class="mi">2</span><span class="p">,</span><span class="mi">3</span><span class="p">,</span> <span class="p">[</span><span class="mi">1</span><span class="p">,</span><span class="mi">2</span><span class="p">,</span><span class="mi">3</span><span class="p">,</span><span class="mi">4</span><span class="p">,</span><span class="mi">5</span><span class="p">,</span><span class="mi">6</span><span class="p">])</span>
+<span class="n">sage</span><span class="p">:</span> <span class="n">M2</span> <span class="o">=</span> <span class="n">matrix</span><span class="p">(</span><span class="n">RDF</span><span class="p">,</span> <span class="p">[[</span><span class="mi">1</span><span class="p">,</span><span class="mi">2</span><span class="p">,</span><span class="mi">3</span><span class="p">],[</span><span class="mi">4</span><span class="p">,</span><span class="mi">5</span><span class="p">,</span><span class="mi">6</span><span class="p">]])</span>
+<span class="n">sage</span><span class="p">:</span> <span class="n">M1</span><span class="p">,</span><span class="n">M2</span><span class="p">;</span> <span class="n">M1</span><span class="o">.</span><span class="n">parent</span><span class="p">()</span>
+
+<span class="p">(</span>
+<span class="p">[</span><span class="mf">1.0</span> <span class="mf">2.0</span> <span class="mf">3.0</span><span class="p">]</span>  <span class="p">[</span><span class="mf">1.0</span> <span class="mf">2.0</span> <span class="mf">3.0</span><span class="p">]</span>
+<span class="p">[</span><span class="mf">4.0</span> <span class="mf">5.0</span> <span class="mf">6.0</span><span class="p">],</span> <span class="p">[</span><span class="mf">4.0</span> <span class="mf">5.0</span> <span class="mf">6.0</span><span class="p">]</span>
+<span class="p">)</span>
+<span class="n">Full</span> <span class="n">MatrixSpace</span> <span class="n">of</span> <span class="mi">2</span> <span class="n">by</span> <span class="mi">3</span> <span class="n">dense</span> <span class="n">matrices</span> <span class="n">over</span> <span class="n">Real</span> <span class="n">Double</span> <span class="n">Field</span>
+</pre></div>
+</div>
+<div class="highlight-python"><div class="highlight"><pre><span class="n">sage</span><span class="p">:</span> <span class="c"># Konstrukcja macierzy kwadratowej</span>
+<span class="o">...</span>   <span class="c"># o elementach całkowitych:</span>
+<span class="n">sage</span><span class="p">:</span> <span class="n">M</span> <span class="o">=</span> <span class="n">matrix</span><span class="p">(</span><span class="mi">3</span><span class="p">,</span><span class="nb">range</span><span class="p">(</span><span class="mi">9</span><span class="p">));</span> <span class="n">M</span>
+
+<span class="p">[</span><span class="mi">0</span> <span class="mi">1</span> <span class="mi">2</span><span class="p">]</span>
+<span class="p">[</span><span class="mi">3</span> <span class="mi">4</span> <span class="mi">5</span><span class="p">]</span>
+<span class="p">[</span><span class="mi">6</span> <span class="mi">7</span> <span class="mi">8</span><span class="p">]</span>
+</pre></div>
+</div>
+<div class="highlight-python"><div class="highlight"><pre><span class="n">sage</span><span class="p">:</span> <span class="c"># Elementy macierzy zadane</span>
+<span class="o">...</span>   <span class="c"># w postaci listy wektorów:</span>
+<span class="n">sage</span><span class="p">:</span> <span class="n">v1</span> <span class="o">=</span> <span class="n">vector</span><span class="p">([</span><span class="mi">1</span><span class="p">,</span><span class="mi">2</span><span class="p">,</span><span class="mi">3</span><span class="p">,</span><span class="o">-</span><span class="mi">1</span><span class="p">])</span>
+<span class="n">sage</span><span class="p">:</span> <span class="n">v2</span> <span class="o">=</span> <span class="n">vector</span><span class="p">([</span><span class="mi">4</span><span class="p">,</span><span class="mi">5</span><span class="p">,</span><span class="mi">6</span><span class="p">,</span><span class="o">-</span><span class="mi">2</span><span class="p">])</span>
+<span class="n">sage</span><span class="p">:</span> <span class="n">v3</span> <span class="o">=</span> <span class="n">vector</span><span class="p">([</span><span class="mi">7</span><span class="p">,</span><span class="mi">8</span><span class="p">,</span><span class="mi">9</span><span class="p">,</span><span class="o">-</span><span class="mi">3</span><span class="p">])</span>
+<span class="n">sage</span><span class="p">:</span> <span class="n">M</span> <span class="o">=</span> <span class="n">matrix</span><span class="p">([</span><span class="n">v1</span><span class="p">,</span><span class="n">v2</span><span class="p">,</span><span class="n">v3</span><span class="p">]);</span> <span class="n">M</span>
+
+<span class="p">[</span> <span class="mi">1</span>  <span class="mi">2</span>  <span class="mi">3</span> <span class="o">-</span><span class="mi">1</span><span class="p">]</span>
+<span class="p">[</span> <span class="mi">4</span>  <span class="mi">5</span>  <span class="mi">6</span> <span class="o">-</span><span class="mi">2</span><span class="p">]</span>
+<span class="p">[</span> <span class="mi">7</span>  <span class="mi">8</span>  <span class="mi">9</span> <span class="o">-</span><span class="mi">3</span><span class="p">]</span>
+</pre></div>
+</div>
+<p>Polecenie <tt class="docutils literal"><span class="pre">MatrixSpace()</span></tt> kreuje przestrzeń macierzy o zadanych rozmiarach nad danym pierścieniem.
+Obowiązkowymi argumentami są: pierścień bazowy, liczba wierszy.
+Opcjonalnym argumentem jest liczba kolumn (domyślnie równa liczbie wierszy).
+Odpowiednie metody dają dostęp do danych przestrzeni takich jak wymiar, rozmiary macierzy, baza.</p>
+<div class="highlight-python"><div class="highlight"><pre><span class="n">sage</span><span class="p">:</span> <span class="n">MS32</span> <span class="o">=</span> <span class="n">MatrixSpace</span><span class="p">(</span><span class="n">ZZ</span><span class="p">,</span><span class="mi">3</span><span class="p">,</span><span class="mi">2</span><span class="p">);</span>
+<span class="n">sage</span><span class="p">:</span> <span class="n">MS32</span><span class="p">;</span> <span class="n">MS32</span><span class="o">.</span><span class="n">dimension</span><span class="p">();</span> <span class="n">MS32</span><span class="o">.</span><span class="n">dims</span><span class="p">();</span> <span class="n">MS32</span><span class="o">.</span><span class="n">basis</span><span class="p">()</span>
+
+<span class="n">Full</span> <span class="n">MatrixSpace</span> <span class="n">of</span> <span class="mi">3</span> <span class="n">by</span> <span class="mi">2</span> <span class="n">dense</span> <span class="n">matrices</span> <span class="n">over</span> <span class="n">Integer</span> <span class="n">Ring</span>
+<span class="mi">6</span>
+<span class="p">(</span><span class="mi">3</span><span class="p">,</span> <span class="mi">2</span><span class="p">)</span>
+<span class="p">[</span>
+<span class="p">[</span><span class="mi">1</span> <span class="mi">0</span><span class="p">]</span>  <span class="p">[</span><span class="mi">0</span> <span class="mi">1</span><span class="p">]</span>  <span class="p">[</span><span class="mi">0</span> <span class="mi">0</span><span class="p">]</span>  <span class="p">[</span><span class="mi">0</span> <span class="mi">0</span><span class="p">]</span>  <span class="p">[</span><span class="mi">0</span> <span class="mi">0</span><span class="p">]</span>  <span class="p">[</span><span class="mi">0</span> <span class="mi">0</span><span class="p">]</span>
+<span class="p">[</span><span class="mi">0</span> <span class="mi">0</span><span class="p">]</span>  <span class="p">[</span><span class="mi">0</span> <span class="mi">0</span><span class="p">]</span>  <span class="p">[</span><span class="mi">1</span> <span class="mi">0</span><span class="p">]</span>  <span class="p">[</span><span class="mi">0</span> <span class="mi">1</span><span class="p">]</span>  <span class="p">[</span><span class="mi">0</span> <span class="mi">0</span><span class="p">]</span>  <span class="p">[</span><span class="mi">0</span> <span class="mi">0</span><span class="p">]</span>
+<span class="p">[</span><span class="mi">0</span> <span class="mi">0</span><span class="p">],</span> <span class="p">[</span><span class="mi">0</span> <span class="mi">0</span><span class="p">],</span> <span class="p">[</span><span class="mi">0</span> <span class="mi">0</span><span class="p">],</span> <span class="p">[</span><span class="mi">0</span> <span class="mi">0</span><span class="p">],</span> <span class="p">[</span><span class="mi">1</span> <span class="mi">0</span><span class="p">],</span> <span class="p">[</span><span class="mi">0</span> <span class="mi">1</span><span class="p">]</span>
+<span class="p">]</span>
+</pre></div>
+</div>
+<div class="highlight-python"><div class="highlight"><pre><span class="n">sage</span><span class="p">:</span> <span class="c"># Mat() jest aliasem dla MatrixSpace():</span>
+<span class="n">sage</span><span class="p">:</span> <span class="n">MS</span> <span class="o">=</span> <span class="n">Mat</span><span class="p">(</span><span class="n">RealField</span><span class="p">(</span><span class="mi">12</span><span class="p">),</span><span class="mi">2</span><span class="p">)</span>
+<span class="n">sage</span><span class="p">:</span> <span class="n">MS</span><span class="p">;</span> <span class="n">MS</span><span class="o">.</span><span class="n">basis</span><span class="p">()</span>
+
+<span class="n">Full</span> <span class="n">MatrixSpace</span> <span class="n">of</span> <span class="mi">2</span> <span class="n">by</span> <span class="mi">2</span> <span class="n">dense</span> <span class="n">matrices</span> <span class="n">over</span> <span class="n">Real</span> <span class="n">Field</span> <span class="k">with</span> <span class="mi">12</span> <span class="n">bits</span>
+<span class="n">of</span> <span class="n">precision</span>
+<span class="p">[</span>
+<span class="p">[</span> <span class="mf">1.00</span> <span class="mf">0.000</span><span class="p">]</span>  <span class="p">[</span><span class="mf">0.000</span>  <span class="mf">1.00</span><span class="p">]</span>  <span class="p">[</span><span class="mf">0.000</span> <span class="mf">0.000</span><span class="p">]</span>  <span class="p">[</span><span class="mf">0.000</span> <span class="mf">0.000</span><span class="p">]</span>
+<span class="p">[</span><span class="mf">0.000</span> <span class="mf">0.000</span><span class="p">],</span> <span class="p">[</span><span class="mf">0.000</span> <span class="mf">0.000</span><span class="p">],</span> <span class="p">[</span> <span class="mf">1.00</span> <span class="mf">0.000</span><span class="p">],</span> <span class="p">[</span><span class="mf">0.000</span>  <span class="mf">1.00</span><span class="p">]</span>
+<span class="p">]</span>
+</pre></div>
+</div>
+<p>Mając do dyspozycji taką przestrzeń, można tworzyć macierze jako jej instancje:</p>
+<div class="highlight-python"><div class="highlight"><pre><span class="n">sage</span><span class="p">:</span> <span class="n">MS22</span> <span class="o">=</span> <span class="n">Mat</span><span class="p">(</span><span class="n">QQ</span><span class="p">,</span><span class="mi">2</span><span class="p">)</span>
+<span class="n">sage</span><span class="p">:</span> <span class="n">MS23</span> <span class="o">=</span> <span class="n">Mat</span><span class="p">(</span><span class="n">QQ</span><span class="p">,</span><span class="mi">2</span><span class="p">,</span><span class="mi">3</span><span class="p">)</span>
+<span class="n">sage</span><span class="p">:</span> <span class="n">A</span> <span class="o">=</span> <span class="n">MS22</span><span class="p">([</span><span class="mi">1</span><span class="p">,</span><span class="mi">2</span><span class="p">,</span><span class="mi">3</span><span class="p">,</span><span class="mi">4</span><span class="p">])</span>
+<span class="n">sage</span><span class="p">:</span> <span class="n">B</span> <span class="o">=</span> <span class="n">MS23</span><span class="p">([</span><span class="mi">1</span><span class="p">,</span><span class="mi">2</span><span class="p">,</span><span class="mi">3</span><span class="p">,</span><span class="mi">4</span><span class="p">,</span><span class="mi">5</span><span class="p">,</span><span class="mi">6</span><span class="p">])</span>
+<span class="n">sage</span><span class="p">:</span> <span class="n">A</span><span class="p">,</span> <span class="n">B</span><span class="p">,</span> <span class="n">A</span><span class="o">*</span><span class="n">B</span> <span class="c"># macierze A i B oraz iloczyn AB</span>
+
+<span class="p">(</span>
+<span class="p">[</span><span class="mi">1</span> <span class="mi">2</span><span class="p">]</span>  <span class="p">[</span><span class="mi">1</span> <span class="mi">2</span> <span class="mi">3</span><span class="p">]</span>  <span class="p">[</span> <span class="mi">9</span> <span class="mi">12</span> <span class="mi">15</span><span class="p">]</span>
+<span class="p">[</span><span class="mi">3</span> <span class="mi">4</span><span class="p">],</span> <span class="p">[</span><span class="mi">4</span> <span class="mi">5</span> <span class="mi">6</span><span class="p">],</span> <span class="p">[</span><span class="mi">19</span> <span class="mi">26</span> <span class="mi">33</span><span class="p">]</span>
+<span class="p">)</span>
+</pre></div>
+</div>
+<p>Wariantem tego podejścia jest użycie konstruktora <tt class="docutils literal"><span class="pre">matrix()</span></tt>
+jako metody przynależnej klasie macierzy:</p>
+<div class="highlight-python"><div class="highlight"><pre><span class="n">sage</span><span class="p">:</span> <span class="n">MS33</span> <span class="o">=</span> <span class="n">Mat</span><span class="p">(</span><span class="n">QQ</span><span class="p">,</span><span class="mi">3</span><span class="p">)</span>
+<span class="n">sage</span><span class="p">:</span> <span class="n">MS34</span> <span class="o">=</span> <span class="n">Mat</span><span class="p">(</span><span class="n">QQ</span><span class="p">,</span><span class="mi">3</span><span class="p">,</span><span class="mi">4</span><span class="p">)</span>
+<span class="n">sage</span><span class="p">:</span> <span class="n">A</span> <span class="o">=</span> <span class="n">MS33</span><span class="o">.</span><span class="n">matrix</span><span class="p">(</span><span class="nb">range</span><span class="p">(</span><span class="mi">9</span><span class="p">))</span>
+<span class="n">sage</span><span class="p">:</span> <span class="n">B</span> <span class="o">=</span> <span class="n">MS34</span><span class="o">.</span><span class="n">matrix</span><span class="p">(</span><span class="nb">range</span><span class="p">(</span><span class="mi">12</span><span class="p">))</span>
+<span class="n">sage</span><span class="p">:</span> <span class="n">A</span><span class="p">,</span> <span class="n">B</span><span class="p">,</span> <span class="n">A</span><span class="o">*</span><span class="n">B</span> <span class="c"># macierze A i B oraz iloczyn AB</span>
+
+<span class="p">(</span>
+<span class="p">[</span><span class="mi">0</span> <span class="mi">1</span> <span class="mi">2</span><span class="p">]</span>  <span class="p">[</span> <span class="mi">0</span>  <span class="mi">1</span>  <span class="mi">2</span>  <span class="mi">3</span><span class="p">]</span>  <span class="p">[</span> <span class="mi">20</span>  <span class="mi">23</span>  <span class="mi">26</span>  <span class="mi">29</span><span class="p">]</span>
+<span class="p">[</span><span class="mi">3</span> <span class="mi">4</span> <span class="mi">5</span><span class="p">]</span>  <span class="p">[</span> <span class="mi">4</span>  <span class="mi">5</span>  <span class="mi">6</span>  <span class="mi">7</span><span class="p">]</span>  <span class="p">[</span> <span class="mi">56</span>  <span class="mi">68</span>  <span class="mi">80</span>  <span class="mi">92</span><span class="p">]</span>
+<span class="p">[</span><span class="mi">6</span> <span class="mi">7</span> <span class="mi">8</span><span class="p">],</span> <span class="p">[</span> <span class="mi">8</span>  <span class="mi">9</span> <span class="mi">10</span> <span class="mi">11</span><span class="p">],</span> <span class="p">[</span> <span class="mi">92</span> <span class="mi">113</span> <span class="mi">134</span> <span class="mi">155</span><span class="p">]</span>
+<span class="p">)</span>
+</pre></div>
+</div>
+<p><span class="math">\(\ \)</span></p>
+<p>Oprócz konstruktora <tt class="docutils literal"><span class="pre">matrix()</span></tt>, Sage dysponuje innymi
+użytecznymi funkcjami do tworzenia pewnych szczególnych macierzy:</p>
+<div class="highlight-python"><div class="highlight"><pre><span class="n">sage</span><span class="p">:</span> <span class="n">O</span> <span class="o">=</span> <span class="n">zero_matrix</span><span class="p">(</span><span class="n">QQ</span><span class="p">,</span><span class="mi">3</span><span class="p">,</span><span class="mi">2</span><span class="p">)</span>
+<span class="n">sage</span><span class="p">:</span> <span class="n">I</span> <span class="o">=</span> <span class="n">identity_matrix</span><span class="p">(</span><span class="mi">3</span><span class="p">)</span>
+<span class="n">sage</span><span class="p">:</span> <span class="n">J</span> <span class="o">=</span> <span class="n">ones_matrix</span><span class="p">(</span><span class="mi">3</span><span class="p">,</span><span class="mi">4</span><span class="p">)</span>
+<span class="n">sage</span><span class="p">:</span> <span class="n">D</span> <span class="o">=</span> <span class="n">diagonal_matrix</span><span class="p">([</span><span class="mi">1</span><span class="p">,</span><span class="mi">2</span><span class="p">,</span><span class="mi">3</span><span class="p">])</span>
+<span class="n">sage</span><span class="p">:</span> <span class="n">R</span> <span class="o">=</span> <span class="n">random_matrix</span><span class="p">(</span><span class="n">QQ</span><span class="p">,</span> <span class="mi">3</span><span class="p">,</span><span class="mi">3</span><span class="p">,</span> <span class="n">algorithm</span><span class="o">=</span><span class="s">&#39;diagonalizable&#39;</span><span class="p">)</span>
+<span class="n">sage</span><span class="p">:</span> <span class="n">E</span> <span class="o">=</span> <span class="n">elementary_matrix</span><span class="p">(</span><span class="n">QQ</span><span class="p">,</span> <span class="mi">3</span><span class="p">,</span> <span class="n">row1</span><span class="o">=</span><span class="mi">1</span><span class="p">,</span> <span class="n">row2</span><span class="o">=</span><span class="mi">2</span><span class="p">,</span> <span class="n">scale</span><span class="o">=</span><span class="mi">2</span><span class="p">)</span>
+<span class="n">sage</span><span class="p">:</span> <span class="n">O</span><span class="p">,</span> <span class="n">I</span><span class="p">,</span> <span class="n">J</span><span class="p">,</span> <span class="n">D</span><span class="p">,</span> <span class="n">R</span><span class="p">,</span> <span class="n">E</span>
+
+<span class="p">(</span>
+<span class="p">[</span><span class="mi">0</span> <span class="mi">0</span><span class="p">]</span>  <span class="p">[</span><span class="mi">1</span> <span class="mi">0</span> <span class="mi">0</span><span class="p">]</span>  <span class="p">[</span><span class="mi">1</span> <span class="mi">1</span> <span class="mi">1</span> <span class="mi">1</span><span class="p">]</span>  <span class="p">[</span><span class="mi">1</span> <span class="mi">0</span> <span class="mi">0</span><span class="p">]</span>  <span class="p">[</span>  <span class="mi">8</span>  <span class="mi">10</span> <span class="o">-</span><span class="mi">20</span><span class="p">]</span>  <span class="p">[</span><span class="mi">1</span> <span class="mi">0</span> <span class="mi">0</span><span class="p">]</span>
+<span class="p">[</span><span class="mi">0</span> <span class="mi">0</span><span class="p">]</span>  <span class="p">[</span><span class="mi">0</span> <span class="mi">1</span> <span class="mi">0</span><span class="p">]</span>  <span class="p">[</span><span class="mi">1</span> <span class="mi">1</span> <span class="mi">1</span> <span class="mi">1</span><span class="p">]</span>  <span class="p">[</span><span class="mi">0</span> <span class="mi">2</span> <span class="mi">0</span><span class="p">]</span>  <span class="p">[</span><span class="o">-</span><span class="mi">36</span> <span class="o">-</span><span class="mi">22</span>  <span class="mi">24</span><span class="p">]</span>  <span class="p">[</span><span class="mi">0</span> <span class="mi">1</span> <span class="mi">2</span><span class="p">]</span>
+<span class="p">[</span><span class="mi">0</span> <span class="mi">0</span><span class="p">],</span> <span class="p">[</span><span class="mi">0</span> <span class="mi">0</span> <span class="mi">1</span><span class="p">],</span> <span class="p">[</span><span class="mi">1</span> <span class="mi">1</span> <span class="mi">1</span> <span class="mi">1</span><span class="p">],</span> <span class="p">[</span><span class="mi">0</span> <span class="mi">0</span> <span class="mi">3</span><span class="p">],</span> <span class="p">[</span><span class="o">-</span><span class="mi">18</span> <span class="o">-</span><span class="mi">10</span>  <span class="mi">10</span><span class="p">],</span> <span class="p">[</span><span class="mi">0</span> <span class="mi">0</span> <span class="mi">1</span><span class="p">]</span>
+<span class="p">)</span>
+</pre></div>
+</div>
+<p><span class="math">\(\;\)</span></p>
+<p><strong>Ćwiczenie.</strong> <span class="math">\(\\\)</span>
+Zadanie nawiązuje do uwagi zapisanej w tej sekcji po tabeli podstawowych pierścieni <span class="math">\(\\\)</span>
+oraz do następującego potem przykładu.</p>
+<ul>
+<li><div class="first line-block">
+<div class="line">Sprawdź, nad jakim pierścieniem jest zbudowana macierz A</div>
+<div class="line">(zastosuj <tt class="docutils literal"><span class="pre">A.base_ring()</span></tt>).</div>
+</div>
+</li>
+<li><div class="first line-block">
+<div class="line">Utwórz macierz A dwoma innymi sposobami opisanymi powyżej.</div>
+</div>
+</li>
+<li><div class="first line-block">
+<div class="line">Zapisz macierz B otrzymaną z A przez podstawienie a = -1</div>
+<div class="line">(zastosuj <tt class="docutils literal"><span class="pre">A.subs()</span></tt>) i sprawdź pierścień.</div>
+</div>
+</li>
+<li><div class="first line-block">
+<div class="line">Zapisz macierz C otrzymaną z B przez zmianę pierścienia na RDF</div>
+<div class="line">(zastosuj <tt class="docutils literal"><span class="pre">B.change_ring()</span></tt>).</div>
+</div>
+</li>
+</ul>
+<div class='sage'><script type='text/x-sage'>var('a')
+A = matrix([[a, 2, 3.], [4/3, 5, 6]])
+show(A)</script></div></div>
+<div class="section" id="wlasnosci-wektorow-i-macierzy">
+<h2>Własności wektorów i macierzy<a class="headerlink" href="algebra_macierze_w_sage.html#wlasnosci-wektorow-i-macierzy" title="Stały odnośnik do tego nagłówka">¶</a></h2>
+<p><strong>Wskaźniki.</strong></p>
+<p>W tradycyjnym zapisie matematycznym numeracja elementów jakiegoś układu
+zaczyna się od jedności. Wektor <span class="math">\(\,n\)</span>-elementowy oraz macierz o <span class="math">\(\ m\,\)</span> wierszach
+<span class="math">\(\,\)</span> i <span class="math">\(\ \,n\;\)</span> kolumnach przedstawiają się następująco:</p>
+<div class="math">
+\[v\ =\ [v_i]_n\ =\ (\,v_1,\ v_2,\ \ldots,\ v_n\,)\,,\]</div>
+<div class="math">
+\[\begin{split}A\ \,=\ \,[a_{ij}]_{m\times n}
+ \ \,=\ \,\left[\begin{array}{cccc}
+   a_{11} &amp; a_{12} &amp; \ldots &amp; a_{1n} \\
+   a_{21} &amp; a_{22} &amp; \ldots &amp; a_{2n} \\
+   \ldots &amp; \ldots &amp; \ldots &amp; \ldots \\
+   a_{m1} &amp; a_{m2} &amp; \ldots &amp; a_{mn} \\
+\end{array}\right]\,.\end{split}\]</div>
+<p>W systemie Sage numerem początkowym elementów wektorów oraz wierszy i kolumn macierzy
+jest zero. Wobec tego wektor i macierz mają następującą strukturę:</p>
+<div class="math">
+\[v\ =\ (\, v[0],\ v[1],\ \ldots,\ v[n-1]\, )\,,\]</div>
+<div class="math">
+\[\begin{split}A\quad=\quad\left(\begin{array}{cccc}
+    A[0,0]   &amp; A[0,1]   &amp; \ldots &amp; A[0,n-1]   \\
+    A[1,0]   &amp; A[1,1]   &amp; \ldots &amp; A[1,n-1]   \\
+    \ldots   &amp; \ldots   &amp; \ldots &amp; \ldots     \\
+    A[m-1,0] &amp; A[m-1,1] &amp; \ldots &amp; A[m-1,n-1]
+\end{array}\right)\,.\end{split}\]</div>
+<div class="line-block">
+<div class="line">W tej sytuacji umawiamy się, że w symbolicznych wyrażeniach matematycznych
+w dalszym ciągu będzie używana numeracja tradycyjna.
+W kodzie programu obowiązuje oczywiście numeracja systemu Sage.
+Natomiast w innych tekstach (np. komentarzach) będzie stosowana</div>
+<div class="line"><br /></div>
+<div class="line"><strong>Umowa:</strong></div>
+<div class="line">numer podany słownie: <span class="math">\(\ \)</span> pierwszy, drugi, itd. <span class="math">\(\ \)</span> odnosi się do numeracji
+tradycyjnej;</div>
+<div class="line">numer zapisany cyfrą: <span class="math">\(\ \)</span> 0., 1., itd. <span class="math">\(\ \)</span> dotyczy numeracji w systemie Sage.</div>
+<div class="line"><br /></div>
+<div class="line">A zatem:</div>
+<div class="line"><span class="math">\(a_{13}\ \)</span> jest elementem z pierwszego wiersza i trzeciej kolumny
+macierzy <span class="math">\(\,A=[a_{ij}]_{m\times n}\,;\)</span></div>
+<div class="line">zapis <span class="math">\(\,\)</span> <tt class="docutils literal"><span class="pre">x=v[2]</span></tt> <span class="math">\(\,\)</span> oznacza, że <span class="math">\(\,x\,\)</span> jest trzecim elementem
+wektora <span class="math">\(\,v\,;\)</span></div>
+<div class="line">0. element (element o numerze 0) jest pierwszym elementem,</div>
+<div class="line">1. wiersz (wiersz o numerze 1) jest drugim wierszem,</div>
+<div class="line">2. kolumna (kolumna o numerze 2) jest trzecią kolumną itd.</div>
+</div>
+<p>Na tej zasadzie można wydobyć jakiś element wektora albo wiersz, kolumnę bądź element macierzy:</p>
+<div class="highlight-python"><div class="highlight"><pre><span class="n">sage</span><span class="p">:</span> <span class="n">v</span> <span class="o">=</span> <span class="n">vector</span><span class="p">([</span><span class="o">-</span><span class="mi">1</span><span class="p">,</span> <span class="mi">5</span><span class="p">,</span> <span class="mi">3</span><span class="p">,</span> <span class="o">-</span><span class="mi">4</span><span class="p">,</span> <span class="mi">8</span><span class="p">])</span>
+<span class="n">sage</span><span class="p">:</span> <span class="k">print</span> <span class="s">&#39;Wektor v i jego wybrane elementy:&#39;</span><span class="p">,</span> <span class="s">&#39;</span><span class="se">\n</span><span class="s">&#39;</span>
+<span class="n">sage</span><span class="p">:</span> <span class="k">print</span> <span class="s">&#39;v =&#39;</span><span class="p">,</span> <span class="n">v</span><span class="p">,</span> <span class="s">&#39;</span><span class="se">\n\n</span><span class="s">v[0] =&#39;</span><span class="p">,</span> <span class="n">v</span><span class="p">[</span><span class="mi">0</span><span class="p">],</span> <span class="s">&#39;  v[4] =&#39;</span><span class="p">,</span> <span class="n">v</span><span class="p">[</span><span class="mi">4</span><span class="p">]</span>
+
+<span class="n">Wektor</span> <span class="n">v</span> <span class="n">i</span> <span class="n">jego</span> <span class="n">wybrane</span> <span class="n">elementy</span><span class="p">:</span>
+
+<span class="n">v</span> <span class="o">=</span> <span class="p">(</span><span class="o">-</span><span class="mi">1</span><span class="p">,</span> <span class="mi">5</span><span class="p">,</span> <span class="mi">3</span><span class="p">,</span> <span class="o">-</span><span class="mi">4</span><span class="p">,</span> <span class="mi">8</span><span class="p">)</span>
+
+<span class="n">v</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span> <span class="o">=</span> <span class="o">-</span><span class="mi">1</span>   <span class="n">v</span><span class="p">[</span><span class="mi">4</span><span class="p">]</span> <span class="o">=</span> <span class="mi">8</span>
+</pre></div>
+</div>
+<div class="highlight-python"><div class="highlight"><pre><span class="n">sage</span><span class="p">:</span> <span class="n">A</span> <span class="o">=</span> <span class="n">matrix</span><span class="p">([[</span><span class="mi">0</span><span class="p">,</span><span class="mi">2</span><span class="p">,</span><span class="mi">4</span><span class="p">,</span><span class="mi">6</span><span class="p">],[</span><span class="mi">1</span><span class="p">,</span><span class="mi">3</span><span class="p">,</span><span class="mi">5</span><span class="p">,</span><span class="mi">7</span><span class="p">],[</span><span class="mi">2</span><span class="p">,</span><span class="mi">4</span><span class="p">,</span><span class="mi">6</span><span class="p">,</span><span class="mi">8</span><span class="p">]])</span>
+<span class="n">sage</span><span class="p">:</span> <span class="k">print</span> <span class="s">&#39;Wybrany wiersz, kolumna i elementy:&#39;</span>
+<span class="n">sage</span><span class="p">:</span> <span class="k">print</span> <span class="s">&#39;</span><span class="se">\n</span><span class="s">1. wiersz  =&#39;</span><span class="p">,</span> <span class="n">A</span><span class="o">.</span><span class="n">row</span><span class="p">(</span><span class="mi">1</span><span class="p">),</span>\
+<span class="o">...</span>         <span class="s">&#39;</span><span class="se">\n</span><span class="s">0. kolumna =&#39;</span><span class="p">,</span> <span class="n">A</span><span class="o">.</span><span class="n">column</span><span class="p">(</span><span class="mi">0</span><span class="p">)</span>
+<span class="n">sage</span><span class="p">:</span> <span class="k">print</span> <span class="s">&#39;</span><span class="se">\n</span><span class="s">A[0,0] =&#39;</span><span class="p">,</span> <span class="n">A</span><span class="p">[</span><span class="mi">0</span><span class="p">,</span><span class="mi">0</span><span class="p">],</span> <span class="s">&#39;  A[1,3] =&#39;</span><span class="p">,</span> <span class="n">A</span><span class="p">[</span><span class="mi">1</span><span class="p">,</span><span class="mi">3</span><span class="p">],</span> <span class="s">&#39;  A[2,2] =&#39;</span><span class="p">,</span> <span class="n">A</span><span class="p">[</span><span class="mi">2</span><span class="p">,</span><span class="mi">2</span><span class="p">]</span>
+
+<span class="n">Wybrany</span> <span class="n">wiersz</span><span class="p">,</span> <span class="n">kolumna</span> <span class="n">i</span> <span class="n">elementy</span><span class="p">:</span>
+
+<span class="mf">1.</span> <span class="n">wiersz</span>  <span class="o">=</span> <span class="p">(</span><span class="mi">1</span><span class="p">,</span> <span class="mi">3</span><span class="p">,</span> <span class="mi">5</span><span class="p">,</span> <span class="mi">7</span><span class="p">)</span>
+<span class="mf">0.</span> <span class="n">kolumna</span> <span class="o">=</span> <span class="p">(</span><span class="mi">0</span><span class="p">,</span> <span class="mi">1</span><span class="p">,</span> <span class="mi">2</span><span class="p">)</span>
+
+<span class="n">A</span><span class="p">[</span><span class="mi">0</span><span class="p">,</span><span class="mi">0</span><span class="p">]</span> <span class="o">=</span> <span class="mi">0</span>   <span class="n">A</span><span class="p">[</span><span class="mi">1</span><span class="p">,</span><span class="mi">3</span><span class="p">]</span> <span class="o">=</span> <span class="mi">7</span>   <span class="n">A</span><span class="p">[</span><span class="mi">2</span><span class="p">,</span><span class="mi">2</span><span class="p">]</span> <span class="o">=</span> <span class="mi">6</span>
+</pre></div>
+</div>
+<p>Elementy macierzy mogą być pewną funkcją ich wskaźników.
+W takim przypadku możemy skonstruować macierz tworząc automatycznie listę
+wierszy i przekazując ją do konstruktora macierzy.</p>
+<p>Poniżej podane są dwa przykłady takiego automatycznego generowania macierzy z zagnieżdżeniem list.
+<span class="math">\(A\ \)</span> jest ogólną macierzą prostokątną o zadanych rozmiarach, <span class="math">\(\ B\ \)</span> - <span class="math">\(\,\)</span> macierzą zespoloną (<span class="math">\(\,i\,\)</span> jest jednostką urojoną) o elementach:</p>
+<div class="math">
+\[\begin{split}b_{kl}\,=\,k+l\cdot i\,,\qquad
+\begin{array}{l} k\,=\,1,2,\ldots,m\,; \\ \,l\,=\,1,2,\ldots,n.\end{array}\end{split}\]</div>
+<div class='sage'><script type='text/x-sage'>m, n = 4, 5
+A = matrix([[var("a%d%d" % (k,l)) for l in range(1,n+1)]
+                                  for k in range(1,m+1)])
+m, n = 4, 3
+B = matrix([[CIF(k,l) for l in range(1,n+1)]
+                      for k in range(1,m+1)])
+show((A,B))</script></div><p><span class="math">\(\ \)</span></p>
+<p><strong>Wycinanie.</strong></p>
+<p>Do wektorów i macierzy można zastosować technikę wycinania (ang. slicing),
+ogólnie zde-finiowaną dla <em>sekwencji</em>. <span class="math">\(\,\)</span> Jeżeli np. <span class="math">\(\ L\ \)</span> jest listą,
+to wycinanie daje następujące wyniki:</p>
+<ul class="simple">
+<li><tt class="docutils literal"><span class="pre">L[p:q]</span></tt> <span class="math">\(\ \)</span> - <span class="math">\(\ \)</span> lista kolejnych elementów o numerach od p do q-1;</li>
+<li><tt class="docutils literal"><span class="pre">L[:q]</span></tt> <span class="math">\(\ \)</span> - <span class="math">\(\ \)</span> lista kolejnych elementów od początku listy do numeru q-1;</li>
+<li><tt class="docutils literal"><span class="pre">L[p:]</span></tt> <span class="math">\(\ \)</span> - <span class="math">\(\ \)</span> lista kolejnych elementów od numeru p do końca listy;</li>
+<li><tt class="docutils literal"><span class="pre">L[p:q:r]</span></tt> <span class="math">\(\ \)</span> - <span class="math">\(\ \)</span> lista elementów o numerach od p do q-1 z krokiem r;</li>
+<li><tt class="docutils literal"><span class="pre">L[-2]</span></tt> , <tt class="docutils literal"><span class="pre">L[-1]</span></tt> <span class="math">\(\ \)</span> - <span class="math">\(\ \)</span> przedostatni i ostatni element listy L.</li>
+</ul>
+<p><span class="math">\(\ \)</span></p>
+<div class="highlight-python"><div class="highlight"><pre><span class="n">sage</span><span class="p">:</span> <span class="n">M</span> <span class="o">=</span> <span class="n">matrix</span><span class="p">(</span><span class="mi">4</span><span class="p">,</span><span class="mi">5</span><span class="p">,</span><span class="nb">range</span><span class="p">(</span><span class="mi">20</span><span class="p">))</span>
+
+<span class="c"># Wycinanie daje macierz złożoną z:</span>
+<span class="n">sage</span><span class="p">:</span> <span class="n">A</span> <span class="o">=</span> <span class="n">M</span><span class="p">[</span><span class="mi">1</span><span class="p">:</span><span class="mi">3</span><span class="p">]</span>     <span class="c"># wierszy 1., 2.</span>
+<span class="n">sage</span><span class="p">:</span> <span class="n">B</span> <span class="o">=</span> <span class="n">M</span><span class="p">[:,</span><span class="mi">2</span><span class="p">:</span><span class="mi">5</span><span class="p">]</span>   <span class="c"># kolumn 2., 3., 4.</span>
+<span class="n">sage</span><span class="p">:</span> <span class="n">C</span> <span class="o">=</span> <span class="n">M</span><span class="p">[</span><span class="mi">1</span><span class="p">:</span><span class="mi">3</span><span class="p">,</span><span class="mi">2</span><span class="p">:</span><span class="mi">5</span><span class="p">]</span> <span class="c"># elementów wierszy 1., 2. i kolumn 2., 3., 4.</span>
+<span class="n">sage</span><span class="p">:</span> <span class="n">D</span> <span class="o">=</span> <span class="n">M</span><span class="p">[</span><span class="mi">1</span><span class="p">:,::</span><span class="mi">2</span><span class="p">]</span>  <span class="c"># elementów wierszy 1., 2., 3. i kolumn 0., 2., 4.</span>
+
+<span class="n">sage</span><span class="p">:</span> <span class="k">print</span> <span class="n">M</span>
+<span class="n">sage</span><span class="p">:</span> <span class="n">A</span><span class="p">,</span> <span class="n">B</span><span class="p">,</span> <span class="n">C</span><span class="p">,</span> <span class="n">D</span>
+
+<span class="p">[</span> <span class="mi">0</span>  <span class="mi">1</span>  <span class="mi">2</span>  <span class="mi">3</span>  <span class="mi">4</span><span class="p">]</span>
+<span class="p">[</span> <span class="mi">5</span>  <span class="mi">6</span>  <span class="mi">7</span>  <span class="mi">8</span>  <span class="mi">9</span><span class="p">]</span>
+<span class="p">[</span><span class="mi">10</span> <span class="mi">11</span> <span class="mi">12</span> <span class="mi">13</span> <span class="mi">14</span><span class="p">]</span>
+<span class="p">[</span><span class="mi">15</span> <span class="mi">16</span> <span class="mi">17</span> <span class="mi">18</span> <span class="mi">19</span><span class="p">]</span>
+<span class="p">(</span>
+                  <span class="p">[</span> <span class="mi">2</span>  <span class="mi">3</span>  <span class="mi">4</span><span class="p">]</span>
+                  <span class="p">[</span> <span class="mi">7</span>  <span class="mi">8</span>  <span class="mi">9</span><span class="p">]</span>              <span class="p">[</span> <span class="mi">5</span>  <span class="mi">7</span>  <span class="mi">9</span><span class="p">]</span>
+<span class="p">[</span> <span class="mi">5</span>  <span class="mi">6</span>  <span class="mi">7</span>  <span class="mi">8</span>  <span class="mi">9</span><span class="p">]</span>  <span class="p">[</span><span class="mi">12</span> <span class="mi">13</span> <span class="mi">14</span><span class="p">]</span>  <span class="p">[</span> <span class="mi">7</span>  <span class="mi">8</span>  <span class="mi">9</span><span class="p">]</span>  <span class="p">[</span><span class="mi">10</span> <span class="mi">12</span> <span class="mi">14</span><span class="p">]</span>
+<span class="p">[</span><span class="mi">10</span> <span class="mi">11</span> <span class="mi">12</span> <span class="mi">13</span> <span class="mi">14</span><span class="p">],</span> <span class="p">[</span><span class="mi">17</span> <span class="mi">18</span> <span class="mi">19</span><span class="p">],</span> <span class="p">[</span><span class="mi">12</span> <span class="mi">13</span> <span class="mi">14</span><span class="p">],</span> <span class="p">[</span><span class="mi">15</span> <span class="mi">17</span> <span class="mi">19</span><span class="p">]</span>
+<span class="p">)</span>
+</pre></div>
+</div>
+<div class="line-block">
+<div class="line"><strong>Uwaga.</strong> <span class="math">\(\,\)</span>
+Jeżeli <span class="math">\(\,A\,\)</span> jest macierzą o <span class="math">\(\,m\,\)</span> wierszach i <span class="math">\(\ n\,\)</span> kolumnach,
+to jej <span class="math">\(\,k\)</span>-ty wiersz można otrzymać na trzy sposoby, przy czym różny będzie typ wyniku:</div>
+<div class="line"><br /></div>
+<div class="line"><tt class="docutils literal"><span class="pre">A[k]</span></tt>, <span class="math">\(\ \)</span> <tt class="docutils literal"><span class="pre">A.row(k)</span></tt>  <span class="math">\(\ \)</span> - <span class="math">\(\ \)</span> wektor <span class="math">\(\,n\)</span>-elementowy;</div>
+<div class="line"><tt class="docutils literal"><span class="pre">A[k,:]</span></tt> <span class="math">\(\ \)</span> - <span class="math">\(\ \)</span> 1-wierszowa macierz o <span class="math">\(\,n\,\)</span> elementach.</div>
+<div class="line"><br /></div>
+<div class="line">Dla <span class="math">\(\,k\)</span>-tej kolumny pozostają dwie możliwości:</div>
+<div class="line"><br /></div>
+<div class="line"><tt class="docutils literal"><span class="pre">A.column(k)</span></tt> <span class="math">\(\ \)</span> - <span class="math">\(\ \)</span> wektor <cite>m</cite>-elementowy (zapisany poziomo);</div>
+<div class="line"><tt class="docutils literal"><span class="pre">A[:,k]</span></tt> <span class="math">\(\ \)</span> - <span class="math">\(\ \)</span> 1-kolumnowa macierz o <span class="math">\(\,m\)</span> elementach.</div>
+</div>
+<div class="highlight-python"><div class="highlight"><pre><span class="n">sage</span><span class="p">:</span> <span class="n">A</span> <span class="o">=</span> <span class="n">random_matrix</span><span class="p">(</span><span class="n">ZZ</span><span class="p">,</span><span class="mi">3</span><span class="p">,</span><span class="mi">4</span><span class="p">);</span> <span class="k">print</span> <span class="n">A</span><span class="p">,</span> <span class="s">&#39;</span><span class="se">\n</span><span class="s">&#39;</span>
+<span class="n">sage</span><span class="p">:</span> <span class="n">A</span><span class="p">[</span><span class="mi">0</span><span class="p">];</span> <span class="nb">type</span><span class="p">(</span><span class="n">A</span><span class="p">[</span><span class="mi">0</span><span class="p">]);</span> <span class="n">A</span><span class="o">.</span><span class="n">row</span><span class="p">(</span><span class="mi">0</span><span class="p">);</span> <span class="nb">type</span><span class="p">(</span><span class="n">A</span><span class="o">.</span><span class="n">row</span><span class="p">(</span><span class="mi">0</span><span class="p">));</span> <span class="n">A</span><span class="p">[</span><span class="mi">0</span><span class="p">,:];</span> <span class="nb">type</span><span class="p">(</span><span class="n">A</span><span class="p">[</span><span class="mi">0</span><span class="p">,:])</span>
+
+<span class="p">[</span> <span class="o">-</span><span class="mi">3</span>   <span class="mi">0</span>   <span class="mi">1</span>  <span class="o">-</span><span class="mi">3</span><span class="p">]</span>
+<span class="p">[</span>  <span class="mi">1</span>   <span class="mi">1</span>   <span class="mi">1</span> <span class="o">-</span><span class="mi">36</span><span class="p">]</span>
+<span class="p">[</span>  <span class="mi">1</span>   <span class="mi">0</span>   <span class="mi">1</span>   <span class="mi">0</span><span class="p">]</span>
+
+<span class="p">(</span><span class="o">-</span><span class="mi">3</span><span class="p">,</span> <span class="mi">0</span><span class="p">,</span> <span class="mi">1</span><span class="p">,</span> <span class="o">-</span><span class="mi">3</span><span class="p">)</span>
+<span class="o">&lt;</span><span class="nb">type</span> <span class="s">&#39;sage.modules.vector_integer_dense.Vector_integer_dense&#39;</span><span class="o">&gt;</span>
+<span class="p">(</span><span class="o">-</span><span class="mi">3</span><span class="p">,</span> <span class="mi">0</span><span class="p">,</span> <span class="mi">1</span><span class="p">,</span> <span class="o">-</span><span class="mi">3</span><span class="p">)</span>
+<span class="o">&lt;</span><span class="nb">type</span> <span class="s">&#39;sage.modules.vector_integer_dense.Vector_integer_dense&#39;</span><span class="o">&gt;</span>
+<span class="p">[</span><span class="o">-</span><span class="mi">3</span>  <span class="mi">0</span>  <span class="mi">1</span> <span class="o">-</span><span class="mi">3</span><span class="p">]</span>
+<span class="o">&lt;</span><span class="nb">type</span> <span class="s">&#39;sage.matrix.matrix_integer_dense.Matrix_integer_dense&#39;</span><span class="o">&gt;</span>
+</pre></div>
+</div>
+<p><span class="math">\(\ \)</span></p>
+<p><strong>Ćwiczenie.</strong></p>
+<ul>
+<li><div class="first line-block">
+<div class="line">Utwórz przypadkową macierz A o 5 wierszach i 4 kolumnach
+nad pierścieniem liczb całkowitych poleceniem <tt class="docutils literal"><span class="pre">random_matrix()</span></tt>.</div>
+</div>
+</li>
+<li><div class="first line-block">
+<div class="line">Stosując technikę wycinania utwórz macierz B, której kolejne wiersze będą</div>
+<div class="line">ostatnim, środkowym i pierwszym (czyli początkowym) wierszem macierzy A.</div>
+<div class="line"><em>Wskazówka</em>: <span class="math">\(\,\)</span> Użyj wzorca <tt class="docutils literal"><span class="pre">[p:q:r]</span></tt> z domyślną wartością q: <span class="math">\(\ \)</span> <tt class="docutils literal"><span class="pre">[p::r]</span></tt></div>
+<div class="line">przyjmując <span class="math">\(\ \)</span> p = -1, r = -2. <span class="math">\(\,\)</span> Ile faktycznie wynosi q?</div>
+</div>
+</li>
+<li><div class="first line-block">
+<div class="line">Zapisz wybraną kolumnę macierzy A jako wektor v oraz jako macierz 1-kolumnową C.</div>
+<div class="line">Sprawdż typ otrzymanych obiektów.</div>
+</div>
+</li>
+</ul>
+<p><span class="math">\(\ \)</span></p>
+<div class='sage'><script type='text/x-sage'>A =
+B =
+v =
+C =
+
+show ((A, B, v, C))
+print type(v)
+print type(C)</script></div></div>
+<div class="section" id="dzialania-na-wektorach-i-macierzach">
+<h2>Działania na wektorach i macierzach<a class="headerlink" href="algebra_macierze_w_sage.html#dzialania-na-wektorach-i-macierzach" title="Stały odnośnik do tego nagłówka">¶</a></h2>
+<p><strong>Kombinacja liniowa wektorów.</strong></p>
+<p>Dodawanie <span class="math">\(\,n\)</span>-elementowych wektorów nad pierścieniem <span class="math">\(\,P\ \,\)</span>
+i <span class="math">\(\,\)</span> mnożenie ich przez liczby należące do <span class="math">\(\,P\,\)</span>
+określone jest analogicznie do działań na wektorach kolumnowych.</p>
+<p>Jeżeli wektor <span class="math">\(\ w = (w_1,w_2,\ldots,w_n)\ \)</span> jest kombinacją liniową
+wektorów <span class="math">\(\\ \,x = (x_1,x_2,\ldots,x_n)\ \)</span> oraz <span class="math">\(\ \,y = (y_1,y_2,\ldots,y_n)\ \)</span>
+o współczynnikach <span class="math">\(\,a\ \)</span> i <span class="math">\(\ \,b\,:\)</span></p>
+<div class="math">
+\[w\ =\ a\,x\, +\, b\,y\,,\]</div>
+<p>to jego elementy dane są przez</p>
+<div class="math">
+\[w_i\ =\ a\,x_i\, +\, b\,y_i\,,\qquad i\,=\,1,2,\ldots,n.\]</div>
+<p>Łatwo sprawdzić, że <span class="math">\(\,n\)</span>-elementowe wektory nad ciałem <span class="math">\(\,K\,\)</span>
+tworzą przestrzeń wektorową nad tym ciałem ze względu na dodawanie
+i mnożenie przez liczby z <span class="math">\(\,K.\)</span> <span class="math">\(\\\)</span></p>
+<p><strong>Iloczyn skalarny wektorów.</strong></p>
+<p>Iloczyn skalarny dwóch wektorów o tej samej długości równa się z definicji
+sumie iloczynów odpowiednich elementów, <span class="math">\(\,\)</span> jest więc liczbą
+należącą do pierścienia <span class="math">\(\,P:\)</span></p>
+<div class="math">
+\[x\cdot y \ \,:\,=\ \,\sum_{i=1}^n\,x_i\,y_i\ \,=\ \,
+x_1\,y_1\,+\,x_2\,y_2\,+\,\ldots\,+\,x_n\,y_n\,.\]</div>
+<p>Przykład kombinacji liniowej i iloczynu skalarnego wektorów:</p>
+<div class="highlight-python"><div class="highlight"><pre><span class="n">sage</span><span class="p">:</span> <span class="n">x</span> <span class="o">=</span> <span class="n">vector</span><span class="p">([</span><span class="o">-</span><span class="mi">1</span><span class="p">,</span><span class="mi">2</span><span class="p">,</span><span class="mi">5</span><span class="p">])</span>
+<span class="n">sage</span><span class="p">:</span> <span class="n">y</span> <span class="o">=</span> <span class="n">vector</span><span class="p">([</span><span class="mi">3</span><span class="p">,</span><span class="mi">0</span><span class="p">,</span><span class="mi">4</span><span class="p">])</span>
+<span class="c"># Kombinacja liniowa w wektorów x, y o współczynnikach 3, -2:</span>
+<span class="n">sage</span><span class="p">:</span> <span class="n">w</span> <span class="o">=</span> <span class="mi">3</span><span class="o">*</span><span class="n">x</span><span class="o">-</span><span class="mi">2</span><span class="o">*</span><span class="n">y</span>
+<span class="c"># Iloczyn skalarny p wektorów x, y:</span>
+<span class="n">sage</span><span class="p">:</span> <span class="n">p</span> <span class="o">=</span> <span class="n">x</span><span class="o">*</span><span class="n">y</span>
+<span class="n">sage</span><span class="p">:</span> <span class="n">html</span><span class="o">.</span><span class="n">table</span><span class="p">([[</span><span class="mi">3</span><span class="p">,</span><span class="s">&#39;$\cdot$&#39;</span><span class="p">,</span><span class="n">x</span><span class="p">,</span><span class="s">&#39;-&#39;</span><span class="p">,</span><span class="mi">2</span><span class="p">,</span><span class="s">&#39;$\cdot$&#39;</span><span class="p">,</span><span class="n">y</span><span class="p">,</span><span class="s">&#39;=&#39;</span><span class="p">,</span><span class="n">w</span><span class="p">]])</span>
+<span class="n">sage</span><span class="p">:</span> <span class="n">html</span><span class="o">.</span><span class="n">table</span><span class="p">([[</span><span class="n">x</span><span class="p">,</span><span class="s">&#39;$\cdot$&#39;</span><span class="p">,</span><span class="n">y</span><span class="p">,</span><span class="s">&#39;=&#39;</span><span class="p">,</span><span class="n">p</span><span class="p">]])</span>
+</pre></div>
+</div>
+<p><span class="math">\(\begin{array}{ccccccccc}
+3 &amp; \cdot &amp; \left(-1,\,2,\,5\right) &amp; - &amp; 2 &amp; \cdot &amp; \left(3,\,0,\,4\right) &amp; = &amp;
+\left(-9,\,6,\,7\right)\end{array}\)</span></p>
+<p><span class="math">\(\begin{array}{ccccc}
+\left(-1,\,2,\,5\right) &amp; \cdot &amp; \left(3,\,0,\,4\right) &amp; = &amp; 17
+\end{array}\)</span></p>
+<p>Zdefiniowany w ten sposób iloczyn skalarny wektorów można powiązać z operacją
+mnożenia macierzowego jednowierszowej macierzy otrzymanej z wektora <span class="math">\(\,x\,\)</span>
+przez jednokolumnową macierz otrzymaną z wektora <span class="math">\(\,y:\)</span></p>
+<div class="highlight-python"><div class="highlight"><pre><span class="n">sage</span><span class="p">:</span> <span class="n">x</span> <span class="o">=</span> <span class="n">matrix</span><span class="p">(</span><span class="mi">1</span><span class="p">,</span><span class="mi">3</span><span class="p">,[</span><span class="o">-</span><span class="mi">1</span><span class="p">,</span><span class="mi">2</span><span class="p">,</span><span class="mi">5</span><span class="p">])</span>
+<span class="n">sage</span><span class="p">:</span> <span class="n">y</span> <span class="o">=</span> <span class="n">matrix</span><span class="p">(</span><span class="mi">3</span><span class="p">,</span><span class="mi">1</span><span class="p">,[</span><span class="mi">3</span><span class="p">,</span><span class="mi">0</span><span class="p">,</span><span class="mi">4</span><span class="p">])</span>
+<span class="n">sage</span><span class="p">:</span> <span class="n">p</span> <span class="o">=</span> <span class="n">x</span><span class="o">*</span><span class="n">y</span>
+<span class="n">sage</span><span class="p">:</span> <span class="n">html</span><span class="o">.</span><span class="n">table</span><span class="p">([[</span><span class="n">x</span><span class="p">,</span><span class="s">&#39;$\cdot$&#39;</span><span class="p">,</span><span class="n">y</span><span class="p">,</span><span class="s">&#39;=&#39;</span><span class="p">,</span><span class="n">p</span><span class="p">]])</span>
+</pre></div>
+</div>
+<p><span class="math">\(\begin{array}{ccccc}
+\left(\begin{array}{ccc} -1 &amp; 2 &amp; 5 \end{array}\right) &amp; \cdot &amp;
+\left(\begin{array}{c} 3 \\ 0 \\ 4 \end{array}\right) &amp; = &amp; (17)
+\end{array}\)</span></p>
+<p><strong>Iloczyny wektora i macierzy.</strong></p>
+<p>Jeżeli <span class="math">\(\ x\ \)</span> jest wektorem <span class="math">\(\,n\)</span>-elementowym, <span class="math">\(\ \)</span>
+a <span class="math">\(\ \,A\ \)</span> - <span class="math">\(\ \)</span> macierzą kwadratową stopnia <span class="math">\(\,n:\)</span></p>
+<div class="math">
+\[\begin{split}x\ =\ (x_1,x_2,\ldots,x_n)\,,\qquad
+A\ =\ \left[\begin{array}{cccc}
+    a_{11}    &amp; a_{12}    &amp; \ldots &amp; a_{1n} \\
+    a_{21}    &amp; a_{22}    &amp; \ldots &amp; a_{2n} \\
+    \ldots    &amp; \ldots    &amp; \ldots &amp; \ldots \\
+    a_{n1} &amp; a_{n2} &amp; \ldots &amp; a_{nn}
+\end{array}\right]\,,\end{split}\]</div>
+<p>to istnieją iloczyny <span class="math">\(\ \ v = x\cdot A\ \ \)</span> oraz <span class="math">\(\ \ w = A\cdot x\,.\)</span></p>
+<p>Obydwa wyniki, <span class="math">\(\ v\ \ \text{i}\ \ w\,,\ \)</span> są wektorami, <span class="math">\(\,\)</span> przy czym</p>
+<div class="math">
+\[v_j\ :\,=\ \sum_{i=1}^n\,x_i\,a_{ij}\ =\
+x_1\,a_{1j}\,+\,x_2\,a_{2j}\,+\,\ldots\,+\,x_n\,a_{nj}\,,
+\qquad j\,=\,1,2,\ldots,n,\]\[w_i\ :\,=\ \sum_{j=1}^n\,a_{ij}\,x_j\ =\
+a_{i1}\,x_1\,+\,a_{i2}\,x_2\,+\,\ldots\,+\,a_{in}\,x_n\,,
+\qquad i\,=\,1,2,\ldots,n.\]</div>
+<p><span class="math">\(\ \)</span></p>
+<p>Sprawdźmy to na przykładzie:</p>
+<div class="highlight-python"><div class="highlight"><pre><span class="n">sage</span><span class="p">:</span> <span class="n">x</span> <span class="o">=</span> <span class="n">vector</span><span class="p">(</span><span class="nb">range</span><span class="p">(</span><span class="mi">3</span><span class="p">))</span>
+<span class="n">sage</span><span class="p">:</span> <span class="n">A</span> <span class="o">=</span> <span class="n">matrix</span><span class="p">(</span><span class="mi">3</span><span class="p">,</span><span class="nb">range</span><span class="p">(</span><span class="mi">9</span><span class="p">))</span>
+<span class="n">sage</span><span class="p">:</span> <span class="n">v</span> <span class="o">=</span> <span class="n">x</span><span class="o">*</span><span class="n">A</span><span class="p">;</span> <span class="n">w</span> <span class="o">=</span> <span class="n">A</span><span class="o">*</span><span class="n">x</span>
+<span class="n">sage</span><span class="p">:</span> <span class="n">html</span><span class="o">.</span><span class="n">table</span><span class="p">([[</span><span class="n">x</span><span class="p">,</span><span class="s">&#39;$\cdot$&#39;</span><span class="p">,</span><span class="n">A</span><span class="p">,</span><span class="s">&#39;=&#39;</span><span class="p">,</span><span class="n">v</span><span class="p">]])</span>
+<span class="n">sage</span><span class="p">:</span> <span class="n">html</span><span class="o">.</span><span class="n">table</span><span class="p">([[</span><span class="n">A</span><span class="p">,</span><span class="s">&#39;$\cdot$&#39;</span><span class="p">,</span><span class="n">x</span><span class="p">,</span><span class="s">&#39;=&#39;</span><span class="p">,</span><span class="n">w</span><span class="p">]])</span>
+</pre></div>
+</div>
+<p><span class="math">\(\begin{array}{ccccc}
+\left(0,\,1,\,2\right) &amp; \cdot &amp;
+\left(\begin{array}{rrr} 0 &amp; 1 &amp; 2 \\ 3 &amp; 4 &amp; 5 \\ 6 &amp; 7 &amp; 8 \end{array}\right) &amp;
+= &amp; \left(15,\,18,\,21\right)
+\end{array}\)</span></p>
+<p><span class="math">\(\begin{array}{ccccc}
+\left(\begin{array}{rrr} 0 &amp; 1 &amp; 2 \\ 3 &amp; 4 &amp; 5 \\ 6 &amp; 7 &amp; 8 \end{array}\right) &amp;
+\cdot &amp; \left(0,\,1,\,2\right) &amp;
+= &amp; \left(5,\,14,\,23\right)
+\end{array}\)</span></p>
+<p>Zauważmy, że jeżeli zastąpić wektory przez macierze jednowierszowe,
+a iloczyn wektora i macierzy przez iloczyn macierzowy,
+to pierwsze równanie pozostanie prawdziwe, podczas gdy drugie straci sens
+(nie istnieje iloczyn macierzy kwadratowej przez macierz jednowierszową).
+Aby otrzymać poprawną wersję macierzową drugiego równania, w miejsce wektorów należy podstawić macierze jednokolumnowe.</p>
+<p>Wektor można przekształcić do postaci macierzy jednowierszowej
+albo do postaci macierzy jednokolumnowej (czyli wektora kolumnowego)
+przy użyciu metod <tt class="docutils literal"><span class="pre">row()</span></tt> i <tt class="docutils literal"><span class="pre">column()</span></tt>.</p>
+<p>Należy zwrócić uwagę na różnicę w zapisie wektora i macierzy 1-wierszowej:</p>
+<div class="highlight-python"><div class="highlight"><pre><span class="n">sage</span><span class="p">:</span> <span class="n">x</span> <span class="o">=</span> <span class="n">vector</span><span class="p">([</span><span class="mi">0</span><span class="p">,</span><span class="mi">1</span><span class="p">,</span><span class="mi">2</span><span class="p">])</span> <span class="c"># wyjściowy wektor</span>
+<span class="n">sage</span><span class="p">:</span> <span class="n">xr</span> <span class="o">=</span> <span class="n">x</span><span class="o">.</span><span class="n">row</span><span class="p">()</span>        <span class="c"># macierzowa postać wierszowa</span>
+<span class="n">sage</span><span class="p">:</span> <span class="n">xc</span> <span class="o">=</span> <span class="n">x</span><span class="o">.</span><span class="n">column</span><span class="p">()</span>     <span class="c"># macierzowa postać kolumnowa</span>
+<span class="n">sage</span><span class="p">:</span> <span class="n">show</span><span class="p">((</span><span class="n">x</span><span class="p">,</span><span class="n">xr</span><span class="p">,</span><span class="n">xc</span><span class="p">))</span>
+</pre></div>
+</div>
+<p><span class="math">\(\left(\quad\left(0,\,1,\,2\right)\,,\quad
+\left(\begin{array}{rrr} 0 &amp; 1 &amp; 2 \end{array}\right)\,,\quad
+\left(\begin{array}{r} 0 \\ 1 \\ 2 \end{array}\right)\quad\right)\)</span></p>
+<p>Poniższy program wykonuje opisane przekształcenia i działania
+oraz wyświetla poprzednie równania w wersji macierzowej:</p>
+<div class="highlight-python"><div class="highlight"><pre><span class="n">sage</span><span class="p">:</span> <span class="n">x</span> <span class="o">=</span> <span class="n">vector</span><span class="p">(</span><span class="nb">range</span><span class="p">(</span><span class="mi">3</span><span class="p">))</span>
+<span class="n">sage</span><span class="p">:</span> <span class="n">A</span> <span class="o">=</span> <span class="n">matrix</span><span class="p">(</span><span class="mi">3</span><span class="p">,</span><span class="nb">range</span><span class="p">(</span><span class="mi">9</span><span class="p">))</span>
+<span class="n">sage</span><span class="p">:</span> <span class="n">xr</span> <span class="o">=</span> <span class="n">x</span><span class="o">.</span><span class="n">row</span><span class="p">()</span>
+<span class="n">sage</span><span class="p">:</span> <span class="n">xc</span> <span class="o">=</span> <span class="n">x</span><span class="o">.</span><span class="n">column</span><span class="p">()</span>
+<span class="n">sage</span><span class="p">:</span> <span class="n">vr</span> <span class="o">=</span> <span class="n">xr</span><span class="o">*</span><span class="n">A</span><span class="p">;</span> <span class="n">wc</span> <span class="o">=</span> <span class="n">A</span><span class="o">*</span><span class="n">xc</span>
+<span class="n">sage</span><span class="p">:</span> <span class="n">html</span><span class="o">.</span><span class="n">table</span><span class="p">([[</span><span class="n">xr</span><span class="p">,</span><span class="s">&#39;$\cdot$&#39;</span><span class="p">,</span><span class="n">A</span><span class="p">,</span><span class="s">&#39;=&#39;</span><span class="p">,</span><span class="n">vr</span><span class="p">]])</span>
+<span class="n">sage</span><span class="p">:</span> <span class="n">html</span><span class="o">.</span><span class="n">table</span><span class="p">([[</span><span class="n">A</span><span class="p">,</span><span class="s">&#39;$\cdot$&#39;</span><span class="p">,</span><span class="n">xc</span><span class="p">,</span><span class="s">&#39;=&#39;</span><span class="p">,</span><span class="n">wc</span><span class="p">]])</span>
+</pre></div>
+</div>
+<p><span class="math">\(\begin{array}{ccccc}
+\left(\begin{array}{rrr} 0 &amp; 1 &amp; 2 \end{array}\right) &amp; \cdot &amp;
+\left(\begin{array}{rrr} 0 &amp; 1 &amp; 2 \\ 3 &amp; 4 &amp; 5 \\ 6 &amp; 7 &amp; 8 \end{array}\right) &amp;
+= &amp; \left(\begin{array}{rrr} 15 &amp; 18 &amp; 21 \end{array}\right)
+\end{array}\)</span></p>
+<p><span class="math">\(\begin{array}{ccccc}
+\left(\begin{array}{rrr} 0 &amp; 1 &amp; 2 \\ 3 &amp; 4 &amp; 5 \\ 6 &amp; 7 &amp; 8 \end{array}\right) &amp;
+\cdot &amp; \left(\begin{array}{r} 0 \\ 1 \\ 2 \end{array}\right) &amp;
+= &amp; \left(\begin{array}{r} 5 \\ 14 \\ 23 \end{array}\right)
+\end{array}\)</span></p>
+<p>Pierwsze równanie można przepisać w postaci kolumnowej poprzez obustronną transpozycję:</p>
+<div class="highlight-python"><div class="highlight"><pre><span class="n">sage</span><span class="p">:</span> <span class="n">x</span> <span class="o">=</span> <span class="n">vector</span><span class="p">(</span><span class="nb">range</span><span class="p">(</span><span class="mi">3</span><span class="p">))</span>
+<span class="n">sage</span><span class="p">:</span> <span class="n">A</span> <span class="o">=</span> <span class="n">matrix</span><span class="p">(</span><span class="mi">3</span><span class="p">,</span><span class="nb">range</span><span class="p">(</span><span class="mi">9</span><span class="p">))</span>
+<span class="n">sage</span><span class="p">:</span> <span class="n">xc</span> <span class="o">=</span> <span class="n">x</span><span class="o">.</span><span class="n">column</span><span class="p">()</span>
+<span class="n">sage</span><span class="p">:</span> <span class="n">At</span> <span class="o">=</span> <span class="n">A</span><span class="o">.</span><span class="n">transpose</span><span class="p">()</span>
+<span class="n">sage</span><span class="p">:</span> <span class="n">vc</span> <span class="o">=</span> <span class="n">At</span><span class="o">*</span><span class="n">xc</span>
+<span class="n">sage</span><span class="p">:</span> <span class="n">html</span><span class="o">.</span><span class="n">table</span><span class="p">([[</span><span class="n">At</span><span class="p">,</span><span class="s">&#39;$\cdot$&#39;</span><span class="p">,</span><span class="n">xc</span><span class="p">,</span><span class="s">&#39;=&#39;</span><span class="p">,</span><span class="n">vc</span><span class="p">]])</span>
+</pre></div>
+</div>
+<p><span class="math">\(\begin{array}{ccccc}
+\left(\begin{array}{rrr} 0 &amp; 3 &amp; 6 \\ 1 &amp; 4 &amp; 7 \\ 2 &amp; 5 &amp; 8 \end{array}\right) &amp;
+\cdot &amp; \left(\begin{array}{r} 0 \\ 1 \\ 2 \end{array}\right) &amp;
+= &amp; \left(\begin{array}{r} 15 \\ 18 \\ 21 \end{array}\right)
+\end{array}\)</span></p>
+<p><span class="math">\(\;\)</span></p>
+<p><strong>Iloczyn macierzy.</strong></p>
+<p>Sage oczywiście obsługuje mnożenie dowolnych dwóch macierzy o odpowiednio dobranych rozmiarach
+(ilość kolumn pierwszej musi równać się ilości wierszy drugiej):</p>
+<div class="highlight-python"><div class="highlight"><pre><span class="n">sage</span><span class="p">:</span> <span class="n">A</span> <span class="o">=</span> <span class="n">matrix</span><span class="p">(</span><span class="mi">2</span><span class="p">,</span><span class="mi">3</span><span class="p">,</span><span class="nb">range</span><span class="p">(</span><span class="mi">6</span><span class="p">))</span>
+<span class="n">sage</span><span class="p">:</span> <span class="n">B</span> <span class="o">=</span> <span class="n">matrix</span><span class="p">(</span><span class="mi">3</span><span class="p">,</span><span class="nb">range</span><span class="p">(</span><span class="mi">9</span><span class="p">))</span>
+<span class="n">sage</span><span class="p">:</span> <span class="n">C</span> <span class="o">=</span> <span class="n">A</span><span class="o">*</span><span class="n">B</span>
+<span class="n">sage</span><span class="p">:</span> <span class="n">html</span><span class="o">.</span><span class="n">table</span><span class="p">([[</span><span class="n">A</span><span class="p">,</span><span class="s">&#39;$\cdot$&#39;</span><span class="p">,</span><span class="n">B</span><span class="p">,</span><span class="s">&#39;=&#39;</span><span class="p">,</span><span class="n">C</span><span class="p">]])</span>
+</pre></div>
+</div>
+<p><span class="math">\(\begin{array}{ccccc}
+\left(\begin{array}{rrr} 0 &amp; 1 &amp; 2 \\ 3 &amp; 4 &amp; 5 \end{array}\right) &amp; \cdot &amp;
+\left(\begin{array}{rrr} 0 &amp; 1 &amp; 2 \\ 3 &amp; 4 &amp; 5 \\ 6 &amp; 7 &amp; 8 \end{array}\right) &amp; = &amp;
+\left(\begin{array}{rrr} 15 &amp; 18 &amp; 21 \\ 42 &amp; 54 &amp; 66 \end{array}\right)
+\end{array}\)</span></p>
+<p><span class="math">\(\;\)</span></p>
+<p>Pokazane przykłady pozwalają zauważyć, że występujące w kodzie programu symbole <span class="math">\(\\\)</span>
+dodawania, odejmowania i mnożenia mają różne znaczenie zależne od kontekstu:</p>
+<p>symbole <span class="math">\(\,\)</span> <tt class="docutils literal"><span class="pre">+</span></tt>/<tt class="docutils literal"><span class="pre">-</span></tt> <span class="math">\(\,\)</span> oznaczają
+dodawanie/odejmowanie liczb, wektorów albo macierzy;</p>
+<p>symbol <span class="math">\(\,\)</span> <tt class="docutils literal"><span class="pre">*</span></tt> <span class="math">\(\,\)</span> oznacza mnożenie liczb, <span class="math">\(\,\)</span>
+mnożenie wektora przez liczbę, <span class="math">\(\,\)</span>
+mnożenie macierzy przez liczbę, <span class="math">\(\,\)</span>
+mnożenie skalarne wektorów, <span class="math">\(\,\)</span>
+mnożenie wektora przez macierz bądź macierzy przez wektor, <span class="math">\(\,\)</span>
+mnożenie macierzy przez macierz.</p>
+</div>
+<div class="section" id="mnozenie-macierzy-blokowych">
+<h2>Mnożenie macierzy blokowych<a class="headerlink" href="algebra_macierze_w_sage.html#mnozenie-macierzy-blokowych" title="Stały odnośnik do tego nagłówka">¶</a></h2>
+<p>Każdą macierz o rozmiarach nie mniejszych od 2
+można podzielić na cztery (lub więcej) prostokątnych bloków.
+Po takim podziale macierz nazywana jest macierzą blokową.
+Zaznaczenie struktury blokowej może uwidocznić regularność,
+występującą wśród elementów macierzy.</p>
+<p>Okazuje się, że mnożenie macierzy blokowych można
+zapisać w taki sam sposób, jak mnożenie macierzy elementarnych:</p>
+<div class="math" id="equation-blok1">
+<span class="eqno">(1)</span>\[\begin{split}\left[\begin{array}{c|c}
+    \boldsymbol{A} &amp; \boldsymbol{B} \\
+    \hline
+    \boldsymbol{C} &amp; \boldsymbol{D}
+ \end{array}\right]
+ \left[\begin{array}{c}
+     \boldsymbol{X} \\
+     \hline
+     \boldsymbol{Y}
+\end{array}\right]
+\ =\
+\left[\begin{array}{c}
+    \boldsymbol{A} \boldsymbol{X} + \boldsymbol{B} \boldsymbol{Y} \\
+    \hline
+    \boldsymbol{C} \boldsymbol{X} + \boldsymbol{D} \boldsymbol{Y}
+\end{array}\right]\,.\end{split}\]</div>
+<p>Bloki <span class="math">\(\ \boldsymbol{A},\boldsymbol{B},\boldsymbol{C},\boldsymbol{D},\boldsymbol{X},\boldsymbol{Y}\ \)</span>
+są tutaj macierzami o dowolnych rozmiarach pod warunkiem, że liczby kolumn i wierszy umożliwiają ich mnożenie.
+Wykonanie mnożenia w powyższy sposób na macierzach gęstych zasadniczo nie zmniejsza liczby operacji.
+Jeżeli jednak pewne bloki (podmacierze) są zerowe lub są macierzami jednostkowymi,
+to rachunki mogą istotnie się uprościć.</p>
+<p>Weźmy na przykład sytuację, gdy dwa bloki są zerowe (oznaczone <span class="math">\(\ \boldsymbol{O}\)</span>). <span class="math">\(\ \)</span> Wtedy:</p>
+<div class="math">
+\[\begin{split}\left[\begin{array}{c|c}
+   \boldsymbol{A} &amp; \boldsymbol{O} \\
+   \hline
+   \boldsymbol{O} &amp; \boldsymbol{D}
+\end{array}\right]
+\left[\begin{array}{c}
+    \boldsymbol{X} \\
+    \hline
+    \boldsymbol{Y}
+\end{array}\right]
+\ =\
+\left[\begin{array}{c}
+    \boldsymbol{A} \boldsymbol{X} \\
+    \hline
+    \boldsymbol{D} \boldsymbol{Y}
+\end{array}\right]\end{split}\]</div>
+<p>W systemie Sage istnieje możliwość wykonywania operacji na macierzach blokowych:
+można poskładać macierz z bloków za pomocą funkcji <tt class="docutils literal"><span class="pre">block_matrix()</span></tt>.</p>
+<div class="admonition-poeksperymentuj-z-sage admonition">
+<p class="first admonition-title">Poeksperymentuj z Sage:</p>
+<p class="last">W poniższym programie można praktycznie sprawdzić wzór <a href="algebra_macierze_w_sage.html#equation-blok1">(1)</a>.
+Zachęcamy do eksperymentów z innymi postaciami i wielkościami macierzy.</p>
+</div>
+<div class='sage'><script type='text/x-sage'>A  = random_matrix(ZZ,2)
+B1 = block_matrix([[identity_matrix(2),A],[zero_matrix(1,2),zero_matrix(1,2)]])
+B2 = block_matrix([[A],[identity_matrix(2)]])
+
+html.table([["$\\qquad\\quad\ \ B1$","","$\\qquad\ \ B2$","",
+             "$\\quad B1\ \\ast\ B2$"], [B1,"*",B2,"=",B1*B2]])</script></div></div>
+</div>
+
+
+          </div>
+        </div>
+      </div>
+      <div class="sphinxsidebar">
+        <div class="sphinxsidebarwrapper">
+  <div class="sphinxlocaltoc">
+  <h3><a href="http://visual.icse.us.edu.pl/LA/index.html">Spis treści</a></h3>
+  <ul>
+<li><a class="reference internal" href="algebra_macierze_w_sage.html#">Wektory i macierze w systemie Sage</a><ul>
+<li><a class="reference internal" href="algebra_macierze_w_sage.html#konstrukcja-wektorow-i-macierzy">Konstrukcja wektorów i macierzy</a></li>
+<li><a class="reference internal" href="algebra_macierze_w_sage.html#wlasnosci-wektorow-i-macierzy">Własności wektorów i macierzy</a></li>
+<li><a class="reference internal" href="algebra_macierze_w_sage.html#dzialania-na-wektorach-i-macierzach">Działania na wektorach i macierzach</a></li>
+<li><a class="reference internal" href="algebra_macierze_w_sage.html#mnozenie-macierzy-blokowych">Mnożenie macierzy blokowych</a></li>
+</ul>
+</li>
+</ul>
+
+  </div>
+  <h4>Poprzedni temat</h4>
+  <p class="topless"><a href="algebra_macierzy_wlasnosci_dzialan.html"
+                        title="poprzedni rozdział">Własności działań na macierzach</a></p>
+  <h4>Następny temat</h4>
+  <p class="topless"><a href="algebra_macierzy_zadania.html"
+                        title="następny rozdział">Zadania</a></p>
+<div id="searchbox" style="display: none">
+  <h3>Szybkie wyszukiwanie</h3>
+    <form class="search" action="search.html" method="get">
+      <input type="text" name="q" />
+      <input type="submit" value="Szukaj" />
+      <input type="hidden" name="check_keywords" value="yes" />
+      <input type="hidden" name="area" value="default" />
+    </form>
+    <p class="searchtip" style="font-size: 90%">
+    Wprowadź szukany termin lub nazwę modułu, klasy lub funkcji.
+    </p>
+</div>
+<script type="text/javascript">$('#searchbox').show(0);</script>
+        </div>
+      </div>
+      <div class="clearer"></div>
+    </div>
+  </div>
+  <div class="relbar-bottom">
+    
+    <div class="related">
+      <h3>Nawigacja</h3>
+      <ul>
+        <li class="right" style="margin-right: 10px">
+          <a href="algebra_macierzy_zadania.html" title="Zadania"
+             >dalej</a></li>
+        <li class="right" >
+          <a href="algebra_macierzy_wlasnosci_dzialan.html" title="Własności działań na macierzach"
+             >wstecz</a> &nbsp; &nbsp;</li>
+  <li><a href="http://visual.icse.us.edu.pl/LA/index.html">Algebra Liniowa</a> &raquo;</li>
+   
+      </ul>
+    </div>
+  </div>
+  
+  <div class="footer">
+    <a class="logo" href="../../icse.us.edu.pl/index.html" target="_blank"><img src="_static/logo-icse.png" alt="ICSE"/></a><br/>
+    &copy; Copyright 2013, Marcin Kostur.
+    Created using <a href="http://sphinx.pocoo.org/">Sphinx</a> 1.2.2.
+  </div>
+  </body>
+</html>

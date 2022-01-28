@@ -1,0 +1,492 @@
+
+
+  <!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+  "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+
+
+<html xmlns="http://www.w3.org/1999/xhtml">
+  <head>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    
+    <title>Wprowadzenie do SAGE’a – problem wspólnego dnia urodzin &mdash; Warsztaty</title>
+    
+    <link rel="stylesheet" href="_static/cloud.css" type="text/css" />
+    <link rel="stylesheet" href="_static/pygments.css" type="text/css" />
+    <link rel="stylesheet" href="http://fonts.googleapis.com/css?family=Noticia+Text|Open+Sans|Droid+Sans+Mono&subset=latin,latin-ext" type="text/css" />
+    
+    <script type="text/javascript">
+      var DOCUMENTATION_OPTIONS = {
+        URL_ROOT:    './',
+        VERSION:     'I',
+        COLLAPSE_INDEX: false,
+        FILE_SUFFIX: '.html',
+        HAS_SOURCE:  true
+      };
+    </script>
+    <script type="text/javascript" src="_static/jquery.js"></script>
+    <script type="text/javascript" src="_static/underscore.js"></script>
+    <script type="text/javascript" src="_static/doctools.js"></script>
+    <script type="text/javascript" src="_static/translations.js"></script>
+    <script type="text/javascript" src="http://cdn.mathjax.org/mathjax/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML"></script>
+    <script type="text/javascript" src="_static/jquery.cookie.js"></script>
+    <script type="text/javascript" src="_static/cloud.js"></script>
+
+
+
+    <script src="http://sagecell.icse.us.edu.pl:6363/static/jquery.min.js"></script>
+	<script src="http://sagecell.icse.us.edu.pl:6363/static/embedded_sagecell.js"></script>
+
+	<script>sagecell.makeSagecell({inputLocation: ".sage",
+                                       evalButtonText: 'Wykonaj',
+                                       linked: true});</script>
+
+	<style type="text/css">
+		.sagecell .CodeMirror-scroll {
+			overflow-y: hidden;
+			overflow-x: auto;
+		}
+		.sagecell .CodeMirror {
+			height: auto;
+		}
+	</style>
+
+    
+    <link rel="top" title="Warsztaty" href="index.html" />
+    <link rel="next" title="Demokracja – co dwie głowy, to nie jedna" href="iCSE_2_Demokracja_CubeProject.html" />
+    <link rel="prev" title="Wprowadzenie do SAGE’a – matematyka bez bólu, obliczenia, wykresy" href="iCSE_1a_Wprowadzenie_CubeProject.html" />
+ 
+  <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, minimum-scale=1">
+  </head>
+  <body>
+  <div class="relbar-top">
+    
+    <div class="related">
+      <h3>Nawigacja</h3>
+      <ul>
+        <li class="right" style="margin-right: 10px">
+          <a href="iCSE_2_Demokracja_CubeProject.html" title="Demokracja – co dwie głowy, to nie jedna"
+             accesskey="N">dalej</a></li>
+        <li class="right" >
+          <a href="iCSE_1a_Wprowadzenie_CubeProject.html" title="Wprowadzenie do SAGE’a – matematyka bez bólu, obliczenia, wykresy"
+             accesskey="P">wstecz</a> &nbsp; &nbsp;</li>
+  <li><a href="index.html">Warsztaty</a> &raquo;</li>
+   
+      </ul>
+    </div>
+  </div>
+  
+  <div class="content">  
+
+    <div class="document">
+      <div class="documentwrapper">
+        <div class="bodywrapper">
+          <div class="body">
+            
+  <div class="section" id="wprowadzenie-do-sage-a-problem-wspolnego-dnia-urodzin">
+<h1>Wprowadzenie do SAGE&#8217;a &#8211; problem wspólnego dnia urodzin<a class="headerlink" href="iCSE_1b_Wprowadzenie_CubeProject.html#wprowadzenie-do-sage-a-problem-wspolnego-dnia-urodzin" title="Stały odnośnik do tego nagłówka">¶</a></h1>
+<div class="section" id="zapoznanie-z-podstawowymi-elementami-sagea-jako-srodowiska-programowania">
+<h2>Zapoznanie z podstawowymi elementami SAGEa jako środowiska programowania<a class="headerlink" href="iCSE_1b_Wprowadzenie_CubeProject.html#zapoznanie-z-podstawowymi-elementami-sagea-jako-srodowiska-programowania" title="Stały odnośnik do tego nagłówka">¶</a></h2>
+<div class="section" id="zapoznanie-z-dzialaniem-funkcji-range-len-append-max">
+<h3>Zapoznanie z działaniem funkcji: <tt class="docutils literal"><span class="pre">range</span></tt>, <tt class="docutils literal"><span class="pre">len</span></tt>, <tt class="docutils literal"><span class="pre">append</span></tt>, <tt class="docutils literal"><span class="pre">max</span></tt><a class="headerlink" href="iCSE_1b_Wprowadzenie_CubeProject.html#zapoznanie-z-dzialaniem-funkcji-range-len-append-max" title="Stały odnośnik do tego nagłówka">¶</a></h3>
+<p><strong>Listy</strong> to jeden z podstawowych elementów w programowaniu, szczególnie często wykorzystywany przy symulacjach, gdzie iteracyjnie (krok po kroku) wykonujemy pewne
+obliczenia prowadzące do wyniku końcowego. Niezbędna jest umiejętność tworzenia list, odczytywania ich elementów, odwoływania się do odpowiednich elementów oraz
+modyfikowania tych list. Lista to pewien uporządkowany zbiór obiektów. Obiektami mogą być liczby (wtedy lista jest wektorem), ale jest to tylko szczególny przypadek listy.</p>
+<div class="admonition note">
+<p class="first admonition-title">Informacja</p>
+<p class="last">Pojedynczy znak <tt class="docutils literal"><span class="pre">=</span></tt> to operator przypisania (podstawienia), w odróżnieniu od podwójnego znaku <tt class="docutils literal"><span class="pre">==</span></tt>, który służy do porównania (tak jak w zadaniu znajdowania pierwiastków wielomianu używaliśmy <tt class="docutils literal"><span class="pre">==</span></tt> przyrównując wielomian do zera).</p>
+</div>
+<p>Możemy utworzyć nową listę złożoną z liczb korzystając z zapisu <tt class="docutils literal"><span class="pre">[1..9]</span></tt>, co tworzy listę kolejnych liczb całkowitych zaczynając od 1 a kończąc na 9.</p>
+<div class="highlight-python"><div class="highlight"><pre>sage: print(&quot;Lista &#39;a&#39;:&quot;)
+sage: a = [11..19]
+sage: print(&quot;oto jak wygląda &#39;a&#39;:&quot;)
+sage: print(a)
+
+Lista &#39;a&#39;:
+oto jak wygląda &#39;a&#39;:
+[11, 12, 13, 14, 15, 16, 17, 18, 19]
+</pre></div>
+</div>
+<div class="admonition note">
+<p class="first admonition-title">Informacja</p>
+<p class="last">UWAGA!!! Elementy listy są w SAGE&#8217;u numerowane od wartości 0!</p>
+</div>
+<div class="highlight-python"><div class="highlight"><pre>sage: print(&quot;Pierwszy element listy &#39;a&#39;:&quot;)
+sage: print(a[0])
+sage: print(&quot;Szósty element listy &#39;a&#39;:&quot;)
+sage: print(a[5])
+sage: print(&quot;Ostatni element listy &#39;a&#39;:&quot;)
+sage: print(a[-1])
+sage: print(&quot;Przedostatni element listy &#39;a&#39;:&quot;)
+sage: print(a[-2])
+sage: print(&quot;Liczba elementów listy &#39;a&#39;:&quot;)
+sage: print(len(a))
+
+Pierwszy element listy &#39;a&#39;:
+11
+Szósty element listy &#39;a&#39;:
+16
+Ostatni element listy &#39;a&#39;:
+19
+Przedostatni element listy &#39;a&#39;:
+18
+Liczba elementów listy &#39;a&#39;:
+9
+</pre></div>
+</div>
+<p>W powyższym przykładzie widać jedną z korzyści numerowania list od 0 &#8211; można łatwo odwołać się do ostatniego elementu listy przez <tt class="docutils literal"><span class="pre">a[-1]</span></tt>.</p>
+</div>
+</div>
+<div class="section" id="operacje-na-listach-modyfikowanie-listy-przez-dodawanie-doklejanie-nowych-elementow">
+<h2>Operacje na listach. Modyfikowanie listy przez dodawanie (doklejanie) nowych elementów<a class="headerlink" href="iCSE_1b_Wprowadzenie_CubeProject.html#operacje-na-listach-modyfikowanie-listy-przez-dodawanie-doklejanie-nowych-elementow" title="Stały odnośnik do tego nagłówka">¶</a></h2>
+<p>Wykorzystamy tu również inny, często używany sposób definiowania listy &#8211;  funkcję <tt class="docutils literal"><span class="pre">range()</span></tt>, np. <tt class="docutils literal"><span class="pre">range(10)</span></tt> tworzy listę kolejnych liczb całkowitych
+zaczynając od 0 i lista będzie zawierała 10 elementów, czyli ostatnim elementem będzie 9.</p>
+<div class='sage'><script type='text/x-sage'>a = [11..19]
+a.append(10)
+print("Liczba elementów listy 'a' po modyfikacji:")
+print(len(a))
+print("Oto jak wygląda 'a' po modyfikacji:")
+print(a)
+print("Lista 'b':")
+b = range(10)
+print("Liczba elementów listy 'b':")
+print(len(b))
+print("Oto jak wygląda 'b':")
+print(b)
+b = b+[20]
+print("Oto jak wygląda 'b' po modyfikacji:")
+print(b)
+print("Inny sposób modyfikacji (doklejania do listy):")
+b += [50]
+print("Oto jak wygląda 'b' po modyfikacji:")
+print(b)
+b += [3,50,-2]
+print("Lista 'b' po kolejnej modyfikacji:")
+print(b)
+print("Dodajemy, tj. doklejamy listy do siebie 'a+b':")
+print(a+b)</script></div><div class="section" id="znajdowanie-najwiekszego-elementu-listy">
+<h3>Znajdowanie największego elementu listy<a class="headerlink" href="iCSE_1b_Wprowadzenie_CubeProject.html#znajdowanie-najwiekszego-elementu-listy" title="Stały odnośnik do tego nagłówka">¶</a></h3>
+<div class="highlight-python"><div class="highlight"><pre><span class="n">sage</span><span class="p">:</span> <span class="k">print</span><span class="p">(</span><span class="s">&quot;Maksymalny element listy &#39;b&#39;:&quot;</span><span class="p">)</span>
+<span class="n">sage</span><span class="p">:</span> <span class="k">print</span><span class="p">(</span><span class="nb">max</span><span class="p">(</span><span class="n">b</span><span class="p">))</span>
+
+<span class="n">Maksymalny</span> <span class="n">element</span> <span class="n">listy</span> <span class="s">&#39;b&#39;</span><span class="p">:</span>
+<span class="mi">50</span>
+</pre></div>
+</div>
+</div>
+</div>
+<div class="section" id="problem-wspolnego-dnia-urodzin-wykorzystanie-petli-for">
+<h2>Problem wspólnego dnia urodzin &#8211; wykorzystanie pętli <tt class="docutils literal"><span class="pre">for</span></tt><a class="headerlink" href="iCSE_1b_Wprowadzenie_CubeProject.html#problem-wspolnego-dnia-urodzin-wykorzystanie-petli-for" title="Stały odnośnik do tego nagłówka">¶</a></h2>
+<p>Załóżmy, że ktoś nam zaproponował grę, w której możemy wygrać 100 zł, jeśli dobrze obstawimy, albo nic nie wygrać, jeśli źle obstawimy (nie możemy niczego przegrać).
+Zadanie polega na tym, że wchodzimy do pomieszczenia gdzie znajduje się losowo wybrana grupa <em>N</em>  osób (liczba <em>N</em>  jest nam podana). Naszym zadaniem jest obstawić,
+czy w tej grupie znajdziemy przynajmniej 2 osoby, które obchodzą swoje urodziny tego samego dnia.</p>
+<p>Oczywiście jeśli np. w grupie są zaledwie 4 osoby,
+to pewnie każdy obstawi, że nie ma w tej grupie osób obchodzących urodziny tego samego dnia (wprawdzie może się zdarzyć, że akurat wśród tych 4 osób takie dwie osoby będą, ale jest to mało
+prawdopodobna sytuacja, więc bardziej opłaca się obstawić, że ,,NIE&#8221;). Z drugiej strony jeśli grupa liczy 366 osób, to zapewne każdy obstawi, że ,,TAK&#8221;
+&#8211; w tej grupie przynajmniej 2 osoby obchodzą swoje urodziny tego samego dnia (bo wydaje się to bardzo pradopodobne &#8211; niemal pewne). Pytanie gdzie jest granica &#8211;
+ile osób musi liczyć grupa żeby bardziej opłacało się obstawić ,,TAK&#8221;, niż ,,NIE&#8221;? Innymi słowy od jakiej liczebności grupy zaczyna być bardziej prawdopodobne, że znajdziemy
+przynajmniej 2 osoby, które obchodzą swoje urodziny tego samego dnia? [prawdopodobieństwo jest zawsze liczbą z przedziału od 0 do 1; prawdopodobieństwo 0,5 oznacza, że szanse
+wygranej i przegranej rozkładają się po równo, czyli po 50%; postawione pytanie można więc sformułować również tak: od jakiej liczebności grupy prawdopodobieństwo, że znajdziemy w niej
+przynajmniej 2 osoby, które obchodzą swoje urodziny tego samego dnia, przekracza wartość 0,5?]</p>
+<p>Żeby odpowiedzieć na postawione pytanie najpierw rozwiążemy zadanie obliczenia prawdopodobieństwa, że w danej grupie <em>N</em>  osób są przynajmniej dwie takie,
+które obchodzą swoje urodziny tego samego dnia.</p>
+<p><strong>Rozwiązanie:</strong></p>
+<p>Do danego problemu można podejsć przez obliczenie <strong>prawdopodobieństwa zdarzenia przeciwnego</strong>, tj. zdarzenia, że w grupie <strong>nie ma osób, które obchodzą urodziny tego
+samego dnia</strong>, zaś szukane w zadaniu prawdopodobieństwo będzie dopełnieniem do jedynki otrzymanego wyniku.</p>
+<p>Jaka jest więc szansa, że w grupie <em>N</em>  osób nie ma takich, które obchodzą urodziny tego samego dnia? Na początek rozważmy ten problem dla małych grup, zaczynając od jednoosobowej.
+Załóżmy, że rok ma 365 dni (nie rozważamy lat przestępnych).</p>
+<p>Jeśli <em>N</em> = 1 (grupa jednoosobowa), to takie prawdopodobieństwo jest równe <span class="math">\(1=\frac{365}{365}\)</span> (zdarzenie pewne).</p>
+<p>Jeśli <em>N</em> = 2, to druga osoba, skoro ma mieć urodziny w innym dniu, niż pierwsza osoba, to ma 355 możliwości na 365 (czyli z wyłączeniem dnia urodzin pierwszej osoby).
+Oznacza to, że prawdopodobieństwo jest równe:</p>
+<div class="math">
+\[\frac{365}{365}\cdot\frac{364}{365}.\]</div>
+<p>Jeśli <em>N</em> = 3, to trzecia osoba, skoro ma urodziny w innym dniu niż pierwsza i druga osoba, to (ponieważ dwa dni są już ,,zajęte&#8221;) ma 354 możliwości na 365 (czyli wszystkie dni
+z wyłączeniem dnia urodzin pierwszej oraz drugiej osoby). To jest jednak warunek tylko dla trzeciej osoby, który musi być połączony z warunkiem dla drugiej osoby.
+Oznacza to, że prawdopodobieństwo jest równe:</p>
+<div class="math">
+\[\frac{365}{365}\cdot\frac{364}{365}\cdot\frac{363}{365}.\]\[\vdots\]</div>
+<p>Jeśli grupa liczy <em>N</em> osób, to <strong>prawdopodobieństwo, że w grupie nie ma osób, które obchodzą urodziny tego samego dnia</strong> jest równe:</p>
+<div class="math">
+\[\frac{365}{365}\cdot\frac{364}{365}\cdot\frac{363}{365}\cdot\ldots\cdot\frac{365-(N-1)}{365}.\]</div>
+<p>To były obliczenia dla zdarzenia przeciwnego niż to, które nas interesuje. Oznacza to, że <strong>prawdopodobieństwo, że w danej grupie N osób
+są przynajmniej dwie takie, które obchodzą swoje urodziny tego samego dnia</strong> jest równe:</p>
+<div class="math">
+\[1-\frac{365}{365}\cdot\frac{364}{365}\cdot\frac{363}{365}\cdot\ldots\cdot\frac{365-(N-1)}{365}.\]</div>
+<p>Policzmy to prawdopodobieństwo dla <em>N</em>  = 5 osób:</p>
+<div class="highlight-python"><div class="highlight"><pre><span class="n">sage</span><span class="p">:</span> <span class="k">print</span><span class="p">(</span><span class="mi">1</span><span class="o">-</span><span class="mi">365</span><span class="o">/</span><span class="mi">365</span><span class="o">*</span><span class="mi">364</span><span class="o">/</span><span class="mi">365</span><span class="o">*</span><span class="mi">363</span><span class="o">/</span><span class="mi">365</span><span class="o">*</span><span class="mi">362</span><span class="o">/</span><span class="mi">365</span><span class="o">*</span><span class="mi">361</span><span class="o">/</span><span class="mi">365</span><span class="p">)</span>
+<span class="n">sage</span><span class="p">:</span> <span class="k">print</span><span class="p">(</span><span class="n">n</span><span class="p">(</span><span class="mi">1</span><span class="o">-</span><span class="mi">365</span><span class="o">/</span><span class="mi">365</span><span class="o">*</span><span class="mi">364</span><span class="o">/</span><span class="mi">365</span><span class="o">*</span><span class="mi">363</span><span class="o">/</span><span class="mi">365</span><span class="o">*</span><span class="mi">362</span><span class="o">/</span><span class="mi">365</span><span class="o">*</span><span class="mi">361</span><span class="o">/</span><span class="mi">365</span><span class="p">,</span> <span class="n">digits</span><span class="o">=</span><span class="mi">3</span><span class="p">))</span>
+
+<span class="mi">481626601</span><span class="o">/</span><span class="mi">17748900625</span>
+<span class="mf">0.0271</span>
+</pre></div>
+</div>
+<p>Widzimy, że zgodnie z intuicją, dla pięcioosobowej grupy prawdopodobieństwo, że w takiej grupie osób
+są przynajmniej dwie osoby, które obchodzą swoje urodziny tego samego dnia jest bardzo małe &#8211; około 2,7%.</p>
+<p>Gdybyśmy chcieli policzyć to prawdopodobieństwo dla większej grupy np. <em>N</em> =40, to mamy do ,,wklepania&#8221; w SAGE&#8217;a bardzo długie wyrażenie algebraiczne
+(wiele ułamków). Lepiej wykorzystać pętlę.</p>
+<div class="admonition note">
+<p class="first admonition-title">Informacja</p>
+<p class="last">UWAGA! Bardzo ważny sposób zapisu pętli. W SAGE&#8217;u bardzo istotne są wcięcia!!! (Wcięcia decydują gdzie pętla się kończy &#8211; to wymusza dyscyplinę zapisu kodu)</p>
+</div>
+<div class="highlight-python"><div class="highlight"><pre>sage: p_przeciwne=1
+sage: for i in range(40):
+...       p_przeciwne *= (365-i)/365
+...
+sage: print(&quot;Prawdopodobieństwo, że w danej grupie N=40 osób są przynajmniej dwie takie,
+...          które obchodzą swoje urodziny tego samego dnia jest równe:&quot;)
+sage: print(n(1-p_przeciwne, digits=3))
+
+Prawdopodobieństwo, że w danej grupie N=40 osób są przynajmniej dwie takie,
+które obchodzą swoje urodziny tego samego dnia jest równe:
+0.891
+</pre></div>
+</div>
+<p>Tu pierwsze zaskoczenie &#8211; dla grupy czterdziestoosobowej prawdopodobieństwo, że znajdziemy przynajmniej dwie osoby, które obchodzą swoje urodziny tego samego dnia jest
+bardzo duże &#8211; równe ponad 89%, czyli w grupie 40 osobowej zdecydowanie bardziej opłaca się obstawiać na ,,TAK&#8221;.</p>
+<p>Zapiszmy powyższe obliczenia w postaci naszej własnej <strong>funkcji</strong></p>
+<div class="admonition note">
+<p class="first admonition-title">Informacja</p>
+<p class="last">UWAGA! Przy definiowaniu własnych funkcji również bardzo ważne są wcięcia!</p>
+</div>
+<div class='sage'><script type='text/x-sage'>def p_wspolnych_urodzin(N):
+    p_przeciwne=1
+    for i in range(N):
+        p_przeciwne *= (365-i)/365
+
+    return 1-p_przeciwne
+
+# Sposób użycia zdefiniowanej przez nas funkcji:
+print("Prawdopodobieństwo, że w danej grupie N=50 osób są przynajmniej dwie takie, które obchodzą swoje urodziny tego samego dnia jest równe:")
+print(n(p_wspolnych_urodzin(50), digits=3))</script></div><p>Teraz możemy zgrabnie wykorzystać zdefiniowaną funkcję <tt class="docutils literal"><span class="pre">p_wspolnych_urodzin</span></tt>, żeby zobaczyć jak zmienia się to prawdopodobieństwo, kiedy
+liczba osób w grupie rośnie:</p>
+<div class="highlight-python"><div class="highlight"><pre><span class="n">sage</span><span class="p">:</span> <span class="k">for</span> <span class="n">k</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="mi">101</span><span class="p">):</span>
+<span class="n">sage</span><span class="p">:</span> <span class="k">print</span><span class="p">(</span><span class="n">k</span><span class="p">,</span> <span class="n">n</span><span class="p">(</span><span class="n">p_wspolnych_urodzin</span><span class="p">(</span><span class="n">k</span><span class="p">),</span> <span class="n">digits</span><span class="o">=</span><span class="mi">4</span><span class="p">))</span>
+
+    <span class="p">(</span><span class="mi">0</span><span class="p">,</span> <span class="mf">0.0000</span><span class="p">)</span>
+    <span class="p">(</span><span class="mi">1</span><span class="p">,</span> <span class="mf">0.0000</span><span class="p">)</span>
+    <span class="p">(</span><span class="mi">2</span><span class="p">,</span> <span class="mf">0.002740</span><span class="p">)</span>
+    <span class="p">(</span><span class="mi">3</span><span class="p">,</span> <span class="mf">0.008204</span><span class="p">)</span>
+    <span class="p">(</span><span class="mi">4</span><span class="p">,</span> <span class="mf">0.01636</span><span class="p">)</span>
+    <span class="p">(</span><span class="mi">5</span><span class="p">,</span> <span class="mf">0.02714</span><span class="p">)</span>
+    <span class="p">(</span><span class="mi">6</span><span class="p">,</span> <span class="mf">0.04046</span><span class="p">)</span>
+    <span class="p">(</span><span class="mi">7</span><span class="p">,</span> <span class="mf">0.05624</span><span class="p">)</span>
+    <span class="p">(</span><span class="mi">8</span><span class="p">,</span> <span class="mf">0.07434</span><span class="p">)</span>
+    <span class="p">(</span><span class="mi">9</span><span class="p">,</span> <span class="mf">0.09462</span><span class="p">)</span>
+    <span class="p">(</span><span class="mi">10</span><span class="p">,</span> <span class="mf">0.1169</span><span class="p">)</span>
+    <span class="p">(</span><span class="mi">11</span><span class="p">,</span> <span class="mf">0.1411</span><span class="p">)</span>
+    <span class="p">(</span><span class="mi">12</span><span class="p">,</span> <span class="mf">0.1670</span><span class="p">)</span>
+    <span class="p">(</span><span class="mi">13</span><span class="p">,</span> <span class="mf">0.1944</span><span class="p">)</span>
+    <span class="p">(</span><span class="mi">14</span><span class="p">,</span> <span class="mf">0.2231</span><span class="p">)</span>
+    <span class="p">(</span><span class="mi">15</span><span class="p">,</span> <span class="mf">0.2529</span><span class="p">)</span>
+    <span class="p">(</span><span class="mi">16</span><span class="p">,</span> <span class="mf">0.2836</span><span class="p">)</span>
+    <span class="p">(</span><span class="mi">17</span><span class="p">,</span> <span class="mf">0.3150</span><span class="p">)</span>
+    <span class="p">(</span><span class="mi">18</span><span class="p">,</span> <span class="mf">0.3469</span><span class="p">)</span>
+    <span class="p">(</span><span class="mi">19</span><span class="p">,</span> <span class="mf">0.3791</span><span class="p">)</span>
+    <span class="p">(</span><span class="mi">20</span><span class="p">,</span> <span class="mf">0.4114</span><span class="p">)</span>
+    <span class="p">(</span><span class="mi">21</span><span class="p">,</span> <span class="mf">0.4437</span><span class="p">)</span>
+    <span class="p">(</span><span class="mi">22</span><span class="p">,</span> <span class="mf">0.4757</span><span class="p">)</span>
+    <span class="p">(</span><span class="mi">23</span><span class="p">,</span> <span class="mf">0.5073</span><span class="p">)</span>
+    <span class="p">(</span><span class="mi">24</span><span class="p">,</span> <span class="mf">0.5383</span><span class="p">)</span>
+    <span class="p">(</span><span class="mi">25</span><span class="p">,</span> <span class="mf">0.5687</span><span class="p">)</span>
+    <span class="p">(</span><span class="mi">26</span><span class="p">,</span> <span class="mf">0.5982</span><span class="p">)</span>
+    <span class="p">(</span><span class="mi">27</span><span class="p">,</span> <span class="mf">0.6269</span><span class="p">)</span>
+    <span class="p">(</span><span class="mi">28</span><span class="p">,</span> <span class="mf">0.6545</span><span class="p">)</span>
+    <span class="p">(</span><span class="mi">29</span><span class="p">,</span> <span class="mf">0.6810</span><span class="p">)</span>
+    <span class="p">(</span><span class="mi">30</span><span class="p">,</span> <span class="mf">0.7063</span><span class="p">)</span>
+    <span class="p">(</span><span class="mi">31</span><span class="p">,</span> <span class="mf">0.7305</span><span class="p">)</span>
+    <span class="p">(</span><span class="mi">32</span><span class="p">,</span> <span class="mf">0.7533</span><span class="p">)</span>
+    <span class="p">(</span><span class="mi">33</span><span class="p">,</span> <span class="mf">0.7750</span><span class="p">)</span>
+    <span class="p">(</span><span class="mi">34</span><span class="p">,</span> <span class="mf">0.7953</span><span class="p">)</span>
+    <span class="p">(</span><span class="mi">35</span><span class="p">,</span> <span class="mf">0.8144</span><span class="p">)</span>
+    <span class="p">(</span><span class="mi">36</span><span class="p">,</span> <span class="mf">0.8322</span><span class="p">)</span>
+    <span class="p">(</span><span class="mi">37</span><span class="p">,</span> <span class="mf">0.8487</span><span class="p">)</span>
+    <span class="p">(</span><span class="mi">38</span><span class="p">,</span> <span class="mf">0.8641</span><span class="p">)</span>
+    <span class="p">(</span><span class="mi">39</span><span class="p">,</span> <span class="mf">0.8782</span><span class="p">)</span>
+    <span class="p">(</span><span class="mi">40</span><span class="p">,</span> <span class="mf">0.8912</span><span class="p">)</span>
+    <span class="p">(</span><span class="mi">41</span><span class="p">,</span> <span class="mf">0.9032</span><span class="p">)</span>
+    <span class="p">(</span><span class="mi">42</span><span class="p">,</span> <span class="mf">0.9140</span><span class="p">)</span>
+    <span class="p">(</span><span class="mi">43</span><span class="p">,</span> <span class="mf">0.9239</span><span class="p">)</span>
+    <span class="p">(</span><span class="mi">44</span><span class="p">,</span> <span class="mf">0.9329</span><span class="p">)</span>
+    <span class="p">(</span><span class="mi">45</span><span class="p">,</span> <span class="mf">0.9410</span><span class="p">)</span>
+    <span class="p">(</span><span class="mi">46</span><span class="p">,</span> <span class="mf">0.9482</span><span class="p">)</span>
+    <span class="p">(</span><span class="mi">47</span><span class="p">,</span> <span class="mf">0.9548</span><span class="p">)</span>
+    <span class="p">(</span><span class="mi">48</span><span class="p">,</span> <span class="mf">0.9606</span><span class="p">)</span>
+    <span class="p">(</span><span class="mi">49</span><span class="p">,</span> <span class="mf">0.9658</span><span class="p">)</span>
+    <span class="p">(</span><span class="mi">50</span><span class="p">,</span> <span class="mf">0.9704</span><span class="p">)</span>
+    <span class="p">(</span><span class="mi">51</span><span class="p">,</span> <span class="mf">0.9744</span><span class="p">)</span>
+    <span class="p">(</span><span class="mi">52</span><span class="p">,</span> <span class="mf">0.9780</span><span class="p">)</span>
+    <span class="p">(</span><span class="mi">53</span><span class="p">,</span> <span class="mf">0.9811</span><span class="p">)</span>
+    <span class="p">(</span><span class="mi">54</span><span class="p">,</span> <span class="mf">0.9839</span><span class="p">)</span>
+    <span class="p">(</span><span class="mi">55</span><span class="p">,</span> <span class="mf">0.9863</span><span class="p">)</span>
+    <span class="p">(</span><span class="mi">56</span><span class="p">,</span> <span class="mf">0.9883</span><span class="p">)</span>
+    <span class="p">(</span><span class="mi">57</span><span class="p">,</span> <span class="mf">0.9901</span><span class="p">)</span>
+    <span class="p">(</span><span class="mi">58</span><span class="p">,</span> <span class="mf">0.9917</span><span class="p">)</span>
+    <span class="p">(</span><span class="mi">59</span><span class="p">,</span> <span class="mf">0.9930</span><span class="p">)</span>
+    <span class="p">(</span><span class="mi">60</span><span class="p">,</span> <span class="mf">0.9941</span><span class="p">)</span>
+    <span class="p">(</span><span class="mi">61</span><span class="p">,</span> <span class="mf">0.9951</span><span class="p">)</span>
+    <span class="p">(</span><span class="mi">62</span><span class="p">,</span> <span class="mf">0.9959</span><span class="p">)</span>
+    <span class="p">(</span><span class="mi">63</span><span class="p">,</span> <span class="mf">0.9966</span><span class="p">)</span>
+    <span class="p">(</span><span class="mi">64</span><span class="p">,</span> <span class="mf">0.9972</span><span class="p">)</span>
+    <span class="p">(</span><span class="mi">65</span><span class="p">,</span> <span class="mf">0.9977</span><span class="p">)</span>
+    <span class="p">(</span><span class="mi">66</span><span class="p">,</span> <span class="mf">0.9981</span><span class="p">)</span>
+    <span class="p">(</span><span class="mi">67</span><span class="p">,</span> <span class="mf">0.9984</span><span class="p">)</span>
+    <span class="p">(</span><span class="mi">68</span><span class="p">,</span> <span class="mf">0.9987</span><span class="p">)</span>
+    <span class="p">(</span><span class="mi">69</span><span class="p">,</span> <span class="mf">0.9990</span><span class="p">)</span>
+    <span class="p">(</span><span class="mi">70</span><span class="p">,</span> <span class="mf">0.9992</span><span class="p">)</span>
+    <span class="p">(</span><span class="mi">71</span><span class="p">,</span> <span class="mf">0.9993</span><span class="p">)</span>
+    <span class="p">(</span><span class="mi">72</span><span class="p">,</span> <span class="mf">0.9995</span><span class="p">)</span>
+    <span class="p">(</span><span class="mi">73</span><span class="p">,</span> <span class="mf">0.9996</span><span class="p">)</span>
+    <span class="p">(</span><span class="mi">74</span><span class="p">,</span> <span class="mf">0.9996</span><span class="p">)</span>
+    <span class="p">(</span><span class="mi">75</span><span class="p">,</span> <span class="mf">0.9997</span><span class="p">)</span>
+    <span class="p">(</span><span class="mi">76</span><span class="p">,</span> <span class="mf">0.9998</span><span class="p">)</span>
+    <span class="p">(</span><span class="mi">77</span><span class="p">,</span> <span class="mf">0.9998</span><span class="p">)</span>
+    <span class="p">(</span><span class="mi">78</span><span class="p">,</span> <span class="mf">0.9999</span><span class="p">)</span>
+    <span class="p">(</span><span class="mi">79</span><span class="p">,</span> <span class="mf">0.9999</span><span class="p">)</span>
+    <span class="p">(</span><span class="mi">80</span><span class="p">,</span> <span class="mf">0.9999</span><span class="p">)</span>
+    <span class="p">(</span><span class="mi">81</span><span class="p">,</span> <span class="mf">0.9999</span><span class="p">)</span>
+    <span class="p">(</span><span class="mi">82</span><span class="p">,</span> <span class="mf">0.9999</span><span class="p">)</span>
+    <span class="p">(</span><span class="mi">83</span><span class="p">,</span> <span class="mf">1.000</span><span class="p">)</span>
+    <span class="p">(</span><span class="mi">84</span><span class="p">,</span> <span class="mf">1.000</span><span class="p">)</span>
+    <span class="p">(</span><span class="mi">85</span><span class="p">,</span> <span class="mf">1.000</span><span class="p">)</span>
+    <span class="p">(</span><span class="mi">86</span><span class="p">,</span> <span class="mf">1.000</span><span class="p">)</span>
+    <span class="p">(</span><span class="mi">87</span><span class="p">,</span> <span class="mf">1.000</span><span class="p">)</span>
+    <span class="p">(</span><span class="mi">88</span><span class="p">,</span> <span class="mf">1.000</span><span class="p">)</span>
+    <span class="p">(</span><span class="mi">89</span><span class="p">,</span> <span class="mf">1.000</span><span class="p">)</span>
+    <span class="p">(</span><span class="mi">90</span><span class="p">,</span> <span class="mf">1.000</span><span class="p">)</span>
+    <span class="p">(</span><span class="mi">91</span><span class="p">,</span> <span class="mf">1.000</span><span class="p">)</span>
+    <span class="p">(</span><span class="mi">92</span><span class="p">,</span> <span class="mf">1.000</span><span class="p">)</span>
+    <span class="p">(</span><span class="mi">93</span><span class="p">,</span> <span class="mf">1.000</span><span class="p">)</span>
+    <span class="p">(</span><span class="mi">94</span><span class="p">,</span> <span class="mf">1.000</span><span class="p">)</span>
+    <span class="p">(</span><span class="mi">95</span><span class="p">,</span> <span class="mf">1.000</span><span class="p">)</span>
+    <span class="p">(</span><span class="mi">96</span><span class="p">,</span> <span class="mf">1.000</span><span class="p">)</span>
+    <span class="p">(</span><span class="mi">97</span><span class="p">,</span> <span class="mf">1.000</span><span class="p">)</span>
+    <span class="p">(</span><span class="mi">98</span><span class="p">,</span> <span class="mf">1.000</span><span class="p">)</span>
+    <span class="p">(</span><span class="mi">99</span><span class="p">,</span> <span class="mf">1.000</span><span class="p">)</span>
+    <span class="p">(</span><span class="mi">100</span><span class="p">,</span> <span class="mf">1.000</span><span class="p">)</span>
+</pre></div>
+</div>
+<p>Otrzymane wyniki możemy również przedstawić na wykresie punktowym:</p>
+<div class="highlight-python"><div class="highlight"><pre><span class="n">sage</span><span class="p">:</span> <span class="n">l_osob</span> <span class="o">=</span> <span class="mi">101</span>
+<span class="n">sage</span><span class="p">:</span> <span class="n">p_dla_N</span> <span class="o">=</span> <span class="nb">range</span><span class="p">(</span><span class="n">l_osob</span><span class="p">)</span>
+<span class="n">sage</span><span class="p">:</span> <span class="k">for</span> <span class="n">n</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="n">l_osob</span><span class="p">):</span>
+<span class="o">...</span>       <span class="n">p_dla_N</span><span class="p">[</span><span class="n">n</span><span class="p">]</span> <span class="o">=</span> <span class="n">p_wspolnych_urodzin</span><span class="p">(</span><span class="n">n</span><span class="p">)</span>
+<span class="n">sage</span><span class="p">:</span> <span class="n">scatter_plot</span><span class="p">(</span><span class="nb">zip</span><span class="p">(</span><span class="nb">range</span><span class="p">(</span><span class="n">l_osob</span><span class="p">),</span> <span class="n">p_dla_N</span><span class="p">),</span> <span class="n">marker</span><span class="o">=</span><span class="s">&#39;.&#39;</span><span class="p">,</span> <span class="n">facecolor</span><span class="o">=</span><span class="s">&#39;blue&#39;</span><span class="p">)</span>
+</pre></div>
+</div>
+<img alt="_images/cell_21_sage01.png" class="align-center" src="_images/cell_21_sage01.png" />
+<p>Wypiszmy tylko te przypadki, kiedy grupa jest na tyle mała, że bardziej prawdopodobne jest, że nie spotkamy dwóch osób obchodzących urodziny tego samego dnia,
+niż że takie osoby w grupie są (wykorzystamy inny rodzaj pętli &#8211; pętlę <tt class="docutils literal"><span class="pre">while</span></tt>):</p>
+<div class='sage'><script type='text/x-sage'>i=1
+while p_wspolnych_urodzin(i)<0.5:
+    print i, n(p_wspolnych_urodzin(i), digits=4)
+    i += 1
+print i, n(p_wspolnych_urodzin(i), digits=4)</script></div><p>Widać, że już <strong>począwszy od grupy liczącej 23 osoby bardziej prawdopodobne jest to, że natrafimy na przynajmniej dwie osoby, które obchodzą swoje urodziny tego samego dnia</strong>,
+niż że takich osób nie znajdziemy. Nie oznacza to gwarancji wygranej, ale każdy racjonalnie myślący człowiek będzie obstawiał bardziej prawdopodobny wynik. Zaskakujące jest,
+że ta wartość graniczna to zaledwie <strong>23 osoby</strong> a przy grupie liczącej 83 osoby jest niemal pewne, że natrafimy na przynajmniej dwie osoby, które obchodzą swoje urodziny tego
+samego dnia.</p>
+</div>
+<div class="section" id="instrukcje-warunkowe">
+<h2>Instrukcje warunkowe<a class="headerlink" href="iCSE_1b_Wprowadzenie_CubeProject.html#instrukcje-warunkowe" title="Stały odnośnik do tego nagłówka">¶</a></h2>
+<p>Na zakończenie tej części przedstawmy jeszcze inny ważny element programowania &#8211; <strong>instrukcje warunkowe</strong>, czyli jak należy w SAGEu zapisać kod, jeśli to, co chcemy dalej zrobić (obliczyć lub wypisać), zależy od spełnienia pewnych warunków.</p>
+<p>Dla zilustrowania tej sytuacji napiszemy krótki kod programu, który mając listę osób oraz informacje o ich roku urodzenia, będzie wypisywał, czy dana osoba jest pełnoletnia, czy nie.</p>
+<p>W poniższym kodzie wykorzystano również ciekawą funkcję <tt class="docutils literal"><span class="pre">zip</span></tt>, która działa na dwóch listach tak, jak zamek błyskawiczny spinający/łączący odpowiadające sobie elementy
+w każdej z list. W ten sposób stworzono nową listę nazwaną <tt class="docutils literal"><span class="pre">dane</span></tt>. Elementami listy <tt class="docutils literal"><span class="pre">dane</span></tt> są także listy (dwuelementowe), składające się z imienia oraz roku urodzenia. Oznacza to, że <tt class="docutils literal"><span class="pre">dane</span></tt> to pewna struktora złożona &#8211; lista list. Odwołanie np. do roku urodzenia trzeciej osoby odbywa się przez wpisanie <tt class="docutils literal"><span class="pre">dane[2][1]</span></tt>. W tym zapisie <tt class="docutils literal"><span class="pre">dane[2]</span></tt> oznacza, że interesuje nas trzeci element listy dane [pamiętamy, że elementy listy numerowane są od zera dlatego <cite>2</cite> oznacza trzeci element], ale trzeci element listy <tt class="docutils literal"><span class="pre">dane</span></tt>, czyli <tt class="docutils literal"><span class="pre">dane[2]</span></tt> jest dwuelementową listą składającą się z imienia &#8211; które możemy ,,wyłuskać&#8221; przez <tt class="docutils literal"><span class="pre">dane[2][0]</span></tt> oraz roku urodzenia &#8211; <tt class="docutils literal"><span class="pre">dane[2][1]</span></tt>).</p>
+<p>Podobnie jak dla pętli <tt class="docutils literal"><span class="pre">for</span></tt> albo pętli <tt class="docutils literal"><span class="pre">while</span></tt> pisząc instrukcję warunkową bardzo ważny jest dwukropek w odpowiednim miejscu oraz wcięcie akapitowe wyznaczające jaki fragment kodu, tj. ile linii kodu ma być wykonane jeśli <tt class="docutils literal"><span class="pre">warunek</span></tt> jest spełniony. Schemat zapisu instrukcji warunkowej jest następujący:</p>
+<div class="highlight-python"><div class="highlight"><pre>sage: if warunek:
+sage:       wykonaj to co tu jest napisane, jeśli *warunek* jest spełniony
+sage:       wykonaj to co tu jest napisane, jeśli *warunek* jest spełniony
+sage:       wykonaj to co tu jest napisane, jeśli *warunek* jest spełniony
+</pre></div>
+</div>
+<p>Możemy się również posługiwać nieco bardziej rozbudowaną wersją instrukcji warunkowej, która pozwala oprogramować również przypadek kiedy <tt class="docutils literal"><span class="pre">warunek</span></tt> nie jest spełniony (instrukcja <tt class="docutils literal"><span class="pre">if</span> <span class="pre">-</span> <span class="pre">else</span></tt>). Schemat takiej instrukcji jest następujący:</p>
+<div class="highlight-python"><div class="highlight"><pre>sage: if warunek:
+sage:       wykonaj to co tu jest napisane, jeśli *warunek* jest spełniony
+sage: else:
+sage:       wykonaj to co tu jest napisane, jeśli *warunek* nie jest spełniony
+</pre></div>
+</div>
+<p>Oto przykład ilustrujący wykorzystanie instrukcji warunkowej:</p>
+<div class='sage'><script type='text/x-sage'>osoby = ['Magda', 'Aneta', 'Patrycja', 'Kasia']
+rok_urodzenia = [1994, 2001, 1992, 1996]
+dane = zip(osoby, rok_urodzenia)
+print(dane)
+for i in range(len(dane)):
+    if 2013-dane[i][1] >= 18:
+        print dane[i][0], "jest pełnoletnia."
+    else:
+        print dane[i][0], "nie jest pełnoletnia."</script></div><p>W ten sposób omówiliśmy podstawowe elementy SAGEa jako środowiska do programowania (takie abecadło). Możemy teraz nieco rozwinąć skrzydła. Zajrzyjcie do pozostałych opublikowanych materiałów, a przede wszystkim zachęcamy &#8211; spróbujcie modyfikować/testować kody programów i podejmijcie próby pisania własnych! Życzymy dobrej zabawy!</p>
+</div>
+</div>
+
+
+          </div>
+        </div>
+      </div>
+      <div class="sphinxsidebar">
+        <div class="sphinxsidebarwrapper">
+  <div class="sphinxlocaltoc">
+  <h3><a href="index.html">Spis treści</a></h3>
+  <ul>
+<li><a class="reference internal" href="iCSE_1b_Wprowadzenie_CubeProject.html#">Wprowadzenie do SAGE&#8217;a &#8211; problem wspólnego dnia urodzin</a><ul>
+<li><a class="reference internal" href="iCSE_1b_Wprowadzenie_CubeProject.html#zapoznanie-z-podstawowymi-elementami-sagea-jako-srodowiska-programowania">Zapoznanie z podstawowymi elementami SAGEa jako środowiska programowania</a><ul>
+<li><a class="reference internal" href="iCSE_1b_Wprowadzenie_CubeProject.html#zapoznanie-z-dzialaniem-funkcji-range-len-append-max">Zapoznanie z działaniem funkcji: <tt class="docutils literal"><span class="pre">range</span></tt>, <tt class="docutils literal"><span class="pre">len</span></tt>, <tt class="docutils literal"><span class="pre">append</span></tt>, <tt class="docutils literal"><span class="pre">max</span></tt></a></li>
+</ul>
+</li>
+<li><a class="reference internal" href="iCSE_1b_Wprowadzenie_CubeProject.html#operacje-na-listach-modyfikowanie-listy-przez-dodawanie-doklejanie-nowych-elementow">Operacje na listach. Modyfikowanie listy przez dodawanie (doklejanie) nowych elementów</a><ul>
+<li><a class="reference internal" href="iCSE_1b_Wprowadzenie_CubeProject.html#znajdowanie-najwiekszego-elementu-listy">Znajdowanie największego elementu listy</a></li>
+</ul>
+</li>
+<li><a class="reference internal" href="iCSE_1b_Wprowadzenie_CubeProject.html#problem-wspolnego-dnia-urodzin-wykorzystanie-petli-for">Problem wspólnego dnia urodzin &#8211; wykorzystanie pętli <tt class="docutils literal"><span class="pre">for</span></tt></a></li>
+<li><a class="reference internal" href="iCSE_1b_Wprowadzenie_CubeProject.html#instrukcje-warunkowe">Instrukcje warunkowe</a></li>
+</ul>
+</li>
+</ul>
+
+  </div>
+  <h4>Poprzedni temat</h4>
+  <p class="topless"><a href="iCSE_1a_Wprowadzenie_CubeProject.html"
+                        title="poprzedni rozdział">Wprowadzenie do SAGE&#8217;a &#8211; matematyka bez bólu, obliczenia, wykresy</a></p>
+  <h4>Następny temat</h4>
+  <p class="topless"><a href="iCSE_2_Demokracja_CubeProject.html"
+                        title="następny rozdział">Demokracja &#8211; co dwie głowy, to nie jedna</a></p>
+<div id="searchbox" style="display: none">
+  <h3>Szybkie wyszukiwanie</h3>
+    <form class="search" action="http://visual.icse.us.edu.pl/Warsztaty/search.html" method="get">
+      <input type="text" name="q" />
+      <input type="submit" value="Szukaj" />
+      <input type="hidden" name="check_keywords" value="yes" />
+      <input type="hidden" name="area" value="default" />
+    </form>
+    <p class="searchtip" style="font-size: 90%">
+    Wprowadź szukany termin lub nazwę modułu, klasy lub funkcji.
+    </p>
+</div>
+<script type="text/javascript">$('#searchbox').show(0);</script>
+        </div>
+      </div>
+      <div class="clearer"></div>
+    </div>
+  </div>
+  <div class="relbar-bottom">
+    
+    <div class="related">
+      <h3>Nawigacja</h3>
+      <ul>
+        <li class="right" style="margin-right: 10px">
+          <a href="iCSE_2_Demokracja_CubeProject.html" title="Demokracja – co dwie głowy, to nie jedna"
+             >dalej</a></li>
+        <li class="right" >
+          <a href="iCSE_1a_Wprowadzenie_CubeProject.html" title="Wprowadzenie do SAGE’a – matematyka bez bólu, obliczenia, wykresy"
+             >wstecz</a> &nbsp; &nbsp;</li>
+  <li><a href="index.html">Warsztaty</a> &raquo;</li>
+   
+      </ul>
+    </div>
+  </div>
+  
+  <div class="footer">
+    <a class="logo" href="../../icse.us.edu.pl/index.html" target="_blank"><img src="_static/logo-icse.png" alt="ICSE"/></a><br/>
+    &copy; Copyright 2013, CubeProject.
+    Created using <a href="http://sphinx.pocoo.org/">Sphinx</a> 1.2.2.
+  </div>
+  </body>
+</html>

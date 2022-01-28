@@ -1,0 +1,184 @@
+
+
+  <!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+  "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+
+
+<html xmlns="http://www.w3.org/1999/xhtml">
+  <head>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    
+    <title>Gramy Funkcje! &mdash; Warsztaty</title>
+    
+    <link rel="stylesheet" href="_static/cloud.css" type="text/css" />
+    <link rel="stylesheet" href="_static/pygments.css" type="text/css" />
+    <link rel="stylesheet" href="http://fonts.googleapis.com/css?family=Noticia+Text|Open+Sans|Droid+Sans+Mono&subset=latin,latin-ext" type="text/css" />
+    
+    <script type="text/javascript">
+      var DOCUMENTATION_OPTIONS = {
+        URL_ROOT:    './',
+        VERSION:     'I',
+        COLLAPSE_INDEX: false,
+        FILE_SUFFIX: '.html',
+        HAS_SOURCE:  true
+      };
+    </script>
+    <script type="text/javascript" src="_static/jquery.js"></script>
+    <script type="text/javascript" src="_static/underscore.js"></script>
+    <script type="text/javascript" src="_static/doctools.js"></script>
+    <script type="text/javascript" src="_static/translations.js"></script>
+    <script type="text/javascript" src="http://cdn.mathjax.org/mathjax/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML"></script>
+    <script type="text/javascript" src="_static/jquery.cookie.js"></script>
+    <script type="text/javascript" src="_static/cloud.js"></script>
+
+
+
+    <script src="http://sagecell.icse.us.edu.pl:6363/static/jquery.min.js"></script>
+	<script src="http://sagecell.icse.us.edu.pl:6363/static/embedded_sagecell.js"></script>
+
+	<script>sagecell.makeSagecell({inputLocation: ".sage",
+                                       evalButtonText: 'Wykonaj',
+                                       linked: true});</script>
+
+	<style type="text/css">
+		.sagecell .CodeMirror-scroll {
+			overflow-y: hidden;
+			overflow-x: auto;
+		}
+		.sagecell .CodeMirror {
+			height: auto;
+		}
+	</style>
+
+    
+    <link rel="top" title="Warsztaty" href="index.html" />
+    <link rel="next" title="Dynamika populacyjna: ciągłe modele jednowymiarowe" href="dynamika_populacyjna.html" />
+    <link rel="prev" title="Wykorzystanie danych z GPS do zagadnień kinematyki" href="gps.html" />
+ 
+  <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, minimum-scale=1">
+  </head>
+  <body>
+  <div class="relbar-top">
+    
+    <div class="related">
+      <h3>Nawigacja</h3>
+      <ul>
+        <li class="right" style="margin-right: 10px">
+          <a href="dynamika_populacyjna.html" title="Dynamika populacyjna: ciągłe modele jednowymiarowe"
+             accesskey="N">dalej</a></li>
+        <li class="right" >
+          <a href="gps.html" title="Wykorzystanie danych z GPS do zagadnień kinematyki"
+             accesskey="P">wstecz</a> &nbsp; &nbsp;</li>
+  <li><a href="index.html">Warsztaty</a> &raquo;</li>
+   
+      </ul>
+    </div>
+  </div>
+  
+  <div class="content">  
+
+    <div class="document">
+      <div class="documentwrapper">
+        <div class="bodywrapper">
+          <div class="body">
+            
+  <div class="section" id="gramy-funkcje">
+<h1>Gramy Funkcje!<a class="headerlink" href="gramy_funkcje.html#gramy-funkcje" title="Stały odnośnik do tego nagłówka">¶</a></h1>
+<div class="section" id="czym-jest-dzwiek">
+<h2>Czym jest dźwięk?<a class="headerlink" href="gramy_funkcje.html#czym-jest-dzwiek" title="Stały odnośnik do tego nagłówka">¶</a></h2>
+<p>Według Wikipedii dźwięk to wrażenie słuchowe, spowodowane falą
+akustyczną rozchodzącą się w ośrodku sprężystym (ciele stałym, cieczy,
+gazie). Częstotliwości fal, które są słyszalne dla człowieka, zawarte
+są w paśmie między wartościami granicznymi od ok. 16 Hz do ok. 20 kHz.</p>
+<p>Jeden Hertz (Hz) oznacza, że dokonuje się jedna oscylacja na sekundę.</p>
+</div>
+<div class="section" id="dzwiek-w-komputerze">
+<h2>Dźwięk w komputerze<a class="headerlink" href="gramy_funkcje.html#dzwiek-w-komputerze" title="Stały odnośnik do tego nagłówka">¶</a></h2>
+<p>Komputer jest urządzeniem cyfrowym, dlatego dźwięk musimy zapisać w
+jakims cyfrowym formacie. Jednym z nich, i chyba najprostszym jest
+<a class="reference external" href="http://pl.wikipedia.org/wiki/WAV">WAV</a></p>
+<div class='sage'><script type='text/x-sage'>from  scipy.io.wavfile import write
+import numpy as np
+def player(data):
+    import tempfile
+    wav = tempfile.mktemp(suffix='.wav',dir='.')
+    write(wav,int(44100), np.int16(data/np.max(np.abs(data)) * 32767))
+    html('<audio src="cell://%s" controls="controls"></audio>'%wav)</script></div><p>Gramy!</p>
+<div class='sage'><script type='text/x-sage'>time_points = np.linspace(0, 1/2, 1/2*44100)
+data = 0.5*np.sin(2*np.pi*(196)*time_points)
+player(data)
+line(zip(time_points[:],data[:]),figsize=(20,2))</script></div><div class='sage'><script type='text/x-sage'>time_points = np.linspace(0, 1/2, 1/2*44100)
+data = 0.5*np.sign(np.sin(2*np.pi*(196)*time_points))
+player(data)
+line(zip(time_points[:],data[:]),figsize=(20,2))</script></div><div class='sage'><script type='text/x-sage'>time_points =np.linspace(0, 1, 1*44100)
+data = 0.3*np.sin(2*np.pi*(196)*time_points) +\
+ 0.3*np.sin(2*np.pi*(196+5)*time_points)
+player(data)
+line(zip(time_points[:],data[:]),figsize=(10,2),thickness=0.15)</script></div></div>
+</div>
+
+
+          </div>
+        </div>
+      </div>
+      <div class="sphinxsidebar">
+        <div class="sphinxsidebarwrapper">
+  <div class="sphinxlocaltoc">
+  <h3><a href="index.html">Spis treści</a></h3>
+  <ul>
+<li><a class="reference internal" href="gramy_funkcje.html#">Gramy Funkcje!</a><ul>
+<li><a class="reference internal" href="gramy_funkcje.html#czym-jest-dzwiek">Czym jest dźwięk?</a></li>
+<li><a class="reference internal" href="gramy_funkcje.html#dzwiek-w-komputerze">Dźwięk w komputerze</a></li>
+</ul>
+</li>
+</ul>
+
+  </div>
+  <h4>Poprzedni temat</h4>
+  <p class="topless"><a href="gps.html"
+                        title="poprzedni rozdział">Wykorzystanie danych z GPS do zagadnień kinematyki</a></p>
+  <h4>Następny temat</h4>
+  <p class="topless"><a href="dynamika_populacyjna.html"
+                        title="następny rozdział">Dynamika populacyjna: ciągłe modele jednowymiarowe</a></p>
+<div id="searchbox" style="display: none">
+  <h3>Szybkie wyszukiwanie</h3>
+    <form class="search" action="http://visual.icse.us.edu.pl/Warsztaty/search.html" method="get">
+      <input type="text" name="q" />
+      <input type="submit" value="Szukaj" />
+      <input type="hidden" name="check_keywords" value="yes" />
+      <input type="hidden" name="area" value="default" />
+    </form>
+    <p class="searchtip" style="font-size: 90%">
+    Wprowadź szukany termin lub nazwę modułu, klasy lub funkcji.
+    </p>
+</div>
+<script type="text/javascript">$('#searchbox').show(0);</script>
+        </div>
+      </div>
+      <div class="clearer"></div>
+    </div>
+  </div>
+  <div class="relbar-bottom">
+    
+    <div class="related">
+      <h3>Nawigacja</h3>
+      <ul>
+        <li class="right" style="margin-right: 10px">
+          <a href="dynamika_populacyjna.html" title="Dynamika populacyjna: ciągłe modele jednowymiarowe"
+             >dalej</a></li>
+        <li class="right" >
+          <a href="gps.html" title="Wykorzystanie danych z GPS do zagadnień kinematyki"
+             >wstecz</a> &nbsp; &nbsp;</li>
+  <li><a href="index.html">Warsztaty</a> &raquo;</li>
+   
+      </ul>
+    </div>
+  </div>
+  
+  <div class="footer">
+    <a class="logo" href="../../icse.us.edu.pl/index.html" target="_blank"><img src="_static/logo-icse.png" alt="ICSE"/></a><br/>
+    &copy; Copyright 2013, CubeProject.
+    Created using <a href="http://sphinx.pocoo.org/">Sphinx</a> 1.2.2.
+  </div>
+  </body>
+</html>

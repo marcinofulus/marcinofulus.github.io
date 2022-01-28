@@ -1,0 +1,256 @@
+
+
+  <!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+  "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+
+
+<html xmlns="http://www.w3.org/1999/xhtml">
+  <head>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    
+    <title>Rozwiązania jednorodnych układów równań &mdash; Algebra Liniowa</title>
+    
+    <link rel="stylesheet" href="_static/cloud.css" type="text/css" />
+    <link rel="stylesheet" href="_static/pygments.css" type="text/css" />
+    <link rel="stylesheet" href="http://fonts.googleapis.com/css?family=Noticia+Text|Open+Sans|Droid+Sans+Mono&subset=latin,latin-ext" type="text/css" />
+    
+    <script type="text/javascript">
+      var DOCUMENTATION_OPTIONS = {
+        URL_ROOT:    './',
+        VERSION:     'I',
+        COLLAPSE_INDEX: false,
+        FILE_SUFFIX: '.html',
+        HAS_SOURCE:  true
+      };
+    </script>
+    <script type="text/javascript" src="_static/jquery.js"></script>
+    <script type="text/javascript" src="_static/underscore.js"></script>
+    <script type="text/javascript" src="_static/doctools.js"></script>
+    <script type="text/javascript" src="_static/translations.js"></script>
+    <script type="text/javascript" src="http://cdn.mathjax.org/mathjax/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML"></script>
+    <script type="text/javascript" src="_static/jquery.cookie.js"></script>
+    <script type="text/javascript" src="_static/cloud.js"></script>
+
+	<script src="http://sagecell.icse.us.edu.pl:6363/static/jquery.min.js"></script>
+	<script src="http://sagecell.icse.us.edu.pl:6363/static/embedded_sagecell.js"></script>
+
+	<!-- <script src="http://sagecell.sagemath.org/static/jquery.min.js"></script> -->
+	<!-- <script src="http://sagecell.sagemath.org/static/embedded_sagecell.js"></script> -->
+
+	<script>sagecell.makeSagecell({inputLocation: ".sage",
+                                       evalButtonText: 'Wykonaj',
+                                       linked: true});</script>
+
+	<style type="text/css">
+		.sagecell .CodeMirror-scroll {
+			overflow-y: hidden;
+			overflow-x: auto;
+		}
+		.sagecell .CodeMirror {
+			height: auto;
+		}
+	</style>
+
+    
+    <link rel="top" title="Algebra Liniowa" href="http://visual.icse.us.edu.pl/LA/index.html" />
+    <link rel="next" title="Macierze przekształceń liniowych" href="przeksztalcenia_lin_macierze.html" />
+    <link rel="prev" title="Jądro i obraz przekształcenia liniowego" href="przeksztalcenia_lin_jadro_i_obraz.html" />
+ 
+  <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, minimum-scale=1">
+  </head>
+  <body>
+  <div class="relbar-top">
+    
+    <div class="related">
+      <h3>Nawigacja</h3>
+      <ul>
+        <li class="right" style="margin-right: 10px">
+          <a href="przeksztalcenia_lin_macierze.html" title="Macierze przekształceń liniowych"
+             accesskey="N">dalej</a></li>
+        <li class="right" >
+          <a href="przeksztalcenia_lin_jadro_i_obraz.html" title="Jądro i obraz przekształcenia liniowego"
+             accesskey="P">wstecz</a> &nbsp; &nbsp;</li>
+  <li><a href="http://visual.icse.us.edu.pl/LA/index.html">Algebra Liniowa</a> &raquo;</li>
+   
+      </ul>
+    </div>
+  </div>
+  
+  <div class="content">  
+
+    <div class="document">
+      <div class="documentwrapper">
+        <div class="bodywrapper">
+          <div class="body">
+            
+  <div class="section" id="rozwiazania-jednorodnych-ukladow-rownan">
+<h1>Rozwiązania jednorodnych układów równań<a class="headerlink" href="przeksztalcenia_lin_uklady_rownan.html#rozwiazania-jednorodnych-ukladow-rownan" title="Stały odnośnik do tego nagłówka">¶</a></h1>
+<p>Zastosujemy teraz teorię przekształceń liniowych przestrzeni wektorowych do określenia
+zbioru rozwiązań jednorodnego układu równań liniowych nad ciałem <span class="math">\(\,K\)</span>:</p>
+<div class="math" id="equation-set_eqn_0">
+<span class="eqno">(1)</span>\[\begin{split}\begin{array}{r}
+   a_{11}\,x_1\; + \ \,a_{12}\,x_2\; + \ \,\ldots\  + \ \;a_{1n}\,x_n \ \, = \ \ 0  \\
+   a_{21}\,x_1\; + \ \,a_{22}\,x_2\; + \ \,\ldots\  + \ \;a_{2n}\,x_n \ \, = \ \ 0  \\
+   \qquad\qquad\,\ldots\qquad\quad\ldots\qquad\quad\ldots\qquad\ldots\qquad\ \ \,\ldots   \\
+   a_{m1}\,x_1\; + \ \,a_{m2}\,x_2\; + \ \,\ldots\  + \ \;a_{mn}\,x_n \ \, = \ \ 0
+\end{array}\end{split}\]</div>
+<p>Układ ma postać macierzową
+<span class="math">\(\quad\boldsymbol{A}\boldsymbol{X}\,=\,\boldsymbol{0}\,,\quad\)</span> gdzie</p>
+<div class="math">
+\[\begin{split}\boldsymbol{A}\ =\ \left[\begin{array}{cccc}
+                         a_{11} &amp; a_{12} &amp; \ldots &amp; a_{1n} \\
+                         a_{21} &amp; a_{22} &amp; \ldots &amp; a_{2n} \\
+                         \ldots &amp; \ldots &amp; \ldots &amp; \ldots \\
+                         a_{m1} &amp; a_{m2} &amp; \ldots &amp; a_{mn}
+                         \end{array}
+                   \right]\,,\quad
+\boldsymbol{X}\ =\
+\left[\begin{array}{c} x_1 \\ x_2 \\ \dots \\ x_n \end{array}\right]\,,\quad
+\boldsymbol{0}\ =\
+\left[\begin{array}{c} 0 \\ 0 \\ \dots \\ 0 \end{array}\right]\in K^m\,.\end{split}\]</div>
+<p>Zbiór rozwiązań układu <a href="przeksztalcenia_lin_uklady_rownan.html#equation-set_eqn_0">(1)</a> definiujemy jako</p>
+<div class="math">
+\[S_0\ :\,=\ \{\,\boldsymbol{X}\in K^n:\ \boldsymbol{A}\boldsymbol{X}=\boldsymbol{0}\,\}\,.\]</div>
+<p>Oczywiście <span class="math">\(\ \,S_0\subset K^n.\ \,\)</span> Własności zbioru <span class="math">\(\ S_0\ \)</span> opisuje dokładniej</p>
+<div class="admonition-twierdzenie-9-math admonition">
+<p class="first admonition-title">Twierdzenie 9. <span class="math">\(\\\)</span></p>
+<p>Zbiór rozwiązań jednorodnego układu równań <a href="przeksztalcenia_lin_uklady_rownan.html#equation-set_eqn_0">(1)</a>
+jest przestrzenią wektorową nad ciałem <span class="math">\(\,K\ \)</span>
+(podprzestrzenią przestrzeni <span class="math">\(\,K^n\)</span>), <span class="math">\(\,\)</span> której wymiar
+równa się różnicy liczby niewiadomych i rzędu macierzy współczynników <span class="math">\(\boldsymbol{A}:\)</span></p>
+<div class="last math" id="equation-sol_0">
+<span class="eqno">(2)</span>\[\begin{split}S_0\,&lt;\,K^n,\qquad\dim\,S_0\,=\,n-\text{rz}\,\boldsymbol{A}\,.\end{split}\]</div>
+</div>
+<p><strong>Dowód.</strong></p>
+<p>Podzbiór <span class="math">\(\ S_0\ \)</span> przestrzeni <span class="math">\(\,K^n\ \)</span> jest podprzestrzenią,
+bo jest domknięty ze względu na dodawanie wektorów i mnożenie ich przez liczby z ciała <span class="math">\(\,K.\ \)</span>
+Rzeczywiście,</p>
+<p>jeżeli <span class="math">\(\qquad\boldsymbol{X}_1,\,\boldsymbol{X}_2\,\in\,S_0:
+\qquad\boldsymbol{A}\boldsymbol{X}_1=\,\boldsymbol{0}\,,
+\quad\boldsymbol{A}\boldsymbol{X}_2=\,\boldsymbol{0}\,,\)</span></p>
+<p>to
+<span class="math">\(\qquad
+\boldsymbol{A}\,(\boldsymbol{X}_1+\boldsymbol{X}_2)\ =\
+\boldsymbol{A}\boldsymbol{X}_1+\boldsymbol{A}\boldsymbol{X}_2\ =\
+\boldsymbol{0}\,,
+\qquad
+\boldsymbol{A}\,(c\,\boldsymbol{X}_1)\ =\ c\,(\boldsymbol{A}\boldsymbol{X}_1)\ =\
+\boldsymbol{0}\,,\)</span></p>
+<p>czyli <span class="math">\(\qquad
+\boldsymbol{X}_1+\boldsymbol{X}_2\,\in\,S_0\,,\qquad
+c\,\boldsymbol{X}_1\in S_0\,,\quad c\in K\,.\)</span></p>
+<p>W dowodzie drugiej części tezy oznaczamy <span class="math">\(\ r\,:\,=\,\text{rz}\,\boldsymbol{A}\,.\ \)</span>
+Oczywiście <span class="math">\(\ r\le m,n\,.\)</span></p>
+<p>W macierzy <span class="math">\(\boldsymbol{A}\ \)</span> jest <span class="math">\(\ r\ \)</span> liniowo niezależnych wierszy
+i tyle samo liniowo niezależnych kolumn. Nie zmniejszając ogólności rozważań można przyjąć,
+że liniowo niezależny jest układ pierwszych <span class="math">\(\ r\ \)</span> wierszy, <span class="math">\(\,\)</span>
+a także układ <span class="math">\(\ r\ \)</span> pierwszych kolumn.</p>
+<p>Jeżeli <span class="math">\(\ m&gt;r,\ \)</span> to odrzucamy <span class="math">\(\ m-r\ \)</span> ostatnich równań, bo każde z nich jest kombinacją liniową pierwszych <span class="math">\(\ r\ \)</span> równań.</p>
+<p>Jako punkt wyjścia do dalszej dyskusji można więc przyjąć układ <span class="math">\(\ r\ \)</span> równań
+o <span class="math">\(\ n\ \)</span> niewiadomych, <span class="math">\(\,\)</span> przy czym <span class="math">\(\ r\le n.\ \)</span>
+W tej sytuacji mogą wystąpić dwa przypadki.</p>
+<p>I.) <span class="math">\(\,\)</span> Jeżeli <span class="math">\(\ r=n,\ \)</span> mamy układ równań o kwadratowej nieosobliwej macierzy
+<span class="math">\(\boldsymbol{A}.\ \)</span> Jest to układ kramerowski, który ma jedynie rozwiązanie zerowe:
+<span class="math">\(\ S_0=\{\boldsymbol{0}\}.\ \)</span> W tym przypadku równanie <a href="przeksztalcenia_lin_uklady_rownan.html#equation-sol_0">(2)</a> jest spełnione:
+<span class="math">\(\ 0=\dim\,S_0=n-r.\)</span></p>
+<p>II.) <span class="math">\(\,\)</span> Niech <span class="math">\(\ r&lt;n.\ \)</span> Niewiadome o numerach większych od <span class="math">\(\ r\ \)</span>
+przyjmujemy za dowolne parametry: <span class="math">\(\ x_k\rightarrow s_k,\ k=r+1,\dots,n,\ \,\)</span>
+po czym rozwiązujemy kramerowski układ równań o niewiadomych <span class="math">\(\ \,x_1,\,\dots,\,x_r:\)</span></p>
+<div class="math" id="equation-set_eqn_r">
+<span class="eqno">(3)</span>\[\begin{split}\begin{array}{c}
+   a_{11}\,x_1\; + \ \,\ldots\ \, + \ \;a_{1r}\,x_r \ \, = \ \
+   -\ a_{1,r+1}\,s_{r+1}\; - \ \,\ldots\ \, -\ a_{1n}\,s_n   \\
+   a_{21}\,x_1\; + \ \,\ldots\ \, + \ \;a_{2r}\,x_r \ \, = \ \
+   -\ a_{2,r+1}\,s_{r+1}\; - \ \,\ldots\ \, -\ a_{2n}\,s_n   \\
+   \qquad
+   \ldots\qquad\quad\ldots\qquad\quad\ldots\qquad\quad
+   \ldots\qquad\quad\ldots\qquad\quad\ldots\qquad\quad           \\
+   a_{r1}\,x_1\; + \ \,\ldots\ \, + \ \;a_{rr}\,x_r \ \, = \ \
+   -\ a_{r,r+1}\,s_{r+1}\; - \ \,\ldots\ \, -\ a_{rn}\,s_n
+\end{array}\end{split}\]</div>
+<p>Niech <span class="math">\(\ (c_1,\dots,c_r)\ \)</span> będzie układem wartości niewiadomych
+<span class="math">\(\ x_1,\,\dots,\,x_r\,,\ \)</span>
+odpowiadającym zadanym wartościom parametrów <span class="math">\(\ s_{r+1},\,\dots,\,s_n.\\\)</span>
+Wtedy układ <span class="math">\(\ (c_1,\dots,c_r,\,s_{r+1},\dots,\,s_n)\ \)</span>
+jest jednym z rozwiązań układu równań <a href="przeksztalcenia_lin_uklady_rownan.html#equation-set_eqn_0">(1)</a>.</p>
+<p>Definiujemy odwzorowanie <span class="math">\(\ \Phi:\ S_0\rightarrow K^{n-r}\ \)</span> następująco:</p>
+<div class="math">
+\[\begin{split}\Phi:\qquad S_0\,\ni\,
+\left[
+\begin{array}{c} c_1 \\ \dots \\ c_r \\ s_{r+1} \\ \dots \\ s_n \end{array}
+\right]
+\quad\rightarrow\quad
+\Phi
+\left[
+\begin{array}{c} c_1 \\ \dots \\ c_r \\ s_{r+1} \\ \dots \\ s_n \end{array}
+\right]
+\ :\,=\
+\left[
+\begin{array}{c} s_{r+1} \\ \dots \\ s_n \end{array}
+\right]
+\,\in\,K^{n-r}\,.\end{split}\]</div>
+<p>Łatwo sprawdzić, że <span class="math">\(\ \Phi\ \)</span> jest przekształceniem liniowym.
+Ponieważ każdemu układowi wartości parametrów <span class="math">\(\ s_{r+1},\,\dots,\,s_n\ \)</span>
+odpowiada dokładnie jedno rozwiązanie <span class="math">\(\ (c_1,\dots,c_r)\ \)</span> kramerowskiego
+układu równań <a href="przeksztalcenia_lin_uklady_rownan.html#equation-set_eqn_r">(3)</a>, <span class="math">\(\ \Phi\ \)</span> jest również bijekcją.</p>
+<p>Tak więc odwzorowanie <span class="math">\(\ \Phi,\ \)</span> jako bijektywny homomorfizm, jest izomorfizmem
+przestrzeni rozwiązań <span class="math">\(\ S_0\ \)</span> na przestrzeń <span class="math">\(\ K^{n-r}.\ \)</span>
+Korzystając z Twierdzenia 8. dochodzimy do tezy <a href="przeksztalcenia_lin_uklady_rownan.html#equation-sol_0">(2)</a>:</p>
+<div class="math">
+\[\dim\,S_0\,=\,\dim\,K^{n-r}\,=\,n-r\,.\]</div>
+</div>
+
+
+          </div>
+        </div>
+      </div>
+      <div class="sphinxsidebar">
+        <div class="sphinxsidebarwrapper">
+  <h4>Poprzedni temat</h4>
+  <p class="topless"><a href="przeksztalcenia_lin_jadro_i_obraz.html"
+                        title="poprzedni rozdział">Jądro i obraz przekształcenia liniowego</a></p>
+  <h4>Następny temat</h4>
+  <p class="topless"><a href="przeksztalcenia_lin_macierze.html"
+                        title="następny rozdział">Macierze przekształceń liniowych</a></p>
+<div id="searchbox" style="display: none">
+  <h3>Szybkie wyszukiwanie</h3>
+    <form class="search" action="search.html" method="get">
+      <input type="text" name="q" />
+      <input type="submit" value="Szukaj" />
+      <input type="hidden" name="check_keywords" value="yes" />
+      <input type="hidden" name="area" value="default" />
+    </form>
+    <p class="searchtip" style="font-size: 90%">
+    Wprowadź szukany termin lub nazwę modułu, klasy lub funkcji.
+    </p>
+</div>
+<script type="text/javascript">$('#searchbox').show(0);</script>
+        </div>
+      </div>
+      <div class="clearer"></div>
+    </div>
+  </div>
+  <div class="relbar-bottom">
+    
+    <div class="related">
+      <h3>Nawigacja</h3>
+      <ul>
+        <li class="right" style="margin-right: 10px">
+          <a href="przeksztalcenia_lin_macierze.html" title="Macierze przekształceń liniowych"
+             >dalej</a></li>
+        <li class="right" >
+          <a href="przeksztalcenia_lin_jadro_i_obraz.html" title="Jądro i obraz przekształcenia liniowego"
+             >wstecz</a> &nbsp; &nbsp;</li>
+  <li><a href="http://visual.icse.us.edu.pl/LA/index.html">Algebra Liniowa</a> &raquo;</li>
+   
+      </ul>
+    </div>
+  </div>
+  
+  <div class="footer">
+    <a class="logo" href="../../icse.us.edu.pl/index.html" target="_blank"><img src="_static/logo-icse.png" alt="ICSE"/></a><br/>
+    &copy; Copyright 2013, Marcin Kostur.
+    Created using <a href="http://sphinx.pocoo.org/">Sphinx</a> 1.2.2.
+  </div>
+  </body>
+</html>

@@ -1,0 +1,248 @@
+
+
+  <!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+  "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+
+
+<html xmlns="http://www.w3.org/1999/xhtml">
+  <head>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    
+    <title>Macierz odwrotna &mdash; Algebra Liniowa</title>
+    
+    <link rel="stylesheet" href="_static/cloud.css" type="text/css" />
+    <link rel="stylesheet" href="_static/pygments.css" type="text/css" />
+    <link rel="stylesheet" href="http://fonts.googleapis.com/css?family=Noticia+Text|Open+Sans|Droid+Sans+Mono&subset=latin,latin-ext" type="text/css" />
+    
+    <script type="text/javascript">
+      var DOCUMENTATION_OPTIONS = {
+        URL_ROOT:    './',
+        VERSION:     'I',
+        COLLAPSE_INDEX: false,
+        FILE_SUFFIX: '.html',
+        HAS_SOURCE:  true
+      };
+    </script>
+    <script type="text/javascript" src="_static/jquery.js"></script>
+    <script type="text/javascript" src="_static/underscore.js"></script>
+    <script type="text/javascript" src="_static/doctools.js"></script>
+    <script type="text/javascript" src="_static/translations.js"></script>
+    <script type="text/javascript" src="http://cdn.mathjax.org/mathjax/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML"></script>
+    <script type="text/javascript" src="_static/jquery.cookie.js"></script>
+    <script type="text/javascript" src="_static/cloud.js"></script>
+
+	<script src="http://sagecell.icse.us.edu.pl:6363/static/jquery.min.js"></script>
+	<script src="http://sagecell.icse.us.edu.pl:6363/static/embedded_sagecell.js"></script>
+
+	<!-- <script src="http://sagecell.sagemath.org/static/jquery.min.js"></script> -->
+	<!-- <script src="http://sagecell.sagemath.org/static/embedded_sagecell.js"></script> -->
+
+	<script>sagecell.makeSagecell({inputLocation: ".sage",
+                                       evalButtonText: 'Wykonaj',
+                                       linked: true});</script>
+
+	<style type="text/css">
+		.sagecell .CodeMirror-scroll {
+			overflow-y: hidden;
+			overflow-x: auto;
+		}
+		.sagecell .CodeMirror {
+			height: auto;
+		}
+	</style>
+
+    
+    <link rel="top" title="Algebra Liniowa" href="http://visual.icse.us.edu.pl/LA/index.html" />
+    <link rel="next" title="Macierze elementarne" href="macierze_elementarne.html" />
+    <link rel="prev" title="Transpozycja macierzy" href="transpozycja_macierzy.html" />
+ 
+  <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, minimum-scale=1">
+  </head>
+  <body>
+  <div class="relbar-top">
+    
+    <div class="related">
+      <h3>Nawigacja</h3>
+      <ul>
+        <li class="right" style="margin-right: 10px">
+          <a href="macierze_elementarne.html" title="Macierze elementarne"
+             accesskey="N">dalej</a></li>
+        <li class="right" >
+          <a href="transpozycja_macierzy.html" title="Transpozycja macierzy"
+             accesskey="P">wstecz</a> &nbsp; &nbsp;</li>
+  <li><a href="http://visual.icse.us.edu.pl/LA/index.html">Algebra Liniowa</a> &raquo;</li>
+   
+      </ul>
+    </div>
+  </div>
+  
+  <div class="content">  
+
+    <div class="document">
+      <div class="documentwrapper">
+        <div class="bodywrapper">
+          <div class="body">
+            
+  <div class="section" id="macierz-odwrotna">
+<h1>Macierz odwrotna<a class="headerlink" href="macierz_odwrotna.html#macierz-odwrotna" title="Stały odnośnik do tego nagłówka">¶</a></h1>
+<p>Jednością (czyli elementem neutralnym ze względu na mnożenie)
+w nieprzemiennym pierścieniu <span class="math">\(\,M_n(K)\,\)</span> macierzy kwadratowych stopnia <span class="math">\(\,n\,\)</span>
+nad ciałem <span class="math">\(\,K\,\)</span> jest macierz jednostkowa</p>
+<div class="math">
+\[\begin{split}\boldsymbol{I}_n\ =\
+\left[\begin{array}{cccc}
+   1      &amp;    0   &amp; \ldots &amp;    0   \\
+   0      &amp;    1   &amp; \ldots &amp;    0   \\
+   \ldots &amp; \ldots &amp; \ldots &amp; \ldots \\
+   0      &amp;    0   &amp; \ldots &amp;    1
+\end{array}\right]\,.\end{split}\]</div>
+<p>Oznacza to, że
+<span class="math">\(\ \ \boldsymbol{A}\boldsymbol{I}_n\,=\,\boldsymbol{I}_n\boldsymbol{A}\,=\,\boldsymbol{A}\ \ \)</span>
+dla dowolnej macierzy <span class="math">\(\ \boldsymbol{A}\in M_n(K)\,.\)</span></p>
+<p>Stosownie do tego zdefiniujemy macierz odwrotną do danej macierzy kwadratowej. <span class="math">\(\\\)</span></p>
+<p>Dana macierz <span class="math">\(\,\boldsymbol{A}\in M_n(K).\ \)</span>
+Jeżeli istnieje macierz <span class="math">\(\boldsymbol{B}\in M_n(K)\,\)</span> taka, że
+<span class="math">\(\,\boldsymbol{A}\boldsymbol{B}=\boldsymbol{B}\boldsymbol{A}=\boldsymbol{I}_n\,,\,\)</span>
+gdzie <span class="math">\(\,\boldsymbol{I}_n\,\)</span> jest macierzą jednostkową stopnia <span class="math">\(\,n\,,\,\)</span>
+to <span class="math">\(\,\boldsymbol{B}\,\)</span> jest <em>macierzą odwrotną</em> do macierzy <span class="math">\(\,\boldsymbol{A}.\)</span></p>
+<p>Macierz odwrotną do <span class="math">\(\,\boldsymbol{A}\,\)</span> oznaczamy <span class="math">\(\,\boldsymbol{A}^{-1}.\)</span> <span class="math">\(\\\)</span>
+Jeżeli taka macierz odwrotna istnieje, to <span class="math">\(\,\boldsymbol{A}\,\)</span>
+nazywamy <em>macierzą odwracalną</em>. <span class="math">\(\\\)</span></p>
+<p>Macierz kwadratowa <span class="math">\(\,\boldsymbol{A}\in M_n(K)\,\)</span> ma co najwyżej jedną macierz odwrotną.
+<span class="math">\(\\\)</span> Rzeczywiście, niech</p>
+<div class="math">
+\[\boldsymbol{A}\boldsymbol{B}\ =\ \boldsymbol{B}\boldsymbol{A}\ =\ \boldsymbol{I}_n\,,
+\quad
+\boldsymbol{A}\boldsymbol{C}\ =\ \boldsymbol{C}\boldsymbol{A}\ =\ \boldsymbol{I}_n\,.\]</div>
+<p>Wtedy na podstawie łączności mnożenia macierzowego mamy</p>
+<div class="math">
+\[\boldsymbol{B} = \boldsymbol{B}\boldsymbol{I}_n =
+\boldsymbol{B}(\boldsymbol{A}\boldsymbol{C}) =
+(\boldsymbol{B}\boldsymbol{A})\boldsymbol{C} =
+\boldsymbol{I}_n\boldsymbol{C} = \boldsymbol{C}\,.\]</div>
+<p>A zatem jeśli macierz jest odwracalna, to jej odwrotność jest określona jednoznacznie. <span class="math">\(\\\)</span></p>
+<p>Nie dla każdej macierzy kwadratowej istnieje macierz odwrotna.
+Odwracalne mogą być tylko (warunek konieczny, ale nie wystarczający) macierze,
+składające się wyłącznie z niezerowych wierszy i z niezerowych kolumn.
+Wyjaśnia to</p>
+<div class="admonition-twierdzenie-1-math admonition">
+<p class="first admonition-title">Twierdzenie 1. <span class="math">\(\,\)</span></p>
+<p class="last">Jeżeli <span class="math">\(\,\boldsymbol{A}\in M_n(K)\,\)</span> jest macierzą odwracalną,
+to <span class="math">\(\,\boldsymbol{A}\,\)</span> nie ma wierszy składających się z samych zer
+ani kolumn składających się z samych zer.</p>
+</div>
+<p><strong>Dowód.</strong></p>
+<p>Gdyby <span class="math">\(\,i\)</span>-ty wiersz macierzy <span class="math">\(\,\boldsymbol{A}\,\)</span>
+składał się z samych zer, to dla każdej macierzy <span class="math">\(\boldsymbol{B}\in M_n(K)\,\)</span>
+<span class="math">\(\,i\)</span>-ty wiersz iloczynu <span class="math">\(\,\boldsymbol{A}\boldsymbol{B}\,\)</span>
+zawierałby tylko zera (wierszowa reguła mnożenia macierzowego).</p>
+<p>Gdyby <span class="math">\(\,j\)</span>-ta kolumna macierzy <span class="math">\(\,\boldsymbol{A}\,\)</span>
+była kolumną zerową, to dla każdej macierzy <span class="math">\(\boldsymbol{B}\in M_n(K)\,\)</span>
+<span class="math">\(\,j\)</span>-ta kolumna iloczynu <span class="math">\(\,\boldsymbol{B}\boldsymbol{A}\,\)</span>
+składałaby się z samych zer (kolumnowa reguła mnożenia macierzowego).</p>
+<p>W obydwu przypadkach nie istniałaby macierz <span class="math">\(\,\boldsymbol{B}\in M_n(K),\,\)</span> dla której
+<span class="math">\(\ \boldsymbol{A}\boldsymbol{B} = \boldsymbol{B}\boldsymbol{A} = \boldsymbol{I}_n\,.\)</span>
+<span class="math">\(\\\)</span></p>
+<div class="admonition-twierdzenie-2-math admonition">
+<p class="first admonition-title">Twierdzenie 2. <span class="math">\(\,\)</span></p>
+<p class="last">Jeżeli macierze <span class="math">\(\,\boldsymbol{A},\boldsymbol{B}\in M_n(K)\,\)</span> są odwracalne, <span class="math">\(\\\)</span>
+to iloczyn <span class="math">\(\,\boldsymbol{A}\boldsymbol{B}\,\)</span> też jest odwracalny, przy czym
+<span class="math">\(\ \ (\boldsymbol{A}\boldsymbol{B})^{-1}\ =\ \boldsymbol{B}^{-1}\boldsymbol{A}^{-1}\,.\)</span></p>
+</div>
+<p>Rzeczywiście, korzystając z łączności mnożenia macierzowego mamy</p>
+<div class="math">
+\[(\boldsymbol{A}\boldsymbol{B})(\boldsymbol{B}^{-1}\boldsymbol{A}^{-1})\ =\
+\boldsymbol{A}(\boldsymbol{B}\boldsymbol{B}^{-1})\boldsymbol{A}^{-1}\ =\
+(\boldsymbol{A}\boldsymbol{I}_n)\boldsymbol{A}^{-1}\ =\
+\boldsymbol{A}\boldsymbol{A}^{-1}\ =\ \boldsymbol{I}_n\,,\]\[(\boldsymbol{B}^{-1}\boldsymbol{A}^{-1})(\boldsymbol{A}\boldsymbol{B})\ =\
+\boldsymbol{B}^{-1}(\boldsymbol{A}^{-1}\boldsymbol{A})\boldsymbol{B}\ =\
+\boldsymbol{B}^{-1}(\boldsymbol{I}_n\boldsymbol{B})\ =\
+\boldsymbol{B}^{-1}\boldsymbol{B}\ =\ \boldsymbol{I}_n\,.\]</div>
+<p>Ogólnie, jeżeli macierze
+<span class="math">\(\,\boldsymbol{A}_1,\boldsymbol{A}_2,\dots,\boldsymbol{A}_k\in M_n(K)\,\)</span>
+są odwracalne, to</p>
+<div class="math">
+\[\begin{split}\left(\boldsymbol{A}_1\boldsymbol{A}_2\dots\boldsymbol{A}_k\right)^{-1}\ =\
+\boldsymbol{A}_k^{-1}\dots\boldsymbol{A}_2^{-1}\boldsymbol{A}_1^{-1}\,.
+\\\end{split}\]</div>
+<p>W systemie Sage macierz odwrotną wylicza się stosując metodę <tt class="docutils literal"><span class="pre">inverse()</span></tt> (w skrócie <tt class="docutils literal"><span class="pre">I</span></tt>).
+<span class="math">\(\\\)</span></p>
+<p><strong>Przykład.</strong> <span class="math">\(\,\)</span> Znaleźć odwrotność macierzy
+<span class="math">\(\ \ \boldsymbol{A}\ =\
+\left[\begin{array}{rrr} 1 &amp; -1 &amp; -2 \\ 0 &amp; 1 &amp; 2 \\ 1 &amp; -1 &amp; -1
+\end{array}\right]\,.\)</span></p>
+<div class="highlight-python"><div class="highlight"><pre><span class="n">sage</span><span class="p">:</span> <span class="n">A</span> <span class="o">=</span> <span class="n">matrix</span><span class="p">([[</span><span class="mi">1</span><span class="p">,</span><span class="o">-</span><span class="mi">1</span><span class="p">,</span><span class="o">-</span><span class="mi">2</span><span class="p">],[</span><span class="mi">0</span><span class="p">,</span> <span class="mi">1</span><span class="p">,</span> <span class="mi">2</span><span class="p">],[</span><span class="mi">1</span><span class="p">,</span><span class="o">-</span><span class="mi">1</span><span class="p">,</span><span class="o">-</span><span class="mi">1</span><span class="p">]])</span>
+<span class="n">sage</span><span class="p">:</span> <span class="n">B</span> <span class="o">=</span> <span class="n">A</span><span class="o">.</span><span class="n">I</span>
+<span class="n">sage</span><span class="p">:</span> <span class="n">html</span><span class="o">.</span><span class="n">table</span><span class="p">([[</span><span class="n">A</span><span class="p">,</span> <span class="s">&#39;*&#39;</span><span class="p">,</span> <span class="n">B</span><span class="p">,</span> <span class="s">&#39;=&#39;</span><span class="p">,</span> <span class="n">A</span><span class="o">*</span><span class="n">B</span><span class="p">]])</span>
+</pre></div>
+</div>
+<div class="math">
+\[\begin{split}\left(\begin{array}{rrr}
+1 &amp; -1 &amp; -2 \\
+0 &amp;  1 &amp;  2 \\
+1 &amp; -1 &amp; -1
+\end{array}\right)\ \ *\ \ \left(\begin{array}{rrr}
+                            1 &amp; 1 &amp;  0 \\
+                            2 &amp; 1 &amp; -2 \\
+                           -1 &amp; 0 &amp;  1
+                           \end{array}\right)\quad =\quad\left(\begin{array}{rrr}
+                                                         1 &amp; 0 &amp; 0 \\
+                                                         0 &amp; 1 &amp; 0 \\
+                                                         0 &amp; 0 &amp; 1
+                                                         \end{array}\right)\,.\end{split}\]</div>
+</div>
+
+
+          </div>
+        </div>
+      </div>
+      <div class="sphinxsidebar">
+        <div class="sphinxsidebarwrapper">
+  <h4>Poprzedni temat</h4>
+  <p class="topless"><a href="transpozycja_macierzy.html"
+                        title="poprzedni rozdział">Transpozycja macierzy</a></p>
+  <h4>Następny temat</h4>
+  <p class="topless"><a href="macierze_elementarne.html"
+                        title="następny rozdział">Macierze elementarne</a></p>
+<div id="searchbox" style="display: none">
+  <h3>Szybkie wyszukiwanie</h3>
+    <form class="search" action="search.html" method="get">
+      <input type="text" name="q" />
+      <input type="submit" value="Szukaj" />
+      <input type="hidden" name="check_keywords" value="yes" />
+      <input type="hidden" name="area" value="default" />
+    </form>
+    <p class="searchtip" style="font-size: 90%">
+    Wprowadź szukany termin lub nazwę modułu, klasy lub funkcji.
+    </p>
+</div>
+<script type="text/javascript">$('#searchbox').show(0);</script>
+        </div>
+      </div>
+      <div class="clearer"></div>
+    </div>
+  </div>
+  <div class="relbar-bottom">
+    
+    <div class="related">
+      <h3>Nawigacja</h3>
+      <ul>
+        <li class="right" style="margin-right: 10px">
+          <a href="macierze_elementarne.html" title="Macierze elementarne"
+             >dalej</a></li>
+        <li class="right" >
+          <a href="transpozycja_macierzy.html" title="Transpozycja macierzy"
+             >wstecz</a> &nbsp; &nbsp;</li>
+  <li><a href="http://visual.icse.us.edu.pl/LA/index.html">Algebra Liniowa</a> &raquo;</li>
+   
+      </ul>
+    </div>
+  </div>
+  
+  <div class="footer">
+    <a class="logo" href="../../icse.us.edu.pl/index.html" target="_blank"><img src="_static/logo-icse.png" alt="ICSE"/></a><br/>
+    &copy; Copyright 2013, Marcin Kostur.
+    Created using <a href="http://sphinx.pocoo.org/">Sphinx</a> 1.2.2.
+  </div>
+  </body>
+</html>

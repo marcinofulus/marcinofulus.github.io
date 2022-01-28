@@ -1,0 +1,355 @@
+
+
+  <!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+  "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+
+
+<html xmlns="http://www.w3.org/1999/xhtml">
+  <head>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    
+    <title>Dynamika populacyjna: ciągłe modele jednowymiarowe &mdash; Warsztaty</title>
+    
+    <link rel="stylesheet" href="_static/cloud.css" type="text/css" />
+    <link rel="stylesheet" href="_static/pygments.css" type="text/css" />
+    <link rel="stylesheet" href="http://fonts.googleapis.com/css?family=Noticia+Text|Open+Sans|Droid+Sans+Mono&subset=latin,latin-ext" type="text/css" />
+    
+    <script type="text/javascript">
+      var DOCUMENTATION_OPTIONS = {
+        URL_ROOT:    './',
+        VERSION:     'I',
+        COLLAPSE_INDEX: false,
+        FILE_SUFFIX: '.html',
+        HAS_SOURCE:  true
+      };
+    </script>
+    <script type="text/javascript" src="_static/jquery.js"></script>
+    <script type="text/javascript" src="_static/underscore.js"></script>
+    <script type="text/javascript" src="_static/doctools.js"></script>
+    <script type="text/javascript" src="_static/translations.js"></script>
+    <script type="text/javascript" src="http://cdn.mathjax.org/mathjax/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML"></script>
+    <script type="text/javascript" src="_static/jquery.cookie.js"></script>
+    <script type="text/javascript" src="_static/cloud.js"></script>
+
+
+
+    <script src="http://sagecell.icse.us.edu.pl:6363/static/jquery.min.js"></script>
+	<script src="http://sagecell.icse.us.edu.pl:6363/static/embedded_sagecell.js"></script>
+
+	<script>sagecell.makeSagecell({inputLocation: ".sage",
+                                       evalButtonText: 'Wykonaj',
+                                       linked: true});</script>
+
+	<style type="text/css">
+		.sagecell .CodeMirror-scroll {
+			overflow-y: hidden;
+			overflow-x: auto;
+		}
+		.sagecell .CodeMirror {
+			height: auto;
+		}
+	</style>
+
+    
+    <link rel="top" title="Warsztaty" href="index.html" />
+    <link rel="next" title="Zabawa w chaos" href="motyl_lorenza.html" />
+    <link rel="prev" title="Gramy Funkcje!" href="gramy_funkcje.html" />
+ 
+  <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, minimum-scale=1">
+  </head>
+  <body>
+  <div class="relbar-top">
+    
+    <div class="related">
+      <h3>Nawigacja</h3>
+      <ul>
+        <li class="right" style="margin-right: 10px">
+          <a href="motyl_lorenza.html" title="Zabawa w chaos"
+             accesskey="N">dalej</a></li>
+        <li class="right" >
+          <a href="gramy_funkcje.html" title="Gramy Funkcje!"
+             accesskey="P">wstecz</a> &nbsp; &nbsp;</li>
+  <li><a href="index.html">Warsztaty</a> &raquo;</li>
+   
+      </ul>
+    </div>
+  </div>
+  
+  <div class="content">  
+
+    <div class="document">
+      <div class="documentwrapper">
+        <div class="bodywrapper">
+          <div class="body">
+            
+  <div class="section" id="dynamika-populacyjna-ciagle-modele-jednowymiarowe">
+<h1>Dynamika populacyjna: ciągłe modele jednowymiarowe<a class="headerlink" href="dynamika_populacyjna.html#dynamika-populacyjna-ciagle-modele-jednowymiarowe" title="Stały odnośnik do tego nagłówka">¶</a></h1>
+<div class="section" id="model-malthusa">
+<h2>Model Malthusa<a class="headerlink" href="dynamika_populacyjna.html#model-malthusa" title="Stały odnośnik do tego nagłówka">¶</a></h2>
+<p>W przyrodzie występuje wiele gatunków zwierząt i roślin. Ich
+liczebność ciągle się zmienia: procesy są dynamiczne, powiązane między
+sobą, oddziaływania są skomplikowane, często losowe. Można powiedzieć,
+że jest to niewątpliwie przykład realnego układu złożonego z wielu
+elementów połączonych z sobą w skomplikowaną sieć. Opis takich układów
+jest trudny. Jak to często bywa w naukach przyrodniczych, stosuje się
+opis przybliżony, &#8220;gruboziarnisty&#8221;, pomija się elementy mniej istotne
+i uwzględnia się najważniejsze składniki układu. Jest to metoda
+<em>idealizacji</em> nagminnie stosowana przez fizyków do opisu
+rzeczywistości. Historia pokazuje, że metoda ta nie jest zła. Ba,
+czasami bardzo dobra i nawet znakomita.</p>
+<p>Podobne podejście zastosujemy do opisu dynamiki
+populacyjnej. Zaczniemy od najprostszego modelu: jedna populacja. Może
+to być populacja ludzi na określonym obszarze, populacja zajęcy,
+bakterii czy populacja komórek nowotworowych. Może to być &#8220;populacja&#8221;
+związku chemicznego (molekuł). Populację określa się liczbami
+naturalnymi: jest 4 tys. ludzi, 3 mld bakterii, <span class="math">\(10^{20}\)</span>
+molekuł. Posługiwanie się liczbami całkowitymi jest trudne w
+modelowaniu. Postąpimy podobnie jak w opisie dynamiki płynów, np. wody
+czy krwii. Woda w szklance składa się z dyskretnej liczby molekuł. Ale
+nikt do charakterystyki wody nie stosuje opisu bazyjącego na liczbach
+naturalnych.  Stosujemy <em>przybliżenie ośrodka ciągłego</em>
+scharakteryzowanego gęstością wody: ilością molekuł w jednostkowej
+objętości. Podobny opis zastosujemy w modelowaniu dynamiki
+populacyjnej. Liczba N charakteryzująca liczbę osobników w populacji
+będzie nieujemną liczbą rzeczywistą, interpretowaną jako względna
+liczba osobników (liczba osobników w stosunku do np. średniej liczby
+osobników w ostatnich 50 latach lub maksymalnej liczby osobników w
+poprzednim roku, itp.). Liczba ta może zmieniać się w sposób
+ciągły. Liczba N(t) będzie charakteryzować liczbę osobników populacji
+w chwili czasu t.  Zmiana w czasie tej funkcji wynika z zastosowanego
+modelu.</p>
+<p>Modele będziemy budować bazując na wiedzy z teorii funkcji i
+obserwacjach otaczającego nas świata. Nie trzeba być wybitnym
+matematykiem, żeby umieć zinterpretować różnicę dwóch prędkości
+samochodu A i samochodu B gdy samochód A jedzie z prędkością 40 km/h,
+a samochód B jedzie z prędkością 150 km/h. Wielkość, która mówi o
+<em>tempie zmiany położenia w czasie</em> to pochodna położenia jako funkcji
+czasu, czyli prędkość. To właśnie pochodna mówi nam, w jakim tempie
+zmienia się dana wielkość. Jeżeli pochodna jest dodatnia, to funkcja
+rośnie; gdy pochodna jest ujemna, to funkcja maleje. Oto niezbędna
+wiedza, aby zacząć modelowanie.</p>
+<p>Pierwszy krok modelowania: dlaczego zmienia się liczba osobników N(t)
+w danej populacji?  Można wyróżnić trzy podstawowe procesy: ktoś się
+rodzi, ktoś umiera, jeszcze inny &#8220;wyjeżdża&#8221;, emigruje, opuszcza
+populację, a jeszcze inny &#8220;przyjeżdża&#8221;, imigruje. W języku matematyki
+możemy to zapisać w postaci relacji:</p>
+<div class="math">
+\[\frac{dN(t)}{dt}= +\text{przyrost (narodziny)} - \text{ubytek (śmierć)}  \pm  \text{migracja}\]</div>
+<ol class="lowerroman simple">
+<li>Lewa  strona  tej relacji opisuje tempo zmiany populacji: <span class="math">\(dN(t)/dt\)</span></li>
+<li>przyrost populacji wskutek urodzin nowych osobników jest rosnącą
+funkcją <span class="math">\(f(N)\)</span> liczby osobników <span class="math">\(N\)</span> w populacji: W
+populacji 1 mln rodzi się więcej osobników niż w populacji 50
+tys. (jak można zaobserwować w ostatnich latach, w populacji
+ludzi nie musi to być prawdą).  Najprostszą funkcją jest funkcja
+liniowa:</li>
+</ol>
+<div class="math">
+\[f(N) = a N\]</div>
+<p>gdzie współczynnik <span class="math">\(a \gt 0\)</span> nazywa się tempem rozmnażania
+(wzrostu) populacji.</p>
+<ol class="lowerroman" start="3">
+<li><dl class="first docutils">
+<dt>ubytek populacji wskutek śmierci osobników jest rosnącą funkcją</dt>
+<dd><p class="first last"><span class="math">\(g(N)\)</span> liczby osobników w populacji: W populacji 1 mln
+umiera więcej osobników niż w populacji 50 tys.  Najprostszą
+funkcją jest funkcja liniowa:</p>
+</dd>
+</dl>
+</li>
+</ol>
+<div class="math">
+\[g(N) = b N\]</div>
+<p>gdzie współczynnik  <span class="math">\(b \gt 0\)</span> jest tempem śmiertelności (zaniku) populacji .</p>
+<p>Pominiemy na obecnym etapie procesy migracji (zaczynamy od najprostszego modelu!).  Z powyższych rozważań wynika taki oto model:</p>
+<div class="math">
+\[\frac{dN(t)}{dt}= a N(t) - b N(t)  = (a-b) N(t) = k N(t), \quad \quad  k=a-b\]</div>
+<p>Otrzymaliśmy liniowe równanie różniczkowe zwyczajne pierwszego rzędu. Aby otrzymać  jego jednoznaczne rozwiązanie, musimy jeszcze zadać warunek początkowy:</p>
+<div class="math">
+\[N(0) = N_0\]</div>
+<p>Jest to proste równanie różniczkowe, które można rozwiązać metodą rozdzielenia zmiennych:</p>
+<div class="math">
+\[N(t)= N_0  e^{kt}\]</div>
+<p>Z rozwiązania tego wynika, że:</p>
+<ol class="arabic simple">
+<li>jeżeli  tempo rozmnażania  jest takie samo jak tempo śmiertelności, <span class="math">\(k=0\)</span> czyli <span class="math">\(a=b\)</span>,  to populacja utrzymuje sie na tym samym poziomie liczebności:  <span class="math">\(N(t) = N(0)\)</span>.</li>
+<li>jeżeli  tempo rozmnażania  jest większe niż  tempo śmiertelności, <span class="math">\(k\gt 0\)</span> czyli <span class="math">\(a \gt b\)</span>, to populacja rozrasta się: <span class="math">\(N(t)  \gt  N(0)\)</span>.</li>
+<li>jeżeli  tempo rozmnażania  jest  mniejsze niż  tempo śmiertelności, <span class="math">\(k\lt 0\)</span> czyli <span class="math">\(a \lt b\)</span>,   to liczba osobników w populacji maleje:  <span class="math">\(N(t)  \lt  N(0)\)</span>.</li>
+</ol>
+<p>Powyższy model został zaproponowany przez Malthusa w 1798 roku. Wynika z niego eksponencjalnie szybkie  tempo wzrostu (gdy a&gt;b) lub eksponencjalnie szybki zanik populacji (gdy a&lt;b). Są takie przykłady,  dla których model Malthusa realizuje się w pewnych przedziałach czasu, w szczególności  w początkowych fazach wzrostu (np. wzrost kolonii bakterii w odpowiednich warunkach).</p>
+<div class="section" id="wykorzystanie-sage-do-analizy-modelu-malthusa">
+<h3><strong>Wykorzystanie Sage do analizy  modelu Malthusa</strong><a class="headerlink" href="dynamika_populacyjna.html#wykorzystanie-sage-do-analizy-modelu-malthusa" title="Stały odnośnik do tego nagłówka">¶</a></h3>
+<p><strong>Rozwiązanie analityczne</strong></p>
+<p>W SAGE można bardzo łatwo otrzymać postać analityczną rozwiązania równania Malthusa, patrz poniżej:</p>
+<hr class="docutils" />
+<div class="highlight-python"><div class="highlight"><pre><span class="n">sage</span><span class="p">:</span> <span class="n">var</span><span class="p">(</span><span class="s">&#39;t k&#39;</span><span class="p">)</span>
+<span class="n">sage</span><span class="p">:</span> <span class="c">#k=1</span>
+<span class="n">sage</span><span class="p">:</span> <span class="n">assume</span><span class="p">(</span><span class="n">t</span><span class="o">&gt;</span><span class="mi">0</span><span class="p">)</span>
+<span class="n">sage</span><span class="p">:</span> <span class="n">N</span> <span class="o">=</span> <span class="n">function</span><span class="p">(</span><span class="s">&#39;N&#39;</span><span class="p">,</span><span class="n">t</span><span class="p">)</span>
+<span class="n">sage</span><span class="p">:</span> <span class="n">row</span> <span class="o">=</span> <span class="n">N</span><span class="o">.</span><span class="n">diff</span><span class="p">()</span><span class="o">==</span> <span class="n">k</span><span class="o">*</span><span class="n">N</span>
+<span class="n">sage</span><span class="p">:</span> <span class="n">rozw</span> <span class="o">=</span> <span class="n">desolve</span><span class="p">(</span><span class="n">row</span><span class="p">,</span><span class="n">N</span><span class="p">,</span><span class="n">ivar</span> <span class="o">=</span> <span class="n">t</span><span class="p">)</span>
+<span class="n">sage</span><span class="p">:</span> <span class="n">rozw</span>
+</pre></div>
+</div>
+<div class="math">
+\[c e^{(kt)}\]</div>
+<p><strong>Wykres pokazujący wzrost, brak zmian i zanik populacji w zależności od wartości parametru k=a-b</strong></p>
+<div class="highlight-python"><div class="highlight"><pre><span class="n">sage</span><span class="p">:</span> <span class="n">var</span><span class="p">(</span><span class="s">&#39;N1,N2,N3&#39;</span><span class="p">)</span>
+<span class="n">sage</span><span class="p">:</span> <span class="n">T</span> <span class="o">=</span> <span class="n">srange</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span><span class="mi">3</span><span class="p">,</span><span class="mf">0.01</span><span class="p">)</span>
+<span class="n">sage</span><span class="p">:</span> <span class="n">sol</span><span class="o">=</span><span class="n">desolve_odeint</span><span class="p">(</span> <span class="n">vector</span><span class="p">([</span><span class="o">-</span><span class="n">N1</span><span class="p">,</span> <span class="mi">0</span><span class="p">,</span> <span class="mf">0.5</span><span class="o">*</span><span class="n">N3</span><span class="p">]),</span> <span class="p">[</span><span class="mi">5</span><span class="p">,</span><span class="mi">5</span><span class="p">,</span><span class="mi">5</span><span class="p">],</span><span class="n">T</span><span class="p">,[</span><span class="n">N1</span><span class="p">,</span><span class="n">N2</span><span class="p">,</span><span class="n">N3</span><span class="p">])</span><span class="c">## rozwiązania dla różnych wartości k=-1, 0, 0.5</span>
+
+<span class="n">sage</span><span class="p">:</span> <span class="n">line</span><span class="p">(</span> <span class="nb">zip</span> <span class="p">(</span> <span class="n">T</span><span class="p">,</span><span class="n">sol</span><span class="p">[:,</span><span class="mi">0</span><span class="p">])</span> <span class="p">,</span><span class="n">figsize</span><span class="o">=</span><span class="p">(</span><span class="mi">5</span><span class="p">,</span> <span class="mi">3</span><span class="p">),</span><span class="n">legend_label</span><span class="o">=</span><span class="s">&quot;k=-1&quot;</span><span class="p">)</span> <span class="o">+</span>\
+<span class="o">...</span>    <span class="n">line</span><span class="p">(</span> <span class="nb">zip</span> <span class="p">(</span> <span class="n">T</span><span class="p">,</span><span class="n">sol</span><span class="p">[:,</span><span class="mi">1</span><span class="p">])</span> <span class="p">,</span><span class="n">color</span><span class="o">=</span><span class="s">&#39;red&#39;</span><span class="p">,</span><span class="n">legend_label</span><span class="o">=</span><span class="s">&quot;k=0&quot;</span><span class="p">)</span><span class="o">+</span>\
+<span class="o">...</span>    <span class="n">line</span><span class="p">(</span> <span class="nb">zip</span> <span class="p">(</span> <span class="n">T</span><span class="p">,</span><span class="n">sol</span><span class="p">[:,</span><span class="mi">2</span><span class="p">])</span> <span class="p">,</span><span class="n">color</span><span class="o">=</span><span class="s">&#39;green&#39;</span><span class="p">,</span><span class="n">legend_label</span><span class="o">=</span><span class="s">&quot;k=0.5&quot;</span><span class="p">)</span> <span class="c">## pokazujemy rozwiązania dla różnych wartości k=-1, 0, 0.5</span>
+</pre></div>
+</div>
+<img alt="_images/cell_6_sage0.png" class="align-center" src="_images/cell_6_sage0.png" />
+<p><strong>Wykres pokazujący różne tempo wzrostu w zależności od wartości parametru k=a−b &gt; 0</strong></p>
+<div class='sage'><script type='text/x-sage'>T1 = srange(0,1.5,0.01)
+sol1=desolve_odeint( vector([N1, 2*N2, 2.5*N3]), [5,5,5],T1,[N1,N2,N3])
+line( zip ( T1,sol1[:,0]) ,figsize=(5, 3),legend_label="k=1") +\
+ line( zip ( T1,sol1[:,1]) ,color='red',legend_label="k=2")+\
+ line( zip ( T1,sol1[:,2]) ,color='green',legend_label="k=2.5") ## pokazujemy rozwiązania dla dodatnich wartości k=1, 2, 2.5</script></div><p><strong>Wykres pokazujący różne tempo  zaniku populacji w zależności od wartości parametru k=a−b &lt; 0</strong></p>
+<div class='sage'><script type='text/x-sage'>T2 = srange(0,2,0.01)
+sol2=desolve_odeint( vector([-N1, -2*N2, -3*N3]), [5,5,5],T2,[N1,N2,N3])
+line( zip ( T2,sol2[:,0]) ,figsize=(5,3),legend_label="k=-1") +\
+ line( zip ( T2,sol2[:,1]) ,color='red',legend_label="k=-2")+\
+ line( zip ( T2,sol2[:,2]) ,color='green',legend_label="k=-3") ## pokazujemy rozwiązania dla ujemnych wartości k=-1, -2, -3</script></div><p>Załóżmy, że mamy eksperymentalne dane liczebności pewnej populacji w czasie:</p>
+<div class='sage'><script type='text/x-sage'>t = [0 , 16 ,  32 , 48 , 64 ]
+X = [0.022, 0.036,  0.060, 0.101,  0.169 ]</script></div><p>W modelu Malthusa, wzrost jest eksponencjalny. Więc w skali
+logarytmicznej powinniśmy otrzymujać prostą:</p>
+<div class="math">
+\[y(t) = \ln N(t) = \ln N_0 + k t = c + k t\]</div>
+<p>Przedstawiamy  dane wzrostu bakterii na  skali logarytmicznej:</p>
+<div class='sage'><script type='text/x-sage'>point(zip(t,map(log,X)),color='red',figsize=4)</script></div><p>Z grubsza wygląda to na linię prostą. Aby to sprawdzić,  wykonamy procedurę dopasowania danych eksperymentalnych do krzywej: <span class="math">\(n(t) = a \; e^{ b t}\)</span>:</p>
+<div class='sage'><script type='text/x-sage'>var('x a b')
+model(x) = a * exp(b * x )
+fit = find_fit (zip(t,X), model, solution_dict=True,initial_guess=(.1,.1))
+print fit
+fit2 = find_fit (zip(t[:2],X[:2]), model, solution_dict=True)
+print fit2
+plot( model(x).subs(fit), (x,-20,70))  + plot( model(x).subs(fit2), (x,-20,70),color='green')  + point(zip(t,X),color='red',figsize=4)</script></div><p>Parametr <tt class="code docutils literal"><span class="pre">initial_guess</span></tt> ustala punkt startowy dla rozpoczęcia
+iteracji procedury nieliniowej optymalizacji.</p>
+<p>Ostatnia liczba to wartość $k$ obliczona z danych dla wzrostu
+bakterii. Jest on bardzo bliska wartości b obliczonej z dopasowania
+danych do krzywej eksponencjalnej: <span class="math">\(n(t) = a \exp(a t)\)</span>. Stała
+<span class="math">\(a\)</span> też jest bliska wartości 0.22 z danych.</p>
+<dl class="docutils">
+<dt><strong>ZADANIE:</strong> W modelu Malthusa występują 2 parametry: a i b. W</dt>
+<dd>rozwiązaniu pojawia się tylko różnica a-b. Przeprowadzić dyskusję
+dotyczącą bezwymiarowej postaci równania Malthusa. Ile istotnych
+parametrów zawiera model Malthusa?</dd>
+<dt><strong>ZADANIE:</strong> W roku 1960 liczba ludności wynosiła 3 mld. W roku 1970</dt>
+<dd>- 3.7 mld ludzi.  Zakładając, że zmiana populacji następuje zgodnie
+z powyższym modelem Malthusa, oblicz liczbę ludności w roku 1980.
+Porównaj wynik modelu ze stanem faktycznym (skorzystaj z danych
+demograficznych zamieszczonych na stronie internetowej).</dd>
+<dt><strong>ZADANIE:</strong> Dane eksperymentalne dotyczące wzrostu bakterii <a href="dynamika_populacyjna.html#id1"><span class="problematic" id="id2">*</span></a>Vibrio</dt>
+<dd><p class="first">natrigens* są nastepujace (patrz
+<a class="reference external" href="http://mathinsight.org/bacteria_growth_initial_model">http://mathinsight.org/bacteria_growth_initial_model</a>)</p>
+<blockquote class="last">
+<div><table border="1" class="docutils">
+<colgroup>
+<col width="41%" />
+<col width="59%" />
+</colgroup>
+<thead valign="bottom">
+<tr class="row-odd"><th class="head">t  (min)</th>
+<th class="head">N (gęstość)</th>
+</tr>
+</thead>
+<tbody valign="top">
+<tr class="row-even"><td>0</td>
+<td>0.022</td>
+</tr>
+<tr class="row-odd"><td>16</td>
+<td>0.036</td>
+</tr>
+<tr class="row-even"><td>32</td>
+<td>0.060</td>
+</tr>
+<tr class="row-odd"><td>48</td>
+<td>0.101</td>
+</tr>
+<tr class="row-even"><td>64</td>
+<td>0.169</td>
+</tr>
+</tbody>
+</table>
+</div></blockquote>
+</dd>
+</dl>
+<p>Vibrio natrigens</p>
+<p>Sprawdź, czy model Malthusa opisuje powyższy wzrost kolonii bakterii.
+Oceń rzetelność tego modelu.</p>
+</div>
+</div>
+</div>
+
+
+          </div>
+        </div>
+      </div>
+      <div class="sphinxsidebar">
+        <div class="sphinxsidebarwrapper">
+  <div class="sphinxlocaltoc">
+  <h3><a href="index.html">Spis treści</a></h3>
+  <ul>
+<li><a class="reference internal" href="dynamika_populacyjna.html#">Dynamika populacyjna: ciągłe modele jednowymiarowe</a><ul>
+<li><a class="reference internal" href="dynamika_populacyjna.html#model-malthusa">Model Malthusa</a><ul>
+<li><a class="reference internal" href="dynamika_populacyjna.html#wykorzystanie-sage-do-analizy-modelu-malthusa"><strong>Wykorzystanie Sage do analizy  modelu Malthusa</strong></a></li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+
+  </div>
+  <h4>Poprzedni temat</h4>
+  <p class="topless"><a href="gramy_funkcje.html"
+                        title="poprzedni rozdział">Gramy Funkcje!</a></p>
+  <h4>Następny temat</h4>
+  <p class="topless"><a href="motyl_lorenza.html"
+                        title="następny rozdział">Zabawa w chaos</a></p>
+<div id="searchbox" style="display: none">
+  <h3>Szybkie wyszukiwanie</h3>
+    <form class="search" action="http://visual.icse.us.edu.pl/Warsztaty/search.html" method="get">
+      <input type="text" name="q" />
+      <input type="submit" value="Szukaj" />
+      <input type="hidden" name="check_keywords" value="yes" />
+      <input type="hidden" name="area" value="default" />
+    </form>
+    <p class="searchtip" style="font-size: 90%">
+    Wprowadź szukany termin lub nazwę modułu, klasy lub funkcji.
+    </p>
+</div>
+<script type="text/javascript">$('#searchbox').show(0);</script>
+        </div>
+      </div>
+      <div class="clearer"></div>
+    </div>
+  </div>
+  <div class="relbar-bottom">
+    
+    <div class="related">
+      <h3>Nawigacja</h3>
+      <ul>
+        <li class="right" style="margin-right: 10px">
+          <a href="motyl_lorenza.html" title="Zabawa w chaos"
+             >dalej</a></li>
+        <li class="right" >
+          <a href="gramy_funkcje.html" title="Gramy Funkcje!"
+             >wstecz</a> &nbsp; &nbsp;</li>
+  <li><a href="index.html">Warsztaty</a> &raquo;</li>
+   
+      </ul>
+    </div>
+  </div>
+  
+  <div class="footer">
+    <a class="logo" href="../../icse.us.edu.pl/index.html" target="_blank"><img src="_static/logo-icse.png" alt="ICSE"/></a><br/>
+    &copy; Copyright 2013, CubeProject.
+    Created using <a href="http://sphinx.pocoo.org/">Sphinx</a> 1.2.2.
+  </div>
+  </body>
+</html>

@@ -1,0 +1,109 @@
+<!DOCTYPE html> 
+<html> 
+<head> 
+<title>Rzut ukośny II</title> 
+<meta http-equiv="Content-Type" content="text/html; charset=UTF-8" /> 
+<meta http-equiv="X-UA-Compatible" content="IE=EmulateIE7" /> 
+
+<script type="text/x-mathjax-config"> 
+  MathJax.Hub.Config({
+    extensions: ["tex2jax.js"],
+    jax: ["input/TeX","output/HTML-CSS"],
+    tex2jax: {inlineMath: [["$","$"],["\\(","\\)"]]}
+  });
+</script> 
+
+<!-- <script type="text/javascript" src="js/mathjax/MathJax.js"></script> -->
+<script type="text/javascript" src="http://cdn.mathjax.org/mathjax/latest/MathJax.js"></script>
+
+<link rel="stylesheet" type="text/css" href="RzutUkosny2/css/mainstyle.css" />
+<link rel="stylesheet" type="text/css" href="RzutUkosny2/css/jsxgraph.css" />
+<script type="text/javascript" src="RzutUkosny2/js/jsxgraphcore-0.91.js"></script>
+
+<script type="text/javascript" src="RzutUkosny2/js/vtip/jquery.js"></script>
+<script type="text/javascript" src="RzutUkosny2/js/vtip/vtip.js"></script>
+<link rel="stylesheet" type="text/css" href="RzutUkosny2/js/vtip/css/vtip.css" />
+
+</head>
+<body>
+
+	<noscript> 
+	<div style="color:#CC0000; text-align:center">
+	<b>Uwaga: do prawidłowego działania, biblioteki <a href="http://www.mathjax.org/">MathJax</a>
+	oraz <a href="http://jsxgraph.uni-bayreuth.de/wp/">jsxgraph</a> wymagają obsługi JavaScript.<br />
+	Upewnij się, że JavaScript jest aktywowany w twojej przeglądarce.
+	</div>
+	<hr>
+	</noscript>
+
+
+<div id="container">
+
+<div id="header">
+	<h1>Rzut ukośny II</h1>
+	<p class="text">
+	Rzut ukośny przy uwzględnieniu oporu aerodynamicznego. Poniższa symulacja jest analogiczna do tej przedstawionej w przykładzie 
+	"Rzut ukośny I" z tą różnicą, że tutaj punkt materialny (kulka żelazna) odbija się sprężyście od podłoża. 
+	</p> 
+</div>
+
+<div id="content">
+
+
+<div id="input" class="formstyle">
+
+	<form name="form">
+	<table>
+ 	<tr>
+  		<td>$\alpha$</td> <td><input class="inputtext vtip" type="text" title="Kąt w stopniach pod jakim wyrzucane jest ciało" id="alpha" value="60" onKeyUp="resetAnimation()"></td> 
+  		<td>$v_0$</td> <td><input class="inputtext vtip" type="text" title="Prędkość początkowa" id="v0" value="300" onKeyUp="resetAnimation()"></td>
+  		<td>$r$</td> <td><input class="inputtext vtip" type="text" title="Promień kulki" id="r" value="0.025" onKeyUp="resetAnimation()"></td> 
+  		<td>$\rho_{Fe}$</td> <td><input class="inputtext vtip" type="text" title="Gęstość kulki żelaznej" id="rhoz" value="7900" onKeyUp="resetAnimation()"></td>
+  		<td>$m$</td> <td><input class="outputtext vtip" type="text" title="Masa kulki żelaznej" id="m" value="" readonly></td>
+ 	</tr>
+ 
+  	<tr>
+  		<td>$g$</td> <td><input class="inputtext vtip" type="text" title="Przyśpieszenie grawitacyjne" id="g" value="9.81" onKeyUp="resetAnimation()"></td>
+  		<td>$\rho_p$</td> <td><input class="inputtext vtip" type="text" title="Gęstość powietrza" id="rhop" value="1.2" onKeyUp="resetAnimation()"></td>
+  		<td>$\kappa$</td> <td><input class="inputtext vtip" type="text" title="Współczynnik oporu aerodynamicznego" id="kappa" value="0.45" onKeyUp="resetAnimation()"></td>
+  		<td>$dt$</td> <td><input class="inputtext vtip" type="text" title="Krok symulacji" id="dt" value="0.05" onKeyUp="resetAnimation()"></td>
+  		<td>$C$</td> <td><input class="outputtext vtip" type="text" title="Stała C" id="C" value="" readonly></td>
+ 	</tr>
+ 
+ 	<tr>
+  		<td></td>
+  		<td>
+			<input type="button" value="start / stop" onClick="startStopAnimation()">
+  			<input type="button" value="reset" onClick="resetAnimation()">
+  		</td>   
+ 	</tr>
+	</table>
+	</form>
+
+</div>
+
+
+
+<div id="plots">
+<table class="plotarea">    
+    <tr>
+        <td colspan="2" align="center">
+        <div id="box1" class="jxgbox vtip" title="Wizualizacja rzutu ukośnego" style="width:920px; height:500px;"></div>
+        </td>
+    </tr>
+</table>
+</div>
+
+
+<!-- <div class="theory">
+</div>
+ -->
+</div>
+
+
+</div>
+
+<script type="text/javascript" src="RzutUkosny2/js/phys.js"></script><br />
+
+</body>
+</html>

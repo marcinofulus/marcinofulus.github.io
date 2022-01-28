@@ -1,0 +1,336 @@
+
+
+  <!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+  "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+
+
+<html xmlns="http://www.w3.org/1999/xhtml">
+  <head>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    
+    <title>Równanie logistyczne II &mdash; Warsztaty</title>
+    
+    <link rel="stylesheet" href="_static/cloud.css" type="text/css" />
+    <link rel="stylesheet" href="_static/pygments.css" type="text/css" />
+    <link rel="stylesheet" href="http://fonts.googleapis.com/css?family=Noticia+Text|Open+Sans|Droid+Sans+Mono&subset=latin,latin-ext" type="text/css" />
+    
+    <script type="text/javascript">
+      var DOCUMENTATION_OPTIONS = {
+        URL_ROOT:    './',
+        VERSION:     'I',
+        COLLAPSE_INDEX: false,
+        FILE_SUFFIX: '.html',
+        HAS_SOURCE:  true
+      };
+    </script>
+    <script type="text/javascript" src="_static/jquery.js"></script>
+    <script type="text/javascript" src="_static/underscore.js"></script>
+    <script type="text/javascript" src="_static/doctools.js"></script>
+    <script type="text/javascript" src="_static/translations.js"></script>
+    <script type="text/javascript" src="http://cdn.mathjax.org/mathjax/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML"></script>
+    <script type="text/javascript" src="_static/jquery.cookie.js"></script>
+    <script type="text/javascript" src="_static/cloud.js"></script>
+
+
+
+    <script src="http://sagecell.icse.us.edu.pl:6363/static/jquery.min.js"></script>
+	<script src="http://sagecell.icse.us.edu.pl:6363/static/embedded_sagecell.js"></script>
+
+	<script>sagecell.makeSagecell({inputLocation: ".sage",
+                                       evalButtonText: 'Wykonaj',
+                                       linked: true});</script>
+
+	<style type="text/css">
+		.sagecell .CodeMirror-scroll {
+			overflow-y: hidden;
+			overflow-x: auto;
+		}
+		.sagecell .CodeMirror {
+			height: auto;
+		}
+	</style>
+
+    
+    <link rel="top" title="Warsztaty" href="index.html" />
+    <link rel="prev" title="Równanie logistyczne" href="rownanie_logistyczne.html" />
+ 
+  <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, minimum-scale=1">
+  </head>
+  <body>
+  <div class="relbar-top">
+    
+    <div class="related">
+      <h3>Nawigacja</h3>
+      <ul>
+        <li class="right" style="margin-right: 10px">
+          <a href="rownanie_logistyczne.html" title="Równanie logistyczne"
+             accesskey="P">wstecz</a></li>
+  <li><a href="index.html">Warsztaty</a> &raquo;</li>
+   
+      </ul>
+    </div>
+  </div>
+  
+  <div class="content">  
+
+    <div class="document">
+      <div class="documentwrapper">
+        <div class="bodywrapper">
+          <div class="body">
+            
+  <div class="section" id="rownanie-logistyczne-ii">
+<h1>Równanie  logistyczne II<a class="headerlink" href="rownanie_logistyczne_II.html#rownanie-logistyczne-ii" title="Stały odnośnik do tego nagłówka">¶</a></h1>
+<div class="section" id="tkamy-pajeczyne">
+<h2>Tkamy pajęczynę<a class="headerlink" href="rownanie_logistyczne_II.html#tkamy-pajeczyne" title="Stały odnośnik do tego nagłówka">¶</a></h2>
+<p>Jednym z ciekawych sposobów poznania dynamiki układów dyskretnych są
+wykresy &#8220;pajęczynowe&#8221; (z ang. cobweb plot), znane także jako wykresy
+Verhulsta. Spróbujemy samodzielnie skonstruować taki wykres. Na osiach
+będą umieszczone wartości populacji w kolejnych iteracjach:
+<span class="math">\(x_i,x_{i+1}\)</span>, zakresy obu osi będą więc <span class="math">\(0..1\)</span>. Zaczynamy
+od narysowania prostej <span class="math">\(x_{i+1}=x_i\)</span>, będącej przekątną wykresu,
+a następnie wykresu zależności <span class="math">\(x_{i+1}=f(x_i)\)</span>, dla pewnego
+ustalonego parametru <span class="math">\(a\)</span>. Chcemy przedstawić trajektorię
+ewolucji pewnego stanu początkowego <span class="math">\(x_0\)</span>. Procedura rysowania
+składa się z czterech etapów:</p>
+<ol class="arabic">
+<li><dl class="first docutils">
+<dt>Znajdujemy punkt przecięcia pionowej prostej przechodzącej</dt>
+<dd><p class="first last">przez punkt <span class="math">\((x_0,0)\)</span> z wykresem funkcji <span class="math">\(f\)</span>, czyli:
+<span class="math">\(x_0, f(x_0)\)</span></p>
+</dd>
+</dl>
+</li>
+<li><p class="first">Łączymy ten punkt poziomą linią z przekątną, tzn. z punktem
+<span class="math">\(f(x_0), f(x_0)\)</span>.</p>
+</li>
+<li><p class="first">Linią pionową łączymy powyższy punkt z wykresem funkcji <span class="math">\(f\)</span>,
+czyli z punktem <span class="math">\(f(x_0), f(f(x_0))\)</span>.</p>
+</li>
+<li><p class="first">Potwarzamy dowolną ilość razy kroki 2 i 3.</p>
+</li>
+</ol>
+<p>Powyższy algorytm łatwo jest wykonać nawet na kartce papieru, bez
+użycia komputera. Wystarczy na wykresie zawierającym przekątną oraz
+krzywą <span class="math">\(f(x)\)</span>, łączyć naprzemienne funkcję z przekątną i
+przekątną i z funkcją, odcinkami, odpowiednio: poziomymi i pionowymi.</p>
+<p>Poniższa implementacja, oprócz rysowania wykresu, koloruje pierwszych
+pięć iteracji na niebiesko a ostatnie pięć na czerwono, co pozwala na
+lepsze dostrzeżenie pojawiających się cykli. Zachęcamy do
+eksperymentowania z poniższym kodem i manipulacji sposobem
+wizualizacji.</p>
+<div class='sage'><script type='text/x-sage'>var('r,x0,n')
+@interact
+def cobweb(r=slider(0,4.001,0.001,default=2),x0=slider(0,1,0.1,default=0.4)):
+    f(x)=r*x*(1-x)
+    p = plot(f(x)==0,(x,0,1),ymin=-0.1,ymax=1.5,xmin=0,xmax=1.5,color='black')
+    p += plot(x,(x,0,1),color='green',figsize=7)
+    for n in range(50):
+        th = 1
+        if n>45:
+            th = 1.5
+            color='red'
+        elif n < 5:
+            color='blue'
+            th=1.5
+        else:
+            color='grey'
+            th =0.5
+        l1 = line([(x0,x0),(x0,f(x0))],color=color,thickness=th)
+        l2 = line([(x0,f(x0)),(f(x0),f(x0))],\
+         color=color,thickness=th,xmin=0,xmax=1,ymin=0,ymax=1)
+        p = p+l1+l2
+        x0 = f(x0)
+    p.axes_labels(["$x_n$","$x_{n+1}$"])
+    p.show(aspect_ratio=1)</script></div><p>Badanie układu można rozpocząć od przyglądania się jak układ dąży do
+zerowego punktu stałego dla <span class="math">\(a&lt;1\)</span>. W tym przypadku widać brak
+punktu przecięcia się paraboli z przekątną, z wyjątkiem zera. W
+obszarze parametru <span class="math">\(1&lt;a&lt;3\)</span> parabola ma niezerowy punkt
+przecięcia się z przekątną. Zwiększanie parametru powyżej <span class="math">\(a=2\)</span>
+powoduje, że ewolucja coraz wolniej dąży do punktu stałego, a gdy się
+zbliżymy do trzech np. <span class="math">\(a=2.9\)</span> układ wykonuje wiele oscylacji
+zanim znajdzie się w otoczeniu atraktora. Wygląda to tak jakby
+atraktor coraz słabiej przyciągał. Jeżeli zwiększymy parametr niewiele
+powyżej trójki np.: <span class="math">\(a=3.5\)</span> to otrzymujemy rozwiązanie, które
+jest zamkniętą krzywą owijającą się jeden raz wokół niestabilnego
+punktu stałego, co odpowiada rozwiązaniu o okresie 2. Dla
+<span class="math">\(a=3.5\)</span> krzywa owija się już dwa razy. Odpowiada to rozwiązaniu
+o okresie 4, co sugeruje, że układ pomiędzy wartościami parametru
+<span class="math">\(a=3.2\)</span> a <span class="math">\(a=3.5\)</span> przeszedł kolejną bifurkację! Ustalmy
+teraz parametr na największą wartość <span class="math">\(a=4.0\)</span>. Zachowanie
+się układu jest w pełni chaotyczne i nie wskazuje na obecność
+cykli. Możemy zwiększyć ilość iteracji lub zmienić punkt
+początkowy. Za każdym razem otrzymamy niepowtarzającą się trajektorię.</p>
+</div>
+<div class="section" id="czulosc-na-warunki-poczatkowe">
+<h2>Czułość na warunki początkowe<a class="headerlink" href="rownanie_logistyczne_II.html#czulosc-na-warunki-poczatkowe" title="Stały odnośnik do tego nagłówka">¶</a></h2>
+<p>Rozwiązanie jest czułe na warunki początkowe. Możemy się o tym
+przekonać, obliczając ciąg <span class="math">\(x_i\)</span> dla dwóch mało róźniących się
+warunków początkowych:</p>
+<div class='sage'><script type='text/x-sage'>a = 4.0
+x = 0.40000001
+y = 0.4
+for i in range(25):
+    x = a*x*(1-x)
+    y = a*y*(1-y)
+    print x, y, abs(x-y)</script></div><p>Można też narysować to samo zjawisko na wykresie pajęczynowym, w tym
+celu możemy skonstruować nieznacznie zmienioną wersję poprzedniego
+programu:</p>
+<div class='sage'><script type='text/x-sage'>def cobweb(r=2,x0=0.4,color='red'):
+    f(x)=r*x*(1-x)
+
+
+    p = plot(f(x),(x,0,1),ymin=-0.1,ymax=1.5,xmin=0,xmax=1.5,color='black')
+    p += plot(x,(x,0,1),color='green',figsize=7)
+    th=1
+    for i in range(10):
+
+        l1 = line([(x0,x0),(x0,f(x0))],color=color,thickness=th)
+        l2 = line([(x0,f(x0)),(f(x0),f(x0))],\
+         color=color,thickness=th,xmin=0,xmax=1,ymin=0,ymax=1)
+        p = p+l1+l2
+        x0 = f(x0)
+    p.axes_labels(["$x_n$","$x_{n+1}$"])
+    return p
+
+p1 = cobweb(r=4,x0=0.40001,color='red')
+p2 = cobweb(r=4,x0=0.4,color='blue')
+(p1+p2).show(aspect_ratio=1)</script></div><p>Widzimy, że niezależnie od tego jak blisko siebie wystartujemy, zawsze po pewnym - i to do tego niezbyt długim czasie, rozwiązania rozbiegają się. Jest to cecha układów chaotycznych. Cytując Edwarda Lorenza:</p>
+<div class="admonition-chaos admonition">
+<p class="first admonition-title">Chaos</p>
+<p class="last">&#8221;... when the present determines the future, but the approximate
+present does not approximately determine the future ...&#8221;</p>
+</div>
+</div>
+<div class="section" id="diagram-bifurkacyjny">
+<h2>Diagram bifurkacyjny<a class="headerlink" href="rownanie_logistyczne_II.html#diagram-bifurkacyjny" title="Stały odnośnik do tego nagłówka">¶</a></h2>
+<p>Z poprzednich rysunków, widzieliśmy, że równanie logistyczne ma
+rosnącą do nieskończoności liczbę orbit coraz wyższego rzędu. Przy
+próbie ich wyznaczenia, pojawił się problem z zerami wielomianów
+wysokiego rzędu i musielismy się poddać. Możemy jednak bardzo prosto
+wyznaczyć diagram na którym będą przedstawione bifurkacje. Będziemy
+potrzebowali do tego dość dużej mocy obliczeniowej. Postąpimy
+następująco:</p>
+<ol class="arabic simple">
+<li>podzielimy przedział zmienności paramteru na <span class="math">\(N_a\)</span> punktów</li>
+<li>dla każdej wartości <span class="math">\(N_a\)</span> przeprowadzimy jednoczesną
+symulację <span class="math">\(N_x\)</span> układów z różnymi warunkami początkowymi, wykonami np. 1000 iteracji.</li>
+<li>zapamietamy tylko ostatnie wartości stanów tych 1000.</li>
+<li>naniesiemy punkty <span class="math">\((a_i,x_{1000})\)</span> dla każdej z wybranych wartości parametru <span class="math">\(a\)</span>.</li>
+</ol>
+<p>Jak można się domyslić wymaga to wykonania dużej ilości
+obliczeń. Spróbujmy &#8220;ostrożnie&#8221; z nastepującymi wartościami:</p>
+<div class='sage'><script type='text/x-sage'>import numpy as np
+Nx = 100
+Na = 400
+
+x = np.linspace(0,1,Nx)
+x = x + np.zeros((Na,Nx))
+x = np.transpose(x)
+a=np.linspace(1,4,Na)
+a=a+np.zeros((Nx,Na))
+
+for i in range(1000):
+    x=a*x*(1-x)
+
+pt = [[a_,x_] for a_,x_ in zip(a.flatten(),x.flatten())]
+
+point(pt,size=1,figsize=(7,5))</script></div><p>Taki wykres nazywa się diagramem bifurkacyjnym. Nazwa pochodzi od
+faktu, że przedstawia on bifurkacje układu przy zmianie parametru a.
+Porównajmy otrzymany diagram, z wykresem punktów stałych
+<span class="math">\(x=f(x)\)</span> oraz <span class="math">\(x=f(f(x))\)</span>, który otrzymaliśmy
+poprzednio. Nalepiej przeprowadzić porównanie, umieszczając oba wykresy
+jeden na drugim:</p>
+<div class='sage'><script type='text/x-sage'>var('x a')
+f(x)=a*x*(1-x)
+s = solve(x==f(f(x)),x)
+plot(s[3].rhs(),(a,0,1),thickness=2)+\
+ plot(s[2].rhs(),(a,1,3),thickness=2)+\
+ plot(s[3].rhs(),(a,1,4),thickness=2,color='red',figsize=(7,3))+\
+ plot(s[0].rhs(),(a,3,4),thickness=2)+\
+ plot(s[1].rhs(),(a,3,4),thickness=2)+\
+ plot(s[2].rhs(),(a,3,4),thickness=2,xmin=2.5,ymin=0,ymax=1,color='red')+\
+ point(pt,color='green',size=1,figsize=(7,5))</script></div><p>Widzimy, że taki prosty algorytm umożliwił poznanie struktury punktów
+stałych mapy logistycznej. Jedynie stabilne punkty stałe są widoczne
+na takim wykresie. Wykonując wiele iteracji, zbliżamy się do
+tzw. atraktora układu. Czasem jest on jednym punktem, a czasem ma
+bardzo skomplikaowaną budowę.</p>
+<div class="section" id="zadania">
+<h3>Zadania:<a class="headerlink" href="rownanie_logistyczne_II.html#zadania" title="Stały odnośnik do tego nagłówka">¶</a></h3>
+<ol class="arabic simple">
+<li>Zbadaj co się dzieje w przedziale (3,3,78)?</li>
+<li>Eksplorując diagram bifurkacyjny, czy zaobserwujesz własności
+samopodobieństwa atraktorów równania logistycznego?</li>
+</ol>
+<table class="docutils citation" frame="void" id="may76" rules="none">
+<colgroup><col class="label" /><col /></colgroup>
+<tbody valign="top">
+<tr><td class="label">[may76]</td><td>May, R. M. &#8220;Simple mathematical models with very complicated dynamics&#8221;. Nature 261 (5560): 459–467,1976.</td></tr>
+</tbody>
+</table>
+</div>
+</div>
+</div>
+
+
+          </div>
+        </div>
+      </div>
+      <div class="sphinxsidebar">
+        <div class="sphinxsidebarwrapper">
+  <div class="sphinxlocaltoc">
+  <h3><a href="index.html">Spis treści</a></h3>
+  <ul>
+<li><a class="reference internal" href="rownanie_logistyczne_II.html#">Równanie  logistyczne II</a><ul>
+<li><a class="reference internal" href="rownanie_logistyczne_II.html#tkamy-pajeczyne">Tkamy pajęczynę</a></li>
+<li><a class="reference internal" href="rownanie_logistyczne_II.html#czulosc-na-warunki-poczatkowe">Czułość na warunki początkowe</a></li>
+<li><a class="reference internal" href="rownanie_logistyczne_II.html#diagram-bifurkacyjny">Diagram bifurkacyjny</a><ul>
+<li><a class="reference internal" href="rownanie_logistyczne_II.html#zadania">Zadania:</a></li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+
+  </div>
+  <h4>Poprzedni temat</h4>
+  <p class="topless"><a href="rownanie_logistyczne.html"
+                        title="poprzedni rozdział">Równanie  logistyczne</a></p>
+<div id="searchbox" style="display: none">
+  <h3>Szybkie wyszukiwanie</h3>
+    <form class="search" action="http://visual.icse.us.edu.pl/Warsztaty/search.html" method="get">
+      <input type="text" name="q" />
+      <input type="submit" value="Szukaj" />
+      <input type="hidden" name="check_keywords" value="yes" />
+      <input type="hidden" name="area" value="default" />
+    </form>
+    <p class="searchtip" style="font-size: 90%">
+    Wprowadź szukany termin lub nazwę modułu, klasy lub funkcji.
+    </p>
+</div>
+<script type="text/javascript">$('#searchbox').show(0);</script>
+        </div>
+      </div>
+      <div class="clearer"></div>
+    </div>
+  </div>
+  <div class="relbar-bottom">
+    
+    <div class="related">
+      <h3>Nawigacja</h3>
+      <ul>
+        <li class="right" style="margin-right: 10px">
+          <a href="rownanie_logistyczne.html" title="Równanie logistyczne"
+             >wstecz</a></li>
+  <li><a href="index.html">Warsztaty</a> &raquo;</li>
+   
+      </ul>
+    </div>
+  </div>
+  
+  <div class="footer">
+    <a class="logo" href="../../icse.us.edu.pl/index.html" target="_blank"><img src="_static/logo-icse.png" alt="ICSE"/></a><br/>
+    &copy; Copyright 2013, CubeProject.
+    Created using <a href="http://sphinx.pocoo.org/">Sphinx</a> 1.2.2.
+  </div>
+  </body>
+</html>

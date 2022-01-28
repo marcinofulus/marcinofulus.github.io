@@ -1,0 +1,399 @@
+
+
+  <!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+  "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+
+
+<html xmlns="http://www.w3.org/1999/xhtml">
+  <head>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    
+    <title>Rozwinięcie permutacyjne &mdash; Algebra Liniowa</title>
+    
+    <link rel="stylesheet" href="_static/cloud.css" type="text/css" />
+    <link rel="stylesheet" href="_static/pygments.css" type="text/css" />
+    <link rel="stylesheet" href="http://fonts.googleapis.com/css?family=Noticia+Text|Open+Sans|Droid+Sans+Mono&subset=latin,latin-ext" type="text/css" />
+    
+    <script type="text/javascript">
+      var DOCUMENTATION_OPTIONS = {
+        URL_ROOT:    './',
+        VERSION:     'I',
+        COLLAPSE_INDEX: false,
+        FILE_SUFFIX: '.html',
+        HAS_SOURCE:  true
+      };
+    </script>
+    <script type="text/javascript" src="_static/jquery.js"></script>
+    <script type="text/javascript" src="_static/underscore.js"></script>
+    <script type="text/javascript" src="_static/doctools.js"></script>
+    <script type="text/javascript" src="_static/translations.js"></script>
+    <script type="text/javascript" src="http://cdn.mathjax.org/mathjax/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML"></script>
+    <script type="text/javascript" src="_static/jquery.cookie.js"></script>
+    <script type="text/javascript" src="_static/cloud.js"></script>
+
+	<script src="http://sagecell.icse.us.edu.pl:6363/static/jquery.min.js"></script>
+	<script src="http://sagecell.icse.us.edu.pl:6363/static/embedded_sagecell.js"></script>
+
+	<!-- <script src="http://sagecell.sagemath.org/static/jquery.min.js"></script> -->
+	<!-- <script src="http://sagecell.sagemath.org/static/embedded_sagecell.js"></script> -->
+
+	<script>sagecell.makeSagecell({inputLocation: ".sage",
+                                       evalButtonText: 'Wykonaj',
+                                       linked: true});</script>
+
+	<style type="text/css">
+		.sagecell .CodeMirror-scroll {
+			overflow-y: hidden;
+			overflow-x: auto;
+		}
+		.sagecell .CodeMirror {
+			height: auto;
+		}
+	</style>
+
+    
+    <link rel="top" title="Algebra Liniowa" href="http://visual.icse.us.edu.pl/LA/index.html" />
+    <link rel="next" title="Praktyczne wyliczanie wyznaczników" href="wyznacznik_praktyczne_wyliczanie.html" />
+    <link rel="prev" title="Definicja i własności wyznacznika" href="wyznacznik_definicja_i_wlasnosci.html" />
+ 
+  <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, minimum-scale=1">
+  </head>
+  <body>
+  <div class="relbar-top">
+    
+    <div class="related">
+      <h3>Nawigacja</h3>
+      <ul>
+        <li class="right" style="margin-right: 10px">
+          <a href="wyznacznik_praktyczne_wyliczanie.html" title="Praktyczne wyliczanie wyznaczników"
+             accesskey="N">dalej</a></li>
+        <li class="right" >
+          <a href="wyznacznik_definicja_i_wlasnosci.html" title="Definicja i własności wyznacznika"
+             accesskey="P">wstecz</a> &nbsp; &nbsp;</li>
+  <li><a href="http://visual.icse.us.edu.pl/LA/index.html">Algebra Liniowa</a> &raquo;</li>
+   
+      </ul>
+    </div>
+  </div>
+  
+  <div class="content">  
+
+    <div class="document">
+      <div class="documentwrapper">
+        <div class="bodywrapper">
+          <div class="body">
+            
+  <div class="section" id="rozwiniecie-permutacyjne">
+<h1>Rozwinięcie permutacyjne<a class="headerlink" href="wyznacznik_rozwiniecie_permutacyjne.html#rozwiniecie-permutacyjne" title="Stały odnośnik do tego nagłówka">¶</a></h1>
+<p>Kwestię istnienia i jednoznaczności wyznacznika
+rozstrzyga następujące twierdzenie, które podajemy bez dowodu:</p>
+<div class="admonition-twierdzenie-0-math-rozwiniecie-permutacyjne-wyznacznika-math admonition">
+<p class="first admonition-title">Twierdzenie 0. <span class="math">\(\,\)</span> (rozwinięcie permutacyjne wyznacznika) <span class="math">\(\\\)</span></p>
+<p>Istnieje dokładnie jedna funkcja <span class="math">\(\ \det: M_n(K)\to K\ \)</span>
+spełniającą  warunki 1. - 4. zawarte w definicji aksjomatycznej.
+Mianowicie, dla macierzy <span class="math">\(\,\boldsymbol{A}\ =\ [a_{ij}]_{n\times n}:\)</span></p>
+<div class="last math" id="equation-perm_exp_col">
+<span class="eqno">(1)</span>\[\det\,\boldsymbol{A}\ \ =\ \
+\sum_{\sigma\,\in\,S_n}\ \text{sgn}\,\sigma\,\cdot\,
+a_{\sigma(1),1}\ a_{\sigma(2),2}\ \ldots\ a_{\sigma(n),n}\,.\]</div>
+</div>
+<p>Warto zauważyć, że w rozwinięciu permutacyjnym:</p>
+<ul class="simple">
+<li>wyznacznik macierzy stopnia <span class="math">\(\,n\ \)</span> jest sumą <span class="math">\(\,n!\,\)</span> składników
+odpowiadających permutacjom <span class="math">\(\ \sigma\ \)</span> zbioru <span class="math">\(\,\{1,2,\ldots,n\};\)</span></li>
+<li>składniki, odpowiadające permutacjom parzystym wchodzą do sumy ze znakiem plus,
+a odpowiadające permutacjom nieparzystym <span class="math">\(\,\)</span> - <span class="math">\(\,\)</span> ze znakiem minus;</li>
+<li>każdy składnik jest iloczynem <span class="math">\(\,n\,\)</span> elementów macierzowych,
+w którym występuje dokładnie jeden element z każdej kolumny
+i dokładnie jeden element z każdego wiersza.</li>
+</ul>
+<div class="line-block">
+<div class="line">Na podstawie <a href="wyznacznik_rozwiniecie_permutacyjne.html#equation-perm_exp_col">(1)</a> wyprowadzimy teraz
+wzory dla wyznaczników <span class="math">\(\,\)</span> 2. <span class="math">\(\,\)</span> i <span class="math">\(\,\)</span> 3. <span class="math">\(\,\)</span> stopnia.</div>
+</div>
+<p>Grupa <span class="math">\(\ S_2\ \)</span> składa się z dwóch permutacji:</p>
+<div class="math">
+\[\begin{split}S_2\ \ =\ \
+\left\{\
+\left(\begin{array}{cc} 1 &amp; 2 \\ 1 &amp; 2 \end{array}\right),\
+\left(\begin{array}{cc} 1 &amp; 2 \\ 2 &amp; 1 \end{array}\right)
+\ \right\}\ \ =\ \
+\{\;\text{id},\,(1,2)\,\}\,,\end{split}\]</div>
+<p>przy czym <span class="math">\(\ \ \text{sgn}\ \text{id} = +1,\ \ \text{sgn}\,(1,2) = -1.\ \,\)</span>
+Wobec tego</p>
+<div class="math">
+\[\begin{split}\det
+\left[\begin{array}{cc}
+      a_{11} &amp; a_{12} \\
+      a_{21} &amp; a_{22}
+      \end{array}
+\right]\ \ =\ \
+\sum_{\sigma\,\in\,S_2}\ \text{sgn}\,\sigma\,\cdot\,a_{\sigma(1),1}\ a_{\sigma(2),2}\ \ =\ \
+a_{11}\,a_{22}\,-\ a_{21}\,a_{12}\,.\end{split}\]</div>
+<p>Grupa <span class="math">\(\ S_3\ \)</span> zawiera sześć permutacji:
+<span class="math">\(\ \text{id},\ (1,2,3),\ (3,2,1),\ (1,2),\ (1,3),\ (2,3)\,.\ \)</span>
+Permutacja identycznościowa i obydwa cykle 3-wyrazowe są parzyste, a transpozycje są
+permutacjami nieparzystymi. A zatem</p>
+<div class="math">
+\[\begin{split}\det
+\left[\begin{array}{ccc}
+      a_{11} &amp; a_{12} &amp; a_{13} \\
+      a_{21} &amp; a_{22} &amp; a_{23} \\
+      a_{31} &amp; a_{32} &amp; a_{33}
+      \end{array}
+\right]\ \ =\ \
+\sum_{\sigma\,\in\,S_3}\ \text{sgn}\,\sigma\,\cdot\,
+a_{\sigma(1),1}\ a_{\sigma(2),2}\ a_{\sigma(3),3}\ \ =\end{split}\]</div>
+<div class="math">
+\[=\ \ a_{11}\,a_{22}\,a_{33}\ +\ a_{21}\,a_{32}\,a_{13}\ +\ a_{31}\,a_{12}\,a_{23}\ \ +\]\[-\ \ a_{21}\,a_{12}\,a_{33}\ -\ a_{31}\,a_{22}\,a_{13}\ -\ a_{11}\,a_{32}\,a_{23}\,.\]</div>
+<p>Wynik ten można otrzymać stosując <em>schemat Sarrusa</em>: do macierzy dopisujemy z prawej strony dwie pierwsze kolumny, a następnie od trzech iloczynów wzdłuż przekątnych wyznaczonych przez górne strzałki odejmujemy trzy iloczyny wzdłuż przekątnych wyznaczonych przez dolne strzałki:</p>
+<div class="math">
+\[\begin{split}\begin{array}{cccccc}
+\searrow &amp; \searrow &amp; \searrow &amp;   &amp;    &amp;                 \\
+         &amp;  a_{11}  &amp;  a_{12}  &amp; a_{13} &amp; a_{11} &amp; a_{12} \\
+         &amp;  a_{21}  &amp;  a_{22}  &amp; a_{23} &amp; a_{21} &amp; a_{22} \\
+         &amp;  a_{31}  &amp; a_{32}   &amp; a_{33} &amp; a_{31} &amp; a_{32} \\
+\nearrow &amp; \nearrow &amp; \nearrow &amp;        &amp;        &amp;
+\end{array}\quad :\quad
+\begin{array}{r}
++\ \ a_{11}\,a_{22}\,a_{33}\ +\ a_{12}\,a_{23}\,a_{31}\ +\ a_{13}\,a_{21}\,a_{32} \\
+-\ \ a_{31}\,a_{22}\,a_{13}\ -\ a_{32}\,a_{23}\,a_{11}\ -\ a_{33}\,a_{21}\,a_{12}
+\end{array}\end{split}\]</div>
+<div class="admonition warning">
+<p class="first admonition-title">Ostrzeżenie</p>
+<p class="last">Metodę Sarrusa można stosować <em>tylko</em> do wyznaczników 3. stopnia!</p>
+</div>
+<p>Liczba składników w rozwinięciu permutacyjnym szybko rośnie ze stopniem wyznacznika: <span class="math">\(\\\)</span>
+dla <span class="math">\(\,n=4\ \)</span> mamy <span class="math">\(\,4!=24\ \)</span> składniki w postaci iloczynu czterech elementów
+macierzowych, dla <span class="math">\(\,n=5\ \)</span> jest <span class="math">\(\,5!=120\ \)</span> iloczynów pięciu elementów  itd.
+Dla dużych <span class="math">\(\,n\ \)</span> ta metoda wyliczania wyznaczników jest więc nieefektywna.
+Można jednak ją użyć do wyprowadzenia wzoru dla wyznacznika macierzy trójkątnej:</p>
+<div class="admonition-twierdzenie-1 admonition">
+<p class="first admonition-title">Twierdzenie 1.</p>
+<p class="last">Wyznacznik macierzy trójkątnej (dolnej bądź górnej) równa się iloczynowi elementów
+na głównej przekątnej.</p>
+</div>
+<p><strong>Dowód.</strong> <span class="math">\(\,\)</span> Rozważmy górną macierz trójkątną stopnia <span class="math">\(\,n:\)</span></p>
+<div class="math">
+\[\begin{split}\boldsymbol{A}\ \ =\ \
+\left[\begin{array}{cccccc}
+      a_{11} &amp; a_{12} &amp; a_{13} &amp; \dots  &amp; a_{1,n-1}   &amp; a_{1n}    \\
+        0    &amp; a_{22} &amp; a_{23} &amp; \dots  &amp; a_{2,n-1}   &amp; a_{2n}    \\
+        0    &amp;   0    &amp; a_{33} &amp; \dots  &amp; a_{3,n-1}   &amp; a_{3n}    \\
+      \dots  &amp; \dots  &amp; \dots  &amp; \dots  &amp; \dots       &amp; \dots     \\
+        0    &amp;   0    &amp;   0    &amp; \dots  &amp; a_{n-1,n-1} &amp; a_{n-1,n} \\
+        0    &amp;   0    &amp;   0    &amp; \dots  &amp;    0        &amp; a_{nn}
+      \end{array}
+\right]\,.\end{split}\]</div>
+<p>Wyznacznik macierzy <span class="math">\(\ \boldsymbol{A}\ \)</span> jest sumą (wziętych z odpowiednim znakiem)
+<span class="math">\(\ n!\ \)</span> iloczynów, przy czym w każdym iloczynie występuje
+dokładnie jeden element z każdej kolumny i dokładnie jeden element z każdego wiersza:</p>
+<div class="math">
+\[\det\boldsymbol{A}\ =\
+\sum_{\sigma\,\in\,S_n}\ \text{sgn}\,\sigma\,\cdot\,
+a_{\sigma(1),1}\ a_{\sigma(2),2}\ a_{\sigma(3),3}\ \dots\ a_{\sigma(n-1),n-1}\ a_{\sigma(n),n}\,.\]</div>
+<p>Permutacja <span class="math">\(\ \sigma\ \)</span> da niezerowy przyczynek do sumy tylko wtedy, gdy wszystkie elementy
+w odpowiadającym jej iloczynie będą różne od zera. Tak będzie tylko wtedy, gdy</p>
+<div class="math">
+\[\sigma(1)=1,\quad\sigma(2)=2,\quad\sigma(3)=3,\quad\dots,\quad
+\sigma(n-1)=n-1,\quad\sigma(n)=n\,.\]</div>
+<p>Tak więc jedyny niezerowy składnik w sumie pochodzi od permutacji identycznościowej.</p>
+<p>Ponieważ <span class="math">\(\ \text{sgn}\,\text{id} = +1,\ \)</span> to ostatecznie:
+<span class="math">\(\quad\det\boldsymbol{A}\ =\ a_{11}\ a_{22}\ a_{33}\ \dots\ a_{n-1,n-1}\ a_{nn}\,.\)</span></p>
+<p>Analogiczne rozumowanie można zastosować dla dolnej macierzy trójkątnej.</p>
+<p><strong>Wniosek.</strong> <span class="math">\(\\\)</span>
+Wyznacznik macierzy diagonalnej równa się iloczynowi elementów na głównej przekątnej:</p>
+<div class="math">
+\[\begin{split}\left|\,\begin{array}{cccccc}
+      a_{11} &amp;   0    &amp;   0    &amp; \dots  &amp;   0         &amp;   0    \\
+        0    &amp; a_{22} &amp;   0    &amp; \dots  &amp;   0         &amp;   0    \\
+        0    &amp;   0    &amp; a_{33} &amp; \dots  &amp;   0         &amp;   0    \\
+      \dots  &amp; \dots  &amp; \dots  &amp; \dots  &amp; \dots       &amp; \dots  \\
+        0    &amp;   0    &amp;   0    &amp; \dots  &amp; a_{n-1,n-1} &amp;   0    \\
+        0    &amp;   0    &amp;   0    &amp; \dots  &amp;    0        &amp; a_{nn}
+      \end{array}
+\right|\ \ =\ \
+a_{11}\ a_{22}\ a_{33}\ \dots\ a_{n-1,n-1}\ a_{nn}\,.\end{split}\]</div>
+<p><span class="math">\(\;\)</span></p>
+<p>Zapiszemy dwa ważne twierdzenia, których dowody korzystają z rozwinięcia permutacyjnego. <span class="math">\(\\\)</span></p>
+<div class="admonition-twierdzenie-2-cauchy-ego admonition">
+<p class="first admonition-title">Twierdzenie 2. (Cauchy&#8217;ego)</p>
+<p>Wyznacznik iloczynu dwóch macierzy równa się iloczynowi ich wyznaczników:</p>
+<div class="last math">
+\[\det\,(\boldsymbol{A}\boldsymbol{B})\ \,=\ \,\det\boldsymbol{A}\,\cdot\,\det\boldsymbol{B}\,,
+\qquad\boldsymbol{A},\boldsymbol{B}\in M_n(K).\]</div>
+</div>
+<p><strong>Dowód.</strong> <span class="math">\(\,\)</span></p>
+<p>Niech
+<span class="math">\(\ \boldsymbol{A}\ =\ [\,\boldsymbol{A}_1\,|\;\boldsymbol{A}_2\,|\,\dots\,|\,
+\boldsymbol{A}_n\,]\,,\quad
+\boldsymbol{B}\ =\ [b_{ij}]_{n\times n}\,,\quad
+\boldsymbol{A}\boldsymbol{B}\ =\
+[\,\boldsymbol{C}_1\,|\;\boldsymbol{C}_2\,|\,\dots\,|\,\boldsymbol{C}_n\,]\,.\)</span></p>
+<p>Według kolumnowej reguły mnożenia macierzowego, <span class="math">\(\,j\)</span>-ta kolumna macierzy
+<span class="math">\(\boldsymbol{A}\boldsymbol{B}\ \)</span> jest kombinacją liniową kolumn macierzy
+<span class="math">\(\boldsymbol{A}\ \)</span> o współczynnikach z <span class="math">\(\,j\)</span>-tej kolumny macierzy
+<span class="math">\(\boldsymbol{B}:\)</span></p>
+<div class="math">
+\[\boldsymbol{C}_j\ \ =\ \ \sum_{p\,=\,1}^n\ b_{pj}\ \boldsymbol{A}_p\,,
+\qquad j=1,2,\dots,n\,.\]</div>
+<p>Wykorzystując liniowość wyznacznika ze względu na każdą kolumnę z osobna otrzymujemy</p>
+<div class="math">
+\[\det\,(\boldsymbol{A}\boldsymbol{B})\ \,=\ \,
+\det\,[\,\boldsymbol{C}_1\,|\;\boldsymbol{C}_2\,|\,\dots\,|\,\boldsymbol{C}_n\,]\ \ =\]\[=\ \
+\det\,\left[\left.\ \   \sum_{r\,=\,1}^n\ \,b_{r1}\,\boldsymbol{A}_r\ \ \right|
+            \left.\ \   \sum_{s\,=\,1}^n\ \,b_{s2}\,\boldsymbol{A}_s\ \ \right|
+            \ \ \dots\ \
+            \left|\ \ \,\sum_{t\,=\,1}^n\ \,b_{tn}\,\boldsymbol{A}_t\ \,\right.
+      \right]\ \ =\]\[=\ \
+\sum_{r\,=\,1}^n\ \sum_{s\,=\,1}^n\ \ldots\ \sum_{t\,=\,1}^n\ \
+b_{r1}\ b_{s2}\ \ldots\ b_{tn}\
+\det\,[\,\boldsymbol{A}_r\,|\;\boldsymbol{A}_s\,|\,\dots\,|\,\boldsymbol{A}_t\,]\,.\]</div>
+<p>Na podstawie własności IIIa. wyznacznika stwierdzamy, że różne od zera mogą być tylko te składniki,
+w których kolumny <span class="math">\(\ \boldsymbol{A}_r,\,\boldsymbol{A}_s,\,\ldots,\,\boldsymbol{A}_t\ \)</span>
+mają różne wskaźniki, a więc te, dla których układ wartości wskaźników <span class="math">\(\ r,s,\dots,t\ \)</span>
+jest permutacją zbioru <span class="math">\(\ \{1,2,\dots,n\}.\ \)</span> Sumowanie przebiega więc faktycznie po permutacjach <span class="math">\(\,\sigma\in S_n\,.\)</span></p>
+<p>Korzystając następnie z własności <span class="math">\(\,\)</span> IIc. <span class="math">\(\,\)</span> i <span class="math">\(\,\)</span> wzoru <a href="wyznacznik_rozwiniecie_permutacyjne.html#equation-perm_exp_col">(1)</a>
+<span class="math">\(\,\)</span> dla rozwinięcia permutacyjnego, dochodzimy do tezy twierdzenia:</p>
+<div class="math">
+\[\det\,(\boldsymbol{A}\boldsymbol{B})\ \,=\ \,
+\sum_{\sigma\,\in\,S_n}\
+b_{\sigma(1),1}\ b_{\sigma(2),2}\ \ldots,\ b_{\sigma(n),n}\
+\det\,[\,\boldsymbol{A}_{\sigma(1)}\,|\;\boldsymbol{A}_{\sigma(2)}\,|\,\ldots\,|\,
+\boldsymbol{A}_{\sigma(n)}\,]\ \ =\]\[=\ \
+\det\boldsymbol{A}\,\cdot\,\sum_{\sigma\,\in\,S_n}\
+\text{sgn}\,\sigma\,\cdot\,
+b_{\sigma(1),1}\ b_{\sigma(2),2}\ \ldots,\ b_{\sigma(n),n}\ \ =\ \
+\det\boldsymbol{A}\,\cdot\,\det\boldsymbol{B}\,.\]</div>
+<div class="admonition-twierdzenie-3 admonition">
+<p class="first admonition-title">Twierdzenie 3.</p>
+<p>Transpozycja macierzy nie zmienia wartości wyznacznika:</p>
+<div class="last math">
+\[\det\boldsymbol{A}^T\ =\ \,\det\boldsymbol{A}\,,\qquad\boldsymbol{A}\in M_n(K).\]</div>
+</div>
+<p><strong>Wniosek.</strong> <span class="math">\(\,\)</span>
+Twierdzenia dotyczące wyznaczników pozostają słuszne, jeżeli słowa &#8220;kolumna&#8221; zamienić na &#8220;wiersz&#8221; i odwrotnie. W szczególności, własności I., II. i III., wyprowadzone w poprzedniej sekcji, odnoszą się również do wierszy. Samą definicję wyznacznika można sformułować w terminach wierszy, dochodząc do wierszowej wersji rozwinięcia permutacyjnego:</p>
+<div class="math" id="equation-perm_exp_verse">
+<span class="eqno">(2)</span>\[\det\,\boldsymbol{A}\ \ =\ \
+\sum_{\sigma\,\in\,S_n}\ \text{sgn}\,\sigma\,\cdot\,
+a_{1,\,\sigma(1)}\ a_{2,\,\sigma(2)}\ \ldots\ a_{n,\,\sigma(n)}\,.\]</div>
+<p>Dowód <span class="math">\(\,\)</span> Twierdzenia 3. <span class="math">\(\,\)</span> poprzedzą trzy lematy.</p>
+<p><strong>Lemat 1.</strong> <span class="math">\(\\\)</span>
+Zbiór odwrotności wszystkich elementów grupy <span class="math">\(\,S_n\ \)</span> jest identyczny ze zbiorem <span class="math">\(\,S_n:\)</span></p>
+<div class="math">
+\[\{\ \sigma^{-1}:\ \sigma\in S_n\ \}\ =\ S_n\ =\ \{\ \sigma:\ \sigma\in S_n\ \}\,.\]</div>
+<p>Wynika to stąd, że odwzorowanie
+<span class="math">\(\ f :\ S_n\ni\sigma\ \rightarrow\ f(\sigma):\,=\sigma^{-1}\in S_n,\ \)</span>
+które przypisuje każdemu elementowi <span class="math">\(\,\sigma\,\)</span> jego odwrotność,
+jest bijekcją czyli wzajemnie jednoznacznym odwzorowaniem zbioru <span class="math">\(\,S_n\;\)</span> na siebie.</p>
+<p><strong>Wniosek.</strong> <span class="math">\(\,\)</span>
+Jeżeli dodawanie elementów <span class="math">\(\,F(\sigma)\,\)</span> jest przemienne, <span class="math">\(\,\)</span> to</p>
+<div class="math" id="equation-lem_1">
+<span class="eqno">(3)</span>\[\sum_{\sigma\,\in\,S_n} F(\sigma)\ \,=\ \,\sum_{\sigma\,\in\,S_n} F(\sigma^{-1})\,.\]</div>
+<p><strong>Lemat 2.</strong> <span class="math">\(\,\)</span>
+Zbiorem wartości permutacji <span class="math">\(\,\sigma\in S_n\,\)</span> jest zbiór <span class="math">\(\,\{\,1,2,\ldots,n\,\}\,:\)</span></p>
+<div class="math">
+\[\left\{\;\sigma(i):\ i\in\{1,2,\ldots,n\,\}\,\right\}\ =\ \{1,2,\ldots,n\,\}\,.\]</div>
+<p>Wynika to z definicji permutacji
+jako odwzorowania zbioru <span class="math">\(\,\{\,1,2,\ldots,n\,\}\,\)</span> <span class="math">\(\,\)</span> <em>na</em> <span class="math">\(\,\)</span> siebie.</p>
+<p><strong>Wniosek.</strong> <span class="math">\(\,\)</span>
+Jeżeli mnożenie elementów <span class="math">\(\,F(i)\,\)</span> jest przemienne, <span class="math">\(\,\)</span> to</p>
+<div class="math" id="equation-lem_2">
+<span class="eqno">(4)</span>\[\prod_{i\,=\,1}^n\,F(i)\ \,=\ \,\prod_{i\,=\,1}^n\,F[\sigma(i)]\,.\]</div>
+<p><strong>Lemat 3.</strong> <span class="math">\(\\\)</span>
+Permutacja odwrotna do <span class="math">\(\,\sigma\in S_n\ \)</span> ma tę samą parzystość co
+wyjściowa permutacja <span class="math">\(\,\sigma:\)</span></p>
+<div class="math" id="equation-lem_3">
+<span class="eqno">(5)</span>\[\text{sgn}\,\sigma^{-1}\ =\ \,\text{sgn}\,\sigma\,,\qquad\sigma\in S_n\,.\]</div>
+<p><strong>Dowód.</strong> <span class="math">\(\,\)</span>
+Niech rozkład permutacji <span class="math">\(\,\sigma\,\)</span> na iloczyn transpozycji ma postać:</p>
+<div class="math">
+\[\sigma\ \,=\ \,\tau_1\ \tau_2\ \ldots\ \tau_{k-1}\ \tau_k\,.\]</div>
+<p>Wtedy <span class="math">\(\ \ \sigma^{-1}\ =\ (\tau_1\,\tau_2\,\ldots\,\tau_{k-1}\,\tau_k)^{-1}\ =\ \,
+\tau_k^{-1}\ \tau_{k-1}^{-1}\ \ldots\,\tau_2^{-1}\ \tau_1^{-1}\ =\ \,
+\tau_k\ \tau_{k-1}\ \ldots\ \tau_2\ \tau_1\,,\)</span></p>
+<p>bo odwrotność transpozycji <span class="math">\(\ \tau\ \)</span> jest tą samą transpozycją. Stąd
+<span class="math">\(\ \ \text{sgn}\,\sigma^{-1}\ =\ (-1)^k\ =\ \text{sgn}\,\sigma\,.\)</span></p>
+<p><strong>Dowód</strong> <span class="math">\(\,\)</span> Twierdzenia 3.</p>
+<p>Niech <span class="math">\(\,\boldsymbol{A}  = [a_{ij}]_{n\times n}\in M_n(K).\ \ \)</span></p>
+<p>Wtedy <span class="math">\(\,\boldsymbol{A}^T= [\,a_{ij}^T\,]_{n\times n},\ \ \)</span>
+gdzie <span class="math">\(\ \ a_{ij}^T = a_{ji},\ \ i,j = 1,2,\ldots,n.\)</span></p>
+<p>Wykorzystując równania
+<span class="math">\(\,\)</span> <a href="wyznacznik_rozwiniecie_permutacyjne.html#equation-lem_1">(3)</a>, <span class="math">\(\,\)</span> <a href="wyznacznik_rozwiniecie_permutacyjne.html#equation-lem_2">(4)</a> <span class="math">\(\,\)</span> i <span class="math">\(\,\)</span> <a href="wyznacznik_rozwiniecie_permutacyjne.html#equation-lem_3">(5)</a>, otrzymujemy</p>
+<div class="math">
+\[\begin{eqnarray*}
+\det\boldsymbol{A}^T\
+& = &
+\ \sum_{\sigma\,\in\,S_n}\ \text{sgn}\,\sigma\,\cdot\,
+a_{\,\sigma(1),\,1}^T\ \,a_{\,\sigma(2),\,2}^T\ \,\ldots\ \,a_{\,\sigma(n),\,n}^T \ \ = \\
+& = &
+\ \sum_{\sigma\,\in\,S_n}\ \text{sgn}\,\sigma\,\cdot\,
+a_{\,1,\,\sigma(1)}\ \,a_{\,2,\,\sigma(2)}\ \,\ldots\ \,a_{\,n,\,\sigma(n)} \ \ = \\
+& = &
+\ \sum_{\sigma\,\in\,S_n}\ \text{sgn}\,\sigma^{-1}\,\cdot\,
+a_{\,1,\,\sigma^{-1}(1)}\ \,a_{\,2,\,\sigma^{-1}(2)}\ \,\ldots\ \,a_{\,n,\,\sigma^{-1}(n)}\ \ = \\
+& = &
+\ \sum_{\sigma\,\in\,S_n}\ \text{sgn}\,\sigma^{-1}\,\cdot\,
+a_{\,\sigma(1),\,\sigma^{-1}[\sigma(1)]}\ \,a_{\,\sigma(2),\,\sigma^{-1}[\sigma(2)]}\ \,\ldots\ \,
+a_{\,\sigma(n),\,\sigma^{-1}[\sigma(n)]} \ \ = \\
+& = &
+\ \sum_{\sigma\,\in\,S_n}\ \text{sgn}\,\sigma\,\cdot\,
+a_{\,\sigma(1),1}\ \,a_{\,\sigma(2),2}\ \,\ldots\ \,a_{\,\sigma(n),n} \ \ = \\
+& = &
+\ \det\boldsymbol{A}\;.
+\end{eqnarray*}\]</div></div>
+
+
+          </div>
+        </div>
+      </div>
+      <div class="sphinxsidebar">
+        <div class="sphinxsidebarwrapper">
+  <h4>Poprzedni temat</h4>
+  <p class="topless"><a href="wyznacznik_definicja_i_wlasnosci.html"
+                        title="poprzedni rozdział">Definicja i własności wyznacznika</a></p>
+  <h4>Następny temat</h4>
+  <p class="topless"><a href="wyznacznik_praktyczne_wyliczanie.html"
+                        title="następny rozdział">Praktyczne wyliczanie wyznaczników</a></p>
+<div id="searchbox" style="display: none">
+  <h3>Szybkie wyszukiwanie</h3>
+    <form class="search" action="search.html" method="get">
+      <input type="text" name="q" />
+      <input type="submit" value="Szukaj" />
+      <input type="hidden" name="check_keywords" value="yes" />
+      <input type="hidden" name="area" value="default" />
+    </form>
+    <p class="searchtip" style="font-size: 90%">
+    Wprowadź szukany termin lub nazwę modułu, klasy lub funkcji.
+    </p>
+</div>
+<script type="text/javascript">$('#searchbox').show(0);</script>
+        </div>
+      </div>
+      <div class="clearer"></div>
+    </div>
+  </div>
+  <div class="relbar-bottom">
+    
+    <div class="related">
+      <h3>Nawigacja</h3>
+      <ul>
+        <li class="right" style="margin-right: 10px">
+          <a href="wyznacznik_praktyczne_wyliczanie.html" title="Praktyczne wyliczanie wyznaczników"
+             >dalej</a></li>
+        <li class="right" >
+          <a href="wyznacznik_definicja_i_wlasnosci.html" title="Definicja i własności wyznacznika"
+             >wstecz</a> &nbsp; &nbsp;</li>
+  <li><a href="http://visual.icse.us.edu.pl/LA/index.html">Algebra Liniowa</a> &raquo;</li>
+   
+      </ul>
+    </div>
+  </div>
+  
+  <div class="footer">
+    <a class="logo" href="../../icse.us.edu.pl/index.html" target="_blank"><img src="_static/logo-icse.png" alt="ICSE"/></a><br/>
+    &copy; Copyright 2013, Marcin Kostur.
+    Created using <a href="http://sphinx.pocoo.org/">Sphinx</a> 1.2.2.
+  </div>
+  </body>
+</html>

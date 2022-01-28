@@ -1,0 +1,155 @@
+<!DOCTYPE html> 
+<html> 
+<head> 
+<title>Baseny przyciągania dla wahadła magnetycznego</title> 
+
+<META HTTP-EQUIV="Pragma" CONTENT="no-cache">
+<META HTTP-EQUIV="Expires" CONTENT="-1">
+
+<meta http-equiv="Content-Type" content="text/html; charset=UTF-8" /> 
+<meta http-equiv="X-UA-Compatible" content="IE=EmulateIE7" /> 
+
+<script type="text/x-mathjax-config"> 
+  MathJax.Hub.Config({
+    extensions: ["tex2jax.js"],
+    jax: ["input/TeX","output/HTML-CSS"],
+    tex2jax: {inlineMath: [["$","$"],["\\(","\\)"]]}
+  });
+</script> 
+<!-- <script type="text/javascript" src="js/mathjax/MathJax.js"></script> --> 
+<script type="text/javascript" src="http://cdn.mathjax.org/mathjax/latest/MathJax.js"></script>
+
+<link rel="stylesheet" type="text/css" href="css/mainstyle.css" />
+<link rel="stylesheet" type="text/css" href="css/jsxgraph.css" />
+<script type="text/javascript" src="js/jsxgraphcore-0.95.js"></script>
+
+<script type="text/javascript" src="js/vtip/jquery.js"></script>
+<script type="text/javascript" src="js/vtip/vtip.js"></script>
+<link rel="stylesheet" type="text/css" href="js/vtip/css/vtip.css" />
+
+</head>
+<body>
+
+	<noscript> 
+	<div style="color:#CC0000; text-align:center">
+	<b>Uwaga: do prawidłowego działania, biblioteki <a href="http://www.mathjax.org/">MathJax</a>
+	oraz <a href="http://jsxgraph.uni-bayreuth.de/wp/">jsxgraph</a> wymagają obsługi JavaScript.<br />
+	Upewnij się, że JavaScript jest aktywowany w twojej przeglądarce.
+	</div>
+	<hr>
+	</noscript>
+
+
+<div id="container">
+
+<div id="header">
+	<h1>Baseny przyciągania dla wahadła magnetycznego</h1>
+	<p class="text">
+	Baseny przyciągania dla uproszczonego modelu wahadła magnetycznego. Baseny zostały wygenerowane przy pomocy bibliotek PyCUDA oraz 
+	Python Imaging Library (PIL). Program dostępny jest tutaj:
+	<a href="https://github.com/kriskda/MagneticPendulumBasins" target="_blank">https://github.com/kriskda/MagneticPendulumBasins</a>  
+	</p> 
+</div>
+
+
+<div id="content">
+
+
+<div id="input" class="formstyle">
+
+	<form name="form">
+	<table>
+	<tr>
+ 	<td>
+		<table>
+ 			<tr>	
+  			<td>$x_0$</td> 
+  			<td><input class="outputtext vtip" title="Położenie początkowe x0" type="text" id="x0" value="0" readonly/></td>
+  			<td>$y_0$</td> 
+  			<td><input class="outputtext vtip" title="Położenie początkowe y0" type="text" id="y0" value="0" readonly/></td>    			
+  			<td class="vtip" title="Wybierz przykład">
+  				<select id="example" onChange="resetAnimation()">
+  					<option value="example1">Przykład 1</option>
+  					<option value="example2">Przykład 2</option>
+				</select> 
+  			</td>
+			</tr>
+		</table> 
+ 	</td>
+ 	</tr> 
+ 
+ 	<tr>
+ 	<td> 
+		<table> 
+	 	<tr>
+	  	<td></td>
+	  	<td></td>
+	  	<td>
+	  		<input type="button" value="start / stop" onClick="startStopAnimation()" />
+	  	</td>   
+	 	</tr>
+		</table>
+	 </td>
+	 </tr> 
+	</table>
+	</form>
+	
+</div>
+
+<div id="plots">   
+    	<table class="plotarea">    
+    	<tr>
+        <td>
+        <div id="box2" class="jxgbox"></div>
+        </td>
+    	</tr>
+	</table>
+</div>
+
+
+<div class="theory">
+
+<p class="text">
+<h3>Czym jest wahadło magnetyczne?</h3>
+Ciekawy materiał wyjaśniający ideę rysowania basenów przyciągania w przypadku wahadła magnetycznego.
+<p style="text-align: center">
+	<iframe width="480" height="360" src="http://www.youtube.com/embed/Qe5Enm96MFQ" frameborder="0" allowfullscreen></iframe>
+</p>
+</p>
+
+<p class="text">
+<h3>Uproszczony model wahadła magnetycznego</h3>
+Zastosowany w tym przykładzie model w istocie jest znacznym uproszczeniem w stosunku do prawdziwego wahadła. Równania ruchu są następujące:
+<br /><br />
+$\ddot{x}(t) = -k_g x(t) -k_f \dot{x}(t) + \sum\limits_{i=1}^{n} k_{m, n} \frac{x_i - x(t)}{((x_i - x(t))^2 + (y_i + y(t))^2 + d^2)^{3/2}}$ <br />
+$\ddot{y}(t) = -k_g y(t) -k_f \dot{y}(t) + \sum\limits_{i=1}^{n} k_{m, n} \frac{y_i - y(t)}{((x_i - x(t))^2 + (y_i + y(t))^2 + d^2)^{3/2}}$ <br />
+gdzie: $k_g$, $k_f$, $k_m$, $d$ są pewnymi stałymi.
+</p>
+
+<p class="text">
+<h3>Kolorowanie i cieniowanie map basenów</h3>
+Kolorowanie kolejnych punktów mapy basenów wyjaśnia materiał w części "Czym jest wahadło magnetyczne?". W programie użytym do wygenerowania 
+basenów użytych w naszej wizualizacji, dodatkowo zastosowaliśmy zmienną jasność kolejnych punktów w zależności od długości trajektorii. 
+Przykład basenów bez i z cieniowaniem ilustruje poniższe porównanie: <br />
+<br />
+<center>
+<img src="image/porownanie.jpg" alt="Porównanie basenów przyciągania">
+</center>
+</p>
+
+<p class="text">
+<h3>Animacja pokazująca zmianę basenów przyciągania pod wpływem zmiany położenia magnesów</h3>
+<p style="text-align: center">
+	<iframe width="480" height="360" src="http://www.youtube.com/embed/84gOB8_dCn4" frameborder="0" allowfullscreen></iframe>
+</p>
+</p>
+
+</div>	
+	
+</div>
+</div>
+
+<script type="text/javascript" src="js/phys.js"></script><br />
+</body>
+
+</html>

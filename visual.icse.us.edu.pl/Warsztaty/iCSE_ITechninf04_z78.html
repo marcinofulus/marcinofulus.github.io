@@ -1,0 +1,582 @@
+
+
+  <!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+  "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+
+
+<html xmlns="http://www.w3.org/1999/xhtml">
+  <head>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    
+    <title>Wykresy &mdash; Warsztaty</title>
+    
+    <link rel="stylesheet" href="_static/cloud.css" type="text/css" />
+    <link rel="stylesheet" href="_static/pygments.css" type="text/css" />
+    <link rel="stylesheet" href="http://fonts.googleapis.com/css?family=Noticia+Text|Open+Sans|Droid+Sans+Mono&subset=latin,latin-ext" type="text/css" />
+    
+    <script type="text/javascript">
+      var DOCUMENTATION_OPTIONS = {
+        URL_ROOT:    './',
+        VERSION:     'I',
+        COLLAPSE_INDEX: false,
+        FILE_SUFFIX: '.html',
+        HAS_SOURCE:  true
+      };
+    </script>
+    <script type="text/javascript" src="_static/jquery.js"></script>
+    <script type="text/javascript" src="_static/underscore.js"></script>
+    <script type="text/javascript" src="_static/doctools.js"></script>
+    <script type="text/javascript" src="_static/translations.js"></script>
+    <script type="text/javascript" src="http://cdn.mathjax.org/mathjax/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML"></script>
+    <script type="text/javascript" src="_static/jquery.cookie.js"></script>
+    <script type="text/javascript" src="_static/cloud.js"></script>
+
+
+
+    <script src="http://sagecell.icse.us.edu.pl:6363/static/jquery.min.js"></script>
+	<script src="http://sagecell.icse.us.edu.pl:6363/static/embedded_sagecell.js"></script>
+
+	<script>sagecell.makeSagecell({inputLocation: ".sage",
+                                       evalButtonText: 'Wykonaj',
+                                       linked: true});</script>
+
+	<style type="text/css">
+		.sagecell .CodeMirror-scroll {
+			overflow-y: hidden;
+			overflow-x: auto;
+		}
+		.sagecell .CodeMirror {
+			height: auto;
+		}
+	</style>
+
+    
+    <link rel="top" title="Warsztaty" href="index.html" />
+    <link rel="up" title="&lt;no title&gt;" href="sagewfizyce.html" />
+    <link rel="next" title="Zadania z fizyki" href="iCSE_ITechninf05_z80_mechanika.html" />
+    <link rel="prev" title="Środowisko Sage" href="iCSE_ITechninf01_z6.html" />
+ 
+  <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, minimum-scale=1">
+  </head>
+  <body>
+  <div class="relbar-top">
+    
+    <div class="related">
+      <h3>Nawigacja</h3>
+      <ul>
+        <li class="right" style="margin-right: 10px">
+          <a href="iCSE_ITechninf05_z80_mechanika.html" title="Zadania z fizyki"
+             accesskey="N">dalej</a></li>
+        <li class="right" >
+          <a href="iCSE_ITechninf01_z6.html" title="Środowisko Sage"
+             accesskey="P">wstecz</a> &nbsp; &nbsp;</li>
+  <li><a href="index.html">Warsztaty</a> &raquo;</li>
+  
+          <li><a href="sagewfizyce.html" accesskey="U">&lt;no title&gt;</a> &raquo;</li> 
+      </ul>
+    </div>
+  </div>
+  
+  <div class="content">  
+
+    <div class="document">
+      <div class="documentwrapper">
+        <div class="bodywrapper">
+          <div class="body">
+            
+  <div class="section" id="wykresy">
+<h1>Wykresy<a class="headerlink" href="iCSE_ITechninf04_z78.html#wykresy" title="Stały odnośnik do tego nagłówka">¶</a></h1>
+<div class="section" id="wykresy-funkcji">
+<h2>Wykresy funkcji<a class="headerlink" href="iCSE_ITechninf04_z78.html#wykresy-funkcji" title="Stały odnośnik do tego nagłówka">¶</a></h2>
+<p>Jednym z głównych powodów do nauki i używania algebry komputerowej jest możliwość wizualizacji wyników naszych obliczeń. W najprostszej formie będą to wykresy funkcji, choć za pomocą Sage możemy tworzyć wymyślne trójwymiarowe wykresy, animacje, czy nieco bardziej abstrakcyjne reprezentacje wyników. Ponadto każdy z takich wykresów może być interaktywny. Poniżej kilka przykładów</p>
+<p>Prosty,  dwuwymiarowy  wykres</p>
+<div class="highlight-python"><div class="highlight"><pre><span class="n">sage</span><span class="p">:</span> <span class="n">var</span><span class="p">(</span><span class="s">&#39;x&#39;</span><span class="p">)</span>
+<span class="n">sage</span><span class="p">:</span> <span class="n">plot</span><span class="p">(</span><span class="nb">abs</span><span class="p">(</span><span class="n">x</span><span class="p">))</span>
+</pre></div>
+</div>
+<img alt="_images/cell_1_sage0.png" class="align-center" src="_images/cell_1_sage0.png" />
+<p>Nieco  bardziej  skomplikowany  wykres</p>
+<div class="highlight-python"><div class="highlight"><pre><span class="n">sage</span><span class="p">:</span> <span class="n">g</span><span class="p">(</span><span class="n">x</span><span class="p">)</span> <span class="o">=</span> <span class="n">sin</span><span class="p">(</span><span class="n">x</span><span class="p">)</span> <span class="o">+</span> <span class="n">cos</span><span class="p">(</span><span class="n">x</span><span class="p">)</span><span class="o">*</span><span class="n">x</span><span class="o">^</span><span class="mi">2</span> <span class="o">+</span> <span class="n">sqrt</span><span class="p">(</span><span class="n">x</span><span class="p">)</span>
+<span class="n">sage</span><span class="p">:</span> <span class="n">gp</span> <span class="o">=</span> <span class="n">g</span><span class="o">.</span><span class="n">plot</span><span class="p">(</span><span class="n">xmin</span><span class="o">=</span><span class="mi">0</span><span class="p">,</span> <span class="n">xmax</span><span class="o">=</span><span class="mi">20</span><span class="p">,</span> <span class="n">ymin</span><span class="o">=-</span><span class="mi">200</span><span class="p">,</span> <span class="n">ymax</span><span class="o">=</span><span class="mi">200</span><span class="p">,</span>
+<span class="o">...</span>        <span class="n">rgbcolor</span><span class="o">=</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span><span class="mi">0</span><span class="p">,</span><span class="mi">0</span><span class="p">),</span> <span class="n">thickness</span><span class="o">=</span><span class="mi">2</span><span class="p">,</span> <span class="n">fill</span><span class="o">=</span><span class="bp">True</span><span class="p">,</span>
+<span class="o">...</span>        <span class="n">fillcolor</span><span class="o">=</span><span class="s">&#39;gold&#39;</span> <span class="p">,</span> <span class="n">legend_label</span><span class="o">=</span><span class="s">&#39;g(x)&#39;</span><span class="p">)</span>
+<span class="n">sage</span><span class="p">:</span> <span class="n">taylorp</span> <span class="o">=</span> <span class="nb">sum</span><span class="p">([</span><span class="n">g</span><span class="o">.</span><span class="n">taylor</span><span class="p">(</span><span class="n">x</span><span class="p">,</span><span class="mi">0</span><span class="p">,</span><span class="n">i</span><span class="p">)</span><span class="o">.</span><span class="n">plot</span><span class="p">(</span><span class="n">linestyle</span><span class="o">=</span><span class="s">&#39;--&#39;</span><span class="p">,</span>
+<span class="o">...</span>             <span class="n">xmin</span><span class="o">=</span><span class="mi">0</span><span class="p">,</span> <span class="n">xmax</span><span class="o">=</span><span class="mi">20</span><span class="p">,</span> <span class="n">rgbcolor</span><span class="o">=</span><span class="p">(</span><span class="n">i</span><span class="o">/.</span><span class="mi">4</span><span class="p">,</span><span class="n">i</span><span class="o">/</span><span class="mf">4.</span><span class="p">,</span><span class="n">i</span><span class="o">/</span><span class="mf">4.</span><span class="p">),</span>
+<span class="o">...</span>             <span class="n">legend_label</span><span class="o">=</span><span class="s">&#39;rozwiniecie rzedu </span><span class="si">%d</span><span class="s">&#39;</span> <span class="o">%</span> <span class="n">i</span><span class="p">)</span>
+<span class="o">...</span>             <span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="nb">xrange</span><span class="p">(</span><span class="mi">4</span><span class="p">)])</span>
+<span class="n">sage</span><span class="p">:</span> <span class="n">p</span> <span class="o">=</span> <span class="n">gp</span> <span class="o">+</span> <span class="n">taylorp</span>
+<span class="n">sage</span><span class="p">:</span> <span class="n">p</span><span class="o">.</span><span class="n">axes_labels</span><span class="p">([</span><span class="s">&#39;x&#39;</span><span class="p">,</span><span class="s">&#39;g(x)&#39;</span><span class="p">])</span>
+<span class="n">sage</span><span class="p">:</span> <span class="n">p</span><span class="o">.</span><span class="n">show</span><span class="p">()</span>
+</pre></div>
+</div>
+<img alt="_images/cell_3_sage0.png" class="align-center" src="_images/cell_3_sage0.png" />
+<p>Można  też  trochę  się  pobawić...</p>
+<div class="highlight-python"><div class="highlight"><pre><span class="n">sage</span><span class="p">:</span> <span class="p">(</span><span class="n">circle</span><span class="p">((</span><span class="mi">1</span><span class="p">,</span><span class="mi">1</span><span class="p">),</span><span class="mi">1</span><span class="p">,</span> <span class="n">fill</span><span class="o">=</span><span class="bp">True</span><span class="p">,</span> <span class="n">facecolor</span><span class="o">=</span><span class="s">&#39;white&#39;</span><span class="p">)</span> <span class="o">+</span>
+<span class="n">sage</span><span class="p">:</span> <span class="n">circle</span><span class="p">((</span><span class="mi">1</span><span class="p">,</span><span class="mi">2</span><span class="p">),</span><span class="o">.</span><span class="mi">8</span><span class="p">,</span> <span class="n">fill</span><span class="o">=</span><span class="bp">True</span><span class="p">,</span> <span class="n">facecolor</span><span class="o">=</span><span class="s">&#39;white&#39;</span><span class="p">)</span> <span class="o">+</span>
+<span class="n">sage</span><span class="p">:</span> <span class="n">circle</span><span class="p">((</span><span class="mi">1</span><span class="p">,</span><span class="mi">3</span><span class="p">),</span><span class="o">.</span><span class="mi">6</span><span class="p">,</span> <span class="n">fill</span><span class="o">=</span><span class="bp">True</span><span class="p">,</span> <span class="n">facecolor</span><span class="o">=</span><span class="s">&#39;white&#39;</span><span class="p">)</span> <span class="o">+</span>
+<span class="n">sage</span><span class="p">:</span> <span class="n">circle</span><span class="p">((</span><span class="mi">1</span><span class="o">-</span><span class="mf">0.2</span><span class="p">,</span><span class="mi">3</span><span class="p">),</span><span class="o">.</span><span class="mo">061</span><span class="p">,</span> <span class="n">fill</span><span class="o">=</span><span class="bp">True</span><span class="p">,</span> <span class="n">facecolor</span><span class="o">=</span><span class="s">&#39;black&#39;</span><span class="p">)</span> <span class="o">+</span>
+<span class="n">sage</span><span class="p">:</span> <span class="n">circle</span><span class="p">((</span><span class="mi">1</span><span class="o">+</span><span class="mf">0.2</span><span class="p">,</span><span class="mi">3</span><span class="p">),</span><span class="o">.</span><span class="mo">061</span><span class="p">,</span> <span class="n">fill</span><span class="o">=</span><span class="bp">True</span><span class="p">,</span> <span class="n">facecolor</span><span class="o">=</span><span class="s">&#39;black&#39;</span><span class="p">)</span> <span class="o">+</span>
+<span class="n">sage</span><span class="p">:</span> <span class="n">circle</span><span class="p">((</span><span class="mi">1</span><span class="p">,</span><span class="mi">1</span><span class="p">),</span><span class="o">.</span><span class="mo">061</span><span class="p">,</span> <span class="n">fill</span><span class="o">=</span><span class="bp">True</span><span class="p">,</span> <span class="n">facecolor</span><span class="o">=</span><span class="s">&#39;black&#39;</span><span class="p">)</span> <span class="o">+</span>
+<span class="n">sage</span><span class="p">:</span> <span class="n">circle</span><span class="p">((</span><span class="mi">1</span><span class="p">,</span><span class="mi">1</span><span class="o">-</span><span class="mf">0.5</span><span class="p">),</span><span class="o">.</span><span class="mo">06</span><span class="p">,</span> <span class="n">fill</span><span class="o">=</span><span class="bp">True</span><span class="p">,</span> <span class="n">facecolor</span><span class="o">=</span><span class="s">&#39;black&#39;</span><span class="p">)</span> <span class="o">+</span>
+<span class="n">sage</span><span class="p">:</span> <span class="n">circle</span><span class="p">((</span><span class="mi">1</span><span class="p">,</span><span class="mi">2</span><span class="p">),</span><span class="o">.</span><span class="mo">06</span><span class="p">,</span> <span class="n">fill</span><span class="o">=</span><span class="bp">True</span><span class="p">,</span> <span class="n">facecolor</span><span class="o">=</span><span class="s">&#39;black&#39;</span><span class="p">)</span> <span class="o">+</span>
+<span class="n">sage</span><span class="p">:</span> <span class="n">circle</span><span class="p">((</span><span class="mi">1</span><span class="p">,</span><span class="mi">2</span><span class="o">-</span><span class="mf">0.5</span><span class="p">),</span><span class="o">.</span><span class="mo">06</span><span class="p">,</span> <span class="n">fill</span><span class="o">=</span><span class="bp">True</span><span class="p">,</span> <span class="n">facecolor</span><span class="o">=</span><span class="s">&#39;black&#39;</span><span class="p">)</span>
+<span class="n">sage</span><span class="p">:</span> <span class="p">)</span><span class="o">.</span><span class="n">show</span><span class="p">(</span><span class="n">figsize</span><span class="o">=</span><span class="p">[</span><span class="mi">4</span><span class="p">,</span><span class="mi">4</span><span class="p">]</span> <span class="p">,</span> <span class="n">axes</span><span class="o">=</span><span class="bp">False</span><span class="p">,</span> <span class="n">frame</span><span class="o">=</span><span class="bp">False</span><span class="p">)</span>
+</pre></div>
+</div>
+<img alt="_images/cell_5_sage0.png" class="align-center" src="_images/cell_5_sage0.png" />
+<p>czy  też</p>
+<div class="highlight-python"><div class="highlight"><pre><span class="n">sage</span><span class="p">:</span> <span class="n">lk</span> <span class="o">=</span> <span class="p">[</span><span class="n">circle</span><span class="p">((</span><span class="n">random</span><span class="p">(),</span><span class="n">random</span><span class="p">()),</span> <span class="n">random</span><span class="p">()</span><span class="o">/</span><span class="mi">20</span><span class="p">,</span>
+<span class="o">...</span>        <span class="n">fill</span><span class="o">=</span><span class="bp">True</span><span class="p">,</span> <span class="n">edgecolor</span><span class="o">=</span><span class="p">(</span><span class="n">random</span><span class="p">(),</span> <span class="n">random</span><span class="p">(),</span> <span class="n">random</span><span class="p">()),</span>
+<span class="o">...</span>        <span class="n">facecolor</span><span class="o">=</span><span class="p">(</span><span class="n">random</span><span class="p">(),</span> <span class="n">random</span><span class="p">(),</span> <span class="n">random</span><span class="p">()))</span>
+<span class="o">...</span>        <span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="nb">xrange</span><span class="p">(</span><span class="mi">500</span><span class="p">)]</span>
+<span class="n">sage</span><span class="p">:</span> <span class="n">show</span><span class="p">(</span><span class="nb">sum</span><span class="p">(</span><span class="n">lk</span><span class="p">),</span> <span class="n">axes</span><span class="o">=</span><span class="bp">False</span><span class="p">,</span> <span class="n">frame</span><span class="o">=</span><span class="bp">True</span> <span class="p">)</span>
+</pre></div>
+</div>
+<img alt="_images/cell_7_sage0.png" class="align-center" src="_images/cell_7_sage0.png" />
+<p>Bardzo łatwo tworzy się również wykresy ”trójwymiarowe”, tzn. wykresy funkcji dwóch zmiennych</p>
+<div class="highlight-python"><div class="highlight"><pre><span class="n">sage</span><span class="p">:</span> <span class="k">def</span> <span class="nf">f</span><span class="p">(</span><span class="n">x</span><span class="p">,</span><span class="n">y</span><span class="p">):</span>
+<span class="o">...</span>       <span class="k">return</span> <span class="n">math</span><span class="o">.</span><span class="n">sin</span><span class="p">(</span><span class="n">y</span><span class="o">*</span><span class="n">y</span><span class="o">+</span><span class="n">x</span><span class="o">*</span><span class="n">x</span><span class="p">)</span><span class="o">/</span><span class="n">math</span><span class="o">.</span><span class="n">sqrt</span><span class="p">(</span><span class="n">x</span><span class="o">*</span><span class="n">x</span><span class="o">+</span><span class="n">y</span><span class="o">*</span><span class="n">y</span><span class="o">+.</span><span class="mo">0001</span><span class="p">)</span>
+<span class="n">sage</span><span class="p">:</span> <span class="n">P</span> <span class="o">=</span> <span class="n">plot3d</span><span class="p">(</span><span class="n">f</span><span class="p">,(</span><span class="o">-</span><span class="mi">3</span><span class="p">,</span><span class="mi">3</span><span class="p">),(</span><span class="o">-</span><span class="mi">3</span><span class="p">,</span><span class="mi">3</span><span class="p">),</span> <span class="n">adaptive</span><span class="o">=</span><span class="bp">True</span><span class="p">,</span>
+<span class="o">...</span>       <span class="n">color</span><span class="o">=</span><span class="n">rainbow</span><span class="p">(</span><span class="mi">60</span><span class="p">,</span> <span class="s">&#39;rgbtuple&#39;</span><span class="p">),</span>
+<span class="o">...</span>       <span class="n">max_bend</span><span class="o">=.</span><span class="mi">1</span><span class="p">,</span> <span class="n">max_depth</span><span class="o">=</span><span class="mi">15</span><span class="p">)</span>
+<span class="n">sage</span><span class="p">:</span> <span class="n">P</span><span class="o">.</span><span class="n">show</span><span class="p">()</span>
+</pre></div>
+</div>
+<img alt="_images/indeks.jpeg" class="align-center" src="_images/indeks.jpeg" />
+<p>czy też korzystając z Pythonowych funkcji lambda</p>
+<div class="highlight-python"><div class="highlight"><pre><span class="n">sage</span><span class="p">:</span> <span class="n">plot3d</span><span class="p">(</span><span class="k">lambda</span> <span class="n">x</span><span class="p">,</span> <span class="n">y</span><span class="p">:</span> <span class="n">x</span><span class="o">^</span><span class="mi">2</span> <span class="o">+</span> <span class="n">sin</span><span class="p">(</span><span class="n">y</span><span class="o">^</span><span class="mi">2</span><span class="p">),</span> <span class="p">(</span><span class="o">-</span><span class="mi">2</span><span class="p">,</span><span class="mi">2</span><span class="p">),</span> <span class="p">(</span><span class="o">-</span><span class="mi">2</span><span class="p">,</span><span class="mi">2</span><span class="p">),</span> <span class="n">adaptive</span><span class="o">=</span><span class="bp">True</span><span class="p">,</span>
+<span class="o">...</span>          <span class="n">color</span><span class="o">=</span><span class="p">[</span><span class="s">&#39;red&#39;</span><span class="p">,</span><span class="s">&#39;yellow&#39;</span><span class="p">])</span>
+</pre></div>
+</div>
+<p>To tyle jeżeli chodzi o przykłady. Teraz po kolei...</p>
+<div class="section" id="funkcje-plot-i-show">
+<h3>Funkcje plot() i show()<a class="headerlink" href="iCSE_ITechninf04_z78.html#funkcje-plot-i-show" title="Stały odnośnik do tego nagłówka">¶</a></h3>
+<p>Najczęściej będziemy używać Sage do tworzenia prostych wykresów wizualizujących wykonywane obliczenia. Do tego wykorzystamy komendy  <strong>plot()</strong>  oraz  <strong>show()</strong>. Pomimo, że obie komendy mają tylko niewielką liczbę parametrów którymi możemy dostrajać wykres, do prostych wizualizacji powinno to nam wystarczyć w zupełności (kiedy tak naprawdę chcemy zobaczyć jak wygląda dana funkcja, czy na szybko zobaczyć gdzie leżą jej miejsca zerowe lub ekstrema...). Do demonstracji użyjemy dwóch funkcji</p>
+<div class="math" id="equation-TI04_z78.1">
+<span class="eqno">(1)</span>\[p(x) = 40e^{x}\sin(-\pi x),\quad r(x) = 40e^{x}\cos(-\pi x)\]</div>
+<p>oraz ich różnicy <span class="math">\(h(x) = p(x) -  r(x)\)</span>.</p>
+<div class="highlight-python"><div class="highlight"><pre><span class="n">sage</span><span class="p">:</span> <span class="c"># funkcje symboliczne</span>
+<span class="n">sage</span><span class="p">:</span> <span class="n">p</span><span class="p">(</span><span class="n">x</span><span class="p">)</span> <span class="o">=</span> <span class="mi">40</span> <span class="o">*</span> <span class="n">e</span><span class="o">^</span><span class="p">(</span><span class="o">-</span><span class="n">pi</span><span class="o">*</span><span class="n">x</span><span class="p">)</span> <span class="o">*</span> <span class="n">sin</span><span class="p">(</span><span class="mi">3</span><span class="o">*</span><span class="n">pi</span><span class="o">*</span><span class="n">x</span><span class="p">)</span>
+<span class="n">sage</span><span class="p">:</span> <span class="n">r</span><span class="p">(</span><span class="n">x</span><span class="p">)</span> <span class="o">=</span> <span class="mi">40</span> <span class="o">*</span> <span class="n">e</span><span class="o">^</span><span class="p">(</span><span class="o">-</span><span class="n">pi</span><span class="o">*</span><span class="n">x</span><span class="p">)</span> <span class="o">*</span> <span class="n">cos</span><span class="p">(</span><span class="mi">3</span><span class="o">*</span><span class="n">pi</span><span class="o">*</span><span class="n">x</span><span class="p">)</span>
+<span class="n">sage</span><span class="p">:</span> <span class="n">h</span><span class="p">(</span><span class="n">x</span><span class="p">)</span> <span class="o">=</span> <span class="p">(</span><span class="n">p</span> <span class="o">-</span> <span class="n">r</span><span class="p">)</span>
+</pre></div>
+</div>
+<div class="section" id="plot">
+<h4>plot()<a class="headerlink" href="iCSE_ITechninf04_z78.html#plot" title="Stały odnośnik do tego nagłówka">¶</a></h4>
+<p>Funkcja  <tt class="docutils literal"><span class="pre">plot()</span></tt> zainicjuje obiekt Sage o typie  <tt class="docutils literal"><span class="pre">sage.plot.plot.Graphics</span></tt> (możecie to sprawdzić sami).</p>
+<p>Składnia funkcji <strong>plot</strong> to</p>
+<p><tt class="docutils literal"><span class="pre">plot(f,&nbsp;(xmin,&nbsp;xmax),&nbsp;opcje)</span></tt></p>
+<p>gdzie</p>
+<ul class="simple">
+<li><tt class="docutils literal"><span class="pre">f</span></tt> to funkcja lub lista funkcji (lub wyrażeń symbolicznych) do wykreślenia,</li>
+<li><tt class="docutils literal"><span class="pre">(xmin,</span> <span class="pre">xmax)</span></tt> to zakres argumentu funkcji na wykresie (zakres osi <span class="math">\(x\)</span>),</li>
+<li><tt class="docutils literal"><span class="pre">opcje</span></tt> to różne opcje, którymi można dostosować wykres do żądanego wyglądu.</li>
+</ul>
+<p>Tylko pierwszy parametr funkcji  <tt class="docutils literal"><span class="pre">plot()</span></tt>, czyli  <tt class="docutils literal"><span class="pre">f</span></tt> jest obowiązkowy (<tt class="docutils literal"><span class="pre">plot()</span></tt> musi wiedzieć co ma rysować), resztajest opcjonalna. Jeżeli krotka  <tt class="docutils literal"><span class="pre">(xmin,</span> <span class="pre">xmax)</span></tt>  nie zostanie podana,  <tt class="docutils literal"><span class="pre">plot()</span></tt>  przybierze domyślne wartości</p>
+<ul class="simple">
+<li>xmin = -1</li>
+<li>xmax = 1</li>
+</ul>
+<p>Przykładowym opcjonalnym parametrem może być  <tt class="docutils literal"><span class="pre">rgbcolor</span></tt>,  który powoduje zmianę domyślnego koloru wykresu (niebieskiego) na inny, np. czerwony</p>
+<div class="highlight-python"><div class="highlight"><pre><span class="n">sage</span><span class="p">:</span> <span class="n">plot</span><span class="p">(</span><span class="n">sin</span><span class="p">,</span> <span class="n">rgbcolor</span><span class="o">=</span><span class="s">&quot;red&quot;</span><span class="p">)</span>
+</pre></div>
+</div>
+<img alt="_images/cell_15_sage0.png" class="align-center" src="_images/cell_15_sage0.png" />
+<p>Możemy podawać zarówno nazwy kolorów (w języku angielskim) lecz w ograniczonym zakresie, lub dowolny kolor przestrzeni barw  <a class="reference external" href="http://pl.wikipedia.org/wiki/RGB">RGB</a>  (Red Green Blue). A oto kilka możliwych kolorów i ich reprezentacje RGB:</p>
+<ul class="simple">
+<li><tt class="docutils literal"><span class="pre">&quot;red&quot;</span>&nbsp;&nbsp; <span class="pre">:</span> <span class="pre">(1.0,0.0,0.0)</span></tt>,</li>
+<li><tt class="docutils literal"><span class="pre">&quot;orange&quot;:</span> <span class="pre">(1.0,0.5,0.0)</span></tt>,</li>
+<li><tt class="docutils literal"><span class="pre">&quot;yellow&quot;:</span> <span class="pre">(1.0,1.0,0.0)</span></tt>,</li>
+<li><tt class="docutils literal"><span class="pre">&quot;green&quot;</span> <span class="pre">:</span> <span class="pre">(0.0,1.0,0.0)</span></tt>,</li>
+<li><tt class="docutils literal"><span class="pre">&quot;blue&quot;</span>&nbsp; <span class="pre">:</span> <span class="pre">(0.0,0.0,1.0)</span></tt>,</li>
+<li><tt class="docutils literal"><span class="pre">&quot;purple&quot;:</span> <span class="pre">(0.5,0.0,1.0)</span></tt>,</li>
+<li><tt class="docutils literal"><span class="pre">&quot;white&quot;</span> <span class="pre">:</span> <span class="pre">(1.0,1.0,1.0)</span></tt>,</li>
+<li><tt class="docutils literal"><span class="pre">&quot;black&quot;</span> <span class="pre">:</span> <span class="pre">(0.0,0.0,0.0)</span></tt>,</li>
+<li><tt class="docutils literal"><span class="pre">&quot;grey&quot;</span>&nbsp; <span class="pre">:</span> <span class="pre">(0.5,0.5,0.5)</span></tt></li>
+</ul>
+<p>Czyli, żeby narysować wykres funkcji <span class="math">\(sinus\)</span> w zakresie <span class="math">\([0,2]\)</span> linią o kolorze pomarańczowym, wystarczy wpisać</p>
+<div class="highlight-python"><div class="highlight"><pre><span class="n">sage</span><span class="p">:</span> <span class="n">plot</span><span class="p">(</span><span class="n">sin</span><span class="p">,</span> <span class="p">(</span><span class="mi">0</span><span class="p">,</span> <span class="mi">2</span><span class="o">*</span><span class="n">pi</span><span class="p">),</span> <span class="n">rgbcolor</span><span class="o">=</span><span class="s">&quot;orange&quot;</span><span class="p">)</span>
+</pre></div>
+</div>
+<img alt="_images/cell_17_sage0.png" class="align-center" src="_images/cell_17_sage0.png" />
+<p>Słownik innych możliwych opcji, jakie możemy podać do funkcji  <tt class="docutils literal"><span class="pre">plot()</span></tt>  dostępne są po wpisaniu</p>
+<div class="highlight-python"><div class="highlight"><pre><span class="n">sage</span><span class="p">:</span> <span class="n">plot</span><span class="o">.</span><span class="n">options</span>
+</pre></div>
+</div>
+<p>{&#8216;fillalpha&#8217;: 0.5, &#8216;detect_poles&#8217;: False, &#8216;plot_points&#8217;: 200, &#8216;thickness&#8217;: 1, &#8216;alpha&#8217;: 1, &#8216;adaptive_tolerance&#8217;: 0.01, &#8216;fillcolor&#8217;: &#8216;automatic&#8217;, &#8216;adaptive_recursion&#8217;: 5, &#8216;exclude&#8217;: None, &#8216;legend_label&#8217;: None, &#8216;rgbcolor&#8217;: (0, 0, 1), &#8216;fill&#8217;: False}</p>
+<p>Oto te opcje i ich wartości domyślne</p>
+<ul class="simple">
+<li><tt class="docutils literal"><span class="pre">thickness=1</span></tt>
+grubość linii</li>
+<li><tt class="docutils literal"><span class="pre">rgbcolor=(0,0,1)</span></tt>
+kolor linii, domyślnie niebieski</li>
+<li><tt class="docutils literal"><span class="pre">alpha=1</span></tt>
+przeźroczystość linii wykresu (domyślnie nieprzeźroczysta)</li>
+<li><tt class="docutils literal"><span class="pre">fill=None</span></tt>
+wypełnienie przestrzeni pomiędzy wykresem a odciętą (osią <span class="math">\(OX\)</span>)</li>
+<li><tt class="docutils literal"><span class="pre">fillalpha=0.5</span></tt>
+przeźroczystość wypełnienia</li>
+<li><tt class="docutils literal"><span class="pre">fillcolor=’automatic’</span></tt>
+kolor wypełnienia</li>
+<li><tt class="docutils literal"><span class="pre">plot_points=200</span></tt>
+ilość punktów z jakich składa się linia wykresu</li>
+<li><tt class="docutils literal"><span class="pre">adaptive_tolerance=0.01</span></tt></li>
+<li><tt class="docutils literal"><span class="pre">adaptive_recursion=5</span></tt></li>
+</ul>
+<p>No, ale my chcemy stworzyć wykresy aż 3 funkcji (r,p,h) naraz. Na początku, zbudujmy te wykresy, ale przypisując je do zmiennych:</p>
+<div class="highlight-python"><div class="highlight"><pre><span class="n">sage</span><span class="p">:</span> <span class="n">fig1</span> <span class="o">=</span> <span class="n">plot</span><span class="p">(</span><span class="n">p</span><span class="p">,</span> <span class="p">(</span><span class="mi">0</span><span class="p">,</span><span class="mi">5</span><span class="p">),</span> <span class="n">rgbcolor</span><span class="o">=</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span><span class="mi">0</span><span class="p">,</span><span class="mi">1</span><span class="p">))</span>
+<span class="n">sage</span><span class="p">:</span> <span class="n">fig2</span> <span class="o">=</span> <span class="n">plot</span><span class="p">(</span><span class="n">r</span><span class="p">,</span> <span class="p">(</span><span class="mi">0</span><span class="p">,</span><span class="mi">5</span><span class="p">),</span> <span class="n">rgbcolor</span><span class="o">=</span><span class="s">&#39;red&#39;</span><span class="p">)</span>
+<span class="n">sage</span><span class="p">:</span> <span class="n">fig3</span> <span class="o">=</span> <span class="n">plot</span><span class="p">(</span><span class="n">h</span><span class="p">,</span> <span class="p">(</span><span class="mi">0</span><span class="p">,</span><span class="mi">5</span><span class="p">),</span> <span class="n">rgbcolor</span><span class="o">=</span><span class="p">(</span><span class="mf">0.5</span><span class="p">,</span><span class="mf">0.5</span><span class="p">,</span><span class="mi">0</span><span class="p">))</span>
+</pre></div>
+</div>
+<p><tt class="docutils literal"><span class="pre">fig1</span></tt> to obiekt z klasy  <tt class="docutils literal"><span class="pre">sage.plot.plot.Graphics</span></tt>, linia narysowana będzie pomiędzy 0 a 5 i będzie miała kolor niebieski,  <tt class="docutils literal"><span class="pre">fig2</span></tt> to linia czerwona a  <tt class="docutils literal"><span class="pre">fig3</span></tt> ciemnozielona.</p>
+</div>
+<div class="section" id="show">
+<h4>show()<a class="headerlink" href="iCSE_ITechninf04_z78.html#show" title="Stały odnośnik do tego nagłówka">¶</a></h4>
+<p>Możemy teraz zobaczyć nasze wykresy razem na jednym obrazku używając funkcji  <tt class="docutils literal"><span class="pre">show()</span></tt>. Składnia funkcji <strong>show</strong> to</p>
+<p><tt class="docutils literal"><span class="pre">show(f,&nbsp;xmin,&nbsp;xmax,&nbsp;ymin,&nbsp;ymax,&nbsp;opcje)</span></tt></p>
+<p>gdzie</p>
+<ul class="simple">
+<li><tt class="docutils literal"><span class="pre">f</span></tt>  to obiekt lub lista obiektów klasy  <tt class="docutils literal"><span class="pre">sage.plot.plot.Graphics</span></tt>  (np:  <tt class="docutils literal"><span class="pre">plot(sin)</span></tt>)</li>
+<li><tt class="docutils literal"><span class="pre">xmin,</span> <span class="pre">xmax,</span> <span class="pre">ymin,</span> <span class="pre">ymax</span></tt>  to zakres odciętej (OX) i rzędnej (OY)</li>
+<li><tt class="docutils literal"><span class="pre">opcje</span></tt>  to  różne  opcje,  którymi  można  dostosować  wykres  do  żądanego  wyglądu,  np.  (<tt class="docutils literal"><span class="pre">dpi=300,</span> <span class="pre">figsize=[4,4],</span>&nbsp; <span class="pre">axes=True/False,</span>&nbsp; <span class="pre">fontsize=24,</span>&nbsp; <span class="pre">frame=False/True</span></tt>)</li>
+</ul>
+<p>Tak jak w przypadku funkcji  <tt class="docutils literal"><span class="pre">plot()</span></tt>  tylko pierwszy parametr jest obowiązkowy, a reszta jest opcjonalna. Zobaczmy w końcu jak wygląda ów wykres</p>
+<div class="highlight-python"><div class="highlight"><pre><span class="n">sage</span><span class="p">:</span> <span class="p">(</span><span class="n">fig1</span> <span class="o">+</span> <span class="n">fig2</span> <span class="o">+</span> <span class="n">fig3</span><span class="p">)</span><span class="o">.</span><span class="n">show</span><span class="p">(</span><span class="n">xmin</span><span class="o">=</span><span class="mi">0</span><span class="p">,</span> <span class="n">xmax</span><span class="o">=</span><span class="mf">1.5</span><span class="p">,</span> <span class="n">ymin</span><span class="o">=-</span><span class="mi">40</span><span class="p">,</span> <span class="n">ymax</span><span class="o">=</span><span class="mi">45</span><span class="p">,</span>
+<span class="o">...</span>          <span class="n">figsize</span><span class="o">=</span><span class="p">[</span><span class="mi">8</span><span class="p">,</span><span class="mi">4</span><span class="p">],</span> <span class="n">fontsize</span><span class="o">=</span><span class="mi">20</span><span class="p">,</span> <span class="n">axes_labels</span><span class="o">=</span><span class="p">[</span><span class="s">&#39;x&#39;</span><span class="p">,</span><span class="s">&#39;funkcje&#39;</span><span class="p">])</span>
+</pre></div>
+</div>
+<img alt="_images/cell_23_sage0.png" class="align-center" src="_images/cell_23_sage0.png" />
+<p>lub  równoważnie</p>
+<div class="highlight-python"><div class="highlight"><pre><span class="n">sage</span><span class="p">:</span> <span class="c"># wersja 2</span>
+<span class="n">sage</span><span class="p">:</span> <span class="n">show</span><span class="p">(</span><span class="n">fig1</span> <span class="o">+</span> <span class="n">fig2</span> <span class="o">+</span> <span class="n">fig3</span><span class="p">,</span> <span class="n">xmin</span><span class="o">=</span><span class="mi">0</span><span class="p">,</span> <span class="n">xmax</span><span class="o">=</span><span class="mf">1.5</span><span class="p">,</span> <span class="n">ymin</span><span class="o">=-</span><span class="mi">40</span><span class="p">,</span> <span class="n">ymax</span><span class="o">=</span><span class="mi">45</span><span class="p">,</span>
+<span class="o">...</span>      <span class="n">figsize</span><span class="o">=</span><span class="p">[</span><span class="mi">8</span><span class="p">,</span><span class="mi">4</span><span class="p">],</span> <span class="n">fontsize</span><span class="o">=</span><span class="mi">20</span><span class="p">)</span>
+<span class="n">sage</span><span class="p">:</span> <span class="c"># wersja 3</span>
+<span class="n">sage</span><span class="p">:</span> <span class="n">figs</span> <span class="o">=</span> <span class="n">fig1</span> <span class="o">+</span> <span class="n">fig2</span> <span class="o">+</span> <span class="n">fig3</span>
+<span class="n">sage</span><span class="p">:</span> <span class="n">figs</span><span class="o">.</span><span class="n">show</span><span class="p">(</span><span class="n">xmin</span><span class="o">=</span><span class="mi">0</span><span class="p">,</span> <span class="n">xmax</span><span class="o">=</span><span class="mf">1.5</span><span class="p">,</span> <span class="n">ymin</span><span class="o">=-</span><span class="mi">40</span><span class="p">,</span> <span class="n">ymax</span><span class="o">=</span><span class="mi">45</span><span class="p">,</span> <span class="n">figsize</span><span class="o">=</span><span class="p">[</span><span class="mi">8</span><span class="p">,</span><span class="mi">4</span><span class="p">],</span>
+<span class="o">...</span>      <span class="n">fontsize</span><span class="o">=</span><span class="mi">20</span><span class="p">)</span>
+<span class="n">sage</span><span class="p">:</span> <span class="c"># wersja 4</span>
+<span class="n">sage</span><span class="p">:</span> <span class="n">show</span><span class="p">(</span><span class="n">figs</span><span class="p">,</span> <span class="n">xmin</span><span class="o">=</span><span class="mi">0</span><span class="p">,</span> <span class="n">xmax</span><span class="o">=</span><span class="mf">1.5</span><span class="p">,</span> <span class="n">ymin</span><span class="o">=-</span><span class="mi">40</span><span class="p">,</span> <span class="n">ymax</span><span class="o">=</span><span class="mi">45</span><span class="p">,</span> <span class="n">figsize</span><span class="o">=</span><span class="p">[</span><span class="mi">8</span><span class="p">,</span><span class="mi">4</span><span class="p">],</span>
+<span class="o">...</span>      <span class="n">fontsize</span><span class="o">=</span><span class="mi">20</span><span class="p">)</span>
+</pre></div>
+</div>
+<img alt="_images/cell_25_sage0.png" class="align-center" src="_images/cell_25_sage0.png" />
+<img alt="_images/cell_25_sage1.png" class="align-center" src="_images/cell_25_sage1.png" />
+<img alt="_images/cell_25_sage2.png" class="align-center" src="_images/cell_25_sage2.png" />
+<p><strong>Zadanie 1:</strong> <span class="math">\(\mathop{sin}\nolimits\)</span> <strong>i</strong> <span class="math">\(\mathop{cos}\nolimits\)</span></p>
+<p>czas: 10 min.</p>
+<p>Pokaż na wykresie, że <span class="math">\(\sin(x) = \cos(x - \pi/2)\)</span>.</p>
+<p><strong>Uwaga:</strong> może przydać ci się opcjonalny parametr <tt class="docutils literal"><span class="pre">linestyle</span></tt>, który przyjmuje wartości</p>
+<ul class="simple">
+<li><tt class="docutils literal"><span class="pre">&quot;-&quot;</span></tt> linia ciągła</li>
+<li><tt class="docutils literal"><span class="pre">&quot;--&quot;</span></tt> linia przerywana</li>
+<li><tt class="docutils literal"><span class="pre">&quot;-.&quot;</span></tt> kropka–kreska</li>
+<li><tt class="docutils literal"><span class="pre">&quot;:&quot;</span></tt> linia kropkowana</li>
+<li><tt class="docutils literal"><span class="pre">&quot;None&quot;,</span> <span class="pre">&quot;&quot;,</span> <span class="pre">&quot;</span> <span class="pre">&quot;</span></tt> nic (nie rysuje linii)</li>
+</ul>
+<p>(np: <tt class="docutils literal"><span class="pre">linestyle=&quot;--&quot;</span></tt>, lub parametr <tt class="docutils literal"><span class="pre">marker</span></tt>, który rysuje znaki. Przyjmuje on wartości</p>
+<ul class="simple">
+<li><tt class="docutils literal"><span class="pre">&quot;None&quot;,</span> <span class="pre">&quot;&quot;,</span> <span class="pre">&quot;</span> <span class="pre">&quot;</span></tt> nic (domyślnie)</li>
+<li><tt class="docutils literal"><span class="pre">&quot;,&quot;</span></tt> piksel, <tt class="docutils literal"><span class="pre">.</span></tt> punkt</li>
+<li><tt class="docutils literal"><span class="pre">&quot;_&quot;</span></tt> linia pozioma, <tt class="docutils literal"><span class="pre">&quot;</span></tt> linia pionowa</li>
+<li><tt class="docutils literal"><span class="pre">&quot;o&quot;</span></tt> kółko, <tt class="docutils literal"><span class="pre">&quot;p&quot;</span></tt> pięciokąt, <tt class="docutils literal"><span class="pre">&quot;s&quot;</span></tt> kwadrat, <tt class="docutils literal"><span class="pre">&quot;x&quot;</span></tt> x, <tt class="docutils literal"><span class="pre">&quot;+&quot;</span></tt> plus, <tt class="docutils literal"><span class="pre">&quot;*&quot;</span></tt> gwiazdka</li>
+<li><tt class="docutils literal"><span class="pre">&quot;D&quot;</span></tt> romb lub <tt class="docutils literal"><span class="pre">&quot;d&quot;</span></tt> mniejszy romb</li>
+<li><tt class="docutils literal"><span class="pre">&quot;H&quot;</span></tt> ośmiokąt lub <tt class="docutils literal"><span class="pre">&quot;h&quot;</span></tt> inny ośmiokąt</li>
+<li><tt class="docutils literal"><span class="pre">&quot;&gt;&quot;</span></tt> trójkąt skierowany w prawo, <tt class="docutils literal"><span class="pre">&quot;&lt;&quot;</span></tt> w lewo, <tt class="docutils literal"><span class="pre">&quot;^&quot;</span></tt> do góry, <tt class="docutils literal"><span class="pre">&quot;v&quot;</span></tt> w dół</li>
+<li><tt class="docutils literal"><span class="pre">&quot;1&quot;,</span> <span class="pre">&quot;2&quot;,</span> <span class="pre">&quot;3&quot;,</span> <span class="pre">&quot;4&quot;</span></tt> tri w różnych kierunkach (dół, góra, lewo, prawo)</li>
+<li><tt class="docutils literal"><span class="pre">0,</span> <span class="pre">1,</span> <span class="pre">2,</span> <span class="pre">3</span></tt> podziałka (tick) w różnych kierunkach (lewo, prawo, góra, dół)</li>
+<li><tt class="docutils literal"><span class="pre">&quot;4,</span> <span class="pre">5,</span> <span class="pre">6,</span> <span class="pre">7</span></tt> daszek w różnych kierunkach (lewo, prawo, góra, dół)</li>
+<li><tt class="docutils literal"><span class="pre">...</span></tt> ciąg znaków z LATEX-a</li>
+</ul>
+<p>Z nim łączą się takie parametry jak</p>
+<ul class="simple">
+<li><tt class="docutils literal"><span class="pre">markersize</span></tt> wielkość znaków w punktach,</li>
+<li><tt class="docutils literal"><span class="pre">markeredgecolor</span></tt> kolor obwódki znaku,</li>
+<li><tt class="docutils literal"><span class="pre">markeredgewidth</span></tt> szerokość obwódki znaku w punktach.</li>
+</ul>
+</div>
+</div>
+<div class="section" id="jak-wyglada-lista">
+<h3>Jak wygląda lista?<a class="headerlink" href="iCSE_ITechninf04_z78.html#jak-wyglada-lista" title="Stały odnośnik do tego nagłówka">¶</a></h3>
+<p>Dość często z list korzystaliśmy i jeszcze nie raz będziemy korzystać. Jeżeli dana lista zawierać będzie wyłącznie wartości liczbowe możemy ją przedstawić na wykresie. Oczywiście krótkie listy możemy przeglądać za pomocą instrukcji  <tt class="docutils literal"><span class="pre">print</span></tt>, ale wyświetlanie list długich nie ma większego sensu. Prawdę mówiąc łatwiej zauważyć jakąś zależność między liczbami nawet dla list posiadających po kilka elementów. Do narysowania wykresu bazującego na liście służy funkcja  <tt class="docutils literal"><span class="pre">list_plot</span></tt>. Spójrzmy na przykład</p>
+<div class="highlight-python"><div class="highlight"><pre><span class="n">sage</span><span class="p">:</span> <span class="c"># spadek swobodny</span>
+<span class="n">sage</span><span class="p">:</span> <span class="c"># wykres polozenia w zaleznosci od czasu</span>
+<span class="n">sage</span><span class="p">:</span> <span class="n">h0</span> <span class="o">=</span> <span class="mi">100</span> <span class="c"># m</span>
+<span class="n">sage</span><span class="p">:</span> <span class="n">g_ziemskie</span>  <span class="o">=</span> <span class="mf">9.81</span> <span class="c"># m/s^2</span>
+<span class="n">sage</span><span class="p">:</span> <span class="n">tstart</span> <span class="o">=</span> <span class="mi">0</span> <span class="c"># czas poczatkowy</span>
+<span class="n">sage</span><span class="p">:</span> <span class="n">tstop</span> <span class="o">=</span> <span class="n">sqrt</span><span class="p">(</span><span class="mi">2</span><span class="o">*</span><span class="n">h0</span><span class="o">/</span><span class="n">g_ziemskie</span><span class="p">)</span> <span class="c"># czas spadku na ziemie</span>
+<span class="n">sage</span><span class="p">:</span> <span class="n">tkrok</span> <span class="o">=</span> <span class="p">(</span><span class="n">tstop</span><span class="o">-</span><span class="n">tstart</span><span class="p">)</span><span class="o">/</span><span class="mi">20</span> <span class="c"># 20 punktow</span>
+<span class="n">sage</span><span class="p">:</span> <span class="n">h</span> <span class="o">=</span> <span class="p">[</span><span class="n">h0</span> <span class="o">-</span> <span class="n">g_ziemskie</span><span class="o">*</span><span class="n">t</span><span class="o">^</span><span class="mi">2</span><span class="o">/</span><span class="mi">2</span> <span class="k">for</span> <span class="n">t</span> <span class="ow">in</span> <span class="n">srange</span><span class="p">(</span><span class="n">tstart</span><span class="p">,</span> <span class="n">tstop</span><span class="p">,</span> <span class="n">tkrok</span><span class="p">)]</span>
+<span class="n">sage</span><span class="p">:</span> <span class="n">list_plot</span><span class="p">(</span><span class="n">h</span><span class="p">)</span>
+</pre></div>
+</div>
+<img alt="_images/cell_27_sage0.png" class="align-center" src="_images/cell_27_sage0.png" />
+<p>Łatwo zauważyć, że na osi odciętych odłożone mamy indeksy listy a na osi rzędnych wartości odpowiadające danym indeksom. Domyślnym stylem wykresu będą niebieskie punkty. Jeżeli będziemy chcieli zobaczyć linię łączącą punkty a nie same punkty, należy dodać opcję  <tt class="docutils literal"><span class="pre">plotjoined=True</span></tt></p>
+<div class="highlight-python"><div class="highlight"><pre><span class="n">sage</span><span class="p">:</span> <span class="n">list_plot</span><span class="p">(</span><span class="n">h</span><span class="p">,</span> <span class="n">plotjoined</span><span class="o">=</span><span class="bp">True</span><span class="p">)</span>
+</pre></div>
+</div>
+<img alt="_images/cell_29_sage0.png" class="align-center" src="_images/cell_29_sage0.png" />
+<p>Możemy zobaczyć jednocześnie i punkty i linię. Należy dodać do siebie dwa takie wykresy.</p>
+<div class="highlight-python"><div class="highlight"><pre><span class="n">sage</span><span class="p">:</span> <span class="n">list_plot</span><span class="p">(</span><span class="n">h</span><span class="p">,</span> <span class="n">plotjoined</span><span class="o">=</span><span class="bp">True</span><span class="p">)</span> <span class="o">+</span> <span class="n">list_plot</span><span class="p">(</span><span class="n">h</span><span class="p">,</span> <span class="n">faceted</span><span class="o">=</span><span class="bp">True</span><span class="p">,</span>
+<span class="o">...</span>      <span class="n">color</span><span class="o">=</span><span class="s">&quot;red&quot;</span><span class="p">,</span> <span class="n">size</span><span class="o">=</span><span class="mi">50</span><span class="p">)</span>
+</pre></div>
+</div>
+<img alt="_images/cell_31_sage01.png" class="align-center" src="_images/cell_31_sage01.png" />
+<p>Oczywiście możemy opisać osie, ustalić wielkość wykresu, wielkość czcionek dokładnie tak jak robiliśmy to dla funkcji <tt class="docutils literal"><span class="pre">plot()</span></tt>. Możemy do tego użyć oczywiście funkcji  <tt class="docutils literal"><span class="pre">show()</span></tt>.</p>
+<p>Jeżeli chcielibyśmy aby na wykresie znajdowała się owa funkcja, którą zdefiniowaliśmy za pomocą naszego wyrażenia listowego, tzn: na osi OX znalazł się czas <span class="math">\(t\)</span> a na OY położenie w spadku swobodnym, należy do naszej funkcji podać nie listę, ale listę krotek w postaci <span class="math">\([({t}_{1},{h}_{1}),({t}_{2},{h}_{2}),({t}_{3},{h}_{3}),...]\)</span>. Nie chcemy oczywiście robić tego ręcznie (dla 20 punktów to nie takie straszne, ale dla 2000?). Możemy sobie napisać pętlę (ale to zostawimy na zadanie domowe), albo skorzystać z funkcji  <tt class="docutils literal"><span class="pre">zip()</span></tt>. Funkcja ta tworzy z wielu list identycznej długości listę krotek, z których każda zawiera wartości odpowiadające temu samemu indeksowi. Najpierw jednak stworzymy sobie listę ”czasów” (dyskretnych wartości czasu).</p>
+<div class="highlight-python"><div class="highlight"><pre><span class="n">sage</span><span class="p">:</span> <span class="n">t</span> <span class="o">=</span> <span class="n">srange</span><span class="p">(</span><span class="n">tstart</span><span class="p">,</span> <span class="n">tstop</span><span class="p">,</span> <span class="n">tkrok</span><span class="p">)</span>
+<span class="n">sage</span><span class="p">:</span> <span class="n">ht</span> <span class="o">=</span> <span class="nb">zip</span><span class="p">(</span><span class="n">t</span><span class="p">,</span><span class="n">h</span><span class="p">)</span>
+</pre></div>
+</div>
+<p>i teraz możemy już sobie narysować naszą ”funkcję”</p>
+<div class="highlight-python"><div class="highlight"><pre><span class="n">sage</span><span class="p">:</span> <span class="n">list_plot</span><span class="p">(</span><span class="nb">zip</span><span class="p">(</span><span class="n">t</span><span class="p">,</span><span class="n">h</span><span class="p">),</span> <span class="n">axes_labels</span><span class="o">=</span><span class="p">[</span><span class="s">r&#39;$t$&#39;</span><span class="p">,</span><span class="s">r&#39;$x(t)$&#39;</span><span class="p">],</span>
+<span class="o">...</span>      <span class="n">size</span><span class="o">=</span><span class="mi">20</span><span class="p">,</span> <span class="n">color</span><span class="o">=</span><span class="s">&quot;navy&quot;</span><span class="p">)</span>
+</pre></div>
+</div>
+<img alt="_images/cell_35_sage0.png" class="align-center" src="_images/cell_35_sage0.png" />
+</div>
+<div class="section" id="inne-typy-wykresow">
+<h3>Inne typy wykresów<a class="headerlink" href="iCSE_ITechninf04_z78.html#inne-typy-wykresow" title="Stały odnośnik do tego nagłówka">¶</a></h3>
+<p>Typów wykresów jest w Sage wiele. Oto lista z bardzo krótkimi wyjaśnieniami. Większość z nich ma dokładnie taką samą konstrukcję jak  <tt class="docutils literal"><span class="pre">plot()</span></tt> lub  <tt class="docutils literal"><span class="pre">list_plot</span></tt>, w większości przypadków wystarczy podać funkcję lub listę do narysowania żądanej krzywej.</p>
+<ul class="simple">
+<li><tt class="docutils literal"><span class="pre">parametric_plot()</span></tt> jako argument wpisujemy listę (krotkę) dwóch lub trzech funkcji, na osi OX odkładają się wartości pierwszej funkcji, na OY drugiej a na OZ trzeciej (jeżeli ją podamy dostaniemy trójwymiarowy wykres)</li>
+</ul>
+<div class="highlight-python"><div class="highlight"><pre><span class="n">sage</span><span class="p">:</span> <span class="n">parametric_plot</span><span class="p">([</span><span class="n">cos</span><span class="p">(</span><span class="n">x</span><span class="p">)</span> <span class="o">+</span> <span class="mi">2</span> <span class="o">*</span> <span class="n">cos</span><span class="p">(</span><span class="n">x</span><span class="o">/</span><span class="mi">4</span><span class="p">),</span> <span class="n">sin</span><span class="p">(</span><span class="n">x</span><span class="p">)</span> <span class="o">-</span> <span class="mi">2</span> <span class="o">*</span> <span class="n">sin</span><span class="p">(</span><span class="n">x</span><span class="o">/</span><span class="mi">4</span><span class="p">)],</span>
+<span class="o">...</span>      <span class="p">(</span><span class="n">x</span><span class="p">,</span><span class="mi">0</span><span class="p">,</span> <span class="mi">8</span><span class="o">*</span><span class="n">pi</span><span class="p">),</span> <span class="n">fill</span> <span class="o">=</span> <span class="bp">True</span><span class="p">,</span> <span class="n">color</span><span class="o">=</span><span class="s">&quot;gold&quot;</span><span class="p">)</span>
+</pre></div>
+</div>
+<img alt="_images/cell_37_sage0.png" class="align-center" src="_images/cell_37_sage0.png" />
+<ul class="simple">
+<li><tt class="docutils literal"><span class="pre">implicit_plot()</span></tt> jako argumenty podajemy funkcje dwóch zmiennych <span class="math">\(f(x,y)\)</span>, dostajemy     wykres <span class="math">\(f(x,y) = 0\)</span></li>
+</ul>
+<p>Możemy  podać  też  równanie,
+bądź  też  narysować  coś  bardziej  ciekawskiego</p>
+<div class="highlight-python"><div class="highlight"><pre><span class="n">sage</span><span class="p">:</span> <span class="n">var</span><span class="p">(</span><span class="s">&quot;x y&quot;</span><span class="p">)</span>
+<span class="n">sage</span><span class="p">:</span> <span class="n">f</span><span class="p">(</span><span class="n">x</span><span class="p">,</span><span class="n">y</span><span class="p">)</span> <span class="o">=</span> <span class="n">x</span><span class="o">^</span><span class="mi">2</span> <span class="o">+</span> <span class="n">y</span><span class="o">^</span><span class="mi">2</span> <span class="o">-</span> <span class="mi">2</span>
+<span class="n">sage</span><span class="p">:</span> <span class="n">implicit_plot</span><span class="p">(</span><span class="n">f</span><span class="p">,</span> <span class="p">(</span><span class="o">-</span><span class="mi">3</span><span class="p">,</span><span class="mi">3</span><span class="p">),</span> <span class="p">(</span><span class="o">-</span><span class="mi">3</span><span class="p">,</span><span class="mi">3</span><span class="p">),</span> <span class="n">linestyle</span><span class="o">=</span><span class="s">&#39;dashdot&#39;</span><span class="p">)</span>
+</pre></div>
+</div>
+<img alt="_images/cell_39_sage01.png" class="align-center" src="_images/cell_39_sage01.png" />
+<div class="highlight-python"><div class="highlight"><pre><span class="n">sage</span><span class="p">:</span> <span class="n">var</span><span class="p">(</span><span class="s">&quot;x y&quot;</span><span class="p">)</span>
+<span class="n">sage</span><span class="p">:</span> <span class="n">implicit_plot</span><span class="p">(</span><span class="n">y</span><span class="o">^</span><span class="mi">2</span><span class="o">+</span><span class="n">sin</span><span class="p">(</span><span class="n">x</span><span class="o">^</span><span class="mi">2</span><span class="p">)</span> <span class="o">==</span> <span class="mi">2</span><span class="p">,</span> <span class="p">(</span><span class="n">x</span><span class="p">,</span><span class="o">-</span><span class="mi">3</span><span class="p">,</span><span class="mi">3</span><span class="p">),</span> <span class="p">(</span><span class="n">y</span><span class="p">,</span><span class="o">-</span><span class="mi">3</span><span class="p">,</span><span class="mi">3</span><span class="p">),</span>
+<span class="o">...</span>      <span class="n">color</span><span class="o">=</span><span class="s">&quot;steelblue&quot;</span><span class="p">)</span>
+</pre></div>
+</div>
+<img alt="_images/cell_40_sage0.png" class="align-center" src="_images/cell_40_sage0.png" />
+<div class="highlight-python"><div class="highlight"><pre><span class="n">sage</span><span class="p">:</span> <span class="n">G</span> <span class="o">=</span> <span class="n">Graphics</span><span class="p">()</span>
+<span class="n">sage</span><span class="p">:</span> <span class="n">counter</span> <span class="o">=</span> <span class="mi">0</span>
+<span class="n">sage</span><span class="p">:</span> <span class="k">for</span> <span class="n">col</span> <span class="ow">in</span> <span class="n">colors</span><span class="o">.</span><span class="n">keys</span><span class="p">():</span>
+<span class="o">...</span>          <span class="n">G</span> <span class="o">+=</span> <span class="n">implicit_plot</span><span class="p">(</span><span class="n">x</span><span class="o">^</span><span class="mi">2</span><span class="o">+</span><span class="n">y</span><span class="o">^</span><span class="mi">2</span><span class="o">==</span><span class="mi">1</span><span class="o">+</span><span class="n">counter</span><span class="o">*.</span><span class="mi">1</span><span class="p">,</span> <span class="p">(</span><span class="n">x</span><span class="p">,</span><span class="o">-</span><span class="mi">4</span><span class="p">,</span><span class="mi">4</span><span class="p">),(</span><span class="n">y</span><span class="p">,</span><span class="o">-</span><span class="mi">4</span><span class="p">,</span><span class="mi">4</span><span class="p">),</span>
+<span class="o">...</span>      <span class="n">color</span><span class="o">=</span><span class="n">col</span><span class="p">)</span>
+<span class="o">...</span>          <span class="n">counter</span> <span class="o">+=</span> <span class="mi">1</span>
+<span class="n">sage</span><span class="p">:</span> <span class="n">G</span><span class="o">.</span><span class="n">show</span><span class="p">(</span><span class="n">frame</span><span class="o">=</span><span class="bp">False</span><span class="p">)</span>
+</pre></div>
+</div>
+<img alt="_images/cell_41_sage0.png" class="align-center" src="_images/cell_41_sage0.png" />
+<ul class="simple">
+<li><tt class="docutils literal"><span class="pre">polar_plot()</span></tt> przyjmuje funkcję lub listę (krotkę) funkcji i rysuje je we współrzędnych biegunowych</li>
+</ul>
+<div class="highlight-python"><div class="highlight"><pre><span class="n">sage</span><span class="p">:</span> <span class="n">polar_plot</span><span class="p">(</span><span class="n">sqrt</span><span class="p">,</span> <span class="mi">0</span><span class="p">,</span> <span class="mi">2</span> <span class="o">*</span> <span class="n">pi</span><span class="p">,</span> <span class="n">fill</span> <span class="o">=</span> <span class="bp">True</span><span class="p">)</span>
+</pre></div>
+</div>
+<img alt="_images/cell_43_sage0.png" class="align-center" src="_images/cell_43_sage0.png" />
+<ul class="simple">
+<li><tt class="docutils literal"><span class="pre">region_plot()</span></tt> przyjmuje warunek logiczny ograniczający funkcję i rysuje region, gdzie wyrażenie jest prawdziwe</li>
+</ul>
+<div class="highlight-python"><div class="highlight"><pre><span class="n">sage</span><span class="p">:</span> <span class="n">region_plot</span><span class="p">(</span><span class="n">sin</span><span class="p">(</span><span class="n">x</span><span class="p">)</span><span class="o">*</span><span class="n">sin</span><span class="p">(</span><span class="n">y</span><span class="p">)</span> <span class="o">&gt;=</span> <span class="mi">1</span><span class="o">/</span><span class="mi">4</span><span class="p">,</span> <span class="p">(</span><span class="n">x</span><span class="p">,</span><span class="o">-</span><span class="mi">10</span><span class="p">,</span><span class="mi">10</span><span class="p">),</span> <span class="p">(</span><span class="n">y</span><span class="p">,</span><span class="o">-</span><span class="mi">10</span><span class="p">,</span><span class="mi">10</span><span class="p">),</span>
+<span class="o">...</span>      <span class="n">incol</span><span class="o">=</span><span class="s">&#39;yellow&#39;</span><span class="p">,</span> <span class="n">bordercol</span><span class="o">=</span><span class="s">&#39;black&#39;</span><span class="p">,</span> <span class="n">borderstyle</span><span class="o">=</span><span class="s">&#39;dashed&#39;</span><span class="p">,</span>
+<span class="o">...</span>      <span class="n">plot_points</span><span class="o">=</span><span class="mi">250</span><span class="p">)</span>
+</pre></div>
+</div>
+<img alt="_images/cell_45_sage02.png" class="align-center" src="_images/cell_45_sage02.png" />
+<ul class="simple">
+<li><tt class="docutils literal"><span class="pre">scatter_plot()</span></tt> wykres punktów podanych w liście list (krotek)</li>
+</ul>
+<div class="highlight-python"><div class="highlight"><pre><span class="n">sage</span><span class="p">:</span> <span class="n">scatter_plot</span><span class="p">([[</span><span class="mi">0</span><span class="p">,</span><span class="mi">1</span><span class="p">],[</span><span class="mi">2</span><span class="p">,</span><span class="mi">2</span><span class="p">],[</span><span class="mf">4.3</span><span class="p">,</span><span class="mf">1.1</span><span class="p">]],</span> <span class="n">marker</span><span class="o">=</span><span class="s">&#39;s&#39;</span><span class="p">,</span> <span class="n">markersize</span><span class="o">=</span><span class="mi">100</span><span class="p">,</span>
+<span class="o">...</span>      <span class="n">facecolor</span><span class="o">=</span><span class="s">&#39;green&#39;</span><span class="p">)</span>
+</pre></div>
+</div>
+<img alt="_images/cell_47_sage01.png" class="align-center" src="_images/cell_47_sage01.png" />
+<ul class="simple">
+<li><tt class="docutils literal"><span class="pre">bar_chart()</span></tt> to wykres słupkowy</li>
+<li><tt class="docutils literal"><span class="pre">contour_plot()</span></tt> to wykres konturowy</li>
+<li><tt class="docutils literal"><span class="pre">density_plot()</span></tt> wykres ”gęstości”, jako argumenty podajemy funkcje dwóch zmiennych <span class="math">\(f(x,y)\)</span>, dostajemy płaski wykres wartości tej funkcji</li>
+</ul>
+<div class="highlight-python"><div class="highlight"><pre><span class="n">sage</span><span class="p">:</span> <span class="n">density_plot</span><span class="p">(</span><span class="n">sin</span><span class="p">(</span><span class="n">x</span><span class="o">^</span><span class="mi">2</span> <span class="o">+</span> <span class="n">y</span><span class="o">^</span><span class="mi">2</span><span class="p">)</span><span class="o">*</span><span class="n">cos</span><span class="p">(</span><span class="n">x</span><span class="p">)</span><span class="o">*</span><span class="n">sin</span><span class="p">(</span><span class="n">y</span><span class="p">),</span> <span class="p">(</span><span class="n">x</span><span class="p">,</span> <span class="o">-</span><span class="mi">4</span><span class="p">,</span> <span class="mi">4</span><span class="p">),</span> <span class="p">(</span><span class="n">y</span><span class="p">,</span> <span class="o">-</span><span class="mi">4</span><span class="p">,</span> <span class="mi">4</span><span class="p">),</span>
+<span class="o">...</span>      <span class="n">cmap</span><span class="o">=</span><span class="s">&#39;jet&#39;</span><span class="p">,</span> <span class="n">plot_points</span><span class="o">=</span><span class="mi">100</span><span class="p">)</span>
+</pre></div>
+</div>
+<img alt="_images/cell_49_sage0.png" class="align-center" src="_images/cell_49_sage0.png" />
+<ul class="simple">
+<li><tt class="docutils literal"><span class="pre">plot_vector_field()</span></tt> rysuje pole wektorowe, podajemy 2 funkcje dwóch różnych zmiennych  <span class="math">\(f(x),s(y)\)</span></li>
+</ul>
+<div class="highlight-python"><div class="highlight"><pre><span class="n">sage</span><span class="p">:</span> <span class="n">f</span> <span class="o">=</span> <span class="n">exp</span><span class="p">(</span><span class="o">-</span><span class="p">(</span><span class="n">x</span><span class="o">^</span><span class="mi">2</span><span class="o">+</span><span class="n">y</span><span class="o">^</span><span class="mi">2</span><span class="p">))</span>
+<span class="n">sage</span><span class="p">:</span> <span class="n">plot_vector_field</span><span class="p">(</span><span class="n">f</span><span class="o">.</span><span class="n">gradient</span><span class="p">(),</span> <span class="p">(</span><span class="n">x</span><span class="p">,</span><span class="o">-</span><span class="mi">2</span><span class="p">,</span><span class="mi">2</span><span class="p">),</span> <span class="p">(</span><span class="n">y</span><span class="p">,</span><span class="o">-</span><span class="mi">2</span><span class="p">,</span><span class="mi">2</span><span class="p">),</span>
+<span class="o">...</span>      <span class="n">color</span><span class="o">=</span><span class="s">&#39;darkorchid&#39;</span><span class="p">)</span>
+</pre></div>
+</div>
+<img alt="_images/cell_51_sage0.png" class="align-center" src="_images/cell_51_sage0.png" />
+<ul class="simple">
+<li><tt class="docutils literal"><span class="pre">matrix_plot()</span></tt> możemy zwizualizować sobie macierz (domyślnie w skali szarości)</li>
+</ul>
+<div class="highlight-python"><div class="highlight"><pre><span class="n">sage</span><span class="p">:</span> <span class="n">matrix_plot</span><span class="p">(</span><span class="n">matrix</span><span class="p">([[</span><span class="mi">1</span><span class="p">,</span><span class="mi">3</span><span class="p">,</span><span class="mi">5</span><span class="p">,</span><span class="mi">1</span><span class="p">],[</span><span class="mi">2</span><span class="p">,</span><span class="mi">4</span><span class="p">,</span><span class="mi">5</span><span class="p">,</span><span class="mi">6</span><span class="p">],[</span><span class="mi">1</span><span class="p">,</span><span class="mi">3</span><span class="p">,</span><span class="mi">5</span><span class="p">,</span><span class="mi">7</span><span class="p">]]))</span>
+</pre></div>
+</div>
+<img alt="_images/cell_53_sage0.png" class="align-center" src="_images/cell_53_sage0.png" />
+<ul class="simple">
+<li><tt class="docutils literal"><span class="pre">graphics_array()</span></tt> macierz grafik, dzięki tej funkcji możemy wykresy przedstawiać obok siebie, w jednym obiekcie, funkcja  przyjmuje listę lub krotkę obiektów graficznych (jakichkolwiek powyższych wykresów) i rysuje je razem w żądanym układzie</li>
+</ul>
+<div class="highlight-python"><div class="highlight"><pre><span class="n">sage</span><span class="p">:</span> <span class="n">p</span><span class="p">(</span><span class="n">x</span><span class="p">)</span> <span class="o">=</span> <span class="mi">40</span> <span class="o">*</span> <span class="n">e</span><span class="o">^</span><span class="p">(</span><span class="o">-</span><span class="n">pi</span><span class="o">*</span><span class="n">x</span><span class="p">)</span> <span class="o">*</span> <span class="n">sin</span><span class="p">(</span><span class="mi">3</span><span class="o">*</span><span class="n">pi</span><span class="o">*</span><span class="n">x</span><span class="p">)</span>
+<span class="n">sage</span><span class="p">:</span> <span class="n">r</span><span class="p">(</span><span class="n">x</span><span class="p">)</span> <span class="o">=</span> <span class="mi">40</span> <span class="o">*</span> <span class="n">e</span><span class="o">^</span><span class="p">(</span><span class="o">-</span><span class="n">pi</span><span class="o">*</span><span class="n">x</span><span class="p">)</span> <span class="o">*</span> <span class="n">cos</span><span class="p">(</span><span class="mi">3</span><span class="o">*</span><span class="n">pi</span><span class="o">*</span><span class="n">x</span><span class="p">)</span>
+<span class="n">sage</span><span class="p">:</span> <span class="n">h</span><span class="p">(</span><span class="n">x</span><span class="p">)</span> <span class="o">=</span> <span class="p">(</span><span class="n">p</span> <span class="o">-</span> <span class="n">r</span><span class="p">)</span>
+<span class="n">sage</span><span class="p">:</span> <span class="n">p1</span> <span class="o">=</span> <span class="n">plot</span><span class="p">(</span><span class="n">p</span><span class="p">,(</span><span class="mi">0</span><span class="p">,</span><span class="mi">2</span><span class="p">),</span><span class="n">color</span><span class="o">=</span><span class="n">hue</span><span class="p">(</span><span class="mf">0.3</span><span class="p">))</span>
+<span class="n">sage</span><span class="p">:</span> <span class="n">p2</span> <span class="o">=</span> <span class="n">plot</span><span class="p">(</span><span class="n">r</span><span class="p">,(</span><span class="mi">0</span><span class="p">,</span><span class="mi">2</span><span class="p">),</span><span class="n">color</span><span class="o">=</span><span class="n">hue</span><span class="p">(</span><span class="mf">0.6</span><span class="p">))</span>
+<span class="n">sage</span><span class="p">:</span> <span class="n">p3</span> <span class="o">=</span> <span class="n">plot</span><span class="p">(</span><span class="n">h</span><span class="p">,(</span><span class="mi">0</span><span class="p">,</span><span class="mi">2</span><span class="p">),</span><span class="n">color</span><span class="o">=</span><span class="n">hue</span><span class="p">(</span><span class="mf">0.9</span><span class="p">))</span>
+<span class="n">sage</span><span class="p">:</span> <span class="n">p4</span> <span class="o">=</span> <span class="n">parametric_plot</span><span class="p">((</span><span class="n">p</span><span class="p">,</span><span class="n">h</span><span class="p">),(</span><span class="mi">0</span><span class="p">,</span><span class="mi">2</span><span class="o">*</span><span class="n">pi</span><span class="p">),</span><span class="n">color</span><span class="o">=</span><span class="n">hue</span><span class="p">(</span><span class="mf">0.1</span><span class="p">))</span>
+<span class="n">sage</span><span class="p">:</span> <span class="n">p5</span> <span class="o">=</span> <span class="n">parametric_plot</span><span class="p">((</span><span class="n">r</span><span class="p">,</span><span class="n">h</span><span class="p">),(</span><span class="mi">0</span><span class="p">,</span><span class="mi">2</span><span class="o">*</span><span class="n">pi</span><span class="p">),</span><span class="n">color</span><span class="o">=</span><span class="n">hue</span><span class="p">(</span><span class="mf">0.5</span><span class="p">))</span>
+<span class="n">sage</span><span class="p">:</span> <span class="n">p6</span> <span class="o">=</span> <span class="n">parametric_plot</span><span class="p">((</span><span class="n">r</span><span class="p">,</span><span class="n">p</span><span class="p">),(</span><span class="mi">0</span><span class="p">,</span><span class="mi">2</span><span class="o">*</span><span class="n">pi</span><span class="p">),</span><span class="n">color</span><span class="o">=</span><span class="n">hue</span><span class="p">(</span><span class="mf">1.0</span><span class="p">))</span>
+<span class="n">sage</span><span class="p">:</span> <span class="n">ga</span> <span class="o">=</span> <span class="n">graphics_array</span><span class="p">(((</span><span class="n">p1</span><span class="p">,</span><span class="n">p2</span><span class="p">,</span><span class="n">p3</span><span class="p">),(</span><span class="n">p4</span><span class="p">,</span><span class="n">p5</span><span class="p">,</span><span class="n">p6</span><span class="p">)))</span>
+<span class="n">sage</span><span class="p">:</span> <span class="n">ga</span><span class="o">.</span><span class="n">show</span><span class="p">()</span>
+</pre></div>
+</div>
+<img alt="_images/sage0.png" class="align-center" src="_images/sage0.png" />
+</div>
+<div class="section" id="kolka-krzywe-zamkniete-strzalki-i-inne">
+<h3>Kółka, krzywe zamknięte, strzałki i inne<a class="headerlink" href="iCSE_ITechninf04_z78.html#kolka-krzywe-zamkniete-strzalki-i-inne" title="Stały odnośnik do tego nagłówka">¶</a></h3>
+<p>Sage posiada również spore możliwości rysowania dowolnych obiektów znanych z geometrii. W zasadzie nie ma obiektu, którego z ich użyciem nie da się narysować. Na samym początku widzieliśmy bałwanka zrobionego na samych kółkach.</p>
+<ul class="simple">
+<li><tt class="docutils literal"><span class="pre">arrow()</span></tt> - rysuje strzałkę.</li>
+<li><tt class="docutils literal"><span class="pre">circle()</span></tt> - rysuje koło o zadanym środku i promieniu</li>
+<li><tt class="docutils literal"><span class="pre">ellipse()</span></tt> - rysuje elipsę o zadanym środku i promieniach</li>
+<li><tt class="docutils literal"><span class="pre">arc()</span></tt> - wycinek koła lub elipsy</li>
+<li><tt class="docutils literal"><span class="pre">disk()</span></tt> - wypełniony dysk</li>
+<li><tt class="docutils literal"><span class="pre">line()</span></tt> - rysuje linię bazując na liście punktów</li>
+<li><tt class="docutils literal"><span class="pre">point()</span></tt> - rysuje punkt</li>
+<li><tt class="docutils literal"><span class="pre">text()</span></tt> - wstawia tekst</li>
+<li><tt class="docutils literal"><span class="pre">polygon()</span></tt> - rysuje wypełnioną zamkniętą krzywą</li>
+</ul>
+</div>
+</div>
+<div class="section" id="zadania">
+<h2>Zadania<a class="headerlink" href="iCSE_ITechninf04_z78.html#zadania" title="Stały odnośnik do tego nagłówka">¶</a></h2>
+<p><strong>Zadanie 2: Narysuj krzywe</strong></p>
+<p>czas: 30 min.</p>
+<p>Narysuj:</p>
+<ul class="simple">
+<li>ewolwentę</li>
+<li>cykloidę</li>
+<li>brachistochronę</li>
+<li>hiperbolę</li>
+<li>hipocykloidę</li>
+<li>lemniskatę Bernoulliego (we współrzędnych kartezjańskich i biegunowych)</li>
+</ul>
+<p><strong>Zadanie 3: Dopasowanie</strong></p>
+<p>czas: 10 min.</p>
+<p>Do podanych punktów dopasuj krzywą (m/w).</p>
+<p><tt class="docutils literal"><span class="pre">l</span> <span class="pre">=</span> <span class="pre">[0,</span> <span class="pre">0.8,</span> <span class="pre">0.079,</span> <span class="pre">4.8,</span> <span class="pre">12.,</span> <span class="pre">18.51,</span> <span class="pre">23.,</span> <span class="pre">31.,</span> <span class="pre">48.,</span> <span class="pre">81.]</span></tt></p>
+<p><strong>Zadanie 4: Ruch balistyczny</strong></p>
+<p>czas: 20 - 40 min.</p>
+<p>Narysuj tor lotu pocisku artyleryjskiego o kalibrze 155 mm wystrzelonej z armaty ustawionej pod kątem   <span class="math">\(\alpha = \pi/3\)</span> w stosunku do ziemi i z prędkością początkową <span class="math">\({v}_{0} = 800\)</span> m/s. Wysokość końca lufy to 1 m.</p>
+<p><strong>wersja łatwa</strong>: bez oporu powietrza</p>
+<p><strong>wersja trudna</strong>: z oporem powietrza</p>
+<div class="section" id="zadania-domowe">
+<h3>Zadania domowe<a class="headerlink" href="iCSE_ITechninf04_z78.html#zadania-domowe" title="Stały odnośnik do tego nagłówka">¶</a></h3>
+<p>Stwórz notatnik ’Zadania domowe L06, Imię Nazwisko’. W tym notatniku rozwiąż poniższe zadania. Postaraj się jasno opisać jakie zadanie rozwiązujesz oraz metodykę rozwiązania tego zadania. Notatnik uwspólnij (tylko) z prowadzącym ćwiczenia.</p>
+<p><strong>Zadanie ZD6.1: Równanie Batmana</strong></p>
+<p>czas: – min.</p>
+<p>Stwórz poniższy znaczek Batmana używając funkcji <tt class="docutils literal"><span class="pre">implicit_plot()</span></tt></p>
+<img alt="_images/zd61.png" class="align-center" src="_images/zd61.png" />
+<p><strong>Zadanie ZD6.2: myzip()</strong></p>
+<p>czas: – min.</p>
+<p>Zdefiniuj swoją własną funkcję <tt class="docutils literal"><span class="pre">myzip()</span></tt> działającą dokładnie jak funkcja <tt class="docutils literal"><span class="pre">zip()</span></tt>.</p>
+<p><strong>Wersja normalna</strong> tylko dla dwóch list</p>
+<p><strong>Wersja trudna (dla odważnych)</strong> dla dowolnej liczby list</p>
+<p><strong>Zadanie ZD6.3: Krzywe Lissajous</strong></p>
+<p>czas: – min.</p>
+<p>Są to parametryczne krzywe opisujące drgania harmoniczne. Narysuj 9 różnych krzywych na jednym obrazku za  pomocą macierzy grafik. Każda krzywa ma mieć inny kolor, musi być opisana (na każdym obrazku muszą być      podane wszystkie parametry krzywej). Osie X i Y mają zostać wyłączone, krzywe powinny być obrysowane      ramką.</p>
+<p><strong>Zadanie ZD6.4: Metoda Newtona</strong></p>
+<p>czas: – min.</p>
+<p>Jest to iteracyjny algorytm wyznaczania przybliżonej wartości pierwiastka funkcji. Wygeneruj rysunek ilustrujący tą metodę (patrz: <a class="reference external" href="http://pl.wikipedia.org/wiki/Metoda_Newtona">wiki</a>).</p>
+</div>
+</div>
+</div>
+
+
+          </div>
+        </div>
+      </div>
+      <div class="sphinxsidebar">
+        <div class="sphinxsidebarwrapper">
+  <div class="sphinxlocaltoc">
+  <h3><a href="index.html">Spis treści</a></h3>
+  <ul>
+<li><a class="reference internal" href="iCSE_ITechninf04_z78.html#">Wykresy</a><ul>
+<li><a class="reference internal" href="iCSE_ITechninf04_z78.html#wykresy-funkcji">Wykresy funkcji</a><ul>
+<li><a class="reference internal" href="iCSE_ITechninf04_z78.html#funkcje-plot-i-show">Funkcje plot() i show()</a><ul>
+<li><a class="reference internal" href="iCSE_ITechninf04_z78.html#plot">plot()</a></li>
+<li><a class="reference internal" href="iCSE_ITechninf04_z78.html#show">show()</a></li>
+</ul>
+</li>
+<li><a class="reference internal" href="iCSE_ITechninf04_z78.html#jak-wyglada-lista">Jak wygląda lista?</a></li>
+<li><a class="reference internal" href="iCSE_ITechninf04_z78.html#inne-typy-wykresow">Inne typy wykresów</a></li>
+<li><a class="reference internal" href="iCSE_ITechninf04_z78.html#kolka-krzywe-zamkniete-strzalki-i-inne">Kółka, krzywe zamknięte, strzałki i inne</a></li>
+</ul>
+</li>
+<li><a class="reference internal" href="iCSE_ITechninf04_z78.html#zadania">Zadania</a><ul>
+<li><a class="reference internal" href="iCSE_ITechninf04_z78.html#zadania-domowe">Zadania domowe</a></li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+
+  </div>
+  <h4>Poprzedni temat</h4>
+  <p class="topless"><a href="iCSE_ITechninf01_z6.html"
+                        title="poprzedni rozdział">Środowisko Sage</a></p>
+  <h4>Następny temat</h4>
+  <p class="topless"><a href="iCSE_ITechninf05_z80_mechanika.html"
+                        title="następny rozdział">Zadania z fizyki</a></p>
+<div id="searchbox" style="display: none">
+  <h3>Szybkie wyszukiwanie</h3>
+    <form class="search" action="http://visual.icse.us.edu.pl/Warsztaty/search.html" method="get">
+      <input type="text" name="q" />
+      <input type="submit" value="Szukaj" />
+      <input type="hidden" name="check_keywords" value="yes" />
+      <input type="hidden" name="area" value="default" />
+    </form>
+    <p class="searchtip" style="font-size: 90%">
+    Wprowadź szukany termin lub nazwę modułu, klasy lub funkcji.
+    </p>
+</div>
+<script type="text/javascript">$('#searchbox').show(0);</script>
+        </div>
+      </div>
+      <div class="clearer"></div>
+    </div>
+  </div>
+  <div class="relbar-bottom">
+    
+    <div class="related">
+      <h3>Nawigacja</h3>
+      <ul>
+        <li class="right" style="margin-right: 10px">
+          <a href="iCSE_ITechninf05_z80_mechanika.html" title="Zadania z fizyki"
+             >dalej</a></li>
+        <li class="right" >
+          <a href="iCSE_ITechninf01_z6.html" title="Środowisko Sage"
+             >wstecz</a> &nbsp; &nbsp;</li>
+  <li><a href="index.html">Warsztaty</a> &raquo;</li>
+  
+          <li><a href="sagewfizyce.html" >&lt;no title&gt;</a> &raquo;</li> 
+      </ul>
+    </div>
+  </div>
+  
+  <div class="footer">
+    <a class="logo" href="../../icse.us.edu.pl/index.html" target="_blank"><img src="_static/logo-icse.png" alt="ICSE"/></a><br/>
+    &copy; Copyright 2013, CubeProject.
+    Created using <a href="http://sphinx.pocoo.org/">Sphinx</a> 1.2.2.
+  </div>
+  </body>
+</html>

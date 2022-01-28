@@ -1,0 +1,336 @@
+
+
+  <!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+  "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+
+
+<html xmlns="http://www.w3.org/1999/xhtml">
+  <head>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    
+    <title>Problem własny operatora liniowego &mdash; Algebra Liniowa</title>
+    
+    <link rel="stylesheet" href="_static/cloud.css" type="text/css" />
+    <link rel="stylesheet" href="_static/pygments.css" type="text/css" />
+    <link rel="stylesheet" href="http://fonts.googleapis.com/css?family=Noticia+Text|Open+Sans|Droid+Sans+Mono&subset=latin,latin-ext" type="text/css" />
+    
+    <script type="text/javascript">
+      var DOCUMENTATION_OPTIONS = {
+        URL_ROOT:    './',
+        VERSION:     'I',
+        COLLAPSE_INDEX: false,
+        FILE_SUFFIX: '.html',
+        HAS_SOURCE:  true
+      };
+    </script>
+    <script type="text/javascript" src="_static/jquery.js"></script>
+    <script type="text/javascript" src="_static/underscore.js"></script>
+    <script type="text/javascript" src="_static/doctools.js"></script>
+    <script type="text/javascript" src="_static/translations.js"></script>
+    <script type="text/javascript" src="http://cdn.mathjax.org/mathjax/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML"></script>
+    <script type="text/javascript" src="_static/jquery.cookie.js"></script>
+    <script type="text/javascript" src="_static/cloud.js"></script>
+
+	<script src="http://sagecell.icse.us.edu.pl:6363/static/jquery.min.js"></script>
+	<script src="http://sagecell.icse.us.edu.pl:6363/static/embedded_sagecell.js"></script>
+
+	<!-- <script src="http://sagecell.sagemath.org/static/jquery.min.js"></script> -->
+	<!-- <script src="http://sagecell.sagemath.org/static/embedded_sagecell.js"></script> -->
+
+	<script>sagecell.makeSagecell({inputLocation: ".sage",
+                                       evalButtonText: 'Wykonaj',
+                                       linked: true});</script>
+
+	<style type="text/css">
+		.sagecell .CodeMirror-scroll {
+			overflow-y: hidden;
+			overflow-x: auto;
+		}
+		.sagecell .CodeMirror {
+			height: auto;
+		}
+	</style>
+
+    
+    <link rel="top" title="Algebra Liniowa" href="http://visual.icse.us.edu.pl/LA/index.html" />
+    <link rel="next" title="Przykłady problemów własnych" href="problem_wlasny_przyklady.html" />
+    <link rel="prev" title="Zadania" href="przeksztalcenia_lin_zadania.html" />
+ 
+  <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, minimum-scale=1">
+  </head>
+  <body>
+  <div class="relbar-top">
+    
+    <div class="related">
+      <h3>Nawigacja</h3>
+      <ul>
+        <li class="right" style="margin-right: 10px">
+          <a href="problem_wlasny_przyklady.html" title="Przykłady problemów własnych"
+             accesskey="N">dalej</a></li>
+        <li class="right" >
+          <a href="przeksztalcenia_lin_zadania.html" title="Zadania"
+             accesskey="P">wstecz</a> &nbsp; &nbsp;</li>
+  <li><a href="http://visual.icse.us.edu.pl/LA/index.html">Algebra Liniowa</a> &raquo;</li>
+   
+      </ul>
+    </div>
+  </div>
+  
+  <div class="content">  
+
+    <div class="document">
+      <div class="documentwrapper">
+        <div class="bodywrapper">
+          <div class="body">
+            
+  <div class="section" id="problem-wlasny-operatora-liniowego">
+<h1>Problem własny operatora liniowego<a class="headerlink" href="problem_wlasny_definicja.html#problem-wlasny-operatora-liniowego" title="Stały odnośnik do tego nagłówka">¶</a></h1>
+<div class="admonition-definicja admonition">
+<p class="first admonition-title">Definicja.</p>
+<p>Niech <span class="math">\(\,F\ \)</span> będzie operatorem liniowym określonym na przestrzeni wektorowej
+<span class="math">\(\,V(K)\,.\ \,\)</span>
+Jeżeli dla pewnego wektora <span class="math">\(\,v\in V\!\smallsetminus\!\{\theta\}\ \)</span>
+i <span class="math">\(\,\)</span> pewnej liczby <span class="math">\(\,\lambda\in K\ \)</span> zachodzi równość</p>
+<div class="math" id="equation-eigen_eq">
+<span class="eqno">(1)</span>\[Fv=\lambda\, v\,,\]</div>
+<p>to <span class="math">\(\,\lambda\ \)</span> jest <em>wartością własną</em> operatora <span class="math">\(\,F,\ \)</span>
+a <span class="math">\(\ \,v\,\)</span> - <span class="math">\(\,\)</span> <em>wektorem własnym</em> operatora <span class="math">\(\,F\ \)</span>
+należącym do wartości własnej <span class="math">\(\,\lambda\ \)</span>
+(wektorem własnym dla wartości <span class="math">\(\,\lambda\)</span>).</p>
+<p class="last">Wzór <a href="problem_wlasny_definicja.html#equation-eigen_eq">(1)</a> przedstawia <span class="math">\(\,\)</span> <em>równanie własne</em> <span class="math">\(\,\)</span> (<em>problem własny</em>)
+<span class="math">\(\,\)</span> operatora liniowego <span class="math">\(\,F\,.\)</span></p>
+</div>
+<p><strong>Uwagi i komentarze.</strong></p>
+<ul class="simple">
+<li>Wektor zerowy <span class="math">\(\,\theta\ \)</span> jest z założenia wykluczony ze zbioru wektorów własnych,
+chociaż spełnia warunek <a href="problem_wlasny_definicja.html#equation-eigen_eq">(1)</a> z dowolną wartością <span class="math">\(\,\lambda.\ \)</span>
+Natomiast wartość własna <span class="math">\(\,\lambda\ \)</span> może być równa <span class="math">\(\,0.\ \)</span>
+Jeżeli <span class="math">\(\,0\ \)</span> jest wartością własną operatora <span class="math">\(\,F,\ \)</span>
+to zbiór wszystkich wektorów własnych dla tej wartości, uzupełniony wektorem zerowym,
+jest jądrem operatora <span class="math">\(\,F.\)</span></li>
+<li>Działanie operatora <span class="math">\(\,F\ \)</span> na jego wektor własny <span class="math">\(\,v\ \)</span>
+sprowadza się do pomnożenia go przez liczbę.
+Gdy <span class="math">\(\,V\ \)</span> jest przestrzenią wektorów geometrycznych, oznacza to
+że operator <span class="math">\(\,F\ \)</span> działając na wektor <span class="math">\(\,v\ \)</span>
+nie zmienia jego kierunku (może zmienić długość lub zwrot).</li>
+<li>W mechanice kwantowej wielkości fizyczne mierzalne w układzie kwantowym (obserwable)
+są reprezentowane przez hermitowskie operatory liniowe określone na unitarnej
+przestrzeni stanów układu. Jeżeli operator <span class="math">\(\,F\ \)</span> przedstawia obserwablę
+<span class="math">\(\,\mathcal{F},\ \)</span> to jego wartości własne są możliwymi wynikami pomiaru
+tej obserwabli. Hermitowskość operatora <span class="math">\(\,F\ \)</span> gwarantuje, że tak obliczone
+wyniki pomiaru są liczbami rzeczywistymi.</li>
+</ul>
+<p>Rozwiązanie problemu własnego <a href="problem_wlasny_definicja.html#equation-eigen_eq">(1)</a> operatora <span class="math">\(\,F\ \)</span>
+polega na wyznaczeniu wszystkich możliwych wartości własnych <span class="math">\(\,\lambda\ \)</span>
+oraz odpowiednich wektorów własnych <span class="math">\(\,v\ \)</span> dla tych wartości.</p>
+<p>Wprowadźmy bazę <span class="math">\(\,\mathcal{B}\ \)</span> w <span class="math">\(\,n\)</span>-wymiarowej przestrzeni <span class="math">\(\,V.\ \)</span>
+Wtedy operatorowi <span class="math">\(\,F\ \)</span> odpowiada macierz
+<span class="math">\(\,M_{\mathcal{B}}(F)=\boldsymbol{A}=[\alpha_{ij}]_{n\times n}\in M_n(K)\,,\ \)</span>
+a wektorowi <span class="math">\(\,v\ \)</span> - <span class="math">\(\,\)</span> kolumna jego współrzędnych
+w bazie <span class="math">\(\,\mathcal{B}:\ \ I_{\mathcal{B}}(v)=\boldsymbol{x}\in K^n.\ \)</span>
+Równanie własne można przekształcić następująco:</p>
+<div class="math">
+\[\begin{eqnarray*}
+Fv & = & \lambda\,v\,, \\
+I_{\mathcal{B}}\,(Fv) & = & I_{\mathcal{B}}\,(\lambda\,v)\,, \\
+M_{\mathcal{B}}(F)\cdot I_{\mathcal{B}}(v) & = & \lambda\cdot I_{\mathcal{B}}(v)\,; \\ \\
+\boldsymbol{A}\,\boldsymbol{x} & = & \lambda\:\boldsymbol{x}\,, \\
+\boldsymbol{A}\,\boldsymbol{x} & = & \lambda\ \boldsymbol{I}_n\,\boldsymbol{x}\,, \\
+(\boldsymbol{A}-\lambda\,\boldsymbol{I}_n)\ \boldsymbol{x} & = & \boldsymbol{0}\,.
+\qquad\qquad(\clubsuit)
+\end{eqnarray*}\]</div><p>Ostatnie równanie, w którym <span class="math">\(\,\boldsymbol{I}_n\,\)</span>
+jest macierzą jednostkową stopnia <span class="math">\(\,n,\ \)</span> przedstawia jednorodny problem liniowy o macierzy
+<span class="math">\(\ \boldsymbol{A}-\lambda\,\boldsymbol{I}_n\,.\ \)</span>
+Z teorii układów równań liniowych wiadomo, że niezerowe rozwiązania <span class="math">\(\,\boldsymbol{x}\,\)</span>
+(a takie nas tutaj interesują) istnieją wtedy i tylko wtedy, gdy</p>
+<div class="math" id="equation-char_eqn_1">
+<span class="eqno">(2)</span>\[\begin{split}\det\,(\boldsymbol{A}-\lambda\,\boldsymbol{I}_n)\ \ =\ \
+\left|
+\begin{array}{cccc}
+\alpha_{11}-\lambda &amp; \alpha_{12} &amp; \dots &amp; \alpha_{1n} \\
+\alpha_{21} &amp; \alpha_{22}-\lambda &amp; \dots &amp; \alpha_{2n} \\
+\dots &amp; \dots &amp; \dots &amp; \dots \\
+\alpha_{n1} &amp; \alpha_{n2} &amp; \dots &amp; \alpha_{nn}-\lambda
+\end{array}
+\right|\ \ =\ \ 0\,.\end{split}\]</div>
+<div class="admonition-definicja admonition">
+<p class="first admonition-title">Definicja.</p>
+<p class="last">Niech <span class="math">\(\,\boldsymbol{A},\ \boldsymbol{I}_n\,\in\,M_n(K)\,,\ \)</span>
+gdzie <span class="math">\(\,\boldsymbol{I}_n\ \)</span> jest macierzą jednostkową.
+Wielomian <span class="math">\(\,n\)</span>-tego stopnia
+<span class="math">\(\,w(\lambda)=\det\,(\boldsymbol{A}-\lambda\,\boldsymbol{I}_n)\ \)</span>
+jest <em>wielomianem charakterystycznym</em> macierzy <span class="math">\(\,\boldsymbol{A}\,.\ \)</span>
+Równanie <span class="math">\(\ w(\lambda)=0\ \)</span> jest <em>równaniem charakterystycznym</em>, <span class="math">\(\,\)</span>
+a jego rozwiązania są <span class="math">\(\,\)</span> <em>pierwiastkami charakterystycznymi</em>
+macierzy <span class="math">\(\,\boldsymbol{A}.\)</span></p>
+</div>
+<p>Stwierdziliśmy, że rozwiązania <span class="math">\(\,v\neq\theta\ \)</span> problemu własnego <a href="problem_wlasny_definicja.html#equation-eigen_eq">(1)</a>
+istnieją wtedy i tylko wtedy, gdy <span class="math">\(\,\lambda\ \)</span> jest pierwiastkiem charakterystycznym
+macierzy operatora <span class="math">\(\,F\ \)</span> w pewnej bazie <span class="math">\(\,\mathcal{B}\,.\)</span></p>
+<p>W różnych bazach operator <span class="math">\(\,F\ \)</span> jest jednak reprezentowany przez różne macierze,
+nasuwa się więc pytanie, czy dopuszczalne wartości <span class="math">\(\,\lambda\ \)</span>
+nie zależą od wybranej bazy.</p>
+<p>Okazuje się, że chociaż macierz operatora liniowego zmienia się przy przejściu
+do innej bazy, to wielomian charakterystyczny i jego pierwiastki
+od wyboru bazy nie zależą.</p>
+<p>Rzeczywiście, niech <span class="math">\(\,\mathcal{B}'\ \)</span> będzie inną bazą przestrzeni
+<span class="math">\(\,V\ \ \text{i}\ \ \ \text{niech}\ M_{\mathcal{B}'}(F)=\boldsymbol{A}'\,.\)</span> <span class="math">\(\\\)</span>
+Wtedy <span class="math">\(\,\boldsymbol{A}'=\boldsymbol{S}^{-1}\boldsymbol{A}\,\boldsymbol{S}\,,\ \)</span>
+gdzie <span class="math">\(\,\boldsymbol{S}\ \)</span> jest macierzą przejścia od bazy <span class="math">\(\,\mathcal{B}\ \)</span>
+do bazy <span class="math">\(\,\mathcal{B}'\,.\ \)</span> Ponadto</p>
+<div class="math">
+\[\begin{split}\begin{array}{rll}
+\det\,(\boldsymbol{A}'-\lambda\,\boldsymbol{I}_n)
+&amp; =\quad\det\,(\boldsymbol{S}^{-1}\boldsymbol{A}\,\boldsymbol{S}-
+\lambda\ \boldsymbol{S}^{-1}\boldsymbol{I}_n\,\boldsymbol{S})\ \ = &amp;
+\\ \\
+&amp; =\quad\det\,\left[\,\boldsymbol{S}^{-1}\,
+(\boldsymbol{A}-\lambda\,\boldsymbol{I}_n)\
+\boldsymbol{S}\,\right]\ \ = &amp;
+\\ \\
+&amp; =\quad\det\,(\boldsymbol{S}^{-1})\,\cdot\,
+\det\,(\boldsymbol{A}-\lambda\,\boldsymbol{I}_n)\,\cdot\,
+\det\,\boldsymbol{S}\ \ = &amp;
+\\ \\
+&amp; =\quad(\det\,\boldsymbol{S})^{-1}\,\cdot\,
+\det\,(\boldsymbol{A}-\lambda\,\boldsymbol{I}_n)\,\cdot\,
+\det\,\boldsymbol{S}\ \ = &amp;
+\det\,(\boldsymbol{A}-\lambda\,\boldsymbol{I}_n)\,.
+\end{array}\end{split}\]</div>
+<p>Z dotychczasowych rozważań wynika</p>
+<div class="admonition-wniosek admonition">
+<p class="first admonition-title">Wniosek.</p>
+<p class="last">Jeżeli <span class="math">\(\,V\ \)</span> jest skończenie wymiarową przestrzenią wektorową,
+to wartości własne operatora liniowego <span class="math">\(\,F\in\text{End}(V)\ \)</span>
+są pierwiastkami charakterystycznymi macierzy tego operatora
+w dowolnej bazie przestrzeni <span class="math">\(\,V\,.\)</span></p>
+</div>
+<p>Kwestię rozwiązalności problemu własnego porusza</p>
+<div class="admonition-twierdzenie-1 admonition">
+<p class="first admonition-title">Twierdzenie 1.</p>
+<p class="last">Każdy operator liniowy określony na skończenie wymiarowej
+zespolonej przestrzeni wektorowej ma wektory własne.</p>
+</div>
+<p>Wynika to z <em>zasadniczego twierdzenia algebry</em>, według którego
+każdy wielomian dodatniego stopnia o współczynnikach zespolonych
+ma pierwiastek w ciele liczb zespolonych.</p>
+<p>Jeżeli więc <span class="math">\(\,K=C\,,\ \)</span>
+to równanie charakterystyczne <a href="problem_wlasny_definicja.html#equation-char_eqn_1">(2)</a> ma pierwiastek zespolony <span class="math">\(\,\lambda_0\,,\ \)</span>
+który podstawiony do równania (<span class="math">\(\clubsuit\)</span>) wyznacza odpowiedni wektor własny
+(faktycznie: co najmniej 1-wymiarową podprzestrzeń wektorów własnych).</p>
+<p>Twierdzenie 1. nie stosuje się do przestrzeni rzeczywistych. Dla przykładu rozważmy
+operator obrotu o kąt <span class="math">\(\,\phi\neq k\pi,\ k\in Z\,,\ \)</span>
+określony w (rzeczywistej) przestrzeni wektorów geometrycznych
+zaczepionych w początku układu współrzędnych płaszczyzny.
+Operator ten zmienia kierunek każdego niezerowego wektora, nie ma więc wektorów własnych.</p>
+<p>Gdy <span class="math">\(\,V\ \)</span> jest <span class="math">\(\,n\)</span>-wymiarową przestrzenią zespoloną,
+to wielomian charakterystyczny <span class="math">\(\,w(\lambda)\ \)</span>
+operatora liniowego <span class="math">\(\,F\in\text{End}(V)\ \)</span>
+ma <span class="math">\(\,n\ \)</span> (niekoniecznie różnych) pierwiastków:</p>
+<div class="math" id="equation-prod">
+<span class="eqno">(3)</span>\[w(\lambda)\,=\,\alpha_0\,(\lambda-\lambda_1)^{k_1}\,(\lambda-\lambda_2)^{k_2}\,\ldots\,
+               (\lambda-\lambda_r)^{k_r}\,,\qquad
+k_1+\,k_2\,+\ldots\,+k_r=\,n\]</div>
+<p>(w przypadku przestrzeni rzeczywistej: <span class="math">\(\,K=R,\ \)</span>
+w rozkładzie <a href="problem_wlasny_definicja.html#equation-prod">(3)</a> mogą wystąpić trójmiany kwadratowe
+<span class="math">\(\,\lambda^2+p\,\lambda+q\ \)</span> z ujemnym wyróżnikiem <span class="math">\(\,\Delta\)</span>).
+Wykładnik <span class="math">\(\,k_i\ \)</span> jest krotnością pierwiastka <span class="math">\(\,\lambda_i\ \)</span>
+wielomianu <span class="math">\(\,w(\lambda)\ \)</span> i <span class="math">\(\,\)</span> jednocześnie <em>krotnością algebraiczną</em>
+wartości własnej <span class="math">\(\,\lambda_i\ \)</span> operatora <span class="math">\(\,F\,.\)</span>
+Natomiast <em>krotnością geometryczną</em> (<em>krotnością zwyrodnienia</em>)
+wartości własnej <span class="math">\(\,\lambda_i\ \)</span> jest z definicji
+liczba liniowo niezależnych wektorów własnych należących do tej wartości.</p>
+<p>Zauważmy, że jeżeli
+<span class="math">\(\ \ Fv_1=\lambda\,v_1\,,\ \ Fv_2=\lambda\,v_2\,,\quad
+v_1,v_2\in V\!\smallsetminus\!\{\theta\}\,,\ \,\)</span>
+to dla <span class="math">\(\ \ \alpha_1,\alpha_2\in K:\)</span></p>
+<div class="math">
+\[\begin{split}\begin{array}{ccccc}
+F\,(\alpha_1\,v_1+\alpha_2\,v_2) &amp; = &amp; \alpha_1\,Fv_1+\alpha_2\,Fv_2 &amp; = &amp; \\
+                            &amp; = &amp; \alpha_1\,\lambda\,v_1+\alpha_2\,\lambda\,v_2 &amp; = &amp;
+\lambda\ (\alpha_1\,v_1+\alpha_2\,v_2)\,.
+\end{array}\end{split}\]</div>
+<p>Tak więc każda (różna od wektora zerowego) kombinacja liniowa wektorów własnych <span class="math">\(\\\)</span>
+należących do wartości własnej <span class="math">\(\,\lambda\ \)</span> jest również wektorem własnym dla tej samej wartości.</p>
+<p>Odwołując się do kryterium dla podprzestrzeni, można zapisać</p>
+<div class="admonition-wniosek admonition">
+<p class="first admonition-title">Wniosek.</p>
+<p class="last">Zbiór wszystkich wektorów własnych, należących do danej wartości własnej <span class="math">\(\,\lambda\ \)</span>
+<span class="math">\(\\\)</span>
+operatora liniowego <span class="math">\(\,F\in\text{End}(V),\,\)</span>  uzupełniony wektorem zerowym
+<span class="math">\(\,\theta,\,\)</span> jest <span class="math">\(\\\)</span>
+przestrzenią wektorową (podprzestrzenią przestrzeni <span class="math">\(\,V\)</span>)
+o wymiarze równym <span class="math">\(\\\)</span>
+krotności geometrycznej wartości własnej <span class="math">\(\,\lambda.\)</span></p>
+</div>
+<p>Praktyczne rozwiązanie problemu własnego operatora liniowego <span class="math">\(\,F\ \)</span> działającego <span class="math">\(\\\)</span>
+w <span class="math">\(\,n\)</span>-wymiarowej przestrzeni wektorowej <span class="math">\(\,V(K)\ \)</span>
+składa się z trzech etapów:</p>
+<ol class="arabic simple" start="0">
+<li>Konstrukcja macierzy
+<span class="math">\(\,M_{\mathcal{B}}(F)\equiv\boldsymbol{A}=[\alpha_{ij}]_{n\times n}\in M_n(K)\ \)</span>
+operatora <span class="math">\(\,F\ \)</span> w dowolnie wybranej bazie <span class="math">\(\,\mathcal{B}\ \)</span>
+przestrzeni <span class="math">\(\,V\,.\)</span></li>
+<li>Wyliczenie wartości własnych <span class="math">\(\,\lambda\ \)</span> operatora <span class="math">\(\,F\ \)</span> jako pierwiastków
+równania charakterystycznego <a href="problem_wlasny_definicja.html#equation-char_eqn_1">(2)</a> macierzy <span class="math">\(\,\boldsymbol{A}\,\)</span>
+i określenie ich krotności algebraicznych.</li>
+<li>Podstawienie każdej wartości własnej <span class="math">\(\,\lambda\ \)</span> do równania (<span class="math">\(\clubsuit\)</span>),
+wyliczenie odpowiednich wektorów własnych (wyznaczonych poprzez ich współrzędne
+w bazie <span class="math">\(\,\mathcal{B}\)</span>) i określenie jej krotności geometrycznej.</li>
+</ol>
+</div>
+
+
+          </div>
+        </div>
+      </div>
+      <div class="sphinxsidebar">
+        <div class="sphinxsidebarwrapper">
+  <h4>Poprzedni temat</h4>
+  <p class="topless"><a href="przeksztalcenia_lin_zadania.html"
+                        title="poprzedni rozdział">Zadania</a></p>
+  <h4>Następny temat</h4>
+  <p class="topless"><a href="problem_wlasny_przyklady.html"
+                        title="następny rozdział">Przykłady problemów własnych</a></p>
+<div id="searchbox" style="display: none">
+  <h3>Szybkie wyszukiwanie</h3>
+    <form class="search" action="search.html" method="get">
+      <input type="text" name="q" />
+      <input type="submit" value="Szukaj" />
+      <input type="hidden" name="check_keywords" value="yes" />
+      <input type="hidden" name="area" value="default" />
+    </form>
+    <p class="searchtip" style="font-size: 90%">
+    Wprowadź szukany termin lub nazwę modułu, klasy lub funkcji.
+    </p>
+</div>
+<script type="text/javascript">$('#searchbox').show(0);</script>
+        </div>
+      </div>
+      <div class="clearer"></div>
+    </div>
+  </div>
+  <div class="relbar-bottom">
+    
+    <div class="related">
+      <h3>Nawigacja</h3>
+      <ul>
+        <li class="right" style="margin-right: 10px">
+          <a href="problem_wlasny_przyklady.html" title="Przykłady problemów własnych"
+             >dalej</a></li>
+        <li class="right" >
+          <a href="przeksztalcenia_lin_zadania.html" title="Zadania"
+             >wstecz</a> &nbsp; &nbsp;</li>
+  <li><a href="http://visual.icse.us.edu.pl/LA/index.html">Algebra Liniowa</a> &raquo;</li>
+   
+      </ul>
+    </div>
+  </div>
+  
+  <div class="footer">
+    <a class="logo" href="../../icse.us.edu.pl/index.html" target="_blank"><img src="_static/logo-icse.png" alt="ICSE"/></a><br/>
+    &copy; Copyright 2013, Marcin Kostur.
+    Created using <a href="http://sphinx.pocoo.org/">Sphinx</a> 1.2.2.
+  </div>
+  </body>
+</html>

@@ -1,0 +1,518 @@
+
+
+  <!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+  "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+
+
+<html xmlns="http://www.w3.org/1999/xhtml">
+  <head>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    
+    <title>Battleship! &mdash; Warsztaty</title>
+    
+    <link rel="stylesheet" href="_static/cloud.css" type="text/css" />
+    <link rel="stylesheet" href="_static/pygments.css" type="text/css" />
+    <link rel="stylesheet" href="http://fonts.googleapis.com/css?family=Noticia+Text|Open+Sans|Droid+Sans+Mono&subset=latin,latin-ext" type="text/css" />
+    
+    <script type="text/javascript">
+      var DOCUMENTATION_OPTIONS = {
+        URL_ROOT:    './',
+        VERSION:     'I',
+        COLLAPSE_INDEX: false,
+        FILE_SUFFIX: '.html',
+        HAS_SOURCE:  true
+      };
+    </script>
+    <script type="text/javascript" src="_static/jquery.js"></script>
+    <script type="text/javascript" src="_static/underscore.js"></script>
+    <script type="text/javascript" src="_static/doctools.js"></script>
+    <script type="text/javascript" src="_static/translations.js"></script>
+    <script type="text/javascript" src="http://cdn.mathjax.org/mathjax/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML"></script>
+    <script type="text/javascript" src="_static/jquery.cookie.js"></script>
+    <script type="text/javascript" src="_static/cloud.js"></script>
+
+
+
+    <script src="http://sagecell.icse.us.edu.pl:6363/static/jquery.min.js"></script>
+	<script src="http://sagecell.icse.us.edu.pl:6363/static/embedded_sagecell.js"></script>
+
+	<script>sagecell.makeSagecell({inputLocation: ".sage",
+                                       evalButtonText: 'Wykonaj',
+                                       linked: true});</script>
+
+	<style type="text/css">
+		.sagecell .CodeMirror-scroll {
+			overflow-y: hidden;
+			overflow-x: auto;
+		}
+		.sagecell .CodeMirror {
+			height: auto;
+		}
+	</style>
+
+    
+    <link rel="top" title="Warsztaty" href="index.html" />
+    <link rel="next" title="Wprowadzenie do SAGE’a – matematyka bez bólu, obliczenia, wykresy" href="iCSE_1a_Wprowadzenie_CubeProject.html" />
+    <link rel="prev" title="Workshop: Projectile Motion" href="ProjectileMotion.html" />
+ 
+  <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, minimum-scale=1">
+  </head>
+  <body>
+  <div class="relbar-top">
+    
+    <div class="related">
+      <h3>Nawigacja</h3>
+      <ul>
+        <li class="right" style="margin-right: 10px">
+          <a href="iCSE_1a_Wprowadzenie_CubeProject.html" title="Wprowadzenie do SAGE’a – matematyka bez bólu, obliczenia, wykresy"
+             accesskey="N">dalej</a></li>
+        <li class="right" >
+          <a href="ProjectileMotion.html" title="Workshop: Projectile Motion"
+             accesskey="P">wstecz</a> &nbsp; &nbsp;</li>
+  <li><a href="index.html">Warsztaty</a> &raquo;</li>
+   
+      </ul>
+    </div>
+  </div>
+  
+  <div class="content">  
+
+    <div class="document">
+      <div class="documentwrapper">
+        <div class="bodywrapper">
+          <div class="body">
+            
+  <div class="section" id="battleship">
+<h1>Battleship!<a class="headerlink" href="Battleship.html#battleship" title="Stały odnośnik do tego nagłówka">¶</a></h1>
+<p>A lot of these exercises are pulled from Code Academy, and so you can
+also solve them there by following this link and finding the right
+module:</p>
+<p><a class="reference external" href="http://www.codecademy.com/en/tracks/python">http://www.codecademy.com/en/tracks/python</a></p>
+<div class="section" id="what-is-battleship">
+<h2>What is battleship?<a class="headerlink" href="Battleship.html#what-is-battleship" title="Stały odnośnik do tego nagłówka">¶</a></h2>
+<p>Battleship is a board game for two people. Both of the players are given
+a certain number of ships to place on a grid. First the players place
+their ships, then they take turns to guess the coordinates of the
+opponents ship. After a player have made a guess, the opponent have to
+reveal whether the shot was a hit or a miss. The players have two
+boards, one to keep track of their own ships, and one to keep track of
+where they have shot the other player. The picture below show an example
+of the game board. The white pins signify missed shots, while the red
+pins signify hits.</p>
+<div class="figure">
+<img alt="battleship board" src="_images/battleship-board-game.jpg" />
+<p class="caption">battleship board</p>
+</div>
+<div class="section" id="what-are-we-going-to-do">
+<h3>What are we going to do?<a class="headerlink" href="Battleship.html#what-are-we-going-to-do" title="Stały odnośnik do tego nagłówka">¶</a></h3>
+<p>You can create this entire game with the programming you already know,
+but to save time we are going to create a simplified version with a
+smaller game board and fewer ships. After you have created a simple
+version that works well, you can keep expanding it with more features
+until you have a more involved game.</p>
+</div>
+<div class="section" id="let-s-get-to-it">
+<h3>Let&#8217;s get to it!<a class="headerlink" href="Battleship.html#let-s-get-to-it" title="Stały odnośnik do tego nagłówka">¶</a></h3>
+</div>
+<div class="section" id="creating-the-game-board">
+<h3>Creating the game board.<a class="headerlink" href="Battleship.html#creating-the-game-board" title="Stały odnośnik do tego nagłówka">¶</a></h3>
+<p>The first thing we have to do is to create the board itself. The board
+represents the ocean, and we want it to be a grid so that we can guess a
+square by giving the x and y coordinates. Let us create a 5x5 board. If
+we were to draw it by hand, it would look something like this:</p>
+<table border="1" class="docutils">
+<colgroup>
+<col width="20%" />
+<col width="20%" />
+<col width="20%" />
+<col width="20%" />
+<col width="20%" />
+</colgroup>
+<tbody valign="top">
+<tr class="row-odd"><td>0</td>
+<td>0</td>
+<td>0</td>
+<td>0</td>
+<td>0</td>
+</tr>
+<tr class="row-even"><td>0</td>
+<td>0</td>
+<td>0</td>
+<td>0</td>
+<td>0</td>
+</tr>
+<tr class="row-odd"><td>0</td>
+<td>0</td>
+<td>0</td>
+<td>0</td>
+<td>0</td>
+</tr>
+<tr class="row-even"><td>0</td>
+<td>0</td>
+<td>0</td>
+<td>0</td>
+<td>0</td>
+</tr>
+<tr class="row-odd"><td>0</td>
+<td>0</td>
+<td>0</td>
+<td>0</td>
+<td>0</td>
+</tr>
+</tbody>
+</table>
+<p>You can create a board like this on your computer by using a list of
+lists. We create a list consisting of 5 elements, where each element is
+itself a list of 5 elements. This inner list contains only 5 “O”
+strings. (Capital o, not zero)</p>
+</div>
+<div class="section" id="exercises">
+<h3>Exercises<a class="headerlink" href="Battleship.html#exercises" title="Stały odnośnik do tego nagłówka">¶</a></h3>
+<ol class="arabic simple">
+<li>Create a variable board and set it to contain an empty list</li>
+<li>Append the list <span class="math">\(\verb+[&quot;O&quot;, &quot;O&quot;, &quot;O&quot;, &quot;O&quot;, &quot;O&quot;]+\)</span> to board 5
+times. <strong>Hint:</strong> <span class="math">\(\verb+board.append(…)+\)</span></li>
+<li>Print board and make sure that you have exactly 25 “O” elements in
+total.</li>
+</ol>
+<p>When you print the board, you do not get a nice grid like the one we
+drew by hand. Let us try to fix this. We will want to draw the board
+several times during the game, so it is probably a good idea to define a
+function that does exactly this. We can start to create the function
+like so</p>
+<div class='sage'><script type='text/x-sage'>def print_board(board):
+    ...</script></div><p>Remember the indentation! Inside the function we will want to create a
+loop which iterates through the board-list and writes every row of the
+game on a seperate line</p>
+<div class='sage'><script type='text/x-sage'>for row in board:
+    print row</script></div><style>
+li {
+font-family: Times New Roman, serif;
+}
+</style></div>
+<div class="section" id="id1">
+<h3>Exercises<a class="headerlink" href="Battleship.html#id1" title="Stały odnośnik do tego nagłówka">¶</a></h3>
+<ol class="arabic simple">
+<li>finish the function <span class="math">\(\verb+print_board+\)</span></li>
+<li>Make sure the function works by calling it with
+<span class="math">\(\verb+print_board(board)+\)</span></li>
+<li>Instead of just typing <span class="math">\(\verb+print row+\)</span> inside the
+<span class="math">\(\verb+for+\)</span> loop, we can write print
+<span class="math">\(\verb+&quot; &quot;.join(row)+\)</span>. This makes the printout even prettier.</li>
+</ol>
+<p>Before you move on, you should have a printout that looks like a nice
+grid. If you cannot do this, try getting some help from a friend or a
+teacher.</p>
+<p>Now that you have created the board we will use, and printed it, you
+need to learn how to change it. Remember that we can change a list by
+indexing. If we have a simple list like this</p>
+<div class='sage'><script type='text/x-sage'>names = ["Lisa", "Mary", "Marcus"]
+print names</script></div><div class="highlight-python"><div class="highlight"><pre><span class="p">[</span><span class="s">&#39;Lisa&#39;</span><span class="p">,</span> <span class="s">&#39;Mary&#39;</span><span class="p">,</span> <span class="s">&#39;Marcus&#39;</span><span class="p">]</span>
+</pre></div>
+</div>
+<p>then we can for example change &#8216;Marcus&#8217; to &#8216;Markus&#8217; with indexing</p>
+<div class='sage'><script type='text/x-sage'>names[2] = "Markus"
+print names</script></div><div class="highlight-python"><div class="highlight"><pre><span class="p">[</span><span class="s">&#39;Lisa&#39;</span><span class="p">,</span> <span class="s">&#39;Mary&#39;</span><span class="p">,</span> <span class="s">&#39;Markus&#39;</span><span class="p">]</span>
+</pre></div>
+</div>
+<p>Remember that python begins counting at 0!</p>
+<p>Because our board consists of lists inside lists,
+<span class="math">\(\verb+board[0]+\)</span> returns the list
+<span class="math">\(\verb+[&quot;O&quot;, &quot;O&quot;, &quot;O&quot;, &quot;O&quot;, &quot;O&quot;]+\)</span>, which we can then index again.
+Like this</p>
+<div class='sage'><script type='text/x-sage'>board[0][0] = "X"</script></div><p>Now, we have changed the (0,0) coordinate to &#8220;X&#8221; instead of &#8220;O&#8221;. Play
+around with changing the list until you feel confident you know how it
+works.</p>
+</div>
+<div class="section" id="id2">
+<h3>Exercises<a class="headerlink" href="Battleship.html#id2" title="Stały odnośnik do tego nagłówka">¶</a></h3>
+<ol class="arabic simple">
+<li>run the command <span class="math">\(\verb+board[0][0] = 'X'+\)</span> and then use
+<span class="math">\(\verb+print_board(board)+\)</span> to see the result. Which element
+did we change?</li>
+<li>Change the square in the center of the board to be &#8220;X&#8221;</li>
+</ol>
+<p>Now we have created our playing board, created a function
+<span class="math">\(\verb+print_board+\)</span>, which prints it to the screen as a nice
+grid, and we have learned how we can change the squares in the board.
+Let us see how we can place and shoot our ships.</p>
+</div>
+<div class="section" id="placing-ships">
+<h3>Placing ships<a class="headerlink" href="Battleship.html#placing-ships" title="Stały odnośnik do tego nagłówka">¶</a></h3>
+<p>Let us begin by placing an enemy ship that only covers one single square
+on the grid. The ship should have the possibility of appearing anywhere
+on the grid. Because our map is a 5x5 grid, we can give our ship x and y
+coordinates between 0 and 4.</p>
+<p>We want the ship to have a different, random position each time we play
+the game. To do this, you need to draw random coordinates.</p>
+</div>
+<div class="section" id="id3">
+<h3>Exercises:<a class="headerlink" href="Battleship.html#id3" title="Stały odnośnik do tego nagłówka">¶</a></h3>
+<ol class="arabic simple">
+<li>Import the function <span class="math">\(\verb+randint+\)</span> from <span class="math">\(\verb+random+\)</span></li>
+<li>Create a variable <span class="math">\(\verb+ship_x+\)</span>, and give it a random value
+between 0 and 5</li>
+<li>Create a variable <span class="math">\(\verb+ship_y+\)</span>, and give it a random value
+between 0 and 5</li>
+</ol>
+<p>Now, the ships coordinates are random and stored in the variables
+<span class="math">\(\verb+ship_x+\)</span> and <span class="math">\(\verb+ship_y+\)</span>. Later, when we want to
+test our program, it will be useful to know exactly where the ship is.
+You can see where the ship is by simply printing the coordinates</p>
+<div class='sage'><script type='text/x-sage'>print ship_x
+print ship_y</script></div><p>or you can change the board, so that the ships position is visible</p>
+<div class='sage'><script type='text/x-sage'>board[ship_x][ship_y] = "+"
+print_board(board)</script></div><p>Either way is fine, but it is important that you remember to remove the
+printout when you are done writing and testing the program. Otherwise,
+the game will be far to easy for the player!</p>
+</div>
+<div class="section" id="shoot-the-ship">
+<h3>Shoot the ship!<a class="headerlink" href="Battleship.html#shoot-the-ship" title="Stały odnośnik do tego nagłówka">¶</a></h3>
+<p>Now we are ready to let the user try to shoot down the ship. To do this
+you need to have the user guess where the ship is, which you can do with
+<span class="math">\(\verb+raw_input()+\)</span>.</p>
+</div>
+<div class="section" id="id4">
+<h3>Exercises<a class="headerlink" href="Battleship.html#id4" title="Stały odnośnik do tego nagłówka">¶</a></h3>
+<ol class="arabic simple">
+<li>Create a variable <span class="math">\(\verb+guess_x+\)</span> and use
+<span class="math">\(\verb+raw_input()+\)</span> to store the users answer</li>
+<li>The function <span class="math">\(\verb+raw_input+\)</span> will always return a string,
+but we want <span class="math">\(\verb+guess_x+\)</span> to be an integer. Add some code to
+make <span class="math">\(\verb+guess_x+\)</span> an int. <strong>Hint:</strong>
+<span class="math">\(\verb+guess_x = int(raw_input(…))+\)</span></li>
+<li>Create a variable <span class="math">\(\verb+guess_y+\)</span> and do the same as you did
+with the x coordinate</li>
+</ol>
+</div>
+<div class="section" id="hit-or-miss">
+<h3>Hit or miss?<a class="headerlink" href="Battleship.html#hit-or-miss" title="Stały odnośnik do tego nagłówka">¶</a></h3>
+<p>Now that we have drawn a random position for the ship, and asked the
+user where they want to shoot, we are finally ready to see if the shot
+was a hit or a miss. This is of course accomplished with an
+<span class="math">\(\verb+if+\)</span> test. To begin with, there are only two options.
+Either the user hits or she misses. For a shot to be a hit, both of the
+coordinates has to be correct. In other words, <span class="math">\(\verb+ship_x+\)</span> and
+<span class="math">\(\verb+guess_x+\)</span> has to be equal and <span class="math">\(\verb+ship_y+\)</span> and
+<span class="math">\(\verb+guess_y+\)</span> has to be equal.</p>
+</div>
+<div class="section" id="id5">
+<h3>Exercises<a class="headerlink" href="Battleship.html#id5" title="Stały odnośnik do tego nagłówka">¶</a></h3>
+<ol class="arabic simple">
+<li>Create an <span class="math">\(\verb+if+\)</span> test that checks if
+<span class="math">\(\verb+ship_x == guess_x+\)</span> and
+<span class="math">\(\verb+ship_y == guess_y+\)</span>. If this is the case, print a
+message to let the user know she hit.</li>
+<li>Add an <span class="math">\(\verb+else+\)</span> block where you print a message to let the
+user know she missed.</li>
+<li>Test your program and hit on purpose. Then try again, but miss
+instead. Does your program work as expected?</li>
+</ol>
+<p>In addition to printing a message when the user guesses incorrectly, we
+should also change the board so the user can see where she has guessed
+previously. Let us use &#8216;X&#8217; to show that a field has been shot, but it
+was a miss.</p>
+</div>
+<div class="section" id="id6">
+<h3>Exercises<a class="headerlink" href="Battleship.html#id6" title="Stały odnośnik do tego nagłówka">¶</a></h3>
+<ol class="arabic simple">
+<li>In your else block, change the square in your board with coordinates
+guess_x and guess_y to “X”. Then print the board again. <strong>Hint:</strong></li>
+</ol>
+<div class='sage'><script type='text/x-sage'>if ...:
+    print ...
+else:
+    print ...
+    board[...][...] = ...
+    print_board(board)</script></div><ol class="arabic simple" start="2">
+<li>Test your program with a miss to make sure everything is working
+correctly</li>
+</ol>
+</div>
+<div class="section" id="multiple-shots">
+<h3>Multiple shots<a class="headerlink" href="Battleship.html#multiple-shots" title="Stały odnośnik do tego nagłówka">¶</a></h3>
+<p>Until now, we have given the user only one attempt at hitting the ship.
+This is perhaps a bit inadequate. Now we will use a loop to allow the
+user to shoot up to 10 times! We choose to use a <span class="math">\(\verb+while+\)</span>
+loop that repeats until the user either wins, or misses 10 times. This
+means that we need to keep track of how many times the user have missed.</p>
+</div>
+<div class="section" id="id7">
+<h3>Exercises<a class="headerlink" href="Battleship.html#id7" title="Stały odnośnik do tego nagłówka">¶</a></h3>
+<ol class="arabic simple">
+<li>Create a variable <span class="math">\(\verb+misses+\)</span>, and set its value to be 0.</li>
+<li>Indent all the code that you want to repeat. You can do this easily
+by marking all the lines you want indented, and press the tab button.
+<strong>Hint:</strong> We want to repeat that the user guesses coordinates, and
+that we check the guesses and update the board accordingly.</li>
+<li>Just before the block of code you just indented, start your
+<span class="math">\(\verb+while+\)</span> loop. <strong>Hint:</strong> <span class="math">\(\verb+while misses … :+\)</span></li>
+<li>Inside the loop you need to increase the variable
+<span class="math">\(\verb+misses+\)</span> when the user misses. Update your program to
+count every time the user misses. <strong>Hint:</strong>
+<span class="math">\(\verb!misses += 1!\)</span></li>
+<li>At the start of your loop, before you ask the user to guess, print a
+message to tell the user how many shots she has left.</li>
+<li>Test your program and make sure the loop works as you expect it to.</li>
+</ol>
+<p>One unfortunate problem for the user, is that they may shoot an already
+used field by accident. Let us change our program so that the user does
+not use up an attempt if this is the case. To do this, we need to insert
+a new test inside of our <span class="math">\(\verb+else+\)</span> block, to check if
+<span class="math">\(\verb+board[guess_x][guess_y]+\)</span> is &#8220;X&#8221;. If so, then the user has
+already shot this field!</p>
+<ol class="arabic simple" start="7">
+<li>At the beginning of your else block, add a new test to check if
+<span class="math">\(\verb+board[guess_x][guess_y]+\)</span> is &#8220;X&#8221;. If so, then print a
+message to tell the user that they have already shot this field. Move
+the code that already belonged to the <span class="math">\(\verb+else+\)</span> block to
+another <span class="math">\(\verb+else+\)</span> block. <strong>Hint:</strong></li>
+</ol>
+<div class='sage'><script type='text/x-sage'>if guess_x == ship_x ... :
+    # User hit the target!
+else:
+    if board[guess_x][guess_y]...:
+        # User tried firing on a coordinate they already tried!
+    else:
+        # User misses!</script></div></div>
+<div class="section" id="game-over">
+<h3>Game over!<a class="headerlink" href="Battleship.html#game-over" title="Stały odnośnik do tego nagłówka">¶</a></h3>
+<p>Now you have a pretty good game! But there is still a couple of
+problems. The game keeps going even after the user has guessed
+correctly. And there is no message to inform the user that they have
+used up their 10 shots. Let us try to fix both these problems.</p>
+<p>First, when the user guesses correctly, we have to make sure that the
+loop stops repeating. We can do this with the command
+<span class="math">\(\verb+break+\)</span>. When python finds a <span class="math">\(\verb+break+\)</span> command,
+it immediately jumps to the first line after the entire loop. In other
+words, it breaks the loop.</p>
+</div>
+<div class="section" id="id8">
+<h3>Exercises<a class="headerlink" href="Battleship.html#id8" title="Stały odnośnik do tego nagłówka">¶</a></h3>
+<ol class="arabic">
+<li><p class="first">Add a <span class="math">\(\verb+break+\)</span> command after the success message is
+printed.</p>
+<p>Now we want to print a message to tell the user that they have lost
+if they did not hit with any of their 10 shots. We can do this with
+yet another <span class="math">\(\verb+if+\)</span> test. Let us place this
+<span class="math">\(\verb+if+\)</span> test after the loop. If the loop is finished
+because of a <span class="math">\(\verb+break+\)</span> command, then <span class="math">\(\verb+misses+\)</span>
+will be less than 10. But if the loop is finished because the user
+missed 10 times, then <span class="math">\(\verb+misses+\)</span> equals 10.</p>
+</li>
+<li><p class="first">Add an <span class="math">\(\verb+if+\)</span> test after the <span class="math">\(\verb+while+\)</span> loop
+that checks if <span class="math">\(\verb+misses+\)</span> is 10. If it is, print out a
+message to inform the user that they have lost.</p>
+<p>Now you just have to test your program and fix all the small errors
+that might remain.</p>
+</li>
+<li><p class="first">Test your program until you are satisfied. Then get a friend to try
+it!</p>
+</li>
+</ol>
+<p>Now you have a complete Battleship! game. Good job! What follows is a
+list of different ways to expand the game if you want.</p>
+<p>Here is a list of suggestions for ways to expand the game</p>
+<ul class="simple">
+<li>Create a nice introduction message</li>
+<li>Add more tests. If, for example, the user shoots outside the board,
+they should get a message!</li>
+<li>Add more game modes. Perhaps for example several degrees of
+difficulty. The difficulty could be adjusted with a larger board or a
+different amount of shots. Have the user select the game mode from a
+menu in the beginning.</li>
+<li>Add more ships to the board! The user has to hit all of them to win.
+Be careful not to place ships on top of each other.</li>
+<li>Add ships that covers more than one field. This is slightly
+challenging, but the result is nice.</li>
+<li>Give the player one special missile which can only be used once.
+Maybe it hits in a cross shape (5 fields at a time). Or maybe it
+takes out an entire row or column!</li>
+</ul>
+</div>
+</div>
+</div>
+
+
+          </div>
+        </div>
+      </div>
+      <div class="sphinxsidebar">
+        <div class="sphinxsidebarwrapper">
+  <div class="sphinxlocaltoc">
+  <h3><a href="index.html">Spis treści</a></h3>
+  <ul>
+<li><a class="reference internal" href="Battleship.html#">Battleship!</a><ul>
+<li><a class="reference internal" href="Battleship.html#what-is-battleship">What is battleship?</a><ul>
+<li><a class="reference internal" href="Battleship.html#what-are-we-going-to-do">What are we going to do?</a></li>
+<li><a class="reference internal" href="Battleship.html#let-s-get-to-it">Let&#8217;s get to it!</a></li>
+<li><a class="reference internal" href="Battleship.html#creating-the-game-board">Creating the game board.</a></li>
+<li><a class="reference internal" href="Battleship.html#exercises">Exercises</a></li>
+<li><a class="reference internal" href="Battleship.html#id1">Exercises</a></li>
+<li><a class="reference internal" href="Battleship.html#id2">Exercises</a></li>
+<li><a class="reference internal" href="Battleship.html#placing-ships">Placing ships</a></li>
+<li><a class="reference internal" href="Battleship.html#id3">Exercises:</a></li>
+<li><a class="reference internal" href="Battleship.html#shoot-the-ship">Shoot the ship!</a></li>
+<li><a class="reference internal" href="Battleship.html#id4">Exercises</a></li>
+<li><a class="reference internal" href="Battleship.html#hit-or-miss">Hit or miss?</a></li>
+<li><a class="reference internal" href="Battleship.html#id5">Exercises</a></li>
+<li><a class="reference internal" href="Battleship.html#id6">Exercises</a></li>
+<li><a class="reference internal" href="Battleship.html#multiple-shots">Multiple shots</a></li>
+<li><a class="reference internal" href="Battleship.html#id7">Exercises</a></li>
+<li><a class="reference internal" href="Battleship.html#game-over">Game over!</a></li>
+<li><a class="reference internal" href="Battleship.html#id8">Exercises</a></li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+
+  </div>
+  <h4>Poprzedni temat</h4>
+  <p class="topless"><a href="ProjectileMotion.html"
+                        title="poprzedni rozdział">Workshop: Projectile Motion</a></p>
+  <h4>Następny temat</h4>
+  <p class="topless"><a href="iCSE_1a_Wprowadzenie_CubeProject.html"
+                        title="następny rozdział">Wprowadzenie do SAGE&#8217;a &#8211; matematyka bez bólu, obliczenia, wykresy</a></p>
+<div id="searchbox" style="display: none">
+  <h3>Szybkie wyszukiwanie</h3>
+    <form class="search" action="http://visual.icse.us.edu.pl/Warsztaty/search.html" method="get">
+      <input type="text" name="q" />
+      <input type="submit" value="Szukaj" />
+      <input type="hidden" name="check_keywords" value="yes" />
+      <input type="hidden" name="area" value="default" />
+    </form>
+    <p class="searchtip" style="font-size: 90%">
+    Wprowadź szukany termin lub nazwę modułu, klasy lub funkcji.
+    </p>
+</div>
+<script type="text/javascript">$('#searchbox').show(0);</script>
+        </div>
+      </div>
+      <div class="clearer"></div>
+    </div>
+  </div>
+  <div class="relbar-bottom">
+    
+    <div class="related">
+      <h3>Nawigacja</h3>
+      <ul>
+        <li class="right" style="margin-right: 10px">
+          <a href="iCSE_1a_Wprowadzenie_CubeProject.html" title="Wprowadzenie do SAGE’a – matematyka bez bólu, obliczenia, wykresy"
+             >dalej</a></li>
+        <li class="right" >
+          <a href="ProjectileMotion.html" title="Workshop: Projectile Motion"
+             >wstecz</a> &nbsp; &nbsp;</li>
+  <li><a href="index.html">Warsztaty</a> &raquo;</li>
+   
+      </ul>
+    </div>
+  </div>
+  
+  <div class="footer">
+    <a class="logo" href="../../icse.us.edu.pl/index.html" target="_blank"><img src="_static/logo-icse.png" alt="ICSE"/></a><br/>
+    &copy; Copyright 2013, CubeProject.
+    Created using <a href="http://sphinx.pocoo.org/">Sphinx</a> 1.2.2.
+  </div>
+  </body>
+</html>

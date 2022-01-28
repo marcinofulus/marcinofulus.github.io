@@ -1,0 +1,127 @@
+<!DOCTYPE html> 
+<html> 
+<head> 
+<title>Wahadło podwójne</title> 
+<meta http-equiv="Content-Type" content="text/html; charset=UTF-8" /> 
+<meta http-equiv="X-UA-Compatible" content="IE=EmulateIE7" /> 
+
+<script type="text/x-mathjax-config"> 
+  MathJax.Hub.Config({
+    extensions: ["tex2jax.js"],
+    jax: ["input/TeX","output/HTML-CSS"],
+    tex2jax: {inlineMath: [["$","$"],["\\(","\\)"]]}
+  });
+</script> 
+
+<!-- <script type="text/javascript" src="js/mathjax/MathJax.js"></script> -->
+<script type="text/javascript" src="http://cdn.mathjax.org/mathjax/latest/MathJax.js"></script>
+
+<link rel="stylesheet" type="text/css" href="WahadloPodwojne/css/mainstyle.css" />
+<link rel="stylesheet" type="text/css" href="WahadloPodwojne/css/jsxgraph.css" />
+<script type="text/javascript" src="WahadloPodwojne/js/jsxgraphcore-0.95.js"></script>
+
+<script type="text/javascript" src="WahadloPodwojne/js/vtip/jquery.js"></script>
+<script type="text/javascript" src="WahadloPodwojne/js/vtip/vtip.js"></script>
+<link rel="stylesheet" type="text/css" href="WahadloPodwojne/js/vtip/css/vtip.css" />
+
+</head>
+<body>
+
+	<noscript> 
+	<div style="color:#CC0000; text-align:center">
+	<b>Uwaga: do prawidłowego działania, biblioteki <a href="http://www.mathjax.org/">MathJax</a>
+	oraz <a href="http://jsxgraph.uni-bayreuth.de/wp/">jsxgraph</a> wymagają obsługi JavaScript.<br />
+	Upewnij się, że JavaScript jest aktywowany w twojej przeglądarce.
+	</div>
+	<hr>
+	</noscript>
+
+
+<div id="container">
+
+<div id="header">
+	<h1>Wahadło podwójne</h1>
+	<p class="text">
+	Symulacja wahadła podwójnego. Ruch odbywa się bez tarcia.
+	</p> 
+</div>
+
+<div id="content">
+
+
+<div id="input" class="formstyle">
+
+	<form name="form">
+	<table>
+ 	<tr>
+  		<td>$L_1$</td> <td><input class="inputtext vtip" title="Długość górnej części wahadła" type="text" id="L1" value="1" onKeyUp="resetAnimation()"></td> 
+  		<td>$m_1$</td> <td><input class="inputtext vtip" title="Masa zawieszona w górnej części wahadła" type="text" id="m1" value="1" onKeyUp="resetAnimation()"></td>
+  		<td>$\theta_{10}$</td> <td><input class="inputtext vtip" title="Wychylenie początkowe w radianach górnej części wahadła" type="text" id="theta10" value="1.4" onKeyUp="resetAnimation()"></td>
+  		<td>$g$</td> <td><input class="inputtext vtip" title="Przyśpieszenie grawitacyjne" type="text" id="g" value="9.81" onKeyUp="resetAnimation()"></td>
+ 	</tr>
+ 
+  	<tr>
+  		<td>$L_2$</td> <td><input class="inputtext vtip" title="Długość dolnej części wahadła" type="text" id="L2" value="1" onKeyUp="resetAnimation()"></td> 
+  		<td>$m_2$</td> <td><input class="inputtext vtip" title="Masa zawieszona w dolnej części wahadła" type="text" id="m2" value="1" onKeyUp="resetAnimation()"></td>
+  		<td>$\theta_{20}$</td> <td><input class="inputtext vtip" title="Wychylenie początkowe w radianach dolnej części wahadła" type="text" id="theta20" value="0" onKeyUp="resetAnimation()"></td>
+  		<td></td>
+ 	</tr>
+ 
+ 	<tr>
+  		<td></td>
+  		<td>
+			<input type="button" value="start / stop" onClick="startStopAnimation()">
+  			<input type="button" value="reset" onClick="resetAnimation()">
+  		</td>   
+ 	</tr>
+	</table>
+	</form>
+
+</div>
+
+
+
+<div id="plots">
+<table class="plotarea">    
+    <tr>
+        <td>
+        <h4>Wizualizacja wahadła podwójnego</h4>
+        <div id="box1" class="jxgbox" style="width:400px; height:400px;"></div></td>
+        <td>
+        <h4>Oś x: $\theta_1$ / Oś y: $\theta_2$</h4>
+        <div id="box2" class="jxgbox" style="width:400px; height:400px;"></div>
+        </td>
+    </tr>
+    <tr>
+        <td colspan="2">
+        <h4>Zmiana kąta $\theta_1$ w czasie</h4>
+        <div id="box3" class="jxgbox" style="width:800px; height:150px;"></div>
+        </td>
+    </tr>
+    <tr>        
+        <td colspan="2">
+        <h4>Zmiana kąta $\theta_2$ w czasie</h4>
+        <div id="box4" class="jxgbox" style="width:800px; height:150px;"></div>
+        </td>        
+    </tr>
+</table>
+</div>
+
+
+<div class="theory">
+	<h3>Równania ruchu dla wahadła podwójnego</h3>
+	<p class="text">
+	$\ddot{\theta_1} = \frac{-g (2m_1 + m_2)\sin{\theta_1} - m_2 g \sin(\theta_1 - 2 \theta_2) - 2 \sin(\theta_1 - \theta_2) m_2 (\dot{\theta}_2^2 L_2 + \dot{\theta}_1^2 L_1 \cos(\theta_1 - \theta_2))}{L_1 (2m_1 + m_2 - m_2 \cos(2 \theta_1 - 2 \theta_2))}$<br /><br />
+	$\ddot{\theta_2} = \frac{2 \sin(\theta_1 - \theta_2) (\dot{\theta}_1^2 L_1 (m_1 + m_2) + g (m_1 + m_2) \cos{\theta_1} + \dot{\theta}_2^2 L_2 m_2 \cos(\theta_1 - \theta_2))}{L_2 (2m_1 + m_2 - m_2 \cos(2 \theta_1 - 2 \theta_2))}$
+	<br /><br />
+	<img src="WahadloPodwojne/image/doublependulum.png" /> 
+	</p>
+</div>	
+	
+</div>
+</div>
+
+<script type="text/javascript" src="WahadloPodwojne/js/phys.js"></script><br />
+
+</body>
+</html>

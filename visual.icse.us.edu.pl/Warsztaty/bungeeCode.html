@@ -1,0 +1,180 @@
+
+
+  <!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+  "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+
+
+<html xmlns="http://www.w3.org/1999/xhtml">
+  <head>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    
+    <title>Bungee code &mdash; Warsztaty</title>
+    
+    <link rel="stylesheet" href="_static/cloud.css" type="text/css" />
+    <link rel="stylesheet" href="_static/pygments.css" type="text/css" />
+    <link rel="stylesheet" href="http://fonts.googleapis.com/css?family=Noticia+Text|Open+Sans|Droid+Sans+Mono&subset=latin,latin-ext" type="text/css" />
+    
+    <script type="text/javascript">
+      var DOCUMENTATION_OPTIONS = {
+        URL_ROOT:    './',
+        VERSION:     'I',
+        COLLAPSE_INDEX: false,
+        FILE_SUFFIX: '.html',
+        HAS_SOURCE:  true
+      };
+    </script>
+    <script type="text/javascript" src="_static/jquery.js"></script>
+    <script type="text/javascript" src="_static/underscore.js"></script>
+    <script type="text/javascript" src="_static/doctools.js"></script>
+    <script type="text/javascript" src="_static/translations.js"></script>
+    <script type="text/javascript" src="http://cdn.mathjax.org/mathjax/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML"></script>
+    <script type="text/javascript" src="_static/jquery.cookie.js"></script>
+    <script type="text/javascript" src="_static/cloud.js"></script>
+
+
+
+    <script src="http://sagecell.icse.us.edu.pl:6363/static/jquery.min.js"></script>
+	<script src="http://sagecell.icse.us.edu.pl:6363/static/embedded_sagecell.js"></script>
+
+	<script>sagecell.makeSagecell({inputLocation: ".sage",
+                                       evalButtonText: 'Wykonaj',
+                                       linked: true});</script>
+
+	<style type="text/css">
+		.sagecell .CodeMirror-scroll {
+			overflow-y: hidden;
+			overflow-x: auto;
+		}
+		.sagecell .CodeMirror {
+			height: auto;
+		}
+	</style>
+
+    
+    <link rel="top" title="Warsztaty" href="index.html" />
+    <link rel="next" title="Skydiving - part 1" href="Skydiving1.html" />
+    <link rel="prev" title="Parachute - code" href="parachuteCode.html" />
+ 
+  <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, minimum-scale=1">
+  </head>
+  <body>
+  <div class="relbar-top">
+    
+    <div class="related">
+      <h3>Nawigacja</h3>
+      <ul>
+        <li class="right" style="margin-right: 10px">
+          <a href="Skydiving1.html" title="Skydiving - part 1"
+             accesskey="N">dalej</a></li>
+        <li class="right" >
+          <a href="parachuteCode.html" title="Parachute - code"
+             accesskey="P">wstecz</a> &nbsp; &nbsp;</li>
+  <li><a href="index.html">Warsztaty</a> &raquo;</li>
+   
+      </ul>
+    </div>
+  </div>
+  
+  <div class="content">  
+
+    <div class="document">
+      <div class="documentwrapper">
+        <div class="bodywrapper">
+          <div class="body">
+            
+  <div class="section" id="bungee-code">
+<h1>Bungee code<a class="headerlink" href="bungeeCode.html#bungee-code" title="Stały odnośnik do tego nagłówka">¶</a></h1>
+<div class='sage'><script type='text/x-sage'>from pylab import *
+
+v0 = 0.0
+m = 70.
+#C = 1.4
+#rho = 1.0
+#A = 0.7
+g = 9.81
+#C_p = 1.8
+#A_p = 44
+k = 40
+D = 10</script></div><div class='sage'><script type='text/x-sage'>def r(x):
+    if x > 0:
+            return 0
+    else:
+            return -k*x</script></div><div class='sage'><script type='text/x-sage'>def a(x, v):
+    return r(x)/m - g - D/m*v</script></div><div class='sage'><script type='text/x-sage'>x0 = 20
+dt = 1e-3
+T = 100
+N = int(ceil(T/dt)) # number of mesh cells</script></div><div class='sage'><script type='text/x-sage'>v = zeros(N+1)
+x = zeros(N+1)
+gkrefter = zeros(N+1)</script></div><div class='sage'><script type='text/x-sage'>v[0] = v0
+x[0] = x0</script></div><div class='sage'><script type='text/x-sage'>t = linspace(0, T, N+1)</script></div><div class='sage'><script type='text/x-sage'>for i in range(N):
+    gkrefter[i] = a(x[i], v[i])/g +1
+    v[i+1] = v[i] + a(x[i], v[i])*dt
+    x[i+1] = x[i] + v[i]*dt + 0.5*a(x[i], v[i])*dt**2</script></div><div class='sage'><script type='text/x-sage'>%matplotlib inline
+plot(t, x)
+grid()
+show()
+print x[N]</script></div><img alt="output_8_0.png" src="http://visual.icse.us.edu.pl/Warsztaty/output_8_0.png" />
+<div class="highlight-python"><div class="highlight"><pre><span class="o">-</span><span class="mf">17.1496887562</span>
+</pre></div>
+</div>
+<div class='sage'><script type='text/x-sage'>plot(t,gkrefter)
+xlabel('t')
+ylabel('gforces')
+grid()
+show()</script></div><img alt="output_9_0.png" src="http://visual.icse.us.edu.pl/Warsztaty/output_9_0.png" />
+</div>
+
+
+          </div>
+        </div>
+      </div>
+      <div class="sphinxsidebar">
+        <div class="sphinxsidebarwrapper">
+  <h4>Poprzedni temat</h4>
+  <p class="topless"><a href="parachuteCode.html"
+                        title="poprzedni rozdział">Parachute - code</a></p>
+  <h4>Następny temat</h4>
+  <p class="topless"><a href="Skydiving1.html"
+                        title="następny rozdział">Skydiving - part 1</a></p>
+<div id="searchbox" style="display: none">
+  <h3>Szybkie wyszukiwanie</h3>
+    <form class="search" action="http://visual.icse.us.edu.pl/Warsztaty/search.html" method="get">
+      <input type="text" name="q" />
+      <input type="submit" value="Szukaj" />
+      <input type="hidden" name="check_keywords" value="yes" />
+      <input type="hidden" name="area" value="default" />
+    </form>
+    <p class="searchtip" style="font-size: 90%">
+    Wprowadź szukany termin lub nazwę modułu, klasy lub funkcji.
+    </p>
+</div>
+<script type="text/javascript">$('#searchbox').show(0);</script>
+        </div>
+      </div>
+      <div class="clearer"></div>
+    </div>
+  </div>
+  <div class="relbar-bottom">
+    
+    <div class="related">
+      <h3>Nawigacja</h3>
+      <ul>
+        <li class="right" style="margin-right: 10px">
+          <a href="Skydiving1.html" title="Skydiving - part 1"
+             >dalej</a></li>
+        <li class="right" >
+          <a href="parachuteCode.html" title="Parachute - code"
+             >wstecz</a> &nbsp; &nbsp;</li>
+  <li><a href="index.html">Warsztaty</a> &raquo;</li>
+   
+      </ul>
+    </div>
+  </div>
+  
+  <div class="footer">
+    <a class="logo" href="../../icse.us.edu.pl/index.html" target="_blank"><img src="_static/logo-icse.png" alt="ICSE"/></a><br/>
+    &copy; Copyright 2013, CubeProject.
+    Created using <a href="http://sphinx.pocoo.org/">Sphinx</a> 1.2.2.
+  </div>
+  </body>
+</html>

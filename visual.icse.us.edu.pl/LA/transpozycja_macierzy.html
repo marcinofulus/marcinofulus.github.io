@@ -1,0 +1,305 @@
+
+
+  <!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+  "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+
+
+<html xmlns="http://www.w3.org/1999/xhtml">
+  <head>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    
+    <title>Transpozycja macierzy &mdash; Algebra Liniowa</title>
+    
+    <link rel="stylesheet" href="_static/cloud.css" type="text/css" />
+    <link rel="stylesheet" href="_static/pygments.css" type="text/css" />
+    <link rel="stylesheet" href="http://fonts.googleapis.com/css?family=Noticia+Text|Open+Sans|Droid+Sans+Mono&subset=latin,latin-ext" type="text/css" />
+    
+    <script type="text/javascript">
+      var DOCUMENTATION_OPTIONS = {
+        URL_ROOT:    './',
+        VERSION:     'I',
+        COLLAPSE_INDEX: false,
+        FILE_SUFFIX: '.html',
+        HAS_SOURCE:  true
+      };
+    </script>
+    <script type="text/javascript" src="_static/jquery.js"></script>
+    <script type="text/javascript" src="_static/underscore.js"></script>
+    <script type="text/javascript" src="_static/doctools.js"></script>
+    <script type="text/javascript" src="_static/translations.js"></script>
+    <script type="text/javascript" src="http://cdn.mathjax.org/mathjax/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML"></script>
+    <script type="text/javascript" src="_static/jquery.cookie.js"></script>
+    <script type="text/javascript" src="_static/cloud.js"></script>
+
+	<script src="http://sagecell.icse.us.edu.pl:6363/static/jquery.min.js"></script>
+	<script src="http://sagecell.icse.us.edu.pl:6363/static/embedded_sagecell.js"></script>
+
+	<!-- <script src="http://sagecell.sagemath.org/static/jquery.min.js"></script> -->
+	<!-- <script src="http://sagecell.sagemath.org/static/embedded_sagecell.js"></script> -->
+
+	<script>sagecell.makeSagecell({inputLocation: ".sage",
+                                       evalButtonText: 'Wykonaj',
+                                       linked: true});</script>
+
+	<style type="text/css">
+		.sagecell .CodeMirror-scroll {
+			overflow-y: hidden;
+			overflow-x: auto;
+		}
+		.sagecell .CodeMirror {
+			height: auto;
+		}
+	</style>
+
+    
+    <link rel="top" title="Algebra Liniowa" href="http://visual.icse.us.edu.pl/LA/index.html" />
+    <link rel="next" title="Macierz odwrotna" href="macierz_odwrotna.html" />
+    <link rel="prev" title="Metoda eliminacji w ujęciu macierzowym" href="eliminacja_dla_macierzy.html" />
+ 
+  <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, minimum-scale=1">
+  </head>
+  <body>
+  <div class="relbar-top">
+    
+    <div class="related">
+      <h3>Nawigacja</h3>
+      <ul>
+        <li class="right" style="margin-right: 10px">
+          <a href="macierz_odwrotna.html" title="Macierz odwrotna"
+             accesskey="N">dalej</a></li>
+        <li class="right" >
+          <a href="eliminacja_dla_macierzy.html" title="Metoda eliminacji w ujęciu macierzowym"
+             accesskey="P">wstecz</a> &nbsp; &nbsp;</li>
+  <li><a href="http://visual.icse.us.edu.pl/LA/index.html">Algebra Liniowa</a> &raquo;</li>
+   
+      </ul>
+    </div>
+  </div>
+  
+  <div class="content">  
+
+    <div class="document">
+      <div class="documentwrapper">
+        <div class="bodywrapper">
+          <div class="body">
+            
+  <div class="section" id="transpozycja-macierzy">
+<h1>Transpozycja macierzy<a class="headerlink" href="transpozycja_macierzy.html#transpozycja-macierzy" title="Stały odnośnik do tego nagłówka">¶</a></h1>
+<p>Niech będzie dana macierz <span class="math">\(\,\boldsymbol{A}=[a_{ij}]_{m\times n}\in M_{m\times n}(K).\)</span>
+<span class="math">\(\\\)</span>
+<em>Macierzą transponowaną</em> względem <span class="math">\(\,\boldsymbol{A}\,\)</span>
+nazywamy macierz <span class="math">\(\,\boldsymbol{A}^T=\,[a^T_{ij}]_{n\times m}\,,\ \)</span> gdzie</p>
+<div class="math">
+\[a_{ij}^T\ :\,=\ a_{ji},\qquad i=1,2,\ldots,n;\ \ j=1,2,\ldots,m.\]</div>
+<p>W pełnym zapisie: <span class="math">\(\qquad\left[\begin{array}{cccc}
+a_{11} &amp; a_{12} &amp; \ldots &amp; a_{1n} \\
+a_{21} &amp; a_{22} &amp; \ldots &amp; a_{2n} \\
+\ldots &amp; \ldots &amp; \ldots &amp; \ldots \\
+a_{m1} &amp; a_{m2} &amp; \ldots &amp; a_{mn}
+\end{array}\right]^T
+\ =\quad
+\left[\begin{array}{cccc}
+a_{11} &amp; a_{21} &amp; \ldots &amp; a_{m1} \\
+a_{12} &amp; a_{22} &amp; \ldots &amp; a_{m2} \\
+\ldots &amp; \ldots &amp; \ldots &amp; \ldots \\
+a_{1n} &amp; a_{2n} &amp; \ldots &amp; a_{mn}
+\end{array}\right]\,.\)</span></p>
+<p>Tak więc <span class="math">\(\,i\)</span>-ty wiersz macierzy <span class="math">\(\,\boldsymbol{A}^T\,\)</span>
+składa się z elementów <span class="math">\(\,i\)</span>-tej kolumny macierzy <span class="math">\(\,\boldsymbol{A},\)</span> <span class="math">\(\\\)</span>
+a <span class="math">\(\ j\)</span>-ta kolumna macierzy <span class="math">\(\,\boldsymbol{A}^T\,\)</span>
+składa się z elementów <span class="math">\(\,j\)</span>-tego wiersza macierzy <span class="math">\(\,\boldsymbol{A}.\)</span></p>
+<p><strong>Przykłady.</strong></p>
+<p>1.) <span class="math">\(\ \)</span> Jeżeli
+<span class="math">\(\ \ \boldsymbol{A}\ =\ \left[\begin{array}{rr}
+2 &amp; - 1 \\ 3 &amp; 0 \\ - 2 &amp; 1 \end{array}\right]
+\in M_{3\times 2}(R),\ \ \)</span>
+to <span class="math">\(\ \ \boldsymbol{A}^T\ =\ \left[\begin{array}{rrr}
+2 &amp; 3 &amp; -2 \\ -1 &amp; 0 &amp; 1 \end{array} \right]\in M_{2\times 3}(R).\)</span></p>
+<p>2.) <span class="math">\(\ \)</span> Transpozycja macierzy kwadratowej:
+<span class="math">\(\ \ \left[\begin{array}{rrr}
+-2 &amp; 1 &amp; 0 \\ 5 &amp; 2 &amp; 3 \\ 7 &amp; -3 &amp; 8
+\end{array}\right]^T =\ \;\left[\begin{array}{rrr}
+-2 &amp; 5 &amp; 7 \\ 1 &amp; 2 &amp; -3 \\ 0 &amp; 3 &amp; 8
+\end{array}\right]\,.\)</span></p>
+<p>3.) <span class="math">\(\ \)</span> Transpozycja macierzy jednokolumnowej:
+<span class="math">\(\ \ \left[\begin{array}{c}
+a_1 \\ a_2 \\ a_3 \\ a_4
+\end{array}\right]^T =\ \;\left[\begin{array}{cccc}
+a_1 &amp; a_2 &amp; a_3 &amp; a_4
+\end{array}\right]\,.\)</span></p>
+<p><span class="math">\(\\\)</span> <strong>Własności operacji transponowania macierzy.</strong></p>
+<p>1.) <span class="math">\(\,\)</span> Niech
+<span class="math">\(\,\boldsymbol{A},\boldsymbol{B}\in M_{m \times n}(K),\ c\in K.\ \ \)</span> Wtedy
+<span class="math">\(\ \ (\boldsymbol{A}+\boldsymbol{B})^T =\,\boldsymbol{A}^T + \boldsymbol{B}^T,\ \
+(c\boldsymbol{A})^T =\,c\boldsymbol{A}^T\,.\)</span></p>
+<p>(transpozycja sumy macierzy równa się sumie macierzy transponowanych,
+czynnik liczbowy można wyłączyć przed symbol transpozycji: <span class="math">\(\,\)</span>
+transpozycja jest operacją liniową)</p>
+<p>2.) <span class="math">\(\,\)</span> Niech
+<span class="math">\(\,\boldsymbol{A}\in M_{m\times p}(K),\ \boldsymbol{B}\in M_{p\times n}(K).\ \)</span> Wtedy
+<span class="math">\(\ \ (\boldsymbol{A}\boldsymbol{B})^T =\,\boldsymbol{B}^T\boldsymbol{A}^T\,.\)</span></p>
+<p>(transpozycja iloczynu macierzy równa się iloczynowi macierzy transponowanych
+z odwróceniem kolejności czynników)</p>
+<p>Dowód twierdzenia 2.:</p>
+<ul>
+<li><div class="first line-block">
+<div class="line">Porównanie  wymiarów macierzy.</div>
+<div class="line"><span class="math">\(\boldsymbol{A}\boldsymbol{B}:\ m\times n\,;\quad
+(\boldsymbol{A}\boldsymbol{B})^T:\ n\times m\,.\)</span></div>
+<div class="line"><span class="math">\(\boldsymbol{B}^T:\ n\times p\,;\quad
+\boldsymbol{A}^T:\ p\times m\,;\quad
+\boldsymbol{B}^T\boldsymbol{A}^T:\ n\times m\,.\)</span></div>
+</div>
+</li>
+<li><div class="first line-block">
+<div class="line">Porównanie odpowiednich elementów macierzy. <span class="math">\(\,\)</span>
+Dla <span class="math">\(\boldsymbol{A} = [a_{ij}]_{m\times p}\,,\ \boldsymbol{B}=[b_{ij}]_{p\times n}:\)</span></div>
+<div class="line"><span class="math">\((\boldsymbol{A}\boldsymbol{B})^T|_{ij}\ =\
+(\boldsymbol{A}\boldsymbol{B})|_{ji}\ =\
+\sum\limits_{s=1}^p \,a_{js}\,b_{si}\,,\)</span></div>
+<div class="line"><span class="math">\(\boldsymbol{B}^T\boldsymbol{A}^T|_{ij}\ =\
+\sum\limits_{s=1}^p \,b_{is}^T\,a_{sj}^T\ =\
+\sum\limits_{s=1}^p \,a_{js}\,b_{si}\,,\quad
+i=1,2,\ldots,n;\ \ j=1,2,\ldots,m.\)</span></div>
+</div>
+</li>
+</ul>
+<div class="section" id="macierze-symetryczne-i-antysymetryczne">
+<h2>Macierze symetryczne i antysymetryczne<a class="headerlink" href="transpozycja_macierzy.html#macierze-symetryczne-i-antysymetryczne" title="Stały odnośnik do tego nagłówka">¶</a></h2>
+<p>Macierz <span class="math">\(\,\boldsymbol{A}=[a_{ij}]_{n\times n}\in M_n(K)\,\)</span>
+nazywa się <span class="math">\(\,\)</span> <em>macierzą symetryczną</em>, <span class="math">\(\\\)</span>
+gdy <span class="math">\(\,\boldsymbol{A}^T=\boldsymbol{A}\,,\ \)</span>
+czyli gdy <span class="math">\(\ a_{ij} = a_{ji}\,,\ \ i,j=1,2,\ldots,n.\)</span></p>
+<p>Taka macierz nie zmienia się przy odbiciu jej elementów względem głównej przekątnej.</p>
+<p>Jeżeli dla pewnej macierzy <span class="math">\(\,\boldsymbol{A}=[a_{ij}]_{n\times n}\in M_n(K)\,\)</span>
+spełniony jest warunek <span class="math">\(\,\boldsymbol{A}^T=-\boldsymbol{A}\,,\)</span> <span class="math">\(\\\)</span>
+to nazywamy ją <span class="math">\(\,\)</span> <em>macierzą antysymetryczną</em>.</p>
+<p>Wtedy <span class="math">\(\ a_{ij} = - a_{ji}\,,\ \ i,j=1,2,\ldots,n,\ \)</span>
+z czego wynika, że <span class="math">\(\ a_{ii} = 0\ \ \text{dla}\ \ i=1,2,\ldots,n.\)</span> <span class="math">\(\\\)</span>
+(w macierzy antysymetrycznej elementy głównej przekątnej są równe zeru).</p>
+<p>W przypadku macierzy rzeczywistych 3. stopnia,
+ogólna postać macierzy symetrycznych i antysymetrycznych jest następująca:</p>
+<div class="math">
+\[\begin{split}\boldsymbol{A}_s\ =\ \left[\begin{array}{ccc}
+                      a &amp; b &amp; c \\ b &amp; d &amp; e \\ c &amp; e &amp; f
+                   \end{array}\right]\,,
+\qquad
+\boldsymbol{A}_a\ =\ \left[\begin{array}{rrr}
+                      0 &amp; a &amp; \ \ b \\ -a &amp; 0 &amp; \ \ c \\ -b &amp; -c &amp; \ \ 0
+                   \end{array}\,\right]\,.\end{split}\]</div>
+<p>Z tożsamości, spełnionej dla dowolnej macierzy <span class="math">\(\,\boldsymbol{A}\in M_n(K):\)</span></p>
+<div class="math">
+\[\boldsymbol{A}\ \ =\ \
+\textstyle{1\over 2}\ (\boldsymbol{A}+\boldsymbol{A}^T)\ +\
+\textstyle{1\over 2}\ (\boldsymbol{A}-\boldsymbol{A}^T),\]</div>
+<p>gdzie po prawej stronie pierwszy składnik jest macierzą symetryczną,
+a drugi macierzą antysymetryczną, wynika
+że każdą macierz kwadratową można przedstawić
+w postaci sumy macierzy symetrycznej i antysymetrycznej.
+Można uzasadnić, że rozkład taki jest jednoznaczny.</p>
+<p>W systemie Sage operacji transpozycji macierzy odpowiada metoda <tt class="docutils literal"><span class="pre">transpose()</span></tt> (w skrócie <tt class="docutils literal"><span class="pre">T</span></tt>).
+Dostępne są również metody <tt class="docutils literal"><span class="pre">is_symmetric()</span></tt> oraz <tt class="docutils literal"><span class="pre">is_skew_symmetric()</span></tt>,
+które sprawdzają, czy dana macierz jest symetryczna bądź antysymetryczna.</p>
+<p><strong>Przykład.</strong> <span class="math">\(\,\)</span> Przedstawić macierz</p>
+<div class="math">
+\[\begin{split}\boldsymbol{A}\ =\ \left[\begin{array}{rrr}
+                      4 &amp;  3 &amp; -1 \\
+                      2 &amp; -5 &amp;  8 \\
+                      0 &amp; -2 &amp;  1
+                   \end{array}\right]\,\in\,M_3(R)\end{split}\]</div>
+<p>w postaci sumy macierzy symetrycznej i macierzy antysymetrycznej.</p>
+<div class="highlight-python"><div class="highlight"><pre><span class="n">sage</span><span class="p">:</span> <span class="n">A</span> <span class="o">=</span> <span class="n">matrix</span><span class="p">(</span><span class="n">QQ</span><span class="p">,[[</span><span class="mi">4</span><span class="p">,</span> <span class="mi">3</span><span class="p">,</span><span class="o">-</span><span class="mi">1</span><span class="p">],</span>
+                     <span class="p">[</span><span class="mi">2</span><span class="p">,</span><span class="o">-</span><span class="mi">5</span><span class="p">,</span> <span class="mi">8</span><span class="p">],</span>
+                     <span class="p">[</span><span class="mi">0</span><span class="p">,</span><span class="o">-</span><span class="mi">2</span><span class="p">,</span> <span class="mi">1</span><span class="p">]])</span>
+
+<span class="n">sage</span><span class="p">:</span> <span class="n">As</span> <span class="o">=</span> <span class="p">(</span><span class="n">A</span> <span class="o">+</span> <span class="n">A</span><span class="o">.</span><span class="n">T</span><span class="p">)</span><span class="o">/</span><span class="mi">2</span>
+<span class="n">sage</span><span class="p">:</span> <span class="n">Aa</span> <span class="o">=</span> <span class="p">(</span><span class="n">A</span> <span class="o">-</span> <span class="n">A</span><span class="o">.</span><span class="n">T</span><span class="p">)</span><span class="o">/</span><span class="mi">2</span>
+
+<span class="n">sage</span><span class="p">:</span> <span class="n">html</span><span class="o">.</span><span class="n">table</span><span class="p">([[</span><span class="n">A</span><span class="p">,</span> <span class="s">&#39;=&#39;</span><span class="p">,</span> <span class="n">As</span><span class="p">,</span> <span class="s">&#39;+&#39;</span><span class="p">,</span> <span class="n">Aa</span><span class="p">]])</span>
+<span class="n">sage</span><span class="p">:</span> <span class="p">(</span><span class="n">As</span><span class="o">.</span><span class="n">is_symmetric</span><span class="p">(),</span> <span class="n">Aa</span><span class="o">.</span><span class="n">is_skew_symmetric</span><span class="p">())</span>
+</pre></div>
+</div>
+<div class="math">
+\[\begin{split}\left(\begin{array}{rrr}
+   4 &amp;  3 &amp; -1 \\
+   2 &amp; -5 &amp;  8 \\
+   0 &amp; -2 &amp;  1
+\end{array}\right)\ \ =\ \
+\left(\begin{array}{rrr}
+   4 &amp; \textstyle{5\over 2} &amp; -\textstyle{1\over 2} \\
+   \textstyle{5\over 2} &amp; -5 &amp; 3 \\
+   -\textstyle{1\over 2} &amp; 3 &amp; 1 \\
+\end{array}\right)\ \ +\ \
+\left(\begin{array}{rrr}
+   0 &amp; \textstyle{1\over 2} &amp; -\textstyle{1\over 2} \\
+   -\textstyle{1\over 2} &amp; 0 &amp; 5 \\
+   \textstyle{1\over 2} &amp; -5 &amp; 0 \\
+\end{array}\right)\end{split}\]</div>
+<p>(True, True)</p>
+</div>
+</div>
+
+
+          </div>
+        </div>
+      </div>
+      <div class="sphinxsidebar">
+        <div class="sphinxsidebarwrapper">
+  <div class="sphinxlocaltoc">
+  <h3><a href="http://visual.icse.us.edu.pl/LA/index.html">Spis treści</a></h3>
+  <ul>
+<li><a class="reference internal" href="transpozycja_macierzy.html#">Transpozycja macierzy</a><ul>
+<li><a class="reference internal" href="transpozycja_macierzy.html#macierze-symetryczne-i-antysymetryczne">Macierze symetryczne i antysymetryczne</a></li>
+</ul>
+</li>
+</ul>
+
+  </div>
+  <h4>Poprzedni temat</h4>
+  <p class="topless"><a href="eliminacja_dla_macierzy.html"
+                        title="poprzedni rozdział">Metoda eliminacji w ujęciu macierzowym</a></p>
+  <h4>Następny temat</h4>
+  <p class="topless"><a href="macierz_odwrotna.html"
+                        title="następny rozdział">Macierz odwrotna</a></p>
+<div id="searchbox" style="display: none">
+  <h3>Szybkie wyszukiwanie</h3>
+    <form class="search" action="search.html" method="get">
+      <input type="text" name="q" />
+      <input type="submit" value="Szukaj" />
+      <input type="hidden" name="check_keywords" value="yes" />
+      <input type="hidden" name="area" value="default" />
+    </form>
+    <p class="searchtip" style="font-size: 90%">
+    Wprowadź szukany termin lub nazwę modułu, klasy lub funkcji.
+    </p>
+</div>
+<script type="text/javascript">$('#searchbox').show(0);</script>
+        </div>
+      </div>
+      <div class="clearer"></div>
+    </div>
+  </div>
+  <div class="relbar-bottom">
+    
+    <div class="related">
+      <h3>Nawigacja</h3>
+      <ul>
+        <li class="right" style="margin-right: 10px">
+          <a href="macierz_odwrotna.html" title="Macierz odwrotna"
+             >dalej</a></li>
+        <li class="right" >
+          <a href="eliminacja_dla_macierzy.html" title="Metoda eliminacji w ujęciu macierzowym"
+             >wstecz</a> &nbsp; &nbsp;</li>
+  <li><a href="http://visual.icse.us.edu.pl/LA/index.html">Algebra Liniowa</a> &raquo;</li>
+   
+      </ul>
+    </div>
+  </div>
+  
+  <div class="footer">
+    <a class="logo" href="../../icse.us.edu.pl/index.html" target="_blank"><img src="_static/logo-icse.png" alt="ICSE"/></a><br/>
+    &copy; Copyright 2013, Marcin Kostur.
+    Created using <a href="http://sphinx.pocoo.org/">Sphinx</a> 1.2.2.
+  </div>
+  </body>
+</html>

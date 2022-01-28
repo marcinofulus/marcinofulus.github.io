@@ -1,0 +1,203 @@
+<!DOCTYPE html> 
+<html> 
+<head> 
+<title>Układ zachowawczy o jednym stopniu swobody</title> 
+<meta http-equiv="Content-Type" content="text/html; charset=UTF-8" /> 
+<meta http-equiv="X-UA-Compatible" content="IE=EmulateIE7" /> 
+
+<script type="text/x-mathjax-config"> 
+  MathJax.Hub.Config({
+    extensions: ["tex2jax.js"],
+    jax: ["input/TeX","output/HTML-CSS"],
+    tex2jax: {inlineMath: [["$","$"],["\\(","\\)"]]}
+  });
+</script> 
+<!-- <script type="text/javascript" src="js/mathjax/MathJax.js"></script> --> 
+<script type="text/javascript" src="http://cdn.mathjax.org/mathjax/latest/MathJax.js"></script>
+
+<link rel="stylesheet" type="text/css" href="css/mainstyle.css" />
+<link rel="stylesheet" type="text/css" href="css/jsxgraph.css" />
+<script type="text/javascript" src="js/jsxgraphcore-0.95.js"></script>
+
+<script type="text/javascript" src="js/vtip/jquery.js"></script>
+<script type="text/javascript" src="js/vtip/vtip.js"></script>
+<link rel="stylesheet" type="text/css" href="js/vtip/css/vtip.css" />
+
+</head>
+<body>
+
+	<noscript> 
+	<div style="color:#CC0000; text-align:center">
+	<b>Uwaga: do prawidłowego działania, biblioteki <a href="http://www.mathjax.org/">MathJax</a>
+	oraz <a href="http://jsxgraph.uni-bayreuth.de/wp/">jsxgraph</a> wymagają obsługi JavaScript.<br />
+	Upewnij się, że JavaScript jest aktywowany w twojej przeglądarce.
+	</div>
+	<hr>
+	</noscript>
+
+
+<div id="container">
+
+<div id="header">
+	<h1>Układ zachowawczy o jednym stopniu swobody</h1>
+	<p class="text">
+	</p> 
+</div>
+
+
+<div id="content">
+
+
+<div id="input" class="formstyle">
+
+	<form name="form">
+	<table class="plotarea">
+	<tr>
+ 	<td>
+		<table>
+ 		<h3 class="punkt1">Punkt 1</h3>
+ 			<tr>	
+  			<td>$x_0$</td> 
+  			<td><input class="inputtext" type="text" id="pos01" value="0.5" onKeyUp="resetAnimation()"/></td>
+  			<td>$\gamma$</td>
+  			<td class="vtip" title="Współczynnik tarcia dla punktu 1"><input class="inputtext" type="text" id="gamma1" value="0" onKeyUp="resetAnimation()"/></td>
+  			<td>$A$</td>
+  			<td><input class="inputtext" type="text" id="bigA1" value="0" onKeyUp="resetAnimation()"/></td>
+  			<td>$x$</td> 
+  			<td class="vtip" title="Aktualne położenie dla punktu 1"><input class="outputtext" type="text" id="pos1out" value="" readonly/></td>
+  			</tr>
+  			
+  			<tr>
+  			<td>$E_c$</td>
+  			<td><input class="outputtext" type="text" id="E1" value="" readonly/></td>
+  			<td></td>
+  			<td></td>
+  			<td>$\omega$</td>
+  			<td><input class="inputtext" type="text" id="omega1" value="0" onKeyUp="resetAnimation()"/></td>
+  			<td>$x^{'}$</td> 
+  			<td class="vtip" title="Aktualna prędkość dla punktu 1"><input class="outputtext" type="text" id="vel1out" value="" readonly/></td>
+ 			</tr>
+ 		
+ 			<tr>
+  			<td>$U(x)$</td> 
+  			<td><input type="radio" name="U1" value="x1" onClick="resetAnimation()" checked/>$x^2/2$</td>				
+  			</tr>
+  			
+  			<tr>
+  			<td></td>
+  			<td><input type="radio" name="U1" value="x2" onClick="resetAnimation()" />$x^4/4 - a x^2/2$</td>
+  			<td>$a$</td>
+  			<td><input class="inputtext" type="text" id="a1" value="1" onKeyUp="resetAnimation()"/></td>  			
+  			</tr>
+  			
+  			<tr>
+  			<td></td>
+  			<td><input type="radio" name="U1" value="x3" onClick="resetAnimation()" />$\cos(x)$</td>
+  			</tr>
+ 
+  			<tr>
+  			<td></td>
+  			<td><input type="radio" name="U1" value="x4" onClick="resetAnimation()" />$-x^3+x$</td>
+  			</tr> 
+  			
+		</table> 
+ 	</td>
+ 	<td>
+		<table> 
+		 	<h3 class="punkt2">Punkt 2</h3>
+ 			<tr>	
+  			<td>$x_0$</td> 
+  			<td><input class="inputtext" type="text" id="pos02" value="0.5" onKeyUp="resetAnimation()"/></td>  		
+  			<td>$\gamma$</td>
+  			<td class="vtip" title="Współczynnik tarcia dla punktu 2"><input class="inputtext" type="text" id="gamma2" value="0" onKeyUp="resetAnimation()"/></td>
+  			<td>$A$</td>
+  			<td><input class="inputtext" type="text" id="bigA2" value="0" onKeyUp="resetAnimation()"/></td>  			
+  			<td>$x$</td> 
+  			<td class="vtip" title="Aktualne położenie dla punktu 1"><input class="outputtext" type="text" id="pos2out" value="" readonly/></td>
+  			</tr>
+  			
+  			<tr>
+  			<td>$E_c$</td>
+  			<td><input class="outputtext" type="text" id="E2" value="" readonly/></td>
+  			<td></td>
+  			<td></td>  			
+  			<td>$\omega$</td>
+  			<td><input class="inputtext" type="text" id="omega2" value="0" onKeyUp="resetAnimation()"/></td>  			
+  			<td>$x^{'}$</td> 
+  			<td class="vtip" title="Aktualna prędkość dla punktu 2"><input class="outputtext" type="text" id="vel2out" value="" readonly/></td>
+ 			</tr>
+ 		
+ 			<tr>
+  			<td>$U(x)$</td> 
+  			<td><input type="radio" name="U2" value="x1" onClick="resetAnimation()" checked/>$x^2/2$</td>				
+  			</tr>
+  			
+  			<tr>
+  			<td></td>
+  			<td><input type="radio" name="U2" value="x2" onClick="resetAnimation()" />$x^4/4 - a x^2/2$</td>
+  			<td>$a$</td>
+  			<td><input class="inputtext" type="text" id="a2" value="1" onKeyUp="resetAnimation()"/></td>
+  			</tr>
+  			
+  			<tr>
+  			<td></td>
+  			<td><input type="radio" name="U2" value="x3" onClick="resetAnimation()" />$\cos(x)$</td>
+  			</tr>
+ 
+  			<tr>
+  			<td></td>
+  			<td><input type="radio" name="U2" value="x4" onClick="resetAnimation()" />$-x^3+x$</td>
+  			</tr> 
+  			
+		</table> 
+ 	</td>
+ 	</tr> 
+ 
+ 	<tr>
+ 	<td> 
+		<table> 
+	 	<tr>
+	  	<td></td>
+	  	<td></td>
+	  	<td>
+	  		<input type="button" value="start / stop" onClick="startStopAnimation()" />
+	  		<input type="button" value="reset" onClick="resetAnimation()" />
+	  	</td>   
+	 	</tr>
+		</table>
+	 </td>
+	 </tr> 
+	</table>
+	</form>
+	
+</div>
+
+<div id="plots">   
+    	<table class="plotarea">    
+    	<tr>
+       	<td>
+        <div id="box1" class="jxgbox vtip" title="Wykres potencjałów"></div>
+        </td>
+        <td>
+        <div id="box2" class="jxgbox vtip" title="Przestrzeń fazowa"></div>
+        </td>
+    	</tr>
+	</table>
+</div>
+
+
+<div class="theory">
+	<h3>Równanie ruchu:</h3>
+	<p class="text">	
+	$m \ddot{x} = -U'(x) - \gamma \dot{x} + A \cos(\omega t)$
+	</p>
+</div>	
+	
+</div>
+</div>
+
+
+
+<script type="text/javascript" src="js/phys.js"></script><br />
+</body>
+</html>

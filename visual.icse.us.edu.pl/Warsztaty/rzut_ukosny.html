@@ -1,0 +1,398 @@
+
+
+  <!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+  "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+
+
+<html xmlns="http://www.w3.org/1999/xhtml">
+  <head>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    
+    <title>Rzut ukośny &mdash; Warsztaty</title>
+    
+    <link rel="stylesheet" href="_static/cloud.css" type="text/css" />
+    <link rel="stylesheet" href="_static/pygments.css" type="text/css" />
+    <link rel="stylesheet" href="http://fonts.googleapis.com/css?family=Noticia+Text|Open+Sans|Droid+Sans+Mono&subset=latin,latin-ext" type="text/css" />
+    
+    <script type="text/javascript">
+      var DOCUMENTATION_OPTIONS = {
+        URL_ROOT:    './',
+        VERSION:     'I',
+        COLLAPSE_INDEX: false,
+        FILE_SUFFIX: '.html',
+        HAS_SOURCE:  true
+      };
+    </script>
+    <script type="text/javascript" src="_static/jquery.js"></script>
+    <script type="text/javascript" src="_static/underscore.js"></script>
+    <script type="text/javascript" src="_static/doctools.js"></script>
+    <script type="text/javascript" src="_static/translations.js"></script>
+    <script type="text/javascript" src="http://cdn.mathjax.org/mathjax/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML"></script>
+    <script type="text/javascript" src="_static/jquery.cookie.js"></script>
+    <script type="text/javascript" src="_static/cloud.js"></script>
+
+
+
+    <script src="http://sagecell.icse.us.edu.pl:6363/static/jquery.min.js"></script>
+	<script src="http://sagecell.icse.us.edu.pl:6363/static/embedded_sagecell.js"></script>
+
+	<script>sagecell.makeSagecell({inputLocation: ".sage",
+                                       evalButtonText: 'Wykonaj',
+                                       linked: true});</script>
+
+	<style type="text/css">
+		.sagecell .CodeMirror-scroll {
+			overflow-y: hidden;
+			overflow-x: auto;
+		}
+		.sagecell .CodeMirror {
+			height: auto;
+		}
+	</style>
+
+    
+    <link rel="top" title="Warsztaty" href="index.html" />
+    <link rel="next" title="Kinematyka" href="akcelerometr.html" />
+    <link rel="prev" title="Paradoks Monty Halla – problem z mylącą intuicją" href="iCSE_4_MontyHall_CubeProject.html" />
+ 
+  <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, minimum-scale=1">
+  </head>
+  <body>
+  <div class="relbar-top">
+    
+    <div class="related">
+      <h3>Nawigacja</h3>
+      <ul>
+        <li class="right" style="margin-right: 10px">
+          <a href="akcelerometr.html" title="Kinematyka"
+             accesskey="N">dalej</a></li>
+        <li class="right" >
+          <a href="iCSE_4_MontyHall_CubeProject.html" title="Paradoks Monty Halla – problem z mylącą intuicją"
+             accesskey="P">wstecz</a> &nbsp; &nbsp;</li>
+  <li><a href="index.html">Warsztaty</a> &raquo;</li>
+   
+      </ul>
+    </div>
+  </div>
+  
+  <div class="content">  
+
+    <div class="document">
+      <div class="documentwrapper">
+        <div class="bodywrapper">
+          <div class="body">
+            
+  <div class="section" id="rzut-ukosny">
+<h1>Rzut ukośny<a class="headerlink" href="rzut_ukosny.html#rzut-ukosny" title="Stały odnośnik do tego nagłówka">¶</a></h1>
+<p>Wymagania:</p>
+<ol class="arabic simple">
+<li>Teoria rzutu ukośnego w zakresie fizyki szkoły średniej, wzór na trajektorię ruchu.</li>
+<li>Podstawy Sage: wykresy/pęlta/lista</li>
+</ol>
+<div class="section" id="id1">
+<h2>Rzut ukośny<a class="headerlink" href="rzut_ukosny.html#id1" title="Stały odnośnik do tego nagłówka">¶</a></h2>
+<p>Rozważmy ruch punktu materialnego pod wpływem przyciągania
+ziemskiego. Zgodnie z <a class="reference external" href="http://pl.wikipedia.org/wiki/Zasady_dynamiki_Newtona">Drugą Zasadą Dynamiki Newtona</a> ruch punktu
+materialnego pod wpływem siły <span class="math">\(\vec F\)</span> jest opisywany przez:</p>
+<div class="math">
+\[m\,\vec a  = \vec F\]</div>
+<p>W tym przypadku mamy <span class="math">\(\vec F = m\vec g\)</span>, gdzie <span class="math">\(\vec g\)</span>
+jest <a class="reference external" href="http://pl.wikipedia.org/wiki/Przy%C5%9Bpieszenie_ziemskie">przyśpieszeniem ziemskim</a> .</p>
+<p>Aby wyliczyć  <a class="reference external" href="http://pl.wikipedia.org/wiki/Tor_ruchu">tor ruchu</a>  możemy skorzystać ze wzorów na:</p>
+<ul class="simple">
+<li>przyśpieszenie:<span class="math">\(\quad\, \vec a =  \displaystyle \frac{\Delta \vec v}{\Delta t}  = \displaystyle \frac{\vec v-\vec v_0}{\Delta t}\)</span></li>
+<li>prędkość:<span class="math">\(\qquad\quad\: \vec v = \displaystyle\frac{ \Delta \vec r}{\Delta t}  =  \displaystyle\frac{\vec r-\vec r_0}{\Delta t}\)</span></li>
+</ul>
+<p>Podstawowe równania ruchu:</p>
+<div class="math">
+\[\begin{split}\begin{cases}   m  \, \displaystyle \frac{\Delta \vec v}{\Delta t} &amp;=&amp; \vec F \\   \quad\displaystyle \frac{\Delta \vec r}{\Delta t} &amp;=&amp; \vec v\end{cases}\end{split}\]</div>
+<p>Stan układu jest jednoznacznie zadany przez położenie i prędkość:
+<span class="math">\(\vec r_0,\vec v_0\)</span> , w chwili początkowej <span class="math">\(t_0\)</span>.  Aby
+obliczyć <span class="math">\(\vec r,\vec v\)</span> po czasie <span class="math">\(\: \Delta t \;\)</span> możemy
+skorzystać ze wzorów na prędkość i przyśpieszenie:</p>
+<ul class="simple">
+<li>nowe położenie: <span class="math">\(\, \vec r  =  \vec r_0  +  \vec v_0  \Delta t\)</span></li>
+<li>nowa prędkość:<span class="math">\(\quad \vec v  =  \vec v_0  +  \displaystyle \frac{\vec F}{m}   \Delta t\)</span></li>
+</ul>
+<p>Zakładamy, że ruch odbywa się w płaszczyźnie pionowej wyznaczonej
+przez wektory prędkości początkowej <span class="math">\(\;\vec v_0\;\)</span> i
+przyśpieszenia ziemskiego <span class="math">\(\;\vec g\,\)</span>.</p>
+<p>Niech <span class="math">\(\:x\:\)</span> i <span class="math">\(\:y\;\)</span> będą współrzędnymi wektora
+położenia <span class="math">\(\:\vec r\,\)</span>, <span class="math">\(\:\)</span> a <span class="math">\(\ \: v_x\:\)</span> i
+<span class="math">\(\;v_y\:\ - \ \)</span> współrzędnymi wektora prędkości <span class="math">\(\;\vec
+v\;\)</span> w układzie współrzędnych z poziomą osią <span class="math">\(Ox\)</span> i pionową osią
+<span class="math">\(Oy\)</span>.  Układ wielkości <span class="math">\(\,(x,\,y,\,v_x,\,v_y\,)\)</span> jest
+matematyczną reprezentacją stanu cząstki.</p>
+<p>Równania ruchu można teraz zapisać jako:</p>
+<div class="math">
+\[\begin{split}\begin{cases}\quad\;\displaystyle\frac{\Delta x}{\Delta t} &amp;=&amp; v_x\\\quad\;\displaystyle\frac{\Delta y}{\Delta t} &amp;=&amp; v_y \\\quad\;\displaystyle\frac{\Delta v_x}{\Delta t}&amp;=&amp; 0\\\quad\;\displaystyle\frac{\Delta v_y}{\Delta t} &amp;=&amp; -\:g\end{cases}\end{split}\]</div>
+<p>Wprowadzając wartości początkowe <span class="math">\(\:x_0\:\)</span> i <span class="math">\(\:y_0\:\)</span> dla współrzędnych położenia oraz <span class="math">\(\:v_{x0}\:\)</span> i <span class="math">\(\:v_{y0}\:\)</span> dla współrzędnych prędkości, otrzymujemy:</p>
+<div class="math">
+\[\begin{split}\begin{cases}\quad x &amp;=&amp;x_0 \ +\ v_{x0}\:\Delta t\\ \quad y &amp;=&amp;y_0\ +\ v_{y0}\:\Delta t\\ \quad v_x &amp;=&amp;v_{x0}\ +\ 0\:\Delta t\\ \quad v_y &amp;=&amp;v_{y0}\ -\  g\:\Delta t \end{cases}\end{split}\]</div>
+<div class='sage'><script type='text/x-sage'>x0, y0  = 0.0, 0.0
+vx0,vy0 = 10., 10.
+dt = 0.2
+g = 9.81
+warunek_poczatkowy = x0, y0, vx0, vy0
+punkty = [warunek_poczatkowy]</script></div><div class='sage'><script type='text/x-sage'>vx = vx0
+vy = vy0 - g * dt
+x  = x0  + vx0 *dt
+y  = y0  + vy0 *dt
+x0, y0, vx0, vy0 = x, y, vx, vy
+punkty.append( (x, y, vx, vy))
+html.table([('$x$', '$y$','$v_x$','$v_y$')]+punkty,header=True)</script></div><div class="highlight-python"><div class="highlight"><pre><span class="n">sage</span><span class="p">:</span> <span class="n">x0</span><span class="p">,</span><span class="n">y0</span><span class="o">=</span><span class="mi">0</span><span class="p">,</span><span class="mi">0</span>
+<span class="n">sage</span><span class="p">:</span> <span class="n">vx0</span><span class="p">,</span><span class="n">vy0</span><span class="o">=</span> <span class="mi">10</span><span class="p">,</span><span class="mi">10</span>
+<span class="n">sage</span><span class="p">:</span> <span class="n">g</span><span class="o">=</span><span class="mf">9.81</span>
+<span class="n">sage</span><span class="p">:</span> <span class="n">dt</span> <span class="o">=</span> <span class="mf">0.03</span>
+<span class="n">sage</span><span class="p">:</span> <span class="n">wykres</span> <span class="o">=</span> <span class="n">point</span><span class="p">(</span> <span class="p">[(</span><span class="n">x0</span><span class="p">,</span><span class="n">y0</span><span class="p">)],</span><span class="n">pointsize</span><span class="o">=</span><span class="mi">50</span><span class="p">,</span><span class="n">figsize</span><span class="o">=</span><span class="mi">5</span><span class="p">,</span><span class="n">color</span><span class="o">=</span><span class="s">&#39;red&#39;</span><span class="p">)</span>
+<span class="n">sage</span><span class="p">:</span> <span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="nb">int</span><span class="p">(</span><span class="mf">2.1</span><span class="o">/</span><span class="n">dt</span><span class="p">)):</span>
+<span class="o">...</span>       <span class="n">x1</span> <span class="o">=</span> <span class="n">x0</span> <span class="o">+</span> <span class="n">vx0</span><span class="o">*</span><span class="n">dt</span>
+<span class="o">...</span>       <span class="n">y1</span> <span class="o">=</span> <span class="n">y0</span> <span class="o">+</span> <span class="n">vy0</span><span class="o">*</span><span class="n">dt</span>
+<span class="o">...</span>       <span class="n">vx1</span>  <span class="o">=</span> <span class="n">vx0</span>
+<span class="o">...</span>       <span class="n">vy1</span>  <span class="o">=</span> <span class="n">vy0</span> <span class="o">-</span> <span class="n">g</span><span class="o">*</span><span class="n">dt</span>
+<span class="o">...</span>       <span class="n">x0</span><span class="p">,</span><span class="n">y0</span><span class="p">,</span><span class="n">vx0</span><span class="p">,</span><span class="n">vy0</span> <span class="o">=</span> <span class="n">x1</span><span class="p">,</span><span class="n">y1</span><span class="p">,</span><span class="n">vx1</span><span class="p">,</span><span class="n">vy1</span>
+<span class="o">...</span>       <span class="n">wykres</span> <span class="o">=</span> <span class="n">wykres</span> <span class="o">+</span>  <span class="n">point</span><span class="p">(</span> <span class="p">[(</span><span class="n">x1</span><span class="p">,</span><span class="n">y1</span><span class="p">)],</span><span class="n">pointsize</span><span class="o">=</span><span class="mi">20</span><span class="p">,</span><span class="n">figsize</span><span class="o">=</span><span class="mi">6</span><span class="p">)</span>
+<span class="n">sage</span><span class="p">:</span> <span class="n">var</span><span class="p">(</span><span class="s">&#39;t&#39;</span><span class="p">)</span>
+<span class="n">sage</span><span class="p">:</span> <span class="n">wykres</span> <span class="o">+</span> <span class="n">parametric_plot</span><span class="p">((</span><span class="mi">10</span><span class="o">*</span><span class="n">t</span><span class="p">,</span><span class="mi">10</span><span class="o">*</span><span class="n">t</span><span class="o">-</span><span class="n">g</span><span class="o">*</span><span class="n">t</span><span class="o">^</span><span class="mi">2</span><span class="o">/</span><span class="mi">2</span><span class="p">),(</span><span class="n">t</span><span class="p">,</span><span class="mi">0</span><span class="p">,</span><span class="mf">2.1</span><span class="p">),</span><span class="n">color</span><span class="o">=</span><span class="s">&#39;red&#39;</span><span class="p">)</span>
+</pre></div>
+</div>
+<img alt="_images/cell_38_sage0.png" class="align-center" src="_images/cell_38_sage0.png" />
+<div class='sage'><script type='text/x-sage'>var('t')
+@interact
+def _(n=slider(range(10,100)+range(100,1000,100))):
+    g=9.81
+    x0, y0, vx0, vy0 = [0,0,10,10]
+    dt = 2.1/n
+    trajektoria = [ (x0, y0) ]
+...
+    for i in range(n):
+        vx = vx0
+        vy = vy0  - g * dt
+        x = x0 + vx0 *dt
+        y = y0 + vy0 *dt
+        if y<0:
+            break
+        x0, y0,vx0, vy0 = x, y, vx , vy
+        trajektoria.append(( x,y ))
+...
+    plt1 =  line(trajektoria,figsize=(6,3),marker='o')
+    x0, y0, vx0, vy0 = [0,0,10,10]
+    plt2 =  parametric_plot( [x0+vx0*t,y0+vy0*t-g*t^2/2],(t,0,2.1),color='red' )
+    (plt1+plt2).show()</script></div></div>
+<div class="section" id="rzut-ukosny-z-wiatrem-i-oporem-powietrza">
+<h2>Rzut ukośny z wiatrem i oporem powietrza<a class="headerlink" href="rzut_ukosny.html#rzut-ukosny-z-wiatrem-i-oporem-powietrza" title="Stały odnośnik do tego nagłówka">¶</a></h2>
+<p>Zmodyfikujmy powyższy kod tak by uwzględniał opór powietrza. Zakładamy
+najprostrzą postać - proporcjonalność siły oporu do prędkości.</p>
+<div class="math">
+\[\vec F_{o} = C_x \vec v\]</div>
+<p>czyli:</p>
+<div class="math">
+\[\begin{split}Fx_{o} = C_x v_x \\
+Fy_{o} = C_x v_y\end{split}\]</div>
+<p>Jeżeli pocisk &#8220;odczuwa&#8221; powietrze, to może oznaczać że ruch będzie inny w obecności wiatru. Aby do modelu dodać wiatr należy w zależność oporu od prędkości zmienić na:</p>
+<div class='sage'><script type='text/x-sage'>var('t')
+@interact
+def _(Cx=slider(srange(0,1,0.01)),wiatr=slider(srange(-50,50,0.1))):
+    n=200
+    g=9.81
+    x0, y0, vx0, vy0 = [0,0,10,10]
+    dt = 2.1/n
+    trajektoria = [ (x0, y0) ]
+...
+    for i in range(n):
+        vx = vx0 - Cx*(vx0-wiatr)*dt
+        vy = vy0  - g * dt - Cx*vy0*dt
+        x = x0 + vx0 *dt
+        y = y0 + vy0 *dt
+        if y<0:
+            break
+        x0, y0,vx0, vy0 = x, y, vx , vy
+        trajektoria.append(( x,y ))
+...
+    plt1 =  line(trajektoria,figsize=(6,3))
+    x0, y0, vx0, vy0 = [0,0,10,10]
+    plt2 =  parametric_plot( [x0+vx0*t,y0+vy0*t-g*t^2/2],(t,0,2.1),color='red' )
+    (plt1+plt2).show()</script></div></div>
+<div class="section" id="dla-dociekliwych">
+<h2>Dla dociekliwych<a class="headerlink" href="rzut_ukosny.html#dla-dociekliwych" title="Stały odnośnik do tego nagłówka">¶</a></h2>
+<p>Matematycznie, jeśli wziąć granicę <span class="math">\(\Delta t \to 0\)</span> to
+otrzymujemy równania różniczkowe:</p>
+<div class="math">
+\[\begin{split}\begin{cases}\displaystyle\frac{d x}{d t} &amp;=&amp; v_x\\\displaystyle\frac{d y}{d t} &amp;=&amp; v_y \\\displaystyle\frac{d v_x}{d t}&amp;=&amp; 0\\\displaystyle\frac{d v_y}{d t} &amp;=&amp;-g\end{cases}\end{split}\]</div>
+<p>W powyższym  układzie równań różniczkowych zwyczajnych szukanymi są funkcje:</p>
+<div class="math">
+\[x(t),\,y(t),\,v_x(t),\,v_y(t).\]</div>
+<p>Do ich wyznaczenia potrzebne są</p>
+<ul class="simple">
+<li>układ równań</li>
+<li>jeden warunek początkowy określający prędkość i położenie punktu materialnego w chwili <span class="math">\(t_0\)</span>.</li>
+</ul>
+<p>W systemie Sage istnieje  narzędzie do rozwiązywania takich równań - <tt class="docutils literal"><span class="pre">desolve_odeint</span></tt>:</p>
+<div class="highlight-python"><div class="highlight"><pre><span class="n">sage</span><span class="p">:</span> <span class="n">var</span><span class="p">(</span><span class="s">&#39;x y vx vy&#39;</span><span class="p">)</span>
+<span class="n">sage</span><span class="p">:</span> <span class="n">g</span><span class="o">=</span><span class="mf">9.81</span>
+<span class="n">sage</span><span class="p">:</span> <span class="n">sol</span><span class="o">=</span><span class="n">desolve_odeint</span><span class="p">(</span><span class="n">vector</span><span class="p">(</span> <span class="p">[</span><span class="n">vx</span><span class="p">,</span><span class="n">vy</span><span class="p">,</span><span class="mi">0</span><span class="p">,</span><span class="o">-</span><span class="n">g</span><span class="p">]</span> <span class="p">),[</span><span class="mi">0</span><span class="p">,</span><span class="mi">0</span><span class="p">,</span><span class="mi">10</span><span class="p">,</span><span class="mi">10</span><span class="p">],</span><span class="n">srange</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span><span class="mf">2.1</span><span class="p">,</span><span class="mf">0.1</span><span class="p">),[</span><span class="n">x</span><span class="p">,</span><span class="n">y</span><span class="p">,</span><span class="n">vx</span><span class="p">,</span><span class="n">vy</span><span class="p">])</span>
+</pre></div>
+</div>
+<div class="highlight-python"><div class="highlight"><pre><span class="n">sage</span><span class="p">:</span> <span class="n">var</span><span class="p">(</span><span class="s">&#39;t&#39;</span><span class="p">)</span>
+<span class="n">sage</span><span class="p">:</span> <span class="n">point</span><span class="p">(</span> <span class="n">sol</span><span class="p">[:,</span><span class="mi">0</span><span class="p">:</span><span class="mi">2</span><span class="p">],</span><span class="n">color</span><span class="o">=</span><span class="s">&#39;brown&#39;</span><span class="p">,</span><span class="n">pointsize</span><span class="o">=</span><span class="mi">50</span><span class="p">)</span><span class="o">+</span>\
+<span class="o">...</span>    <span class="n">parametric_plot</span><span class="p">([</span><span class="mi">10</span><span class="o">*</span><span class="n">t</span><span class="p">,</span><span class="mi">10</span><span class="o">*</span><span class="n">t</span><span class="o">-</span><span class="n">g</span><span class="o">*</span><span class="n">t</span><span class="o">^</span><span class="mi">2</span><span class="o">/</span><span class="mi">2</span><span class="p">],(</span><span class="n">t</span><span class="p">,</span><span class="mi">0</span><span class="p">,</span><span class="mf">2.1</span><span class="p">))</span>
+</pre></div>
+</div>
+<img alt="_images/cell_19_sage0.png" class="align-center" src="_images/cell_19_sage0.png" />
+</div>
+<div class="section" id="parabola-bezpieczenstwa-dla-rodziny-torow-pociskow">
+<h2>Parabola bezpieczeństwa dla rodziny torów pocisków.<a class="headerlink" href="rzut_ukosny.html#parabola-bezpieczenstwa-dla-rodziny-torow-pociskow" title="Stały odnośnik do tego nagłówka">¶</a></h2>
+<p>Rozważmy rodzinę torów pocisków wyrzucanych w płaszczyźnie pionowej
+<span class="math">\(Oxy\)</span> z początku układu współrzędnych z taką samą prędkością
+początkową <span class="math">\(v_0\)</span>, ale pod różnymi kątami <span class="math">\(\alpha\)</span> względem
+osi <span class="math">\(Ox\)</span>.</p>
+<p>Chcemy wyznaczyć obszar bezpieczeństwa, do którego pociski nie
+docierają.  Granicą tego obszaru okazuje się obwiednia rodziny torów.
+W uproszczeniu można ją określić jako krzywą, która jest styczna do
+każdego toru rodziny i przy tym składa się cała z tych punktów
+styczności.</p>
+<p>Parametryczne równanie toru pocisku ma postać:</p>
+<div class="math">
+\[\begin{split}\begin{cases}
+    x \;=\; (v_0 \cos \alpha)\ t \\
+    y \;=\; (v_0 \sin \alpha)\ t \,-\, \frac{g}{2} \ t^2 \,.
+ \end{cases}\end{split}\]</div>
+<p>Rugując czas <span class="math">\(t\)</span>, otrzymamy równanie toru w postaci jawnej:</p>
+<div class="math">
+\[\quad\displaystyle y \ =\ (\text{tg}\,\alpha) \ x \; -\; \frac{g}{2\,v_0^2\cos^2\alpha} \ x^2\,.\]</div>
+<p>Przy oznaczeniach: <span class="math">\(\qquad p \ =\ \text{tg}\,\alpha\)</span> - tangens
+kąta wyrzucenia,</p>
+<p><span class="math">\(\qquad\displaystyle h \ =\ \frac{v_0^2}{2g}\)</span> - wysokość rzutu
+pionowego z prędkością początkową <span class="math">\(v_0\,,\)</span></p>
+<p>równanie toru przyjmuje postać:</p>
+<div class="math" id="equation-y_fxp">
+<span class="eqno">(1)</span>\[\displaystyle y \; =\; p\, x \;-\;\frac{1+p^2}{4h} \ x^2\,.\]</div>
+<p>Załóżmy, że krzywe pewnej rodziny zadane są równaniem uwikłanym
+<span class="math">\(F(x,y,p)\, =\, 0 \,,\)</span> gdzie <span class="math">\(p\)</span> jest parametrem
+charakteryzującym poszczególne krzywe.  Jeżeli istnieje obwiednia tej
+rodziny, to jej równanie otrzymuje się przez wyrugowanie parametru
+<span class="math">\(p\)</span> z układu równań <a href="rzut_ukosny.html#equation-y_fxp">(1)</a> i <a href="rzut_ukosny.html#equation-war_obw">(2)</a>.</p>
+<div class="math" id="equation-war_obw">
+<span class="eqno">(2)</span>\[\begin{split}\begin{cases}
+  F(x,y,p)=0 \\
+  F_p'(x,y,p)=0.
+\end{cases}\end{split}\]</div>
+<p>Dla rodziny torów pocisków obwiednia (parabola bezpieczeństwa) dana
+jest równaniem:</p>
+<div class="math" id="equation-rown_obw">
+<span class="eqno">(3)</span>\[\displaystyle y  =  h - \frac{x^2}{4h}.\]</div>
+<p><strong>Literatura.</strong></p>
+<p>[1]  Roman Leitner,  Zarys matematyki wyższej,  część I,  WNT Warszawa  (w niniejszym opracowaniu przyjęto oznaczenia z tego podręcznika)
+[2]  G.M. Fichtenholz,  Rachunek różniczkowy i całkowy,  tom I,  PWN Warszawa</p>
+<div class="highlight-python"><div class="highlight"><pre>sage: # Obwiednia (parabola bezpieczeństwa) dla rodziny torów pocisków.
+sage: var(&#39;x&#39;)
+sage: L = [] # inicjacja listy torów i punktów styczności
+sage: h = 10 # maksymalna wysokość osiągana przez pociski
+sage: # Równanie i wykres obwiedni:
+sage: over(x)  = h-x^2/(4*h)
+sage: envelope = plot(over(x), (x, -20, +20), color=&#39;red&#39;, thickness=2)
+sage: # Określenie i wypisanie zbioru wartości vals parametru p:
+sage: plus = [0.25, 0.5, 0.75, 1.0, 1.5, 2.25, 3.0, 4.5, 7.5, 17.5]
+sage: minus = [-p for p in plus[::-1]]
+sage: vals = minus + plus
+sage: print &quot;Wartości parametru p:&quot;, map(lambda p: round(p,2), vals)
+sage: for p in vals:
+...       # Równanie i wykres toru dla parametru p:
+...       throw(x) = p*x-(1+p^2)/(4*h)*x^2
+...       plt = plot(throw(x), (x, -20, 20))
+...
+...       # Wyznaczenie punktu styczności Pt toru i obwiedni:
+...       soln = solve(throw(x)==over(x), x)
+...       xt = soln[0].rhs(); yt = over(xt)
+...       Pt = point((xt,yt), color=&#39;blue&#39;, size=20, zorder=5)
+...
+...       # Dodanie wykresu toru i punktu styczności do listy:
+...       L.append(plt + Pt)
+...
+sage: P0 = point((0,0), color=&#39;white&#39;, faceted=True, size=25, zorder=5)
+sage: show(P0 + sum(L) + envelope, axes_labels=[&#39;x&#39;,&#39;y&#39;], figsize=8,
+...        ticks=[[-20,-10,10,20],[]], xmin=-20, xmax=+20, ymin=0.175)
+Wartości parametru p: [-17.5, -7.5, -4.5, -3.0, -2.25, -1.5, -1.0, -0.75, -0.5, -0.25, 0.25, 0.5, 0.75, 1.0, 1.5, 2.25, 3.0, 4.5, 7.5, 17.5]
+</pre></div>
+</div>
+<img alt="_images/cell_1_sage01.png" class="align-center" src="_images/cell_1_sage01.png" />
+<p>Równanie <a href="rzut_ukosny.html#equation-rown_obw">(3)</a> można potraktować jako funkcję dwóch zmiennych
+i narysowań w układzie trojwymiarowym <span class="math">\((x,p,y)\)</span>. Inspekcja poniższego
+rysunku:</p>
+<ol class="arabic simple">
+<li>Ilustruje poprawnośc warunku na obwiednię rodziny krzywych: ustawiając rysunek tak by os p była wzdłuż lini wzroku.</li>
+<li>Pokazuje kąt w którym mamy maksymalny zasięg.</li>
+</ol>
+<div class='sage'><script type='text/x-sage'>var('x p y')
+h  =  10
+implicit_plot3d( p*x-(1+p^2)/(4*h)*x^2-y,(x,-20,20),(y,0,10),(p,-7.7,7.7),plot_points=90) +\
+ sum([parametric_plot3d( (x,p0*x-(1+p0^2)/(4*h)*x^2,p0),(x,0,40*p0/(p0^2 + 1)),color='red',thickness=11) for p0 in srange(0.5,6,1)])</script></div></div>
+</div>
+
+
+          </div>
+        </div>
+      </div>
+      <div class="sphinxsidebar">
+        <div class="sphinxsidebarwrapper">
+  <div class="sphinxlocaltoc">
+  <h3><a href="index.html">Spis treści</a></h3>
+  <ul>
+<li><a class="reference internal" href="rzut_ukosny.html#">Rzut ukośny</a><ul>
+<li><a class="reference internal" href="rzut_ukosny.html#id1">Rzut ukośny</a></li>
+<li><a class="reference internal" href="rzut_ukosny.html#rzut-ukosny-z-wiatrem-i-oporem-powietrza">Rzut ukośny z wiatrem i oporem powietrza</a></li>
+<li><a class="reference internal" href="rzut_ukosny.html#dla-dociekliwych">Dla dociekliwych</a></li>
+<li><a class="reference internal" href="rzut_ukosny.html#parabola-bezpieczenstwa-dla-rodziny-torow-pociskow">Parabola bezpieczeństwa dla rodziny torów pocisków.</a></li>
+</ul>
+</li>
+</ul>
+
+  </div>
+  <h4>Poprzedni temat</h4>
+  <p class="topless"><a href="iCSE_4_MontyHall_CubeProject.html"
+                        title="poprzedni rozdział">Paradoks Monty Halla &#8211; problem z mylącą intuicją</a></p>
+  <h4>Następny temat</h4>
+  <p class="topless"><a href="akcelerometr.html"
+                        title="następny rozdział">Kinematyka</a></p>
+<div id="searchbox" style="display: none">
+  <h3>Szybkie wyszukiwanie</h3>
+    <form class="search" action="http://visual.icse.us.edu.pl/Warsztaty/search.html" method="get">
+      <input type="text" name="q" />
+      <input type="submit" value="Szukaj" />
+      <input type="hidden" name="check_keywords" value="yes" />
+      <input type="hidden" name="area" value="default" />
+    </form>
+    <p class="searchtip" style="font-size: 90%">
+    Wprowadź szukany termin lub nazwę modułu, klasy lub funkcji.
+    </p>
+</div>
+<script type="text/javascript">$('#searchbox').show(0);</script>
+        </div>
+      </div>
+      <div class="clearer"></div>
+    </div>
+  </div>
+  <div class="relbar-bottom">
+    
+    <div class="related">
+      <h3>Nawigacja</h3>
+      <ul>
+        <li class="right" style="margin-right: 10px">
+          <a href="akcelerometr.html" title="Kinematyka"
+             >dalej</a></li>
+        <li class="right" >
+          <a href="iCSE_4_MontyHall_CubeProject.html" title="Paradoks Monty Halla – problem z mylącą intuicją"
+             >wstecz</a> &nbsp; &nbsp;</li>
+  <li><a href="index.html">Warsztaty</a> &raquo;</li>
+   
+      </ul>
+    </div>
+  </div>
+  
+  <div class="footer">
+    <a class="logo" href="../../icse.us.edu.pl/index.html" target="_blank"><img src="_static/logo-icse.png" alt="ICSE"/></a><br/>
+    &copy; Copyright 2013, CubeProject.
+    Created using <a href="http://sphinx.pocoo.org/">Sphinx</a> 1.2.2.
+  </div>
+  </body>
+</html>

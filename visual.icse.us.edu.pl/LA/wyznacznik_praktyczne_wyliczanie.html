@@ -1,0 +1,482 @@
+
+
+  <!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+  "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+
+
+<html xmlns="http://www.w3.org/1999/xhtml">
+  <head>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    
+    <title>Praktyczne wyliczanie wyznaczników &mdash; Algebra Liniowa</title>
+    
+    <link rel="stylesheet" href="_static/cloud.css" type="text/css" />
+    <link rel="stylesheet" href="_static/pygments.css" type="text/css" />
+    <link rel="stylesheet" href="http://fonts.googleapis.com/css?family=Noticia+Text|Open+Sans|Droid+Sans+Mono&subset=latin,latin-ext" type="text/css" />
+    
+    <script type="text/javascript">
+      var DOCUMENTATION_OPTIONS = {
+        URL_ROOT:    './',
+        VERSION:     'I',
+        COLLAPSE_INDEX: false,
+        FILE_SUFFIX: '.html',
+        HAS_SOURCE:  true
+      };
+    </script>
+    <script type="text/javascript" src="_static/jquery.js"></script>
+    <script type="text/javascript" src="_static/underscore.js"></script>
+    <script type="text/javascript" src="_static/doctools.js"></script>
+    <script type="text/javascript" src="_static/translations.js"></script>
+    <script type="text/javascript" src="http://cdn.mathjax.org/mathjax/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML"></script>
+    <script type="text/javascript" src="_static/jquery.cookie.js"></script>
+    <script type="text/javascript" src="_static/cloud.js"></script>
+
+	<script src="http://sagecell.icse.us.edu.pl:6363/static/jquery.min.js"></script>
+	<script src="http://sagecell.icse.us.edu.pl:6363/static/embedded_sagecell.js"></script>
+
+	<!-- <script src="http://sagecell.sagemath.org/static/jquery.min.js"></script> -->
+	<!-- <script src="http://sagecell.sagemath.org/static/embedded_sagecell.js"></script> -->
+
+	<script>sagecell.makeSagecell({inputLocation: ".sage",
+                                       evalButtonText: 'Wykonaj',
+                                       linked: true});</script>
+
+	<style type="text/css">
+		.sagecell .CodeMirror-scroll {
+			overflow-y: hidden;
+			overflow-x: auto;
+		}
+		.sagecell .CodeMirror {
+			height: auto;
+		}
+	</style>
+
+    
+    <link rel="top" title="Algebra Liniowa" href="http://visual.icse.us.edu.pl/LA/index.html" />
+    <link rel="next" title="Zastosowania wyznaczników" href="wyznacznik_zastosowania.html" />
+    <link rel="prev" title="Rozwinięcie permutacyjne" href="wyznacznik_rozwiniecie_permutacyjne.html" />
+ 
+  <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, minimum-scale=1">
+  </head>
+  <body>
+  <div class="relbar-top">
+    
+    <div class="related">
+      <h3>Nawigacja</h3>
+      <ul>
+        <li class="right" style="margin-right: 10px">
+          <a href="wyznacznik_zastosowania.html" title="Zastosowania wyznaczników"
+             accesskey="N">dalej</a></li>
+        <li class="right" >
+          <a href="wyznacznik_rozwiniecie_permutacyjne.html" title="Rozwinięcie permutacyjne"
+             accesskey="P">wstecz</a> &nbsp; &nbsp;</li>
+  <li><a href="http://visual.icse.us.edu.pl/LA/index.html">Algebra Liniowa</a> &raquo;</li>
+   
+      </ul>
+    </div>
+  </div>
+  
+  <div class="content">  
+
+    <div class="document">
+      <div class="documentwrapper">
+        <div class="bodywrapper">
+          <div class="body">
+            
+  <div class="section" id="praktyczne-wyliczanie-wyznacznikow">
+<h1>Praktyczne wyliczanie wyznaczników<a class="headerlink" href="wyznacznik_praktyczne_wyliczanie.html#praktyczne-wyliczanie-wyznacznikow" title="Stały odnośnik do tego nagłówka">¶</a></h1>
+<div class="section" id="przeksztalcenia-elementarne">
+<h2>Przekształcenia elementarne<a class="headerlink" href="wyznacznik_praktyczne_wyliczanie.html#przeksztalcenia-elementarne" title="Stały odnośnik do tego nagłówka">¶</a></h2>
+<p>Wykonując przekształcenia elementarne na wierszach macierzy kwadratowej można doprowadzić ją do postaci schodkowej, która jest górną macierzą trójkątną. Wyliczenie wyznacznika macierzy trójkątnej jest już zadaniem trywialnym <span class="math">\(\,\)</span> - <span class="math">\(\,\)</span> równa się on iloczynowi elementów na głównej przekątnej. Zastosowanie przekształceń elementarnych może więc być praktycznym sposobem wyliczania wyznaczników. Trzeba przy tym uwzględnić fakt, że przekształcenia elementarne macierzy mogą zmienić jej wyznacznik.</p>
+<p>Efekt przekształceń elementarnych na wierszach (kolumnach) macierzy jest następujący:</p>
+<ol class="arabic simple">
+<li>przestawienie dowolnych dwóch wierszy (kolumn) zmienia znak wyznacznika;</li>
+<li>pomnożenie dowolnego wiersza (kolumny) przez różną od zera liczbę mnoży przez tę liczbę wyznacznik;</li>
+<li>dodanie do wybranego wiersza innego wiersza pomnożonego przez dowolną liczbę,
+tak samo jak dodanie do wybranej kolumny innej kolumny pomnożonej przez dowolną liczbę,
+nie zmienia wyznacznika macierzy. <span class="math">\(\\\)</span></li>
+</ol>
+<p><strong>Przykład 1.</strong>
+<span class="math">\(\qquad\left|\begin{array}{ccccc}
+1 &amp; 1 &amp; 1 &amp; 1 &amp; 1 \\
+1 &amp; 2 &amp; 1 &amp; 1 &amp; 1 \\
+1 &amp; 1 &amp; 3 &amp; 1 &amp; 1 \\
+1 &amp; 1 &amp; 1 &amp; 4 &amp; 1 \\
+1 &amp; 1 &amp; 1 &amp; 1 &amp; 5
+\end{array}
+\right|\ \ = \ \
+\left|\begin{array}{ccccc}
+1 &amp; 1 &amp; 1 &amp; 1 &amp; 1 \\
+0 &amp; 1 &amp; 0 &amp; 0 &amp; 0 \\
+0 &amp; 0 &amp; 2 &amp; 0 &amp; 0 \\
+0 &amp; 0 &amp; 0 &amp; 3 &amp; 0 \\
+0 &amp; 0 &amp; 0 &amp; 0 &amp; 4
+\end{array}
+\right|\ \ =\ \ 24\,.\)</span></p>
+<p>Operacje wykonane na wierszach
+<span class="math">\(\ \boldsymbol{R}_1,\,\boldsymbol{R}_2,\,\boldsymbol{R}_3,\,\boldsymbol{R}_4,\,\boldsymbol{R}_5:
+\quad \boldsymbol{R}_i = \boldsymbol{R}_i - \boldsymbol{R}_1\,,\quad i = 2,3,4,5.\)</span></p>
+<p><strong>Przykład 2.</strong></p>
+<div class="math">
+\[\begin{split}\left|\begin{array}{rrrr}
+       1 &amp;  2 &amp; 1 &amp;  1 \\
+       2 &amp;  3 &amp; 2 &amp;  3 \\
+      -1 &amp;  0 &amp; 1 &amp; -1 \\
+      -2 &amp; -1 &amp; 4 &amp; 0
+      \end{array}
+\right|\ =\
+\left|\begin{array}{rrrr}
+       1 &amp;  2 &amp; 1 &amp; 1 \\
+       0 &amp; -1 &amp; 0 &amp; 1 \\
+       0 &amp;  2 &amp; 2 &amp; 0 \\
+       0 &amp;  3 &amp; 6 &amp; 2
+      \end{array}
+\right|\ =\
+\left|\begin{array}{rrrr}
+       1 &amp;  2 &amp; 1 &amp; 1 \\
+       0 &amp; -1 &amp; 0 &amp; 1 \\
+       0 &amp;  0 &amp; 2 &amp; 2 \\
+       0 &amp;  0 &amp; 6 &amp; 5
+      \end{array}
+\right|\ =\
+\left|\begin{array}{rrrr}
+       1 &amp;  2 &amp; 1 &amp;  1 \\
+       0 &amp; -1 &amp; 0 &amp;  1 \\
+       0 &amp;  0 &amp; 2 &amp;  2 \\
+       0 &amp;  0 &amp; 0 &amp; -1
+      \end{array}
+\right|\ =\ 2\,.\end{split}\]</div>
+<p>Operacje wykonane na wierszach
+<span class="math">\(\ \boldsymbol{R}_1,\,\boldsymbol{R}_2,\,\boldsymbol{R}_3,\,\boldsymbol{R}_4\ \)</span>
+w kolejnych krokach:</p>
+<p><span class="math">\(\
+\boldsymbol{R}_2 = \boldsymbol{R}_2 - 2\,\boldsymbol{R}_1,\ \
+\boldsymbol{R}_3 = \boldsymbol{R}_3 + \boldsymbol{R}_1,\ \
+\boldsymbol{R}_4 = \boldsymbol{R}_4 + 2\,\boldsymbol{R}_1\,;\)</span></p>
+<p><span class="math">\(\
+\boldsymbol{R}_3 = \boldsymbol{R}_3 + 2\,\boldsymbol{R}_2,\ \
+\boldsymbol{R}_4 = \boldsymbol{R}_4 + 3\,\boldsymbol{R}_2\,;\)</span></p>
+<p><span class="math">\(\ \boldsymbol{R}_4 = \boldsymbol{R}_4 - 3\,\boldsymbol{R}_3\,.\)</span></p>
+<p><strong>Przykład 3.</strong> <span class="math">\(\ \ \)</span>
+Wykorzystując równości
+<span class="math">\(\quad\left\{\ \,
+\begin{array}{l}
+1798\ =\ 31\,\cdot\,58 \\ 2139\ =\ 31\,\cdot\,69 \\
+3255\ =\ 31\,\cdot\,105 \\ 4867\ =\ 31\,\cdot\,157
+\end{array}\right.\)</span></p>
+<p>bez obliczania wartości wyznacznika uzasadnić, że
+<span class="math">\(\quad\left|\begin{array}{llll}
+1 &amp; 7 &amp; 9 &amp; 8 \\
+2 &amp; 1 &amp; 3 &amp; 9 \\
+3 &amp; 2 &amp; 5 &amp; 5 \\
+4 &amp; 8 &amp; 6 &amp; 7
+\end{array}
+\right|\quad\)</span> też dzieli się przez 31.</p>
+<p><strong>Rozwiązanie.</strong> <span class="math">\(\,\)</span></p>
+<p>Operacja
+<span class="math">\(\ \,\boldsymbol{C}_4\ =\
+1000\,\cdot\,\boldsymbol{C}_1\,+\,100\,\cdot\,\boldsymbol{C}_2\,+\,
+10\,\cdot\,\boldsymbol{C}_3\,+\,\boldsymbol{C}_4\ \,\)</span>
+na kolumnach <span class="math">\(\ \boldsymbol{C}_1,\,\boldsymbol{C}_2,\,\boldsymbol{C}_3,\,\boldsymbol{C}_4\ \)</span>
+nie zmienia wartości wyznacznika. W wyniku otrzymujemy:</p>
+<div class="math">
+\[\begin{split}\left|\begin{array}{llll}
+       1 &amp; 7 &amp; 9 &amp; 8 \\
+       2 &amp; 1 &amp; 3 &amp; 9 \\
+       3 &amp; 2 &amp; 5 &amp; 5 \\
+       4 &amp; 8 &amp; 6 &amp; 7
+      \end{array}
+\right|\ \ =\ \
+\left|\begin{array}{llll}
+       1 &amp; 7 &amp; 9 &amp; 1798 \\
+       2 &amp; 1 &amp; 3 &amp; 2139 \\
+       3 &amp; 2 &amp; 5 &amp; 3255 \\
+       4 &amp; 8 &amp; 6 &amp; 4867
+      \end{array}
+\right|\ \ =\ \
+\left|\begin{array}{llll}
+       1 &amp; 7 &amp; 9 &amp; 31\,\cdot\,58 \\
+       2 &amp; 1 &amp; 3 &amp; 31\,\cdot\,69 \\
+       3 &amp; 2 &amp; 5 &amp; 31\,\cdot\,105 \\
+       4 &amp; 8 &amp; 6 &amp; 31\,\cdot\,157
+      \end{array}
+\right|\ \ =\ \
+31\ \cdot\
+\left|\begin{array}{llll}
+       1 &amp; 7 &amp; 9 &amp; 58 \\
+       2 &amp; 1 &amp; 3 &amp; 69 \\
+       3 &amp; 2 &amp; 5 &amp; 105 \\
+       4 &amp; 8 &amp; 6 &amp; 157
+      \end{array}
+\right|\,.\end{split}\]</div>
+</div>
+<div class="section" id="rozwiniecie-laplace-a">
+<h2>Rozwinięcie Laplace&#8217;a<a class="headerlink" href="wyznacznik_praktyczne_wyliczanie.html#rozwiniecie-laplace-a" title="Stały odnośnik do tego nagłówka">¶</a></h2>
+<div class="admonition-definicja admonition">
+<p class="first admonition-title">Definicja.</p>
+<p class="last"><em>Minor stopnia</em> <span class="math">\(\,k\ \)</span> macierzy <span class="math">\(\,\boldsymbol{A}\in M_{m\times n}(K)\ \)</span>
+jest wyznacznikiem macierzy otrzymanej z <span class="math">\(\,\boldsymbol{A}\ \)</span>
+przez skreślenie wybranych <span class="math">\(\ m-k\ \)</span> wierszy <span class="math">\(\ \)</span>
+i <span class="math">\(\ \ \,n-k\ \)</span> kolumn <span class="math">\(\ (1\leq k \leq m,n).\)</span></p>
+</div>
+<p><strong>Przykład.</strong> <span class="math">\(\ \)</span> Niech
+<span class="math">\(\ \ \boldsymbol{A}\ \ =\ \
+\left[\begin{array}{rrrrr}
+-2 &amp; 0 &amp; 3 &amp; 4 &amp; 1 \\ 4 &amp; 7 &amp; 6 &amp; -2 &amp; 0 \\ 3 &amp; 3 &amp; 5 &amp; 1 &amp; 1 \\ -1 &amp; 2 &amp; 3 &amp; 0 &amp; 4
+\end{array}\right]\in M_{4\times 5}(Q)\,.\)</span></p>
+<p>Minor stopnia trzeciego (jeden spośród 40) otrzymamy, skreślając
+np. trzeci wiersz oraz drugą i czwartą kolumnę:</p>
+<div class="math">
+\[\begin{split}\left|\begin{array}{rrr}
+      -2 &amp; 3 &amp; 1 \\
+       4 &amp; 6 &amp; 0 \\
+      -1 &amp; 3 &amp; 4
+      \end{array}
+\right|\ \ =\ \
+3\ \,
+\left|\begin{array}{rrr}
+      -2 &amp; 1 &amp; 1 \\
+       4 &amp; 2 &amp; 0 \\
+      -1 &amp; 1 &amp; 4
+      \end{array}
+\right|\ \ =\ \
+6\ \,
+\left|\begin{array}{rrr}
+      -2 &amp; 1 &amp; 1 \\
+       2 &amp; 1 &amp; 0 \\
+      -1 &amp; 1 &amp; 4
+      \end{array}
+\right|\ \ =\ \
+6\ \,(-13)\ \ =\ \ -78\,.\end{split}\]</div>
+<div class="admonition-definicja admonition">
+<p class="first admonition-title">Definicja.</p>
+<p>Niech będzie dana kwadratowa macierz
+<span class="math">\(\ \boldsymbol{A}\,=\,[a_{ij}]_{n\times n}\in M_{n}(K).\)</span> <span class="math">\(\\\)</span>
+Wybieramy w niej element <span class="math">\(\ a_{ij}\ \ \,\text{i}\ \ \)</span> skreślamy <span class="math">\(\,i\)</span>-ty wiersz
+oraz <span class="math">\(\,j\)</span>-tą kolumnę. <span class="math">\(\\\)</span>
+Otrzymany w ten sposób minor <span class="math">\(\,M_{ij}\,\)</span>
+stopnia <span class="math">\(\ n-1\ \)</span> pomnożony przez <span class="math">\(\ (-1)^{i+j}\ \)</span> nazywamy <em>dopełnieniem
+algebraicznym</em> <span class="math">\(\,\)</span> elementu <span class="math">\(\ a_{ij}\ \)</span> i <span class="math">\(\,\)</span> oznaczamy <span class="math">\(\ A_{ij}:\)</span></p>
+<div class="last math">
+\[A_{ij}\ \,:\,=\ \,(-1)^{i+j}\,M_{ij}\,,\qquad i,j=1,2,\ldots,n.\]</div>
+</div>
+<p><strong>Przykład.</strong> <span class="math">\(\ \)</span> Niech
+<span class="math">\(\ \ \boldsymbol{A}\ \ =\ \
+\left[\begin{array}{rrrr}
+2 &amp; 1 &amp; 0 &amp; 6 \\ 3 &amp; -1 &amp; 7 &amp; 4 \\ 1 &amp; 0 &amp; 5 &amp; 2 \\ -1 &amp; -2 &amp; 1 &amp; 5
+\end{array}\right]\in M_4(Q)\,.\)</span></p>
+<p>Wyliczymy np. dopełnienia algebraiczne elementów <span class="math">\(\ a_{12}=1\ \ \ \text{i}\ \ \ a_{33}=5:\)</span></p>
+<div class="math">
+\[\begin{split}A_{12}\ =\ (-1)^{1+2}\
+\left|\begin{array}{rrr}
+      3 &amp; 7 &amp; 4 \\
+      1 &amp; 1 &amp; 2 \\
+     -1 &amp; 1 &amp; 5
+      \end{array}
+\right|\ \ =\ \ 32\,;
+\quad
+A_{33}\ =\ (-1)^{3+3}\
+\left|\begin{array}{rrr}
+      2 &amp;  1 &amp; 6 \\
+      3 &amp; -1 &amp; 4 \\
+     -1 &amp; -2 &amp; 5
+      \end{array}
+\right|\ \ =\ \ - 55\,.\end{split}\]</div>
+<p>Warto zauważyć, że dopełnienie algebraiczne elementu <span class="math">\(\,a_{ij}\,\)</span> nie zależy
+od wartości tego elementu ani nawet od wartości wszystkich elementów w <span class="math">\(\,i\)</span>-tym wierszu
+oraz w <span class="math">\(\,j\)</span>-tej kolumnie. <span class="math">\(\\\)</span></p>
+<div class="admonition-twierdzenie-4-math-rozwiniecie-laplace-a-math admonition">
+<p class="first admonition-title">Twierdzenie 4. <span class="math">\(\,\)</span> (rozwinięcie Laplace&#8217;a) <span class="math">\(\\\)</span></p>
+<p>Wyznacznik macierzy <span class="math">\(\ \boldsymbol{A}\,=\,[a_{ij}]_{n\times n}\in M_{n}(K)\ \)</span>
+równa się: <span class="math">\(\\\)</span></p>
+<ol class="last arabic">
+<li><p class="first">sumie iloczynów kolejnych elementów dowolnie wybranego <span class="math">\(\,i\)</span>-tego wiersza
+przez dopełnienia algebraiczne tych elementów (rozwinięcie wyznacznika względem
+<span class="math">\(\,i\)</span>-tego wiersza):</p>
+<div class="math" id="equation-Lap_exp_verse">
+<span class="eqno">(1)</span>\[\det\boldsymbol{A}\ =\ a_{i1}\,A_{i1}\,+\,a_{i2}\,A_{i2}\,+\,\dots\,+\,a_{in}\,A_{in}\,,
+\quad i=1,2,\ldots,n.\]</div>
+</li>
+<li><p class="first">sumie iloczynów kolejnych elementów dowolnie wybranej <span class="math">\(\,j\)</span>-tej kolumny
+przez dopełnienia algebraiczne tych elementów (rozwinięcie wyznacznika względem
+<span class="math">\(\,j\)</span>-tej kolumny):</p>
+<div class="math" id="equation-Lap_exp_col">
+<span class="eqno">(2)</span>\[\det\boldsymbol{A}\ =\ a_{1j}\,A_{1j}\,+\,a_{2j}\,A_{2j}\,+\,\dots\,+\,a_{nj}\,A_{nj}\,,
+\quad j=1,2,\ldots,n.\]</div>
+</li>
+</ol>
+</div>
+<p>Godny uwagi jest fakt, że do rozwinięcia Laplace&#8217;a można wybrać <em>dowolny</em> wiersz albo <em>dowolną</em> kolumnę <span class="math">\(\,\)</span> - <span class="math">\(\,\)</span> wynik będzie zawsze taki sam.</p>
+<p>Dowód może polegać na sprawdzeniu, że funkcje określone przez prawe strony równań <a href="wyznacznik_praktyczne_wyliczanie.html#equation-Lap_exp_verse">(1)</a> i <a href="wyznacznik_praktyczne_wyliczanie.html#equation-Lap_exp_col">(2)</a> spełniają postulaty aksjomatycznej definicji wyznacznika.</p>
+<p>Rozwinięcie Laplace&#8217;a jest regułą rekurencyjną:
+sprowadza problem wyliczenia wyznacznika stopnia <span class="math">\(\,n\,\)</span> do wyliczenia <span class="math">\(\,n\,\)</span>
+wyznaczników stopnia <span class="math">\(\,n-1\,\)</span> itd. Ostatecznie otrzymujemy więc <span class="math">\(\,n!\,\)</span> składników,
+tak jak w rozwinięciu permutacyjnym. Metoda okazuje się wydajna wtedy, gdy w jakimś wierszu (albo kolumnie) występują zera <span class="math">\(\,\)</span> - <span class="math">\(\,\)</span> najlepiej, gdy tylko jeden element jest niezerowy.
+Można zawsze do tego doprowadzić wykonując przekształcenia elementarne.</p>
+<p>Praktyczne odręczne obliczanie wyznaczników przebiega w dwóch etapach:</p>
+<ul>
+<li><div class="first line-block">
+<div class="line">przekształcenie macierzy do postaci, w której w jakimś wierszu (bądź kolumnie)</div>
+<div class="line">tylko jeden element jest różny od zera;</div>
+</div>
+</li>
+<li><p class="first">zastosowanie rozwinięcia Laplace&#8217;a względem tego wiersza (bądź kolumny). <span class="math">\(\\\)</span></p>
+</li>
+</ul>
+<p><strong>Przykład.</strong> <span class="math">\(\,\)</span> Pod obliczeniami znajduje się opis zastosowanych przekształceń. <span class="math">\(\\\)</span></p>
+<div class="math">
+\[\begin{split}\left|\begin{array}{rrrr}
+      2 &amp; -5 &amp;  1 &amp; 2 \\
+     -3 &amp;  7 &amp; -1 &amp; 4 \\
+      5 &amp; -9 &amp;  2 &amp; 7 \\
+      4 &amp; -6 &amp;  1 &amp; 2
+      \end{array}
+\right|\ \ =\ \
+\left|\begin{array}{rrrr}
+      2 &amp; -5 &amp;  1 &amp; 2 \\
+     -1 &amp;  2 &amp;  0 &amp; 6 \\
+      1 &amp;  1 &amp;  0 &amp; 3 \\
+      2 &amp; -1 &amp;  0 &amp; 0
+      \end{array}
+\right|\ \ =\ \
+\left|\begin{array}{rrr}
+     -1 &amp;  2 &amp;  6 \\
+      1 &amp;  1 &amp;  3 \\
+      2 &amp; -1 &amp;  0 \\
+      \end{array}
+\right|\ \ =\ \
+3\ \
+\left|\begin{array}{rrr}
+     -1 &amp;  2 &amp;  2 \\
+      1 &amp;  1 &amp;  1 \\
+      2 &amp; -1 &amp;  0 \\
+      \end{array}
+\right|\,;\end{split}\]</div>
+<p>Operacje na wierszach
+<span class="math">\(\ \boldsymbol{R}_1,\,\boldsymbol{R}_2,\,\boldsymbol{R}_3,\,\boldsymbol{R}_4:\)</span>
+<span class="math">\(\boldsymbol{R}_2 = \boldsymbol{R}_2 + \boldsymbol{R}_1,\ \
+\boldsymbol{R}_3 = \boldsymbol{R}_3 - 2\,\boldsymbol{R}_1,\ \
+\boldsymbol{R}_4 = \boldsymbol{R}_4 - \boldsymbol{R}_1.\)</span>
+Rozwinięcie Laplace&#8217;a względem trzeciej kolumny.
+Wyłączenie liczby <span class="math">\(\ 3\ \)</span> z trzeciej kolumny. <span class="math">\(\\\)</span></p>
+<div class="math">
+\[\begin{split}\left|\begin{array}{rrr}
+     -1 &amp;  2 &amp;  2 \\
+      1 &amp;  1 &amp;  1 \\
+      2 &amp; -1 &amp;  0 \\
+      \end{array}
+\right|\ \ =\ \
+\left|\begin{array}{rrr}
+     -1 &amp;  3 &amp;  3 \\
+      1 &amp;  0 &amp;  0 \\
+      2 &amp; -3 &amp; -2 \\
+      \end{array}
+\right|\ \ =\ \
+3\ \
+\left|\begin{array}{rrr}
+     -1 &amp;  1 &amp;  3 \\
+      1 &amp;  0 &amp;  0 \\
+      2 &amp; -1 &amp; -2 \\
+      \end{array}
+\right|\ \ =\ \
+-\ 3\ \
+\left|\begin{array}{rr}
+      1 &amp;  3 \\
+     -1 &amp; -2
+      \end{array}
+\right|\ \ =\ \ -\ 3\,;\end{split}\]</div>
+<p>Operacje wykonane na kolumnach
+<span class="math">\(\ \boldsymbol{C}_1,\,\boldsymbol{C}_2,\,\boldsymbol{C}_3:\ \)</span>
+<span class="math">\(\boldsymbol{C}_2 = \boldsymbol{C}_2 - \boldsymbol{C}_1,\ \
+\boldsymbol{C}_3 = \boldsymbol{C}_3 - \boldsymbol{C}_1.\ \)</span>
+Wyłączenie czynnika <span class="math">\(\ 3\ \)</span> z drugiej kolumny.
+Rozwinięcie Laplace&#8217;a względem drugiego wiersza. <span class="math">\(\\\)</span></p>
+<p>Ostatecznie
+<span class="math">\(\quad\left|\begin{array}{rrrr}
+2 &amp; -5 &amp;  1 &amp; 2 \\ -3 &amp;  7 &amp; -1 &amp; 4 \\ 5 &amp; -9 &amp;  2 &amp; 7 \\ 4 &amp; -6 &amp;  1 &amp; 2
+\end{array}\right|\ \ =\ \
+3\ \ \left|\begin{array}{rrr} -1 &amp;  2 &amp;  2 \\ 1 &amp;  1 &amp;  1 \\ 2 &amp; -1 &amp;  0 \end{array}\right|\ \ =\ \
+-\ 9\,. \\\)</span></p>
+<p>W systemie Sage wyznacznik zadanej macierzy kwadratowej można wyliczyć stosując funkcję (metodę) <tt class="docutils literal"><span class="pre">determinant()</span></tt>, w skrócie <tt class="docutils literal"><span class="pre">det()</span></tt>. Użyjemy jej do wyliczenia wyznacznika 4. stopnia z poprzedniego przykładu i do sprawdzenia twierdzenia o wyznaczniku macierzy transponowanej:</p>
+<div class="highlight-python"><div class="highlight"><pre><span class="n">sage</span><span class="p">:</span> <span class="n">A</span> <span class="o">=</span> <span class="n">matrix</span><span class="p">(</span><span class="n">QQ</span><span class="p">,[[</span> <span class="mi">2</span><span class="p">,</span><span class="o">-</span><span class="mi">5</span><span class="p">,</span> <span class="mi">1</span><span class="p">,</span> <span class="mi">2</span><span class="p">],</span>
+<span class="o">...</span>                  <span class="p">[</span><span class="o">-</span><span class="mi">3</span><span class="p">,</span> <span class="mi">7</span><span class="p">,</span><span class="o">-</span><span class="mi">1</span><span class="p">,</span> <span class="mi">4</span><span class="p">],</span>
+<span class="o">...</span>                  <span class="p">[</span> <span class="mi">5</span><span class="p">,</span><span class="o">-</span><span class="mi">9</span><span class="p">,</span> <span class="mi">2</span><span class="p">,</span> <span class="mi">7</span><span class="p">],</span>
+<span class="o">...</span>                  <span class="p">[</span> <span class="mi">4</span><span class="p">,</span><span class="o">-</span><span class="mi">6</span><span class="p">,</span> <span class="mi">1</span><span class="p">,</span> <span class="mi">2</span><span class="p">]])</span>
+
+<span class="n">sage</span><span class="p">:</span> <span class="n">det_A</span>  <span class="o">=</span> <span class="n">A</span><span class="o">.</span><span class="n">determinant</span><span class="p">()</span>
+<span class="n">sage</span><span class="p">:</span> <span class="n">det_At</span> <span class="o">=</span> <span class="n">A</span><span class="o">.</span><span class="n">T</span><span class="o">.</span><span class="n">det</span><span class="p">()</span>     <span class="c"># skrócone oznaczenia transpozycji i wyznacznika</span>
+
+<span class="n">sage</span><span class="p">:</span> <span class="k">print</span> <span class="s">&quot;det A =&quot;</span><span class="p">,</span> <span class="n">det_A</span><span class="p">;</span> <span class="n">det_A</span><span class="o">==</span><span class="n">det_At</span>
+
+<span class="n">det</span> <span class="n">A</span> <span class="o">=</span> <span class="o">-</span><span class="mi">9</span>
+<span class="bp">True</span>
+</pre></div>
+</div>
+</div>
+</div>
+
+
+          </div>
+        </div>
+      </div>
+      <div class="sphinxsidebar">
+        <div class="sphinxsidebarwrapper">
+  <div class="sphinxlocaltoc">
+  <h3><a href="http://visual.icse.us.edu.pl/LA/index.html">Spis treści</a></h3>
+  <ul>
+<li><a class="reference internal" href="wyznacznik_praktyczne_wyliczanie.html#">Praktyczne wyliczanie wyznaczników</a><ul>
+<li><a class="reference internal" href="wyznacznik_praktyczne_wyliczanie.html#przeksztalcenia-elementarne">Przekształcenia elementarne</a></li>
+<li><a class="reference internal" href="wyznacznik_praktyczne_wyliczanie.html#rozwiniecie-laplace-a">Rozwinięcie Laplace&#8217;a</a></li>
+</ul>
+</li>
+</ul>
+
+  </div>
+  <h4>Poprzedni temat</h4>
+  <p class="topless"><a href="wyznacznik_rozwiniecie_permutacyjne.html"
+                        title="poprzedni rozdział">Rozwinięcie permutacyjne</a></p>
+  <h4>Następny temat</h4>
+  <p class="topless"><a href="wyznacznik_zastosowania.html"
+                        title="następny rozdział">Zastosowania wyznaczników</a></p>
+<div id="searchbox" style="display: none">
+  <h3>Szybkie wyszukiwanie</h3>
+    <form class="search" action="search.html" method="get">
+      <input type="text" name="q" />
+      <input type="submit" value="Szukaj" />
+      <input type="hidden" name="check_keywords" value="yes" />
+      <input type="hidden" name="area" value="default" />
+    </form>
+    <p class="searchtip" style="font-size: 90%">
+    Wprowadź szukany termin lub nazwę modułu, klasy lub funkcji.
+    </p>
+</div>
+<script type="text/javascript">$('#searchbox').show(0);</script>
+        </div>
+      </div>
+      <div class="clearer"></div>
+    </div>
+  </div>
+  <div class="relbar-bottom">
+    
+    <div class="related">
+      <h3>Nawigacja</h3>
+      <ul>
+        <li class="right" style="margin-right: 10px">
+          <a href="wyznacznik_zastosowania.html" title="Zastosowania wyznaczników"
+             >dalej</a></li>
+        <li class="right" >
+          <a href="wyznacznik_rozwiniecie_permutacyjne.html" title="Rozwinięcie permutacyjne"
+             >wstecz</a> &nbsp; &nbsp;</li>
+  <li><a href="http://visual.icse.us.edu.pl/LA/index.html">Algebra Liniowa</a> &raquo;</li>
+   
+      </ul>
+    </div>
+  </div>
+  
+  <div class="footer">
+    <a class="logo" href="../../icse.us.edu.pl/index.html" target="_blank"><img src="_static/logo-icse.png" alt="ICSE"/></a><br/>
+    &copy; Copyright 2013, Marcin Kostur.
+    Created using <a href="http://sphinx.pocoo.org/">Sphinx</a> 1.2.2.
+  </div>
+  </body>
+</html>

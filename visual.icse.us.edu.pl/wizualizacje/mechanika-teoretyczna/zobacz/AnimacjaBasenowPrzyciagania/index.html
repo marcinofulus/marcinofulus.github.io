@@ -1,0 +1,98 @@
+<!DOCTYPE html> 
+<html> 
+<head> 
+<title>Baseny przyciągania</title> 
+
+<META HTTP-EQUIV="Pragma" CONTENT="no-cache">
+<META HTTP-EQUIV="Expires" CONTENT="-1">
+
+<meta http-equiv="Content-Type" content="text/html; charset=UTF-8" /> 
+<meta http-equiv="X-UA-Compatible" content="IE=EmulateIE7" /> 
+
+<script type="text/x-mathjax-config"> 
+  MathJax.Hub.Config({
+    extensions: ["tex2jax.js"],
+    jax: ["input/TeX","output/HTML-CSS"],
+    tex2jax: {inlineMath: [["$","$"],["\\(","\\)"]]}
+  });
+</script> 
+
+<script type="text/javascript" src="http://cdn.mathjax.org/mathjax/latest/MathJax.js"></script>
+<link rel="stylesheet" type="text/css" href="css/mainstyle.css" />
+
+</head>
+<body>
+
+
+
+<div id="container">
+
+<div id="header">
+	<h1>Animacje basenów przyciągania</h1>
+</div>
+
+
+<div id="content">
+
+<div class="theory">
+<p class="text">
+Rozważmy cząstkę, która ma pewną początkową wartość $x_0, v_0$ (pewien punkt przestrzeni fazowej). Cząstka poruszająca się z tarciem $\gamma v$ w pewnym potencjale $U(x)$. 
+Dla uproszczenia będziemy dalej rozważać, że potencjał posiada dwa minima. Równanie ruchu dla takiej cząstki jest następujące:<br /><br />
+$\ddot{x} = -U'(x) - \gamma \dot{x}$ (dla masy $m=1$)<br /><br />
+Po pewnym czasie cząstka zatrzyma się w jednym z dwóch minimów. W tym momencie możemy oznaczyć punkt przestrzeni fazowej w zależności od tego czy cząstka wpadła do pierwszego minimum 
+czy do drugiego (np: różnym kolorem). Powtarzając całą operację dla pozostałych punktów przestrzeni fazowej dostaniemy mapę basenów przyciągania dla danego potencjału. 
+</p>
+<p class="text">
+Tego typu wizualizację możemy prosto wygenerować z wykorzystaniem obliczeń numerycznych. Dla dużej ilości punktów przestrzeni fazowej tego typu symulacja może trwać dosyć długo gdy obliczenia 
+realizowane są z wykorzystaniem CPU. Dużo bardziej efektywne jest przeprowadzanie tego typu obliczeń na karcie graficznej np: z wykorzystaniem API CUDA.
+</p>	
+<p class="text">
+Poniżej znajdują się przykłady dwóch potencjałów wraz z animacjami, które powstały w następujący sposób:<br />
+<ol>
+<li>Dla danego czasu $t$ rozwiązujemy równania ruchu cząstek, które wystartowały z interesującego nas obszaru przestrzeni fazowej.</li>
+<li>Sprawdzamy położenia cząstek i określamy w obszarze jakiego minimum obecnie się znajdują. Przykładowo dla pierwszego potencjału ten warunek to:
+$x > 0$ minimum $x=1$, $x < 0$ minimum $x=-1$.</li>
+<li>Powtarzamy całą procedurą dla dłuższego czasu symulacji.</li>
+</ol>
+Po pewnym czasie każda z cząstek zostanie "uwięziona" w odpowiednim minimum i otrzymamy właściwy obraz basenów przyciągania dla danego potencjału. 
+</p>
+<p class="text">
+Program, który wykorzystany został do wygenerowania poszczególnych klatek animacji: <a href="https://github.com/kriskda/BasinsOfAttraction" target="_blank">LINK</a><br />
+Wizualizacja basenów przy wykorzystaniu bibliotek jsxgraph: <a href="../BasenyPrzyciagania/index.html" target="_blank">LINK</a>
+</p>		
+</div>	
+
+<div id="plots">  
+	<h2 style="text-align:center">Potencjał $U(x) = x^4/4 - x^2/2$</h2>
+
+    <table class="plotarea">    
+    	<tr>
+       	<td>
+        <img src="img/pot1.png">
+        </td>
+        <td>
+        <iframe width="400" height="400" src="http://www.youtube.com/embed/2DnA6wVdso0" frameborder="0" allowfullscreen></iframe>
+        </td>
+    	</tr>
+	</table>
+	
+	<h2 style="text-align:center">Potencjał $U(x) = x^4 - 2 x^2 + \sin(x)$</h2>
+ 
+	<table class="plotarea">    
+    	<tr>
+       	<td>
+        <img src="img/pot2.png">
+        </td>
+        <td>
+        <iframe width="400" height="400" src="http://www.youtube.com/embed/4N2Xz8Kaf_M" frameborder="0" allowfullscreen></iframe>
+        </td>
+    	</tr>
+	</table>
+</div>
+	
+</div>
+</div>
+
+</body>
+
+</html>

@@ -1,0 +1,363 @@
+
+
+  <!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+  "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+
+
+<html xmlns="http://www.w3.org/1999/xhtml">
+  <head>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    
+    <title>Wyznaczenie macierzy odwrotnej metodą eliminacji &mdash; Algebra Liniowa</title>
+    
+    <link rel="stylesheet" href="_static/cloud.css" type="text/css" />
+    <link rel="stylesheet" href="_static/pygments.css" type="text/css" />
+    <link rel="stylesheet" href="http://fonts.googleapis.com/css?family=Noticia+Text|Open+Sans|Droid+Sans+Mono&subset=latin,latin-ext" type="text/css" />
+    
+    <script type="text/javascript">
+      var DOCUMENTATION_OPTIONS = {
+        URL_ROOT:    './',
+        VERSION:     'I',
+        COLLAPSE_INDEX: false,
+        FILE_SUFFIX: '.html',
+        HAS_SOURCE:  true
+      };
+    </script>
+    <script type="text/javascript" src="_static/jquery.js"></script>
+    <script type="text/javascript" src="_static/underscore.js"></script>
+    <script type="text/javascript" src="_static/doctools.js"></script>
+    <script type="text/javascript" src="_static/translations.js"></script>
+    <script type="text/javascript" src="http://cdn.mathjax.org/mathjax/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML"></script>
+    <script type="text/javascript" src="_static/jquery.cookie.js"></script>
+    <script type="text/javascript" src="_static/cloud.js"></script>
+
+	<script src="http://sagecell.icse.us.edu.pl:6363/static/jquery.min.js"></script>
+	<script src="http://sagecell.icse.us.edu.pl:6363/static/embedded_sagecell.js"></script>
+
+	<!-- <script src="http://sagecell.sagemath.org/static/jquery.min.js"></script> -->
+	<!-- <script src="http://sagecell.sagemath.org/static/embedded_sagecell.js"></script> -->
+
+	<script>sagecell.makeSagecell({inputLocation: ".sage",
+                                       evalButtonText: 'Wykonaj',
+                                       linked: true});</script>
+
+	<style type="text/css">
+		.sagecell .CodeMirror-scroll {
+			overflow-y: hidden;
+			overflow-x: auto;
+		}
+		.sagecell .CodeMirror {
+			height: auto;
+		}
+	</style>
+
+    
+    <link rel="top" title="Algebra Liniowa" href="http://visual.icse.us.edu.pl/LA/index.html" />
+    <link rel="next" title="Macierze permutacji" href="macierze_permutacji.html" />
+    <link rel="prev" title="Macierze elementarne" href="macierze_elementarne.html" />
+ 
+  <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, minimum-scale=1">
+  </head>
+  <body>
+  <div class="relbar-top">
+    
+    <div class="related">
+      <h3>Nawigacja</h3>
+      <ul>
+        <li class="right" style="margin-right: 10px">
+          <a href="macierze_permutacji.html" title="Macierze permutacji"
+             accesskey="N">dalej</a></li>
+        <li class="right" >
+          <a href="macierze_elementarne.html" title="Macierze elementarne"
+             accesskey="P">wstecz</a> &nbsp; &nbsp;</li>
+  <li><a href="http://visual.icse.us.edu.pl/LA/index.html">Algebra Liniowa</a> &raquo;</li>
+   
+      </ul>
+    </div>
+  </div>
+  
+  <div class="content">  
+
+    <div class="document">
+      <div class="documentwrapper">
+        <div class="bodywrapper">
+          <div class="body">
+            
+  <div class="section" id="wyznaczenie-macierzy-odwrotnej-metoda-eliminacji">
+<h1>Wyznaczenie macierzy odwrotnej metodą eliminacji<a class="headerlink" href="macierz_odwrotna_eliminacja.html#wyznaczenie-macierzy-odwrotnej-metoda-eliminacji" title="Stały odnośnik do tego nagłówka">¶</a></h1>
+<p>Niech będą dane macierze
+<span class="math">\(\ \boldsymbol{A}=[\,a_{ij}\,]_{n\times n}\,,\,
+\boldsymbol{B}=[\,b_{ij}\,]_{n\times n}\in M_n(K)\,.\)</span>
+Będziemy nazywać <em>agregatem</em> macierz <span class="math">\(\ [\,\boldsymbol{A}\,|\,\boldsymbol{B}\,]\ \)</span>
+otrzymaną przez dołączenie do macierzy <span class="math">\(\ \boldsymbol{A}\,\)</span> macierzy <span class="math">\(\,\boldsymbol{B}\,:\)</span></p>
+<div class="math">
+\[\begin{split}\left[\,\boldsymbol{A}\,|\,\boldsymbol{B}\,\right]\ \,:\,=\ \,
+\left[\begin{array}{cccccc}
+   a_{11} &amp; \ldots &amp; a_{1n} &amp; b_{11} &amp; \ldots &amp; b_{1n} \\
+   a_{21} &amp; \ldots &amp; a_{2n} &amp; b_{21} &amp; \ldots &amp; b_{2n} \\
+   \ldots &amp; \ldots &amp; \ldots &amp; \ldots &amp; \ldots &amp; \ldots \\
+   a_{n1} &amp; \ldots &amp; a_{nn} &amp; b_{n1} &amp; \ldots &amp; b_{nn}
+\end{array}\right]\,\in\,M_{n\times 2n}(K)\,.\end{split}\]</div>
+<div class="admonition-lemat-math admonition">
+<p class="first admonition-title">Lemat. <span class="math">\(\,\)</span></p>
+<p>Zakładamy, jak wyżej, że <span class="math">\(\ \boldsymbol{A},\boldsymbol{B}\in M_n(K)\,.\)</span></p>
+<ol class="last arabic simple">
+<li>Niech <span class="math">\(\ O\ \)</span> będzie operacją elementarną. <span class="math">\(\,\)</span>
+Wtedy <span class="math">\(\ \,O\,\left[\,\boldsymbol{A}\,|\,\boldsymbol{B}\,\right]\ =\
+\left[\,O\boldsymbol{A}\,|\,O\boldsymbol{B}\,\right]\,.\)</span></li>
+<li>Niech <span class="math">\(\ \boldsymbol{C}\in M_n(K)\,.\ \,\)</span>
+Wtedy <span class="math">\(\ \,\boldsymbol{C}\,\left[\,\boldsymbol{A}\,|\,\boldsymbol{B}\,\right]\,=\,
+\left[\;\boldsymbol{C}\boldsymbol{A}\,|\,\boldsymbol{C}\boldsymbol{B}\;\right]\,.\)</span></li>
+</ol>
+</div>
+<p><strong>Dowód</strong> punktu 2.</p>
+<p>Oznaczmy przez <span class="math">\(\ \boldsymbol{A}_1,\,\boldsymbol{A}_2,\,\dots,\,\boldsymbol{A}_n\ \ \)</span> i
+<span class="math">\(\ \ \boldsymbol{B}_1,\,\boldsymbol{B}_2,\,\dots,\,\boldsymbol{B}_n\ \ \)</span> kolumny
+macierzy <span class="math">\(\,\boldsymbol{A}\ \ \)</span> i <span class="math">\(\ \ \boldsymbol{B}:\)</span></p>
+<div class="math">
+\[\boldsymbol{A}\ =\
+\left[\;\boldsymbol{A}_1\,|\;\boldsymbol{A}_2\,|\;\dots\,|\,\boldsymbol{A}_n\;\right]\,,
+\qquad
+\boldsymbol{B}\ =\
+\left[\;\boldsymbol{B}_1\,|\;\boldsymbol{B}_2\,|\;\dots\,|\,\boldsymbol{B}_n\;\right]\,.\]</div>
+<p>Wykorzystując kolumnową regułę mnożenia macierzowego można zapisać:</p>
+<div class="math">
+\[\boldsymbol{C}\boldsymbol{A}\ \ =\ \
+\boldsymbol{C}\,
+\left[\,\boldsymbol{A}_1\,|\;
+        \boldsymbol{A}_2\,|\;\dots\,|\,
+        \boldsymbol{A}_n\;
+\right]\ \ =\ \
+\left[\ \boldsymbol{C}\boldsymbol{A}_1\,|\;
+        \boldsymbol{C}\boldsymbol{A}_2\,|\;\dots\,|\,
+        \boldsymbol{C}\boldsymbol{A}_n\,
+\right]\,;\]\[\boldsymbol{C}\boldsymbol{B}\ \ =\ \
+\boldsymbol{C}\,
+\left[\,\boldsymbol{B}_1\,|\;
+        \boldsymbol{B}_2\,|\;\dots\,|\,
+        \boldsymbol{B}_n\,
+\right]\ \ =\ \
+\left[\ \boldsymbol{C}\boldsymbol{B}_1\,|\;
+        \boldsymbol{C}\boldsymbol{B}_2\,|\;\dots\,|\;
+        \boldsymbol{C}\boldsymbol{B}_n\;\right]\,;\]\[\boldsymbol{C}\,\left[\,\boldsymbol{A}\,|\,\boldsymbol{B}\,\right]\ \ =\ \
+\left[\ \boldsymbol{C}\boldsymbol{A}_1\,|\;
+        \boldsymbol{C}\boldsymbol{A}_2\,|\;\dots\,|\,
+        \boldsymbol{C}\boldsymbol{A}_n\;|\
+        \boldsymbol{C}\boldsymbol{B}_1\,|\;
+        \boldsymbol{C}\boldsymbol{B}_2\,|\;\dots\,|\,
+        \boldsymbol{C}\boldsymbol{B}_n\;\right]\ \ =\ \
+\left[\;\boldsymbol{C}\boldsymbol{A}\;|\;\boldsymbol{C}\boldsymbol{B}\;\right]\,.\]\[\;\]</div>
+<p>Załóżmy, że <span class="math">\(\,\boldsymbol{A}\in M_n(K)\,\)</span> jest macierzą odwracalną,
+oraz że kolejne operacje elementarne <span class="math">\(\,O_1\,,O_2,\,\dots,\,O_k\,,\ \)</span>
+którym odpowiadają macierze elementarne
+<span class="math">\(\,\boldsymbol{E}_1,\boldsymbol{E}_2,\dots,\boldsymbol{E}_k\in M_n(K),\,\)</span>
+przekształcają <span class="math">\(\,\boldsymbol{A}\,\)</span> do zredukowanej postaci schodkowej
+(którą jest macierz jednostkowa <span class="math">\(\,\boldsymbol{I}_n):\)</span></p>
+<div class="math" id="equation-id">
+<span class="eqno">(1)</span>\[O_k\dots O_2\,O_1\ \boldsymbol{A}\ =\
+\boldsymbol{E}_k\dots\boldsymbol{E}_2\,\boldsymbol{E}_1\,\boldsymbol{A}\ =\ \boldsymbol{I}_n\,.\]</div>
+<p>Zauważmy od razu, że wtedy</p>
+<div class="math" id="equation-rec">
+<span class="eqno">(2)</span>\[\boldsymbol{E}_k\dots\boldsymbol{E}_2\,\boldsymbol{E}_1\ =\ \boldsymbol{A}^{-1}\,.\]</div>
+<p>Zastosujmy teraz operacje <span class="math">\(\,O_1\,,O_2,\,\dots,\,O_k\ \)</span>
+do agregatu <span class="math">\(\,\left[\,\boldsymbol{A}\,|\,\boldsymbol{I}_n\,\right].\,\)</span>
+Korzystając z Lematu, Twierdzenia 3. oraz wzorów <a href="macierz_odwrotna_eliminacja.html#equation-id">(1)</a> i <a href="macierz_odwrotna_eliminacja.html#equation-rec">(2)</a> otrzymujemy:</p>
+<div class="math">
+\[O_k\dots O_2\,O_1\ \left[\,\boldsymbol{A}\,|\,\boldsymbol{I}_n\,\right]\ \,=\ \,
+\left[\ O_k\dots O_2\,O_1\ \boldsymbol{A}\ |\ O_k\dots O_2\,O_1\ \boldsymbol{I}_n\ \right]\ \,=\]\[=\ \,
+\left[\ \boldsymbol{E}_k\dots
+\boldsymbol{E}_2\,
+\boldsymbol{E}_1\ \boldsymbol{A}\ |\
+\boldsymbol{E}_k\dots
+\boldsymbol{E}_2\,
+\boldsymbol{E}_1\ \boldsymbol{I}_n\ \right]\ \,=\ \,
+\left[\ \boldsymbol{I}_n\ |\ \boldsymbol{E}_k\dots\boldsymbol{E}_2\,\boldsymbol{E}_1\ \right]\ =\
+\left[\,\boldsymbol{I}_n\;|\;\boldsymbol{A}^{-1}\,\right]\,.\]</div>
+<p>Otrzymany wynik daje praktyczny sposób obliczania macierzy odwrotnej.</p>
+<div class="admonition-twierdzenie-6-math-algorytm-odwracania-macierzy-math admonition">
+<p class="first admonition-title">Twierdzenie 6. <span class="math">\(\,\)</span> (algorytm odwracania macierzy) <span class="math">\(\,\)</span></p>
+<p class="last">Niech <span class="math">\(\,\boldsymbol{A}\in M_n(K)\,\)</span> będzie macierzą odwracalną. <span class="math">\(\\\)</span>
+Aby znaleźć jej odwrotność, tworzymy agregat
+<span class="math">\(\,\left[\,\boldsymbol{A}\,|\,\boldsymbol{I}_n\,\right]\,\)</span>
+i wykonujemy na nim operacje elementarne, które przekształcają pierwszą macierz
+do macierzy jednostkowej. <span class="math">\(\\\)</span>
+Wtedy drugą macierzą agregatu będzie <span class="math">\(\,\boldsymbol{A}^{-1}\,.\)</span></p>
+</div>
+<p><strong>Przykład 1.</strong> <span class="math">\(\,\)</span> Znaleźć macierz odwrotną do
+<span class="math">\(\ \boldsymbol{A}\ =\ \left[\begin{array}{rrrr}
+2 &amp;  0 &amp; -1 &amp; 1 \\ 1 &amp;  1 &amp; -1 &amp; 0 \\ -1 &amp;  0 &amp;  6 &amp; 1 \\ 1 &amp;  0 &amp;  1 &amp; 1
+\end{array}\right]\,.\)</span> <span class="math">\(\\\)</span></p>
+<p>Program wykonujący algorytm odwracania macierzy przedstawia się następująco:</p>
+<div class="highlight-python"><div class="highlight"><pre><span class="n">sage</span><span class="p">:</span> <span class="n">A</span> <span class="o">=</span> <span class="n">matrix</span><span class="p">(</span><span class="n">QQ</span><span class="p">,[[</span> <span class="mi">2</span><span class="p">,</span> <span class="mi">0</span><span class="p">,</span><span class="o">-</span><span class="mi">1</span><span class="p">,</span> <span class="mi">1</span><span class="p">],</span>
+<span class="o">...</span>                  <span class="p">[</span> <span class="mi">1</span><span class="p">,</span> <span class="mi">1</span><span class="p">,</span><span class="o">-</span><span class="mi">1</span><span class="p">,</span> <span class="mi">0</span><span class="p">],</span>
+<span class="o">...</span>                  <span class="p">[</span><span class="o">-</span><span class="mi">1</span><span class="p">,</span> <span class="mi">0</span><span class="p">,</span> <span class="mi">6</span><span class="p">,</span> <span class="mi">1</span><span class="p">],</span>
+<span class="o">...</span>                  <span class="p">[</span> <span class="mi">1</span><span class="p">,</span> <span class="mi">0</span><span class="p">,</span> <span class="mi">1</span><span class="p">,</span> <span class="mi">1</span><span class="p">]])</span>
+
+<span class="c"># Utworzenie agregatu [A|I]:</span>
+<span class="n">sage</span><span class="p">:</span> <span class="n">AI</span> <span class="o">=</span> <span class="n">A</span><span class="o">.</span><span class="n">augment</span><span class="p">(</span><span class="n">identity_matrix</span><span class="p">(</span><span class="n">QQ</span><span class="p">,</span><span class="mi">4</span><span class="p">))</span>
+
+<span class="c"># Przekształcenie [A|I] do [I|A^(-1)]:</span>
+<span class="n">sage</span><span class="p">:</span> <span class="n">IA_1</span> <span class="o">=</span> <span class="n">AI</span><span class="o">.</span><span class="n">rref</span><span class="p">()</span>
+
+<span class="c"># Wyodrębnienie drugiej części agregatu (kolumny od 4. do końcowej):</span>
+<span class="n">sage</span><span class="p">:</span> <span class="n">A_1</span> <span class="o">=</span> <span class="n">IA_1</span><span class="p">[:,</span><span class="mi">4</span><span class="p">:]</span>
+
+<span class="c"># Pokazanie macierzy odwrotnej:</span>
+<span class="n">sage</span><span class="p">:</span> <span class="n">html</span><span class="o">.</span><span class="n">table</span><span class="p">([[</span><span class="s">&#39;$A^{-1}$&#39;</span><span class="p">,</span> <span class="s">&#39;=&#39;</span><span class="p">,</span> <span class="n">A_1</span><span class="p">]])</span>
+</pre></div>
+</div>
+<div class="math">
+\[\begin{split}A^{-1}\quad =\quad
+\left(\begin{array}{rrrr}
+    5 &amp; 0 &amp;  2 &amp; -7 \\
+   -3 &amp; 1 &amp; -1 &amp;  4 \\
+    2 &amp; 0 &amp;  1 &amp; -3 \\
+   -7 &amp; 0 &amp; -3 &amp; 11
+\end{array}\right)\end{split}\]</div>
+<p>Sprawdzenie czy: <span class="math">\(\ \ \)</span>
+a.) <span class="math">\(\,\)</span> <span class="math">\(\,\boldsymbol{A}\boldsymbol{A}^{-1}=\boldsymbol{I}_n\,?\quad\)</span>
+b.) <span class="math">\(\,\)</span> taki sam wynik da metoda <tt class="docutils literal"><span class="pre">inverse()</span></tt> ?</p>
+<div class="highlight-python"><div class="highlight"><pre><span class="n">sage</span><span class="p">:</span> <span class="n">A_1</span><span class="o">*</span><span class="n">A</span><span class="o">==</span><span class="n">identity_matrix</span><span class="p">(</span><span class="n">QQ</span><span class="p">,</span><span class="mi">4</span><span class="p">),</span> <span class="n">A_1</span><span class="o">==</span><span class="n">A</span><span class="o">.</span><span class="n">I</span>
+
+<span class="p">(</span><span class="bp">True</span><span class="p">,</span> <span class="bp">True</span><span class="p">)</span>
+</pre></div>
+</div>
+<p>Sage zawiera też bardziej ogólną metodę <tt class="docutils literal"><span class="pre">extended_echelon_form()</span></tt>,
+która dopisuje do zadanej macierzy prostokątnej
+<span class="math">\(\,\boldsymbol{A}\in M_{m\times n}(K)\,\)</span> macierz jednostkową <span class="math">\(\,\boldsymbol{I}_m\,,\,\)</span>
+po czym wykonuje na całym agregacie operacje elementarne doprowadzające
+macierz <span class="math">\(\,\boldsymbol{A}\,\)</span> do zredukowanej postaci schodkowej.
+Wtedy druga część agregatu jest macierzą <span class="math">\(\,\boldsymbol{D}\in M_m(K)\,\)</span>
+taką, że pomnożenie <span class="math">\(\,\boldsymbol{A}\,\)</span> z lewej strony przez
+<span class="math">\(\,\boldsymbol{D}\,\)</span> daje macierz <span class="math">\(\,\boldsymbol{A}\,\)</span>
+w zredukowanej postaci schodkowej.</p>
+<p>Jeżeli w szczególności <span class="math">\(\,\boldsymbol{A}\,\)</span> jest odwracalną macierzą kwadratową
+stopnia <span class="math">\(\,n,\,\)</span> to metoda <tt class="docutils literal"><span class="pre">extended_echelon_form()</span></tt> daje w wyniku agregat,
+którego pierwszą częścią jest macierz jednostkowa <span class="math">\(\,\boldsymbol{I}_n,\ \)</span>
+a drugą <span class="math">\(\ \)</span> - <span class="math">\(\ \)</span> macierz <span class="math">\(\,\boldsymbol{A}^{-1}.\)</span> <span class="math">\(\\\)</span></p>
+<p><strong>Przykład 2.</strong> <span class="math">\(\,\)</span>
+Dana macierz <span class="math">\(\ \ \boldsymbol{A}\ =\
+\left[\begin{array}{rrrrr}
+1 &amp; 0 &amp; 2 &amp; -1 &amp; 2 \\ -1 &amp; 1 &amp; -2 &amp; 3 &amp; -3 \\ 2 &amp; 0 &amp; 4 &amp; -2 &amp; 4
+\end{array}\right]\,\in\,M_{3\times 5}(Q)\,.\)</span> <span class="math">\(\\\)</span></p>
+<p>Wyznaczyć jej zredukowaną postać schodkową i znaleźć macierz <span class="math">\(\,\boldsymbol{D}\,\)</span>
+taką, że iloczyn <span class="math">\(\,\boldsymbol{D}\boldsymbol{A}\,\)</span> równa się
+zredukowanej postaci schodkowej macierzy <span class="math">\(\,\boldsymbol{A}.\)</span> <span class="math">\(\\\)</span></p>
+<p>1.) <span class="math">\(\,\)</span> Sposób podstawowy.</p>
+<p>Aby doprowadzić macierz <span class="math">\(\,\boldsymbol{A}\,\)</span> do zredukowanej postaci schodkowej,
+trzeba wykonać kolejno dwie operacje elementarne:</p>
+<ul class="simple">
+<li>do drugiego wiersza dodać pierwszy wiersz;</li>
+<li>od trzeciego wiersza odjąć podwojony wiersz pierwszy.</li>
+</ul>
+<p>Postać zredukowana dana jest więc przez:</p>
+<div class="math">
+\[O_3(2,0,-2)\,O_3(1,0,1)\,\boldsymbol{A}\ =\
+\boldsymbol{E}_3(2,0,-2)\,\boldsymbol{E}_3(1,0,1)\,\boldsymbol{A}\ =\]\[\begin{split}\\ =\
+\left[\begin{array}{rrr} 1 &amp; 0 &amp; 0 \\ 0 &amp; 1 &amp; 0 \\ -2 &amp; 0 &amp; 1 \end{array}\right]\
+\left[\begin{array}{rrr} 1 &amp; 0 &amp; 0 \\ 1 &amp; 1 &amp; 0 \\  0 &amp; 0 &amp; 1 \end{array}\right]\
+\left[\begin{array}{rrrrr}
+1 &amp; 0 &amp; 2 &amp; -1 &amp; 2 \\ -1 &amp; 1 &amp; -2 &amp; 3 &amp; -3 \\ 2 &amp; 0 &amp; 4 &amp; -2 &amp; 4
+\end{array}\right]\ =\end{split}\]\[\begin{split}\\ =\
+\left[\begin{array}{rrr} 1 &amp; 0 &amp; 0 \\ 1 &amp; 1 &amp; 0 \\ -2 &amp; 0 &amp; 1 \end{array}\right]\
+\left[\begin{array}{rrrrr}
+1 &amp; 0 &amp; 2 &amp; -1 &amp; 2 \\ -1 &amp; 1 &amp; -2 &amp; 3 &amp; -3 \\ 2 &amp; 0 &amp; 4 &amp; -2 &amp; 4
+\end{array}\right]\ =\
+\left[\begin{array}{rrrrr}
+1 &amp; 0 &amp; 2 &amp; -1 &amp; 2 \\  0 &amp; 1 &amp;  0 &amp; 2 &amp; -1 \\ 0 &amp; 0 &amp; 0 &amp; 0 &amp; 0
+\end{array}\right]\,.\end{split}\]</div>
+<p>Macierzą, która mnożąc <span class="math">\(\boldsymbol{A}\)</span> daje zredukowaną postać schodkową, jest
+<span class="math">\(\ \boldsymbol{D}\ =\
+\left[\begin{array}{rrr} 1 &amp; 0 &amp; 0 \\ 1 &amp; 1 &amp; 0 \\ -2 &amp; 0 &amp; 1 \end{array}\right]\,.\)</span></p>
+<p>2.) <span class="math">\(\,\)</span> Użycie metody <tt class="docutils literal"><span class="pre">extended_echelon_form()</span></tt>.</p>
+<div class="highlight-python"><div class="highlight"><pre><span class="n">sage</span><span class="p">:</span> <span class="n">A</span> <span class="o">=</span> <span class="n">matrix</span><span class="p">(</span><span class="n">QQ</span><span class="p">,[[</span> <span class="mi">1</span><span class="p">,</span> <span class="mi">0</span><span class="p">,</span> <span class="mi">2</span><span class="p">,</span><span class="o">-</span><span class="mi">1</span><span class="p">,</span> <span class="mi">2</span><span class="p">],</span>
+<span class="o">...</span>                  <span class="p">[</span><span class="o">-</span><span class="mi">1</span><span class="p">,</span> <span class="mi">1</span><span class="p">,</span><span class="o">-</span><span class="mi">2</span><span class="p">,</span> <span class="mi">3</span><span class="p">,</span><span class="o">-</span><span class="mi">3</span><span class="p">],</span>
+<span class="o">...</span>                  <span class="p">[</span> <span class="mi">2</span><span class="p">,</span> <span class="mi">0</span><span class="p">,</span> <span class="mi">4</span><span class="p">,</span><span class="o">-</span><span class="mi">2</span><span class="p">,</span> <span class="mi">4</span><span class="p">]])</span>
+
+<span class="c"># Agregat AED złożony z macierzy AE i D</span>
+<span class="c"># (AE := A w zredukowanej postaci schodkowej)</span>
+<span class="n">sage</span><span class="p">:</span> <span class="n">AED</span> <span class="o">=</span> <span class="n">A</span><span class="o">.</span><span class="n">extended_echelon_form</span><span class="p">()</span>
+
+<span class="c"># Wyodrębnienie macierzy AE (kolumny 0.- 4.):</span>
+<span class="n">sage</span><span class="p">:</span> <span class="n">AE</span> <span class="o">=</span> <span class="n">AED</span><span class="o">.</span><span class="n">matrix_from_columns</span><span class="p">(</span><span class="nb">range</span><span class="p">(</span><span class="mi">5</span><span class="p">))</span>
+
+<span class="c"># Wyodrębnienie macierzy D (kolumny 5.- 7.):</span>
+<span class="n">sage</span><span class="p">:</span> <span class="n">D</span> <span class="o">=</span> <span class="n">AED</span><span class="o">.</span><span class="n">matrix_from_columns</span><span class="p">(</span><span class="nb">range</span><span class="p">(</span><span class="mi">5</span><span class="p">,</span><span class="mi">8</span><span class="p">))</span>
+
+<span class="c"># Iloczyn D*A jest zredukowaną postacią schodkową A:</span>
+<span class="n">sage</span><span class="p">:</span> <span class="n">html</span><span class="o">.</span><span class="n">table</span><span class="p">([[</span><span class="n">D</span><span class="p">,</span> <span class="s">&#39;*&#39;</span><span class="p">,</span> <span class="n">A</span><span class="p">,</span> <span class="s">&#39;=&#39;</span><span class="p">,</span> <span class="n">D</span><span class="o">*</span><span class="n">A</span><span class="p">]])</span>
+</pre></div>
+</div>
+<div class="math">
+\[\begin{split}\left(\begin{array}{rrr}
+   0 &amp; 0 &amp;  \textstyle{1\over 2} \\
+   0 &amp; 1 &amp;  \textstyle{1\over 2} \\
+   1 &amp; 0 &amp; -\textstyle{1\over 2}
+\end{array}\right)\ \ *\ \
+\left(\begin{array}{rrrrr}
+    1 &amp; 0 &amp;  2 &amp; -1 &amp;  2 \\
+   -1 &amp; 1 &amp; -2 &amp;  3 &amp; -3 \\
+    2 &amp; 0 &amp;  4 &amp; -2 &amp;  4
+\end{array}\right)\quad =\quad
+\left(\begin{array}{rrrrr}
+1 &amp; 0 &amp; 2 &amp; -1 &amp; 2 \\  0 &amp; 1 &amp;  0 &amp; 2 &amp; -1 \\ 0 &amp; 0 &amp; 0 &amp; 0 &amp; 0
+\end{array}\right)\,.\end{split}\]\[\;\]</div>
+<p>Teraz <span class="math">\(\ \ \boldsymbol{D}\ =\ \displaystyle\frac{1}{2}\
+\left[\begin{array}{rrr} 0 &amp; 0 &amp; 1 \\ 0 &amp; 2 &amp; 1 \\  2 &amp; 0 &amp; -1 \end{array}\right].\ \ \)</span>
+Jak widać, macierz <span class="math">\(\,\boldsymbol{D}\,\)</span> nie jest określona jednoznacznie.</p>
+</div>
+
+
+          </div>
+        </div>
+      </div>
+      <div class="sphinxsidebar">
+        <div class="sphinxsidebarwrapper">
+  <h4>Poprzedni temat</h4>
+  <p class="topless"><a href="macierze_elementarne.html"
+                        title="poprzedni rozdział">Macierze elementarne</a></p>
+  <h4>Następny temat</h4>
+  <p class="topless"><a href="macierze_permutacji.html"
+                        title="następny rozdział">Macierze permutacji</a></p>
+<div id="searchbox" style="display: none">
+  <h3>Szybkie wyszukiwanie</h3>
+    <form class="search" action="search.html" method="get">
+      <input type="text" name="q" />
+      <input type="submit" value="Szukaj" />
+      <input type="hidden" name="check_keywords" value="yes" />
+      <input type="hidden" name="area" value="default" />
+    </form>
+    <p class="searchtip" style="font-size: 90%">
+    Wprowadź szukany termin lub nazwę modułu, klasy lub funkcji.
+    </p>
+</div>
+<script type="text/javascript">$('#searchbox').show(0);</script>
+        </div>
+      </div>
+      <div class="clearer"></div>
+    </div>
+  </div>
+  <div class="relbar-bottom">
+    
+    <div class="related">
+      <h3>Nawigacja</h3>
+      <ul>
+        <li class="right" style="margin-right: 10px">
+          <a href="macierze_permutacji.html" title="Macierze permutacji"
+             >dalej</a></li>
+        <li class="right" >
+          <a href="macierze_elementarne.html" title="Macierze elementarne"
+             >wstecz</a> &nbsp; &nbsp;</li>
+  <li><a href="http://visual.icse.us.edu.pl/LA/index.html">Algebra Liniowa</a> &raquo;</li>
+   
+      </ul>
+    </div>
+  </div>
+  
+  <div class="footer">
+    <a class="logo" href="../../icse.us.edu.pl/index.html" target="_blank"><img src="_static/logo-icse.png" alt="ICSE"/></a><br/>
+    &copy; Copyright 2013, Marcin Kostur.
+    Created using <a href="http://sphinx.pocoo.org/">Sphinx</a> 1.2.2.
+  </div>
+  </body>
+</html>

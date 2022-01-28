@@ -1,0 +1,321 @@
+
+
+  <!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+  "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+
+
+<html xmlns="http://www.w3.org/1999/xhtml">
+  <head>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    
+    <title>Ortogonalność wektorów &mdash; Algebra Liniowa</title>
+    
+    <link rel="stylesheet" href="_static/cloud.css" type="text/css" />
+    <link rel="stylesheet" href="_static/pygments.css" type="text/css" />
+    <link rel="stylesheet" href="http://fonts.googleapis.com/css?family=Noticia+Text|Open+Sans|Droid+Sans+Mono&subset=latin,latin-ext" type="text/css" />
+    
+    <script type="text/javascript">
+      var DOCUMENTATION_OPTIONS = {
+        URL_ROOT:    './',
+        VERSION:     'I',
+        COLLAPSE_INDEX: false,
+        FILE_SUFFIX: '.html',
+        HAS_SOURCE:  true
+      };
+    </script>
+    <script type="text/javascript" src="_static/jquery.js"></script>
+    <script type="text/javascript" src="_static/underscore.js"></script>
+    <script type="text/javascript" src="_static/doctools.js"></script>
+    <script type="text/javascript" src="_static/translations.js"></script>
+    <script type="text/javascript" src="http://cdn.mathjax.org/mathjax/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML"></script>
+    <script type="text/javascript" src="_static/jquery.cookie.js"></script>
+    <script type="text/javascript" src="_static/cloud.js"></script>
+
+	<script src="http://sagecell.icse.us.edu.pl:6363/static/jquery.min.js"></script>
+	<script src="http://sagecell.icse.us.edu.pl:6363/static/embedded_sagecell.js"></script>
+
+	<!-- <script src="http://sagecell.sagemath.org/static/jquery.min.js"></script> -->
+	<!-- <script src="http://sagecell.sagemath.org/static/embedded_sagecell.js"></script> -->
+
+	<script>sagecell.makeSagecell({inputLocation: ".sage",
+                                       evalButtonText: 'Wykonaj',
+                                       linked: true});</script>
+
+	<style type="text/css">
+		.sagecell .CodeMirror-scroll {
+			overflow-y: hidden;
+			overflow-x: auto;
+		}
+		.sagecell .CodeMirror {
+			height: auto;
+		}
+	</style>
+
+    
+    <link rel="top" title="Algebra Liniowa" href="http://visual.icse.us.edu.pl/LA/index.html" />
+    <link rel="next" title="Ortogonalizacja Grama-Schmidta" href="p_unitarne_Gram-Schmidt_QR.html" />
+    <link rel="prev" title="Norma wektora" href="p_unitarne_norma.html" />
+ 
+  <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, minimum-scale=1">
+  </head>
+  <body>
+  <div class="relbar-top">
+    
+    <div class="related">
+      <h3>Nawigacja</h3>
+      <ul>
+        <li class="right" style="margin-right: 10px">
+          <a href="p_unitarne_Gram-Schmidt_QR.html" title="Ortogonalizacja Grama-Schmidta"
+             accesskey="N">dalej</a></li>
+        <li class="right" >
+          <a href="p_unitarne_norma.html" title="Norma wektora"
+             accesskey="P">wstecz</a> &nbsp; &nbsp;</li>
+  <li><a href="http://visual.icse.us.edu.pl/LA/index.html">Algebra Liniowa</a> &raquo;</li>
+   
+      </ul>
+    </div>
+  </div>
+  
+  <div class="content">  
+
+    <div class="document">
+      <div class="documentwrapper">
+        <div class="bodywrapper">
+          <div class="body">
+            
+  <div class="section" id="ortogonalnosc-wektorow">
+<h1>Ortogonalność wektorów<a class="headerlink" href="p_unitarne_ortogonalnosc.html#ortogonalnosc-wektorow" title="Stały odnośnik do tego nagłówka">¶</a></h1>
+<p>Przyjmujemy, że <span class="math">\(\,V\ \)</span> jest przestrzenią unitarną bądź euklidesową.</p>
+<p>Jeżeli iloczyn skalarny wektorów <span class="math">\(\,x,y\in V\ \)</span> równa się zeru:
+<span class="math">\(\,\langle x,y\rangle=0\,,\ \)</span>
+to mówimy, że wektory te są <span class="math">\(\,\)</span> <em>ortogonalne</em>. <span class="math">\(\,\)</span>
+Ortogonalność jest więc uogólnieniem pojęcia prostopadłości wektorów geometrycznych.</p>
+<div class="admonition-definicja admonition">
+<p class="first admonition-title">Definicja.</p>
+<p>Układ <span class="math">\(\ (x_1,x_2,\dots,x_r)\ \)</span> parami ortogonalnych niezerowych
+wektorów przestrzeni <span class="math">\(\,V:\)</span></p>
+<div class="math">
+\[x_i\neq \theta
+\qquad\text{oraz}\qquad
+\langle\,x_i,x_j\rangle=0\quad\text{dla}\quad i\neq j\,,\qquad i,j=1,2,\dots,r\,,\]</div>
+<p class="last">nazywa się <span class="math">\(\,\)</span> <em>układem ortogonalnym</em>. <span class="math">\(\,\)</span>
+Ortogonalny układ wektorów jednostkowych (czyli wektorów o normie <span class="math">\(\,1\)</span>) <span class="math">\(\,\)</span>
+jest <span class="math">\(\,\)</span> <em>układem ortonormalnym</em>.</p>
+</div>
+<p>A zatem iloczyn skalarny wektorów ortonormalnego układu <span class="math">\(\ (x_1,x_2,\dots,x_r)\ \)</span>
+dany jest przez</p>
+<div class="math">
+\[\begin{split}\langle\,x_i,x_j\rangle=\delta_{ij}\,,\quad\text{gdzie}\quad\delta_{ij}\ \,=\ \,
+\left\{\
+\begin{array}{cc} 1 &amp; \text{dla}\ \ i=j, \\ 0 &amp; \text{dla}\ \ i\ne j; \end{array}
+\right.\quad
+i,j=1,2,\ldots,r\quad
+\text{(delta Kroneckera).}\end{split}\]</div>
+<p>Związek między ortogonalnością i liniową niezależnością układu wektorów przedstawia</p>
+<div class="admonition-twierdzenie-3 admonition">
+<p class="first admonition-title">Twierdzenie 3.</p>
+<p class="last">Każdy ortogonalny układ wektorów przestrzeni <span class="math">\(\,V\ \)</span> jest liniowo niezależny.</p>
+</div>
+<p><strong>Dowód.</strong> <span class="math">\(\,\)</span> Zakładamy, że układ <span class="math">\(\ (x_1,x_2,\dots,x_r)\ \)</span> wektorów
+przestrzeni <span class="math">\(\,V\ \)</span> jest ortogonalny:</p>
+<div class="math" id="equation-assumpt">
+<span class="eqno">(1)</span>\[\begin{split}\langle\,x_i,x_i\rangle&gt;0\,,\qquad\quad
+\langle\,x_i,x_j\rangle=0\quad\text{dla}\quad i\neq j\,,\qquad\quad i,j=1,2,\dots,r\,.\end{split}\]</div>
+<p>Niech <span class="math">\(\quad\alpha_1\,x_1\,+\;\alpha_2\,x_2\,+\,\dots\,+\,\alpha_r\,x_r\ =\ \theta\,.\)</span></p>
+<p>Mnożąc tę równość skalarnie z lewej strony kolejno przez <span class="math">\(\ x_1,\;x_2,\,\dots,\,x_r\ \,\)</span>
+i <span class="math">\(\,\)</span> korzystając z liniowości iloczynu skalarnego względem drugiego czynnika wektorowego, <span class="math">\(\,\)</span> otrzymujemy</p>
+<div class="math">
+\[\begin{alignat*}{5}
+\alpha_1\,\langle x_1,x_1\rangle & {\,} + {\ } & \alpha_2\,\langle x_1,x_2\rangle & {\,} + {\ } & \ldots   & {\ \ } + {\ } & \alpha_r\,\langle x_1,x_r\rangle & {\ } = {\ \,} & 0 \\
+\alpha_1\,\langle x_2,x_1\rangle & {\,} + {\ } & \alpha_2\,\langle x_2,x_2\rangle & {\,} + {\ } & \ldots   & {\ \ } + {\ } & \alpha_r\,\langle x_2,x_r\rangle & {\ } = {\ \,} & 0 \\
+\dots\quad\ \                    &             & \dots\quad\ \                    &             & \ \ldots &               & \dots\quad\ \                    &               &   \\
+\alpha_1\,\langle x_r,x_1\rangle & {\,} + {\ } & \alpha_2\,\langle x_r,x_2\rangle & {\,} + {\ } & \ldots   & {\ \ } + {\ } & \alpha_r\,\langle x_r,x_r\rangle & {\ } = {\ \,} & 0
+\end{alignat*}\]</div><p>Z warunków <a href="p_unitarne_ortogonalnosc.html#equation-assumpt">(1)</a> wynika, że
+<span class="math">\(\quad\alpha_1\,=\;\alpha_2\,=\;\dots\;=\,\alpha_r\ =\ 0\,.\)</span></p>
+<p>Zachodzi więc implikacja</p>
+<div class="math">
+\[\alpha_1\,x_1+\,\alpha_2\,x_2+\ldots+\,\alpha_r\,x_r\ =\ \theta
+\qquad\Rightarrow\qquad
+\alpha_1=\,\alpha_2=\ldots=\,\alpha_r\,=\,0\,,\]</div>
+<p>która oznacza liniową niezależność wektorów <span class="math">\(\ x_1,\,x_2,\,\dots,\,x_r\,.\)</span></p>
+<div class="admonition-wniosek admonition">
+<p class="first admonition-title">Wniosek.</p>
+<p>W <span class="math">\(\,n\)</span>-wymiarowej przestrzeni unitarnej bądź euklidesowej:</p>
+<ol class="last arabic simple">
+<li>każdy ortogonalny układ <span class="math">\(\,n\ \)</span> wektorów jest bazą ;</li>
+<li>układ ortogonalny nie może zawierać więcej niż <span class="math">\(\,n\ \)</span> wektorów.</li>
+</ol>
+</div>
+<div class="admonition-definicja admonition">
+<p class="first admonition-title">Definicja.</p>
+<p class="last">Bazę skończenie wymiarowej przestrzeni <span class="math">\(\,V,\ \)</span> której wektory
+tworzą układ ortogonalny (ortonormalny), nazywamy <em>bazą ortogonalną</em>
+(odpowiednio <em>ortonormalną</em>).</p>
+</div>
+<p>Załóżmy, że baza <span class="math">\(\,\mathcal{B}=(u_1,u_2,\dots,u_n)\ \)</span> przestrzeni <span class="math">\(\,V\ \)</span>
+jest ortonormalna:</p>
+<div class="math">
+\[\langle\,u_i,u_j\rangle\,=\,\delta_{ij}\,,\qquad i,j=1,2,\dots,n.\]</div>
+<ol class="arabic">
+<li><p class="first">Niech <span class="math">\(\ \,v\,=\,\displaystyle\sum_{k\,=\,1}^n\ \alpha_k\,u_k\,.\ \,\)</span>
+Wtedy, z definicji iloczynu skalarnego:</p>
+<div class="math" id="equation-ortho_1">
+<span class="eqno">(2)</span>\[\begin{split}\begin{array}{l}
+\displaystyle
+\langle\,u_i,v\,\rangle\ \,=\ \,
+\left\langle u_i\,,\ \sum_{k\,=\,1}^n\ \alpha_k\,u_k\right\rangle
+       \ =\ \sum_{k\,=\,1}^n\ \alpha_k\,\langle u_i,u_k\rangle
+       \ =\ \sum_{k\,=\,1}^n\ \alpha_k\,\delta_{ik}\ =\ \alpha_i\,;
+\\ \\
+\blacktriangleright\quad\alpha_i\ =\ \langle\,u_i,v\,\rangle\,,\qquad i=1,2,\dots,n.
+\end{array}\end{split}\]</div>
+<p><span class="math">\(\,i\)</span>-ta współrzędna wektora <span class="math">\(\,v\ \)</span> w bazie <span class="math">\(\ \mathcal{B}\ \)</span>
+równa się iloczynowi skalarnemu <span class="math">\(\,i\)</span>-tego wektora bazy <span class="math">\(\,\mathcal{B}\ \)</span>
+przez wektor <span class="math">\(\,v\,,\quad i=1,2,\dots,n.\)</span></p>
+</li>
+<li><p class="first">Niech <span class="math">\(\quad v\,=\,\displaystyle\sum_{i\,=\,1}^n\ \alpha_i\,u_i\,,\ \
+w\,=\,\displaystyle\sum_{j\,=\,1}^n\ \beta_j\,u_j\,:\quad
+I_{\mathcal{B}}(v)=
+\left[\begin{array}{c} \alpha_1 \\ \alpha_2 \\ \dots \\ \alpha_n \end{array}\right]\,,\ \
+I_{\mathcal{B}}(w)=
+\left[\begin{array}{c} \beta_1 \\ \beta_2 \\ \dots \\ \beta_n \end{array}\right]\,.\)</span></p>
+<div class="math">
+\[\begin{split}\begin{array}{rcl}
+\langle\,v,w\,\rangle &amp; = &amp;
+\left\langle\ \displaystyle\sum_{i\,=\,1}^n\ \alpha_i\,u_i\,,
+\ \displaystyle\sum_{j\,=\,1}^n\ \beta_j\,u_j\right\rangle\ \ =\
+\ \displaystyle\sum_{i,j\,=\,1}^n\ \alpha_i^*\,\beta_j\ \langle\,u_i,u_j\rangle\ \ =\ \
+\\ \\
+&amp; = &amp; \displaystyle\sum_{i,j\,=\,1}^n\ \alpha_i^*\ \beta_j\ \delta_{ij}\ \ =\ \
+            \displaystyle\sum_{i\,=\,1}^n\ \alpha_i^*\,\beta_i\ \ =\ \
+            \langle\,I_{\mathcal{B}}(v),\,I_{\mathcal{B}}(w)\,\rangle\,;
+\\ \\
+\blacktriangleright\quad\langle\,v,w\,\rangle &amp; = &amp; \langle\,I_{\mathcal{B}}(v),
+                                                       \,I_{\mathcal{B}}(w)\,\rangle\,.
+\end{array}\end{split}\]</div>
+<p>Iloczyn skalarny wektorów <span class="math">\(\,v\ \,\text{i}\ \ w\ \)</span>
+(w przestrzeni unitarnej albo euklidesowej <span class="math">\(\,V\)</span>) <span class="math">\(\,\)</span>
+równa się iloczynowi skalarnemu <span class="math">\(\,\)</span> (w przestrzeni <span class="math">\(\,C^n\)</span>
+albo odpowiednio <span class="math">\(\,R^n\)</span>) <span class="math">\(\,\)</span> wektorów kolumnowych przedstawiających współrzędne
+wektorów <span class="math">\(\,v\ \,\text{i}\ \ w\ \)</span> w bazie <span class="math">\(\,\mathcal{B}.\)</span></p>
+</li>
+<li><p class="first">Niech <span class="math">\(\,F\in\text{End}(V)\,,\ \ M_{\mathcal{B}}(F)=[\,\varphi_{ij}\,]_{n\times n}\,.\ \)</span>
+Z definicji macierzy operatora liniowego :</p>
+<div class="math" id="equation-ortho_3">
+<span class="eqno">(3)</span>\[\begin{split}\begin{array}{rcl}
+\langle\,u_i,Fu_j\rangle &amp; = &amp;
+\left\langle u_i\,,\,\displaystyle\sum_{k\,=\,1}^n\ \varphi_{kj}\,u_k\right\rangle\ \ =
+                 \ \ \displaystyle\sum_{k\,=\,1}^n\ \varphi_{kj}\,\langle u_i,u_k\rangle\ \ =
+\\ \\
+           &amp; = &amp; \displaystyle\sum_{k\,=\,1}^n\ \varphi_{kj}\ \delta_{ik}\ \ =\ \
+                 \displaystyle\sum_{k\,=\,1}^n\ \delta_{ik}\ \varphi_{kj}\ \ =
+                 \ \ \varphi_{ij}\ ;
+\\ \\
+\blacktriangleright\quad\varphi_{ij} &amp; = &amp; \langle\,u_i,Fu_j\rangle\,,\qquad i,j=1,2,\dots,n.
+\end{array}\end{split}\]</div>
+<p>Element <span class="math">\(\,\varphi_{ij}\ \)</span> macierzy operatora liniowego <span class="math">\(\,F\,\)</span>
+w bazie <span class="math">\(\,\mathcal{B}\ \)</span> równa się iloczynowi skalarnemu
+<span class="math">\(\,i\)</span>-tego wektora bazy <span class="math">\(\,\mathcal{B}\ \)</span> przez obraz <span class="math">\(\,\)</span>
+(przy przekształceniu <span class="math">\(F\)</span>) <span class="math">\(\ \,j\)</span>-tego wektora tej bazy,
+<span class="math">\(\ \ i,j=1,2,\dots,n.\)</span></p>
+</li>
+</ol>
+<p>Warto zauważyć, że o ile w dowolnej bazie <span class="math">\(\,\mathcal{B}=(v_1,v_2,\dots,v_n)\ \)</span>
+współrzędne <span class="math">\(\,\alpha_i\ \)</span> wektora <span class="math">\(\,v\ \)</span> oraz elementy <span class="math">\(\,\varphi_{ij}\ \)</span>
+macierzy operatora <span class="math">\(\,F\ \)</span> określone są w sposób uwikłany poprzez związki</p>
+<div class="math">
+\[v\,=\,\sum_{i\,=\,1}^n\ \alpha_i\,v_i\,,\qquad Fv_j\,=\,\sum_{i\,=\,1}^n\ \varphi_{ij}\,v_i\,,
+\quad j=1,2,\dots,n\,,\]</div>
+<p>to w bazie ortonormalnej wielkości te dane są <em>explicite</em>
+przez wzory <a href="p_unitarne_ortogonalnosc.html#equation-ortho_1">(2)</a> <span class="math">\(\,\)</span> i <span class="math">\(\,\)</span> <a href="p_unitarne_ortogonalnosc.html#equation-ortho_3">(3)</a>.</p>
+<p>Ponadto, z równania <a href="p_unitarne_ortogonalnosc.html#equation-ortho_1">(2)</a> wynika, że dowolny wektor <span class="math">\(\,v\in V\ \)</span> można zapisać jako</p>
+<div class="math" id="equation-coord">
+<span class="eqno">(4)</span>\[v\ \,=\ \,\sum_{i\;\,=\ \,1}^n\ \alpha_i\,u_i\ =\ \sum_{i\,=\,1}^n\ \langle u_i,v\rangle\;u_i\,.\]</div>
+<div class="admonition-definicja admonition">
+<p class="first admonition-title">Definicja.</p>
+<p class="last">Niech <span class="math">\(\,u,v\in V\,.\ \)</span>
+Jeżeli wektor <span class="math">\(\,u\ \)</span> ma normę <span class="math">\(\,1:\ \ \|u\|=1\,,\ \\\)</span>
+to iloczyn skalarny <span class="math">\(\,\langle u,v\rangle\ \)</span> nazywamy
+<em>współrzędną wektora</em> <span class="math">\(\,v\ \)</span> <em>na osi</em> <span class="math">\(\,\)</span> u.</p>
+</div>
+<p>Wzór <a href="p_unitarne_ortogonalnosc.html#equation-coord">(4)</a> stwierdza, że współrzędne wektora <span class="math">\(\,v\ \)</span> w bazie ortonormalnej
+<span class="math">\(\,\mathcal{B}=(u_1,u_2,\dots,u_n)\ \)</span> są jego współrzędnymi na osiach
+<span class="math">\(\,\text{u}_1,\,\text{u}_2,\,\dots,\,\text{u}_n\,.\)</span></p>
+<p><strong>Przykłady.</strong></p>
+<ol class="arabic">
+<li><p class="first">W rzeczywistej trójwymiarowej przestrzeni wektorów geometrycznych bazą ortonormalną
+jest trójka wzajemnie prostopadłych wektorów jednostkowych
+<span class="math">\(\,\mathcal{E}=(\vec{e}_1,\vec{e}_2,\vec{e}_3).\ \)</span> Iloczyn skalarny wektorów
+<span class="math">\(\,\vec{a}=\alpha_1\,\vec{e}_1+\alpha_2\,\vec{e}_2+\alpha_3\,\vec{e}_3\,,\
+\vec{b}=\beta_1\,\vec{e}_1+\beta_2\,\vec{e}_2+\beta_3\,\vec{e}_3\ \)</span> wynosi</p>
+<div class="math">
+\[\vec{a}\cdot\vec{b}\ =\
+(\alpha_1\,\vec{e}_1+\alpha_2\,\vec{e}_2+\alpha_3\,\vec{e}_3)\cdot
+(\beta_1\,\vec{e}_1+\beta_2\,\vec{e}_2+\beta_3\,\vec{e}_3)\ =\
+\alpha_1\,\beta_1\,+\,\alpha_2\,\beta_2\,+\,\alpha_3\,\beta_3\,.\]</div>
+</li>
+<li><p class="first">W unitarnej przestrzeni <span class="math">\(\,C^n\ \)</span> (a także w euklidesowej przestrzeni <span class="math">\(\,R^n\)</span>)
+przykładem bazy ortonormalnej jest baza kanoniczna <span class="math">\(\,\mathcal{E}=(e_1,e_2,\dots,e_n),\ \)</span>
+gdzie <span class="math">\(\,i\)</span>-ty wektor  równa się</p>
+<div class="math">
+\[\begin{split}e_i\ =\ \left[\begin{array}{c}  0 \\ \dots \\       1       \\ \dots \\ 0  \end{array}\right]
+              \begin{array}{c} \; \\  \;   \\ \leftarrow\ i \\   \;  \\ \; \end{array}\,,
+\qquad i=1,2,\dots,n\,.\end{split}\]</div>
+</li>
+</ol>
+</div>
+
+
+          </div>
+        </div>
+      </div>
+      <div class="sphinxsidebar">
+        <div class="sphinxsidebarwrapper">
+  <h4>Poprzedni temat</h4>
+  <p class="topless"><a href="p_unitarne_norma.html"
+                        title="poprzedni rozdział">Norma wektora</a></p>
+  <h4>Następny temat</h4>
+  <p class="topless"><a href="p_unitarne_Gram-Schmidt_QR.html"
+                        title="następny rozdział">Ortogonalizacja Grama-Schmidta</a></p>
+<div id="searchbox" style="display: none">
+  <h3>Szybkie wyszukiwanie</h3>
+    <form class="search" action="search.html" method="get">
+      <input type="text" name="q" />
+      <input type="submit" value="Szukaj" />
+      <input type="hidden" name="check_keywords" value="yes" />
+      <input type="hidden" name="area" value="default" />
+    </form>
+    <p class="searchtip" style="font-size: 90%">
+    Wprowadź szukany termin lub nazwę modułu, klasy lub funkcji.
+    </p>
+</div>
+<script type="text/javascript">$('#searchbox').show(0);</script>
+        </div>
+      </div>
+      <div class="clearer"></div>
+    </div>
+  </div>
+  <div class="relbar-bottom">
+    
+    <div class="related">
+      <h3>Nawigacja</h3>
+      <ul>
+        <li class="right" style="margin-right: 10px">
+          <a href="p_unitarne_Gram-Schmidt_QR.html" title="Ortogonalizacja Grama-Schmidta"
+             >dalej</a></li>
+        <li class="right" >
+          <a href="p_unitarne_norma.html" title="Norma wektora"
+             >wstecz</a> &nbsp; &nbsp;</li>
+  <li><a href="http://visual.icse.us.edu.pl/LA/index.html">Algebra Liniowa</a> &raquo;</li>
+   
+      </ul>
+    </div>
+  </div>
+  
+  <div class="footer">
+    <a class="logo" href="../../icse.us.edu.pl/index.html" target="_blank"><img src="_static/logo-icse.png" alt="ICSE"/></a><br/>
+    &copy; Copyright 2013, Marcin Kostur.
+    Created using <a href="http://sphinx.pocoo.org/">Sphinx</a> 1.2.2.
+  </div>
+  </body>
+</html>

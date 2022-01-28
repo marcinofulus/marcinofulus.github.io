@@ -1,0 +1,596 @@
+
+
+  <!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+  "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+
+
+<html xmlns="http://www.w3.org/1999/xhtml">
+  <head>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    
+    <title>Podstawy algebry liniowej &mdash; Algebra Liniowa</title>
+    
+    <link rel="stylesheet" href="_static/cloud.css" type="text/css" />
+    <link rel="stylesheet" href="_static/pygments.css" type="text/css" />
+    <link rel="stylesheet" href="http://fonts.googleapis.com/css?family=Noticia+Text|Open+Sans|Droid+Sans+Mono&subset=latin,latin-ext" type="text/css" />
+    
+    <script type="text/javascript">
+      var DOCUMENTATION_OPTIONS = {
+        URL_ROOT:    './',
+        VERSION:     'I',
+        COLLAPSE_INDEX: false,
+        FILE_SUFFIX: '.html',
+        HAS_SOURCE:  true
+      };
+    </script>
+    <script type="text/javascript" src="_static/jquery.js"></script>
+    <script type="text/javascript" src="_static/underscore.js"></script>
+    <script type="text/javascript" src="_static/doctools.js"></script>
+    <script type="text/javascript" src="_static/translations.js"></script>
+    <script type="text/javascript" src="http://cdn.mathjax.org/mathjax/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML"></script>
+    <script type="text/javascript" src="_static/jquery.cookie.js"></script>
+    <script type="text/javascript" src="_static/cloud.js"></script>
+
+	<script src="http://sagecell.icse.us.edu.pl:6363/static/jquery.min.js"></script>
+	<script src="http://sagecell.icse.us.edu.pl:6363/static/embedded_sagecell.js"></script>
+
+	<!-- <script src="http://sagecell.sagemath.org/static/jquery.min.js"></script> -->
+	<!-- <script src="http://sagecell.sagemath.org/static/embedded_sagecell.js"></script> -->
+
+	<script>sagecell.makeSagecell({inputLocation: ".sage",
+                                       evalButtonText: 'Wykonaj',
+                                       linked: true});</script>
+
+	<style type="text/css">
+		.sagecell .CodeMirror-scroll {
+			overflow-y: hidden;
+			overflow-x: auto;
+		}
+		.sagecell .CodeMirror {
+			height: auto;
+		}
+	</style>
+
+    
+    <link rel="top" title="Algebra Liniowa" href="http://visual.icse.us.edu.pl/LA/index.html" />
+    <link rel="next" title="Permutacje" href="permutacje.html" />
+    <link rel="prev" title="Najważniejsze struktury algebraiczne" href="struktury_algebraiczne.html" />
+ 
+  <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, minimum-scale=1">
+  </head>
+  <body>
+  <div class="relbar-top">
+    
+    <div class="related">
+      <h3>Nawigacja</h3>
+      <ul>
+        <li class="right" style="margin-right: 10px">
+          <a href="permutacje.html" title="Permutacje"
+             accesskey="N">dalej</a></li>
+        <li class="right" >
+          <a href="struktury_algebraiczne.html" title="Najważniejsze struktury algebraiczne"
+             accesskey="P">wstecz</a> &nbsp; &nbsp;</li>
+  <li><a href="http://visual.icse.us.edu.pl/LA/index.html">Algebra Liniowa</a> &raquo;</li>
+   
+      </ul>
+    </div>
+  </div>
+  
+  <div class="content">  
+
+    <div class="document">
+      <div class="documentwrapper">
+        <div class="bodywrapper">
+          <div class="body">
+            
+  <div class="section" id="podstawy-algebry-liniowej">
+<h1>Podstawy algebry liniowej<a class="headerlink" href="podstawy_algebry_liniowej.html#podstawy-algebry-liniowej" title="Stały odnośnik do tego nagłówka">¶</a></h1>
+<p>Zakładamy, że dana jest przestrzeń wektorowa <span class="math">\(\,V\,\)</span> nad ciałem
+<span class="math">\(\,K :\ V(K)\,,\,\)</span> gdzie <span class="math">\(\,K\,\)</span> jest ciałem liczb rzeczywistych <span class="math">\(\,R\,\)</span>
+bądź ciałem liczb zespolonych <span class="math">\(\,C\ \)</span> (omawiane pojęcia i twierdzenia można jednak
+odnieść do dowolnego abstrakcyjnego ciała <span class="math">\(\,K).\)</span></p>
+<p>Układ elementów pewnego zbioru jest z definicji ciągiem o wyrazach należących do tego zbioru.
+Inaczej niż w przypadku zbioru, kolejność elementów w układzie jest więc istotna.
+Wszystkie rozważane dalej układy skalarów bądź wektorów będą układami skończonymi.</p>
+<p>Dla odróżnienia od zera ciała <span class="math">\(\,K\,,\,\)</span> wektor zerowy przestrzeni <span class="math">\(\,V\,\)</span>
+będzie oznaczony <span class="math">\(\,\theta\,.\)</span></p>
+<p>Odejmowanie w ciele bądź w przestrzeni wektorowej jest z definicji dodawaniem elementu przeciwnego
+w odpowiedniej grupie addytywnej:</p>
+<div class="math">
+\[\alpha - \beta\ :\,=\ \alpha\,+\,(-\beta)\,,\qquad\alpha,\beta\in K\,;\]\[v - w\ :\,=\ v\,+\,(-w)\,,\qquad v,w\in V\,.\]</div>
+<div class="section" id="proste-twierdzenia">
+<h2>Proste twierdzenia<a class="headerlink" href="podstawy_algebry_liniowej.html#proste-twierdzenia" title="Stały odnośnik do tego nagłówka">¶</a></h2>
+<p>1.) Iloczyn dowolnego wektora przez liczbę zero równa się wektorowi zerowemu; <span class="math">\(\\\)</span>
+pomnożenie wektora zerowego przez dowolną liczbę daje w wyniku wektor zerowy:</p>
+<div class="math">
+\[0\cdot v\,=\,\theta\,;\quad\alpha\cdot\theta\,=\,\theta\,.\]</div>
+<p>Dowód. Z rozdzielności mnożenia wektorów przez skalary względem dodawania mamy:</p>
+<div class="math">
+\[0\cdot v\,+\,0\cdot v\ \,=\ \,(0+0)\cdot v\ \,=\ \,0\cdot v\,.\]</div>
+<p>Do obydwu stron otrzymanej równości dodajemy wektor przeciwny do wektora <span class="math">\(\,0\cdot v\,\)</span>:</p>
+<div class="math">
+\[[\,0\cdot v\,+\,0\cdot v\,]\,+\,[\,-(0\cdot v)\,]\ \,=\ \,0\cdot v\,+\,[\,-(0\cdot v)\,]\,.\]</div>
+<p>Korzystając z łączności dodawania i z definicji odejmowania wektorów otrzymujemy:</p>
+<div class="math">
+\[0\cdot v\,+\,[\,0\cdot v\,-\,0\cdot v\,]\ \,=\ \,0\cdot v\,-\,0\cdot v\,.\]</div>
+<p>Różnica dwóch takich samych wektorów równa się wektorowi zerowemu:</p>
+<div class="math">
+\[0\cdot v\,+\,\theta\ \,=\ \,\theta\,.\]</div>
+<p>Wektor <span class="math">\(\,\theta\,\)</span> jest elementem neutralnym dla dodawania wektorów, wobec czego ostatecznie:</p>
+<div class="math">
+\[0\cdot v\ =\ \theta\,.\]</div>
+<p>Analogicznie dowodzi się drugą część twierdzenia:</p>
+<div class="math">
+\[\alpha\cdot\theta\,+\,\alpha\cdot\theta\ \,=\ \,\alpha\cdot(\theta+\theta)\ =\ \alpha\cdot\theta\,,\]\[[\,\alpha\cdot\theta\,+\,\alpha\cdot\theta\,]\,+\,[\,-(\alpha\cdot\theta)\,]\ \,=\ \,
+\alpha\cdot\theta\,+\,[\,-(\alpha\cdot\theta)\,]\,,\]\[\alpha\cdot\theta\,+\,[\,\alpha\cdot\theta\,-\,\alpha\cdot\theta\,]\ =\
+\alpha\cdot\theta\,-\,\alpha\cdot\theta\,,\]\[\alpha\cdot\theta\,+\,\theta\ =\ \theta\,,\]\[\alpha\cdot\theta\,=\,\theta\,.\]</div>
+<p>2.) Iloczyn wektora <span class="math">\(\,v\,\)</span> przez liczbę przeciwną do <span class="math">\(\,\alpha\,\)</span>
+równa się iloczynowi wektora przeciwnego do <span class="math">\(\,v\,\)</span> przez <span class="math">\(\,\alpha\,\)</span>
+i równa się wektorowi przeciwnemu do iloczynu wektora <span class="math">\(\,v\,\)</span> przez <span class="math">\(\,\alpha:\)</span></p>
+<div class="math">
+\[(-\alpha)\cdot v\ =\ \alpha\cdot (-v)\ =\,-\,(\alpha\cdot v)\,.\]</div>
+<p>Dowód. Korzystając z poprzedniego twierdzenia 1.) można zapisać:</p>
+<div class="math">
+\[(-\alpha)\cdot v \,+\, \alpha\cdot v\ \,=\ \,[\,(-\alpha) + \alpha\,]\cdot v\ \,=\ \,
+0\cdot v\ =\ \theta\,;\]\[\alpha\cdot (-v)\,+\,\alpha\cdot v\ \,=\ \,\alpha\cdot[\,(-v)+v\,]\ \,=\ \,
+\alpha\cdot\theta\ =\ \theta\,.\]</div>
+<p>A zatem wektory <span class="math">\(\ (-\alpha)\cdot v\ \ \;\text{i}\ \ \;\alpha\cdot v\,,\ \)</span>
+oraz <span class="math">\(\ \alpha\cdot (-v)\ \ \;\text{i}\ \ \;\alpha\cdot v\,,\ \)</span> są wzajemnie przeciwne:</p>
+<div class="math">
+\[(-\alpha)\cdot v\ =\ -\,(\alpha\cdot v)\,,\qquad\alpha\cdot (-v)\ =\ -\,(\alpha\cdot v)\,.\]</div>
+<p>Wniosek: <span class="math">\(\ \)</span> kładąc <span class="math">\(\,\alpha = 1\,\)</span> otrzymujemy: <span class="math">\(\ \ (-1)\,v\,=\,-\,v\,.\)</span></p>
+<p>3.) Mnożenie wektorów przez skalary jest rozdzielne względem odejmowania:</p>
+<div class="math">
+\[(\alpha-\beta)\cdot v\ =\
+\alpha\cdot v\,-\,\beta\cdot v\,,\quad\alpha\cdot (v-w)\ =\
+\alpha\cdot v\,-\,\alpha\cdot w\,.\]</div>
+<p>Dowód. Skorzystamy z definicji odejmowania, z rozdzielności mnożenia wektorów przez skalary względem dodawania oraz z udowodnionego już twierdzenia 2.):</p>
+<div class="math">
+\[(\alpha-\beta)\cdot v\ =\ [\,\alpha + (-\beta)\,]\cdot v\ =\
+\alpha\cdot v\,+\,[\,(-\beta)\cdot v\,]\ =\
+\alpha\cdot v\,+\,[-(\beta\cdot v)\,]\ =\
+\alpha\cdot v\,-\,\beta\cdot v\,;\]\[\alpha\cdot (v-w)\ =\ \alpha\cdot [\,v + (-w)\,]\ =\
+\alpha\cdot v\,+\,[\,\alpha\cdot (-w)\,]\ =\
+\alpha\cdot v\,+\,[-(\alpha\cdot w)\,]\ =\
+\alpha\cdot v\,-\,\alpha\cdot w\,.\]</div>
+<p>4.) Iloczyn skalara i wektora równa się wektorowi zerowemu wtedy i tylko wtedy,
+gdy skalar jest zerem lub gdy wektor jest wektorem zerowym:</p>
+<div class="math" id="equation-fourth">
+<span class="eqno">(1)</span>\[\alpha\cdot v\,=\,\theta\quad\Leftrightarrow\quad\
+\left(\ \alpha\,=\,0\ \ \lor\ \ v\,=\,\theta\ \right)\,.\]</div>
+<p>Dowód. Twierdzenie w postaci równoważności można potraktować jako koniunkcję dwóch implikacji,
+które udowadnia się oddzielnie.</p>
+<p><span class="math">\(\Rightarrow\ :\ \)</span> Zakładamy, że <span class="math">\(\ \,\alpha\cdot v\,=\,\theta\,.\ \)</span>
+Oczywiście <span class="math">\(\,\alpha = 0\,\)</span> albo <span class="math">\(\,\alpha \neq 0\,.\)</span></p>
+<p>Jeżeli <span class="math">\(\ \alpha = 0,\,\)</span> to alternatywa
+po prawej stronie wzoru <a href="podstawy_algebry_liniowej.html#equation-fourth">(1)</a> jest prawdziwa.</p>
+<p>Jeżeli <span class="math">\(\ \alpha \neq 0,\,\)</span> to w ciele <span class="math">\(\,K\,\)</span>
+istnieje odwrotność <span class="math">\(\,\alpha^{-1}\,.\ \)</span>
+Wtedy <span class="math">\(\ \ \alpha^{-1}\cdot(\alpha\cdot v)\ =\ \alpha^{-1}\cdot\theta\,.\)</span></p>
+<p>Ale <span class="math">\(\ \ \alpha^{-1}\cdot(\alpha\cdot v)\ =\
+(\alpha^{-1}\,\alpha)\cdot v\ =\ 1\cdot v\ =\ v\,,\ \,\)</span>
+a z drugiej strony <span class="math">\(\ \ \alpha^{-1}\cdot\theta\ =\ \theta\,.\)</span></p>
+<p>A zatem <span class="math">\(\ v\,=\,\theta\ \)</span>
+i alternatywa we wzorze <a href="podstawy_algebry_liniowej.html#equation-fourth">(1)</a> jest znowu prawdziwa.</p>
+<p><span class="math">\(\Leftarrow\ :\ \)</span> Teraz zakładamy, że
+<span class="math">\(\ \,\alpha\,=\,0\ \ \,\text{lub}\ \ \,v\,=\,\theta\,.\)</span></p>
+<p>Jeżeli <span class="math">\(\ \alpha\,=\,0\,,\ \,\)</span>
+to <span class="math">\(\ \alpha\cdot v\ =\ 0\cdot v\ =\ \theta\,,\ \ \)</span>
+a jeżeli <span class="math">\(\ v\,=\,\theta\,,\ \,\)</span>
+to <span class="math">\(\ \,\alpha\cdot v\ =\ \alpha\cdot \theta\ =\ \theta\,.\)</span></p>
+<p>Stwierdziliśmy w ten sposób, że równoważność <a href="podstawy_algebry_liniowej.html#equation-fourth">(1)</a> jest prawdziwa
+w każdym przypadku, co kończy dowód twierdzenia 4.).</p>
+</div>
+<div class="section" id="kombinacje-liniowe-wektorow">
+<h2>Kombinacje liniowe wektorów<a class="headerlink" href="podstawy_algebry_liniowej.html#kombinacje-liniowe-wektorow" title="Stały odnośnik do tego nagłówka">¶</a></h2>
+<p>Jeżeli dla pewnego wektora <span class="math">\(\,x\in V\,\)</span> jest spełniony warunek</p>
+<div class="math" id="equation-lin">
+<span class="eqno">(2)</span>\[x\,=\,\alpha_1\,x_1\,+\,\alpha_2\,x_2\,+\,\ldots\,+\,\alpha_m\,x_m\,,\]</div>
+<p>gdzie <span class="math">\(\ \ \alpha_1,\,\alpha_2,\,\ldots,\,\alpha_m\in K\,,\ \
+x_1,\,x_2,\,\ldots,\,x_m\in V,\ \,\)</span>
+to wektor <span class="math">\(\,x\,\)</span> jest <em>kombinacją liniową</em> wektorów <span class="math">\(\ x_1,\,x_2,\,\ldots,\,x_m\ \)</span>
+o współczynnikach <span class="math">\(\ \alpha_1,\,\alpha_2,\,\ldots,\,\alpha_m\,.\)</span></p>
+<p>Mówimy też, że wektor <span class="math">\(\,x\,\)</span> <em>wyraża się liniowo</em>
+przez wektory <span class="math">\(\ x_1,\,x_2,\,\ldots,\,x_m\,.\)</span></p>
+<p>Gdy wszystkie współczynniki są równe zeru, to kombinację nazywamy <em>trywialną</em>.
+Trywialna kombinacja liniowa jakichkolwiek wektorów równa się wektorowi zerowemu:</p>
+<div class="math" id="equation-triv">
+<span class="eqno">(3)</span>\[\alpha_1=\alpha_2=\ldots=\alpha_r=0\qquad\Rightarrow\qquad
+\alpha_1\,x_1\,+\,\alpha_2\,x_2\,+\,\ldots\,+\,\alpha_r\,x_r\ =\ \theta\,.\]</div>
+<p>Kombinację liniową <a href="podstawy_algebry_liniowej.html#equation-lin">(2)</a> można też napisać używając skróconego zapisu sumy:</p>
+<div class="math">
+\[x\ =\ \sum_{k=1}^m\ \alpha_k\,x_k\,.\]</div>
+<p>Niech <span class="math">\(\ \mathcal{X} = (x_1,x_2,\ldots,x_m)\ \)</span> będzie skończonym układem wektorów
+przestrzeni <span class="math">\(\,V(K)\,.\)</span></p>
+<p>Zbiór wszystkich kombinacji liniowych wektorów tego układu nazywamy <em>powłoką liniową</em>
+(lub <em>domknięciem liniowym</em>) układu <span class="math">\(\,\mathcal{X}\,\)</span> i oznaczamy <span class="math">\(\,L(\mathcal{X})\,:\)</span></p>
+<div class="math">
+\[L(\mathcal{X})\,\equiv\,L(x_1,x_2,\ldots,x_m)\ :\,=\
+\left\{\ \alpha_1\,x_1 + \alpha_2\,x_2 + \ldots + \alpha_m\,x_m:\
+\alpha_1,\alpha_2,\ldots,\alpha_m\in K\ \right\}\,.\]</div>
+<p>Łatwo zauważyć, że <span class="math">\(\,L(\mathcal{X})\,\)</span> jest podprzestrzenią: <span class="math">\(\,L(\mathcal{X}) &lt; V\,.\ \)</span>
+W tej sytuacji mówimy, że</p>
+<ul class="simple">
+<li>układ <span class="math">\(\,\mathcal{X}\,\)</span> <em>rozpina</em> (<em>generuje</em>) podprzestrzeń <span class="math">\(\ L(\mathcal{X})\,;\)</span></li>
+<li>podprzestrzeń <span class="math">\(\,L(\mathcal{X})\,\)</span> jest <em>rozpięta</em> na układzie <span class="math">\(\,\mathcal{X}\,\)</span>
+(<em>generowana</em> przez układ <span class="math">\(\,\mathcal{X})\,;\)</span></li>
+<li><span class="math">\(\,\mathcal{X}\,\)</span> jest <em>układem generatorów</em> podprzestrzeni <span class="math">\(\,L(\mathcal{X})\,.\)</span></li>
+</ul>
+<p>Może się zdarzyć, że <span class="math">\(\ L(\mathcal{X}) = V\,.\ \)</span>
+Wtedy układ <span class="math">\(\,\mathcal{X}\,\)</span> generuje przestrzeń <span class="math">\(\,V\ \)</span>
+(jest układem generatorów przestrzeni <span class="math">\(\,V).\)</span></p>
+<p><strong>Przykład.</strong></p>
+<p>Załóżmy, że <span class="math">\(\ \vec{v}_1,\,\vec{v}_2,\,\vec{v}_3\ \)</span> są trzema niekomplanarnymi
+(czyli nie leżącymi w jednej płaszczyżnie) wektorami geometrycznymi,
+zaczepionymi w ustalonym punkcie <span class="math">\(\,\boldsymbol{O}.\ \)</span> Wtedy:</p>
+<ol class="arabic simple">
+<li><span class="math">\(L(\vec{v}_1)\,=\,\left\{\ \alpha\,\vec{v}_1 :\ \alpha\in R\ \right\}\ \)</span>
+jest zbiorem wektorów leżących na prostej przechodzącej przez punkt <span class="math">\(\,\boldsymbol{O}\ \,\)</span>
+i wyznaczonej przez wektor <span class="math">\(\,\vec{v}_1\,;\)</span></li>
+<li><span class="math">\(L(\vec{v}_1,\vec{v}_2)\,=\,\left\{\ \alpha_1\,\vec{v}_1 + \alpha_2\,\vec{v}_2 :\ \alpha_1,
+\alpha_2\in R\ \right\}\ \)</span> jest zbiorem wektorów leżących na płaszczyźnie
+przechodzącej przez punkt <span class="math">\(\,\boldsymbol{O}\ \,\)</span> i wyznaczonej przez
+wektory <span class="math">\(\,\vec{v}_1,\,\vec{v}_2\,;\)</span></li>
+<li><span class="math">\(L(\vec{v}_1,\vec{v}_2,\vec{v}_3)\,=\,
+\left\{\ \alpha_1\,\vec{v}_1+\alpha_2\,\vec{v}_2+\alpha_3\,\vec{v}_3 :\
+\alpha_1,\alpha_2,\alpha_3\in R\ \right\}\ \)</span>
+przedstawia całą przestrzeń wektorów zaczepionych w punkcie <span class="math">\(\,\boldsymbol{O}.\)</span></li>
+</ol>
+<p>Podprzestrzenie te są związane relacją:</p>
+<div class="math">
+\[\begin{split}L(\vec{v}_1)\,&lt;\,L(\vec{v}_1,\vec{v}_2)\,&lt;\,L(\vec{v}_1,\vec{v}_2,\vec{v}_3)\,.\end{split}\]</div>
+</div>
+<div class="section" id="liniowa-zaleznosc-i-niezaleznosc-wektorow">
+<h2>Liniowa zależność i niezależność wektorów<a class="headerlink" href="podstawy_algebry_liniowej.html#liniowa-zaleznosc-i-niezaleznosc-wektorow" title="Stały odnośnik do tego nagłówka">¶</a></h2>
+<p>Mówimy, że układ wektorów <span class="math">\(\,(x_1,x_2,\ldots,x_r)\,\)</span> jest <em>liniowo zależny</em>
+(lub, że wektory <span class="math">\(\,x_1,x_2,\ldots,x_r\ \)</span> są <span class="math">\(\,\)</span> <em>liniowo zależne</em>), <span class="math">\(\,\)</span>
+gdy istnieje nietrywialna kombinacja liniowa tych wektorów równa wektorowi zerowemu <span class="math">\(\,\theta.\)</span></p>
+<p>Układ <span class="math">\(\ (x_1,x_2,\ldots,x_r)\ \)</span> jest <em>liniowo niezależny</em>
+(wektory <span class="math">\(\ x_1,x_2,\ldots,x_r\ \)</span> są <span class="math">\(\,\)</span> <em>liniowo niezależne</em>),
+gdy nie jest on liniowo zależny, czyli gdy każda nietrywialna kombinacja liniowa tych wektorów
+jest różna od wektora zerowego.</p>
+<p>A zatem układ <span class="math">\(\,(x_1,x_2,\ldots,x_r)\,\)</span> jest liniowo zależny wtedy i tylko wtedy,
+gdy istnieje układ <span class="math">\(\,(\alpha_1,\alpha_2,\ldots,\alpha_r)\,\)</span> skalarów,
+z których co najmniej jeden jest różny od zera, taki że</p>
+<div class="math" id="equation-lindep">
+<span class="eqno">(4)</span>\[\alpha_1\,x_1\,+\,\alpha_2\,x_2\,+\,\ldots\,+\,\alpha_r\,x_r\ =\ \theta\,.\]</div>
+<p>Natomiast układ ten jest liniowo niezależny, gdy jedyną kombinacją liniową jego wektorów, równą wektorowi zerowemu, jest kombinacja trywialna:</p>
+<div class="math" id="equation-linindep">
+<span class="eqno">(5)</span>\[\alpha_1\,x_1\,+\,\alpha_2\,x_2\,+\,\ldots\,+\,\alpha_r\,x_r\ =\ \theta\qquad
+\Rightarrow\qquad\alpha_1=\alpha_2=\ldots=\alpha_r=0\,.\]</div>
+<p>Warto zauważyć, że warunek <a href="podstawy_algebry_liniowej.html#equation-linindep">(5)</a> jest implikacją odwrotną do <a href="podstawy_algebry_liniowej.html#equation-triv">(3)</a>.</p>
+<p><strong>Twierdzenie 1.</strong> <span class="math">\(\,\)</span>
+Wektory <span class="math">\(\ x_1,x_2,\ldots,x_r\,,\ \)</span> gdzie <span class="math">\(\ r \geq 2,\ \)</span>
+są liniowo zależne wtedy i tylko wtedy, <span class="math">\(\,\)</span> gdy co najmniej jeden z nich wyraża się
+liniowo przez wektory pozostałe, <span class="math">\(\,\)</span> czyli gdy dla pewnego wskaźnika
+<span class="math">\(\,i\in\{\,1,2,\ldots,r\,\}\,\)</span> zachodzi warunek</p>
+<div class="math" id="equation-detach">
+<span class="eqno">(6)</span>\[x_i\ =\ \beta_1\,x_1\,+\,\ldots\,+\,\beta_{i-1}\,x_{i-1}\,+\,
+        \beta_{i+1}\,x_{i+1}\,+\,\ldots\,+\,\beta_r\,x_r\,.\]</div>
+<p>Uwaga: <span class="math">\(\ \)</span> co najmniej jeden, to znaczy niekoniecznie każdy.</p>
+<p><strong>Dowód.</strong></p>
+<p><span class="math">\(\Rightarrow\,:\ \)</span> Zakładamy, że wektory <span class="math">\(\ x_1,x_2,\ldots,x_r\ \)</span> są liniowo zależne:</p>
+<div class="math">
+\[\alpha_1\,x_1\,+\,\alpha_2\,x_2\,+\,\ldots\,+\,\alpha_r\,x_r\ =\ \theta\,,\]</div>
+<p>przy czym <span class="math">\(\ \alpha_i\neq 0\ \)</span> dla pewnego wskaźnika <span class="math">\(\ i\in\{\,1,2,\ldots,r\,\}\,.\)</span></p>
+<p>Po przeniesieniu na prawą stronę wszystkich składników z wyjątkiem <span class="math">\(\,i\)</span>-tego otrzymujemy</p>
+<div class="math" id="equation-ith">
+<span class="eqno">(7)</span>\[\alpha_i\,x_i\ =\ -\,\alpha_1\,x_1\,-\,\ldots\,-\,\alpha_{i-1}\,x_{i-1}\,-\,
+\alpha_{i+1}\,x_{i+1}\,-\,\ldots\,-\,\alpha_r\,x_r\,.\]</div>
+<p>Z założenia <span class="math">\(\,\alpha_i\neq 0\,\)</span> wynika, że w ciele <span class="math">\(\,K\,\)</span> istnieje element
+<span class="math">\(\,\alpha_i^{-1}\,\)</span> taki, że <span class="math">\(\,\alpha_i\cdot\alpha_i^{-1}=1.\ \)</span>
+Mnożąc obustronnie <a href="podstawy_algebry_liniowej.html#equation-ith">(7)</a> przez <span class="math">\(\,\alpha_i^{-1}\ \,\)</span>
+i <span class="math">\(\,\)</span> oznaczając <span class="math">\(\ \beta_j\,=\,-\,\alpha_i^{-1}\,\alpha_j\,\)</span>
+dla <span class="math">\(\ j\,=\,1,\ldots,i-1,\ i+1,\ldots,r\,,\ \)</span>
+dochodzimy do warunku <a href="podstawy_algebry_liniowej.html#equation-detach">(6)</a>, <span class="math">\(\,\)</span> co kończy tę część dowodu.</p>
+<p><span class="math">\(\Leftarrow\,:\ \)</span> Teraz zakładamy, że spełniony jest warunek <a href="podstawy_algebry_liniowej.html#equation-detach">(6)</a>:</p>
+<div class="math">
+\[x_i\ =\ \beta_1\,x_1\,+\,\ldots\,+\,\beta_{i-1}\,x_{i-1}\,+\,
+\beta_{i+1}\,x_{i+1}\,+\,\ldots\,+\,\beta_r\,x_r\,.\]</div>
+<p>Przenosząc wyraz <span class="math">\(\,x_i\,\)</span> na prawą stronę i biorąc pod uwagę,
+że <span class="math">\(\ \,-x_i\,=\,(-1)\cdot x_i\,,\ \)</span> otrzymujemy</p>
+<div class="math">
+\[\beta_1\,x_1\,+\,\ldots\,+\,\beta_{i-1}\,x_{i-1}\,+\,(-1)\,x_i\,+\,
+\beta_{i+1}\,x_{i+1}\,+\,\ldots\,+\,\beta_r\,x_r\ = \theta\,.\]</div>
+<p>Ponieważ <span class="math">\(\,-1\neq 0\,,\ \)</span> kombinacja liniowa po lewej stronie jest nietrywialna,
+a to oznacza, że wektory <span class="math">\(\ x_1,x_2,\ldots,x_r\ \)</span> są liniowo zależne.</p>
+<p><strong>Wniosek:</strong> <span class="math">\(\ \)</span>
+Wektory <span class="math">\(\ x_1,x_2,\ldots,x_r\ \)</span> są liniowo niezależne wtedy i tylko wtedy, gdy żadnego z nich nie można zapisać w postaci kombinacji liniowej pozostałych.</p>
+<p>Łatwo można uzasadnić następujące użyteczne stwierdzenia <span class="math">\(\\\)</span>
+(l.z. = liniowo zależny, <span class="math">\(\,\)</span> l.n. = liniowo niezależny):</p>
+<ol class="arabic">
+<li><div class="first line-block">
+<div class="line">Układ <span class="math">\(\,(x),\,\)</span> składający się z jednego wektora, jest l.z. wtedy
+i tylko wtedy, gdy <span class="math">\(\,x = \theta\,.\)</span></div>
+</div>
+</li>
+<li><div class="first line-block">
+<div class="line">Jeżeli jakiś podukład danego układu jest l.z., to cały układ jest też l.z.</div>
+<div class="line">Wniosek 1.: Każdy układ zawierający wektor zerowy jest l.z.</div>
+<div class="line">Wniosek 2.: Jeżeli w układzie jakieś dwa wektory są sobie równe, to układ jest l.z.</div>
+<div class="line">Wniosek 3.: Jeżeli dwa wektory są proporcjonalne:
+<span class="math">\(\ x_j = \lambda\,x_i\,,\ \)</span> to układ jest l.z.</div>
+</div>
+</li>
+<li><div class="first line-block">
+<div class="line">Każdy podukład układu liniowo niezależnego jest l.n.</div>
+<div class="line">Wniosek: <span class="math">\(\ \)</span> Układ l.n. nie zawiera wektora zerowego
+ani wektorów identycznych lub proporcjonalnych.</div>
+</div>
+</li>
+<li><div class="first line-block">
+<div class="line">Kolejność wektorów nie ma wpływu na ich liniową zależność albo niezależność.</div>
+</div>
+</li>
+</ol>
+<p><strong>Przykład 0.</strong> <span class="math">\(\ \)</span>
+Rozważmy przestrzeń <span class="math">\(\,C(R)\,\)</span> liczb zespolonych nad ciałem liczb rzeczywistych.</p>
+<p>Wektory (tu: liczby) <span class="math">\(\ 1\ \)</span> oraz <span class="math">\(\ i\ \,\)</span> są <span class="math">\(\,\)</span> l.n., <span class="math">\(\,\)</span>
+bo dla dowolnych <span class="math">\(\,\alpha,\beta\in R\ \)</span> zachodzi warunek <a href="podstawy_algebry_liniowej.html#equation-linindep">(5)</a>:</p>
+<div class="math">
+\[\alpha\cdot 1\,+\,\beta\cdot i\ =\ 0\qquad\Rightarrow\qquad\alpha = \beta = 0\,.\]</div>
+<p><strong>Przykład 1.</strong> <span class="math">\(\ \)</span>
+Niech <span class="math">\(\quad
+x\ =\ \left[\begin{array}{c} 1 \\ 0 \\ 1 \end{array}\right]\,,\quad
+y\ =\ \left[\begin{array}{c} 0 \\ 1 \\ 0 \end{array}\right]\,,\quad
+z\ =\ \left[\begin{array}{c} 2 \\ 2 \\ 2 \end{array}\right]   \quad\in\ R^3\,.\)</span></p>
+<p>Układ <span class="math">\(\,(x,y,z)\,\)</span> jest <span class="math">\(\,\)</span> liniowo zależny, <span class="math">\(\,\)</span> bo</p>
+<ul class="simple">
+<li><span class="math">\(\,2\,x\,+\,2\,y\,-\,z\,=\,\theta\quad\)</span>
+(istnieje nietrywialna kombinacja liniowa równa <span class="math">\(\,\theta\)</span>);</li>
+<li><span class="math">\(\,z\,=\,2\,x\,+\,2\,y\quad\)</span>
+(jeden z wektorów wyraża się liniowo przez pozostałe dwa).</li>
+</ul>
+<p>Obydwa warunki są sobie równoważne i wystarczyło stwierdzić tylko jeden z nich.</p>
+<p><strong>Przykład 2.</strong> <span class="math">\(\ \)</span>
+Niech <span class="math">\(\quad
+x\ =\ \left[\begin{array}{c} 2 \\ 2 \end{array}\right]\,,\quad
+y\ =\ \left[\begin{array}{c} 1 \\ 0 \end{array}\right]   \quad\in\ R^2\,.\)</span></p>
+<p>Układ <span class="math">\(\,(x,y)\,\)</span> jest liniowo niezależny.
+Rzeczywiście, załóżmy że</p>
+<div class="math">
+\[\begin{split}\alpha\,x\,+\,\beta\,y\,=\,\theta\,,\qquad\text{czyli}\qquad
+\alpha\ \left[\begin{array}{c} 2 \\ 2 \end{array}\right]\ +\
+\beta\  \left[\begin{array}{c} 1 \\ 0 \end{array}\right]\ =\
+\left[\begin{array}{c} 0 \\ 0 \end{array}\right]\,.\end{split}\]</div>
+<p>Wykonując działania po lewej stronie dochodzimy do układu równań</p>
+<div class="math">
+\[\begin{alignat*}{3}
+\ 2\,\alpha & {\,} + {\,} & \beta & {\;} = {\;} & 0 \\
+  2\,\alpha & {\,}   {\,} &       & {\;} = {\;} & 0
+\end{alignat*}\]</div><p>który ma jedynie rozwiązanie zerowe: <span class="math">\(\ \alpha = \beta = 0\,.\ \)</span>
+A zatem wektory <span class="math">\(\ x,y\ \)</span> spełniają warunek</p>
+<div class="math">
+\[\alpha\,x\,+\,\beta\,y\,=\,\theta\qquad\Rightarrow\qquad\alpha = \beta = 0\,,\]</div>
+<p>co oznacza ich liniową niezależność.</p>
+</div>
+<div class="section" id="baza-przestrzeni-wektorowej">
+<h2>Baza przestrzeni wektorowej<a class="headerlink" href="podstawy_algebry_liniowej.html#baza-przestrzeni-wektorowej" title="Stały odnośnik do tego nagłówka">¶</a></h2>
+<p>Układ <span class="math">\(\ \mathcal{B}\ \)</span> wektorów przestrzeni <span class="math">\(\,V\,\)</span> jest <em>bazą</em>
+tej przestrzeni, gdy dowolny wektor <span class="math">\(\,v\in V\,\)</span> można przedstawić jednoznacznie
+w postaci kombinacji liniowej wektorów układu <span class="math">\(\,\mathcal{B}\,.\)</span></p>
+<p>Jeśli więc układ <span class="math">\(\,\mathcal{B} = (v_1,v_2,\ldots,v_n)\,\)</span>
+jest bazą przestrzeni <span class="math">\(\,V,\ \)</span> to dla każdego wektora <span class="math">\(\,v\in V\,\)</span>
+istnieje dokładnie jeden układ skalarów <span class="math">\(\,(\alpha_1,\alpha_2,\ldots,\alpha_n)\,\)</span>
+taki, że <span class="math">\(\,v\,\)</span> równa się kombinacji liniowej wektorów <span class="math">\(\,v_1,\,v_2,\,\ldots,\,v_n\,\)</span>
+o współczynnikach <span class="math">\(\,\alpha_1,\,\alpha_2,\,\ldots,\,\alpha_n\,:\)</span></p>
+<div class="math" id="equation-baza">
+<span class="eqno">(8)</span>\[v\ =\ \alpha_1\,v_1\,+\,\alpha_2\,v_2\,+\,\ldots\,+\,\alpha_n\,v_n\,.\]</div>
+<p>Skalary <span class="math">\(\,\alpha_1,\,\alpha_2,\,\ldots,\,\alpha_n\,\)</span> nazywają się
+<em>współrzędnymi</em> wektora <span class="math">\(\,v\,\)</span> w bazie <span class="math">\(\,\mathcal{B}.\)</span></p>
+<p>Jeżeli w przestrzeni <span class="math">\(\,V\,\)</span> istnieje baza <span class="math">\(\,n\)</span>-elementowa,
+to każdy wektor jest scharakteryzowany jednoznacznie poprzez układ <span class="math">\(\,n\,\)</span>
+swoich współrzędnych w tej bazie. W różnych bazach ten sam wektor będzie miał
+na ogół różne współrzędne.</p>
+<p><strong>Twierdzenie 2.</strong> <span class="math">\(\ \)</span> Układ <span class="math">\(\,\mathcal{B}\,\)</span> jest bazą przestrzeni <span class="math">\(\,V\,\)</span>
+wtedy i tylko wtedy, gdy <span class="math">\(\,\mathcal{B}\,\)</span> jest liniowo niezależnym układem generatorów
+tej przestrzeni.</p>
+<p><strong>Dowód.</strong> <span class="math">\(\,\)</span> Niech <span class="math">\(\,\mathcal{B} = (v_1,v_2,\ldots,v_n)\,.\)</span></p>
+<p><span class="math">\(\Rightarrow\,:\ \)</span> Zakładamy, że układ <span class="math">\(\,\mathcal{B}\,\)</span>
+jest bazą przestrzeni <span class="math">\(\,V.\)</span></p>
+<p>Warunek <a href="podstawy_algebry_liniowej.html#equation-baza">(8)</a> stwierdza, że <span class="math">\(\ V \subset L(\mathcal{B})\,.\ \)</span>
+Z drugiej strony oczywiście <span class="math">\(\ L(\mathcal{B}) \subset V\,.\ \)</span>
+Wobec tego <span class="math">\(\ V = L(\mathcal{B})\,,\ \)</span>
+czyli <span class="math">\(\,\mathcal{B}\,\)</span> jest układem generatorów przestrzeni <span class="math">\(\,V.\)</span></p>
+<p>Aby wykazać liniową niezależność układu <span class="math">\(\,\mathcal{B}\,,\)</span> zauważmy , że tożsamość</p>
+<div class="math">
+\[0\cdot v_1\,+\,0\cdot v_2\,+\,\ldots\,+\,0\cdot v_n\ =\ \theta\]</div>
+<p>można zinterpretować jako przedstawienie wektora zerowego w bazie <span class="math">\(\,\mathcal{B}.\ \)</span>
+Z jednoznaczności tego przedstawienia wynika, że kombinacja trywialna jest jedyną
+kombinacją liniową wektorów układu <span class="math">\(\,\mathcal{B}\,,\ \)</span> równą wektorowi <span class="math">\(\,\theta.\ \)</span>
+Oznacza to, że <span class="math">\(\,\mathcal{B}\,\)</span> jest układem liniowo niezależnym.</p>
+<p><span class="math">\(\Leftarrow\,:\ \)</span> Zakładamy, że <span class="math">\(\,\mathcal{B}\ \)</span>
+jest liniowo niezależnym układem generatorów przestrzeni <span class="math">\(\,V.\)</span></p>
+<p>Z samego faktu, że <span class="math">\(\,\mathcal{B}\,\)</span> generuje przestrzeń <span class="math">\(\,V\,\)</span> wynika,
+że każdy wektor <span class="math">\(\,v\in V\,\)</span> ma postać <a href="podstawy_algebry_liniowej.html#equation-baza">(8)</a>. <span class="math">\(\ \)</span>
+Pozostaje udowodnić, że przedstawienie takie jest jednoznaczne.</p>
+<p>Przypuśćmy, że tak nie jest, czyli że wektor <span class="math">\(\,v\,\)</span> ma dwa różne takie przedstawienia:</p>
+<div class="math">
+\[v\ =\ \alpha_1\,v_1\,+\,\alpha_2\,v_2\,+\,\ldots\,+\,\alpha_n\,v_n\,,\]\[v\ =\ \beta_1\,v_1\,+\,\beta_2\,v_2\,+\,\ldots\,+\,\beta_n\,v_n\,,\]</div>
+<p>przy czym <span class="math">\(\ \beta_i\neq\alpha_i\ \)</span> dla pewnego <span class="math">\(\ i\in\{1,2,\ldots,n\}\,.\)</span></p>
+<p>Odejmując stronami otrzymujemy</p>
+<div class="math">
+\[(\alpha_1-\beta_1)\ v_1\,+\,(\alpha_2-\beta_2)\ v_2\,+\,\ldots\,+\,
+(\alpha_n-\beta_n)\ v_n\ =\ \theta\,,\]</div>
+<p>gdzie współczynnik <span class="math">\(\ \alpha_i-\beta_i\neq 0\,.\ \)</span>
+Okazuje się więc, że wtedy nietrywialna kombinacja liniowa wektorów
+<span class="math">\(\,v_1,\,v_2,\,\ldots,\,v_n\,\)</span> równałaby się wektorowi zerowemu.
+Doszliśmy do sprzeczności z założeniem o liniowej niezależności tych wektorów.</p>
+<p>Wobec tego rozkład <a href="podstawy_algebry_liniowej.html#equation-baza">(8)</a> jest jednoznaczny i układ <span class="math">\(\,\mathcal{B}\,\)</span>
+jest bazą przestrzeni <span class="math">\(\,V.\)</span></p>
+<p>Twierdzenie 2. podaje warunek konieczny i wystarczający dla bazy,
+mogłoby zatem być alternatywną definicją tego pojęcia.
+Możliwe jest jeszcze inne podejście, oparte na podanej niżej definicji i twierdzeniu 3.</p>
+<p>Liniowo niezależny układ wektorów przestrzeni <span class="math">\(\ V\ \)</span> nazywa się
+<em>maksymalnym liniowo niezależnym układem</em>, gdy dołączenie doń
+jakiegokolwiek wektora z <span class="math">\(\,V\,\)</span> daje układ liniowo zależny.</p>
+<p><strong>Twierdzenie 3.</strong> <span class="math">\(\,\)</span> Układ <span class="math">\(\,\mathcal{B}\,\)</span>
+wektorów przestrzeni <span class="math">\(\,V\,\)</span> jest bazą tej przestrzeni
+wtedy i tylko wtedy, <span class="math">\(\,\)</span> gdy jest on maksymalnym liniowo niezależnym układem.</p>
+<p><strong>Dowód.</strong> <span class="math">\(\,\)</span> Niech <span class="math">\(\,\mathcal{B} = (v_1,v_2,\ldots,v_n)\,.\)</span></p>
+<p><span class="math">\(\Rightarrow\,:\ \)</span> Zakładamy, że układ <span class="math">\(\,\mathcal{B}\,\)</span>
+jest bazą przestrzeni <span class="math">\(\,V.\)</span></p>
+<p>Wtedy <span class="math">\(\,\mathcal{B}\,\)</span> jest układem liniowo niezależnym,
+a dla każdego wektora <span class="math">\(\,v\in V\,\)</span> zachodzi rozkład <a href="podstawy_algebry_liniowej.html#equation-baza">(8)</a>.
+Oznacza to, że dla każdego wektora <span class="math">\(\,v\in V\,\)</span>
+układ <span class="math">\(\,(v,v_1,v_2,\ldots,v_n)\,\)</span> jest liniowo zależny.
+A zatem <span class="math">\(\,\mathcal{B} = (v_1,v_2,\ldots,v_n)\,\)</span>
+jest maksymalnym liniowo niezależnym układem.</p>
+<p><span class="math">\(\Leftarrow\,:\ \)</span> Zakładamy, że <span class="math">\(\,\mathcal{B}\ \)</span>
+jest maksymalnym liniowo niezależnym układem wektorów.</p>
+<p>Wtedy dla każdego wektora <span class="math">\(\,v\in V\,\)</span>
+układ <span class="math">\(\,(v,v_1,v_2,\ldots,v_n)\,\)</span> jest liniowo zależny:</p>
+<div class="math" id="equation-presume">
+<span class="eqno">(9)</span>\[\alpha_0\,v\,+\,\alpha_1\,v_1\,+\,\alpha_2\,v_2\,+\,\ldots\,+\,\alpha_n\,v_n\,=\,\theta\,,\]</div>
+<p>gdzie nie wszystkie współczynniki <span class="math">\(\,\alpha_0,\,\alpha_1,\,\ldots,\,\alpha_n\,\)</span> znikają.</p>
+<p>Gdyby <span class="math">\(\,\alpha_0=0,\ \)</span> to miałaby miejsce równość</p>
+<div class="math">
+\[\alpha_1\,v_1\,+\,\alpha_2\,v_2\,+\,\ldots\,+\,\alpha_n\,v_n\,=\,\theta\,,\]</div>
+<p>w której nie wszystkie współczynniki <span class="math">\(\,\alpha_1,\,\ldots,\,\alpha_n\,\)</span> znikają.
+Stoi to w sprzeczności z założeniem o liniowej niezależności układu <span class="math">\(\,\mathcal{B}.\ \)</span></p>
+<p>A zatem <span class="math">\(\ \alpha_0\neq 0.\ \,\)</span> W tej sytuacji równanie <a href="podstawy_algebry_liniowej.html#equation-presume">(9)</a> można przepisać w postaci</p>
+<div class="math">
+\[v\ =\ \beta_1\,v_1\,+\,\beta_2\,v_2\,+\,\ldots\,+\,\beta_n\,v_n\,,\]</div>
+<p>gdzie <span class="math">\(\ \,\beta_i\,=\,-\,\alpha_0^{-1}\,\alpha_i\ \,\)</span> dla <span class="math">\(\ i\,=\,1,\ldots,n\,.\ \)</span>
+Warunek ten, spełniony dla każdego <span class="math">\(\,v\in V,\ \)</span> oznacza
+że <span class="math">\(\,\mathcal{B}\ \)</span> jest liniowo niezależnym układem generatorów
+przestrzeni <span class="math">\(\,V,\ \)</span> czyli bazą <span class="math">\(\,V.\)</span> <span class="math">\(\\\)</span></p>
+<p><strong>Uwagi i komentarze.</strong></p>
+<p>Każda baza przestrzeni wektorowej jest układem liniowo niezależnym. <span class="math">\(\\\)</span>
+Liniowa niezależność jest warunkiem koniecznym do tego, aby układ był bazą: <span class="math">\(\\\)</span>
+żaden układ liniowo zależny nie może być bazą. <span class="math">\(\\\)</span>
+Jednak sama liniowa niezależność nie jest warunkiem wystarczającym. <span class="math">\(\\\)</span>
+Mówiąc obrazowo, liniowo niezależnych wektorów musi być w bazie dostatecznie wiele, <span class="math">\(\\\)</span>
+aby generowały one całą przestrzeń, a nie jakąś jej właściwą podprzestrzeń.</p>
+</div>
+<div class="section" id="wymiar-przestrzeni-wektorowej">
+<h2>Wymiar przestrzeni wektorowej<a class="headerlink" href="podstawy_algebry_liniowej.html#wymiar-przestrzeni-wektorowej" title="Stały odnośnik do tego nagłówka">¶</a></h2>
+<p>Pojęcie wymiaru przestrzeni można wprowadzić w oparciu o</p>
+<p><strong>Twierdzenie 4.</strong> <span class="math">\(\ \)</span>
+Jeżeli przestrzeń wektorowa ma bazę <span class="math">\(\,n\)</span>-elementową,
+to każda jej baza liczy <span class="math">\(\,n\,\)</span> elementów.</p>
+<p>Wobec tego ma sens następująca definicja:</p>
+<p>Jeżeli przestrzeń wektorowa <span class="math">\(\,V\,\)</span> ma bazę skończoną,
+to liczbę elementów tej bazy nazywamy <em>wymiarem przestrzeni</em> <span class="math">\(\,V\,\)</span>
+i oznaczamy <span class="math">\(\,\text{dim}\,V.\)</span></p>
+<p>Przestrzenie posiadające bazy skończone nazywamy <em>skończenie wymiarowymi</em>,
+przy czym jeśli <span class="math">\(\,\text{dim}\,V = n\,,\)</span> to <span class="math">\(\,V\,\)</span>
+jest przestrzenią <span class="math">\(\,n\)</span>-wymiarową.
+Dodatkowo umawiamy się, że wymiar przestrzeni zerowej (składającej się tylko
+z wektora zerowego) wynosi zero: <span class="math">\(\ \text{dim}\,\{\theta\} = 0\,.\)</span></p>
+<p>W praktyce przydatne bywa</p>
+<p><strong>Twierdzenie 5.</strong> <span class="math">\(\ \)</span> W <span class="math">\(\,n\)</span>-wymiarowej przestrzeni wektorowej:</p>
+<ol class="loweralpha simple">
+<li>każdy układ liczący więcej niż <span class="math">\(\,n\,\)</span> wektorów
+jest liniowo zależny;</li>
+<li>każdy liniowo niezależny układ <span class="math">\(\,n\,\)</span> wektorów jest bazą.</li>
+</ol>
+<p><strong>Przykłady.</strong></p>
+<ol class="arabic" start="0">
+<li><p class="first">W rzeczywistej przestrzeni <span class="math">\(\,R(R)\,,\ \)</span>
+jak również w zespolonej przestrzeni <span class="math">\(\,C(C)\,,\)</span>
+bazą może być każdy 1-elementowy układ zawierający różną od zera liczbę rzeczywistą
+(odpowiednio: zespoloną), <span class="math">\(\,\)</span> np. <span class="math">\(\ \mathcal{B} = (1)\,.\,\)</span>
+Wobec tego <span class="math">\(\ \text{dim}\,R(R) = \text{dim}\,C(C) = \,1\,.\)</span>
+Natomiast w przestrzeni <span class="math">\(\,C(R)\,\)</span> liczb zespolonych  nad ciałem
+liczb rzeczywistych bazą może być np. układ <span class="math">\(\ \mathcal{B} = (1,\,i)\,,\ \)</span>
+z czego wynika, że <span class="math">\(\ \text{dim}\,C(R) = 2\,.\)</span></p>
+</li>
+<li><p class="first">W przestrzeni <span class="math">\(\,V\,\)</span> wektorów geometrycznych zaczepionych
+w punkcie <span class="math">\(\,\boldsymbol{O}\,\)</span> bazą jest każdy układ trzech wektorów niekomplanarnych.
+Najczęściej używana jest baza ortonormalna w postaci trójki wzajemnie prostopadłych wektorów
+jednostkowych: <span class="math">\(\ \mathcal{B} = (\vec{e}_1,\vec{e}_2,\vec{e}_3)\,.\)</span>
+A zatem również w algebraicznym sensie fizyczna przestrzeń jest trójwymiarowa:
+<span class="math">\(\ \text{dim}\,V = 3\,.\)</span></p>
+</li>
+<li><p class="first">W przestrzeni <span class="math">\(\,K^n\,\)</span> złożonej z <span class="math">\(\,n\)</span>-elementowych
+wektorów kolumnowych o wyrazach z ciała <span class="math">\(\,K\,\)</span>
+najwygodniejsza jest <em>baza kanoniczna</em>
+<span class="math">\(\ \mathcal{E}\,=\,(e_1,e_2,\ldots,e_n)\,,\ \)</span> gdzie</p>
+<div class="math">
+\[\begin{split}e_1\ =\ \left[\begin{array}{c} 1 \\ 0 \\ \cdots \\ 0 \end{array}\right]\,,\quad
+e_2\ =\ \left[\begin{array}{c} 0 \\ 1 \\ \cdots \\ 0 \end{array}\right]\,,\quad
+\ldots,\quad
+e_n\ =\ \left[\begin{array}{c} 0 \\ 0 \\ \cdots \\ 1 \end{array}\right]\,.\end{split}\]</div>
+<p>Wynika stąd, że <span class="math">\(\ \text{dim}\,K^n = n\,,\ \ n=1,2,\ldots\)</span></p>
+</li>
+<li><p class="first">W podprzestrzeni
+<span class="math">\(\ \ W_p\ =\ \left\{\ \,\left[\begin{array}{c}
+x_1 \\ \ldots \\ x_p \\ 0 \\ \ldots \\ 0
+\end{array}\right]\ :\quad x_i\in K\,,\ \ i = 1,2,\ldots,p.\;\right\}\ \ &lt;\ \ K^n\,,\ \)</span></p>
+<p>gdzie <span class="math">\(\ 1 \leq p &lt; n\,,\ \)</span>
+bazą będzie układ <span class="math">\(\ \mathcal{E}_p = (e_1,e_2,\ldots,e_p)\,,\ \)</span>
+skąd <span class="math">\(\ \text{dim}\,W_p = p.\)</span></p>
+</li>
+</ol>
+</div>
+</div>
+
+
+          </div>
+        </div>
+      </div>
+      <div class="sphinxsidebar">
+        <div class="sphinxsidebarwrapper">
+  <div class="sphinxlocaltoc">
+  <h3><a href="http://visual.icse.us.edu.pl/LA/index.html">Spis treści</a></h3>
+  <ul>
+<li><a class="reference internal" href="podstawy_algebry_liniowej.html#">Podstawy algebry liniowej</a><ul>
+<li><a class="reference internal" href="podstawy_algebry_liniowej.html#proste-twierdzenia">Proste twierdzenia</a></li>
+<li><a class="reference internal" href="podstawy_algebry_liniowej.html#kombinacje-liniowe-wektorow">Kombinacje liniowe wektorów</a></li>
+<li><a class="reference internal" href="podstawy_algebry_liniowej.html#liniowa-zaleznosc-i-niezaleznosc-wektorow">Liniowa zależność i niezależność wektorów</a></li>
+<li><a class="reference internal" href="podstawy_algebry_liniowej.html#baza-przestrzeni-wektorowej">Baza przestrzeni wektorowej</a></li>
+<li><a class="reference internal" href="podstawy_algebry_liniowej.html#wymiar-przestrzeni-wektorowej">Wymiar przestrzeni wektorowej</a></li>
+</ul>
+</li>
+</ul>
+
+  </div>
+  <h4>Poprzedni temat</h4>
+  <p class="topless"><a href="struktury_algebraiczne.html"
+                        title="poprzedni rozdział">Najważniejsze struktury algebraiczne</a></p>
+  <h4>Następny temat</h4>
+  <p class="topless"><a href="permutacje.html"
+                        title="następny rozdział">Permutacje</a></p>
+<div id="searchbox" style="display: none">
+  <h3>Szybkie wyszukiwanie</h3>
+    <form class="search" action="search.html" method="get">
+      <input type="text" name="q" />
+      <input type="submit" value="Szukaj" />
+      <input type="hidden" name="check_keywords" value="yes" />
+      <input type="hidden" name="area" value="default" />
+    </form>
+    <p class="searchtip" style="font-size: 90%">
+    Wprowadź szukany termin lub nazwę modułu, klasy lub funkcji.
+    </p>
+</div>
+<script type="text/javascript">$('#searchbox').show(0);</script>
+        </div>
+      </div>
+      <div class="clearer"></div>
+    </div>
+  </div>
+  <div class="relbar-bottom">
+    
+    <div class="related">
+      <h3>Nawigacja</h3>
+      <ul>
+        <li class="right" style="margin-right: 10px">
+          <a href="permutacje.html" title="Permutacje"
+             >dalej</a></li>
+        <li class="right" >
+          <a href="struktury_algebraiczne.html" title="Najważniejsze struktury algebraiczne"
+             >wstecz</a> &nbsp; &nbsp;</li>
+  <li><a href="http://visual.icse.us.edu.pl/LA/index.html">Algebra Liniowa</a> &raquo;</li>
+   
+      </ul>
+    </div>
+  </div>
+  
+  <div class="footer">
+    <a class="logo" href="../../icse.us.edu.pl/index.html" target="_blank"><img src="_static/logo-icse.png" alt="ICSE"/></a><br/>
+    &copy; Copyright 2013, Marcin Kostur.
+    Created using <a href="http://sphinx.pocoo.org/">Sphinx</a> 1.2.2.
+  </div>
+  </body>
+</html>

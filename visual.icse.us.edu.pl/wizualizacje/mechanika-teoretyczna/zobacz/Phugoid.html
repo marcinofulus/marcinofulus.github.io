@@ -1,0 +1,105 @@
+<!DOCTYPE html> 
+<html> 
+<head> 
+<title>Phugoid</title> 
+<meta http-equiv="Content-Type" content="text/html; charset=UTF-8" /> 
+<meta http-equiv="X-UA-Compatible" content="IE=EmulateIE7" /> 
+
+<script type="text/x-mathjax-config"> 
+  MathJax.Hub.Config({
+    extensions: ["tex2jax.js"],
+    jax: ["input/TeX","output/HTML-CSS"],
+    tex2jax: {inlineMath: [["$","$"],["\\(","\\)"]]}
+  });
+</script> 
+
+<!-- <script type="text/javascript" src="js/mathjax/MathJax.js"></script>  -->
+<script type="text/javascript" src="http://cdn.mathjax.org/mathjax/latest/MathJax.js"></script>
+
+<link rel="stylesheet" type="text/css" href="Phugoid/css/mainstyle.css" />
+<link rel="stylesheet" type="text/css" href="Phugoid/css/jsxgraph.css" />
+<script type="text/javascript" src="Phugoid/js/jsxgraphcore-0.91.js"></script>
+
+<script type="text/javascript" src="Phugoid/js/vtip/jquery.js"></script>
+<script type="text/javascript" src="Phugoid/js/vtip/vtip.js"></script>
+<link rel="stylesheet" type="text/css" href="Phugoid/js/vtip/css/vtip.css" />
+
+</head>
+<body>
+
+	<noscript> 
+	<div style="color:#CC0000; text-align:center">
+	<b>Uwaga: do prawidłowego działania, biblioteki <a href="http://www.mathjax.org/">MathJax</a>
+	oraz <a href="http://jsxgraph.uni-bayreuth.de/wp/">jsxgraph</a> wymagają obsługi JavaScript.<br />
+	Upewnij się, że JavaScript jest aktywowany w twojej przeglądarce.
+	</div>
+	<hr>
+	</noscript>
+
+
+<div id="container">
+
+<div id="header">
+	<h1>Phugoid, czyli jak daleko poleci papierowy samolot?</h1>
+	<p class="text">
+	Papierowy samolot został wyrzucony na wysokości $h$ pod pewnym kątem $\theta$, prędkość początkowa wynosiła $v_0$. Jak daleko poleci samolot i jaki będzie kształt trajektorii? 
+	Zakładamy, że ruch odbywa się w jednej płaszczyźnie, przypadek 2D. 
+	</p> 
+</div>
+
+<div id="content">
+
+
+<div id="input" class="formstyle">
+
+	<form name="form">
+	<table>
+ 	<tr>
+  		<td>$\theta$</td> <td><input class="inputtext vtip" type="text" title="Kąt w stopniach pod jakim wyrzucany jest samolot" id="theta" value="25" onKeyUp="resetAnimation()"></td> 
+  		<td>$v_0$</td> <td><input class="inputtext vtip" type="text" title="Prędkość początkowa" id="v0" value="3.5" onKeyUp="resetAnimation()"></td>
+  		<td>$h$</td> <td><input class="inputtext vtip" type="text" title="Wysokość wyrzutu" id="h" value="2" onKeyUp="resetAnimation()"></td> 
+  		<td>$R$</td> <td><input class="inputtext vtip" type="text" title="Współczynnik oporu" id="R" value="0.4" onKeyUp="resetAnimation()"></td> 
+ 	</tr>
+ 
+ 	<tr>
+  		<td></td>
+  		<td>
+			<input type="button" value="start / stop" onClick="startStopAnimation()">
+  			<input type="button" value="reset" onClick="resetAnimation()">
+  		</td>   
+ 	</tr>
+	</table>
+	</form>
+
+</div>
+
+
+
+<div id="plots">
+<table class="plotarea">    
+    <tr>
+        <td><div id="box1" class="jxgbox vtip" title="Wizualizacja phugoidy" style="width:480px; height:450px;"></div></td>
+        <td><div id="box2" class="jxgbox vtip" title="Przestrzeń fazowa (kąt i prędkość)" style="width:480px; height:450px;"></div></td>
+    </tr>
+</table>
+</div>
+
+
+<div class="theory">
+<h3>Równania ruchu</h3>
+	<p class="text">
+	W symulacji wykorzystano model opisany pod poniższym odnośnikiem:
+	<a href="http://www.math.sunysb.edu/~scott/Book331/Phugoid_model.html">http://www.math.sunysb.edu/~scott/Book331/Phugoid_model.html</a><br /><br />
+	$\frac{dv}{dt} = -\sin \theta -R v^2, \quad \quad \frac{d \theta}{d t }= \frac{v^2- \cos \theta}{v}$
+	</p>	
+</div>
+
+</div>
+
+
+</div>
+
+<script type="text/javascript" src="Phugoid/js/phys.js"></script><br />
+
+</body>
+</html>

@@ -1,0 +1,375 @@
+
+
+  <!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+  "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+
+
+<html xmlns="http://www.w3.org/1999/xhtml">
+  <head>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    
+    <title>Permutacje &mdash; Algebra Liniowa</title>
+    
+    <link rel="stylesheet" href="_static/cloud.css" type="text/css" />
+    <link rel="stylesheet" href="_static/pygments.css" type="text/css" />
+    <link rel="stylesheet" href="http://fonts.googleapis.com/css?family=Noticia+Text|Open+Sans|Droid+Sans+Mono&subset=latin,latin-ext" type="text/css" />
+    
+    <script type="text/javascript">
+      var DOCUMENTATION_OPTIONS = {
+        URL_ROOT:    './',
+        VERSION:     'I',
+        COLLAPSE_INDEX: false,
+        FILE_SUFFIX: '.html',
+        HAS_SOURCE:  true
+      };
+    </script>
+    <script type="text/javascript" src="_static/jquery.js"></script>
+    <script type="text/javascript" src="_static/underscore.js"></script>
+    <script type="text/javascript" src="_static/doctools.js"></script>
+    <script type="text/javascript" src="_static/translations.js"></script>
+    <script type="text/javascript" src="http://cdn.mathjax.org/mathjax/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML"></script>
+    <script type="text/javascript" src="_static/jquery.cookie.js"></script>
+    <script type="text/javascript" src="_static/cloud.js"></script>
+
+	<script src="http://sagecell.icse.us.edu.pl:6363/static/jquery.min.js"></script>
+	<script src="http://sagecell.icse.us.edu.pl:6363/static/embedded_sagecell.js"></script>
+
+	<!-- <script src="http://sagecell.sagemath.org/static/jquery.min.js"></script> -->
+	<!-- <script src="http://sagecell.sagemath.org/static/embedded_sagecell.js"></script> -->
+
+	<script>sagecell.makeSagecell({inputLocation: ".sage",
+                                       evalButtonText: 'Wykonaj',
+                                       linked: true});</script>
+
+	<style type="text/css">
+		.sagecell .CodeMirror-scroll {
+			overflow-y: hidden;
+			overflow-x: auto;
+		}
+		.sagecell .CodeMirror {
+			height: auto;
+		}
+	</style>
+
+    
+    <link rel="top" title="Algebra Liniowa" href="http://visual.icse.us.edu.pl/LA/index.html" />
+    <link rel="next" title="Literatura z zakresu algebry liniowej" href="literatura.html" />
+    <link rel="prev" title="Podstawy algebry liniowej" href="podstawy_algebry_liniowej.html" />
+ 
+  <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, minimum-scale=1">
+  </head>
+  <body>
+  <div class="relbar-top">
+    
+    <div class="related">
+      <h3>Nawigacja</h3>
+      <ul>
+        <li class="right" style="margin-right: 10px">
+          <a href="literatura.html" title="Literatura z zakresu algebry liniowej"
+             accesskey="N">dalej</a></li>
+        <li class="right" >
+          <a href="podstawy_algebry_liniowej.html" title="Podstawy algebry liniowej"
+             accesskey="P">wstecz</a> &nbsp; &nbsp;</li>
+  <li><a href="http://visual.icse.us.edu.pl/LA/index.html">Algebra Liniowa</a> &raquo;</li>
+   
+      </ul>
+    </div>
+  </div>
+  
+  <div class="content">  
+
+    <div class="document">
+      <div class="documentwrapper">
+        <div class="bodywrapper">
+          <div class="body">
+            
+  <div class="section" id="permutacje">
+<h1>Permutacje<a class="headerlink" href="permutacje.html#permutacje" title="Stały odnośnik do tego nagłówka">¶</a></h1>
+<div class="section" id="grupa-permutacji-elementow">
+<h2>Grupa permutacji <span class="math">\(\,n\,\)</span> elementów<a class="headerlink" href="permutacje.html#grupa-permutacji-elementow" title="Stały odnośnik do tego nagłówka">¶</a></h2>
+<p><em>Permutacja</em> skończonego zbioru <span class="math">\(\,X=\{1,2,\dots,n\}\,\)</span>
+jest (wzajemnie jednoznacznym) <span class="math">\(\\\)</span> odwzorowaniem tego zbioru na siebie.</p>
+<p>Zbiór wszystkich permutacji zbioru <span class="math">\(\,X=\{1,2,\dots,n\}\,\)</span> oznaczamy <span class="math">\(\,S_n.\)</span></p>
+<p>Wygodnym sposobem przedstawienia permutacji <span class="math">\(\,\sigma\in S_n\,\)</span> jest zapis dwuwierszowy:</p>
+<div class="math">
+\[\begin{split}\sigma\ =\ \left(\begin{array}{cccc}
+                     1     &amp;     2     &amp; \dots &amp;     n     \\
+                 \sigma(1) &amp; \sigma(2) &amp; \dots &amp; \sigma(n)
+                 \end{array}\right)\,,\end{split}\]</div>
+<p>gdzie w górnym wierszu wypisane są argumenty,
+a w dolnym <span class="math">\(\ \)</span> - <span class="math">\(\ \)</span> odpowiednie obrazy.</p>
+<p>Kolejność argumentów jest dowolna,
+ważne jest tylko to, aby pod każdym z nich wystąpił właściwy obraz, na przykład:</p>
+<div class="math">
+\[\begin{split}\left(\begin{array}{cccc} 1 &amp; 2 &amp; 3 &amp; 4 \\
+                          3 &amp; 1 &amp; 2 &amp; 4 \end{array}\right)\ =\
+\left(\begin{array}{cccc} 2 &amp; 3 &amp; 4 &amp; 1 \\
+                          1 &amp; 2 &amp; 4 &amp; 3 \end{array}\right)\ =\
+\left(\begin{array}{cccc} 4 &amp; 1 &amp; 2 &amp; 3 \\
+                          4 &amp; 3 &amp; 1 &amp; 2 \end{array}\right)\ =\ \dots\end{split}\]</div>
+<p>Permutacje można składać na zasadzie składania odwzorowań: <span class="math">\(\\\)</span>
+jeżeli <span class="math">\(\,\rho,\sigma\in S_n,\ \)</span>
+to złożenie <span class="math">\(\,\rho\circ\sigma\,\)</span> określone jest przez:</p>
+<div class="math">
+\[(\rho\circ\sigma)(k)\ =\ \rho\,[\,\sigma(k)\,]\,,\qquad k\in\{1,2,\dots,n\}\,.\]</div>
+<p>W zapisie dwuwierszowym:</p>
+<div class="math">
+\[\begin{split}\rho\circ\sigma\ =\
+\left(\begin{array}{cccc}
+         1    &amp;    2    &amp; \dots &amp;    n     \\
+      \rho(1) &amp; \rho(2) &amp; \dots &amp; \rho(n)
+      \end{array}\right)\ \circ\
+\left(\begin{array}{cccc}
+          1     &amp;     2     &amp; \dots &amp;     n     \\
+      \sigma(1) &amp; \sigma(2) &amp; \dots &amp; \sigma(n)
+      \end{array}\right)\ =\end{split}\]\[\begin{split}=\
+\left(\begin{array}{cccc}
+             1       &amp;         2       &amp; \dots &amp;         n       \\
+      \rho\,[\sigma(1)] &amp; \rho\,[\sigma(2)] &amp; \dots &amp; \rho\,[\sigma(n)]
+      \end{array}\right)\,.\end{split}\]</div>
+<p>Należy zwrócić uwagę na kolejność wykonywania operacji: <span class="math">\(\\\)</span>
+dla każdej liczby <span class="math">\(\,k\in\{1,2,\dots,n\}\,\)</span> najpierw wyznaczamy obraz <span class="math">\(\,k\,\)</span>
+przy permutacji <span class="math">\(\,\sigma,\ \)</span> <span class="math">\(\\\)</span>
+a następnie <span class="math">\(\,\)</span> - <span class="math">\(\,\)</span> obraz otrzymanego wyniku przy permutacji <span class="math">\(\,\rho.\ \)</span>
+Przykład dla <span class="math">\(\,n=5:\)</span></p>
+<div class="math">
+\[\begin{split}\left(\begin{array}{ccccc} 1 &amp; 2 &amp; 3 &amp; 4 &amp; 5 \\
+                           4 &amp; 1 &amp; 3 &amp; 5 &amp; 2 \end{array}\right)\ \circ\
+\left(\begin{array}{ccccc} 1 &amp; 2 &amp; 3 &amp; 4 &amp; 5 \\
+                           2 &amp; 5 &amp; 1 &amp; 3 &amp; 4 \end{array}\right)\ =\
+\left(\begin{array}{ccccc} 1 &amp; 2 &amp; 3 &amp; 4 &amp; 5 \\
+                           1 &amp; 2 &amp; 4 &amp; 3 &amp; 5 \end{array}\right)\,.\end{split}\]\[\;\]</div>
+<p><strong>Twierdzenie.</strong> <span class="math">\(\,\)</span>
+Struktura <span class="math">\(\ \left(\,S_n,\,\circ\,\right)\ \)</span> jest grupą <span class="math">\(\ \ (n=1,2,\dots).\)</span></p>
+<p><strong>Dowód.</strong></p>
+<ol class="arabic" start="0">
+<li><p class="first">Złożenie dwóch permutacji ze zbioru <span class="math">\(\,S_n\,\)</span>
+jest również permutacją należącą do tego zbioru.
+Oznacza to, że składanie permutacji <span class="math">\(\,\circ\,\)</span> jest działaniem w zbiorze <span class="math">\(\,S_n.\)</span></p>
+</li>
+<li><p class="first">Składanie permutacji, jako składanie odwzorowań, jest łączne. <span class="math">\(\\\)</span>
+Rzeczywiście, <span class="math">\(\,\)</span> jeżeli <span class="math">\(\,\rho,\sigma,\tau\in S_n,\ \)</span>
+to dla każdego <span class="math">\(\,k\in\{1,2,\dots,n\}:\)</span></p>
+<div class="math">
+\[[\,\rho\circ(\sigma\circ\tau)\,]\,(k)
+\ =\
+\rho\,[\,(\sigma\circ\tau)(k)\,]
+\ =\
+\rho\,\{\,\sigma\,[\,\tau(k)\,]\,\}\,,\]\[[\,(\rho\circ\sigma)\circ\tau\,]\,(k)
+\ =\
+(\rho\circ\sigma)\,[\,\tau(k)\,]
+\ =\
+\rho\,\{\,\sigma\,[\,\tau(k)\,]\,\}\,.\]</div>
+<p>Wobec tego
+<span class="math">\(\qquad\quad\rho\circ(\sigma\circ\tau)\ =\
+(\rho\circ\sigma)\circ\tau\,,\qquad\rho,\sigma,\tau\in S_n\,.\)</span></p>
+</li>
+<li><p class="first">Elementem neutralnym dla składania jest permutacja identycznościowa:</p>
+<div class="math">
+\[\begin{split}\text{id}\ =\ \left(\begin{array}{cccccc}
+              1 &amp; 2 &amp; 3 &amp; \dots &amp; n \\
+              1 &amp; 2 &amp; 3 &amp; \dots &amp; n \end{array}\right)\,.\end{split}\]</div>
+<p>Faktycznie, łatwo sprawdzić, że
+<span class="math">\(\quad\sigma\circ\text{id}\ =\ \text{id}\circ\sigma\ =\ \sigma\,,\quad\sigma\in S_n.\)</span></p>
+</li>
+<li><p class="first">Dla każdej permutacji <span class="math">\(\ \sigma\in S_n\ \)</span> istnieje permutacja odwrotna
+<span class="math">\(\ \sigma^{-1}\in S_n\ \)</span> taka, <span class="math">\(\\\)</span>
+że <span class="math">\(\ \ \sigma\circ\sigma^{-1}\ =\ \,\sigma^{-1}\circ\,\sigma\ =\ \text{id}\,.\ \)</span>
+Mianowicie,</p>
+<div class="math">
+\[\begin{split}\text{jeżeli}\quad
+\sigma\ =\ \left(\begin{array}{cccccc} 1  &amp;  2  &amp;  3  &amp; \dots &amp;  n \\
+                                      a_1 &amp; a_2 &amp; a_3 &amp; \dots &amp; a_n \end{array}\right)\,,
+\quad\text{to}\quad\
+\sigma^{-1}\ =\ \left(\begin{array}{cccccc} a_1 &amp; a_2 &amp; a_3 &amp; \dots &amp; a_n \\
+                                             1  &amp;  2  &amp;  3  &amp; \dots &amp;  n \end{array}\right)\,.\end{split}\]</div>
+</li>
+</ol>
+<p>W dalszym ciągu będziemy opuszczać symbol <span class="math">\(\,\circ\ \)</span> składania permutacji,
+a złożenie permutacji będziemy nazywać ich iloczynem:</p>
+<div class="math">
+\[\rho\circ\sigma\ \rightarrow\ \rho\,\sigma\,.\]</div>
+<p>Grupa <span class="math">\(\ S_n\ \)</span> liczy <span class="math">\(\,n!\,\)</span> permutacji, <span class="math">\(\,\)</span>
+przy czym dla <span class="math">\(\,n&gt;2\,\)</span> jest to grupa nieprzemienna.</p>
+</div>
+<div class="section" id="permutacje-cykliczne-i-parzystosc">
+<h2>Permutacje cykliczne i parzystość<a class="headerlink" href="permutacje.html#permutacje-cykliczne-i-parzystosc" title="Stały odnośnik do tego nagłówka">¶</a></h2>
+<p>Permutacja <span class="math">\(\ \sigma\in S_n\ \)</span> jest <em>cyklem</em> <span class="math">\(\,k\)</span>-<em>wyrazowym</em>,
+gdy w zbiorze <span class="math">\(\,X=\{1,2,\dots,n\}\,\)</span>
+istnieje podzbiór <span class="math">\(\ Y=\{a_1,a_2,\dots,a_k\}\ \)</span> taki, że</p>
+<div class="math">
+\[\sigma(a_1)=a_2,\quad\sigma(a_2)=a_3,\quad\dots,\quad\sigma(a_{k-1})=a_k,\quad\sigma(a_k)=a_1,\]\[\text{oraz}\qquad\sigma(i)=i\qquad\text{dla}\qquad i\notin Y\,.\]</div>
+<p>Taki cykl zapisujemy jako <span class="math">\(\ \sigma=(a_1,a_2,\dots,a_k)\ \)</span>
+pomijając wyrazy, które przechodzą w siebie. A zatem, w pełnym zapisie</p>
+<div class="math">
+\[\begin{split}S_n\,\ni\,(a_1,a_2,\dots,a_k)\ =\
+\left(\begin{array}{ccccccccc}
+a_1 &amp; a_2 &amp; \dots &amp; a_{k-1} &amp; a_k &amp; a_{k+1} &amp; \dots &amp; a_{n-1} &amp; a_n \\
+a_2 &amp; a_3 &amp; \dots &amp;   a_k   &amp; a_1 &amp; a_{k+1} &amp; \dots &amp; a_{n-1} &amp; a_n
+\end{array}\right)\,.\end{split}\]</div>
+<p>Przykład:
+<span class="math">\(\quad
+\left(\begin{array}{cccccc}
+1 &amp; 2 &amp; 3 &amp; 4 &amp; 5 &amp; 6 \\
+1 &amp; 6 &amp; 4 &amp; 2 &amp; 5 &amp; 3 \end{array}\right)\ =\
+\left(\begin{array}{cccccc}
+2 &amp; 6 &amp; 3 &amp; 4 &amp; 1 &amp; 5 \\
+6 &amp; 3 &amp; 4 &amp; 2 &amp; 1 &amp; 5 \end{array}\right)\ =\ (2,6,3,4)\,.\)</span></p>
+<p>Natomiast permutacja
+<span class="math">\(\quad
+\left(\begin{array}{ccccc}
+1 &amp; 2 &amp; 3 &amp; 4 &amp; 5 \\
+3 &amp; 1 &amp; 2 &amp; 5 &amp; 4 \end{array}\right)\ =\
+\left(\begin{array}{ccccc}
+1 &amp; 3 &amp; 2 &amp; 4 &amp; 5 \\
+3 &amp; 2 &amp; 1 &amp; 5 &amp; 4 \end{array}\right)\quad\)</span>
+nie jest cyklem.</p>
+<p>Przy jednowierszowym zapisie permutacji cyklicznej można przestawić pierwszy wyraz na ostatnie miejsce bądź ostatni na miejsce pierwsze, np.:</p>
+<div class="math">
+\[(2,6,3,4)\ =\ (6,3,4,2)\ =\ (3,4,2,6)\ =\ (4,2,6,3)\,.\]</div>
+<p>Cykl 1-wyrazowy jest permutacją identycznościową:</p>
+<div class="math">
+\[S_n\,\ni\,\text{id}\ =\ (1)\ =\ (2)\ =\ \dots\ =\ (n)\,.\]</div>
+<p>Cykl 2-wyrazowy <span class="math">\(\ \tau_{ij}=(i,j)=(j,i)\ \)</span> nazywamy <em>transpozycją</em>. Przykład:</p>
+<div class="math">
+\[\begin{split}S_6\,\ni\,\tau_{25}\ =\ (2,5)\ =\ \left(\begin{array}{cccccc}
+                                  1 &amp; 2 &amp; 3 &amp; 4 &amp; 5 &amp; 6 \\
+                                  1 &amp; 5 &amp; 3 &amp; 4 &amp; 2 &amp; 6 \end{array}\right)\,.\end{split}\]</div>
+<p>Cykl <span class="math">\(\,k\)</span>-wyrazowy można zapisać w postaci iloczynu <span class="math">\(\ k-1\ \)</span> transpozycji
+<span class="math">\(\ (k\geq 2):\)</span></p>
+<div class="math">
+\[(a_1,a_2,a_3,\dots,a_{k-1},a_k)\ =\ (a_1,a_k)(a_1,a_{k-1},\ \dots,\ (a_1,a_3)(a_1,a_2)\,.\]</div>
+<p><strong>Uwaga:</strong> <span class="math">\(\,\)</span> kolejność czynników po prawej stronie jest istotna!</p>
+<p>Dwa cykle, <span class="math">\(\ \rho=(a_1,a_2,\dots,a_k),\ \sigma=(b_1,b_2,\dots,b_l)\in S_n\,,\ \)</span>
+są <em>rozłączne</em>, gdy odpowiadające im podzbiory
+<span class="math">\(\ Y_{\rho}=\{a_1,a_2,\dots,a_k\},\)</span> <span class="math">\(\ Y_{\sigma}=\{b_1,b_2,\dots,b_l\}\ \)</span>
+są rozłączne: <span class="math">\(\ Y_{\rho}\cap Y_{\sigma}=\emptyset\,.\ \,\)</span>
+Dla przykładu, w grupie <span class="math">\(\ S_7\ \)</span> cykle <span class="math">\(\ (3,6,2)\ \ \text{i}\ \ (1,7,4,5)\ \)</span>
+są rozłączne, a cykle <span class="math">\(\ (4,2,5,1)\ \ \text{i}\ \ (3,1,6,2)\ \)</span> nie są rozłączne.
+Zauważmy, że jeżeli cykle <span class="math">\(\ \rho\ \ \text{i}\ \ \sigma\ \)</span> są rozłączne,
+to w iloczynie są przemienne: <span class="math">\(\ \rho\,\sigma=\sigma\,\rho\,.\)</span></p>
+<p><strong>Twierdzenie.</strong> <span class="math">\(\\\)</span>
+Każda permutacja jest cyklem albo może być przedstawiona w postaci iloczynu cykli rozłącznych.
+Przedstawienie takie jest jednoznaczne z dokładnością do kolejności czynników.</p>
+<p>Przykład:
+<span class="math">\(\quad\left(\begin{array}{cccccccccc}
+1 &amp; 2 &amp; 3 &amp; 4 &amp; 5 &amp; 6 &amp; 7 &amp;  8 &amp; 9 &amp; 10 \\
+6 &amp; 2 &amp; 4 &amp; 3 &amp; 5 &amp; 9 &amp; 8 &amp; 10 &amp; 1 &amp;  7 \end{array}\right)\ =\
+(1,6,9)(3,4)(7,8,10)\,.\)</span></p>
+<p><strong>Wniosek.</strong> <span class="math">\(\\\)</span>
+Każdą permutację <span class="math">\(\ \sigma\in S_n,\ \)</span> gdzie <span class="math">\(\ n\geq 2,\ \)</span>
+można przedstawić w postaci iloczynu transpozycji (przedstawienie takie nie jest jednoznaczne).
+Przykład:</p>
+<div class="math" id="equation-ex">
+<span class="eqno">(1)</span>\[\begin{split}\left(\begin{array}{ccccc}
+1 &amp; 2 &amp; 3 &amp; 4 &amp; 5 \\
+2 &amp; 5 &amp; 4 &amp; 3 &amp; 1 \end{array}\right)\ =\ (1,2,5)(3,4)\ =\end{split}\]\[=\ (1,5)(1,2)(3,4)\ =\ (1,3)(3,4)(4,5)(2,4)(1,4)\,.\]</div>
+<p><strong>Twierdzenie.</strong> <span class="math">\(\,\)</span>
+Jeżeli permutacja <span class="math">\(\ \sigma\in S_n\ \)</span> ma dwa różne rozkłady na iloczyn transpozycji:</p>
+<div class="math">
+\[\sigma\ =\ \tau_1\,\tau_2\,\dots\,\tau_r\ =\ \tau'_1\,\tau'_2\,\dots\,\tau'_s\,,\]</div>
+<p>to <span class="math">\(\quad (-1)^r\,=\ (-1)^s\,.\)</span></p>
+<p><strong>Wniosek.</strong> <span class="math">\(\\\)</span>
+Jakkolwiek rozkład danej permutacji na iloczyn transpozycji nie jest jednoznaczny,
+to jednak przy każdym takim rozkładzie parzystość liczby czynników jest taka sama.
+Pozwala to określić funkcję
+<span class="math">\(\,\)</span> - <span class="math">\(\,\)</span> znak permutacji sgn (od łac. signum) <span class="math">\(\,\)</span> - <span class="math">\(\,\)</span> następująco:</p>
+<div class="math">
+\[\text{sgn}:\qquad S_n\,\ni\,\sigma\quad\rightarrow
+\quad\text{sgn}\,\sigma\ :\,=\ (-1)^r\,\in\,\{-1,1\}\,,\]</div>
+<p>gdzie <span class="math">\(\,r\,\)</span> jest liczbą czynników w dowolnym rozkładzie permutacji <span class="math">\(\ \sigma\ \)</span>
+na iloczyn transpozycji.
+Dodatkowo umawiamy się, że jeśli <span class="math">\(\ \sigma\in S_1\ \)</span> (wtedy <span class="math">\(\,\sigma=\text{id}\)</span>),
+<span class="math">\(\ \)</span> to z definicji <span class="math">\(\,\text{sgn}\,\sigma = +1.\)</span></p>
+<p>Permutacja <span class="math">\(\ \sigma\in S_n\ \)</span> jest <em>parzysta</em>, gdy <span class="math">\(\,\text{sgn}\,\sigma = +1\,,\ \)</span>
+oraz jest <em>nieparzysta</em>, gdy <span class="math">\(\,\text{sgn}\,\sigma = -1\,.\)</span></p>
+<p>Na tej zasadzie permutacja w równaniu <a href="permutacje.html#equation-ex">(1)</a> jest nieparzysta.</p>
+<p><strong>Twierdzenie.</strong> <span class="math">\(\\\)</span>
+W grupie <span class="math">\(\,S_n\ \)</span> jest tyle samo permutacji parzystych, co nieparzystych <span class="math">\(\,(n&gt;1).\\\)</span></p>
+<p>Rozkład permutacji na iloczyn transpozycji można posunąć dalej, wykorzystując</p>
+<p><strong>Twierdzenie.</strong> <span class="math">\(\\\)</span>
+Każda transpozycja jest iloczynem nieparzystej ilości transpozycji liczb sąsiednich.</p>
+<p><strong>Dowód.</strong> <span class="math">\(\,\)</span> Niech <span class="math">\(\,i&lt;j.\ \)</span> Teza wynika z równości</p>
+<div class="math">
+\[\begin{split}\begin{array}{ccc}
+(i,j) &amp; = &amp; (i,i+1)\,(i+1,i+2)\,\dots\,(j-2,j-1)\,\circ \\
+      &amp;   &amp; \circ\,(j-1,j)\,\circ                       \\
+      &amp;   &amp; \circ\,(j-1,j-2)\,\dots\,\,(i+2,i+1)\,(i+1,i)\,,
+\end{array}\end{split}\]</div>
+<p>w której po prawej stronie występuje <span class="math">\(\,2(j-i-1)+1=2(j-i)-1\ \)</span> czynników, będących transpozycjami liczb sąsiednich.
+Równość tę można sprawdzić bezpośrednio, porównując obrazy wszystkich liczb
+<span class="math">\(\,k\in\{1,2,\dots,n\}\ \)</span> przy zastosowaniu permutacji po lewej i prawej stronie.</p>
+<p><strong>Przykład.</strong></p>
+<div class="math">
+\[(1,4)\ =\ (1,2)\,(2,3)\,(3,4)\,(3,2)\,(2,1)\ =\ (1,2)\,(2,3)\,(3,4)\,(2,3)\,(1,2)\,.\]</div>
+<p><strong>Wniosek.</strong> <span class="math">\(\,\)</span>
+Każdą permutację <span class="math">\(\,\sigma\in S_n\ \)</span>
+można zapisać w postaci iloczynu transpozycji liczb sąsiednich <span class="math">\(\,(n&gt;1)\)</span>.</p>
+</div>
+</div>
+
+
+          </div>
+        </div>
+      </div>
+      <div class="sphinxsidebar">
+        <div class="sphinxsidebarwrapper">
+  <div class="sphinxlocaltoc">
+  <h3><a href="http://visual.icse.us.edu.pl/LA/index.html">Spis treści</a></h3>
+  <ul>
+<li><a class="reference internal" href="permutacje.html#">Permutacje</a><ul>
+<li><a class="reference internal" href="permutacje.html#grupa-permutacji-elementow">Grupa permutacji <span class="math">\(\,n\,\)</span> elementów</a></li>
+<li><a class="reference internal" href="permutacje.html#permutacje-cykliczne-i-parzystosc">Permutacje cykliczne i parzystość</a></li>
+</ul>
+</li>
+</ul>
+
+  </div>
+  <h4>Poprzedni temat</h4>
+  <p class="topless"><a href="podstawy_algebry_liniowej.html"
+                        title="poprzedni rozdział">Podstawy algebry liniowej</a></p>
+  <h4>Następny temat</h4>
+  <p class="topless"><a href="literatura.html"
+                        title="następny rozdział">Literatura z zakresu algebry liniowej</a></p>
+<div id="searchbox" style="display: none">
+  <h3>Szybkie wyszukiwanie</h3>
+    <form class="search" action="search.html" method="get">
+      <input type="text" name="q" />
+      <input type="submit" value="Szukaj" />
+      <input type="hidden" name="check_keywords" value="yes" />
+      <input type="hidden" name="area" value="default" />
+    </form>
+    <p class="searchtip" style="font-size: 90%">
+    Wprowadź szukany termin lub nazwę modułu, klasy lub funkcji.
+    </p>
+</div>
+<script type="text/javascript">$('#searchbox').show(0);</script>
+        </div>
+      </div>
+      <div class="clearer"></div>
+    </div>
+  </div>
+  <div class="relbar-bottom">
+    
+    <div class="related">
+      <h3>Nawigacja</h3>
+      <ul>
+        <li class="right" style="margin-right: 10px">
+          <a href="literatura.html" title="Literatura z zakresu algebry liniowej"
+             >dalej</a></li>
+        <li class="right" >
+          <a href="podstawy_algebry_liniowej.html" title="Podstawy algebry liniowej"
+             >wstecz</a> &nbsp; &nbsp;</li>
+  <li><a href="http://visual.icse.us.edu.pl/LA/index.html">Algebra Liniowa</a> &raquo;</li>
+   
+      </ul>
+    </div>
+  </div>
+  
+  <div class="footer">
+    <a class="logo" href="../../icse.us.edu.pl/index.html" target="_blank"><img src="_static/logo-icse.png" alt="ICSE"/></a><br/>
+    &copy; Copyright 2013, Marcin Kostur.
+    Created using <a href="http://sphinx.pocoo.org/">Sphinx</a> 1.2.2.
+  </div>
+  </body>
+</html>

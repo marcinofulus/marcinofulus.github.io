@@ -1,0 +1,143 @@
+<!DOCTYPE html> 
+<html> 
+<head> 
+<title>Ruch ciała w układzie Ziemia-Księżyc I</title> 
+<meta http-equiv="Content-Type" content="text/html; charset=UTF-8" /> 
+<meta http-equiv="X-UA-Compatible" content="IE=EmulateIE7" /> 
+
+<script type="text/x-mathjax-config"> 
+  MathJax.Hub.Config({
+    extensions: ["tex2jax.js"],
+    jax: ["input/TeX","output/HTML-CSS"],
+    tex2jax: {inlineMath: [["$","$"],["\\(","\\)"]]}
+  });
+</script> 
+
+<!-- <script type="text/javascript" src="js/mathjax/MathJax.js"></script> -->
+<script type="text/javascript" src="http://cdn.mathjax.org/mathjax/latest/MathJax.js"></script>
+
+<link rel="stylesheet" type="text/css" href="css/mainstyle.css" />
+<link rel="stylesheet" type="text/css" href="css/jsxgraph.css" />
+<script type="text/javascript" src="js/jsxgraphcore-0.91.js"></script>
+
+<script type="text/javascript" src="js/vtip/jquery.js"></script>
+<script type="text/javascript" src="js/vtip/vtip.js"></script>
+<link rel="stylesheet" type="text/css" href="js/vtip/css/vtip.css" />
+
+</head>
+<body>
+
+	<noscript> 
+	<div style="color:#CC0000; text-align:center">
+	<b>Uwaga: do prawidłowego działania, biblioteki <a href="http://www.mathjax.org/">MathJax</a>
+	oraz <a href="http://jsxgraph.uni-bayreuth.de/wp/">jsxgraph</a> wymagają obsługi JavaScript.<br />
+	Upewnij się, że JavaScript jest aktywowany w twojej przeglądarce.
+	</div>
+	<hr>
+	</noscript>
+
+
+<div id="container">
+
+<div id="header">
+	<h1>Ruch w układzie Ziemia-Księżyc I</h1>
+	<p class="text">
+	Pewne ciało zostało wyrzucone na wysokości $h_0$ pod pewnym kątem $\alpha_0$ 
+	(mierzonym od linii prostopadłej do przedłużenia promienia Ziemi) z pewną prędkością początkową $v_0$. Punkt wyrzutu ustalany jest 
+	poprzez podanie kąta $\phi_0$ mierzonego od osi OX. Dalej ruch ciała odbywa się pod wpływem grawitacji Ziemi i Księżyca. 
+	Dla uproszczenia przyjmujemy, że $M_z >> m$ oraz $M_k >> m$. Zakładamy również, że zarówno Ziemia jak i Księżyc nie poruszają się 
+	względem siebie. Na wizualizacji zaznaczono również wektor prędkości orbitalnej $\vec{v}$.
+	</p> 
+</div>
+
+<div id="content">
+
+
+<div id="input" class="formstyle">
+
+	<form name="form">
+	<table>
+	
+	<tr>
+  		<td>$d$</td> <td><input class="inputtext vtip" type="text" title="Odległość ciało nr 1 - ciało nr 2. Domyślnie odległość Ziemia-Księżyc w km" id="d" value="386000" onKeyUp="resetAnimation()"/></td>	
+		<td>$R_1$</td> <td><input class="inputtext vtip" type="text" title="Promień ciała nr 1. Domyślnie promień Ziemi w km" id="R1" value="6371" onKeyUp="resetAnimation()"/></td>
+  		<td>$GM_1$</td> <td><input class="inputtext vtip" type="text" title="Iloczyn stałej grawitacyjnej i masy ciała nr 1 (domyślnie Ziemi) w km^3/s^-2" id="GM1" value="398600.4419" onKeyUp="resetAnimation()"/></td>
+		<td>$R_2$</td> <td><input class="inputtext vtip" type="text" title="Promień ciała nr 2. Domyślnie promień Księżyca w km" id="R2" value="1737" onKeyUp="resetAnimation()"/></td>
+  		<td>$GM_2$</td> <td><input class="inputtext vtip" type="text" title="Iloczyn stałej grawitacyjnej i masy ciała nr 2 (domyślnie Księżyca) w km^3/s^-2" id="GM2" value="4902.7779" onKeyUp="resetAnimation()"/></td>
+	</tr>	
+	
+ 	<tr>
+  		<td>$\alpha_0$</td> <td><input class="inputtext vtip" type="text" title="Kąt w stopniach pod jakim wyrzucane jest ciało" id="alpha0" value="0" onKeyUp="resetAnimation()"/></td>
+  		<td>$\phi_0$</td> <td><input class="inputtext vtip" type="text" title="Kąt w stopniach mierzony od osi OX i określający punkt wyrzutu ciała w stosunku do ciała nr 1 (domyślnie Ziemi)" id="phi0" value="180" onKeyUp="resetAnimation()"/></td>
+  		<td>$h_0$</td> <td><input class="inputtext vtip" type="text" title="Początkowa wysokość nad powierzchnią ciała nr 1 (domyślnie Ziemi) w km" id="h0" value="180" onKeyUp="resetAnimation()"/></td> 
+  		<td>$v_0$</td> <td><input class="inputtext vtip" type="text" title="Prędkość początkowa w km/s" id="v0" value="10.9245" onKeyUp="resetAnimation()"/></td> 
+ 	</tr>
+
+ 	<tr>
+  		<td>$v$</td> <td><input class="outputtext vtip" type="text" title="Aktualna prędkość orbitalna km/s" id="v" value="" readonly/></td> 
+  		<td>$h_1$</td> <td><input class="outputtext vtip" type="text" title="Aktualna wysokość nad powierzchnią ciała nr 1 (domyślnie Ziemi) w km" id="h1" value="" readonly/></td> 
+  		<td>$r_1$</td> <td><input class="outputtext vtip" type="text" title="Aktualna odległość od środka ciała nr 1 (domyślnie Ziemi) w km" id="r1" value="" readonly/></td>
+  		<td>$h_2$</td> <td><input class="outputtext vtip" type="text" title="Aktualna wysokość nad powierzchnią ciała nr 2 (domyślnie Księżyca) w km" id="h2" value="" readonly/></td> 
+  		<td>$r_2$</td> <td><input class="outputtext vtip" type="text" title="Aktualna odległość od środka ciała nr 2 (domyślnie Księżyca) w km" id="r2" value="" readonly/></td>
+  	</tr>
+ 
+ 	<tr>
+ 	  	<td>$t [sek]$</td> <td><input class="outputtext vtip" type="text" title="Aktualny czas symulacji w sekundach" id="t" value="0" readonly/></td> 
+ 	 	<td>$t [dni]$</td> <td><input class="outputtext vtip" type="text" title="Aktualny czas symulacji w dniach" id="tdni" value="0" readonly/></td> 
+ 	</tr>
+ 
+ 	<tr>
+  		<td></td>
+  		<td>
+			<input type="button" value="start / stop" onClick="startStopAnimation()">
+  			<input type="button" value="reset" onClick="resetAnimation()">
+  		</td>   
+ 	</tr>
+	</table>
+	</form>
+
+</div>
+
+
+
+<div id="plots">
+<table class="plotarea">    
+    <tr>
+        <td colspan="2" align="center">
+        <div id="box1" class="jxgbox" style="width:900px; height:500px;"></div>
+        </td>
+    </tr>
+    
+</table>
+</div>
+
+
+<div class="theory">
+	<h3>Równania ruchu dla cząstki</h3>
+	<p class="text">
+	$\ddot{x} = -\frac{GM_1 (x - x_1)}{r_1^3} - \frac{GM_2 (x - x_2)}{r_2^3}$<br /><br />
+	$\ddot{y} = -\frac{GM_1 (y - y_1)}{r_1^3} - \frac{GM_2 (y - y_2)}{r_2^3}$<br /><br /> 
+	gdzie<br /><br /> 
+	$r_1 = \sqrt{(x - x_1)^2 + (y - y_1)^2}$<br /><br /> 
+	$r_2 = \sqrt{(x - x_2)^2 + (y - y_2)^2}$<br /><br />
+	$x_1 = y_1 = 0$ oraz $x_2 = d$, $y_2 = 0$
+	</p>
+
+	<h3>Inne ciekawe przypadki wartości początkowych dla domyślnych wartości $GM$, $R$ i $h_0$</h3>
+	<p class="text">
+		<ul>
+			<li>$\alpha_0 = 89.6$, $\phi_0 = 0$, $v_0 = 10.97$</li>
+			<li>$\alpha_0 = 0$, $\phi_0 = 180$, $v_0 = 10.94$</li>
+		</ul>
+	</p>
+</div>
+
+</div>
+
+
+</div>
+
+<script type="text/javascript" src="js/phys.js"></script><br />
+
+</body>
+</html>

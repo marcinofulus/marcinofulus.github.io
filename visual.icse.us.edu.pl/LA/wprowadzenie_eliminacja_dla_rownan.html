@@ -1,0 +1,295 @@
+
+
+  <!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+  "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+
+
+<html xmlns="http://www.w3.org/1999/xhtml">
+  <head>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    
+    <title>Metoda eliminacji dla układów równań &mdash; Algebra Liniowa</title>
+    
+    <link rel="stylesheet" href="_static/cloud.css" type="text/css" />
+    <link rel="stylesheet" href="_static/pygments.css" type="text/css" />
+    <link rel="stylesheet" href="http://fonts.googleapis.com/css?family=Noticia+Text|Open+Sans|Droid+Sans+Mono&subset=latin,latin-ext" type="text/css" />
+    
+    <script type="text/javascript">
+      var DOCUMENTATION_OPTIONS = {
+        URL_ROOT:    './',
+        VERSION:     'I',
+        COLLAPSE_INDEX: false,
+        FILE_SUFFIX: '.html',
+        HAS_SOURCE:  true
+      };
+    </script>
+    <script type="text/javascript" src="_static/jquery.js"></script>
+    <script type="text/javascript" src="_static/underscore.js"></script>
+    <script type="text/javascript" src="_static/doctools.js"></script>
+    <script type="text/javascript" src="_static/translations.js"></script>
+    <script type="text/javascript" src="http://cdn.mathjax.org/mathjax/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML"></script>
+    <script type="text/javascript" src="_static/jquery.cookie.js"></script>
+    <script type="text/javascript" src="_static/cloud.js"></script>
+
+	<script src="http://sagecell.icse.us.edu.pl:6363/static/jquery.min.js"></script>
+	<script src="http://sagecell.icse.us.edu.pl:6363/static/embedded_sagecell.js"></script>
+
+	<!-- <script src="http://sagecell.sagemath.org/static/jquery.min.js"></script> -->
+	<!-- <script src="http://sagecell.sagemath.org/static/embedded_sagecell.js"></script> -->
+
+	<script>sagecell.makeSagecell({inputLocation: ".sage",
+                                       evalButtonText: 'Wykonaj',
+                                       linked: true});</script>
+
+	<style type="text/css">
+		.sagecell .CodeMirror-scroll {
+			overflow-y: hidden;
+			overflow-x: auto;
+		}
+		.sagecell .CodeMirror {
+			height: auto;
+		}
+	</style>
+
+    
+    <link rel="top" title="Algebra Liniowa" href="http://visual.icse.us.edu.pl/LA/index.html" />
+    <link rel="next" title="Zadania" href="wprowadzenie_zadania.html" />
+    <link rel="prev" title="Geometria układów równań liniowych" href="wprowadzenie_geometria_ukladow_stat.html" />
+ 
+  <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, minimum-scale=1">
+  </head>
+  <body>
+  <div class="relbar-top">
+    
+    <div class="related">
+      <h3>Nawigacja</h3>
+      <ul>
+        <li class="right" style="margin-right: 10px">
+          <a href="wprowadzenie_zadania.html" title="Zadania"
+             accesskey="N">dalej</a></li>
+        <li class="right" >
+          <a href="wprowadzenie_geometria_ukladow_stat.html" title="Geometria układów równań liniowych"
+             accesskey="P">wstecz</a> &nbsp; &nbsp;</li>
+  <li><a href="http://visual.icse.us.edu.pl/LA/index.html">Algebra Liniowa</a> &raquo;</li>
+   
+      </ul>
+    </div>
+  </div>
+  
+  <div class="content">  
+
+    <div class="document">
+      <div class="documentwrapper">
+        <div class="bodywrapper">
+          <div class="body">
+            
+  <div class="section" id="metoda-eliminacji-dla-ukladow-rownan">
+<h1>Metoda eliminacji dla układów równań<a class="headerlink" href="wprowadzenie_eliminacja_dla_rownan.html#metoda-eliminacji-dla-ukladow-rownan" title="Stały odnośnik do tego nagłówka">¶</a></h1>
+<div class="section" id="postac-schodkowa-ukladu-rownan">
+<h2>Postać schodkowa układu równań<a class="headerlink" href="wprowadzenie_eliminacja_dla_rownan.html#postac-schodkowa-ukladu-rownan" title="Stały odnośnik do tego nagłówka">¶</a></h2>
+<p>Rozważmy układ <span class="math">\(\,m\,\)</span> równań o <span class="math">\(\,n\,\)</span> niewiadomych
+<span class="math">\(\,(2\le m\le n):\)</span></p>
+<div class="math" id="equation-01">
+\[\begin{alignat*}{4}
+   a_{11}\,x_1 & {\,} + {\,} & a_{12}\,x_2 & {\,} + {\,} & \,\ldots\, & {\ } + {\,} & a_{1n}\,x_n & {\ } = {\ \ }  b_1    \\
+   a_{21}\,x_1 & {\,} + {\,} & a_{22}\,x_2 & {\,} + {\,} & \,\ldots\, & {\ } + {\,} & a_{2n}\,x_n & {\ } = {\ \ }  b_2    \\
+   \ldots\ \   & {\,} + {\,} & \ldots\ \   & {\,} + {\,} & \,\ldots\, & {\ } + {\,} & \ldots\ \   & {\ } = {\ }    \ldots \\
+   a_{m1}\,x_1 & {\,} + {\,} & a_{m2}\,x_2 & {\,} + {\,} & \,\ldots\, & {\ } + {\,} & a_{mn}\,x_n & {\ } = {\ \ }  b_m
+\end{alignat*}\]</div><p>Przyjmujemy, że współczynniki <span class="math">\(\,a_{ij}\,\)</span>
+oraz wolne wyrazy <span class="math">\(\,b_i\ \ (i=1,2,\ldots,m;\ j=1,2,\ldots,n)\,\)</span>
+należą do pewnego ciała <span class="math">\(\,K,\,\)</span> na przykład są liczbami wymiernymi lub rzeczywistymi.</p>
+<p>Niewiadoma <span class="math">\(\,x_l\,\)</span> jest <em>niewiadomą wiodącą</em> w danym równaniu układu,
+gdy wszystkie niewiadome o numerach wcześniejszych <span class="math">\(\,\)</span>
+(tzn. <span class="math">\(\,x_j\,\)</span> dla <span class="math">\(\,1 \leq j &lt; l\,\)</span>) <span class="math">\(\,\)</span> w tym równaniu nie występują
+<span class="math">\(\ \,(l=1,2,\ldots,n).\)</span></p>
+<p>Dla przykładu, w równaniu <span class="math">\(\ 2\,x_3\,+\,4\,x_4\,-\,8\,x_6\ =\ 10\,,\,\)</span>
+należącym do układu o niewiadomych <span class="math">\(\,x_1,\,x_2,\,\ldots,\,x_7\,,\)</span>
+niewiadomą wiodącą jest <span class="math">\(\,x_3:\,\)</span>
+niewiadome o numerach wcześniejszych, <span class="math">\(\,x_1\ \,\text{i}\ \;x_2,\)</span>
+są w tym równaniu nieobecne (współczynniki przy tych niewiadomych są równe zero).</p>
+<p>Układ równań ma <span class="math">\(\,\)</span> <em>postać schodkową</em>, <span class="math">\(\,\)</span>
+gdy w każdym równaniu (począwszy od drugiego) niewiadoma wiodąca ma numer większy
+niż niewiadoma wiodąca w równaniu poprzednim.</p>
+<p>Oznacza to w szczególności, że w każdym <span class="math">\(\,k\)</span>-tym równaniu
+nie występują niewiadome <span class="math">\(\ x_1,\dots,x_{k-1}\ \,\)</span> <span class="math">\((k=2,\dots,m)\,.\)</span></p>
+</div>
+<div class="section" id="eliminacja-gaussa">
+<h2>Eliminacja Gaussa<a class="headerlink" href="wprowadzenie_eliminacja_dla_rownan.html#eliminacja-gaussa" title="Stały odnośnik do tego nagłówka">¶</a></h2>
+<div class="line-block">
+<div class="line">Rozważymy teraz konkretny układ trzech równań liniowych o trzech niewiadomych.</div>
+<div class="line"><br /></div>
+<div class="line">Doprowadzimy go do postaci schodkowej poprzez następujące <em>operacje elementarne</em>:</div>
+</div>
+<ol class="arabic">
+<li><p class="first">przestawienie dwóch równań,</p>
+</li>
+<li><p class="first">pomnożenie obu stron równania przez liczbę różną od zera,</p>
+</li>
+<li><div class="first line-block">
+<div class="line">dodanie stronami do jednego z równań dowolnej wielokrotności innego równania</div>
+<div class="line">(w szczególności: dodanie bądź odjęcie dwóch równań stronami).</div>
+</div>
+</li>
+</ol>
+<div class="line-block">
+<div class="line">Jest oczywiste, że operacje te nie zmieniają zbioru rozwiązań,</div>
+<div class="line">czyli prowadzą do układu równań równoważnego z wyjściowym.</div>
+</div>
+<div class="highlight-python"><div class="highlight"><pre><span class="n">var</span><span class="p">(</span><span class="s">&#39;x1 x2 x3&#39;</span><span class="p">)</span>
+
+<span class="n">eq1</span> <span class="o">=</span> <span class="n">x1</span><span class="o">+</span><span class="mi">2</span><span class="o">*</span><span class="n">x2</span><span class="o">+</span><span class="mi">2</span><span class="o">*</span><span class="n">x3</span><span class="o">==</span><span class="mi">4</span>
+<span class="n">eq2</span> <span class="o">=</span> <span class="n">x1</span><span class="o">+</span><span class="mi">3</span><span class="o">*</span><span class="n">x2</span><span class="o">+</span><span class="mi">3</span><span class="o">*</span><span class="n">x3</span><span class="o">==</span><span class="mi">5</span>
+<span class="n">eq3</span> <span class="o">=</span> <span class="mi">2</span><span class="o">*</span><span class="n">x1</span><span class="o">+</span><span class="mi">6</span><span class="o">*</span><span class="n">x2</span><span class="o">+</span><span class="mi">5</span><span class="o">*</span><span class="n">x3</span><span class="o">==</span><span class="mi">6</span>
+
+<span class="c">#show(vector([eq1,eq2,eq3]).column())</span>
+</pre></div>
+</div>
+<div class="math">
+\[\begin{alignat*}{4}
+      x_1 & {\,} + {\,} & 2\,x_2 & {\,} + {\,} & 2\,x_3 & {\;} = {\;} & 4 \\
+      x_1 & {\,} + {\,} & 3\,x_2 & {\,} + {\,} & 3\,x_3 & {\;} = {\;} & 5 \\
+   2\,x_1 & {\,} + {\,} & 6\,x_2 & {\,} + {\,} & 5\,x_3 & {\;} = {\;} & 6
+\end{alignat*}\]</div><div class="highlight-python"><div class="highlight"><pre><span class="n">eq2</span> <span class="o">=</span> <span class="n">eq2</span><span class="o">-</span><span class="n">eq1</span>
+<span class="n">eq3</span> <span class="o">=</span> <span class="n">eq3</span><span class="o">-</span><span class="mi">2</span><span class="o">*</span><span class="n">eq1</span>
+
+<span class="c">#show(vector([eq1,eq2,eq3]).column())</span>
+</pre></div>
+</div>
+<div class="math">
+\[\begin{alignat*}{4}
+   x_1 & {\,} + {\,} & 2\,x_2 & {\,} + {\,} & 2\,x_3 & {\;} = {} &  4 \\
+       &             &    x_2 & {\,} + {\,} &    x_3 & {\;} = {} &  1 \\
+       &             & 2\,x_2 & {\,} + {\,} &    x_3 & {\;} = {} & -2
+\end{alignat*}\]</div><div class="highlight-python"><div class="highlight"><pre><span class="n">eq3</span> <span class="o">=</span> <span class="n">eq3</span><span class="o">-</span><span class="mi">2</span><span class="o">*</span><span class="n">eq2</span>
+
+<span class="c">#show(vector([eq1,eq2,eq3]).column())</span>
+</pre></div>
+</div>
+<div class="math">
+\[\begin{alignat*}{4}
+   x_1 & {\,} + {\,} & 2\,x_2 & {\,} + {\,} & 2\,x_3 & {\;} = {} &  4 \\
+       &             &    x_2 & {\,} + {\,} &    x_3 & {\;} = {} &  1 \\
+       &             &        & {\,} - {\,} &    x_3 & {\;} = {} & -4
+\end{alignat*}\]</div><div class="highlight-python"><div class="highlight"><pre><span class="n">eq3</span> <span class="o">=</span> <span class="o">-</span><span class="n">eq3</span>
+
+<span class="c">#show(vector([eq1,eq2,eq3]).column())</span>
+</pre></div>
+</div>
+<div class="math">
+\[\begin{alignat*}{4}
+   x_1 & {\,} + {\,} & 2\,x_2 & {\,} + {\,} & 2\,x_3 & {\;} = {\;} & 4 \\
+       &             &    x_2 & {\,} + {\,} &    x_3 & {\;} = {\;} & 1 \\
+       &             &        &             &    x_3 & {\;} = {\;} & 4
+\end{alignat*}\]</div><div class="line-block">
+<div class="line">Otrzymaliśmy układ równań w postaci schodkowej.</div>
+<div class="line">Wykonując teraz odpowiednie podstawienia wstecz otrzymujemy:</div>
+</div>
+<div class="math">
+\[\begin{alignat*}{5}
+   x_3 & {\;} = {\;} & 4 &             &        &             &        &             &   \\
+   x_2 & {\;} = {\;} & 1 & {\,} - {\,} &    x_3 & {\,} = {\,} & -3     &             &   \\
+   x_1 & {\,} = {\,} & 4 & {\,} - {\,} & 2\,x_2 & {\,} - {\,} & 2\,x_3 & {\,} = {\,} & 2
+\end{alignat*}\]</div><p>Metoda rozwiązywania układów równań liniowych, polegająca na sprowadzeniu układu
+do postaci schodkowej i zastosowaniu podstawień wstecznych, nazywa się eliminacją Gaussa.</p>
+</div>
+<div class="section" id="eliminacja-gaussa-jordana">
+<h2>Eliminacja Gaussa-Jordana<a class="headerlink" href="wprowadzenie_eliminacja_dla_rownan.html#eliminacja-gaussa-jordana" title="Stały odnośnik do tego nagłówka">¶</a></h2>
+<p>Można jednak nie poprzestać na postaci schodkowej:</p>
+<div class="math">
+\[\begin{alignat*}{4}
+   x_1 & {\,} + {\,} & 2\,x_2 & {\,} + {\,} & 2\,x_3 & {\;} = {\;} & 4 \\
+       &             &    x_2 & {\,} + {\,} &    x_3 & {\;} = {\;} & 1 \\
+       &             &        &             &    x_3 & {\;} = {\;} & 4
+\end{alignat*}\]</div><p>ale, wykonując w dalszym ciągu operacje elementarne na równaniach,
+otrzymać jeszcze wygodniejszą postać układu równań:</p>
+<div class="highlight-python"><div class="highlight"><pre><span class="n">eq1</span> <span class="o">=</span> <span class="n">eq1</span><span class="o">-</span><span class="mi">2</span><span class="o">*</span><span class="n">eq2</span>
+<span class="n">eq2</span> <span class="o">=</span> <span class="n">eq2</span><span class="o">-</span><span class="n">eq3</span>
+
+<span class="c">#show(vector([eq1,eq2,eq3]).column())</span>
+</pre></div>
+</div>
+<div class="math">
+\[\begin{alignat*}{2}
+   x_1 & {\,} = {} &  2 \\
+   x_2 & {\,} = {} & -3 \\
+   x_3 & {\,} = {} &  4
+\end{alignat*}\]</div><p>Doprowadzenie układu równań do takiej trywialnej postaci,
+która daje bezpośrednio wartości niewiadomych, określa się mianem eliminacji Gaussa-Jordana.</p>
+<div class="line-block">
+<div class="line">Sprawdźmy, czy odpowiedź jest zgodna z wbudowaną procedurą  <tt class="docutils literal"><span class="pre">solve()</span></tt> :</div>
+</div>
+<div class='sage'><script type='text/x-sage'>var('x1 x2 x3')
+
+eq1 = x1+2*x2+2*x3==4
+eq2 = x1+3*x2+3*x3==5
+eq3 = 2*x1+6*x2+5*x3==6
+
+show(solve([eq1,eq2,eq3],[x1,x2,x3]))</script></div></div>
+</div>
+
+
+          </div>
+        </div>
+      </div>
+      <div class="sphinxsidebar">
+        <div class="sphinxsidebarwrapper">
+  <div class="sphinxlocaltoc">
+  <h3><a href="http://visual.icse.us.edu.pl/LA/index.html">Spis treści</a></h3>
+  <ul>
+<li><a class="reference internal" href="wprowadzenie_eliminacja_dla_rownan.html#">Metoda eliminacji dla układów równań</a><ul>
+<li><a class="reference internal" href="wprowadzenie_eliminacja_dla_rownan.html#postac-schodkowa-ukladu-rownan">Postać schodkowa układu równań</a></li>
+<li><a class="reference internal" href="wprowadzenie_eliminacja_dla_rownan.html#eliminacja-gaussa">Eliminacja Gaussa</a></li>
+<li><a class="reference internal" href="wprowadzenie_eliminacja_dla_rownan.html#eliminacja-gaussa-jordana">Eliminacja Gaussa-Jordana</a></li>
+</ul>
+</li>
+</ul>
+
+  </div>
+  <h4>Poprzedni temat</h4>
+  <p class="topless"><a href="wprowadzenie_geometria_ukladow_stat.html"
+                        title="poprzedni rozdział">Geometria układów równań liniowych</a></p>
+  <h4>Następny temat</h4>
+  <p class="topless"><a href="wprowadzenie_zadania.html"
+                        title="następny rozdział">Zadania</a></p>
+<div id="searchbox" style="display: none">
+  <h3>Szybkie wyszukiwanie</h3>
+    <form class="search" action="search.html" method="get">
+      <input type="text" name="q" />
+      <input type="submit" value="Szukaj" />
+      <input type="hidden" name="check_keywords" value="yes" />
+      <input type="hidden" name="area" value="default" />
+    </form>
+    <p class="searchtip" style="font-size: 90%">
+    Wprowadź szukany termin lub nazwę modułu, klasy lub funkcji.
+    </p>
+</div>
+<script type="text/javascript">$('#searchbox').show(0);</script>
+        </div>
+      </div>
+      <div class="clearer"></div>
+    </div>
+  </div>
+  <div class="relbar-bottom">
+    
+    <div class="related">
+      <h3>Nawigacja</h3>
+      <ul>
+        <li class="right" style="margin-right: 10px">
+          <a href="wprowadzenie_zadania.html" title="Zadania"
+             >dalej</a></li>
+        <li class="right" >
+          <a href="wprowadzenie_geometria_ukladow_stat.html" title="Geometria układów równań liniowych"
+             >wstecz</a> &nbsp; &nbsp;</li>
+  <li><a href="http://visual.icse.us.edu.pl/LA/index.html">Algebra Liniowa</a> &raquo;</li>
+   
+      </ul>
+    </div>
+  </div>
+  
+  <div class="footer">
+    <a class="logo" href="../../icse.us.edu.pl/index.html" target="_blank"><img src="_static/logo-icse.png" alt="ICSE"/></a><br/>
+    &copy; Copyright 2013, Marcin Kostur.
+    Created using <a href="http://sphinx.pocoo.org/">Sphinx</a> 1.2.2.
+  </div>
+  </body>
+</html>

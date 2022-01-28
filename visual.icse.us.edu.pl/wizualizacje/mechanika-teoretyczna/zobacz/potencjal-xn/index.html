@@ -1,0 +1,195 @@
+<!DOCTYPE html> 
+<html> 
+<head> 
+<title>Potencjał x^n</title> 
+<meta http-equiv="Content-Type" content="text/html; charset=UTF-8" /> 
+<meta http-equiv="X-UA-Compatible" content="IE=EmulateIE7" /> 
+
+<script type="text/x-mathjax-config"> 
+  MathJax.Hub.Config({
+    extensions: ["tex2jax.js"],
+    jax: ["input/TeX","output/HTML-CSS"],
+    tex2jax: {inlineMath: [["$","$"],["\\(","\\)"]]}
+  });
+</script> 
+
+ 
+<!-- <script type="text/javascript" src="js/mathjax/MathJax.js"></script> --> 
+<script type="text/javascript" src="http://cdn.mathjax.org/mathjax/latest/MathJax.js"></script>
+
+<link rel="stylesheet" type="text/css" href="css/mainstyle.css" />
+<link rel="stylesheet" type="text/css" href="css/jsxgraph.css" />
+<script type="text/javascript" src="js/jsxgraphcore-0.95.js"></script>
+
+<script type="text/javascript" src="js/vtip/jquery.js"></script>
+<script type="text/javascript" src="js/vtip/vtip.js"></script>
+<link rel="stylesheet" type="text/css" href="js/vtip/css/vtip.css" />
+
+</head>
+<body>
+
+	<noscript> 
+	<div style="color:#CC0000; text-align:center">
+	<b>Uwaga: do prawidłowego działania, biblioteki <a href="http://www.mathjax.org/">MathJax</a>
+	oraz <a href="http://jsxgraph.uni-bayreuth.de/wp/">jsxgraph</a> wymagają obsługi JavaScript.<br />
+	Upewnij się, że JavaScript jest aktywowany w twojej przeglądarce.
+	</div>
+	<hr>
+	</noscript>
+
+
+<div id="container">
+
+<div id="header">
+	<h1>Potencjał $x^n$</h1>
+	<p class="text">
+	Ruch punktu materialnego w wybranym jednowymiarowym potencjale typu $x^n$. 
+	</p> 
+</div>
+
+
+<div id="content">
+
+
+<div id="input" class="formstyle">
+
+	<form name="form">
+	<table class="plotarea">
+	<tr>
+ 	<td>
+		<table>
+ 		<h3 class="punkt1">Punkt 1</h3>
+ 		<tr>	
+  			<td>$x_0$</td> 
+  			<td class="vtip" title="Położenie początkowe punktu 1"><input class="inputtext" type="text" id="pos01" value="0.5" onKeyUp="resetAnimation()"/></td>
+  			<td>$x$</td> 
+  			<td class="vtip" title="Aktualne położenie punktu 1"><input class="outputtext" type="text" id="pos01out" value="" readonly/></td>
+  		</tr>
+  		<tr>
+  			<td>$E_0$</td> 
+  			<td class="vtip" title="Energia dla punktu 1"><input class="outputtext" type="text" id="E01" value="" readonly/></td> 
+  			<td>$x^{'}$</td> 
+  			<td class="vtip" title="Aktualna prędkość punktu 1"><input class="outputtext" type="text" id="vel01out" value="" readonly/></td>
+ 		</tr>
+ 			<tr>
+  			<td>$U(x)$</td>
+  			<td>		
+  			  	<table>
+  				<tr>
+  				<td><input type="radio" name="U1" value="x0" onClick="resetAnimation()"/>$|x|$</td>
+  				<td><input type="radio" name="U1" value="x3" onClick="resetAnimation()" />$|x|^3$</td>
+  				</tr>
+  				<tr>
+  				<td><input type="radio" name="U1" value="x5" onClick="resetAnimation()" />$|x|^5$</td>
+  				<td><input type="radio" name="U1" value="x7" onClick="resetAnimation()" />$|x|^7$</td>
+	  			</tr>
+				<tr>
+				<td><input type="radio" name="U1" value="x32" onClick="resetAnimation()" />$|x|^{3/2}$</td>
+				<td><input type="radio" name="U1" value="x2" checked onClick="resetAnimation()" />$x^2$</td>
+				</tr>
+				<tr>
+				<td><input type="radio" name="U1" value="x4" onClick="resetAnimation()" />$x^4$</td>	
+  				<td><input type="radio" name="U1" value="x6" onClick="resetAnimation()" />$x^6$</td>
+  				</tr>
+  				</table>			
+  			</td>
+  			<td></td>
+  			<td></td>
+  			</tr>
+		</table> 
+ 	</td>
+ 	<td>
+		<table> 
+ 		<h3 class="punkt2">Punkt 2</h3>
+ 		<tr> 	
+  			<td>$x_0$</td> 
+  			<td class="vtip" title="Położenie początkowe punktu 2"><input class="inputtext" type="text" id="pos02" value="1" onKeyUp="resetAnimation()"/></td>
+  			<td>$x$</td> 
+  			<td class="vtip" title="Aktualne położenie punktu 2"><input class="outputtext" type="text" id="pos02out" value="" readonly/></td>
+  			<td>$t$</td>
+  			<td class="vtip" title="Czas w sekundach"><input class="outputtext" type="text" id="time" value="" readonly/></td>
+  		</tr>
+  		<tr>
+  			<td>$E_0$</td> 
+  			<td class="vtip" title="Energia dla punktu 2"><input class="outputtext" type="text" id="E02" value="" readonly/></td>
+  			<td>$x^{'}$</td> 
+  			<td class="vtip" title="Aktualna prędkość punktu 2"><input class="outputtext" type="text" id="vel02out" value="" readonly/></td>
+ 		</tr>
+ 			<tr>
+  			<td>$U(x)$</td>
+  			<td>			
+ 	 			<table>
+  				<tr>
+  				<td><input type="radio" name="U2" value="x0" onClick="resetAnimation()"/>$|x|$</td>
+  				<td><input type="radio" name="U2" value="x3" onClick="resetAnimation()" />$|x|^3$</td>
+  				</tr>
+  				<tr>
+  				<td><input type="radio" name="U2" value="x5" onClick="resetAnimation()" />$|x|^5$</td>
+  				<td><input type="radio" name="U2" value="x7" onClick="resetAnimation()" />$|x|^7$</td>
+  				</tr>
+				<tr>
+				<td><input type="radio" name="U2" value="x32" onClick="resetAnimation()" />$|x|^{3/2}$</td>
+				<td><input type="radio" name="U2" value="x2" checked onClick="resetAnimation()" />$x^2$</td>
+				</tr>
+				<tr>
+				<td><input type="radio" name="U2" value="x4" onClick="resetAnimation()" />$x^4$</td>	
+  				<td><input type="radio" name="U2" value="x6" onClick="resetAnimation()" />$x^6$</td>
+  				</tr>
+  				</table>  					
+  			</td>
+  			<td></td>
+  			<td></td>
+  			</tr> 		
+		</table> 
+ 	</td>
+ 	</tr> 
+ 
+ 	<tr>
+ 		<td> 
+		<table> 
+	 	<tr>
+	  		<td></td>
+	  		<td></td>
+	  		<td><input type="button" value="start / stop" onClick="startStopAnimation()" />
+	  			<input type="button" value="reset" onClick="resetAnimation()" /></td>   
+	 	</tr>
+		</table>
+	 	</td>
+	 </tr> 
+	</table>
+	</form>
+	
+</div>
+
+<div id="plots">   
+    	<table class="plotarea">    
+    	<tr>
+       	<td>
+        <div id="box1" class="jxgbox"></div>
+        </td>
+    	</tr>
+	</table>
+</div>
+
+
+<div class="theory">
+	<h3>Rozważany potencjał</h3>
+	<p class="text">
+	$U(x)=A |x|^n$<br /> 
+	Dla $n=2$ mamy oscylator harmoniczny:
+	</p>
+	<h3>Okres ruchu dla potencjałów</h3>
+	<p class="text">
+	$T=4 \sqrt{\frac{m}{2}}\frac{1}{\sqrt{E}}\int_0^{x_1}\frac{dx}{\sqrt{1-A/E x^n}}$
+	</p>
+</div>
+
+
+</div>
+</div>
+
+
+
+<script type="text/javascript" src="js/phys.js"></script><br />
+</body>
+</html>

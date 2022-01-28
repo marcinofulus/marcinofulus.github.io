@@ -1,0 +1,504 @@
+
+
+  <!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+  "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+
+
+<html xmlns="http://www.w3.org/1999/xhtml">
+  <head>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    
+    <title>Rozkład LU &mdash; Algebra Liniowa</title>
+    
+    <link rel="stylesheet" href="_static/cloud.css" type="text/css" />
+    <link rel="stylesheet" href="_static/pygments.css" type="text/css" />
+    <link rel="stylesheet" href="http://fonts.googleapis.com/css?family=Noticia+Text|Open+Sans|Droid+Sans+Mono&subset=latin,latin-ext" type="text/css" />
+    
+    <script type="text/javascript">
+      var DOCUMENTATION_OPTIONS = {
+        URL_ROOT:    './',
+        VERSION:     'I',
+        COLLAPSE_INDEX: false,
+        FILE_SUFFIX: '.html',
+        HAS_SOURCE:  true
+      };
+    </script>
+    <script type="text/javascript" src="_static/jquery.js"></script>
+    <script type="text/javascript" src="_static/underscore.js"></script>
+    <script type="text/javascript" src="_static/doctools.js"></script>
+    <script type="text/javascript" src="_static/translations.js"></script>
+    <script type="text/javascript" src="http://cdn.mathjax.org/mathjax/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML"></script>
+    <script type="text/javascript" src="_static/jquery.cookie.js"></script>
+    <script type="text/javascript" src="_static/cloud.js"></script>
+
+	<script src="http://sagecell.icse.us.edu.pl:6363/static/jquery.min.js"></script>
+	<script src="http://sagecell.icse.us.edu.pl:6363/static/embedded_sagecell.js"></script>
+
+	<!-- <script src="http://sagecell.sagemath.org/static/jquery.min.js"></script> -->
+	<!-- <script src="http://sagecell.sagemath.org/static/embedded_sagecell.js"></script> -->
+
+	<script>sagecell.makeSagecell({inputLocation: ".sage",
+                                       evalButtonText: 'Wykonaj',
+                                       linked: true});</script>
+
+	<style type="text/css">
+		.sagecell .CodeMirror-scroll {
+			overflow-y: hidden;
+			overflow-x: auto;
+		}
+		.sagecell .CodeMirror {
+			height: auto;
+		}
+	</style>
+
+    
+    <link rel="top" title="Algebra Liniowa" href="http://visual.icse.us.edu.pl/LA/index.html" />
+    <link rel="next" title="Zadania" href="operacje_na_macierzach_zadania.html" />
+    <link rel="prev" title="Macierze trójkątne" href="macierze_trojkatne.html" />
+ 
+  <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, minimum-scale=1">
+  </head>
+  <body>
+  <div class="relbar-top">
+    
+    <div class="related">
+      <h3>Nawigacja</h3>
+      <ul>
+        <li class="right" style="margin-right: 10px">
+          <a href="operacje_na_macierzach_zadania.html" title="Zadania"
+             accesskey="N">dalej</a></li>
+        <li class="right" >
+          <a href="macierze_trojkatne.html" title="Macierze trójkątne"
+             accesskey="P">wstecz</a> &nbsp; &nbsp;</li>
+  <li><a href="http://visual.icse.us.edu.pl/LA/index.html">Algebra Liniowa</a> &raquo;</li>
+   
+      </ul>
+    </div>
+  </div>
+  
+  <div class="content">  
+
+    <div class="document">
+      <div class="documentwrapper">
+        <div class="bodywrapper">
+          <div class="body">
+            
+  <div class="section" id="rozklad-lu">
+<h1>Rozkład LU<a class="headerlink" href="rozklad_LU.html#rozklad-lu" title="Stały odnośnik do tego nagłówka">¶</a></h1>
+<p>Naszym celem będzie teraz przedstawienie odwracalnej macierzy kwadratowej <span class="math">\(\,\boldsymbol{A}\,\)</span>
+w postaci iloczynu dolnej i górnej macierzy trójkątnej:
+<span class="math">\(\ \boldsymbol{A}\ =\ \boldsymbol{L}\boldsymbol{U}\,.\)</span></p>
+<p>Zaczniemy od konkretnego przykładu. <span class="math">\(\,\)</span> Niech
+<span class="math">\(\ \boldsymbol{A}\ =\ \left[\begin{array}{rrr}
+2 &amp;  1 &amp; 1 \\
+4 &amp; -6 &amp; 0 \\
+-2 &amp;  7 &amp; 2\end{array}\right]\,.\)</span></p>
+<p>Eliminacja Gaussa, przekształcającą <span class="math">\(\,\boldsymbol{A}\,\)</span>
+do górnej macierzy trójkątnej <span class="math">\(\,\boldsymbol{U},\ \)</span>
+składa się z następujących kolejnych operacji elementarnych:</p>
+<ol class="arabic">
+<li><div class="first line-block">
+<div class="line">Od drugiego wiersza macierzy <span class="math">\(\,\boldsymbol{A}\,\)</span> odejmujemy podwojony wiersz pierwszy.</div>
+<div class="line">Operacji <span class="math">\(\,O_3(1,0,-2)\,\)</span> odpowiada macierz elementarna
+<span class="math">\(\,\boldsymbol{E}^{(1)}=\boldsymbol{E}_3(1,0,-2).\,\)</span></div>
+<div class="line">Wynikiem jest macierz <span class="math">\(\ \boldsymbol{A}_1=\boldsymbol{E}^{(1)}\boldsymbol{A}:\)</span></div>
+</div>
+<div class="math">
+\[\begin{split}\boldsymbol{A}_1\ =\
+\left[\begin{array}{rrr} 1 &amp; 0 &amp; 0 \\
+                        -2 &amp; 1 &amp; 0 \\
+                         0 &amp; 0 &amp; 1\end{array}\right]\
+\left[\begin{array}{rrr} 2 &amp;  1 &amp; 1 \\
+                         4 &amp; -6 &amp; 0 \\
+                        -2 &amp;  7 &amp; 2\end{array}\right]\ =\
+\left[\begin{array}{rrr} 2 &amp;  1 &amp;  1 \\
+                         0 &amp; -8 &amp; -2 \\
+                        -2 &amp;  7 &amp;  2\end{array}\right]\,.\end{split}\]</div>
+</li>
+<li><div class="first line-block">
+<div class="line">Do trzeciego wiersza macierzy <span class="math">\(\,\boldsymbol{A}_1\,\)</span> dodajemy wiersz pierwszy.</div>
+<div class="line">Operacji <span class="math">\(\,O_3(2,0,1)\,\)</span> odpowiada macierz elementarna
+<span class="math">\(\,\boldsymbol{E}^{(2)}=\boldsymbol{E}_3(2,0,1).\,\)</span></div>
+<div class="line">Wynikiem jest macierz <span class="math">\(\ \boldsymbol{A}_2=\boldsymbol{E}^{(2)}\boldsymbol{A}_1:\)</span></div>
+</div>
+<div class="math">
+\[\begin{split}\boldsymbol{A}_2\ =\
+\left[\begin{array}{rrr} 1 &amp; 0 &amp; 0 \\
+                         0 &amp; 1 &amp; 0 \\
+                         1 &amp; 0 &amp; 1\end{array}\right]\
+\left[\begin{array}{rrr} 2 &amp;  1 &amp;  1 \\
+                         0 &amp; -8 &amp; -2 \\
+                        -2 &amp;  7 &amp;  2\end{array}\right]\ =\
+\left[\begin{array}{rrr} 2 &amp;  1 &amp;  1 \\
+                         0 &amp; -8 &amp; -2 \\
+                         0 &amp;  8 &amp;  3\end{array}\right]\,.\end{split}\]</div>
+</li>
+<li><div class="first line-block">
+<div class="line">Do trzeciego wiersza macierzy <span class="math">\(\,\boldsymbol{A}_2\,\)</span> dodajemy wiersz drugi.</div>
+<div class="line">Operacji <span class="math">\(\,O_3(2,1,1)\,\)</span> odpowiada macierz elementarna
+<span class="math">\(\,\boldsymbol{E}^{(3)}=\boldsymbol{E}_3(2,1,1).\,\)</span></div>
+<div class="line">Wynikiem jest macierz <span class="math">\(\ \boldsymbol{U}=\boldsymbol{E}^{(3)}\boldsymbol{A}_2:\)</span></div>
+</div>
+<div class="math">
+\[\begin{split}\boldsymbol{U}\ =\
+\left[\begin{array}{rrr} 1 &amp; 0 &amp; 0 \\
+                         0 &amp; 1 &amp; 0 \\
+                         0 &amp; 1 &amp; 1\end{array}\right]\
+\left[\begin{array}{rrr} 2 &amp;  1 &amp;  1 \\
+                         0 &amp; -8 &amp; -2 \\
+                         0 &amp;  8 &amp;  3\end{array}\right]\ =\
+\left[\begin{array}{rrr} 2 &amp;  1 &amp;  1 \\
+                         0 &amp; -8 &amp; -2 \\
+                         0 &amp;  0 &amp;  1\end{array}\right]\,.\end{split}\]</div>
+</li>
+</ol>
+<p>Zbierając wyniki częściowe, można zapisać:</p>
+<div class="math" id="equation-UEEEA">
+<span class="eqno">(1)</span>\[\boldsymbol{U}\ =\ \boldsymbol{E}^{(3)}\boldsymbol{E}^{(2)}\boldsymbol{E}^{(1)}\boldsymbol{A}\,.\]</div>
+<p>Występujące tutaj operacje elementarne 3. rodzaju polegają na tym, że do wiersza o numerze większym
+dodaje się pewną wielokrotność wiersza o numerze mniejszym. Odpowiadające im macierze elementarne
+(otrzymane przez wykonanie takiej operacji na macierzy jednostkowej) są więc dolnymi macierzami
+trójkątnymi. To samo dotyczy ich iloczynu oraz odwrotności.</p>
+<p>Wobec tego równanie <a href="rozklad_LU.html#equation-UEEEA">(1)</a> można przekształcić do postaci
+<span class="math">\(\,\boldsymbol{A}=\boldsymbol{L}\boldsymbol{U},\ \)</span> gdzie</p>
+<div class="math">
+\[\boldsymbol{L}\ \ =\ \ \left[\,
+\boldsymbol{E}^{(3)}\boldsymbol{E}^{(2)}\boldsymbol{E}^{(1)}
+\right]^{-1}\ =\ \ \
+\left[\boldsymbol{E}^{(1)}\right]^{-1}
+\left[\boldsymbol{E}^{(2)}\right]^{-1}
+\left[\boldsymbol{E}^{(3)}\right]^{-1}\]</div>
+<p>jest dolną, <span class="math">\(\,\)</span> a <span class="math">\(\ \ \boldsymbol{U}\)</span>
+<span class="math">\(\,\)</span> - <span class="math">\(\,\)</span> górną macierzą trójkątną.</p>
+<p>Macierz <span class="math">\(\,\boldsymbol{L}\,\)</span> wyliczymy korzystając z narzędzi systemu Sage:</p>
+<div class="highlight-python"><div class="highlight"><pre><span class="n">sage</span><span class="p">:</span> <span class="n">E1</span> <span class="o">=</span> <span class="n">elementary_matrix</span><span class="p">(</span><span class="n">QQ</span><span class="p">,</span> <span class="mi">3</span><span class="p">,</span> <span class="n">row1</span><span class="o">=</span><span class="mi">1</span><span class="p">,</span> <span class="n">row2</span><span class="o">=</span><span class="mi">0</span><span class="p">,</span> <span class="n">scale</span><span class="o">=-</span><span class="mi">2</span><span class="p">)</span>
+<span class="n">sage</span><span class="p">:</span> <span class="n">E2</span> <span class="o">=</span> <span class="n">elementary_matrix</span><span class="p">(</span><span class="n">QQ</span><span class="p">,</span> <span class="mi">3</span><span class="p">,</span> <span class="n">row1</span><span class="o">=</span><span class="mi">2</span><span class="p">,</span> <span class="n">row2</span><span class="o">=</span><span class="mi">0</span><span class="p">,</span> <span class="n">scale</span><span class="o">=</span> <span class="mi">1</span><span class="p">)</span>
+<span class="n">sage</span><span class="p">:</span> <span class="n">E3</span> <span class="o">=</span> <span class="n">elementary_matrix</span><span class="p">(</span><span class="n">QQ</span><span class="p">,</span> <span class="mi">3</span><span class="p">,</span> <span class="n">row1</span><span class="o">=</span><span class="mi">2</span><span class="p">,</span> <span class="n">row2</span><span class="o">=</span><span class="mi">1</span><span class="p">,</span> <span class="n">scale</span><span class="o">=</span> <span class="mi">1</span><span class="p">)</span>
+<span class="n">sage</span><span class="p">:</span> <span class="n">E1</span><span class="o">.</span><span class="n">I</span><span class="o">*</span><span class="n">E2</span><span class="o">.</span><span class="n">I</span><span class="o">*</span><span class="n">E3</span><span class="o">.</span><span class="n">I</span>
+
+<span class="p">[</span> <span class="mi">1</span>  <span class="mi">0</span>  <span class="mi">0</span><span class="p">]</span>
+<span class="p">[</span> <span class="mi">2</span>  <span class="mi">1</span>  <span class="mi">0</span><span class="p">]</span>
+<span class="p">[</span><span class="o">-</span><span class="mi">1</span> <span class="o">-</span><span class="mi">1</span>  <span class="mi">1</span><span class="p">]</span>
+</pre></div>
+</div>
+<p>Ostatecznie, rozkład <span class="math">\(\,\boldsymbol{A}=\boldsymbol{L}\boldsymbol{U}\ \)</span>
+macierzy <span class="math">\(\,\boldsymbol{A}\ \)</span> przedstawia się następująco:</p>
+<div class="math" id="equation-A_LU_ex">
+<span class="eqno">(2)</span>\[\begin{split}\left[\begin{array}{rrr} 2 &amp;  1 &amp; 1 \\
+                         4 &amp; -6 &amp; 0 \\
+                        -2 &amp;  7 &amp; 2\end{array}\right]\ =\
+\left[\begin{array}{rrr}  1 &amp;  0 &amp; 0 \\
+                          2 &amp;  1 &amp; 0 \\
+                         -1 &amp; -1 &amp; 1\end{array}\right]
+\left[\begin{array}{rrr} 2 &amp;  1 &amp;  1 \\
+                         0 &amp; -8 &amp; -2 \\
+                         0 &amp;  0 &amp;  1\end{array}\right]\,.\end{split}\]</div>
+<p>Opisana procedura nie byłaby wykonalna, gdyby element <span class="math">\(\,a_{11}\,\)</span>
+(tutaj równy 2) był równy zeru. Należałoby wtedy przestawić wiersze tak,
+aby na tej pozycji  pojawił się element niezerowy.
+Wystąpiłyby operacje elementarne 1. rodzaju (przestawienia wierszy),
+którym odpowiadają macierze nietrójkątne. W takiej sytuacji rozkład
+<span class="math">\(\,\boldsymbol{L}\boldsymbol{U}\,\)</span> byłby możliwy dopiero dla macierzy przekształconej
+<span class="math">\(\,\boldsymbol{P}\boldsymbol{A},\,\)</span> gdzie <span class="math">\(\,\boldsymbol{P}\,\)</span>
+jest macierzą odpowiedniej permutacji:</p>
+<div class="math" id="equation-PA_LU">
+<span class="eqno">(3)</span>\[\boldsymbol{P}\boldsymbol{A}=\boldsymbol{L}\boldsymbol{U}.\]</div>
+<p>Metoda <tt class="docutils literal"><span class="pre">LU()</span></tt> pakietu Sage odwołuje się raczej do równoważnego zapisu</p>
+<div class="math" id="equation-A_PLU">
+<span class="eqno">(4)</span>\[\boldsymbol{A}\ =\ \boldsymbol{P}\boldsymbol{L}\boldsymbol{U}\,.\]</div>
+<p>(macierz <span class="math">\(\,\boldsymbol{P}\,\)</span> w równaniu <a href="rozklad_LU.html#equation-A_PLU">(4)</a> jest odwrotnością
+macierzy <span class="math">\(\,\boldsymbol{P}\,\)</span> w równaniu <a href="rozklad_LU.html#equation-PA_LU">(3)</a> i vice versa).</p>
+<p>Zastosowanie metody <tt class="docutils literal"><span class="pre">LU()</span></tt> do macierzy prostokątnej <span class="math">\(\,\boldsymbol{A}\in M_{m\times n}(K)\ \)</span>
+daje w wyniku trójkę macierzy <span class="math">\(\,(\boldsymbol{P},\boldsymbol{L},\boldsymbol{U}):\ \)</span>
+<span class="math">\(\,\boldsymbol{P}\,\)</span> i <span class="math">\(\,\boldsymbol{L}\ \)</span> są macierzami kwadratowymi
+stopnia <span class="math">\(\,m,\ \)</span> przy czym elementy diagonalne macierzy <span class="math">\(\,\boldsymbol{L}\,\)</span>
+są równe 1, <span class="math">\(\,\)</span> natomiast <span class="math">\(\,\boldsymbol{U}\,\)</span> ma te same rozmiary
+co <span class="math">\(\,\boldsymbol{A}.\)</span></p>
+<p>Zastosujmy metodę <tt class="docutils literal"><span class="pre">LU()</span></tt> do macierzy <span class="math">\(\,\boldsymbol{A}\,\)</span> z przykładu:</p>
+<div class="highlight-python"><div class="highlight"><pre><span class="n">sage</span><span class="p">:</span> <span class="n">A</span> <span class="o">=</span> <span class="n">matrix</span><span class="p">(</span><span class="n">QQ</span><span class="p">,</span> <span class="p">[[</span><span class="mi">2</span><span class="p">,</span><span class="mi">1</span><span class="p">,</span><span class="mi">1</span><span class="p">],</span> <span class="p">[</span><span class="mi">4</span><span class="p">,</span><span class="o">-</span><span class="mi">6</span><span class="p">,</span><span class="mi">0</span><span class="p">],[</span><span class="o">-</span><span class="mi">2</span><span class="p">,</span><span class="mi">7</span><span class="p">,</span><span class="mi">2</span><span class="p">]])</span>
+<span class="n">sage</span><span class="p">:</span> <span class="p">(</span><span class="n">P</span><span class="p">,</span><span class="n">L</span><span class="p">,</span><span class="n">U</span><span class="p">)</span> <span class="o">=</span> <span class="n">A</span><span class="o">.</span><span class="n">LU</span><span class="p">()</span>
+<span class="n">sage</span><span class="p">:</span> <span class="k">print</span> <span class="n">A</span><span class="o">==</span><span class="n">P</span><span class="o">*</span><span class="n">L</span><span class="o">*</span><span class="n">U</span>
+<span class="n">sage</span><span class="p">:</span> <span class="n">html</span><span class="o">.</span><span class="n">table</span><span class="p">([[</span><span class="n">A</span><span class="p">,</span> <span class="s">&#39;=&#39;</span><span class="p">,</span> <span class="n">P</span><span class="p">,</span> <span class="s">&#39;*&#39;</span><span class="p">,</span> <span class="n">L</span><span class="p">,</span> <span class="s">&#39;*&#39;</span><span class="p">,</span> <span class="n">U</span><span class="p">]])</span>
+
+<span class="bp">True</span>
+</pre></div>
+</div>
+<div class="math" id="equation-A_PLU_ex">
+<span class="eqno">(5)</span>\[\begin{split}\left(\begin{array}{rrr}
+    2 &amp;  1 &amp; 1 \\
+    4 &amp; -6 &amp; 0 \\
+   -2 &amp;  7 &amp; 2
+\end{array}\right)\ \ =\ \
+\left(\begin{array}{rrr}
+    0 &amp; 1 &amp; 0 \\
+    1 &amp; 0 &amp; 0 \\
+    0 &amp; 0 &amp; 1
+\end{array}\right)\ *\
+\left(\begin{array}{rrr}
+    1 &amp; 0 &amp; 0 \\
+    \textstyle{1\over 2} &amp; 1 &amp; 0 \\
+   -\textstyle{1\over 2} &amp; 1 &amp; 1
+\end{array}\right)\ *\
+\left(\begin{array}{rrr}
+   4 &amp; -6 &amp; 0 \\
+   0 &amp;  4 &amp; 1 \\
+   0 &amp;  0 &amp; 1
+\end{array}\right)\end{split}\]</div>
+<p>Otrzymany rozkład <a href="rozklad_LU.html#equation-A_PLU_ex">(5)</a> jest różny od <a href="rozklad_LU.html#equation-A_LU_ex">(2)</a>, chociaż obydwa są prawdziwe.
+Jak widać, rozkład <span class="math">\(\,\boldsymbol{L}\boldsymbol{U}\,\)</span> w ogólności nie jest jednoznaczny.
+<span class="math">\(\\\)</span></p>
+<div class="admonition-poeksperymentuj-z-sage-math admonition">
+<p class="first admonition-title">Poeksperymentuj z Sage: <span class="math">\(\\\)</span></p>
+<p>Poniższy kod generuje przypadkową macierz <span class="math">\(\,\boldsymbol{A}\,\)</span>
+i zapisuje jej rozkład <span class="math">\(\,\boldsymbol{A}=\boldsymbol{P}\boldsymbol{L}\boldsymbol{U}.\)</span></p>
+<ul class="last">
+<li><p class="first">Dopisz wiersz sprawdzający poprawność wyniku.</p>
+</li>
+<li><div class="first line-block">
+<div class="line">Zmieniając rozmiary <span class="math">\(\,m\ \ \text{i}\ \ n\,\)</span> macierzy <span class="math">\(\,\boldsymbol{A}\,\)</span>
+otrzymaj</div>
+<div class="line">różne konkretne przykłady omawianej procedury.</div>
+</div>
+</li>
+</ul>
+</div>
+<div class='sage'><script type='text/x-sage'>m = 3
+n = 4
+A = random_matrix(QQ, 3, 4, rank=3, upper_bound=10,
+                  algorithm='echelonizable')
+(P,L,U) = A.LU()
+html.table([[A, '=', P, L, U]])</script></div><p><span class="math">\(\;\)</span></p>
+<div class="admonition-uwaga admonition">
+<p class="first admonition-title">Uwaga:</p>
+<p class="last">Metoda <tt class="docutils literal"><span class="pre">LU()</span></tt> działa poprawnie  na pierścieniach dokładnych, np. na ciele liczb wymiernych QQ.
+Przy obliczeniach numerycznych należy użyć ciała RDF albo CDF
+liczb rzeczywistych albo zespolonych o podwójnej precyzji.</p>
+</div>
+<div class="section" id="zastosowania-rozkladu-lu">
+<h2>Zastosowania rozkładu LU<a class="headerlink" href="rozklad_LU.html#zastosowania-rozkladu-lu" title="Stały odnośnik do tego nagłówka">¶</a></h2>
+<div class="section" id="rozwiazywanie-ukladow-rownan">
+<h3>Rozwiązywanie układów równań<a class="headerlink" href="rozklad_LU.html#rozwiazywanie-ukladow-rownan" title="Stały odnośnik do tego nagłówka">¶</a></h3>
+<p>Rozważmy układ <span class="math">\(\,m\,\)</span> równań liniowych o <span class="math">\(\,n\,\)</span> niewiadomych nad ciałem <span class="math">\(\,K,\,\)</span>
+z macierzą współczynników <span class="math">\(\,\boldsymbol{A}\in M_{m\times n}(K)\ \)</span>
+i kolumną wolnych wyrazów <span class="math">\(\,\boldsymbol{b}\in K^m.\)</span></p>
+<p>Jeżeli rozkład <span class="math">\(\,\boldsymbol{L}\boldsymbol{U}\,\)</span> dla macierzy <span class="math">\(\,\boldsymbol{A}\ \)</span>
+przyjmiemy w postaci <a href="rozklad_LU.html#equation-PA_LU">(3)</a>, to opisany układ równań można przekształcić jak następuje:</p>
+<div class="math">
+\[\begin{split}\begin{array}{c}
+\boldsymbol{A}\,\boldsymbol{x}\ =\ \boldsymbol{b}\,, \\
+                                                 \\
+(\boldsymbol{P}\boldsymbol{A})\,\boldsymbol{x}\ =\ \boldsymbol{P}\,\boldsymbol{b}\,, \\
+                                                                                     \\
+(\boldsymbol{L}\boldsymbol{U})\,\boldsymbol{x}\ =\ \boldsymbol{P}\,\boldsymbol{b}\,, \\
+                                                                                     \\
+\boldsymbol{L}(\boldsymbol{U}\boldsymbol{x})\ =\ \boldsymbol{P}\,\boldsymbol{b}\,.
+\end{array}\end{split}\]</div>
+<p>Przy oznaczeniu <span class="math">\(\,\boldsymbol{y}\ =\ \boldsymbol{U}\boldsymbol{x}\,\)</span>
+otrzymujemy układ <span class="math">\(\,2m\,\)</span> równań o <span class="math">\(\,m+n\,\)</span> niewiadomych:</p>
+<div class="math" id="equation-set_xy">
+<span class="eqno">(6)</span>\[\begin{split}\left\{\ \ \begin{array}{ll}
+\boldsymbol{L}\,\boldsymbol{y}\ =\ \boldsymbol{P}\,\boldsymbol{b}\,, \qquad\qquad &amp;
+\boldsymbol{L}\in M_m(K),\ \ \boldsymbol{y}\in K^m \\
+\boldsymbol{U}\,\boldsymbol{x}\ =\ \boldsymbol{y}\,, \qquad\qquad &amp;
+\boldsymbol{U}\in M_{m\times n}(K),\ \ \boldsymbol{x}\in K^n\,.
+\end{array}\right.\end{split}\]</div>
+<p>W trakcie rozwiązywania każdego z dwóch podukładów można korzystać z ułatwień wynikających z trójkątnej postaci macierzy <span class="math">\(\,\boldsymbol{L}\ \ \text{i}\ \ \boldsymbol{U}.\ \)</span></p>
+<p>Przedstawiona metoda jest szczególnie efektywna, gdy trzeba rozwiązać wiele układów równań z tą samą macierzą <span class="math">\(\,\boldsymbol{A}\,,\ \)</span> ale różnymi kolumnami <span class="math">\(\,\boldsymbol{b}:\ \)</span>
+rozkład <span class="math">\(\,\boldsymbol{L}\boldsymbol{U}\,\)</span> dla macierzy <span class="math">\(\,\boldsymbol{A}\ \)</span>
+wystarczy wtedy przeprowadzić tylko raz.</p>
+<p>Rozwiążemy w ten sposób układ równań nad ciałem liczb wymiernych <span class="math">\(\,Q:\)</span></p>
+<div class="math">
+\[\begin{alignat*}{4}
+ 2\,x_1 & {\,} + {\,} &    x_2 & {\,} + {\,} &    x_3 & {\;} = {} &  6 \\
+ 4\,x_1 & {\,} - {\,} & 6\,x_2 &             &        & {\;} = {} & 14 \\
+-2\,x_1 & {\,} + {\,} & 7\,x_2 & {\,} + {\,} & 2\,x_3 & {\;} = {} & -5
+\end{alignat*}\]</div><p>Rozkład <span class="math">\(\,\boldsymbol{L}\boldsymbol{U}\,\)</span> dla macierzy <span class="math">\(\,\boldsymbol{A}\ \)</span>
+współczynników tego układu już znamy <a href="rozklad_LU.html#equation-A_LU_ex">(2)</a>:</p>
+<div class="math">
+\[\begin{split}\left[\begin{array}{rrr} 2 &amp;  1 &amp; 1 \\
+                         4 &amp; -6 &amp; 0 \\
+                        -2 &amp;  7 &amp; 2\end{array}\right]\ =\
+\left[\begin{array}{rrr}  1 &amp;  0 &amp; 0 \\
+                          2 &amp;  1 &amp; 0 \\
+                         -1 &amp; -1 &amp; 1\end{array}\right]
+\left[\begin{array}{rrr} 2 &amp;  1 &amp;  1 \\
+                         0 &amp; -8 &amp; -2 \\
+                         0 &amp;  0 &amp;  1\end{array}\right]\,.\end{split}\]</div>
+<p>Wzory <a href="rozklad_LU.html#equation-set_xy">(6)</a> dają dwa powiązane ze sobą układy równań o trójkątnych macierzach współczynników:</p>
+<div class="math">
+\[\begin{alignat*}{4}
+    y_1 & {\,}   {\,} &        & {\,}   {\,} &        & {\;} = {} &  6 \\
+ 2\,y_1 & {\,} + {\,} &    y_2 &             &        & {\;} = {} & 14 \\
+   -y_1 & {\,} - {\,} &    y_2 & {\,} + {\,} &    y_3 & {\;} = {} & -5
+\end{alignat*}\]</div><div class="math">
+\[\begin{alignat*}{4}
+ 2\,x_1 & {\,} + {\,} &    x_2 & {\,} + {\,} &    x_3 & {\;} = {\ } & y_1 \\
+        & {\,} - {\,} & 8\,x_2 & {\,} - {\,} & 2\,x_3 & {\;} = {\ } & y_2 \\
+        & {\,}   {\,} &        & {\,}   {\,} &    x_3 & {\;} = {\ } & y_3
+\end{alignat*}\]</div><p>Pierwszy układ rozwiązujemy podstawianiem &#8220;w przód&#8221;, <span class="math">\(\ \)</span>
+a drugi <span class="math">\(\ \)</span> - <span class="math">\(\ \)</span> podstawianiem &#8220;wstecz&#8221;:</p>
+<div class="math">
+\[\begin{split}\textstyle
+\begin{array}{l}
+y_1\ =\ 6 \\ y_2\ =\ 14\ -\ 2\,y_1\ =\ 2 \\ y_3\ =\ -5\ +\ y_1\ +\ y_2\ =\ 3\,,
+\end{array}
+\qquad
+\begin{array}{l}
+x_3\ =\ y_3\ =\ 3 \\
+x_2\ =\ -{1\over 8}\ (y_2+2\,x_3)\ =\ -1 \\
+x_1\ =\ {1\over 2}\ (y_1-x_2-x_3)\ =\ 2\,.
+\end{array}\end{split}\]</div>
+<p>Ostatecznie, <span class="math">\(\,\)</span> rozwiązaniem układu jest: <span class="math">\(\ x_1=2,\ x_2=-1,\ x_3=3\,.\)</span></p>
+</div>
+<div class="section" id="wyliczanie-macierzy-odwrotnej">
+<h3>Wyliczanie macierzy odwrotnej<a class="headerlink" href="rozklad_LU.html#wyliczanie-macierzy-odwrotnej" title="Stały odnośnik do tego nagłówka">¶</a></h3>
+<p>Niech <span class="math">\(\,\boldsymbol{A}\in M_n(K)\,\)</span> będzie macierzą odwracalną.
+Zadanie wyznaczenia jej odwrotności sprowadza się do rozwiązania równania macierzowego</p>
+<div class="math">
+\[\boldsymbol{A}\,\boldsymbol{X}\ =\ \boldsymbol{I}_n\,.\]</div>
+<p>Zapisując macierze <span class="math">\(\,\boldsymbol{X}\ \ \text{i}\ \ \boldsymbol{I}_n\,\)</span>
+w postaci kolumnowej:</p>
+<div class="math">
+\[\boldsymbol{X}\ =\ \left(\boldsymbol{X}_1,\ \boldsymbol{X}_2,\ \dots,\ \boldsymbol{X}_n\right)\,,
+\qquad
+\boldsymbol{I}_n\ =\ \left(\boldsymbol{e}_1,\ \boldsymbol{e}_2,\ \dots,\ \boldsymbol{e}_n\right)\]</div>
+<p>i odwołując się do definicji (a dokładnie: do kolumnowej reguły) mnożenia macierzowego, otrzymujemy <span class="math">\(\,n\,\)</span> układów równań, każdy o <span class="math">\(\,n\,\)</span> niewiadomych:</p>
+<div class="math">
+\[\boldsymbol{A}\,\boldsymbol{X}_i\ =\ \boldsymbol{e}_i\,,\qquad i=1,2,\dots,n.\]</div>
+<p>Wszystkie układy mają tę samą macierz współczynników <span class="math">\(\,\boldsymbol{A},\,\)</span>
+różnią się tylko wolnymi wyrazami. Jak zauważyliśmy już wcześniej,
+jest to sytuacja dogodna dla użycia metody rozwiązania opartej na rozkładzie
+<span class="math">\(\,\boldsymbol{L}\boldsymbol{U}.\)</span></p>
+</div>
+<div class="section" id="obliczanie-wyznacznikow">
+<h3>Obliczanie wyznaczników<a class="headerlink" href="rozklad_LU.html#obliczanie-wyznacznikow" title="Stały odnośnik do tego nagłówka">¶</a></h3>
+<p>Zauważmy na wstępie, że wyznacznik macierzy permutacji równa się znakowi tej permutacji.
+Dokładnie ujmuje to</p>
+<div class="admonition-lemat-math admonition">
+<p class="first admonition-title">Lemat. <span class="math">\(\,\)</span></p>
+<p class="last">Jeżeli <span class="math">\(\ \boldsymbol{P}_\sigma\in M_n(K)\ \)</span> jest macierzą permutacji
+<span class="math">\(\,\sigma\in S_n,\ \)</span> to <span class="math">\(\ \det\boldsymbol{P}_\sigma = \text{sgn}\,\sigma\,.\)</span></p>
+</div>
+<p>Rzeczywiście, permutację <span class="math">\(\,\sigma\,\)</span> można zapisać jako złożenie transpozycji:</p>
+<div class="math">
+\[\sigma\ =\ \tau_k\,\dots\,\tau_2\ \tau_1\,.\]</div>
+<p>Operacja <span class="math">\(\,O_\sigma\,,\ \)</span> określona na macierzach algebry <span class="math">\(\,M_n(K),\ \)</span>
+jest złożeniem odpowiednich operacji elementarnych 1. rodzaju (przestawień wierszy):</p>
+<div class="math">
+\[O_\sigma\ =\ \,O_1^{(k)}\dots\,O_1^{(2)}\ O_1^{(1)}\]</div>
+<p>a jej macierz <span class="math">\(\,\)</span> - <span class="math">\(\,\)</span> iloczynem odpowiadających im macierzy elementarnych 1. rodzaju:</p>
+<div class="math">
+\[\boldsymbol{P}_\sigma\ =\
+\boldsymbol{E}_1^{(k)}\dots\,\boldsymbol{E}_1^{(2)}\,\boldsymbol{E}_1^{(1)}\,.\]</div>
+<p>Wyznacznik iloczynu macierzy równa się iloczynowi wyznaczników, więc</p>
+<div class="math">
+\[\det\boldsymbol{P}_\sigma\ =\
+\det\left(\boldsymbol{E}_1^{(k)}\dots\,\boldsymbol{E}_1^{(2)}\,\boldsymbol{E}_1^{(1)}\right)
+\ \ =\ \
+\det\boldsymbol{E}_1^{(k)}\,\cdot\ \dots\ \cdot\
+\det\boldsymbol{E}_1^{(2)}\,\cdot\ \det\boldsymbol{E}_1^{(1)}\,.\]</div>
+<p>Wyznacznik każdej macierzy <span class="math">\(\,\boldsymbol{E}_1^{(i)}\,,\ i=1,2,\dots,k\,,\ \)</span>
+(otrzymanej poprzez przestawienie dwóch wierszy macierzy jednostkowej <span class="math">\(\,\boldsymbol{I}_n\)</span>)
+wynosi <span class="math">\(\,-1.\ \)</span> Stąd dochodzimy do tezy lematu:</p>
+<div class="math">
+\[\det\boldsymbol{P}_\sigma\ =\ (-1)^k\ =\ \,\text{sgn}\,\sigma\,.\]</div>
+<p>Niech teraz będzie dana macierz <span class="math">\(\,\boldsymbol{A}\in M_n(K)\,\)</span> w rozkładzie <a href="rozklad_LU.html#equation-A_PLU">(4)</a>:</p>
+<div class="math">
+\[\boldsymbol{A}\ =\ \boldsymbol{P}\,\boldsymbol{L}\,\boldsymbol{U}\,,\]</div>
+<p>gdzie <span class="math">\(\ \boldsymbol{P}=\boldsymbol{P}_\sigma\,,\ \
+\boldsymbol{L}=[l_{ij}]_{n\times n}\,,\ \ \boldsymbol{U}=[u_{ij}]_{n\times n}\,.\)</span></p>
+<p>Zgodnie z twierdzeniem Cauchy&#8217;ego o wyznaczniku iloczynu macierzy mamy</p>
+<div class="math">
+\[\det\boldsymbol{A}\ \,=\ \,
+\det\boldsymbol{P}_\sigma\,\cdot\,\det\boldsymbol{L}\,\cdot\,\det\boldsymbol{U}\,.\]</div>
+<p>Z lematu wiadomo, że <span class="math">\(\ \det\boldsymbol{P}_\sigma\,=\,\text{sgn}\,\sigma\,.\)</span> <span class="math">\(\\\)</span>
+Wyznaczniki macierzy trójkątnych <span class="math">\(\ \boldsymbol{L}\ \ \text{i}\ \ \boldsymbol{U}\ \)</span>
+są równe iloczynom elementów diagonalnych:</p>
+<div class="math">
+\[\det\boldsymbol{L}\ =\ l_{11}\,l_{22}\,\dots\,l_{nn}\,,\qquad
+\det\boldsymbol{U}\ =\ u_{11}\,u_{22}\,\dots\,u_{nn}\,.\]</div>
+<p>Ostatecznie otrzymujemy prosty wzór dla wyznacznika macierzy <span class="math">\(\,\boldsymbol{A}:\)</span></p>
+<div class="math">
+\[\det\boldsymbol{A}\ =\
+\text{sgn}\,\sigma\,\cdot\,l_{11}\,l_{22}\,\dots\,l_{nn}\,\cdot\,u_{11}\,u_{22}\,\dots\,u_{nn}\,.\]</div>
+<p>Dla przykładu weźmy macierz
+<span class="math">\(\ \ \boldsymbol{A}\ =\ \left[\begin{array}{rrr}
+2 &amp;  1 &amp; 1 \\
+4 &amp; -6 &amp; 0 \\
+-2 &amp;  7 &amp; 2\end{array}\right]\,.\)</span></p>
+<p>Otrzymaliśmy dla niej dwa różne rozkłady <span class="math">\(\,\boldsymbol{L}\boldsymbol{U}:\ \)</span>
+odręczny <a href="rozklad_LU.html#equation-A_LU_ex">(2)</a> i komputerowy <a href="rozklad_LU.html#equation-A_PLU_ex">(5)</a>. Łatwo sprawdzić, że wyznacznik tej macierzy
+wyliczony jakąkolwiek metodą wynosi <span class="math">\(\,-16.\)</span></p>
+</div>
+</div>
+</div>
+
+
+          </div>
+        </div>
+      </div>
+      <div class="sphinxsidebar">
+        <div class="sphinxsidebarwrapper">
+  <div class="sphinxlocaltoc">
+  <h3><a href="http://visual.icse.us.edu.pl/LA/index.html">Spis treści</a></h3>
+  <ul>
+<li><a class="reference internal" href="rozklad_LU.html#">Rozkład LU</a><ul>
+<li><a class="reference internal" href="rozklad_LU.html#zastosowania-rozkladu-lu">Zastosowania rozkładu LU</a><ul>
+<li><a class="reference internal" href="rozklad_LU.html#rozwiazywanie-ukladow-rownan">Rozwiązywanie układów równań</a></li>
+<li><a class="reference internal" href="rozklad_LU.html#wyliczanie-macierzy-odwrotnej">Wyliczanie macierzy odwrotnej</a></li>
+<li><a class="reference internal" href="rozklad_LU.html#obliczanie-wyznacznikow">Obliczanie wyznaczników</a></li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+
+  </div>
+  <h4>Poprzedni temat</h4>
+  <p class="topless"><a href="macierze_trojkatne.html"
+                        title="poprzedni rozdział">Macierze trójkątne</a></p>
+  <h4>Następny temat</h4>
+  <p class="topless"><a href="operacje_na_macierzach_zadania.html"
+                        title="następny rozdział">Zadania</a></p>
+<div id="searchbox" style="display: none">
+  <h3>Szybkie wyszukiwanie</h3>
+    <form class="search" action="search.html" method="get">
+      <input type="text" name="q" />
+      <input type="submit" value="Szukaj" />
+      <input type="hidden" name="check_keywords" value="yes" />
+      <input type="hidden" name="area" value="default" />
+    </form>
+    <p class="searchtip" style="font-size: 90%">
+    Wprowadź szukany termin lub nazwę modułu, klasy lub funkcji.
+    </p>
+</div>
+<script type="text/javascript">$('#searchbox').show(0);</script>
+        </div>
+      </div>
+      <div class="clearer"></div>
+    </div>
+  </div>
+  <div class="relbar-bottom">
+    
+    <div class="related">
+      <h3>Nawigacja</h3>
+      <ul>
+        <li class="right" style="margin-right: 10px">
+          <a href="operacje_na_macierzach_zadania.html" title="Zadania"
+             >dalej</a></li>
+        <li class="right" >
+          <a href="macierze_trojkatne.html" title="Macierze trójkątne"
+             >wstecz</a> &nbsp; &nbsp;</li>
+  <li><a href="http://visual.icse.us.edu.pl/LA/index.html">Algebra Liniowa</a> &raquo;</li>
+   
+      </ul>
+    </div>
+  </div>
+  
+  <div class="footer">
+    <a class="logo" href="../../icse.us.edu.pl/index.html" target="_blank"><img src="_static/logo-icse.png" alt="ICSE"/></a><br/>
+    &copy; Copyright 2013, Marcin Kostur.
+    Created using <a href="http://sphinx.pocoo.org/">Sphinx</a> 1.2.2.
+  </div>
+  </body>
+</html>

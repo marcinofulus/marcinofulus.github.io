@@ -1,0 +1,253 @@
+
+
+  <!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+  "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+
+
+<html xmlns="http://www.w3.org/1999/xhtml">
+  <head>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    
+    <title>Układ równań liniowych w mechanice &mdash; Algebra Liniowa</title>
+    
+    <link rel="stylesheet" href="_static/cloud.css" type="text/css" />
+    <link rel="stylesheet" href="_static/pygments.css" type="text/css" />
+    <link rel="stylesheet" href="http://fonts.googleapis.com/css?family=Noticia+Text|Open+Sans|Droid+Sans+Mono&subset=latin,latin-ext" type="text/css" />
+    
+    <script type="text/javascript">
+      var DOCUMENTATION_OPTIONS = {
+        URL_ROOT:    './',
+        VERSION:     'I',
+        COLLAPSE_INDEX: false,
+        FILE_SUFFIX: '.html',
+        HAS_SOURCE:  true
+      };
+    </script>
+    <script type="text/javascript" src="_static/jquery.js"></script>
+    <script type="text/javascript" src="_static/underscore.js"></script>
+    <script type="text/javascript" src="_static/doctools.js"></script>
+    <script type="text/javascript" src="_static/translations.js"></script>
+    <script type="text/javascript" src="http://cdn.mathjax.org/mathjax/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML"></script>
+    <script type="text/javascript" src="_static/jquery.cookie.js"></script>
+    <script type="text/javascript" src="_static/cloud.js"></script>
+
+	<script src="http://sagecell.icse.us.edu.pl:6363/static/jquery.min.js"></script>
+	<script src="http://sagecell.icse.us.edu.pl:6363/static/embedded_sagecell.js"></script>
+
+	<!-- <script src="http://sagecell.sagemath.org/static/jquery.min.js"></script> -->
+	<!-- <script src="http://sagecell.sagemath.org/static/embedded_sagecell.js"></script> -->
+
+	<script>sagecell.makeSagecell({inputLocation: ".sage",
+                                       evalButtonText: 'Wykonaj',
+                                       linked: true});</script>
+
+	<style type="text/css">
+		.sagecell .CodeMirror-scroll {
+			overflow-y: hidden;
+			overflow-x: auto;
+		}
+		.sagecell .CodeMirror {
+			height: auto;
+		}
+	</style>
+
+    
+    <link rel="top" title="Algebra Liniowa" href="http://visual.icse.us.edu.pl/LA/index.html" />
+    <link rel="next" title="Zadania" href="teoria_i_praktyka_ukladow_zadania.html" />
+    <link rel="prev" title="Pouczający przykład z dyskusją" href="przyklad_z_dyskusja.html" />
+ 
+  <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, minimum-scale=1">
+  </head>
+  <body>
+  <div class="relbar-top">
+    
+    <div class="related">
+      <h3>Nawigacja</h3>
+      <ul>
+        <li class="right" style="margin-right: 10px">
+          <a href="teoria_i_praktyka_ukladow_zadania.html" title="Zadania"
+             accesskey="N">dalej</a></li>
+        <li class="right" >
+          <a href="przyklad_z_dyskusja.html" title="Pouczający przykład z dyskusją"
+             accesskey="P">wstecz</a> &nbsp; &nbsp;</li>
+  <li><a href="http://visual.icse.us.edu.pl/LA/index.html">Algebra Liniowa</a> &raquo;</li>
+   
+      </ul>
+    </div>
+  </div>
+  
+  <div class="content">  
+
+    <div class="document">
+      <div class="documentwrapper">
+        <div class="bodywrapper">
+          <div class="body">
+            
+  <div class="section" id="uklad-rownan-liniowych-w-mechanice">
+<h1>Układ równań liniowych w mechanice<a class="headerlink" href="przyklad_ze_statyki.html#uklad-rownan-liniowych-w-mechanice" title="Stały odnośnik do tego nagłówka">¶</a></h1>
+<div class="section" id="liniowy-lancuch-mas-na-sprezynach">
+<h2>Liniowy łańcuch mas na sprężynach<a class="headerlink" href="przyklad_ze_statyki.html#liniowy-lancuch-mas-na-sprezynach" title="Stały odnośnik do tego nagłówka">¶</a></h2>
+<p>Rozważmy układ <span class="math">\(\,n+1\,\)</span> punktów materialnych <span class="math">\(\,P_0,\,P_1,\,\ldots,\,P_n\,,\ \)</span>
+rozmieszczonych na pionowej osi o początku <span class="math">\(\,\boldsymbol{O}.\ \)</span>
+Każde dwa sąsiednie punkty są połączone sprężyną
+o długości <span class="math">\(\,d\,\)</span> i stałej sprężystości <span class="math">\(\,k.\,\)</span>
+Gdy nie działają siły zewnętrzne, układ jest w pierwotnym stanie równowagi:
+cząstka <span class="math">\(\,P_0\,\)</span> jest w punkcie <span class="math">\(\,\boldsymbol{O},\ \)</span>
+a współrzędne <span class="math">\(\,X_i\ \)</span> cząstek przyjmują wartości</p>
+<div class="math">
+\[X_i^o\,=\,i\cdot d\,,\qquad i = 0,1,\ldots,n\,.\]</div>
+<p>Aby dopuścić inne konfiguracje, wprowadzamy oznaczenie <span class="math">\(\,x_i\,\)</span>
+dla odchylenia <span class="math">\(\,i\)</span>-tej cząstki od jej położenia w pierwotnym stanie równowagi:</p>
+<div class="math">
+\[X_i\,=\,X_i^o\,+\,x_i\,=\,i\cdot d\,+\,x_i\,,\qquad i = 0,1,\ldots,n\,.\]</div>
+<p>Siła, wywierana na każdą wewnętrzną <span class="math">\(\,i\)</span>-tą cząstkę przez jej sąsiadów, wynosi</p>
+<div class="math">
+\[F_i\ =\ -k\ \left[\,\left(X_i-X_{i-1}\right)\,-\,d\,\right]\ +
+      \ k\ \left[\,\left(X_{i+1}-X_i\right)\,-\,d\,\right]\ =\]\[     =\ -k\ (x_i-x_{i-1})\,+\,k\ (x_{i+1}-x_i)\ =\]\[     =\ k\ (x_{i-1}\,-\,2\,x_i\,+\,x_{i+1})\,,\qquad i = 1,\ldots,n-1\,.\]</div>
+<p>Odwołując się do konkretnej sytuacji fizycznej, założymy dodatkowo że:</p>
+<ul>
+<li><p class="first">cząstki mają jednakowe masy <span class="math">\(\,m\,\)</span> i podlegają działaniu siły ciężkości;</p>
+</li>
+<li><p class="first">skrajne punkty <span class="math">\(\,P_0\ \,\text{i}\ \,P_n\,\)</span>
+są unieruchomione w ich pierwotnym położeniu równowagi:</p>
+<div class="math" id="equation-21">
+<span class="eqno">(1)</span>\[X_0\,=\,0\,,\quad X_n\,=\,n\cdot d\,,
+\qquad\text{czyli}\qquad x_0 = x_n = 0\,;\]</div>
+</li>
+</ul>
+<p>Obrazowo sytuację tę można opisać następująco: mamy wiszący pionowo łańcuch złożony z <span class="math">\(\,n\,\)</span>
+jednakowych ciężarków i <span class="math">\(\,n\,\)</span> rozdzielających je jednakowych sprężyn.
+Pierwszy ciężarek jest zawieszony na sprężynie, przymocowanej górnym końcem bezpośrednio do sufitu
+(punkt materialny <span class="math">\(\,P_0\,\)</span> jest punktem zamocowania tej sprężyny),
+natomiast ostatni ciężarek spoczywa na podłodze. Wysokość pomieszczenia równa się długości łańcucha,
+jaką miałby on w stanie nieważkości.</p>
+<p>Wyznaczymy stan równowagi układu, określając go przez zbiór
+odchyleń <span class="math">\(\,x_1,\,\ldots,\,x_{n-1}\,.\)</span></p>
+<p>W równowadze wypadkowa sił działających na każdą cząstkę wewnętrzną równa się zeru:</p>
+<div class="math" id="equation-22">
+<span class="eqno">(2)</span>\[F_i\ =\ k\ (x_{i-1}\,-\,2\,x_i\,+\,x_{i+1})\ +\ mg\ =\ 0\,,
+\qquad i = 1,\ldots,n-1\,.\]</div>
+<p>Łącząc warunki <a href="przyklad_ze_statyki.html#equation-21">(1)</a> i <a href="przyklad_ze_statyki.html#equation-22">(2)</a> otrzymujemy układ <span class="math">\(\,n+1\,\)</span> równań
+o <span class="math">\(\,n+1\,\)</span> niewiadomych:</p>
+<div class="math" id="equation-23">
+<span class="eqno">(3)</span>\[\begin{split}\begin{cases}\ \ \begin{array}{l}
+   x_0\,=\,0 \\
+   x_{i-1}\,-\,2\,x_i\,+\,x_{i+1}\,=\,-\,p\,,\qquad i = 1,\ldots,n-1\,; \\
+   x_n\,=\,0
+\end{array}\end{cases}\end{split}\]</div>
+<p>gdzie <span class="math">\(\ p\,=\,mg/k\,\)</span> jest parametrem o wymiarze długości.</p>
+<p>Dla przykładu, <span class="math">\(\,\)</span> przy <span class="math">\(\ n=5\ \)</span> układ równań przedstawia się następująco:</p>
+<div class="math" id="equation-24">
+<span class="eqno">(4)</span>\[\begin{split}\begin{cases}\ \ \begin{array}{l}
+   x_0\,=\,0 \\
+   x_0\,-\,2\,x_1\,+\,x_2\,=\,-\,p \\
+   x_1\,-\,2\,x_2\,+\,x_3\,=\,-\,p \\
+   x_2\,-\,2\,x_3\,+\,x_4\,=\,-\,p \\
+   x_3\,-\,2\,x_4\,+\,x_5\,=\,-\,p \\
+   x_5\,=\,0
+\end{array}\end{cases}\end{split}\]</div>
+<p>czyli w wersji macierzowej</p>
+<div class="math">
+\[\begin{split}\left[\ \begin{array}{rrrrrr}
+   1 &amp;  0 &amp;  0 &amp;  0 &amp;  0 &amp; 0 \\
+   1 &amp; -2 &amp;  1 &amp;  0 &amp;  0 &amp; 0 \\
+   0 &amp;  1 &amp; -2 &amp;  1 &amp;  0 &amp; 0 \\
+   0 &amp;  0 &amp;  1 &amp; -2 &amp;  1 &amp; 0 \\
+   0 &amp;  0 &amp;  0 &amp;  1 &amp; -2 &amp; 1 \\
+   0 &amp;  0 &amp;  0 &amp;  0 &amp;  0 &amp; 1
+\end{array}\ \right]\
+\left[\begin{array}{c}
+   x_0 \\ x_1 \\ x_2 \\ x_3 \\ x_4 \\ x_5
+\end{array}\right]\ \ =\ \ -\,p\
+\left[\begin{array}{c}
+   0 \\ 1 \\ 1 \\ 1 \\ 1 \\ 0
+\end{array}\right]\,.\end{split}\]</div>
+<p>Dla realistycznych wartości:
+<span class="math">\(\quad mg = 1 \ \text{N}\,,
+\quad k = 1\ \frac{\text{N}}{\text{cm}}\ =\ 100\ \frac{\text{N}}{\text{m}}\,,\ \)</span>
+otrzymujemy <span class="math">\(\ p\,=\,0.01\ \text{m}\,.\\\)</span>
+Zauważmy, że we wzorach nie występuje długość sprężyn <span class="math">\(\,d\,.\)</span></p>
+<p>Narzędzia systemu Sage pozwalają rozwiązać układ <a href="przyklad_ze_statyki.html#equation-23">(3)</a> dla dowolnego zadanego <span class="math">\(\,n.\)</span>
+Przy dużych <span class="math">\(\,n,\,\)</span> zamiast wykazu wartości odchyleń <span class="math">\(\,x_i\,,\,\)</span>
+warto wyświetlić obraz graficzny wyniku przy pomocy funkcji <tt class="docutils literal"><span class="pre">list_plot()</span></tt>:</p>
+<div class='sage'><script type='text/x-sage'>n = 50; p = 0.01
+
+L = matrix(RDF,n+1)
+L[0,0], L[-1,-1] = 1.0, 1.0
+for i in range(1,n): L[i,i-1], L[i,i], L[i,i+1] = 1.0, -2.0, 1.0
+
+f = -vector(RDF,(n+1)*[p])
+f[0], f[n] = 0.0, 0.0
+
+#print L\f
+list_plot(L\f, axes_labels=['$i$','$x_i$'], figsize=5)</script></div><p>Jak widać, odchylenia od pierwotnych położeń są największe w środku łańcucha
+i maleją symetrycznie w kierunku jego krańców.</p>
+<p><strong>Ćwiczenie.</strong> <span class="math">\(\\\)</span>
+Wykorzystując powyższy program, znajdź liczbowe rozwiązanie układu <a href="przyklad_ze_statyki.html#equation-24">(4)</a>.</p>
+</div>
+</div>
+
+
+          </div>
+        </div>
+      </div>
+      <div class="sphinxsidebar">
+        <div class="sphinxsidebarwrapper">
+  <div class="sphinxlocaltoc">
+  <h3><a href="http://visual.icse.us.edu.pl/LA/index.html">Spis treści</a></h3>
+  <ul>
+<li><a class="reference internal" href="przyklad_ze_statyki.html#">Układ równań liniowych w mechanice</a><ul>
+<li><a class="reference internal" href="przyklad_ze_statyki.html#liniowy-lancuch-mas-na-sprezynach">Liniowy łańcuch mas na sprężynach</a></li>
+</ul>
+</li>
+</ul>
+
+  </div>
+  <h4>Poprzedni temat</h4>
+  <p class="topless"><a href="przyklad_z_dyskusja.html"
+                        title="poprzedni rozdział">Pouczający przykład z dyskusją</a></p>
+  <h4>Następny temat</h4>
+  <p class="topless"><a href="teoria_i_praktyka_ukladow_zadania.html"
+                        title="następny rozdział">Zadania</a></p>
+<div id="searchbox" style="display: none">
+  <h3>Szybkie wyszukiwanie</h3>
+    <form class="search" action="search.html" method="get">
+      <input type="text" name="q" />
+      <input type="submit" value="Szukaj" />
+      <input type="hidden" name="check_keywords" value="yes" />
+      <input type="hidden" name="area" value="default" />
+    </form>
+    <p class="searchtip" style="font-size: 90%">
+    Wprowadź szukany termin lub nazwę modułu, klasy lub funkcji.
+    </p>
+</div>
+<script type="text/javascript">$('#searchbox').show(0);</script>
+        </div>
+      </div>
+      <div class="clearer"></div>
+    </div>
+  </div>
+  <div class="relbar-bottom">
+    
+    <div class="related">
+      <h3>Nawigacja</h3>
+      <ul>
+        <li class="right" style="margin-right: 10px">
+          <a href="teoria_i_praktyka_ukladow_zadania.html" title="Zadania"
+             >dalej</a></li>
+        <li class="right" >
+          <a href="przyklad_z_dyskusja.html" title="Pouczający przykład z dyskusją"
+             >wstecz</a> &nbsp; &nbsp;</li>
+  <li><a href="http://visual.icse.us.edu.pl/LA/index.html">Algebra Liniowa</a> &raquo;</li>
+   
+      </ul>
+    </div>
+  </div>
+  
+  <div class="footer">
+    <a class="logo" href="../../icse.us.edu.pl/index.html" target="_blank"><img src="_static/logo-icse.png" alt="ICSE"/></a><br/>
+    &copy; Copyright 2013, Marcin Kostur.
+    Created using <a href="http://sphinx.pocoo.org/">Sphinx</a> 1.2.2.
+  </div>
+  </body>
+</html>

@@ -1,0 +1,425 @@
+
+
+  <!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+  "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+
+
+<html xmlns="http://www.w3.org/1999/xhtml">
+  <head>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    
+    <title>Skydiving - part 2 &mdash; Warsztaty</title>
+    
+    <link rel="stylesheet" href="_static/cloud.css" type="text/css" />
+    <link rel="stylesheet" href="_static/pygments.css" type="text/css" />
+    <link rel="stylesheet" href="http://fonts.googleapis.com/css?family=Noticia+Text|Open+Sans|Droid+Sans+Mono&subset=latin,latin-ext" type="text/css" />
+    
+    <script type="text/javascript">
+      var DOCUMENTATION_OPTIONS = {
+        URL_ROOT:    './',
+        VERSION:     'I',
+        COLLAPSE_INDEX: false,
+        FILE_SUFFIX: '.html',
+        HAS_SOURCE:  true
+      };
+    </script>
+    <script type="text/javascript" src="_static/jquery.js"></script>
+    <script type="text/javascript" src="_static/underscore.js"></script>
+    <script type="text/javascript" src="_static/doctools.js"></script>
+    <script type="text/javascript" src="_static/translations.js"></script>
+    <script type="text/javascript" src="http://cdn.mathjax.org/mathjax/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML"></script>
+    <script type="text/javascript" src="_static/jquery.cookie.js"></script>
+    <script type="text/javascript" src="_static/cloud.js"></script>
+
+
+
+    <script src="http://sagecell.icse.us.edu.pl:6363/static/jquery.min.js"></script>
+	<script src="http://sagecell.icse.us.edu.pl:6363/static/embedded_sagecell.js"></script>
+
+	<script>sagecell.makeSagecell({inputLocation: ".sage",
+                                       evalButtonText: 'Wykonaj',
+                                       linked: true});</script>
+
+	<style type="text/css">
+		.sagecell .CodeMirror-scroll {
+			overflow-y: hidden;
+			overflow-x: auto;
+		}
+		.sagecell .CodeMirror {
+			height: auto;
+		}
+	</style>
+
+    
+    <link rel="top" title="Warsztaty" href="index.html" />
+    <link rel="next" title="Workshop: Projectile Motion" href="ProjectileMotion.html" />
+    <link rel="prev" title="Skydiving - part 1" href="Skydiving1.html" />
+ 
+  <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, minimum-scale=1">
+  </head>
+  <body>
+  <div class="relbar-top">
+    
+    <div class="related">
+      <h3>Nawigacja</h3>
+      <ul>
+        <li class="right" style="margin-right: 10px">
+          <a href="ProjectileMotion.html" title="Workshop: Projectile Motion"
+             accesskey="N">dalej</a></li>
+        <li class="right" >
+          <a href="Skydiving1.html" title="Skydiving - part 1"
+             accesskey="P">wstecz</a> &nbsp; &nbsp;</li>
+  <li><a href="index.html">Warsztaty</a> &raquo;</li>
+   
+      </ul>
+    </div>
+  </div>
+  
+  <div class="content">  
+
+    <div class="document">
+      <div class="documentwrapper">
+        <div class="bodywrapper">
+          <div class="body">
+            
+  <div class="section" id="skydiving-part-2">
+<h1>Skydiving - part 2<a class="headerlink" href="Skydiving2.html#skydiving-part-2" title="Stały odnośnik do tego nagłówka">¶</a></h1>
+<p>In part 1 we created a program to solve the equations of motion for
+skydiving. We began with Newtons 2nd law, and we looked at the forces
+acting on the jumper. This gave us a formula for the acceleration as a
+function of the velocity. Then we used the equations of motion that we
+know hold for constant acceleration to find the velocity at small steps
+forward in time.</p>
+<p>In this part we will do the same for the position, and we will use a
+bungee jumper as an example. The only thing that differs between
+skydiving and bungee jumping is the formula for acceleration. Everything
+else is exactly the same. But because the forces acting on the bungee
+jumper is dependent on the position of the jumper, we have to solve for
+the position as well.</p>
+<p>After this we will plot the g-forces for both the skydiver and the
+bungee jumper. Then we can compare skydiving and bungee jumping based on
+the g-forces experienced by the jumper. We will also look at how the
+parachute deploys and the effect it has on the g-forces.</p>
+<p>In part 1, we began by finding the following expression for the
+acceleration of a skydiver:</p>
+<div class="math">
+\[a(v) = g - \frac{1}{2}C\rho A v^2.\]</div>
+<p>Then we used the equations of motion for constant acceleration</p>
+<div class="math">
+\[v = v_0 + a t\]</div>
+<p>to take short steps in time of length <span class="math">\(\Delta t\)</span>, which gave us</p>
+<div class="math">
+\[\begin{split}\begin{align*}
+v_1 &amp;= v_0 + a(v_0)\Delta t \\
+v_2 &amp;= v_1 + a(v_1)\Delta t \\
+v_3 &amp;= v_2 + a(v_2)\Delta t \\
+&amp;\vdots \\
+v_{i+1} &amp;= v_i + a(v_i)\Delta t.
+\end{align*}\end{split}\]</div>
+<p>But there is a corresponding equation for constant acceleration which we
+can use to find the position:</p>
+<div class="math">
+\[x = x_0 + v_0 t + \frac{1}{2}at^2.\]</div>
+<p>We can use this to take short &#8216;steps in time&#8217; in the same way as we did
+for the velocity</p>
+<div class="section" id="bungee-jump">
+<h2>Bungee jump<a class="headerlink" href="Skydiving2.html#bungee-jump" title="Stały odnośnik do tego nagłówka">¶</a></h2>
+<p>Let us examine a bungee jumper and the forces acting on her. We can
+regard the elastic cord as similar to a stretched spring. But unlike a
+spring, the cord does not exert any force when it is compressed, only
+when it is stretched. When the jumper jumps from the top of a bridge,
+the cord is not stretched, and so it does not affect the jumper until
+she has fallen far enough for the cord to begin to stretch. This point,
+right before the elastic cord starts to stretch, is known as the point
+of equilibrium</p>
+<p>Now, let us create a reference that fits the problem we are examining.
+We place <span class="math">\(x=0\)</span> at the point of equilibrium, and we decide that the
+cord is 20 meters long, so our jumper jumps from a point 20 meters above
+the the point of equilibrium, that is at <span class="math">\(x_0 = 20\)</span>m. Let us add
+a river 60 meters below the bridge.</p>
+<div class="figure">
+<img alt="bungee jumper illustration" src="_images/Bungee_bridge.svg" /><p class="caption">bungee jumper illustration</p>
+</div>
+<p>We can tell that if the jumpers position is above the point of
+equilibrium, then the cord will not be stretched, and it will not act on
+the jumper with any force. And because we have placed the point of
+equilibrium at <span class="math">\(x=0\)</span>, the force exerted by the cord <span class="math">\(S\)</span>
+equals <span class="math">\(0\)</span> for <span class="math">\(x&gt;0\)</span>.</p>
+<p>If, instead, we have <span class="math">\(x&lt;0\)</span>, we can see that the cord is stretched,
+and so it will pull the jumper upwards with a spring force. We can model
+this force with the help of a principle known as Hooke&#8217;s law. Hooke&#8217;s
+law states that the force from a spring that is stretched a length of
+<span class="math">\(x\)</span> is given by:</p>
+<div class="math">
+\[F = -kx,\]</div>
+<p>where <span class="math">\(k\)</span> is a constant dependent on the stiffness of the spring.</p>
+<p>Now we can express the force from the cord as a function of the position
+<span class="math">\(x\)</span></p>
+<div class="math">
+\[\begin{split}S(x) = \begin{cases} 0 &amp; \mbox{if } x&gt;0 \\
+-kx &amp; \mbox{if } x \leq 0
+\end{cases}.\end{split}\]</div>
+<p>In addition to <span class="math">\(S(x)\)</span>, the jumper experiences both gravity mg, and
+air resistance <span class="math">\(Dv\)</span>. From Newtons 2nd law:</p>
+<div class="math">
+\[\sum F = ma,\]</div>
+<p>so then</p>
+<div class="math">
+\[S(x) - mg - Dv = ma.\]</div>
+<p>if we solve this for the acceleration, we get a function dependent on
+both the velocity and position of the jumper.</p>
+<div class="math">
+\[a(x,v) = \frac{S(x)}{m} - g - \frac{D}{m}v.\]</div>
+<p>This means that we have to solve for both velocity and position at the
+same time, like this</p>
+</div>
+<div class="section" id="the-code">
+<h2>The Code<a class="headerlink" href="Skydiving2.html#the-code" title="Stały odnośnik do tego nagłówka">¶</a></h2>
+<ol class="arabic simple">
+<li>Import pylab, we do not need anything else</li>
+<li>Declare all the parameters we need. Use <span class="math">\(m=60\)</span>, <span class="math">\(v_0=0\)</span>,
+<span class="math">\(x_0=20\)</span>, <span class="math">\(D=10\)</span>. You can just guess the value of
+<span class="math">\(k\)</span>, we will adjust it later.</li>
+<li>Define the &#8216;cord force&#8217; <span class="math">\(S(x)\)</span>. You will need to use
+<span class="math">\(\verb+def+\)</span> to define a function, and an
+<span class="math">\(\verb+if+\)</span>-test inside the function to check if <span class="math">\(x\)</span> is
+above or below zero.</li>
+<li>Define the acceleration as a function of both position and velocity.
+<span class="math">\(\verb+def a(x,v):+\)</span>.</li>
+<li>Define <span class="math">\(\Delta t = 0.01\)</span> (<strong>Hint:</strong> name the variable
+<span class="math">\(\verb+dt+\)</span>), <span class="math">\(T=60\)</span> and <span class="math">\(n=T/dt\)</span></li>
+<li>Declare three arrays, one for the velocity <span class="math">\(v\)</span> , one for the
+position <span class="math">\(x\)</span> and one for the time <span class="math">\(t\)</span>. We want the arrays
+to be empty and have room for n+1 elements, so use the
+<span class="math">\(\verb+zeros+\)</span> command.</li>
+<li>Set the first element in the x-array to <span class="math">\(x_0\)</span>, i.e.
+<span class="math">\(\verb+x[0] = x0+\)</span>.</li>
+<li>Create a <span class="math">\(\verb+for+\)</span> loop that that iterates over $i =
+0,1,2,..,n $ (<strong>Hint:</strong> use <span class="math">\(\verb+range+\)</span>)</li>
+<li>Inside the loop, calculate <span class="math">\(\verb!t[i+1]!\)</span>,
+<span class="math">\(\verb!v[i+1]!\)</span> and <span class="math">\(\verb!x[i+1]!\)</span>. Use the following
+formulas</li>
+</ol>
+<p>You should have something similar to</p>
+<div class='sage'><script type='text/x-sage'>for i in range(n):
+    t[i+1] = t[i] + ...
+    v[i+1] = v[i] + ...
+    x[i+1] = x[i] + ...</script></div><p>10.Plot the result to see if everything is correct (<strong>Hint:</strong>
+<span class="math">\(\verb!plot(t, x)!\)</span>).</p>
+</div>
+<div class="section" id="exercises">
+<h2>Exercises<a class="headerlink" href="Skydiving2.html#exercises" title="Stały odnośnik do tego nagłówka">¶</a></h2>
+<ol class="arabic simple">
+<li>Make the plot look nicer. Label the axes, etc.</li>
+<li>By examining the plot, try to adjust <span class="math">\(k\)</span> such that the jumper
+barely touches the water. That is, the bottom of the curve reaches
+exactly <span class="math">\(-40\)</span>.</li>
+<li>Print out the maximum velocity experienced by the jumper. <strong>Hint:</strong>
+<span class="math">\(\verb!max(v)!\)</span>. How does this compare to the skydivers maximum
+velocity?</li>
+</ol>
+</div>
+<div class="section" id="point-of-equilibrium">
+<h2>Point of equilibrium<a class="headerlink" href="Skydiving2.html#point-of-equilibrium" title="Stały odnośnik do tego nagłówka">¶</a></h2>
+<p>Note that <span class="math">\(x=0\)</span> is the equilibrium point for the cord when there
+is zero mass on it. If a person is hanging on the cord, the point of
+equilibrium shifts downwards. This new equilibrium point is the point
+where the force from gravity, pulling downwards, and the force from the
+elastic, pulling upwards, cancel each other out. After oscillating up
+and down for a while, this is the point where the jumper will end up
+hanging still.</p>
+</div>
+<div class="section" id="id1">
+<h2>Exercises<a class="headerlink" href="Skydiving2.html#id1" title="Stały odnośnik do tego nagłówka">¶</a></h2>
+<ol class="arabic simple">
+<li>Calculate the new equilibrium point when there is a person of mass
+<span class="math">\(m\)</span> is hanging from the cord equilibrium. <strong>Hint:</strong> Use the
+same approach as we used to find the terminal velocity of the
+parachute jumper</li>
+<li>Find the equilibrium point by looking at the plot. Compare what you
+see with the calculation you did by hand.</li>
+</ol>
+</div>
+<div class="section" id="plotting-g-forces">
+<h2>Plotting g-forces<a class="headerlink" href="Skydiving2.html#plotting-g-forces" title="Stały odnośnik do tego nagłówka">¶</a></h2>
+<p>The term &#8216;g-force&#8217; is somewhat misleading because it is not really a
+&#8216;force&#8217; you experience, but <em>acceleration</em>. When the human body is
+accelerated, we feel it as weight pulling at us. Like when you are
+sitting in a car that drives through a turn. You feel like you are
+beeing pulled to the side. So these accelerations feels like a force
+acting on the body, and that is why we call them &#8216;g-forces&#8217;.</p>
+<p>The letter &#8216;g&#8217; in &#8216;g-force&#8217; stands for gravitation. This is because we
+compare the force we feel with the gravitational force. When you are
+standing perfectly still, you feel 1 g from gravity. During a roller
+coaster ride you will, as the ride progresses, experience a lot of
+different g-forces when you are accelerating up and down the hills,
+trough turns and possibly even through loops. You become weightless when
+there is a quick dive down from a peak in the roller coaster, that is,
+you experience 0 g or free-fall. An advantage with using g-forces is
+that they are independent from mass. This means that every person will
+feel the exact same g-forces during the same roller coaster.</p>
+<p>To calculate the g-forces experienced by the jumper in both cases, we
+just need to add an additional array to the loop. For this array, we
+calculate the acceleration acting on the jumper, divide by <span class="math">\(g\)</span> and
+add 1. Here is the code:</p>
+<div class='sage'><script type='text/x-sage'>gforces = zeros(N+1)
+...
+
+
+for i in range(N):
+    t[i+1] = t[i] + ...
+    v[i+1] = v[i] + ...
+    x[i+1] = x[i] + ...
+    gforces[i] = a(x[i],v[i])/g + 1</script></div></div>
+<div class="section" id="exercise">
+<h2>Exercise<a class="headerlink" href="Skydiving2.html#exercise" title="Stały odnośnik do tego nagłówka">¶</a></h2>
+<p>Calculate and plot the g-forces that act on both the skydiver and the
+bungee jumper in your program. Compare the plots, are they different
+from each other? Try to explain why the two are different.</p>
+</div>
+<div class="section" id="deploying-the-parachute">
+<h2>Deploying the parachute<a class="headerlink" href="Skydiving2.html#deploying-the-parachute" title="Stały odnośnik do tego nagłówka">¶</a></h2>
+<p>Finally the time has come to deploy our simulated parachute. As we
+mentioned previously, we only have to change the drag coefficient
+<span class="math">\(C\)</span> to <span class="math">\(C_P = 1.8\)</span> and the silhouette area <span class="math">\(A\)</span> to
+<span class="math">\(A_P = 44\)</span>. Earlier we simulated the jump for <span class="math">\(T = 60\)</span>
+seconds. Now we will increase the time to <span class="math">\(180\)</span> seconds, but let
+the first loop still iterate only over the first <span class="math">\(60\)</span> seconds.
+Then we change <span class="math">\(C\)</span> and <span class="math">\(A\)</span>, and solve the remaining
+<span class="math">\(120\)</span> seconds.</p>
+<div class='sage'><script type='text/x-sage'>dt = 0.01
+T = 180
+n = int(T/dt)
+
+# Simulating the first 60 seconds
+for i in range(0, 60/dt):
+    t[i+1] = t[i] + dt
+    v[i+1] = v[i] + a(v[i])*dt
+    gforces[i] = 1 - a(v[i])/g
+
+# Change C and A
+C = C_p
+A = A_p
+
+# Simulationg the last 120 seconds
+for i in range(60/dt, 180/dt):
+    t[i+1] = t[i] + dt
+    v[i+1] = v[i] + a(v[i])*dt
+    gforces[i] = 1 - a(v[i])/g</script></div><p>Now, we can plot the velocity against time, and the g-forces. What do we
+see? One problem that has materialized is that the change in the values
+of <span class="math">\(C\)</span> and <span class="math">\(A\)</span> happens far to sudden. It is like the
+parachute deployed immediately, which would have slowed the jumper
+extremely fast, causing almost 100 g! Anything above 10g can be fatal,
+and an average person will start to faint above 5g. It does not look
+good for our poor parachute jumper!</p>
+<p>This is why modern parachutes are made to deploy slower on purpose, so
+the velocity decreases slower. Let us attempt to simulate that the
+parachute takes 5 seconds to deploy completely, and see how it affects
+the g-forces. This time, we create three loops. One without a parachute,
+one where the parachute is in the process of deploying, and one after
+the parachute is completely deployed.</p>
+<div class='sage'><script type='text/x-sage'>dt = 0.01
+T = 180
+n = int(T/dt)
+
+# Simulating the first 60 seconds
+for i in range(0, 60/dt):
+    t[i+1] = t[i] + dt
+    v[i+1] = v[i] + a(v[i])*dt
+    gforces[i] = 1 - a(v[i])/g
+
+# Simulating the next 5 seconds
+for i in range(60/dt, 65/dt):
+    C += (C_p-C)/(5/dt)
+    A += (A_p-A)/(5/dt)
+
+    t[i+1] = t[i] + dt
+    v[i+1] = v[i] + a(v[i])*dt
+    gforces[i] = 1 - a(v[i])/g
+
+# Simulationg the last 120 seconds
+for i in range(65/dt, 180/dt):
+    t[i+1] = t[i] + dt
+    v[i+1] = v[i] + a(v[i])*dt
+    gforces[i] = 1 - a(v[i])/g</script></div></div>
+<div class="section" id="id2">
+<h2>Exercise<a class="headerlink" href="Skydiving2.html#id2" title="Stały odnośnik do tego nagłówka">¶</a></h2>
+<p>Update your plot to include deployment of the parachute. First, let the
+change from free fall to parachute happen immediately. What g-forces
+does the jumper experience? Change your code so that the deployment of
+the parachute takes 5 seconds. What are the g-forces now?</p>
+</div>
+</div>
+
+
+          </div>
+        </div>
+      </div>
+      <div class="sphinxsidebar">
+        <div class="sphinxsidebarwrapper">
+  <div class="sphinxlocaltoc">
+  <h3><a href="index.html">Spis treści</a></h3>
+  <ul>
+<li><a class="reference internal" href="Skydiving2.html#">Skydiving - part 2</a><ul>
+<li><a class="reference internal" href="Skydiving2.html#bungee-jump">Bungee jump</a></li>
+<li><a class="reference internal" href="Skydiving2.html#the-code">The Code</a></li>
+<li><a class="reference internal" href="Skydiving2.html#exercises">Exercises</a></li>
+<li><a class="reference internal" href="Skydiving2.html#point-of-equilibrium">Point of equilibrium</a></li>
+<li><a class="reference internal" href="Skydiving2.html#id1">Exercises</a></li>
+<li><a class="reference internal" href="Skydiving2.html#plotting-g-forces">Plotting g-forces</a></li>
+<li><a class="reference internal" href="Skydiving2.html#exercise">Exercise</a></li>
+<li><a class="reference internal" href="Skydiving2.html#deploying-the-parachute">Deploying the parachute</a></li>
+<li><a class="reference internal" href="Skydiving2.html#id2">Exercise</a></li>
+</ul>
+</li>
+</ul>
+
+  </div>
+  <h4>Poprzedni temat</h4>
+  <p class="topless"><a href="Skydiving1.html"
+                        title="poprzedni rozdział">Skydiving - part 1</a></p>
+  <h4>Następny temat</h4>
+  <p class="topless"><a href="ProjectileMotion.html"
+                        title="następny rozdział">Workshop: Projectile Motion</a></p>
+<div id="searchbox" style="display: none">
+  <h3>Szybkie wyszukiwanie</h3>
+    <form class="search" action="http://visual.icse.us.edu.pl/Warsztaty/search.html" method="get">
+      <input type="text" name="q" />
+      <input type="submit" value="Szukaj" />
+      <input type="hidden" name="check_keywords" value="yes" />
+      <input type="hidden" name="area" value="default" />
+    </form>
+    <p class="searchtip" style="font-size: 90%">
+    Wprowadź szukany termin lub nazwę modułu, klasy lub funkcji.
+    </p>
+</div>
+<script type="text/javascript">$('#searchbox').show(0);</script>
+        </div>
+      </div>
+      <div class="clearer"></div>
+    </div>
+  </div>
+  <div class="relbar-bottom">
+    
+    <div class="related">
+      <h3>Nawigacja</h3>
+      <ul>
+        <li class="right" style="margin-right: 10px">
+          <a href="ProjectileMotion.html" title="Workshop: Projectile Motion"
+             >dalej</a></li>
+        <li class="right" >
+          <a href="Skydiving1.html" title="Skydiving - part 1"
+             >wstecz</a> &nbsp; &nbsp;</li>
+  <li><a href="index.html">Warsztaty</a> &raquo;</li>
+   
+      </ul>
+    </div>
+  </div>
+  
+  <div class="footer">
+    <a class="logo" href="../../icse.us.edu.pl/index.html" target="_blank"><img src="_static/logo-icse.png" alt="ICSE"/></a><br/>
+    &copy; Copyright 2013, CubeProject.
+    Created using <a href="http://sphinx.pocoo.org/">Sphinx</a> 1.2.2.
+  </div>
+  </body>
+</html>

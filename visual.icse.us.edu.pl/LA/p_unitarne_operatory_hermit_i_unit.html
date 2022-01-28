@@ -1,0 +1,653 @@
+
+
+  <!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+  "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+
+
+<html xmlns="http://www.w3.org/1999/xhtml">
+  <head>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    
+    <title>Operatory hermitowskie i unitarne &mdash; Algebra Liniowa</title>
+    
+    <link rel="stylesheet" href="_static/cloud.css" type="text/css" />
+    <link rel="stylesheet" href="_static/pygments.css" type="text/css" />
+    <link rel="stylesheet" href="http://fonts.googleapis.com/css?family=Noticia+Text|Open+Sans|Droid+Sans+Mono&subset=latin,latin-ext" type="text/css" />
+    
+    <script type="text/javascript">
+      var DOCUMENTATION_OPTIONS = {
+        URL_ROOT:    './',
+        VERSION:     'I',
+        COLLAPSE_INDEX: false,
+        FILE_SUFFIX: '.html',
+        HAS_SOURCE:  true
+      };
+    </script>
+    <script type="text/javascript" src="_static/jquery.js"></script>
+    <script type="text/javascript" src="_static/underscore.js"></script>
+    <script type="text/javascript" src="_static/doctools.js"></script>
+    <script type="text/javascript" src="_static/translations.js"></script>
+    <script type="text/javascript" src="http://cdn.mathjax.org/mathjax/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML"></script>
+    <script type="text/javascript" src="_static/jquery.cookie.js"></script>
+    <script type="text/javascript" src="_static/cloud.js"></script>
+
+	<script src="http://sagecell.icse.us.edu.pl:6363/static/jquery.min.js"></script>
+	<script src="http://sagecell.icse.us.edu.pl:6363/static/embedded_sagecell.js"></script>
+
+	<!-- <script src="http://sagecell.sagemath.org/static/jquery.min.js"></script> -->
+	<!-- <script src="http://sagecell.sagemath.org/static/embedded_sagecell.js"></script> -->
+
+	<script>sagecell.makeSagecell({inputLocation: ".sage",
+                                       evalButtonText: 'Wykonaj',
+                                       linked: true});</script>
+
+	<style type="text/css">
+		.sagecell .CodeMirror-scroll {
+			overflow-y: hidden;
+			overflow-x: auto;
+		}
+		.sagecell .CodeMirror {
+			height: auto;
+		}
+	</style>
+
+    
+    <link rel="top" title="Algebra Liniowa" href="http://visual.icse.us.edu.pl/LA/index.html" />
+    <link rel="next" title="Operatory normalne" href="p_unitarne_operatory_normalne.html" />
+    <link rel="prev" title="Zastosowanie pakietu Sage" href="p_unitarne_Sage.html" />
+ 
+  <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, minimum-scale=1">
+  </head>
+  <body>
+  <div class="relbar-top">
+    
+    <div class="related">
+      <h3>Nawigacja</h3>
+      <ul>
+        <li class="right" style="margin-right: 10px">
+          <a href="p_unitarne_operatory_normalne.html" title="Operatory normalne"
+             accesskey="N">dalej</a></li>
+        <li class="right" >
+          <a href="p_unitarne_Sage.html" title="Zastosowanie pakietu Sage"
+             accesskey="P">wstecz</a> &nbsp; &nbsp;</li>
+  <li><a href="http://visual.icse.us.edu.pl/LA/index.html">Algebra Liniowa</a> &raquo;</li>
+   
+      </ul>
+    </div>
+  </div>
+  
+  <div class="content">  
+
+    <div class="document">
+      <div class="documentwrapper">
+        <div class="bodywrapper">
+          <div class="body">
+            
+  <div class="section" id="operatory-hermitowskie-i-unitarne">
+<h1>Operatory hermitowskie i unitarne<a class="headerlink" href="p_unitarne_operatory_hermit_i_unit.html#operatory-hermitowskie-i-unitarne" title="Stały odnośnik do tego nagłówka">¶</a></h1>
+<p>Zaczniemy od zapisania dwóch lematów przydatnych w dalszych rozważaniach. <span class="math">\(\\\)</span></p>
+<div class="admonition-lemat-0 admonition">
+<p class="first admonition-title">Lemat 0.</p>
+<p>Niech <span class="math">\(\ y\in V\,,\ \)</span> gdzie <span class="math">\(\ V\ \)</span> jest przestrzenią unitarną.
+Wówczas</p>
+<div class="last math">
+\[\langle x,y\rangle = 0 \quad\text{dla wszystkich}\quad x\in V
+\qquad\Leftrightarrow\qquad y = \theta\,.\]</div>
+</div>
+<p><strong>Dowód.</strong></p>
+<p><span class="math">\(\ \Rightarrow\ :\ \)</span>
+Jeżeli <span class="math">\(\ \ \langle x,y\rangle = 0\,,\ \ x\in V\,,\ \)</span>
+to kładąc <span class="math">\(\ x=y\ \)</span> otrzymujemy <span class="math">\(\ \langle y,y\rangle = 0\,,\ \)</span>
+skąd <span class="math">\(\ y=\theta.\)</span></p>
+<p><span class="math">\(\ \Leftarrow\ :\ \)</span>
+Jeżeli <span class="math">\(\ y = \theta\,,\ \)</span> to z własności iloczynu skalarnego
+<span class="math">\(\ \langle x,y\rangle = \langle x,\theta\rangle = 0\,.\)</span></p>
+<div class="admonition-wniosek admonition">
+<p class="first admonition-title">Wniosek.</p>
+<p>Jeżeli <span class="math">\(\ \,y_1,\,y_2\,\in\,V\,,\ \)</span> gdzie <span class="math">\(\ V\ \)</span> jest przestrzenią unitarną,
+<span class="math">\(\,\)</span> to</p>
+<div class="last math">
+\[\langle x,y_1\rangle = \langle x,y_2\rangle \quad\text{dla wszystkich}\quad x\in V
+\qquad\Leftrightarrow\qquad y_1 = y_2\,.\]</div>
+</div>
+<p>Istotnie, warunek
+<span class="math">\(\ \langle x,y_1\rangle = \langle x,y_2\rangle\ \ \,\text{dla wszystkich}\quad x\in V\ \)</span>
+oznacza, że</p>
+<div class="math">
+\[\langle\,x,\,y_1-y_2\,\rangle = 0\,,\quad x\in V
+\qquad\Leftrightarrow\qquad y_1-y_2=\theta \qquad\Leftrightarrow\qquad y_1=y_2\,.\]\[\;\]</div>
+<p>W następnym lemacie występuje
+<em>operator zerowy</em> <span class="math">\(\ \mathcal{O}\,,\ \)</span>
+określony przez: <span class="math">\(\ \ \mathcal{O}(v)=\theta\,,\ \ v\in V. \\\)</span></p>
+<div class="admonition-lemat-1 admonition">
+<p class="first admonition-title">Lemat 1.</p>
+<p>Niech <span class="math">\(\ F\ \)</span> będzie operatorem liniowym
+określonym na unitarnej przestrzeni <span class="math">\(\,V.\ \)</span>
+Wtedy</p>
+<div class="last math">
+\[\langle\,x,Fy\,\rangle\,=\,0 \quad\text{dla wszystkich}\quad x,y\in V
+\qquad\Leftrightarrow\qquad F=\mathcal{O}\,.\]</div>
+</div>
+<p><strong>Dowód.</strong></p>
+<p><span class="math">\(\ \Rightarrow\ :\ \)</span>
+Jeżeli <span class="math">\(\ \ \langle x,Fy\rangle = 0 \ \ \,\text{dla wszystkich}\ \ x,y\in V\,,\ \)</span>
+to kładąc <span class="math">\(\ x=Fy\ \)</span> otrzymujemy:</p>
+<blockquote>
+<div><span class="math">\(\ \langle Fy,Fy\rangle = 0\ \,\)</span>
+czyli <span class="math">\(\ \,Fy=\theta\ \,\)</span> dla każdego <span class="math">\(\ y\in V\,,\ \,\)</span>
+a to oznacza, że <span class="math">\(\ \,F=\mathcal{O}\,.\)</span></div></blockquote>
+<p><span class="math">\(\ \Leftarrow\ :\ \)</span>
+Jeżeli <span class="math">\(\ \,F=\mathcal{O}\,,\ \)</span> to dla dowolnych <span class="math">\(\ x,y\in V:\ \
+\langle x,Fy\rangle = \langle x,\mathcal{O}y\rangle = \langle x,\theta\rangle = 0\,.\)</span></p>
+<div class="admonition-wniosek admonition">
+<p class="first admonition-title">Wniosek.</p>
+<p>Jeżeli <span class="math">\(\ F,\,G\ \)</span> są operatorami liniowymi
+określonymi na unitarnej przestrzeni <span class="math">\(\,V,\ \,\)</span> to</p>
+<div class="last math">
+\[\langle\,x,Fy\,\rangle\,=\,\langle\,x,G\,y\,\rangle
+\quad\text{dla wszystkich}\quad x,y\in V
+\qquad\Leftrightarrow\qquad F=\,G\,.\]</div>
+</div>
+<p>Rzeczywiście, warunek <span class="math">\(\ \langle\,x,Fy\,\rangle\,=\,\langle\,x,Gy\,\rangle
+\ \ \text{dla wszystkich}\ \ x,y\in V\ \)</span> oznacza, że</p>
+<div class="math">
+\[\langle\,x,(F-G)\,y\,\rangle\,=\,0\,,\quad x,y\in V\qquad\Leftrightarrow\qquad F-G=\mathcal{O}
+\qquad\Leftrightarrow\qquad F=G\,.\]</div>
+<div class="section" id="sprzezenie-hermitowskie-operatora-liniowego">
+<h2>Sprzężenie hermitowskie operatora liniowego<a class="headerlink" href="p_unitarne_operatory_hermit_i_unit.html#sprzezenie-hermitowskie-operatora-liniowego" title="Stały odnośnik do tego nagłówka">¶</a></h2>
+<div class="admonition-definicja admonition">
+<p class="first admonition-title">Definicja.</p>
+<p><em>Sprzężeniem hermitowskim</em> <span class="math">\(\,\)</span> operatora liniowego <span class="math">\(\ F\in\,\text{End}(V)\)</span> <span class="math">\(\\\)</span>
+jest operator liniowy <span class="math">\(\ F^+\in\,\text{End}(V)\ \)</span> spełniający warunek</p>
+<div class="last math" id="equation-F_plus_0">
+<span class="eqno">(1)</span>\[\langle\,x,F^+y\,\rangle\,=\,\langle\,Fx,y\,\rangle
+\quad\text{dla wszystkich}\quad x,y\in V\,.\]</div>
+</div>
+<p>Zauważmy od razu, że jeżeli zachodzi <a href="p_unitarne_operatory_hermit_i_unit.html#equation-F_plus_0">(1)</a>, <span class="math">\(\,\)</span> to</p>
+<div class="math" id="equation-F_plus_1">
+<span class="eqno">(2)</span>\[\langle\,F^+x,\,\,y\,\rangle\ =\
+\langle\,y,\,F^+x\,\rangle^*\ =\ \langle\,Fy,\,x\,\rangle^*\ =\
+\langle\,x,\,Fy\,\rangle\,.\]</div>
+<p>Na odwrót, z <a href="p_unitarne_operatory_hermit_i_unit.html#equation-F_plus_1">(2)</a> wynika <a href="p_unitarne_operatory_hermit_i_unit.html#equation-F_plus_0">(1)</a>. Można więc zapisać</p>
+<div class="admonition-wniosek admonition">
+<p class="first admonition-title">Wniosek.</p>
+<p>Operator <span class="math">\(\,F^+\ \)</span> sprzężony po hermitowsku do operatora
+<span class="math">\(\,F\in\text{End}(V)\ \)</span> <span class="math">\(\\\)</span>
+czyni zadość dwóm równoważnym warunkom:</p>
+<div class="last math" id="equation-F_plus_2">
+<span class="eqno">(3)</span>\[\begin{split}\begin{array}{l}
+\langle\,x,F^+y\,\rangle\,=\,\langle\,Fx,y\,\rangle\,,
+\\ \\
+\langle\,F^+x,\,\,y\,\rangle\ =\ \langle\,x,\,Fy\,\rangle
+\end{array}
+\qquad\text{dla wszystkich}\quad x,y\in V\,.\end{split}\]</div>
+</div>
+<p>Wyjaśnimy teraz następujące kwestie związane z tak sformułowaną definicją:</p>
+<ol class="arabic simple">
+<li>czy wzory <a href="p_unitarne_operatory_hermit_i_unit.html#equation-F_plus_2">(3)</a> określają operator <span class="math">\(\,F^+\ \)</span> w tym sensie,
+że przy danym operatorze <span class="math">\(F\,\)</span> można efektywnie wyznaczyć
+obraz <span class="math">\(\,F^+y\ \)</span> dowolnego wektora <span class="math">\(\,y\in V\,?\)</span></li>
+<li>czy faktycznie operator <span class="math">\(\,F^+\ \)</span> jest liniowy?</li>
+<li>czy operator <span class="math">\(\,F^+\ \)</span> jest określony jednoznacznie?</li>
+</ol>
+<p>Dla odpowiedzi załóżmy, że <span class="math">\(\,\dim V=n\ \)</span> oraz że
+<span class="math">\(\ \mathcal{B}=(u_1,u_2,\ldots,u_n)\ \)</span> jest bazą ortonormalną.</p>
+<ol class="arabic">
+<li><p class="first">Podstawienie <span class="math">\(\ x=u_i\ \)</span> w <a href="p_unitarne_operatory_hermit_i_unit.html#equation-F_plus_0">(1)</a> daje wyrażenie
+dla <span class="math">\(\,i\)</span>-tej współrzędnej wektora <span class="math">\(\,F^+y :\)</span></p>
+<div class="math">
+\[(F^+y)_{\,i}\ =\ \langle u_i,F^+y\rangle\ =\ \langle Fu_i,y\rangle\,,
+\qquad i=1,2,\dots,n.\]</div>
+<p>W ten sposób wektor <span class="math">\(\,F^+y\ \)</span> jest wyznaczony
+poprzez swoje współrzędne w bazie <span class="math">\(\ \mathcal{B}.\)</span></p>
+</li>
+<li><p class="first">Z własności iloczynu skalarnego wynika, że dla dowolnego <span class="math">\(\,x\in V:\)</span></p>
+<div class="math">
+\[\begin{split}\begin{array}{rcl}
+\langle\,x,\,F^+(\alpha_1\,y_1+\alpha_2\,y_2)\,\rangle &amp; = &amp;
+\langle\,Fx,\,\alpha_1\,y_1\,+\,\alpha_2\,y_2\,\rangle\,= \\ \\
+&amp; = &amp; \alpha_1\,\langle Fx,y_1\rangle\,+\,\alpha_2\:\langle Fx,y_2\,\rangle\,= \\ \\
+&amp; = &amp; \alpha_1\,\langle x,F^+y_1\rangle\,+\,\alpha_2\:\langle x,F^+y_2\,\rangle\,= \\ \\
+&amp; = &amp; \langle\,x,\,\alpha_1\,F^+y_1+\alpha_2\,F^+y_2\,\rangle\,.
+\end{array}\end{split}\]</div>
+<p>Korzystając z wniosku do Lematu 0. stwierdzamy liniowość operatora <span class="math">\(\,F^+:\)</span></p>
+<div class="math">
+\[F^+(\alpha_1\,y_1+\alpha_2\,y_2)\,=\ \alpha_1\,F^+y_1+\alpha_2\,F^+y_2\,,
+\qquad\alpha_1,\alpha_2\in C,\ \ y_1,y_2\in V\,.\]</div>
+</li>
+<li><p class="first">Dla wykazania jednoznaczności określenia operatora <span class="math">\(\,F^+\ \)</span> przypuśćmy, <span class="math">\(\\\)</span>
+że oprócz niego jakiś inny operator <span class="math">\(\,G\ \)</span> spełnia warunek
+<a href="p_unitarne_operatory_hermit_i_unit.html#equation-F_plus_0">(1)</a>:</p>
+<div class="math">
+\[\langle\,x,F^+y\,\rangle\,=\,\langle\,Fx,y\,\rangle
+\quad\text{oraz}\quad
+\langle\,x,Gy\,\rangle\,=\,\langle\,Fx,y\,\rangle
+\quad\text{dla wszystkich}\quad x,y\in V\,.\]</div>
+<p>Oznacza to, że <span class="math">\(\ \langle\,x,F^+y\,\rangle\,=\,\langle\,x,Gy\,\rangle\ \)</span>
+dla wszystkich <span class="math">\(\ x,y\in V\,.\ \)</span> Z Lematu 1. wynika, że wtedy <span class="math">\(\,G=F^+.\ \)</span>
+Warunki <a href="p_unitarne_operatory_hermit_i_unit.html#equation-F_plus_2">(3)</a> określają więc operator <span class="math">\(\,F^+\ \)</span> jednoznacznie.</p>
+</li>
+</ol>
+<p>Kwestię istnienia i jednoznaczności operatora <span class="math">\(\,F^+\ \)</span> wyjaśnia niezależnie</p>
+<div class="admonition-twierdzenie-8 admonition">
+<p class="first admonition-title">Twierdzenie 8.</p>
+<p>Operator liniowy <span class="math">\(\,\widetilde{F}\ \)</span> jest sprzężeniem hermitowskim
+operatora liniowego <span class="math">\(\,F\ \)</span> <span class="math">\(\\\)</span>
+wtedy i tylko wtedy, gdy jego macierz w ortonormalnej bazie <span class="math">\(\,\mathcal{B}\ \)</span> <span class="math">\(\\\)</span>
+jest sprzężeniem hermitowskim macierzy operatora <span class="math">\(\,F\ \)</span> w tej bazie:</p>
+<div class="last math">
+\[\widetilde{F}=F^+\quad\Leftrightarrow\quad
+M_{\mathcal{B}}(\widetilde{F})\,=\,[\,M_{\mathcal{B}}(F)\,]^+\,,
+\qquad F,\,\widetilde{F}\,\in\,\text{End}(V)\,.\]</div>
+</div>
+<p><strong>Dowód.</strong> <span class="math">\(\,\)</span> Niech <span class="math">\(\ \ \mathcal{B}=(u_1,u_2,\ldots,u_n),\ \
+M_{\mathcal{B}}(F)=\boldsymbol{F}=[\,\varphi_{ij}\,]_{n\times n}\,,\ \
+M_{\mathcal{B}}(\widetilde{F})=\widetilde{\boldsymbol{F}}=
+[\,\widetilde{\varphi}_{ij}\,]_{n\times n}\,.\)</span></p>
+<p><span class="math">\(\ \Rightarrow\ :\ \)</span>
+Zakładamy, że <span class="math">\(\ \widetilde{F}=F^+,\ \)</span> czyli że dla operatora <span class="math">\(\ \widetilde{F}\ \)</span>
+spełniony jest warunek <a href="p_unitarne_operatory_hermit_i_unit.html#equation-F_plus_0">(1)</a>:</p>
+<div class="math" id="equation-x_Ft_y">
+<span class="eqno">(4)</span>\[\langle\,x,\widetilde{F}y\,\rangle\,=\,\langle\,Fx,y\,\rangle
+\quad\text{dla wszystkich}\quad x,y\in V\,.\]</div>
+<p>Podstawiając tam <span class="math">\(\,x=u_i,\,y=u_j\ \)</span> otrzymujemy:</p>
+<div class="math">
+\[\widetilde{\varphi}_{ij}\,=\,
+\langle\,u_i\,,\widetilde{F}u_j\,\rangle\,=\,\langle\,Fu_i,u_j\,\rangle\,=\,
+\langle\,u_j,Fu_i\,\rangle^*\,=\,
+\varphi_{ji}^*\,=\,\varphi_{ij}^+\,,\qquad i,j=1,2,\ldots,n.\]</div>
+<p>Równość odpowiednich elementów macierzowych oznacza równość macierzy:</p>
+<div class="math">
+\[\widetilde{\boldsymbol{F}}=\boldsymbol{F}^+
+\qquad\text{czyli}\qquad
+M_{\mathcal{B}}(\widetilde{F})\ =\ \left[\,M_{\mathcal{B}}(F)\,\right]^+.\]</div>
+<p><span class="math">\(\ \Leftarrow\ :\ \)</span>
+Przyjmujemy, że <span class="math">\(\ M_{\mathcal{B}}(\widetilde{F})\ =\
+\left[\,M_{\mathcal{B}}(F)\,\right]^+,\ \,\)</span>
+czyli że <span class="math">\(\ \widetilde{\boldsymbol{F}}=\boldsymbol{F}^+.\)</span></p>
+<p>Trzeba pokazać, że operator <span class="math">\(\,\widetilde{F}\ \)</span> spełnia warunek <a href="p_unitarne_operatory_hermit_i_unit.html#equation-x_Ft_y">(4)</a>, <span class="math">\(\,\)</span>
+co będzie oznaczać, że <span class="math">\(\ \widetilde{F}=F^+.\)</span></p>
+<p>Niech <span class="math">\(\ \ x\,=\,\displaystyle\sum_{i\,=\,1}^n\ \alpha_i\,u_i\,,\ \
+y=\displaystyle\sum_{j\,=\,1}^n\ \beta_j\,u_j\,.\ \)</span> Wtedy</p>
+<div class="math">
+\[\begin{split}\begin{array}{rcl}
+\langle\,x,\widetilde{F}y\,\rangle &amp; =\ &amp;
+\left\langle\ \;\displaystyle\sum_{i\,=\,1}^n\ \alpha_i\,u_i\,,\ \widetilde{F}
+\left(\:\sum_{j\,=\,1}^n\ \beta_j\,u_j\right)\;\right\rangle\ \ =
+\\ \\
+&amp; =\ \ &amp; \displaystyle\sum_{i,\,j=1}^n\,\alpha_i^*\,\beta_j\
+\langle\,u_i,\widetilde{F}u_j\,\rangle \ \,=\ \,
+\sum_{i,\,j=1}^n\,\alpha_i^*\,\beta_j\ \widetilde{\varphi}_{ij}\ \ =
+\\
+&amp; =\ \ &amp; \displaystyle\sum_{i,\,j=1}^n\,\alpha_i^*\,\beta_j\ \varphi_{ij}^+\ \,=\ \,
+\sum_{i,\,j=1}^n\,\alpha_i^*\,\beta_j\ \varphi_{ji}^*\ \,=
+\\
+&amp; =\ \ &amp; \displaystyle\sum_{i,\,j=1}^n\,\alpha_i^*\,\beta_j\
+\langle\,u_j,Fu_i\,\rangle^*\ \,=\ \,
+\sum_{i,\,j=1}^n\,\alpha_i^*\,\beta_j\ \langle\,Fu_i,u_j\,\rangle\ \,=
+\\ \\
+&amp; =\ \ &amp; \left\langle\ F\,\left(\,\displaystyle\sum_{i\,=\,1}^n\ \alpha_i\,u_i\right)\,,\ \
+\displaystyle\sum_{j\,=\,1}^n\ \beta_j\,u_j\,\right\rangle\ \ =
+\ \ \langle\,Fx,y\,\rangle\,.
+\end{array}\end{split}\]</div>
+<p>Nazywając sprzężeniem hermitowskim również samą operację sprzężenia, można zapisać</p>
+<div class="admonition-wniosek admonition">
+<p class="first admonition-title">Wniosek.</p>
+<p>Sprzężenie hermitowskie operatora liniowego <span class="math">\(\,F\ \)</span> jest równoważne sprzężeniu <span class="math">\(\\\)</span>
+hermitowskiemu macierzy tego operatora w każdej ortonormalnej bazie <span class="math">\(\,\mathcal{B}:\)</span></p>
+<div class="last math" id="equation-M_B_F_plus">
+<span class="eqno">(5)</span>\[M_{\mathcal{B}}(F^+)\ =\ \left[\,M_{\mathcal{B}}(F)\,\right]^+\,.\]</div>
+</div>
+<p><span class="math">\(\;\)</span></p>
+<p><strong>Własności operacji sprzężenia hermitowskiego.</strong> <span class="math">\(\\\)</span></p>
+<ol class="arabic">
+<li><p class="first">Sprzężenie sumy operatorów równa się sumie ich sprzężeń :</p>
+<div class="math">
+\[(F+G)^+\,=\;F^++\:G^+\,,\qquad F,\,G\,\in\,\text{End}(V)\,.\]</div>
+</li>
+<li><p class="first">Pomnożenie operatora przez liczbę zespoloną <span class="math">\(\ \alpha\ \)</span>
+mnoży jego sprzężenie przez <span class="math">\(\ \alpha^*:\)</span></p>
+<div class="math">
+\[(\alpha\,F)^+\ =\ \;\alpha^*\,F^+\,,\qquad\alpha\in C,\ \ F\in\text{End}(V)\,.\]</div>
+</li>
+<li><p class="first">Sprzężenie iloczynu (tj. złożenia) operatorów równa się iloczynowi sprzężeń <span class="math">\(\\\)</span>
+z odwróceniem kolejności czynników :</p>
+<div class="math">
+\[(F\,G)^+\ =\ \;G^+\,F^+\,,\qquad F,\,G\,\in\,\text{End}(V)\,.\]</div>
+</li>
+<li><p class="first">Dwukrotne sprzężenie przywraca wyjściowy operator :</p>
+<div class="math">
+\[(F^+)^+\,=\ F\,,\qquad F\in\text{End}(V)\,.\]</div>
+</li>
+</ol>
+<p><strong>Dowody własności</strong> opierają się na Lemacie 1. poprzedzającym tę sekcję. <span class="math">\(\\\)</span></p>
+<ol class="arabic">
+<li><p class="first">Wykorzystując definicję sumy dwóch operatorów liniowych otrzymujemy równości:</p>
+<div class="math">
+\[\begin{split}\begin{array}{lcl}
+\langle\,x,\,(F+G)^+\,y\,\rangle &amp; \ = &amp; \ \langle\,(F+G)\,x,\,y\,\rangle\ \ =
+\\ \\
+&amp; \ = &amp; \ \langle\,Fx+Gx,\,y\,\rangle\ \ =
+\\ \\
+&amp; \ = &amp; \ \langle\,Fx,y\,\rangle + \langle\,Gx,\,y\,\rangle\ \ =
+\\ \\
+&amp; \ = &amp; \ \langle\,x,F^+y\,\rangle + \langle\,x,G^+y\,\rangle\ \ =
+\\ \\
+&amp; \ = &amp; \ \langle\,x,F^+y+G^+y\,\rangle\quad=\quad\langle\,x,(F^+\!+G^+)\,y\,\rangle\,;
+\\ &amp; &amp;
+\end{array}\end{split}\]\[\langle\,x,\,(F+G)^+\,y\,\rangle = \langle\,x,(F^+\!+G^+)\,y\,\rangle, \ \ x,y\in V
+\quad\Rightarrow\quad (F+G)^+\ =\ F^++\,G^+ .\]</div>
+</li>
+<li><p class="first">Dowód w tym przypadku przebiega podobnie jak w punkcie 1.</p>
+</li>
+<li><p class="first">Z definicji złożenia dwóch operatorów liniowych wynikają równości:</p>
+<div class="math">
+\[\begin{split}\begin{array}{rclcl}
+\langle\,x,\,(F\,G)^+\,y\,\rangle &amp; = &amp;
+\langle\,(F\,G)\,x,\,y\,\rangle\ \ =\ \ \langle\,F(Gx),\,y\,\rangle &amp; = &amp;
+\\ \\
+&amp; = &amp; \langle\,Gx,F^+y\,\rangle\ \ =\ \ \langle\,x,G^+(F^+y)\,\rangle &amp; = &amp;
+\langle\,x,(G^+F^+)\,y\,\rangle\,;
+\\ &amp; &amp; &amp; &amp;
+\end{array}\end{split}\]\[\langle\,x,\,(F\,G)^+\,y\,\rangle = \langle\,x,(G^+F^+)\,y\,\rangle,\ \ x,y\in V
+\qquad\Rightarrow\qquad
+(F\,G)^+\ =\ G^+F^+\,.\]</div>
+</li>
+<li><p class="first">Odwołując się do wzorów <a href="p_unitarne_operatory_hermit_i_unit.html#equation-F_plus_2">(3)</a> otrzymujemy:</p>
+<div class="math">
+\[\begin{split}\begin{array}{c}
+\langle\,x,\,(F^+)^+\,y\,\rangle\ =\ \langle\,F^+x,\,\,y\,\rangle\ =\
+\langle\,x,\,Fy\,\rangle\,;
+\\ \\
+\langle\,x,\,(F^+)^+\,y\,\rangle\ =\ \langle\,x,\,Fy\,\rangle\,,\quad x,y\in V
+\qquad\Rightarrow\qquad
+(F^+)^+\ =\ F\,.
+\end{array}\end{split}\]</div>
+</li>
+</ol>
+<div class="admonition-wniosek admonition">
+<p class="first admonition-title">Wniosek.</p>
+<p>Sprzężenie hermitowskie jest operacją antyliniową:</p>
+<div class="last math">
+\[(\alpha\,F+\beta\,G)^+\ =\ \,
+\alpha^*\,F^+\,+\,\beta^*\,G^+\,,\qquad
+\alpha,\beta\in C\,,\quad F,\,G\in\,\text{End}(V)\,.\]</div>
+</div>
+<p>W świetle Twierdzenia 8. i wynikającego z niego wniosku analogia między własnościami
+operacji sprzężenia hermitowskiego macierzy i operatorów liniowych jest nieprzypadkowa. <span class="math">\(\\\)</span></p>
+</div>
+<div class="section" id="operatory-hermitowskie">
+<h2>Operatory hermitowskie<a class="headerlink" href="p_unitarne_operatory_hermit_i_unit.html#operatory-hermitowskie" title="Stały odnośnik do tego nagłówka">¶</a></h2>
+<div class="admonition-definicja admonition">
+<p class="first admonition-title">Definicja.</p>
+<p>Operator liniowy <span class="math">\(\,F\in\text{End}(V)\ \)</span> jest <span class="math">\(\,\)</span>
+<em>operatorem hermitowskim</em>, <span class="math">\(\\\)</span>
+gdy równa się swojemu sprzężeniu hermitowskiemu :</p>
+<div class="last math">
+\[F=F^+\qquad\text{czyli}\qquad\langle\,x,Fy\,\rangle\ =\ \langle\,Fx,y\,\rangle\quad
+\text{dla wszystkich}\quad x,y\in V\,.\]</div>
+</div>
+<p>W szczególności, dla hermitowskiego operatora <span class="math">\(\,F\,:\)</span></p>
+<div class="math" id="equation-x_F_x">
+<span class="eqno">(6)</span>\[\langle\,x,Fx\,\rangle\ =\ \langle\,Fx,x\,\rangle\quad
+\text{dla wszystkich}\quad x\in V\,.\]</div>
+<p>Z wniosku do Twierdzenia 8. wynika bezpośrednio</p>
+<div class="admonition-twierdzenie-9 admonition">
+<p class="first admonition-title">Twierdzenie 9.</p>
+<p>Operator liniowy <span class="math">\(\,F\in\text{End}(V)\ \)</span> jest hermitowski
+wtedy i tylko wtedy,
+gdy jego macierz w każdej ortonormalnej bazie <span class="math">\(\,\mathcal{B}\ \)</span> przestrzeni <span class="math">\(\ V\ \)</span>
+jest hermitowska:</p>
+<div class="last math">
+\[F=F^+\quad\Leftrightarrow\quad M_{\mathcal{B}}(F)\,=\,[\,M_{\mathcal{B}}(F)\,]^+\,,
+\qquad F\in\text{End}(V)\,.\]</div>
+</div>
+<p>W dalszym ciągu będziemy się odwoływać do kryterium rzeczywistości liczby zespolonej <span class="math">\(\,z:\)</span></p>
+<div class="math">
+\[z\in R\quad\Leftrightarrow\quad z^*=\,z\,,\qquad z\in C\,.\]</div>
+<p><strong>Własności operatorów hermitowskich.</strong> <span class="math">\(\\\)</span></p>
+<p>Niech będzie dany operator hermitowski <span class="math">\(\,F\in\text{End}(V).\ \)</span> Wtedy: <span class="math">\(\\\)</span></p>
+<ol class="arabic">
+<li><p class="first">Wyrażenie <span class="math">\(\,\langle x,Fx\rangle\ \)</span> jest liczbą rzeczywistą
+dla każdego <span class="math">\(\,x\in V.\)</span></p>
+<p>Istotnie, na podstawie definicji iloczynu skalarnego i wzoru <a href="p_unitarne_operatory_hermit_i_unit.html#equation-x_F_x">(6)</a> mamy</p>
+<div class="math">
+\[\langle\,x,Fx\,\rangle^*\ =\ \langle\,Fx,x\,\rangle\ =\ \langle\,x,Fx\,\rangle
+\qquad\Rightarrow\qquad\langle\,x,Fx\,\rangle\in R.\]</div>
+<p>Można udowodnić, że warunek rzeczywistości wyrażenia <span class="math">\(\,\langle x,Fx\rangle\ \)</span>
+dla każdego <span class="math">\(\,x\in V\ \)</span> jest nie tylko konieczny, ale i wystarczający
+dla hermitowskości operatora <span class="math">\(\,F.\ \)</span> Stąd</p>
+<div class="admonition-wniosek admonition">
+<p class="first admonition-title">Wniosek.</p>
+<p class="last">Jeżeli <span class="math">\(\,F\in\text{End}(V)\,,\ \)</span> to
+<span class="math">\(\qquad F\ =\ F^+\quad\Leftrightarrow\quad
+\langle\,x,Fx\,\rangle\in R\,,\quad x\in V\,.\)</span></p>
+</div>
+</li>
+</ol>
+<p><span class="math">\(\;\)</span></p>
+<ol class="arabic" start="2">
+<li><p class="first">Wartości własne operatora <span class="math">\(\,F\ \)</span> są rzeczywiste.</p>
+<p><strong>Dowód.</strong> <span class="math">\(\,\)</span>
+Niech <span class="math">\(\quad Fv\,=\,\lambda\,v\,,\quad v\in V\!\smallsetminus\!\{\theta\},\quad
+\lambda\in C\,.\ \ \)</span>
+Wzór <a href="p_unitarne_operatory_hermit_i_unit.html#equation-x_F_x">(6)</a> daje:</p>
+<div class="math">
+\[\begin{eqnarray*}
+\langle\,v,Fv\,\rangle & \! = \! & \langle\,Fv,v\,\rangle\,,                   \\
+\langle\,v,\,\lambda\,v\,\rangle & \! = \! & \langle\,\lambda\,v,v\,\rangle\,, \\
+\lambda\ \langle v,v\rangle & \! = \! & \lambda^*\;\langle v,v\rangle\,,
+\quad\text{gdzie}\quad\langle v,v\rangle>0\,;                                  \\
+\lambda & \! = \! & \lambda^* \quad\ \ \Leftrightarrow\quad\ \ \,\lambda\in R\,.
+\end{eqnarray*}\]</div></li>
+<li><p class="first">Wektory własne operatora <span class="math">\(\,F,\ \)</span> należące do różnych wartości własnych, są ortogonalne.</p>
+<p><strong>Dowód.</strong> <span class="math">\(\,\)</span>
+Niech <span class="math">\(\quad Fv_1\,=\,\lambda_1\,v_1\,,\ \ Fv_2\,=\,\lambda_2\,v_2\,,\quad
+v_1,v_2\in V\!\smallsetminus\!\{\theta\}\,,\quad\lambda_1\neq\lambda_2\,.\)</span></p>
+<p>Biorąc za punkt wyjścia definicję operatora hermitowskiego, otrzymujemy</p>
+<div class="math">
+\[\begin{eqnarray*}
+\langle\,v_1,Fv_2\,\rangle & = & \langle\,Fv_1,v_2\,\rangle \\
+\langle\,v_1,\lambda_2\,v_2\,\rangle & = & \langle\,\lambda_1\,v_1,v_2\,\rangle \\
+\lambda_2\ \langle v_1,v_2\rangle & = & \lambda_1^*\ \langle v_1,v_2\rangle \\
+\lambda_2\ \langle v_1,v_2\rangle & = & \lambda_1\ \langle v_1,v_2\rangle \\
+(\lambda_2-\lambda_1)\ \langle v_1,v_2\rangle & = & 0\,.
+\end{eqnarray*}\]</div><p>Skoro z założenia <span class="math">\(\ \lambda_1\neq\lambda_2\,,\ \)</span>
+to musi być <span class="math">\(\ \langle v_1,v_2\rangle=0\,,\ \)</span> co należało wykazać. <span class="math">\(\\\)</span></p>
+</li>
+</ol>
+<p>Wektory własne hermitowskiego operatora <span class="math">\(\,F\ \)</span> należące do różnych wartości własnych
+tworzą więc układ ortogonalny.
+Z każdego ortogonalnego układu wektorów można otrzymać, poprzez unormowanie jego elementów,
+układ ortonormalny. Wynika stąd</p>
+<div class="admonition-wniosek admonition">
+<p class="first admonition-title">Wniosek.</p>
+<p class="last">Jeżeli operator hermitowski <span class="math">\(\,F,\ \)</span> określony na <span class="math">\(\,n\)</span>-wymiarowej
+przestrzeni unitarnej <span class="math">\(\,V,\ \)</span> ma <span class="math">\(\,n\,\)</span> różnych wartości własnych,
+to istnieje ortonormalna baza przestrzeni <span class="math">\(\,V,\ \)</span>
+złożona z wektorów własnych tego operatora.</p>
+</div>
+</div>
+<div class="section" id="operatory-unitarne">
+<h2>Operatory unitarne<a class="headerlink" href="p_unitarne_operatory_hermit_i_unit.html#operatory-unitarne" title="Stały odnośnik do tego nagłówka">¶</a></h2>
+<div class="admonition-definicja admonition">
+<p class="first admonition-title">Definicja.</p>
+<p>Operator liniowy <span class="math">\(\,U\ \)</span> określony na przestrzeni unitarnej <span class="math">\(\,V\ \)</span>
+jest <em>unitarny</em>, <span class="math">\(\,\)</span> gdy</p>
+<div class="math">
+\[U^+U\ =\ I\,,\]</div>
+<p class="last">gdzie <span class="math">\(\,I\ \)</span> jest operatorem jednostkowym
+określonym przez warunek: <span class="math">\(\,I(v)=v\,,\ v\in V.\)</span></p>
+</div>
+<p>Operatory unitarne są ściśle związane z macierzami unitarnymi. Zachodzi mianowicie</p>
+<div class="admonition-twierdzenie-10 admonition">
+<p class="first admonition-title">Twierdzenie 10.</p>
+<p>Operator liniowy <span class="math">\(\ U\ \)</span> określony na <span class="math">\(\,n\)</span>-wymiarowej
+przestrzeni unitarnej <span class="math">\(\,V\ \)</span> jest unitarny wtedy i tylko wtedy,
+gdy jego macierz w każdej ortonormalnej bazie <span class="math">\(\ \mathcal{B}\ \)</span> jest unitarna:</p>
+<div class="math">
+\[U^+U\ =\ I\qquad\Leftrightarrow\qquad
+\boldsymbol{B}^+\boldsymbol{B}\ =\ \boldsymbol{I}_n\,,\]</div>
+<p class="last">gdzie <span class="math">\(\ \ \boldsymbol{B}\,=\,M_{\mathcal{B}}(U)\,,\ \ \boldsymbol{I}_n\ \)</span>
+- <span class="math">\(\,\)</span> macierz jednostkowa stopnia <span class="math">\(\,n.\)</span></p>
+</div>
+<p><strong>Dowód.</strong></p>
+<p>Odwzorowanie <span class="math">\(\,M_{\mathcal{B}}:\,\text{End}(V)\rightarrow M_n(C)\,,\,\)</span>
+które przypisuje operatorom liniowym macierze, jako izomorfizm algebr jest wzajemnie jednoznaczne
+i multiplikatywne. <span class="math">\(\\\)</span>
+Stąd, a także z równania <a href="p_unitarne_operatory_hermit_i_unit.html#equation-M_B_F_plus">(5)</a> wynika ciąg równoważnych związków:</p>
+<div class="math">
+\[\begin{eqnarray*}
+U^+U & = & I\,, \\
+M_{\mathcal{B}}(U^+U) & = & M_{\mathcal{B}}(I)\,, \\
+M_{\mathcal{B}}(U^+)\,M_{\mathcal{B}}(U) & = & M_{\mathcal{B}}(I)\,, \\
+\left[\,M_{\mathcal{B}}(U)\,\right]^+M_{\mathcal{B}}(U) & = & M_{\mathcal{B}}(I)\,, \\
+\boldsymbol{B}^+\boldsymbol{B} & = & \boldsymbol{I}_n\,.
+\end{eqnarray*}\]</div><p><strong>Własności operatorów unitarnych.</strong></p>
+<p>Niech <span class="math">\(\ U\ \)</span> będzie operatorem unitarnym, określonym na unitarnej przestrzeni <span class="math">\(\,V:\)</span></p>
+<div class="math" id="equation-U0">
+<span class="eqno">(7)</span>\[U^+U\ =\ I\,.\]</div>
+<ol class="arabic" start="0">
+<li><p class="first">Z warunku <a href="p_unitarne_operatory_hermit_i_unit.html#equation-U0">(7)</a> wynika istnienie operatora odwrotnego <span class="math">\(\ U^{-1}=U^+\ \)</span> oraz zależność</p>
+<div class="math">
+\[UU^+\ =\ \left(U^+\right)^+\,U^+\ =\ I\,,\]</div>
+<p>która oznacza, że jeśli <span class="math">\(\ U\ \)</span> jest operatorem unitarnym,
+to unitarny jest również <span class="math">\(\\\)</span>
+operator sprzężony <span class="math">\(\ U^+\ \)</span>
+i <span class="math">\(\,\)</span> operator odwrotny <span class="math">\(\ U^{-1}\,.\)</span></p>
+</li>
+<li><p class="first">Iloczyn (tj. złożenie) dwóch operatorów unitarnych jest operatorem unitarnym.</p>
+<p>Rzeczywiście, jeżeli <span class="math">\(\,U_1^+U_1=U_2^+U_2=I\,,\ \ \)</span> to
+korzystając z własności sprzężenia <span class="math">\(\\\)</span>
+hermitowskiego operatorów i z łączności składania operatorów, otrzymujemy</p>
+<div class="math">
+\[(U_1\,U_2)^+(U_1\,U_2)\ =\
+(U_2^+\,U_1^+)(U_1\,U_2)\ =\
+U_2^+\,(U_1^+U_1)\,U_2\ =\
+U_2^+\,I\ U_2\ =\
+U_2^+\,U_2\ =\ I\,.\]</div>
+<p>Składanie jest więc działaniem w zbiorze operatorów unitarnych. <span class="math">\(\\\)</span>
+Ponieważ operator jednostkowy <span class="math">\(\,I\,\)</span> jest unitarny oraz odwrotność
+operatora unitarnego jest operatorem unitarnym, można zapisać</p>
+<div class="admonition-wniosek admonition">
+<p class="first admonition-title">Wniosek.</p>
+<p class="last">Operatory unitarne określone na przestrzeni <span class="math">\(\,V\ \)</span> tworzą (nieprzemienną) grupę
+ze względu na składanie operatorów.</p>
+</div>
+<p><span class="math">\(\,\)</span></p>
+</li>
+<li><p class="first">Operator <span class="math">\(\ U\ \)</span> zachowuje iloczyn skalarny wektorów:</p>
+<div class="math" id="equation-U1">
+<span class="eqno">(8)</span>\[\langle\,Ux,\,Uy\,\rangle\ =\ \langle x,y\rangle\,,\qquad x,y\in V\,,\]</div>
+<p>bo <span class="math">\(\quad\langle\,Ux,\,Uy\,\rangle\ =\ \langle\,U^+U\,x,\,y\,\rangle\ =\
+\langle\,Ix,y\,\rangle\ =\ \langle x,y\rangle\,.\)</span></p>
+<p>W szczególności, <span class="math">\(\ U\ \)</span> zachowuje kwadrat skalarny,  a więc i normę wektora:</p>
+<div class="math" id="equation-U2">
+<span class="eqno">(9)</span>\[\|\,Ux\,\|\ =\ \|x\|\,,\qquad x\in V\,,\]</div>
+<p>bo <span class="math">\(\quad\|\,Ux\,\|^{\,2}\ =\ \langle\,Ux,Ux\,\rangle\ =\ \langle\,U^+U\,x,\,x\,\rangle\ =\
+\langle x,x\rangle\,.\)</span></p>
+<p>Zachowanie normy (uogólnionej długości) wektora przy działaniu operatora <span class="math">\(\ U\ \)</span>
+pozwala interpretować to działanie jako operację uogólnionego obrotu
+wektora w przestrzeni <span class="math">\(\ V.\)</span></p>
+<p>Można udowodnić, że warunki <span class="math">\(\,\)</span> <a href="p_unitarne_operatory_hermit_i_unit.html#equation-U0">(7)</a>, <span class="math">\(\,\)</span> <a href="p_unitarne_operatory_hermit_i_unit.html#equation-U1">(8)</a> <span class="math">\(\,\)</span>
+i <span class="math">\(\,\)</span> <a href="p_unitarne_operatory_hermit_i_unit.html#equation-U2">(9)</a> <span class="math">\(\,\)</span> są sobie równoważne, <span class="math">\(\\\)</span>
+wobec czego każdy z nich może stanowić definicję operatora unitarnego. <span class="math">\(\\\)</span></p>
+</li>
+<li><p class="first">Wartości własne operatora <span class="math">\(\ U\ \)</span> są liczbami zespolonymi o module <span class="math">\(\,1.\)</span></p>
+<p><strong>Dowód.</strong> <span class="math">\(\,\)</span></p>
+<p>Załóżmy, że <span class="math">\(\ v\ \)</span> jest wektorem własnym operatora <span class="math">\(\ U\ \)</span>
+dla wartości <span class="math">\(\ \lambda\in C.\ \)</span> Wtedy</p>
+<div class="math">
+\[\begin{eqnarray*}
+Uv & = & \lambda\,v\,,\quad v\neq\theta\,, \\
+\|\,Uv\,\| & = & \|\,\lambda\,v\,\|\,, \\
+\|v\| & = & |\lambda|\ \|v\|\,, \\
+(|\lambda|-1)\ \|v\| & = & 0\,,\quad\|v\|\neq 0\,, \\
+|\lambda|-1 & = & 0\,, \\
+|\lambda| & = & 1\,.
+\end{eqnarray*}\]</div></li>
+<li><p class="first">Wektory własne operatora <span class="math">\(\ U\ \)</span> należące do różnych wartości są ortogonalne.</p>
+<p><strong>Dowód.</strong> <span class="math">\(\,\)</span>
+Niech <span class="math">\(\quad Uv_1\,=\,\lambda_1\,v_1\,,\ \ Uv_2\,=\,\lambda_2\,v_2\,,\quad
+v_1,v_2\in V\!\smallsetminus\!\{\theta\}\,,\quad\lambda_1\neq\lambda_2\,.\)</span></p>
+<p>Wiemy już, że <span class="math">\(\quad|\lambda_1|=|\lambda_2|=1\,,\quad\)</span>
+skąd <span class="math">\(\quad|\lambda_1|^2=\lambda_1^*\,\lambda_1=1\,,\quad\lambda_1^*=1/\lambda_1\,.\ \)</span>
+Stąd</p>
+<p><span class="math">\(\langle v_1,v_2\rangle\ =\ \langle\,Uv_1,\,Uv_2\,\rangle\ =\
+\langle\,\lambda_1\,v_1,\,\lambda_2\,v_2\,\rangle\ =\
+\lambda_1^*\;\lambda_2\ \langle v_1,v_2\rangle\ =\
+\displaystyle\frac{\lambda_2}{\lambda_1}\ \ \langle v_1,v_2\rangle\,,\)</span></p>
+<p><span class="math">\(\left(\,1\ -\ \displaystyle\frac{\lambda_2}{\lambda_1}\;\right)\
+\langle v_1,v_2\rangle\ =\ 0\,,\quad\text{więc}\ \ \text{jeśli}\quad\lambda_1\neq\lambda_2\,,
+\quad\text{to}\quad\langle v_1,v_2\rangle\ =\ 0\,.\)</span></p>
+</li>
+</ol>
+</div>
+</div>
+
+
+          </div>
+        </div>
+      </div>
+      <div class="sphinxsidebar">
+        <div class="sphinxsidebarwrapper">
+  <div class="sphinxlocaltoc">
+  <h3><a href="http://visual.icse.us.edu.pl/LA/index.html">Spis treści</a></h3>
+  <ul>
+<li><a class="reference internal" href="p_unitarne_operatory_hermit_i_unit.html#">Operatory hermitowskie i unitarne</a><ul>
+<li><a class="reference internal" href="p_unitarne_operatory_hermit_i_unit.html#sprzezenie-hermitowskie-operatora-liniowego">Sprzężenie hermitowskie operatora liniowego</a></li>
+<li><a class="reference internal" href="p_unitarne_operatory_hermit_i_unit.html#operatory-hermitowskie">Operatory hermitowskie</a></li>
+<li><a class="reference internal" href="p_unitarne_operatory_hermit_i_unit.html#operatory-unitarne">Operatory unitarne</a></li>
+</ul>
+</li>
+</ul>
+
+  </div>
+  <h4>Poprzedni temat</h4>
+  <p class="topless"><a href="p_unitarne_Sage.html"
+                        title="poprzedni rozdział">Zastosowanie pakietu Sage</a></p>
+  <h4>Następny temat</h4>
+  <p class="topless"><a href="p_unitarne_operatory_normalne.html"
+                        title="następny rozdział">Operatory normalne</a></p>
+<div id="searchbox" style="display: none">
+  <h3>Szybkie wyszukiwanie</h3>
+    <form class="search" action="search.html" method="get">
+      <input type="text" name="q" />
+      <input type="submit" value="Szukaj" />
+      <input type="hidden" name="check_keywords" value="yes" />
+      <input type="hidden" name="area" value="default" />
+    </form>
+    <p class="searchtip" style="font-size: 90%">
+    Wprowadź szukany termin lub nazwę modułu, klasy lub funkcji.
+    </p>
+</div>
+<script type="text/javascript">$('#searchbox').show(0);</script>
+        </div>
+      </div>
+      <div class="clearer"></div>
+    </div>
+  </div>
+  <div class="relbar-bottom">
+    
+    <div class="related">
+      <h3>Nawigacja</h3>
+      <ul>
+        <li class="right" style="margin-right: 10px">
+          <a href="p_unitarne_operatory_normalne.html" title="Operatory normalne"
+             >dalej</a></li>
+        <li class="right" >
+          <a href="p_unitarne_Sage.html" title="Zastosowanie pakietu Sage"
+             >wstecz</a> &nbsp; &nbsp;</li>
+  <li><a href="http://visual.icse.us.edu.pl/LA/index.html">Algebra Liniowa</a> &raquo;</li>
+   
+      </ul>
+    </div>
+  </div>
+  
+  <div class="footer">
+    <a class="logo" href="../../icse.us.edu.pl/index.html" target="_blank"><img src="_static/logo-icse.png" alt="ICSE"/></a><br/>
+    &copy; Copyright 2013, Marcin Kostur.
+    Created using <a href="http://sphinx.pocoo.org/">Sphinx</a> 1.2.2.
+  </div>
+  </body>
+</html>

@@ -1,0 +1,430 @@
+
+
+  <!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+  "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+
+
+<html xmlns="http://www.w3.org/1999/xhtml">
+  <head>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    
+    <title>Zastosowanie pakietu Sage &mdash; Algebra Liniowa</title>
+    
+    <link rel="stylesheet" href="_static/cloud.css" type="text/css" />
+    <link rel="stylesheet" href="_static/pygments.css" type="text/css" />
+    <link rel="stylesheet" href="http://fonts.googleapis.com/css?family=Noticia+Text|Open+Sans|Droid+Sans+Mono&subset=latin,latin-ext" type="text/css" />
+    
+    <script type="text/javascript">
+      var DOCUMENTATION_OPTIONS = {
+        URL_ROOT:    './',
+        VERSION:     'I',
+        COLLAPSE_INDEX: false,
+        FILE_SUFFIX: '.html',
+        HAS_SOURCE:  true
+      };
+    </script>
+    <script type="text/javascript" src="_static/jquery.js"></script>
+    <script type="text/javascript" src="_static/underscore.js"></script>
+    <script type="text/javascript" src="_static/doctools.js"></script>
+    <script type="text/javascript" src="_static/translations.js"></script>
+    <script type="text/javascript" src="http://cdn.mathjax.org/mathjax/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML"></script>
+    <script type="text/javascript" src="_static/jquery.cookie.js"></script>
+    <script type="text/javascript" src="_static/cloud.js"></script>
+
+	<script src="http://sagecell.icse.us.edu.pl:6363/static/jquery.min.js"></script>
+	<script src="http://sagecell.icse.us.edu.pl:6363/static/embedded_sagecell.js"></script>
+
+	<!-- <script src="http://sagecell.sagemath.org/static/jquery.min.js"></script> -->
+	<!-- <script src="http://sagecell.sagemath.org/static/embedded_sagecell.js"></script> -->
+
+	<script>sagecell.makeSagecell({inputLocation: ".sage",
+                                       evalButtonText: 'Wykonaj',
+                                       linked: true});</script>
+
+	<style type="text/css">
+		.sagecell .CodeMirror-scroll {
+			overflow-y: hidden;
+			overflow-x: auto;
+		}
+		.sagecell .CodeMirror {
+			height: auto;
+		}
+	</style>
+
+    
+    <link rel="top" title="Algebra Liniowa" href="http://visual.icse.us.edu.pl/LA/index.html" />
+    <link rel="next" title="Operatory hermitowskie i unitarne" href="p_unitarne_operatory_hermit_i_unit.html" />
+    <link rel="prev" title="Macierze hermitowskie i unitarne" href="p_unitarne_macierze_hermit_i_unit.html" />
+ 
+  <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, minimum-scale=1">
+  </head>
+  <body>
+  <div class="relbar-top">
+    
+    <div class="related">
+      <h3>Nawigacja</h3>
+      <ul>
+        <li class="right" style="margin-right: 10px">
+          <a href="p_unitarne_operatory_hermit_i_unit.html" title="Operatory hermitowskie i unitarne"
+             accesskey="N">dalej</a></li>
+        <li class="right" >
+          <a href="p_unitarne_macierze_hermit_i_unit.html" title="Macierze hermitowskie i unitarne"
+             accesskey="P">wstecz</a> &nbsp; &nbsp;</li>
+  <li><a href="http://visual.icse.us.edu.pl/LA/index.html">Algebra Liniowa</a> &raquo;</li>
+   
+      </ul>
+    </div>
+  </div>
+  
+  <div class="content">  
+
+    <div class="document">
+      <div class="documentwrapper">
+        <div class="bodywrapper">
+          <div class="body">
+            
+  <div class="section" id="zastosowanie-pakietu-sage">
+<h1>Zastosowanie pakietu Sage<a class="headerlink" href="p_unitarne_Sage.html#zastosowanie-pakietu-sage" title="Stały odnośnik do tego nagłówka">¶</a></h1>
+<div class="section" id="iloczyn-skalarny">
+<h2>Iloczyn skalarny<a class="headerlink" href="p_unitarne_Sage.html#iloczyn-skalarny" title="Stały odnośnik do tego nagłówka">¶</a></h2>
+<p>Iloczyn skalarny wektorów <span class="math">\(\quad
+\boldsymbol{x}\,=\,
+\left[\begin{array}{c} x_1 \\ x_2 \\ \dots \\ x_n \end{array}\right]\,,
+\quad
+\boldsymbol{y}\,=\,
+\left[\begin{array}{c} y_1 \\ y_2 \\ \dots \\ y_n \end{array}\right]\quad
+\in K^n\,,\)</span> <span class="math">\(\\\)</span></p>
+<p>gdzie <span class="math">\(\ K=R\ \,\)</span> lub <span class="math">\(\ K=C\,,\ \)</span> można obliczyć stosując operację mnożenia
+<span class="math">\(\,\)</span> * <span class="math">\(\,\)</span>  bądź metody Sage&#8217;a:
+<span class="math">\(\,\)</span> <tt class="docutils literal"><span class="pre">dot_product()</span></tt>, <span class="math">\(\,\)</span> <tt class="docutils literal"><span class="pre">hermitian_inner_product()</span></tt>,
+<span class="math">\(\,\)</span> <tt class="docutils literal"><span class="pre">inner_product()</span></tt>.</p>
+<p>Pierwsze dwa sposoby obliczają iloczyn skalarny według wzoru</p>
+<div class="math" id="equation-xTy">
+<span class="eqno">(1)</span>\[\langle\boldsymbol{x},\boldsymbol{y}\rangle\ \ =\ \
+\boldsymbol{x}^T\boldsymbol{y}\ \ =\ \
+\sum_{i\,=\,1}^n\ x_i\;y_i\,,\]</div>
+<p>odpowiedniego dla wektorów rzeczywistych.
+Poniższy kod wyświetla iloczyn skalarny dwóch wektorów stopnia <span class="math">\(\,n\ \)</span>
+w postaci symbolicznej i sprawdza, czy obydwa sposoby są równoważne:</p>
+<div class="highlight-python"><div class="highlight"><pre><span class="n">sage</span><span class="p">:</span> <span class="n">n</span> <span class="o">=</span> <span class="mi">4</span>
+<span class="n">sage</span><span class="p">:</span> <span class="n">x</span> <span class="o">=</span> <span class="n">vector</span><span class="p">([</span><span class="n">var</span><span class="p">(</span><span class="s">&#39;x</span><span class="si">%d</span><span class="s">&#39;</span> <span class="o">%</span> <span class="n">k</span><span class="p">)</span> <span class="k">for</span> <span class="n">k</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="mi">1</span><span class="p">,</span><span class="n">n</span><span class="o">+</span><span class="mi">1</span><span class="p">)])</span>
+<span class="n">sage</span><span class="p">:</span> <span class="n">y</span> <span class="o">=</span> <span class="n">vector</span><span class="p">([</span><span class="n">var</span><span class="p">(</span><span class="s">&#39;y</span><span class="si">%d</span><span class="s">&#39;</span> <span class="o">%</span> <span class="n">l</span><span class="p">)</span> <span class="k">for</span> <span class="n">l</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="mi">1</span><span class="p">,</span><span class="n">n</span><span class="o">+</span><span class="mi">1</span><span class="p">)])</span>
+<span class="n">sage</span><span class="p">:</span> <span class="k">print</span> <span class="n">x</span><span class="o">.</span><span class="n">dot_product</span><span class="p">(</span><span class="n">y</span><span class="p">),</span> <span class="nb">bool</span><span class="p">(</span><span class="n">x</span><span class="o">.</span><span class="n">dot_product</span><span class="p">(</span><span class="n">y</span><span class="p">)</span><span class="o">==</span><span class="n">x</span><span class="o">*</span><span class="n">y</span><span class="p">)</span>
+
+<span class="n">x1</span><span class="o">*</span><span class="n">y1</span> <span class="o">+</span> <span class="n">x2</span><span class="o">*</span><span class="n">y2</span> <span class="o">+</span> <span class="n">x3</span><span class="o">*</span><span class="n">y3</span> <span class="o">+</span> <span class="n">x4</span><span class="o">*</span><span class="n">y4</span> <span class="bp">True</span>
+</pre></div>
+</div>
+<p>Wektory mogą pochodzić z różnych pierścieni, jeśli operacje na ich elementach mają sens:</p>
+<div class="highlight-python"><div class="highlight"><pre><span class="n">sage</span><span class="p">:</span> <span class="n">x</span> <span class="o">=</span> <span class="n">vector</span><span class="p">(</span><span class="n">ZZ</span><span class="p">,</span> <span class="p">[</span> <span class="mi">3</span><span class="p">,</span><span class="o">-</span><span class="mi">1</span><span class="p">,</span> <span class="mi">4</span><span class="p">])</span>
+<span class="n">sage</span><span class="p">:</span> <span class="n">y</span> <span class="o">=</span> <span class="n">vector</span><span class="p">(</span><span class="n">CDF</span><span class="p">,[</span><span class="o">-</span><span class="mi">2</span><span class="p">,</span> <span class="mi">7</span><span class="p">,</span> <span class="mi">5</span><span class="p">])</span>
+<span class="n">sage</span><span class="p">:</span> <span class="n">xdy</span> <span class="o">=</span> <span class="n">x</span><span class="o">.</span><span class="n">dot_product</span><span class="p">(</span><span class="n">y</span><span class="p">)</span>
+<span class="n">sage</span><span class="p">:</span> <span class="k">print</span> <span class="n">xdy</span><span class="p">,</span> <span class="n">xdy</span><span class="o">.</span><span class="n">base_ring</span><span class="p">()</span>
+
+<span class="mf">7.0</span> <span class="n">Complex</span> <span class="n">Double</span> <span class="n">Field</span>
+</pre></div>
+</div>
+<p>Metoda <span class="math">\(\,\)</span> <tt class="docutils literal"><span class="pre">hermitian_inner_product()</span></tt> <span class="math">\(\,\)</span> wylicza iloczyn skalarny w postaci</p>
+<div class="math">
+\[\langle\boldsymbol{x},\boldsymbol{y}\rangle\ \ =\ \
+\boldsymbol{x}^+\boldsymbol{y}\ \ =\ \
+\sum_{i\,=\,1}^n\ x_i^*\,y_i\,,\]</div>
+<p>odpowiedniej dla unitarnej przestrzeni <span class="math">\(\,C^n\ \,\)</span>
+(<tt class="docutils literal"><span class="pre">dot_product()</span></tt> daje tu wynik błędny):</p>
+<div class="highlight-python"><div class="highlight"><pre>sage: x = vector([3+2*I,-1+I,2-I])
+sage: y = vector([1+I,2,-3*I])
+sage: xdy  = x.dot_product(y)
+sage: xhy = x.hermitian_inner_product(y)
+sage: print &quot;Błędny wynik:     &quot;, xdy
+sage: print &quot;Poprawny wynik:&quot;, xhy
+
+Błędny wynik:      I - 4
+Poprawny wynik: -7*I + 6
+</pre></div>
+</div>
+<p>Iloczyn skalarny w przestrzeni <span class="math">\(\,R^n\ \)</span> można też określić bardziej ogólnie</p>
+<div class="math" id="equation-xTAy">
+<span class="eqno">(2)</span>\[\langle\boldsymbol{x},\boldsymbol{y}\rangle\ \ =\ \
+\boldsymbol{x}^T\boldsymbol{A}\,\boldsymbol{y}\ \ =\ \
+\sum_{i,\,j=1}^n\ a_{ij}\;x_i\,y_j\,,\]</div>
+<p>gdzie <span class="math">\(\ \boldsymbol{A}=[\,a_{ij}\,]_{n\times n}\in M_n(R)\ \)</span> jest macierzą symetryczną i dodatnio określoną:</p>
+<div class="math" id="equation-ATA">
+<span class="eqno">(3)</span>\[\boldsymbol{A}^T=\boldsymbol{A}\,,\qquad\
+\left[\
+\boldsymbol{x}^T\boldsymbol{A}\,\boldsymbol{x}\geq 0
+\quad\land\quad
+\left(\ \boldsymbol{x}^T\boldsymbol{A}\,\boldsymbol{x}=0
+\ \ \Leftrightarrow\ \
+\boldsymbol{x}=\boldsymbol{0}\ \right)\ \right]\,,\ \
+\boldsymbol{x}\in R^n\,.\]</div>
+<p>(warunek <a href="p_unitarne_Sage.html#equation-ATA">(3)</a> będzie spełniony wtedy i tylko wtedy, gdy
+<span class="math">\(\ \boldsymbol{A}=\boldsymbol{C}^T\boldsymbol{C}\,,\ \ \det\boldsymbol{C}\neq 0\,\)</span>).</p>
+<p>Do wyliczenia iloczynu skalarnego w postaci <a href="p_unitarne_Sage.html#equation-xTAy">(2)</a> służy metoda
+<span class="math">\(\,\)</span> <tt class="docutils literal"><span class="pre">inner_product()</span></tt>.
+Macierz <span class="math">\(\,\boldsymbol{A}\ \)</span> może być tam zadeklarowana
+w definicji pierścienia, do którego należy wektor <span class="math">\(\,\boldsymbol{x}.\)</span>
+Przy braku takiej deklaracji metoda działa tak, jak <span class="math">\(\,\)</span> <tt class="docutils literal"><span class="pre">dot_product()</span></tt>:</p>
+<div class="highlight-python"><div class="highlight"><pre><span class="n">sage</span><span class="p">:</span> <span class="n">x</span> <span class="o">=</span> <span class="n">vector</span><span class="p">(</span><span class="n">QQ</span><span class="p">,[</span><span class="mi">3</span><span class="p">,</span> <span class="mi">2</span><span class="p">,</span> <span class="mi">4</span><span class="p">,</span><span class="o">-</span><span class="mi">1</span><span class="p">])</span>
+<span class="n">sage</span><span class="p">:</span> <span class="n">y</span> <span class="o">=</span> <span class="n">vector</span><span class="p">(</span><span class="n">ZZ</span><span class="p">,[</span><span class="mi">3</span><span class="p">,</span> <span class="mi">1</span><span class="p">,</span><span class="o">-</span><span class="mi">4</span><span class="p">,</span> <span class="mi">2</span><span class="p">])</span>
+<span class="n">sage</span><span class="p">:</span> <span class="n">xiy</span> <span class="o">=</span> <span class="n">x</span><span class="o">.</span><span class="n">inner_product</span><span class="p">(</span><span class="n">y</span><span class="p">)</span>
+<span class="n">sage</span><span class="p">:</span> <span class="n">xiy</span><span class="p">,</span> <span class="n">xiy</span><span class="o">==</span><span class="n">x</span><span class="o">.</span><span class="n">dot_product</span><span class="p">(</span><span class="n">y</span><span class="p">)</span>
+
+<span class="p">(</span><span class="o">-</span><span class="mi">7</span><span class="p">,</span> <span class="bp">True</span><span class="p">)</span>
+</pre></div>
+</div>
+<p>Podany niżej kod wylicza iloczyn skalarny <a href="p_unitarne_Sage.html#equation-xTAy">(2)</a>
+z macierzą <span class="math">\(\ \,\boldsymbol{A}=\boldsymbol{C}^T\boldsymbol{C}\ \,\)</span>
+dla tych samych wektorów <span class="math">\(\,\)</span> <tt class="docutils literal"><span class="pre">x,y</span></tt> <span class="math">\(\,\)</span>
+i <span class="math">\(\,\)</span> sprawdza poprawność wyniku bezpośrednim rachunkiem.
+Macierz <span class="math">\(\,\boldsymbol{A}\ \)</span>
+jest odczytywana z definicji pierścienia <em>pierwszego</em> czynnika.
+Przestawienie czynników daje więc inny wynik
+(w tym wypadku zwykły iloczyn skalarny <a href="p_unitarne_Sage.html#equation-xTy">(1)</a>).</p>
+<div class="highlight-python"><div class="highlight"><pre>sage: C= matrix(QQ,[[ 2,-1, 0, 3],
+...                 [ 4,-2, 1,-1],
+...                 [ 4, 1, 2,-5],
+...                 [-3, 0, 2, 0]])
+
+sage: A = C.T*C
+
+sage: X = VectorSpace(QQ, 4, inner_product_matrix=A)
+sage: x = X([3,2,4,-1])
+
+sage: Y = FreeModule(ZZ,4)
+sage: y = Y([3,1,-4,2])
+
+sage: xiy = x.inner_product(y)
+sage: yix = y.inner_product(x)
+
+sage: test_xy = xiy==(x.row()*A*y.column())[0,0]
+sage: test_yx = yix==(y.row()*x.column())[0,0]
+
+sage: print &quot;Iloczyn skalarny z macierzą A: &lt;x,y&gt; =&quot;,\
+...   xiy, test_xy
+
+sage: print &quot;Zwykły iloczyn skalarny:       &lt;y,x&gt; = &quot;,\
+...   yix, test_yx
+
+Iloczyn skalarny z macierzą A: &lt;x,y&gt; = -55 True
+Zwykły iloczyn skalarny:       &lt;y,x&gt; =  -7 True
+</pre></div>
+</div>
+</div>
+<div class="section" id="norma">
+<h2>Norma<a class="headerlink" href="p_unitarne_Sage.html#norma" title="Stały odnośnik do tego nagłówka">¶</a></h2>
+<p>Funkcja (metoda) <span class="math">\(\,\)</span> <tt class="docutils literal"><span class="pre">norm()</span></tt> <span class="math">\(\,\)</span> oblicza <span class="math">\(\,p\)</span>-normę
+rzeczywistego albo zespolonego wektora</p>
+<div class="math">
+\[\begin{split}\boldsymbol{x}\,=\,
+\left[\begin{array}{c} x_1 \\ x_2 \\ \ldots \\ x_n \end{array}\right]\
+\in K^n\,,\qquad K=R\quad\lor\quad K=C\end{split}\]</div>
+<p>według wzoru:
+<span class="math">\(\qquad\|\boldsymbol{x}\|_p\ \ :\,=\ \
+\left(\ \displaystyle\sum_{i\,=\,1}^n\ |x_i|^{\,p}\right)^{1/p}\,,\qquad
+1 \leq p \leq \infty\,.\)</span></p>
+<p>Szczególne przypadki:</p>
+<p><span class="math">\(\quad\|\boldsymbol{x}\|_1\ \ =\ \
+|x_1|+\,|x_2|+\,\ldots\,+\,|x_n|\ ;\)</span></p>
+<p><span class="math">\(\quad\|\boldsymbol{x}\|_2\ \ =\ \
+\sqrt{\,|x_1|^2+\,|x_2|^2+\ldots\,+\,|x_n|^2\,}\quad\)</span> (norma euklidesowa)</p>
+<p><span class="math">\(\quad\|\boldsymbol{x}\|_\infty\ \ =\ \
+\displaystyle\lim_{p\rightarrow\infty}\|\boldsymbol{x}\|_p\ \ =\ \
+\max_{i=1\dots n} |x_i|\,.\)</span></p>
+<p>Polecenie <tt class="docutils literal"><span class="pre">norm</span></tt> może wystąpić jako funkcja: <tt class="docutils literal"><span class="pre">norm(x)</span></tt>,
+bądź jako metoda: <tt class="docutils literal"><span class="pre">x.norm(p)</span></tt>, <span class="math">\(\\\)</span>
+przy czym domyślną wartością parametru <span class="math">\(\,p\ \)</span> jest 2, co odpowiada normie euklidesowej.</p>
+<div class="admonition-poeksperymentuj-z-sage admonition">
+<p class="first admonition-title">Poeksperymentuj z Sage:</p>
+<p class="last">Zadając stopień <span class="math">\(\,n\ \)</span> wektora <span class="math">\(\,\boldsymbol{x}\ \)</span>
+oraz parametr normy <span class="math">\(\,p\,,\ \)</span> otrzymasz symboliczne <span class="math">\(\\\)</span>
+wyrażenia dla normy euklidesowej i dla <span class="math">\(\,p\)</span>-normy
+wektora <span class="math">\(\,\boldsymbol{x}.\ \)</span></p>
+</div>
+<div class='sage'><script type='text/x-sage'>n = 3
+p = 4
+x = vector([var('x%d' % k) for k in range(1,n+1)])
+show(norm(x))
+show(x.norm(p))</script></div><p><span class="math">\(\;\)</span></p>
+<p>Metoda <tt class="docutils literal"><span class="pre">norm()</span></tt> wylicza również normę macierzową</p>
+<div class="math" id="equation-m_norm">
+<span class="eqno">(4)</span>\[\|\boldsymbol{A}\|_p\ \ :\,=\ \ \max_{\boldsymbol{x}\neq\boldsymbol{0}}\
+\frac{\|\boldsymbol{A}\boldsymbol{x}\|_p}{\|\boldsymbol{x}\|_p}\ ,\qquad
+\boldsymbol{A}=[\,a_{ij}\,]_{n\times n}\in M_n(K)\,,\quad 1 \leq p \leq \infty\,,\]</div>
+<p>indukowaną w algebrze <span class="math">\(\,M_n(K)\ \)</span> przez <span class="math">\(\,p\)</span>-normę w <span class="math">\(\,K^n\,,\ \)</span>
+a także macierzową normę Frobeniusa</p>
+<div class="math">
+\[\|\boldsymbol{A}\|_F\ \ :\,=\ \ \sqrt{\,\sum_{i,\,j=1}^n\ |a_{ij}|^2}\,,\qquad
+\boldsymbol{A}=[\,a_{ij}\,]_{n\times n}\in M_n(K)\,,\]</div>
+<p>która jest bezpośrednim uogólnieniem wektorowej normy euklidesowej. <span class="math">\(\\\)</span>
+Szczególnymi przypadkami normy <a href="p_unitarne_Sage.html#equation-m_norm">(4)</a> są:</p>
+<p><span class="math">\(\quad\|\boldsymbol{A}\|_1\ \,=\ \,
+\displaystyle\max_{j=1\dots n}\ \sum_{i\,=\,1}^n\ |a_{ij}|\quad\)</span>
+(największa suma kolumnowa) ;</p>
+<p><span class="math">\(\quad\|\boldsymbol{A}\|_\infty\ \,=\ \,
+\displaystyle\max_{i=1\dots n}\ \sum_{j\,=\,1}^n\ |a_{ij}|\quad\)</span>
+(największa suma wierszowa) .</p>
+<div class="admonition-poeksperymentuj-z-sage admonition">
+<p class="first admonition-title">Poeksperymentuj z Sage:</p>
+<p class="last">Wypróbuj działanie programów dla różnych wektorów i macierzy.</p>
+</div>
+<p>Iloczyny skalarne i normy wektorów zespolonych.</p>
+<div class='sage'><script type='text/x-sage'>x = vector(CDF,[1-2*I,3*I,-4,-1+I])
+
+# Trzy równoważne polecenia dla normy euklidesowej:
+print (norm(x), x.norm(), x.norm(2)), '\n'
+
+# Przykłady norm egzotycznych:
+print (x.norm(1), x.norm(5), x.norm(pi/2), x.norm(Infinity))</script></div><div class='sage'><script type='text/x-sage'>x = vector(CDF,[1-2*I,3*I,-4,-1+I])
+y = vector(CDF,[-2,2-I,1,3+2*I])
+
+# Sprawdzenie nierówności Schwarza:
+print abs(x.hermitian_inner_product(y)) <= norm(x)*norm(y)
+print abs(x.hermitian_inner_product(y)), '<=', \
+norm(x), '*', norm(y), '=', norm(x)*norm(y), '\n'
+
+# Sprawdzenie nierówności trójkąta:
+print norm(x+y) <= norm(x)+norm(y)
+print norm(x+y), '<=', norm(x), '+', norm(y), '=', norm(x)+norm(y)</script></div><p>Różne normy macierzy kwadratowej i prostokątnej:</p>
+<div class='sage'><script type='text/x-sage'>A = matrix(RR, [[13,-4],
+                [-4, 7]])
+
+A.norm(1), A.norm(2), A.norm('frob'), A.norm(Infinity)</script></div><div class='sage'><script type='text/x-sage'>A = matrix(QQbar, [[ 1, 2, 4,  3],
+                   [-1, 0, 3,-10]])
+
+print (A.norm(1),A.norm(2),A.norm('frob'),A.norm(Infinity)),'\n'
+
+# Sprawdzenie normy euklidesowej (p=2):
+ATA = A.T*A
+max([sqrt(lambda2) for lambda2 in ATA.eigenvalues()])</script></div><p><span class="math">\(\;\)</span></p>
+<p>Dla liczb zespolonych jako wektorów przestrzeni <span class="math">\(\,C^1,\ \)</span> naturalną normą jest moduł:</p>
+<div class="math">
+\[\|z\|\ =\ |z|\,,\quad z\in C\,,\]</div>
+<p>gdzie dla <span class="math">\(\ z=a+b\,i:\ |z|\,=\,\sqrt{z^*z}\,=\,\sqrt{a^2+b^2}\,.\)</span></p>
+<p>Niespodzianką jest to, że funkcja <tt class="docutils literal"><span class="pre">norm()</span></tt>, zastosowana do liczb zespolonych,
+zwraca nie moduł, ale kwadrat modułu:</p>
+<div class="highlight-python"><div class="highlight"><pre><span class="n">sage</span><span class="p">:</span> <span class="n">var</span><span class="p">(</span><span class="s">&#39;a,b&#39;</span><span class="p">)</span>
+<span class="n">sage</span><span class="p">:</span> <span class="n">z</span> <span class="o">=</span> <span class="n">a</span><span class="o">+</span><span class="n">b</span><span class="o">*</span><span class="n">I</span>
+<span class="n">sage</span><span class="p">:</span> <span class="n">norm</span><span class="p">(</span><span class="n">z</span><span class="p">)</span><span class="o">.</span><span class="n">simplify</span><span class="p">()</span>
+
+<span class="n">a</span><span class="o">^</span><span class="mi">2</span> <span class="o">+</span> <span class="n">b</span><span class="o">^</span><span class="mi">2</span>
+</pre></div>
+</div>
+<p>Tego rodzaju &#8220;norma&#8221; (niespełniająca warunków definicji normy) jest używana w teorii liczb.
+Aby otrzymać prawidłowy wynik, trzeba liczbę zespoloną przekształcić do jednoelementowego
+wektora albo jednoelementowej macierzy:</p>
+<div class="highlight-python"><div class="highlight"><pre><span class="n">sage</span><span class="p">:</span> <span class="n">z0</span> <span class="o">=</span> <span class="mi">1</span><span class="o">-</span><span class="mi">2</span><span class="o">*</span><span class="n">I</span>
+<span class="n">sage</span><span class="p">:</span> <span class="n">z1</span> <span class="o">=</span> <span class="n">vector</span><span class="p">(</span><span class="n">CDF</span><span class="p">,[</span><span class="n">z0</span><span class="p">])</span>
+<span class="n">sage</span><span class="p">:</span> <span class="n">z2</span> <span class="o">=</span> <span class="n">matrix</span><span class="p">(</span><span class="n">CDF</span><span class="p">,[[</span><span class="n">z0</span><span class="p">]])</span>
+<span class="n">sage</span><span class="p">:</span> <span class="n">norm</span><span class="p">(</span><span class="n">z0</span><span class="p">),</span> <span class="n">norm</span><span class="p">(</span><span class="n">z1</span><span class="p">),</span> <span class="n">norm</span><span class="p">(</span><span class="n">z2</span><span class="p">)</span>
+
+<span class="p">(</span><span class="mi">5</span><span class="p">,</span> <span class="mf">2.2360679775</span><span class="p">,</span> <span class="mf">2.2360679775</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+<div class="section" id="dzialania-na-macierzach">
+<h2>Działania na macierzach<a class="headerlink" href="p_unitarne_Sage.html#dzialania-na-macierzach" title="Stały odnośnik do tego nagłówka">¶</a></h2>
+<p>Operacje na macierzach rzeczywistych bądź zespolonych obsługiwane przez metody Sage&#8217;a:</p>
+<ul class="simple">
+<li>transpozycja: <span class="math">\(\,\)</span> <tt class="docutils literal"><span class="pre">transpose()</span></tt>, <span class="math">\(\,\)</span> w skrócie <span class="math">\(\,\)</span> <tt class="docutils literal"><span class="pre">T</span></tt> ;</li>
+<li>sprzężenie zespolone: <span class="math">\(\,\)</span> <tt class="docutils literal"><span class="pre">conjugate()</span></tt>, <span class="math">\(\,\)</span> w skrócie <span class="math">\(\,\)</span> <tt class="docutils literal"><span class="pre">C</span></tt> ;</li>
+<li>sprzężenie hermitowskie: <span class="math">\(\,\)</span> <tt class="docutils literal"><span class="pre">conjugate_transpose()</span></tt>, <span class="math">\(\,\)</span>
+w skrócie <span class="math">\(\,\)</span> <tt class="docutils literal"><span class="pre">H</span></tt> ;</li>
+<li>odwrotność: <span class="math">\(\,\)</span> <tt class="docutils literal"><span class="pre">inverse()</span></tt>, <span class="math">\(\,\)</span> w skrócie <span class="math">\(\,\)</span> <tt class="docutils literal"><span class="pre">I</span></tt> .</li>
+</ul>
+<p>Następujące metody testują określone własności macierzy, a mianowicie:</p>
+<ul class="simple">
+<li>symetryczność: <span class="math">\(\,\)</span> <tt class="docutils literal"><span class="pre">is_symmetric()</span></tt> ;</li>
+<li>antysymetryczność <span class="math">\(\,\)</span> <tt class="docutils literal"><span class="pre">is_skew_symmetric()</span></tt> ;</li>
+<li>hermitowskość: <span class="math">\(\,\)</span> <tt class="docutils literal"><span class="pre">is_hermitian()</span></tt> ;</li>
+<li>unitarność: <span class="math">\(\,\)</span> <tt class="docutils literal"><span class="pre">is_unitary()</span></tt> ;</li>
+<li>osobliwość: <span class="math">\(\,\)</span> <tt class="docutils literal"><span class="pre">is_singular()</span></tt></li>
+<li>kwadratowość: <span class="math">\(\,\)</span> <tt class="docutils literal"><span class="pre">is_square()</span></tt> <span class="math">\(\\\)</span></li>
+</ul>
+<p><strong>Przykład.</strong></p>
+<div class="highlight-python"><div class="highlight"><pre><span class="n">sage</span><span class="p">:</span> <span class="n">A</span> <span class="o">=</span> <span class="n">matrix</span><span class="p">(</span><span class="mi">3</span><span class="p">,[</span> <span class="mi">1</span><span class="o">+</span><span class="n">I</span><span class="p">,</span> <span class="mi">2</span><span class="o">-</span><span class="mi">3</span><span class="o">*</span><span class="n">I</span><span class="p">,</span> <span class="o">-</span><span class="mi">1</span><span class="o">+</span><span class="mi">2</span><span class="o">*</span><span class="n">I</span><span class="p">,</span>
+<span class="o">...</span>                 <span class="o">-</span><span class="mi">3</span><span class="o">+</span><span class="n">I</span><span class="p">,</span>   <span class="mi">4</span><span class="o">*</span><span class="n">I</span><span class="p">,</span> <span class="o">-</span><span class="mi">2</span><span class="o">-</span><span class="mi">4</span><span class="o">*</span><span class="n">I</span><span class="p">,</span>
+<span class="o">...</span>                  <span class="mi">4</span><span class="o">-</span><span class="n">I</span><span class="p">,</span>    <span class="o">-</span><span class="n">I</span><span class="p">,</span>  <span class="mi">1</span><span class="o">+</span><span class="mi">3</span><span class="o">*</span><span class="n">I</span><span class="p">])</span>
+
+<span class="n">sage</span><span class="p">:</span> <span class="n">html</span><span class="o">.</span><span class="n">table</span><span class="p">([[</span><span class="s">&quot;Sprzężenie hermitowskie:&quot;</span><span class="p">],</span>
+<span class="o">...</span>               <span class="p">[</span><span class="n">A</span><span class="p">,</span> <span class="s">&#39;$</span><span class="se">\\</span><span class="s">rightarrow$&#39;</span><span class="p">,</span> <span class="n">A</span><span class="o">.</span><span class="n">H</span><span class="p">]])</span>
+
+<span class="n">sage</span><span class="p">:</span> <span class="n">A</span><span class="o">.</span><span class="n">is_hermitian</span><span class="p">(),</span> <span class="p">(</span><span class="n">A</span><span class="o">.</span><span class="n">H</span><span class="o">*</span><span class="n">A</span><span class="p">)</span><span class="o">.</span><span class="n">is_hermitian</span><span class="p">()</span>
+</pre></div>
+</div>
+<p><span class="math">\(\qquad\)</span> Sprzężenie hermitowskie:</p>
+<p><span class="math">\(\\ \left(\begin{array}{rrr}
+i+1 &amp; -\,3\,i+2 &amp; 2\,i-1 \\ i-3 &amp; 4\,i &amp; -\,4\,i-2 \\ -\,i+4 &amp; -\,i &amp; 3\,i+1
+\end{array}\right)
+\quad\rightarrow\quad
+\left(\begin{array}{rrr}
+-\,i+1 &amp; -\,i-3 &amp; i+4 \\ 3\,i+2 &amp; -\,4\,i &amp; i \\ -\,2\,i-1 &amp; 4\,i-2 &amp; -\,3\,i+1
+\end{array}\right)\)</span></p>
+<p>(False, True)</p>
+</div>
+</div>
+
+
+          </div>
+        </div>
+      </div>
+      <div class="sphinxsidebar">
+        <div class="sphinxsidebarwrapper">
+  <div class="sphinxlocaltoc">
+  <h3><a href="http://visual.icse.us.edu.pl/LA/index.html">Spis treści</a></h3>
+  <ul>
+<li><a class="reference internal" href="p_unitarne_Sage.html#">Zastosowanie pakietu Sage</a><ul>
+<li><a class="reference internal" href="p_unitarne_Sage.html#iloczyn-skalarny">Iloczyn skalarny</a></li>
+<li><a class="reference internal" href="p_unitarne_Sage.html#norma">Norma</a></li>
+<li><a class="reference internal" href="p_unitarne_Sage.html#dzialania-na-macierzach">Działania na macierzach</a></li>
+</ul>
+</li>
+</ul>
+
+  </div>
+  <h4>Poprzedni temat</h4>
+  <p class="topless"><a href="p_unitarne_macierze_hermit_i_unit.html"
+                        title="poprzedni rozdział">Macierze hermitowskie i unitarne</a></p>
+  <h4>Następny temat</h4>
+  <p class="topless"><a href="p_unitarne_operatory_hermit_i_unit.html"
+                        title="następny rozdział">Operatory hermitowskie i unitarne</a></p>
+<div id="searchbox" style="display: none">
+  <h3>Szybkie wyszukiwanie</h3>
+    <form class="search" action="search.html" method="get">
+      <input type="text" name="q" />
+      <input type="submit" value="Szukaj" />
+      <input type="hidden" name="check_keywords" value="yes" />
+      <input type="hidden" name="area" value="default" />
+    </form>
+    <p class="searchtip" style="font-size: 90%">
+    Wprowadź szukany termin lub nazwę modułu, klasy lub funkcji.
+    </p>
+</div>
+<script type="text/javascript">$('#searchbox').show(0);</script>
+        </div>
+      </div>
+      <div class="clearer"></div>
+    </div>
+  </div>
+  <div class="relbar-bottom">
+    
+    <div class="related">
+      <h3>Nawigacja</h3>
+      <ul>
+        <li class="right" style="margin-right: 10px">
+          <a href="p_unitarne_operatory_hermit_i_unit.html" title="Operatory hermitowskie i unitarne"
+             >dalej</a></li>
+        <li class="right" >
+          <a href="p_unitarne_macierze_hermit_i_unit.html" title="Macierze hermitowskie i unitarne"
+             >wstecz</a> &nbsp; &nbsp;</li>
+  <li><a href="http://visual.icse.us.edu.pl/LA/index.html">Algebra Liniowa</a> &raquo;</li>
+   
+      </ul>
+    </div>
+  </div>
+  
+  <div class="footer">
+    <a class="logo" href="../../icse.us.edu.pl/index.html" target="_blank"><img src="_static/logo-icse.png" alt="ICSE"/></a><br/>
+    &copy; Copyright 2013, Marcin Kostur.
+    Created using <a href="http://sphinx.pocoo.org/">Sphinx</a> 1.2.2.
+  </div>
+  </body>
+</html>

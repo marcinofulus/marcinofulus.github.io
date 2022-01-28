@@ -1,0 +1,664 @@
+
+
+  <!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+  "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+
+
+<html xmlns="http://www.w3.org/1999/xhtml">
+  <head>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    
+    <title>Zastosowania wyznaczników &mdash; Algebra Liniowa</title>
+    
+    <link rel="stylesheet" href="_static/cloud.css" type="text/css" />
+    <link rel="stylesheet" href="_static/pygments.css" type="text/css" />
+    <link rel="stylesheet" href="http://fonts.googleapis.com/css?family=Noticia+Text|Open+Sans|Droid+Sans+Mono&subset=latin,latin-ext" type="text/css" />
+    
+    <script type="text/javascript">
+      var DOCUMENTATION_OPTIONS = {
+        URL_ROOT:    './',
+        VERSION:     'I',
+        COLLAPSE_INDEX: false,
+        FILE_SUFFIX: '.html',
+        HAS_SOURCE:  true
+      };
+    </script>
+    <script type="text/javascript" src="_static/jquery.js"></script>
+    <script type="text/javascript" src="_static/underscore.js"></script>
+    <script type="text/javascript" src="_static/doctools.js"></script>
+    <script type="text/javascript" src="_static/translations.js"></script>
+    <script type="text/javascript" src="http://cdn.mathjax.org/mathjax/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML"></script>
+    <script type="text/javascript" src="_static/jquery.cookie.js"></script>
+    <script type="text/javascript" src="_static/cloud.js"></script>
+
+	<script src="http://sagecell.icse.us.edu.pl:6363/static/jquery.min.js"></script>
+	<script src="http://sagecell.icse.us.edu.pl:6363/static/embedded_sagecell.js"></script>
+
+	<!-- <script src="http://sagecell.sagemath.org/static/jquery.min.js"></script> -->
+	<!-- <script src="http://sagecell.sagemath.org/static/embedded_sagecell.js"></script> -->
+
+	<script>sagecell.makeSagecell({inputLocation: ".sage",
+                                       evalButtonText: 'Wykonaj',
+                                       linked: true});</script>
+
+	<style type="text/css">
+		.sagecell .CodeMirror-scroll {
+			overflow-y: hidden;
+			overflow-x: auto;
+		}
+		.sagecell .CodeMirror {
+			height: auto;
+		}
+	</style>
+
+    
+    <link rel="top" title="Algebra Liniowa" href="http://visual.icse.us.edu.pl/LA/index.html" />
+    <link rel="next" title="Rozwiązania układów równań liniowych" href="teoria_ukladow_rownan.html" />
+    <link rel="prev" title="Praktyczne wyliczanie wyznaczników" href="wyznacznik_praktyczne_wyliczanie.html" />
+ 
+  <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, minimum-scale=1">
+  </head>
+  <body>
+  <div class="relbar-top">
+    
+    <div class="related">
+      <h3>Nawigacja</h3>
+      <ul>
+        <li class="right" style="margin-right: 10px">
+          <a href="teoria_ukladow_rownan.html" title="Rozwiązania układów równań liniowych"
+             accesskey="N">dalej</a></li>
+        <li class="right" >
+          <a href="wyznacznik_praktyczne_wyliczanie.html" title="Praktyczne wyliczanie wyznaczników"
+             accesskey="P">wstecz</a> &nbsp; &nbsp;</li>
+  <li><a href="http://visual.icse.us.edu.pl/LA/index.html">Algebra Liniowa</a> &raquo;</li>
+   
+      </ul>
+    </div>
+  </div>
+  
+  <div class="content">  
+
+    <div class="document">
+      <div class="documentwrapper">
+        <div class="bodywrapper">
+          <div class="body">
+            
+  <div class="section" id="zastosowania-wyznacznikow">
+<h1>Zastosowania wyznaczników<a class="headerlink" href="wyznacznik_zastosowania.html#zastosowania-wyznacznikow" title="Stały odnośnik do tego nagłówka">¶</a></h1>
+<div class="section" id="badanie-liniowej-zaleznosci-wektorow">
+<h2>Badanie liniowej zależności wektorów<a class="headerlink" href="wyznacznik_zastosowania.html#badanie-liniowej-zaleznosci-wektorow" title="Stały odnośnik do tego nagłówka">¶</a></h2>
+<div class="admonition-twierdzenie-5-math admonition">
+<p class="first admonition-title">Twierdzenie 5. <span class="math">\(\\\)</span></p>
+<p>Wyznacznik macierzy znika wtedy i tylko wtedy,
+gdy jej kolumny są liniowo zależne. <span class="math">\(\\\)</span></p>
+<p>A zatem jeżeli <span class="math">\(\ \boldsymbol{A}\,=\,
+[\,\boldsymbol{A}_1\,|\;\boldsymbol{A}_2\,|\,\dots\,|\,\boldsymbol{A}_n\,]\,\in\,M_n(K),\ \,\)</span> to</p>
+<div class="last math">
+\[\det\boldsymbol{A}\,=\,0\qquad\Leftrightarrow\qquad
+(\boldsymbol{A}_1,\boldsymbol{A}_2,\dots,\boldsymbol{A}_n)\ -\
+\text{układ liniowo zależny}\,.\]</div>
+</div>
+<p><strong>Dowód.</strong></p>
+<p><span class="math">\(\Leftarrow\ :\ \ \)</span>
+Zakładamy, że kolumny <span class="math">\(\ \boldsymbol{A}_1,\boldsymbol{A}_2,\dots,\boldsymbol{A}_n\ \)</span>
+są liniowo zależne.</p>
+<p>Wtedy jedna spośród nich jest kombinacją liniową pozostałych. Niech na przykład</p>
+<div class="math">
+\[\boldsymbol{A}_n\ =\ \lambda_1\,\boldsymbol{A}_1\,+\;\lambda_2\,\boldsymbol{A}_2\,+\;\ldots\,+
+                     \lambda_{n-1}\,\boldsymbol{A}_{n-1}\,.\]</div>
+<p>Wówczas, <span class="math">\(\,\)</span> na podstawie postulatów <span class="math">\(\,\)</span> 1. <span class="math">\(\,\)</span> i <span class="math">\(\,\)</span> 2. <span class="math">\(\,\)</span>
+definicji aksjomatycznej</p>
+<div class="math">
+\[\det\boldsymbol{A}\ \ =\ \
+\det\,[\,\boldsymbol{A}_1\,|\;\boldsymbol{A}_2\,|\,\dots\,|\,\boldsymbol{A}_{n-1}\,|\;
+\lambda_1\,\boldsymbol{A}_1\,+\,\lambda_2\,\boldsymbol{A}_2\,+\,\ldots\,+\,
+                     \lambda_{n-1}\,\boldsymbol{A}_{n-1}\,]\ \ =\]\[=\ \ \lambda_1\,\det\,[\,\boldsymbol{A}_1\,|\;\boldsymbol{A}_2\,|\,\dots\,|\,
+                       \boldsymbol{A}_{n-1}\,|\,\boldsymbol{A}_1\,]\ \ +\]\[+\ \ \lambda_2\,\det\,[\,\boldsymbol{A}_1\,|\;\boldsymbol{A}_2\,|\,\dots\,|\,
+                       \boldsymbol{A}_{n-1}\,|\,\boldsymbol{A}_2\,]\ \ +\]\[\ldots\]\[+\ \ \lambda_{n-1}\,\det\,[\,\boldsymbol{A}_1\,|\;\boldsymbol{A}_2\,|\,\dots\,|\,
+                       \boldsymbol{A}_{n-1}\,|\,\boldsymbol{A}_{n-1}\,]\,.\]</div>
+<p>Każdy ze składników w ostatnim wyrażeniu jest proporcjonalny do wyznacznika macierzy o dwóch jednakowych kolumnach. Z własności IIIa. wynika więc, że
+<span class="math">\(\ \det\boldsymbol{A} = 0.\)</span> <span class="math">\(\\\)</span></p>
+<p><span class="math">\(\Rightarrow\ :\ \ \)</span>
+Zakładamy, że kolumny <span class="math">\(\ \boldsymbol{A}_1,\boldsymbol{A}_2,\dots,\boldsymbol{A}_n\ \)</span>
+są liniowo niezależne.</p>
+<p>Układ tych kolumn, jako liniowo niezależny układ <span class="math">\(\,n\,\)</span> wektorów w <span class="math">\(\,n\)</span>-wymiarowej
+przestrzeni, jest bazą przestrzeni <span class="math">\(\,K^n.\ \)</span> Oznacza to, że
+każdy wektor tej przestrzeni można przedstawić jednoznacznie w postaci kombinacji liniowej
+kolumn <span class="math">\(\ \boldsymbol{A}_1,\boldsymbol{A}_2,\dots,\boldsymbol{A}_n\,.\ \)</span></p>
+<p>Rozważmy takie przedstawienie dla wektorów bazy kanonicznej
+<span class="math">\(\ \boldsymbol{e}_j:\)</span></p>
+<div class="math" id="equation-eqn_ej">
+<span class="eqno">(1)</span>\[\begin{split}\boldsymbol{e}_j\ \ =\ \ \sum_{s\,=\,1}^n\ b_{sj}\,\boldsymbol{A}_s\,,\qquad
+\text{gdzie}\quad\boldsymbol{e}_j\ =\
+\left[\begin{array}{c} 0 \\ \dots \\ 1 \\ \dots \\ 0 \end{array}\right]
+\leftarrow j\,,\qquad j=1,2,\ldots,n.\end{split}\]</div>
+<p>Równania <a href="wyznacznik_zastosowania.html#equation-eqn_ej">(1)</a> stwierdzają, że <span class="math">\(\,j\)</span>-ta kolumna macierzy jednostkowej
+<span class="math">\(\,\boldsymbol{I}_n = [\,\boldsymbol{e}_1\,|\;\boldsymbol{e}_2\,|\,\dots\,|\,
+\boldsymbol{e}_n\,]\ \)</span> jest kombinacją liniową kolumn macierzy <span class="math">\(\,\boldsymbol{A}\ \)</span>
+o współczynnikach z <span class="math">\(\,j\)</span>-tej kolumny macierzy <span class="math">\(\,\boldsymbol{B}=[b_{ij}]_{n\times n}.\ \)</span>
+Według kolumnowej reguły mnożenia macierzowego oznacza to, że
+<span class="math">\(\ \boldsymbol{I}_n = \boldsymbol{A}\boldsymbol{B}.\ \)</span></p>
+<p>Korzystając z twierdzenia Cauchy&#8217;ego o wyznaczniku iloczynu macierzy, mamy</p>
+<div class="math">
+\[\det\boldsymbol{A}\,\cdot\,\det\boldsymbol{B}\ \ =\ \
+\det\,(\boldsymbol{A}\boldsymbol{B})\ \ =\ \
+\det\boldsymbol{I}_n\ =\ 1\,.\]</div>
+<p>Stąd <span class="math">\(\ \det\boldsymbol{A}\ne 0,\ \,\)</span>
+bo gdyby <span class="math">\(\ \det\boldsymbol{A} = 0,\ \)</span>
+to mielibyśmy <span class="math">\(\ \det\boldsymbol{A}\,\cdot\,\det\boldsymbol{B}\,=\,0.\)</span></p>
+<p>Zostało w ten sposób udowodnione, że</p>
+<div class="math">
+\[\text{kolumny}\ \ \boldsymbol{A}_1,\boldsymbol{A}_2,\dots,\boldsymbol{A}_n\ \
+\text{są liniowo niezależne}
+\quad\Rightarrow\quad
+\det\boldsymbol{A}\ne 0\,,\]</div>
+<p>co przez kontrapozycję jest równoważne stwierdzeniu, <span class="math">\(\,\)</span> że</p>
+<div class="math">
+\[\det\boldsymbol{A}\ =\ 0
+\quad\Rightarrow\quad
+\text{kolumny}\ \ \boldsymbol{A}_1,\boldsymbol{A}_2,\dots,\boldsymbol{A}_n\ \
+\text{są liniowo zależne}\,.\]</div>
+<p><strong>Dygresja.</strong></p>
+<p>Wzory <a href="wyznacznik_zastosowania.html#equation-eqn_ej">(1)</a> odnoszą się do sytuacji, <span class="math">\(\,\)</span> gdy w przestrzeni <span class="math">\(\,K^n\,\)</span>
+zostały określone dwie bazy:
+baza <span class="math">\(\ \,\mathcal{B}\,=\,(\boldsymbol{A}_1,\boldsymbol{A}_2,\dots,\boldsymbol{A}_n),\ \,\)</span>
+złożona z liniowo niezależnych kolumn macierzy <span class="math">\(\,\boldsymbol{A},\ \)</span> oraz baza kanoniczna
+<span class="math">\(\ \mathcal{E}\,=\,(\boldsymbol{e}_1,\boldsymbol{e}_2,\dots,\boldsymbol{e}_n)\,.\)</span></p>
+<p>Macierz <span class="math">\(\,\boldsymbol{B}=[b_{ij}]_{n\times n}\,,\ \)</span> której <span class="math">\(\,j\)</span>-ta kolumna
+składa się ze współrzędnych <span class="math">\(\,j\)</span>-tego wektora bazy <span class="math">\(\ \mathcal{E}\ \)</span>
+w bazie <span class="math">\(\ \mathcal{B}\ \ \ (j=1,2,\ldots,n),\ \,\)</span> nazywa się <span class="math">\(\,\)</span>
+<em>macierzą przejścia</em> <span class="math">\(\,\)</span> od bazy <span class="math">\(\,\mathcal{B}\ \)</span> do bazy
+<span class="math">\(\ \mathcal{E}.\)</span> <span class="math">\(\\\)</span></p>
+<div class="admonition-uwaga admonition">
+<p class="first admonition-title">Uwaga:</p>
+<div class="last line-block">
+<div class="line">Twierdzenie 5. można również zapisać w wersji wierszowej:</div>
+<div class="line">Wyznacznik macierzy znika wtedy i tylko wtedy,
+gdy jej wiersze są liniowo zależne.</div>
+</div>
+</div>
+<p><span class="math">\(\;\)</span></p>
+<p><strong>Przykład.</strong> <span class="math">\(\,\)</span> Należy pokazać, że wektory</p>
+<div class="math">
+\[\begin{split}\boldsymbol{f}_1\ =\
+\left[\begin{array}{c} 1 \\ 0 \\ 0 \\ \dots \\ 0 \end{array}\right]\,,\quad
+\boldsymbol{f}_2\ =\
+\left[\begin{array}{c} 1 \\ 1 \\ 0 \\ \dots \\ 0 \end{array}\right]\,,\quad
+\boldsymbol{f}_3\ =\
+\left[\begin{array}{c} 1 \\ 1 \\ 1 \\ \dots \\ 0 \end{array}\right]\,,\quad
+\dots,\quad
+\boldsymbol{f}_n\ =\
+\left[\begin{array}{c} 1 \\ 1 \\ 1 \\ \dots \\ 1 \end{array}\right]\end{split}\]</div>
+<p>tworzą bazę w przestrzeni <span class="math">\(\ K^n.\)</span></p>
+<p><strong>Rozwiązanie.</strong></p>
+<p>Ponieważ w <span class="math">\(\,n\)</span>-wymiarowej przestrzeni wektorowej każdy liniowo niezależny układ <span class="math">\(\,n\ \)</span>
+wektorów jest bazą, a <span class="math">\(\,\text{dim}\,K^n=n,\ \)</span> wystarczy sprawdzić liniową niezależność
+wektorów <span class="math">\(\,\boldsymbol{f}_1,\,\boldsymbol{f}_2,\,\ldots,\,\boldsymbol{f}_n.\)</span></p>
+<p>Wektory są liniowo niezależne, gdy wyznacznik macierzy z nich złożonej jest różny od zera.
+W tym wypadku jest to wyznacznik macierzy trójkątnej:</p>
+<div class="math">
+\[\begin{split}\det\ [\,\boldsymbol{f}_1\,|\;\boldsymbol{f}_2\,|\,\ldots\,|\,\boldsymbol{f}_n\,]\ \ =\ \
+\left|
+\begin{array}{ccccc}
+  1   &amp;   1   &amp;   1   &amp; \dots &amp;   1   \\
+  0   &amp;   1   &amp;   1   &amp; \dots &amp;   1   \\
+  0   &amp;   0   &amp;   1   &amp; \dots &amp;   1   \\
+\dots &amp; \dots &amp; \dots &amp; \dots &amp; \dots \\
+  0   &amp;   0   &amp;   0   &amp; \dots &amp;   1
+\end{array}
+\right|
+\ \ =\ \ 1\ne 0\,.\end{split}\]</div>
+</div>
+<div class="section" id="wyliczanie-macierzy-odwrotnej">
+<h2>Wyliczanie macierzy odwrotnej<a class="headerlink" href="wyznacznik_zastosowania.html#wyliczanie-macierzy-odwrotnej" title="Stały odnośnik do tego nagłówka">¶</a></h2>
+<div class="admonition-twierdzenie-6-math-uogolnione-rozwiniecie-laplace-a-math admonition">
+<p class="first admonition-title">Twierdzenie 6. <span class="math">\(\,\)</span> (uogólnione rozwinięcie Laplace&#8217;a) <span class="math">\(\\\)</span></p>
+<p>Dla macierzy <span class="math">\(\ \boldsymbol{A}=[a_{ij}]_{n\times n}\in M_n(K)\ \)</span>
+są spełnione następujące równości:</p>
+<div class="last math">
+\[a_{i1}\,A_{j1}\ +\ a_{i2}\,A_{j2}\ +\ \dots\ +\ a_{in}\,A_{jn}\ \ =\ \
+\delta_{ij}\,\cdot\,\det\boldsymbol{A}\,,\qquad i,j=1,2,\ldots,n;\]\[a_{1k}\,A_{1l}\ +\ a_{2k}\,A_{2l}\ +\ \dots\ +\ a_{nk}\,A_{nl}\ \ =\ \
+\delta_{kl}\,\cdot\,\det\boldsymbol{A}\,,\qquad k,l=1,2,\ldots,n.\]\[\begin{split}\text{gdzie}\quad\delta_{pq}\ \,=\ \,
+\left\{\
+\begin{array}{cc} 1 &amp; \text{dla}\ \ p=q, \\ 0 &amp; \text{dla}\ \ p\ne q; \end{array}
+\right.\qquad
+p,q=1,2,\ldots,n.\qquad
+\text{(delta Kroneckera)}\end{split}\]</div>
+</div>
+<p>Przy użyciu skróconego zapisu sumy relacje przyjmują zwięzłą postać:</p>
+<div class="math" id="equation-Lap_exp_gen">
+<span class="eqno">(2)</span>\[\sum_{k\,=\,1}^n\ a_{ik}\ A_{jk}\ \ =\ \
+\delta_{ij}\,\cdot\,\det\boldsymbol{A}\,,\qquad i,j=1,2,\ldots,n;\qquad
+\text{(wersja wierszowa)}\]\[\sum_{i\,=\,1}^n\ a_{ik}\ A_{il}\ \ =\ \
+\delta_{kl}\,\cdot\,\det\boldsymbol{A}\,,\qquad k,l=1,2,\ldots,n;\qquad
+\text{(wersja kolumnowa)}\]</div>
+<p><strong>Interpretacja</strong> (wersja wierszowa):</p>
+<ul class="simple">
+<li><span class="math">\(\ i=j:\ \)</span> suma iloczynów kolejnych elementów wybranego wiersza macierzy
+przez dopełnienia algebraiczne <em>tych samych elementów</em> równa się wyznacznikowi macierzy;</li>
+<li><span class="math">\(\ i\ne j:\ \)</span> suma iloczynów kolejnych elementów wybranego wiersza macierzy
+przez dopełnienia algebraiczne <em>odpowiednich elementów innego wiersza</em> równa się zeru.</li>
+</ul>
+<p>Analogicznie przedstawia się interpretacja wersji kolumnowej.</p>
+<p><strong>Dowód.</strong> Przy <span class="math">\(\ i=j\ \)</span> wzór <a href="wyznacznik_zastosowania.html#equation-Lap_exp_gen">(2)</a> przechodzi w rozwinięcie Laplace&#8217;a względem <span class="math">\(\ i\)</span>-tego wiersza. Wystarczy więc udowodnić przypadek <span class="math">\(\ i\ne j.\)</span></p>
+<p>Biorąc za punkt wyjścia macierz <span class="math">\(\ \boldsymbol{A}=[a_{ij}]_{n\times n}\ \)</span>
+tworzymy pomocniczą macierz <span class="math">\(\ \boldsymbol{B}=[b_{ij}]_{n\times n}\,,\ \)</span>
+która różni się od <span class="math">\(\ \boldsymbol{A}\ \)</span> tylko powtórzeniem <span class="math">\(\,i\)</span>-tego wiersza
+na <span class="math">\(\,j\)</span>-tej pozycji:</p>
+<div class="math">
+\[\begin{split}\boldsymbol{A}\ \ =\ \
+\left[\begin{array}{c}
+      \boldsymbol{A}_1 \\
+      \dots            \\
+      \boldsymbol{A}_i \\
+      \dots            \\
+      \boldsymbol{A}_j \\
+      \dots            \\
+      \boldsymbol{A}_n
+      \end{array}
+\right]
+      \begin{array}{c}
+      \;           \\
+      \;           \\
+      \leftarrow i \\
+      \;           \\
+      \leftarrow j \\
+      \;           \\
+      \;
+      \end{array}
+\qquad\qquad
+\boldsymbol{B}\ \ =\ \
+\left[\begin{array}{c}
+      \boldsymbol{A}_1 \\
+      \dots            \\
+      \boldsymbol{A}_i \\
+      \dots            \\
+      \boldsymbol{A}_i \\
+      \dots            \\
+      \boldsymbol{A}_n
+      \end{array}
+\right]
+      \begin{array}{c}
+      \;           \\
+      \;           \\
+      \leftarrow i \\
+      \;           \\
+      \leftarrow j \\
+      \;           \\
+      \;
+      \end{array}\end{split}\]</div>
+<p>Dla elementów <span class="math">\(\,b_{jk}\,\)</span> i dopełnień algebraicznych <span class="math">\(\,B_{jk}\,\)</span>
+macierzy <span class="math">\(\,\boldsymbol{B}\,\)</span> zachodzą związki:</p>
+<div class="math" id="equation-elem">
+<span class="eqno">(3)</span>\[b_{jk}\,=\,b_{ik}\,=\,a_{ik}\,,\qquad B_{jk}\,=\,A_{jk}\,,\qquad k=1,2,\ldots,n.\]</div>
+<p>Wyznacznik macierzy <span class="math">\(\,\boldsymbol{B}\,\)</span> o dwóch jednakowych wierszach równa się zeru.
+Biorąc pod uwagę równości <a href="wyznacznik_zastosowania.html#equation-elem">(3)</a> i rozwinięcie <span class="math">\(\,\det\boldsymbol{B}\ \)</span> względem
+<span class="math">\(\,j\)</span>-tego wiersza otrzymujemy:</p>
+<div class="math">
+\[\sum_{k\,=\,1}^n\ a_{ik}\,A_{jk}\ \ =\ \
+\sum_{k\,=\,1}^n\ b_{jk}\,B_{jk}\ \ =\ \
+\det\boldsymbol{B}\ \ =\ \ 0\,.\]</div>
+<div class="admonition-definicja admonition">
+<p class="first admonition-title">Definicja.</p>
+<p class="last">Niech <span class="math">\(\,\boldsymbol{A}\in M_n(K)\,.\ \,\)</span> Jeżeli <span class="math">\(\ \det\boldsymbol{A}=0,\ \,\)</span>
+to <span class="math">\(\ \boldsymbol{A}\ \,\)</span> jest <span class="math">\(\,\)</span> <em>macierzą osobliwą</em>. <span class="math">\(\\\)</span>
+W przeciwnym wypadku, <span class="math">\(\,\)</span> gdy <span class="math">\(\ \det\boldsymbol{A}\ne 0,\ \ \boldsymbol{A}\ \,\)</span>
+jest <span class="math">\(\,\)</span> <em>macierzą nieosobliwą</em>.</p>
+</div>
+<div class="admonition-twierdzenie-7 admonition">
+<p class="first admonition-title">Twierdzenie 7.</p>
+<p class="last">Macierz <span class="math">\(\ \boldsymbol{A}\in M_n(K)\ \,\)</span> jest odwracalna <span class="math">\(\,\)</span> wtedy i tylko wtedy,
+<span class="math">\(\,\)</span> gdy jest nieosobliwa.</p>
+</div>
+<p><strong>Dowód.</strong></p>
+<p><span class="math">\(\Rightarrow\ :\ \)</span> Jeżeli istnieje macierz odwrotna <span class="math">\(\,\boldsymbol{A}^{-1},\ \,\)</span> to
+na podstawie twierdzenia Cauchy&#8217;ego:</p>
+<div class="math">
+\[\det\boldsymbol{A}\,\cdot\,\det\boldsymbol{A}^{-1}\ \,=\ \,
+\det\,(\boldsymbol{A}\boldsymbol{A}^{-1})\ \,=\ \,
+\det\boldsymbol{I}_n\ \,=\ \,1\,.\]</div>
+<p>Wynika stąd, że <span class="math">\(\ \det\boldsymbol{A}\ne 0,\ \,\)</span>
+bo gdyby <span class="math">\(\ \det\boldsymbol{A} = 0,\ \,\)</span>
+to mielibyśmy <span class="math">\(\ \det\boldsymbol{A}\,\cdot\,\det\boldsymbol{A}^{-1}\,=\;0.\)</span></p>
+<div class="admonition-wniosek admonition">
+<p class="first admonition-title">Wniosek.</p>
+<p class="last">Jeżeli macierz <span class="math">\(\,\boldsymbol{A}\in M_n(K)\ \)</span> jest odwracalna, <span class="math">\(\,\)</span>
+to <span class="math">\(\ \,\det\boldsymbol{A}^{-1}\,=\ (\det\boldsymbol{A})^{-1}\,.\)</span></p>
+</div>
+<p><span class="math">\(\Leftarrow\ :\ \)</span>
+Zakładamy, że macierz <span class="math">\(\ \boldsymbol{A}=[a_{ij}]_{n\times n}\ \)</span> jest nieosobliwa:
+<span class="math">\(\ \det\boldsymbol{A}\ne 0.\ \)</span> Wtedy macierz</p>
+<div class="math" id="equation-rec_mat">
+<span class="eqno">(4)</span>\[\begin{split}\boldsymbol{B}\ \,:\,=\ \,
+\frac{1}{\det\boldsymbol{A}}\
+\left[\begin{array}{cccc}
+      A_{11} &amp; A_{12} &amp; \dots &amp; A_{1n} \\
+      A_{21} &amp; A_{22} &amp; \dots &amp; A_{2n} \\
+      \dots  &amp; \dots  &amp; \dots  &amp; \dots \\
+      A_{n1} &amp; A_{n2} &amp; \dots &amp; A_{nn}
+      \end{array}
+\right]^{\,T}=\ \ \,
+\frac{1}{\det\boldsymbol{A}}\
+\left[\begin{array}{cccc}
+      A_{11} &amp; A_{21} &amp; \dots &amp; A_{n1} \\
+      A_{12} &amp; A_{22} &amp; \dots &amp; A_{n2} \\
+      \dots  &amp; \dots  &amp; \dots  &amp; \dots \\
+      A_{1n} &amp; A_{2n} &amp; \dots &amp; A_{nn}
+      \end{array}
+\right],\end{split}\]</div>
+<p>gdzie <span class="math">\(\ A_{ij}\ \)</span> jest dopełnieniem algebraicznym elementu <span class="math">\(\ a_{ij}\,,\ \,\)</span>
+jest macierzą odwrotną do <span class="math">\(\,\boldsymbol{A}\,.\ \)</span></p>
+<p>Istotnie, elementy <span class="math">\(\ b_{ij}\ \)</span> macierzy <span class="math">\(\ \boldsymbol{B}\ \)</span> dane są przez</p>
+<div class="math">
+\[b_{ij}\ \ =\ \ \frac{1}{\det\boldsymbol{A}}\ \ A_{ji}\,,\qquad i,j=1,2,\ldots,n.\]</div>
+<p>Niech
+<span class="math">\(\ \boldsymbol{A}\boldsymbol{B}=\boldsymbol{C}=[c_{ij}]_{n\times n}\,,\ \)</span>
+<span class="math">\(\ \boldsymbol{B}\boldsymbol{A}=\boldsymbol{C'}=[c_{ij}']_{n\times n}\,.\ \)</span>
+Wykorzystując <a href="wyznacznik_zastosowania.html#equation-Lap_exp_gen">(2)</a> otrzymujemy</p>
+<div class="math">
+\[c_{ij}\ \,=\ \ \sum_{s\,=\,1}^n\ a_{is}\,b_{sj}
+      \ \,=\ \ \frac{1}{\det\boldsymbol{A}}\ \ \sum_{s\,=\,1}^n\ a_{is}\,A_{js}
+      \ \,=\ \ \frac{1}{\det\boldsymbol{A}}\ \cdot\ \delta_{ij}\,\cdot\ \det\boldsymbol{A}
+      \ \,=\ \,\delta_{ij}\,,\]\[c_{ij}'\ \,=\ \ \sum_{s\,=\,1}^n\ b_{is}\,a_{sj}
+      \ \,=\ \ \frac{1}{\det\boldsymbol{A}}\ \ \sum_{s\,=\,1}^n\ a_{sj}\,A_{si}
+      \ \,=\ \ \frac{1}{\det\boldsymbol{A}}\ \cdot\ \delta_{ji}\,\cdot\ \det\boldsymbol{A}
+      \ \,=\ \,\delta_{ij}\,,\]</div>
+<p>gdzie <span class="math">\(\ i,j=1,2,\ldots,n.\ \,\)</span> Macierz, której elementy są deltami Kroneckera
+<span class="math">\(\ \delta_{ij}\,,\ \)</span> jest macierzą jednostkową. <span class="math">\(\,\)</span> Tak więc
+<span class="math">\(\ \boldsymbol{A}\boldsymbol{B}=\boldsymbol{B}\boldsymbol{A}=\boldsymbol{I}_n\,,\ \)</span>
+co oznacza, że <span class="math">\(\ \boldsymbol{B}=\boldsymbol{A}^{-1}\,.\)</span></p>
+<div class="admonition-definicja admonition">
+<p class="first admonition-title">Definicja.</p>
+<p>Transponowana macierz dopełnień algebraicznych elementów macierzy
+<span class="math">\(\,\boldsymbol{A}\ \)</span> nazywa się <span class="math">\(\,\)</span> <em>macierzą dołączoną</em> <span class="math">\(\,\)</span>
+do macierzy <span class="math">\(\ \boldsymbol{A}:\)</span></p>
+<div class="last math">
+\[\begin{split}\boldsymbol{A}^D\ :\,=\ \
+\left[\begin{array}{cccc}
+      A_{11} &amp; A_{21} &amp; \dots &amp; A_{n1} \\
+      A_{12} &amp; A_{22} &amp; \dots &amp; A_{n2} \\
+      \dots  &amp; \dots  &amp; \dots  &amp; \dots \\
+      A_{1n} &amp; A_{2n} &amp; \dots &amp; A_{nn}
+      \end{array}
+\right]\,.\end{split}\]</div>
+</div>
+<p>Procedura wyliczenia macierzy odwrotnej do <span class="math">\(\,\boldsymbol{A}=[a_{ij}]_{n\times n}\in M_n(K)\ \)</span>
+składa się zatem z następujących etapów:</p>
+<ol class="arabic simple" start="0">
+<li>wyliczenie <span class="math">\(\ \det\boldsymbol{A}\ \,\)</span> i <span class="math">\(\,\)</span>
+sprawdzenie, czy <span class="math">\(\ \det\boldsymbol{A}\ne 0\,;\)</span></li>
+<li>wyliczenie dopełnień algebraicznych <span class="math">\(\ A_{ij}\,,\ \ i,j=1,2,\ldots,n;\)</span></li>
+<li>konstrukcja macierzy dołączonej <span class="math">\(\,\boldsymbol{A}^D:\quad
+a_{ij}\rightarrow A_{ji},\quad i,j=1,2,\ldots,n\)</span>;</li>
+<li>podzielenie macierzy <span class="math">\(\,\boldsymbol{A}^D\ \)</span> przez <span class="math">\(\ \det\boldsymbol{A}\,:\quad
+\boldsymbol{A}^{-1}\ =\ \,\frac{1}{\det\boldsymbol{A}}\ \ \boldsymbol{A}^D\,.\)</span> <span class="math">\(\\\)</span></li>
+</ol>
+<p><strong>Przykład.</strong> <span class="math">\(\,\)</span> Wyliczenie odwrotności macierzy
+<span class="math">\(\ \ \boldsymbol{A}\ =\
+\left[\begin{array}{rrr} 2 &amp; 2 &amp; 3 \\ 1 &amp; -1 &amp; 0 \\ -1 &amp; 2 &amp; 1 \end{array}\right]\,.\)</span></p>
+<p><span class="math">\(\ \det\boldsymbol{A}\ =\
+\left|\begin{array}{rrr} 2 &amp; 2 &amp; 3 \\ 1 &amp; -1 &amp; 0 \\ -1 &amp; 2 &amp; 1 \end{array}\right|\ =\
+\left|\begin{array}{rrr} 2 &amp; 4 &amp; 3 \\ 1 &amp;  0 &amp; 0 \\ -1 &amp; 1 &amp; 1 \end{array}\right|\ =\
+-\ \left|\begin{array}{cc} 4 &amp; 3 \\ 1 &amp; 1 \end{array}\right|\ =\ -1\,.\)</span></p>
+<div class="math">
+\[\begin{split}\begin{array}{lll}
+A_{11}=+\left|\begin{array}{rr} -1 &amp;  0 \\  2 &amp;  1 \end{array}\right|\ =\ -1\,; &amp;
+A_{12}=-\left|\begin{array}{rr}  1 &amp;  0 \\ -1 &amp;  1 \end{array}\right|\ =\ -1\,; &amp;
+A_{13}=+\left|\begin{array}{rr}  1 &amp; -1 \\ -1 &amp;  2 \end{array}\right|\ =\ 1\,; \\ \\
+A_{21}=-\left|\begin{array}{rr}  2 &amp;  3 \\  2 &amp;  1 \end{array}\right|\ =\ 4\,; &amp;
+A_{22}=+\left|\begin{array}{rr}  2 &amp;  3 \\ -1 &amp;  1 \end{array}\right|\ =\ 5\,; &amp;
+A_{23}=-\left|\begin{array}{rr}  2 &amp;  2 \\ -1 &amp;  2 \end{array}\right|\ =\ -6\,; \\ \\
+A_{31}=+\left|\begin{array}{rr}  2 &amp;  3 \\ -1 &amp;  0 \end{array}\right|\ =\ 3\,; &amp;
+A_{32}=-\left|\begin{array}{rr}  2 &amp;  3 \\  1 &amp;  0 \end{array}\right|\ =\ 3\,; &amp;
+A_{33}=+\left|\begin{array}{rr}  2 &amp;  2 \\  1 &amp; -1 \end{array}\right|\ =\ -4\,.
+\end{array}\end{split}\]</div>
+<div class="math">
+\[\begin{split}\begin{array}{l}
+\boldsymbol{A}^D\ \ =\ \
+\left[\begin{array}{rrr}
+      -1 &amp; -1 &amp;  1 \\
+       4 &amp;  5 &amp; -6 \\
+       3 &amp;  3 &amp; -4
+      \end{array}
+\right]^{\,T}=\ \ \,
+\left[\begin{array}{rrr}
+       -1 &amp;  4 &amp;  3 \\
+       -1 &amp;  5 &amp;  3 \\
+        1 &amp; -6 &amp; -4
+      \end{array}
+\right]\,;
+\\ \\
+\displaystyle
+\boldsymbol{A}^{-1}\ \ =\ \ \,
+\frac{1}{(-1)}\
+\left[\begin{array}{rrr}
+       -1 &amp;  4 &amp;  3 \\
+       -1 &amp;  5 &amp;  3 \\
+        1 &amp; -6 &amp; -4
+      \end{array}
+\right]\ \ =\ \
+\left[\begin{array}{rrr}
+        1 &amp; -4 &amp; -3 \\
+        1 &amp; -5 &amp; -3 \\
+       -1 &amp;  6 &amp;  4
+      \end{array}
+\right]\,.
+\end{array}\end{split}\]\[\;\]</div>
+<p>Metoda <tt class="docutils literal"><span class="pre">inverse()</span></tt> pakietu Sage zastosowana do ogólnej macierzy kwadratowej zadanego stopnia
+<span class="math">\(\,n=2,3,\ldots\ \)</span> podaje wyprowadzone tutaj wzory dla macierzy odwrotnej.</p>
+<div class="admonition-poeksperymentuj-z-sage admonition">
+<p class="first admonition-title">Poeksperymentuj z Sage:</p>
+<p class="last">Poniższy program wyświetla ogólną macierz kwadratową
+<span class="math">\(\,\boldsymbol{A}=[a_{ij}]_{n\times n}\ \)</span>
+oraz jej odwrotność. W mianownikach elementów macierzy odwrotnej można rozpoznać wyznacznik
+macierzy <span class="math">\(\,\boldsymbol{A},\ \)</span> a w licznikach <span class="math">\(\,\)</span>
+- <span class="math">\(\,\)</span> odpowiednie dopełnienia algebraiczne. <span class="math">\(\\\)</span></p>
+</div>
+<div class='sage'><script type='text/x-sage'>n = 2
+A = matrix([[var('a%d%d' % (i,j)) for j in range(1,n+1)]
+                                  for i in range(1,n+1)])
+show(A)
+show(A.inverse().factor())</script></div></div>
+<div class="section" id="wzory-cramera">
+<h2>Wzory Cramera<a class="headerlink" href="wyznacznik_zastosowania.html#wzory-cramera" title="Stały odnośnik do tego nagłówka">¶</a></h2>
+<p>Układ <span class="math">\(\,n\,\)</span> równań liniowych o <span class="math">\(\,n\,\)</span> niewiadomych nad ciałem <span class="math">\(\,K:\)</span></p>
+<div class="math" id="equation-cramer_0">
+<span class="eqno">(5)</span>\[\begin{split}\begin{array}{c}
+   a_{11}\,x_1\; + \ \,a_{12}\,x_2\; + \ \,\ldots\  + \ \;a_{1n}\,x_n \ \, = \ \ b_1 \\
+   a_{21}\,x_1\; + \ \,a_{22}\,x_2\; + \ \,\ldots\  + \ \;a_{2n}\,x_n \ \, = \ \ b_2 \\
+   \quad\,\ldots\qquad\quad\ldots\qquad\ \,\ldots\qquad\ \ \ldots\qquad\ \ \,\ldots    \\
+   a_{n1}\,x_1\; + \ \,a_{n2}\,x_2\; + \ \,\ldots\  + \ \;a_{nn}\,x_n \ \, = \ \ b_n
+\end{array}\end{split}\]</div>
+<p>nazywamy <span class="math">\(\,\)</span> <em>układem kramerowskim</em> <span class="math">\(\,\)</span> (Gabriel Cramer, 1704-52), <span class="math">\(\,\)</span>
+gdy jego macierz współczynników <span class="math">\(\ \boldsymbol{A}=[a_{ij}]_{n\times n}\ \,\)</span>
+jest nieosobliwa: <span class="math">\(\ \,\det\boldsymbol{A}\ne 0.\)</span></p>
+<p>Zapisując go w postaci macierzowej</p>
+<div class="math">
+\[\boldsymbol{A}\boldsymbol{X}\ =\ \boldsymbol{b}\,,\]</div>
+<p>i mnożąc obustronnie (z lewej strony) przez macierz <span class="math">\(\ \boldsymbol{A}^{-1}\ \)</span>
+otrzymamy od razu rozwiązanie:</p>
+<div class="math">
+\[\boldsymbol{X}\ =\ \boldsymbol{A}^{-1}\,\boldsymbol{b}\,.\]</div>
+<p>Aby wyprowadzić praktyczne wyrażenia dla poszczególnych niewiadomych,
+wykorzystamy wyrażenie <a href="wyznacznik_zastosowania.html#equation-rec_mat">(4)</a> dla macierzy odwrotnej:</p>
+<div class="math">
+\[\begin{eqnarray*}
+\left[\begin{array}{c} x_1 \\ x_2 \\ \dots \\ x_n \end{array}\right]
+& = &
+\frac{1}{\det\boldsymbol{A}}\
+\left[\begin{array}{cccc}
+      A_{11} & A_{21} & \dots & A_{n1} \\
+      A_{12} & A_{22} & \dots & A_{n2} \\
+      \dots  & \dots  & \dots  & \dots \\
+      A_{1n} & A_{2n} & \dots & A_{nn}
+      \end{array}
+\right]\
+\left[\begin{array}{c} b_1 \\ b_2 \\ \dots \\ b_n \end{array}\right] \\ \\
+& = &
+\frac{1}{\det\boldsymbol{A}}\
+\left[\begin{array}{c}
+      A_{11}\,b_1\ +\ A_{21}\,b_2\ +\ \dots\ +\ A_{n1}\,b_n \\
+      A_{12}\,b_1\ +\ A_{22}\,b_2\ +\ \dots\ +\ A_{n2}\,b_n \\
+      \dots\qquad\ \ \dots\qquad\ \dots\qquad\dots                \\
+      A_{1n}\,b_1\ +\ A_{2n}\,b_2\ +\ \dots\ +\ A_{nn}\,b_n
+      \end{array}
+\right]\,.
+\end{eqnarray*}\]</div><p>Z przyrównania odpowiednich współrzędnych wektorów po obu stronach równości mamy</p>
+<div class="math">
+\[\begin{eqnarray*}
+x_j & = & \frac{1}{\det\boldsymbol{A}}\ \
+          (b_1\,A_{1j}\ +\ b_2\,A_{2j}\ +\ \dots\ +\ b_n\,A_{nj}) \\
+& = &
+\frac{1}{\det\boldsymbol{A}}\ \
+\left|\begin{array}{ccccccc}
+      a_{11} & \dots & a_{1,j-1} &  b_1  & a_{1,j+1} & \dots & a_{1n} \\
+      a_{21} & \dots & a_{2,j-1} &  b_2  & a_{2,j+1} & \dots & a_{2n} \\
+      \dots  & \dots &  \dots    & \dots &  \dots    & \dots & \dots  \\
+      a_{n1} & \dots & a_{n,j-1} &  b_n  & a_{n,j+1} & \dots & a_{nn}
+      \end{array}
+\right|\,,\qquad j=1,2,\ldots,n.
+\end{eqnarray*}\]</div><div class="admonition-twierdzenie-8-math-wzory-cramera admonition">
+<p class="first admonition-title">Twierdzenie 8. <span class="math">\(\,\)</span> (wzory Cramera)</p>
+<p>Kramerowski układ równań <a href="wyznacznik_zastosowania.html#equation-cramer_0">(5)</a> ma dokładnie jedno rozwiązanie dane przez</p>
+<div class="math">
+\[x_j\ \ =\ \ \frac{D_j}{D}\,,\qquad j=1,2,\ldots,n,\]</div>
+<p>gdzie <span class="math">\(\,D\,\)</span> jest wyznacznikiem macierzy współczynników <span class="math">\(\,\boldsymbol{A},\ \)</span>
+a <span class="math">\(\,D_j\,\)</span> jest wyznacznikiem macierzy otrzymanej z <span class="math">\(\,\boldsymbol{A}\ \)</span>
+przez zastąpienie w niej <span class="math">\(\,j\)</span>-tej kolumny kolumną wolnych wyrazów
+<span class="math">\(\,\boldsymbol{b}.\ \)</span> Przy kolumnowym zapisie macierzy <span class="math">\(\,\)</span> (<span class="math">\(j=1,2,\ldots,n\)</span>) :</p>
+<div class="last math">
+\[D\ \,=\ \,\det\;[\;\boldsymbol{A}_1\,|\,\dots\,|\,
+\boldsymbol{A}_j\,|\,\dots\,|\,\boldsymbol{A}_n\,]\,,\]\[D_j\ =\ \,\det\;[\;\boldsymbol{A}_1\,|\,\dots\,|\
+\boldsymbol{b}\,|\ \dots\,|\,\boldsymbol{A}_n\,]\,.\]</div>
+</div>
+<p><strong>Przykład.</strong> <span class="math">\(\,\)</span>
+Rozwiążemy układ trzech równań o trzech niewiadomych nad ciałem <span class="math">\(\,Q:\)</span></p>
+<div class="math">
+\[\begin{alignat*}{4}
+2\,x_1 & {\,} - {\,} &    x_2 & {\,} - {\,} &    x_3 & {\;} = {} &  4 \\
+3\,x_1 & {\,} + {\,} & 4\,x_2 & {\,} - {\,} & 2\,x_3 & {\;} = {} & 11 \\
+3\,x_1 & {\,} - {\,} & 2\,x_2 & {\,} + {\,} & 4\,x_3 & {\;} = {} & 11
+\end{alignat*}\]</div><p>Jeżeli w danym układzie liczba równań zgadza się z liczbą niewiadomych
+(macierz współczynników <span class="math">\(\,\boldsymbol{A}\,\)</span> jest kwadratowa),
+to przede wszystkim należy obliczyć <span class="math">\(\ D=\det\boldsymbol{A}.\ \)</span>
+Tutaj</p>
+<div class="math">
+\[\begin{split}D\ =\
+\left|\begin{array}{rrr} 2 &amp; -1 &amp; -1 \\  3 &amp; 4 &amp; -2 \\  3 &amp; -2 &amp; 4 \end{array}\right|\ =\
+\left|\begin{array}{rrr} 0 &amp;  0 &amp; -1 \\ -1 &amp; 6 &amp; -2 \\ 11 &amp; -6 &amp; 4 \end{array}\right|\ =\
+-\ \left|\begin{array}{rr} -1 &amp; 6 \\  11 &amp; -6 \end{array}\right|\ =\
+6\ \left|\begin{array}{rr}  1 &amp; 1 \\ -11 &amp; -1 \end{array}\right|\ =\ 60\,.\end{split}\]</div>
+<p>Skoro <span class="math">\(\,D\ne 0,\ \)</span> wyliczamy wyznaczniki <span class="math">\(\,D_1,\,D_2\ \ \text{i}\ \ D_3\ \)</span>
+ze wzorów Cramera:</p>
+<p><span class="math">\(D_1\ =\
+\left|\begin{array}{rrr} 4 &amp; -1 &amp; -1 \\ 11 &amp; 4 &amp; -2 \\ 11 &amp; -2 &amp; 4 \end{array}\right|\ =\
+\left|\begin{array}{rrr} 0 &amp;  0 &amp; -1 \\  3 &amp; 6 &amp; -2 \\ 27 &amp; -6 &amp; 4 \end{array}\right|\ =\
+-\ \left|\begin{array}{rr} 3 &amp;  6 \\ 27 &amp; -6 \end{array}\right|\ =\
+18\ \left|\begin{array}{rr} 1 &amp; -1 \\  9 &amp;  1 \end{array}\right|\ =\ 180\,,\)</span></p>
+<p><span class="math">\(D_2\ =\
+\left|\begin{array}{rrr} 2 &amp; 4 &amp; -1 \\  3 &amp; 11 &amp; -2 \\  3 &amp; 11 &amp; 4 \end{array}\right|\ =\
+\left|\begin{array}{rrr} 0 &amp; 0 &amp; -1 \\ -1 &amp;  3 &amp; -2 \\ 11 &amp; 27 &amp; 4 \end{array}\right|\ =\
+-\ \left|\begin{array}{rr} -1 &amp; 3 \\  11 &amp; 27 \end{array}\right|\ =\
+3\ \left|\begin{array}{rr}  1 &amp; 1 \\ -11 &amp;  9 \end{array}\right|\ =\ 60\,,\)</span></p>
+<p><span class="math">\(D_3\ =\
+\left|\begin{array}{rrr} 2 &amp; -1 &amp; 4 \\  3 &amp; 4 &amp; 11 \\  3 &amp; -2 &amp; 11 \end{array}\right|\ =\
+\left|\begin{array}{rrr} 0 &amp; -1 &amp; 0 \\ 11 &amp; 4 &amp; 27 \\ -1 &amp; -2 &amp;  3 \end{array}\right|\ =\
+\left|\begin{array}{rr} 11 &amp; 27 \\ -1 &amp; 3 \end{array}\right|\ =\
+3\ \left|\begin{array}{rr} 11 &amp;  9 \\ -1 &amp; 1 \end{array}\right|\ =\ 60\,.\)</span></p>
+<p>Ostatecznie, <span class="math">\(\,\)</span> jedynym rozwiązaniem układu równań jest</p>
+<div class="math">
+\[x_1\ =\ \textstyle{180\over 60}\ =\ 3\,,\quad
+x_2\ =\ \textstyle{60\over 60}\ =\ 1\,,\quad
+x_3\ =\ \textstyle{60\over 60}\ =\ 1\,.\]</div>
+<p>W systemie Sage można otrzymać wzory Cramera w ogólnej postaci dla każdej zadanej liczby
+<span class="math">\(\,n=2,3,\ldots\ \)</span> równań układu kramerowskiego. Należy w tym celu wywołać metodę <tt class="docutils literal"><span class="pre">rref()</span></tt> dla sprowadzenia macierzy rozszerzonej
+<span class="math">\(\,\boldsymbol{B}=[\,\boldsymbol{A}\,|\,\boldsymbol{b}\,]\ \)</span> do zredukowanej postaci schodkowej.</p>
+<div class="admonition-poeksperymentuj-z-sage admonition">
+<p class="first admonition-title">Poeksperymentuj z Sage:</p>
+<p class="last">Poniższy program dla zadanego stopnia <span class="math">\(\,n\,\)</span> wyświetla macierz <span class="math">\(\,\boldsymbol{B}\ \)</span>
+w jej oryginalnej oraz zredukowanej schodkowej postaci.
+W tym drugim przypadku elementy ostatniej kolumny są wartościami niewiadomych (wartości te są
+następnie powtórzone w powiększeniu). Można tam rozpoznać w mianownikach wyznacznik <span class="math">\(\,D\,\)</span>
+macierzy <span class="math">\(\,\boldsymbol{A},\ \)</span> a w licznikach wyznaczniki <span class="math">\(\,D_j\,\)</span> ze wzorów Cramera.</p>
+</div>
+<div class='sage'><script type='text/x-sage'>n = 2
+
+A = matrix([[var('a%d%d' % (i,j)) for j in range(1,n+1)]
+                                  for i in range(1,n+1)])
+
+b = vector([var('b%d' % j) for j in range(1,n+1)])
+
+B = A.augment(b);
+R = B.rref().factor()
+B.subdivide(n,n); R.subdivide(n,n)
+
+html.table([[B, '$\\rightarrow$', R]])
+for i in range(n): show(R[i,n])</script></div></div>
+</div>
+
+
+          </div>
+        </div>
+      </div>
+      <div class="sphinxsidebar">
+        <div class="sphinxsidebarwrapper">
+  <div class="sphinxlocaltoc">
+  <h3><a href="http://visual.icse.us.edu.pl/LA/index.html">Spis treści</a></h3>
+  <ul>
+<li><a class="reference internal" href="wyznacznik_zastosowania.html#">Zastosowania wyznaczników</a><ul>
+<li><a class="reference internal" href="wyznacznik_zastosowania.html#badanie-liniowej-zaleznosci-wektorow">Badanie liniowej zależności wektorów</a></li>
+<li><a class="reference internal" href="wyznacznik_zastosowania.html#wyliczanie-macierzy-odwrotnej">Wyliczanie macierzy odwrotnej</a></li>
+<li><a class="reference internal" href="wyznacznik_zastosowania.html#wzory-cramera">Wzory Cramera</a></li>
+</ul>
+</li>
+</ul>
+
+  </div>
+  <h4>Poprzedni temat</h4>
+  <p class="topless"><a href="wyznacznik_praktyczne_wyliczanie.html"
+                        title="poprzedni rozdział">Praktyczne wyliczanie wyznaczników</a></p>
+  <h4>Następny temat</h4>
+  <p class="topless"><a href="teoria_ukladow_rownan.html"
+                        title="następny rozdział">Rozwiązania układów równań liniowych</a></p>
+<div id="searchbox" style="display: none">
+  <h3>Szybkie wyszukiwanie</h3>
+    <form class="search" action="search.html" method="get">
+      <input type="text" name="q" />
+      <input type="submit" value="Szukaj" />
+      <input type="hidden" name="check_keywords" value="yes" />
+      <input type="hidden" name="area" value="default" />
+    </form>
+    <p class="searchtip" style="font-size: 90%">
+    Wprowadź szukany termin lub nazwę modułu, klasy lub funkcji.
+    </p>
+</div>
+<script type="text/javascript">$('#searchbox').show(0);</script>
+        </div>
+      </div>
+      <div class="clearer"></div>
+    </div>
+  </div>
+  <div class="relbar-bottom">
+    
+    <div class="related">
+      <h3>Nawigacja</h3>
+      <ul>
+        <li class="right" style="margin-right: 10px">
+          <a href="teoria_ukladow_rownan.html" title="Rozwiązania układów równań liniowych"
+             >dalej</a></li>
+        <li class="right" >
+          <a href="wyznacznik_praktyczne_wyliczanie.html" title="Praktyczne wyliczanie wyznaczników"
+             >wstecz</a> &nbsp; &nbsp;</li>
+  <li><a href="http://visual.icse.us.edu.pl/LA/index.html">Algebra Liniowa</a> &raquo;</li>
+   
+      </ul>
+    </div>
+  </div>
+  
+  <div class="footer">
+    <a class="logo" href="../../icse.us.edu.pl/index.html" target="_blank"><img src="_static/logo-icse.png" alt="ICSE"/></a><br/>
+    &copy; Copyright 2013, Marcin Kostur.
+    Created using <a href="http://sphinx.pocoo.org/">Sphinx</a> 1.2.2.
+  </div>
+  </body>
+</html>

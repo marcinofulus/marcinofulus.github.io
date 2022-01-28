@@ -1,0 +1,546 @@
+
+
+  <!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+  "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+
+
+<html xmlns="http://www.w3.org/1999/xhtml">
+  <head>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    
+    <title>Macierze przekształceń liniowych &mdash; Algebra Liniowa</title>
+    
+    <link rel="stylesheet" href="_static/cloud.css" type="text/css" />
+    <link rel="stylesheet" href="_static/pygments.css" type="text/css" />
+    <link rel="stylesheet" href="http://fonts.googleapis.com/css?family=Noticia+Text|Open+Sans|Droid+Sans+Mono&subset=latin,latin-ext" type="text/css" />
+    
+    <script type="text/javascript">
+      var DOCUMENTATION_OPTIONS = {
+        URL_ROOT:    './',
+        VERSION:     'I',
+        COLLAPSE_INDEX: false,
+        FILE_SUFFIX: '.html',
+        HAS_SOURCE:  true
+      };
+    </script>
+    <script type="text/javascript" src="_static/jquery.js"></script>
+    <script type="text/javascript" src="_static/underscore.js"></script>
+    <script type="text/javascript" src="_static/doctools.js"></script>
+    <script type="text/javascript" src="_static/translations.js"></script>
+    <script type="text/javascript" src="http://cdn.mathjax.org/mathjax/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML"></script>
+    <script type="text/javascript" src="_static/jquery.cookie.js"></script>
+    <script type="text/javascript" src="_static/cloud.js"></script>
+
+	<script src="http://sagecell.icse.us.edu.pl:6363/static/jquery.min.js"></script>
+	<script src="http://sagecell.icse.us.edu.pl:6363/static/embedded_sagecell.js"></script>
+
+	<!-- <script src="http://sagecell.sagemath.org/static/jquery.min.js"></script> -->
+	<!-- <script src="http://sagecell.sagemath.org/static/embedded_sagecell.js"></script> -->
+
+	<script>sagecell.makeSagecell({inputLocation: ".sage",
+                                       evalButtonText: 'Wykonaj',
+                                       linked: true});</script>
+
+	<style type="text/css">
+		.sagecell .CodeMirror-scroll {
+			overflow-y: hidden;
+			overflow-x: auto;
+		}
+		.sagecell .CodeMirror {
+			height: auto;
+		}
+	</style>
+
+    
+    <link rel="top" title="Algebra Liniowa" href="http://visual.icse.us.edu.pl/LA/index.html" />
+    <link rel="next" title="Operatory liniowe" href="przeksztalcenia_lin_operatory.html" />
+    <link rel="prev" title="Rozwiązania jednorodnych układów równań" href="przeksztalcenia_lin_uklady_rownan.html" />
+ 
+  <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, minimum-scale=1">
+  </head>
+  <body>
+  <div class="relbar-top">
+    
+    <div class="related">
+      <h3>Nawigacja</h3>
+      <ul>
+        <li class="right" style="margin-right: 10px">
+          <a href="przeksztalcenia_lin_operatory.html" title="Operatory liniowe"
+             accesskey="N">dalej</a></li>
+        <li class="right" >
+          <a href="przeksztalcenia_lin_uklady_rownan.html" title="Rozwiązania jednorodnych układów równań"
+             accesskey="P">wstecz</a> &nbsp; &nbsp;</li>
+  <li><a href="http://visual.icse.us.edu.pl/LA/index.html">Algebra Liniowa</a> &raquo;</li>
+   
+      </ul>
+    </div>
+  </div>
+  
+  <div class="content">  
+
+    <div class="document">
+      <div class="documentwrapper">
+        <div class="bodywrapper">
+          <div class="body">
+            
+  <div class="section" id="macierze-przeksztalcen-liniowych">
+<h1>Macierze przekształceń liniowych<a class="headerlink" href="przeksztalcenia_lin_macierze.html#macierze-przeksztalcen-liniowych" title="Stały odnośnik do tego nagłówka">¶</a></h1>
+<p>Przed rozwinięciem ogólnej teorii wyjaśnimy na prostym przykładzie związek
+przekształceń liniowych z macierzami.</p>
+<div class="section" id="wprowadzenie">
+<h2>Wprowadzenie<a class="headerlink" href="przeksztalcenia_lin_macierze.html#wprowadzenie" title="Stały odnośnik do tego nagłówka">¶</a></h2>
+<p>Rozważmy odwzorowanie <span class="math">\(\ F:\,R^3\rightarrow R^2\ \)</span> zadane wzorem</p>
+<div class="math" id="equation-ex_0">
+<span class="eqno">(1)</span>\[\begin{split}F\left[\begin{array}{c} a_1 \\ a_2 \\ a_3 \end{array}\right]\ :\,=\
+\left[\begin{array}{c} 2\,a_1+\,a_2-\,a_3 \\ 4\,a_1-\,2\,a_2+\,4\,a_3 \end{array}\right]\,.\end{split}\]</div>
+<p>O tym, że <span class="math">\(\,F\,\)</span> jest przekształceniem liniowym, można się przekonać zapisując prawą stronę
+równania <a href="przeksztalcenia_lin_macierze.html#equation-ex_0">(1)</a> w postaci iloczynu macierzowego:</p>
+<div class="math">
+\[\begin{split}F\left[\begin{array}{c} a_1 \\ a_2 \\ a_3 \end{array}\right]\ =\
+\left[\begin{array}{rrr} 2 &amp;  1 &amp; -1 \\
+                         4 &amp; -2 &amp;  4 \end{array}\right]
+\left[\begin{array}{c} a_1 \\ a_2 \\ a_3 \end{array}\right]\,.\end{split}\]</div>
+<p>Teraz addytywność i jednorodność odwzorowania <span class="math">\(\,F\,\)</span> wynika z odpowiednich własności działań na macierzach.</p>
+<p>Tak więc w naturalny sposób przypisaliśmy przekształceniu <span class="math">\(\,F\in\text{Hom}(R^3,R^2)\ \)</span>
+macierz</p>
+<div class="math">
+\[\begin{split}M(F)\ =\
+\left[\begin{array}{rrr} 2 &amp;  1 &amp; -1 \\
+                         4 &amp; -2 &amp;  4 \end{array}\right]
+\in M_{2\times 3}(R)\,,\end{split}\]</div>
+<p>przy pomocy której zadanie wyznaczenia obrazu wektora <span class="math">\(\,\boldsymbol{x}\in R^3\ \)</span> przy przekształceniu <span class="math">\(\,F\,\)</span> sprowadza się do wykonania mnożenia macierzowego:</p>
+<div class="math">
+\[F(\boldsymbol{x})\ =\ M(F)\cdot \boldsymbol{x}\,,\qquad \boldsymbol{x}\in R^3\,.\]</div>
+<p>Niech <span class="math">\(\ \boldsymbol{e}_1,\,\boldsymbol{e}_2,\,\boldsymbol{e}_3\ \)</span>
+będą wektorami bazy kanonicznej przestrzeni <span class="math">\(\,R^3.\ \)</span>
+Zauważmy, że <span class="math">\(\\\)</span></p>
+<div class="math">
+\[\begin{split}\begin{array}{l}
+F\boldsymbol{e}_1\ =\ F
+\left[\begin{array}{c} 1 \\ 0 \\ 0 \end{array}\right]\ =\
+\left[\begin{array}{rrr} 2 &amp;  1 &amp; -1 \\
+                         4 &amp; -2 &amp;  4 \end{array}\right]
+\left[\begin{array}{c} 1 \\ 0 \\ 0 \end{array}\right]\ =\
+\left[\begin{array}{c} 2 \\ 4 \end{array}\right]\,,
+\\ \\
+F\boldsymbol{e}_2\ =\ F
+\left[\begin{array}{c} 0 \\ 1 \\ 0 \end{array}\right]\ =\
+\left[\begin{array}{rrr} 2 &amp;  1 &amp; -1 \\
+                         4 &amp; -2 &amp;  4 \end{array}\right]
+\left[\begin{array}{c} 0 \\ 1 \\ 0 \end{array}\right]\ =\
+\left[\begin{array}{r} 1 \\ -2 \end{array}\right]\,,
+\\ \\
+F\boldsymbol{e}_3\ =\ F
+\left[\begin{array}{c} 0 \\ 0 \\ 1 \end{array}\right]\ =\
+\left[\begin{array}{rrr} 2 &amp;  1 &amp; -1 \\
+                         4 &amp; -2 &amp;  4 \end{array}\right]
+\left[\begin{array}{c} 0 \\ 0 \\ 1 \end{array}\right]\ =\
+\left[\begin{array}{r} -1 \\ 4 \end{array}\right]\,.
+\end{array}\end{split}\]\[\;\]</div>
+<p>Jak widać, macierz <span class="math">\(\ M(F)\ \)</span> składa się z kolumn, które są obrazami odpowiednich wektorów bazy kanonicznej przestrzeni <span class="math">\(\ R^3:\ \)</span>
+<span class="math">\(\ M(F)\ =\ [\,F\boldsymbol{e}_1\,|\,F\boldsymbol{e}_2\,|\,F\boldsymbol{e}_3\,]\,.\)</span></p>
+<p>Ogólnie, przekształceniu liniowemu <span class="math">\(\,F\in\text{Hom}(K^n,K^m)\ \)</span> odpowiada macierz,
+której <span class="math">\(\,j\)</span>-ta kolumna jest obrazem <span class="math">\(\,j\)</span>-tego wektora bazy kanonicznej
+przestrzeni <span class="math">\(\ K^n\,,\ \ j=1,2,\dots,n.\ \)</span></p>
+<p>Określone w ten sposób odwzorowanie <span class="math">\(\,M\,\)</span> przestrzeni <span class="math">\(\ \text{Hom}(K^n,K^m)\ \)</span>
+przekształceń liniowych w przestrzeń <span class="math">\(\ M_{m\times n}(K)\ \)</span> macierzy prostokątnych
+można zapisać następująco:</p>
+<div class="math" id="equation-intro">
+<span class="eqno">(2)</span>\[M:\quad \text{Hom}(K^n,K^m)\,\ni\,F
+\ \ \rightarrow\ \
+M(F)\,:\,=\,[\,F\boldsymbol{e}_1\,|\,\dots\,|\,F\boldsymbol{e}_n\,]\,\in\,M_{m\times n}(K)\,,\]</div>
+<p>gdzie <span class="math">\(\ \mathcal{E}=(\boldsymbol{e}_1,\,\dots,\,\boldsymbol{e}_n)\ \,\)</span>
+jest bazą kanoniczną przestrzeni <span class="math">\(\,K^n.\ \)</span> Wtedy obraz dowolnego wektora
+<span class="math">\(\,\boldsymbol{x}\in K^n\ \)</span> otrzymuje się mnożąc ten wektor (z lewej strony) przez macierz <span class="math">\(\,M(F):\)</span></p>
+<div class="math">
+\[\boldsymbol{y}\,=\,F(\boldsymbol{x})\quad\Rightarrow\quad \boldsymbol{y}\ =\
+M(F)\,\cdot\,\boldsymbol{x}\,,\qquad \boldsymbol{x}\in K^n\,,\ \ \boldsymbol{y}\in K^m\,.\]</div>
+<p>W następnym uogólnieniu zdefiniujemy macierz przekształcenia liniowego
+<span class="math">\(\ F:V\rightarrow W,\ \)</span> gdzie <span class="math">\(\ V\ \)</span> i <span class="math">\(\ W\ \)</span>
+są <span class="math">\(\,\)</span> <em>dowolnymi</em> <span class="math">\(\,\)</span> skończenie wymiarowymi przestrzeniami wektorowymi
+nad ciałem <span class="math">\(\ K\,,\ \)</span> w każdej z których wybrano bazę.</p>
+</div>
+<div class="section" id="definicja-macierzy-przeksztalcenia-liniowego">
+<h2>Definicja macierzy przekształcenia liniowego<a class="headerlink" href="przeksztalcenia_lin_macierze.html#definicja-macierzy-przeksztalcenia-liniowego" title="Stały odnośnik do tego nagłówka">¶</a></h2>
+<p>Niech będą dane dwie skończenie wymiarowe przestrzenie wektorowe nad ciałem <span class="math">\(\,K:\ \\\)</span>
+<span class="math">\(n\)</span>-wymiarowa przestrzeń <span class="math">\(\,V\,\)</span>
+z bazą <span class="math">\(\ \mathcal{B}=(v_1,\,v_2,\,\dots,\,v_n)\,,\ \\\)</span>
+<span class="math">\(m\)</span>-wymiarowa przestrzeń <span class="math">\(\,W\,\)</span>
+z bazą <span class="math">\(\ \mathcal{C}=(w_1,\,w_2,\,\dots,\,w_m)\ \\\)</span>
+oraz przekształcenie liniowe <span class="math">\(\,F\in\text{Hom}(V,W)\,.\)</span></p>
+<p>Obrazy wektorów bazy <span class="math">\(\ \mathcal{B}\ \)</span> należą do przestrzeni <span class="math">\(\,W,\ \)</span>
+można je więc zapisać w postaci kombinacji liniowych wektorów bazy <span class="math">\(\ \mathcal{C}:\)</span></p>
+<div class="math" id="equation-exps">
+<span class="eqno">(3)</span>\[\begin{split}\begin{array}{l}
+Fv_1\ =\ f_{11}\,w_1\,+\ f_{21}\,w_2\,+\ \dots\ +\ f_{m1}\,w_m \\
+Fv_2\ =\ f_{12}\,w_1\,+\ f_{22}\,w_2\,+\ \dots\ +\ f_{m2}\,w_m \\
+\dots \\
+Fv_n\ =\ f_{1n}\,w_1\,+\ f_{2n}\,w_2\,+\ \dots\ +\ f_{mn}\,w_m
+\end{array}\end{split}\]</div>
+<p>Otrzymana w ten sposób macierz <span class="math">\(\ \boldsymbol{F}=[\,f_{ij}\,]_{m\times n}(K)\ \)</span>
+jest <span class="math">\(\,\)</span> <em>z definicji</em> <span class="math">\(\,\)</span> macierzą <span class="math">\(\,M_{\mathcal{B}\mathcal{C}}(F)\ \)</span>
+przekształcenia liniowego <span class="math">\(\ F\ \)</span> w bazach <span class="math">\(\ \mathcal{B}\ \,\text{i}\ \ \mathcal{C}:\)</span></p>
+<div class="math">
+\[\begin{split}M_{\mathcal{B}\mathcal{C}}(F)\ :\,=\
+\left[
+\begin{array}{cccc}
+f_{11} &amp; f_{12} &amp; \dots &amp; f_{1n} \\
+f_{21} &amp; f_{22} &amp; \dots &amp; f_{2n} \\
+\dots  &amp; \dots  &amp; \dots &amp; \dots  \\
+f_{m1} &amp; f_{m2} &amp; \dots &amp; f_{mn}
+\end{array}
+\right]\,.\end{split}\]</div>
+<p>Zauważmy przy tym, że elementy <span class="math">\(\ f_{1j},\,f_{2j},\,\dots,\,f_{mj}\,,\ \)</span>
+tworzące <span class="math">\(\,j\)</span>-tą kolumnę macierzy, <span class="math">\(\\\)</span> są współrzędnymi wektora
+<span class="math">\(\ Fv_j\ \)</span> w bazie <span class="math">\(\ \mathcal{C},\ \ j=1,2,\dots,n.\ \)</span></p>
+<div class="admonition-definicja-math admonition">
+<p class="first admonition-title">Definicja. <span class="math">\(\\\)</span></p>
+<p>Niech <span class="math">\(\ \,V\ \,\text{i}\ \ W\ \,\)</span> będą dwiema skończenie wymiarowymi przestrzeniami
+wektorowymi nad ciałem <span class="math">\(\,K,\ \)</span> przy czym układ
+<span class="math">\(\ \mathcal{B}=(v_1,\,v_2,\,\dots,\,v_n)\ \)</span> jest bazą przestrzeni <span class="math">\(\ \,V,\ \)</span>
+a układ <span class="math">\(\ \mathcal{C}=(w_1,\,w_2,\,\dots,\,w_m)\,\)</span> <span class="math">\(\,\)</span> - <span class="math">\(\,\)</span>
+bazą przestrzeni <span class="math">\(\ W.\ \,\)</span>
+Wtedy <span class="math">\(\ j\)</span>-ta kolumna macierzy <span class="math">\(\ M_{\mathcal{B}\mathcal{C}}(F)\ \)</span>
+przekształcenia <span class="math">\(\,F\in\text{Hom}(V,W)\ \)</span> w bazach <span class="math">\(\ \mathcal{B}\ \)</span>
+i <span class="math">\(\ \mathcal{C}\ \)</span> jest kolumną współrzędnych <span class="math">\(\,\)</span> (w bazie <span class="math">\(\ \mathcal{C}\)</span>)
+<span class="math">\(\,\)</span> obrazu <span class="math">\(\,\)</span> - <span class="math">\(\,\)</span> przy odwzorowaniu <span class="math">\(\,F\ \)</span> <span class="math">\(\,\)</span> - <span class="math">\(\,\)</span>
+<span class="math">\(\ j\)</span>-tego wektora bazy <span class="math">\(\ \mathcal{B}\quad (j=1,2,\dots,n).\)</span></p>
+<p>A zatem <span class="math">\(\ \,M_{\mathcal{B}\mathcal{C}}(F)\ =\ \,[\,f_{ij}\,]_{m\times n}\,,\ \,\)</span>
+gdzie elementy <span class="math">\(\ f_{ij}\ \)</span> określone są przez związki</p>
+<div class="last math">
+\[Fv_j\;=\ \sum_{i\,=\,1}^m\ f_{ij}\ w_i\,,\qquad j=1,2,\dots,n\,.\]</div>
+</div>
+<p><strong>Przykład.</strong></p>
+<p>Omówimy operację różniczkowania określoną w zbiorze wielomianów rzeczywistych.</p>
+<p><span class="math">\(\,V\ \)</span> jest przestrzenią wektorową wielomianów zmiennej <span class="math">\(\,x\ \)</span>
+stopnia (nie większego od) <span class="math">\(\,n,\ \,\)</span> a <span class="math">\(\ \,W\ \ \)</span> - <span class="math">\(\,\)</span> przestrzenią takich wielomianów stopnia (nie większego od) <span class="math">\(\ n-1:\)</span></p>
+<div class="math">
+\[V\ =\ \{\,a_0\,+\,a_1\,x\,+\,a_2\,x^2\,+\,a_3\,x^3\,+\,\ldots\,+\,a_n\,x^n:
+\quad a_i\in R\,,\quad i=0,1,\dots,n\,\}\,,\]\[
+W\ =\ \{\,b_0\,+\,b_1\,x\,+\,b_2\,x^2\,+\,\ldots\,+\,b_{n-1}\,x^{n-1}:
+\quad b_i\in R\,,\quad i=0,1,\dots,n-1\,\}\,.\]</div>
+<p><span class="math">\(\dim\,V=\,n+1\,,\ \ \mathcal{B}\,=\,(1,\,x,\,x^2,\,x^3,\,\dots,\,x^n)\,;\quad
+\dim\,W=\,n\,,\ \ \mathcal{C}\,=\,(1,\,x,\,x^2,\,\dots,\,x^{n-1})\,.\)</span></p>
+<p>Operacja różniczkowania <span class="math">\(\ D\equiv {d\over dx}\ \)</span> przekształca liniowo przestrzeń <span class="math">\(\,V\ \)</span>
+w przestrzeń <span class="math">\(\,W.\ \)</span> Aby wyznaczyć macierz tej operacji w bazach
+<span class="math">\(\,\mathcal{B}\ \ \text{i}\ \ \mathcal{C},\ \)</span> zapiszemy rozkłady <a href="przeksztalcenia_lin_macierze.html#equation-exps">(3)</a> obrazów
+kolejnych wektorów bazy <span class="math">\(\,\mathcal{B}\ \ \text{w bazie}\ \ \mathcal{C}:\)</span></p>
+<div class="math">
+\[\begin{alignat*}{7}
+D\,1\:\  & {\,} = {\,} & 0          & {\quad} = {\quad} & 0\cdot 1 & {\ } + {\ } & 0\cdot x & {\ } + {\ } & 0\cdot x^2 & {\ } + {\ } & \dots & {\ } + {\ } & 0\cdot x^{n-1} \\
+D\,x\,\  & {\,} = {\,} & 1          & {\quad} = {\quad} & 1\cdot 1 & {\ } + {\ } & 0\cdot x & {\ } + {\ } & 0\cdot x^2 & {\ } + {\ } & \dots & {\ } + {\ } & 0\cdot x^{n-1} \\
+D\,x^2 & {\,} = {\,} & 2\,x       & {\quad} = {\quad} & 0\cdot 1 & {\ } + {\ } & 2\cdot x & {\ } + {\ } & 0\cdot x^2 & {\ } + {\ } & \dots & {\ } + {\ } & 0\cdot x^{n-1} \\
+D\,x^3 & {\,} = {\,} & 3\,x^2     & {\quad} = {\quad} & 0\cdot 1 & {\ } + {\ } & 0\cdot x & {\ } + {\ } & 3\cdot x^2 & {\ } + {\ } & \dots & {\ } + {\ } & 0\cdot x^{n-1} \\
+\dots  & {\,}   {\,} & \dots      & {\quad}   {\quad} & \dots    & {\ }   {\ } & \dots    & {\ }   {\ } & \dots      & {\ }   {\ } & \dots & {\ }   {\ } & \dots          \\
+D\,x^n & {\,} = {\,} & n\,x^{n-1} & {\quad} = {\quad} & 0\cdot 1 & {\ } + {\ } & 0\cdot x & {\ } + {\ } & 0\cdot x^2 & {\ } + {\ } & \dots & {\ } + {\ } & n\cdot x^{n-1}
+\end{alignat*}\]</div><div class="math" id="equation-MBC_D">
+<span class="eqno">(4)</span>\[\begin{split}M_{\mathcal{B}\mathcal{C}}(D)\ =\
+\left[
+\begin{array}{cccccc}
+  0   &amp;   1   &amp;   0   &amp;   0   &amp; \dots &amp;   0   \\
+  0   &amp;   0   &amp;   2   &amp;   0   &amp; \dots &amp;   0   \\
+  0   &amp;   0   &amp;   0   &amp;   3   &amp; \dots &amp;   0   \\
+\dots &amp; \dots &amp; \dots &amp; \dots &amp; \dots &amp; \dots \\
+  0   &amp;   0   &amp;   0   &amp;   0   &amp; \dots &amp;   n
+\end{array}
+\right]\
+\in\,M_{n\times (n+1)}(R)\,.\end{split}\]\[\;\]</div>
+<p>Wprowadzimy teraz dalsze oznaczenia, które pozwolą w czytelny sposób zapisać kolumnową postać
+macierzy <span class="math">\(\,M_{\mathcal{B}\mathcal{C}}(F)\,.\)</span>
+Z wniosku do Twierdzenia 8. wynika, że <span class="math">\(\,n\)</span>-wymiarowa przestrzeń <span class="math">\(\,V\ \)</span>
+jest izomorficzna z przestrzenią <span class="math">\(\,K^n,\ \ \text{a}\ \ m\)</span>-wymiarowa
+przestrzeń <span class="math">\(\,W\ \)</span> jest izomorficzna z przestrzenią <span class="math">\(\ K^m:\quad
+V\,\simeq\,K^n\,,\qquad W\,\simeq\,K^m\,.\)</span></p>
+<p>W przestrzeniach <span class="math">\(\,V\ \,\text{i}\ \ W\ \)</span> przyjęliśmy bazy</p>
+<div class="math">
+\[\mathcal{B}=(v_1,\,v_2,\,\dots,\,v_n)
+\qquad\text{i}\qquad
+\mathcal{C}=(w_1,\,w_2,\,\dots,\,w_m)\,.\]</div>
+<p>Niech układy</p>
+<div class="math">
+\[\mathcal{E}\,=\,(e_1,\,e_2,\,\dots,\,e_n)
+\qquad\text{i}\qquad
+\mathcal{F}\,=\,(f_1,\,f_2,\,\dots,\,f_m)\]</div>
+<p>będą bazami kanonicznymi przestrzeni <span class="math">\(\,K^n\ \,\text{i}\ \ K^m.\)</span></p>
+<p>Wtedy odwzorowania <span class="math">\(\ I_{\mathcal{B}}:\,V\rightarrow K^n \ \ \text{oraz}\ \ \,
+I_{\mathcal{C}}:\,W\rightarrow K^m\,,\ \,\)</span>
+określone poprzez zadanie obrazów wektorów bazy (odpowiednio
+bazy <span class="math">\(\,\mathcal{B}\ \)</span> albo bazy <span class="math">\(\ \mathcal{C}):\)</span></p>
+<div class="math">
+\[I_{\mathcal{B}}(v_j)\ :\,=\ e_j\,,\quad j=1,2,\dots,n\,,
+\qquad
+I_{\mathcal{C}}(w_i)\ :\,=\ f_i\,,\quad i=1,2,\dots,m\,,\]</div>
+<p>są przykładami izomorfizmów:
+<span class="math">\(\ I_{\mathcal{B}}\in\text{Izo}(V,K^n)\,,\ \,I_{\mathcal{C}}\in\text{Izo}(W,K^m)\,.\)</span></p>
+<p>Dla dowolnych wektorów <span class="math">\(\displaystyle\quad v\,=\,\sum_{j\,=\,1}^n\ a_j\,v_j\,\in V\,,\quad
+w\,=\,\sum_{i\,=\,1}^m\ b_i\,w_i\,\in W\,:\)</span></p>
+<div class="math">
+\[\begin{split}I_{\mathcal{B}}(v)\ =\ I_{\mathcal{B}}\,\left(\,\sum_{j\,=\,1}^n\ a_j\,v_j\right)\ =\
+\sum_{j\,=\,1}^n\ a_j\,I_{\mathcal{B}}(v_j)\ =\
+\sum_{j\,=\,1}^n\ a_j\,e_j\ =\
+\left[\begin{array}{c} a_1 \\ a_2 \\ \dots \\ a_n \end{array}\right]\,,\end{split}\]\[\begin{split}I_{\mathcal{C}}(w)\ =\ I_{\mathcal{C}}\,\left(\,\sum_{i\,=\,1}^m\ b_i\,w_i\right)\ =\
+\sum_{i\,=\,1}^m\ b_i\,I_{\mathcal{C}}(w_i)\ =\
+\sum_{i\,=\,1}^m\ b_i\,f_i\ =\
+\left[\begin{array}{c} b_1 \\ b_2 \\ \dots \\ b_m \end{array}\right]\,.\end{split}\]</div>
+<p>Tak więc izomorfizm <span class="math">\(\ I_{\mathcal{B}}\ \)</span>  przekształca wektor <span class="math">\(\,v\in V\ \)</span>
+w kolumnę współrzędnych tego wektora w bazie <span class="math">\(\ \mathcal{B},\ \,\)</span>
+a <span class="math">\(\,\)</span> izomorfizm <span class="math">\(\ \,I_{\mathcal{C}}\ \)</span> przekształca wektor <span class="math">\(\,w\in W\ \)</span>
+w kolumnę współrzędnych tego wektora w bazie <span class="math">\(\ \mathcal{C}.\ \)</span>
+Macierz przekształcenia liniowego <span class="math">\(\ F\in\text{Hom}(V,W)\ \)</span>
+w bazach <span class="math">\(\ \mathcal{B}\ \,\text{i}\ \ \,\mathcal{C}\ \)</span> ma teraz w zapisie kolumnowym postać</p>
+<div class="math">
+\[M_{\mathcal{B}\mathcal{C}}(F)\ \,=\ \,
+\left[\;I_{\mathcal{C}}(Fv_1\,|\,I_{\mathcal{C}}(Fv_2\,|\ \dots\ |\,
+I_{\mathcal{C}}(Fv_n\,\right]\,.\]</div>
+</div>
+<div class="section" id="podstawowe-twierdzenia">
+<h2>Podstawowe twierdzenia<a class="headerlink" href="przeksztalcenia_lin_macierze.html#podstawowe-twierdzenia" title="Stały odnośnik do tego nagłówka">¶</a></h2>
+<p>Sens wprowadzenia macierzowej reprezentacji przekształceń liniowych wyjaśnia</p>
+<div class="admonition-twierdzenie-10-math admonition">
+<p class="first admonition-title">Twierdzenie 10. <span class="math">\(\\\)</span></p>
+<p>Niech <span class="math">\(\ F\in\text{Hom}(V,W),\ \)</span> gdzie <span class="math">\(\,V\ \,\text{i}\ \ W\ \)</span>
+są przestrzeniami wektorowymi nad ciałem <span class="math">\(\,K\ \)</span> z bazami <span class="math">\(\ \mathcal{B}\ \,\)</span>
+i <span class="math">\(\ \mathcal{C}.\ \)</span>
+Jeżeli wektor <span class="math">\(\,w\in W\ \)</span> jest obrazem wektora <span class="math">\(\,v\in V\ \)</span>
+przy przekształceniu <span class="math">\(\,F,\ \,\)</span> to kolumna współrzędnych (w bazie <span class="math">\(\,\mathcal{C}\)</span>)
+wektora <span class="math">\(\ w\ \)</span> równa się iloczynowi macierzy przekształcenia <span class="math">\(\,F\ \)</span>
+w bazach <span class="math">\(\ \mathcal{B}\ \,\text{i}\ \ \,\mathcal{C}\ \)</span>
+przez kolumnę współrzędnych (w bazie <span class="math">\(\,\mathcal{B}\)</span>) <span class="math">\(\,\)</span> wektora <span class="math">\(\,v:\)</span></p>
+<div class="last math" id="equation-fund">
+<span class="eqno">(5)</span>\[w\,=\,F(v)\qquad\Rightarrow\qquad
+I_{\mathcal{C}}(w)\ =\ M_{\mathcal{B}\mathcal{C}}(F)\,\cdot\,I_{\mathcal{B}}(v)\,.\]</div>
+</div>
+<p>W ten sposób abstrakcyjne zagadnienie wyznaczenia obrazu wektora <span class="math">\(\,v\ \)</span>
+przy przekształceniu <span class="math">\(\,F\ \)</span> jest sprowadzone do konkretnego rachunku na macierzach.</p>
+<p><strong>Dowód.</strong> <span class="math">\(\,\)</span> Przyjmujemy dotychczasowe oznaczenia:</p>
+<div class="math">
+\[\mathcal{B}\,=\,(v_1,\,v_2,\,\dots,\,v_n)\,,\qquad\mathcal{C}\,=\,(w_1,\,w_2,\,\dots,\,w_m)\,,\]\[v\,=\,\sum_{j\,=\,1}^n\ a_j\,v_j\,,\quad
+w\,=\,\sum_{i\,=\,1}^m\ b_i\,w_i\,,\quad
+M_{\mathcal{B}\mathcal{C}}(F)\,=\,[\,f_{ij}\,]_{m\times n}\,.\quad\]\[\text{Wtedy}\qquad
+w\ =\ F(v)\ =\ F\,\left(\,\sum_{j\,=\,1}^n\ a_j\,v_j\right)\ \ =\ \
+                          \sum_{j\,=\,1}^n\ a_j\,F(v_j)\ \ =\]\[=\ \
+\sum_{j\,=\,1}^n\ a_j\,\left(\,\sum_{i\,=\,1}^m\ f_{ij}\ w_i\right)\ \ =\ \
+\sum_{i\,=\,1}^m\,\left(\,\sum_{j\,=\,1}^n\ f_{ij}\ a_j\right)\ w_i\,.\]</div>
+<p>Z jednoznaczności przedstawienia wektora <span class="math">\(\,w\ \)</span> w bazie <span class="math">\(\,\mathcal{C}\ \)</span> otrzymujemy</p>
+<div class="math" id="equation-bfa">
+<span class="eqno">(6)</span>\[b_i\ =\ \sum_{j\,=\,1}^n\ f_{ij}\ a_j\,,\qquad i=1,2,\dots,m\,.\]</div>
+<p>Związki <a href="przeksztalcenia_lin_macierze.html#equation-bfa">(6)</a> przedstawiają równość macierzową <span class="math">\(\\\)</span></p>
+<div class="math">
+\[\begin{split}\left[\begin{array}{c} b_1 \\ b_2 \\ \dots \\ b_m \end{array}\right]\ =\
+\left[\begin{array}{cccc}
+      f_{11} &amp; f_{12} &amp; \dots &amp; f_{1n} \\
+      f_{21} &amp; f_{22} &amp; \dots &amp; f_{2n} \\
+       \dots &amp;  \dots &amp; \dots &amp;  \dots \\
+      f_{m1} &amp; f_{m2} &amp; \dots &amp; f_{mn}
+      \end{array}
+\right]
+\left[\begin{array}{c} a_1 \\ a_2 \\ \dots \\ a_n \end{array}\right]\,,\end{split}\]\[\;\]\[\text{czyli}\qquad
+I_{\mathcal{C}}(w)\ =\ M_{\mathcal{B}\mathcal{C}}(F)\,\cdot\,I_{\mathcal{B}}(v)\,.\]</div>
+<p><strong>Przykład.</strong></p>
+<p>Powróćmy do operacji różniczkowania <span class="math">\(\ D = {d\over dx}\ \,\)</span> jako przekształcenia liniowego
+przestrzeni <span class="math">\(\,V\ \)</span> wielomianów rzeczywistych stopnia <span class="math">\(\,n\ \)</span> w przestrzeń <span class="math">\(\,W\ \)</span>
+wielomianów stopnia <span class="math">\(\,n-1.\ \)</span>
+Macierz tej operacji w naturalnych bazach przestrzeni
+<span class="math">\(\ V\ \,\text{i}\ \ W\ \)</span> jest dana przez <a href="przeksztalcenia_lin_macierze.html#equation-MBC_D">(4)</a>.</p>
+<p>Jeżeli <span class="math">\(\ v\,=\,a_0\,+\,a_1\,x\,+\,a_2\,x^2\,+\,a_3\,x^3\,+\,\ldots\,+\,a_n\,x^n\,\in V,\)</span></p>
+<p>to <span class="math">\(\quad w\,\equiv D(v)\,=\,a_1\,+\,2\,a_2\,x\,+\,3\,a_3\,x^2\ +\ \ldots\ +n\,a_n\,x^{n-1}\,.\)</span></p>
+<p>Zapisany macierzowo związek pomiędzy współrzędnymi wielomianów <span class="math">\(\,v\ \,\text{i}\ \ w:\)</span></p>
+<div class="math">
+\[\begin{split}\left[
+\begin{array}{c} a_1 \\ 2\,a_2 \\ 3\,a_3 \\ \dots \\ n\,a_n \end{array}
+\right]\ \ =\ \
+\left[
+\begin{array}{cccccc}
+  0   &amp;   1   &amp;   0   &amp;   0   &amp; \dots &amp;   0   \\
+  0   &amp;   0   &amp;   2   &amp;   0   &amp; \dots &amp;   0   \\
+  0   &amp;   0   &amp;   0   &amp;   3   &amp; \dots &amp;   0   \\
+\dots &amp; \dots &amp; \dots &amp; \dots &amp; \dots &amp; \dots \\
+  0   &amp;   0   &amp;   0   &amp;   0   &amp; \dots &amp;   n
+\end{array}
+\right]\
+\left[
+\begin{array}{c} a_0 \\ a_1 \\ a_2 \\ a_3 \\ \dots \\ a_n \end{array}
+\right]\end{split}\]</div>
+<p>jest właśnie relacją <a href="przeksztalcenia_lin_macierze.html#equation-fund">(5)</a> z Twierdzenia 10.</p>
+<p><span class="math">\(\;\)</span></p>
+<p>Wyjaśnimy dokładnie charakter związku pomiędzy przekształceniami liniowymi i macierzami.
+W dotychczasowych rozważaniach wystąpiły następujące przestrzenie wektorowe
+(wszystkie nad tym samym ciałem <span class="math">\(\,K\)</span>):</p>
+<ul>
+<li><div class="first line-block">
+<div class="line"><span class="math">\(n\)</span>-wymiarowa przestrzeń <span class="math">\(\,V\,\)</span>
+z bazą <span class="math">\(\ \mathcal{B}=(v_1,\,v_2,\,\dots,\,v_n)\,,\ \)</span></div>
+<div class="line"><span class="math">\(m\)</span>-wymiarowa przestrzeń <span class="math">\(\,W\,\)</span>
+z bazą <span class="math">\(\ \mathcal{C}=(w_1,\,w_2,\,\dots,\,w_m)\,;\)</span></div>
+</div>
+</li>
+<li><div class="first line-block">
+<div class="line">przestrzeń <span class="math">\(\ \text{Hom}(V,W)\ \)</span> przekształceń liniowych
+przestrzeni <span class="math">\(\ V\ \)</span> w przestrzeń <span class="math">\(\ W;\)</span></div>
+</div>
+</li>
+<li><div class="first line-block">
+<div class="line">przestrzeń <span class="math">\(\ M_{m\times n}(K)\ \)</span> macierzy prostokątnych
+o elementach z ciała <span class="math">\(\ K. \,\)</span></div>
+</div>
+</li>
+</ul>
+<p><span class="math">\(\;\)</span></p>
+<div class="admonition-twierdzenie-11-math admonition">
+<p class="first admonition-title">Twierdzenie 11. <span class="math">\(\\\)</span></p>
+<p>Odwzorowanie</p>
+<div class="math">
+\[M_{\mathcal{B}\mathcal{C}}:\quad
+\text{Hom}(V,W)\ni F\ \rightarrow\ M_{\mathcal{B}\mathcal{C}}(F):\,=
+\left[\;I_{\mathcal{C}}(Fv_1\,|\,\dots\,|\,
+I_{\mathcal{C}}(Fv_n\,\right]\in M_{m\times n}(K)\]</div>
+<p class="last">jest izomorfizmem przestrzeni wektorowych
+<span class="math">\(\ \text{Hom}(V,W)\ \ \,\text{i}\ \ \,M_{m\times n}(K).\)</span></p>
+</div>
+<p><span class="math">\(\;\)</span></p>
+<p><strong>Dowód</strong> poprzedzimy przypomnieniem definicji działań na przekształceniach liniowych,
+przy których <span class="math">\(\,\text{Hom}(V,W)\,\)</span> jest przestrzenią wektorową.
+Jeżeli <span class="math">\(\,F_1,F_2,F\in\text{Hom}(V,W),\ a\in K,\,\)</span> to</p>
+<div class="math">
+\[\begin{eqnarray*}
+(F_1+F_2)(v) & :\;= & F_1(v)\,+\,F_2(v) \\
+   (a\,F)(v) & :\;= & a\cdot F(v)\,,\qquad v\in V\,.
+\end{eqnarray*}\]</div><p>Aby pokazać, że <span class="math">\(\,M_{\mathcal{B}\mathcal{C}}\ \)</span> jest izomorfizmem,
+czyli wzajemnie jednoznacznym homomorfizmem, trzeba udowodnić jego
+addytywność, jednorodność i bijektywność.</p>
+<ol class="loweralpha">
+<li><p class="first">Addytywność. <span class="math">\(\,\)</span></p>
+<p>Niech <span class="math">\(\,F_1,F_2\,\in\,\text{Hom}(V,W).\ \)</span> Wtedy <span class="math">\(\,j\)</span>-ta kolumna macierzy
+<span class="math">\(\,M_{\mathcal{B}\mathcal{C}}(F_1+F_2)\)</span></p>
+<div class="math">
+\[I_{\mathcal{C}}\,[\,(F_1+F_2)(v_j)\,]\ =\ I_{\mathcal{C}}\,[\,F_1(v_j)+F_2(v_j)\,]\ =\
+I_{\mathcal{C}}\,[\,F_1(v_j)\,]+I_{\mathcal{C}}\,[\,F_2(v_j)\,]\]</div>
+<p>jest sumą <span class="math">\(\,j\)</span>-tych kolumn macierzy <span class="math">\(\ M_{\mathcal{B}\mathcal{C}}(F_1)\ \)</span>
+i <span class="math">\(\ \,M_{\mathcal{B}\mathcal{C}}(F_2)\,,\ \ j=1,2,\dots,n.\ \,\)</span> Stąd</p>
+<div class="math">
+\[M_{\mathcal{B}\mathcal{C}}(F_1+F_2)\ =\ M_{\mathcal{B}\mathcal{C}}(F_1)
+                                   \,+\,M_{\mathcal{B}\mathcal{C}}(F_2)\,.\]</div>
+</li>
+<li><p class="first">Jednorodność.</p>
+<p>Niech <span class="math">\(\,F\in\text{Hom}(V,W),\ \ a\in K.\ \,\)</span> Wtedy <span class="math">\(\,j\)</span>-ta kolumna macierzy
+<span class="math">\(\,M_{\mathcal{B}\mathcal{C}}(aF)\)</span></p>
+<div class="math">
+\[I_{\mathcal{C}}\,[\,(aF)(v_j)\,]\ =\ I_{\mathcal{C}}\,[\,a\cdot F(v_j)\,]\ =\
+a\cdot I_{\mathcal{C}}\,[\,F(v_j)\,]\]</div>
+<p>jest pomnożoną przez <span class="math">\(\,a\ \ j\)</span>-tą kolumną macierzy
+<span class="math">\(\,M_{\mathcal{B}\mathcal{C}}(F)\,,\ \ j=1,2,\dots,n.\ \,\)</span> Stąd</p>
+<div class="math">
+\[M_{\mathcal{B}\mathcal{C}}(a\,F)\ =\ a\,M_{\mathcal{B}\mathcal{C}}(F)\,.\]</div>
+</li>
+<li><p class="first">Bijektywność.</p>
+<p>Trzeba pokazać, że każda macierz <span class="math">\(\,\boldsymbol{F}\in M_{m\times n}(K)\ \)</span> odpowiada
+dokładnie jednemu przekształceniu <span class="math">\(\,F\in\text{Hom}(V,W).\ \,\)</span>
+Istotnie, kolumny macierzy <span class="math">\(\boldsymbol{F}\,\)</span> wyznaczają (poprzez współrzędne w bazie
+<span class="math">\(\ \mathcal{C}\)</span>) <span class="math">\(\,\)</span> obrazy <span class="math">\(\ Fv_j\ \)</span> wektorów <span class="math">\(\,v_j\ \)</span> bazy
+<span class="math">\(\ \mathcal{B},\ \)</span> przez co (patrz wniosek do Twierdzenia 5.) <span class="math">\(\,\)</span>
+przekształcenie <span class="math">\(\ F\ \)</span> jest jednoznacznie określone.</p>
+</li>
+</ol>
+<p><span class="math">\(\;\)</span></p>
+<p>Na podstawie Twierdzenia 8. można teraz zapisać</p>
+<div class="admonition-wniosek admonition">
+<p class="first admonition-title">Wniosek.</p>
+<p>Jeżeli <span class="math">\(\,V\ \,\text{i}\ \ W\ \)</span> są skończenie wymiarowymi przestrzeniami
+nad ciałem <span class="math">\(\,K,\ \,\)</span> to</p>
+<div class="last math">
+\[\dim\,\text{Hom}(V,W)\ =\ \dim\,V\,\cdot\,\dim\,W\,.\]</div>
+</div>
+<p><span class="math">\(\;\)</span></p>
+<p>Zajmiemy się jeszcze przypadkiem, gdy <span class="math">\(\,V=K^n\ \)</span>
+z bazą kanoniczną <span class="math">\(\ \mathcal{E}=
+(\boldsymbol{e}_1,\boldsymbol{e}_2,\dots,\boldsymbol{e}_n)\,,\ \)</span>
+<span class="math">\(\,W=K^m\ \)</span> z bazą kanoniczną
+<span class="math">\(\ \mathcal{F}=(\boldsymbol{f}_1,\boldsymbol{f}_2,\dots,\boldsymbol{f}_m)\ \)</span>
+oraz <span class="math">\(\,F\in\text{Hom}(K^n,K^m).\)</span></p>
+<p>Macierz przekształcenia <span class="math">\(\,F\ \)</span> w bazach kanonicznych
+<span class="math">\(\ \mathcal{E}\ \,\text{i}\ \ \mathcal{F}\ \)</span> ma postać</p>
+<div class="math">
+\[M_{\mathcal{E}\mathcal{F}}(F)\ =\
+[\,I_{\mathcal{F}}(F\boldsymbol{e}_1)\,|\,I_{\mathcal{F}}(F\boldsymbol{e}_2)\,|\,\dots\,
+|\,I_{\mathcal{F}}(F\boldsymbol{e}_n)\,]\,.\]</div>
+<p>Ale w przestrzeni <span class="math">\(\,K^m\ \)</span> każdy wektor jest kolumną swoich współrzędnych
+w bazie kanonicznej:
+<span class="math">\(\ \ I_{\mathcal{F}}(\boldsymbol{w})=\boldsymbol{w},\ \ \boldsymbol{w}\in K^m.\ \)</span>
+Oznaczając macierz przekształcenia <span class="math">\(\,F\ \)</span> w bazach kanonicznych
+po prostu przez <span class="math">\(\,M(F),\ \)</span> otrzymujemy wzór uproszczony:</p>
+<div class="math">
+\[M(F)\ =\ [\,F\boldsymbol{e}_1\,|\,F\boldsymbol{e}_2\,|\,\dots\,|\,F\boldsymbol{e}_n\,]\,,\]</div>
+<p>wprowadzony wstępnie już wcześniej w równaniu <a href="przeksztalcenia_lin_macierze.html#equation-intro">(2)</a>.
+Wzór <a href="przeksztalcenia_lin_macierze.html#equation-fund">(5)</a> w Twierdzeniu 10. przyjmuje teraz postać</p>
+<div class="math">
+\[\boldsymbol{y}\,=\,F(\boldsymbol{x})\quad\Rightarrow\quad \boldsymbol{y}\ =\
+M(F)\,\cdot\,\boldsymbol{x}\,,\qquad \boldsymbol{x}\in K^n\,,\ \ \boldsymbol{y}\in K^m\,.\]</div>
+</div>
+</div>
+
+
+          </div>
+        </div>
+      </div>
+      <div class="sphinxsidebar">
+        <div class="sphinxsidebarwrapper">
+  <div class="sphinxlocaltoc">
+  <h3><a href="http://visual.icse.us.edu.pl/LA/index.html">Spis treści</a></h3>
+  <ul>
+<li><a class="reference internal" href="przeksztalcenia_lin_macierze.html#">Macierze przekształceń liniowych</a><ul>
+<li><a class="reference internal" href="przeksztalcenia_lin_macierze.html#wprowadzenie">Wprowadzenie</a></li>
+<li><a class="reference internal" href="przeksztalcenia_lin_macierze.html#definicja-macierzy-przeksztalcenia-liniowego">Definicja macierzy przekształcenia liniowego</a></li>
+<li><a class="reference internal" href="przeksztalcenia_lin_macierze.html#podstawowe-twierdzenia">Podstawowe twierdzenia</a></li>
+</ul>
+</li>
+</ul>
+
+  </div>
+  <h4>Poprzedni temat</h4>
+  <p class="topless"><a href="przeksztalcenia_lin_uklady_rownan.html"
+                        title="poprzedni rozdział">Rozwiązania jednorodnych układów równań</a></p>
+  <h4>Następny temat</h4>
+  <p class="topless"><a href="przeksztalcenia_lin_operatory.html"
+                        title="następny rozdział">Operatory liniowe</a></p>
+<div id="searchbox" style="display: none">
+  <h3>Szybkie wyszukiwanie</h3>
+    <form class="search" action="search.html" method="get">
+      <input type="text" name="q" />
+      <input type="submit" value="Szukaj" />
+      <input type="hidden" name="check_keywords" value="yes" />
+      <input type="hidden" name="area" value="default" />
+    </form>
+    <p class="searchtip" style="font-size: 90%">
+    Wprowadź szukany termin lub nazwę modułu, klasy lub funkcji.
+    </p>
+</div>
+<script type="text/javascript">$('#searchbox').show(0);</script>
+        </div>
+      </div>
+      <div class="clearer"></div>
+    </div>
+  </div>
+  <div class="relbar-bottom">
+    
+    <div class="related">
+      <h3>Nawigacja</h3>
+      <ul>
+        <li class="right" style="margin-right: 10px">
+          <a href="przeksztalcenia_lin_operatory.html" title="Operatory liniowe"
+             >dalej</a></li>
+        <li class="right" >
+          <a href="przeksztalcenia_lin_uklady_rownan.html" title="Rozwiązania jednorodnych układów równań"
+             >wstecz</a> &nbsp; &nbsp;</li>
+  <li><a href="http://visual.icse.us.edu.pl/LA/index.html">Algebra Liniowa</a> &raquo;</li>
+   
+      </ul>
+    </div>
+  </div>
+  
+  <div class="footer">
+    <a class="logo" href="../../icse.us.edu.pl/index.html" target="_blank"><img src="_static/logo-icse.png" alt="ICSE"/></a><br/>
+    &copy; Copyright 2013, Marcin Kostur.
+    Created using <a href="http://sphinx.pocoo.org/">Sphinx</a> 1.2.2.
+  </div>
+  </body>
+</html>
