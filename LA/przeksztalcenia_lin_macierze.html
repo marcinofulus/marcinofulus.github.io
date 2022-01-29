@@ -1,0 +1,556 @@
+
+
+  
+<!DOCTYPE html>
+
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" /><meta name="generator" content="Docutils 0.17: http://docutils.sourceforge.net/" />
+
+    <title>Matrix Representation of Linear Transformations &#8212; Linear Algebra</title>
+    <link rel="stylesheet" type="text/css" href="_static/pygments.css" />
+    <link rel="stylesheet" type="text/css" href="_static/cloud.css" />
+    <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Noticia+Text|Open+Sans|Droid+Sans+Mono&amp;subset=latin,latin-ext" type="text/css" />
+    <script data-url_root="./" id="documentation_options" src="_static/documentation_options.js"></script>
+    <script src="_static/jquery.js"></script>
+    <script src="_static/underscore.js"></script>
+    <script src="_static/doctools.js"></script>
+    <script async="async" src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js"></script>
+    <script src="_static/jquery.cookie.js"></script>
+    <script src="_static/cloud.js"></script>
+    <script type="text/javascript" src="http://sagecell.sagemath.org/static/jquery.min.js"></script>
+    <script type="text/javascript" src="http://sagecell.sagemath.org/embedded_sagecell.js"></script>
+    <script type="text/javascript">
+        sagecell.makeSagecell({inputLocation: ".sage_linked",
+                               linked: true});
+        sagecell.makeSagecell({inputLocation: ".sage_unlinked",
+                               linked: false});
+    </script>
+
+    <style type="text/css">
+        .sagecell .CodeMirror-scroll {
+            overflow-y: hidden;
+            overflow-x: auto;
+        }
+        .sagecell .CodeMirror {
+            height: auto;
+        }
+    </style>
+    
+    <link rel="index" title="Index" href="genindex.html" />
+    <link rel="search" title="Search" href="search.html" />
+    <link rel="next" title="Linear Operators" href="przeksztalcenia_lin_operatory.html" />
+    <link rel="prev" title="Application to Homogeneous Systems of Equations" href="przeksztalcenia_lin_uklady_rownan.html" />
+ 
+  <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, minimum-scale=1">
+  </head><body>
+  <div class="relbar-top">
+    
+    <div class="related" role="navigation" aria-label="related navigation">
+      <h3>Navigation</h3>
+      <ul>
+        <li class="right" style="margin-right: 10px">
+          <a href="genindex.html" title="General Index"
+             accesskey="I">index</a></li>
+        <li class="right" >
+          <a href="przeksztalcenia_lin_operatory.html" title="Linear Operators"
+             accesskey="N">next</a> &nbsp; &nbsp;</li>
+        <li class="right" >
+          <a href="przeksztalcenia_lin_uklady_rownan.html" title="Application to Homogeneous Systems of Equations"
+             accesskey="P">previous</a> &nbsp; &nbsp;</li>
+  <li><a href="index.html">Linear Algebra</a> &#187;</li>
+  
+        <li class="nav-item nav-item-this"><a href="">Matrix Representation of Linear Transformations</a></li> 
+      </ul>
+    </div>
+  </div>
+  
+  <div class="content">  
+
+    <div class="document">
+      <div class="documentwrapper">
+        <div class="bodywrapper">
+          <div class="body">
+            
+  <section id="matrix-representation-of-linear-transformations">
+<h1>Matrix Representation of Linear Transformations<a class="headerlink" href="#matrix-representation-of-linear-transformations" title="Permalink to this headline">¶</a></h1>
+<p>Before we develop a general theory, we employ a simple example to present
+a connection between linear transformations and matrices.</p>
+<section id="introduction">
+<h2>Introduction<a class="headerlink" href="#introduction" title="Permalink to this headline">¶</a></h2>
+<p>Consider a mapping <span class="math notranslate nohighlight">\(\ F:\,R^3\rightarrow R^2\ \)</span> given by the formula</p>
+<div class="math notranslate nohighlight" id="equation-ex-0">
+<span class="eqno">(1)<a class="headerlink" href="#equation-ex-0" title="Permalink to this equation">¶</a></span>\[\begin{split}F\left[\begin{array}{c} a_1 \\ a_2 \\ a_3 \end{array}\right]\ :\,=\
+\left[\begin{array}{c} 2\,a_1+\,a_2-\,a_3 \\ 4\,a_1-\,2\,a_2+\,4\,a_3 \end{array}\right]\,.\end{split}\]</div>
+<p>To see that <span class="math notranslate nohighlight">\(\,F\,\)</span> is a linear transformation, one can write the right
+hand side of the equation <a class="reference internal" href="#equation-ex-0">(1)</a> as a product of two matrices:</p>
+<div class="math notranslate nohighlight">
+\[\begin{split}F\left[\begin{array}{c} a_1 \\ a_2 \\ a_3 \end{array}\right]\ =\
+\left[\begin{array}{rrr} 2 &amp;  1 &amp; -1 \\
+                         4 &amp; -2 &amp;  4 \end{array}\right]
+\left[\begin{array}{c} a_1 \\ a_2 \\ a_3 \end{array}\right]\,.\end{split}\]</div>
+<p>Now additivity and homogenity of the mapping <span class="math notranslate nohighlight">\(\,F\,\)</span> follows from
+the properties of matrix operations.</p>
+<p>In this natural way, we associated the mapping <span class="math notranslate nohighlight">\(\,F\in\text{Hom}(R^3,R^2)\ \)</span> with the matrix</p>
+<div class="math notranslate nohighlight">
+\[\begin{split}M(F)\ =\
+\left[\begin{array}{rrr} 2 &amp;  1 &amp; -1 \\
+                         4 &amp; -2 &amp;  4 \end{array}\right]
+\in M_{2\times 3}(R)\,.\end{split}\]</div>
+<p>Thanks to this matrix, the problem of determination of the image of a vector
+<span class="math notranslate nohighlight">\(\,\boldsymbol{x}\in R^3\ \)</span> under transformation <span class="math notranslate nohighlight">\(\,F\,\)</span> boils down to matrix multiplication:</p>
+<div class="math notranslate nohighlight">
+\[F(\boldsymbol{x})\ =\ M(F)\cdot \boldsymbol{x}\,,\qquad \boldsymbol{x}\in R^3\,.\]</div>
+<p>Let <span class="math notranslate nohighlight">\(\ \boldsymbol{e}_1,\,\boldsymbol{e}_2,\,\boldsymbol{e}_3\ \)</span>
+be vectors from the canonical basis of the space <span class="math notranslate nohighlight">\(\,R^3.\ \)</span>
+Note that <span class="math notranslate nohighlight">\(\\\)</span></p>
+<div class="math notranslate nohighlight">
+\[ \begin{align}\begin{aligned}\begin{split}\begin{array}{l}
+F\boldsymbol{e}_1\ =\ F
+\left[\begin{array}{c} 1 \\ 0 \\ 0 \end{array}\right]\ =\
+\left[\begin{array}{rrr} 2 &amp;  1 &amp; -1 \\
+                         4 &amp; -2 &amp;  4 \end{array}\right]
+\left[\begin{array}{c} 1 \\ 0 \\ 0 \end{array}\right]\ =\
+\left[\begin{array}{c} 2 \\ 4 \end{array}\right]\,,
+\\ \\
+F\boldsymbol{e}_2\ =\ F
+\left[\begin{array}{c} 0 \\ 1 \\ 0 \end{array}\right]\ =\
+\left[\begin{array}{rrr} 2 &amp;  1 &amp; -1 \\
+                         4 &amp; -2 &amp;  4 \end{array}\right]
+\left[\begin{array}{c} 0 \\ 1 \\ 0 \end{array}\right]\ =\
+\left[\begin{array}{r} 1 \\ -2 \end{array}\right]\,,
+\\ \\
+F\boldsymbol{e}_3\ =\ F
+\left[\begin{array}{c} 0 \\ 0 \\ 1 \end{array}\right]\ =\
+\left[\begin{array}{rrr} 2 &amp;  1 &amp; -1 \\
+                         4 &amp; -2 &amp;  4 \end{array}\right]
+\left[\begin{array}{c} 0 \\ 0 \\ 1 \end{array}\right]\ =\
+\left[\begin{array}{r} -1 \\ 4 \end{array}\right]\,.
+\end{array}\end{split}\\\;\end{aligned}\end{align} \]</div>
+<p>As one can see, the matrix <span class="math notranslate nohighlight">\(\ M(F)\ \)</span> consists of columns which are the images
+of suitable vectors of the canonical basis of the space <span class="math notranslate nohighlight">\(\ R^3:\ \)</span>
+<span class="math notranslate nohighlight">\(\ M(F)\ =\ [\,F\boldsymbol{e}_1\,|\,F\boldsymbol{e}_2\,|\,F\boldsymbol{e}_3\,]\,.\)</span></p>
+<p>More generally, one can associate a linear mapping <span class="math notranslate nohighlight">\(\,F\in\text{Hom}(K^n,K^m)\ \)</span>
+with the matrix whose <span class="math notranslate nohighlight">\(\,j\)</span>-th column is the image of the <span class="math notranslate nohighlight">\(\,j\)</span>-th vector
+from the canonical basis of the space <span class="math notranslate nohighlight">\(\ K^n\,,\ \ j=1,2,\dots,n.\ \)</span></p>
+<p>Such defined mapping <span class="math notranslate nohighlight">\(\,M\,\)</span> from the space of linear transformations
+<span class="math notranslate nohighlight">\(\ \text{Hom}(K^n,K^m)\ \)</span> into the space <span class="math notranslate nohighlight">\(\ M_{m\times n}(K)\ \)</span> of
+rectangular matrices may be written as follows:</p>
+<div class="math notranslate nohighlight" id="equation-intro">
+<span class="eqno">(2)<a class="headerlink" href="#equation-intro" title="Permalink to this equation">¶</a></span>\[M:\quad \text{Hom}(K^n,K^m)\,\ni\,F
+\ \ \rightarrow\ \
+M(F)\,:\,=\,[\,F\boldsymbol{e}_1\,|\,\dots\,|\,F\boldsymbol{e}_n\,]\,\in\,M_{m\times n}(K)\,,\]</div>
+<p>where <span class="math notranslate nohighlight">\(\ \mathcal{E}=(\boldsymbol{e}_1,\,\dots,\,\boldsymbol{e}_n)\ \,\)</span>
+denotes the canonical basis of the space <span class="math notranslate nohighlight">\(\,K^n.\ \)</span> Then the image of any vector
+<span class="math notranslate nohighlight">\(\,\boldsymbol{x}\in K^n\ \)</span> may be obtained by multiplication of this vector
+(on the left hand side) by the matrix <span class="math notranslate nohighlight">\(\,M(F):\)</span></p>
+<div class="math notranslate nohighlight">
+\[\boldsymbol{y}\,=\,F(\boldsymbol{x})\quad\Rightarrow\quad \boldsymbol{y}\ =\
+M(F)\,\cdot\,\boldsymbol{x}\,,\qquad \boldsymbol{x}\in K^n\,,\ \ \boldsymbol{y}\in K^m\,.\]</div>
+<p>We will generalise this further and define a matrix of linear transformation
+<span class="math notranslate nohighlight">\(\ F:V\rightarrow W,\ \)</span> where <span class="math notranslate nohighlight">\(\ V\ \)</span> and <span class="math notranslate nohighlight">\(\ W\ \)</span>
+are <span class="math notranslate nohighlight">\(\,\)</span> <em>arbitrary</em> <span class="math notranslate nohighlight">\(\,\)</span> finite dimensional vector spaces
+over a field <span class="math notranslate nohighlight">\(\ K\,,\ \)</span> each with a chosen basis.</p>
+</section>
+<section id="matrix-of-a-linear-transformation">
+<span id="matrix-of-lin-trans"></span><h2>Matrix of a Linear Transformation<a class="headerlink" href="#matrix-of-a-linear-transformation" title="Permalink to this headline">¶</a></h2>
+<p>Consider two finite dimensional vector spaces over a field <span class="math notranslate nohighlight">\(\,K:\ \\\)</span>
+<span class="math notranslate nohighlight">\(n\)</span>-dimensional space <span class="math notranslate nohighlight">\(\,V\,\)</span>
+with a basis <span class="math notranslate nohighlight">\(\ \mathcal{B}=(v_1,\,v_2,\,\dots,\,v_n)\,,\ \\\)</span>
+<span class="math notranslate nohighlight">\(m\)</span>-dimensional space <span class="math notranslate nohighlight">\(\,W\,\)</span>
+with a basis <span class="math notranslate nohighlight">\(\ \mathcal{C}=(w_1,\,w_2,\,\dots,\,w_m)\ \\\)</span>
+and a linear transformation <span class="math notranslate nohighlight">\(\,F\in\text{Hom}(V,W)\,.\)</span></p>
+<p>Images of the basis vectors from <span class="math notranslate nohighlight">\(\ \mathcal{B}\ \)</span> belong to the space <span class="math notranslate nohighlight">\(\,W,\ \)</span>
+and so may be written as linear combinations of vectors from the basis <span class="math notranslate nohighlight">\(\ \mathcal{C}:\)</span></p>
+<div class="math notranslate nohighlight" id="equation-exps">
+<span class="eqno">(3)<a class="headerlink" href="#equation-exps" title="Permalink to this equation">¶</a></span>\[\begin{split}\begin{array}{l}
+Fv_1\ =\ f_{11}\,w_1\,+\ f_{21}\,w_2\,+\ \dots\ +\ f_{m1}\,w_m \\
+Fv_2\ =\ f_{12}\,w_1\,+\ f_{22}\,w_2\,+\ \dots\ +\ f_{m2}\,w_m \\
+\dots \\
+Fv_n\ =\ f_{1n}\,w_1\,+\ f_{2n}\,w_2\,+\ \dots\ +\ f_{mn}\,w_m
+\end{array}\end{split}\]</div>
+<p>A matrix <span class="math notranslate nohighlight">\(\ \boldsymbol{F}=[\,f_{ij}\,]_{m\times n}(K)\ \)</span>
+obtained in such a way is <span class="math notranslate nohighlight">\(\,\)</span> <em>by definition</em> <span class="math notranslate nohighlight">\(\,\)</span> a
+matrix <span class="math notranslate nohighlight">\(\,M_{\mathcal{B}\mathcal{C}}(F)\ \)</span>
+of a linear transformation <span class="math notranslate nohighlight">\(\ F\ \)</span> in bases
+<span class="math notranslate nohighlight">\(\ \mathcal{B}\ \,\)</span> and <span class="math notranslate nohighlight">\(\, \ \mathcal{C}:\)</span></p>
+<div class="math notranslate nohighlight">
+\[\begin{split}M_{\mathcal{B}\mathcal{C}}(F)\ :\,=\
+\left[
+\begin{array}{cccc}
+f_{11} &amp; f_{12} &amp; \dots &amp; f_{1n} \\
+f_{21} &amp; f_{22} &amp; \dots &amp; f_{2n} \\
+\dots  &amp; \dots  &amp; \dots &amp; \dots  \\
+f_{m1} &amp; f_{m2} &amp; \dots &amp; f_{mn}
+\end{array}
+\right]\,.\end{split}\]</div>
+<p>Moreover, the entries <span class="math notranslate nohighlight">\(\ f_{1j},\,f_{2j},\,\dots,\,f_{mj}\,\ \)</span>
+from the <span class="math notranslate nohighlight">\(\,j\)</span>-th column of the matrix <span class="math notranslate nohighlight">\(\\\)</span> are coordinates of the vector
+<span class="math notranslate nohighlight">\(\ Fv_j\ \)</span> in the basis <span class="math notranslate nohighlight">\(\ \mathcal{C},\ \ j=1,2,\dots,n.\ \)</span></p>
+<div class="admonition-definition-math admonition">
+<p class="admonition-title">Definition. <span class="math notranslate nohighlight">\(\\\)</span></p>
+<p>Let <span class="math notranslate nohighlight">\(\ \,V\ \,\)</span> and <span class="math notranslate nohighlight">\(\, \ W\ \,\)</span> be two finte dimensional vector spaces
+over a field <span class="math notranslate nohighlight">\(\,K,\ \)</span>
+<span class="math notranslate nohighlight">\(\ \mathcal{B}=(v_1,\,v_2,\,\dots,\,v_n)\ \)</span> a basis of the space
+<span class="math notranslate nohighlight">\(\ \,V,\ \)</span>
+and <span class="math notranslate nohighlight">\(\ \mathcal{C}=(w_1,\,w_2,\,\dots,\,w_m)\,\)</span> a basis of the space
+<span class="math notranslate nohighlight">\(\ W.\ \,\)</span>
+Then the <span class="math notranslate nohighlight">\(\ j\)</span>-th column of the matrix <span class="math notranslate nohighlight">\(\ M_{\mathcal{B}\mathcal{C}}(F)\ \)</span>
+of a linear transformation <span class="math notranslate nohighlight">\(\,F\in\text{Hom}(V,W)\ \)</span> in bases
+<span class="math notranslate nohighlight">\(\ \mathcal{B}\ \)</span> and <span class="math notranslate nohighlight">\(\ \mathcal{C}\ \)</span> is a column of coordinates
+<span class="math notranslate nohighlight">\(\,\)</span> (in the basis <span class="math notranslate nohighlight">\(\ \mathcal{C}\,\)</span>)
+<span class="math notranslate nohighlight">\(\,\)</span> of the image <span class="math notranslate nohighlight">\(\,\)</span> - <span class="math notranslate nohighlight">\(\,\)</span> under the transformation
+<span class="math notranslate nohighlight">\(\,F\ \)</span> <span class="math notranslate nohighlight">\(\,\)</span> - <span class="math notranslate nohighlight">\(\,\)</span> of the
+<span class="math notranslate nohighlight">\(\ j\)</span>-th vector from the basis <span class="math notranslate nohighlight">\(\ \mathcal{B}\quad (j=1,2,\dots,n).\)</span></p>
+<p>Hence, <span class="math notranslate nohighlight">\(\ \,M_{\mathcal{B}\mathcal{C}}(F)\ =\ \,[\,f_{ij}\,]_{m\times n}\,,\ \,\)</span>
+where the entries <span class="math notranslate nohighlight">\(\ f_{ij}\ \)</span> are defined by relations</p>
+<div class="math notranslate nohighlight">
+\[Fv_j\;=\ \sum_{i\,=\,1}^m\ f_{ij}\ w_i\,,\qquad j=1,2,\dots,n\,.\]</div>
+</div>
+<p><strong>Example.</strong></p>
+<p>We discuss an operation of differentiation defined on a set of real polynomials.</p>
+<p>Let <span class="math notranslate nohighlight">\(\,V\ \)</span> be a vector space of polynomials in one variable <span class="math notranslate nohighlight">\(\,x\ \)</span>
+of degree (not greater than) <span class="math notranslate nohighlight">\(\,n,\ \,\)</span> and <span class="math notranslate nohighlight">\(\ \,W\ \ \)</span> a space of
+such polynomials of degree (not greater than) <span class="math notranslate nohighlight">\(\ n-1:\)</span></p>
+<div class="math notranslate nohighlight">
+\[ \begin{align}\begin{aligned}V\ =\ \{\,a_0\,+\,a_1\,x\,+\,a_2\,x^2\,+\,a_3\,x^3\,+\,\ldots\,+\,a_n\,x^n:
+\quad a_i\in R\,,\quad i=0,1,\dots,n\,\}\,,\\
+W\ =\ \{\,b_0\,+\,b_1\,x\,+\,b_2\,x^2\,+\,\ldots\,+\,b_{n-1}\,x^{n-1}:
+\quad b_i\in R\,,\quad i=0,1,\dots,n-1\,\}\,.\end{aligned}\end{align} \]</div>
+<p><span class="math notranslate nohighlight">\(\dim\,V=\,n+1\,,\ \ \mathcal{B}\,=\,(1,\,x,\,x^2,\,x^3,\,\dots,\,x^n)\,;\quad
+\dim\,W=\,n\,,\ \ \mathcal{C}\,=\,(1,\,x,\,x^2,\,\dots,\,x^{n-1})\,.\)</span></p>
+<p>A differential operator <span class="math notranslate nohighlight">\(\ D\equiv {d\over dx}\ \)</span> transforms the space
+<span class="math notranslate nohighlight">\(\,V\ \)</span> linearly into the space <span class="math notranslate nohighlight">\(\,W.\)</span> To determine a matrix of this operation
+in bases <span class="math notranslate nohighlight">\(\,\mathcal{B}\,\)</span> and <span class="math notranslate nohighlight">\(\,\mathcal{C} ,\,\)</span> we write decompositions
+<a class="reference internal" href="#equation-exps">(3)</a> of images of the consecutive vectors from the basis
+<span class="math notranslate nohighlight">\(\,\mathcal{B}\,\)</span> in the basis <span class="math notranslate nohighlight">\(\, \mathcal{C}:\)</span></p>
+<div class="math notranslate nohighlight">
+\begin{alignat*}{7}
+D\,1\:\  &amp; {\,} = {\,} &amp; 0          &amp; {\quad} = {\quad} &amp; 0\cdot 1 &amp; {\ } + {\ } &amp; 0\cdot x &amp; {\ } + {\ } &amp; 0\cdot x^2 &amp; {\ } + {\ } &amp; \dots &amp; {\ } + {\ } &amp; 0\cdot x^{n-1} \\
+D\,x\,\  &amp; {\,} = {\,} &amp; 1          &amp; {\quad} = {\quad} &amp; 1\cdot 1 &amp; {\ } + {\ } &amp; 0\cdot x &amp; {\ } + {\ } &amp; 0\cdot x^2 &amp; {\ } + {\ } &amp; \dots &amp; {\ } + {\ } &amp; 0\cdot x^{n-1} \\
+D\,x^2 &amp; {\,} = {\,} &amp; 2\,x       &amp; {\quad} = {\quad} &amp; 0\cdot 1 &amp; {\ } + {\ } &amp; 2\cdot x &amp; {\ } + {\ } &amp; 0\cdot x^2 &amp; {\ } + {\ } &amp; \dots &amp; {\ } + {\ } &amp; 0\cdot x^{n-1} \\
+D\,x^3 &amp; {\,} = {\,} &amp; 3\,x^2     &amp; {\quad} = {\quad} &amp; 0\cdot 1 &amp; {\ } + {\ } &amp; 0\cdot x &amp; {\ } + {\ } &amp; 3\cdot x^2 &amp; {\ } + {\ } &amp; \dots &amp; {\ } + {\ } &amp; 0\cdot x^{n-1} \\
+\dots  &amp; {\,}   {\,} &amp; \dots      &amp; {\quad}   {\quad} &amp; \dots    &amp; {\ }   {\ } &amp; \dots    &amp; {\ }   {\ } &amp; \dots      &amp; {\ }   {\ } &amp; \dots &amp; {\ }   {\ } &amp; \dots          \\
+D\,x^n &amp; {\,} = {\,} &amp; n\,x^{n-1} &amp; {\quad} = {\quad} &amp; 0\cdot 1 &amp; {\ } + {\ } &amp; 0\cdot x &amp; {\ } + {\ } &amp; 0\cdot x^2 &amp; {\ } + {\ } &amp; \dots &amp; {\ } + {\ } &amp; n\cdot x^{n-1}
+\end{alignat*}</div><div class="math notranslate nohighlight" id="equation-mbc-d">
+<span class="eqno">(4)<a class="headerlink" href="#equation-mbc-d" title="Permalink to this equation">¶</a></span>\[ \begin{align}\begin{aligned}\begin{split}M_{\mathcal{B}\mathcal{C}}(D)\ =\
+\left[
+\begin{array}{cccccc}
+  0   &amp;   1   &amp;   0   &amp;   0   &amp; \dots &amp;   0   \\
+  0   &amp;   0   &amp;   2   &amp;   0   &amp; \dots &amp;   0   \\
+  0   &amp;   0   &amp;   0   &amp;   3   &amp; \dots &amp;   0   \\
+\dots &amp; \dots &amp; \dots &amp; \dots &amp; \dots &amp; \dots \\
+  0   &amp;   0   &amp;   0   &amp;   0   &amp; \dots &amp;   n
+\end{array}
+\right]\
+\in\,M_{n\times (n+1)}(R)\,.\end{split}\\\;\end{aligned}\end{align} \]</div>
+<p>We introduce further notation in order to write clearly a matrix
+<span class="math notranslate nohighlight">\(\,M_{\mathcal{B}\mathcal{C}}(F)\,\)</span> in a column form.
+Corollary to Theorem 8. implies that <span class="math notranslate nohighlight">\(\,n\)</span>-dimensional space <span class="math notranslate nohighlight">\(\,V\ \)</span>
+is isomorphic to the space <span class="math notranslate nohighlight">\(\,K^n,\,\)</span> and <span class="math notranslate nohighlight">\(\, m\)</span>-dimensional space
+<span class="math notranslate nohighlight">\(\,W\ \)</span> is isomorphic to the space <span class="math notranslate nohighlight">\(\ K^m:\quad
+V\,\simeq\,K^n\,,\qquad W\,\simeq\,K^m\,.\)</span></p>
+<p>For the spaces <span class="math notranslate nohighlight">\(\,V\,\)</span> and <span class="math notranslate nohighlight">\(\, W\ \)</span> we fixed the bases</p>
+<div class="math notranslate nohighlight">
+\[\mathcal{B}=(v_1,\,v_2,\,\dots,\,v_n)
+\qquad\text{and}\qquad
+\mathcal{C}=(w_1,\,w_2,\,\dots,\,w_m)\,.\]</div>
+<p>Let</p>
+<div class="math notranslate nohighlight">
+\[\mathcal{E}\,=\,(e_1,\,e_2,\,\dots,\,e_n)
+\qquad\text{and}\qquad
+\mathcal{F}\,=\,(f_1,\,f_2,\,\dots,\,f_m)\]</div>
+<p>be the canonical bases of the spaces <span class="math notranslate nohighlight">\(\,K^n\ \,\)</span> and <span class="math notranslate nohighlight">\(\, K^m.\)</span></p>
+<p>Then the mappings <span class="math notranslate nohighlight">\(\ I_{\mathcal{B}}:\,V\rightarrow K^n \,\)</span> and <span class="math notranslate nohighlight">\(\,
+I_{\mathcal{C}}:\,W\rightarrow K^m\,\)</span>
+defined by fixing the images on the basis vectors (for the basis
+<span class="math notranslate nohighlight">\(\,\mathcal{B}\ \)</span> or <span class="math notranslate nohighlight">\(\ \mathcal{C}\,\)</span> respectively):</p>
+<div class="math notranslate nohighlight">
+\[I_{\mathcal{B}}(v_j)\ :\,=\ e_j\,,\quad j=1,2,\dots,n\,,
+\qquad
+I_{\mathcal{C}}(w_i)\ :\,=\ f_i\,,\quad i=1,2,\dots,m\,,\]</div>
+<p>are examples of isomorphisms:
+<span class="math notranslate nohighlight">\(\ I_{\mathcal{B}}\in\text{Iso}(V,K^n)\,,\ \,I_{\mathcal{C}}\in\text{Iso}(W,K^m)\,.\)</span></p>
+<p>For any vectors <span class="math notranslate nohighlight">\(\displaystyle\quad v\,=\,\sum_{j\,=\,1}^n\ a_j\,v_j\,\in V\,,\quad
+w\,=\,\sum_{i\,=\,1}^m\ b_i\,w_i\,\in W\,:\)</span></p>
+<div class="math notranslate nohighlight">
+\[ \begin{align}\begin{aligned}\begin{split}I_{\mathcal{B}}(v)\ =\ I_{\mathcal{B}}\,\left(\,\sum_{j\,=\,1}^n\ a_j\,v_j\right)\ =\
+\sum_{j\,=\,1}^n\ a_j\,I_{\mathcal{B}}(v_j)\ =\
+\sum_{j\,=\,1}^n\ a_j\,e_j\ =\
+\left[\begin{array}{c} a_1 \\ a_2 \\ \dots \\ a_n \end{array}\right]\,,\end{split}\\\begin{split}I_{\mathcal{C}}(w)\ =\ I_{\mathcal{C}}\,\left(\,\sum_{i\,=\,1}^m\ b_i\,w_i\right)\ =\
+\sum_{i\,=\,1}^m\ b_i\,I_{\mathcal{C}}(w_i)\ =\
+\sum_{i\,=\,1}^m\ b_i\,f_i\ =\
+\left[\begin{array}{c} b_1 \\ b_2 \\ \dots \\ b_m \end{array}\right]\,.\end{split}\end{aligned}\end{align} \]</div>
+<p>Hence, the isomorphism <span class="math notranslate nohighlight">\(\ I_{\mathcal{B}}\ \)</span>  transforms a vector <span class="math notranslate nohighlight">\(\,v\in V\ \)</span>
+into a column of the coordinates of this vector in a basis <span class="math notranslate nohighlight">\(\ \mathcal{B},\ \,\)</span>
+and <span class="math notranslate nohighlight">\(\,\)</span> the isomorphism <span class="math notranslate nohighlight">\(\ \,I_{\mathcal{C}}\ \)</span> transforms a vector <span class="math notranslate nohighlight">\(\,w\in W\ \)</span> into a column of the coordinates of this vector in a basis
+<span class="math notranslate nohighlight">\(\ \mathcal{C}.\ \)</span> A matrix of the linear transformation
+<span class="math notranslate nohighlight">\(\ F\in\text{Hom}(V,W)\ \)</span> in bases <span class="math notranslate nohighlight">\(\ \mathcal{B}\ \,\)</span> and <span class="math notranslate nohighlight">\(\,\mathcal{C}\ \)</span> may be now written in a column form</p>
+<div class="math notranslate nohighlight">
+\[M_{\mathcal{B}\mathcal{C}}(F)\ \,=\ \,
+\left[\;I_{\mathcal{C}}(Fv_1\,|\,I_{\mathcal{C}}(Fv_2\,|\ \dots\ |\,
+I_{\mathcal{C}}(Fv_n\,\right]\,.\]</div>
+</section>
+<section id="basic-theorems">
+<h2>Basic Theorems<a class="headerlink" href="#basic-theorems" title="Permalink to this headline">¶</a></h2>
+<p>The purpose of introducing matrix representation of linear transformations explains</p>
+<div class="admonition-theorem-10-math admonition">
+<p class="admonition-title">Theorem 10. <span class="math notranslate nohighlight">\(\\\)</span></p>
+<p>Let <span class="math notranslate nohighlight">\(\ F\in\text{Hom}(V,W),\ \)</span> where <span class="math notranslate nohighlight">\(\,V \,\)</span> and <span class="math notranslate nohighlight">\(\, W\,\)</span>
+are vector spaces over a field <span class="math notranslate nohighlight">\(\,K\,\)</span> with bases <span class="math notranslate nohighlight">\(\ \mathcal{B}\ \,\)</span>
+and <span class="math notranslate nohighlight">\(\ \mathcal{C}.\ \)</span>
+If a vector <span class="math notranslate nohighlight">\(\,w\in W\,\)</span> is an image of a vector <span class="math notranslate nohighlight">\(\,v\in V\,\)</span>
+under the transformation <span class="math notranslate nohighlight">\(\,F, \,\)</span> then the column of coordinates
+(in a basis <span class="math notranslate nohighlight">\(\,\mathcal{C}\,\)</span>)
+of the vector <span class="math notranslate nohighlight">\(\ w\ \)</span> is equal to a product of the transformation matrix of
+<span class="math notranslate nohighlight">\(\,F\,\)</span> in bases <span class="math notranslate nohighlight">\(\, \mathcal{B}\,\)</span> and <span class="math notranslate nohighlight">\(\,\mathcal{C}\,\)</span>
+and a column of coordinates (in a basis <span class="math notranslate nohighlight">\(\,\mathcal{B}\,\)</span>) <span class="math notranslate nohighlight">\(\,\)</span>
+of the vector <span class="math notranslate nohighlight">\(\,v:\)</span></p>
+<div class="math notranslate nohighlight" id="equation-fund">
+<span class="eqno">(5)<a class="headerlink" href="#equation-fund" title="Permalink to this equation">¶</a></span>\[w\,=\,F(v)\qquad\Rightarrow\qquad
+I_{\mathcal{C}}(w)\ =\ M_{\mathcal{B}\mathcal{C}}(F)\,\cdot\,I_{\mathcal{B}}(v)\,.\]</div>
+</div>
+<p>In this way, an abstract issue of finding an image of a vector <span class="math notranslate nohighlight">\(\,v\ \)</span>
+under a transformation <span class="math notranslate nohighlight">\(\,F\ \)</span> boils down to concrete calculation on matrices.</p>
+<p><strong>Proof.</strong> <span class="math notranslate nohighlight">\(\,\)</span> We keep the above notation:</p>
+<div class="math notranslate nohighlight">
+\[ \begin{align}\begin{aligned}\mathcal{B}\,=\,(v_1,\,v_2,\,\dots,\,v_n)\,,\qquad\mathcal{C}\,=\,(w_1,\,w_2,\,\dots,\,w_m)\,,\\v\,=\,\sum_{j\,=\,1}^n\ a_j\,v_j\,,\quad
+w\,=\,\sum_{i\,=\,1}^m\ b_i\,w_i\,,\quad
+M_{\mathcal{B}\mathcal{C}}(F)\,=\,[\,f_{ij}\,]_{m\times n}\,.\end{aligned}\end{align} \]</div>
+<p>Then</p>
+<div class="math notranslate nohighlight">
+\[ \begin{align}\begin{aligned}w\ =\ F(v)\ =\ F\,\left(\,\sum_{j\,=\,1}^n\ a_j\,v_j\right)\ \ =\ \
+                          \sum_{j\,=\,1}^n\ a_j\,F(v_j)\ \ =\\=\ \
+\sum_{j\,=\,1}^n\ a_j\,\left(\,\sum_{i\,=\,1}^m\ f_{ij}\ w_i\right)\ \ =\ \
+\sum_{i\,=\,1}^m\,\left(\,\sum_{j\,=\,1}^n\ f_{ij}\ a_j\right)\ w_i\,.\end{aligned}\end{align} \]</div>
+<p>By uniqueness of representation of a vector <span class="math notranslate nohighlight">\(\,w\ \)</span> in the basis <span class="math notranslate nohighlight">\(\,\mathcal{C},\)</span></p>
+<div class="math notranslate nohighlight" id="equation-bfa">
+<span class="eqno">(6)<a class="headerlink" href="#equation-bfa" title="Permalink to this equation">¶</a></span>\[b_i\ =\ \sum_{j\,=\,1}^n\ f_{ij}\ a_j\,,\qquad i=1,2,\dots,m\,.\]</div>
+<p>The relations <a class="reference internal" href="#equation-bfa">(6)</a> describe equality of matrices <span class="math notranslate nohighlight">\(\\\)</span></p>
+<div class="math notranslate nohighlight">
+\[ \begin{align}\begin{aligned}\begin{split}\left[\begin{array}{c} b_1 \\ b_2 \\ \dots \\ b_m \end{array}\right]\ =\
+\left[\begin{array}{cccc}
+      f_{11} &amp; f_{12} &amp; \dots &amp; f_{1n} \\
+      f_{21} &amp; f_{22} &amp; \dots &amp; f_{2n} \\
+       \dots &amp;  \dots &amp; \dots &amp;  \dots \\
+      f_{m1} &amp; f_{m2} &amp; \dots &amp; f_{mn}
+      \end{array}
+\right]
+\left[\begin{array}{c} a_1 \\ a_2 \\ \dots \\ a_n \end{array}\right]\,,\end{split}\\\;\\\text{that is}\qquad
+I_{\mathcal{C}}(w)\ =\ M_{\mathcal{B}\mathcal{C}}(F)\,\cdot\,I_{\mathcal{B}}(v)\,.\end{aligned}\end{align} \]</div>
+<p><strong>Example.</strong></p>
+<p>Let us come back to a differential operator <span class="math notranslate nohighlight">\(\ D = {d\over dx}\ \,\)</span> viewed as a linear transformation of the space <span class="math notranslate nohighlight">\(\,V\ \)</span> of real polynomials of degree <span class="math notranslate nohighlight">\(\,n\ \)</span> into the space <span class="math notranslate nohighlight">\(\,W\ \)</span> of polynomials of degree <span class="math notranslate nohighlight">\(\,n-1.\ \)</span>
+The matrix associated with this operation in natural bases of spaces
+<span class="math notranslate nohighlight">\(\ V\ \,\)</span> and <span class="math notranslate nohighlight">\(\, W\ \)</span> is given by <a class="reference internal" href="#equation-mbc-d">(4)</a>.</p>
+<p>If <span class="math notranslate nohighlight">\(\ v\,=\,a_0\,+\,a_1\,x\,+\,a_2\,x^2\,+\,a_3\,x^3\,+\,\ldots\,+\,a_n\,x^n\,\in V,\)</span></p>
+<p>then <span class="math notranslate nohighlight">\(\quad w\,\equiv D(v)\,=\,a_1\,+\,2\,a_2\,x\,+\,3\,a_3\,x^2\ +\ \ldots\ +n\,a_n\,x^{n-1}\,.\)</span></p>
+<p>Matrix relation between the coordinates of the polynomials <span class="math notranslate nohighlight">\(\,v\ \,\)</span> and
+<span class="math notranslate nohighlight">\(\, w:\)</span></p>
+<div class="math notranslate nohighlight">
+\[\begin{split}\left[
+\begin{array}{c} a_1 \\ 2\,a_2 \\ 3\,a_3 \\ \dots \\ n\,a_n \end{array}
+\right]\ \ =\ \
+\left[
+\begin{array}{cccccc}
+  0   &amp;   1   &amp;   0   &amp;   0   &amp; \dots &amp;   0   \\
+  0   &amp;   0   &amp;   2   &amp;   0   &amp; \dots &amp;   0   \\
+  0   &amp;   0   &amp;   0   &amp;   3   &amp; \dots &amp;   0   \\
+\dots &amp; \dots &amp; \dots &amp; \dots &amp; \dots &amp; \dots \\
+  0   &amp;   0   &amp;   0   &amp;   0   &amp; \dots &amp;   n
+\end{array}
+\right]\
+\left[
+\begin{array}{c} a_0 \\ a_1 \\ a_2 \\ a_3 \\ \dots \\ a_n \end{array}
+\right]\end{split}\]</div>
+<p>is precisely the relation <a class="reference internal" href="#equation-fund">(5)</a> in Theorem 10.</p>
+<p><span class="math notranslate nohighlight">\(\;\)</span></p>
+<p>Let us explain nature of the relation between linear transformations
+and matrices more precisely. So far we considered the following vector spaces
+(all of them over the same field <span class="math notranslate nohighlight">\(\,K\,\)</span>):</p>
+<ul>
+<li><div class="line-block">
+<div class="line"><span class="math notranslate nohighlight">\(n\)</span>-dimensional space <span class="math notranslate nohighlight">\(\,V\,\)</span>
+with basis <span class="math notranslate nohighlight">\(\ \mathcal{B}=(v_1,\,v_2,\,\dots,\,v_n)\,,\ \)</span></div>
+<div class="line"><span class="math notranslate nohighlight">\(m\)</span>-dimensional space <span class="math notranslate nohighlight">\(\,W\,\)</span>
+with basis <span class="math notranslate nohighlight">\(\ \mathcal{C}=(w_1,\,w_2,\,\dots,\,w_m)\,;\)</span></div>
+</div>
+</li>
+<li><div class="line-block">
+<div class="line">space <span class="math notranslate nohighlight">\(\ \text{Hom}(V,W)\ \)</span> of linear transformations of the
+space <span class="math notranslate nohighlight">\(\ V\ \)</span> into the space <span class="math notranslate nohighlight">\(\ W;\)</span></div>
+</div>
+</li>
+<li><div class="line-block">
+<div class="line">space <span class="math notranslate nohighlight">\(\ M_{m\times n}(K)\ \)</span> of rectangular matrices
+with the entries from the field <span class="math notranslate nohighlight">\(\ K. \,\)</span></div>
+</div>
+</li>
+</ul>
+<p><span class="math notranslate nohighlight">\(\;\)</span></p>
+<div class="admonition-theorem-11-math admonition">
+<p class="admonition-title">Theorem 11. <span class="math notranslate nohighlight">\(\\\)</span></p>
+<p>The mapping</p>
+<div class="math notranslate nohighlight">
+\[M_{\mathcal{B}\mathcal{C}}:\quad
+\text{Hom}(V,W)\ni F\ \rightarrow\ M_{\mathcal{B}\mathcal{C}}(F):\,=
+\left[\;I_{\mathcal{C}}(Fv_1\,|\,\dots\,|\,
+I_{\mathcal{C}}(Fv_n\,\right]\in M_{m\times n}(K)\]</div>
+<p>is an isomorphism of the vector spaces
+<span class="math notranslate nohighlight">\(\ \text{Hom}(V,W)\,\)</span> and <span class="math notranslate nohighlight">\(\, M_{m\times n}(K).\)</span></p>
+</div>
+<p><span class="math notranslate nohighlight">\(\;\)</span></p>
+<p><strong>Proof</strong> is preceded with a reminder of definitions of operations on linear
+transformations which make <span class="math notranslate nohighlight">\(\,\text{Hom}(V,W)\,\)</span> a vector space.
+If <span class="math notranslate nohighlight">\(\,F_1,F_2,F\in\text{Hom}(V,W),\ a\in K,\,\)</span> then</p>
+<div class="math notranslate nohighlight">
+\begin{eqnarray*}
+(F_1+F_2)(v) &amp; :\;= &amp; F_1(v)\,+\,F_2(v) \\
+   (a\,F)(v) &amp; :\;= &amp; a\cdot F(v)\,,\qquad v\in V\,.
+\end{eqnarray*}</div><p>To show that <span class="math notranslate nohighlight">\(\,M_{\mathcal{B}\mathcal{C}}\ \)</span> is an isomorphism,
+we have to prove its additivity, homogenity and bijectivity.</p>
+<ol class="loweralpha">
+<li><p>Additivity. <span class="math notranslate nohighlight">\(\,\)</span></p>
+<p>Let <span class="math notranslate nohighlight">\(\,F_1,F_2\,\in\,\text{Hom}(V,W).\ \)</span> Then he <span class="math notranslate nohighlight">\(\,j\)</span>-th column of the
+matrix <span class="math notranslate nohighlight">\(\,M_{\mathcal{B}\mathcal{C}}(F_1+F_2)\)</span></p>
+<div class="math notranslate nohighlight">
+\[I_{\mathcal{C}}\,[\,(F_1+F_2)(v_j)\,]\ =\ I_{\mathcal{C}}\,[\,F_1(v_j)+F_2(v_j)\,]\ =\
+I_{\mathcal{C}}\,[\,F_1(v_j)\,]+I_{\mathcal{C}}\,[\,F_2(v_j)\,]\]</div>
+<p>is a sum of the <span class="math notranslate nohighlight">\(\,j\)</span>-th columns of the matrices
+<span class="math notranslate nohighlight">\(\ M_{\mathcal{B}\mathcal{C}}(F_1)\ \)</span>
+and <span class="math notranslate nohighlight">\(\ \,M_{\mathcal{B}\mathcal{C}}(F_2)\,,\ \ j=1,2,\dots,n.\ \,\)</span> Hence,</p>
+<div class="math notranslate nohighlight">
+\[M_{\mathcal{B}\mathcal{C}}(F_1+F_2)\ =\ M_{\mathcal{B}\mathcal{C}}(F_1)
+                                   \,+\,M_{\mathcal{B}\mathcal{C}}(F_2)\,.\]</div>
+</li>
+<li><p>Homogenity.</p>
+<p>Let <span class="math notranslate nohighlight">\(\,F\in\text{Hom}(V,W),\ \ a\in K.\ \,\)</span> Then the <span class="math notranslate nohighlight">\(\,j\)</span>-th column
+of the matrix <span class="math notranslate nohighlight">\(\,M_{\mathcal{B}\mathcal{C}}(aF)\)</span></p>
+<div class="math notranslate nohighlight">
+\[I_{\mathcal{C}}\,[\,(aF)(v_j)\,]\ =\ I_{\mathcal{C}}\,[\,a\cdot F(v_j)\,]\ =\
+a\cdot I_{\mathcal{C}}\,[\,F(v_j)\,]\]</div>
+<p>is the <span class="math notranslate nohighlight">\(\, j\)</span>-th column of the matrix
+<span class="math notranslate nohighlight">\(\,M_{\mathcal{B}\mathcal{C}}(F)\,,\ \ j=1,2,\dots,n, \,\)</span> multiplied by
+<span class="math notranslate nohighlight">\(\,a.\,\)</span> Hence,</p>
+<div class="math notranslate nohighlight">
+\[M_{\mathcal{B}\mathcal{C}}(a\,F)\ =\ a\,M_{\mathcal{B}\mathcal{C}}(F)\,.\]</div>
+</li>
+<li><p>Bijectivity.</p>
+<p>We have to show that every matrix <span class="math notranslate nohighlight">\(\,\boldsymbol{F}\in M_{m\times n}(K)\,\)</span>
+is associated with exactly one mapping <span class="math notranslate nohighlight">\(\,F\in\text{Hom}(V,W).\,\)</span>
+Indeed, columns of the matrix <span class="math notranslate nohighlight">\(\boldsymbol{F}\,\)</span> determine (by the
+coordinates in the basis <span class="math notranslate nohighlight">\(\, \mathcal{C}\,\)</span>) <span class="math notranslate nohighlight">\(\,\)</span> images <span class="math notranslate nohighlight">\(\, Fv_j\,\)</span>
+of basis vectors <span class="math notranslate nohighlight">\(\,v_j\in\mathcal{B},\,\)</span> and thus (cf. Corollary to
+Theorem 5.) <span class="math notranslate nohighlight">\(\,\)</span> the transformation <span class="math notranslate nohighlight">\(\ F\ \)</span> is uniquely defined.</p>
+</li>
+</ol>
+<p><span class="math notranslate nohighlight">\(\;\)</span></p>
+<p>On the basis of Theorem 8. we may now write</p>
+<div class="admonition-corollary admonition">
+<p class="admonition-title">Corollary.</p>
+<p>If <span class="math notranslate nohighlight">\(\,V\ \,\)</span> and <span class="math notranslate nohighlight">\(\, W\ \)</span> are finite dimensional vector spaces over
+a field <span class="math notranslate nohighlight">\(\,K,\ \,\)</span> then</p>
+<div class="math notranslate nohighlight">
+\[\dim\,\text{Hom}(V,W)\ =\ \dim\,V\,\cdot\,\dim\,W\,.\]</div>
+</div>
+<p><span class="math notranslate nohighlight">\(\;\)</span></p>
+<p>We consider one more case: <span class="math notranslate nohighlight">\(\,V=K^n\,\)</span>
+with the canonical basis <span class="math notranslate nohighlight">\(\,\mathcal{E}=(\boldsymbol{e}_1,\boldsymbol{e}_2,\dots,\boldsymbol{e}_n)\,,\)</span>
+<span class="math notranslate nohighlight">\(\,W=K^m\,\)</span> with the canonical basis
+<span class="math notranslate nohighlight">\(\, \mathcal{F}=(\boldsymbol{f}_1,\boldsymbol{f}_2,\dots,\boldsymbol{f}_m),\,\)</span>
+and <span class="math notranslate nohighlight">\(\, F\in\text{Hom}(K^n,K^m).\)</span></p>
+<p>A matrix of the transformation <span class="math notranslate nohighlight">\(\,F\,\)</span> in the canonical bases
+<span class="math notranslate nohighlight">\(\, \mathcal{E}\,\)</span> and <span class="math notranslate nohighlight">\(\, \mathcal{F}\,\)</span> is of the form</p>
+<div class="math notranslate nohighlight">
+\[M_{\mathcal{E}\mathcal{F}}(F)\ =\
+[\,I_{\mathcal{F}}(F\boldsymbol{e}_1)\,|\,I_{\mathcal{F}}(F\boldsymbol{e}_2)\,|\,\dots\,
+|\,I_{\mathcal{F}}(F\boldsymbol{e}_n)\,]\,.\]</div>
+<p>However, in the space <span class="math notranslate nohighlight">\(\,K^m\ \)</span> each vector is a column of its coordinates in the canonical basis:
+<span class="math notranslate nohighlight">\(\ \ I_{\mathcal{F}}(\boldsymbol{w})=\boldsymbol{w},\ \ \boldsymbol{w}\in K^m.\ \)</span>
+If we denote the matrix of the transformation <span class="math notranslate nohighlight">\(\,F\ \)</span> in the canonical basis
+simply by <span class="math notranslate nohighlight">\(\,M(F),\ \)</span> we obtain a simplified formula:</p>
+<div class="math notranslate nohighlight">
+\[M(F)\ =\ [\,F\boldsymbol{e}_1\,|\,F\boldsymbol{e}_2\,|\,\dots\,|\,F\boldsymbol{e}_n\,]\,,\]</div>
+<p>which has been introduced earlier in the equation <a class="reference internal" href="#equation-intro">(2)</a>.
+The formula <a class="reference internal" href="#equation-fund">(5)</a> in Theorem 10. takes now the form</p>
+<div class="math notranslate nohighlight">
+\[\boldsymbol{y}\,=\,F(\boldsymbol{x})\quad\Rightarrow\quad \boldsymbol{y}\ =\
+M(F)\,\cdot\,\boldsymbol{x}\,,\qquad \boldsymbol{x}\in K^n\,,\ \ \boldsymbol{y}\in K^m\,.\]</div>
+</section>
+</section>
+
+
+          </div>
+        </div>
+      </div>
+      <div class="sphinxsidebar" role="navigation" aria-label="main navigation">
+        <div class="sphinxsidebarwrapper">
+  <div class="sphinxlocaltoc">
+  <h3><a href="index.html">Table Of Contents</a></h3>
+  <ul>
+<li><a class="reference internal" href="#">Matrix Representation of Linear Transformations</a><ul>
+<li><a class="reference internal" href="#introduction">Introduction</a></li>
+<li><a class="reference internal" href="#matrix-of-a-linear-transformation">Matrix of a Linear Transformation</a></li>
+<li><a class="reference internal" href="#basic-theorems">Basic Theorems</a></li>
+</ul>
+</li>
+</ul>
+
+  </div>
+  <h4>Previous topic</h4>
+  <p class="topless"><a href="przeksztalcenia_lin_uklady_rownan.html"
+                        title="previous chapter">Application to Homogeneous Systems of Equations</a></p>
+  <h4>Next topic</h4>
+  <p class="topless"><a href="przeksztalcenia_lin_operatory.html"
+                        title="next chapter">Linear Operators</a></p>
+  <div role="note" aria-label="source link">
+    <h3>This Page</h3>
+    <ul class="this-page-menu">
+      <li><a href="_sources/przeksztalcenia_lin_macierze.rst.txt"
+            rel="nofollow">Show Source</a></li>
+    </ul>
+   </div>
+<div id="searchbox" style="display: none" role="search">
+  <h3 id="searchlabel">Quick search</h3>
+    <div class="searchformwrapper">
+    <form class="search" action="search.html" method="get">
+      <input type="text" name="q" aria-labelledby="searchlabel" />
+      <input type="submit" value="Go" />
+    </form>
+    </div>
+</div>
+<script>$('#searchbox').show(0);</script>
+        </div>
+      </div>
+      <div class="clearer"></div>
+    </div>
+  </div>
+  <div class="relbar-bottom">
+    
+    <div class="related" role="navigation" aria-label="related navigation">
+      <h3>Navigation</h3>
+      <ul>
+        <li class="right" style="margin-right: 10px">
+          <a href="genindex.html" title="General Index"
+             >index</a></li>
+        <li class="right" >
+          <a href="przeksztalcenia_lin_operatory.html" title="Linear Operators"
+             >next</a> &nbsp; &nbsp;</li>
+        <li class="right" >
+          <a href="przeksztalcenia_lin_uklady_rownan.html" title="Application to Homogeneous Systems of Equations"
+             >previous</a> &nbsp; &nbsp;</li>
+  <li><a href="index.html">Linear Algebra</a> &#187;</li>
+  
+        <li class="nav-item nav-item-this"><a href="">Matrix Representation of Linear Transformations</a></li> 
+      </ul>
+    </div>
+  </div>
+  
+  <div class="footer">
+    <a class="logo" href="http://icse.us.edu.pl/" target="_blank"><img src="_static/logo-icse.png" alt="ICSE"/></a><br/>
+    &copy; Copyright 2018, Jan Aksamit, Joanna Marzec, and  Marcin Kostur.
+    Last updated on Jan 29, 2022.
+    Created using <a href="http://sphinx.pocoo.org/">Sphinx</a> 4.0.1.
+  </div>
+  </body>
+</html>

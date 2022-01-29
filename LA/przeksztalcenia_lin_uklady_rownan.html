@@ -1,0 +1,253 @@
+
+
+  
+<!DOCTYPE html>
+
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" /><meta name="generator" content="Docutils 0.17: http://docutils.sourceforge.net/" />
+
+    <title>Application to Homogeneous Systems of Equations &#8212; Linear Algebra</title>
+    <link rel="stylesheet" type="text/css" href="_static/pygments.css" />
+    <link rel="stylesheet" type="text/css" href="_static/cloud.css" />
+    <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Noticia+Text|Open+Sans|Droid+Sans+Mono&amp;subset=latin,latin-ext" type="text/css" />
+    <script data-url_root="./" id="documentation_options" src="_static/documentation_options.js"></script>
+    <script src="_static/jquery.js"></script>
+    <script src="_static/underscore.js"></script>
+    <script src="_static/doctools.js"></script>
+    <script async="async" src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js"></script>
+    <script src="_static/jquery.cookie.js"></script>
+    <script src="_static/cloud.js"></script>
+    <script type="text/javascript" src="http://sagecell.sagemath.org/static/jquery.min.js"></script>
+    <script type="text/javascript" src="http://sagecell.sagemath.org/embedded_sagecell.js"></script>
+    <script type="text/javascript">
+        sagecell.makeSagecell({inputLocation: ".sage_linked",
+                               linked: true});
+        sagecell.makeSagecell({inputLocation: ".sage_unlinked",
+                               linked: false});
+    </script>
+
+    <style type="text/css">
+        .sagecell .CodeMirror-scroll {
+            overflow-y: hidden;
+            overflow-x: auto;
+        }
+        .sagecell .CodeMirror {
+            height: auto;
+        }
+    </style>
+    
+    <link rel="index" title="Index" href="genindex.html" />
+    <link rel="search" title="Search" href="search.html" />
+    <link rel="next" title="Matrix Representation of Linear Transformations" href="przeksztalcenia_lin_macierze.html" />
+    <link rel="prev" title="Kernel, Image and the Rank-Nullity Theorem" href="linear_transformations_kernel-image.html" />
+ 
+  <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, minimum-scale=1">
+  </head><body>
+  <div class="relbar-top">
+    
+    <div class="related" role="navigation" aria-label="related navigation">
+      <h3>Navigation</h3>
+      <ul>
+        <li class="right" style="margin-right: 10px">
+          <a href="genindex.html" title="General Index"
+             accesskey="I">index</a></li>
+        <li class="right" >
+          <a href="przeksztalcenia_lin_macierze.html" title="Matrix Representation of Linear Transformations"
+             accesskey="N">next</a> &nbsp; &nbsp;</li>
+        <li class="right" >
+          <a href="linear_transformations_kernel-image.html" title="Kernel, Image and the Rank-Nullity Theorem"
+             accesskey="P">previous</a> &nbsp; &nbsp;</li>
+  <li><a href="index.html">Linear Algebra</a> &#187;</li>
+  
+        <li class="nav-item nav-item-this"><a href="">Application to Homogeneous Systems of Equations</a></li> 
+      </ul>
+    </div>
+  </div>
+  
+  <div class="content">  
+
+    <div class="document">
+      <div class="documentwrapper">
+        <div class="bodywrapper">
+          <div class="body">
+            
+  <section id="application-to-homogeneous-systems-of-equations">
+<h1>Application to Homogeneous Systems of Equations<a class="headerlink" href="#application-to-homogeneous-systems-of-equations" title="Permalink to this headline">¶</a></h1>
+<p>We will now apply a theory of linear transformations of vector spaces   to describe
+the set of solutions of homogeneous system of linear equations over a field
+<span class="math notranslate nohighlight">\(\,K\)</span>:</p>
+<div class="math notranslate nohighlight" id="equation-set-eqn-0">
+<span class="eqno">(1)<a class="headerlink" href="#equation-set-eqn-0" title="Permalink to this equation">¶</a></span>\[\begin{split}\begin{array}{r}
+   a_{11}\,x_1\; + \ \,a_{12}\,x_2\; + \ \,\ldots\  + \ \;a_{1n}\,x_n \ \, = \ \ 0  \\
+   a_{21}\,x_1\; + \ \,a_{22}\,x_2\; + \ \,\ldots\  + \ \;a_{2n}\,x_n \ \, = \ \ 0  \\
+   \qquad\qquad\,\ldots\qquad\quad\ldots\qquad\quad\ldots\qquad\ldots\qquad\ \ \,\ldots   \\
+   a_{m1}\,x_1\; + \ \,a_{m2}\,x_2\; + \ \,\ldots\  + \ \;a_{mn}\,x_n \ \, = \ \ 0
+\end{array}\end{split}\]</div>
+<p>The system has a matrix form
+<span class="math notranslate nohighlight">\(\quad\boldsymbol{A}\boldsymbol{X}\,=\,\boldsymbol{0}\,,\quad\)</span> where</p>
+<div class="math notranslate nohighlight">
+\[\begin{split}\boldsymbol{A}\ =\ \left[\begin{array}{cccc}
+                         a_{11} &amp; a_{12} &amp; \ldots &amp; a_{1n} \\
+                         a_{21} &amp; a_{22} &amp; \ldots &amp; a_{2n} \\
+                         \ldots &amp; \ldots &amp; \ldots &amp; \ldots \\
+                         a_{m1} &amp; a_{m2} &amp; \ldots &amp; a_{mn}
+                         \end{array}
+                   \right]\,,\quad
+\boldsymbol{X}\ =\
+\left[\begin{array}{c} x_1 \\ x_2 \\ \dots \\ x_n \end{array}\right]\,,\quad
+\boldsymbol{0}\ =\
+\left[\begin{array}{c} 0 \\ 0 \\ \dots \\ 0 \end{array}\right]\in K^m\,.\end{split}\]</div>
+<p>We define the set of solutions of the system <a class="reference internal" href="#equation-set-eqn-0">(1)</a> as</p>
+<div class="math notranslate nohighlight">
+\[S_0\ :\,=\ \{\,\boldsymbol{X}\in K^n:\ \boldsymbol{A}\boldsymbol{X}=\boldsymbol{0}\,\}\,.\]</div>
+<p>Of course, <span class="math notranslate nohighlight">\(\ \,S_0\subset K^n.\ \,\)</span> The properties of the set <span class="math notranslate nohighlight">\(\ S_0\ \)</span> are better described in</p>
+<div class="admonition-theorem-9-math admonition">
+<p class="admonition-title">Theorem 9. <span class="math notranslate nohighlight">\(\\\)</span></p>
+<p>The set of solutions of homogeneous system of linear equations <a class="reference internal" href="#equation-set-eqn-0">(1)</a>
+is a vector space over a field <span class="math notranslate nohighlight">\(\,K\ \)</span>
+(subspace of the space <span class="math notranslate nohighlight">\(\,K^n\)</span>), <span class="math notranslate nohighlight">\(\,\)</span> whose dimension equals
+the difference of the number of unknowns and the rank of the coefficient matrix
+<span class="math notranslate nohighlight">\(\boldsymbol{A}:\)</span></p>
+<div class="math notranslate nohighlight" id="equation-sol-0">
+<span class="eqno">(2)<a class="headerlink" href="#equation-sol-0" title="Permalink to this equation">¶</a></span>\[S_0\,&lt;\,K^n,\qquad\dim\,S_0\,=\,n-\text{rk}\,\boldsymbol{A}\,.\]</div>
+</div>
+<p><strong>Proof.</strong></p>
+<p>The subset <span class="math notranslate nohighlight">\(\ S_0\ \)</span> of the space <span class="math notranslate nohighlight">\(\,K^n\ \)</span> is a subspace
+because it is closed under addition of vectors and their multiplications by scalars from the field <span class="math notranslate nohighlight">\(\,K.\ \)</span>
+Indeed,</p>
+<p>if <span class="math notranslate nohighlight">\(\qquad\boldsymbol{X}_1,\,\boldsymbol{X}_2\,\in\,S_0:
+\qquad\boldsymbol{A}\boldsymbol{X}_1=\,\boldsymbol{0}\,,
+\quad\boldsymbol{A}\boldsymbol{X}_2=\,\boldsymbol{0}\,,\)</span></p>
+<p>then
+<span class="math notranslate nohighlight">\(\qquad
+\boldsymbol{A}\,(\boldsymbol{X}_1+\boldsymbol{X}_2)\ =\
+\boldsymbol{A}\boldsymbol{X}_1+\boldsymbol{A}\boldsymbol{X}_2\ =\
+\boldsymbol{0}\,,
+\qquad
+\boldsymbol{A}\,(c\,\boldsymbol{X}_1)\ =\ c\,(\boldsymbol{A}\boldsymbol{X}_1)\ =\
+\boldsymbol{0}\,,\)</span></p>
+<p>so <span class="math notranslate nohighlight">\(\qquad
+\boldsymbol{X}_1+\boldsymbol{X}_2\,\in\,S_0\,,\qquad
+c\,\boldsymbol{X}_1\in S_0\,,\quad c\in K\,.\)</span></p>
+<p>For the proof of the second part of the hypothesis, denote <span class="math notranslate nohighlight">\(\ r\,:\,=\,\text{rk}\,\boldsymbol{A}\,.\ \)</span>
+Of course, <span class="math notranslate nohighlight">\(\ r\le m,n\,.\)</span></p>
+<p>The matrix <span class="math notranslate nohighlight">\(\boldsymbol{A}\ \)</span> has <span class="math notranslate nohighlight">\(\ r\ \)</span> linearly independent rows and
+the same number of linearly independent columns. Without loss of generality, we may assume that the linearly independent set is determined by
+first <span class="math notranslate nohighlight">\(\ r\ \)</span> rows, <span class="math notranslate nohighlight">\(\,\)</span>
+and also by first <span class="math notranslate nohighlight">\(\ r\ \)</span> columns.</p>
+<p>If <span class="math notranslate nohighlight">\(\ m&gt;r,\ \)</span> then we discard last <span class="math notranslate nohighlight">\(\ m-r\ \)</span> equations because each of them is a linear combination of the first <span class="math notranslate nohighlight">\(\ r\ \)</span> equations.</p>
+<p>As a starting point of the further discussion we may take a set of
+<span class="math notranslate nohighlight">\(\ r\ \)</span> equations with <span class="math notranslate nohighlight">\(\ n\ \)</span> unknowns, <span class="math notranslate nohighlight">\(\,\)</span> where <span class="math notranslate nohighlight">\(\ r\le n.\ \)</span> In this situation there are two possibilities.</p>
+<p>I.) <span class="math notranslate nohighlight">\(\,\)</span> If <span class="math notranslate nohighlight">\(\ r=n,\ \)</span> we have a system with a square non-degenerate matix
+<span class="math notranslate nohighlight">\(\boldsymbol{A}.\ \)</span> This is a Cramer system which has only a zero solution:
+<span class="math notranslate nohighlight">\(\ S_0=\{\boldsymbol{0}\}.\ \)</span> In this case the equation <a class="reference internal" href="#equation-sol-0">(2)</a> is fulfilled:
+<span class="math notranslate nohighlight">\(\ 0=\dim\,S_0=n-r.\)</span></p>
+<p>II.) <span class="math notranslate nohighlight">\(\,\)</span> Let <span class="math notranslate nohighlight">\(\ r&lt;n.\ \)</span> We treat the unknowns indexed by numbers greater than  <span class="math notranslate nohighlight">\(\ r\ \)</span> as parameters: <span class="math notranslate nohighlight">\(\ x_k\rightarrow s_k,\ k=r+1,\dots,n,\ \,\)</span>
+and then solve a Cramer system with the unknowns <span class="math notranslate nohighlight">\(\ \,x_1,\,\dots,\,x_r:\)</span></p>
+<div class="math notranslate nohighlight" id="equation-set-eqn-r">
+<span class="eqno">(3)<a class="headerlink" href="#equation-set-eqn-r" title="Permalink to this equation">¶</a></span>\[\begin{split}\begin{array}{c}
+   a_{11}\,x_1\; + \ \,\ldots\ \, + \ \;a_{1r}\,x_r \ \, = \ \
+   -\ a_{1,r+1}\,s_{r+1}\; - \ \,\ldots\ \, -\ a_{1n}\,s_n   \\
+   a_{21}\,x_1\; + \ \,\ldots\ \, + \ \;a_{2r}\,x_r \ \, = \ \
+   -\ a_{2,r+1}\,s_{r+1}\; - \ \,\ldots\ \, -\ a_{2n}\,s_n   \\
+   \qquad
+   \ldots\qquad\quad\ldots\qquad\quad\ldots\qquad\quad
+   \ldots\qquad\quad\ldots\qquad\quad\ldots\qquad\quad           \\
+   a_{r1}\,x_1\; + \ \,\ldots\ \, + \ \;a_{rr}\,x_r \ \, = \ \
+   -\ a_{r,r+1}\,s_{r+1}\; - \ \,\ldots\ \, -\ a_{rn}\,s_n
+\end{array}\end{split}\]</div>
+<p>Let <span class="math notranslate nohighlight">\(\ (c_1,\dots,c_r)\ \)</span> be a tuple of the values of the unknowns
+<span class="math notranslate nohighlight">\(\ x_1,\,\dots,\,x_r\,,\ \)</span>
+corresponding to fixed values of the parameters <span class="math notranslate nohighlight">\(\ s_{r+1},\,\dots,\,s_n.\\\)</span>
+Then the tuple <span class="math notranslate nohighlight">\(\ (c_1,\dots,c_r,\,s_{r+1},\dots,\,s_n)\ \)</span>
+is one of solutions of the sytem fo equations <a class="reference internal" href="#equation-set-eqn-0">(1)</a>.</p>
+<p>Define a mapping <span class="math notranslate nohighlight">\(\ \Phi:\ S_0\rightarrow K^{n-r}\ \)</span> as follows:</p>
+<div class="math notranslate nohighlight">
+\[\begin{split}\Phi:\qquad S_0\,\ni\,
+\left[
+\begin{array}{c} c_1 \\ \dots \\ c_r \\ s_{r+1} \\ \dots \\ s_n \end{array}
+\right]
+\quad\rightarrow\quad
+\Phi
+\left[
+\begin{array}{c} c_1 \\ \dots \\ c_r \\ s_{r+1} \\ \dots \\ s_n \end{array}
+\right]
+\ :\,=\
+\left[
+\begin{array}{c} s_{r+1} \\ \dots \\ s_n \end{array}
+\right]
+\,\in\,K^{n-r}\,.\end{split}\]</div>
+<p>It is easy to check that <span class="math notranslate nohighlight">\(\ \Phi\ \)</span> is a linear mapping. Moreover, because each tuple of the values of the parameters <span class="math notranslate nohighlight">\(\ s_{r+1},\,\dots,\,s_n\ \)</span>
+corresponds to exactly one solution <span class="math notranslate nohighlight">\(\ (c_1,\dots,c_r)\ \)</span> of the Cramer system <a class="reference internal" href="#equation-set-eqn-r">(3)</a>, <span class="math notranslate nohighlight">\(\ \Phi\ \)</span> is also a bijection.</p>
+<p>Hence, the mapping <span class="math notranslate nohighlight">\(\ \Phi,\ \)</span> as a bijective homomorphism, is an isomorphism
+of the solution space <span class="math notranslate nohighlight">\(\ S_0\ \)</span> onto the space <span class="math notranslate nohighlight">\(\ K^{n-r}.\ \)</span>
+By Theorem 8. we obtain the hypothesis <a class="reference internal" href="#equation-sol-0">(2)</a>:</p>
+<div class="math notranslate nohighlight">
+\[\dim\,S_0\,=\,\dim\,K^{n-r}\,=\,n-r\,.\]</div>
+</section>
+
+
+          </div>
+        </div>
+      </div>
+      <div class="sphinxsidebar" role="navigation" aria-label="main navigation">
+        <div class="sphinxsidebarwrapper">
+  <h4>Previous topic</h4>
+  <p class="topless"><a href="linear_transformations_kernel-image.html"
+                        title="previous chapter">Kernel, Image and the Rank-Nullity Theorem</a></p>
+  <h4>Next topic</h4>
+  <p class="topless"><a href="przeksztalcenia_lin_macierze.html"
+                        title="next chapter">Matrix Representation of Linear Transformations</a></p>
+  <div role="note" aria-label="source link">
+    <h3>This Page</h3>
+    <ul class="this-page-menu">
+      <li><a href="_sources/przeksztalcenia_lin_uklady_rownan.rst.txt"
+            rel="nofollow">Show Source</a></li>
+    </ul>
+   </div>
+<div id="searchbox" style="display: none" role="search">
+  <h3 id="searchlabel">Quick search</h3>
+    <div class="searchformwrapper">
+    <form class="search" action="search.html" method="get">
+      <input type="text" name="q" aria-labelledby="searchlabel" />
+      <input type="submit" value="Go" />
+    </form>
+    </div>
+</div>
+<script>$('#searchbox').show(0);</script>
+        </div>
+      </div>
+      <div class="clearer"></div>
+    </div>
+  </div>
+  <div class="relbar-bottom">
+    
+    <div class="related" role="navigation" aria-label="related navigation">
+      <h3>Navigation</h3>
+      <ul>
+        <li class="right" style="margin-right: 10px">
+          <a href="genindex.html" title="General Index"
+             >index</a></li>
+        <li class="right" >
+          <a href="przeksztalcenia_lin_macierze.html" title="Matrix Representation of Linear Transformations"
+             >next</a> &nbsp; &nbsp;</li>
+        <li class="right" >
+          <a href="linear_transformations_kernel-image.html" title="Kernel, Image and the Rank-Nullity Theorem"
+             >previous</a> &nbsp; &nbsp;</li>
+  <li><a href="index.html">Linear Algebra</a> &#187;</li>
+  
+        <li class="nav-item nav-item-this"><a href="">Application to Homogeneous Systems of Equations</a></li> 
+      </ul>
+    </div>
+  </div>
+  
+  <div class="footer">
+    <a class="logo" href="http://icse.us.edu.pl/" target="_blank"><img src="_static/logo-icse.png" alt="ICSE"/></a><br/>
+    &copy; Copyright 2018, Jan Aksamit, Joanna Marzec, and  Marcin Kostur.
+    Last updated on Jan 29, 2022.
+    Created using <a href="http://sphinx.pocoo.org/">Sphinx</a> 4.0.1.
+  </div>
+  </body>
+</html>

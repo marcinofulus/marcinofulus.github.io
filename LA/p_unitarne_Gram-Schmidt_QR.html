@@ -1,0 +1,503 @@
+
+
+  
+<!DOCTYPE html>
+
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" /><meta name="generator" content="Docutils 0.17: http://docutils.sourceforge.net/" />
+
+    <title>Gram-Schmidt Orthonormalization and QR Decomposition of a Matrix &#8212; Linear Algebra</title>
+    <link rel="stylesheet" type="text/css" href="_static/pygments.css" />
+    <link rel="stylesheet" type="text/css" href="_static/cloud.css" />
+    <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Noticia+Text|Open+Sans|Droid+Sans+Mono&amp;subset=latin,latin-ext" type="text/css" />
+    <script data-url_root="./" id="documentation_options" src="_static/documentation_options.js"></script>
+    <script src="_static/jquery.js"></script>
+    <script src="_static/underscore.js"></script>
+    <script src="_static/doctools.js"></script>
+    <script async="async" src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js"></script>
+    <script src="_static/jquery.cookie.js"></script>
+    <script src="_static/cloud.js"></script>
+    <script type="text/javascript" src="http://sagecell.sagemath.org/static/jquery.min.js"></script>
+    <script type="text/javascript" src="http://sagecell.sagemath.org/embedded_sagecell.js"></script>
+    <script type="text/javascript">
+        sagecell.makeSagecell({inputLocation: ".sage_linked",
+                               linked: true});
+        sagecell.makeSagecell({inputLocation: ".sage_unlinked",
+                               linked: false});
+    </script>
+
+    <style type="text/css">
+        .sagecell .CodeMirror-scroll {
+            overflow-y: hidden;
+            overflow-x: auto;
+        }
+        .sagecell .CodeMirror {
+            height: auto;
+        }
+    </style>
+    
+    <link rel="index" title="Index" href="genindex.html" />
+    <link rel="search" title="Search" href="search.html" />
+    <link rel="next" title="Hermitian and Unitary Matrices" href="p_unitarne_macierze_hermit_i_unit.html" />
+    <link rel="prev" title="Orthogonality of Vectors" href="p_unitarne_ortogonalnosc.html" />
+ 
+  <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, minimum-scale=1">
+  </head><body>
+  <div class="relbar-top">
+    
+    <div class="related" role="navigation" aria-label="related navigation">
+      <h3>Navigation</h3>
+      <ul>
+        <li class="right" style="margin-right: 10px">
+          <a href="genindex.html" title="General Index"
+             accesskey="I">index</a></li>
+        <li class="right" >
+          <a href="p_unitarne_macierze_hermit_i_unit.html" title="Hermitian and Unitary Matrices"
+             accesskey="N">next</a> &nbsp; &nbsp;</li>
+        <li class="right" >
+          <a href="p_unitarne_ortogonalnosc.html" title="Orthogonality of Vectors"
+             accesskey="P">previous</a> &nbsp; &nbsp;</li>
+  <li><a href="index.html">Linear Algebra</a> &#187;</li>
+  
+        <li class="nav-item nav-item-this"><a href="">Gram-Schmidt Orthonormalization and QR Decomposition of a Matrix</a></li> 
+      </ul>
+    </div>
+  </div>
+  
+  <div class="content">  
+
+    <div class="document">
+      <div class="documentwrapper">
+        <div class="bodywrapper">
+          <div class="body">
+            
+  <section id="gram-schmidt-orthonormalization-and-qr-decomposition-of-a-matrix">
+<h1>Gram-Schmidt Orthonormalization and QR Decomposition of a Matrix<a class="headerlink" href="#gram-schmidt-orthonormalization-and-qr-decomposition-of-a-matrix" title="Permalink to this headline">¶</a></h1>
+<div class="admonition-theorem-4 admonition">
+<p class="admonition-title">Theorem 4.</p>
+<p>In every finite dimensional unitary (Euclidean) vector space an orthonormal basis exists.</p>
+</div>
+<p><strong>Proof</strong> of this theorem, which provides an effective method of construction of such a basis, poceeds in two parallel stages. One starts with an arbitrary basis, applies the <em>Gram-Schmidt orthogonalization</em> method to construct an orthogonal basis, and then by normalisation obtains an orthonormal basis.</p>
+<section id="construction-of-the-orthonormal-basis">
+<h2>Construction of the Orthonormal Basis<a class="headerlink" href="#construction-of-the-orthonormal-basis" title="Permalink to this headline">¶</a></h2>
+<p>Let <span class="math notranslate nohighlight">\(\,\dim\,V=n.\ \)</span> Proof proceeds according to the following diagram:</p>
+<div class="math notranslate nohighlight">
+\[\begin{split}\begin{array}{cccccc}
+             &amp; \mathcal{B}=(v_1,v_2,\dots,v_n) &amp; \longrightarrow &amp; \mathcal{P}=(y_1,y_2,\dots,y_n) &amp; \longrightarrow &amp; \mathcal{Q}=(u_1,u_2,\dots,u_n) \\
+\text{Basis:} &amp; \text{initial}                &amp;                 &amp; \text{orthogonal}              &amp;                 &amp; \text{orthonormal}
+\end{array}\end{split}\]</div>
+<p>We choose vectors for bases <span class="math notranslate nohighlight">\(\ \mathcal{P}\ \)</span> and <span class="math notranslate nohighlight">\(\ \mathcal{Q}\ \)</span>
+as follows:</p>
+<p><span class="math notranslate nohighlight">\(\triangleright\quad y_1\,=\,v_1,\quad u_1\,=\,\displaystyle\frac{y_1}{\|y_1\|}\,;\)</span></p>
+<p><span class="math notranslate nohighlight">\(\triangleright\quad y_2\,=\,\alpha_1\,y_1+\,v_2\ =\
+v_2\,-\ \displaystyle\frac{\langle\,y_1,v_2\rangle}{\|y_1\|^2}\ \ y_1\ =\
+v_2-\,\langle\,u_1,v_2\rangle\ u_1\,,\qquad u_2\,=\,\displaystyle\frac{y_2}{\|y_2\|}\ ,\)</span></p>
+<p>where <span class="math notranslate nohighlight">\(\ \alpha_1\ \)</span> has been determined from the condition <span class="math notranslate nohighlight">\(\ \langle\,y_1,y_2\rangle=0\,;\)</span></p>
+<p><span class="math notranslate nohighlight">\(\triangleright\quad y_3\,=\,\beta_1\,y_1+\,\beta_2\,y_2+\,v_3\ =\
+v_3\,-\ \displaystyle\frac{\langle y_1,v_3\rangle}{\|y_1\|^2}\ \ y_1\,-\
+\displaystyle\frac{\langle y_2,v_3\rangle}{\|y_2\|^2}\ \ y_2\ =\
+v_3\,-\,\langle u_1,v_3\rangle\ u_1 - \langle u_2,v_3\rangle\ u_2\,,\)</span></p>
+<p>where <span class="math notranslate nohighlight">\(\ \beta_1,\,\beta_2\ \)</span> have been determined from the conditions
+<span class="math notranslate nohighlight">\(\,\langle\,y_1,y_3\rangle = \langle\,y_2,y_3\rangle = 0\,;\qquad
+u_3\,=\,\displaystyle\frac{y_3}{\|y_3\|}\,;\)</span></p>
+<p>Assume that in this way we have constructed an orthogonal set
+<span class="math notranslate nohighlight">\(\ (y_1,y_2,\dots,y_{j-1}),\ \)</span> where, as follows from the construction,</p>
+<div class="math notranslate nohighlight" id="equation-y-k">
+<span class="eqno">(1)<a class="headerlink" href="#equation-y-k" title="Permalink to this equation">¶</a></span>\[y_k\,\in\,L(v_1,v_2,\dots,v_k)\qquad k=1,2,\dots,j-1\,,\]</div>
+<p>that is, every <span class="math notranslate nohighlight">\(\,k\)</span>-th vector of the set <span class="math notranslate nohighlight">\(\,(y_1,y_2,\dots,y_{j-1})\ \)</span>
+is a linear combination of only first <span class="math notranslate nohighlight">\(\,k\ \)</span> vectors from the basis <span class="math notranslate nohighlight">\(\,\mathcal{B}.\ \)</span>
+Next vectors of bases <span class="math notranslate nohighlight">\(\ \mathcal{P}\ \)</span> and <span class="math notranslate nohighlight">\(\ \mathcal{Q}\ \,\)</span> are <span class="math notranslate nohighlight">\(\\\)</span></p>
+<p><span class="math notranslate nohighlight">\(\begin{array}{rcl} \triangleright\quad y_j &amp; = &amp;
+\lambda_1\,y_1\,+\;\lambda_2\,y_2\,+\;\dots\,+\;\lambda_{j-1}\,y_{j-1}\,+\;v_j\ \ =
+\\ \\
+&amp; = &amp; v_j\ -\ \,
+\displaystyle\frac{\langle\,y_1,v_j\rangle}{\|y_1\|^2}\ \ y_1\ \,-\ \,
+\displaystyle\frac{\langle\,y_2,v_j\rangle}{\|y_2\|^2}\ \ y_2\ \,-\ \,
+\ldots\ -\ \,
+\displaystyle\frac{\langle\,y_{j-1},v_j\rangle}{\|y_{j-1}\|^2}\ \ y_{j-1}\ \ =
+\\ \\
+&amp; = &amp; v_j\,-\,\langle\,u_1,v_j\rangle\ u_1 - \langle\,u_2,v_j\rangle\ u_2
+\ -\ \ldots\ -\ \langle\,u_{j-1},v_j\rangle\ u_{j-1}\,,
+\qquad u_j\ =\ \displaystyle\frac{y_j}{\|y_j\|}\ ,
+\end{array}\)</span></p>
+<p>where the coefficients <span class="math notranslate nohighlight">\(\ \lambda_1,\,\lambda_2,\,\dots,\,\lambda_{j-1}\ \,\)</span>
+have been determined from the orthogonality conditions</p>
+<div class="math notranslate nohighlight">
+\[\langle\,y_1,y_j\rangle\ \ =\ \ \langle\,y_2,y_j\rangle\ \ =\ \ldots\ \ =\ \
+\langle\,y_{j-1},y_j\rangle\ \ =\ \ 0\,.\]</div>
+<p>The vector <span class="math notranslate nohighlight">\(\,y_j\ \)</span> is a combination of linearly independent vectors
+<span class="math notranslate nohighlight">\(\,v_1,\,v_2,\,\dots,\,v_j.\ \)</span>
+The property <a class="reference internal" href="#equation-y-k">(1)</a> implies that it is a non-trivial combination, because the coefficient of the vector <span class="math notranslate nohighlight">\(\,v_j\ \)</span> equals <span class="math notranslate nohighlight">\(\,+1.\,\)</span> This means that all the vectors <span class="math notranslate nohighlight">\(\,y_j\ \)</span> are non-zero: <span class="math notranslate nohighlight">\(\,y_j\neq\theta,\ j=1,2,\dots,n.\ \)</span>
+Hence, the set <span class="math notranslate nohighlight">\(\,\mathcal{P}\ \)</span> is orthogonal, and if we divide each vector
+<span class="math notranslate nohighlight">\(\,y_j\ \)</span> by its norm, we obtain a unit vector <span class="math notranslate nohighlight">\(\,u_j\,.\)</span></p>
+<p>Gram-Schmidt orthogonalization may be applied to any (not necessarily linearly independent set) of vectors. As a result we obtain a set <span class="math notranslate nohighlight">\(\,\mathcal{Y},\ \)</span> whose vectors are pairwise orthogonal, but <span class="math notranslate nohighlight">\(\,\mathcal{Y}\ \)</span> itself is not necessarily orthogonal as it may contain zero vectors.</p>
+<p>After the last step of the procedure, where <span class="math notranslate nohighlight">\(\,j=n,\ \)</span> we obtain an
+orthogonal basis <span class="math notranslate nohighlight">\(\ \mathcal{P}\ \\\)</span>
+and an orthonormal basis <span class="math notranslate nohighlight">\(\ \mathcal{Q}\ \)</span> of the space <span class="math notranslate nohighlight">\(\,V.\)</span></p>
+<p><strong>Example:</strong> Construction of Legendre polynomials.</p>
+<p>Consider a Euclidean space <span class="math notranslate nohighlight">\(\,P\ \)</span> of real polynomials with an inner product</p>
+<div class="math notranslate nohighlight">
+\[\langle\,p,q\,\rangle\ \,=\ \,\int_{-1}^{+1}\ p(x)\,q(x)\,dx\,,\qquad p,q\in P\,.\]</div>
+<p>Taking <span class="math notranslate nohighlight">\(\,\mathcal{B}\,=\,(1,\,x,\,x^2,\,x^3,\,\dots)\ \)</span> as the initial basis,
+we will construct an orthogonal basis <span class="math notranslate nohighlight">\(\,\mathcal{P}\,=\,(p_0,\,p_1,\,p_2,\,p_3,\,\dots)\ \,\)</span>
+and <span class="math notranslate nohighlight">\(\,\)</span> an orthonormal basis <span class="math notranslate nohighlight">\(\,\mathcal{Q}\,=\,(q_0,\,q_1,\,q_2,\,q_3,\,\dots)\,.\\\)</span></p>
+<ol class="arabic" start="0">
+<li><p><span class="math notranslate nohighlight">\(\ p_0(x)\,=\,1\,;\qquad
+\|\,p_0\|^2\,=\,\langle\,p_0,p_0\,\rangle\ =\ \int_{-1}^{+1}\ 1\cdot 1\ \ dx\ =\ 2\,;\qquad
+\|\,p_0\|\,=\,\sqrt{2}\,.\)</span></p>
+<p><span class="math notranslate nohighlight">\(\blacktriangleright\quad q_0(x)\ \,=\ \,
+\displaystyle\frac{1}{\|\,p_0\|}\ \ p_0(x)\ \,=\ \,
+\frac{1}{\sqrt{2}}\ \ .\\\)</span></p>
+</li>
+<li><p><span class="math notranslate nohighlight">\(\ p_1(x)\ =\ \alpha_0\cdot 1+x\,,\ \ \)</span>
+where <span class="math notranslate nohighlight">\(\ \ \alpha_0\ \)</span> is determined from the condition <span class="math notranslate nohighlight">\(\ \ \langle\,p_0,p_1\rangle\ =\ 0\,.\)</span></p>
+<p><span class="math notranslate nohighlight">\(\ \langle\,p_0,p_1\rangle\ =\ \int_{-1}^{+1}\ 1\cdot(\alpha_0+x)\ dx\ \ =\ \
+\int_{-1}^{+1}\ (\alpha_0+x)\,dx\ =\ 2\,\alpha_0\ =\ 0\,:\quad\alpha_0=0\,.\)</span></p>
+<p><span class="math notranslate nohighlight">\(\ p_1(x)\,=\,x\,;\qquad \|p_1\|^2\,=\,\int_{-1}^{+1}\ x^2\;dx\ =\
+\left.\frac{1}{3}\ x^3\,\right|_{-1}^{+1}\ =\ \frac{2}{3}\ ;\qquad
+\|\,p_1\|\ =\ \sqrt{\frac{2}{3}}\ .\)</span></p>
+<p><span class="math notranslate nohighlight">\(\blacktriangleright\quad q_1(x)\ \,=\ \,
+\displaystyle\frac{1}{\|\,p_1\|}\ \ p_1(x)\ \,=\ \,
+\sqrt{\,\frac{3}{2}}\ \ x\ .\\\)</span></p>
+</li>
+<li><p><span class="math notranslate nohighlight">\(\ p_2(x)\ =\ \beta_0\cdot 1+\beta_1\cdot x+x^2\,,\ \ \)</span>
+where <span class="math notranslate nohighlight">\(\ \ \beta_0,\,\beta_1:\ \
+\langle\,p_0,p_2\rangle\ =\ \langle\,p_1,p_2\rangle\ =\ 0\,.\)</span></p>
+<p><span class="math notranslate nohighlight">\(\ \langle\,p_0,p_2\rangle\ =\ \int_{-1}^{+1}\ (\beta_0+\beta_1\,x+x^2)\,dx\ =\
+2\,\beta_0+\frac{2}{3}\ =\ 0\,:\quad\,\beta_0\,=\ -\ \frac{1}{3}\,;\)</span></p>
+<p><span class="math notranslate nohighlight">\(\ \langle\,p_1,p_2\rangle\ =\ \int_{-1}^{+1}\ x\,(\beta_0+\beta_1\,x+x^2)\,dx\ =\
+\frac{2}{3}\,\beta_1\ =\ 0\,:\qquad\beta_1\,=\,0\,.\)</span></p>
+<p><span class="math notranslate nohighlight">\(\ p_2(x)\,=\,x^2-\;\frac{1}{3}\ ;\)</span></p>
+<p><span class="math notranslate nohighlight">\(\ \|\,p_2\|^2\,=\,\int_{-1}^{+1}\ (x^2-\,\frac{1}{3})^2\,dx\ =\
+\int_{-1}^{+1}\ (x^4-\frac{2}{3}\,x^2+\frac{1}{9})\,dx\ =\ \frac{8}{45}\ ;\quad
+\|\,p_2\|\ =\ \frac{2}{3}\ \sqrt{\frac{2}{5}}\,.\)</span></p>
+<p><span class="math notranslate nohighlight">\(\blacktriangleright\quad q_2(x)\ \,=\ \,
+\displaystyle\frac{1}{\|\,p_2\|}\ \ p_2(x)\ \ =\ \
+\frac{3}{2}\ \ \sqrt{\,\frac{5}{2}}\ \ \left(x^2-\;\frac{1}{3}\right)\ \ =\ \
+\frac{1}{2}\ \ \sqrt{\,\frac{5}{2}}\ \ (3\,x^2-\,1)\,.\\\)</span></p>
+</li>
+<li><p><span class="math notranslate nohighlight">\(\ p_3(x)\ =\
+\widetilde{\gamma_0}\cdot 1+\gamma_1\cdot x+\gamma_2\cdot(x^2-\;\frac{1}{3})+x^3\ =\
+\gamma_0+\,\gamma_1\,x\,+\,\gamma_2\,x^2\,+\,x^3\,,\)</span></p>
+<p>where <span class="math notranslate nohighlight">\(\quad\gamma_0,\,\gamma_1,\,\gamma_2:\quad
+\langle\,p_0,p_3\rangle\,=\,\langle\,p_1,p_3\rangle\,=\,\langle\,p_2,p_3\rangle\,=\,0\,.\)</span></p>
+<p><span class="math notranslate nohighlight">\(\ \langle\,p_0,p_3\rangle\,=\,2\,\gamma_0+\frac{2}{3}\,\gamma_2\,=\,0\,;\quad
+\langle\,p_1,p_3\rangle\,=\,\frac{2}{3}\,\gamma_1+\frac{2}{5}\,=\,0\,;\quad
+\langle\,p_2,p_3\rangle\,=\,\frac{8}{45}\,\gamma_2\,=\,0\,;\)</span></p>
+<p>hence <span class="math notranslate nohighlight">\(\quad\gamma_0=\gamma_2=0\,,\quad\gamma_1=-\ \frac{3}{5}\,.\)</span></p>
+<p><span class="math notranslate nohighlight">\(\ p_3(x)\,=\,x^3-\,\frac{3}{5}\,x\,;\qquad\|\,p_3\|\ =\ \frac{2}{5}\ \sqrt{\frac{2}{7}}\,.\)</span></p>
+<p><span class="math notranslate nohighlight">\(\blacktriangleright\quad q_3(x)\ \,=\ \,
+\displaystyle\frac{1}{\|\,p_3\|}\ \ p_3(x)\ \ =\ \
+\frac{5}{2}\ \ \sqrt{\,\frac{7}{2}}\ \ \left(x^3-\,\frac{3}{5}\,x\right)\ =\
+\frac{1}{2}\ \ \sqrt{\,\frac{7}{2}}\ \ (5\,x^3-3\,x)\,.\)</span></p>
+</li>
+</ol>
+<div class="math notranslate nohighlight">
+\[\mathcal{Q}\ \ =\ \ \left(\ \ \frac{1}{\sqrt{2}}\ ,\quad
+                            \sqrt{\,\frac{3}{2}}\ \ x\ ,\quad
+                            \frac{1}{2}\ \ \sqrt{\,\frac{5}{2}}\ \ (3\,x^2-\,1)\ ,\quad
+                            \frac{1}{2}\ \ \sqrt{\,\frac{7}{2}}\ \ (5\,x^3-3\,x)\ ,\ \
+                            \dots\
+                    \right)\]</div>
+</section>
+<section id="orthogonal-matrices-and-the-qr-decomposition">
+<span id="qrdecomposition"></span><h2>Orthogonal Matrices and the QR Decomposition<a class="headerlink" href="#orthogonal-matrices-and-the-qr-decomposition" title="Permalink to this headline">¶</a></h2>
+<p>Considerations of this section concern real domain, that is, real matrices <span class="math notranslate nohighlight">\(\\\)</span> and <span class="math notranslate nohighlight">\(\,\)</span> Euclidean spaces. Later we will translate the notions and theorems introduced below for complex domain.</p>
+<div class="admonition-definition admonition">
+<p class="admonition-title">Definition.</p>
+<p>Matrix <span class="math notranslate nohighlight">\(\ \boldsymbol{B}\,=\,[\,\boldsymbol{b}_1\,|\,\boldsymbol{b}_2\,|\,\dots\,|\,
+\boldsymbol{b}_n\,]\,=\,[\,\beta_{ij}\,]_{n\times n}\in M_n(R)\ \,\)</span> is <span class="math notranslate nohighlight">\(\,\)</span>
+<em>orthogonal</em>, <span class="math notranslate nohighlight">\(\,\)</span> if</p>
+<div class="math notranslate nohighlight" id="equation-orthogonal">
+<span class="eqno">(2)<a class="headerlink" href="#equation-orthogonal" title="Permalink to this equation">¶</a></span>\[\boldsymbol{B}^T\boldsymbol{B}\,=\,\boldsymbol{I}_n\,.\]</div>
+</div>
+<p><strong>Properties</strong> of orthogonal matrices.</p>
+<ol class="arabic">
+<li><p>Taking determinant on both sides of the equation <a class="reference internal" href="#equation-orthogonal">(2)</a>, we obtain</p>
+<div class="math notranslate nohighlight">
+\[\det\,(\boldsymbol{B}^T\boldsymbol{B})=\det\boldsymbol{B}^T\cdot\,\det\boldsymbol{B}=
+(\det\boldsymbol{B})^2\quad=\quad\det\boldsymbol{I}_n=1\,,\]</div>
+<p>and thus <span class="math notranslate nohighlight">\(\,\det\boldsymbol{B}=\pm 1.\ \)</span> Hence, the orthogonal matrix is
+nondegenerate, and thus invertible:
+<span class="math notranslate nohighlight">\(\ \boldsymbol{B}^{-1}=\,\boldsymbol{B}^T\,.\ \)</span>
+After multilplying this equality on the left by <span class="math notranslate nohighlight">\(\ \boldsymbol{B}\ \)</span> we obtain
+<span class="math notranslate nohighlight">\(\ \boldsymbol{B}\boldsymbol{B}^T=\boldsymbol{I}_n\,.\ \)</span> This means that
+orthogonal matrices satisfy equalities
+<span class="math notranslate nohighlight">\(\ \ \boldsymbol{B}^T\boldsymbol{B}\,=\,
+\boldsymbol{B}\boldsymbol{B}^T=\boldsymbol{I}_n\,.\)</span></p>
+</li>
+<li><p>The condition <span class="math notranslate nohighlight">\(\ \boldsymbol{B}\boldsymbol{B}^T=\boldsymbol{I}_n\ \)</span> may be
+written as <span class="math notranslate nohighlight">\(\ (\boldsymbol{B}^T)^T\boldsymbol{B}^T=\boldsymbol{I}_n\,,\ \)</span>
+which implies that if <span class="math notranslate nohighlight">\(\ \boldsymbol{B}\in M_n(R)\ \)</span> is an orthogonal matrix,
+then orthogonal are also the transposed matrix <span class="math notranslate nohighlight">\(\ \boldsymbol{B}^T\ \)</span>
+and the inverse matrix <span class="math notranslate nohighlight">\(\ \boldsymbol{B}^{-1}\,.\)</span></p></li>
+<li><p>Let <span class="math notranslate nohighlight">\(\ \boldsymbol{B}_1,\boldsymbol{B}_2\in M_n(R)\ \)</span> be orthogonal matrices:
+<span class="math notranslate nohighlight">\(\ \ \boldsymbol{B}_1^T\,\boldsymbol{B}_1=\boldsymbol{B}_2^T\,\boldsymbol{B}_2=
+\boldsymbol{I}_n\,.\ \)</span>
+Then, by properties of the transpose of a matrix, we obtain</p>
+<div class="math notranslate nohighlight">
+\[(\boldsymbol{B}_1\boldsymbol{B}_2)^T(\boldsymbol{B}_1\boldsymbol{B}_2)\ =\
+\boldsymbol{B}_2^T\,(\boldsymbol{B}_1^T\boldsymbol{B}_1)\,\boldsymbol{B}_2\ =\
+\boldsymbol{B}_2^T\,\boldsymbol{I}_n\,\boldsymbol{B}_2\ =\
+\boldsymbol{B}_2^T\,\boldsymbol{B}_2\ =\ \boldsymbol{I}_n\,.\]</div>
+<p>Hence, product of orthogonal matrices is also an orthogonal matrix.
+Since the identity matrix <span class="math notranslate nohighlight">\(\ \boldsymbol{I}_n\ \)</span> is orthogonal,
+we deduce</p>
+<div class="admonition-corollary-1 admonition">
+<p class="admonition-title">Corollary 1.</p>
+<p>A set of orthogonal matrices of size <span class="math notranslate nohighlight">\(\,n\ \)</span> together with matrix
+multiplication comprises a (nonabelian) group.</p>
+</div>
+</li>
+<li><p>The condition <a class="reference internal" href="#equation-orthogonal">(2)</a> may be rewritten in terms of matrix’ entries as</p>
+<div class="math notranslate nohighlight">
+\[\sum_{k\,=\,1}^n\ \beta_{ik}^T\;\beta_{kj}\,=\ \sum_{k\,=\,1}^n\ \beta_{ki}\;\beta_{kj}\,=\
+\langle\,\boldsymbol{b}_i,\boldsymbol{b}_j\rangle\ =\ \delta_{ij}\,,\qquad
+i,j=1,2,\dots,n\,.\]</div>
+<p>This means that columns of the matrix <span class="math notranslate nohighlight">\(\,\boldsymbol{B},\,\)</span> interpreted as vectors
+of the space <span class="math notranslate nohighlight">\(\,R^n\,,\ \,\)</span> comprise an orthonormal system.
+Since the matrix <span class="math notranslate nohighlight">\(\ \boldsymbol{B}^T\ \)</span> is also orthogonal,
+this is also the case for rows of the matrix <span class="math notranslate nohighlight">\(\ \boldsymbol{B}.\)</span></p>
+<div class="admonition-corollary-2 admonition">
+<p class="admonition-title">Corollary 2.</p>
+<p>Matrix <span class="math notranslate nohighlight">\(\ \boldsymbol{B}\in M_n(R)\ \)</span> is orthogonal
+if <span class="math notranslate nohighlight">\(\,\)</span> and <span class="math notranslate nohighlight">\(\,\)</span> only if
+its columns <span class="math notranslate nohighlight">\(\,\)</span> (and also rows) <span class="math notranslate nohighlight">\(\,\)</span>
+comprise an orthonormal system in the space <span class="math notranslate nohighlight">\(\,R^n\)</span>.</p>
+</div>
+</li>
+</ol>
+<p>Consider a nondegenerate matrix <span class="math notranslate nohighlight">\(\ \boldsymbol{A}\,=\,
+[\,\boldsymbol{a}_1\,|\,\boldsymbol{a}_2\,|\,\dots\,|\,\boldsymbol{a}_n\,]\in M_n(R).\ \)</span>
+Its columns are linearly independent and comprise a basis
+<span class="math notranslate nohighlight">\(\,\mathcal{B}=(\boldsymbol{a}_1\,,\,\boldsymbol{a}_2\,,\,\dots,\,\boldsymbol{a}_n)\,\)</span>
+of the space <span class="math notranslate nohighlight">\(\,R^n\)</span>. We will apply to this basis Gram-Schmidt orthogonalization in order to obtain an orthogonal basis
+<span class="math notranslate nohighlight">\(\,\mathcal{P}=(\boldsymbol{y}_1\,,\,\boldsymbol{y}_2\,,\,\dots,\,\boldsymbol{y}_n)\ \ \)</span>
+and <span class="math notranslate nohighlight">\(\,\)</span> an orthonormal basis
+<span class="math notranslate nohighlight">\(\,\mathcal{Q}=(\boldsymbol{u}_1\,,\,\boldsymbol{u}_2\,,\,\dots,\,\boldsymbol{u}_n).\ \)</span>
+Vectors of the bases <span class="math notranslate nohighlight">\(\,\mathcal{P}\ \)</span> and <span class="math notranslate nohighlight">\(\ \mathcal{Q}\ \)</span> are related by identities</p>
+<div class="math notranslate nohighlight">
+\[\boldsymbol{u}_i\ =\ \,\frac{1}{\|\,\boldsymbol{y}_i\|}\ \ \boldsymbol{y}_i\,,
+\qquad i=1,2,\dots,n.\]</div>
+<p>Our goal is to write the matrix <span class="math notranslate nohighlight">\(\ \boldsymbol{A}\ \)</span>
+as a product of an orthogonal matrix <span class="math notranslate nohighlight">\(\\ \boldsymbol{Q}\,=\,
+[\,\boldsymbol{u}_1\,|\,\boldsymbol{u}_2\,|\,\dots\,|\,\boldsymbol{u}_n\,]\ \,\)</span>
+and <span class="math notranslate nohighlight">\(\,\)</span> certain uppertriangular matrix <span class="math notranslate nohighlight">\(\ \boldsymbol{R} :
+\ \boldsymbol{A}=\boldsymbol{Q}\boldsymbol{R}\,.\)</span>
+Such a decomposition is called a <em>QR decomposition</em>.</p>
+<p>The Gram-Schmidt process applied to the basis <span class="math notranslate nohighlight">\(\,\mathcal{B}\ \,\)</span> gives (<span class="math notranslate nohighlight">\(j=2,\dots,n\)</span>) :</p>
+<div class="math notranslate nohighlight">
+\[\begin{split}\begin{array}{rcl}
+\boldsymbol{y}_1 &amp; = &amp; \boldsymbol{a}_1\,, \\
+\boldsymbol{y}_j &amp; = &amp;
+\lambda_1\,\boldsymbol{y}_1\;+\ \lambda_2\,\boldsymbol{y}_2\;+\ \ldots\ +\
+\lambda_{j-1}\,\boldsymbol{y}_{j-1}\;+\ \boldsymbol{a}_j\;\ = \\
+&amp; = &amp; \boldsymbol{a}_j
+                \;-\ \langle\,\boldsymbol{u}_1,\boldsymbol{a}_j\rangle\ \,\boldsymbol{u}_1
+                \;-\ \langle\,\boldsymbol{u}_2,\boldsymbol{a}_j\rangle\ \,\boldsymbol{u}_2
+                \;-\ \ldots
+                \;-\ \langle\,\boldsymbol{u}_{j-1},\boldsymbol{a}_j\rangle\ \,
+                \boldsymbol{u}_{j-1}\,;
+\end{array}\end{split}\]</div>
+<p>(<span class="math notranslate nohighlight">\(\,\lambda_i\ \)</span> have been computed from the orthogonality conditions
+<span class="math notranslate nohighlight">\(\,\langle\,\boldsymbol{y}_i,\boldsymbol{y}_j\rangle=0\,,\ \ i=1,2,\dots,j-1.\)</span>)</p>
+<p>Hence, vectors from the initial basis <span class="math notranslate nohighlight">\(\,\mathcal{B}\,\)</span> may be represented
+by vectors from an orthonormal basis <span class="math notranslate nohighlight">\(\,\mathcal{Q}\,\)</span> in the following way:</p>
+<div class="math notranslate nohighlight">
+\[\begin{split}\begin{array}{rcl}
+\boldsymbol{a}_j &amp; = &amp; \langle\,\boldsymbol{u}_1,\boldsymbol{a}_j\rangle\ \,\boldsymbol{u}_1
+                  \;+\ \langle\,\boldsymbol{u}_2,\boldsymbol{a}_j\rangle\ \,\boldsymbol{u}_2
+                  \;+\ \ldots
+                  \;+\ \langle\,\boldsymbol{u}_{j-1},\boldsymbol{a}_j\rangle\ \,
+                                                     \boldsymbol{u}_{j-1}
+                  \;+\ \,\boldsymbol{y}_j\ \,= \\
+                 &amp; = &amp; \langle\,\boldsymbol{u}_1,\boldsymbol{a}_j\rangle\ \,\boldsymbol{u}_1
+                  \;+\ \langle\,\boldsymbol{u}_2,\boldsymbol{a}_j\rangle\ \,\boldsymbol{u}_2
+                  \;+\ \ldots
+                  \;+\ \langle\,\boldsymbol{u}_{j-1},\boldsymbol{a}_j\rangle\ \,
+                                                     \boldsymbol{u}_{j-1}
+                  \;+\ \,\|\,y_j\|\ \,\boldsymbol{u}_j\ \,= \\
+                 &amp; = &amp; \langle\,\boldsymbol{u}_1,\boldsymbol{a}_j\rangle\ \,\boldsymbol{u}_1
+                  \;+\ \langle\,\boldsymbol{u}_2,\boldsymbol{a}_j\rangle\ \,\boldsymbol{u}_2
+                  \;+\ \ldots
+                  \;+\ \langle\,\boldsymbol{u}_{j-1},\boldsymbol{a}_j\rangle\ \,
+                                                     \boldsymbol{u}_{j-1}
+                  \;+\ \langle\,\boldsymbol{u}_j,\boldsymbol{a}_j\rangle\ \,
+                                                 \boldsymbol{u}_j\,.
+\end{array}\end{split}\]</div>
+<p>These relations may be written in terms of an (uppertriangular) matrix
+<span class="math notranslate nohighlight">\(\ \boldsymbol{R}\,=\,[\,\rho_{ij}\,]_{n\times n}\,:\)</span></p>
+<div class="math notranslate nohighlight">
+\[ \begin{align}\begin{aligned}\begin{split}\rho_{ij}\ \ :\,=\ \
+\left\{\
+\begin{array}{ccc}
+\langle\,\boldsymbol{u}_i,\boldsymbol{a}_j\rangle &amp; \text{dla} &amp; i\leq j \\
+                         0                        &amp; \text{dla} &amp;  i &gt; j
+\end{array}
+\right.,\quad i,j=1,2,\dots,n\,.\end{split}\\\boldsymbol{a}_j\ \;=\ \
+\sum_{i\,=\,1}^j\ \langle\,\boldsymbol{u}_i,\boldsymbol{a}_j\rangle\ \boldsymbol{u}_i\ \ =\ \
+\sum_{i\,=\,1}^n\ \rho_{ij}\;\boldsymbol{u}_i\,,\qquad j=1,2,\dots,n.\end{aligned}\end{align} \]</div>
+<p>The last equality states that the <span class="math notranslate nohighlight">\(\,j\)</span>-th column of the matrix <span class="math notranslate nohighlight">\(\,\boldsymbol{A}\ \)</span> is a linear combination of columns of the matrix
+<span class="math notranslate nohighlight">\(\,\boldsymbol{Q},\ \)</span> with coefficients from the
+<span class="math notranslate nohighlight">\(\,j\)</span>-th column of the matrix <span class="math notranslate nohighlight">\(\,\boldsymbol{R}.\ \)</span>
+According to the column rule of matrix multiplication this is nothing else than the identity
+<span class="math notranslate nohighlight">\(\ \boldsymbol{A}=\boldsymbol{Q}\boldsymbol{R}\ \)</span> we were looking for.</p>
+<p><strong>Application of the QR decomposition.</strong> <span class="math notranslate nohighlight">\(\ \)</span></p>
+<p>Consider a Cramer system of equations over a field <span class="math notranslate nohighlight">\(\,R\ \)</span> with the coefficient matrix
+<span class="math notranslate nohighlight">\(\,\boldsymbol{A}\in M_n(R)\ \)</span>
+and a column vector of constants <span class="math notranslate nohighlight">\(\,\boldsymbol{b}\in R^n\,.\ \)</span>
+If <span class="math notranslate nohighlight">\(\ \boldsymbol{A}=\boldsymbol{Q}\boldsymbol{R},\ \)</span>
+then this system may be written as:</p>
+<div class="math notranslate nohighlight">
+\begin{eqnarray*}
+\boldsymbol{A}\,\boldsymbol{x}                 &amp;  =  &amp; \boldsymbol{b}\,, \\
+(\boldsymbol{Q}\boldsymbol{R})\,\boldsymbol{x} &amp;  =  &amp; \boldsymbol{b}\,, \\
+\boldsymbol{Q}(\boldsymbol{R}\boldsymbol{x})   &amp;  =  &amp; \boldsymbol{b}\,.
+\end{eqnarray*}</div><p>Orthogonality of matrix <span class="math notranslate nohighlight">\(\,\boldsymbol{Q}\,\)</span> allows to replace an expensive operation of taking an inverse by a transpose:
+<span class="math notranslate nohighlight">\(\ \ \boldsymbol{Q}^{-1}=\;\boldsymbol{Q}^T,\ \ \)</span> and so</p>
+<div class="math notranslate nohighlight">
+\[\boldsymbol{R}\,\boldsymbol{x}\ =\ \boldsymbol{Q}^T\,\boldsymbol{b}\,.\]</div>
+<p>A system of equations with triangular matrix <span class="math notranslate nohighlight">\(\,\boldsymbol{R}\ \)</span> may be solved quickly by the “back-substitution” method.</p>
+<p>For an illustration, we perform the QR decomposition for the matrix</p>
+<div class="math notranslate nohighlight">
+\[\begin{split}\boldsymbol{A}\ =\
+\left[\begin{array}{rrr}
+-2 &amp;  8 &amp;  19 \\
+-2 &amp; 11 &amp; -14 \\
+ 1 &amp; -7 &amp;  -8
+\end{array}\right]\,.\end{split}\]</div>
+<p>The Gram-Schmidt orthogonalization applied to columns of the matrix <span class="math notranslate nohighlight">\(\,\boldsymbol{A}\ \)</span>
+gives a matrix <span class="math notranslate nohighlight">\(\,\boldsymbol{P}\ \)</span> whose columns comprise an orthogonal system and
+further the target orthogonal matrix <span class="math notranslate nohighlight">\(\,\boldsymbol{Q}.\ \\\)</span>
+If one knows <span class="math notranslate nohighlight">\(\,\boldsymbol{Q},\ \)</span> the matrix <span class="math notranslate nohighlight">\(\,\boldsymbol{R}\ \)</span>
+may be easily computed from <span class="math notranslate nohighlight">\(\ \boldsymbol{R}=\boldsymbol{Q}^T\boldsymbol{A}\,.\)</span></p>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="n">sage</span><span class="p">:</span> <span class="n">A</span> <span class="o">=</span> <span class="n">matrix</span><span class="p">(</span><span class="n">QQ</span><span class="p">,[[</span><span class="o">-</span><span class="mi">2</span><span class="p">,</span>  <span class="mi">8</span><span class="p">,</span>  <span class="mi">19</span><span class="p">],</span>
+                     <span class="p">[</span><span class="o">-</span><span class="mi">2</span><span class="p">,</span> <span class="mi">11</span><span class="p">,</span> <span class="o">-</span><span class="mi">14</span><span class="p">],</span>
+                     <span class="p">[</span> <span class="mi">1</span><span class="p">,</span> <span class="o">-</span><span class="mi">7</span><span class="p">,</span>  <span class="o">-</span><span class="mi">8</span><span class="p">]])</span>
+
+<span class="n">sage</span><span class="p">:</span> <span class="n">P</span><span class="p">,</span><span class="n">Q</span> <span class="o">=</span> <span class="n">copy</span><span class="p">(</span><span class="n">A</span><span class="p">),</span><span class="n">copy</span><span class="p">(</span><span class="n">A</span><span class="p">)</span>
+
+<span class="n">sage</span><span class="p">:</span> <span class="n">P</span><span class="p">[:,</span><span class="mi">0</span><span class="p">]</span> <span class="o">=</span> <span class="n">A</span><span class="p">[:,</span><span class="mi">0</span><span class="p">]</span>
+<span class="n">sage</span><span class="p">:</span> <span class="n">Q</span><span class="p">[:,</span><span class="mi">0</span><span class="p">]</span> <span class="o">=</span> <span class="n">P</span><span class="p">[:,</span><span class="mi">0</span><span class="p">]</span><span class="o">/</span><span class="n">P</span><span class="p">[:,</span><span class="mi">0</span><span class="p">]</span><span class="o">.</span><span class="n">norm</span><span class="p">()</span>
+
+<span class="n">sage</span><span class="p">:</span> <span class="n">P</span><span class="p">[:,</span><span class="mi">1</span><span class="p">]</span> <span class="o">=</span> <span class="n">A</span><span class="p">[:,</span><span class="mi">1</span><span class="p">]</span> <span class="o">-</span> <span class="n">Q</span><span class="o">.</span><span class="n">column</span><span class="p">(</span><span class="mi">0</span><span class="p">)</span><span class="o">*</span><span class="n">A</span><span class="o">.</span><span class="n">column</span><span class="p">(</span><span class="mi">1</span><span class="p">)</span><span class="o">*</span><span class="n">Q</span><span class="p">[:,</span><span class="mi">0</span><span class="p">]</span>
+<span class="n">sage</span><span class="p">:</span> <span class="n">Q</span><span class="p">[:,</span><span class="mi">1</span><span class="p">]</span> <span class="o">=</span> <span class="n">P</span><span class="p">[:,</span><span class="mi">1</span><span class="p">]</span><span class="o">/</span><span class="n">P</span><span class="p">[:,</span><span class="mi">1</span><span class="p">]</span><span class="o">.</span><span class="n">norm</span><span class="p">()</span>
+
+<span class="n">sage</span><span class="p">:</span> <span class="n">P</span><span class="p">[:,</span><span class="mi">2</span><span class="p">]</span> <span class="o">=</span> <span class="n">A</span><span class="p">[:,</span><span class="mi">2</span><span class="p">]</span> <span class="o">-</span> <span class="n">Q</span><span class="o">.</span><span class="n">column</span><span class="p">(</span><span class="mi">0</span><span class="p">)</span><span class="o">*</span><span class="n">A</span><span class="o">.</span><span class="n">column</span><span class="p">(</span><span class="mi">2</span><span class="p">)</span><span class="o">*</span><span class="n">Q</span><span class="p">[:,</span><span class="mi">0</span><span class="p">]</span>\
+                      <span class="o">-</span> <span class="n">Q</span><span class="o">.</span><span class="n">column</span><span class="p">(</span><span class="mi">1</span><span class="p">)</span><span class="o">*</span><span class="n">A</span><span class="o">.</span><span class="n">column</span><span class="p">(</span><span class="mi">2</span><span class="p">)</span><span class="o">*</span><span class="n">Q</span><span class="p">[:,</span><span class="mi">1</span><span class="p">]</span>
+
+<span class="n">sage</span><span class="p">:</span> <span class="n">Q</span><span class="p">[:,</span><span class="mi">2</span><span class="p">]</span> <span class="o">=</span> <span class="n">P</span><span class="p">[:,</span><span class="mi">2</span><span class="p">]</span><span class="o">/</span><span class="n">P</span><span class="p">[:,</span><span class="mi">2</span><span class="p">]</span><span class="o">.</span><span class="n">norm</span><span class="p">()</span>
+
+<span class="n">sage</span><span class="p">:</span> <span class="n">R</span> <span class="o">=</span> <span class="n">Q</span><span class="o">.</span><span class="n">T</span><span class="o">*</span><span class="n">A</span>
+
+<span class="n">sage</span><span class="p">:</span> <span class="n">table</span><span class="p">([[</span><span class="s1">&#39;$A$&#39;</span><span class="p">,</span><span class="s1">&#39;&#39;</span><span class="p">,</span><span class="s1">&#39;$Q$&#39;</span><span class="p">,</span><span class="s1">&#39;&#39;</span><span class="p">,</span><span class="s1">&#39;$R$&#39;</span><span class="p">],[</span><span class="n">A</span><span class="p">,</span><span class="s1">&#39;=&#39;</span><span class="p">,</span><span class="n">Q</span><span class="p">,</span><span class="s1">&#39;*&#39;</span><span class="p">,</span><span class="n">R</span><span class="p">]])</span>
+</pre></div>
+</div>
+<div class="math notranslate nohighlight">
+\[\begin{split}\begin{array}{ccccc}
+A &amp; &amp; Q &amp; &amp; R \\ \\
+\left(\begin{array}{rrr} -2 &amp; 8 &amp; 19 \\ -2 &amp; 11 &amp; -14 \\ 1 &amp; -7 &amp; -8 \end{array}\right) &amp; = &amp;
+\left(\begin{array}{rrr}
+-\textstyle\frac{2}{3} &amp; -\textstyle\frac{2}{3} &amp; \textstyle\frac{1}{3} \\
+-\textstyle\frac{2}{3} &amp; \textstyle\frac{1}{3} &amp; -\textstyle\frac{2}{3} \\
+ \textstyle\frac{1}{3} &amp; -\textstyle\frac{2}{3} &amp; -\textstyle\frac{2}{3} \end{array}\right) &amp; * &amp;
+\left(\begin{array}{rrr} 3 &amp; -15 &amp; -6 \\ 0 &amp; 3 &amp; -12 \\ 0 &amp; 0 &amp; 21 \end{array}\right)
+\end{array}\end{split}\]</div>
+<p>Sage contains a function (method) <code class="docutils literal notranslate"><span class="pre">QR()</span></code>, which performs the QR decomposition for a given matrix <span class="math notranslate nohighlight">\(\,\boldsymbol{A}\ \)</span> and returns a pair of matrices <span class="math notranslate nohighlight">\(\,(\boldsymbol{Q},\boldsymbol{R})\,.\ \)</span>
+It requires a ring which contains square roots and rational numbers (for example a field of algebraic numbers <code class="docutils literal notranslate"><span class="pre">QQbar</span></code>). Numerical computations should be done over a field <code class="docutils literal notranslate"><span class="pre">RDF</span></code> of real numbers with double precision.</p>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="n">sage</span><span class="p">:</span> <span class="n">B</span> <span class="o">=</span> <span class="n">A</span><span class="o">.</span><span class="n">change_ring</span><span class="p">(</span><span class="n">RDF</span><span class="p">)</span>
+<span class="n">sage</span><span class="p">:</span> <span class="p">(</span><span class="n">Q</span><span class="p">,</span><span class="n">R</span><span class="p">)</span> <span class="o">=</span> <span class="n">B</span><span class="o">.</span><span class="n">QR</span><span class="p">()</span>
+<span class="n">sage</span><span class="p">:</span> <span class="n">show</span><span class="p">((</span><span class="n">Q</span><span class="o">.</span><span class="n">round</span><span class="p">(</span><span class="mi">2</span><span class="p">),</span><span class="n">R</span><span class="p">))</span>
+</pre></div>
+</div>
+<div class="math notranslate nohighlight">
+\[\begin{split}\left(\left(
+\begin{array}{rrr}
+-0.67 &amp; 0.67 &amp; -0.33 \\
+-0.67 &amp; -0.33 &amp; 0.67 \\
+ 0.33 &amp; 0.67 &amp; 0.67
+\end{array}\right),
+\left(\begin{array}{rrr}
+ 3.0 &amp; -15.0 &amp; -6.0 \\
+ 0.0 &amp; -3.0 &amp; 12.0 \\
+-0.0 &amp; -0.0 &amp; -21.0
+\end{array}\right)\right)\end{split}\]</div>
+</section>
+</section>
+
+
+          </div>
+        </div>
+      </div>
+      <div class="sphinxsidebar" role="navigation" aria-label="main navigation">
+        <div class="sphinxsidebarwrapper">
+  <div class="sphinxlocaltoc">
+  <h3><a href="index.html">Table Of Contents</a></h3>
+  <ul>
+<li><a class="reference internal" href="#">Gram-Schmidt Orthonormalization and QR Decomposition of a Matrix</a><ul>
+<li><a class="reference internal" href="#construction-of-the-orthonormal-basis">Construction of the Orthonormal Basis</a></li>
+<li><a class="reference internal" href="#orthogonal-matrices-and-the-qr-decomposition">Orthogonal Matrices and the QR Decomposition</a></li>
+</ul>
+</li>
+</ul>
+
+  </div>
+  <h4>Previous topic</h4>
+  <p class="topless"><a href="p_unitarne_ortogonalnosc.html"
+                        title="previous chapter">Orthogonality of Vectors</a></p>
+  <h4>Next topic</h4>
+  <p class="topless"><a href="p_unitarne_macierze_hermit_i_unit.html"
+                        title="next chapter">Hermitian and Unitary Matrices</a></p>
+  <div role="note" aria-label="source link">
+    <h3>This Page</h3>
+    <ul class="this-page-menu">
+      <li><a href="_sources/p_unitarne_Gram-Schmidt_QR.rst.txt"
+            rel="nofollow">Show Source</a></li>
+    </ul>
+   </div>
+<div id="searchbox" style="display: none" role="search">
+  <h3 id="searchlabel">Quick search</h3>
+    <div class="searchformwrapper">
+    <form class="search" action="search.html" method="get">
+      <input type="text" name="q" aria-labelledby="searchlabel" />
+      <input type="submit" value="Go" />
+    </form>
+    </div>
+</div>
+<script>$('#searchbox').show(0);</script>
+        </div>
+      </div>
+      <div class="clearer"></div>
+    </div>
+  </div>
+  <div class="relbar-bottom">
+    
+    <div class="related" role="navigation" aria-label="related navigation">
+      <h3>Navigation</h3>
+      <ul>
+        <li class="right" style="margin-right: 10px">
+          <a href="genindex.html" title="General Index"
+             >index</a></li>
+        <li class="right" >
+          <a href="p_unitarne_macierze_hermit_i_unit.html" title="Hermitian and Unitary Matrices"
+             >next</a> &nbsp; &nbsp;</li>
+        <li class="right" >
+          <a href="p_unitarne_ortogonalnosc.html" title="Orthogonality of Vectors"
+             >previous</a> &nbsp; &nbsp;</li>
+  <li><a href="index.html">Linear Algebra</a> &#187;</li>
+  
+        <li class="nav-item nav-item-this"><a href="">Gram-Schmidt Orthonormalization and QR Decomposition of a Matrix</a></li> 
+      </ul>
+    </div>
+  </div>
+  
+  <div class="footer">
+    <a class="logo" href="http://icse.us.edu.pl/" target="_blank"><img src="_static/logo-icse.png" alt="ICSE"/></a><br/>
+    &copy; Copyright 2018, Jan Aksamit, Joanna Marzec, and  Marcin Kostur.
+    Last updated on Jan 29, 2022.
+    Created using <a href="http://sphinx.pocoo.org/">Sphinx</a> 4.0.1.
+  </div>
+  </body>
+</html>

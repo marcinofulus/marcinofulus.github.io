@@ -1,0 +1,217 @@
+
+
+  
+<!DOCTYPE html>
+
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" /><meta name="generator" content="Docutils 0.17: http://docutils.sourceforge.net/" />
+
+    <title>Exercises &#8212; Linear Algebra</title>
+    <link rel="stylesheet" type="text/css" href="_static/pygments.css" />
+    <link rel="stylesheet" type="text/css" href="_static/cloud.css" />
+    <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Noticia+Text|Open+Sans|Droid+Sans+Mono&amp;subset=latin,latin-ext" type="text/css" />
+    <script data-url_root="./" id="documentation_options" src="_static/documentation_options.js"></script>
+    <script src="_static/jquery.js"></script>
+    <script src="_static/underscore.js"></script>
+    <script src="_static/doctools.js"></script>
+    <script async="async" src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js"></script>
+    <script src="_static/jquery.cookie.js"></script>
+    <script src="_static/cloud.js"></script>
+    <script type="text/javascript" src="http://sagecell.sagemath.org/static/jquery.min.js"></script>
+    <script type="text/javascript" src="http://sagecell.sagemath.org/embedded_sagecell.js"></script>
+    <script type="text/javascript">
+        sagecell.makeSagecell({inputLocation: ".sage_linked",
+                               linked: true});
+        sagecell.makeSagecell({inputLocation: ".sage_unlinked",
+                               linked: false});
+    </script>
+
+    <style type="text/css">
+        .sagecell .CodeMirror-scroll {
+            overflow-y: hidden;
+            overflow-x: auto;
+        }
+        .sagecell .CodeMirror {
+            height: auto;
+        }
+    </style>
+    
+    <link rel="index" title="Index" href="genindex.html" />
+    <link rel="search" title="Search" href="search.html" />
+    <link rel="next" title="Inner (Scalar) Product" href="p_unitarne_iloczyn_skalarny.html" />
+    <link rel="prev" title="Google’s Application - PageRank Algorithm" href="problem_wlasny_Google.html" />
+ 
+  <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, minimum-scale=1">
+  </head><body>
+  <div class="relbar-top">
+    
+    <div class="related" role="navigation" aria-label="related navigation">
+      <h3>Navigation</h3>
+      <ul>
+        <li class="right" style="margin-right: 10px">
+          <a href="genindex.html" title="General Index"
+             accesskey="I">index</a></li>
+        <li class="right" >
+          <a href="p_unitarne_iloczyn_skalarny.html" title="Inner (Scalar) Product"
+             accesskey="N">next</a> &nbsp; &nbsp;</li>
+        <li class="right" >
+          <a href="problem_wlasny_Google.html" title="Google’s Application - PageRank Algorithm"
+             accesskey="P">previous</a> &nbsp; &nbsp;</li>
+  <li><a href="index.html">Linear Algebra</a> &#187;</li>
+  
+        <li class="nav-item nav-item-this"><a href="">Exercises</a></li> 
+      </ul>
+    </div>
+  </div>
+  
+  <div class="content">  
+
+    <div class="document">
+      <div class="documentwrapper">
+        <div class="bodywrapper">
+          <div class="body">
+            
+  <section id="exercises">
+<h1>Exercises<a class="headerlink" href="#exercises" title="Permalink to this headline">¶</a></h1>
+<p>The exercises can be downloaded in a form of a notebook from <a class="reference external" href="http://visual.icse.us.edu.pl/LA/Notebooks/Problem_wlasny_zadania.ipynb">here</a> .</p>
+<p><strong>Exercise 1.</strong> <a class="footnote-reference brackets" href="#id3" id="id1">1</a></p>
+<p>Consider a web consisting of 4 pages illustrated by the following graph:</p>
+<figure class="align-center">
+<a class="reference internal image-reference" href="_images/PRex1.png"><img alt="_images/PRex1.png" src="_images/PRex1.png" style="width: 396.2px; height: 408.79999999999995px;" /></a>
+</figure>
+<p>where an arrow from page A to page B indicates a link from page A to page B.</p>
+<ol class="arabic simple">
+<li><p>Write down link matrix for this web and compute an importance score vector of this web using basic approach presented in Example 1., <a class="reference internal" href="problem_wlasny_Google.html#pagerank-algorithm"><span class="std std-ref">Google’s Application - PageRank Algorithm</span></a>. You can make the computations in the window below.</p></li>
+</ol>
+<div class='sage_linked'><script type='text/x-sage'></script></div><p>To verify whether the adjacency matrix <span class="math notranslate nohighlight">\(A\)</span> you use is correct, at the end of your code write</p>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="n">sage</span><span class="p">:</span> <span class="n">W</span><span class="o">=</span><span class="n">DiGraph</span><span class="p">(</span><span class="n">A</span><span class="p">)</span>
+<span class="n">sage</span><span class="p">:</span> <span class="n">W</span><span class="o">.</span><span class="n">relabel</span><span class="p">({</span><span class="mi">0</span><span class="p">:</span><span class="s1">&#39;1&#39;</span> <span class="p">,</span> <span class="mi">1</span><span class="p">:</span><span class="s1">&#39;2&#39;</span><span class="p">,</span> <span class="mi">2</span><span class="p">:</span><span class="s1">&#39;3&#39;</span><span class="p">,</span> <span class="mi">3</span><span class="p">:</span><span class="s1">&#39;4&#39;</span><span class="p">})</span>
+<span class="n">sage</span><span class="p">:</span> <span class="n">W</span><span class="o">.</span><span class="n">plot</span><span class="p">()</span>
+</pre></div>
+</div>
+<p>and check whether the resulting graph is the same as above.</p>
+<ol class="arabic simple" start="2">
+<li><p>Compute an importance score vector of this web using formula <a class="reference internal" href="problem_wlasny_Google.html#equation-basic-formula">(1)</a>. Later compare the result with the importance score vector from point 1.</p></li>
+</ol>
+<div class='sage_linked'><script type='text/x-sage'></script></div><ol class="arabic simple" start="3">
+<li><p>Suppose the people who own page 3 are infuriated by the fact that its importance score, computed using formula <a class="reference internal" href="problem_wlasny_Google.html#equation-basic-formula">(1)</a>, is lower than the score of page 1. In an attempt to boost page 3’s score, they create a page 5 that links to page 3; page 3 also links to page 5. Does this boost page 3’s score above that of page 1?</p></li>
+</ol>
+<p>First plot the graph presenting the new situation.</p>
+<div class='sage_linked'><script type='text/x-sage'></script></div><p>Now compute the new ranking using formula <a class="reference internal" href="problem_wlasny_Google.html#equation-basic-formula">(1)</a>.</p>
+<div class='sage_linked'><script type='text/x-sage'></script></div><p><strong>Exercise 2.</strong> <a class="footnote-reference brackets" href="#id3" id="id2">1</a></p>
+<p>Consider again the web from previous exercise with the addition of a page 5 that links to
+page 3, where page 3 also links to page 5:</p>
+<figure class="align-center">
+<a class="reference internal image-reference" href="_images/PRex2.png"><img alt="_images/PRex2.png" src="_images/PRex2.png" style="width: 705.6px; height: 400.5px;" /></a>
+</figure>
+<p>1. Calculate the new ranking by finding the eigenvector of matrix <span class="math notranslate nohighlight">\(M\)</span> defined by equation <a class="reference internal" href="problem_wlasny_Google.html#equation-matrix-m">(2)</a>.
+Use <span class="math notranslate nohighlight">\(\ m=0.15\ \)</span>.</p>
+<div class='sage_linked'><script type='text/x-sage'></script></div><ol class="arabic simple" start="2">
+<li><p>Add a sixth page that links to every page of the web in the previous exercise, but to which no other page links. Write the code to plot the new web in the window below.</p></li>
+</ol>
+<div class='sage_linked'><script type='text/x-sage'></script></div><p>Now rank the pages using</p>
+<p>a). the formula <a class="reference internal" href="problem_wlasny_Google.html#equation-basic-formula">(1)</a>,</p>
+<div class='sage_linked'><script type='text/x-sage'></script></div><p>b). the matrix <span class="math notranslate nohighlight">\(M\)</span> defined by equation <a class="reference internal" href="problem_wlasny_Google.html#equation-matrix-m">(2)</a> with <span class="math notranslate nohighlight">\(\ m=0.15\ \)</span>.</p>
+<div class='sage_linked'><script type='text/x-sage'></script></div><p>Compare the results.</p>
+<ol class="arabic simple" start="3">
+<li><p>Use the power method to compute the ranking of the web from point 2. Take different initial vectors <span class="math notranslate nohighlight">\(\ x_0\ \)</span> and see how many iterations you need to obtain the result which is close to the result from 2b). See also what happens if some entries of <span class="math notranslate nohighlight">\(\ x_0\ \)</span> are not positive or do not sum up to one. How does the value of <span class="math notranslate nohighlight">\(m\)</span> influence the result?</p></li>
+</ol>
+<div class='sage_linked'><script type='text/x-sage'></script></div><p><strong>Exercise 3.</strong> (dangling nodes)</p>
+<p>Consider the web illustrated by the following graph:</p>
+<figure class="align-center">
+<a class="reference internal image-reference" href="_images/PRex3.png"><img alt="_images/PRex3.png" src="_images/PRex3.png" style="width: 705.6px; height: 373.5px;" /></a>
+</figure>
+<p>Compute ranking of the pages by finding the Perron eigenvector.</p>
+<div class='sage_linked'><script type='text/x-sage'></script></div><p><strong>Exercise 4.</strong> (webs randomly generated)</p>
+<p>The code below returns a random web with <span class="math notranslate nohighlight">\(\ n\ \)</span> pages (more precisely: a random directed graph on <span class="math notranslate nohighlight">\(\ n\ \)</span> nodes), where the probability of a link from one page to another is <span class="math notranslate nohighlight">\(\ p\ \)</span>. Check how the result changes if you vary value of <span class="math notranslate nohighlight">\(\ p\ \)</span> between <span class="math notranslate nohighlight">\(0\)</span> and <span class="math notranslate nohighlight">\(1\)</span>.</p>
+<div class='sage_linked'><script type='text/x-sage'>n=5
+p=0.5
+G=digraphs.RandomDirectedGNP(n,p)
+G.plot()</script></div><ol class="arabic simple">
+<li><p>Find the link matrix for this web.</p></li>
+</ol>
+<div class='sage_linked'><script type='text/x-sage'></script></div><ol class="arabic simple" start="2">
+<li><p>Compute ranking of this web using different methods.</p></li>
+</ol>
+<div class='sage_linked'><script type='text/x-sage'></script></div><p><strong>Exercise 5.</strong> (disconnected webs)</p>
+<p>Consider a web consisting of two (disconnected) subwebs:</p>
+<div class='sage_linked'><script type='text/x-sage'>W1=digraphs.RandomDirectedGNP(5,.5)
+A1=W1.adjacency_matrix()
+W2=digraphs.RandomDirectedGNP(3,.5)
+A2=W2.adjacency_matrix()
+A=block_matrix([[A1,zero_matrix(A1.nrows(),A2.ncols())],[zero_matrix(A2.nrows(),A1.ncols()),A2]])
+W=DiGraph(A)
+print W.adjacency_matrix()
+W.plot()</script></div><p>Rank the pages using the matrix M defined by equation <a class="reference internal" href="problem_wlasny_Google.html#equation-matrix-m">(2)</a> with  <span class="math notranslate nohighlight">\(\ m=0.15\ \)</span>. See what happens if you change the value of <span class="math notranslate nohighlight">\(m\)</span>. Do the same with a web consisting of more subwebs.</p>
+<div class='sage_linked'><script type='text/x-sage'></script></div><dl class="footnote brackets">
+<dt class="label" id="id3"><span class="brackets">1</span><span class="fn-backref">(<a href="#id1">1</a>,<a href="#id2">2</a>)</span></dt>
+<dd><p>This exercise was taken from an article of K. Bryan and T. Leise, “The $25,000,000,000 Eigenvector. The Linear Algebra Behind Google”. Available at <a class="reference external" href="https://www.rose-hulman.edu/~bryan/google.html">https://www.rose-hulman.edu/~bryan/google.html</a> .</p>
+</dd>
+</dl>
+</section>
+
+
+          </div>
+        </div>
+      </div>
+      <div class="sphinxsidebar" role="navigation" aria-label="main navigation">
+        <div class="sphinxsidebarwrapper">
+  <h4>Previous topic</h4>
+  <p class="topless"><a href="problem_wlasny_Google.html"
+                        title="previous chapter">Google’s Application - PageRank Algorithm</a></p>
+  <h4>Next topic</h4>
+  <p class="topless"><a href="p_unitarne_iloczyn_skalarny.html"
+                        title="next chapter">Inner (Scalar) Product</a></p>
+  <div role="note" aria-label="source link">
+    <h3>This Page</h3>
+    <ul class="this-page-menu">
+      <li><a href="_sources/problem_wlasny_zadania.rst.txt"
+            rel="nofollow">Show Source</a></li>
+    </ul>
+   </div>
+<div id="searchbox" style="display: none" role="search">
+  <h3 id="searchlabel">Quick search</h3>
+    <div class="searchformwrapper">
+    <form class="search" action="search.html" method="get">
+      <input type="text" name="q" aria-labelledby="searchlabel" />
+      <input type="submit" value="Go" />
+    </form>
+    </div>
+</div>
+<script>$('#searchbox').show(0);</script>
+        </div>
+      </div>
+      <div class="clearer"></div>
+    </div>
+  </div>
+  <div class="relbar-bottom">
+    
+    <div class="related" role="navigation" aria-label="related navigation">
+      <h3>Navigation</h3>
+      <ul>
+        <li class="right" style="margin-right: 10px">
+          <a href="genindex.html" title="General Index"
+             >index</a></li>
+        <li class="right" >
+          <a href="p_unitarne_iloczyn_skalarny.html" title="Inner (Scalar) Product"
+             >next</a> &nbsp; &nbsp;</li>
+        <li class="right" >
+          <a href="problem_wlasny_Google.html" title="Google’s Application - PageRank Algorithm"
+             >previous</a> &nbsp; &nbsp;</li>
+  <li><a href="index.html">Linear Algebra</a> &#187;</li>
+  
+        <li class="nav-item nav-item-this"><a href="">Exercises</a></li> 
+      </ul>
+    </div>
+  </div>
+  
+  <div class="footer">
+    <a class="logo" href="http://icse.us.edu.pl/" target="_blank"><img src="_static/logo-icse.png" alt="ICSE"/></a><br/>
+    &copy; Copyright 2018, Jan Aksamit, Joanna Marzec, and  Marcin Kostur.
+    Last updated on Jan 29, 2022.
+    Created using <a href="http://sphinx.pocoo.org/">Sphinx</a> 4.0.1.
+  </div>
+  </body>
+</html>

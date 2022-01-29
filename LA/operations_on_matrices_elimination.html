@@ -1,0 +1,739 @@
+
+
+  
+<!DOCTYPE html>
+
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" /><meta name="generator" content="Docutils 0.17: http://docutils.sourceforge.net/" />
+
+    <title>Matrix Formulation of the Elimination Method &#8212; Linear Algebra</title>
+    <link rel="stylesheet" type="text/css" href="_static/pygments.css" />
+    <link rel="stylesheet" type="text/css" href="_static/cloud.css" />
+    <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Noticia+Text|Open+Sans|Droid+Sans+Mono&amp;subset=latin,latin-ext" type="text/css" />
+    <script data-url_root="./" id="documentation_options" src="_static/documentation_options.js"></script>
+    <script src="_static/jquery.js"></script>
+    <script src="_static/underscore.js"></script>
+    <script src="_static/doctools.js"></script>
+    <script async="async" src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js"></script>
+    <script src="_static/jquery.cookie.js"></script>
+    <script src="_static/cloud.js"></script>
+    <script type="text/javascript" src="http://sagecell.sagemath.org/static/jquery.min.js"></script>
+    <script type="text/javascript" src="http://sagecell.sagemath.org/embedded_sagecell.js"></script>
+    <script type="text/javascript">
+        sagecell.makeSagecell({inputLocation: ".sage_linked",
+                               linked: true});
+        sagecell.makeSagecell({inputLocation: ".sage_unlinked",
+                               linked: false});
+    </script>
+
+    <style type="text/css">
+        .sagecell .CodeMirror-scroll {
+            overflow-y: hidden;
+            overflow-x: auto;
+        }
+        .sagecell .CodeMirror {
+            height: auto;
+        }
+    </style>
+    
+    <link rel="index" title="Index" href="genindex.html" />
+    <link rel="search" title="Search" href="search.html" />
+    <link rel="next" title="Matrix Transpose" href="operations_on_matrices_transpose.html" />
+    <link rel="prev" title="Exercises and Problems" href="algebra_of_matrices_problems.html" />
+ 
+  <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, minimum-scale=1">
+  </head><body>
+  <div class="relbar-top">
+    
+    <div class="related" role="navigation" aria-label="related navigation">
+      <h3>Navigation</h3>
+      <ul>
+        <li class="right" style="margin-right: 10px">
+          <a href="genindex.html" title="General Index"
+             accesskey="I">index</a></li>
+        <li class="right" >
+          <a href="operations_on_matrices_transpose.html" title="Matrix Transpose"
+             accesskey="N">next</a> &nbsp; &nbsp;</li>
+        <li class="right" >
+          <a href="algebra_of_matrices_problems.html" title="Exercises and Problems"
+             accesskey="P">previous</a> &nbsp; &nbsp;</li>
+  <li><a href="index.html">Linear Algebra</a> &#187;</li>
+  
+        <li class="nav-item nav-item-this"><a href="">Matrix Formulation of the Elimination Method</a></li> 
+      </ul>
+    </div>
+  </div>
+  
+  <div class="content">  
+
+    <div class="document">
+      <div class="documentwrapper">
+        <div class="bodywrapper">
+          <div class="body">
+            
+  <section id="matrix-formulation-of-the-elimination-method">
+<h1>Matrix Formulation of the Elimination Method<a class="headerlink" href="#matrix-formulation-of-the-elimination-method" title="Permalink to this headline">¶</a></h1>
+<p>The elimination method (discussed in Chapter 2) transforms a system
+of linear equations into the echelon form by applying elementary operations
+to the equations themselves.</p>
+<p>An analogous result may be obtained by performing the corresponding operations
+on rows of the augmented matrix representing a given set of equations.</p>
+<section id="augmented-matrix-of-a-system-of-equations">
+<h2>Augmented Matrix of a System of Equations<a class="headerlink" href="#augmented-matrix-of-a-system-of-equations" title="Permalink to this headline">¶</a></h2>
+<p>For a system of <span class="math notranslate nohighlight">\(\,m\,\)</span> linear equations with <span class="math notranslate nohighlight">\(\,n\,\)</span> unknowns:</p>
+<div class="math notranslate nohighlight" id="equation-01">
+<span class="eqno">(1)<a class="headerlink" href="#equation-01" title="Permalink to this equation">¶</a></span>\[\begin{split}\begin{array}{c}
+a_{11}\,x_1\; + \ \,a_{12}\,x_2\; + \ \,\ldots\  + \ \;a_{1n}\,x_n \ \, = \ \ b_1 \\
+a_{21}\,x_1\; + \ \,a_{22}\,x_2\; + \ \,\ldots\  + \ \;a_{2n}\,x_n \ \, = \ \ b_2 \\
+\quad\,\ldots\qquad\quad\ldots\qquad\ \,\ldots\qquad\ \ \ldots\qquad\ \ \,\ldots  \\
+a_{m1}\,x_1\; + \ \,a_{m2}\,x_2\; + \ \,\ldots\  + \ \;a_{mn}\,x_n \ \, = \ \ b_m
+\end{array}\end{split}\]</div>
+<p>where coefficients <span class="math notranslate nohighlight">\(\,a_{ij}\,\)</span> and constants
+<span class="math notranslate nohighlight">\(\,b_i\ \ (i=1,2,\ldots,m;\ j=1,2,\ldots,n)\,\)</span>
+belong to a field <span class="math notranslate nohighlight">\(\,K,\,\)</span> we have defined
+the <em>coefficient matrix</em> <span class="math notranslate nohighlight">\(\boldsymbol{A},\ \)</span>
+the <em>column vector of constants</em> <span class="math notranslate nohighlight">\(\boldsymbol{b},\,\)</span> and
+the <em>column vector of unknowns</em> <span class="math notranslate nohighlight">\(\boldsymbol{x}:\)</span></p>
+<div class="math notranslate nohighlight">
+\[\begin{split}\boldsymbol{A}\  =\  \left[\;\begin{array}{cccc}
+                        a_{11} &amp; a_{12} &amp; \ldots &amp; a_{1n} \\
+                        a_{21} &amp; a_{22} &amp; \ldots &amp; a_{2n} \\
+                        \ldots &amp; \ldots &amp; \ldots &amp; \ldots \\
+                        a_{m1} &amp; a_{m2} &amp; \ldots &amp; a_{mn}
+                     \end{array}\right]\,,
+\qquad
+\boldsymbol{b}\,=\,\left[\begin{array}{c}
+                      b_{1} \\ b_{2} \\ \ldots \\ b_{m}
+                   \end{array}\right]\,,
+\qquad
+\boldsymbol{x}\,=\,\left[\begin{array}{c}
+                      x_{1} \\ x_{2} \\ \ldots \\ x_{n}
+                   \end{array}\right]\,.\end{split}\]</div>
+<p>Then system <a class="reference internal" href="primer_elimination-for-eqns.html#equation-01">(1)</a> may be rewritten compactly as</p>
+<div class="math notranslate nohighlight" id="equation-02">
+<span class="eqno">(2)<a class="headerlink" href="#equation-02" title="Permalink to this equation">¶</a></span>\[\boldsymbol{A}\,\boldsymbol{x}\,=\,\boldsymbol{b}.\]</div>
+<p>When all constants vanish: <span class="math notranslate nohighlight">\(\ \boldsymbol{b} = \boldsymbol{0},\ \)</span>
+the system of equations is said to be <em>homogeneous</em>. <span class="math notranslate nohighlight">\(\\\)</span>
+The homogeneous system</p>
+<div class="math notranslate nohighlight">
+\[\boldsymbol{A}\,\boldsymbol{x}\ =\ \boldsymbol{0}\]</div>
+<p>is <em>associated</em> with the unhomogeneous system <a class="reference internal" href="#equation-02">(2)</a>.</p>
+<p>Two systems of equations are <em>equivalent</em>, <span class="math notranslate nohighlight">\(\,\)</span>
+when they possess the same set of solutions.</p>
+<p>The system of equations <a class="reference internal" href="primer_elimination-for-eqns.html#equation-01">(1)</a> is represented in one-to-one way
+by the <em>augmented matrix</em> <span class="math notranslate nohighlight">\(\,\boldsymbol{B}:\)</span></p>
+<div class="math notranslate nohighlight">
+\[\begin{split}\boldsymbol{B}\ \,:\,=\ \,[\,\boldsymbol{A}\,|\,\boldsymbol{b}\;]\ \,
+                  =\ \,\left[\begin{array}{ccccc}
+                             a_{11} &amp; a_{12} &amp; \ldots &amp; a_{1n} &amp; b_1    \\
+                             a_{21} &amp; a_{22} &amp; \ldots &amp; a_{2n} &amp; b_2    \\
+                             \ldots &amp; \ldots &amp; \ldots &amp; \ldots &amp; \ldots \\
+                             a_{m1} &amp; a_{m2} &amp; \ldots &amp; a_{mn} &amp; b_m
+                       \end{array}\right]\,.\end{split}\]</div>
+<p>The three types of elementary operations on equations of a system
+correspond to the row operations on the augmented matrix:</p>
+<ol class="arabic">
+<li><p><span class="math notranslate nohighlight">\(\,\)</span> swap around the positions of two rows</p></li>
+<li><p><span class="math notranslate nohighlight">\(\,\)</span> multiply a row by a <em>nonzero</em> scalar</p></li>
+<li><div class="line-block">
+<div class="line"><span class="math notranslate nohighlight">\(\,\)</span> add to a row a scalar multiple of another row</div>
+<div class="line"><span class="math notranslate nohighlight">\(\,\)</span> (in particular: add or subtract two different rows).</div>
+</div>
+</li>
+</ol>
+<p>The augmented matrix <span class="math notranslate nohighlight">\(\,\boldsymbol{B}\,\)</span> transformed by the above
+row operations refers to a system of equations equivalent to the original one.
+On the other hand, elementary operations applied to columns of matrix
+<span class="math notranslate nohighlight">\(\,\boldsymbol{B}\,\)</span> usually do change the set of solutions
+and hence are not applicable in the process of solving a system.
+Nevertheless, a permutation of columns of matrix <span class="math notranslate nohighlight">\(\,\boldsymbol{A}\,\)</span>
+(which only reorders variables) may sometimes facilitate the solution.</p>
+</section>
+<section id="echelon-form-of-a-matrix">
+<h2>Echelon Form of a Matrix<a class="headerlink" href="#echelon-form-of-a-matrix" title="Permalink to this headline">¶</a></h2>
+<p>We start from a few definitions.</p>
+<ul class="simple">
+<li><p>In a <em>zero row</em> all elements vanish;
+a <em>non-zero row</em> has at least one non-zero element.</p></li>
+<li><p>The <em>leading entry</em> (<em>pivot</em>) of a non-zero row
+is the first non-zero element from the left.</p></li>
+</ul>
+<p>A matrix is in the <em>row echelon form</em>, if</p>
+<ol class="arabic">
+<li><p><span class="math notranslate nohighlight">\(\,\)</span> all zero rows (if any) are below the non-zero ones, and</p></li>
+<li><div class="line-block">
+<div class="line"><span class="math notranslate nohighlight">\(\,\)</span> for any two non-zero rows,
+the leading entry of the lower row</div>
+<div class="line"><span class="math notranslate nohighlight">\(\,\)</span> is strictly to the right
+of the leading entry of the upper row.</div>
+</div>
+</li>
+</ol>
+<p>These conditions imply that if a column contains the pivot of a non-zero row,
+then all elements of that column below the pivot vanish.
+Consequently, all elements of the matrix below the main diagonal are zeroes.</p>
+<p>This is an example of a matrix in row echelon form
+(the leading entries are boxed):</p>
+<div class="math notranslate nohighlight">
+\[\begin{split}\left[
+\begin{array}{rrrrr}
+\boxed{2} &amp;       -1  &amp; 0 &amp;        5  &amp;        4 \\
+       0  &amp; \boxed{5} &amp; 3 &amp;        1  &amp;       -1 \\
+       0  &amp;        0  &amp; 0 &amp; \boxed{1} &amp;        8 \\
+       0  &amp;        0  &amp; 0 &amp;        0  &amp; \boxed{7}
+\end{array}
+\right]\,.\end{split}\]</div>
+<p>A matrix is in <em>reduced row echelon form</em> if, in addition to being
+in row echelon form, it satifies the two following conditions:</p>
+<ol class="arabic simple" start="3">
+<li><p><span class="math notranslate nohighlight">\(\,\)</span> all leading entries are equal to 1 <span class="math notranslate nohighlight">\(\,\)</span>
+(they are then called <em>leading unities</em>), <span class="math notranslate nohighlight">\(\,\)</span> and</p></li>
+<li><p><span class="math notranslate nohighlight">\(\,\)</span> each leading unity is the only non-zero element in its column.</p></li>
+</ol>
+<p>An example of a matrix in reduced row echelon form is
+(the leading unities are boxed):</p>
+<div class="math notranslate nohighlight">
+\[\begin{split}\left[
+\begin{array}{rrrrr}
+\boxed{1} &amp;        0  &amp; 6 &amp;        0  &amp;  2 \\
+       0  &amp; \boxed{1} &amp; 3 &amp;        0  &amp; -1 \\
+       0  &amp;        0  &amp; 0 &amp; \boxed{1} &amp;  4 \\
+       0  &amp;        0  &amp; 0 &amp;        0  &amp;  0
+\end{array}
+\right]\,.\end{split}\]</div>
+<p>Replacing rows with columns in the above formulae,
+one may define the (<em>reduced</em>) <em>column echelon form</em>
+of a matrix. Thus a matrix is in the (reduced) column echelon form
+if and only if its transpose is in the (reduced) row echelon form.
+Since operations on equations of a system correspond to
+operations on rows of the augmented matrix,
+in the following we shall consider the row version of echelon form only.</p>
+<p>The discussion may be generalized to the case of a matrix over
+an arbitrary ring with identity (e.g. the integer ring <span class="math notranslate nohighlight">\(\,Z\)</span>).
+To assure reversibility, definition of the 2nd elementary row operation
+is to be slightly modified (descriptions of the other two operations
+are unchanged):</p>
+<ol class="arabic simple" start="2">
+<li><p><span class="math notranslate nohighlight">\(\,\)</span> multiply a row by an <em>invertible</em> element of the ring</p></li>
+</ol>
+<p>Every matrix over a ring <span class="math notranslate nohighlight">\(\,P\,\)</span> with identity may be transformed into
+a row echelon form by row elementary operations - this procedure is called
+<em>Gauss elimination</em>. On the other hand, every matrix over a field
+<span class="math notranslate nohighlight">\(\,K\,\)</span> may be converted in this way into the (unique) reduced row
+echelon form. This row-reducing of a matrix is referred to as
+<em>Gauss-Jordan elimination</em>.</p>
+<p>The matrix <span class="math notranslate nohighlight">\(\,\boldsymbol{A}\,\)</span> may be considered both over
+the integer ring <span class="math notranslate nohighlight">\(\,Z\,\)</span> or over the rational field <span class="math notranslate nohighlight">\(\,Q:\)</span></p>
+<div class="math notranslate nohighlight">
+\[\begin{split}\boldsymbol{A}\ =\
+\left[\begin{array}{rrrr}
+   2 &amp; 5 &amp;  3 &amp;  0 \\
+   2 &amp; 0 &amp; -2 &amp; -1 \\
+   0 &amp; 0 &amp;  4 &amp;  5
+\end{array}\right]\,.\end{split}\]</div>
+<p>If <span class="math notranslate nohighlight">\(\,\boldsymbol{A}\,\)</span> is a matrix over <span class="math notranslate nohighlight">\(\,Z,\,\)</span> then elementary
+operations on its rows <span class="math notranslate nohighlight">\(\,r0,\,r1,\,r2\,\)</span> (in Sage the numbering starts
+from zero!) make way to an echelon form only:</p>
+<div class="math notranslate nohighlight">
+\[\begin{split}\begin{array}{ccccc}
+   &amp; &amp; \begin{array}{c}\small{r1=r1-r0,} \\
+                       \small{r1=r1+r2:}\end{array}
+   &amp; &amp; \begin{array}{c}\small{r0=r0+r1,} \\
+                       \small{r1=-r1:} \end{array} \\ \\
+   \left[\begin{array}{rrrr}
+      2 &amp; 5 &amp;  3 &amp;  0 \\
+      2 &amp; 0 &amp; -2 &amp; -1 \\
+      0 &amp; 0 &amp;  4 &amp;  5
+   \end{array}\right] &amp; \rightarrow &amp;
+   \left[\begin{array}{rrrr}
+      2 &amp;  5 &amp;  3 &amp; 0 \\
+      0 &amp; -5 &amp; -1 &amp; 4 \\
+      0 &amp;  0 &amp;  4 &amp; 5
+   \end{array}\right] &amp; \rightarrow &amp;
+   \left[\begin{array}{rrrr}
+      2 &amp; 0 &amp; 2 &amp;  4 \\
+      0 &amp; 5 &amp; 1 &amp; -4 \\
+      0 &amp; 0 &amp; 4 &amp;  5
+   \end{array}\right]
+\end{array}\end{split}\]</div>
+<p>(the echelon form is actually obtained at the first step;
+the next operations try to get the reduced form,
+which is however not achievable in this framework).</p>
+<p>Alternatively, if we assume that <span class="math notranslate nohighlight">\(\,\boldsymbol{A}\,\)</span> is a matrix over
+the field <span class="math notranslate nohighlight">\(\,Q,\,\)</span> the operations may be pushed further,
+up to the reduced echelon form:</p>
+<div class="math notranslate nohighlight">
+\[ \begin{align}\begin{aligned}\begin{split}\begin{array}{cccccc}
+     &amp; \begin{array}{c} \small{r0=2\ r0,} \\
+                        \small{r1=4\ r1:} \end{array}
+   &amp; &amp; \begin{array}{c} \small{r0=r0-r2,} \\
+                        \small{r1=r1-r2:} \end{array}
+   &amp; &amp; \begin{array}{c} \small{r0=r0/4,}  \\
+                        \small{r1=r1/20,} \\
+                        \small{r2=r2/4:} \end{array} \\ \\
+   \rightarrow &amp;
+   \left[\begin{array}{rrrr}
+      4 &amp;  0 &amp; 4 &amp;   8 \\
+      0 &amp; 20 &amp; 4 &amp; -16 \\
+      0 &amp;  0 &amp; 4 &amp;   5
+   \end{array}\right] &amp; \rightarrow &amp;
+   \left[\begin{array}{rrrr}
+      4 &amp;  0 &amp; 0 &amp;   3 \\
+      0 &amp; 20 &amp; 0 &amp; -21 \\
+      0 &amp;  0 &amp; 4 &amp;   5
+   \end{array}\right] &amp; \rightarrow &amp;
+   \left[\begin{array}{cccc}
+      1 &amp; 0 &amp; 0 &amp;   3/4  \\
+      0 &amp; 1 &amp; 0 &amp; -21/20 \\
+      0 &amp; 0 &amp; 1 &amp;   5/4
+   \end{array}\right]\,.
+\end{array}\end{split}\\\;\end{aligned}\end{align} \]</div>
+</section>
+<section id="practical-elimination-in-sage">
+<span id="id1"></span><h2>Practical Elimination in Sage<a class="headerlink" href="#practical-elimination-in-sage" title="Permalink to this headline">¶</a></h2>
+<p>In Sage there are built-in functions (strictly: methods), which perform
+the row and column elementary operations on matrices:</p>
+<ol class="arabic simple">
+<li><p><span class="math notranslate nohighlight">\(\,\)</span> <code class="docutils literal notranslate"><span class="pre">swap_rows(i,j)</span></code> <span class="math notranslate nohighlight">\(\ \)</span>
+swaps around rows <span class="math notranslate nohighlight">\(\,\)</span> i <span class="math notranslate nohighlight">\(\,\)</span> and <span class="math notranslate nohighlight">\(\,\)</span> j;</p></li>
+<li><p><span class="math notranslate nohighlight">\(\,\)</span> <code class="docutils literal notranslate"><span class="pre">rescale_row(i,a)</span></code> <span class="math notranslate nohighlight">\(\ \)</span>
+multiplies row <span class="math notranslate nohighlight">\(\,\)</span> i <span class="math notranslate nohighlight">\(\,\)</span> by the scalar <span class="math notranslate nohighlight">\(\,\)</span> a;</p></li>
+<li><p><span class="math notranslate nohighlight">\(\,\)</span> <code class="docutils literal notranslate"><span class="pre">add_multiple_of_row(i,j,a)</span></code> <span class="math notranslate nohighlight">\(\,\)</span>
+adds <span class="math notranslate nohighlight">\(\,\)</span> a times row j <span class="math notranslate nohighlight">\(\,\)</span> to row i.</p></li>
+</ol>
+<p>The column counterparts of these methods are <code class="docutils literal notranslate"><span class="pre">swap_columns(i,j)</span></code>,
+<code class="docutils literal notranslate"><span class="pre">rescale_col(i,a)</span></code> and <code class="docutils literal notranslate"><span class="pre">add_multiple_of_column(i,j,a)</span></code>.
+The above methods perform the operations directly on the original matrix
+and do not return any value. In contrast to them, the methods
+<code class="docutils literal notranslate"><span class="pre">with_swapped_rows(i,j)</span></code>, <code class="docutils literal notranslate"><span class="pre">with_rescaled_row(i,a)</span></code> and
+<code class="docutils literal notranslate"><span class="pre">with_added_multiple_of_row(i,j,a)</span></code> as well as
+<code class="docutils literal notranslate"><span class="pre">with_swapped_columns(i,j)</span></code>, <code class="docutils literal notranslate"><span class="pre">with_rescaled_col(i,a)</span></code> and
+<code class="docutils literal notranslate"><span class="pre">with_added_multiple_of_column(i,j,a)</span></code>
+do return the modified matrix while leaving the original unchanged. <a class="footnote-reference brackets" href="#id5" id="id2">0</a></p>
+<p>If <span class="math notranslate nohighlight">\(\,\boldsymbol{A}\,\)</span> is a matrix,
+<span class="math notranslate nohighlight">\(\ \,\boldsymbol{b}\ \)</span> is a matrix or a vector,
+then the command <code class="docutils literal notranslate"><span class="pre">A.augment(b)</span></code> returns the matrix, obtained by appending
+<span class="math notranslate nohighlight">\(\,\boldsymbol{b}\,\)</span> onto the right side of <span class="math notranslate nohighlight">\(\,\boldsymbol{A}\,\)</span>
+(vector <span class="math notranslate nohighlight">\(\,\boldsymbol{b}\,\)</span> is first converted to a one-column matrix).
+The method <code class="docutils literal notranslate"><span class="pre">augment()</span></code> may be thus used to construct the augmented matrix
+of a system of linear equations from the coefficient matrix and the column
+vector of constants. <a class="footnote-reference brackets" href="#id6" id="id3">1</a></p>
+<p>The method <code class="docutils literal notranslate"><span class="pre">echelon_form()</span></code> returns a matrix  transformed to the row echelon
+or (when the base ring of the matrix is a field) to the reduced row
+echelon form. The method <code class="docutils literal notranslate"><span class="pre">rref()</span></code> returns a matrix in the reduced
+row echelon form (if the base ring is not a field, the original matrix
+is replaced by an equivalent matrix  over the rational field prior to
+row-reducing). Both methods, <code class="docutils literal notranslate"><span class="pre">echelon_form()</span></code> and <code class="docutils literal notranslate"><span class="pre">rref()</span></code>,
+return the transformed matrix and do not change the original one.
+To convert directly the original into the echelon form,
+the function <code class="docutils literal notranslate"><span class="pre">echelonize()</span></code> is to be be applied instead. <a class="footnote-reference brackets" href="#id7" id="id4">2</a></p>
+<p>We shall use these methods to check the results from the last section:</p>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="n">sage</span><span class="p">:</span> <span class="n">A</span> <span class="o">=</span> <span class="n">matrix</span><span class="p">([[</span><span class="mi">2</span><span class="p">,</span> <span class="mi">5</span><span class="p">,</span> <span class="mi">3</span><span class="p">,</span> <span class="mi">0</span><span class="p">],</span>
+                  <span class="p">[</span><span class="mi">2</span><span class="p">,</span> <span class="mi">0</span><span class="p">,</span><span class="o">-</span><span class="mi">2</span><span class="p">,</span><span class="o">-</span><span class="mi">1</span><span class="p">],</span>
+                  <span class="p">[</span><span class="mi">0</span><span class="p">,</span> <span class="mi">0</span><span class="p">,</span> <span class="mi">4</span><span class="p">,</span> <span class="mi">5</span><span class="p">]])</span>
+
+<span class="n">sage</span><span class="p">:</span> <span class="p">(</span><span class="n">A</span><span class="p">,</span> <span class="n">A</span><span class="o">.</span><span class="n">echelon_form</span><span class="p">(),</span> <span class="n">A</span><span class="o">.</span><span class="n">rref</span><span class="p">())</span>
+
+<span class="p">(</span>
+<span class="p">[</span> <span class="mi">2</span>  <span class="mi">5</span>  <span class="mi">3</span>  <span class="mi">0</span><span class="p">]</span>  <span class="p">[</span> <span class="mi">2</span>  <span class="mi">0</span>  <span class="mi">2</span>  <span class="mi">4</span><span class="p">]</span>  <span class="p">[</span>     <span class="mi">1</span>      <span class="mi">0</span>      <span class="mi">0</span>    <span class="mi">3</span><span class="o">/</span><span class="mi">4</span><span class="p">]</span>
+<span class="p">[</span> <span class="mi">2</span>  <span class="mi">0</span> <span class="o">-</span><span class="mi">2</span> <span class="o">-</span><span class="mi">1</span><span class="p">]</span>  <span class="p">[</span> <span class="mi">0</span>  <span class="mi">5</span>  <span class="mi">1</span> <span class="o">-</span><span class="mi">4</span><span class="p">]</span>  <span class="p">[</span>     <span class="mi">0</span>      <span class="mi">1</span>      <span class="mi">0</span> <span class="o">-</span><span class="mi">21</span><span class="o">/</span><span class="mi">20</span><span class="p">]</span>
+<span class="p">[</span> <span class="mi">0</span>  <span class="mi">0</span>  <span class="mi">4</span>  <span class="mi">5</span><span class="p">],</span> <span class="p">[</span> <span class="mi">0</span>  <span class="mi">0</span>  <span class="mi">4</span>  <span class="mi">5</span><span class="p">],</span> <span class="p">[</span>     <span class="mi">0</span>      <span class="mi">0</span>      <span class="mi">1</span>    <span class="mi">5</span><span class="o">/</span><span class="mi">4</span><span class="p">]</span>
+<span class="p">)</span>
+</pre></div>
+</div>
+<p><span class="math notranslate nohighlight">\(\;\)</span></p>
+<p><strong>Example 1.</strong> <span class="math notranslate nohighlight">\(\,\)</span> <strong>Consistent linear system with a unique solution</strong></p>
+<p>We shall apply the elimination method to the system of equations
+over the rational field <span class="math notranslate nohighlight">\(\,Q:\)</span></p>
+<div class="math notranslate nohighlight">
+\begin{alignat*}{4}
+ 2\,x_1 &amp; {\,} - {\,} &amp;    x_2 &amp; {\,} - {\,} &amp;    x_3 &amp; {\;} = {\;} &amp;  4 \\
+ 3\,x_1 &amp; {\,} + {\,} &amp; 4\,x_2 &amp; {\,} - {\,} &amp; 2\,x_3 &amp; {\;} = {\;} &amp; 11 \\
+ 3\,x_1 &amp; {\,} - {\,} &amp; 2\,x_2 &amp; {\,} + {\,} &amp; 4\,x_3 &amp; {\;} = {\;} &amp; 11
+\end{alignat*}</div><p>The coefficient matrix <span class="math notranslate nohighlight">\(\,\boldsymbol{A},\,\)</span>
+column vector of constants <span class="math notranslate nohighlight">\(\,\boldsymbol{b},\,\)</span>
+and the augmented matrix <span class="math notranslate nohighlight">\(\,\boldsymbol{B}:\)</span></p>
+<div class="math notranslate nohighlight">
+\[\begin{split}\boldsymbol{A}\ =\
+\left[\begin{array}{rrr}
+   2 &amp; -1 &amp; -1 \\
+   3 &amp;  4 &amp; -2 \\
+   3 &amp; -2 &amp;  4
+\end{array}\right]\,,
+\quad
+\boldsymbol{b}\ =\
+\left[\begin{array}{r}
+   4 \\ 11 \\ 11
+\end{array}\right]\,,
+\qquad
+\boldsymbol{B}\ =\
+\left[\begin{array}{rrrr}
+   2 &amp; -1 &amp; -1 &amp;  4 \\
+   3 &amp;  4 &amp; -2 &amp; 11 \\
+   3 &amp; -2 &amp;  4 &amp; 11
+\end{array}\right]\,.\end{split}\]</div>
+<p>The Gauss-Jordan elimination consists of the operations
+on rows <span class="math notranslate nohighlight">\(\,r0,\,r1,\,r2\,\)</span> of matrix <span class="math notranslate nohighlight">\(\,\boldsymbol{B}:\)</span></p>
+<div class="math notranslate nohighlight">
+\[\begin{split}\begin{array}{cccccc}
+   &amp; &amp; r2=r2-r1:
+   &amp; &amp; \begin{array}{c} r1=r1-r0, \\
+                        r2=-r2/6: \end{array} &amp; \\ \\
+   \left[\begin{array}{rrrr}
+      2 &amp; -1 &amp; -1 &amp;  4 \\
+      3 &amp;  4 &amp; -2 &amp; 11 \\
+      3 &amp; -2 &amp;  4 &amp; 11
+   \end{array}\right] &amp; \rightarrow &amp;
+   \left[\begin{array}{rrrr}
+      2 &amp; -1 &amp; -1 &amp;  4 \\
+      3 &amp;  4 &amp; -2 &amp; 11 \\
+      0 &amp; -6 &amp;  6 &amp;  0
+   \end{array}\right] &amp; \rightarrow &amp;
+   \left[\begin{array}{rrrr}
+      2 &amp; -1 &amp; -1 &amp; 4 \\
+      1 &amp;  5 &amp; -1 &amp; 7 \\
+      0 &amp;  1 &amp; -1 &amp; 0
+   \end{array}\right] &amp; \rightarrow \\ \\
+   r0=r0-2\,r1: &amp; &amp; r0,r1,r2=r1,r2,r0: &amp; &amp; r2=r2+11\,r1: &amp; \\ \\
+   \left[\begin{array}{rrrr}
+      0 &amp; -11 &amp;  1 &amp; -10 \\
+      1 &amp;   5 &amp; -1 &amp;   7 \\
+      0 &amp;   1 &amp; -1 &amp;   0
+   \end{array}\right] &amp; \rightarrow &amp;
+   \left[\begin{array}{rrrr}
+      1 &amp;   5 &amp; -1 &amp;   7 \\
+      0 &amp;   1 &amp; -1 &amp;   0 \\
+      0 &amp; -11 &amp;  1 &amp; -10
+   \end{array}\right] &amp; \rightarrow &amp;
+   \left[\begin{array}{rrrr}
+      1 &amp; 5 &amp;  -1 &amp;   7 \\
+      0 &amp; 1 &amp;  -1 &amp;   0 \\
+      0 &amp; 0 &amp; -10 &amp; -10
+   \end{array}\right] &amp; \rightarrow \\ \\
+   r2=-r2/10: &amp; &amp; \begin{array}{l}r0=r0+r2, \\
+                                  r1=r1+r2: \end{array}
+              &amp; &amp; r0=r0-5\,r1: &amp; \\ \\
+   \left[\begin{array}{rrrr}
+      1 &amp; 5 &amp; -1 &amp; 7 \\
+      0 &amp; 1 &amp; -1 &amp; 0 \\
+      0 &amp; 0 &amp;  1 &amp; 1
+   \end{array}\right] &amp; \rightarrow &amp;
+   \left[\begin{array}{rrrr}
+      1 &amp; 5 &amp; 0 &amp; 8 \\
+      0 &amp; 1 &amp; 0 &amp; 1 \\
+      0 &amp; 0 &amp; 1 &amp; 1
+   \end{array}\right] &amp; \rightarrow &amp;
+   \left[\begin{array}{rrrr}
+      1 &amp; 0 &amp; 0 &amp; 3 \\
+      0 &amp; 1 &amp; 0 &amp; 1 \\
+      0 &amp; 0 &amp; 1 &amp; 1
+   \end{array}\right]\,. &amp;
+\end{array}\end{split}\]</div>
+<p><span class="math notranslate nohighlight">\(\ \)</span></p>
+<p>The following program executes this procedure step-by-step:</p>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="n">sage</span><span class="p">:</span> <span class="n">A</span> <span class="o">=</span> <span class="n">matrix</span><span class="p">(</span><span class="n">QQ</span><span class="p">,[[</span><span class="mi">2</span><span class="p">,</span><span class="o">-</span><span class="mi">1</span><span class="p">,</span><span class="o">-</span><span class="mi">1</span><span class="p">],</span>      <span class="c1"># the coefficient matrix</span>
+                     <span class="p">[</span><span class="mi">3</span><span class="p">,</span> <span class="mi">4</span><span class="p">,</span><span class="o">-</span><span class="mi">2</span><span class="p">],</span>
+                     <span class="p">[</span><span class="mi">3</span><span class="p">,</span><span class="o">-</span><span class="mi">2</span><span class="p">,</span> <span class="mi">4</span><span class="p">]])</span>
+
+<span class="n">sage</span><span class="p">:</span> <span class="n">b</span> <span class="o">=</span> <span class="n">vector</span><span class="p">([</span><span class="mi">4</span><span class="p">,</span><span class="mi">11</span><span class="p">,</span><span class="mi">11</span><span class="p">])</span>          <span class="c1"># the vector of constants</span>
+
+<span class="n">sage</span><span class="p">:</span> <span class="n">B</span> <span class="o">=</span> <span class="n">A</span><span class="o">.</span><span class="n">augment</span><span class="p">(</span><span class="n">b</span><span class="p">)</span>               <span class="c1"># compose the augmented matrix</span>
+
+<span class="n">sage</span><span class="p">:</span> <span class="n">B</span><span class="o">.</span><span class="n">add_multiple_of_row</span><span class="p">(</span><span class="mi">2</span><span class="p">,</span><span class="mi">1</span><span class="p">,</span><span class="o">-</span><span class="mi">1</span><span class="p">)</span>  <span class="c1"># from the third row subtract the second</span>
+
+<span class="n">sage</span><span class="p">:</span> <span class="n">B</span><span class="o">.</span><span class="n">add_multiple_of_row</span><span class="p">(</span><span class="mi">1</span><span class="p">,</span><span class="mi">0</span><span class="p">,</span><span class="o">-</span><span class="mi">1</span><span class="p">)</span>  <span class="c1"># from the second row subtract the first</span>
+<span class="n">sage</span><span class="p">:</span> <span class="n">B</span><span class="o">.</span><span class="n">rescale_row</span><span class="p">(</span><span class="mi">2</span><span class="p">,</span><span class="o">-</span><span class="mi">1</span><span class="o">/</span><span class="mi">6</span><span class="p">)</span>          <span class="c1"># third row divide by -6</span>
+
+<span class="n">sage</span><span class="p">:</span> <span class="n">B</span><span class="o">.</span><span class="n">add_multiple_of_row</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span><span class="mi">1</span><span class="p">,</span><span class="o">-</span><span class="mi">2</span><span class="p">)</span>  <span class="c1"># from first row subtract doubled second</span>
+
+<span class="n">sage</span><span class="p">:</span> <span class="n">B</span><span class="o">.</span><span class="n">swap_rows</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span><span class="mi">1</span><span class="p">)</span>               <span class="c1"># swap first and second rows</span>
+<span class="n">sage</span><span class="p">:</span> <span class="n">B</span><span class="o">.</span><span class="n">swap_rows</span><span class="p">(</span><span class="mi">1</span><span class="p">,</span><span class="mi">2</span><span class="p">)</span>               <span class="c1"># swap second and third rows</span>
+
+<span class="n">sage</span><span class="p">:</span> <span class="n">B</span><span class="o">.</span><span class="n">add_multiple_of_row</span><span class="p">(</span><span class="mi">2</span><span class="p">,</span><span class="mi">1</span><span class="p">,</span><span class="mi">11</span><span class="p">)</span>  <span class="c1"># to third row add the second</span>
+                                     <span class="c1"># multiplied by 11</span>
+
+<span class="n">sage</span><span class="p">:</span> <span class="n">B</span><span class="o">.</span><span class="n">rescale_row</span><span class="p">(</span><span class="mi">2</span><span class="p">,</span><span class="o">-</span><span class="mi">1</span><span class="o">/</span><span class="mi">10</span><span class="p">)</span>         <span class="c1"># third row divide by -10</span>
+
+<span class="n">sage</span><span class="p">:</span> <span class="n">B</span><span class="o">.</span><span class="n">add_multiple_of_row</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span><span class="mi">2</span><span class="p">,</span><span class="mi">1</span><span class="p">)</span>   <span class="c1"># to  the first row add the third</span>
+<span class="n">sage</span><span class="p">:</span> <span class="n">B</span><span class="o">.</span><span class="n">add_multiple_of_row</span><span class="p">(</span><span class="mi">1</span><span class="p">,</span><span class="mi">2</span><span class="p">,</span><span class="mi">1</span><span class="p">)</span>   <span class="c1"># to the second row add the third</span>
+
+<span class="n">sage</span><span class="p">:</span> <span class="n">B</span><span class="o">.</span><span class="n">add_multiple_of_row</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span><span class="mi">1</span><span class="p">,</span><span class="o">-</span><span class="mi">5</span><span class="p">)</span>  <span class="c1"># from the first row subtract the second</span>
+                                     <span class="c1"># multiplied by 5</span>
+
+<span class="n">sage</span><span class="p">:</span> <span class="n">B</span>                              <span class="c1"># display the transformed matrix B</span>
+
+<span class="p">[</span><span class="mi">1</span> <span class="mi">0</span> <span class="mi">0</span> <span class="mi">3</span><span class="p">]</span>
+<span class="p">[</span><span class="mi">0</span> <span class="mi">1</span> <span class="mi">0</span> <span class="mi">1</span><span class="p">]</span>
+<span class="p">[</span><span class="mi">0</span> <span class="mi">0</span> <span class="mi">1</span> <span class="mi">1</span><span class="p">]</span>
+</pre></div>
+</div>
+<p>This result may be obtained directly by means of the method <code class="docutils literal notranslate"><span class="pre">rref()</span></code>:</p>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="n">sage</span><span class="p">:</span> <span class="n">A</span> <span class="o">=</span> <span class="n">matrix</span><span class="p">(</span><span class="n">QQ</span><span class="p">,[[</span><span class="mi">2</span><span class="p">,</span><span class="o">-</span><span class="mi">1</span><span class="p">,</span><span class="o">-</span><span class="mi">1</span><span class="p">],</span>  <span class="c1"># the coefficient matrix</span>
+                     <span class="p">[</span><span class="mi">3</span><span class="p">,</span> <span class="mi">4</span><span class="p">,</span><span class="o">-</span><span class="mi">2</span><span class="p">],</span>
+                     <span class="p">[</span><span class="mi">3</span><span class="p">,</span><span class="o">-</span><span class="mi">2</span><span class="p">,</span> <span class="mi">4</span><span class="p">]])</span>
+
+<span class="n">sage</span><span class="p">:</span> <span class="n">b</span> <span class="o">=</span> <span class="n">vector</span><span class="p">([</span><span class="mi">4</span><span class="p">,</span><span class="mi">11</span><span class="p">,</span><span class="mi">11</span><span class="p">])</span>      <span class="c1"># the vector of constants</span>
+
+<span class="n">sage</span><span class="p">:</span> <span class="n">B</span> <span class="o">=</span> <span class="n">A</span><span class="o">.</span><span class="n">augment</span><span class="p">(</span><span class="n">b</span><span class="p">)</span>           <span class="c1"># compose the augmented matrix</span>
+<span class="n">sage</span><span class="p">:</span> <span class="n">B</span><span class="o">.</span><span class="n">rref</span><span class="p">()</span>                   <span class="c1"># display the transformed matrix B</span>
+
+<span class="p">[</span><span class="mi">1</span> <span class="mi">0</span> <span class="mi">0</span> <span class="mi">3</span><span class="p">]</span>
+<span class="p">[</span><span class="mi">0</span> <span class="mi">1</span> <span class="mi">0</span> <span class="mi">1</span><span class="p">]</span>
+<span class="p">[</span><span class="mi">0</span> <span class="mi">0</span> <span class="mi">1</span> <span class="mi">1</span><span class="p">]</span>
+</pre></div>
+</div>
+<p>The reduced echelon matrix corresponds to the trivial system of equations</p>
+<div class="math notranslate nohighlight">
+\begin{alignat*}{4}
+   1\,x_1 &amp; {\,} + {\,} &amp; 0\,x_2 &amp; {\,} + {\,} &amp; 0\,x_3 &amp; {\;} = {\;} &amp; 3 \\
+   0\,x_1 &amp; {\,} + {\,} &amp; 1\,x_2 &amp; {\,} + {\,} &amp; 0\,x_3 &amp; {\;} = {\;} &amp; 1 \\
+   0\,x_1 &amp; {\,} + {\,} &amp; 0\,x_2 &amp; {\,} + {\,} &amp; 1\,x_3 &amp; {\;} = {\;} &amp; 1
+\end{alignat*}</div><p>where we recognize immediately the solution:
+<span class="math notranslate nohighlight">\(\ \ x_1 = 3,\ x_2=x_3 = 1.\)</span></p>
+<p><strong>Example 2.</strong> <span class="math notranslate nohighlight">\(\,\)</span>
+<strong>Consistent linear system  with infinitely many solutions</strong></p>
+<p>We shall consider the system of three equations in four variables
+over the rational field <span class="math notranslate nohighlight">\(\,Q:\)</span></p>
+<div class="math notranslate nohighlight">
+\begin{alignat*}{5}
+   x_1 &amp; {\,} - {\,} &amp;    x_2 &amp; {\,} + {\,} &amp; 2\,x_3 &amp; {\,} - {\,} &amp;    x_4 &amp; {\;} = {\;} &amp;  1 \\
+2\,x_1 &amp; {\,} - {\,} &amp; 3\,x_2 &amp; {\,} - {\,} &amp;    x_3 &amp; {\,} + {\,} &amp;    x_4 &amp; {\;} = {\;} &amp; -1 \\
+   x_1 &amp; {\,}   {\,} &amp;        &amp; {\,} + {\,} &amp; 7\,x_3 &amp; {\,} - {\,} &amp; 4\,x_4 &amp; {\;} = {\;} &amp;  4
+\end{alignat*}</div><p>The Sage code</p>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="n">sage</span><span class="p">:</span> <span class="n">B</span> <span class="o">=</span> <span class="n">matrix</span><span class="p">(</span><span class="n">QQ</span><span class="p">,[[</span><span class="mi">1</span><span class="p">,</span><span class="o">-</span><span class="mi">1</span><span class="p">,</span> <span class="mi">2</span><span class="p">,</span><span class="o">-</span><span class="mi">1</span><span class="p">,</span> <span class="mi">1</span><span class="p">],</span>
+                     <span class="p">[</span><span class="mi">2</span><span class="p">,</span><span class="o">-</span><span class="mi">3</span><span class="p">,</span><span class="o">-</span><span class="mi">1</span><span class="p">,</span> <span class="mi">1</span><span class="p">,</span><span class="o">-</span><span class="mi">1</span><span class="p">],</span>
+                     <span class="p">[</span><span class="mi">1</span><span class="p">,</span> <span class="mi">0</span><span class="p">,</span> <span class="mi">7</span><span class="p">,</span><span class="o">-</span><span class="mi">4</span><span class="p">,</span> <span class="mi">4</span><span class="p">]])</span>
+
+<span class="n">sage</span><span class="p">:</span> <span class="n">table</span><span class="p">([[</span><span class="n">B</span><span class="p">,</span> <span class="s1">&#39;$</span><span class="se">\\</span><span class="s1">rightarrow$&#39;</span><span class="p">,</span> <span class="n">B</span><span class="o">.</span><span class="n">rref</span><span class="p">()]])</span>
+</pre></div>
+</div>
+<p>displays both the original augmented matrix and its row-reduced echelon form:</p>
+<div class="math notranslate nohighlight">
+\[\begin{split}\left[\begin{array}{rrrrr}
+      1 &amp; -1 &amp;  2 &amp; -1 &amp;  1 \\
+      2 &amp; -3 &amp; -1 &amp;  1 &amp; -1 \\
+      1 &amp;  0 &amp;  7 &amp; -4 &amp;  4
+      \end{array}\right]\quad\rightarrow\quad\left[\begin{array}{rrrrr}
+                                                   1 &amp; 0 &amp; 7 &amp; -4 &amp; 4 \\
+                                                   0 &amp; 1 &amp; 5 &amp; -3 &amp; 3 \\
+                                                   0 &amp; 0 &amp; 0 &amp;  0 &amp; 0
+                                                   \end{array}\right]\,.\end{split}\]</div>
+<p>The latter matrix refers to the system of two equations
+(the third one is fulfilled identically):</p>
+<div class="math notranslate nohighlight">
+\[\begin{split}\begin{array}{l}
+1\,x_1 \ + \ 0\,x_2 \ + \ 7\,x_3 \ - \ 4\,x_4 \ = \ 4 \\
+0\,x_1 \ + \ 1\,x_2 \ + \ 5\,x_3 \ - \ 3\,x_4 \ = \ 3 \,.
+\end{array}\end{split}\]</div>
+<p>which may be rewritten as</p>
+<div class="math notranslate nohighlight">
+\[\begin{split}\begin{array}{c}
+x_1\ =\ 4\ -\ 7\,x_3\ +\ 4\,x_4 \\ x_2\ =\ 3\ -\ 5\,x_3\ +\ 3\,x_4 \,.
+\end{array}\end{split}\]</div>
+<p>For each pair of values <span class="math notranslate nohighlight">\(\,x_3,\,x_4\,\)</span> there exists exactly one pair
+of values <span class="math notranslate nohighlight">\(\,x_1,\,x_2,\)</span> for which the system is satisfied.
+Therefore we consider <span class="math notranslate nohighlight">\(\,x_3,\,x_4\,\)</span> as free parameters:
+<span class="math notranslate nohighlight">\(\ x_3 = s,\ x_4 = t,\ \)</span> and the solution takes the form</p>
+<div class="math notranslate nohighlight">
+\begin{alignat*}{4}
+   x_1 &amp; {\;} = {\;} &amp; 4 &amp; {\,} - {\,} &amp; 7\,s &amp; {\,} + {\,} &amp; 4\,t \\
+   x_2 &amp; {\;} = {\;} &amp; 3 &amp; {\,} - {\,} &amp; 5\,s &amp; {\,} + {\,} &amp; 3\,t \\
+   x_3 &amp; {\;} = {\;} &amp; s \\
+   x_4 &amp; {\;} = {\;} &amp; t
+\end{alignat*}</div><p>where <span class="math notranslate nohighlight">\(\,s\ \,\text{and}\ \,t\,\)</span> are arbitrary rational numbers.
+<span class="math notranslate nohighlight">\(\,\)</span> In the vector notation</p>
+<div class="math notranslate nohighlight" id="equation-03">
+<span class="eqno">(3)<a class="headerlink" href="#equation-03" title="Permalink to this equation">¶</a></span>\[\begin{split}\left[\begin{array}{c} x_1 \\ x_2 \\ x_3 \\ x_4 \end{array}\right]\ \ =\ \
+\left[\begin{array}{c}
+   4 - 7\,s + 4\,t \\
+   3 - 5\,s + 3\,t \\
+   s               \\
+   t
+\end{array}\right]\ \  =\ \
+\left[\begin{array}{r}  4 \\  3 \\ 0 \\ 0 \end{array}\right]\ +\ s\ \,
+\left[\begin{array}{r} -7 \\ -5 \\ 1 \\ 0 \end{array}\right]\ +\ t\ \,
+\left[\begin{array}{r} 4 \\ 3 \\ 0 \\ 1 \end{array}\right],\quad
+s,t\in Q.\end{split}\]</div>
+<p>The above discussion suggests a general approach to such systems of linear
+equations with infinitely many solutions. The augmented matrix being
+transformed to the reduced row echelon form, the unknowns corresponding
+to columns with leading unities are to be expressed by the remaining ones,
+whereupon the latter are assumed to be free parameters.</p>
+<p><strong>Example 3.</strong> <span class="math notranslate nohighlight">\(\,\)</span> <strong>Inconsistent linear system</strong></p>
+<p>The present system of equations differs from the previous one
+only in a constant term on the right-hand side:</p>
+<div class="math notranslate nohighlight">
+\begin{alignat*}{5}
+   x_1 &amp; {\,} - {\,} &amp;    x_2 &amp; {\,} + {\,} &amp; 2\,x_3 &amp; {\,} - {\,} &amp;    x_4 &amp; {\;} = {\;} &amp; 1 \\
+2\,x_1 &amp; {\,} - {\,} &amp; 3\,x_2 &amp; {\,} - {\,} &amp;    x_3 &amp; {\,} + {\,} &amp;    x_4 &amp; {\;} = {\;} &amp; 1 \\
+   x_1 &amp; {\,}   {\,} &amp;        &amp; {\,} + {\,} &amp; 7\,x_3 &amp; {\,} - {\,} &amp; 4\,x_4 &amp; {\;} = {\;} &amp; 4
+\end{alignat*}</div><p>whereby it turns out to be inconsistent. <span class="math notranslate nohighlight">\(\\\)</span>
+Indeed, the augmented matrix transformed to the reduced row echelon form</p>
+<div class="math notranslate nohighlight">
+\[\begin{split}\left[\begin{array}{rrrrr}
+      1 &amp; -1 &amp;  2 &amp; -1 &amp;  1 \\
+      2 &amp; -3 &amp; -1 &amp;  1 &amp;  1 \\
+      1 &amp;  0 &amp;  7 &amp; -4 &amp;  4
+      \end{array}\right]\quad\rightarrow\quad\left[\begin{array}{rrrrr}
+                                                   1 &amp; 0 &amp; 7 &amp; -4 &amp; 0 \\
+                                                   0 &amp; 1 &amp; 5 &amp; -3 &amp; 0 \\
+                                                   0 &amp; 0 &amp; 0 &amp;  0 &amp; 1
+                                                   \end{array}\right]\end{split}\]</div>
+<p>corresponds to the system</p>
+<div class="math notranslate nohighlight">
+\begin{alignat*}{5}
+1\,x_1 &amp; {\,} + {\,} &amp; 0\,x_2 &amp; {\,} + {\,} &amp; 7\,x_3 &amp; {\,} - {\,} &amp; 4\,x_4 &amp; {\;} = {\;} &amp;  0 \\
+0\,x_1 &amp; {\,} + {\,} &amp; 1\,x_2 &amp; {\,} + {\,} &amp; 5\,x_3 &amp; {\,} - {\,} &amp; 3\,x_4 &amp; {\;} = {\;} &amp;  0 \\
+0\,x_1 &amp; {\,} + {\,} &amp; 0\,x_2 &amp; {\,} + {\,} &amp; 0\,x_3 &amp; {\,} + {\,} &amp; 0\,x_4 &amp; {\;} = {\;} &amp;  1
+\end{alignat*}</div><p>which evidently has no solution, since there are no values of
+<span class="math notranslate nohighlight">\(\,x_1,\,x_2,\,x_3,\,x_4,\,\)</span> satisfying the last equation <span class="math notranslate nohighlight">\(\ 0=1.\)</span></p>
+<p><span class="math notranslate nohighlight">\(\ \)</span></p>
+<p><strong>Example 4.</strong> <span class="math notranslate nohighlight">\(\,\)</span> <strong>Homogeneous linear system</strong></p>
+<p>Let’s consider the homogeneous system associated with that in Example 2.:</p>
+<div class="math notranslate nohighlight">
+\begin{alignat*}{5}
+   x_1 &amp; {\,} - {\,} &amp;    x_2 &amp; {\,} + {\,} &amp; 2\,x_3 &amp; {\,} - {\,} &amp;    x_4 &amp; {\;} = {\;} &amp; 0 \\
+2\,x_1 &amp; {\,} - {\,} &amp; 3\,x_2 &amp; {\,} - {\,} &amp;    x_3 &amp; {\,} + {\,} &amp;    x_4 &amp; {\;} = {\;} &amp; 0 \\
+   x_1 &amp; {\,}   {\,} &amp;        &amp; {\,} + {\,} &amp; 7\,x_3 &amp; {\,} - {\,} &amp; 4\,x_4 &amp; {\;} = {\;} &amp; 0
+\end{alignat*}</div><p>The augmented matrix converted to the reduced row echelon form</p>
+<div class="math notranslate nohighlight">
+\[\begin{split}\left[\begin{array}{rrrrr}
+      1 &amp; -1 &amp;  2 &amp; -1 &amp;  0 \\
+      2 &amp; -3 &amp; -1 &amp;  1 &amp;  0 \\
+      1 &amp;  0 &amp;  7 &amp; -4 &amp;  0
+      \end{array}\right]\quad\rightarrow\quad\left[\begin{array}{rrrrr}
+                                                   1 &amp; 0 &amp; 7 &amp; -4 &amp; 0 \\
+                                                   0 &amp; 1 &amp; 5 &amp; -3 &amp; 0 \\
+                                                   0 &amp; 0 &amp; 0 &amp;  0 &amp; 0
+                                                   \end{array}\right]\end{split}\]</div>
+<p>leads to the system of two equations</p>
+<div class="math notranslate nohighlight">
+\begin{alignat*}{5}
+1\,x_1 &amp; {\,} + {\,} &amp; 0\,x_2 &amp; {\,} + {\,} &amp; 7\,x_3 &amp; {\,} - {\,} &amp; 4\,x_4 &amp; {\;} = {\;} &amp;  0 \\
+0\,x_1 &amp; {\,} + {\,} &amp; 1\,x_2 &amp; {\,} + {\,} &amp; 5\,x_3 &amp; {\,} - {\,} &amp; 3\,x_4 &amp; {\;} = {\;} &amp;  0
+\end{alignat*}</div><p>which are equivalent to</p>
+<div class="math notranslate nohighlight">
+\begin{alignat*}{3}
+   x_1 &amp; {\;} = {\,} - {\,} &amp; 7\,x_3 &amp; {\,} + {\,} &amp; 4\,x_4 \\
+   x_2 &amp; {\;} = {\,} - {\,} &amp; 5\,x_3 &amp; {\,} + {\,} &amp; 3\,x_4 \,.
+\end{alignat*}</div><p>As previously, we treat <span class="math notranslate nohighlight">\(\,x_3,\,x_4\,\)</span> as parameters with arbitrary
+values: <span class="math notranslate nohighlight">\(\ x_3 = s,\ x_4 = t :\)</span></p>
+<div class="math notranslate nohighlight">
+\[\begin{split}\begin{array}{l}
+   x_1 \ =\ - 7\,s\ +\ 4\,t \\
+   x_2 \ =\ - 5\,s\ +\ 3\,t \\
+   x_3 \ =\quad s           \\
+   x_4 \ =\quad t
+\end{array}
+\qquad\qquad s,t\in Q\,\end{split}\]</div>
+<p>and get finally the solution in the vector form:</p>
+<div class="math notranslate nohighlight" id="equation-04">
+<span class="eqno">(4)<a class="headerlink" href="#equation-04" title="Permalink to this equation">¶</a></span>\[\begin{split}\left[\begin{array}{c}
+x_1 \\ x_2 \\ x_3 \\ x_4
+\end{array}\right]
+\quad = \quad
+\left[\begin{array}{c}
+   - 7\,s + 4\,t \\
+   - 5\,s + 3\,t \\
+   s             \\
+   t
+\end{array}\right]
+\quad = \quad
+s\ \left[\begin{array}{r} -7 \\ -5 \\ 1 \\ 0 \end{array}\right]\ \, +\ \:
+t\ \left[\begin{array}{r} 4 \\ 3 \\ 0 \\ 1 \end{array}\right]\,,
+\qquad s,t\in Q\,.\end{split}\]</div>
+<p>Comparison of formulae <a class="reference internal" href="#equation-03">(3)</a> and <a class="reference internal" href="#equation-04">(4)</a> in Examples 2. and 4.
+suggests a relationship between the solution of an (inhomogeneous)
+linear system and the solution of its homogeneous counterpart.
+This question will be brought up in a further chapter.</p>
+<dl class="footnote brackets">
+<dt class="label" id="id5"><span class="brackets"><a class="fn-backref" href="#id2">0</a></span></dt>
+<dd><p><a class="reference external" href="http://doc.sagemath.org/html/en/reference/matrices/sage/matrix/matrix0.html">http://doc.sagemath.org/html/en/reference/matrices/sage/matrix/matrix0.html</a></p>
+</dd>
+<dt class="label" id="id6"><span class="brackets"><a class="fn-backref" href="#id3">1</a></span></dt>
+<dd><p><a class="reference external" href="http://doc.sagemath.org/html/en/reference/matrices/sage/matrix/matrix1.html">http://doc.sagemath.org/html/en/reference/matrices/sage/matrix/matrix1.html</a></p>
+</dd>
+<dt class="label" id="id7"><span class="brackets"><a class="fn-backref" href="#id4">2</a></span></dt>
+<dd><p><a class="reference external" href="http://doc.sagemath.org/html/en/reference/matrices/sage/matrix/matrix2.html">http://doc.sagemath.org/html/en/reference/matrices/sage/matrix/matrix2.html</a></p>
+</dd>
+</dl>
+</section>
+</section>
+
+
+          </div>
+        </div>
+      </div>
+      <div class="sphinxsidebar" role="navigation" aria-label="main navigation">
+        <div class="sphinxsidebarwrapper">
+  <div class="sphinxlocaltoc">
+  <h3><a href="index.html">Table Of Contents</a></h3>
+  <ul>
+<li><a class="reference internal" href="#">Matrix Formulation of the Elimination Method</a><ul>
+<li><a class="reference internal" href="#augmented-matrix-of-a-system-of-equations">Augmented Matrix of a System of Equations</a></li>
+<li><a class="reference internal" href="#echelon-form-of-a-matrix">Echelon Form of a Matrix</a></li>
+<li><a class="reference internal" href="#practical-elimination-in-sage">Practical Elimination in Sage</a></li>
+</ul>
+</li>
+</ul>
+
+  </div>
+  <h4>Previous topic</h4>
+  <p class="topless"><a href="algebra_of_matrices_problems.html"
+                        title="previous chapter">Exercises and Problems</a></p>
+  <h4>Next topic</h4>
+  <p class="topless"><a href="operations_on_matrices_transpose.html"
+                        title="next chapter">Matrix Transpose</a></p>
+  <div role="note" aria-label="source link">
+    <h3>This Page</h3>
+    <ul class="this-page-menu">
+      <li><a href="_sources/operations_on_matrices_elimination.rst.txt"
+            rel="nofollow">Show Source</a></li>
+    </ul>
+   </div>
+<div id="searchbox" style="display: none" role="search">
+  <h3 id="searchlabel">Quick search</h3>
+    <div class="searchformwrapper">
+    <form class="search" action="search.html" method="get">
+      <input type="text" name="q" aria-labelledby="searchlabel" />
+      <input type="submit" value="Go" />
+    </form>
+    </div>
+</div>
+<script>$('#searchbox').show(0);</script>
+        </div>
+      </div>
+      <div class="clearer"></div>
+    </div>
+  </div>
+  <div class="relbar-bottom">
+    
+    <div class="related" role="navigation" aria-label="related navigation">
+      <h3>Navigation</h3>
+      <ul>
+        <li class="right" style="margin-right: 10px">
+          <a href="genindex.html" title="General Index"
+             >index</a></li>
+        <li class="right" >
+          <a href="operations_on_matrices_transpose.html" title="Matrix Transpose"
+             >next</a> &nbsp; &nbsp;</li>
+        <li class="right" >
+          <a href="algebra_of_matrices_problems.html" title="Exercises and Problems"
+             >previous</a> &nbsp; &nbsp;</li>
+  <li><a href="index.html">Linear Algebra</a> &#187;</li>
+  
+        <li class="nav-item nav-item-this"><a href="">Matrix Formulation of the Elimination Method</a></li> 
+      </ul>
+    </div>
+  </div>
+  
+  <div class="footer">
+    <a class="logo" href="http://icse.us.edu.pl/" target="_blank"><img src="_static/logo-icse.png" alt="ICSE"/></a><br/>
+    &copy; Copyright 2018, Jan Aksamit, Joanna Marzec, and  Marcin Kostur.
+    Last updated on Jan 29, 2022.
+    Created using <a href="http://sphinx.pocoo.org/">Sphinx</a> 4.0.1.
+  </div>
+  </body>
+</html>

@@ -1,0 +1,266 @@
+
+
+  
+<!DOCTYPE html>
+
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" /><meta name="generator" content="Docutils 0.17: http://docutils.sourceforge.net/" />
+
+    <title>Matrix Inverse by the Elimination Method &#8212; Linear Algebra</title>
+    <link rel="stylesheet" type="text/css" href="_static/pygments.css" />
+    <link rel="stylesheet" type="text/css" href="_static/cloud.css" />
+    <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Noticia+Text|Open+Sans|Droid+Sans+Mono&amp;subset=latin,latin-ext" type="text/css" />
+    <script data-url_root="./" id="documentation_options" src="_static/documentation_options.js"></script>
+    <script src="_static/jquery.js"></script>
+    <script src="_static/underscore.js"></script>
+    <script src="_static/doctools.js"></script>
+    <script async="async" src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js"></script>
+    <script src="_static/jquery.cookie.js"></script>
+    <script src="_static/cloud.js"></script>
+    <script type="text/javascript" src="http://sagecell.sagemath.org/static/jquery.min.js"></script>
+    <script type="text/javascript" src="http://sagecell.sagemath.org/embedded_sagecell.js"></script>
+    <script type="text/javascript">
+        sagecell.makeSagecell({inputLocation: ".sage_linked",
+                               linked: true});
+        sagecell.makeSagecell({inputLocation: ".sage_unlinked",
+                               linked: false});
+    </script>
+
+    <style type="text/css">
+        .sagecell .CodeMirror-scroll {
+            overflow-y: hidden;
+            overflow-x: auto;
+        }
+        .sagecell .CodeMirror {
+            height: auto;
+        }
+    </style>
+    
+    <link rel="index" title="Index" href="genindex.html" />
+    <link rel="search" title="Search" href="search.html" />
+    <link rel="next" title="Permutation Matrices" href="operations_on_matrices_permutations.html" />
+    <link rel="prev" title="Elementary Matrices" href="operations_on_matrices_elementary.html" />
+ 
+  <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, minimum-scale=1">
+  </head><body>
+  <div class="relbar-top">
+    
+    <div class="related" role="navigation" aria-label="related navigation">
+      <h3>Navigation</h3>
+      <ul>
+        <li class="right" style="margin-right: 10px">
+          <a href="genindex.html" title="General Index"
+             accesskey="I">index</a></li>
+        <li class="right" >
+          <a href="operations_on_matrices_permutations.html" title="Permutation Matrices"
+             accesskey="N">next</a> &nbsp; &nbsp;</li>
+        <li class="right" >
+          <a href="operations_on_matrices_elementary.html" title="Elementary Matrices"
+             accesskey="P">previous</a> &nbsp; &nbsp;</li>
+  <li><a href="index.html">Linear Algebra</a> &#187;</li>
+  
+        <li class="nav-item nav-item-this"><a href="">Matrix Inverse by the Elimination Method</a></li> 
+      </ul>
+    </div>
+  </div>
+  
+  <div class="content">  
+
+    <div class="document">
+      <div class="documentwrapper">
+        <div class="bodywrapper">
+          <div class="body">
+            
+  <section id="matrix-inverse-by-the-elimination-method">
+<h1>Matrix Inverse by the Elimination Method<a class="headerlink" href="#matrix-inverse-by-the-elimination-method" title="Permalink to this headline">¶</a></h1>
+<p>Given two square matrices of the same size,
+<span class="math notranslate nohighlight">\(\ \boldsymbol{A}=[\,a_{ij}\,]_{n\times n}\ \,\text{and}\ \,
+\boldsymbol{B}=[\,b_{ij}\,]_{n\times n}\ \,\text{in}\ \,M_n(K)\,,\ \)</span>
+<span class="math notranslate nohighlight">\(\\\)</span> we shall use the term <em>2-block</em> for the matrix formed by
+appending <span class="math notranslate nohighlight">\(\,\boldsymbol{B}\,\)</span> onto
+the right side of <span class="math notranslate nohighlight">\(\ \boldsymbol{A}:\)</span></p>
+<div class="math notranslate nohighlight">
+\[\begin{split}\left[\,\boldsymbol{A}\,|\,\boldsymbol{B}\,\right]\ \,:\,=\ \,
+\left[\begin{array}{cccccc}
+   a_{11} &amp; \ldots &amp; a_{1n} &amp; b_{11} &amp; \ldots &amp; b_{1n} \\
+   a_{21} &amp; \ldots &amp; a_{2n} &amp; b_{21} &amp; \ldots &amp; b_{2n} \\
+   \ldots &amp; \ldots &amp; \ldots &amp; \ldots &amp; \ldots &amp; \ldots \\
+   a_{n1} &amp; \ldots &amp; a_{nn} &amp; b_{n1} &amp; \ldots &amp; b_{nn}
+\end{array}\right]\,\in\,M_{n\times 2n}(K)\,.\end{split}\]</div>
+<div class="admonition-lemma-math admonition">
+<p class="admonition-title">Lemma. <span class="math notranslate nohighlight">\(\,\)</span></p>
+<p>We assume, as above, that
+<span class="math notranslate nohighlight">\(\ \boldsymbol{A},\boldsymbol{B}\in M_n(K)\,.\)</span></p>
+<ol class="arabic simple">
+<li><p><span class="math notranslate nohighlight">\(\,\)</span> If <span class="math notranslate nohighlight">\(\ O\ \)</span> is a row elementary operation, <span class="math notranslate nohighlight">\(\,\)</span>
+then <span class="math notranslate nohighlight">\(\ \,O\,\left[\,\boldsymbol{A}\,|\,\boldsymbol{B}\,\right]\ =\
+\left[\,O\boldsymbol{A}\,|\,O\boldsymbol{B}\,\right]\,.\)</span></p></li>
+<li><p><span class="math notranslate nohighlight">\(\,\)</span> Let <span class="math notranslate nohighlight">\(\ \boldsymbol{C}\in M_n(K)\,.\ \,\)</span>
+Then <span class="math notranslate nohighlight">\(\ \,\boldsymbol{C}\,
+\left[\,\boldsymbol{A}\,|\,\boldsymbol{B}\,\right]\,=\,
+\left[\;\boldsymbol{C}\boldsymbol{A}\,|\,
+\boldsymbol{C}\boldsymbol{B}\;\right]\,.\)</span></p></li>
+</ol>
+</div>
+<p>Whereas the first statement of the Lemma is obvious, the second one may
+be easily validated on the grounds of the Column Rule of Matrix Multiplication.</p>
+<p>Now suppose that <span class="math notranslate nohighlight">\(\,\boldsymbol{A}\in M_n(K)\,\)</span> is an invertible matrix,
+and that the consecutive elementary operations
+<span class="math notranslate nohighlight">\(\,O_1\,,O_2,\,\dots,\,O_k\,,\ \)</span> represented by elementary matrices
+<span class="math notranslate nohighlight">\(\,\boldsymbol{E}_1,\boldsymbol{E}_2,\dots,\boldsymbol{E}_k\in M_n(K),\,\)</span>
+transform <span class="math notranslate nohighlight">\(\,\boldsymbol{A}\,\)</span> into the reduced row echelon form
+(the latter is the identity matrix):</p>
+<div class="math notranslate nohighlight" id="equation-id">
+<span class="eqno">(1)<a class="headerlink" href="#equation-id" title="Permalink to this equation">¶</a></span>\[O_k\dots O_2\,O_1\ \boldsymbol{A}\ =\
+\boldsymbol{E}_k\dots\boldsymbol{E}_2\,\boldsymbol{E}_1\,\boldsymbol{A}\ =\
+\boldsymbol{I}_n\,.\]</div>
+<p>We note immediately that</p>
+<div class="math notranslate nohighlight" id="equation-rec">
+<span class="eqno">(2)<a class="headerlink" href="#equation-rec" title="Permalink to this equation">¶</a></span>\[\boldsymbol{E}_k\dots\boldsymbol{E}_2\,\boldsymbol{E}_1\ =\
+\boldsymbol{A}^{-1}\,.\]</div>
+<p>Let’s apply the operations <span class="math notranslate nohighlight">\(\,O_1\,,O_2,\,\dots,\,O_k\ \)</span> to the 2-block
+<span class="math notranslate nohighlight">\(\,\left[\,\boldsymbol{A}\,|\,\boldsymbol{I}_n\,\right].\,\)</span> <span class="math notranslate nohighlight">\(\\\)</span>
+Using the Lemma, Theorem 2. as well as Eqs <a class="reference internal" href="#equation-id">(1)</a> and <a class="reference internal" href="#equation-rec">(2)</a>, we get</p>
+<div class="math notranslate nohighlight">
+\[ \begin{align}\begin{aligned}O_k\dots O_2\,O_1\ \left[\,
+\boldsymbol{A}\,|\,\boldsymbol{I}_n\,\right]\ \,=\ \,
+\left[\ O_k\dots O_2\,O_1\ \boldsymbol{A}\ |\
+O_k\dots O_2\,O_1\ \boldsymbol{I}_n\ \right]\ \,=\\=\ \,
+\left[\ \boldsymbol{E}_k\dots
+\boldsymbol{E}_2\,
+\boldsymbol{E}_1\ \boldsymbol{A}\ |\
+\boldsymbol{E}_k\dots
+\boldsymbol{E}_2\,
+\boldsymbol{E}_1\ \boldsymbol{I}_n\ \right]\ \,=\ \,
+\left[\ \boldsymbol{A}^{-1}\boldsymbol{A}\ |\
+\boldsymbol{A}^{-1}\boldsymbol{I}_n\ \right]\ =\
+\left[\,\boldsymbol{I}_n\;|\;\boldsymbol{A}^{-1}\,\right]\,.\end{aligned}\end{align} \]</div>
+<p>That way we have come up with a practical recipe
+to obtain the inverse of a matrix.</p>
+<div class="admonition-proposition-3-math-matrix-inversion-algorithm-math admonition">
+<p class="admonition-title">Proposition 3. <span class="math notranslate nohighlight">\(\,\)</span>
+Matrix Inversion Algorithm  <span class="math notranslate nohighlight">\(\,\)</span></p>
+<p>Let <span class="math notranslate nohighlight">\(\,\boldsymbol{A}\in M_n(K)\,\)</span> be an invertible matrix. <span class="math notranslate nohighlight">\(\\\)</span>
+To find its inverse, create the 2-block
+<span class="math notranslate nohighlight">\(\,\left[\,\boldsymbol{A}\,|\,\boldsymbol{I}_n\,\right]\,\)</span>
+and perform elementary row operations which transform
+the first segment of the 2-block into the identity matrix.
+Then the second segment turns out to be <span class="math notranslate nohighlight">\(\,\boldsymbol{A}^{-1}\,.\)</span></p>
+</div>
+<p><strong>Example.</strong> <span class="math notranslate nohighlight">\(\,\)</span> Find the inverse of
+<span class="math notranslate nohighlight">\(\ \boldsymbol{A}\ =\
+\left[\begin{array}{rrrr}
+2 &amp;  0 &amp; -1 &amp; 1 \\
+1 &amp;  1 &amp; -1 &amp; 0 \\
+-1 &amp;  0 &amp;  6 &amp; 1 \\
+1 &amp;  0 &amp;  1 &amp; 1
+\end{array}\right]\,.\)</span> <span class="math notranslate nohighlight">\(\\\)</span></p>
+<p>The Sage code calculates <span class="math notranslate nohighlight">\(\,\boldsymbol{A}^{-1}\,\)</span> and checks the result:</p>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="n">sage</span><span class="p">:</span> <span class="n">A</span> <span class="o">=</span> <span class="n">matrix</span><span class="p">(</span><span class="n">QQ</span><span class="p">,[[</span> <span class="mi">2</span><span class="p">,</span> <span class="mi">0</span><span class="p">,</span><span class="o">-</span><span class="mi">1</span><span class="p">,</span> <span class="mi">1</span><span class="p">],</span>
+                     <span class="p">[</span> <span class="mi">1</span><span class="p">,</span> <span class="mi">1</span><span class="p">,</span><span class="o">-</span><span class="mi">1</span><span class="p">,</span> <span class="mi">0</span><span class="p">],</span>
+                     <span class="p">[</span><span class="o">-</span><span class="mi">1</span><span class="p">,</span> <span class="mi">0</span><span class="p">,</span> <span class="mi">6</span><span class="p">,</span> <span class="mi">1</span><span class="p">],</span>
+                     <span class="p">[</span> <span class="mi">1</span><span class="p">,</span> <span class="mi">0</span><span class="p">,</span> <span class="mi">1</span><span class="p">,</span> <span class="mi">1</span><span class="p">]])</span>
+
+<span class="c1"># Create the 2-block [A|I]:</span>
+<span class="n">sage</span><span class="p">:</span> <span class="n">AI</span> <span class="o">=</span> <span class="n">A</span><span class="o">.</span><span class="n">augment</span><span class="p">(</span><span class="n">identity_matrix</span><span class="p">(</span><span class="n">QQ</span><span class="p">,</span><span class="mi">4</span><span class="p">))</span>
+
+<span class="c1"># Transform [A|I] into [I|A^(-1)]:</span>
+<span class="n">sage</span><span class="p">:</span> <span class="n">IA_1</span> <span class="o">=</span> <span class="n">AI</span><span class="o">.</span><span class="n">rref</span><span class="p">()</span>
+
+<span class="c1"># Select the second segment of the 2-block</span>
+<span class="c1"># (columns starting from 4. to the last):</span>
+<span class="n">sage</span><span class="p">:</span> <span class="n">A_1</span> <span class="o">=</span> <span class="n">IA_1</span><span class="p">[:,</span><span class="mi">4</span><span class="p">:]</span>
+
+<span class="c1"># Display the product of the original matrix</span>
+<span class="c1"># and its inverse:</span>
+<span class="n">sage</span><span class="p">:</span> <span class="n">table</span><span class="p">([[</span><span class="n">A</span><span class="p">,</span> <span class="s1">&#39;*&#39;</span><span class="p">,</span> <span class="n">A_1</span><span class="p">,</span> <span class="s1">&#39;=&#39;</span><span class="p">,</span> <span class="n">A</span> <span class="o">*</span> <span class="n">A_1</span><span class="p">]])</span>
+</pre></div>
+</div>
+<p>The output reads:</p>
+<div class="math notranslate nohighlight">
+\[\begin{split}\left[\begin{array}{rrrr}
+       2 &amp; 0 &amp; -1 &amp; 1 \\
+       1 &amp; 1 &amp; -1 &amp; 0 \\
+      -1 &amp; 0 &amp;  6 &amp; 1 \\
+       1 &amp; 0 &amp;  1 &amp; 1
+      \end{array}\right]\ \ *\ \ \left[\begin{array}{rrrr}
+                                        5 &amp; 0 &amp;  2 &amp; -7 \\
+                                       -3 &amp; 1 &amp; -1 &amp;  4 \\
+                                        2 &amp; 0 &amp;  1 &amp; -3 \\
+                                       -7 &amp; 0 &amp; -3 &amp; 11
+                                       \end{array}\right]
+\quad = \quad\left[\begin{array}{rrrr}
+                   1 &amp; 0 &amp; 0 &amp; 0 \\
+                   0 &amp; 1 &amp; 0 &amp; 0 \\
+                   0 &amp; 0 &amp; 1 &amp; 0 \\
+                   0 &amp; 0 &amp; 0 &amp; 1
+                   \end{array}\right]\end{split}\]</div>
+<p>The matrix <span class="math notranslate nohighlight">\(\,\boldsymbol{A}^{-1}\,\)</span> in question is given
+as the second factor on the left-hand side.</p>
+</section>
+
+
+          </div>
+        </div>
+      </div>
+      <div class="sphinxsidebar" role="navigation" aria-label="main navigation">
+        <div class="sphinxsidebarwrapper">
+  <h4>Previous topic</h4>
+  <p class="topless"><a href="operations_on_matrices_elementary.html"
+                        title="previous chapter">Elementary Matrices</a></p>
+  <h4>Next topic</h4>
+  <p class="topless"><a href="operations_on_matrices_permutations.html"
+                        title="next chapter">Permutation Matrices</a></p>
+  <div role="note" aria-label="source link">
+    <h3>This Page</h3>
+    <ul class="this-page-menu">
+      <li><a href="_sources/operations_on_matrices_inverse-elimination.rst.txt"
+            rel="nofollow">Show Source</a></li>
+    </ul>
+   </div>
+<div id="searchbox" style="display: none" role="search">
+  <h3 id="searchlabel">Quick search</h3>
+    <div class="searchformwrapper">
+    <form class="search" action="search.html" method="get">
+      <input type="text" name="q" aria-labelledby="searchlabel" />
+      <input type="submit" value="Go" />
+    </form>
+    </div>
+</div>
+<script>$('#searchbox').show(0);</script>
+        </div>
+      </div>
+      <div class="clearer"></div>
+    </div>
+  </div>
+  <div class="relbar-bottom">
+    
+    <div class="related" role="navigation" aria-label="related navigation">
+      <h3>Navigation</h3>
+      <ul>
+        <li class="right" style="margin-right: 10px">
+          <a href="genindex.html" title="General Index"
+             >index</a></li>
+        <li class="right" >
+          <a href="operations_on_matrices_permutations.html" title="Permutation Matrices"
+             >next</a> &nbsp; &nbsp;</li>
+        <li class="right" >
+          <a href="operations_on_matrices_elementary.html" title="Elementary Matrices"
+             >previous</a> &nbsp; &nbsp;</li>
+  <li><a href="index.html">Linear Algebra</a> &#187;</li>
+  
+        <li class="nav-item nav-item-this"><a href="">Matrix Inverse by the Elimination Method</a></li> 
+      </ul>
+    </div>
+  </div>
+  
+  <div class="footer">
+    <a class="logo" href="http://icse.us.edu.pl/" target="_blank"><img src="_static/logo-icse.png" alt="ICSE"/></a><br/>
+    &copy; Copyright 2018, Jan Aksamit, Joanna Marzec, and  Marcin Kostur.
+    Last updated on Jan 29, 2022.
+    Created using <a href="http://sphinx.pocoo.org/">Sphinx</a> 4.0.1.
+  </div>
+  </body>
+</html>

@@ -1,0 +1,260 @@
+
+
+  
+<!DOCTYPE html>
+
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" /><meta name="generator" content="Docutils 0.17: http://docutils.sourceforge.net/" />
+
+    <title>Matrix Inverse &#8212; Linear Algebra</title>
+    <link rel="stylesheet" type="text/css" href="_static/pygments.css" />
+    <link rel="stylesheet" type="text/css" href="_static/cloud.css" />
+    <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Noticia+Text|Open+Sans|Droid+Sans+Mono&amp;subset=latin,latin-ext" type="text/css" />
+    <script data-url_root="./" id="documentation_options" src="_static/documentation_options.js"></script>
+    <script src="_static/jquery.js"></script>
+    <script src="_static/underscore.js"></script>
+    <script src="_static/doctools.js"></script>
+    <script async="async" src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js"></script>
+    <script src="_static/jquery.cookie.js"></script>
+    <script src="_static/cloud.js"></script>
+    <script type="text/javascript" src="http://sagecell.sagemath.org/static/jquery.min.js"></script>
+    <script type="text/javascript" src="http://sagecell.sagemath.org/embedded_sagecell.js"></script>
+    <script type="text/javascript">
+        sagecell.makeSagecell({inputLocation: ".sage_linked",
+                               linked: true});
+        sagecell.makeSagecell({inputLocation: ".sage_unlinked",
+                               linked: false});
+    </script>
+
+    <style type="text/css">
+        .sagecell .CodeMirror-scroll {
+            overflow-y: hidden;
+            overflow-x: auto;
+        }
+        .sagecell .CodeMirror {
+            height: auto;
+        }
+    </style>
+    
+    <link rel="index" title="Index" href="genindex.html" />
+    <link rel="search" title="Search" href="search.html" />
+    <link rel="next" title="Elementary Matrices" href="operations_on_matrices_elementary.html" />
+    <link rel="prev" title="Matrix Transpose" href="operations_on_matrices_transpose.html" />
+ 
+  <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, minimum-scale=1">
+  </head><body>
+  <div class="relbar-top">
+    
+    <div class="related" role="navigation" aria-label="related navigation">
+      <h3>Navigation</h3>
+      <ul>
+        <li class="right" style="margin-right: 10px">
+          <a href="genindex.html" title="General Index"
+             accesskey="I">index</a></li>
+        <li class="right" >
+          <a href="operations_on_matrices_elementary.html" title="Elementary Matrices"
+             accesskey="N">next</a> &nbsp; &nbsp;</li>
+        <li class="right" >
+          <a href="operations_on_matrices_transpose.html" title="Matrix Transpose"
+             accesskey="P">previous</a> &nbsp; &nbsp;</li>
+  <li><a href="index.html">Linear Algebra</a> &#187;</li>
+  
+        <li class="nav-item nav-item-this"><a href="">Matrix Inverse</a></li> 
+      </ul>
+    </div>
+  </div>
+  
+  <div class="content">  
+
+    <div class="document">
+      <div class="documentwrapper">
+        <div class="bodywrapper">
+          <div class="body">
+            
+  <section id="matrix-inverse">
+<h1>Matrix Inverse<a class="headerlink" href="#matrix-inverse" title="Permalink to this headline">¶</a></h1>
+<p>In the noncommutative ring <span class="math notranslate nohighlight">\(\,M_n(K)\,\)</span> of square matrices of size
+<span class="math notranslate nohighlight">\(\,n\,\)</span> over a field <span class="math notranslate nohighlight">\(\,K, \\\)</span> the identity matrix</p>
+<div class="math notranslate nohighlight">
+\[\begin{split}\boldsymbol{I}_n\ =\
+\left[\begin{array}{cccc}
+   1      &amp;    0   &amp; \ldots &amp;    0   \\
+   0      &amp;    1   &amp; \ldots &amp;    0   \\
+   \ldots &amp; \ldots &amp; \ldots &amp; \ldots \\
+   0      &amp;    0   &amp; \ldots &amp;    1
+\end{array}\right]\,.\end{split}\]</div>
+<p>is the multiplicative neutral element:
+<span class="math notranslate nohighlight">\(\ \ \boldsymbol{A}\boldsymbol{I}_n\,=\,
+\boldsymbol{I}_n\boldsymbol{A}\,=\,\boldsymbol{A}\ \ \)</span>
+for all matrices <span class="math notranslate nohighlight">\(\ \boldsymbol{A}\in M_n(K)\,.\)</span></p>
+<p>Accordingly, the inverse of a matrix <span class="math notranslate nohighlight">\(\,\boldsymbol{A}\in M_n(K)\ \)</span> is
+defined as follows. <span class="math notranslate nohighlight">\(\\\)</span>
+If there exists a matrix <span class="math notranslate nohighlight">\(\boldsymbol{B}\in M_n(K)\,\)</span> such that
+<span class="math notranslate nohighlight">\(\,\boldsymbol{A}\boldsymbol{B}=\boldsymbol{B}\boldsymbol{A}=
+\boldsymbol{I}_n\,,\)</span> <span class="math notranslate nohighlight">\(\\\)</span> then <span class="math notranslate nohighlight">\(\,\boldsymbol{A}\ \)</span> is
+<span class="math notranslate nohighlight">\(\,\)</span> <em>invertible</em> and <span class="math notranslate nohighlight">\(\,\boldsymbol{B}\,\)</span>
+is <span class="math notranslate nohighlight">\(\,\)</span> the <em>inverse</em> <span class="math notranslate nohighlight">\(\,\)</span> of <span class="math notranslate nohighlight">\(\,\boldsymbol{A}:\ \)</span>
+<span class="math notranslate nohighlight">\(\ \boldsymbol{B}=\boldsymbol{A}^{-1}.\)</span></p>
+<p>A square matrix <span class="math notranslate nohighlight">\(\,\boldsymbol{A}\in M_n(K)\,\)</span> has at most one inverse.
+Indeed, let</p>
+<div class="math notranslate nohighlight">
+\[\boldsymbol{A}\boldsymbol{B}\ =\
+\boldsymbol{B}\boldsymbol{A}\ =\
+\boldsymbol{I}_n
+\quad\text{and}\quad
+\boldsymbol{A}\boldsymbol{C}\ =\
+\boldsymbol{C}\boldsymbol{A}\ =\
+\boldsymbol{I}_n\,.\]</div>
+<p>Then, in virtue of associativity of matrix multiplication, we get</p>
+<div class="math notranslate nohighlight">
+\[\boldsymbol{B} = \boldsymbol{B}\boldsymbol{I}_n =
+\boldsymbol{B}(\boldsymbol{A}\boldsymbol{C}) =
+(\boldsymbol{B}\boldsymbol{A})\boldsymbol{C} =
+\boldsymbol{I}_n\boldsymbol{C} = \boldsymbol{C}\,.\]</div>
+<p>Thus the inverse of a matrix (if any) is unique.</p>
+<p>Not all square matrices are invertible. A necessary (but not sufficient)
+condition of invertibility is that the matrix must not contain zero
+rows nor zero columns:</p>
+<div class="admonition-proposition-1-math admonition">
+<p class="admonition-title">Proposition 1. <span class="math notranslate nohighlight">\(\,\)</span></p>
+<p>If <span class="math notranslate nohighlight">\(\,\boldsymbol{A}\in M_n(K)\,\)</span> is an invertible matrix,
+then <span class="math notranslate nohighlight">\(\,\boldsymbol{A}\,\)</span> has no rows composed purely
+of zeroes nor columns composed purely of zeroes.</p>
+</div>
+<p><strong>Proof.</strong></p>
+<p>If an <span class="math notranslate nohighlight">\(\,i\)</span>-th row of the matrix <span class="math notranslate nohighlight">\(\,\boldsymbol{A}\,\)</span>
+is composed of zeroes only, then for any matrix <span class="math notranslate nohighlight">\(\boldsymbol{B}\,\)</span>
+the <span class="math notranslate nohighlight">\(\,i\)</span>-th row of the product <span class="math notranslate nohighlight">\(\,\boldsymbol{A}\boldsymbol{B}\,\)</span>
+is composed of zeroes (see the Row Rule of Matrix Multiplication).</p>
+<p>If a <span class="math notranslate nohighlight">\(\,j\)</span>-th column of the matrix <span class="math notranslate nohighlight">\(\,\boldsymbol{A}\,\)</span>
+is the zero column, then for any matrix <span class="math notranslate nohighlight">\(\boldsymbol{B}\,\)</span> the
+<span class="math notranslate nohighlight">\(\,j\)</span>-th column of the product <span class="math notranslate nohighlight">\(\,\boldsymbol{B}\boldsymbol{A}\,\)</span>
+is composed of zeroes (see the Column Rule of Matrix Multiplication).</p>
+<p>In both cases there does not exist a matrix
+<span class="math notranslate nohighlight">\(\,\boldsymbol{B}\in M_n(K)\,\)</span> such that
+<span class="math notranslate nohighlight">\(\ \boldsymbol{A}\boldsymbol{B} =
+\boldsymbol{B}\boldsymbol{A} = \boldsymbol{I}_n\,.\quad\bullet\)</span></p>
+<div class="admonition-theorem-1-math admonition">
+<p class="admonition-title">Theorem 1. <span class="math notranslate nohighlight">\(\,\)</span></p>
+<p>If the matrices <span class="math notranslate nohighlight">\(\,\boldsymbol{A},\boldsymbol{B}\in M_n(K)\,\)</span>
+are invertible, their product <span class="math notranslate nohighlight">\(\,\boldsymbol{A}\boldsymbol{B}\,\)</span>
+is also invertible, and <span class="math notranslate nohighlight">\(\ \ (\boldsymbol{A}\boldsymbol{B})^{-1}\ =\
+\boldsymbol{B}^{-1}\boldsymbol{A}^{-1}\,.\)</span></p>
+</div>
+<p><strong>Proof.</strong></p>
+<p>Due to the associativity of matrix multiplication, we get</p>
+<div class="math notranslate nohighlight">
+\[ \begin{align}\begin{aligned}(\boldsymbol{A}\boldsymbol{B})(\boldsymbol{B}^{-1}\boldsymbol{A}^{-1})\ =\
+\boldsymbol{A}(\boldsymbol{B}\boldsymbol{B}^{-1})\boldsymbol{A}^{-1}\ =\
+(\boldsymbol{A}\boldsymbol{I}_n)\boldsymbol{A}^{-1}\ =\
+\boldsymbol{A}\boldsymbol{A}^{-1}\ =\ \boldsymbol{I}_n\,,\\(\boldsymbol{B}^{-1}\boldsymbol{A}^{-1})(\boldsymbol{A}\boldsymbol{B})\ =\
+\boldsymbol{B}^{-1}(\boldsymbol{A}^{-1}\boldsymbol{A})\boldsymbol{B}\ =\
+\boldsymbol{B}^{-1}(\boldsymbol{I}_n\boldsymbol{B})\ =\
+\boldsymbol{B}^{-1}\boldsymbol{B}\ =\ \boldsymbol{I}_n\,.\quad\bullet\end{aligned}\end{align} \]</div>
+<p>In general, if the matrices
+<span class="math notranslate nohighlight">\(\,\boldsymbol{A}_1,\boldsymbol{A}_2,\dots,\boldsymbol{A}_k\in M_n(K)\,\)</span>
+are invertible, then by induction</p>
+<div class="math notranslate nohighlight">
+\[\left(\boldsymbol{A}_1\boldsymbol{A}_2\dots\boldsymbol{A}_k\right)^{-1}\ =\
+\boldsymbol{A}_k^{-1}\dots\boldsymbol{A}_2^{-1}\boldsymbol{A}_1^{-1}\,.\]</div>
+<p>In Sage the matrix inverse is performed by the method <code class="docutils literal notranslate"><span class="pre">inverse()</span></code>.</p>
+<p><strong>Example.</strong> <span class="math notranslate nohighlight">\(\,\)</span> The inverse of the matrix
+<span class="math notranslate nohighlight">\(\ \ \boldsymbol{A}\ =\
+\left[\begin{array}{rrr}
+1 &amp; -1 &amp; -2 \\ 0 &amp; 1 &amp; 2 \\ 1 &amp; -1 &amp; -1
+\end{array}\right]\,.\)</span></p>
+<p>is calculated and verified by the following Sage code:</p>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="n">sage</span><span class="p">:</span> <span class="n">A</span> <span class="o">=</span> <span class="n">matrix</span><span class="p">([[</span><span class="mi">1</span><span class="p">,</span><span class="o">-</span><span class="mi">1</span><span class="p">,</span><span class="o">-</span><span class="mi">2</span><span class="p">],</span>
+                  <span class="p">[</span><span class="mi">0</span><span class="p">,</span> <span class="mi">1</span><span class="p">,</span> <span class="mi">2</span><span class="p">],</span>
+                  <span class="p">[</span><span class="mi">1</span><span class="p">,</span><span class="o">-</span><span class="mi">1</span><span class="p">,</span><span class="o">-</span><span class="mi">1</span><span class="p">]])</span>
+
+<span class="n">sage</span><span class="p">:</span> <span class="n">B</span> <span class="o">=</span> <span class="n">A</span><span class="o">.</span><span class="n">inverse</span><span class="p">()</span>
+<span class="n">sage</span><span class="p">:</span> <span class="n">table</span><span class="p">([[</span><span class="n">A</span><span class="p">,</span> <span class="s1">&#39;*&#39;</span><span class="p">,</span> <span class="n">B</span><span class="p">,</span> <span class="s1">&#39;=&#39;</span><span class="p">,</span> <span class="n">A</span><span class="o">*</span><span class="n">B</span><span class="p">]])</span>
+</pre></div>
+</div>
+<p>In the output</p>
+<div class="math notranslate nohighlight">
+\[\begin{split}\left[\begin{array}{rrr}
+      1 &amp; -1 &amp; -2 \\
+      0 &amp;  1 &amp;  2 \\
+      1 &amp; -1 &amp; -1
+\end{array}\right]\ \ *\ \ \left[\begin{array}{rrr}
+                                   1 &amp; 1 &amp;  0 \\
+                                   2 &amp; 1 &amp; -2 \\
+                                  -1 &amp; 0 &amp;  1
+                           \end{array}\right]
+\quad = \quad
+\left[\begin{array}{rrr}
+      1 &amp; 0 &amp; 0 \\
+      0 &amp; 1 &amp; 0 \\
+      0 &amp; 0 &amp; 1
+\end{array}\right]\end{split}\]</div>
+<p>the matrix <span class="math notranslate nohighlight">\(\,\boldsymbol{A}^{-1}\,\)</span> in question is given
+as the second factor on the left-hand side.</p>
+</section>
+
+
+          </div>
+        </div>
+      </div>
+      <div class="sphinxsidebar" role="navigation" aria-label="main navigation">
+        <div class="sphinxsidebarwrapper">
+  <h4>Previous topic</h4>
+  <p class="topless"><a href="operations_on_matrices_transpose.html"
+                        title="previous chapter">Matrix Transpose</a></p>
+  <h4>Next topic</h4>
+  <p class="topless"><a href="operations_on_matrices_elementary.html"
+                        title="next chapter">Elementary Matrices</a></p>
+  <div role="note" aria-label="source link">
+    <h3>This Page</h3>
+    <ul class="this-page-menu">
+      <li><a href="_sources/operations_on_matrices_inverse.rst.txt"
+            rel="nofollow">Show Source</a></li>
+    </ul>
+   </div>
+<div id="searchbox" style="display: none" role="search">
+  <h3 id="searchlabel">Quick search</h3>
+    <div class="searchformwrapper">
+    <form class="search" action="search.html" method="get">
+      <input type="text" name="q" aria-labelledby="searchlabel" />
+      <input type="submit" value="Go" />
+    </form>
+    </div>
+</div>
+<script>$('#searchbox').show(0);</script>
+        </div>
+      </div>
+      <div class="clearer"></div>
+    </div>
+  </div>
+  <div class="relbar-bottom">
+    
+    <div class="related" role="navigation" aria-label="related navigation">
+      <h3>Navigation</h3>
+      <ul>
+        <li class="right" style="margin-right: 10px">
+          <a href="genindex.html" title="General Index"
+             >index</a></li>
+        <li class="right" >
+          <a href="operations_on_matrices_elementary.html" title="Elementary Matrices"
+             >next</a> &nbsp; &nbsp;</li>
+        <li class="right" >
+          <a href="operations_on_matrices_transpose.html" title="Matrix Transpose"
+             >previous</a> &nbsp; &nbsp;</li>
+  <li><a href="index.html">Linear Algebra</a> &#187;</li>
+  
+        <li class="nav-item nav-item-this"><a href="">Matrix Inverse</a></li> 
+      </ul>
+    </div>
+  </div>
+  
+  <div class="footer">
+    <a class="logo" href="http://icse.us.edu.pl/" target="_blank"><img src="_static/logo-icse.png" alt="ICSE"/></a><br/>
+    &copy; Copyright 2018, Jan Aksamit, Joanna Marzec, and  Marcin Kostur.
+    Last updated on Jan 29, 2022.
+    Created using <a href="http://sphinx.pocoo.org/">Sphinx</a> 4.0.1.
+  </div>
+  </body>
+</html>

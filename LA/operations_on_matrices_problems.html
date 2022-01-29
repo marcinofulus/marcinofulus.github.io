@@ -1,0 +1,550 @@
+
+
+  
+<!DOCTYPE html>
+
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" /><meta name="generator" content="Docutils 0.17: http://docutils.sourceforge.net/" />
+
+    <title>Exercises and Problems &#8212; Linear Algebra</title>
+    <link rel="stylesheet" type="text/css" href="_static/pygments.css" />
+    <link rel="stylesheet" type="text/css" href="_static/cloud.css" />
+    <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Noticia+Text|Open+Sans|Droid+Sans+Mono&amp;subset=latin,latin-ext" type="text/css" />
+    <script data-url_root="./" id="documentation_options" src="_static/documentation_options.js"></script>
+    <script src="_static/jquery.js"></script>
+    <script src="_static/underscore.js"></script>
+    <script src="_static/doctools.js"></script>
+    <script async="async" src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js"></script>
+    <script src="_static/jquery.cookie.js"></script>
+    <script src="_static/cloud.js"></script>
+    <script type="text/javascript" src="http://sagecell.sagemath.org/static/jquery.min.js"></script>
+    <script type="text/javascript" src="http://sagecell.sagemath.org/embedded_sagecell.js"></script>
+    <script type="text/javascript">
+        sagecell.makeSagecell({inputLocation: ".sage_linked",
+                               linked: true});
+        sagecell.makeSagecell({inputLocation: ".sage_unlinked",
+                               linked: false});
+    </script>
+
+    <style type="text/css">
+        .sagecell .CodeMirror-scroll {
+            overflow-y: hidden;
+            overflow-x: auto;
+        }
+        .sagecell .CodeMirror {
+            height: auto;
+        }
+    </style>
+    
+    <link rel="index" title="Index" href="genindex.html" />
+    <link rel="search" title="Search" href="search.html" />
+    <link rel="next" title="Definition and Properties of the Deteminant" href="determinants_definition-properties.html" />
+    <link rel="prev" title="Appendices" href="operations_on_matrices_appendices.html" />
+ 
+  <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, minimum-scale=1">
+  </head><body>
+  <div class="relbar-top">
+    
+    <div class="related" role="navigation" aria-label="related navigation">
+      <h3>Navigation</h3>
+      <ul>
+        <li class="right" style="margin-right: 10px">
+          <a href="genindex.html" title="General Index"
+             accesskey="I">index</a></li>
+        <li class="right" >
+          <a href="determinants_definition-properties.html" title="Definition and Properties of the Deteminant"
+             accesskey="N">next</a> &nbsp; &nbsp;</li>
+        <li class="right" >
+          <a href="operations_on_matrices_appendices.html" title="Appendices"
+             accesskey="P">previous</a> &nbsp; &nbsp;</li>
+  <li><a href="index.html">Linear Algebra</a> &#187;</li>
+  
+        <li class="nav-item nav-item-this"><a href="">Exercises and Problems</a></li> 
+      </ul>
+    </div>
+  </div>
+  
+  <div class="content">  
+
+    <div class="document">
+      <div class="documentwrapper">
+        <div class="bodywrapper">
+          <div class="body">
+            
+  <section id="exercises-and-problems">
+<h1>Exercises and Problems<a class="headerlink" href="#exercises-and-problems" title="Permalink to this headline">¶</a></h1>
+<section id="solution-of-a-linear-system-by-the-gauss-jordan-elimination">
+<h2>Solution of a Linear System by the Gauss-Jordan Elimination<a class="headerlink" href="#solution-of-a-linear-system-by-the-gauss-jordan-elimination" title="Permalink to this headline">¶</a></h2>
+<p><strong>Exercise 0.</strong> <span class="math notranslate nohighlight">\(\\\)</span>
+The coefficient matrix <span class="math notranslate nohighlight">\(\boldsymbol{A}\,\)</span> and the vector of constants
+<span class="math notranslate nohighlight">\(\,\boldsymbol{b}\,\)</span> determine a linear system of four equations
+in four variables with a unique solution over the rational field.</p>
+<ol class="arabic">
+<li><div class="line-block">
+<div class="line"><span class="math notranslate nohighlight">\(\,\)</span> Construct the augmented matrix <span class="math notranslate nohighlight">\(\,\boldsymbol{B}\,\)</span>
+and solve the system</div>
+<div class="line"><span class="math notranslate nohighlight">\(\,\)</span> by transforming <span class="math notranslate nohighlight">\(\,\boldsymbol{B}\,\)</span>
+into the reduced row echelon form.</div>
+</div>
+</li>
+<li><div class="line-block">
+<div class="line"><span class="math notranslate nohighlight">\(\,\)</span> To confirm the result make sure that
+the product of the matrix <span class="math notranslate nohighlight">\(\boldsymbol{A}\,\)</span></div>
+<div class="line"><span class="math notranslate nohighlight">\(\,\)</span> by the solution column
+<span class="math notranslate nohighlight">\(\,\boldsymbol{x}\,\)</span> equals the column of constants
+<span class="math notranslate nohighlight">\(\,\boldsymbol{b}\)</span>.</div>
+</div>
+</li>
+</ol>
+<p><strong>Hint.</strong> The solution column <span class="math notranslate nohighlight">\(\,\boldsymbol{x}\,\)</span>
+is the last column of the augmented matrix in the reduced row echelon form
+(it may be detached by slicing).
+The method <code class="docutils literal notranslate"><span class="pre">column()</span></code> may be used to convert a vector
+into the one-column matrix.</p>
+<div class='sage_linked'><script type='text/x-sage'>A = matrix(QQ,[[1, 2, 3,-2],
+               [2,-1,-2,-3],
+               [3, 2,-1, 2],
+               [2,-3, 2, 1]])
+
+b = vector([6,8,4,-8])</script></div></section>
+<section id="elementary-operations-on-matrices-by-the-sage-commands">
+<h2>Elementary Operations on Matrices by the Sage Commands<a class="headerlink" href="#elementary-operations-on-matrices-by-the-sage-commands" title="Permalink to this headline">¶</a></h2>
+<p><strong>Exercise 1.</strong> <span class="math notranslate nohighlight">\(\\\)</span>
+Uncomment one of the three hashed lines to demonstrate that the corresponding
+command operates directly upon the original matrix:</p>
+<p>The row version:</p>
+<div class='sage_linked'><script type='text/x-sage'>A = matrix([[2, 5, 3, 0],
+            [2, 0,-2,-1],
+            [0, 0, 4, 5]])
+
+# A.swap_rows(1,2)
+# A.rescale_row(2,-3)
+# A. add_multiple_of_row(0,1,3)
+A</script></div><p>The column version:</p>
+<div class='sage_linked'><script type='text/x-sage'>A = matrix([[2, 5, 3, 0],
+            [2, 0,-2,-1],
+            [0, 0, 4, 5]])
+
+# A.swap_columns(1,2)
+# A.rescale_col(2,-3)
+# A. add_multiple_of_column(0,1,3)
+A</script></div><p><strong>Exercise 2.</strong> <span class="math notranslate nohighlight">\(\\\)</span>
+Uncomment one of the three hashed lines to demonstrate that the corresponding
+command returns a transformed matrix while leaving the original one unchanged:</p>
+<p>The row version:</p>
+<div class='sage_linked'><script type='text/x-sage'>A = matrix([[2, 5, 3, 0],
+            [2, 0,-2,-1],
+            [0, 0, 4, 5]])
+
+# B = A.with_swapped_rows(1,2)
+# B = A.with_rescaled_row(2,-3)
+# B = A.with_added_multiple_of_row(0,1,3)
+A,B</script></div><p>The column version:</p>
+<div class='sage_linked'><script type='text/x-sage'>A = matrix([[2, 5, 3, 0],
+            [2, 0,-2,-1],
+            [0, 0, 4, 5]])
+
+# B = A.with_swapped_columns(1,2)
+# B = A.with_rescaled_col(2,-3)
+# B = A.with_added_multiple_of_column(0,1,3)
+A,B</script></div><p><strong>Exercise 3.</strong> <span class="math notranslate nohighlight">\(\\\)</span>
+Note that whereas <code class="docutils literal notranslate"><span class="pre">echelonize()</span></code> acts directly on the original matrix,
+<code class="docutils literal notranslate"><span class="pre">echelon_form()</span></code> and <code class="docutils literal notranslate"><span class="pre">rref()</span></code> return the modified matrix without
+changing the original: <span class="math notranslate nohighlight">\(\\\)</span></p>
+<div class='sage_linked'><script type='text/x-sage'>A = matrix([[2, 5, 3, 0],
+            [2, 0,-2,-1],
+            [0, 0, 4, 5]])
+
+A.echelonize(); A</script></div><div class='sage_linked'><script type='text/x-sage'>A = matrix([[2, 5, 3, 0],
+            [2, 0,-2,-1],
+            [0, 0, 4, 5]])
+
+B = A.echelon_form()
+C = A.rref()
+A, B, C</script></div></section>
+<section id="matrix-inverse">
+<h2>Matrix Inverse<a class="headerlink" href="#matrix-inverse" title="Permalink to this headline">¶</a></h2>
+<p><strong>Exercise 4.</strong> <span class="math notranslate nohighlight">\(\\\)</span>
+Assuming the matrices to be over the rational field,
+solve for the matrix <span class="math notranslate nohighlight">\(\boldsymbol{X}:\)</span></p>
+<div class="math notranslate nohighlight">
+\[\begin{split}\begin{array}{ll}
+\text{a.)}\quad
+\boldsymbol{X}\,
+\left[\begin{array}{ccc}
+1 &amp; 2 &amp; 3 \\ 2 &amp; 3 &amp; 4 \\ 3 &amp; 4 &amp; 1
+\end{array}\right]
+\,=\,
+\left[\begin{array}{ccc}
+6 &amp; 9 &amp; 8 \\ 0 &amp; 1 &amp; 6
+\end{array}\right];
+&amp;
+\text{b.)}\quad
+\left[\begin{array}{rr}
+3 &amp; -1 \\ 5 &amp; -2
+\end{array}\right]\,
+\boldsymbol{X}\,
+\left[\begin{array}{rr}
+5 &amp; 6 \\ 7 &amp; 8
+\end{array}\right]
+\,=\,
+\left[\begin{array}{rr}
+14 &amp; 16 \\ 9 &amp; 10
+\end{array}\right];
+\\ \\
+\text{c.)}\quad
+\left[\begin{array}{rr}
+2 &amp; -3 \\ 4 &amp; -6
+\end{array}\right]\,
+\boldsymbol{X}\,=\,
+\left[\begin{array}{rr}
+1 &amp; 4 \\ 2 &amp; 8
+\end{array}\right];
+&amp;
+\text{d.)}\quad
+\left[\begin{array}{cc}
+2 &amp; 1 \\ 2 &amp; 1
+\end{array}\right]\,
+\boldsymbol{X}\,=\,
+\left[\begin{array}{rr}
+1 &amp; 1 \\ 1 &amp; 1
+\end{array}\right].
+\end{array}\end{split}\]</div>
+<p><strong>Exercise 5.</strong> <span class="math notranslate nohighlight">\(\\\)</span>
+Find the inverse of each of the two matrices over the rational field:</p>
+<div class="math notranslate nohighlight">
+\[\begin{split}\boldsymbol{A}\ =\
+\left[\begin{array}{rrrr} 1 &amp; -a &amp;  0 &amp;  0 \\
+                          0 &amp;  1 &amp; -b &amp;  0 \\
+                          0 &amp;  0 &amp;  1 &amp; -c \\
+                          0 &amp;  0 &amp;  0 &amp;  1  \end{array}\right]\,,\qquad
+\boldsymbol{L}_5\ =\
+\left[\begin{array}{rrrrr} 1 &amp; 0 &amp; 0 &amp; 0 &amp; 0 \\
+                           1 &amp; 1 &amp; 0 &amp; 0 &amp; 0 \\
+                           1 &amp; 2 &amp; 1 &amp; 0 &amp; 0 \\
+                           1 &amp; 3 &amp; 3 &amp; 1 &amp; 0 \\
+                           1 &amp; 4 &amp; 6 &amp; 4 &amp; 1 \end{array}\right]\,.\end{split}\]</div>
+<p>Write down the code generating a matrix <span class="math notranslate nohighlight">\(\ L_n\ \)</span> and its
+inverse <span class="math notranslate nohighlight">\(\ L_n^{-1}\ \)</span> for an arbitrary natural <span class="math notranslate nohighlight">\(\,n.\)</span></p>
+<p><strong>Note.</strong> <span class="math notranslate nohighlight">\(\,L_5\,\)</span> is a lower triangular Pascal matrix:
+it is composed of binomial coefficients and complementary zeroes.</p>
+<p><strong>Exercise 6.</strong> <span class="math notranslate nohighlight">\(\\\)</span>
+Calculate the inverse of the matrix <span class="math notranslate nohighlight">\(\,\boldsymbol{A}\,\)</span>
+over the rational field:</p>
+<div class="math notranslate nohighlight">
+\[\begin{split}\boldsymbol{A}\ =\
+\left[\begin{array}{rrrrr} 1 &amp; -1 &amp;  1 &amp; -1 &amp;  1 \\
+                           0 &amp;  1 &amp; -1 &amp;  1 &amp; -1 \\
+                           0 &amp;  0 &amp;  1 &amp; -1 &amp;  1 \\
+                           0 &amp;  0 &amp;  0 &amp;  1 &amp; -1 \\
+                           0 &amp;  0 &amp;  0 &amp;  0 &amp;  1 \end{array}\right]\,.\end{split}\]</div>
+<p>Experiment to obtain a general form of the inverse of such a matrix
+for an arbitrary size <span class="math notranslate nohighlight">\(\,n.\)</span></p>
+<p>This “upper triangular alternating” matrix of a given size <span class="math notranslate nohighlight">\(\,n\,\)</span>
+is generated by the Sage code:</p>
+<div class='sage_linked'><script type='text/x-sage'>n = 5
+A = matrix([[(-1)^(i+j) if j>=i else 0 for j in range(n)]
+                                       for i in range(n)])
+A</script></div><p><strong>Exercise 7.</strong> <span class="math notranslate nohighlight">\(\\\)</span>
+Apply the Sage method <span class="math notranslate nohighlight">\(\,\)</span> <code class="docutils literal notranslate"><span class="pre">inverse()</span></code> <span class="math notranslate nohighlight">\(\,\)</span>
+to the symbolic matrix</p>
+<div class="math notranslate nohighlight">
+\[\begin{split}\boldsymbol{A}\ =\
+\left[\begin{array}{cc}
+a &amp; b \\ c &amp; d
+\end{array}\right],\quad a,b,c,d\in R.\end{split}\]</div>
+<p>Notice that <span class="math notranslate nohighlight">\(\,\boldsymbol{A}\,\)</span> is invertible if and only if
+<span class="math notranslate nohighlight">\(\ \det{\boldsymbol{A}} \equiv ad-bc \neq 0.\)</span></p>
+<p><strong>Hint.</strong> <span class="math notranslate nohighlight">\(\,\)</span> To show a readable output apply the method
+<span class="math notranslate nohighlight">\(\,\)</span> <code class="docutils literal notranslate"><span class="pre">factor()</span></code> to the raw result.</p>
+</section>
+<section id="matrix-inverse-by-the-elimination-method">
+<h2>Matrix Inverse by the Elimination Method<a class="headerlink" href="#matrix-inverse-by-the-elimination-method" title="Permalink to this headline">¶</a></h2>
+<p>The inverse of a given matrix <span class="math notranslate nohighlight">\(\,\boldsymbol{A}\in M_n(K)\,\)</span> can be
+obtained by appropriate elementary row operations on the 2-block
+composed of <span class="math notranslate nohighlight">\(\,\boldsymbol{A}\,\)</span> and the identity matrix
+<span class="math notranslate nohighlight">\(\,\boldsymbol{I}_n.\ \)</span></p>
+<p>In a previous section a 2-block has been built by the method <code class="docutils literal notranslate"><span class="pre">augment()</span></code>,
+and the matrix <span class="math notranslate nohighlight">\(\,\boldsymbol{A}^{-1}\,\)</span> was selected
+by slicing. In the present alternative way the framework of block matrices
+is applied. The association of matrices <span class="math notranslate nohighlight">\(\,\boldsymbol{A}\,\)</span> and
+<span class="math notranslate nohighlight">\(\,\boldsymbol{I}_n\ \)</span> is performed by the method <code class="docutils literal notranslate"><span class="pre">block_matrix()</span></code>,
+whereas the resulting inverse matrix <span class="math notranslate nohighlight">\(\,\boldsymbol{A}^{-1}\,\)</span>
+is extracted using the method <code class="docutils literal notranslate"><span class="pre">subdivision()</span></code>. <a class="footnote-reference brackets" href="#id2" id="id1">5</a>
+In both cases the row-reducing is executed by <code class="docutils literal notranslate"><span class="pre">rref()</span></code>.</p>
+<p>The following program generates an invertible matrix <span class="math notranslate nohighlight">\(\,\boldsymbol{A}\,\)</span>
+of a given size <span class="math notranslate nohighlight">\(\,n\,\)</span> over the rational field <span class="math notranslate nohighlight">\(\,Q,\ \)</span>
+and calculates its inverse by means of the above-mentioned
+procedures.</p>
+<p><strong>Exercise 8.</strong> <span class="math notranslate nohighlight">\(\,\)</span></p>
+<p>For <span class="math notranslate nohighlight">\(\,n = 2,\,3\ \)</span> perform by hand elementary operations which transform
+a matrix <span class="math notranslate nohighlight">\(\ [\,\boldsymbol{A}\,|\,\boldsymbol{I}\,]\ \)</span> <span class="math notranslate nohighlight">\(\\\)</span>
+to the form <span class="math notranslate nohighlight">\(\ [\,\boldsymbol{I}\,|\,\boldsymbol{A}^{-1}\,].\ \)</span>
+Compare your result with that given by the program.</p>
+<p>Experiment with greater <span class="math notranslate nohighlight">\(\,n\,\)</span> and compare the result of the present
+elimination method with that given by the standard method <code class="docutils literal notranslate"><span class="pre">inverse()</span></code>
+of matrix inversion.</p>
+<p><span class="math notranslate nohighlight">\(\ \)</span></p>
+<div class='sage_linked'><script type='text/x-sage'>n = 4
+
+A = random_matrix(QQ, n, algorithm = 'echelonizable',
+                  rank = n, upper_bound = 10)
+
+show(table([["Calculate the inverse of the matrix", 'A', '=', A]]))
+
+B = block_matrix([[A,identity_matrix(n)]])  # augment the matrix A
+R = B.rref()                # reduced row echelon form of B
+A_1 = R.subdivision(0,1)    # matrix A^(-1) selected from R
+
+@interact
+
+def _(h=('Step:',["2-block (A,I)","2-block (I,A^(-1))","Verify"])):
+
+    if h=="2-block (A,I)": show(table([
+        ["", "", "$\qquad\ $ B = (A,I)$\:$ is extension of A:"],
+        ["B", '=', B]]))
+
+    elif h=="2-block (I,A^(-1))": show(table([
+        ["", "", "$\quad\ \ \ $ Reduced row echelon form of B:"],
+        ["B.rref()", '=', R]]))
+
+    elif h=="Verify": show(table([
+        ["$A\ :$", "", "$A^{-1}\ :$", "", "$A\ *\ A^{-1}\ :$"],
+        [A, '*', A_1, '=', A*A_1]]))</script></div></section>
+<section id="permutation-matrices">
+<h2>Permutation Matrices<a class="headerlink" href="#permutation-matrices" title="Permalink to this headline">¶</a></h2>
+<p><strong>Problem 0.</strong></p>
+<p>Pre-multiplying a column vector <span class="math notranslate nohighlight">\(\,\boldsymbol{x}\,=\,[x_i]_m\in K^m\ \)</span>
+by a permutation matrix <span class="math notranslate nohighlight">\(\,\boldsymbol{P}_\sigma\in M_m(K)\ \)</span>
+rearranges the entries of <span class="math notranslate nohighlight">\(\,\boldsymbol{x}\ \)</span> according
+to the permutation <span class="math notranslate nohighlight">\(\,\sigma:\)</span></p>
+<div class="math notranslate nohighlight">
+\[\begin{split}\boldsymbol{P}_\sigma\ \boldsymbol{x}\ =\
+\left[\begin{array}{c}
+\boldsymbol{e}_{\sigma(1)} \\
+\boldsymbol{e}_{\sigma(2)} \\
+\dots                      \\
+\boldsymbol{e}_{\sigma(m)}
+\end{array}\right]
+\left[\begin{array}{c}
+x_1 \\ x_2 \\ \dots \\ x_m
+\end{array}\right]\ =\
+\left[\begin{array}{c}
+x_{\sigma(1)} \\ x_{\sigma(2)} \\ \dots \\ x_{\sigma(m)}
+\end{array}\right]\,.\end{split}\]</div>
+<p>(here <span class="math notranslate nohighlight">\(\,\boldsymbol{e}_i\ \)</span> is a <span class="math notranslate nohighlight">\(\,\)</span> <em>row</em> <span class="math notranslate nohighlight">\(\,\)</span>
+vector with unity in the <span class="math notranslate nohighlight">\(\,i\)</span>-th position, zeroes elsewhere,
+<span class="math notranslate nohighlight">\(\ i=1,2,\dots,m.\)</span>).</p>
+<p>Validate the result of action of <span class="math notranslate nohighlight">\(\,\boldsymbol{P}_\sigma\ \)</span>
+upon the <span class="math notranslate nohighlight">\(\,\)</span> <em>column</em> vector <span class="math notranslate nohighlight">\(\,\boldsymbol{e}_k^T :\)</span></p>
+<div class="math notranslate nohighlight">
+\[\boldsymbol{P}_\sigma\ \boldsymbol{e}_k^T\ =\
+\boldsymbol{e}^T_{\sigma^{-1}(k)}\,,\quad
+k=1,2,\dots,m.\]</div>
+<p><strong>Exercise 9.</strong></p>
+<p>Set an integer <span class="math notranslate nohighlight">\(\,n=2,3,...,\ \)</span> and display a randomly selected
+permutation <span class="math notranslate nohighlight">\(\,\sigma\in S_n\,\)</span> together with its matrix
+<span class="math notranslate nohighlight">\(\,\boldsymbol{P}_\sigma.\)</span></p>
+<div class='sage_linked'><script type='text/x-sage'>n = 4
+G = SymmetricGroup(n)
+g = G.random_element()
+(g, g.matrix())</script></div></section>
+<section id="column-version-of-permutation-matrices">
+<h2>Column Version of Permutation Matrices<a class="headerlink" href="#column-version-of-permutation-matrices" title="Permalink to this headline">¶</a></h2>
+<p>In this approach a permutation refers to columns
+rather than to rows of a matrix.</p>
+<p>Namely, for a rectangular matrix
+<span class="math notranslate nohighlight">\(\ \boldsymbol{A}\,=\,[a_{ij}]_{m\times n}\in M_{m\times n}(K)\ \)</span>
+given in the column form</p>
+<div class="math notranslate nohighlight">
+\[\begin{split}\boldsymbol{A}\ =\
+[\,\boldsymbol{A}_1\,|\,\boldsymbol{A}_2\,|\,\dots\,|\,\boldsymbol{A}_n\,]\,,
+\quad\text{where}\quad
+\boldsymbol{A}_j\ =\
+\left[\begin{array}{c}
+a_{1j} \\ a_{2j} \\ \dots \\ a_{mj}
+\end{array}
+\right]\,,\quad j=1,2,\ldots,n,\end{split}\]</div>
+<p>and a permutation <span class="math notranslate nohighlight">\(\ \sigma\in S_n\,,\ \)</span> the operation
+<span class="math notranslate nohighlight">\(\,O^t_\sigma\,\)</span> is defined by</p>
+<div class="math notranslate nohighlight">
+\[O^t_\sigma\,\boldsymbol{A}\ \ :\,=\ \
+[\;\boldsymbol{A}_{\sigma(1)}\,|\;\boldsymbol{A}_{\sigma(2)}\,|\;\dots\,|\,
+\boldsymbol{A}_{\sigma(n)}\,]\]</div>
+<p>(the superscript ‘t’ distinguishes the column operation
+from its row counterpart).</p>
+<p>By analogy with the row case, the permutation matrix
+<span class="math notranslate nohighlight">\(\ \boldsymbol{Q}_\sigma\ \)</span> is defined as <span class="math notranslate nohighlight">\(\\\)</span> the result
+of application of <span class="math notranslate nohighlight">\(\,O^t_\sigma\,\)</span> to the identity matrix
+<span class="math notranslate nohighlight">\(\ \boldsymbol{I}_n =
+[\;\boldsymbol{e}_1\,|\;\boldsymbol{e}_2\,|\;\dots\,|\,\boldsymbol{e}_n\,]\,:\)</span></p>
+<div class="math notranslate nohighlight">
+\[\boldsymbol{Q}_\sigma\ :\,=\ O^t_\sigma\ \boldsymbol{I}_n\ =\
+[\;\boldsymbol{e}_{\sigma(1)}\,|\;\boldsymbol{e}_{\sigma(2)}\,|\;\dots\,|\,
+\boldsymbol{e}_{\sigma(n)}]\]</div>
+<p><strong>Problem 1.</strong> <span class="math notranslate nohighlight">\(\,\)</span>
+Prove that:</p>
+<ol class="arabic">
+<li><div class="line-block">
+<div class="line"><span class="math notranslate nohighlight">\(\,\)</span> A permutation of columns of a product
+<span class="math notranslate nohighlight">\(\boldsymbol{A}\boldsymbol{B}\ \)</span>
+of two matrices can be achieved</div>
+<div class="line"><span class="math notranslate nohighlight">\(\,\)</span> by the same permutation of columns
+of the <em>second</em> factor <span class="math notranslate nohighlight">\(\boldsymbol{B}\ \)</span> only.</div>
+</div>
+</li>
+<li><div class="line-block">
+<div class="line"><span class="math notranslate nohighlight">\(\,\)</span> A permutation of columns of a rectangular matrix
+<span class="math notranslate nohighlight">\(\boldsymbol{A}\ \)</span> is equivalent</div>
+<div class="line"><span class="math notranslate nohighlight">\(\,\)</span> to <em>post</em>-multiplying <span class="math notranslate nohighlight">\(\boldsymbol{A}\ \)</span>
+by the matrix of that permutation.</div>
+</div>
+</li>
+</ol>
+<p>This may be written down in detail as</p>
+<div class="admonition-theorem admonition">
+<p class="admonition-title">Theorem.</p>
+<p>Given a permutation <span class="math notranslate nohighlight">\(\ \sigma\in S_n\,,\ \)</span>
+the following statements hold true:</p>
+<ol class="arabic simple">
+<li><p><span class="math notranslate nohighlight">\(\,\)</span> If <span class="math notranslate nohighlight">\(\,\boldsymbol{A}\in M_{m\times p}(K),\
+\boldsymbol{B}\in M_{p\times n}(K),\ \)</span>
+then
+<span class="math notranslate nohighlight">\(\ O^t_\sigma\,(\boldsymbol{A}\boldsymbol{B})\ =\
+\boldsymbol{A}\,(O^t_\sigma\boldsymbol{B})\,.\)</span></p></li>
+<li><p><span class="math notranslate nohighlight">\(\,\)</span> If <span class="math notranslate nohighlight">\(\,\boldsymbol{A}\in M_{m\times n}(K),\ \)</span>
+then
+<span class="math notranslate nohighlight">\(\ O^t_\sigma\,\boldsymbol{A}\ =\
+\boldsymbol{A}\,\boldsymbol{Q}_\sigma\,,\ \ \text{where}\ \
+\boldsymbol{Q}_\sigma = O^t_\sigma\,\boldsymbol{I}_n\in M_n(K)\,.\)</span></p></li>
+</ol>
+</div>
+<p><strong>Hints.</strong></p>
+<ol class="arabic simple">
+<li><p><span class="math notranslate nohighlight">\(\,\)</span> Apply the Column Rule of Matrix Multiplication.</p></li>
+<li><p><span class="math notranslate nohighlight">\(\,\)</span> Note that
+<span class="math notranslate nohighlight">\(\ \boldsymbol{A} = \boldsymbol{A}\,\boldsymbol{I}_n\ \)</span>
+and take advantage of statement 1.</p></li>
+</ol>
+<p><strong>Problem 2.</strong> <span class="math notranslate nohighlight">\(\,\)</span>
+Prove that a product of two permutation matrices is also a permutation matrix:</p>
+<div class="math notranslate nohighlight" id="equation-qq-col">
+<span class="eqno">(1)<a class="headerlink" href="#equation-qq-col" title="Permalink to this equation">¶</a></span>\[\boldsymbol{Q}_\rho\ \boldsymbol{Q}_\sigma\ =\ \,
+\boldsymbol{Q}_{\rho\:\circ\:\sigma}\,,
+\qquad\rho,\sigma\in S_n\,.\]</div>
+<p><strong>Hint.</strong> <span class="math notranslate nohighlight">\(\,\)</span>
+Recall the multiplication rule for the row permutation matrices:</p>
+<div class="math notranslate nohighlight" id="equation-pp-row">
+<span class="eqno">(2)<a class="headerlink" href="#equation-pp-row" title="Permalink to this equation">¶</a></span>\[\quad\boldsymbol{P}_\rho\ \boldsymbol{P}_\sigma\ =
+\ \boldsymbol{P}_{\sigma\,\circ\,\rho}\,,\quad\rho,\sigma\in S_m\]</div>
+<p>and remark that the row and column matrices of a permutation
+are interrelated by the transpose:</p>
+<div class="math notranslate nohighlight" id="equation-ortho">
+<span class="eqno">(3)<a class="headerlink" href="#equation-ortho" title="Permalink to this equation">¶</a></span>\[\boldsymbol{Q}_\sigma = \,\boldsymbol{P}_\sigma^{\,T}\,,\quad
+\boldsymbol{P}_\sigma = \,\boldsymbol{Q}^{\,T}_\sigma\,,\qquad
+\sigma\in S_n.\]</div>
+<p>Equations <span class="math notranslate nohighlight">\(\,\)</span> <a class="reference internal" href="#equation-qq-col">(1)</a>, <span class="math notranslate nohighlight">\(\,\)</span> <a class="reference internal" href="#equation-pp-row">(2)</a> <span class="math notranslate nohighlight">\(\,\)</span>
+and <span class="math notranslate nohighlight">\(\,\)</span> <a class="reference internal" href="#equation-ortho">(3)</a> <span class="math notranslate nohighlight">\(\,\)</span> suggest the</p>
+<div class="admonition-corollary-math admonition">
+<p class="admonition-title">Corollary. <span class="math notranslate nohighlight">\(\\\)</span></p>
+<p>The map <span class="math notranslate nohighlight">\(\,F\,\)</span> of a permutation group <span class="math notranslate nohighlight">\(\,S_n\,\)</span>
+to an algebra <span class="math notranslate nohighlight">\(\,M_n(K)\)</span> <span class="math notranslate nohighlight">\(\\\)</span>
+of square matrices of size <span class="math notranslate nohighlight">\(\,n\,\)</span> over a field <span class="math notranslate nohighlight">\(\,K:\)</span></p>
+<div class="math notranslate nohighlight">
+\[F:\quad S_n\ni\sigma\ \rightarrow\ F(\sigma)\ :\,=\
+P_{\sigma^{-1}} \equiv\,Q_\sigma\in M_n(K)\]</div>
+<p>is homomorphic:
+<span class="math notranslate nohighlight">\(\quad F(\rho\circ\sigma) =
+F(\rho) \cdot\ F(\sigma),\quad
+\rho,\,\sigma\in S_n\,.\)</span></p>
+<p>Therefore <span class="math notranslate nohighlight">\(\,F\,\)</span> is a <span class="math notranslate nohighlight">\(\,\)</span> <em>representation</em> <span class="math notranslate nohighlight">\(\,\)</span>
+of the group <span class="math notranslate nohighlight">\(\,S_n\ \)</span> on the vector space <span class="math notranslate nohighlight">\(\ K^n.\)</span></p>
+</div>
+<dl class="footnote brackets">
+<dt class="label" id="id2"><span class="brackets"><a class="fn-backref" href="#id1">5</a></span></dt>
+<dd><p><a class="reference external" href="http://doc.sagemath.org/html/en/reference/matrices/sage/matrix/matrix2.html">http://doc.sagemath.org/html/en/reference/matrices/sage/matrix/matrix2.html</a></p>
+</dd>
+</dl>
+</section>
+</section>
+
+
+          </div>
+        </div>
+      </div>
+      <div class="sphinxsidebar" role="navigation" aria-label="main navigation">
+        <div class="sphinxsidebarwrapper">
+  <div class="sphinxlocaltoc">
+  <h3><a href="index.html">Table Of Contents</a></h3>
+  <ul>
+<li><a class="reference internal" href="#">Exercises and Problems</a><ul>
+<li><a class="reference internal" href="#solution-of-a-linear-system-by-the-gauss-jordan-elimination">Solution of a Linear System by the Gauss-Jordan Elimination</a></li>
+<li><a class="reference internal" href="#elementary-operations-on-matrices-by-the-sage-commands">Elementary Operations on Matrices by the Sage Commands</a></li>
+<li><a class="reference internal" href="#matrix-inverse">Matrix Inverse</a></li>
+<li><a class="reference internal" href="#matrix-inverse-by-the-elimination-method">Matrix Inverse by the Elimination Method</a></li>
+<li><a class="reference internal" href="#permutation-matrices">Permutation Matrices</a></li>
+<li><a class="reference internal" href="#column-version-of-permutation-matrices">Column Version of Permutation Matrices</a></li>
+</ul>
+</li>
+</ul>
+
+  </div>
+  <h4>Previous topic</h4>
+  <p class="topless"><a href="operations_on_matrices_appendices.html"
+                        title="previous chapter">Appendices</a></p>
+  <h4>Next topic</h4>
+  <p class="topless"><a href="determinants_definition-properties.html"
+                        title="next chapter">Definition and Properties of the Deteminant</a></p>
+  <div role="note" aria-label="source link">
+    <h3>This Page</h3>
+    <ul class="this-page-menu">
+      <li><a href="_sources/operations_on_matrices_problems.rst.txt"
+            rel="nofollow">Show Source</a></li>
+    </ul>
+   </div>
+<div id="searchbox" style="display: none" role="search">
+  <h3 id="searchlabel">Quick search</h3>
+    <div class="searchformwrapper">
+    <form class="search" action="search.html" method="get">
+      <input type="text" name="q" aria-labelledby="searchlabel" />
+      <input type="submit" value="Go" />
+    </form>
+    </div>
+</div>
+<script>$('#searchbox').show(0);</script>
+        </div>
+      </div>
+      <div class="clearer"></div>
+    </div>
+  </div>
+  <div class="relbar-bottom">
+    
+    <div class="related" role="navigation" aria-label="related navigation">
+      <h3>Navigation</h3>
+      <ul>
+        <li class="right" style="margin-right: 10px">
+          <a href="genindex.html" title="General Index"
+             >index</a></li>
+        <li class="right" >
+          <a href="determinants_definition-properties.html" title="Definition and Properties of the Deteminant"
+             >next</a> &nbsp; &nbsp;</li>
+        <li class="right" >
+          <a href="operations_on_matrices_appendices.html" title="Appendices"
+             >previous</a> &nbsp; &nbsp;</li>
+  <li><a href="index.html">Linear Algebra</a> &#187;</li>
+  
+        <li class="nav-item nav-item-this"><a href="">Exercises and Problems</a></li> 
+      </ul>
+    </div>
+  </div>
+  
+  <div class="footer">
+    <a class="logo" href="http://icse.us.edu.pl/" target="_blank"><img src="_static/logo-icse.png" alt="ICSE"/></a><br/>
+    &copy; Copyright 2018, Jan Aksamit, Joanna Marzec, and  Marcin Kostur.
+    Last updated on Jan 29, 2022.
+    Created using <a href="http://sphinx.pocoo.org/">Sphinx</a> 4.0.1.
+  </div>
+  </body>
+</html>

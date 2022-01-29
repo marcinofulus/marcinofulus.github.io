@@ -1,0 +1,330 @@
+
+
+  
+<!DOCTYPE html>
+
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" /><meta name="generator" content="Docutils 0.17: http://docutils.sourceforge.net/" />
+
+    <title>Diagonalization by a Similarity Transformation &#8212; Linear Algebra</title>
+    <link rel="stylesheet" type="text/css" href="_static/pygments.css" />
+    <link rel="stylesheet" type="text/css" href="_static/cloud.css" />
+    <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Noticia+Text|Open+Sans|Droid+Sans+Mono&amp;subset=latin,latin-ext" type="text/css" />
+    <script data-url_root="./" id="documentation_options" src="_static/documentation_options.js"></script>
+    <script src="_static/jquery.js"></script>
+    <script src="_static/underscore.js"></script>
+    <script src="_static/doctools.js"></script>
+    <script async="async" src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js"></script>
+    <script src="_static/jquery.cookie.js"></script>
+    <script src="_static/cloud.js"></script>
+    <script type="text/javascript" src="http://sagecell.sagemath.org/static/jquery.min.js"></script>
+    <script type="text/javascript" src="http://sagecell.sagemath.org/embedded_sagecell.js"></script>
+    <script type="text/javascript">
+        sagecell.makeSagecell({inputLocation: ".sage_linked",
+                               linked: true});
+        sagecell.makeSagecell({inputLocation: ".sage_unlinked",
+                               linked: false});
+    </script>
+
+    <style type="text/css">
+        .sagecell .CodeMirror-scroll {
+            overflow-y: hidden;
+            overflow-x: auto;
+        }
+        .sagecell .CodeMirror {
+            height: auto;
+        }
+    </style>
+    
+    <link rel="index" title="Index" href="genindex.html" />
+    <link rel="search" title="Search" href="search.html" />
+    <link rel="next" title="Matrix Diagonalization - Examples" href="diagonalizacja_przyklady.html" />
+    <link rel="prev" title="Similarity Transformation" href="diagonalizacja_podobienstwo.html" />
+ 
+  <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, minimum-scale=1">
+  </head><body>
+  <div class="relbar-top">
+    
+    <div class="related" role="navigation" aria-label="related navigation">
+      <h3>Navigation</h3>
+      <ul>
+        <li class="right" style="margin-right: 10px">
+          <a href="genindex.html" title="General Index"
+             accesskey="I">index</a></li>
+        <li class="right" >
+          <a href="diagonalizacja_przyklady.html" title="Matrix Diagonalization - Examples"
+             accesskey="N">next</a> &nbsp; &nbsp;</li>
+        <li class="right" >
+          <a href="diagonalizacja_podobienstwo.html" title="Similarity Transformation"
+             accesskey="P">previous</a> &nbsp; &nbsp;</li>
+  <li><a href="index.html">Linear Algebra</a> &#187;</li>
+  
+        <li class="nav-item nav-item-this"><a href="">Diagonalization by a Similarity Transformation</a></li> 
+      </ul>
+    </div>
+  </div>
+  
+  <div class="content">  
+
+    <div class="document">
+      <div class="documentwrapper">
+        <div class="bodywrapper">
+          <div class="body">
+            
+  <section id="diagonalization-by-a-similarity-transformation">
+<h1>Diagonalization by a Similarity Transformation<a class="headerlink" href="#diagonalization-by-a-similarity-transformation" title="Permalink to this headline">¶</a></h1>
+<div class="admonition-definition admonition">
+<p class="admonition-title">Definition.</p>
+<p>A matrix <span class="math notranslate nohighlight">\(\ \boldsymbol{A}\in M_n(C)\ \)</span> is diagonalizable by a similarity
+transformation if there exists an invertible matrix
+<span class="math notranslate nohighlight">\(\ \boldsymbol{P}\in M_n(C)\ \)</span> such that</p>
+<div class="math notranslate nohighlight" id="equation-similarity">
+<span class="eqno">(1)<a class="headerlink" href="#equation-similarity" title="Permalink to this equation">¶</a></span>\[\boldsymbol{P}^{-1}\boldsymbol{A}\,\boldsymbol{P}\ =\ \boldsymbol{D},\]</div>
+<p>where <span class="math notranslate nohighlight">\(\ \boldsymbol{D}\in M_n(C)\ \)</span> is a diagonal matrix.</p>
+<p>We say that <span class="math notranslate nohighlight">\(\ \boldsymbol{P}\ \)</span> is a diagonalizing matrix
+or that it diagonalizes the matrix <span class="math notranslate nohighlight">\(\ \boldsymbol{A}.\)</span></p>
+</div>
+<p><strong>Lemma.</strong></p>
+<p>Consider matrices <span class="math notranslate nohighlight">\(\ \boldsymbol{A},\,\boldsymbol{P}\in M_n(C).\)</span>
+Columns
+<span class="math notranslate nohighlight">\(\ \boldsymbol{X}_1,\ \boldsymbol{X}_2,\ldots, \boldsymbol{X}_n\ \)</span>
+of the matrix <span class="math notranslate nohighlight">\(\ \boldsymbol{P}\ \)</span> are eigenvectors
+of the matrix <span class="math notranslate nohighlight">\(\ \boldsymbol{A}:\)</span></p>
+<div class="math notranslate nohighlight" id="equation-eigen">
+<span class="eqno">(2)<a class="headerlink" href="#equation-eigen" title="Permalink to this equation">¶</a></span>\[\boldsymbol{A}\,\boldsymbol{X}_1\,=\,\lambda_1\,\boldsymbol{X}_1,\quad
+\boldsymbol{A}\,\boldsymbol{X}_2\,=\,\lambda_2\,\boldsymbol{X}_2,\quad
+\ldots\quad
+\boldsymbol{A}\,\boldsymbol{X}_n\,=\,\lambda_n\,\boldsymbol{X}_n\]</div>
+<p>if and only if</p>
+<div class="math notranslate nohighlight" id="equation-products">
+<span class="eqno">(3)<a class="headerlink" href="#equation-products" title="Permalink to this equation">¶</a></span>\[\boldsymbol{A}\,\boldsymbol{P}\,=\,\boldsymbol{P}\,\boldsymbol{D},\]</div>
+<p>where <span class="math notranslate nohighlight">\(\ \boldsymbol{D}\,=\,
+\text{diag}(\lambda_1,\lambda_2,\ldots,\lambda_n)\,.\)</span></p>
+<p>Indeed, according to the column rule of matrix multiplication:</p>
+<div class="math notranslate nohighlight">
+\[\begin{split}\begin{array}{rl}
+\boldsymbol{A}\,\boldsymbol{P} \!\! &amp;
+=\ \ \boldsymbol{A}\ \,[\ \boldsymbol{X}_1\,|\ \boldsymbol{X}_2\,|
+\ \ldots\,|\ \boldsymbol{X}_n\,]\ \ = \\[6pt]
+&amp; =\ \ [\ \boldsymbol{A}\,\boldsymbol{X}_1\,|\
+\boldsymbol{A}\,\boldsymbol{X}_2\,|\ \ldots\,|\
+\boldsymbol{A}\,\boldsymbol{X}_n\,]
+\\[10pt]
+\boldsymbol{P}\,\boldsymbol{D} \!\! &amp;
+=\ \ [\ \lambda_1\,\boldsymbol{X}_1\,|\
+\lambda_2\,\boldsymbol{X}_2\,|\  \ldots\,|\
+\lambda_n\,\boldsymbol{X}_n\,] ,
+\end{array}\end{split}\]</div>
+<p>and thus the conditions <a class="reference internal" href="#equation-eigen">(2)</a> and <a class="reference internal" href="#equation-products">(3)</a> equivalent.</p>
+<p><strong>Theorem 7.</strong></p>
+<p>A matrix <span class="math notranslate nohighlight">\(\ \boldsymbol{A}\ \)</span> is diagonalizable by a similarity
+transformation <a class="reference internal" href="#equation-similarity">(1)</a> if and only if the space
+<span class="math notranslate nohighlight">\(\,C^n\,\)</span> has a basis <span class="math notranslate nohighlight">\(\,\mathcal{B} = (\boldsymbol{X}_1,\,
+\boldsymbol{X}_2,\,\ldots,\,\boldsymbol{X}_n)\ \)</span>
+consisting of eigenvectors of the matrix <span class="math notranslate nohighlight">\(\ \boldsymbol{A}:\)</span></p>
+<div class="math notranslate nohighlight">
+\[\boldsymbol{A}\,\boldsymbol{X}_1\,=\,\lambda_1\,\boldsymbol{X}_1,\quad
+\boldsymbol{A}\,\boldsymbol{X}_2\,=\,\lambda_2\,\boldsymbol{X}_2,\quad
+\ldots,\quad
+\boldsymbol{A}\,\boldsymbol{X}_n\,=\,\lambda_n\,\boldsymbol{X}_n\,,\quad
+\lambda_1,\lambda_2,\ldots,\lambda_n\in C\,.\]</div>
+<p>Then the matrix <span class="math notranslate nohighlight">\(\ \boldsymbol{P}\,=\,
+[\ \boldsymbol{X}_1\,|\,\boldsymbol{X}_2\,|\,\ldots\,|\,\boldsymbol{X}_n\ ],\ \)</span>
+whose columns are vectors from the basis <span class="math notranslate nohighlight">\(\,\mathcal{B}\,,\ \)</span> diagonalizes the matrix <span class="math notranslate nohighlight">\(\,\boldsymbol{A}.\)</span></p>
+<p><strong>Proof.</strong></p>
+<p>A matrix <span class="math notranslate nohighlight">\(\ \boldsymbol{A}\ \)</span> is diagonalizable by a similarity
+transformation if there exists an invertible matrix
+<span class="math notranslate nohighlight">\(\ \boldsymbol{P}\,\equiv\,
+[\ \boldsymbol{X}_1\,|\ \boldsymbol{X}_2\,|\ \ldots\,|\ \boldsymbol{X}_n\,]\ \)</span>
+such that</p>
+<div class="math notranslate nohighlight">
+\[\boldsymbol{P}^{-1}\boldsymbol{A}\,\boldsymbol{P}\ =\ \boldsymbol{D},\]</div>
+<p>where <span class="math notranslate nohighlight">\(\ \boldsymbol{D}\ \)</span> is a diagonal matrix:
+<span class="math notranslate nohighlight">\(\ \boldsymbol{D}\,=\,\text{diag}(\lambda_1,\lambda_2,\ldots,\lambda_n).\ \)</span>
+This is equivalent to the conditions</p>
+<div class="math notranslate nohighlight">
+\[\boldsymbol{A}\,\boldsymbol{P}\,=\,\boldsymbol{P}\,\boldsymbol{D}
+\quad\text{and}\quad \det{\boldsymbol{P}}\neq 0.\]</div>
+<p>The condition <span class="math notranslate nohighlight">\(\ \det{\boldsymbol{P}}\neq 0\ \)</span> means that
+<span class="math notranslate nohighlight">\(\ \mathcal{B} =
+(\boldsymbol{X}_1,\, \boldsymbol{X}_2,\,\ldots,\,\boldsymbol{X}_n)\ \)</span>
+comprises a linearly independent set of vectors of the space <span class="math notranslate nohighlight">\(\ C^n.\ \)</span>
+Moreover, by the above Lemma:</p>
+<div class="math notranslate nohighlight">
+\[\boldsymbol{A}\,\boldsymbol{X}_1\,=\,\lambda_1\,\boldsymbol{X}_1,\quad
+\boldsymbol{A}\,\boldsymbol{X}_2\,=\,\lambda_2\,\boldsymbol{X}_2,\quad
+\ldots\quad
+\boldsymbol{A}\,\boldsymbol{X}_n\,=\,\lambda_n\,\boldsymbol{X}_n .\]</div>
+<p>In an <span class="math notranslate nohighlight">\(\ n\)</span>-dimensional vector space every set of <span class="math notranslate nohighlight">\(\,n\,\)</span> linearly
+independent vectors is a basis. Therefore, since <span class="math notranslate nohighlight">\(\ \dim{C^n}=n,\ \)</span> so
+<span class="math notranslate nohighlight">\(\,\mathcal{B}\ \)</span> is a basis of the space <span class="math notranslate nohighlight">\(\ C^n;\ \)</span>
+it is the basis consisting of eigenvectors of the matrix <span class="math notranslate nohighlight">\(\,\boldsymbol{A}.\)</span></p>
+<p>On the other hand, if eigenvectors <span class="math notranslate nohighlight">\(\ \boldsymbol{X}_1,\,\boldsymbol{X}_2,\,
+\ldots,\,\boldsymbol{X}_n\ \)</span> of the matrix <span class="math notranslate nohighlight">\(\,\boldsymbol{A}\in M_n(C)\,\)</span>
+span the space <span class="math notranslate nohighlight">\(\,C^n,\ \)</span> then the matrix <span class="math notranslate nohighlight">\(\,\boldsymbol{P}\,\)</span>
+whose columns are the basis vectors diagonalizes the matrix
+<span class="math notranslate nohighlight">\(\,\boldsymbol{A}.\)</span></p>
+<p><strong>Comments and corollaries.</strong></p>
+<p><strong>1.)</strong> Every matrix <span class="math notranslate nohighlight">\(\,\boldsymbol{A}\in M_n(C)\,\)</span> has at least
+one eigenvalue <span class="math notranslate nohighlight">\(\,\lambda\,\)</span> and the associated eigenvector
+<span class="math notranslate nohighlight">\(\,\boldsymbol{X}.\ \)</span> Hence, because the equation <a class="reference internal" href="#equation-eigen">(2)</a> does not
+require that the eigenvalues
+<span class="math notranslate nohighlight">\(\,\lambda_i\ \)</span> and <span class="math notranslate nohighlight">\(\,\)</span> the associated eigenvectors
+<span class="math notranslate nohighlight">\(\,\boldsymbol{X}_i\ \)</span> are distinct, there always exists a matrix
+<span class="math notranslate nohighlight">\(\,\boldsymbol{P}\ \)</span> such that the equation <a class="reference internal" href="#equation-products">(3)</a> holds.
+In particular, one may take</p>
+<div class="math notranslate nohighlight">
+\[\lambda_1\,=\,\lambda_2=\,\ldots\,\lambda_n\,=\lambda,\quad
+\boldsymbol{X}_1\,=\,\boldsymbol{X}_2\,=\,\ldots\boldsymbol{X}_n\,=\,
+\boldsymbol{X}.\]</div>
+<p>Then <span class="math notranslate nohighlight">\(\,\boldsymbol{A}\boldsymbol{P}=
+\boldsymbol{P}\boldsymbol{D}=\lambda\,\boldsymbol{P},\ \)</span>
+but the matrix <span class="math notranslate nohighlight">\(\ \boldsymbol{P}\ \)</span> is not invertible and thus
+the relation does not hold <a class="reference internal" href="#equation-similarity">(1)</a>.</p>
+<p><strong>2.)</strong> The formula <span class="math notranslate nohighlight">\(\ \boldsymbol{D}\,=\,
+\boldsymbol{P}^{-1}\boldsymbol{A}\,\boldsymbol{P}\ \)</span> may be interpreted
+in terms of transformation of a matrix of a linear operator under a change of basis.
+Consider the space <span class="math notranslate nohighlight">\(\,C^n\ \)</span> with the canonical basis
+<span class="math notranslate nohighlight">\(\ \mathcal{E}\,=\,(\boldsymbol{e}_1,\boldsymbol{e}_2,\ldots\,
+\boldsymbol{e}_n).\ \)</span> Let <span class="math notranslate nohighlight">\(\boldsymbol{A}\ \)</span> be the matrix of a linear
+operator <span class="math notranslate nohighlight">\(F\in \text{End}(C^n)\ \)</span> defined by
+<span class="math notranslate nohighlight">\(\ F(\boldsymbol{x})\,:\,=\,\boldsymbol{A}\boldsymbol{x},\ \)</span>
+<span class="math notranslate nohighlight">\(\,\boldsymbol{x}\in C^n.\ \)</span> If eigenvectors
+<span class="math notranslate nohighlight">\(\ \boldsymbol{X}_1,\boldsymbol{X}_2,\ldots,\boldsymbol{X}_n\ \)</span>
+of the operator <span class="math notranslate nohighlight">\(\,F\,\)</span> are linearly independent, then the matrix
+<span class="math notranslate nohighlight">\(\ \boldsymbol{P}\,=\,
+[\ \boldsymbol{X}_1\,|\,\boldsymbol{X}_2\,|\,\ldots\,|\,\boldsymbol{X}_n\ ]\ \)</span>
+is the transition matrix from the canonical basis
+<span class="math notranslate nohighlight">\(\,\mathcal{E}\,\)</span> to the basis <span class="math notranslate nohighlight">\(\,\mathcal{B}\,=\,
+(\boldsymbol{X}_1,\boldsymbol{X}_2,\ldots\,\boldsymbol{X}_n)\ \)</span> consisting of the eigenvectors.</p>
+<p>Hence, <span class="math notranslate nohighlight">\(\boldsymbol{D}\ \)</span> is a matrix of the operator <span class="math notranslate nohighlight">\(\,F\ \)</span> in the basis
+<span class="math notranslate nohighlight">\(\,\mathcal{B}\ \)</span> consisting of its eigenvectors. As one should expect,
+this is a diagonal matrix with the eigenvalues of <span class="math notranslate nohighlight">\(\,F\ \)</span> on the diagonal.</p>
+<p><strong>3.)</strong> We know already that the eigenevectors of a linear operator which
+are associated to different eigenvalues are linearly independent.</p>
+<p><strong>Corollary.</strong> If a matrix <span class="math notranslate nohighlight">\(\,\boldsymbol{A}\in M_n(C)\ \)</span> has
+<span class="math notranslate nohighlight">\(\,n\,\)</span> distinct eigenvalues, then there exists a similarity transformation
+which diagonalizes this matrix.</p>
+<p>Indeed, if columns of the matrix <span class="math notranslate nohighlight">\(\,\boldsymbol{P}\,\)</span> are eigenvectors
+of the matrix <span class="math notranslate nohighlight">\(\,\boldsymbol{A}\,\)</span> which are associated
+with distinct eigenvalues, then the matrix <span class="math notranslate nohighlight">\(\,\boldsymbol{P}\,\)</span>
+is non-degenerate: <span class="math notranslate nohighlight">\(\,\det{\boldsymbol{P}}\neq 0,\ \)</span> and thus invertible.</p>
+<p><strong>4.)</strong> Eigenvectors of a normal operator which are associated
+with distinct eigenvalues comprise an orthogonal system, and after normalization - an orthonormal system.
+A matrix whose columns comprise an orthonormal system is unitary.</p>
+<p><strong>Corollary.</strong> Let <span class="math notranslate nohighlight">\(\,\boldsymbol{A}\in M_n(C)\ \)</span> be a
+normal (e.g. Hermitian or unitary) matrix. If <span class="math notranslate nohighlight">\(\,\boldsymbol{A}\ \)</span>
+has <span class="math notranslate nohighlight">\(\,n\,\)</span> distinct eigenvalues, then there exists a unitary
+similarity transformation which diagonalizes this matrix (a diagonalizing
+matrix <span class="math notranslate nohighlight">\(\,\boldsymbol{P}\ \)</span> is unitary:
+<span class="math notranslate nohighlight">\(\ \boldsymbol{P}^+\boldsymbol{P}=\boldsymbol{I}_n).\)</span></p>
+<p><strong>Remark.</strong> A normal matrix does not have to have <span class="math notranslate nohighlight">\(\,n\,\)</span>
+distinct eigenvectors to be diagonalizable. Namely, one can prove a more general</p>
+<p><strong>Theorem 8.</strong></p>
+<p>A matrix <span class="math notranslate nohighlight">\(\,\boldsymbol{A}\in M_n(C)\ \)</span> is diagonalizable by a unitary similarity transformation if and only if it is normal.</p>
+<p><strong>Application to real matrices.</strong></p>
+<p>For a real matrix <span class="math notranslate nohighlight">\(\,\boldsymbol{A}:\ \)</span>
+<span class="math notranslate nohighlight">\(\,\boldsymbol{A}\in M_n(R),\ \)</span> we have
+<span class="math notranslate nohighlight">\(\,\boldsymbol{A}^+=\boldsymbol{A}^T.\ \)</span> Therefore</p>
+<div class="math notranslate nohighlight">
+\[\boldsymbol{A}^+=\boldsymbol{A}
+\quad\Leftrightarrow\quad
+\boldsymbol{A}^T=\boldsymbol{A}\]</div>
+<p>(a real Hermitian matrix is symmetric), and</p>
+<div class="math notranslate nohighlight">
+\[\boldsymbol{A}^+\boldsymbol{A}=\boldsymbol{I}_n
+\quad\Leftrightarrow\quad
+\boldsymbol{A}^T\boldsymbol{A}=\boldsymbol{I}_n\]</div>
+<p>(a real unitary matrix is orthogonal).</p>
+<p><strong>Theorem 9.</strong></p>
+<p>Every real symmetric or orthogonal matrix is
+diagonalizable by a unitary similarity transformation.</p>
+<p>Eigenvalues, and thus also eigenvectors, of a real symmetric matrix
+are real. Hence, a unitary diagonalizing matrix is a real orthogonal matrix.</p>
+<p><strong>Corollary.</strong> Every real symmetric matrix is
+diagonalizable by a real orthogonal similarity transformation.</p>
+<p>In comparison to the previous case, eigenvalues of a real orthogonal matrix
+(and thus also its eigenvectors) may be complex and not real.
+Then the unitary diagonalizing matrix will be also
+complex and not real.</p>
+<p><strong>Theorem 10.</strong></p>
+<p>If a matrix <span class="math notranslate nohighlight">\(\ \boldsymbol{A}\ \)</span> is diagonalizable by a similarity
+transformation, then an algebraic multiplicity of every eigenvalue is equal
+to the geometric multiplicity.</p>
+<p><strong>Proof.</strong> <span class="math notranslate nohighlight">\(\ \)</span>
+If a transformation <span class="math notranslate nohighlight">\(\ \boldsymbol{A}\ \rightarrow\
+\boldsymbol{P}^{-1}\boldsymbol{A}\,\boldsymbol{P}\ \equiv\boldsymbol{D}\ \)</span>
+diagonalizes the matrix <span class="math notranslate nohighlight">\(\ \boldsymbol{A},\ \)</span>
+then <span class="math notranslate nohighlight">\(\ \boldsymbol{D}\,=
+\text{diag}(\lambda_1,\,\lambda_2,\,\ldots,\,\lambda_k),\ \)</span> where
+<span class="math notranslate nohighlight">\(\ \lambda_1,\lambda_2,\ldots,\lambda_k\ \)</span> are eigenvalues of the
+matrix <span class="math notranslate nohighlight">\(\,\boldsymbol{A}.\ \)</span>
+The number with which <span class="math notranslate nohighlight">\(\,\lambda_i\,\)</span> occurs on a diagonal of the matrix
+<span class="math notranslate nohighlight">\(\ \boldsymbol{D}\ \)</span> is equal to both an algebraic and geometric multiplicity of this eigenvalue.</p>
+</section>
+
+
+          </div>
+        </div>
+      </div>
+      <div class="sphinxsidebar" role="navigation" aria-label="main navigation">
+        <div class="sphinxsidebarwrapper">
+  <h4>Previous topic</h4>
+  <p class="topless"><a href="diagonalizacja_podobienstwo.html"
+                        title="previous chapter">Similarity Transformation</a></p>
+  <h4>Next topic</h4>
+  <p class="topless"><a href="diagonalizacja_przyklady.html"
+                        title="next chapter">Matrix Diagonalization - Examples</a></p>
+  <div role="note" aria-label="source link">
+    <h3>This Page</h3>
+    <ul class="this-page-menu">
+      <li><a href="_sources/diagonalizacja_macierzy.rst.txt"
+            rel="nofollow">Show Source</a></li>
+    </ul>
+   </div>
+<div id="searchbox" style="display: none" role="search">
+  <h3 id="searchlabel">Quick search</h3>
+    <div class="searchformwrapper">
+    <form class="search" action="search.html" method="get">
+      <input type="text" name="q" aria-labelledby="searchlabel" />
+      <input type="submit" value="Go" />
+    </form>
+    </div>
+</div>
+<script>$('#searchbox').show(0);</script>
+        </div>
+      </div>
+      <div class="clearer"></div>
+    </div>
+  </div>
+  <div class="relbar-bottom">
+    
+    <div class="related" role="navigation" aria-label="related navigation">
+      <h3>Navigation</h3>
+      <ul>
+        <li class="right" style="margin-right: 10px">
+          <a href="genindex.html" title="General Index"
+             >index</a></li>
+        <li class="right" >
+          <a href="diagonalizacja_przyklady.html" title="Matrix Diagonalization - Examples"
+             >next</a> &nbsp; &nbsp;</li>
+        <li class="right" >
+          <a href="diagonalizacja_podobienstwo.html" title="Similarity Transformation"
+             >previous</a> &nbsp; &nbsp;</li>
+  <li><a href="index.html">Linear Algebra</a> &#187;</li>
+  
+        <li class="nav-item nav-item-this"><a href="">Diagonalization by a Similarity Transformation</a></li> 
+      </ul>
+    </div>
+  </div>
+  
+  <div class="footer">
+    <a class="logo" href="http://icse.us.edu.pl/" target="_blank"><img src="_static/logo-icse.png" alt="ICSE"/></a><br/>
+    &copy; Copyright 2018, Jan Aksamit, Joanna Marzec, and  Marcin Kostur.
+    Last updated on Jan 29, 2022.
+    Created using <a href="http://sphinx.pocoo.org/">Sphinx</a> 4.0.1.
+  </div>
+  </body>
+</html>

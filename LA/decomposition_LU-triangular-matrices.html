@@ -1,0 +1,208 @@
+
+
+  
+<!DOCTYPE html>
+
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" /><meta name="generator" content="Docutils 0.17: http://docutils.sourceforge.net/" />
+
+    <title>Triangular Matrices &#8212; Linear Algebra</title>
+    <link rel="stylesheet" type="text/css" href="_static/pygments.css" />
+    <link rel="stylesheet" type="text/css" href="_static/cloud.css" />
+    <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Noticia+Text|Open+Sans|Droid+Sans+Mono&amp;subset=latin,latin-ext" type="text/css" />
+    <script data-url_root="./" id="documentation_options" src="_static/documentation_options.js"></script>
+    <script src="_static/jquery.js"></script>
+    <script src="_static/underscore.js"></script>
+    <script src="_static/doctools.js"></script>
+    <script async="async" src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js"></script>
+    <script src="_static/jquery.cookie.js"></script>
+    <script src="_static/cloud.js"></script>
+    <script type="text/javascript" src="http://sagecell.sagemath.org/static/jquery.min.js"></script>
+    <script type="text/javascript" src="http://sagecell.sagemath.org/embedded_sagecell.js"></script>
+    <script type="text/javascript">
+        sagecell.makeSagecell({inputLocation: ".sage_linked",
+                               linked: true});
+        sagecell.makeSagecell({inputLocation: ".sage_unlinked",
+                               linked: false});
+    </script>
+
+    <style type="text/css">
+        .sagecell .CodeMirror-scroll {
+            overflow-y: hidden;
+            overflow-x: auto;
+        }
+        .sagecell .CodeMirror {
+            height: auto;
+        }
+    </style>
+    
+    <link rel="index" title="Index" href="genindex.html" />
+    <link rel="search" title="Search" href="search.html" />
+    <link rel="next" title="LU Factorization of a Matrix" href="decomposition_LU-factorization.html" />
+    <link rel="prev" title="Problems" href="determinants_problems.html" />
+ 
+  <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, minimum-scale=1">
+  </head><body>
+  <div class="relbar-top">
+    
+    <div class="related" role="navigation" aria-label="related navigation">
+      <h3>Navigation</h3>
+      <ul>
+        <li class="right" style="margin-right: 10px">
+          <a href="genindex.html" title="General Index"
+             accesskey="I">index</a></li>
+        <li class="right" >
+          <a href="decomposition_LU-factorization.html" title="LU Factorization of a Matrix"
+             accesskey="N">next</a> &nbsp; &nbsp;</li>
+        <li class="right" >
+          <a href="determinants_problems.html" title="Problems"
+             accesskey="P">previous</a> &nbsp; &nbsp;</li>
+  <li><a href="index.html">Linear Algebra</a> &#187;</li>
+  
+        <li class="nav-item nav-item-this"><a href="">Triangular Matrices</a></li> 
+      </ul>
+    </div>
+  </div>
+  
+  <div class="content">  
+
+    <div class="document">
+      <div class="documentwrapper">
+        <div class="bodywrapper">
+          <div class="body">
+            
+  <section id="triangular-matrices">
+<h1>Triangular Matrices<a class="headerlink" href="#triangular-matrices" title="Permalink to this headline">¶</a></h1>
+<p>If in a matrix <span class="math notranslate nohighlight">\(\,\boldsymbol{L}=[l_{ij}]_{n\times n}\in M_n(K)\,\)</span>
+all elements located above the main diagonal do vanish:
+<span class="math notranslate nohighlight">\(\ l_{ij}=0\ \)</span> for <span class="math notranslate nohighlight">\(\ i&lt;j,\ \)</span> <span class="math notranslate nohighlight">\(\ i,j=1,2,\dots,n\,,\ \)</span>
+then <span class="math notranslate nohighlight">\(\,\boldsymbol{L}\,\)</span> is named <span class="math notranslate nohighlight">\(\,\)</span> a <span class="math notranslate nohighlight">\(\,\)</span>
+<em>lower triangular</em> <span class="math notranslate nohighlight">\(\,\)</span> matrix.</p>
+<p>Correspondingly, <span class="math notranslate nohighlight">\(\,\)</span> in <span class="math notranslate nohighlight">\(\,\)</span> an <span class="math notranslate nohighlight">\(\,\)</span>  <em>upper triangular</em>
+<span class="math notranslate nohighlight">\(\,\)</span> matrix <span class="math notranslate nohighlight">\(\,\boldsymbol{U}=[u_{ij}]_{n\times n}\in M_n(K)\,\)</span>
+vanishing are all elements below the main diagonal:
+<span class="math notranslate nohighlight">\(\,u_{ij}=0\ \ \text{for}\ \ i&gt;j,\ \ i,j=1,2,\dots,n\,.\)</span></p>
+<p>For instance, triangular matrices of size <span class="math notranslate nohighlight">\(\,4\,\)</span> have the
+following general form:</p>
+<div class="math notranslate nohighlight" id="equation-mlu">
+<span class="eqno">(1)<a class="headerlink" href="#equation-mlu" title="Permalink to this equation">¶</a></span>\[\begin{split}\boldsymbol{L}\ =\
+\left[\begin{array}{cccc} l_{11} &amp;    0   &amp;    0   &amp;    0   \\
+                          l_{21} &amp; l_{22} &amp;    0   &amp;    0   \\
+                          l_{31} &amp; l_{32} &amp; l_{33} &amp;    0   \\
+                          l_{41} &amp; l_{42} &amp; l_{43} &amp; l_{44}
+\end{array}\right]\,,
+\qquad
+\boldsymbol{U}\ =\
+\left[\begin{array}{cccc} u_{11} &amp; u_{12} &amp; u_{13} &amp; u_{14} \\
+                             0   &amp; u_{22} &amp; u_{23} &amp; u_{24} \\
+                             0   &amp;    0   &amp; u_{33} &amp; u_{34} \\
+                             0   &amp;    0   &amp;    0   &amp; u_{44}
+\end{array}\right]\,.\end{split}\]</div>
+<p><strong>Properties of triangular matrices.</strong></p>
+<ul class="simple">
+<li><p>The sum of two lower triangular matrices is a lower triangular matrix.</p></li>
+<li><p>The product of a lower triangular matrix by a scalar
+is a lower triangular matrix.</p></li>
+<li><p>The product  of two lower triangular matrices is a lower triangular matrix.</p></li>
+<li><p>The inverse of a non-singular lower triangular matrix is also lower triangular.</p></li>
+</ul>
+<p>The set of all lower triangular matrices of size <span class="math notranslate nohighlight">\(\,n\,\)</span> over a field
+<span class="math notranslate nohighlight">\(\,K\,\)</span> is therefore a subalgebra of the algebra <span class="math notranslate nohighlight">\(\,M_n(K).\ \)</span>
+The same holds for upper triangular matrices.</p>
+<p>A system of linear equations with a square coefficient matrix
+<span class="math notranslate nohighlight">\(\boldsymbol{A}\,\)</span> is easy to solve, when <span class="math notranslate nohighlight">\(\,\boldsymbol{A}\,\)</span>
+is a lower or upper triangular matrix. For example, let’s consider a system
+with the matrix <span class="math notranslate nohighlight">\(\,\boldsymbol{L}\,\)</span> in Eq. <a class="reference internal" href="#equation-mlu">(1)</a>, assuming that
+<span class="math notranslate nohighlight">\(\ l_{ii}\neq 0,\ \ i=1,2,3,4\,:\)</span></p>
+<div class="math notranslate nohighlight">
+\begin{alignat*}{5}
+l_{11}\,x_1 &amp; {\,}   {\,} &amp;             &amp; {\,}   {\,} &amp;             &amp; {\,}   {\,} &amp;             &amp; {\ \ } = {\ \ } &amp; b_1 \\
+l_{21}\,x_1 &amp; {\,} + {\,} &amp; l_{22}\,x_2 &amp; {\,}   {\,} &amp;             &amp; {\,}   {\,} &amp;             &amp; {\ \ } = {\ \ } &amp; b_2 \\
+l_{31}\,x_1 &amp; {\,} + {\,} &amp; l_{32}\,x_2 &amp; {\,} + {\,} &amp; l_{33}\,x_3 &amp; {\,}   {\,} &amp;             &amp; {\ \ } = {\ \ } &amp; b_3 \\
+l_{41}\,x_1 &amp; {\,} + {\,} &amp; l_{42}\,x_2 &amp; {\,} + {\,} &amp; l_{43}\,x_3 &amp; {\,} + {\,} &amp; l_{44}\,x_4 &amp; {\ \ } = {\ \ } &amp; b_4
+\end{alignat*}</div><p>The solution is readily obtained <span class="math notranslate nohighlight">\(\,\)</span> by <span class="math notranslate nohighlight">\(\,\)</span>
+<em>forward substitution</em>:</p>
+<div class="math notranslate nohighlight">
+\begin{eqnarray*}
+x_1 &amp; = &amp; l_{11}^{-1}\ b_1 \\
+x_2 &amp; = &amp; l_{22}^{-1}\ (b_2-l_{21}\,x_1) \\
+x_3 &amp; = &amp; l_{33}^{-1}\ (b_3-l_{31}\,x_1-l_{32}\,x_2) \\
+x_4 &amp; = &amp; l_{44}^{-1}\ (b_4-l_{41}\,x_1-l_{42}\,x_2-l_{43}\,x_3)
+\end{eqnarray*}</div><p>In general,
+if the coefficient matrix is a lower triangular one of size <span class="math notranslate nohighlight">\(\,n\,\)</span>
+with non-zero diagonal elements (the latter assures the existence
+of a unique solution), then</p>
+<div class="math notranslate nohighlight">
+\[x_k\ \,=\ \,l_{kk}^{-1}\
+\left(\,b_k\ -\ \sum_{i=1}^{k-1}\ l_{ki}\,x_i\,\right)\,,\qquad
+k=1,2,\dots,n\,.\]</div>
+<p>An analogous procedure, viz. the <em>backward substitution</em>, <span class="math notranslate nohighlight">\(\,\)</span>
+yields the solution of a linear system with an upper triangular
+coefficient matrix.</p>
+</section>
+
+
+          </div>
+        </div>
+      </div>
+      <div class="sphinxsidebar" role="navigation" aria-label="main navigation">
+        <div class="sphinxsidebarwrapper">
+  <h4>Previous topic</h4>
+  <p class="topless"><a href="determinants_problems.html"
+                        title="previous chapter">Problems</a></p>
+  <h4>Next topic</h4>
+  <p class="topless"><a href="decomposition_LU-factorization.html"
+                        title="next chapter">LU Factorization of a Matrix</a></p>
+  <div role="note" aria-label="source link">
+    <h3>This Page</h3>
+    <ul class="this-page-menu">
+      <li><a href="_sources/decomposition_LU-triangular-matrices.rst.txt"
+            rel="nofollow">Show Source</a></li>
+    </ul>
+   </div>
+<div id="searchbox" style="display: none" role="search">
+  <h3 id="searchlabel">Quick search</h3>
+    <div class="searchformwrapper">
+    <form class="search" action="search.html" method="get">
+      <input type="text" name="q" aria-labelledby="searchlabel" />
+      <input type="submit" value="Go" />
+    </form>
+    </div>
+</div>
+<script>$('#searchbox').show(0);</script>
+        </div>
+      </div>
+      <div class="clearer"></div>
+    </div>
+  </div>
+  <div class="relbar-bottom">
+    
+    <div class="related" role="navigation" aria-label="related navigation">
+      <h3>Navigation</h3>
+      <ul>
+        <li class="right" style="margin-right: 10px">
+          <a href="genindex.html" title="General Index"
+             >index</a></li>
+        <li class="right" >
+          <a href="decomposition_LU-factorization.html" title="LU Factorization of a Matrix"
+             >next</a> &nbsp; &nbsp;</li>
+        <li class="right" >
+          <a href="determinants_problems.html" title="Problems"
+             >previous</a> &nbsp; &nbsp;</li>
+  <li><a href="index.html">Linear Algebra</a> &#187;</li>
+  
+        <li class="nav-item nav-item-this"><a href="">Triangular Matrices</a></li> 
+      </ul>
+    </div>
+  </div>
+  
+  <div class="footer">
+    <a class="logo" href="http://icse.us.edu.pl/" target="_blank"><img src="_static/logo-icse.png" alt="ICSE"/></a><br/>
+    &copy; Copyright 2018, Jan Aksamit, Joanna Marzec, and  Marcin Kostur.
+    Last updated on Jan 29, 2022.
+    Created using <a href="http://sphinx.pocoo.org/">Sphinx</a> 4.0.1.
+  </div>
+  </body>
+</html>

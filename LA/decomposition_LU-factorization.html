@@ -1,0 +1,382 @@
+
+
+  
+<!DOCTYPE html>
+
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" /><meta name="generator" content="Docutils 0.17: http://docutils.sourceforge.net/" />
+
+    <title>LU Factorization of a Matrix &#8212; Linear Algebra</title>
+    <link rel="stylesheet" type="text/css" href="_static/pygments.css" />
+    <link rel="stylesheet" type="text/css" href="_static/cloud.css" />
+    <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Noticia+Text|Open+Sans|Droid+Sans+Mono&amp;subset=latin,latin-ext" type="text/css" />
+    <script data-url_root="./" id="documentation_options" src="_static/documentation_options.js"></script>
+    <script src="_static/jquery.js"></script>
+    <script src="_static/underscore.js"></script>
+    <script src="_static/doctools.js"></script>
+    <script async="async" src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js"></script>
+    <script src="_static/jquery.cookie.js"></script>
+    <script src="_static/cloud.js"></script>
+    <script type="text/javascript" src="http://sagecell.sagemath.org/static/jquery.min.js"></script>
+    <script type="text/javascript" src="http://sagecell.sagemath.org/embedded_sagecell.js"></script>
+    <script type="text/javascript">
+        sagecell.makeSagecell({inputLocation: ".sage_linked",
+                               linked: true});
+        sagecell.makeSagecell({inputLocation: ".sage_unlinked",
+                               linked: false});
+    </script>
+
+    <style type="text/css">
+        .sagecell .CodeMirror-scroll {
+            overflow-y: hidden;
+            overflow-x: auto;
+        }
+        .sagecell .CodeMirror {
+            height: auto;
+        }
+    </style>
+    
+    <link rel="index" title="Index" href="genindex.html" />
+    <link rel="search" title="Search" href="search.html" />
+    <link rel="next" title="Applications of the LU Decomposition" href="decomposition_LU-applications.html" />
+    <link rel="prev" title="Triangular Matrices" href="decomposition_LU-triangular-matrices.html" />
+ 
+  <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, minimum-scale=1">
+  </head><body>
+  <div class="relbar-top">
+    
+    <div class="related" role="navigation" aria-label="related navigation">
+      <h3>Navigation</h3>
+      <ul>
+        <li class="right" style="margin-right: 10px">
+          <a href="genindex.html" title="General Index"
+             accesskey="I">index</a></li>
+        <li class="right" >
+          <a href="decomposition_LU-applications.html" title="Applications of the LU Decomposition"
+             accesskey="N">next</a> &nbsp; &nbsp;</li>
+        <li class="right" >
+          <a href="decomposition_LU-triangular-matrices.html" title="Triangular Matrices"
+             accesskey="P">previous</a> &nbsp; &nbsp;</li>
+  <li><a href="index.html">Linear Algebra</a> &#187;</li>
+  
+        <li class="nav-item nav-item-this"><a href="">LU Factorization of a Matrix</a></li> 
+      </ul>
+    </div>
+  </div>
+  
+  <div class="content">  
+
+    <div class="document">
+      <div class="documentwrapper">
+        <div class="bodywrapper">
+          <div class="body">
+            
+  <section id="lu-factorization-of-a-matrix">
+<h1>LU Factorization of a Matrix<a class="headerlink" href="#lu-factorization-of-a-matrix" title="Permalink to this headline">¶</a></h1>
+<p>Our aim is to represent a square matrix
+<span class="math notranslate nohighlight">\(\,\boldsymbol{A}\in M_n(K)\,\)</span> as a product of a lower and an upper
+triangular matrices:
+<span class="math notranslate nohighlight">\(\ \boldsymbol{A}\ =\ \boldsymbol{L}\,\boldsymbol{U}.\)</span></p>
+<p>We start out with a particular example. <span class="math notranslate nohighlight">\(\,\)</span>
+Let <span class="math notranslate nohighlight">\(\ \boldsymbol{A}\ =\ \left[\begin{array}{rrr}
+2 &amp;  1 &amp; 1 \\
+4 &amp; -6 &amp; 0 \\
+-2 &amp;  7 &amp; 2\end{array}\right]\in M_n(Q)\,.\)</span></p>
+<p>The Gauss elimination, which converts <span class="math notranslate nohighlight">\(\,\boldsymbol{A}\,\)</span>
+to an upper triangular matrix <span class="math notranslate nohighlight">\(\,\boldsymbol{U},\ \)</span>
+is composed of the following consecutive elementary operations:</p>
+<ol class="arabic">
+<li><div class="line-block">
+<div class="line">From the 2nd row of matrix <span class="math notranslate nohighlight">\(\,\boldsymbol{A}\,\)</span>
+we subtract the doubled 1st row.</div>
+<div class="line">This elementary operation <span class="math notranslate nohighlight">\(\,O_3(1,0,-2)\,\)</span> is represented
+by the elementary matrix <span class="math notranslate nohighlight">\(\,\boldsymbol{E}^{(1)}=
+\boldsymbol{E}_3(1,0,-2).\ \)</span> The result is
+<span class="math notranslate nohighlight">\(\ \boldsymbol{A}_1=\boldsymbol{E}^{(1)}\boldsymbol{A}:\)</span></div>
+</div>
+<div class="math notranslate nohighlight">
+\[\begin{split}\boldsymbol{A}_1\ =\
+\left[\begin{array}{rrr} 1 &amp; 0 &amp; 0 \\
+                        -2 &amp; 1 &amp; 0 \\
+                         0 &amp; 0 &amp; 1\end{array}\right]\
+\left[\begin{array}{rrr} 2 &amp;  1 &amp; 1 \\
+                         4 &amp; -6 &amp; 0 \\
+                        -2 &amp;  7 &amp; 2\end{array}\right]\ =\
+\left[\begin{array}{rrr} 2 &amp;  1 &amp;  1 \\
+                         0 &amp; -8 &amp; -2 \\
+                        -2 &amp;  7 &amp;  2\end{array}\right]\,.\end{split}\]</div>
+</li>
+<li><div class="line-block">
+<div class="line">To the 3rd row of matrix <span class="math notranslate nohighlight">\(\,\boldsymbol{A}_1\,\)</span> we add the 1st row.</div>
+<div class="line">This operation <span class="math notranslate nohighlight">\(\,O_3(2,0,1)\,\)</span> is represented by the matrix
+<span class="math notranslate nohighlight">\(\,\boldsymbol{E}^{(2)}=\boldsymbol{E}_3(2,0,1).\,\)</span></div>
+<div class="line">The result is <span class="math notranslate nohighlight">\(\ \boldsymbol{A}_2=
+\boldsymbol{E}^{(2)}\boldsymbol{A}_1:\)</span></div>
+</div>
+<div class="math notranslate nohighlight">
+\[\begin{split}\boldsymbol{A}_2\ =\
+\left[\begin{array}{rrr} 1 &amp; 0 &amp; 0 \\
+                         0 &amp; 1 &amp; 0 \\
+                         1 &amp; 0 &amp; 1\end{array}\right]\
+\left[\begin{array}{rrr} 2 &amp;  1 &amp;  1 \\
+                         0 &amp; -8 &amp; -2 \\
+                        -2 &amp;  7 &amp;  2\end{array}\right]\ =\
+\left[\begin{array}{rrr} 2 &amp;  1 &amp;  1 \\
+                         0 &amp; -8 &amp; -2 \\
+                         0 &amp;  8 &amp;  3\end{array}\right]\,.\end{split}\]</div>
+</li>
+<li><div class="line-block">
+<div class="line">To the 3rd row of matrix <span class="math notranslate nohighlight">\(\,\boldsymbol{A}_2\,\)</span> we add the 2nd row.</div>
+<div class="line">This operation <span class="math notranslate nohighlight">\(\,O_3(2,1,1)\,\)</span> is represented by the matrix
+<span class="math notranslate nohighlight">\(\,\boldsymbol{E}^{(3)}=\boldsymbol{E}_3(2,1,1).\,\)</span></div>
+<div class="line">The result is the upper triangular matrix
+<span class="math notranslate nohighlight">\(\ \boldsymbol{U}=\boldsymbol{E}^{(3)}\boldsymbol{A}_2:\)</span></div>
+</div>
+<div class="math notranslate nohighlight">
+\[\begin{split}\boldsymbol{U}\ =\
+\left[\begin{array}{rrr} 1 &amp; 0 &amp; 0 \\
+                         0 &amp; 1 &amp; 0 \\
+                         0 &amp; 1 &amp; 1\end{array}\right]\
+\left[\begin{array}{rrr} 2 &amp;  1 &amp;  1 \\
+                         0 &amp; -8 &amp; -2 \\
+                         0 &amp;  8 &amp;  3\end{array}\right]\ =\
+\left[\begin{array}{rrr} 2 &amp;  1 &amp;  1 \\
+                         0 &amp; -8 &amp; -2 \\
+                         0 &amp;  0 &amp;  1\end{array}\right]\,.\end{split}\]</div>
+</li>
+</ol>
+<p>Gathering together the partial results, we may write:</p>
+<div class="math notranslate nohighlight" id="equation-ueeea">
+<span class="eqno">(1)<a class="headerlink" href="#equation-ueeea" title="Permalink to this equation">¶</a></span>\[\boldsymbol{U}\ =\
+\boldsymbol{E}^{(3)}\boldsymbol{E}^{(2)}\boldsymbol{E}^{(1)}\boldsymbol{A}\,.\]</div>
+<p>In each of the the three applied elementary operations
+a multiple of an upper row (with a lesser index)
+has been added to a lower row (with a greater index).
+The corresponding elementary matrices,
+obtained by application of these operations to the identity matrix,
+are therefore lower triangular matrices.
+So are their products and inverses.</p>
+<p>Thus the Eq. <a class="reference internal" href="#equation-ueeea">(1)</a> can be rewritten as</p>
+<div class="math notranslate nohighlight">
+\[\boldsymbol{A}\ =\ \boldsymbol{L}\,\boldsymbol{U}\]</div>
+<p>where
+<span class="math notranslate nohighlight">\(\quad\boldsymbol{L}\ \ =\ \ \left[\,
+\boldsymbol{E}^{(3)}\boldsymbol{E}^{(2)}\boldsymbol{E}^{(1)}
+\right]^{-1}\ =\ \ \
+\left[\boldsymbol{E}^{(1)}\right]^{-1}
+\left[\boldsymbol{E}^{(2)}\right]^{-1}
+\left[\boldsymbol{E}^{(3)}\right]^{-1}\quad\)</span>
+is a lower, <span class="math notranslate nohighlight">\(\\\)</span>
+and <span class="math notranslate nohighlight">\(\ \boldsymbol{U}\ \)</span> <span class="math notranslate nohighlight">\(\,\)</span> - <span class="math notranslate nohighlight">\(\,\)</span>
+an upper triangular matrix.</p>
+<p>The matrix <span class="math notranslate nohighlight">\(\ \boldsymbol{L}\ \)</span> can be calculated by hand:</p>
+<div class="math notranslate nohighlight">
+\[ \begin{align}\begin{aligned}\boldsymbol{E}^{(3)}\boldsymbol{E}^{(2)}\boldsymbol{E}^{(1)}\ =\
+\boldsymbol{E}_3(2,1,1)\,\cdot\,
+\boldsymbol{E}_3(2,0,1)\,\cdot\,
+\boldsymbol{E}_3(1,0,-2)\ =\\\begin{split}=\
+\left[\begin{array}{rrr} 1 &amp; 0 &amp; 0 \\
+                         0 &amp; 1 &amp; 0 \\
+                         0 &amp; 1 &amp; 1\end{array}\right]\,\cdot\,
+\left[\begin{array}{rrr} 1 &amp; 0 &amp; 0 \\
+                         0 &amp; 1 &amp; 0 \\
+                         1 &amp; 0 &amp; 1\end{array}\right]\,\cdot\,
+\left[\begin{array}{rrr} 1 &amp; 0 &amp; 0 \\
+                        -2 &amp; 1 &amp; 0 \\
+                         0 &amp; 0 &amp; 1\end{array}\right]\ =\
+\left[\begin{array}{rrr} 1 &amp; 0 &amp; 0 \\
+                        -2 &amp; 1 &amp; 0 \\
+                        -1 &amp; 1 &amp; 1\end{array}\right]\,;\end{split}\\\begin{split}\boldsymbol{L}\quad =\quad
+\left[\begin{array}{rrr} 1 &amp; 0 &amp; 0 \\
+                        -2 &amp; 1 &amp; 0 \\
+                        -1 &amp; 1 &amp; 1\end{array}\right]
+^{-1}\ =\quad
+\left[\begin{array}{rrr} 1 &amp;  0 &amp; 0 \\
+                          2 &amp;  1 &amp; 0 \\
+                         -1 &amp; -1 &amp; 1\end{array}\right]\,.\end{split}\end{aligned}\end{align} \]</div>
+<p>or using the Sage code:</p>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="n">sage</span><span class="p">:</span> <span class="n">E1</span> <span class="o">=</span> <span class="n">elementary_matrix</span><span class="p">(</span><span class="n">QQ</span><span class="p">,</span> <span class="mi">3</span><span class="p">,</span> <span class="n">row1</span><span class="o">=</span><span class="mi">1</span><span class="p">,</span> <span class="n">row2</span><span class="o">=</span><span class="mi">0</span><span class="p">,</span> <span class="n">scale</span><span class="o">=-</span><span class="mi">2</span><span class="p">)</span>
+<span class="n">sage</span><span class="p">:</span> <span class="n">E2</span> <span class="o">=</span> <span class="n">elementary_matrix</span><span class="p">(</span><span class="n">QQ</span><span class="p">,</span> <span class="mi">3</span><span class="p">,</span> <span class="n">row1</span><span class="o">=</span><span class="mi">2</span><span class="p">,</span> <span class="n">row2</span><span class="o">=</span><span class="mi">0</span><span class="p">,</span> <span class="n">scale</span><span class="o">=</span> <span class="mi">1</span><span class="p">)</span>
+<span class="n">sage</span><span class="p">:</span> <span class="n">E3</span> <span class="o">=</span> <span class="n">elementary_matrix</span><span class="p">(</span><span class="n">QQ</span><span class="p">,</span> <span class="mi">3</span><span class="p">,</span> <span class="n">row1</span><span class="o">=</span><span class="mi">2</span><span class="p">,</span> <span class="n">row2</span><span class="o">=</span><span class="mi">1</span><span class="p">,</span> <span class="n">scale</span><span class="o">=</span> <span class="mi">1</span><span class="p">)</span>
+<span class="n">sage</span><span class="p">:</span> <span class="n">E</span> <span class="o">=</span> <span class="n">E3</span><span class="o">*</span><span class="n">E2</span><span class="o">*</span><span class="n">E1</span>
+<span class="n">sage</span><span class="p">:</span> <span class="n">L</span> <span class="o">=</span> <span class="n">E</span><span class="o">.</span><span class="n">inverse</span><span class="p">();</span> <span class="n">L</span>
+
+<span class="p">[</span> <span class="mi">1</span>  <span class="mi">0</span>  <span class="mi">0</span><span class="p">]</span>
+<span class="p">[</span> <span class="mi">2</span>  <span class="mi">1</span>  <span class="mi">0</span><span class="p">]</span>
+<span class="p">[</span><span class="o">-</span><span class="mi">1</span> <span class="o">-</span><span class="mi">1</span>  <span class="mi">1</span><span class="p">]</span>
+</pre></div>
+</div>
+<p>Finally, the decomposition <span class="math notranslate nohighlight">\(\,\boldsymbol{A}=
+\boldsymbol{L}\boldsymbol{U}\ \)</span> of the matrix <span class="math notranslate nohighlight">\(\,\boldsymbol{A}\,\)</span>
+into a product of a lower and upper triangular matrices, reads as follows:</p>
+<div class="math notranslate nohighlight" id="equation-a-lu-ex">
+<span class="eqno">(2)<a class="headerlink" href="#equation-a-lu-ex" title="Permalink to this equation">¶</a></span>\[\begin{split}\blacktriangleright\quad
+\left[\begin{array}{rrr} 2 &amp;  1 &amp; 1 \\
+                         4 &amp; -6 &amp; 0 \\
+                        -2 &amp;  7 &amp; 2\end{array}\right]\ \ =\ \
+\left[\begin{array}{rrr}  1 &amp;  0 &amp; 0 \\
+                          2 &amp;  1 &amp; 0 \\
+                         -1 &amp; -1 &amp; 1\end{array}\right]
+\ \cdot\
+\left[\begin{array}{rrr} 2 &amp;  1 &amp;  1 \\
+                         0 &amp; -8 &amp; -2 \\
+                         0 &amp;  0 &amp;  1\end{array}\right]\,.\end{split}\]</div>
+<p>The above-mentioned procedure would not be directly applicable,
+if the upper left-most coefficient <span class="math notranslate nohighlight">\(\,a_{11}\,\)</span> vanished.
+Then, the operations on rows should be preceded by their permutation,
+which however involves a non-triangular elementary matrix.
+In such a case the procedure would be applied to the matrix
+<span class="math notranslate nohighlight">\(\,\boldsymbol{P}\boldsymbol{A},\,\)</span> where <span class="math notranslate nohighlight">\(\,\boldsymbol{P}\,\)</span>
+is the matrix of an appropriate permutation:
+<span class="math notranslate nohighlight">\(\,\boldsymbol{P}\boldsymbol{A}=\boldsymbol{L}\,\boldsymbol{U}.\)</span></p>
+<p>In Sage the decomposition is performed by the method <code class="docutils literal notranslate"><span class="pre">LU()</span></code>, <a class="footnote-reference brackets" href="#id2" id="id1">1</a> <span class="math notranslate nohighlight">\(\ \)</span>
+applicable to a <span class="math notranslate nohighlight">\(\,m \times n\,\)</span>
+rectangular matrix <span class="math notranslate nohighlight">\(\,\boldsymbol{A}.\ \)</span> By default, the output is
+a triplet <span class="math notranslate nohighlight">\(\,(\boldsymbol{P},\boldsymbol{L},\boldsymbol{U}),\ \)</span>
+where <span class="math notranslate nohighlight">\(\,\boldsymbol{L}\,\)</span> is a <span class="math notranslate nohighlight">\(\,m \times m\,\)</span>
+lower triangular matrix with all diagonal elements equal to one,
+<span class="math notranslate nohighlight">\(\,\boldsymbol{U}\,\)</span> is a <span class="math notranslate nohighlight">\(\,m \times n\,\)</span> upper diagonal
+matrix and <span class="math notranslate nohighlight">\(\,\boldsymbol{P}\,\)</span> is a <span class="math notranslate nohighlight">\(\,m \times m\,\)</span>
+permutation matrix such that
+<span class="math notranslate nohighlight">\(\,\boldsymbol{A}\ =\ \boldsymbol{P}\,\boldsymbol{L}\,\boldsymbol{U}\,.\)</span></p>
+<p>A direct application of the method <code class="docutils literal notranslate"><span class="pre">LU()</span></code> to the matrix
+<span class="math notranslate nohighlight">\(\,\boldsymbol{A}\,\)</span> from our example</p>
+<div class='sage_linked'><script type='text/x-sage'>A = matrix(QQ, [[ 2, 1, 1],
+                [ 4,-6, 0],
+                [-2, 7, 2]])
+
+(P,L,U) = A.LU()
+
+table([[A, '=', P, '$\\cdot$', L, '$\\cdot$', U]])</script></div><p>provides a decomposition different from <a class="reference internal" href="#equation-a-lu-ex">(2)</a>:</p>
+<div class="math notranslate nohighlight">
+\[\begin{split}\left[\begin{array}{rrr}
+    2 &amp;  1 &amp; 1 \\
+    4 &amp; -6 &amp; 0 \\
+   -2 &amp;  7 &amp; 2
+\end{array}\right]\ \ =\ \
+\left[\begin{array}{rrr}
+    0 &amp; 1 &amp; 0 \\
+    1 &amp; 0 &amp; 0 \\
+    0 &amp; 0 &amp; 1
+\end{array}\right]\ \cdot\
+\left[\begin{array}{rrr}
+    1 &amp; 0 &amp; 0 \\
+    \textstyle{1\over 2} &amp; 1 &amp; 0 \\
+   -\textstyle{1\over 2} &amp; 1 &amp; 1
+\end{array}\right]\ \cdot\
+\left[\begin{array}{rrr}
+   4 &amp; -6 &amp; 0 \\
+   0 &amp;  4 &amp; 1 \\
+   0 &amp;  0 &amp; 1
+\end{array}\right]\,.\end{split}\]</div>
+<p>To obtain the result <a class="reference internal" href="#equation-a-lu-ex">(2)</a>, the ‘nonzero’ pivoting strategy
+is to be assumed:</p>
+<div class='sage_linked'><script type='text/x-sage'>A = matrix(QQ, [[ 2, 1, 1],
+                [ 4,-6, 0],
+                [-2, 7, 2]])
+
+(P,L,U) = A.LU(pivot='nonzero')
+
+table([[A, '=', P, '$\\cdot$', L, '$\\cdot$', U]])</script></div><p>Now the output reads:</p>
+<div class="math notranslate nohighlight">
+\[\begin{split}\left[\begin{array}{rrr}
+    2 &amp;  1 &amp; 1 \\
+    4 &amp; -6 &amp; 0 \\
+   -2 &amp;  7 &amp; 2
+\end{array}\right]\ \ =\ \
+\left[\begin{array}{rrr}
+    1 &amp; 0 &amp; 0 \\
+    0 &amp; 1 &amp; 0 \\
+    0 &amp; 0 &amp; 1
+\end{array}\right]\ \cdot\
+\left[\begin{array}{rrr}
+       1 &amp;  0 &amp; 0 \\
+       2 &amp;  1 &amp; 0 \\
+      -1 &amp; -1 &amp; 1
+\end{array}\right]\ \cdot\
+\left[\begin{array}{rrr}
+      2 &amp;  1 &amp;  1 \\
+      0 &amp; -8 &amp; -2 \\
+      0 &amp;  0 &amp;  1
+\end{array}\right]\,.\end{split}\]</div>
+<p><span class="math notranslate nohighlight">\(\;\)</span></p>
+<div class="admonition note">
+<p class="admonition-title">Note</p>
+<p>The method <code class="docutils literal notranslate"><span class="pre">LU()</span></code> has been designed for use with exact rings,
+e.g. the field <code class="docutils literal notranslate"><span class="pre">QQ</span></code> of rational numbers.
+For numerical results,  the base ring should be converted to
+the field <code class="docutils literal notranslate"><span class="pre">RDF</span></code> of real numbers with double precision or to
+the field <code class="docutils literal notranslate"><span class="pre">CDF</span></code> of complex numbers with double precision.</p>
+</div>
+<dl class="footnote brackets">
+<dt class="label" id="id2"><span class="brackets"><a class="fn-backref" href="#id1">1</a></span></dt>
+<dd><p><a class="reference external" href="http://doc.sagemath.org/html/en/reference/matrices/sage/matrix/matrix2.html">http://doc.sagemath.org/html/en/reference/matrices/sage/matrix/matrix2.html</a></p>
+</dd>
+</dl>
+</section>
+
+
+          </div>
+        </div>
+      </div>
+      <div class="sphinxsidebar" role="navigation" aria-label="main navigation">
+        <div class="sphinxsidebarwrapper">
+  <h4>Previous topic</h4>
+  <p class="topless"><a href="decomposition_LU-triangular-matrices.html"
+                        title="previous chapter">Triangular Matrices</a></p>
+  <h4>Next topic</h4>
+  <p class="topless"><a href="decomposition_LU-applications.html"
+                        title="next chapter">Applications of the LU Decomposition</a></p>
+  <div role="note" aria-label="source link">
+    <h3>This Page</h3>
+    <ul class="this-page-menu">
+      <li><a href="_sources/decomposition_LU-factorization.rst.txt"
+            rel="nofollow">Show Source</a></li>
+    </ul>
+   </div>
+<div id="searchbox" style="display: none" role="search">
+  <h3 id="searchlabel">Quick search</h3>
+    <div class="searchformwrapper">
+    <form class="search" action="search.html" method="get">
+      <input type="text" name="q" aria-labelledby="searchlabel" />
+      <input type="submit" value="Go" />
+    </form>
+    </div>
+</div>
+<script>$('#searchbox').show(0);</script>
+        </div>
+      </div>
+      <div class="clearer"></div>
+    </div>
+  </div>
+  <div class="relbar-bottom">
+    
+    <div class="related" role="navigation" aria-label="related navigation">
+      <h3>Navigation</h3>
+      <ul>
+        <li class="right" style="margin-right: 10px">
+          <a href="genindex.html" title="General Index"
+             >index</a></li>
+        <li class="right" >
+          <a href="decomposition_LU-applications.html" title="Applications of the LU Decomposition"
+             >next</a> &nbsp; &nbsp;</li>
+        <li class="right" >
+          <a href="decomposition_LU-triangular-matrices.html" title="Triangular Matrices"
+             >previous</a> &nbsp; &nbsp;</li>
+  <li><a href="index.html">Linear Algebra</a> &#187;</li>
+  
+        <li class="nav-item nav-item-this"><a href="">LU Factorization of a Matrix</a></li> 
+      </ul>
+    </div>
+  </div>
+  
+  <div class="footer">
+    <a class="logo" href="http://icse.us.edu.pl/" target="_blank"><img src="_static/logo-icse.png" alt="ICSE"/></a><br/>
+    &copy; Copyright 2018, Jan Aksamit, Joanna Marzec, and  Marcin Kostur.
+    Last updated on Jan 29, 2022.
+    Created using <a href="http://sphinx.pocoo.org/">Sphinx</a> 4.0.1.
+  </div>
+  </body>
+</html>

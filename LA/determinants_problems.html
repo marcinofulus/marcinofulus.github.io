@@ -1,0 +1,274 @@
+
+
+  
+<!DOCTYPE html>
+
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" /><meta name="generator" content="Docutils 0.17: http://docutils.sourceforge.net/" />
+
+    <title>Problems &#8212; Linear Algebra</title>
+    <link rel="stylesheet" type="text/css" href="_static/pygments.css" />
+    <link rel="stylesheet" type="text/css" href="_static/cloud.css" />
+    <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Noticia+Text|Open+Sans|Droid+Sans+Mono&amp;subset=latin,latin-ext" type="text/css" />
+    <script data-url_root="./" id="documentation_options" src="_static/documentation_options.js"></script>
+    <script src="_static/jquery.js"></script>
+    <script src="_static/underscore.js"></script>
+    <script src="_static/doctools.js"></script>
+    <script async="async" src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js"></script>
+    <script src="_static/jquery.cookie.js"></script>
+    <script src="_static/cloud.js"></script>
+    <script type="text/javascript" src="http://sagecell.sagemath.org/static/jquery.min.js"></script>
+    <script type="text/javascript" src="http://sagecell.sagemath.org/embedded_sagecell.js"></script>
+    <script type="text/javascript">
+        sagecell.makeSagecell({inputLocation: ".sage_linked",
+                               linked: true});
+        sagecell.makeSagecell({inputLocation: ".sage_unlinked",
+                               linked: false});
+    </script>
+
+    <style type="text/css">
+        .sagecell .CodeMirror-scroll {
+            overflow-y: hidden;
+            overflow-x: auto;
+        }
+        .sagecell .CodeMirror {
+            height: auto;
+        }
+    </style>
+    
+    <link rel="index" title="Index" href="genindex.html" />
+    <link rel="search" title="Search" href="search.html" />
+    <link rel="next" title="Triangular Matrices" href="decomposition_LU-triangular-matrices.html" />
+    <link rel="prev" title="Application to Hill Cipher" href="operations_app_Hill_cipher.html" />
+ 
+  <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, minimum-scale=1">
+  </head><body>
+  <div class="relbar-top">
+    
+    <div class="related" role="navigation" aria-label="related navigation">
+      <h3>Navigation</h3>
+      <ul>
+        <li class="right" style="margin-right: 10px">
+          <a href="genindex.html" title="General Index"
+             accesskey="I">index</a></li>
+        <li class="right" >
+          <a href="decomposition_LU-triangular-matrices.html" title="Triangular Matrices"
+             accesskey="N">next</a> &nbsp; &nbsp;</li>
+        <li class="right" >
+          <a href="operations_app_Hill_cipher.html" title="Application to Hill Cipher"
+             accesskey="P">previous</a> &nbsp; &nbsp;</li>
+  <li><a href="index.html">Linear Algebra</a> &#187;</li>
+  
+        <li class="nav-item nav-item-this"><a href="">Problems</a></li> 
+      </ul>
+    </div>
+  </div>
+  
+  <div class="content">  
+
+    <div class="document">
+      <div class="documentwrapper">
+        <div class="bodywrapper">
+          <div class="body">
+            
+  <section id="problems">
+<h1>Problems<a class="headerlink" href="#problems" title="Permalink to this headline">¶</a></h1>
+<p><strong>Problem 1.</strong> <span class="math notranslate nohighlight">\(\ \)</span> Let</p>
+<div class="math notranslate nohighlight">
+\[\begin{split}\boldsymbol{C}\ \ =\ \
+\left[\begin{array}{cc}
+\boldsymbol{A} &amp; \boldsymbol{0}\, \\[4pt]
+\cdots         &amp; \boldsymbol{B}\,
+\end{array}\right]
+\ \ =\ \
+\left[\begin{array}{ccc|ccc}
+a_{11} &amp; \ldots &amp; a_{1p} &amp;    0   &amp; \ldots &amp;    0   \\[4pt]
+\ldots &amp; \ldots &amp; \ldots &amp; \ldots &amp; \ldots &amp; \ldots \\[4pt]
+a_{p1} &amp; \ldots &amp; a_{pp} &amp;    0   &amp; \ldots &amp;    0   \\[4pt] \hline
+\ldots &amp; \ldots &amp; \ldots &amp; b_{11} &amp; \ldots &amp; b_{1q} \\[4pt]
+\ldots &amp; \ldots &amp; \ldots &amp; \ldots &amp; \ldots &amp; \ldots \\[4pt]
+\ldots &amp; \ldots &amp; \ldots &amp; b_{q1} &amp; \ldots &amp; b_{qq}
+\end{array}\right]\end{split}\]</div>
+<p>where the lower left rectangle is filled with any elements. Prove that</p>
+<div class="math notranslate nohighlight">
+\[\det{\boldsymbol{C}}\ \,=\ \,
+\det{\boldsymbol{A}}\,\cdot\,\det{\boldsymbol{B}}\,.\]</div>
+<p><strong>Proof.</strong> <span class="math notranslate nohighlight">\(\ \)</span> Induction with respect to <span class="math notranslate nohighlight">\(\ q.\)</span></p>
+<p><strong>I.</strong> <span class="math notranslate nohighlight">\(\ \)</span> We verify the statement for <span class="math notranslate nohighlight">\(\ q = 1.\ \)</span>
+Then <span class="math notranslate nohighlight">\(\ \boldsymbol{B}\ =\ [b_{11}]_{1 \times 1}:\)</span></p>
+<div class="math notranslate nohighlight">
+\[\begin{split}\boldsymbol{C}\ \ =\ \
+\left[\begin{array}{ccc|c}
+a_{11} &amp; \ldots &amp; a_{1p} &amp;    0   \\[4pt]
+\ldots &amp; \ldots &amp; \ldots &amp; \ldots \\[4pt]
+a_{p1} &amp; \ldots &amp; a_{pp} &amp;    0   \\[4pt] \hline
+\ldots &amp; \ldots &amp; \ldots &amp; b_{11}
+\end{array}\right]\end{split}\]</div>
+<p>By the Laplace expansion along the last column we get</p>
+<div class="math notranslate nohighlight">
+\[\det{\boldsymbol{C}}\ \,=\ \,
+b_{11}\,\cdot\:(-1)^{2\,(p+1)}\ \det{\boldsymbol{A}}\ \,=\ \,
+\det{\boldsymbol{A}}\,\cdot\:b_{11}\ \,=\ \,
+\det{\boldsymbol{A}}\,\cdot\,\det{\boldsymbol{B}}\,.\]</div>
+<p><strong>II.</strong> <span class="math notranslate nohighlight">\(\ \)</span>
+We assume that the statement is true for some <span class="math notranslate nohighlight">\(\ q-1,\ \\\)</span>
+and have to prove that the statemant is then true for <span class="math notranslate nohighlight">\(\ q.\)</span></p>
+<p>We shall use the following denotements (<span class="math notranslate nohighlight">\(i=1,2,\ldots,q\)</span>):</p>
+<p><span class="math notranslate nohighlight">\(M_{iq}\ -\ \)</span> the minor of matrix <span class="math notranslate nohighlight">\(\ \boldsymbol{B}\ \)</span>
+obtained by removing the <span class="math notranslate nohighlight">\(\ i\)</span>-th row and the <span class="math notranslate nohighlight">\(\ q\)</span>-th column;</p>
+<p><span class="math notranslate nohighlight">\(B_{iq}\ -\ \)</span> the cofactor of the element <span class="math notranslate nohighlight">\(\ b_{iq}\ \)</span>
+in the matrix <span class="math notranslate nohighlight">\(\ \boldsymbol{B};\)</span></p>
+<p><span class="math notranslate nohighlight">\(C_{iq}\ -\ \)</span> the cofactor of the element  <span class="math notranslate nohighlight">\(\ b_{iq}\ \)</span>
+in the matrix  <span class="math notranslate nohighlight">\(\ \boldsymbol{C}.\)</span></p>
+<p>In virtue of the induction hypothesis:</p>
+<div class="math notranslate nohighlight">
+\[\begin{split}\begin{array}{rl}
+C_{iq} &amp; =\ \ (-1)^{(p+i)+(p+q)}\ \cdot\
+\det{\boldsymbol{A}}\ \cdot\ M_{iq}\ \ = \\
+&amp; =\ \ (-1)^{2p+(i+q)}\ \cdot\ \det{\boldsymbol{A}}\ \cdot\ M_{iq}\ \ = \\
+&amp; =\ \ \det{\boldsymbol{A}}\ \cdot\ (-1)^{i+q}\ \cdot\ M_{iq}\ \ =\ \
+\det{\boldsymbol{A}}\ \cdot\ B_{iq}\,.
+\end{array}\end{split}\]</div>
+<p>The Laplace expansion along the last column of matrix
+<span class="math notranslate nohighlight">\(\ \boldsymbol{C}\ \)</span> yields</p>
+<div class="math notranslate nohighlight">
+\[\det{\boldsymbol{C}}\ \,=\ \,
+\displaystyle\sum_{i=1}^q\ b_{iq}\,C_{iq}\ =\
+\det{\boldsymbol{A}}\ \cdot\ \displaystyle\sum_{i=1}^q\,b_{iq}\ B_{iq}\ =\
+\det{\boldsymbol{A}}\ \cdot\ \det{\boldsymbol{B}}\,.
+\quad\bullet\]</div>
+<p><strong>Corollary.</strong> <span class="math notranslate nohighlight">\(\\\)</span>
+Suppose that
+<span class="math notranslate nohighlight">\(\ \boldsymbol{A}_1,\,\boldsymbol{A}_2,\,\ldots,\,\boldsymbol{A}_k\ \)</span>
+are square matrices, possibly of different sizes.
+Once again by induction one may easily prove the formula for the
+determinant of the block-diagonal matrix:</p>
+<div class="math notranslate nohighlight">
+\[\begin{split}\left|\begin{array}{cccc}
+\boldsymbol{A}_1 &amp; \boldsymbol{0}   &amp; \ldots &amp; \boldsymbol{0}   \\[4pt]
+\boldsymbol{0}   &amp; \boldsymbol{A}_2 &amp; \ldots &amp; \boldsymbol{0}   \\[4pt]
+\cdots           &amp; \cdots           &amp; \cdots &amp; \cdots           \\[4pt]
+\boldsymbol{0}   &amp; \boldsymbol{0}   &amp; \ldots &amp; \boldsymbol{A}_k
+\end{array}\right|\ \ =\ \
+\det{\boldsymbol{A}_1}\ \cdot\ \det{\boldsymbol{A}_2}
+\ \cdot\ \ldots\ \cdot\ \det{\boldsymbol{A}_k}\,.\end{split}\]</div>
+<p>In particular, if <span class="math notranslate nohighlight">\(\ \boldsymbol{I}_n\in M_n(K)\ \)</span>
+is the identity matrix, <span class="math notranslate nohighlight">\(\ \boldsymbol{A}\in M_m(K),\ \)</span> then</p>
+<div class="math notranslate nohighlight">
+\[\begin{split}\det{(\boldsymbol{I}_n\otimes\boldsymbol{A})}\ \ =\ \
+\underbrace{
+\left|\begin{array}{cccc}
+\boldsymbol{A} &amp; \boldsymbol{0} &amp; \cdots &amp; \boldsymbol{0} \\[3pt]
+\boldsymbol{0} &amp; \boldsymbol{A} &amp; \cdots &amp; \boldsymbol{0} \\[3pt]
+\cdots &amp; \cdots &amp; \cdots &amp; \cdots                         \\[3pt]
+\boldsymbol{0} &amp; \boldsymbol{0} &amp; \cdots &amp; \boldsymbol{A}
+\end{array}\right|}_{n\ \text{blocks}}\ \ =\ \
+\left(\det{\boldsymbol{A}}\right)^n.\end{split}\]</div>
+<p><strong>Problem 2.</strong> <span class="math notranslate nohighlight">\(\ \)</span></p>
+<p>Prove that
+if <span class="math notranslate nohighlight">\(\ \boldsymbol{P}_\sigma\in M_n(K)\ \)</span> is the matrix
+of a permutation <span class="math notranslate nohighlight">\(\,\sigma\in S_n\,,\ \)</span>
+then <span class="math notranslate nohighlight">\(\ \det\boldsymbol{P}_\sigma\ =\ \text{sgn}\,\sigma\,.\)</span></p>
+<p><strong>Proof.</strong></p>
+<p>Any permutation <span class="math notranslate nohighlight">\(\,\sigma\in S_n\ \)</span> may be represented
+as a product of transpositions:</p>
+<div class="math notranslate nohighlight">
+\[\sigma\ =\ \tau_k\,\dots\,\tau_2\ \tau_1\,.\]</div>
+<p>Accordingly, the matrix <span class="math notranslate nohighlight">\(\ \boldsymbol{P}_\sigma\,\)</span> is a product
+of matrices representing transpositions:</p>
+<div class="math notranslate nohighlight">
+\[\boldsymbol{P}_\sigma\ =\
+\boldsymbol{P}_{\tau_k\,\dots\,\tau_2\ \tau_1}\ =\
+\boldsymbol{P}_{\tau_1}\ \boldsymbol{P}_{\tau_2}\ \ldots\
+\boldsymbol{P}_{\tau_k}\,.\]</div>
+<p>Transpositions are represented by elementary matrices of the first kind
+<span class="math notranslate nohighlight">\(\\\)</span>
+(obtained from the identity matrix by a transposition of two rows).
+So</p>
+<div class="math notranslate nohighlight">
+\[\boldsymbol{P}_\sigma\ =\
+\boldsymbol{E}_1^{(1)}\,\boldsymbol{E}_1^{(2)}\,\ldots\
+\boldsymbol{E}_1^{(k)}\,.\]</div>
+<p>Every elementary matrix of the first kind has determinant <span class="math notranslate nohighlight">\(-1\)</span>:</p>
+<div class="math notranslate nohighlight">
+\[\det{\boldsymbol{E}_1^{(i)}}\ =\ -1\,,\qquad i=1,2,\ldots\,k.\]</div>
+<p>Determinant of a product of matrices being equal to the product of determinants:</p>
+<div class="math notranslate nohighlight">
+\[\det{\left(\boldsymbol{E}_1^{(1)}\,\boldsymbol{E}_1^{(2)}\,\ldots\,
+\boldsymbol{E}_1^{(k)}\right)}\ \ =\ \
+\det{\boldsymbol{E}_1^{(1)}}\cdot\ \det{\boldsymbol{E}_1^{(2)}}\,
+\cdot\ \ldots\ \cdot\
+\det{\boldsymbol{E}_1^{(k)}}\,,\]</div>
+<p>we obtain
+(<span class="math notranslate nohighlight">\(\,k\,\)</span> is the number of factors in any representation
+of <span class="math notranslate nohighlight">\(\,\sigma\,\)</span> as a product of transpositions):</p>
+<div class="math notranslate nohighlight">
+\[\det{\boldsymbol{P}_{\sigma}}\ =\ (-1)^k\ =\ \text{sgn}\,\sigma\,.
+\quad\bullet\]</div>
+</section>
+
+
+          </div>
+        </div>
+      </div>
+      <div class="sphinxsidebar" role="navigation" aria-label="main navigation">
+        <div class="sphinxsidebarwrapper">
+  <h4>Previous topic</h4>
+  <p class="topless"><a href="operations_app_Hill_cipher.html"
+                        title="previous chapter">Application to Hill Cipher</a></p>
+  <h4>Next topic</h4>
+  <p class="topless"><a href="decomposition_LU-triangular-matrices.html"
+                        title="next chapter">Triangular Matrices</a></p>
+  <div role="note" aria-label="source link">
+    <h3>This Page</h3>
+    <ul class="this-page-menu">
+      <li><a href="_sources/determinants_problems.rst.txt"
+            rel="nofollow">Show Source</a></li>
+    </ul>
+   </div>
+<div id="searchbox" style="display: none" role="search">
+  <h3 id="searchlabel">Quick search</h3>
+    <div class="searchformwrapper">
+    <form class="search" action="search.html" method="get">
+      <input type="text" name="q" aria-labelledby="searchlabel" />
+      <input type="submit" value="Go" />
+    </form>
+    </div>
+</div>
+<script>$('#searchbox').show(0);</script>
+        </div>
+      </div>
+      <div class="clearer"></div>
+    </div>
+  </div>
+  <div class="relbar-bottom">
+    
+    <div class="related" role="navigation" aria-label="related navigation">
+      <h3>Navigation</h3>
+      <ul>
+        <li class="right" style="margin-right: 10px">
+          <a href="genindex.html" title="General Index"
+             >index</a></li>
+        <li class="right" >
+          <a href="decomposition_LU-triangular-matrices.html" title="Triangular Matrices"
+             >next</a> &nbsp; &nbsp;</li>
+        <li class="right" >
+          <a href="operations_app_Hill_cipher.html" title="Application to Hill Cipher"
+             >previous</a> &nbsp; &nbsp;</li>
+  <li><a href="index.html">Linear Algebra</a> &#187;</li>
+  
+        <li class="nav-item nav-item-this"><a href="">Problems</a></li> 
+      </ul>
+    </div>
+  </div>
+  
+  <div class="footer">
+    <a class="logo" href="http://icse.us.edu.pl/" target="_blank"><img src="_static/logo-icse.png" alt="ICSE"/></a><br/>
+    &copy; Copyright 2018, Jan Aksamit, Joanna Marzec, and  Marcin Kostur.
+    Last updated on Jan 29, 2022.
+    Created using <a href="http://sphinx.pocoo.org/">Sphinx</a> 4.0.1.
+  </div>
+  </body>
+</html>

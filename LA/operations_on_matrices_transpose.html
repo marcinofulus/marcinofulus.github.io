@@ -1,0 +1,315 @@
+
+
+  
+<!DOCTYPE html>
+
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" /><meta name="generator" content="Docutils 0.17: http://docutils.sourceforge.net/" />
+
+    <title>Matrix Transpose &#8212; Linear Algebra</title>
+    <link rel="stylesheet" type="text/css" href="_static/pygments.css" />
+    <link rel="stylesheet" type="text/css" href="_static/cloud.css" />
+    <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Noticia+Text|Open+Sans|Droid+Sans+Mono&amp;subset=latin,latin-ext" type="text/css" />
+    <script data-url_root="./" id="documentation_options" src="_static/documentation_options.js"></script>
+    <script src="_static/jquery.js"></script>
+    <script src="_static/underscore.js"></script>
+    <script src="_static/doctools.js"></script>
+    <script async="async" src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js"></script>
+    <script src="_static/jquery.cookie.js"></script>
+    <script src="_static/cloud.js"></script>
+    <script type="text/javascript" src="http://sagecell.sagemath.org/static/jquery.min.js"></script>
+    <script type="text/javascript" src="http://sagecell.sagemath.org/embedded_sagecell.js"></script>
+    <script type="text/javascript">
+        sagecell.makeSagecell({inputLocation: ".sage_linked",
+                               linked: true});
+        sagecell.makeSagecell({inputLocation: ".sage_unlinked",
+                               linked: false});
+    </script>
+
+    <style type="text/css">
+        .sagecell .CodeMirror-scroll {
+            overflow-y: hidden;
+            overflow-x: auto;
+        }
+        .sagecell .CodeMirror {
+            height: auto;
+        }
+    </style>
+    
+    <link rel="index" title="Index" href="genindex.html" />
+    <link rel="search" title="Search" href="search.html" />
+    <link rel="next" title="Matrix Inverse" href="operations_on_matrices_inverse.html" />
+    <link rel="prev" title="Matrix Formulation of the Elimination Method" href="operations_on_matrices_elimination.html" />
+ 
+  <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, minimum-scale=1">
+  </head><body>
+  <div class="relbar-top">
+    
+    <div class="related" role="navigation" aria-label="related navigation">
+      <h3>Navigation</h3>
+      <ul>
+        <li class="right" style="margin-right: 10px">
+          <a href="genindex.html" title="General Index"
+             accesskey="I">index</a></li>
+        <li class="right" >
+          <a href="operations_on_matrices_inverse.html" title="Matrix Inverse"
+             accesskey="N">next</a> &nbsp; &nbsp;</li>
+        <li class="right" >
+          <a href="operations_on_matrices_elimination.html" title="Matrix Formulation of the Elimination Method"
+             accesskey="P">previous</a> &nbsp; &nbsp;</li>
+  <li><a href="index.html">Linear Algebra</a> &#187;</li>
+  
+        <li class="nav-item nav-item-this"><a href="">Matrix Transpose</a></li> 
+      </ul>
+    </div>
+  </div>
+  
+  <div class="content">  
+
+    <div class="document">
+      <div class="documentwrapper">
+        <div class="bodywrapper">
+          <div class="body">
+            
+  <section id="matrix-transpose">
+<h1>Matrix Transpose<a class="headerlink" href="#matrix-transpose" title="Permalink to this headline">¶</a></h1>
+<p>The <em>transpose</em> of a matrix
+<span class="math notranslate nohighlight">\(\,\boldsymbol{A}=[a_{ij}]_{m\times n}\,\)</span> is defined as
+the matrix <span class="math notranslate nohighlight">\(\,\boldsymbol{A}^T=\,[a^T_{ij}]_{n\times m}\,,\ \)</span> where</p>
+<div class="math notranslate nohighlight">
+\[a_{ij}^T\ :\,=\ a_{ji},\qquad i=1,2,\ldots,n;\ \ j=1,2,\ldots,m.\]</div>
+<p>In the direct notation: <span class="math notranslate nohighlight">\(\qquad
+\left[\begin{array}{cccc}
+a_{11} &amp; a_{12} &amp; \ldots &amp; a_{1n} \\
+a_{21} &amp; a_{22} &amp; \ldots &amp; a_{2n} \\
+\ldots &amp; \ldots &amp; \ldots &amp; \ldots \\
+a_{m1} &amp; a_{m2} &amp; \ldots &amp; a_{mn}
+\end{array}\right]^T
+\ =\quad
+\left[\begin{array}{cccc}
+a_{11} &amp; a_{21} &amp; \ldots &amp; a_{m1} \\
+a_{12} &amp; a_{22} &amp; \ldots &amp; a_{m2} \\
+\ldots &amp; \ldots &amp; \ldots &amp; \ldots \\
+a_{1n} &amp; a_{2n} &amp; \ldots &amp; a_{mn}
+\end{array}\right]\,.\)</span></p>
+<p>Thus each <span class="math notranslate nohighlight">\(\,i\)</span>-th row of matrix  <span class="math notranslate nohighlight">\(\,\boldsymbol{A}^T\,\)</span>
+is composed of elements of the <span class="math notranslate nohighlight">\(\,i\)</span>-th column of matrix
+<span class="math notranslate nohighlight">\(\,\boldsymbol{A},\,\)</span> and each <cite>j</cite>-th column of matrix
+<span class="math notranslate nohighlight">\(\,\boldsymbol{A}^T\,\)</span> is composed of elements of the
+<span class="math notranslate nohighlight">\(\,j\)</span>-th row of matrix <span class="math notranslate nohighlight">\(\,\boldsymbol{A},\,\)</span>
+<span class="math notranslate nohighlight">\(\ i=1,2,\ldots,n;\ j=1,2,\ldots,m.\)</span></p>
+<p>Graphically, the operation of transposing a matrix may be described as
+the reflection of that matrix over its main diagonal.</p>
+<p><strong>Examples.</strong></p>
+<p>1.) <span class="math notranslate nohighlight">\(\ \)</span> If
+<span class="math notranslate nohighlight">\(\ \ \boldsymbol{A}\ =\ \left[\begin{array}{rr}
+2 &amp; - 1 \\ 3 &amp; 0 \\ - 2 &amp; 1 \end{array}\right]
+\in M_{3\times 2}(R),\ \ \)</span>
+then <span class="math notranslate nohighlight">\(\ \ \boldsymbol{A}^T\ =\ \left[\begin{array}{rrr}
+2 &amp; 3 &amp; -2 \\ -1 &amp; 0 &amp; 1 \end{array} \right]\in M_{2\times 3}(R).\)</span></p>
+<p>2.) <span class="math notranslate nohighlight">\(\ \)</span> Transpose of a square matrix over the ring <span class="math notranslate nohighlight">\(\,Z:\)</span>
+<span class="math notranslate nohighlight">\(\ \ \left[\begin{array}{rrr}
+-2 &amp; 1 &amp; 0 \\ 5 &amp; 2 &amp; 3 \\ 7 &amp; -3 &amp; 8
+\end{array}\right]^T =\ \;\left[\begin{array}{rrr}
+-2 &amp; 5 &amp; 7 \\ 1 &amp; 2 &amp; -3 \\ 0 &amp; 3 &amp; 8
+\end{array}\right]\,.\)</span></p>
+<p>3.) <span class="math notranslate nohighlight">\(\ \)</span> Transpose of a one-column matrix over any ring:
+<span class="math notranslate nohighlight">\(\ \ \left[\begin{array}{c}
+a_1 \\ a_2 \\ a_3 \\ a_4
+\end{array}\right]^T =\ \;\left[\begin{array}{cccc}
+a_1 &amp; a_2 &amp; a_3 &amp; a_4
+\end{array}\right]\,.\)</span></p>
+<p><strong>Properties of Transpose.</strong></p>
+<p>0.) <span class="math notranslate nohighlight">\(\,\)</span> If <span class="math notranslate nohighlight">\(\,\boldsymbol{A}\in M_{m \times n}(K),\,\)</span>
+then <span class="math notranslate nohighlight">\(\,\left(\boldsymbol{A}^T\right)^T\ =\ \boldsymbol{A}\)</span></p>
+<p>(a twofold application of transpose returns the original matrix).</p>
+<p>1.) <span class="math notranslate nohighlight">\(\,\)</span> Let
+<span class="math notranslate nohighlight">\(\,\boldsymbol{A},\boldsymbol{B}\in M_{m \times n}(K),\ c\in K.\ \ \)</span>
+Then
+<span class="math notranslate nohighlight">\(\ \ (\boldsymbol{A}+\boldsymbol{B})^T =\,
+\boldsymbol{A}^T + \boldsymbol{B}^T,\ \
+(c\boldsymbol{A})^T =\,c\boldsymbol{A}^T\,.\)</span></p>
+<p>(transpose of a sum of two matrices equals the sum of their transposes,
+<span class="math notranslate nohighlight">\(\\\)</span>
+a numerical factor may be moved up to the front of the transpose symbol:
+<span class="math notranslate nohighlight">\(\\\)</span>
+transpose is a linear operation).</p>
+<p>2.) <span class="math notranslate nohighlight">\(\,\)</span> Let <span class="math notranslate nohighlight">\(\,\boldsymbol{A}\in M_{m\times p}(K),\
+\boldsymbol{B}\in M_{p\times n}(K).\ \)</span> Then
+<span class="math notranslate nohighlight">\(\ \ (\boldsymbol{A}\boldsymbol{B})^T =\,
+\boldsymbol{B}^T\boldsymbol{A}^T\,\)</span></p>
+<p>(transpose of a product of two matrices equals the product
+of their transposes in reverse order).</p>
+<p><strong>Proof</strong> of the Property 2.:</p>
+<ul>
+<li><div class="line-block">
+<div class="line">Comparison of the matrices’ dimensions.</div>
+<div class="line"><span class="math notranslate nohighlight">\(\boldsymbol{A}\boldsymbol{B}:\ m\times n\,;\quad
+(\boldsymbol{A}\boldsymbol{B})^T:\ n\times m\,.\)</span></div>
+<div class="line"><span class="math notranslate nohighlight">\(\boldsymbol{B}^T:\ n\times p\,;\quad
+\boldsymbol{A}^T:\ p\times m\,;\quad
+\boldsymbol{B}^T\boldsymbol{A}^T:\ n\times m\,.\)</span></div>
+</div>
+</li>
+<li><div class="line-block">
+<div class="line">Comparison of the corresponding matrix elements.</div>
+<div class="line">For <span class="math notranslate nohighlight">\(\boldsymbol{A} = [a_{ij}]_{m\times p}\,,\
+\boldsymbol{B}=[b_{ij}]_{p\times n}:\)</span></div>
+<div class="line"><span class="math notranslate nohighlight">\((\boldsymbol{A}\boldsymbol{B})^T|_{ij}\ =\
+(\boldsymbol{A}\boldsymbol{B})|_{ji}\ =\
+\sum\limits_{s=1}^p \,a_{js}\,b_{si}\,,\)</span></div>
+<div class="line"><span class="math notranslate nohighlight">\(\boldsymbol{B}^T\boldsymbol{A}^T|_{ij}\ =\
+\sum\limits_{s=1}^p \,b_{is}^T\,a_{sj}^T\ =\
+\sum\limits_{s=1}^p \,a_{js}\,b_{si}\,,\quad
+i=1,2,\ldots,n;\ \ j=1,2,\ldots,m.\quad\bullet\)</span></div>
+</div>
+</li>
+</ul>
+<section id="symmetric-and-skew-symmetric-matrices">
+<h2>Symmetric and Skew-Symmetric Matrices<a class="headerlink" href="#symmetric-and-skew-symmetric-matrices" title="Permalink to this headline">¶</a></h2>
+<p>A square matrix <span class="math notranslate nohighlight">\(\,\boldsymbol{A}=[a_{ij}]_{n\times n}\in M_n(K)\,\)</span> is
+called a <em>symmetric matrix</em>, <span class="math notranslate nohighlight">\(\\\)</span>
+if <span class="math notranslate nohighlight">\(\,\boldsymbol{A}^T=\boldsymbol{A}\,,\ \)</span>
+that is if <span class="math notranslate nohighlight">\(\ \, a_{ij} = a_{ji}\,,\ \ i,j=1,2,\ldots,n.\)</span></p>
+<p>Such matrix is invariant under the reflection over its main diagonal.</p>
+<p>On the other hand, when <span class="math notranslate nohighlight">\(\,\boldsymbol{A}^T=-\boldsymbol{A}\,,\ \)</span>
+the matrix <span class="math notranslate nohighlight">\(\,\boldsymbol{A}\ \)</span> is said to be <em>skew-symmetric</em>.</p>
+<p>Then  <span class="math notranslate nohighlight">\(\ a_{ij} = - \  a_{ji}\,,\ \ i,j=1,2,\ldots,n,\ \)</span>
+wherefrom <span class="math notranslate nohighlight">\(\ a_{ii} = 0\ \ \text{for}\ \ i=1,2,\ldots,n. \\\)</span>
+(in a skew-symmetric matrix all diagonal entries vanish).</p>
+<p>Symmetric and skew-symmetric real matrices of size three
+have the following general form:</p>
+<div class="math notranslate nohighlight">
+\[\begin{split}\boldsymbol{A}_s\ =\ \left[\begin{array}{ccc}
+                      a &amp; b &amp; c \\ b &amp; d &amp; e \\ c &amp; e &amp; f
+                   \end{array}\right]\,,
+\qquad
+\boldsymbol{A}_a\ =\ \left[\begin{array}{rrr}
+                      0 &amp; a &amp; \ \ b \\ -a &amp; 0 &amp; \ \ c \\ -b &amp; -c &amp; \ \ 0
+                   \end{array}\,\right]\,.\end{split}\]</div>
+<p>Every square matrix <span class="math notranslate nohighlight">\(\,\boldsymbol{A}\in M_n(K)\,\)</span> may be expressed
+in a unique way as a sum of a symmetric and a skew-symmetric matrix components:</p>
+<div class="math notranslate nohighlight">
+\[\boldsymbol{A}\ \ =\ \
+\textstyle{1\over 2}\ (\boldsymbol{A}+\boldsymbol{A}^T)\ +\
+\textstyle{1\over 2}\ (\boldsymbol{A}-\boldsymbol{A}^T),\]</div>
+<p>In Sage the matrix transpose is performed by the method <code class="docutils literal notranslate"><span class="pre">transpose()</span></code>
+(abbreviated to <code class="docutils literal notranslate"><span class="pre">T</span></code>). There are also methods <code class="docutils literal notranslate"><span class="pre">is_symmetric()</span></code>
+and <code class="docutils literal notranslate"><span class="pre">is_skew_symmetric()</span></code>, which check whether a given square matrix
+has the respective property.</p>
+<p><strong>Example.</strong> <span class="math notranslate nohighlight">\(\,\)</span> We shall rewrite the matrix</p>
+<div class="math notranslate nohighlight">
+\[\begin{split}\boldsymbol{A}\ =\ \left[\begin{array}{rrr}
+                      4 &amp;  3 &amp; -1 \\
+                      2 &amp; -5 &amp;  8 \\
+                      0 &amp; -2 &amp;  1
+                   \end{array}\right]\,\in\,M_3(R)\end{split}\]</div>
+<p>as the sum of symmetric and skew-symmetric components.
+The Sage code:</p>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="n">sage</span><span class="p">:</span> <span class="n">A</span> <span class="o">=</span> <span class="n">matrix</span><span class="p">(</span><span class="n">QQ</span><span class="p">,[[</span><span class="mi">4</span><span class="p">,</span> <span class="mi">3</span><span class="p">,</span><span class="o">-</span><span class="mi">1</span><span class="p">],</span>
+                     <span class="p">[</span><span class="mi">2</span><span class="p">,</span><span class="o">-</span><span class="mi">5</span><span class="p">,</span> <span class="mi">8</span><span class="p">],</span>
+                     <span class="p">[</span><span class="mi">0</span><span class="p">,</span><span class="o">-</span><span class="mi">2</span><span class="p">,</span> <span class="mi">1</span><span class="p">]])</span>
+
+<span class="n">sage</span><span class="p">:</span> <span class="n">As</span> <span class="o">=</span> <span class="p">(</span><span class="n">A</span> <span class="o">+</span> <span class="n">A</span><span class="o">.</span><span class="n">T</span><span class="p">)</span><span class="o">/</span><span class="mi">2</span>
+<span class="n">sage</span><span class="p">:</span> <span class="n">Aa</span> <span class="o">=</span> <span class="p">(</span><span class="n">A</span> <span class="o">-</span> <span class="n">A</span><span class="o">.</span><span class="n">T</span><span class="p">)</span><span class="o">/</span><span class="mi">2</span>
+
+<span class="n">sage</span><span class="p">:</span> <span class="n">show</span><span class="p">(</span><span class="n">table</span><span class="p">([[</span><span class="n">A</span><span class="p">,</span> <span class="s1">&#39;=&#39;</span><span class="p">,</span> <span class="n">As</span><span class="p">,</span> <span class="s1">&#39;+&#39;</span><span class="p">,</span> <span class="n">Aa</span><span class="p">]]))</span>
+<span class="n">sage</span><span class="p">:</span> <span class="p">(</span><span class="n">As</span><span class="o">.</span><span class="n">is_symmetric</span><span class="p">(),</span> <span class="n">Aa</span><span class="o">.</span><span class="n">is_skew_symmetric</span><span class="p">())</span>
+</pre></div>
+</div>
+<p>yields the following result:</p>
+<div class="math notranslate nohighlight">
+\[\begin{split}\left[\begin{array}{rrr}
+   4 &amp;  3 &amp; -1 \\
+   2 &amp; -5 &amp;  8 \\
+   0 &amp; -2 &amp;  1
+\end{array}\right]\ \ =\ \
+\left[\begin{array}{rrr}
+   4 &amp; \textstyle{5\over 2} &amp; -\textstyle{1\over 2} \\
+   \textstyle{5\over 2} &amp; -5 &amp; 3 \\
+   -\textstyle{1\over 2} &amp; 3 &amp; 1 \\
+\end{array}\right]\ \ +\ \
+\left[\begin{array}{rrr}
+   0 &amp; \textstyle{1\over 2} &amp; -\textstyle{1\over 2} \\
+   -\textstyle{1\over 2} &amp; 0 &amp; 5 \\
+   \textstyle{1\over 2} &amp; -5 &amp; 0 \\
+\end{array}\right]\end{split}\]</div>
+<p>(True, True)</p>
+</section>
+</section>
+
+
+          </div>
+        </div>
+      </div>
+      <div class="sphinxsidebar" role="navigation" aria-label="main navigation">
+        <div class="sphinxsidebarwrapper">
+  <div class="sphinxlocaltoc">
+  <h3><a href="index.html">Table Of Contents</a></h3>
+  <ul>
+<li><a class="reference internal" href="#">Matrix Transpose</a><ul>
+<li><a class="reference internal" href="#symmetric-and-skew-symmetric-matrices">Symmetric and Skew-Symmetric Matrices</a></li>
+</ul>
+</li>
+</ul>
+
+  </div>
+  <h4>Previous topic</h4>
+  <p class="topless"><a href="operations_on_matrices_elimination.html"
+                        title="previous chapter">Matrix Formulation of the Elimination Method</a></p>
+  <h4>Next topic</h4>
+  <p class="topless"><a href="operations_on_matrices_inverse.html"
+                        title="next chapter">Matrix Inverse</a></p>
+  <div role="note" aria-label="source link">
+    <h3>This Page</h3>
+    <ul class="this-page-menu">
+      <li><a href="_sources/operations_on_matrices_transpose.rst.txt"
+            rel="nofollow">Show Source</a></li>
+    </ul>
+   </div>
+<div id="searchbox" style="display: none" role="search">
+  <h3 id="searchlabel">Quick search</h3>
+    <div class="searchformwrapper">
+    <form class="search" action="search.html" method="get">
+      <input type="text" name="q" aria-labelledby="searchlabel" />
+      <input type="submit" value="Go" />
+    </form>
+    </div>
+</div>
+<script>$('#searchbox').show(0);</script>
+        </div>
+      </div>
+      <div class="clearer"></div>
+    </div>
+  </div>
+  <div class="relbar-bottom">
+    
+    <div class="related" role="navigation" aria-label="related navigation">
+      <h3>Navigation</h3>
+      <ul>
+        <li class="right" style="margin-right: 10px">
+          <a href="genindex.html" title="General Index"
+             >index</a></li>
+        <li class="right" >
+          <a href="operations_on_matrices_inverse.html" title="Matrix Inverse"
+             >next</a> &nbsp; &nbsp;</li>
+        <li class="right" >
+          <a href="operations_on_matrices_elimination.html" title="Matrix Formulation of the Elimination Method"
+             >previous</a> &nbsp; &nbsp;</li>
+  <li><a href="index.html">Linear Algebra</a> &#187;</li>
+  
+        <li class="nav-item nav-item-this"><a href="">Matrix Transpose</a></li> 
+      </ul>
+    </div>
+  </div>
+  
+  <div class="footer">
+    <a class="logo" href="http://icse.us.edu.pl/" target="_blank"><img src="_static/logo-icse.png" alt="ICSE"/></a><br/>
+    &copy; Copyright 2018, Jan Aksamit, Joanna Marzec, and  Marcin Kostur.
+    Last updated on Jan 29, 2022.
+    Created using <a href="http://sphinx.pocoo.org/">Sphinx</a> 4.0.1.
+  </div>
+  </body>
+</html>

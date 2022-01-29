@@ -1,0 +1,669 @@
+
+
+  
+<!DOCTYPE html>
+
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" /><meta name="generator" content="Docutils 0.17: http://docutils.sourceforge.net/" />
+
+    <title>Application to Systems of Linear Differential Equations &#8212; Linear Algebra</title>
+    <link rel="stylesheet" type="text/css" href="_static/pygments.css" />
+    <link rel="stylesheet" type="text/css" href="_static/cloud.css" />
+    <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Noticia+Text|Open+Sans|Droid+Sans+Mono&amp;subset=latin,latin-ext" type="text/css" />
+    <script data-url_root="./" id="documentation_options" src="_static/documentation_options.js"></script>
+    <script src="_static/jquery.js"></script>
+    <script src="_static/underscore.js"></script>
+    <script src="_static/doctools.js"></script>
+    <script async="async" src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js"></script>
+    <script src="_static/jquery.cookie.js"></script>
+    <script src="_static/cloud.js"></script>
+    <script type="text/javascript" src="http://sagecell.sagemath.org/static/jquery.min.js"></script>
+    <script type="text/javascript" src="http://sagecell.sagemath.org/embedded_sagecell.js"></script>
+    <script type="text/javascript">
+        sagecell.makeSagecell({inputLocation: ".sage_linked",
+                               linked: true});
+        sagecell.makeSagecell({inputLocation: ".sage_unlinked",
+                               linked: false});
+    </script>
+
+    <style type="text/css">
+        .sagecell .CodeMirror-scroll {
+            overflow-y: hidden;
+            overflow-x: auto;
+        }
+        .sagecell .CodeMirror {
+            height: auto;
+        }
+    </style>
+    
+    <link rel="index" title="Index" href="genindex.html" />
+    <link rel="search" title="Search" href="search.html" />
+    <link rel="next" title="Google’s Application - PageRank Algorithm" href="problem_wlasny_Google.html" />
+    <link rel="prev" title="Examples of Eigenproblems" href="problem_wlasny_przyklady.html" />
+ 
+  <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, minimum-scale=1">
+  </head><body>
+  <div class="relbar-top">
+    
+    <div class="related" role="navigation" aria-label="related navigation">
+      <h3>Navigation</h3>
+      <ul>
+        <li class="right" style="margin-right: 10px">
+          <a href="genindex.html" title="General Index"
+             accesskey="I">index</a></li>
+        <li class="right" >
+          <a href="problem_wlasny_Google.html" title="Google’s Application - PageRank Algorithm"
+             accesskey="N">next</a> &nbsp; &nbsp;</li>
+        <li class="right" >
+          <a href="problem_wlasny_przyklady.html" title="Examples of Eigenproblems"
+             accesskey="P">previous</a> &nbsp; &nbsp;</li>
+  <li><a href="index.html">Linear Algebra</a> &#187;</li>
+  
+        <li class="nav-item nav-item-this"><a href="">Application to Systems of Linear Differential Equations</a></li> 
+      </ul>
+    </div>
+  </div>
+  
+  <div class="content">  
+
+    <div class="document">
+      <div class="documentwrapper">
+        <div class="bodywrapper">
+          <div class="body">
+            
+  <section id="application-to-systems-of-linear-differential-equations">
+<h1>Application to Systems of Linear Differential Equations<a class="headerlink" href="#application-to-systems-of-linear-differential-equations" title="Permalink to this headline">¶</a></h1>
+<p>Consider a system of linear differential equations of degree 1 with constant coefficients:</p>
+<div class="math notranslate nohighlight" id="equation-set-diff">
+<span class="eqno">(1)<a class="headerlink" href="#equation-set-diff" title="Permalink to this equation">¶</a></span>\[\begin{split}\begin{array}{l}
+\dot{x}_1\ =\ a_{11}\,x_1\,+\,a_{12}\,x_2\,+\,\ldots\,+\,a_{1n}\,x_n \\
+\dot{x}_2\ =\ a_{21}\,x_1\,+\,a_{22}\,x_2\,+\,\ldots\,+\,a_{2n}\,x_n \\
+\ \ldots\qquad\ldots\qquad\ \ \ldots\qquad\ldots\qquad\ldots\qquad \\
+\dot{x}_n\ =\ a_{n1}\,x_1\,+\,a_{n2}\,x_2\,+\,\ldots\,+\,a_{nn}\,x_n
+\end{array}\end{split}\]</div>
+<p>where <span class="math notranslate nohighlight">\(\ \ x_i=x_i(t)\,,\ \ \dot{x}_i\,=\,\frac{d}{dt}\ x_i(t)\,,\ \
+a_{ij}\in R\,,\ \ i,j=1,2,\ldots,n.\ \)</span>
+By introducing the notation</p>
+<div class="math notranslate nohighlight">
+\[\begin{split}\boldsymbol{A}\ =\
+\left[\begin{array}{cccc}
+a_{11} &amp; a_{12} &amp; \dots &amp; a_{1n} \\
+a_{21} &amp; a_{22} &amp; \dots &amp; a_{2n} \\
+\dots &amp; \dots &amp; \dots &amp; \dots \\
+a_{n1} &amp; a_{n2} &amp; \dots &amp; a_{nn}
+\end{array}\right]\,,\qquad
+\boldsymbol{x}\ =\
+\left[\begin{array}{c} x_1 \\ x_2 \\ \ldots \\ x_n \end{array}\right]\,,\qquad
+\boldsymbol{\dot{x}}\ =\
+\left[\begin{array}{c} \dot{x}_1 \\ \dot{x}_2 \\ \ldots \\ \dot{x}_n \end{array}\right]\,,\end{split}\]</div>
+<p>we can write the system <a class="reference internal" href="#equation-set-diff">(1)</a> in a compact matrix form:</p>
+<div class="math notranslate nohighlight" id="equation-mat-eqn">
+<span class="eqno">(2)<a class="headerlink" href="#equation-mat-eqn" title="Permalink to this equation">¶</a></span>\[\boldsymbol{\dot{x}}\ =\ \boldsymbol{A}\,\boldsymbol{x}\,.\]</div>
+<p>We look for the solutions of the form</p>
+<div class="math notranslate nohighlight" id="equation-exp-soln">
+<span class="eqno">(3)<a class="headerlink" href="#equation-exp-soln" title="Permalink to this equation">¶</a></span>\[\boldsymbol{x}(t)\,=\,\boldsymbol{v}\,e^{\,\lambda\,t}\,,\qquad
+\lambda\in C\,,\quad\boldsymbol{v}=[\,\beta_i\,]_n\in C^n\,.\]</div>
+<p>Then <span class="math notranslate nohighlight">\(\ \,\boldsymbol{\dot{x}}(t)=\lambda\,\boldsymbol{v}\,e^{\,\lambda\,t}\ \)</span>
+and substitution into <a class="reference internal" href="tensor_product_problems.html#equation-mat-eqn">(4)</a> gives</p>
+<div class="math notranslate nohighlight">
+\[\lambda\,\boldsymbol{v}\,e^{\,\lambda\,t}\ =\
+\boldsymbol{A}\,\boldsymbol{v}\,e^{\,\lambda\,t}\,,\]</div>
+<p>which, after dividing by <span class="math notranslate nohighlight">\(\ e^{\,\lambda\,t}\neq 0\,,\ \)</span> reads</p>
+<div class="math notranslate nohighlight" id="equation-eigen-eqn">
+<span class="eqno">(4)<a class="headerlink" href="#equation-eigen-eqn" title="Permalink to this equation">¶</a></span>\[\boldsymbol{A}\,\boldsymbol{v}\ =\ \lambda\,\boldsymbol{v}\,.\]</div>
+<p>The equation <a class="reference internal" href="#equation-eigen-eqn">(4)</a> is an eigenproblem of the matrix <span class="math notranslate nohighlight">\(\,\boldsymbol{A}\ \)</span>
+viewed as a linear operator in the space <span class="math notranslate nohighlight">\(\,C^n\ \)</span>
+(the action of this operator on a vector <span class="math notranslate nohighlight">\(\,\boldsymbol{x}\in C^n\,\)</span>
+is to multiply this vector on the left by <span class="math notranslate nohighlight">\(\boldsymbol{A}\)</span>).</p>
+<p>Hence, the function <a class="reference internal" href="#equation-exp-soln">(3)</a> is a solution of the equation <a class="reference internal" href="tensor_product_problems.html#equation-mat-eqn">(4)</a> if and only if <span class="math notranslate nohighlight">\(\lambda\ \)</span> is an eigenvalue of the matrix <span class="math notranslate nohighlight">\(\,\boldsymbol{A}\,,\ \)</span>
+and <span class="math notranslate nohighlight">\(\ \,\boldsymbol{v}\ \)</span> - <span class="math notranslate nohighlight">\(\,\)</span>
+an eigenvector associated to this eigenvalue.</p>
+<p>We compute the eigenvalues <span class="math notranslate nohighlight">\(\ \lambda\ \)</span> from the characteristic equation</p>
+<div class="math notranslate nohighlight" id="equation-char-eqn">
+<span class="eqno">(5)<a class="headerlink" href="#equation-char-eqn" title="Permalink to this equation">¶</a></span>\[\begin{split}\det\,(\boldsymbol{A}-\lambda\,\boldsymbol{I}_n)\ \ =\ \
+\left|
+\begin{array}{cccc}
+\alpha_{11}-\lambda &amp; \alpha_{12} &amp; \dots &amp; \alpha_{1n} \\
+\alpha_{21} &amp; \alpha_{22}-\lambda &amp; \dots &amp; \alpha_{2n} \\
+\dots &amp; \dots &amp; \dots &amp; \dots \\
+\alpha_{n1} &amp; \alpha_{n2} &amp; \dots &amp; \alpha_{nn}-\lambda
+\end{array}
+\right|\ \ =\ \ 0\,,\end{split}\]</div>
+<p>and the associated eigenvectors <span class="math notranslate nohighlight">\(\,\)</span> - <span class="math notranslate nohighlight">\(\,\)</span> by solving a linear problem <a class="reference internal" href="#equation-eigen-eqn">(4)</a> for a given eigenvalue <span class="math notranslate nohighlight">\(\,\lambda:\)</span></p>
+<div class="math notranslate nohighlight" id="equation-hom-set">
+<span class="eqno">(6)<a class="headerlink" href="#equation-hom-set" title="Permalink to this equation">¶</a></span>\[\begin{split}\begin{array}{l}
+(a_{11}-\lambda)\ \beta_1\,+\,a_{12}\ \beta_2\,+\,\ldots\,+\,a_{1n}\ \beta_n\ =\ 0 \\
+a_{21}\ \beta_1\,+\,(a_{22}-\lambda)\ \beta_2\,+\,\ldots\,+\,a_{2n}\ \beta_n\ =\ 0 \\
+\ \ \ldots\qquad\ldots\qquad\ldots\qquad\ldots\qquad\ldots \\
+a_{n1}\ \beta_1\,+\,a_{n2}\ \beta_2\,+\,\ldots\,+\,(a_{nn}-\lambda)\ \beta_n\ =\ 0
+\end{array}\end{split}\]</div>
+<p>Because the system <a class="reference internal" href="#equation-set-diff">(1)</a>, and so also the associated matrix equation <a class="reference internal" href="tensor_product_problems.html#equation-mat-eqn">(4)</a> are homogeneous, each linear combination of solutions is also a solution of the system. We discuss now different situations that may occur depending on possible solutions of the characteristic equation.</p>
+<p><span class="math notranslate nohighlight">\(\;\)</span></p>
+<p><strong>Case 1.</strong> <span class="math notranslate nohighlight">\(\,\)</span></p>
+<p>The equation <a class="reference internal" href="#equation-char-eqn">(5)</a> has <span class="math notranslate nohighlight">\(\,n\ \)</span> different real roots
+<span class="math notranslate nohighlight">\(\ \lambda_1,\,\lambda_2,\,\ldots,\,\lambda_n\,.\ \)</span></p>
+<p>Then the real eigenvectors <span class="math notranslate nohighlight">\(\ \boldsymbol{v}_1,\,\boldsymbol{v}_2,\,\ldots,\,\boldsymbol{v}_n\,\)</span> associated to these eigenvalues and also the corresponding particular solution</p>
+<div class="math notranslate nohighlight" id="equation-spec-sols">
+<span class="eqno">(7)<a class="headerlink" href="#equation-spec-sols" title="Permalink to this equation">¶</a></span>\[\boldsymbol{x}^1(t)=e^{\,\lambda_1\,t}\,\boldsymbol{v}_1\,,\quad
+\boldsymbol{x}^2(t)=e^{\,\lambda_2\,t}\,\boldsymbol{v}_2\,,\quad\ldots\,,\quad
+\boldsymbol{x}^n(t)=e^{\,\lambda_n\,t}\,\boldsymbol{v}_n\]</div>
+<p>are linearly independent.</p>
+<p>The general solution is a linear combination of the particular solutions:</p>
+<div class="math notranslate nohighlight" id="equation-gen-sol">
+<span class="eqno">(8)<a class="headerlink" href="#equation-gen-sol" title="Permalink to this equation">¶</a></span>\[\boldsymbol{x}(t)\ =\ c_1\ \boldsymbol{x}^1(t)\,+\,c_2\ \boldsymbol{x}^2(t)\,+\,\ldots\,+\,
+                   c_n\ \boldsymbol{x}^n(t)\,,\qquad c_1,\,c_2,\,\ldots,\,c_n\in R\,.\]</div>
+<p><strong>Example 1.</strong> <span class="math notranslate nohighlight">\(\,\)</span> We determine the general solution of the system of equations</p>
+<div class="math notranslate nohighlight">
+\begin{alignat*}{3}
+\dot{x}_1 &amp; {\ } = {\ } &amp; 2\,x_1 &amp; {\ } - {\ } &amp;    x_2 \\
+\dot{x}_2 &amp; {\ } = {\ } &amp; 4\,x_1 &amp; {\ } - {\ } &amp; 3\,x_2
+\end{alignat*}</div><p>The characteristic equation <a class="reference internal" href="#equation-char-eqn">(5)</a> for the matrix <span class="math notranslate nohighlight">\(\,\boldsymbol{A}\ =\
+\left[\begin{array}{rr} 2 &amp; -1 \\ 4 &amp; -3 \end{array}\right]:\)</span></p>
+<div class="math notranslate nohighlight">
+\[\begin{split}\left|\begin{array}{cc} 2-\lambda &amp; -1 \\ 4 &amp; -3-\lambda \end{array}\right|\ \,=\ \,
+\lambda^2+\lambda-2\ \,=\ \,
+(\lambda-1)(\lambda+2)\ \,=\ \,0\end{split}\]</div>
+<p>has two different real roots: <span class="math notranslate nohighlight">\(\ \,\lambda_1=1\,,\ \,\lambda_2=-2\,.\)</span></p>
+<p>The eigenvectors <span class="math notranslate nohighlight">\(\ \boldsymbol{v}_1\,,\ \boldsymbol{v}_2\ \,\)</span>
+associated with the eigenvalues <span class="math notranslate nohighlight">\(\ \lambda_1\,,\ \,\lambda_2\ \,\)</span>
+may be determined from the equations <a class="reference internal" href="#equation-hom-set">(6)</a>:</p>
+<div class="math notranslate nohighlight">
+\[\begin{split}\begin{array}{llll}
+\left[\begin{array}{cc} 1 &amp; -1 \\ 4 &amp; -4 \end{array}\right]\
+\left[\begin{array}{c} \beta_1 \\ \beta_2 \end{array}\right]\ =\
+\left[\begin{array}{c} 0 \\ 0 \end{array}\right]\,: &amp;
+\beta_1=\beta_2=\beta\,, &amp;
+\boldsymbol{v}_1\,=\,\beta\ \left[\begin{array}{c} 1 \\ 1 \end{array}\right]\,, &amp;
+\beta\in R\!\smallsetminus\!\{0\}\,;
+\\ \\
+\left[\begin{array}{cc} 4 &amp; -1 \\ 4 &amp; -1 \end{array}\right]\
+\left[\begin{array}{c} \beta_1 \\ \beta_2 \end{array}\right]\ =\
+\left[\begin{array}{c} 0 \\ 0 \end{array}\right]\,: &amp;
+\beta_2=4\,\beta_1=4\,\beta\,, &amp;
+\boldsymbol{v}_2\,=\,\beta\ \left[\begin{array}{c} 1 \\ 4 \end{array}\right]\,, &amp;
+\beta\in R\!\smallsetminus\!\{0\}\,.
+\end{array}\end{split}\]</div>
+<p>Taking <span class="math notranslate nohighlight">\(\,\beta=1\ \)</span> we obtain two linearly independent particular solutions:</p>
+<div class="math notranslate nohighlight">
+\[\begin{split}\boldsymbol{x}^1(t)\ \,=\ \,
+e^{\;t}\ \boldsymbol{v}_1\ \,=\ \,
+e^{\;t}\ \left[\begin{array}{c} 1 \\ 1 \end{array}\right]\,,\qquad
+\boldsymbol{x}^2(t)\ \,=\ \,
+e^{\,-2\,t}\ \,\boldsymbol{v}_2\ \,=\ \,
+e^{\,-2\,t}\ \left[\begin{array}{c} 1 \\ 4 \end{array}\right]\,,\end{split}\]</div>
+<p>which comprise the general solution:</p>
+<div class="math notranslate nohighlight">
+\[ \begin{align}\begin{aligned}\begin{split}\begin{array}{c}
+\boldsymbol{x}(t)\,=\,c_1\ \boldsymbol{x}^1(t)\,+\,c_2\ \boldsymbol{x}^2(t)\ :
+\\ \\
+\left[\begin{array}{c} x_1(t) \\ x_2(t) \end{array}\right]\ =\
+c_1\ e^{\;t}\ \left[\begin{array}{c} 1 \\ 1 \end{array}\right]\ +\
+c_2\ e^{\,-2\,t}\ \left[\begin{array}{c} 1 \\ 4 \end{array}\right]\,,
+\\ \\
+\qquad
+\begin{cases}\ \begin{array}{l}
+x_1(t)\ =\ c_1\ e^{\;t}\,+\,c_2\ e^{\,-2\,t} \\
+x_2(t)\ =\ c_1\ e^{\;t}\,+\,4\,c_2\ e^{\,-2\,t}
+\end{array}\end{cases}
+\qquad c_1,c_2\in R\,.
+\end{array}\end{split}\\\;\end{aligned}\end{align} \]</div>
+<p><strong>Case 2.</strong></p>
+<p>The equation <a class="reference internal" href="#equation-char-eqn">(5)</a> has <span class="math notranslate nohighlight">\(\,n\ \)</span> different roots
+<span class="math notranslate nohighlight">\(\ \lambda_1,\,\lambda_2,\,\ldots,\,\lambda_n\,,\)</span> <span class="math notranslate nohighlight">\(\\\)</span>
+including complex non-real roots.</p>
+<p>Discussion and the formulae <a class="reference internal" href="#equation-spec-sols">(7)</a> and <a class="reference internal" href="#equation-gen-sol">(8)</a>
+from Case 1. are still valid, but now the particular solutions corresponding to the non-real roots are also non-real. However, by suitable composition of these solutions one may obtain the system of <span class="math notranslate nohighlight">\(\,n\,\)</span> linearly independent real solutions.</p>
+<p>First note that since the matrix <span class="math notranslate nohighlight">\(\,\boldsymbol{A}\ \)</span> is real,
+so the complex non-real roots of the characteristic equation go in pairs:
+if <span class="math notranslate nohighlight">\(\,\lambda\in C\!\smallsetminus\! R\ \)</span> is in the set of roots
+then so is <span class="math notranslate nohighlight">\(\,\lambda^*\,,\ \)</span>
+and if <span class="math notranslate nohighlight">\(\,\boldsymbol{v}\in C^n\ \)</span> is an eigenvector of the matrix
+<span class="math notranslate nohighlight">\(\,\boldsymbol{A}\ \)</span> for the eigenvalue <span class="math notranslate nohighlight">\(\ \lambda,\ \,\)</span>
+then <span class="math notranslate nohighlight">\(\ \boldsymbol{v}^*\ \)</span> is an eigenvector for the eigenvalue <span class="math notranslate nohighlight">\(\ \lambda^*:\)</span></p>
+<div class="math notranslate nohighlight">
+\[\boldsymbol{A}\,\boldsymbol{v}\ =\ \lambda\,\boldsymbol{v}
+\qquad\Leftrightarrow\qquad
+\boldsymbol{A}\,\boldsymbol{v}^*\ =\ \lambda^*\,\boldsymbol{v}^*\,.\]</div>
+<p>The particular solutions corresponding to the roots
+<span class="math notranslate nohighlight">\(\ \lambda\ \,\)</span> and  <span class="math notranslate nohighlight">\(\ \,\lambda^*\ \)</span> are conjugate to each other:</p>
+<div class="math notranslate nohighlight">
+\[e^{\,\lambda^*\,t}\;\boldsymbol{v}^*\ =\ \left[\,e^{\,\lambda\,t}\;\boldsymbol{v}\,\right]^*\,.\]</div>
+<p>We write the solution <span class="math notranslate nohighlight">\(\ \,\boldsymbol{x}(t)\,=\,e^{\,\lambda\,t}\,\boldsymbol{v}\,\ \)</span>
+corresponding to the root <span class="math notranslate nohighlight">\(\,\lambda\,\ \)</span> as</p>
+<div class="math notranslate nohighlight">
+\[\boldsymbol{x}(t)\,=\,\boldsymbol{x}_1(t)+i\ \boldsymbol{x}_2(t)\,,\]</div>
+<p>where <span class="math notranslate nohighlight">\(\ \,\boldsymbol{x}_1(t)\,=\,\text{re}\ \,\boldsymbol{x}(t)\,,\ \,
+\boldsymbol{x}_2(t)\,=\,\text{im}\ \,\boldsymbol{x}(t)\ \,\)</span>
+are functions with values in  <span class="math notranslate nohighlight">\(\,R^n\,.\)</span></p>
+<p>Then the solution <span class="math notranslate nohighlight">\(\ \,\boldsymbol{x}^*(t)\,=\,e^{\,\lambda^*\,t}\,\boldsymbol{v}^*\,\ \)</span>
+corresponding to the root <span class="math notranslate nohighlight">\(\,\lambda^*\,\ \)</span> is given by</p>
+<div class="math notranslate nohighlight">
+\[\boldsymbol{x}^*(t)\,=\,\boldsymbol{x}_1(t)-i\ \boldsymbol{x}_2(t)\,.\]</div>
+<p>In fact, the real part <span class="math notranslate nohighlight">\(\ \boldsymbol{x}_1(t)\ \,\)</span> and <span class="math notranslate nohighlight">\(\,\)</span> the imaginary part <span class="math notranslate nohighlight">\(\ \boldsymbol{x}_2(t)\ \,\)</span> of the solution <span class="math notranslate nohighlight">\(\ \boldsymbol{x}(t)\ \,\)</span>
+are also solutions of the equation <a class="reference internal" href="tensor_product_problems.html#equation-mat-eqn">(4)</a>. <span class="math notranslate nohighlight">\(\,\)</span> Indeed,</p>
+<div class="math notranslate nohighlight">
+\[\boldsymbol{\dot{x}}_1(t)+i\ \boldsymbol{\dot{x}}_2(t)\ =\
+\boldsymbol{\dot{x}}(t)\ =\
+\boldsymbol{A}\ \boldsymbol{x}(t)\ =\
+\boldsymbol{A}\ [\,\boldsymbol{x}_1(t)+i\ \boldsymbol{x}_2(t)\,]\ =\
+\boldsymbol{A}\ \boldsymbol{x}_1(t)+i\ \boldsymbol{A}\ \boldsymbol{x}_2(t)\]</div>
+<p>and comparing the real and the imaginary parts of the side expressions gives</p>
+<div class="math notranslate nohighlight">
+\[\boldsymbol{\dot{x}}_1(t)\ =\ \boldsymbol{A}\ \boldsymbol{x}_1(t)\,,\qquad
+\boldsymbol{\dot{x}}_2(t)\ =\ \boldsymbol{A}\ \boldsymbol{x}_2(t)\,.\]</div>
+<p>Note also that linear independence of the solutions
+<span class="math notranslate nohighlight">\(\ \boldsymbol{x}(t)\,,\ \boldsymbol{x}^*(t)\ \)</span>
+is equivalent to the linear independence of the solutions
+<span class="math notranslate nohighlight">\(\ \boldsymbol{x}_1(t)\,,\ \boldsymbol{x}_2(t)\,.\ \)</span>
+Hence, describing the general solution of the system <a class="reference internal" href="#equation-set-diff">(1)</a> in the expression <a class="reference internal" href="#equation-gen-sol">(8)</a>, we can replace a linear combination of complex solutions
+<span class="math notranslate nohighlight">\(\ \boldsymbol{x}(t)\,,\ \boldsymbol{x}^*(t)\ \)</span>
+by a linear combination of real solutions
+<span class="math notranslate nohighlight">\(\ \boldsymbol{x}_1(t)\,,\ \boldsymbol{x}_2(t)\,,\ \)</span>
+so that the general solution is real.</p>
+<p><strong>Exercise.</strong> <span class="math notranslate nohighlight">\(\,\)</span>
+To complete a discussion of Cases <span class="math notranslate nohighlight">\(\,\)</span> 1. <span class="math notranslate nohighlight">\(\,\)</span> and <span class="math notranslate nohighlight">\(\,\)</span> 2. <span class="math notranslate nohighlight">\(\,\)</span> prove that:</p>
+<ol class="arabic simple">
+<li><p>If the vectors <span class="math notranslate nohighlight">\(\ \boldsymbol{v}_1,\,\boldsymbol{v}_2,\,\ldots,\,\boldsymbol{v}_n\in C^n\ \)</span>
+are linearly independent, then for <span class="math notranslate nohighlight">\(\ \alpha_i\in C\!\smallsetminus\!\{0\}\,,\ \)</span>
+<span class="math notranslate nohighlight">\(i=1,2,\ldots,n\,,\ \,\)</span> the vectors
+<span class="math notranslate nohighlight">\(\ \ \alpha_1\,\boldsymbol{v}_1,\ \ \alpha_2\,\boldsymbol{v}_2,\ \ldots,\
+\alpha_n\,\boldsymbol{v}_n\)</span> are also linearly independent (in the expressions
+<a class="reference internal" href="#equation-spec-sols">(7)</a> for particular solutions
+<span class="math notranslate nohighlight">\(\ \alpha_i=\exp{(\lambda_i\,t)}\,,\ i=1,2,\ldots,n\)</span>).</p></li>
+<li><p>If the vector <span class="math notranslate nohighlight">\(\ \boldsymbol{x}\in C^n\ \)</span> is of the form
+<span class="math notranslate nohighlight">\(\ \boldsymbol{x}=\boldsymbol{x}_1+i\ \boldsymbol{x}_2\,,\\)</span>,
+boldsymbol{x}_1,boldsymbol{x}_2in R^n,,` then the linear independence of the
+vectors <span class="math notranslate nohighlight">\(\ \boldsymbol{x},\,\boldsymbol{x}^*\ \)</span> is equivalent to the linear
+independence of the vectors  <span class="math notranslate nohighlight">\(\ \boldsymbol{x}_1,\boldsymbol{x}_2\,.\)</span></p></li>
+</ol>
+<p><strong>Example 2.</strong> <span class="math notranslate nohighlight">\(\,\)</span> We solve a linear system of equations:</p>
+<div class="math notranslate nohighlight">
+\begin{alignat*}{3}
+\dot{x}_1 &amp; {\ } = {\ } &amp; 3\,x_1 &amp; {\ } - {\ } &amp;    x_2 \\
+\dot{x}_2 &amp; {\ } = {\ } &amp;    x_1 &amp; {\ } + {\ } &amp; 3\,x_2
+\end{alignat*}</div><p>The characteristic equation <a class="reference internal" href="#equation-char-eqn">(5)</a> of the matrix <span class="math notranslate nohighlight">\(\ \,\boldsymbol{A}\ =\
+\left[\begin{array}{rr} 3 &amp; -1 \\ 1 &amp; 3 \end{array}\right]:\)</span></p>
+<div class="math notranslate nohighlight">
+\[\begin{split}\left|\begin{array}{cc} 3-\lambda &amp; -1 \\ 1 &amp; 3-\lambda \end{array}\right|\ \,=\ \,
+\lambda^2-6\,\lambda+10\ \,=\ \,0\end{split}\]</div>
+<p>has two different complex roots, conjugate to each other:</p>
+<div class="math notranslate nohighlight">
+\[\lambda_1\,=\,3+i\,,\qquad\lambda_2\,=\,3-i\,.\]</div>
+<p>The eigenvectors <span class="math notranslate nohighlight">\(\ \boldsymbol{v}_1\ \)</span> associated with the eigenvalues <span class="math notranslate nohighlight">\(\ \lambda_1\ \)</span> may be determined from the equation <a class="reference internal" href="#equation-hom-set">(6)</a>:</p>
+<div class="math notranslate nohighlight">
+\[\begin{split}\left[\begin{array}{rr} -i &amp; -1 \\ 1 &amp; -i \end{array}\right]
+\left[\begin{array}{c} \beta_1 \\ \beta_2 \end{array}\right]
+\ =\
+\left[\begin{array}{c} 0 \\ 0 \end{array}\right]\,,
+\quad\text{so}\quad\
+\begin{cases}\begin{array}{r}
+-i\ \beta_1 - \beta_2 = 0 \\ \beta_1 - i\ \beta_2 = 0
+\end{array}\end{cases}:\quad
+\beta_2=-i\ \beta_1\,.\end{split}\]</div>
+<p>The solution is <span class="math notranslate nohighlight">\(\ \ \beta_1=\beta\,,\ \ \beta_2=-i\ \beta\,,\ \ \beta\in C\,,\ \ \)</span> so <span class="math notranslate nohighlight">\(\ \ \boldsymbol{v}_1=\beta\ \left[\begin{array}{r} 1 \\ -i \end{array}\right]\,,\ \ \beta\in C\!\smallsetminus\!\{0\}\,.\)</span></p>
+<p>The eigenvectors associated with the eigenvalue <span class="math notranslate nohighlight">\(\,\lambda_2=\lambda_1^*\ \ \)</span> are
+<span class="math notranslate nohighlight">\(\ \ \boldsymbol{v}_2=\beta\ \left[\begin{array}{r} 1 \\ -i \end{array}\right]^* =
+\beta\ \left[\begin{array}{r} 1 \\ i \end{array}\right]\,,\ \
+\beta\in C\!\smallsetminus\!\{0\}\,.\)</span> <span class="math notranslate nohighlight">\(\\\)</span></p>
+<p>If <span class="math notranslate nohighlight">\(\,\beta=1\,,\ \)</span> a particular solution associated with the eigenvalue <span class="math notranslate nohighlight">\(\ \lambda_1\,:\)</span></p>
+<div class="math notranslate nohighlight">
+\[\begin{split}\begin{array}{rcl}
+\boldsymbol{x}^1(t) &amp; = &amp; e^{\,\lambda_1\,t}\ \boldsymbol{v}_1\ =\
+e^{\,(3+i)\,t}\ \left[\begin{array}{r} 1 \\ -i \end{array}\right]\ =\
+e^{\,3\,t}\ e^{\,i\,t}\ \left[\begin{array}{r} 1 \\ -i \end{array}\right]\ =
+\\ \\
+&amp; = &amp;
+e^{\,3\,t}\ (\cos{t}+i\ \sin{t})\ \left[\begin{array}{r} 1 \\ -i \end{array}\right]\ =\
+e^{\,3\,t}\ \left[\begin{array}{c} \cos{t}+i\ \sin{t} \\
+                                   \sin{t}-i\ \cos{t} \end{array}\right]\ =
+\\ \\
+&amp; = &amp;
+e^{\,3\,t}\ \left[\begin{array}{c} \cos{t} \\ \sin{t} \end{array}\right]\ +\
+i\ e^{\,3\,t}\ \left[\begin{array}{r} \sin{t} \\ -\cos{t} \end{array}\right]
+\end{array}\end{split}\]</div>
+<p>is of the form <span class="math notranslate nohighlight">\(\ \boldsymbol{x}^1(t)=\boldsymbol{x}_1(t)+i\ \boldsymbol{x}_2(t)\,,\ \)</span>
+where <span class="math notranslate nohighlight">\(\ \boldsymbol{x}_1(t)\,,\ \boldsymbol{x}_2(t)\ \)</span>
+are functions with values in <span class="math notranslate nohighlight">\(\ R^2\,.\)</span> <span class="math notranslate nohighlight">\(\\\)</span></p>
+<p>Because both the real and the complex part of the complex solution are solutions of the system, so the general solution is given by their arbitary linear combination:</p>
+<div class="math notranslate nohighlight">
+\[\begin{split}\begin{array}{c}
+\boldsymbol{x}(t)\ =\ c_1\ \boldsymbol{x}_1(t)\ +\ c_2\ \boldsymbol{x}_2(t)\ :
+\\ \\
+\left[\begin{array}{c} x_1(t) \\ x_2(t) \end{array}\right]\ \ =\ \
+e^{\,3\,t}\ \left(\
+c_1\ \left[\begin{array}{c} \cos{t} \\ \sin{t} \end{array}\right]\ \,+\ \,
+c_2\ \left[\begin{array}{r} \sin{t} \\ -\cos{t} \end{array}\right]\ \,\right)
+\\ \\
+\begin{cases}\begin{array}{c}
+\ x_1(t)\ \,=\ \,e^{\,3\,t}\ (c_1\,\cos{t}\,+\,c_2\,\sin{t}) \\
+\ x_2(t)\ \,=\ \,e^{\,3\,t}\ (c_1\,\sin{t}\,-\,c_2\,\cos{t})
+\end{array}\end{cases}\qquad c_1,c_2\in R\,.
+\end{array}\end{split}\]</div>
+<p><strong>Case 3.</strong></p>
+<p>Some of the eigenvalues of the matrix <span class="math notranslate nohighlight">\(\,\boldsymbol{A}\ \)</span> are multiple roots of the characteristic polynomial but their geometric and algebraic multiplicities are equal.
+This means that for each root of the characteristic polynomial with multilplicity <span class="math notranslate nohighlight">\(\,k\)</span> there are <span class="math notranslate nohighlight">\(\,k\ \)</span> linearly independent eigenvectors of the matrix <span class="math notranslate nohighlight">\(\,\boldsymbol{A}\,.\)</span></p>
+<p>In this situation we can apply the method described in Cases <span class="math notranslate nohighlight">\(\,\)</span> 1. <span class="math notranslate nohighlight">\(\,\)</span> and <span class="math notranslate nohighlight">\(\,\)</span> 2 <span class="math notranslate nohighlight">\(\,\)</span> without any change.</p>
+<p><strong>Example 3.</strong> <span class="math notranslate nohighlight">\(\,\)</span>
+We determine the general solution of the system</p>
+<div class="math notranslate nohighlight">
+\begin{alignat*}{4}
+\dot{x}_1 &amp; {\ } = {\ } &amp; -8\ x_1 &amp; {\ } + {\ } &amp;  18\ x_2 &amp; {\ } + {\ } &amp;  9\ x_3 \\
+\dot{x}_1 &amp; {\ } = {\ } &amp; -9\ x_1 &amp; {\ } + {\ } &amp;  19\ x_2 &amp; {\ } + {\ } &amp;  9\ x_3 \\
+\dot{x}_1 &amp; {\ } = {\ } &amp; 12\ x_1 &amp; {\ } - {\ } &amp;  24\ x_2 &amp; {\ } - {\ } &amp; 11\ x_3
+\end{alignat*}</div><p>The characteristic equation of the matrix <span class="math notranslate nohighlight">\(\,\boldsymbol{A}:\)</span></p>
+<div class="math notranslate nohighlight">
+\[\begin{split}\left|\begin{array}{ccc}
+-8-\lambda &amp; 18 &amp; 9 \\
+-9 &amp; 19-\lambda &amp; 9 \\
+12 &amp; -24 &amp; -11-\lambda
+\end{array}\right|\ =\
+\lambda^3-3\,\lambda+2\ =\
+(\lambda-1)^2\,(\lambda+2)\ =\ 0\end{split}\]</div>
+<p>has a double root <span class="math notranslate nohighlight">\(\,\lambda_{1,2}=1\ \)</span>
+and a single root <span class="math notranslate nohighlight">\(\,\lambda_3=-2\,.\)</span></p>
+<p>For the eigenvalue <span class="math notranslate nohighlight">\(\,\lambda_{1,2}\ \)</span> the system of equations <a class="reference internal" href="#equation-hom-set">(6)</a> reduces to</p>
+<div class="math notranslate nohighlight">
+\[\beta_1-2\,\beta_2-\beta_3\ =\ 0\,,\qquad\text{so that}\qquad
+\beta_3\ =\ \beta_1-2\,\beta_2\,,\quad\beta_1,\beta_2\in R\,.\]</div>
+<p>The geometric multiplicity of the eigenvalue <span class="math notranslate nohighlight">\(\,\lambda_{1,2}\ \)</span> is the same as the
+algebraic multiplicity and equals 2, because its associated eigenvectors of the form</p>
+<div class="math notranslate nohighlight">
+\[\begin{split}\boldsymbol{v}_{1,2}\ =\
+\left[\begin{array}{c} \beta_1 \\ \beta_2 \\ \beta_1-2\,\beta_2 \end{array}\right]\ =\
+\beta_1\ \left[\begin{array}{r} 1 \\ 0 \\ 1 \end{array}\right]\ +\
+\beta_2\ \left[\begin{array}{r} 0 \\ 1 \\ -2 \end{array}\right]\,,\qquad
+\begin{array}{c} \beta_1,\,\beta_2\in R\,, \\ \beta_1^2+\beta_2^2&gt;0 \end{array}\end{split}\]</div>
+<p>comprise (together with the zero vector) a 2-dimensional subspace.</p>
+<p>Hence, the eigenvalue <span class="math notranslate nohighlight">\(\,\lambda_{1,2}=1\ \)</span> gives rise to two linearly independent particular solutions:</p>
+<div class="math notranslate nohighlight" id="equation-sol-12">
+<span class="eqno">(9)<a class="headerlink" href="#equation-sol-12" title="Permalink to this equation">¶</a></span>\[\begin{split}\boldsymbol{x}^1(t)\ \,=\ \,e^{\,t}\ \left[\begin{array}{r} 1 \\ 0 \\ 1 \end{array}\right]
+\qquad\text{and}\qquad
+\boldsymbol{x}^2(t)\ \,=\ \,e^{\,t}\ \left[\begin{array}{r} 0 \\ 1 \\ -2 \end{array}\right]\,.\end{split}\]</div>
+<p>The eigenvectors of the matrix <span class="math notranslate nohighlight">\(\,\boldsymbol{A}\ \)</span> associated with the eigenvalue <span class="math notranslate nohighlight">\(\,\lambda_3=-2\ \)</span> are of the form</p>
+<div class="math notranslate nohighlight" id="equation-sol-3">
+<span class="eqno">(10)<a class="headerlink" href="#equation-sol-3" title="Permalink to this equation">¶</a></span>\[\begin{split}\boldsymbol{v}_3\ =\
+\beta\ \left[\begin{array}{r} 3 \\ 3 \\ -4 \end{array}\right]\,,\quad
+\beta\in R\!\smallsetminus\!\{0\}\,,
+\qquad\text{so that}\qquad
+\boldsymbol{x}^3(t)\ \,=\ \,e^{\,-2\,t}\ \left[\begin{array}{r} 3 \\ 3 \\ -4 \end{array}\right]\,.\end{split}\]</div>
+<p>The general solution of the system is an arbitrary linear combination of the solutions <span class="math notranslate nohighlight">\(\,\)</span> <a class="reference internal" href="#equation-sol-12">(9)</a> <span class="math notranslate nohighlight">\(\,\)</span> and <span class="math notranslate nohighlight">\(\,\)</span> <a class="reference internal" href="#equation-sol-3">(10)</a>:</p>
+<div class="math notranslate nohighlight">
+\[\begin{split}\begin{array}{l}
+\boldsymbol{x}(t)\ \,=\ \,c_1\ \boldsymbol{x}^1(t)\ +\
+                          c_2\ \boldsymbol{x}^2(t)\ +\
+                          c_3\ \boldsymbol{x}^3(t)\,:
+\\ \\
+\begin{cases}\ \ \begin{array}{l}
+x_1(t)\ =\ c_1\ e^{\,t}\,+\,3\ c_3\ e^{\,-2\,t} \\
+x_2(t)\ =\ c_2\ e^{\,t}\,+\,3\ c_3\ e^{\,-2\,t} \\
+x_3(t)\ =\ (c_1-2\,c_2)\ e^{\,t}\,-\,4\ c_3\ e^{\,-2\,t}
+\end{array}\end{cases}\qquad
+c_1,\,c_2,\,c_3\,\in R\,.
+\end{array}\end{split}\]</div>
+<p><strong>Case 4.</strong></p>
+<p>For some of the eigenvalues of the matrix <span class="math notranslate nohighlight">\(\,\boldsymbol{A}\ \)</span> the geometric multilplicty is different (smaller) from the algebraic multilplicity.</p>
+<p>In this case a basis of the space <span class="math notranslate nohighlight">\(\,R^n\ \)</span> cannot be formed exclusively from the eigenvectors of the matrix <span class="math notranslate nohighlight">\(\,\boldsymbol{A}.\ \)</span>
+However, one can use vectors of a <em>Jordan basis</em> of this space to form a set consisting of <span class="math notranslate nohighlight">\(\,n\ \)</span> linearly independent real solutions of the system <a class="reference internal" href="#equation-set-diff">(1)</a>.
+We will show on an example, without developping a general theory, that such a construction is possible.</p>
+<p><strong>Example 4.</strong> <span class="math notranslate nohighlight">\(\,\)</span>
+We solve a system of linear differential equations</p>
+<div class="math notranslate nohighlight">
+\begin{alignat*}{4}
+\dot{x}_1 &amp; {\ } = {\ } &amp; 4\ x_1 &amp; {\ } + {\ } &amp;    x_2 &amp; {\ } + {\ } &amp;    x_3 \\
+\dot{x}_1 &amp; {\ } = {\ } &amp; 2\ x_1 &amp; {\ } + {\ } &amp; 4\ x_2 &amp; {\ } + {\ } &amp;    x_3 \\
+\dot{x}_1 &amp; {\ } = {\ } &amp;        &amp;             &amp;    x_2 &amp; {\ } + {\ } &amp; 4\ x_3
+\end{alignat*}</div><p>The characteristic equation of the matrix
+<span class="math notranslate nohighlight">\(\ \ \boldsymbol{A}\ =\ \left[\begin{array}{ccc}
+4 &amp; 1 &amp; 1 \\ 2 &amp; 4 &amp; 1 \\ 0 &amp; 1 &amp; 4 \end{array}\right]:\)</span></p>
+<div class="math notranslate nohighlight">
+\[\begin{split}\left|\begin{array}{ccc}
+4-\lambda &amp; 1  &amp; 1 \\
+2 &amp;  4-\lambda &amp; 1 \\
+0 &amp;   1 &amp;   4-\lambda
+\end{array}\right|\ =\
+\lambda^3-12\,\lambda^2+45\,\lambda-54\ =\
+(\lambda-3)^2\,(\lambda-6)\ =\ 0\end{split}\]</div>
+<p>has a double root <span class="math notranslate nohighlight">\(\,\lambda_{1,2}=3\ \)</span>
+and a single root <span class="math notranslate nohighlight">\(\,\lambda_3=6\,.\)</span> <span class="math notranslate nohighlight">\(\\\)</span></p>
+<p>The coordinates <span class="math notranslate nohighlight">\(\ \beta_1,\beta_2,\beta_3\ \)</span>
+of the eigenvectors associated with the eigenvalue <span class="math notranslate nohighlight">\(\,\lambda_{1,2}\ \)</span>
+may be determined from the equation</p>
+<div class="math notranslate nohighlight">
+\[\begin{split}\left[\begin{array}{ccc}
+1 &amp; 1 &amp; 1 \\ 2 &amp; 1 &amp; 1 \\ 0 &amp; 1 &amp; 1
+\end{array}\right]\
+\left[\begin{array}{c} \beta_1 \\ \beta_2 \\ \beta_3 \end{array}\right]\ =\
+\left[\begin{array}{c} 0 \\ 0 \\ 0 \end{array}\right]\,,
+\quad\text{so}\quad
+\begin{cases}\begin{array}{r}
+\beta_1+\beta_2+\beta_3=0 \\ 2\,\beta_1+\beta_2+\beta_3=0 \\ \beta_2+\beta_3=0
+\end{array}\end{cases}:\quad
+\begin{cases}\begin{array}{l}
+\beta_1=0 \\ \beta_3=-\beta_2
+\end{array}\end{cases}\end{split}\]</div>
+<p>Te solution is given by
+<span class="math notranslate nohighlight">\(\ \ \beta_1=0\,,\ \  \beta_2=\beta\,,\ \ \beta_3=-\beta\,,\ \
+\beta\in R\,,\ \)</span> so the eigenvectors</p>
+<div class="math notranslate nohighlight" id="equation-v1">
+<span class="eqno">(11)<a class="headerlink" href="#equation-v1" title="Permalink to this equation">¶</a></span>\[\begin{split}\boldsymbol{v}_1\ =\
+\beta\ \left[\begin{array}{r} 0 \\ 1 \\ -1 \end{array}\right]\,,\quad
+\beta\in R\!\smallsetminus\!\{0\}\end{split}\]</div>
+<p>comprise (together with the zero vector) a 1-dimensional subspace:
+the geometric multiplicity of the eigenvalue <span class="math notranslate nohighlight">\(\,\lambda_{1,2}\ \)</span> is equal to 1.
+Hence we obtain a solution of the system of linear differential equations:</p>
+<div class="math notranslate nohighlight" id="equation-x1">
+<span class="eqno">(12)<a class="headerlink" href="#equation-x1" title="Permalink to this equation">¶</a></span>\[\begin{split}\boldsymbol{x}^1(t)\ \,=\ \,
+e^{\,3\,t}\ \left[\begin{array}{r} 0 \\ 1 \\ -1 \end{array}\right]\,.\end{split}\]</div>
+<p>The second solution associated with the eigenvalue <span class="math notranslate nohighlight">\(\,\lambda_{1,2}\ \)</span>
+may be obtained from the construction of <em>Jordan basis</em>
+<span class="math notranslate nohighlight">\(\,\mathcal{B}_{1,2}=(\boldsymbol{w}_1,\boldsymbol{w}_2)\,.\ \)</span>
+The vectors <span class="math notranslate nohighlight">\(\,\boldsymbol{w}_1,\boldsymbol{w}_2\in R^3\!\smallsetminus\!\{\boldsymbol{0}\}\ \)</span>
+are defined by the conditions</p>
+<div class="math notranslate nohighlight" id="equation-w1-w2">
+<span class="eqno">(13)<a class="headerlink" href="#equation-w1-w2" title="Permalink to this equation">¶</a></span>\[\begin{split}\begin{cases}\ \begin{array}{l}
+(\boldsymbol{A}-\lambda_{1,2}\ \boldsymbol{I}_3)\ \boldsymbol{w}_1\ =\ \boldsymbol{0} \\
+(\boldsymbol{A}-\lambda_{1,2}\ \boldsymbol{I}_3)\ \boldsymbol{w}_2\ =\ \boldsymbol{w}_1
+\end{array}\end{cases}
+\quad\text{so}\qquad\
+\begin{cases}\ \begin{array}{l}
+\boldsymbol{A}\,\boldsymbol{w}_1\ =\ \lambda_{1,2}\ \boldsymbol{w}_1 \\
+\boldsymbol{A}\,\boldsymbol{w}_2\ =\ \boldsymbol{w}_1+\lambda_{1,2}\ \boldsymbol{w}_2
+\end{array}\end{cases}\end{split}\]</div>
+<p>We will show that <span class="math notranslate nohighlight">\(\ \,\boldsymbol{w}_1\,\)</span> and <span class="math notranslate nohighlight">\(\boldsymbol{w}_2\ \,\)</span> are linearly independent. Indeed, let</p>
+<div class="math notranslate nohighlight">
+\[\alpha_1\ \boldsymbol{w}_1\ +\ \alpha_2\ \boldsymbol{w}_2\ \,=\ \,\boldsymbol{0}\,,\qquad
+\alpha_1,\,\alpha_2\in R\,.\]</div>
+<p>Multiply this equality on both sides from the left by the matrix
+<span class="math notranslate nohighlight">\(\,\boldsymbol{A}-\lambda_{1,2}\ \boldsymbol{I}_3\ .\)</span> <span class="math notranslate nohighlight">\(\\\)</span>
+The conditions <a class="reference internal" href="#equation-w1-w2">(13)</a> imply</p>
+<div class="math notranslate nohighlight">
+\begin{eqnarray*}
+\alpha_1\ (\boldsymbol{A}-\lambda_{1,2}\ \boldsymbol{I}_3)\ \boldsymbol{w}_1\ +\
+\alpha_2\ (\boldsymbol{A}-\lambda_{1,2}\ \boldsymbol{I}_3)\ \boldsymbol{w}_2 &amp; = &amp; \boldsymbol{0}
+\\
+\text{so}\quad\alpha_2\ \boldsymbol{w}_1 &amp; = &amp; \boldsymbol{0}\,,\quad
+\text{and thus}\quad\alpha_2=0\,,
+\\
+\text{but then}\quad\alpha_1\ \boldsymbol{w}_1 &amp; = &amp; \boldsymbol{0}\,,
+\quad\text{so}\quad\alpha_1=0\,.
+\end{eqnarray*}</div><p>We check now that the function</p>
+<div class="math notranslate nohighlight" id="equation-x2-compact">
+<span class="eqno">(14)<a class="headerlink" href="#equation-x2-compact" title="Permalink to this equation">¶</a></span>\[\boldsymbol{x}^2(t)\ \,=\ \,
+\exp{(\lambda_{1,2}\;t)}\,\cdot\,(t\,\boldsymbol{w}_1\,+\,\boldsymbol{w}_2)\]</div>
+<p>is a solution to the considered system of differential equations. Indeed, by the equations <a class="reference internal" href="#equation-w1-w2">(13)</a> we have</p>
+<div class="math notranslate nohighlight">
+\begin{eqnarray*}
+\boldsymbol{\dot{x}}^2(t) &amp; = &amp;
+\lambda_{1,2}\ \exp{(\lambda_{1,2}\;t)}\,\cdot\,(t\,\boldsymbol{w}_1\,+\,\boldsymbol{w}_2)\ +\
+\exp{(\lambda_{1,2}\;t)}\,\cdot\,\boldsymbol{w}_1\ =
+\\
+&amp; = &amp; \exp{(\lambda_{1,2}\;t)}\,\cdot\,
+\left[\ \,t\,\cdot\,\lambda_{1,2}\;\boldsymbol{w}_1\,+\,
+(\boldsymbol{w}_1+\lambda_{1,2}\,\boldsymbol{w}_2)\ \right]\ =
+\\
+&amp; = &amp; \exp{(\lambda_{1,2}\;t)}\,\cdot\,
+(\ t\,\cdot\,\boldsymbol{A}\,\boldsymbol{w}_1\,+\,\boldsymbol{A}\,\boldsymbol{w}_2\ )\ =
+\\
+&amp; = &amp; \boldsymbol{A}\ \,[\ \,\exp{(\lambda_{1,2}\;t)}\,\cdot\,
+(t\,\boldsymbol{w}_1\,+\,\boldsymbol{w}_2)\ ]\ =
+\\
+&amp; = &amp; \boldsymbol{A}\ \boldsymbol{x}^2(t)\,.
+\end{eqnarray*}</div><p>We now determine the vectors <span class="math notranslate nohighlight">\(\,\boldsymbol{w}_1\ \ \text{and}\ \ \boldsymbol{w}_2\,.\ \)</span>
+Since <span class="math notranslate nohighlight">\(\,\boldsymbol{w}_1\ \)</span> is an eigenvector of the matrix
+<span class="math notranslate nohighlight">\(\,\boldsymbol{A}\ \)</span> associated with the eigenvalue <span class="math notranslate nohighlight">\(\,\lambda_{1,2}\,,\ \)</span>
+we may assume <span class="math notranslate nohighlight">\(\ \,\boldsymbol{w}_1=\boldsymbol{v}_1\,.\ \)</span>
+Taking <span class="math notranslate nohighlight">\(\ \beta=1\ \)</span> in the equation <a class="reference internal" href="#equation-v1">(11)</a>, we obtain:</p>
+<div class="math notranslate nohighlight">
+\[\begin{split}\boldsymbol{w}_1\ =\
+\left[\begin{array}{r} 0 \\ 1 \\ -1 \end{array}\right]\,.\end{split}\]</div>
+<p>The vector <span class="math notranslate nohighlight">\(\ \,\boldsymbol{w}_2=[\,\gamma_i\,]_3\ \,\)</span> may be calculated from the equation:
+<span class="math notranslate nohighlight">\(\ \ (\boldsymbol{A}-\lambda_{1,2}\,\boldsymbol{I}_3)\,\boldsymbol{w}_2=\boldsymbol{w}_1\,,\ \ \)</span>
+that is</p>
+<div class="math notranslate nohighlight">
+\[\begin{split}\left[\begin{array}{ccc}
+1 &amp; 1 &amp; 1 \\ 2 &amp; 1 &amp; 1 \\ 0 &amp; 1 &amp; 1
+\end{array}\right]\
+\left[\begin{array}{c} \gamma_1 \\ \gamma_2 \\ \gamma_3 \end{array}\right]\ =\
+\left[\begin{array}{r} 0 \\ 1 \\ -1 \end{array}\right]\,,
+\quad\text{and so}\quad
+\begin{cases}\begin{array}{r}
+\gamma_1+\gamma_2+\gamma_3\,=\,0 \\ 2\,\gamma_1+\gamma_2+\gamma_3\,=\,1 \\ \gamma_2+\gamma_3\,=\,-1
+\end{array}\end{cases}\end{split}\]</div>
+<p>The solution is:
+<span class="math notranslate nohighlight">\(\ \ \gamma_1=1,\ \ \gamma_2=\gamma,\ \ \gamma_3=-1-\gamma,\quad\gamma\in R.\ \,\)</span>
+For <span class="math notranslate nohighlight">\(\ \gamma=0\ \)</span> we obtain</p>
+<div class="math notranslate nohighlight">
+\[\begin{split}\boldsymbol{w}_2\ =\ \left[\begin{array}{r} 1 \\ 0 \\ -1 \end{array}\right]\,.\end{split}\]</div>
+<p>The solution <a class="reference internal" href="#equation-x2-compact">(14)</a> of the system of differential equations takes now an explicit form:</p>
+<div class="math notranslate nohighlight" id="equation-x2">
+<span class="eqno">(15)<a class="headerlink" href="#equation-x2" title="Permalink to this equation">¶</a></span>\[\begin{split}\boldsymbol{x}^2(t)\ \,=\ \,
+e^{\,3\,t}\ \left[\begin{array}{c} 1 \\ t \\ -1-t \end{array}\right]\,.\end{split}\]</div>
+<p>In this way we have two linearly independent solutions,
+<span class="math notranslate nohighlight">\(\ \boldsymbol{x}^1(t)\ \)</span> and <span class="math notranslate nohighlight">\(\ \boldsymbol{x}^2(t)\,,\ \)</span>
+associated with the eigenvalue <span class="math notranslate nohighlight">\(\ \lambda_{1,2}=3\ \)</span> of the matrix <span class="math notranslate nohighlight">\(\,\boldsymbol{A}\,.\)</span></p>
+<p>It remains to determine the solution associated with the (single) eigenvalue <span class="math notranslate nohighlight">\(\ \lambda_3=6.\ \)</span> <span class="math notranslate nohighlight">\(\\\)</span>
+The associated eigenvectors <span class="math notranslate nohighlight">\(\,\boldsymbol{v}_3=[\,\beta_i\,]_3\ \)</span> are computed from the equation</p>
+<div class="math notranslate nohighlight">
+\[\begin{split}\left[\begin{array}{rrr}
+-2 &amp; 1 &amp; 1 \\ 2 &amp; -2 &amp; 1 \\ 0 &amp; 1 &amp; -2
+\end{array}\right]\
+\left[\begin{array}{c}
+\beta_1 \\ \beta_2 \\ \beta_3
+\end{array}\right]\ =\
+\left[\begin{array}{c}
+0 \\ 0 \\ 0
+\end{array}\right]\,,
+\quad\text{so}\quad
+\begin{cases}\ \begin{array}{r}
+-\,2\,\beta_1\,+\,\beta_2\,+\,\beta_3\,=\,0 \\
+2\,\beta_1\,-\,2\,\beta_2\,+\,\beta_3\,=\,0 \\
+\beta_2\,-\,2\,\beta_3\,=\,0
+\end{array}\end{cases}.\end{split}\]</div>
+<p>Hence:
+<span class="math notranslate nohighlight">\(\quad\beta_1=3\,\beta\,,\ \ \beta_2=4\,\beta\,,\ \ \beta_3=2\,\beta\,,\ \ \beta\in R\,,\quad\)</span>
+and thus
+<span class="math notranslate nohighlight">\(\quad\boldsymbol{v}_3\ =\ \beta\ \left[\begin{array}{c} 3 \\ 4 \\ 2 \end{array}\right]\,,
+\ \ \beta\in R\!\smallsetminus\!\{0\}\,,\)</span></p>
+<p>and the solution of the system of differential equations for this eigenvalue is given by</p>
+<div class="math notranslate nohighlight" id="equation-x3">
+<span class="eqno">(16)<a class="headerlink" href="#equation-x3" title="Permalink to this equation">¶</a></span>\[\begin{split}\boldsymbol{x}^3(t)\ \,=\ \,
+e^{\,6\,t}\ \left[\begin{array}{r} 3 \\ 4 \\ 2 \end{array}\right]\,.\end{split}\]</div>
+<p>The vector <span class="math notranslate nohighlight">\(\,\boldsymbol{v}_3\ \)</span> (eg. for <span class="math notranslate nohighlight">\(\,\beta=1\)</span>) may be taken as the third vector <span class="math notranslate nohighlight">\(\,\boldsymbol{w}_3\ \)</span> of the Jordan basis in <span class="math notranslate nohighlight">\(\,R^3\,,\ \)</span>
+corresponding to the matrix <span class="math notranslate nohighlight">\(\,\boldsymbol{A}:\)</span></p>
+<div class="math notranslate nohighlight">
+\[\begin{split}\mathcal{B}\ =\ (\boldsymbol{w}_1,\boldsymbol{w}_2,\boldsymbol{w}_3)\ \ =\ \
+\left(\ \
+\left[\begin{array}{r} 0 \\ 1 \\ -1 \end{array}\right]\,,\
+\left[\begin{array}{r} 1 \\ 0 \\ -1 \end{array}\right]\,,\
+\left[\begin{array}{r} 3 \\ 4 \\ 2 \end{array}\right]
+\ \ \right)\,.\end{split}\]</div>
+<p>The general solution of the system of differential equations is an arbitrary linear combination of the particular solutions <span class="math notranslate nohighlight">\(\,\)</span> <a class="reference internal" href="#equation-x1">(12)</a>, <span class="math notranslate nohighlight">\(\,\)</span> <a class="reference internal" href="#equation-x2">(15)</a> <span class="math notranslate nohighlight">\(\,\)</span> and <span class="math notranslate nohighlight">\(\,\)</span> <a class="reference internal" href="#equation-x3">(16)</a> :</p>
+<div class="math notranslate nohighlight">
+\[\begin{split}\begin{array}{c}
+\boldsymbol{x}(t)\ \,=\ \,c_1\ \boldsymbol{x}^1(t)\ +\
+                          c_2\ \boldsymbol{x}^2(t)\ +\
+                          c_3\ \boldsymbol{x}^3(t) :
+\\ \\
+\left[\begin{array}{c} x_1(t) \\ x_2(t) \\ x_3(t) \end{array}\right]\ =\
+e^{\,3\,t}\
+\left[\begin{array}{c}
+c_2 \\ c_1\,+\,c_2\,t \\ -\,c_1\,-\,c_2\,(1+t)
+\end{array}\right]\ +\
+c_3\ e^{\,6\,t}\
+\left[\begin{array}{c} 3 \\ 4 \\ 2 \end{array}\right]
+\\ \\
+\qquad\ \
+\begin{cases}\ \ \begin{array}{l}
+x_1(t)\ \,=\ \,c_2\ e^{\,3\,t}\ +\ 3\,c_3\ e^{\,6\,t} \\
+x_2(t)\ \,=\ \,(c_1+c_2\;t)\ e^{\,3\,t}\ +\ 4\,c_3\ e^{\,6\,t} \\
+x_3(t)\ \,=\ \,-\ [\,c_1+c_2\,(1+t)\,]\ e^{\,3\,t}\ +\ 2\,c_3\ \ e^{\,6\,t}
+\end{array}\end{cases}
+c_1,\,c_2,\,c_3\in R\,.
+\end{array}\end{split}\]</div>
+</section>
+
+
+          </div>
+        </div>
+      </div>
+      <div class="sphinxsidebar" role="navigation" aria-label="main navigation">
+        <div class="sphinxsidebarwrapper">
+  <h4>Previous topic</h4>
+  <p class="topless"><a href="problem_wlasny_przyklady.html"
+                        title="previous chapter">Examples of Eigenproblems</a></p>
+  <h4>Next topic</h4>
+  <p class="topless"><a href="problem_wlasny_Google.html"
+                        title="next chapter">Google’s Application - PageRank Algorithm</a></p>
+  <div role="note" aria-label="source link">
+    <h3>This Page</h3>
+    <ul class="this-page-menu">
+      <li><a href="_sources/problem_wlasny_rownania_rozniczkowe.rst.txt"
+            rel="nofollow">Show Source</a></li>
+    </ul>
+   </div>
+<div id="searchbox" style="display: none" role="search">
+  <h3 id="searchlabel">Quick search</h3>
+    <div class="searchformwrapper">
+    <form class="search" action="search.html" method="get">
+      <input type="text" name="q" aria-labelledby="searchlabel" />
+      <input type="submit" value="Go" />
+    </form>
+    </div>
+</div>
+<script>$('#searchbox').show(0);</script>
+        </div>
+      </div>
+      <div class="clearer"></div>
+    </div>
+  </div>
+  <div class="relbar-bottom">
+    
+    <div class="related" role="navigation" aria-label="related navigation">
+      <h3>Navigation</h3>
+      <ul>
+        <li class="right" style="margin-right: 10px">
+          <a href="genindex.html" title="General Index"
+             >index</a></li>
+        <li class="right" >
+          <a href="problem_wlasny_Google.html" title="Google’s Application - PageRank Algorithm"
+             >next</a> &nbsp; &nbsp;</li>
+        <li class="right" >
+          <a href="problem_wlasny_przyklady.html" title="Examples of Eigenproblems"
+             >previous</a> &nbsp; &nbsp;</li>
+  <li><a href="index.html">Linear Algebra</a> &#187;</li>
+  
+        <li class="nav-item nav-item-this"><a href="">Application to Systems of Linear Differential Equations</a></li> 
+      </ul>
+    </div>
+  </div>
+  
+  <div class="footer">
+    <a class="logo" href="http://icse.us.edu.pl/" target="_blank"><img src="_static/logo-icse.png" alt="ICSE"/></a><br/>
+    &copy; Copyright 2018, Jan Aksamit, Joanna Marzec, and  Marcin Kostur.
+    Last updated on Jan 29, 2022.
+    Created using <a href="http://sphinx.pocoo.org/">Sphinx</a> 4.0.1.
+  </div>
+  </body>
+</html>

@@ -1,0 +1,538 @@
+
+
+  
+<!DOCTYPE html>
+
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" /><meta name="generator" content="Docutils 0.17: http://docutils.sourceforge.net/" />
+
+    <title>Linear and Polynomial Regression &#8212; Linear Algebra</title>
+    <link rel="stylesheet" type="text/css" href="_static/pygments.css" />
+    <link rel="stylesheet" type="text/css" href="_static/cloud.css" />
+    <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Noticia+Text|Open+Sans|Droid+Sans+Mono&amp;subset=latin,latin-ext" type="text/css" />
+    <script data-url_root="./" id="documentation_options" src="_static/documentation_options.js"></script>
+    <script src="_static/jquery.js"></script>
+    <script src="_static/underscore.js"></script>
+    <script src="_static/doctools.js"></script>
+    <script async="async" src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js"></script>
+    <script src="_static/jquery.cookie.js"></script>
+    <script src="_static/cloud.js"></script>
+    <script type="text/javascript" src="http://sagecell.sagemath.org/static/jquery.min.js"></script>
+    <script type="text/javascript" src="http://sagecell.sagemath.org/embedded_sagecell.js"></script>
+    <script type="text/javascript">
+        sagecell.makeSagecell({inputLocation: ".sage_linked",
+                               linked: true});
+        sagecell.makeSagecell({inputLocation: ".sage_unlinked",
+                               linked: false});
+    </script>
+
+    <style type="text/css">
+        .sagecell .CodeMirror-scroll {
+            overflow-y: hidden;
+            overflow-x: auto;
+        }
+        .sagecell .CodeMirror {
+            height: auto;
+        }
+    </style>
+    
+    <link rel="index" title="Index" href="genindex.html" />
+    <link rel="search" title="Search" href="search.html" />
+    <link rel="next" title="Linear Programming" href="linear_programming.html" />
+    <link rel="prev" title="Equilibrium of a Linear Set of Masses Connected by Springs" href="przyklad_ze_statyki.html" />
+ 
+  <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, minimum-scale=1">
+  </head><body>
+  <div class="relbar-top">
+    
+    <div class="related" role="navigation" aria-label="related navigation">
+      <h3>Navigation</h3>
+      <ul>
+        <li class="right" style="margin-right: 10px">
+          <a href="genindex.html" title="General Index"
+             accesskey="I">index</a></li>
+        <li class="right" >
+          <a href="linear_programming.html" title="Linear Programming"
+             accesskey="N">next</a> &nbsp; &nbsp;</li>
+        <li class="right" >
+          <a href="przyklad_ze_statyki.html" title="Equilibrium of a Linear Set of Masses Connected by Springs"
+             accesskey="P">previous</a> &nbsp; &nbsp;</li>
+  <li><a href="index.html">Linear Algebra</a> &#187;</li>
+  
+        <li class="nav-item nav-item-this"><a href="">Linear and Polynomial Regression</a></li> 
+      </ul>
+    </div>
+  </div>
+  
+  <div class="content">  
+
+    <div class="document">
+      <div class="documentwrapper">
+        <div class="bodywrapper">
+          <div class="body">
+            
+  <section id="linear-and-polynomial-regression">
+<h1>Linear and Polynomial Regression<a class="headerlink" href="#linear-and-polynomial-regression" title="Permalink to this headline">¶</a></h1>
+<p><em>Regression analysis</em> is a technique to create statistical models describing the relationshp between <em>dependent variables</em> and <em>explanatory variables</em> (or <em>independent variables</em>). Depending on the type of this relationship (shape of the best fitted curve), the number of dependent and independent variables, and whether they are of continuous or binary nature, one applies different type of regression. If chosen properly, it helps to predict future behaviour basing on a data from the past (e.g. to assess risk in financial services, goods prices or consumer behaviour) as well as explore correlation between the objects. Here we disccuss only linear and polynomial dependencies; the interested reader is referred to <a class="reference external" href="https://www.analyticsvidhya.com/blog/2015/08/comprehensive-guide-regression/">this article</a> for a brief description of a few other methods.</p>
+<section id="linear-regression">
+<h2>Linear Regression<a class="headerlink" href="#linear-regression" title="Permalink to this headline">¶</a></h2>
+<p>This is the oldest type of regression. In the simplest case there is only one independent and one dependent variable, that is, data related to certain phenomenon consists of points
+<span class="math notranslate nohighlight">\(\ (x_1,y_1),\, (x_2,y_2),\, \ldots,\, (x_n,y_n)\ \)</span> which indicate <em>linear</em> dependence. To find this dependence one looks for a straight line which best fits the data. This can be done by minimalising the distance between the points and the desired line: the <em>ordinary least squares</em> method. Namely, one has to determine the matrix <span class="math notranslate nohighlight">\(\ B\ \)</span> such that</p>
+<div class="math notranslate nohighlight">
+\[ \begin{align}\begin{aligned}X^Ty=X^T\cdot XB,\\\text{where}\\\begin{split}y=\left[\begin{matrix} y_1\\ y_2\\ \vdots \\ y_n \end{matrix}\right]\, ,\qquad
+X=\left[\begin{matrix} 1 &amp; x_1\\ 1 &amp; x_2\\ \vdots &amp; \vdots \\ 1 &amp; x_n \end{matrix}\right]\, ,\qquad
+B=\left[\begin{matrix} \beta_1\\ \beta_2 \end{matrix}\right]\, .\end{split}\end{aligned}\end{align} \]</div>
+<p>Note that if not the presence of the matrix <span class="math notranslate nohighlight">\(\ X^T\ \)</span> on both sides of the equality, this matrix equation would have the form <span class="math notranslate nohighlight">\(\ y=XB\ \)</span>, that is, it would describe solutions of the system of equations</p>
+<div class="math notranslate nohighlight">
+\[\begin{split}\begin{array}{c}
+y_1\ \, = \, \beta_1\; +\; x_1\,\beta_2\\
+y_2\ \, = \, \beta_1\; +\; x_2\,\beta_2\\
+\vdots\ \ \quad\quad\qquad\vdots\qquad\ \\
+y_n\ \, = \, \beta_1\; +\; x_n\,\beta_2
+\end{array}\end{split}\]</div>
+<p>suggesting that each data point lies on the same line. However, in general such situation does not take place, and thus such a simple system would not have any solution.</p>
+<p>On the other hand, if only the (square) matrix <span class="math notranslate nohighlight">\(\ X^T\cdot X\ \)</span> is invertible, the equation <span class="math notranslate nohighlight">\(\ X^Ty=X^T\cdot XB\ \)</span> has a solution for <span class="math notranslate nohighlight">\(\ B=(X^T\cdot X)^{-1} X^Ty\ \)</span>. This gives the line that best fits the data:</p>
+<div class="math notranslate nohighlight">
+\[\begin{split}y=\beta_1 + x\beta_2\, ,\qquad\text{where}\,\qquad
+\left[\begin{matrix} \beta_1\\ \beta_2 \end{matrix}\right]=B=(X^TX)^{-1}X^Ty\, .\end{split}\]</div>
+<p><strong>Example 1.</strong> <a class="footnote-reference brackets" href="#id7" id="id1">1</a></p>
+<p>Assume that you go for a long trip and want to predict how much money you should allocate for petrol and when you should stop to fill up the tank.
+You have observed the efficiency of your car and collected <a class="reference external" href="http://visual.icse.us.edu.pl/LA/_static/Car_efficiency.csv">the data</a>.</p>
+<p>Of course, this data carries an error of measurement and depends on fluctuation of petrol prices, but overall there should be a linear dependence between how much money you pay and how far you can drive with the petrol you bought. This seems to be confirmed by the graph of the data points:</p>
+<figure class="align-center">
+<img alt="_images/regr1.png" src="_images/regr1.png" />
+</figure>
+<p>Hence, it makes sense to apply linear regression.</p>
+<p>However, before we can make any computations on the collected data, we need to open it first by Sage. In order to do this we have to import necessary packages: <code class="docutils literal notranslate"><span class="pre">urllib</span></code> (for opening URLs) and <code class="docutils literal notranslate"><span class="pre">csv</span></code> (for reading .csv files). We call the accessed file by <code class="docutils literal notranslate"><span class="pre">data</span></code>.</p>
+<div class='sage_linked'><script type='text/x-sage'>import urllib
+import csv
+data = csv.reader(urllib.urlopen('http://visual.icse.us.edu.pl/LA/_static/Car_efficiency.csv'))</script></div><div class="admonition note">
+<p class="admonition-title">Note</p>
+<p>If the file <code class="docutils literal notranslate"><span class="pre">Car_efficiency.csv</span></code> is already saved in the computer, it suffices to upload it to Sage and write two lines:</p>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="n">sage</span><span class="p">:</span> <span class="kn">import</span> <span class="nn">csv</span>
+<span class="n">sage</span><span class="p">:</span> <span class="n">data</span> <span class="o">=</span> <span class="n">csv</span><span class="o">.</span><span class="n">reader</span><span class="p">(</span><span class="nb">open</span><span class="p">(</span><span class="s1">&#39;Car_efficiency.csv&#39;</span><span class="p">))</span>
+</pre></div>
+</div>
+</div>
+<p>Now that we can access the data with Sage, we interpret it in a form of a table:</p>
+<div class='sage_linked'><script type='text/x-sage'>L = []
+for row in data:
+    L.append(row)
+if L==[]:
+    print "Execute code in the previous cell!"
+else: print L</script></div><p>We are ready to define the vector <span class="math notranslate nohighlight">\(y\)</span> and the matrix <span class="math notranslate nohighlight">\(X\)</span>, and thus to find a line which best fits the data.</p>
+<div class='sage_linked'><script type='text/x-sage'>xl = [L[i][0] for i in srange(1,16)] # srange: we omit the row L[0]
+yl = [L[i][1] for i in srange(1,16)]
+X = matrix(RDF,[[1,xl[i]] for i in range(15)])
+y = vector(RDF,yl)
+B = (X.transpose()*X).inverse()*X.transpose()*y
+P = points([(xl[i],yl[i]) for i in range(len(xl))])
+l = line([(30,B[0]+B[1]*30),(40,B[0]+B[1]*40)],color='red')
+print 'line: y =', B[0], '+', B[1], '* x'
+show(P+l,axes_labels=['Total paid','Distance'],axes_labels_size=1,figsize=5)</script></div><p>Now it is very easy to find out how much on average one has to pay to drive <span class="math notranslate nohighlight">\(y\)</span> km:</p>
+<div class="math notranslate nohighlight">
+\[x=(y-257.569072517769)/3.49884566266075\]</div>
+<div class="admonition-experiment-with-sage admonition">
+<p class="admonition-title">Experiment with Sage!</p>
+<p>How far would you like to drive? Check the outcome (an average cost) for various values of <span class="math notranslate nohighlight">\(y\)</span> (distance).
+What may be the reason for an unsatisfactory answer in case of low values of <span class="math notranslate nohighlight">\(y\)</span>?</p>
+</div>
+<div class='sage_linked'><script type='text/x-sage'>y =  # write the distance
+x = (y-257.569072517769)/3.49884566266075
+round(x,2) # rounds x to 2 decimal digits</script></div><p>In the above example we skipped an important moment when one has to decide which variable depends on the other. As we will see below, this is not always a natural choice to make and wrong decision may lead to unreal results.</p>
+<p>For instance, if in the above example we chose distance as an independent variable and applied the ordinary least squares method, we would obtain the following solution:</p>
+<figure class="align-center">
+<img alt="_images/regr3.png" src="_images/regr3.png" />
+</figure>
+<p>This does not lead yet to ridiculous consequences, but clearly it matches the data much less and suggests lack of linear relation.</p>
+<p><strong>Example 2.</strong> (correlation)</p>
+<p>Linear regression may be also used to investigate correlation between two phenomena: we say that two types of behaviour are <em>correlated</em> <span class="math notranslate nohighlight">\(\,\)</span> if they manifest linear dependence.</p>
+<p>We will investigate correlation between rate of unemployment in various countries and amount of benefits given by these countries. <a class="footnote-reference brackets" href="#id8" id="id2">2</a>
+The data, which can be viewed <a href="#id13"><span class="problematic" id="id14">`here`_</span></a>, was downloaded and extracted from OECD databases <a class="footnote-reference brackets" href="#id8" id="id3">2</a>. This time, however, the symbol separating the consecutive entries is not a comma (as the name Comma-Separeted Values suggests), but a semicolon. This fact has to be mentioned to a function reader in order to open a file:</p>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="n">sage</span><span class="p">:</span> <span class="kn">import</span> <span class="nn">urllib</span><span class="o">,</span> <span class="nn">csv</span>
+<span class="n">sage</span><span class="p">:</span> <span class="n">afile</span> <span class="o">=</span> <span class="n">urllib</span><span class="o">.</span><span class="n">urlopen</span><span class="p">(</span><span class="s1">&#39;http://visual.icse.us.edu.pl/LA/_static/Benefits_and_unemployment_2015.csv&#39;</span><span class="p">))</span>
+<span class="n">sage</span><span class="p">:</span> <span class="n">data</span> <span class="o">=</span> <span class="n">csv</span><span class="o">.</span><span class="n">reader</span><span class="p">(</span><span class="n">afile</span><span class="p">,</span> <span class="n">delimiter</span><span class="o">=</span><span class="s1">&#39;;&#39;</span><span class="p">)</span>
+</pre></div>
+</div>
+<p>Of course, this is not enough to make any operations on the data; as before we have to interpret it as a table. The table will consist of four columns: ‘LOCATION’, ‘Country’, ‘Value-benefits’, ‘Value-unemployment’.</p>
+<p>First we take an assumption that the unemployment rate depends on the amount of benefits, i.e. the vector <span class="math notranslate nohighlight">\(x\)</span> contains the values from the column ‘Value-benefits’, and the vector <span class="math notranslate nohighlight">\(y\)</span> contains the values from the column ‘Value-unemployment’.</p>
+<div class="admonition-experiment-with-sage admonition">
+<p class="admonition-title">Experiment with Sage!</p>
+<p>Press <strong>Evaluate</strong> to see ilustration of the data discussed in this example.
+Then fill in the gap in the code below with the steps of the ordinary least squares method
+in order to find a straight line that best fits the set of points <span class="math notranslate nohighlight">\((x_i,y_i)\)</span> from the data.
+(Do not forget to draw the resulting line <span class="math notranslate nohighlight">\(l\)</span>!
+You may do this for example by replacing <code class="docutils literal notranslate"><span class="pre">pic</span></code> in the last line of the code with <code class="docutils literal notranslate"><span class="pre">pic+l</span></code>.)</p>
+</div>
+<div class='sage_linked'><script type='text/x-sage'>import urllib, csv
+afile = urllib.urlopen('http://visual.icse.us.edu.pl/LA/_static/Benefits_and_unemployment_2015.csv'))
+data = csv.reader(afile, delimiter=';')
+L = []
+for row in data:
+    L.append(row)
+xl = [L[i][2] for i in srange(1,35)]
+yl = [L[i][3] for i in srange(1,35)]
+# write the missing code here
+
+
+pic = Graphics() # defines an empty graphics object
+for i in range(34): # L[i+1][0] with i=0,1,... to omit the row L[0]
+    pic+ = text(L[i+1][0],(xl[i], yl[i]),horizontal_alignment='left',color='blue',fontsize='small')
+show(pic,axes_labels=['Benefits','Unemployment rate'],axes_labels_size=1)</script></div><p>For the interested reader we provide explanation of the abbreviations used in the figure:</p>
+<table class="docutils align-default">
+<colgroup>
+<col style="width: 10%" />
+<col style="width: 8%" />
+<col style="width: 8%" />
+<col style="width: 7%" />
+<col style="width: 16%" />
+<col style="width: 8%" />
+<col style="width: 8%" />
+<col style="width: 7%" />
+<col style="width: 8%" />
+<col style="width: 7%" />
+<col style="width: 8%" />
+<col style="width: 8%" />
+</colgroup>
+<tbody>
+<tr class="row-odd"><td><p>AUS</p></td>
+<td><p>AUT</p></td>
+<td><p>BEL</p></td>
+<td><p>CAN</p></td>
+<td><p>CZE</p></td>
+<td><p>DNK</p></td>
+<td><p>FIN</p></td>
+<td><p>FRA</p></td>
+<td><p>DEU</p></td>
+<td><p>GRC</p></td>
+<td><p>HUN</p></td>
+<td><p>ISL</p></td>
+</tr>
+<tr class="row-even"><td><p>Australia</p></td>
+<td><p>Austria</p></td>
+<td><p>Belgium</p></td>
+<td><p>Canada</p></td>
+<td><p>Czech Republic</p></td>
+<td><p>Denmark</p></td>
+<td><p>Finland</p></td>
+<td><p>France</p></td>
+<td><p>Germany</p></td>
+<td><p>Greece</p></td>
+<td><p>Hungary</p></td>
+<td><p>Iceland</p></td>
+</tr>
+</tbody>
+</table>
+<table class="docutils align-default">
+<colgroup>
+<col style="width: 8%" />
+<col style="width: 6%" />
+<col style="width: 6%" />
+<col style="width: 6%" />
+<col style="width: 11%" />
+<col style="width: 12%" />
+<col style="width: 12%" />
+<col style="width: 7%" />
+<col style="width: 7%" />
+<col style="width: 9%" />
+<col style="width: 17%" />
+</colgroup>
+<tbody>
+<tr class="row-odd"><td><p>IRL</p></td>
+<td><p>ITA</p></td>
+<td><p>JPN</p></td>
+<td><p>KOR</p></td>
+<td><p>LUX</p></td>
+<td><p>NLD</p></td>
+<td><p>NZL</p></td>
+<td><p>NOR</p></td>
+<td><p>POL</p></td>
+<td><p>PRT</p></td>
+<td><p>SVK</p></td>
+</tr>
+<tr class="row-even"><td><p>Ireland</p></td>
+<td><p>Italy</p></td>
+<td><p>Japan</p></td>
+<td><p>Korea</p></td>
+<td><p>Luxembourg</p></td>
+<td><p>Netherlands</p></td>
+<td><p>New Zealand</p></td>
+<td><p>Norway</p></td>
+<td><p>Poland</p></td>
+<td><p>Portugal</p></td>
+<td><p>Slovak Republic</p></td>
+</tr>
+</tbody>
+</table>
+<table class="docutils align-default">
+<colgroup>
+<col style="width: 6%" />
+<col style="width: 7%" />
+<col style="width: 13%" />
+<col style="width: 7%" />
+<col style="width: 16%" />
+<col style="width: 15%" />
+<col style="width: 6%" />
+<col style="width: 8%" />
+<col style="width: 7%" />
+<col style="width: 9%" />
+<col style="width: 7%" />
+</colgroup>
+<tbody>
+<tr class="row-odd"><td><p>ESP</p></td>
+<td><p>SWE</p></td>
+<td><p>CHE</p></td>
+<td><p>TUR</p></td>
+<td><p>GBR</p></td>
+<td><p>USA</p></td>
+<td><p>CHL</p></td>
+<td><p>EST</p></td>
+<td><p>ISR</p></td>
+<td><p>SVN</p></td>
+<td><p>LVA</p></td>
+</tr>
+<tr class="row-even"><td><p>Spain</p></td>
+<td><p>Sweden</p></td>
+<td><p>Switzerland</p></td>
+<td><p>Turkey</p></td>
+<td><p>United Kingdom</p></td>
+<td><p>United States</p></td>
+<td><p>Chile</p></td>
+<td><p>Estonia</p></td>
+<td><p>Israel</p></td>
+<td><p>Slovenia</p></td>
+<td><p>Latvia</p></td>
+</tr>
+</tbody>
+</table>
+<p>The graph suggests that there is indeed a correlation between the amount of benefits
+and long term unemployment: the higher the benefits, the lower long term unemployment.
+The countries that hardly fit in this picture are Greece and Spain. This is not so surprising
+if we recall that these two countries (especially Greece) suffered from serious crisis in 2015.
+There are, of course, a few other factors that should be taken into account to draw the right conclusion
+in such a complex topic. We leave at this place as we start to drift away from the subject of this book.
+The interested reader may compare the figure above with the graph on <a class="reference external" href="https://en.wikipedia.org/wiki/Welfare%27s_effect_on_poverty#/media/File:The_Antipoverty_Effect_of_Government_Spending_Vector_Graph.svg">Wikipedia page</a>
+presenting the relationship between poverty reduction and differing levels of welfare expense by different countries.</p>
+<p>We finish this example with a graph presenting linear regression under assumption that the amount of benefits
+depends on the rate of unemployment. Perhaps: the lower unemployment, the more money for benefits?</p>
+<figure class="align-center">
+<a class="reference internal image-reference" href="_images/regr-correlation2.png"><img alt="_images/regr-correlation2.png" src="_images/regr-correlation2.png" style="width: 705.6px; height: 527.4px;" /></a>
+</figure>
+<p>This result seems to represent the actual situation in a worse manner. Nevertheless, it conveys the true fact:
+if rate of unemployment in a given country crosses a critical point, the country will not have enough money for the benefits.</p>
+</section>
+<section id="polynomial-regression">
+<h2>Polynomial Regression<a class="headerlink" href="#polynomial-regression" title="Permalink to this headline">¶</a></h2>
+<p>The idea behind this method lies in finding a polynomial that best fits the data. The best fit may be achieved in the same way as for the linear regression: by applying the ordinary least squares method. We demonstrate it by looking for a polynomial of degree two, but the same technique may be easily generalised to polynomials of higher degree.</p>
+<p><strong>Example 3.</strong> <a class="footnote-reference brackets" href="#id9" id="id4">3</a></p>
+<figure class="align-right">
+<a class="reference internal image-reference" href="_images/regr-fish.jpg"><img alt="_images/regr-fish.jpg" src="_images/regr-fish.jpg" style="width: 180.0px; height: 132.0px;" /></a>
+</figure>
+<p>In 1981, n = 78 bluegills were randomly sampled from Lake Mary in Minnesota.
+The researchers (Cook and Weisberg, 1999) measured and recorded the data concerning length and age of the fish.
+They were primarily interested in learning how the length of a bluegill fish is related to its age.
+The data is available under the <a class="reference external" href="https://onlinecourses.science.psu.edu/stat501/sites/onlinecourses.science.psu.edu.stat501/files/data/bluegills/index.txt">link</a> .</p>
+<p>In theory, the procedure described above should be enough to access the data from a desired website. However, sometimes
+- and this is the case here - one may have to overcome a problem of certificate validation for a given url.
+This may be done by writing the following lines:</p>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="n">sage</span><span class="p">:</span> <span class="kn">import</span> <span class="nn">urllib2</span><span class="o">,</span> <span class="nn">ssl</span>
+<span class="n">sage</span><span class="p">:</span> <span class="n">ctx</span> <span class="o">=</span> <span class="n">ssl</span><span class="o">.</span><span class="n">create_default_context</span><span class="p">()</span>
+<span class="n">sage</span><span class="p">:</span> <span class="n">ctx</span><span class="o">.</span><span class="n">check_hostname</span> <span class="o">=</span> <span class="kc">False</span>
+<span class="n">sage</span><span class="p">:</span> <span class="n">ctx</span><span class="o">.</span><span class="n">verify_mode</span> <span class="o">=</span> <span class="n">ssl</span><span class="o">.</span><span class="n">CERT_NONE</span>
+
+<span class="n">sage</span><span class="p">:</span> <span class="n">afile</span><span class="o">=</span><span class="n">urllib2</span><span class="o">.</span><span class="n">urlopen</span><span class="p">(</span><span class="s2">&quot;https://onlinecourses.science.psu.edu/stat501/sites/onlinecourses.science.psu.edu.stat501/files/data/bluegills/index.txt&quot;</span><span class="p">,</span> <span class="n">context</span><span class="o">=</span><span class="n">ctx</span><span class="p">)</span>
+</pre></div>
+</div>
+<p>After that one can proceed as previously and rewrite the data in a form of a table.
+Note though that this time the data is separated by a tabulator; tabulator is denoted in a code by  <code class="docutils literal notranslate"><span class="pre">\t</span></code> .</p>
+<p>The analysis starts with illustration of the data:</p>
+<figure class="align-center">
+<img alt="_images/regr-pol.png" src="_images/regr-pol.png" />
+</figure>
+<p>Since the picture resembles more a parabola than a line,
+we apply ordinary least squares method to find best fitting polynomial of the form</p>
+<div class="math notranslate nohighlight">
+\[\begin{split}y=\beta_0 +\beta_1 x+\beta_2 x^2\qquad\text{ and denote }\qquad
+B=\left[\begin{matrix} \beta_0 \\ \beta_1\\ \beta_2 \end{matrix}\right]\, ,\end{split}\]</div>
+<p>that is, we determine the matrix <span class="math notranslate nohighlight">\(\ B\ \)</span> from the equation</p>
+<div class="math notranslate nohighlight">
+\[X^Ty=X^TXB\,,\]</div>
+<p>where</p>
+<div class="math notranslate nohighlight">
+\[\begin{split}y=\left[\begin{matrix} y_1\\ y_2\\ \vdots \\ y_n \end{matrix}\right]\,\qquad\text{and}\qquad
+X=\left[\begin{matrix} 1 &amp; x_1 &amp; x_1^2\\ 1 &amp; x_2 &amp; x_2^2\\ \vdots &amp; \vdots \\ 1 &amp; x_n &amp; x_n^2 \end{matrix}\right]\, .\end{split}\]</div>
+<p>Note that the only change in comparison with linear regression is the third column
+of the matrix <span class="math notranslate nohighlight">\(\ X\ \)</span> consisting of second powers of data representing independent variables.
+In order to find a polynomial of degree <span class="math notranslate nohighlight">\(m\)</span> that best fits the data,
+one constructs the matrix <span class="math notranslate nohighlight">\(\ X\ \)</span> so that it has <span class="math notranslate nohighlight">\(m+1\)</span> columns
+and the <span class="math notranslate nohighlight">\(j\)</span>-th column contains <span class="math notranslate nohighlight">\(\ x_i^{j-1}\ \)</span>.</p>
+<p>In this particular example we have a serious problem:
+the matrix <span class="math notranslate nohighlight">\(\ X^TX\ \)</span> is not invertible. This happens because independent variables
+describing the age of fish are highly correlated: there are a few examples of fish which have the same age.
+In general such situation indicates that the ordinary least square method cannot be used. However,
+in practice, the researchers probably did not take into account that the age of fish differed by a few days (or hours).
+Hence, we can perturb the original age slightly,
+e.g. by <span class="math notranslate nohighlight">\(0.001\)</span> which corresponds to age difference smaller than a day,
+and still obtain a valid result.</p>
+<p>Denote by <code class="docutils literal notranslate"><span class="pre">xl</span></code> and <code class="docutils literal notranslate"><span class="pre">yl</span></code> lists created from, respectively, the first and the second column of the considered data on the bluegill fish (without the first row). Small perturbation of this data could be implemented as follows:</p>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="n">sage</span><span class="p">:</span> <span class="n">xlm</span><span class="o">=</span><span class="p">[</span><span class="mi">0</span> <span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="nb">len</span><span class="p">(</span><span class="n">xl</span><span class="p">))]</span>
+<span class="n">sage</span><span class="p">:</span> <span class="k">for</span> <span class="n">age</span> <span class="ow">in</span> <span class="p">[</span><span class="mf">1.</span><span class="o">.</span><span class="mi">6</span><span class="p">]:</span>
+<span class="n">sage</span><span class="p">:</span>     <span class="n">a</span><span class="o">=</span><span class="mi">0</span>
+<span class="n">sage</span><span class="p">:</span>     <span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="nb">len</span><span class="p">(</span><span class="n">xl</span><span class="p">)):</span>
+<span class="n">sage</span><span class="p">:</span>         <span class="k">if</span> <span class="n">RDF</span><span class="p">(</span><span class="n">xl</span><span class="p">[</span><span class="n">i</span><span class="p">])</span><span class="o">==</span><span class="n">age</span><span class="p">:</span>
+<span class="n">sage</span><span class="p">:</span>             <span class="n">xlm</span><span class="p">[</span><span class="n">i</span><span class="p">]</span><span class="o">=</span><span class="n">RDF</span><span class="p">(</span><span class="n">xl</span><span class="p">[</span><span class="n">i</span><span class="p">])</span><span class="o">+</span><span class="mf">0.001</span><span class="o">*</span><span class="n">a</span>
+<span class="n">sage</span><span class="p">:</span>             <span class="n">a</span><span class="o">=</span><span class="n">a</span><span class="o">+</span><span class="mi">1</span>
+</pre></div>
+</div>
+<p>Once this is done, we can apply the ordinary least square method:</p>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="n">sage</span><span class="p">:</span> <span class="n">P</span><span class="o">=</span><span class="n">points</span><span class="p">([(</span><span class="n">xlm</span><span class="p">[</span><span class="n">i</span><span class="p">],</span><span class="n">yl</span><span class="p">[</span><span class="n">i</span><span class="p">])</span> <span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="nb">len</span><span class="p">(</span><span class="n">xl</span><span class="p">))])</span>
+<span class="n">sage</span><span class="p">:</span> <span class="n">X</span><span class="o">=</span><span class="n">matrix</span><span class="p">(</span><span class="n">RDF</span><span class="p">,[[</span><span class="mi">1</span><span class="p">,</span><span class="n">xlm</span><span class="p">[</span><span class="n">i</span><span class="p">],(</span><span class="n">xlm</span><span class="p">[</span><span class="n">i</span><span class="p">])</span><span class="o">^</span><span class="mi">2</span><span class="p">]</span> <span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="nb">len</span><span class="p">(</span><span class="n">xl</span><span class="p">))])</span>
+<span class="n">sage</span><span class="p">:</span> <span class="n">y</span><span class="o">=</span><span class="n">vector</span><span class="p">(</span><span class="n">RDF</span><span class="p">,</span><span class="n">yl</span><span class="p">)</span>
+<span class="n">sage</span><span class="p">:</span> <span class="n">B</span><span class="o">=</span><span class="p">(</span><span class="n">X</span><span class="o">.</span><span class="n">transpose</span><span class="p">()</span><span class="o">*</span><span class="n">X</span><span class="p">)</span><span class="o">.</span><span class="n">inverse</span><span class="p">()</span><span class="o">*</span><span class="n">X</span><span class="o">.</span><span class="n">transpose</span><span class="p">()</span><span class="o">*</span><span class="n">y</span>
+<span class="n">sage</span><span class="p">:</span> <span class="n">x</span> <span class="o">=</span> <span class="n">var</span><span class="p">(</span><span class="s1">&#39;x&#39;</span><span class="p">)</span>
+<span class="n">sage</span><span class="p">:</span> <span class="n">par</span><span class="o">=</span><span class="n">plot</span><span class="p">(</span><span class="n">B</span><span class="p">[</span><span class="mi">2</span><span class="p">]</span><span class="o">*</span><span class="n">x</span><span class="o">^</span><span class="mi">2</span><span class="o">+</span><span class="n">B</span><span class="p">[</span><span class="mi">1</span><span class="p">]</span><span class="o">*</span><span class="n">x</span><span class="o">+</span><span class="n">B</span><span class="p">[</span><span class="mi">0</span><span class="p">],</span> <span class="p">(</span><span class="n">x</span><span class="p">,</span><span class="mi">0</span><span class="p">,</span><span class="mi">6</span><span class="p">),</span><span class="n">color</span><span class="o">=</span><span class="s1">&#39;red&#39;</span><span class="p">)</span>
+<span class="n">sage</span><span class="p">:</span> <span class="nb">print</span> <span class="s1">&#39;parabola: y =&#39;</span><span class="p">,</span> <span class="n">B</span><span class="p">[</span><span class="mi">0</span><span class="p">],</span> <span class="s1">&#39;+&#39;</span><span class="p">,</span> <span class="n">B</span><span class="p">[</span><span class="mi">1</span><span class="p">],</span> <span class="s1">&#39;* x&#39;</span><span class="p">,</span> <span class="n">B</span><span class="p">[</span><span class="mi">2</span><span class="p">],</span> <span class="s1">&#39;* x^2&#39;</span>
+<span class="n">sage</span><span class="p">:</span> <span class="n">show</span><span class="p">(</span><span class="n">P</span><span class="o">+</span><span class="n">par</span><span class="p">,</span><span class="n">axes_labels</span><span class="o">=</span><span class="p">[</span><span class="s1">&#39;Age&#39;</span><span class="p">,</span><span class="s1">&#39;Length&#39;</span><span class="p">],</span><span class="n">axes_labels_size</span><span class="o">=</span><span class="mi">1</span><span class="p">,</span> <span class="n">xmin</span><span class="o">=</span><span class="mi">0</span><span class="p">,</span> <span class="n">ymin</span><span class="o">=</span><span class="mi">0</span><span class="p">,</span><span class="n">figsize</span><span class="o">=</span><span class="mi">5</span><span class="p">)</span>
+
+<span class="n">parabola</span><span class="p">:</span> <span class="n">y</span> <span class="o">=</span> <span class="mf">14.1077559995</span> <span class="o">+</span> <span class="mf">53.5604249124</span> <span class="o">*</span> <span class="n">x</span> <span class="o">-</span><span class="mf">4.64384272392</span> <span class="o">*</span> <span class="n">x</span><span class="o">^</span><span class="mi">2</span>
+</pre></div>
+</div>
+<figure class="align-center">
+<img alt="_images/regr-pol2.png" src="_images/regr-pol2.png" />
+</figure>
+<p>Note that because of lack of information on bluegills at early age, the graph does not give a realistic value at the young age.</p>
+</section>
+<section id="exercises">
+<h2>Exercises<a class="headerlink" href="#exercises" title="Permalink to this headline">¶</a></h2>
+<p>The exercises can be downloaded in a form of a notebook from <a class="reference external" href="http://visual.icse.us.edu.pl/LA/Notebooks/Regression-exercises.ipynb">here</a> .</p>
+<p><strong>Exercise 1.</strong></p>
+<p>a). Gather together the code from Example 3 in order to obtain the polynomial of degree 2 that best fits the data on bluegill fish.</p>
+<div class='sage_linked'><script type='text/x-sage'></script></div><p>b). Use linear regression to add the best fitting line to the picture obtained above.</p>
+<div class='sage_linked'><script type='text/x-sage'></script></div><p>c). Add to the data the point <span class="math notranslate nohighlight">\(\ (0,0)\ \)</span> which represents additional information that length of the fish at the age 0 is 0.</p>
+<blockquote>
+<div><p>(The list <code class="docutils literal notranslate"><span class="pre">xlm</span></code> can be extended to contain <span class="math notranslate nohighlight">\(0\)</span> as its first element by a command <span class="math notranslate nohighlight">\(\,\)</span> <code class="docutils literal notranslate"><span class="pre">xlm=[0]+xlm</span></code> <span class="math notranslate nohighlight">\(\,\)</span>.)</p>
+</div></blockquote>
+<div class='sage_linked'><script type='text/x-sage'></script></div><p><strong>Exercise 2.</strong> <a class="footnote-reference brackets" href="#id10" id="id5">4</a></p>
+<p>Indiana State University collected data on height and shoe size of its students. You can access this data by clicking <a class="reference external" href="http://visual.icse.us.edu.pl/LA/_static/shoesize.txt">a link</a>.</p>
+<p>a). Use the data to verify whether there is a correlation between height and shoe size. Write the code in the window below.</p>
+<div class='sage_linked'><script type='text/x-sage'>import urllib
+import csv
+reader = csv.reader(urllib.urlopen('http://visual.icse.us.edu.pl/LA/_static/shoesize.txt'))
+
+L=[]
+for row in reader:
+    L.append(row)
+print L[0]
+print L[1]</script></div><p>b). Now make another illustration of the data, where the data related to women is marked in a different colour. In order to do this define a separate list <code class="docutils literal notranslate"><span class="pre">Fem</span></code> which collects the indices corresponding to women responses. You can refer to these indices by writing <code class="docutils literal notranslate"><span class="pre">for</span> <span class="pre">i</span> <span class="pre">in</span> <span class="pre">Set(Fem)</span></code> in place of usual <code class="docutils literal notranslate"><span class="pre">for</span> <span class="pre">i</span> <span class="pre">in</span> <span class="pre">range()</span></code>.</p>
+<div class='sage_linked'><script type='text/x-sage'></script></div><p>c). Use least square method to describe correlation between hight and shoe size of men (one line) and women (the other line). Present the results on the same picture.</p>
+<div class='sage_linked'><script type='text/x-sage'></script></div><p><strong>Exercise 3.</strong> <a class="footnote-reference brackets" href="#id11" id="id6">5</a></p>
+<p>Researchers Mackowiak, Wasserman and Levine collected data on body temperature and heart rate within male and female respondents. A sample of this data is available at <a class="reference external" href="http://ww2.amstat.org/publications/jse/datasets/normtemp.dat.txt">http://ww2.amstat.org/publications/jse/datasets/normtemp.dat.txt</a> . First column corresponds to body temperature (degrees Fahrenheit), second to the gender (1 = male, 2= female), and the third to the heart rate (beats per minute).</p>
+<p>a). Use this data to find whether there is a correlation between body temperture and heart beat.</p>
+<div class='sage_linked'><script type='text/x-sage'></script></div><p>b). Does it matter whether the respondent is a man or a woman? As in Exercise 2 above, perform separate computations for male and female respondents.</p>
+<div class='sage_linked'><script type='text/x-sage'></script></div><dl class="footnote brackets">
+<dt class="label" id="id7"><span class="brackets"><a class="fn-backref" href="#id1">1</a></span></dt>
+<dd><p>This example was inspired by the article <a class="reference external" href="https://towardsdatascience.com/linear-regression-in-real-life-4a78d7159f16">https://towardsdatascience.com/linear-regression-in-real-life-4a78d7159f16</a> .</p>
+</dd>
+<dt class="label" id="id8"><span class="brackets">2</span><span class="fn-backref">(<a href="#id2">1</a>,<a href="#id3">2</a>)</span></dt>
+<dd><div class="line-block">
+<div class="line">More precisely: unemployment was measured within people of age 15-64;
+benefits show the proportion of net income in work that is maintained after
+job loss when unemployment exceeds 5 years, this concerns a married couple with two children.
+In both cases data comes from the year 2015. Source:</div>
+<div class="line"><a class="reference external" href="https://www.oecd-ilibrary.org/economics/data/labour/labour-force-statistics_data-00046-en">https://www.oecd-ilibrary.org/economics/data/labour/labour-force-statistics_data-00046-en</a> (unemployment)</div>
+<div class="line"><a class="reference external" href="https://www.compareyourcountry.org/benefits-taxes-wages?cr=oecd&amp;lg=en&amp;page=0&amp;visited=1">https://www.compareyourcountry.org/benefits-taxes-wages?cr=oecd&amp;lg=en&amp;page=0&amp;visited=1</a> (benefits).</div>
+</div>
+</dd>
+<dt class="label" id="id9"><span class="brackets"><a class="fn-backref" href="#id4">3</a></span></dt>
+<dd><div class="line-block">
+<div class="line">This example was taken from <a class="reference external" href="https://onlinecourses.science.psu.edu/stat501/node/325/">https://onlinecourses.science.psu.edu/stat501/node/325/</a> .</div>
+<div class="line">The picture of a blue gill fish: <a class="reference external" href="https://en.wikipedia.org/wiki/Bluegill">https://en.wikipedia.org/wiki/Bluegill</a> .</div>
+</div>
+</dd>
+<dt class="label" id="id10"><span class="brackets"><a class="fn-backref" href="#id5">4</a></span></dt>
+<dd><p>This exercise is based on the article and data of Constance H. McLaren, “Using the Height and Shoe Size Data to Introduce Correlation and Regression” available at <a class="reference external" href="http://ww2.amstat.org/publications/jse/v20n3/mclaren.pdf">http://ww2.amstat.org/publications/jse/v20n3/mclaren.pdf</a> .</p>
+</dd>
+<dt class="label" id="id11"><span class="brackets"><a class="fn-backref" href="#id6">5</a></span></dt>
+<dd><p>This exercise is based on the article and data of Allen L. Shoemaker, “What’s Normal? - Temperature, Gender, and Heart Rate” available at <a class="reference external" href="http://ww2.amstat.org/publications/jse/v4n2/datasets.shoemaker.html">http://ww2.amstat.org/publications/jse/v4n2/datasets.shoemaker.html</a> .</p>
+</dd>
+</dl>
+</section>
+</section>
+
+
+          </div>
+        </div>
+      </div>
+      <div class="sphinxsidebar" role="navigation" aria-label="main navigation">
+        <div class="sphinxsidebarwrapper">
+  <div class="sphinxlocaltoc">
+  <h3><a href="index.html">Table Of Contents</a></h3>
+  <ul>
+<li><a class="reference internal" href="#">Linear and Polynomial Regression</a><ul>
+<li><a class="reference internal" href="#linear-regression">Linear Regression</a></li>
+<li><a class="reference internal" href="#polynomial-regression">Polynomial Regression</a></li>
+<li><a class="reference internal" href="#exercises">Exercises</a></li>
+</ul>
+</li>
+</ul>
+
+  </div>
+  <h4>Previous topic</h4>
+  <p class="topless"><a href="przyklad_ze_statyki.html"
+                        title="previous chapter">Equilibrium of a Linear Set of Masses Connected by Springs</a></p>
+  <h4>Next topic</h4>
+  <p class="topless"><a href="linear_programming.html"
+                        title="next chapter">Linear Programming</a></p>
+  <div role="note" aria-label="source link">
+    <h3>This Page</h3>
+    <ul class="this-page-menu">
+      <li><a href="_sources/regression.rst.txt"
+            rel="nofollow">Show Source</a></li>
+    </ul>
+   </div>
+<div id="searchbox" style="display: none" role="search">
+  <h3 id="searchlabel">Quick search</h3>
+    <div class="searchformwrapper">
+    <form class="search" action="search.html" method="get">
+      <input type="text" name="q" aria-labelledby="searchlabel" />
+      <input type="submit" value="Go" />
+    </form>
+    </div>
+</div>
+<script>$('#searchbox').show(0);</script>
+        </div>
+      </div>
+      <div class="clearer"></div>
+    </div>
+  </div>
+  <div class="relbar-bottom">
+    
+    <div class="related" role="navigation" aria-label="related navigation">
+      <h3>Navigation</h3>
+      <ul>
+        <li class="right" style="margin-right: 10px">
+          <a href="genindex.html" title="General Index"
+             >index</a></li>
+        <li class="right" >
+          <a href="linear_programming.html" title="Linear Programming"
+             >next</a> &nbsp; &nbsp;</li>
+        <li class="right" >
+          <a href="przyklad_ze_statyki.html" title="Equilibrium of a Linear Set of Masses Connected by Springs"
+             >previous</a> &nbsp; &nbsp;</li>
+  <li><a href="index.html">Linear Algebra</a> &#187;</li>
+  
+        <li class="nav-item nav-item-this"><a href="">Linear and Polynomial Regression</a></li> 
+      </ul>
+    </div>
+  </div>
+  
+  <div class="footer">
+    <a class="logo" href="http://icse.us.edu.pl/" target="_blank"><img src="_static/logo-icse.png" alt="ICSE"/></a><br/>
+    &copy; Copyright 2018, Jan Aksamit, Joanna Marzec, and  Marcin Kostur.
+    Last updated on Jan 29, 2022.
+    Created using <a href="http://sphinx.pocoo.org/">Sphinx</a> 4.0.1.
+  </div>
+  </body>
+</html>

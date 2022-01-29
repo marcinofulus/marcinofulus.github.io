@@ -1,0 +1,402 @@
+
+
+  
+<!DOCTYPE html>
+
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" /><meta name="generator" content="Docutils 0.17: http://docutils.sourceforge.net/" />
+
+    <title>Application to Hill Cipher &#8212; Linear Algebra</title>
+    <link rel="stylesheet" type="text/css" href="_static/pygments.css" />
+    <link rel="stylesheet" type="text/css" href="_static/cloud.css" />
+    <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Noticia+Text|Open+Sans|Droid+Sans+Mono&amp;subset=latin,latin-ext" type="text/css" />
+    <script data-url_root="./" id="documentation_options" src="_static/documentation_options.js"></script>
+    <script src="_static/jquery.js"></script>
+    <script src="_static/underscore.js"></script>
+    <script src="_static/doctools.js"></script>
+    <script async="async" src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js"></script>
+    <script src="_static/jquery.cookie.js"></script>
+    <script src="_static/cloud.js"></script>
+    <script type="text/javascript" src="http://sagecell.sagemath.org/static/jquery.min.js"></script>
+    <script type="text/javascript" src="http://sagecell.sagemath.org/embedded_sagecell.js"></script>
+    <script type="text/javascript">
+        sagecell.makeSagecell({inputLocation: ".sage_linked",
+                               linked: true});
+        sagecell.makeSagecell({inputLocation: ".sage_unlinked",
+                               linked: false});
+    </script>
+
+    <style type="text/css">
+        .sagecell .CodeMirror-scroll {
+            overflow-y: hidden;
+            overflow-x: auto;
+        }
+        .sagecell .CodeMirror {
+            height: auto;
+        }
+    </style>
+    
+    <link rel="index" title="Index" href="genindex.html" />
+    <link rel="search" title="Search" href="search.html" />
+    <link rel="next" title="Problems" href="determinants_problems.html" />
+    <link rel="prev" title="Applications of Determinants" href="determinants_applications.html" />
+ 
+  <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, minimum-scale=1">
+  </head><body>
+  <div class="relbar-top">
+    
+    <div class="related" role="navigation" aria-label="related navigation">
+      <h3>Navigation</h3>
+      <ul>
+        <li class="right" style="margin-right: 10px">
+          <a href="genindex.html" title="General Index"
+             accesskey="I">index</a></li>
+        <li class="right" >
+          <a href="determinants_problems.html" title="Problems"
+             accesskey="N">next</a> &nbsp; &nbsp;</li>
+        <li class="right" >
+          <a href="determinants_applications.html" title="Applications of Determinants"
+             accesskey="P">previous</a> &nbsp; &nbsp;</li>
+  <li><a href="index.html">Linear Algebra</a> &#187;</li>
+  
+        <li class="nav-item nav-item-this"><a href="">Application to Hill Cipher</a></li> 
+      </ul>
+    </div>
+  </div>
+  
+  <div class="content">  
+
+    <div class="document">
+      <div class="documentwrapper">
+        <div class="bodywrapper">
+          <div class="body">
+            
+  <section id="application-to-hill-cipher">
+<h1>Application to Hill Cipher<a class="headerlink" href="#application-to-hill-cipher" title="Permalink to this headline">¶</a></h1>
+<p>This cipher was constructed in 1929 by a mathematician Lester Hill. To describe it concisely, it will be useful to introduce
+two basic notions from cryptography:</p>
+<div class="admonition-definition admonition">
+<p class="admonition-title">Definition.</p>
+<div class="line-block">
+<div class="line"><em>Plaintext</em> <span class="math notranslate nohighlight">\(\,\)</span> is an original message (or other data) that forms an input of an encryption algorithm.</div>
+<div class="line"><em>Ciphertext</em> <span class="math notranslate nohighlight">\(\,\)</span> is a message obtained from a plaintext after applying an encryption algorithm.</div>
+</div>
+</div>
+<p>We also assign to each letter of an alphabet a numerical value:</p>
+<div class="math notranslate nohighlight">
+\[ \begin{align}\begin{aligned}\begin{array}{cccccccccccccccccccccccccc}
+ A &amp; B &amp; C &amp; D &amp; E &amp; F &amp; G &amp; H &amp; I &amp; J &amp; K &amp; L &amp; M &amp; N &amp; O &amp; P &amp; Q &amp; R &amp; S &amp; T &amp; U &amp; V &amp; W &amp; X &amp; Y &amp; Z\\ 0 &amp; 1 &amp; 2 &amp; 3 &amp; 4 &amp; 5 &amp; 6 &amp; 7 &amp; 8 &amp; 9 &amp; 10 &amp; 11 &amp; 12 &amp; 13 &amp; 14 &amp; 15 &amp; 16 &amp; 17 &amp; 18 &amp; 19 &amp; 20 &amp; 21 &amp; 22 &amp; 23 &amp; 24 &amp; 25
+\end{array}\end{aligned}\end{align} \]</div>
+<p>This alphabet can be, of course, extended by other symbols.</p>
+<p>One of the parameters in Hill’s encryption algorithm is a choice of the length <span class="math notranslate nohighlight">\(\, m\,\)</span> of a plaintext which will be encrypted in each step. The algorithm treats a plaintext consisting of <span class="math notranslate nohighlight">\(\, m\,\)</span> letters as a vector and multiplies it on the right by a certain <span class="math notranslate nohighlight">\(\, m\times m\,\)</span> matrix <span class="math notranslate nohighlight">\(\, K\,\)</span> with entries in <span class="math notranslate nohighlight">\(\, Z\,\)</span> whose determinant is not divisible neither by <span class="math notranslate nohighlight">\(2\)</span> nor by <span class="math notranslate nohighlight">\(13\)</span> (later it will be clear why). This matrix is called the <em>secret key</em> of the algorithm.</p>
+<p>It will be easiest to describe the procedures of Hill’s algorithm on an example.</p>
+<section id="example">
+<h2>Example<a class="headerlink" href="#example" title="Permalink to this headline">¶</a></h2>
+<p><span class="math notranslate nohighlight">\(\,\)</span> Let <span class="math notranslate nohighlight">\(\, m=3\,\)</span> and
+<span class="math notranslate nohighlight">\(\, K =\left[\begin{array}{rrr}
+18 &amp; 25 &amp; 13 \\ 11 &amp; 7 &amp; 19 \\ 21 &amp; 18 &amp; 23
+\end{array}\right]\,.\)</span>
+We want to encrypt the message <span class="math notranslate nohighlight">\(\ {\tt ATTACK\ TOMORROW}\)</span> .</p>
+<p>First we remove the spaces and write the message in terms of numbers. Next, because <span class="math notranslate nohighlight">\(m=3,\)</span> we divide it into vectors of size <span class="math notranslate nohighlight">\(3:\)</span></p>
+<div class="math notranslate nohighlight">
+\[ \begin{align}\begin{aligned}\begin{array}{ccccccccccccccc}
+{\tt A} &amp; {\tt T} &amp; {\tt T} &amp; &amp; {\tt A} &amp; {\tt C} &amp; {\tt K} &amp; &amp; {\tt T} &amp; {\tt O} &amp; {\tt M} &amp; &amp; {\tt O} &amp; {\tt R} &amp; {\tt R} &amp; &amp; {\tt O} &amp; {\tt W} &amp;\\0 &amp; 19 &amp; 19 &amp; &amp; 0 &amp; 2 &amp; 10 &amp; &amp; 19 &amp; 14 &amp; 12 &amp; &amp; 14 &amp; 17 &amp; 17 &amp; &amp; 14 &amp; 22 &amp; 0
+\end{array}\end{aligned}\end{align} \]</div>
+<p>If the number of letters in the plaintext is not divisible by <span class="math notranslate nohighlight">\(m,\)</span> we complete the last vector with arbitrary numbers, e.g. with <span class="math notranslate nohighlight">\(0\)</span> as above.</p>
+<p>If the plaintext is long, doing the above substitution by hand may be time consumming and lead to mistakes. It may be better to use Sage for this purpose:</p>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="n">sage</span><span class="p">:</span> <span class="n">S</span><span class="o">=</span><span class="n">AlphabeticStrings</span><span class="p">()</span> <span class="c1"># provides an alphabet from A to Z</span>
+<span class="n">sage</span><span class="p">:</span> <span class="n">A</span><span class="o">=</span><span class="nb">list</span><span class="p">(</span><span class="n">S</span><span class="o">.</span><span class="n">alphabet</span><span class="p">())</span>  <span class="c1"># the above alphabet in form of a list</span>
+<span class="n">sage</span><span class="p">:</span> <span class="n">Plt</span><span class="o">=</span><span class="s2">&quot;ATTACKTOMORROW&quot;</span>  <span class="c1"># plaintext has to be written in capital letters and without spaces</span>
+<span class="n">sage</span><span class="p">:</span> <span class="nb">print</span> <span class="n">A</span><span class="p">,</span> <span class="s2">&quot;</span><span class="se">\n</span><span class="s2">&quot;</span><span class="p">,</span> <span class="nb">list</span><span class="p">(</span><span class="n">Plt</span><span class="p">),</span> <span class="s2">&quot;</span><span class="se">\n</span><span class="s2">&quot;</span><span class="p">,</span> <span class="nb">len</span><span class="p">(</span><span class="n">Plt</span><span class="p">)</span>
+
+<span class="p">[</span><span class="s1">&#39;A&#39;</span><span class="p">,</span> <span class="s1">&#39;B&#39;</span><span class="p">,</span> <span class="s1">&#39;C&#39;</span><span class="p">,</span> <span class="s1">&#39;D&#39;</span><span class="p">,</span> <span class="s1">&#39;E&#39;</span><span class="p">,</span> <span class="s1">&#39;F&#39;</span><span class="p">,</span> <span class="s1">&#39;G&#39;</span><span class="p">,</span> <span class="s1">&#39;H&#39;</span><span class="p">,</span> <span class="s1">&#39;I&#39;</span><span class="p">,</span> <span class="s1">&#39;J&#39;</span><span class="p">,</span> <span class="s1">&#39;K&#39;</span><span class="p">,</span> <span class="s1">&#39;L&#39;</span><span class="p">,</span> <span class="s1">&#39;M&#39;</span><span class="p">,</span> <span class="s1">&#39;N&#39;</span><span class="p">,</span> <span class="s1">&#39;O&#39;</span><span class="p">,</span> <span class="s1">&#39;P&#39;</span><span class="p">,</span> <span class="s1">&#39;Q&#39;</span><span class="p">,</span> <span class="s1">&#39;R&#39;</span><span class="p">,</span> <span class="s1">&#39;S&#39;</span><span class="p">,</span> <span class="s1">&#39;T&#39;</span><span class="p">,</span> <span class="s1">&#39;U&#39;</span><span class="p">,</span> <span class="s1">&#39;V&#39;</span><span class="p">,</span> <span class="s1">&#39;W&#39;</span><span class="p">,</span> <span class="s1">&#39;X&#39;</span><span class="p">,</span> <span class="s1">&#39;Y&#39;</span><span class="p">,</span> <span class="s1">&#39;Z&#39;</span><span class="p">]</span>
+
+<span class="p">[</span><span class="s1">&#39;A&#39;</span><span class="p">,</span> <span class="s1">&#39;T&#39;</span><span class="p">,</span> <span class="s1">&#39;T&#39;</span><span class="p">,</span> <span class="s1">&#39;A&#39;</span><span class="p">,</span> <span class="s1">&#39;C&#39;</span><span class="p">,</span> <span class="s1">&#39;K&#39;</span><span class="p">,</span> <span class="s1">&#39;T&#39;</span><span class="p">,</span> <span class="s1">&#39;O&#39;</span><span class="p">,</span> <span class="s1">&#39;M&#39;</span><span class="p">,</span> <span class="s1">&#39;O&#39;</span><span class="p">,</span> <span class="s1">&#39;R&#39;</span><span class="p">,</span> <span class="s1">&#39;R&#39;</span><span class="p">,</span> <span class="s1">&#39;O&#39;</span><span class="p">,</span> <span class="s1">&#39;W&#39;</span><span class="p">]</span>  <span class="c1"># Plt in form of a list</span>
+
+<span class="mi">14</span> <span class="c1"># length of Plt</span>
+</pre></div>
+</div>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="c1"># Now we create a list of numerical values corresponding to the letters in Plt</span>
+<span class="n">sage</span><span class="p">:</span> <span class="n">P</span><span class="o">=</span><span class="nb">list</span><span class="p">()</span>   <span class="c1"># P is an empty list of an unspecified length</span>
+<span class="n">sage</span><span class="p">:</span> <span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="nb">len</span><span class="p">(</span><span class="n">Plt</span><span class="p">)):</span>
+<span class="n">sage</span><span class="p">:</span>     <span class="k">for</span> <span class="n">j</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="n">S</span><span class="o">.</span><span class="n">ngens</span><span class="p">()):</span>  <span class="c1"># S.ngens() returns the number of characters in S</span>
+<span class="n">sage</span><span class="p">:</span>         <span class="k">if</span> <span class="n">Plt</span><span class="p">[</span><span class="n">i</span><span class="p">]</span><span class="o">==</span><span class="n">A</span><span class="p">[</span><span class="n">j</span><span class="p">]:</span> <span class="n">P</span><span class="o">.</span><span class="n">insert</span><span class="p">(</span><span class="n">i</span><span class="p">,</span><span class="n">j</span><span class="p">)</span>  <span class="c1"># if the i-th element of Plt is equal to the j-th element of A, insert at the i-th place of P the number j</span>
+<span class="n">sage</span><span class="p">:</span>         <span class="k">else</span><span class="p">:</span> <span class="n">j</span><span class="o">=</span><span class="n">j</span><span class="o">+</span><span class="mi">1</span>
+<span class="n">sage</span><span class="p">:</span> <span class="nb">print</span> <span class="n">P</span>
+
+<span class="p">[</span><span class="mi">0</span><span class="p">,</span> <span class="mi">19</span><span class="p">,</span> <span class="mi">19</span><span class="p">,</span> <span class="mi">0</span><span class="p">,</span> <span class="mi">2</span><span class="p">,</span> <span class="mi">10</span><span class="p">,</span> <span class="mi">19</span><span class="p">,</span> <span class="mi">14</span><span class="p">,</span> <span class="mi">12</span><span class="p">,</span> <span class="mi">14</span><span class="p">,</span> <span class="mi">17</span><span class="p">,</span> <span class="mi">17</span><span class="p">,</span> <span class="mi">14</span><span class="p">,</span> <span class="mi">22</span><span class="p">]</span>
+</pre></div>
+</div>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="c1"># It remains to include the missing numbers and divide P into sequences of length m=3</span>
+<span class="n">sage</span><span class="p">:</span> <span class="n">m</span><span class="o">=</span><span class="mi">3</span>
+<span class="n">sage</span><span class="p">:</span> <span class="n">r</span><span class="o">=</span><span class="nb">len</span><span class="p">(</span><span class="n">P</span><span class="p">)</span> <span class="o">%</span> <span class="n">m</span>     <span class="c1"># remainder after division of len(P) by m</span>
+<span class="n">sage</span><span class="p">:</span> <span class="n">R</span><span class="o">=</span><span class="nb">list</span><span class="p">(</span><span class="mi">0</span> <span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="n">m</span><span class="o">-</span><span class="n">r</span><span class="p">))</span>   <span class="c1"># a list of m-r zeros</span>
+<span class="n">sage</span><span class="p">:</span> <span class="k">if</span> <span class="n">r</span><span class="o">&gt;</span><span class="mi">0</span><span class="p">:</span> <span class="n">P</span><span class="o">.</span><span class="n">extend</span><span class="p">(</span><span class="n">R</span><span class="p">)</span>    <span class="c1"># if r&gt;0, we extend P by the list R</span>
+<span class="n">sage</span><span class="p">:</span> <span class="n">Pn</span><span class="o">=</span><span class="nb">list</span><span class="p">()</span>
+<span class="n">sage</span><span class="p">:</span> <span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="n">ceil</span><span class="p">(</span><span class="nb">len</span><span class="p">(</span><span class="n">P</span><span class="p">)</span><span class="o">/</span><span class="mi">3</span><span class="p">)):</span>   <span class="c1"># ceil(x) returns smallest integer greater or equal x</span>
+<span class="n">sage</span><span class="p">:</span>     <span class="n">k</span><span class="o">=</span><span class="mi">3</span><span class="o">*</span><span class="n">i</span>
+<span class="n">sage</span><span class="p">:</span>     <span class="n">Pn</span><span class="o">.</span><span class="n">insert</span><span class="p">(</span><span class="n">i</span><span class="p">,</span><span class="n">P</span><span class="p">[</span><span class="n">k</span><span class="p">:</span><span class="n">k</span><span class="o">+</span><span class="mi">3</span><span class="p">])</span>
+<span class="n">sage</span><span class="p">:</span> <span class="nb">print</span> <span class="n">P</span><span class="p">,</span> <span class="s2">&quot;</span><span class="se">\n</span><span class="s2">&quot;</span><span class="p">,</span> <span class="n">Pn</span><span class="p">,</span> <span class="s2">&quot;</span><span class="se">\n</span><span class="s2">&quot;</span><span class="p">,</span> <span class="n">Pn</span><span class="p">[</span><span class="mi">0</span><span class="p">],</span> <span class="s2">&quot;</span><span class="se">\n</span><span class="s2">&quot;</span><span class="p">,</span> <span class="n">Pn</span><span class="p">[</span><span class="mi">1</span><span class="p">][</span><span class="mi">1</span><span class="p">]</span>
+
+<span class="p">[</span><span class="mi">0</span><span class="p">,</span> <span class="mi">19</span><span class="p">,</span> <span class="mi">19</span><span class="p">,</span> <span class="mi">0</span><span class="p">,</span> <span class="mi">2</span><span class="p">,</span> <span class="mi">10</span><span class="p">,</span> <span class="mi">19</span><span class="p">,</span> <span class="mi">14</span><span class="p">,</span> <span class="mi">12</span><span class="p">,</span> <span class="mi">14</span><span class="p">,</span> <span class="mi">17</span><span class="p">,</span> <span class="mi">17</span><span class="p">,</span> <span class="mi">14</span><span class="p">,</span> <span class="mi">22</span><span class="p">,</span> <span class="mi">0</span><span class="p">]</span>
+<span class="p">[[</span><span class="mi">0</span><span class="p">,</span> <span class="mi">19</span><span class="p">,</span> <span class="mi">19</span><span class="p">],</span> <span class="p">[</span><span class="mi">0</span><span class="p">,</span> <span class="mi">2</span><span class="p">,</span> <span class="mi">10</span><span class="p">],</span> <span class="p">[</span><span class="mi">19</span><span class="p">,</span> <span class="mi">14</span><span class="p">,</span> <span class="mi">12</span><span class="p">],</span> <span class="p">[</span><span class="mi">14</span><span class="p">,</span> <span class="mi">17</span><span class="p">,</span> <span class="mi">17</span><span class="p">],</span> <span class="p">[</span><span class="mi">14</span><span class="p">,</span> <span class="mi">22</span><span class="p">,</span> <span class="mi">0</span><span class="p">]]</span>
+<span class="p">[</span><span class="mi">0</span><span class="p">,</span> <span class="mi">19</span><span class="p">,</span> <span class="mi">19</span><span class="p">]</span>
+<span class="mi">2</span>
+</pre></div>
+</div>
+<p>Now we multiply the above vectors by the matrix <span class="math notranslate nohighlight">\(\, K\,\)</span> on the right:</p>
+<div class="math notranslate nohighlight">
+\[ \begin{align}\begin{aligned}\begin{split}\left[\begin{array}{ccc}
+0 &amp; 19 &amp; 19
+\end{array}\right]
+\left[\begin{array}{rrr}
+18 &amp; 25 &amp; 13 \\ 11 &amp; 7 &amp; 19 \\ 21 &amp; 18 &amp; 23
+\end{array}\right]
+=\left[\begin{array}{ccc}
+608 &amp; 475 &amp; 798
+\end{array}\right]\\\end{split}\\\begin{split}\left[\begin{array}{ccc}
+0 &amp; 3 &amp; 10
+\end{array}\right]
+\left[\begin{array}{rrr}
+18 &amp; 25 &amp; 13 \\ 11 &amp; 7 &amp; 19 \\ 21 &amp; 18 &amp; 23
+\end{array}\right]
+=\left[\begin{array}{ccc}
+232 &amp; 194 &amp; 268
+\end{array}\right]\\\end{split}\\\begin{split}\left[\begin{array}{ccc}
+19 &amp; 14 &amp; 12
+\end{array}\right]
+\left[\begin{array}{rrr}
+18 &amp; 25 &amp; 13 \\ 11 &amp; 7 &amp; 19 \\ 21 &amp; 18 &amp; 23
+\end{array}\right]
+=\left[\begin{array}{ccc}
+748 &amp; 789 &amp; 789
+\end{array}\right]\\\end{split}\\\begin{split}\left[\begin{array}{ccc}
+14 &amp; 17 &amp; 17
+\end{array}\right]
+\left[\begin{array}{rrr}
+18 &amp; 25 &amp; 13 \\ 11 &amp; 7 &amp; 19 \\ 21 &amp; 18 &amp; 23
+\end{array}\right]
+=\left[\begin{array}{ccc}
+796 &amp; 775 &amp; 896
+\end{array}\right]\\\end{split}\\\begin{split}\left[\begin{array}{ccc}
+12 &amp; 22 &amp; 0
+\end{array}\right]
+\left[\begin{array}{rrr}
+18 &amp; 25 &amp; 13 \\ 11 &amp; 7 &amp; 19 \\ 21 &amp; 18 &amp; 23
+\end{array}\right]
+=\left[\begin{array}{ccc}
+494 &amp; 504 &amp; 600
+\end{array}\right]\end{split}\end{aligned}\end{align} \]</div>
+<p>Or in Sage:</p>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="n">sage</span><span class="p">:</span> <span class="n">K</span><span class="o">=</span><span class="n">Matrix</span><span class="p">([[</span><span class="mi">18</span><span class="p">,</span><span class="mi">25</span><span class="p">,</span><span class="mi">13</span><span class="p">],[</span><span class="mi">11</span><span class="p">,</span><span class="mi">7</span><span class="p">,</span><span class="mi">19</span><span class="p">],[</span><span class="mi">21</span><span class="p">,</span><span class="mi">18</span><span class="p">,</span><span class="mi">23</span><span class="p">]])</span>
+<span class="n">sage</span><span class="p">:</span> <span class="n">Cn</span><span class="o">=</span><span class="nb">list</span><span class="p">(</span><span class="n">vector</span><span class="p">(</span><span class="n">Pn</span><span class="p">[</span><span class="n">i</span><span class="p">])</span><span class="o">*</span><span class="n">K</span> <span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="nb">len</span><span class="p">(</span><span class="n">Pn</span><span class="p">)))</span>   <span class="c1"># in order to multiply Pn[i] by a matrix K, we must change the form of Pn[i] from a list to a vector</span>
+<span class="n">sage</span><span class="p">:</span> <span class="nb">print</span> <span class="n">Cn</span>
+
+<span class="p">[(</span><span class="mi">608</span><span class="p">,</span> <span class="mi">475</span><span class="p">,</span> <span class="mi">798</span><span class="p">),</span> <span class="p">(</span><span class="mi">232</span><span class="p">,</span> <span class="mi">194</span><span class="p">,</span> <span class="mi">268</span><span class="p">),</span> <span class="p">(</span><span class="mi">748</span><span class="p">,</span> <span class="mi">789</span><span class="p">,</span> <span class="mi">789</span><span class="p">),</span> <span class="p">(</span><span class="mi">796</span><span class="p">,</span> <span class="mi">775</span><span class="p">,</span> <span class="mi">896</span><span class="p">),</span> <span class="p">(</span><span class="mi">494</span><span class="p">,</span> <span class="mi">504</span><span class="p">,</span> <span class="mi">600</span><span class="p">)]</span>
+</pre></div>
+</div>
+<p>To interpret the above vectors again as a text we have to replace each entry with its remainder after division by <span class="math notranslate nohighlight">\(26,\)</span> and read off the unique letter it corresponds to:</p>
+<div class="math notranslate nohighlight">
+\[\begin{split}\begin{array}{lcccccccccccccccr}
+{\tt A\ T\ T } &amp; &amp; \to &amp; &amp; \left[\right. 608 &amp; 475 &amp; 798 \left.\right] &amp; &amp; \to &amp; &amp; \left[\right. 10 &amp; 7 &amp; 18 \left.\right] &amp; &amp; \to &amp; &amp; {\tt K \ H \ S }\\
+{\tt A\ C\ K } &amp; &amp; \to &amp; &amp; \left[\right. 232 &amp; 194 &amp; 268 \left.\right] &amp; &amp; \to &amp; &amp; \left[\right. 24 &amp; 12 &amp; 8\,\left.\right] &amp; &amp; \to &amp; &amp; {\tt Y \ M \ I }\\
+{\tt T\ O\ M } &amp; &amp; \to &amp; &amp; \left[\right. 748 &amp; 789 &amp; 789 \left.\right] &amp; &amp; \to &amp; &amp; \left[\right. 20 &amp; 9 &amp; 9 \,\left.\right] &amp; &amp; \to &amp; &amp; {\tt U \ J \ J }\\
+{\tt O\ R\ R } &amp; &amp; \to &amp; &amp; \left[\right. 796 &amp; 775 &amp; 896 \left.\right] &amp; &amp; \to &amp; &amp; \left[\right. 16 &amp; 21 &amp; 12 \left.\right] &amp; &amp; \to &amp; &amp; {\tt Q \ V \ M }\\
+{\tt O\ W\ \ } &amp; &amp; \to &amp; &amp; \left[\right. 494 &amp; 504 &amp; 600 \left.\right] &amp; &amp; \to &amp; &amp; \left[\right.\, 0 &amp; 10 &amp; 20 \left.\right] &amp; &amp;\to &amp; &amp; {\tt A\ K \ C }\\
+\end{array}\end{split}\]</div>
+<p>Or better in Sage:</p>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="n">sage</span><span class="p">:</span> <span class="n">C</span><span class="o">=</span><span class="nb">list</span><span class="p">(</span><span class="n">Cn</span><span class="p">[</span><span class="n">i</span><span class="p">]</span> <span class="o">%</span> <span class="mi">26</span> <span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="nb">len</span><span class="p">(</span><span class="n">Pn</span><span class="p">)))</span>
+<span class="n">sage</span><span class="p">:</span> <span class="nb">print</span> <span class="n">C</span><span class="p">,</span> <span class="s2">&quot;</span><span class="se">\n</span><span class="s2">&quot;</span><span class="p">,</span> <span class="n">C</span><span class="p">[</span><span class="mi">3</span><span class="p">],</span> <span class="s2">&quot;</span><span class="se">\n</span><span class="s2">&quot;</span><span class="p">,</span> <span class="n">C</span><span class="p">[</span><span class="mi">3</span><span class="p">][</span><span class="mi">0</span><span class="p">]</span>
+
+<span class="p">[(</span><span class="mi">10</span><span class="p">,</span> <span class="mi">7</span><span class="p">,</span> <span class="mi">18</span><span class="p">),</span> <span class="p">(</span><span class="mi">24</span><span class="p">,</span> <span class="mi">12</span><span class="p">,</span> <span class="mi">8</span><span class="p">),</span> <span class="p">(</span><span class="mi">20</span><span class="p">,</span> <span class="mi">9</span><span class="p">,</span> <span class="mi">9</span><span class="p">),</span> <span class="p">(</span><span class="mi">16</span><span class="p">,</span> <span class="mi">21</span><span class="p">,</span> <span class="mi">12</span><span class="p">),</span> <span class="p">(</span><span class="mi">0</span><span class="p">,</span> <span class="mi">10</span><span class="p">,</span> <span class="mi">20</span><span class="p">)]</span>
+<span class="p">(</span><span class="mi">16</span><span class="p">,</span> <span class="mi">21</span><span class="p">,</span> <span class="mi">12</span><span class="p">)</span>
+<span class="mi">16</span>
+</pre></div>
+</div>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="n">sage</span><span class="p">:</span> <span class="n">Cit</span><span class="o">=</span><span class="nb">list</span><span class="p">()</span>
+<span class="n">sage</span><span class="p">:</span> <span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="nb">len</span><span class="p">(</span><span class="n">Pn</span><span class="p">)):</span>
+<span class="n">sage</span><span class="p">:</span>     <span class="k">for</span> <span class="n">k</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="mi">3</span><span class="p">):</span>
+<span class="n">sage</span><span class="p">:</span>         <span class="n">Cit</span><span class="o">.</span><span class="n">insert</span><span class="p">(</span><span class="mi">3</span><span class="o">*</span><span class="n">i</span><span class="o">+</span><span class="n">k</span><span class="p">,</span><span class="n">A</span><span class="p">[</span><span class="n">C</span><span class="p">[</span><span class="n">i</span><span class="p">][</span><span class="n">k</span><span class="p">]])</span>
+<span class="n">sage</span><span class="p">:</span> <span class="nb">print</span> <span class="n">Cit</span>
+
+<span class="p">[</span><span class="s1">&#39;K&#39;</span><span class="p">,</span> <span class="s1">&#39;H&#39;</span><span class="p">,</span> <span class="s1">&#39;S&#39;</span><span class="p">,</span> <span class="s1">&#39;Y&#39;</span><span class="p">,</span> <span class="s1">&#39;M&#39;</span><span class="p">,</span> <span class="s1">&#39;I&#39;</span><span class="p">,</span> <span class="s1">&#39;U&#39;</span><span class="p">,</span> <span class="s1">&#39;J&#39;</span><span class="p">,</span> <span class="s1">&#39;J&#39;</span><span class="p">,</span> <span class="s1">&#39;Q&#39;</span><span class="p">,</span> <span class="s1">&#39;V&#39;</span><span class="p">,</span> <span class="s1">&#39;M&#39;</span><span class="p">,</span> <span class="s1">&#39;A&#39;</span><span class="p">,</span> <span class="s1">&#39;K&#39;</span><span class="p">,</span> <span class="s1">&#39;C&#39;</span><span class="p">]</span>
+</pre></div>
+</div>
+<p>In this way we obtain the ciphertext <span class="math notranslate nohighlight">\(\ {\tt KHSYMIUJJQVMAKC}\)</span> (where the last letter <span class="math notranslate nohighlight">\({\tt C}\)</span> can be omitted as it corresponds to the artificially added number).</p>
+<p>Note that if our alphabet consisted of <span class="math notranslate nohighlight">\(\ N\neq 26\ \)</span> letters, we would have to adjust the above computations accordingly: we would have to replace each entry with its remainder after division by <span class="math notranslate nohighlight">\(N.\)</span> This approach also explains why we enumerated the letters starting with <span class="math notranslate nohighlight">\(0:\)</span> the remainder is always one of the numbers <span class="math notranslate nohighlight">\(\, 0, 1, 2, \ldots, 25.\)</span></p>
+<p>In order to decrypt this text and obtain the plaintext, a recipient of the message has to write it numerically (and so know the alphabet that was used), know the inverse of the matrix <span class="math notranslate nohighlight">\(\, K\,\)</span> (and so also its size) and regroup the ciphertext appropriately - in our case to vectors of length <span class="math notranslate nohighlight">\(3.\)</span></p>
+<p>In our example</p>
+<div class="math notranslate nohighlight">
+\[\begin{split}K^{-1} =\left[\begin{array}{rrr} 7 &amp; 5 &amp; 10 \\ 8 &amp; 25 &amp; 11 \\ 19 &amp; 3 &amp; 23 \end{array}\right]\,.\end{split}\]</div>
+<p>The reader will immediately notice that the product <span class="math notranslate nohighlight">\(\ KK^{-1}\ \)</span> is not equal to the usual identity matrix, but rather</p>
+<div class="math notranslate nohighlight">
+\[\begin{split}KK^{-1} =\left[\begin{array}{rrr}
+18 &amp; 25 &amp; 13 \\ 11 &amp; 7 &amp; 19 \\ 21 &amp; 18 &amp; 23 \end{array}\right]
+\left[\begin{array}{rrr} 7 &amp; 5 &amp; 10 \\ 8 &amp; 25 &amp; 11 \\ 19 &amp; 3 &amp; 23 \end{array}\right]
+=\left[\begin{array}{rrr} 573 &amp; 754 &amp; 754 \\ 494 &amp; 287 &amp; 624 \\ 728 &amp; 624 &amp; 937 \end{array}\right]\,.\end{split}\]</div>
+<p>However, all the off-diagonal entries are divisible by <span class="math notranslate nohighlight">\(26,\)</span> and the ones on the diagonal are multiplicities of <span class="math notranslate nohighlight">\(26\)</span> plus <span class="math notranslate nohighlight">\(1.\)</span> Hence, if we replace each entry with its remainder after division by <span class="math notranslate nohighlight">\(26,\)</span> we obtain the identity matrix
+<span class="math notranslate nohighlight">\(\ \left[\begin{array}{rrr} 1 &amp; 0 &amp; 0 \\ 0 &amp; 1 &amp; 0 \\ 0 &amp; 0 &amp; 1 \end{array}\right]\ \)</span>. We explain this situation in the next section. First let us see that the matrix <span class="math notranslate nohighlight">\(\ K^{-1}\ \)</span> proposed above allows us to decrypt the ciphertext. We follow exactly the same steps as in the encryption process.</p>
+<p>For example, <span class="math notranslate nohighlight">\(\ {\tt K \ H \ S }\ \)</span> corresponds to a vector
+<span class="math notranslate nohighlight">\(\ \left[\begin{array}{rrr} 10 &amp; 7 &amp; 18 \end{array}\right] ,\,\)</span> and</p>
+<div class="math notranslate nohighlight">
+\[\begin{split}\left[\begin{array}{rrr} 10 &amp; 7 &amp; 18 \end{array}\right]K^{-1} =
+\left[\begin{array}{rrr} 10 &amp; 7 &amp; 18 \end{array}\right]
+\left[\begin{array}{rrr} 7 &amp; 5 &amp; 10 \\ 8 &amp; 25 &amp; 11 \\ 19 &amp; 3 &amp; 23 \end{array}\right]
+=\left[\begin{array}{rrr} 468 &amp; 279 &amp; 591 \end{array}\right] .\end{split}\]</div>
+<p>Now because <span class="math notranslate nohighlight">\(\,\left[\begin{array}{rrr} 468 &amp; 279 &amp; 591 \end{array}\right] = \left[\begin{array}{rrr} 26\cdot 18 &amp; 26\cdot 10 +19 &amp; 26\cdot 22 +19 \end{array}\right]\,,\)</span> the vector <span class="math notranslate nohighlight">\(\,\left[\begin{array}{rrr} 468 &amp; 279 &amp; 591 \end{array}\right]\,\)</span> corresponds to
+<span class="math notranslate nohighlight">\(\,\left[\begin{array}{rrr} 0 &amp; 19 &amp; 19 \end{array}\right] ,\,\)</span> and thus to <span class="math notranslate nohighlight">\(\ {\tt A \ T \ T }\ \)</span> as expected.</p>
+</section>
+<section id="modular-arithmetic">
+<h2>Modular arithmetic<a class="headerlink" href="#modular-arithmetic" title="Permalink to this headline">¶</a></h2>
+<p>Because we chose to use an alphabet that consists of <span class="math notranslate nohighlight">\(26\)</span> letters (and we enumerated them by <span class="math notranslate nohighlight">\(0, 1, 2, \ldots, 25\)</span>), the result of our computations has to be a number from this range. This is the reason why we take remainders after division by <span class="math notranslate nohighlight">\(26\)</span>. In fact, to make the computations easier and faster we can take the remainder after division by <span class="math notranslate nohighlight">\(26\)</span> every time we add or multiply two numbers. We call such operations in short an <span class="math notranslate nohighlight">\(\,\)</span> <em>arithmetic modulo</em> <span class="math notranslate nohighlight">\(\, 26\,\)</span> and we say that we take a <span class="math notranslate nohighlight">\(\,\)</span> <em>remainder modulo</em> <span class="math notranslate nohighlight">\(\ 26\ \)</span>; the number <span class="math notranslate nohighlight">\(26\)</span> is in this case called the <span class="math notranslate nohighlight">\(\,\)</span> <em>modulus</em>. <span class="math notranslate nohighlight">\(\,\)</span> Further, as long as numbers <span class="math notranslate nohighlight">\(a\in Z\)</span> and <span class="math notranslate nohighlight">\(26\)</span> do not have common divisors, it is possible to <span class="math notranslate nohighlight">\(\,\)</span> <em>divide</em> <span class="math notranslate nohighlight">\(\,\)</span> by <span class="math notranslate nohighlight">\(a\)</span> modulo <span class="math notranslate nohighlight">\(26\)</span>: by definition, <span class="math notranslate nohighlight">\(\ \frac1a\ \)</span> (or <span class="math notranslate nohighlight">\(a^{-1}\)</span>) is taken to be such a number from <span class="math notranslate nohighlight">\(1, 2, \ldots, 25\ \)</span> that <span class="math notranslate nohighlight">\(a\)</span> times this number gives <span class="math notranslate nohighlight">\(1\)</span> modulo <span class="math notranslate nohighlight">\(26\)</span>. <span class="math notranslate nohighlight">\(\,\)</span> For example,</p>
+<div class="math notranslate nohighlight">
+\[ \begin{align}\begin{aligned}3^{-1} = 9\, (\text{mod}\, 26)\quad\text{because}\quad 3\cdot 9=27=26+1\\5^{-1} = 21\, (\text{mod}\, 26)\quad\text{because}\quad 5\cdot 21=105=26\cdot 4+1\\29^{-1} = (26+3)^{-1}=(0+3)^{-1}=3^{-1} = 9\, (\text{mod}\, 26)\quad\text{because}\quad 26=0\, (\text{mod}\, 26)\\2^{-1}, 4^{-1}, \ldots, 13^{-1},\, \text{etc.}\quad\text{do not exist.}\end{aligned}\end{align} \]</div>
+<p>These operations can be made easily in Sage:</p>
+<div class='sage_linked'><script type='text/x-sage'>N = 26
+print 1/3 % N, 1/5 % N, 6*7 % N</script></div><div class='sage_linked'><script type='text/x-sage'>N = 26
+print 1/2 % N</script></div><p>In fact,</p>
+<div class="admonition-proposition admonition">
+<p class="admonition-title">Proposition.</p>
+<p>For any natural number <span class="math notranslate nohighlight">\(N&gt;1\)</span>, the set <span class="math notranslate nohighlight">\(\ \left\{ 0,1,2,\ldots ,N-1\right\}\ \)</span> together with addition and multiplication
+modulo <span class="math notranslate nohighlight">\(N\)</span> is a commutative ring with identity, we denote it by <span class="math notranslate nohighlight">\(\ \mathbb{Z}_N = (Z_N,\ +_N\,,\ \cdot_N\,)\ \)</span>
+and call a <em>ring of integers modulo</em> <span class="math notranslate nohighlight">\(N\)</span>. It is a field if and only if <span class="math notranslate nohighlight">\(N\)</span> is a prime number.</p>
+</div>
+<p>The ring of integers modulo <span class="math notranslate nohighlight">\(N\)</span> is implemented in Sage under the name <code class="docutils literal notranslate"><span class="pre">Integers(N)</span></code>. If we define a matrix over this ring,   all the operations will be naturally made over <span class="math notranslate nohighlight">\(\ Z_N\,\)</span>. <span class="math notranslate nohighlight">\(\,\)</span> For example,</p>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="n">sage</span><span class="p">:</span> <span class="n">N</span><span class="o">=</span><span class="mi">26</span>
+<span class="n">sage</span><span class="p">:</span> <span class="n">R</span><span class="o">=</span><span class="n">Integers</span><span class="p">(</span><span class="n">N</span><span class="p">)</span>
+<span class="n">sage</span><span class="p">:</span> <span class="n">K</span><span class="o">=</span><span class="n">Matrix</span><span class="p">(</span><span class="n">R</span><span class="p">,</span> <span class="p">[[</span><span class="mi">18</span><span class="p">,</span><span class="mi">25</span><span class="p">,</span><span class="mi">13</span><span class="p">],[</span><span class="mi">11</span><span class="p">,</span><span class="mi">7</span><span class="p">,</span><span class="mi">19</span><span class="p">],[</span><span class="mi">21</span><span class="p">,</span><span class="mi">18</span><span class="p">,</span><span class="mi">23</span><span class="p">]])</span>
+<span class="n">sage</span><span class="p">:</span> <span class="nb">print</span> <span class="n">K</span><span class="o">.</span><span class="n">parent</span><span class="p">(),</span> <span class="s2">&quot;</span><span class="se">\n</span><span class="s2">&quot;</span><span class="p">,</span> <span class="n">det</span><span class="p">(</span><span class="n">K</span><span class="p">),</span> <span class="s2">&quot;</span><span class="se">\n</span><span class="s2">&quot;</span><span class="p">,</span> <span class="n">K</span><span class="o">.</span><span class="n">inverse</span><span class="p">()</span>
+
+<span class="n">Full</span> <span class="n">MatrixSpace</span> <span class="n">of</span> <span class="mi">3</span> <span class="n">by</span> <span class="mi">3</span> <span class="n">dense</span> <span class="n">matrices</span> <span class="n">over</span> <span class="n">Ring</span> <span class="n">of</span> <span class="n">integers</span> <span class="n">modulo</span> <span class="mi">26</span>
+<span class="mi">15</span>
+<span class="p">[</span> <span class="mi">7</span>  <span class="mi">5</span> <span class="mi">10</span><span class="p">]</span>
+<span class="p">[</span> <span class="mi">8</span> <span class="mi">25</span> <span class="mi">11</span><span class="p">]</span>
+<span class="p">[</span><span class="mi">19</span>  <span class="mi">3</span> <span class="mi">23</span><span class="p">]</span>
+</pre></div>
+</div>
+<div class="admonition note">
+<p class="admonition-title">Note</p>
+<p>We saw in Theorem 7 from the previous section that a matrix defined over a <em>field</em> <span class="math notranslate nohighlight">\(\,\)</span> is invertible if and only if its
+determinant is not equal to zero. In general,
+a matrix defined over a <em>ring</em> <span class="math notranslate nohighlight">\(\ R\)</span> is invertible if and only if its determinant is invertible over <span class="math notranslate nohighlight">\(R\)</span>. This fact may
+be proven along the same lines as the aforementioned theorem (try it!).
+The invertible elements in <span class="math notranslate nohighlight">\(\ R=\mathbb{Z}_N\ \)</span> are exactly those numbers whose greatest common divisor with <span class="math notranslate nohighlight">\(N\)</span>
+is equal to <span class="math notranslate nohighlight">\(1\)</span>.</p>
+</div>
+</section>
+<section id="security">
+<h2>Security<a class="headerlink" href="#security" title="Permalink to this headline">¶</a></h2>
+<p>Security of Hill’s cipher bases on the fact that a given letter of the alphabet may be encrypted in a few ways. Already in the above example we saw that <span class="math notranslate nohighlight">\(\ {\tt T}\ \)</span> was encrypted as <span class="math notranslate nohighlight">\(\ {\tt H},\ {\tt S},\ {\tt U}\,,\)</span> while <span class="math notranslate nohighlight">\(\ {\tt J}\ \)</span> in the ciphertext represented both <span class="math notranslate nohighlight">\(\ {\tt O}\ \)</span> and <span class="math notranslate nohighlight">\(\ {\tt M}\)</span> . In this way the algorithm masks frequency distribution of letters in a text, and thus prevents usage of <em>frequency analysis</em>; in fact, the bigger the secret key, the better masking properties.</p>
+<p>However, if one knows sufficiently many pairs (plaintext, ciphertext), it is possible to find the secret key which was used. Assume that somehow you know that the alphabet consists of <span class="math notranslate nohighlight">\(26\)</span> letters, the secret key matrix <span class="math notranslate nohighlight">\(K\)</span> is of size <span class="math notranslate nohighlight">\(m,\)</span> and the ciphertexts <span class="math notranslate nohighlight">\(\ C_1,\ldots , C_m\ \)</span> were obtained from the plaintexts <span class="math notranslate nohighlight">\(\ P_1,\ldots , P_m\ \)</span> via Hill’s encryption algorithm, that is:</p>
+<div class="math notranslate nohighlight" id="equation-hill1">
+<span class="eqno">(1)<a class="headerlink" href="#equation-hill1" title="Permalink to this equation">¶</a></span>\[K\in M_m(Z_{26})\, ,\quad\qquad C_i=P_iK\, (\text{mod}\, 26)\quad\text{for}\quad i=1,\ldots ,m.\]</div>
+<p>(Note that if one knows <span class="math notranslate nohighlight">\(\ C_i\ \)</span> and <span class="math notranslate nohighlight">\(\ K^{-1},\ \)</span> then the procedure described in the example above always returns <span class="math notranslate nohighlight">\(\ P_i\ \)</span>:</p>
+<div class="math notranslate nohighlight">
+\[C_iK^{-1}=(P_iK)K^{-1}=P_i(KK^{-1})=P_i\quad (\text{mod}\, 26).\quad )\]</div>
+<p>We can write the relations <a class="reference internal" href="#equation-hill1">(1)</a> in a form of matrix equation</p>
+<div class="math notranslate nohighlight">
+\[C=PK\quad (\text{mod}\, 26)\,,\]</div>
+<p>where <span class="math notranslate nohighlight">\(\ C,P\in M_m(Z_{26})\ \)</span> and their rows are formed from  <span class="math notranslate nohighlight">\(\ C_i\)</span> ‘s and <span class="math notranslate nohighlight">\(\ P_i\)</span> ‘s respectively. If the matrix <span class="math notranslate nohighlight">\(\ P\ \)</span> is invertible (over the ring <span class="math notranslate nohighlight">\(\ Z_{26}\ \)</span>), then we find that <span class="math notranslate nohighlight">\(\ K=P^{-1}C\, (\text{mod}\, 26).\ \)</span> If <span class="math notranslate nohighlight">\(\ P\ \)</span> is not invertible, one has to find more pairs (plaintext, ciphertext) and replace the ones that are linearly dependent with others.</p>
+<p><strong>Example.</strong></p>
+<p>Assume that we encrypted the text <span class="math notranslate nohighlight">\(\ {\tt NOTHINGNEW}\ \)</span> via Hill’s cipher with a secret key of size <span class="math notranslate nohighlight">\(2\)</span> and obtained ciphertext <span class="math notranslate nohighlight">\(\ {\tt DFTMGRYDEI}.\)</span> The pairs <span class="math notranslate nohighlight">\(\ ({\tt NO}, {\tt DF}),\, ({\tt TH}, {\tt TM})\ \)</span> correspond to pairs of vectors <span class="math notranslate nohighlight">\(\ ([13\; 14],\; [3\; 5])\;, ([19\; 7],\; [19\; 12])\,.\)</span> Hence, we obtain a matrix equation</p>
+<div class="math notranslate nohighlight">
+\[\begin{split}\left[\begin{array}{rr} 3 &amp; 5\\ 19 &amp; 12 \end{array}\right] =
+\left[\begin{array}{rr} 13 &amp; 14\\ 19 &amp; 7 \end{array}\right] K \quad (\text{mod}\, 26).\end{split}\]</div>
+<p>We compute:</p>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="n">sage</span><span class="p">:</span> <span class="n">N</span><span class="o">=</span><span class="mi">26</span>
+<span class="n">sage</span><span class="p">:</span> <span class="n">R</span><span class="o">=</span><span class="n">Integers</span><span class="p">(</span><span class="n">N</span><span class="p">)</span>
+<span class="n">sage</span><span class="p">:</span> <span class="n">C</span><span class="o">=</span><span class="n">Matrix</span><span class="p">(</span><span class="n">R</span><span class="p">,</span> <span class="p">[[</span><span class="mi">3</span><span class="p">,</span><span class="mi">5</span><span class="p">],[</span><span class="mi">19</span><span class="p">,</span><span class="mi">12</span><span class="p">]])</span>
+<span class="n">sage</span><span class="p">:</span> <span class="n">P</span><span class="o">=</span><span class="n">Matrix</span><span class="p">(</span><span class="n">R</span><span class="p">,</span> <span class="p">[[</span><span class="mi">13</span><span class="p">,</span><span class="mi">14</span><span class="p">],[</span><span class="mi">19</span><span class="p">,</span><span class="mi">7</span><span class="p">]])</span>
+<span class="n">sage</span><span class="p">:</span> <span class="nb">print</span> <span class="s2">&quot;det(P) =&quot;</span><span class="p">,</span> <span class="n">det</span><span class="p">(</span><span class="n">P</span><span class="p">),</span><span class="s2">&quot;</span><span class="se">\n</span><span class="s2">&quot;</span><span class="p">,</span> <span class="s2">&quot;K = P^{-1}C =&quot;</span><span class="p">,</span><span class="s2">&quot;</span><span class="se">\n</span><span class="s2">&quot;</span><span class="p">,</span> <span class="n">P</span><span class="o">.</span><span class="n">inverse</span><span class="p">()</span><span class="o">*</span><span class="n">C</span>
+
+<span class="n">det</span><span class="p">(</span><span class="n">P</span><span class="p">)</span> <span class="o">=</span> <span class="mi">7</span>
+
+<span class="n">K</span> <span class="o">=</span> <span class="n">P</span><span class="o">^</span><span class="p">{</span><span class="o">-</span><span class="mi">1</span><span class="p">}</span><span class="n">C</span> <span class="o">=</span>
+<span class="p">[</span><span class="mi">17</span>  <span class="mi">7</span><span class="p">]</span>
+<span class="p">[</span><span class="mi">16</span>  <span class="mi">5</span><span class="p">]</span>
+</pre></div>
+</div>
+<p>The result may be verified by checking remaining pairs (plaintext, ciphertext). Do it yourself in the cell below using the commands presented in this section.</p>
+<div class='sage_linked'><script type='text/x-sage'>N = 26</script></div><p><strong>Exercise.</strong></p>
+<p>You intercepted the message that was encrypted via Hill’s cipher with the key matrix of size <span class="math notranslate nohighlight">\(3.\)</span> Most probably the plaintext starts with <span class="math notranslate nohighlight">\(\ {\tt TOGENERAL}\ \)</span> . Find the key matrix and decrypt the rest of the ciphertext:</p>
+<p><span class="math notranslate nohighlight">\(\ {\tt AVQLPGSNJJLYMLQYCTQCUHIQZNTRDJPTPSAJOKDKXTSGZGFPIUANHFDNIHROMZEKKFUMNZDIACYVZHMSSKJRQEW }\)</span> .</p>
+</section>
+</section>
+
+
+          </div>
+        </div>
+      </div>
+      <div class="sphinxsidebar" role="navigation" aria-label="main navigation">
+        <div class="sphinxsidebarwrapper">
+  <div class="sphinxlocaltoc">
+  <h3><a href="index.html">Table Of Contents</a></h3>
+  <ul>
+<li><a class="reference internal" href="#">Application to Hill Cipher</a><ul>
+<li><a class="reference internal" href="#example">Example</a></li>
+<li><a class="reference internal" href="#modular-arithmetic">Modular arithmetic</a></li>
+<li><a class="reference internal" href="#security">Security</a></li>
+</ul>
+</li>
+</ul>
+
+  </div>
+  <h4>Previous topic</h4>
+  <p class="topless"><a href="determinants_applications.html"
+                        title="previous chapter">Applications of Determinants</a></p>
+  <h4>Next topic</h4>
+  <p class="topless"><a href="determinants_problems.html"
+                        title="next chapter">Problems</a></p>
+  <div role="note" aria-label="source link">
+    <h3>This Page</h3>
+    <ul class="this-page-menu">
+      <li><a href="_sources/operations_app_Hill_cipher.rst.txt"
+            rel="nofollow">Show Source</a></li>
+    </ul>
+   </div>
+<div id="searchbox" style="display: none" role="search">
+  <h3 id="searchlabel">Quick search</h3>
+    <div class="searchformwrapper">
+    <form class="search" action="search.html" method="get">
+      <input type="text" name="q" aria-labelledby="searchlabel" />
+      <input type="submit" value="Go" />
+    </form>
+    </div>
+</div>
+<script>$('#searchbox').show(0);</script>
+        </div>
+      </div>
+      <div class="clearer"></div>
+    </div>
+  </div>
+  <div class="relbar-bottom">
+    
+    <div class="related" role="navigation" aria-label="related navigation">
+      <h3>Navigation</h3>
+      <ul>
+        <li class="right" style="margin-right: 10px">
+          <a href="genindex.html" title="General Index"
+             >index</a></li>
+        <li class="right" >
+          <a href="determinants_problems.html" title="Problems"
+             >next</a> &nbsp; &nbsp;</li>
+        <li class="right" >
+          <a href="determinants_applications.html" title="Applications of Determinants"
+             >previous</a> &nbsp; &nbsp;</li>
+  <li><a href="index.html">Linear Algebra</a> &#187;</li>
+  
+        <li class="nav-item nav-item-this"><a href="">Application to Hill Cipher</a></li> 
+      </ul>
+    </div>
+  </div>
+  
+  <div class="footer">
+    <a class="logo" href="http://icse.us.edu.pl/" target="_blank"><img src="_static/logo-icse.png" alt="ICSE"/></a><br/>
+    &copy; Copyright 2018, Jan Aksamit, Joanna Marzec, and  Marcin Kostur.
+    Last updated on Jan 29, 2022.
+    Created using <a href="http://sphinx.pocoo.org/">Sphinx</a> 4.0.1.
+  </div>
+  </body>
+</html>

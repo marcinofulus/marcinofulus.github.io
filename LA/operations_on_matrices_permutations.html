@@ -1,0 +1,598 @@
+
+
+  
+<!DOCTYPE html>
+
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" /><meta name="generator" content="Docutils 0.17: http://docutils.sourceforge.net/" />
+
+    <title>Permutation Matrices &#8212; Linear Algebra</title>
+    <link rel="stylesheet" type="text/css" href="_static/pygments.css" />
+    <link rel="stylesheet" type="text/css" href="_static/cloud.css" />
+    <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Noticia+Text|Open+Sans|Droid+Sans+Mono&amp;subset=latin,latin-ext" type="text/css" />
+    <script data-url_root="./" id="documentation_options" src="_static/documentation_options.js"></script>
+    <script src="_static/jquery.js"></script>
+    <script src="_static/underscore.js"></script>
+    <script src="_static/doctools.js"></script>
+    <script async="async" src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js"></script>
+    <script src="_static/jquery.cookie.js"></script>
+    <script src="_static/cloud.js"></script>
+    <script type="text/javascript" src="http://sagecell.sagemath.org/static/jquery.min.js"></script>
+    <script type="text/javascript" src="http://sagecell.sagemath.org/embedded_sagecell.js"></script>
+    <script type="text/javascript">
+        sagecell.makeSagecell({inputLocation: ".sage_linked",
+                               linked: true});
+        sagecell.makeSagecell({inputLocation: ".sage_unlinked",
+                               linked: false});
+    </script>
+
+    <style type="text/css">
+        .sagecell .CodeMirror-scroll {
+            overflow-y: hidden;
+            overflow-x: auto;
+        }
+        .sagecell .CodeMirror {
+            height: auto;
+        }
+    </style>
+    
+    <link rel="index" title="Index" href="genindex.html" />
+    <link rel="search" title="Search" href="search.html" />
+    <link rel="next" title="Appendices" href="operations_on_matrices_appendices.html" />
+    <link rel="prev" title="Matrix Inverse by the Elimination Method" href="operations_on_matrices_inverse-elimination.html" />
+ 
+  <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, minimum-scale=1">
+  </head><body>
+  <div class="relbar-top">
+    
+    <div class="related" role="navigation" aria-label="related navigation">
+      <h3>Navigation</h3>
+      <ul>
+        <li class="right" style="margin-right: 10px">
+          <a href="genindex.html" title="General Index"
+             accesskey="I">index</a></li>
+        <li class="right" >
+          <a href="operations_on_matrices_appendices.html" title="Appendices"
+             accesskey="N">next</a> &nbsp; &nbsp;</li>
+        <li class="right" >
+          <a href="operations_on_matrices_inverse-elimination.html" title="Matrix Inverse by the Elimination Method"
+             accesskey="P">previous</a> &nbsp; &nbsp;</li>
+  <li><a href="index.html">Linear Algebra</a> &#187;</li>
+  
+        <li class="nav-item nav-item-this"><a href="">Permutation Matrices</a></li> 
+      </ul>
+    </div>
+  </div>
+  
+  <div class="content">  
+
+    <div class="document">
+      <div class="documentwrapper">
+        <div class="bodywrapper">
+          <div class="body">
+            
+  <section id="permutation-matrices">
+<h1>Permutation Matrices<a class="headerlink" href="#permutation-matrices" title="Permalink to this headline">¶</a></h1>
+<p>Suppose we have a matrix
+<span class="math notranslate nohighlight">\(\,\boldsymbol{A}=[a_{ij}]_{m\times n}\in M_{m\times n}(K)\,\)</span>
+given in the row form</p>
+<div class="math notranslate nohighlight">
+\[\begin{split}\boldsymbol{A}\ \ =\ \
+\left[\begin{array}{c} \boldsymbol{A}_1 \\
+                       \boldsymbol{A}_2 \\
+                       \ldots           \\
+                       \boldsymbol{A}_m\end{array}\right],\qquad
+\text{where}\quad\boldsymbol{A}_i\ =\
+[\,a_{i1}\ \,a_{i2}\ \,\dots\ \,a_{in}\,]\,,\quad
+i=1,2,\dots,m\,,\end{split}\]</div>
+<p>and a permutation
+<span class="math notranslate nohighlight">\(\ \ \sigma\ =\
+\left(\begin{array}{cccc}
+1 &amp; 2 &amp; \ldots &amp; m \\ \sigma(1) &amp; \sigma(2) &amp; \ldots &amp; \sigma(m)
+\end{array}\right)\ \in\ S_m.\)</span></p>
+<p><span class="math notranslate nohighlight">\(\;\)</span></p>
+<p>The permutation <span class="math notranslate nohighlight">\(\,\sigma\,\)</span> determines an operation <span class="math notranslate nohighlight">\(\,O_\sigma\,\)</span>
+which rearranges rows of matrix <span class="math notranslate nohighlight">\(\,\boldsymbol{A}\,:\)</span></p>
+<div class="math notranslate nohighlight" id="equation-perm-verse">
+<span class="eqno">(1)<a class="headerlink" href="#equation-perm-verse" title="Permalink to this equation">¶</a></span>\[\begin{split}O_\sigma\,\boldsymbol{A}\ :\,=\
+\left[\begin{array}{c} \boldsymbol{A}_{\,\sigma(1)} \\
+                       \boldsymbol{A}_{\,\sigma(2)} \\
+                       \ldots           \\
+                       \boldsymbol{A}_{\,\sigma(m)}\end{array}\right]\,.\end{split}\]</div>
+<p>The operation <span class="math notranslate nohighlight">\(\,O_\sigma\,\)</span> being applied to the identity matrix</p>
+<div class="math notranslate nohighlight">
+\[\begin{split}\boldsymbol{I}_m\ \ =\ \ \left[\begin{array}{c}
+                         \boldsymbol{e}_1 \\
+                         \boldsymbol{e}_2 \\
+                         \ldots \\
+                         \boldsymbol{e}_m
+                         \end{array}\right]\,,\end{split}\]</div>
+<p>(<span class="math notranslate nohighlight">\(\,\boldsymbol{e}_i\,\)</span> is a row of length <span class="math notranslate nohighlight">\(\,m\,\)</span>
+with unity in the <span class="math notranslate nohighlight">\(\,i\)</span>-th position, zeroes elsewhere), we obtain
+<span class="math notranslate nohighlight">\(\\\)</span>
+the matrix <span class="math notranslate nohighlight">\(\,\boldsymbol{P}_\sigma\,\)</span> referred to as the
+<span class="math notranslate nohighlight">\(\,\)</span> <em>permutation matrix</em> <span class="math notranslate nohighlight">\(\,\)</span>
+(matrix of the permutation <span class="math notranslate nohighlight">\(\,\sigma\)</span>):</p>
+<div class="math notranslate nohighlight">
+\[\begin{split}\boldsymbol{P}_\sigma\ \ :\,=\ \ O_\sigma\,\boldsymbol{I}_m\ \ =\ \
+                                 \left[\begin{array}{c}
+                                 \boldsymbol{e}_{\,\sigma(1)} \\
+                                 \boldsymbol{e}_{\,\sigma(2)} \\
+                                 \ldots \\
+                                 \boldsymbol{e}_{\,\sigma(m)}
+                                 \end{array}\right]\,.\end{split}\]</div>
+<p><strong>Example.</strong> <span class="math notranslate nohighlight">\(\,\)</span> For
+<span class="math notranslate nohighlight">\(\quad\sigma\ =\ \left(\begin{array}{ccccc}
+1 &amp; 2 &amp; 3 &amp; 4 &amp; 5 \\
+4 &amp; 3 &amp; 5 &amp; 1 &amp; 2
+\end{array}\right)\,\in S_5\quad\)</span>
+the permutation matrix is</p>
+<div class="math notranslate nohighlight">
+\[\begin{split}\boldsymbol{P}_\sigma\ =\
+\left[\begin{array}{c} \boldsymbol{e}_{\,\sigma(1)} \\
+                       \boldsymbol{e}_{\,\sigma(2)} \\
+                       \boldsymbol{e}_{\,\sigma(3)} \\
+                       \boldsymbol{e}_{\,\sigma(4)} \\
+                       \boldsymbol{e}_{\,\sigma(5)}
+\end{array}\right]\ =\
+\left[\begin{array}{c} \boldsymbol{e}_4 \\
+                       \boldsymbol{e}_3 \\
+                       \boldsymbol{e}_5 \\
+                       \boldsymbol{e}_1 \\
+                       \boldsymbol{e}_2
+\end{array}\right]\ =\
+\left[\begin{array}{ccccc} 0 &amp; 0 &amp; 0 &amp; 1 &amp; 0 \\
+                           0 &amp; 0 &amp; 1 &amp; 0 &amp; 0 \\
+                           0 &amp; 0 &amp; 0 &amp; 0 &amp; 1 \\
+                           1 &amp; 0 &amp; 0 &amp; 0 &amp; 0 \\
+                           0 &amp; 1 &amp; 0 &amp; 0 &amp; 0
+\end{array}\right]\,.\end{split}\]</div>
+<p><span class="math notranslate nohighlight">\(\;\)</span></p>
+<p>By analogy with elementary matrices,
+a permutation of rows of a product <span class="math notranslate nohighlight">\(\,\boldsymbol{A}\boldsymbol{B}\,\)</span>
+of two matrices is equivalent to the same permutation of rows of matrix
+<span class="math notranslate nohighlight">\(\,\boldsymbol{A}\,\)</span> only. This may be formulated as</p>
+<div class="admonition-lemma admonition">
+<p class="admonition-title">Lemma.</p>
+<p>If <span class="math notranslate nohighlight">\(\,\boldsymbol{A}\in M_{m\times p}(K),\ \boldsymbol{B}
+\in M_{p\times n}(K),\ \ \sigma\in S_m,\ \ \)</span>
+then <span class="math notranslate nohighlight">\(\ \,O_\sigma\,(\boldsymbol{A}\boldsymbol{B})\ =
+\ (O_\sigma\boldsymbol{A})\,\boldsymbol{B}\,.\)</span></p>
+</div>
+<p><strong>Proof.</strong> <span class="math notranslate nohighlight">\(\,\)</span> Using the Row Rule of Matrix Multiplication:</p>
+<div class="math notranslate nohighlight">
+\[\begin{split}\boldsymbol{A}\boldsymbol{B}\ \equiv\
+\left[\begin{array}{c}
+      \boldsymbol{A}_1 \\
+      \boldsymbol{A}_2 \\
+      \dots            \\
+      \boldsymbol{A}_m \\
+      \end{array}
+\right]\boldsymbol{B}\ \ =\ \
+\left[\begin{array}{c}
+      \boldsymbol{A}_1\,\boldsymbol{B} \\
+      \boldsymbol{A}_2\,\boldsymbol{B} \\
+      \dots                            \\
+      \boldsymbol{A}_m\,\boldsymbol{B} \\
+      \end{array}
+\right]\,.\end{split}\]</div>
+<p>we get</p>
+<div class="math notranslate nohighlight">
+\[\begin{split}O_\sigma\,(\boldsymbol{A}\boldsymbol{B})\ =\
+O_\sigma
+\left[\begin{array}{c}
+      \boldsymbol{A}_1\,\boldsymbol{B} \\
+      \boldsymbol{A}_2\,\boldsymbol{B} \\
+      \dots                            \\
+      \boldsymbol{A}_m\,\boldsymbol{B} \\
+      \end{array}
+\right]\ =
+\left[\begin{array}{c}
+      \boldsymbol{A}_{\sigma(1)}\,\boldsymbol{B} \\
+      \boldsymbol{A}_{\sigma(2)}\,\boldsymbol{B} \\
+      \dots                                      \\
+      \boldsymbol{A}_{\sigma(m)}\,\boldsymbol{B} \\
+      \end{array}
+\right]\ =\
+\left[\begin{array}{c}
+      \boldsymbol{A}_{\sigma(1)} \\
+      \boldsymbol{A}_{\sigma(2)} \\
+      \dots                      \\
+      \boldsymbol{A}_{\sigma(m)} \\
+      \end{array}
+\right]\boldsymbol{B}\ =\
+(O_\sigma\boldsymbol{A})\,\boldsymbol{B}\,.\quad\bullet\end{split}\]</div>
+<p><span class="math notranslate nohighlight">\(\;\)</span></p>
+<p>Again by analogy with elementary matrices, pre-multiplying a given matrix
+by a permutation matrix simulates rearrangement of its rows according to
+that permutation. This is expressed as</p>
+<div class="admonition-theorem-4 admonition">
+<p class="admonition-title">Theorem 4.</p>
+<p>If <span class="math notranslate nohighlight">\(\,\boldsymbol{A}\in M_{m\times n}(K),\ \ \sigma\in S_m,\ \ \)</span>
+then <span class="math notranslate nohighlight">\(\ \,O_\sigma\,\boldsymbol{A}\ =
+\ \boldsymbol{P}_\sigma\,\boldsymbol{A}\,,\ \)</span> <span class="math notranslate nohighlight">\(\\\)</span>
+where <span class="math notranslate nohighlight">\(\ \ \boldsymbol{P}_\sigma\,=
+\,O_\sigma\,\boldsymbol{I}_m\in M_m(K)\,.\)</span></p>
+</div>
+<p><strong>Proof.</strong> <span class="math notranslate nohighlight">\(\,\)</span> The thesis results immediately from the Lemma:</p>
+<div class="math notranslate nohighlight">
+\[O_\sigma\,\boldsymbol{A}\ \ =\ \
+O_\sigma\,(\boldsymbol{I}_m\,\boldsymbol{A})\ \ =\ \
+(O_\sigma\,\boldsymbol{I}_m)\,\boldsymbol{A}\ \ =\ \
+\boldsymbol{P}_\sigma\,\boldsymbol{A}\,,
+\qquad\sigma\in S_m\,.\quad\bullet\]</div>
+<p>A product of two permutation matrices is also a permutation matrix,
+the multiplication rule being given by</p>
+<div class="admonition-proposition-4-math admonition">
+<p class="admonition-title">Proposition 4. <span class="math notranslate nohighlight">\(\,\)</span></p>
+<p>If
+<span class="math notranslate nohighlight">\(\quad P_\rho = O_\rho\,\boldsymbol{I}_m,\
+\,P_\sigma = O_\sigma\,\boldsymbol{I}_m,\quad\)</span>
+then
+<span class="math notranslate nohighlight">\(\quad\boldsymbol{P}_\rho\,\boldsymbol{P}_\sigma\ =
+\ \boldsymbol{P}_{\sigma\,\circ\,\rho}\,,\quad\rho,\sigma\in S_m\ \ \)</span>
+<span class="math notranslate nohighlight">\(\\\)</span>
+(note the reverse order of permutations on the right-hand side).</p>
+</div>
+<p><strong>Proof.</strong></p>
+<div class="math notranslate nohighlight">
+\[\begin{split}\boldsymbol{P}_\sigma\,\boldsymbol{I}_m\ =\
+\boldsymbol{P}_\sigma\,
+\left[\begin{array}{c}
+      \boldsymbol{e}_1 \\
+      \boldsymbol{e}_2 \\
+      \dots            \\
+      \boldsymbol{e}_m \\
+      \end{array}
+\right]\ =\
+\left[\begin{array}{c}
+      \boldsymbol{e}_{\sigma(1)} \\
+      \boldsymbol{e}_{\sigma(2)} \\
+      \dots                      \\
+      \boldsymbol{e}_{\sigma(m)} \\
+      \end{array}
+\right]\ =\
+\left[\begin{array}{c}
+      \boldsymbol{e}'_1 \\
+      \boldsymbol{e}'_2 \\
+      \dots             \\
+      \boldsymbol{e}'_m \\
+      \end{array}
+\right]\,,
+\quad\text{where}\quad
+\boldsymbol{e}'_i\ =\ \boldsymbol{e}_{\sigma(i)}\,,\ \ i=1,2,\ldots,m.\end{split}\]</div>
+<div class="math notranslate nohighlight">
+\[\begin{split}\boldsymbol{P}_\rho\,\boldsymbol{P}_\sigma\ =\
+(\boldsymbol{P}_\rho\,\boldsymbol{P}_\sigma)\,\boldsymbol{I}_m\ =\
+\boldsymbol{P}_\rho\,(\boldsymbol{P}_\sigma\,\boldsymbol{I}_m)\ =\
+\boldsymbol{P}_\rho\,
+\left[\begin{array}{c}
+      \boldsymbol{e}'_1 \\
+      \boldsymbol{e}'_2 \\
+      \dots             \\
+      \boldsymbol{e}'_m \\
+      \end{array}
+\right]\ =\
+\left[\begin{array}{c}
+      \boldsymbol{e}'_{\rho(1)} \\
+      \boldsymbol{e}'_{\rho(2)} \\
+      \dots                     \\
+      \boldsymbol{e}'_{\rho(m)} \\
+      \end{array}
+\right]\,.\end{split}\]</div>
+<p>Substitution <span class="math notranslate nohighlight">\(\ \ i\rightarrow\rho(i)\ \ \)</span> in equation
+<span class="math notranslate nohighlight">\(\ \ \boldsymbol{e}'_i\ =\ \boldsymbol{e}_{\sigma(i)}\ \ \)</span> results in</p>
+<div class="math notranslate nohighlight">
+\[\boldsymbol{e}'_{\rho(i)}\ =\ \boldsymbol{e}_{\sigma[\rho(i)]}\ =\
+\boldsymbol{e}_{(\sigma\,\circ\,\rho)(i)}\,,\qquad i=1,2,\ldots,m.\]</div>
+<p>Therefore</p>
+<div class="math notranslate nohighlight">
+\[\begin{split}\boldsymbol{P}_\rho\,\boldsymbol{P}_\sigma\ =\
+\left[\begin{array}{c}
+      \boldsymbol{e}'_{\rho(1)} \\
+      \boldsymbol{e}'_{\rho(2)} \\
+      \dots                     \\
+      \boldsymbol{e}'_{\rho(m)} \\
+      \end{array}
+\right]\ =\
+\left[\begin{array}{c}
+      \boldsymbol{e}_{(\sigma\,\circ\,\rho)(1)} \\
+      \boldsymbol{e}_{(\sigma\,\circ\,\rho)(2)} \\
+      \dots                                     \\
+      \boldsymbol{e}_{(\sigma\,\circ\,\rho)(m)} \\
+      \end{array}
+\right]\ =\
+\boldsymbol{P}_{\sigma\,\circ\,\rho}
+\left[\begin{array}{c}
+      \boldsymbol{e}_1 \\
+      \boldsymbol{e}_2 \\
+      \dots            \\
+      \boldsymbol{e}_m \\
+      \end{array}
+\right]\ =\
+\boldsymbol{P}_{\sigma\,\circ\,\rho}\ \boldsymbol{I}_m\ =\
+\boldsymbol{P}_{\sigma\,\circ\,\rho}\,.\quad\bullet\end{split}\]</div>
+<p>Since every permutation can be expressed as a product  of transpositions,
+every permutation matrix is a product of elementary matrices
+of the first type (corresponding to transpositions of matrix rows).</p>
+<p>Another property of permutation matrices is stated by the following</p>
+<div class="admonition-proposition-5-math admonition">
+<p class="admonition-title">Proposition 5. <span class="math notranslate nohighlight">\(\,\)</span></p>
+<p>Permutation matrices <span class="math notranslate nohighlight">\(\ \boldsymbol{P}_\sigma\ \in M_m(K)\ \)</span>
+are orthogonal: <span class="math notranslate nohighlight">\(\quad\)</span> <span class="math notranslate nohighlight">\(\\\)</span>
+<span class="math notranslate nohighlight">\(\boldsymbol{P}_\sigma^{\,T}\,\boldsymbol{P}_\sigma\ = \ \,
+\boldsymbol{P}_\sigma\,\boldsymbol{P}_\sigma^{\,T}\ = \ \,
+\boldsymbol{I}_m\,,\quad\sigma\in S_m\,.\)</span></p>
+</div>
+<p><strong>Proof.</strong></p>
+<p>In the framework of unitary spaces, it is enough to notice that
+rows of a permutation matrix form an orthonormal set of vectors in
+the space <span class="math notranslate nohighlight">\(\,K^m,\ \)</span> where <span class="math notranslate nohighlight">\(\,K=Q,\,R\ \)</span> or <span class="math notranslate nohighlight">\(\,C.\ \)</span>
+This is just a necessary and sufficient condition for a matrix to be orthogonal.</p>
+<p>A direct proof is simple, too.
+Each row of <span class="math notranslate nohighlight">\(\boldsymbol{P}_\sigma\ \)</span> consists of one unity and zeroes
+elsewhere, <span class="math notranslate nohighlight">\(\\\)</span> the unities in different rows being in different
+positions. Thus for <span class="math notranslate nohighlight">\(\ \boldsymbol{P}_\sigma = [p_{ij}]_{m \times m}\ \)</span>
+we get</p>
+<div class="math notranslate nohighlight">
+\[\begin{split}\left(\boldsymbol{P}_\sigma\,\boldsymbol{P}_\sigma^{\,T}\right)_{ij}\ =\ \,
+\displaystyle\sum_{k=1}^m\,p_{ik}\,p_{kj}^T\ =\ \,
+\displaystyle\sum_{k=1}^m\,p_{ik}\,p_{jk}\ \,=\ \,
+\left\{\begin{array}{ll}
+1 &amp; i=j \\ 0 &amp; i \neq j
+\end{array}\right.
+\quad i,j = 1,2,\ldots, m.\end{split}\]</div>
+<p>In this way
+<span class="math notranslate nohighlight">\(\quad\left(\boldsymbol{P}_\sigma\,
+\boldsymbol{P}_\sigma^{\,T}\right)_{ij}\ =\
+\left(\boldsymbol{I}_m\right)_{ij}\,,\ \ i,j = 1,2,\ldots, m,\quad\)</span>
+hence
+<span class="math notranslate nohighlight">\(\quad\boldsymbol{P}_\sigma\,\boldsymbol{P}_\sigma^{\,T}\ =\
+\boldsymbol{I}_m\,.\quad\bullet\)</span></p>
+<p>Let <span class="math notranslate nohighlight">\(\,P\,\)</span> denote the set of all permutation matrices
+associated with the symmetric group <span class="math notranslate nohighlight">\(\,S_m:\)</span></p>
+<div class="math notranslate nohighlight">
+\[P\ :\,=\ \left\{\,\boldsymbol{P}_\sigma\,:\ \ \sigma\in S_m\,\right\}\,.\]</div>
+<p>Collecting results of the foregoing discussion, we note that</p>
+<ol class="arabic" start="0">
+<li><div class="line-block">
+<div class="line"><span class="math notranslate nohighlight">\(\,\)</span> product of two permutation matrices is a permutation matrix:</div>
+<div class="line"><span class="math notranslate nohighlight">\(\,\)</span> matrix multiplication is an internal operation in <span class="math notranslate nohighlight">\(\,P;\)</span></div>
+</div>
+</li>
+<li><p><span class="math notranslate nohighlight">\(\,\)</span> multiplication of permutation matrices is associative;</p></li>
+<li><div class="line-block">
+<div class="line"><span class="math notranslate nohighlight">\(\,\)</span> the identity matrix <span class="math notranslate nohighlight">\(\,\boldsymbol{I}_m\,\)</span>
+is a permutation matrix</div>
+<div class="line"><span class="math notranslate nohighlight">\(\,\)</span> corresponding to the identity permutation id;</div>
+</div>
+</li>
+<li><p><span class="math notranslate nohighlight">\(\,\)</span> permutation matrices are invertible, their inverses being also
+permutation matrices:</p>
+<div class="math notranslate nohighlight">
+\[\boldsymbol{P}_\sigma^{-1}\ =\
+\boldsymbol{P}_{\sigma^{-1}}\ =\ \,\boldsymbol{P}_\sigma^T\,,
+\qquad\sigma\in S_m\,.\]</div>
+</li>
+</ol>
+<p>These remarks lead to the</p>
+<div class="admonition-corollary-math admonition">
+<p class="admonition-title">Corollary. <span class="math notranslate nohighlight">\(\,\)</span></p>
+<p>The set of permutation matrices
+<span class="math notranslate nohighlight">\(\ \,\boldsymbol{P}_\sigma\ \in M_m(K)\,,\ \sigma\in S_m\,,\ \)</span>
+consttutes a group <span class="math notranslate nohighlight">\(\\\)</span> with respect to matrix multiplication.
+For <span class="math notranslate nohighlight">\(\ m&gt;2\ \)</span> the group is non-commutative.</p>
+</div>
+<p>In Sage, <span class="math notranslate nohighlight">\(\,\)</span> the command <span class="math notranslate nohighlight">\(\,\)</span> <code class="docutils literal notranslate"><span class="pre">SymmetricGroup(n)</span></code> <span class="math notranslate nohighlight">\(\,\)</span>
+returns the group <span class="math notranslate nohighlight">\(\ S_n\ \)</span> of all permutations of <span class="math notranslate nohighlight">\(\,n\,\)</span>
+elements. <a class="footnote-reference brackets" href="#id2" id="id1">3</a> <span class="math notranslate nohighlight">\(\,\)</span> The members of <span class="math notranslate nohighlight">\(\ S_n\ \)</span> are displayed
+in the disjoint-cyclic form:</p>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span>sage: G = SymmetricGroup(4)
+sage: L = G.list()
+sage: print G; L
+
+Symmetric group of order 4! as a permutation group
+[(), (3,4), (2,3), (2,3,4), (2,4,3), (2,4), (1,2), (1,2)(3,4), (1,2,3),
+(1,2,3,4), (1,2,4,3), (1,2,4), (1,3,2), (1,3,4,2), (1,3), (1,3,4),
+(1,3)(2,4), (1,3,2,4), (1,4,3,2), (1,4,2), (1,4,3), (1,4), (1,4,2,3),
+(1,4)(2,3)]
+</pre></div>
+</div>
+<p>A specific permutation can be selected by indexing the list of permutations
+in <span class="math notranslate nohighlight">\(\ S_n\)</span> <span class="math notranslate nohighlight">\(\\\)</span>
+(remembering that counting of elements starts at zero).</p>
+<p>A permutation given in the disjoint-cycle form can be written</p>
+<ul class="simple">
+<li><p>as a text string (including quotes);</p></li>
+<li><p>as a list of tuples representing cycles.</p></li>
+</ul>
+<p>Using this notation, a permutation may be put as an argument in a function call,
+in particular when extracting an element from the permutation group.
+Examples are shown below:</p>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="n">sage</span><span class="p">:</span> <span class="n">G</span> <span class="o">=</span> <span class="n">SymmetricGroup</span><span class="p">(</span><span class="mi">4</span><span class="p">)</span>
+<span class="n">sage</span><span class="p">:</span> <span class="n">L</span> <span class="o">=</span> <span class="n">G</span><span class="o">.</span><span class="n">list</span><span class="p">()</span>
+
+<span class="n">sage</span><span class="p">:</span> <span class="n">g0</span> <span class="o">=</span> <span class="n">L</span><span class="p">[</span><span class="mi">4</span><span class="p">]</span>
+<span class="n">sage</span><span class="p">:</span> <span class="n">g1</span> <span class="o">=</span> <span class="n">G</span><span class="p">(</span><span class="s1">&#39;(1,2)(3,4)&#39;</span><span class="p">)</span>
+<span class="n">sage</span><span class="p">:</span> <span class="n">g2</span> <span class="o">=</span> <span class="n">G</span><span class="p">([(</span><span class="mi">1</span><span class="p">,</span><span class="mi">3</span><span class="p">),(</span><span class="mi">2</span><span class="p">,</span><span class="mi">4</span><span class="p">)])</span>
+<span class="n">sage</span><span class="p">:</span> <span class="n">g3</span> <span class="o">=</span> <span class="n">G</span><span class="p">(((</span><span class="mi">1</span><span class="p">,</span><span class="mi">4</span><span class="p">),(</span><span class="mi">2</span><span class="p">,</span><span class="mi">3</span><span class="p">)))</span>
+
+<span class="n">sage</span><span class="p">:</span> <span class="nb">print</span> <span class="n">g0</span><span class="p">,</span> <span class="n">g1</span><span class="p">,</span> <span class="n">g2</span><span class="p">,</span> <span class="n">g3</span>
+
+<span class="p">(</span><span class="mi">2</span><span class="p">,</span><span class="mi">4</span><span class="p">,</span><span class="mi">3</span><span class="p">)</span> <span class="p">(</span><span class="mi">1</span><span class="p">,</span><span class="mi">2</span><span class="p">)(</span><span class="mi">3</span><span class="p">,</span><span class="mi">4</span><span class="p">)</span> <span class="p">(</span><span class="mi">1</span><span class="p">,</span><span class="mi">3</span><span class="p">)(</span><span class="mi">2</span><span class="p">,</span><span class="mi">4</span><span class="p">)</span> <span class="p">(</span><span class="mi">1</span><span class="p">,</span><span class="mi">4</span><span class="p">)(</span><span class="mi">2</span><span class="p">,</span><span class="mi">3</span><span class="p">)</span>
+</pre></div>
+</div>
+<p>On the other hand, a particular permutation in a symmetric group
+can be created individually using the function <code class="docutils literal notranslate"><span class="pre">PermutationGroupElement()</span></code>:</p>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span>sage: p1 = PermutationGroupElement(&#39;(1,2)(3,4)&#39;)
+sage: p2 = PermutationGroupElement([(1,3),(2,4)])
+sage: p3 = PermutationGroupElement(((1,4),(2,3)))
+
+sage: print p1.parent(); print p1, p2, p3
+
+Symmetric group of order 4! as a permutation group
+(1,2)(3,4) (1,3)(2,4) (1,4)(2,3)
+</pre></div>
+</div>
+<p>Multiplication of permutations is performed
+in accordance with the left-to-right convention:</p>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="n">sage</span><span class="p">:</span> <span class="n">p1</span> <span class="o">=</span> <span class="n">PermutationGroupElement</span><span class="p">(</span><span class="s1">&#39;(1,2)(3,4)&#39;</span><span class="p">)</span>
+<span class="n">sage</span><span class="p">:</span> <span class="n">p2</span> <span class="o">=</span> <span class="n">PermutationGroupElement</span><span class="p">(</span><span class="s1">&#39;(2,1,3)&#39;</span><span class="p">)</span>
+<span class="n">sage</span><span class="p">:</span> <span class="nb">print</span> <span class="n">p1</span><span class="o">*</span><span class="n">p2</span><span class="p">,</span> <span class="n">p2</span><span class="o">*</span><span class="n">p1</span>
+
+<span class="p">(</span><span class="mi">2</span><span class="p">,</span><span class="mi">3</span><span class="p">,</span><span class="mi">4</span><span class="p">)</span> <span class="p">(</span><span class="mi">1</span><span class="p">,</span><span class="mi">4</span><span class="p">,</span><span class="mi">3</span><span class="p">)</span>
+</pre></div>
+</div>
+<p>Now we shall apply the Sage tools to derive the matrix of the permutation</p>
+<div class="math notranslate nohighlight">
+\[\begin{split}\sigma\ =\ (1,2,3)\ =\ \left(\begin{array}{cccc}
+                          1 &amp; 2 &amp; 3 &amp; 4 \\
+                          2 &amp; 3 &amp; 1 &amp; 4
+                       \end{array}\right)\ \in S_4\,.\end{split}\]</div>
+<p>To that end we apply the method <span class="math notranslate nohighlight">\(\,\)</span> <code class="docutils literal notranslate"><span class="pre">matrix()</span></code> <span class="math notranslate nohighlight">\(\,\)</span>
+to a member of the permutation group:</p>
+<div class='sage_linked'><script type='text/x-sage'>G = SymmetricGroup(4)
+sigma = G('(1,2,3)')
+P = sigma.matrix(); P</script></div><p>The result reads</p>
+<div class="math notranslate nohighlight" id="equation-row">
+<span class="eqno">(2)<a class="headerlink" href="#equation-row" title="Permalink to this equation">¶</a></span>\[\begin{split}P_{\sigma}\ \, = \ \
+\left[\begin{array}{rrrr}
+0 &amp; 1 &amp; 0 &amp; 0 \\
+0 &amp; 0 &amp; 1 &amp; 0 \\
+1 &amp; 0 &amp; 0 &amp; 0 \\
+0 &amp; 0 &amp; 0 &amp; 1
+\end{array}\right]
+\ \ = \ \
+\left[\begin{array}{c}
+\boldsymbol{e}_2 \\ \boldsymbol{e}_3 \\
+\boldsymbol{e}_1 \\ \boldsymbol{e}_4
+\end{array}\right]
+\ \ = \ \
+\left[\begin{array}{c}
+\boldsymbol{e}_{\sigma (1)} \\ \boldsymbol{e}_{\sigma (2)} \\
+\boldsymbol{e}_{\sigma (3)} \\ \boldsymbol{e}_{\sigma (4)} \\
+\end{array}\right]\,,\end{split}\]</div>
+<p>where <span class="math notranslate nohighlight">\(\,\boldsymbol{e}_i\ \)</span> is the <span class="math notranslate nohighlight">\(\ i\)</span>-th <span class="math notranslate nohighlight">\(\,\)</span> <em>row</em>
+<span class="math notranslate nohighlight">\(\,\)</span> of the identity matrix <span class="math notranslate nohighlight">\(\,\boldsymbol{I}_4\,,\)</span>
+<span class="math notranslate nohighlight">\(\,i=1,2,3,4.\)</span></p>
+<p>In section <a class="reference internal" href="introduction_permutations.html#permutations-in-sage"><span class="std std-ref">Permutations in Sage</span></a> we have described another approach to permutations in Sage,
+based on the class of permutations, created by the command <code class="docutils literal notranslate"><span class="pre">Permutations()</span></code>.
+Specifically, <code class="docutils literal notranslate"><span class="pre">Permutations(n)</span></code> returns the class of permutations of
+<span class="math notranslate nohighlight">\(\,n\,\)</span> initial natural numbers, given in a one-line notation.
+A particular permutation may be constructed by the function <code class="docutils literal notranslate"><span class="pre">Permutation()</span></code>.</p>
+<p>Following that approach, we shall derive the matrix of the permutation
+<span class="math notranslate nohighlight">\(\,p\,=\,[\,2,3,1,4\,]\sim\sigma\,,\ \)</span> using the method
+<span class="math notranslate nohighlight">\(\,\)</span> <code class="docutils literal notranslate"><span class="pre">to_matrix()</span></code> <span class="math notranslate nohighlight">\(\,\)</span> from
+<span class="math notranslate nohighlight">\(\,\)</span> <code class="docutils literal notranslate"><span class="pre">Permutation_class</span></code>:</p>
+<div class='sage_linked'><script type='text/x-sage'>p = Permutation('(1,2,3)(4)')
+Q = p.to_matrix(); Q</script></div><p>Now the output is</p>
+<div class="math notranslate nohighlight" id="equation-col">
+<span class="eqno">(3)<a class="headerlink" href="#equation-col" title="Permalink to this equation">¶</a></span>\[\begin{split}Q_{\sigma}\ \, = \ \
+\left[\begin{array}{cccc}
+0 &amp; 0 &amp; 1 &amp; 0 \\
+1 &amp; 0 &amp; 0 &amp; 0 \\
+0 &amp; 1 &amp; 0 &amp; 0 \\
+0 &amp; 0 &amp; 0 &amp; 1
+\end{array}\right]
+\ \ = \ \
+\left[\ \boldsymbol{e}_2\,|\,\boldsymbol{e}_3\,|\,
+\boldsymbol{e}_1\,|\,\boldsymbol{e}_4\ \right]
+\ \ = \ \
+\left[\
+\boldsymbol{e}_{\sigma (1)}\,|\ \boldsymbol{e}_{\sigma (2)}\,|\
+\boldsymbol{e}_{\sigma (3)}\,|\ \boldsymbol{e}_{\sigma (4)}\
+\right]\,,\end{split}\]</div>
+<p>where <span class="math notranslate nohighlight">\(\,\boldsymbol{e}_j\ \)</span> is the <span class="math notranslate nohighlight">\(\ j\)</span>-th <span class="math notranslate nohighlight">\(\,\)</span> <em>column</em>
+<span class="math notranslate nohighlight">\(\,\)</span> of the identity matrix <span class="math notranslate nohighlight">\(\,\boldsymbol{I}_4\,,\)</span>
+<span class="math notranslate nohighlight">\(\,j=1,2,3,4.\)</span></p>
+<p>The matrix <span class="math notranslate nohighlight">\(\,P_{\sigma}\ \)</span> in <a class="reference internal" href="#equation-row">(2)</a> is obtained from the identity
+matrix by the permutation <span class="math notranslate nohighlight">\(\,\sigma\ \)</span> of rows,
+whereas <span class="math notranslate nohighlight">\(\,Q_{\sigma}\ \)</span> in <a class="reference internal" href="primer_geometry-of-eqns-stat.html#equation-col">(1)</a> is obtained by the same
+permutation of columns. The two matrices are interrelated by transpose:
+each one is the transpose of another. The Sage code below checks
+the equivalence of permutations used to construct <span class="math notranslate nohighlight">\(\,P_{\sigma}\ \)</span>
+and <span class="math notranslate nohighlight">\(\,Q_{\sigma}\ \)</span> as well as the relation
+<span class="math notranslate nohighlight">\(\,Q_{\sigma}=P_{\sigma}^{\,T}:\)</span></p>
+<div class='sage_linked'><script type='text/x-sage'>try: print p == Permutation(sigma), Q == P.T
+except NameError: pretty_print(html(
+"Execute code in the two previous cells!"))</script></div><div class="admonition-conclusion-math admonition">
+<p class="admonition-title">Conclusion. <span class="math notranslate nohighlight">\(\,\)</span></p>
+<p>The method <span class="math notranslate nohighlight">\(\,\)</span> <code class="docutils literal notranslate"><span class="pre">matrix()</span></code>, <span class="math notranslate nohighlight">\(\,\)</span> applicable to permutations
+of a Symmetric group, refers to the matrix representation of permutations
+in the <em>row version</em>, <span class="math notranslate nohighlight">\(\,\)</span> whereas the method
+<span class="math notranslate nohighlight">\(\,\)</span> <code class="docutils literal notranslate"><span class="pre">to_matrix()</span></code> <span class="math notranslate nohighlight">\(\,\)</span> from the
+<span class="math notranslate nohighlight">\(\,\)</span> <code class="docutils literal notranslate"><span class="pre">Permutation_class</span></code> <span class="math notranslate nohighlight">\(\,\)</span> pertains to <span class="math notranslate nohighlight">\(\,\)</span>
+the <span class="math notranslate nohighlight">\(\,\)</span> <em>column version</em> <span class="math notranslate nohighlight">\(\,\)</span> thereof.</p>
+</div>
+<dl class="footnote brackets">
+<dt class="label" id="id2"><span class="brackets"><a class="fn-backref" href="#id1">3</a></span></dt>
+<dd><p><a class="reference external" href="http://doc.sagemath.org/html/en/thematic_tutorials/group_theory.html#permutation-groups">http://doc.sagemath.org/html/en/thematic_tutorials/group_theory.html#permutation-groups</a></p>
+</dd>
+</dl>
+</section>
+
+
+          </div>
+        </div>
+      </div>
+      <div class="sphinxsidebar" role="navigation" aria-label="main navigation">
+        <div class="sphinxsidebarwrapper">
+  <h4>Previous topic</h4>
+  <p class="topless"><a href="operations_on_matrices_inverse-elimination.html"
+                        title="previous chapter">Matrix Inverse by the Elimination Method</a></p>
+  <h4>Next topic</h4>
+  <p class="topless"><a href="operations_on_matrices_appendices.html"
+                        title="next chapter">Appendices</a></p>
+  <div role="note" aria-label="source link">
+    <h3>This Page</h3>
+    <ul class="this-page-menu">
+      <li><a href="_sources/operations_on_matrices_permutations.rst.txt"
+            rel="nofollow">Show Source</a></li>
+    </ul>
+   </div>
+<div id="searchbox" style="display: none" role="search">
+  <h3 id="searchlabel">Quick search</h3>
+    <div class="searchformwrapper">
+    <form class="search" action="search.html" method="get">
+      <input type="text" name="q" aria-labelledby="searchlabel" />
+      <input type="submit" value="Go" />
+    </form>
+    </div>
+</div>
+<script>$('#searchbox').show(0);</script>
+        </div>
+      </div>
+      <div class="clearer"></div>
+    </div>
+  </div>
+  <div class="relbar-bottom">
+    
+    <div class="related" role="navigation" aria-label="related navigation">
+      <h3>Navigation</h3>
+      <ul>
+        <li class="right" style="margin-right: 10px">
+          <a href="genindex.html" title="General Index"
+             >index</a></li>
+        <li class="right" >
+          <a href="operations_on_matrices_appendices.html" title="Appendices"
+             >next</a> &nbsp; &nbsp;</li>
+        <li class="right" >
+          <a href="operations_on_matrices_inverse-elimination.html" title="Matrix Inverse by the Elimination Method"
+             >previous</a> &nbsp; &nbsp;</li>
+  <li><a href="index.html">Linear Algebra</a> &#187;</li>
+  
+        <li class="nav-item nav-item-this"><a href="">Permutation Matrices</a></li> 
+      </ul>
+    </div>
+  </div>
+  
+  <div class="footer">
+    <a class="logo" href="http://icse.us.edu.pl/" target="_blank"><img src="_static/logo-icse.png" alt="ICSE"/></a><br/>
+    &copy; Copyright 2018, Jan Aksamit, Joanna Marzec, and  Marcin Kostur.
+    Last updated on Jan 29, 2022.
+    Created using <a href="http://sphinx.pocoo.org/">Sphinx</a> 4.0.1.
+  </div>
+  </body>
+</html>

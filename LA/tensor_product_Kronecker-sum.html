@@ -1,0 +1,291 @@
+
+
+  
+<!DOCTYPE html>
+
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" /><meta name="generator" content="Docutils 0.17: http://docutils.sourceforge.net/" />
+
+    <title>Kronecker Sum of Discrete Laplacians &#8212; Linear Algebra</title>
+    <link rel="stylesheet" type="text/css" href="_static/pygments.css" />
+    <link rel="stylesheet" type="text/css" href="_static/cloud.css" />
+    <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Noticia+Text|Open+Sans|Droid+Sans+Mono&amp;subset=latin,latin-ext" type="text/css" />
+    <script data-url_root="./" id="documentation_options" src="_static/documentation_options.js"></script>
+    <script src="_static/jquery.js"></script>
+    <script src="_static/underscore.js"></script>
+    <script src="_static/doctools.js"></script>
+    <script async="async" src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js"></script>
+    <script src="_static/jquery.cookie.js"></script>
+    <script src="_static/cloud.js"></script>
+    <script type="text/javascript" src="http://sagecell.sagemath.org/static/jquery.min.js"></script>
+    <script type="text/javascript" src="http://sagecell.sagemath.org/embedded_sagecell.js"></script>
+    <script type="text/javascript">
+        sagecell.makeSagecell({inputLocation: ".sage_linked",
+                               linked: true});
+        sagecell.makeSagecell({inputLocation: ".sage_unlinked",
+                               linked: false});
+    </script>
+
+    <style type="text/css">
+        .sagecell .CodeMirror-scroll {
+            overflow-y: hidden;
+            overflow-x: auto;
+        }
+        .sagecell .CodeMirror {
+            height: auto;
+        }
+    </style>
+    
+    <link rel="index" title="Index" href="genindex.html" />
+    <link rel="search" title="Search" href="search.html" />
+    <link rel="next" title="Problems with Solutions" href="tensor_product_problems.html" />
+    <link rel="prev" title="Kronecker Product as a Transformation Matrix" href="tensor_product_transformation-matrix.html" />
+ 
+  <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, minimum-scale=1">
+  </head><body>
+  <div class="relbar-top">
+    
+    <div class="related" role="navigation" aria-label="related navigation">
+      <h3>Navigation</h3>
+      <ul>
+        <li class="right" style="margin-right: 10px">
+          <a href="genindex.html" title="General Index"
+             accesskey="I">index</a></li>
+        <li class="right" >
+          <a href="tensor_product_problems.html" title="Problems with Solutions"
+             accesskey="N">next</a> &nbsp; &nbsp;</li>
+        <li class="right" >
+          <a href="tensor_product_transformation-matrix.html" title="Kronecker Product as a Transformation Matrix"
+             accesskey="P">previous</a> &nbsp; &nbsp;</li>
+  <li><a href="index.html">Linear Algebra</a> &#187;</li>
+  
+        <li class="nav-item nav-item-this"><a href="">Kronecker Sum of Discrete Laplacians</a></li> 
+      </ul>
+    </div>
+  </div>
+  
+  <div class="content">  
+
+    <div class="document">
+      <div class="documentwrapper">
+        <div class="bodywrapper">
+          <div class="body">
+            
+  <section id="kronecker-sum-of-discrete-laplacians">
+<h1>Kronecker Sum of Discrete Laplacians<a class="headerlink" href="#kronecker-sum-of-discrete-laplacians" title="Permalink to this headline">¶</a></h1>
+<p>We consider a two-dimensional grid of <span class="math notranslate nohighlight">\(\,m\times n\,\)</span> points
+with a spacing <span class="math notranslate nohighlight">\(\,h.\ \)</span> <span class="math notranslate nohighlight">\(\\\)</span>
+Application of the finite difference method with the five-point stencil <a class="footnote-reference brackets" href="#id3" id="id1">1</a></p>
+<div class="math notranslate nohighlight">
+\[\begin{split}\begin{array}{ccc}
+&amp; (x-h,y) &amp;
+\\
+&amp; | &amp;
+\\
+(x,y-h) &amp; -\quad (x,y)\quad - &amp; (x,y+h)
+\\
+&amp; | &amp;
+\\
+&amp; (x+h,y) &amp;
+\end{array}\end{split}\]</div>
+<p>leads to the approximate expression for the Laplacian of a function
+<span class="math notranslate nohighlight">\(\,f(x,y)\,\)</span> defined on the grid:</p>
+<div class="math notranslate nohighlight">
+\[\Delta f(x,y)\ \approx\
+\frac{1}{h^2}\ \
+[\,f(x-h,y)+f(x,y-h)+f(x,y+h)+f(x+h,y)-4\,f(x,y)\,].\]</div>
+<p>We shall put henceforth <span class="math notranslate nohighlight">\(\,h=1.\ \)</span>
+Thus <span class="math notranslate nohighlight">\(\,x=1,2,\ldots,m,\ y=1,2,\ldots,n,\ \)</span> and</p>
+<div class="math notranslate nohighlight">
+\[\Delta f(x,y)\ =\
+\Delta^{(xx)} f(x,y)\ +\ \Delta^{(yy)} f(x,y)\]</div>
+<p>where the 2nd order partial derivatives correspond to the three-point
+stencil in one dimension:</p>
+<div class="math notranslate nohighlight" id="equation-deltas">
+<span class="eqno">(1)<a class="headerlink" href="#equation-deltas" title="Permalink to this equation">¶</a></span>\[ \begin{align}\begin{aligned}\Delta^{(xx)} f(x,y)\ \equiv\
+\frac{\partial^{\,2}}{\partial x^2}\ f(x,y) \approx\
+f(x-1,y)\ - \ 2\,f(x,y)\ + \ f(x+1,y),\\\Delta^{(yy)} f(x,y)\ \equiv\
+\frac{\partial^{\,2}}{\partial y^2}\ f(x,y) \approx\
+f(x,y-1)\ - \ 2\,f(x,y)\ +\ f(x,y+1).\end{aligned}\end{align} \]</div>
+<p>To write these relations in a matrix form, we use the matrix notation:</p>
+<div class="math notranslate nohighlight">
+\[\begin{split}\begin{array}{rl}
+f(x,y) \rightarrow f_{xy}\,, &amp;
+\boldsymbol{f}\ :\,=\ [\,f_{xy}\,]_{\,m \times n}\,;
+\\
+\Delta f(x,y) \rightarrow (\Delta f)_{xy}\,, &amp;
+\boldsymbol{\Delta} f\ :\,=\ [\,(\Delta f)_{xy}\,]_{\,m \times n}\,;
+\\ \\
+\Delta^{(xx)} f(x,y) \rightarrow (\Delta^{(xx)} f)_{xy}\,, &amp;
+\boldsymbol{\Delta}^{(xx)} f\ :\,=\ [\,\Delta^{(xx)} f)_{xy}\,]_{\,m \times n}\,;
+\\
+\Delta^{(yy)} f(x,y) \rightarrow (\Delta^{(yy)} f)_{xy}\,, &amp;
+\boldsymbol{\Delta}^{(yy)} f\ :\,=\ [\,\Delta^{(yy)} f)_{xy}\,]_{\,m \times n}\,;
+\\ \\
+\boldsymbol{D}^{(xx)}\ =\ [\,d^{(xx)}_{vw}\,]_{m\times m}\,, &amp;
+\boldsymbol{D}^{(yy)}\ =\ [\,d^{(yy)}_{vw}\,]_{n\times n}\,.
+\end{array}\end{split}\]</div>
+<p>The index <span class="math notranslate nohighlight">\(\,y\in\{1,2,\ldots,n\}\,\)</span> being fixed,
+the first of Eqs. <a class="reference internal" href="#equation-deltas">(1)</a> can be rewritten as</p>
+<div class="math notranslate nohighlight">
+\[ \begin{align}\begin{aligned}(\Delta^{(xx)} f)_{xy}\ \ =\ \
+\displaystyle\sum_{w=1}^m\ d^{(xx)}_{xw}\ f_{wy}\,,
+\qquad \forall\ x = 1,2,\ldots,m;\\\boldsymbol{\Delta}^{(xx)} f\ \ =\ \
+\boldsymbol{D}^{(xx)}\cdot\,\boldsymbol{f}\,,\\\boldsymbol{\Lambda}^{mn}(\boldsymbol{\Delta}^{(xx)}f)\ =\
+(\boldsymbol{D}^{(xx)}\otimes\boldsymbol{I}_n)\ \cdot\
+\boldsymbol{\Lambda}^{mn}(\boldsymbol{f})\,.\end{aligned}\end{align} \]</div>
+<p>Here <span class="math notranslate nohighlight">\(\,\boldsymbol{\Lambda}^{mn}(\boldsymbol{A})\,\)</span> is the column
+of coordinates of a <span class="math notranslate nohighlight">\(\,m\times n\,\)</span> matrix <span class="math notranslate nohighlight">\(\,\boldsymbol{A}\,\)</span>
+in the standard basis of the vector space <span class="math notranslate nohighlight">\(\,M_{m\times n}(K).\ \)</span>
+The last formula above is the vectorized form of the preceding matrix equation
+(see the section ‘Vectorization of Matrices’ in this chapter).</p>
+<p>On the other hand, for a fixed <span class="math notranslate nohighlight">\(\,x\in\{1,2,\ldots,m\},\ \)</span>
+the second equation in <a class="reference internal" href="#equation-deltas">(1)</a> yields</p>
+<div class="math notranslate nohighlight">
+\[ \begin{align}\begin{aligned}(\Delta^{(yy)} f)_{xy}\ \ =\ \
+\displaystyle\sum_{v=1}^n\ d^{(yy)}_{yv}\ f_{xv}\ \ =\ \
+\displaystyle\sum_{v=1}^n\ f_{xv}\ \left[\,d^{(yy)}\,\right]_{vy}^{\,T}\,,
+\qquad \forall\ y = 1,2,\ldots,n;\\\boldsymbol{\Delta}^{(yy)} f\ \ =\ \
+\boldsymbol{f}\,\cdot\,\left[\,\boldsymbol{D}^{(yy)}\,\right]^{\,T}\,,\\\boldsymbol{\Lambda}^{mn}(\boldsymbol{\Delta}^{(yy)}f)\ =\
+(\boldsymbol{I}_m\otimes\boldsymbol{D}^{(yy)})\ \cdot\
+ \boldsymbol{\Lambda}^{mn}(\boldsymbol{f})\end{aligned}\end{align} \]</div>
+<p>(once again we used vectorization formulas for a matrix product
+from a preceding section).</p>
+<p>Gathering together the partial results for <span class="math notranslate nohighlight">\(\ \,\boldsymbol{\Delta}f\,=\,
+\boldsymbol{\Delta}^{(xx)}f\ + \ \boldsymbol{\Delta}^{(yy)}f\,,\ \ \)</span>
+we obtain</p>
+<div class="math notranslate nohighlight">
+\[\blacktriangleright\quad
+\boldsymbol{\Lambda}^{mn}(\boldsymbol{\Delta}f)\ =\
+\left(\boldsymbol{D}^{(xx)}\oplus\,\boldsymbol{D}^{(yy)}\right)\ \cdot\
+\boldsymbol{\Lambda}^{mn}(\boldsymbol{f})\,,\]</div>
+<p>where the <span class="math notranslate nohighlight">\(\,\)</span> <em>Kronecker sum</em> <span class="math notranslate nohighlight">\(\,\)</span> of matrices
+<span class="math notranslate nohighlight">\(\,\boldsymbol{D}^{(xx)}\in M_m(K)\ \)</span> and
+<span class="math notranslate nohighlight">\(\,\boldsymbol{D}^{(yy)}\in M_n(K)\ \)</span> is defined as</p>
+<div class="math notranslate nohighlight">
+\[\triangleright\quad
+\boldsymbol{D}^{(xx)}\oplus\,\boldsymbol{D}^{(yy)}\ :\,=\ \,
+\boldsymbol{D}^{(xx)}\otimes\,\boldsymbol{I}_n\ +\
+\boldsymbol{I}_m\otimes\,\boldsymbol{D}^{(yy)}\,.\]</div>
+<p>To get some idea how the matrices <span class="math notranslate nohighlight">\(\,\boldsymbol{D}^{(xx)}\ \)</span>
+and <span class="math notranslate nohighlight">\(\,\boldsymbol{D}^{(yy)}\ \)</span> look, we shall use the tools of Sage.
+The function <code class="docutils literal notranslate"><span class="pre">ML(n)</span></code> (‘Minus Laplacian’) returns the matrix
+<span class="math notranslate nohighlight">\(\,\boldsymbol{D}^{(xx)}\ \)</span> or <span class="math notranslate nohighlight">\(\,\boldsymbol{D}^{(yy)}\ \)</span>
+of a given size <span class="math notranslate nohighlight">\(\,n:\)</span></p>
+<div class='sage_linked'><script type='text/x-sage'>def ML(n):
+
+    M = matrix(QQ,n)
+    M[0,0],M[0,1] = -1,1
+    M[n-1,n-2],M[n-1,n-1] = 1,-1
+    for i in range(1,n-1): M[i,i-1],M[i,i],M[i,i+1] =  1,-2,1
+
+    return M
+
+ML(4)</script></div><p>For example, for a <span class="math notranslate nohighlight">\(\,3\times 5\ \)</span> grid of 15 points <span class="math notranslate nohighlight">\(\,\)</span>
+(<span class="math notranslate nohighlight">\(m=3,\ n=5\)</span>) <span class="math notranslate nohighlight">\(\,\)</span> the matrices read:</p>
+<div class="math notranslate nohighlight">
+\[\begin{split}\boldsymbol{D}^{(xx)}\ =\
+\left[\begin{array}{rrr}
+-1 &amp;  1 &amp;  0 \\
+ 1 &amp; -2 &amp;  1 \\
+ 0 &amp;  1 &amp; -1
+\end{array}\right]
+\,,\qquad
+\boldsymbol{D}^{(yy)}\ =\
+\left[\begin{array}{rrrrr}
+-1 &amp;  1 &amp;  0 &amp;  0 &amp;  0 \\
+ 1 &amp; -2 &amp;  1 &amp;  0 &amp;  0 \\
+ 0 &amp;  1 &amp; -2 &amp;  1 &amp;  0 \\
+ 0 &amp;  0 &amp;  1 &amp; -2 &amp;  1 \\
+ 0 &amp;  0 &amp;  0 &amp;  1 &amp; -1
+\end{array}\right]\,.\end{split}\]</div>
+<p>Unlike the internal rows, the first and the last rows of these matrices
+do not result from <a class="reference internal" href="#equation-deltas">(1)</a>.
+Instead, they have been chosen so that <span class="math notranslate nohighlight">\(\,\boldsymbol{D}^{(xx)}\ \)</span>
+or <span class="math notranslate nohighlight">\(\,\boldsymbol{D}^{(yy)}\ \)</span> are the negative Laplacian matrix <a class="footnote-reference brackets" href="#id4" id="id2">2</a>
+of a one-dimensional grid with <span class="math notranslate nohighlight">\(\,m\,\)</span> or <span class="math notranslate nohighlight">\(\,n\,\)</span> points,
+respectively.</p>
+<p>The code below shows the matrix
+<span class="math notranslate nohighlight">\(\,\boldsymbol{D}^{(xx)}\oplus\,\boldsymbol{D}^{(yy)}\ \)</span>
+for a <span class="math notranslate nohighlight">\(\,3\times 5\ \)</span> grid of 15 points <span class="math notranslate nohighlight">\(\,\)</span>
+(<span class="math notranslate nohighlight">\(m=3,n=5\)</span>):</p>
+<div class='sage_linked'><script type='text/x-sage'>try:
+    D3 = ML(3); D5 = ML(5)
+    I3 = identity_matrix(QQ,3); I5 = identity_matrix(QQ,5)
+    DD = D3.tensor_product(I5) + I3.tensor_product(D5)
+    DD.subdivide([5,10],[5,10]); show(DD)
+except NameError: print "Execute the code in the previous cell!"</script></div><dl class="footnote brackets">
+<dt class="label" id="id3"><span class="brackets"><a class="fn-backref" href="#id1">1</a></span></dt>
+<dd><p><a class="reference external" href="https://en.wikipedia.org/wiki/Five-point_stencil">https://en.wikipedia.org/wiki/Five-point_stencil</a></p>
+</dd>
+<dt class="label" id="id4"><span class="brackets"><a class="fn-backref" href="#id2">2</a></span></dt>
+<dd><p><a class="reference external" href="https://en.wikipedia.org/wiki/Laplacian_matrix">https://en.wikipedia.org/wiki/Laplacian_matrix</a></p>
+</dd>
+</dl>
+</section>
+
+
+          </div>
+        </div>
+      </div>
+      <div class="sphinxsidebar" role="navigation" aria-label="main navigation">
+        <div class="sphinxsidebarwrapper">
+  <h4>Previous topic</h4>
+  <p class="topless"><a href="tensor_product_transformation-matrix.html"
+                        title="previous chapter">Kronecker Product as a Transformation Matrix</a></p>
+  <h4>Next topic</h4>
+  <p class="topless"><a href="tensor_product_problems.html"
+                        title="next chapter">Problems with Solutions</a></p>
+  <div role="note" aria-label="source link">
+    <h3>This Page</h3>
+    <ul class="this-page-menu">
+      <li><a href="_sources/tensor_product_Kronecker-sum.rst.txt"
+            rel="nofollow">Show Source</a></li>
+    </ul>
+   </div>
+<div id="searchbox" style="display: none" role="search">
+  <h3 id="searchlabel">Quick search</h3>
+    <div class="searchformwrapper">
+    <form class="search" action="search.html" method="get">
+      <input type="text" name="q" aria-labelledby="searchlabel" />
+      <input type="submit" value="Go" />
+    </form>
+    </div>
+</div>
+<script>$('#searchbox').show(0);</script>
+        </div>
+      </div>
+      <div class="clearer"></div>
+    </div>
+  </div>
+  <div class="relbar-bottom">
+    
+    <div class="related" role="navigation" aria-label="related navigation">
+      <h3>Navigation</h3>
+      <ul>
+        <li class="right" style="margin-right: 10px">
+          <a href="genindex.html" title="General Index"
+             >index</a></li>
+        <li class="right" >
+          <a href="tensor_product_problems.html" title="Problems with Solutions"
+             >next</a> &nbsp; &nbsp;</li>
+        <li class="right" >
+          <a href="tensor_product_transformation-matrix.html" title="Kronecker Product as a Transformation Matrix"
+             >previous</a> &nbsp; &nbsp;</li>
+  <li><a href="index.html">Linear Algebra</a> &#187;</li>
+  
+        <li class="nav-item nav-item-this"><a href="">Kronecker Sum of Discrete Laplacians</a></li> 
+      </ul>
+    </div>
+  </div>
+  
+  <div class="footer">
+    <a class="logo" href="http://icse.us.edu.pl/" target="_blank"><img src="_static/logo-icse.png" alt="ICSE"/></a><br/>
+    &copy; Copyright 2018, Jan Aksamit, Joanna Marzec, and  Marcin Kostur.
+    Last updated on Jan 29, 2022.
+    Created using <a href="http://sphinx.pocoo.org/">Sphinx</a> 4.0.1.
+  </div>
+  </body>
+</html>

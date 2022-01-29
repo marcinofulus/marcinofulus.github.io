@@ -1,0 +1,505 @@
+
+
+  
+<!DOCTYPE html>
+
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" /><meta name="generator" content="Docutils 0.17: http://docutils.sourceforge.net/" />
+
+    <title>Appendices &#8212; Linear Algebra</title>
+    <link rel="stylesheet" type="text/css" href="_static/pygments.css" />
+    <link rel="stylesheet" type="text/css" href="_static/cloud.css" />
+    <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Noticia+Text|Open+Sans|Droid+Sans+Mono&amp;subset=latin,latin-ext" type="text/css" />
+    <script data-url_root="./" id="documentation_options" src="_static/documentation_options.js"></script>
+    <script src="_static/jquery.js"></script>
+    <script src="_static/underscore.js"></script>
+    <script src="_static/doctools.js"></script>
+    <script async="async" src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js"></script>
+    <script src="_static/jquery.cookie.js"></script>
+    <script src="_static/cloud.js"></script>
+    <script type="text/javascript" src="http://sagecell.sagemath.org/static/jquery.min.js"></script>
+    <script type="text/javascript" src="http://sagecell.sagemath.org/embedded_sagecell.js"></script>
+    <script type="text/javascript">
+        sagecell.makeSagecell({inputLocation: ".sage_linked",
+                               linked: true});
+        sagecell.makeSagecell({inputLocation: ".sage_unlinked",
+                               linked: false});
+    </script>
+
+    <style type="text/css">
+        .sagecell .CodeMirror-scroll {
+            overflow-y: hidden;
+            overflow-x: auto;
+        }
+        .sagecell .CodeMirror {
+            height: auto;
+        }
+    </style>
+    
+    <link rel="index" title="Index" href="genindex.html" />
+    <link rel="search" title="Search" href="search.html" />
+    <link rel="next" title="Exercises and Problems" href="operations_on_matrices_problems.html" />
+    <link rel="prev" title="Permutation Matrices" href="operations_on_matrices_permutations.html" />
+ 
+  <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, minimum-scale=1">
+  </head><body>
+  <div class="relbar-top">
+    
+    <div class="related" role="navigation" aria-label="related navigation">
+      <h3>Navigation</h3>
+      <ul>
+        <li class="right" style="margin-right: 10px">
+          <a href="genindex.html" title="General Index"
+             accesskey="I">index</a></li>
+        <li class="right" >
+          <a href="operations_on_matrices_problems.html" title="Exercises and Problems"
+             accesskey="N">next</a> &nbsp; &nbsp;</li>
+        <li class="right" >
+          <a href="operations_on_matrices_permutations.html" title="Permutation Matrices"
+             accesskey="P">previous</a> &nbsp; &nbsp;</li>
+  <li><a href="index.html">Linear Algebra</a> &#187;</li>
+  
+        <li class="nav-item nav-item-this"><a href="">Appendices</a></li> 
+      </ul>
+    </div>
+  </div>
+  
+  <div class="content">  
+
+    <div class="document">
+      <div class="documentwrapper">
+        <div class="bodywrapper">
+          <div class="body">
+            
+  <section id="appendices">
+<h1>Appendices<a class="headerlink" href="#appendices" title="Permalink to this headline">¶</a></h1>
+<section id="a1-elementary-operations-and-elementary-matrices">
+<h2>A1. <span class="math notranslate nohighlight">\(\,\)</span> Elementary Operations and Elementary Matrices<a class="headerlink" href="#a1-elementary-operations-and-elementary-matrices" title="Permalink to this headline">¶</a></h2>
+<p>We shall prove here some assertions formulated in previous sections
+of this Chapter.</p>
+<p><strong>A.)</strong> To perform a (row) elementary operation <span class="math notranslate nohighlight">\(\,O\,\)</span> on the product
+<span class="math notranslate nohighlight">\(\,\boldsymbol{A}\boldsymbol{B}\ \)</span> of two matrices, it is enough
+to apply <span class="math notranslate nohighlight">\(\,O\,\)</span> to the first factor only:
+<span class="math notranslate nohighlight">\(\ O(\boldsymbol{A}\boldsymbol{B}) = (O\boldsymbol{A})\,\boldsymbol{B}.\ \)</span>
+This can be expressed as</p>
+<div class="admonition-lemma-math admonition">
+<p class="admonition-title">Lemma. <span class="math notranslate nohighlight">\(\,\)</span></p>
+<p>If
+<span class="math notranslate nohighlight">\(\,\boldsymbol{A}\in M_{m\times p}(K),\
+\boldsymbol{B}\in M_{p\times n}(K),\ \)</span>
+then <span class="math notranslate nohighlight">\(\,\)</span> for <span class="math notranslate nohighlight">\(\ i,j=1,\ldots,m:\)</span></p>
+<ol class="arabic simple">
+<li><p><span class="math notranslate nohighlight">\(\ O_1(i,j)\,(\boldsymbol{A}\boldsymbol{B})\ \ =\ \
+[\,O_1(i,j)\,\boldsymbol{A}\,]\ \boldsymbol{B}\,,\)</span></p></li>
+<li><p><span class="math notranslate nohighlight">\(\ O_2(i,a)\,(\boldsymbol{A}\boldsymbol{B})\ \ =\ \
+[\,O_2(i,a)\,\boldsymbol{A}\,]\ \boldsymbol{B}\,,\qquad (a\ne 0)\)</span></p></li>
+<li><p><span class="math notranslate nohighlight">\(\ O_3(i,j,a)\,(\boldsymbol{A}\boldsymbol{B})\ \ =\ \
+[\,O_3(i,j,a)\,\boldsymbol{A}\,]\ \boldsymbol{B}\,.\)</span></p></li>
+</ol>
+</div>
+<p><strong>Proof.</strong></p>
+<p>We shall make use of the Row Rule of Matrix Multiplication:</p>
+<div class="math notranslate nohighlight">
+\[\begin{split}\boldsymbol{A}\boldsymbol{B}\ \equiv\
+\left[\begin{array}{c}
+      \boldsymbol{A}_1 \\
+      \boldsymbol{A}_2 \\
+      \dots            \\
+      \boldsymbol{A}_m \end{array}\right]\boldsymbol{B}
+\ \ =\ \
+\left[\begin{array}{c}
+      \boldsymbol{A}_1\,\boldsymbol{B} \\
+      \boldsymbol{A}_2\,\boldsymbol{B} \\
+      \dots            \\
+      \boldsymbol{A}_m\,\boldsymbol{B} \end{array}\right]\,.\end{split}\]</div>
+<p>Thus the relations
+<span class="math notranslate nohighlight">\(\,\)</span> 1., <span class="math notranslate nohighlight">\(\,\)</span> 2., <span class="math notranslate nohighlight">\(\,\)</span> and <span class="math notranslate nohighlight">\(\,\)</span> 3. <span class="math notranslate nohighlight">\(\,\)</span>
+in the Lemma are derived as follows:</p>
+<div class="math notranslate nohighlight">
+\[ \begin{align}\begin{aligned}\begin{split}O_1(i,j)\,(\boldsymbol{A}\boldsymbol{B})\ =\
+O_1(i,j)\,
+\left[\begin{array}{c}
+      \dots                            \\
+      \boldsymbol{A}_i\,\boldsymbol{B} \\
+      \dots                            \\
+      \boldsymbol{A}_j\,\boldsymbol{B} \\
+      \dots                            \\
+      \end{array}
+\right]\ =\
+\left[\begin{array}{c}
+      \dots                            \\
+      \boldsymbol{A}_j\,\boldsymbol{B} \\
+      \dots                            \\
+      \boldsymbol{A}_i\,\boldsymbol{B} \\
+      \dots                            \\
+      \end{array}
+\right]\ =\
+\left[\begin{array}{c}
+      \dots            \\
+      \boldsymbol{A}_j \\
+      \dots            \\
+      \boldsymbol{A}_i \\
+      \dots            \\
+      \end{array}
+\right]\,\boldsymbol{B}\ =\
+[\,O_1(i,j)\,\boldsymbol{A}\,]\,\boldsymbol{B}\ ;\end{split}\\\begin{split}O_2(i,a)\,(\boldsymbol{A}\boldsymbol{B})\ =\
+O_2(i,a)\,
+\left[\begin{array}{c}
+      \boldsymbol{A}_1\,\boldsymbol{B} \\
+      \dots                            \\
+      \boldsymbol{A}_i\,\boldsymbol{B} \\
+      \dots                            \\
+      \boldsymbol{A}_m\,\boldsymbol{B} \\
+      \end{array}
+\right]\ =\
+\left[\begin{array}{c}
+      \boldsymbol{A}_1\,\boldsymbol{B}    \\
+      \dots                               \\
+      a\,\boldsymbol{A}_i\,\boldsymbol{B} \\
+      \dots                               \\
+      \boldsymbol{A}_m\,\boldsymbol{B}    \\
+      \end{array}
+\right]\ =\
+\left[\begin{array}{c}
+      \boldsymbol{A}_1    \\
+      \dots               \\
+      a\,\boldsymbol{A}_i \\
+      \dots               \\
+      \boldsymbol{A}_m    \\
+      \end{array}
+\right]\boldsymbol{B}\ =\
+[\,O_2(i,a)\,\boldsymbol{A}\,]\ \boldsymbol{B}\,;\end{split}\end{aligned}\end{align} \]</div>
+<div class="math notranslate nohighlight">
+\[ \begin{align}\begin{aligned}\begin{split}O_3(i,j,a)\,(\boldsymbol{A}\boldsymbol{B})\ \ =\ \
+O_3(i,j,a)\,
+\left[\begin{array}{c}
+      \dots                            \\
+      \boldsymbol{A}_i\,\boldsymbol{B} \\
+      \dots                            \\
+      \boldsymbol{A}_j\,\boldsymbol{B} \\
+      \dots                            \\
+      \end{array}
+\right]\ \ =\ \
+\left[\begin{array}{c}
+      \dots                                      \\
+      \boldsymbol{A}_i\,\boldsymbol{B}\, +\, a\,
+      \boldsymbol{A}_j\,\boldsymbol{B}           \\
+      \dots                                      \\
+      \boldsymbol{A}_j\,\boldsymbol{B}           \\
+      \dots                                      \\
+      \end{array}
+\right]\ \ =\end{split}\\\begin{split}=\ \ \
+\left[\begin{array}{c}
+      \dots                                                      \\
+      (\boldsymbol{A}_i\ + \, a\boldsymbol{A}_j)\,\boldsymbol{B} \\
+      \dots                                                      \\
+      \boldsymbol{A}_j\,\boldsymbol{B}                           \\
+      \dots                                                      \\
+      \end{array}
+\right]\ \ \ =\ \ \
+\left[\begin{array}{c}
+      \dots                                 \\
+      \boldsymbol{A}_i\ + a\boldsymbol{A}_j \\
+      \dots                                 \\
+      \boldsymbol{A}_j                      \\
+      \dots                                 \\
+      \end{array}
+\right]\,\boldsymbol{B}\ \ \ =\ \ \
+[\,O_3(i,j,a)\,\boldsymbol{A}\,]\ \boldsymbol{B}\,.\quad\bullet\end{split}\end{aligned}\end{align} \]</div>
+<p><strong>B.)</strong> Application of a (row) elementary operation to a rectangulara matrix
+<span class="math notranslate nohighlight">\(\,\boldsymbol{A}\ \)</span> is equivalent to left-multiplying
+<span class="math notranslate nohighlight">\(\,\boldsymbol{A}\ \)</span> by the corresponding elementary matrix.
+This has been stated as</p>
+<div class="admonition-theorem-2-math admonition">
+<p class="admonition-title">Theorem 2. <span class="math notranslate nohighlight">\(\,\)</span></p>
+<p>Let <span class="math notranslate nohighlight">\(\,\boldsymbol{A}\in M_{m\times n}(K).\ \)</span>
+Then <span class="math notranslate nohighlight">\(\,\)</span> for <span class="math notranslate nohighlight">\(\ i,j=1,\ldots,m:\)</span></p>
+<ol class="arabic simple">
+<li><p><span class="math notranslate nohighlight">\(\ O_1(i,j)\,\boldsymbol{A}\ =
+\ \boldsymbol{E}_1(i,j)\,\boldsymbol{A}\,,\)</span></p></li>
+<li><p><span class="math notranslate nohighlight">\(\ O_2(i,a)\,\boldsymbol{A}\ =
+\ \boldsymbol{E}_2(i,a)\,\boldsymbol{A}\,,\qquad (a\ne 0)\)</span></p></li>
+<li><p><span class="math notranslate nohighlight">\(\ O_3(i,j,a)\,\boldsymbol{A}\ =
+\ \boldsymbol{E}_3(i,j,a)\,\boldsymbol{A}\,,\)</span></p></li>
+</ol>
+<p>where
+<span class="math notranslate nohighlight">\(\ \ \boldsymbol{E}_1(i,j),\
+\boldsymbol{E}_2(i,a),\ \boldsymbol{E}_3(i,j,a)\in M_m(K).\)</span></p>
+</div>
+<p><strong>Proof.</strong> <span class="math notranslate nohighlight">\(\ \)</span> Taking into account that
+<span class="math notranslate nohighlight">\(\,\boldsymbol{A} = \boldsymbol{I}_m\boldsymbol{A}\ \)</span>
+and using the Lemma as well as the definition of elementary matrices,
+we get</p>
+<p><span class="math notranslate nohighlight">\(\ O_1(i,j)\,\boldsymbol{A}\ =
+\ O_1(i,j)\,(\boldsymbol{I}_m\boldsymbol{A})\ =
+\ [\,O_1(i,j)\,\boldsymbol{I}_m\,]\,\boldsymbol{A}\ =
+\ \boldsymbol{E}_1(i,j)\,\boldsymbol{A}\,,\)</span></p>
+<p><span class="math notranslate nohighlight">\(\ O_2(i,a)\,\boldsymbol{A}\ =
+\ O_2(i,a)\,(\boldsymbol{I}_m\boldsymbol{A})\ =
+\ [\,O_2(i,a)\,\boldsymbol{I}_m\,]\,\boldsymbol{A}\ =
+\ \boldsymbol{E}_2(i,a)\,\boldsymbol{A}\,,\)</span></p>
+<p><span class="math notranslate nohighlight">\(\ O_3(i,j,a)\,\boldsymbol{A}\ =
+\ O_3(i,j,a)\,(\boldsymbol{I}_m\boldsymbol{A})\ =
+\ [\,O_3(i,j,a)\,\boldsymbol{I}_m\,]\,\boldsymbol{A}\ =
+\ \boldsymbol{E}_3(i,j,a)\,\boldsymbol{A}\,.\quad\bullet\)</span></p>
+<p>In passing we note that composing elementary operations
+<span class="math notranslate nohighlight">\(\,O_k,\ O_l\ \)</span> results in multiplying their matrices
+<span class="math notranslate nohighlight">\(\,\boldsymbol{E}_k = O_k\,\boldsymbol{I}_m,\
+\boldsymbol{E}_l = O_l\,\boldsymbol{I}_m\,.\ \)</span></p>
+<p>Indeed, due to the associativity of matrix multiplication, we get</p>
+<div class="math notranslate nohighlight">
+\[(O_l\circ O_k)\,\boldsymbol{A}\ =\ O_l\ (O_k\,\boldsymbol{A})\ =\
+O_l\,(\boldsymbol{E}_k\,\boldsymbol{A})\ =\
+\boldsymbol{E}_l\,(\boldsymbol{E}_k\,\boldsymbol{A})\ =\
+(\boldsymbol{E}_l\cdot\boldsymbol{E}_k)\,\boldsymbol{A}\,.\]</div>
+<p><strong>C.)</strong> Elementary matrices are invertible, the inverse
+of an elementary matrix being also an elementary matrix.
+This has been  enunciated in more detail as</p>
+<div class="admonition-proposition-2-math admonition">
+<p class="admonition-title">Proposition 2. <span class="math notranslate nohighlight">\(\,\)</span></p>
+<p>Let <span class="math notranslate nohighlight">\(\ \boldsymbol{E}_1(i,j),\ \boldsymbol{E}_2(i,a),\
+\boldsymbol{E}_3(i,j,a)\in M_m(K),\ \,
+i,j=1,\ldots,m;\ \,i \neq j\,.\ \)</span> Then</p>
+<ol class="arabic simple">
+<li><p><span class="math notranslate nohighlight">\(\ [\boldsymbol{E}_1(i,j)]^{-1}\,=\ \boldsymbol{E}_1(i,j),\)</span></p></li>
+<li><p><span class="math notranslate nohighlight">\(\ [\boldsymbol{E}_2(i,a)]^{-1}\,=
+\ \boldsymbol{E}_2(i,a^{-1}),\qquad (a\ne 0)\)</span></p></li>
+<li><p><span class="math notranslate nohighlight">\(\ [\boldsymbol{E}_3(i,j,a)]^{-1}\,=\ \boldsymbol{E}_3(i,j,-a).\)</span></p></li>
+</ol>
+</div>
+<p><strong>Proof.</strong></p>
+<p>1.) <span class="math notranslate nohighlight">\(\:\)</span>A twofold transposition of any <span class="math notranslate nohighlight">\(i\)</span>-th and <span class="math notranslate nohighlight">\(j\)</span>-th
+rows is the identity operation:</p>
+<div class="math notranslate nohighlight">
+\[[\,O_1(i,j)\,\circ\,O_1(i,j)\,]\ \ \boldsymbol{I}_m\ \ =
+\ \ \boldsymbol{I}_m\,.\]</div>
+<p>The left-hand side may be transformed as follows:</p>
+<div class="math notranslate nohighlight">
+\[[\,O_1(i,j)\,\circ\,O_1(i,j)\,]\ \,\boldsymbol{I}_m\ =\
+[\,\boldsymbol{E}_1(i,j) \cdot \boldsymbol{E}_1(i,j)\,]\,
+\boldsymbol{I}_m\ =\
+\boldsymbol{E}_1(i,j) \cdot \boldsymbol{E}_1(i,j)\,.\]</div>
+<p>Thus
+<span class="math notranslate nohighlight">\(\ \ \boldsymbol{E}_1(i,j) \cdot \boldsymbol{E}_1(i,j)\ =
+\ \boldsymbol{I}_m\,,\ \)</span> wherefrom
+<span class="math notranslate nohighlight">\(\ [\,\boldsymbol{E}_1(i,j)\,]^{-1} =\ \boldsymbol{E}_1(i,j)\,.\)</span></p>
+<p>2.) <span class="math notranslate nohighlight">\(\:\)</span> Composing <span class="math notranslate nohighlight">\(\,O_2(i,a)\ \,\)</span> with
+<span class="math notranslate nohighlight">\(\ \ O_2(i,a^{-1})\,\)</span> results in the identity operation:</p>
+<div class="math notranslate nohighlight">
+\[ \begin{align}\begin{aligned}\left[\,O_2(i,a^{-1})\,\circ\,O_2(i,a)\,\right]\ \ \boldsymbol{I}_m\ \ =
+\ \ \boldsymbol{I}_m\,,\\\left[\,O_2(i,a^{-1})\,\circ\,O_2(i,a)\,\right]\ \,\boldsymbol{I}_m\ =\
+\left[\,\boldsymbol{E}_2(i,a^{-1})\cdot\boldsymbol{E}_2(i,a)\,\right]\,
+\boldsymbol{I}_m\ =\
+\boldsymbol{E}_2(i,a^{-1})\cdot\boldsymbol{E}_2(i,a)\,.\end{aligned}\end{align} \]</div>
+<p>Thus
+<span class="math notranslate nohighlight">\(\ \ \boldsymbol{E}_2(i,a^{-1}) \cdot \boldsymbol{E}_2(i,a)\ =
+\ \boldsymbol{I}_m\,,\ \)</span> wherefrom
+<span class="math notranslate nohighlight">\(\ [\,\boldsymbol{E}_2(i,a)\,]^{-1} =\ \boldsymbol{E}_2(i,a^{-1})\,.\)</span></p>
+<p>3.) <span class="math notranslate nohighlight">\(\ \)</span> Composition of  <span class="math notranslate nohighlight">\(\,O_3(i,j,a)\ \,\)</span> with
+<span class="math notranslate nohighlight">\(\ \ O_3(i,j,-a)\,\)</span> yields the identity operation:</p>
+<div class="math notranslate nohighlight">
+\[[\,O_3(i,j,-a)\,\circ\,O_3(i,j,a)\,]\ \ \boldsymbol{I}_m\ \ =
+\ \ \boldsymbol{I}_m\,.\]</div>
+<p>Thus
+<span class="math notranslate nohighlight">\(\ \ \boldsymbol{E}_3(i,j,-a) \cdot \boldsymbol{E}_3(i,j,a)\ =
+\ \boldsymbol{I}_m\,\ \)</span> wherefrom
+<span class="math notranslate nohighlight">\(\ \,[\,\boldsymbol{E}_3(i,j,a)\,]^{-1} =\ \boldsymbol{E}_3(i,j,-a)\,.
+\quad\bullet\)</span></p>
+</section>
+<section id="a2-extended-reduced-row-echelon-form-of-a-matrix">
+<h2>A2. <span class="math notranslate nohighlight">\(\,\)</span> Extended (reduced row) Echelon Form of a Matrix<a class="headerlink" href="#a2-extended-reduced-row-echelon-form-of-a-matrix" title="Permalink to this headline">¶</a></h2>
+<p>The method <code class="docutils literal notranslate"><span class="pre">extended_echelon_form()</span></code> appends the identity matrix
+<span class="math notranslate nohighlight">\(\,\boldsymbol{I}_m\in M_m(K)\ \)</span> to the right of a given
+rectangular matrix <span class="math notranslate nohighlight">\(\,\boldsymbol{A}\in M_{m\times n}(K).\ \)</span>
+The obtained matrix with <span class="math notranslate nohighlight">\(\,m\,\)</span> rows and <span class="math notranslate nohighlight">\(\,n+m\,\)</span>
+columns is afterwards converted into the row echelon form. When the base
+ring of the matrix is a field, this is the reduced row echelon (rre)  form.
+Otherwise, if <span class="math notranslate nohighlight">\(\,\boldsymbol{A}\ \)</span> is built over a ring that is
+not a field, the returned echelon matrix will be non-reduced,
+i.e. its leading entries may be non-unital (unlike <code class="docutils literal notranslate"><span class="pre">rref()</span></code>, <span class="math notranslate nohighlight">\(\,\)</span>
+<code class="docutils literal notranslate"><span class="pre">extended_echelon_form()</span></code> does not automatically move
+to the rational field). <a class="footnote-reference brackets" href="#id2" id="id1">4</a></p>
+<p>The final <span class="math notranslate nohighlight">\(\,m\,\)</span> columns of the matrix returned by
+<code class="docutils literal notranslate"><span class="pre">extended_echelon_form()</span></code> provide a square matrix
+<span class="math notranslate nohighlight">\(\,\boldsymbol{D}\ \)</span> that transforms <span class="math notranslate nohighlight">\(\,\boldsymbol{A}\ \)</span>
+to the echelon form when it multiplies <span class="math notranslate nohighlight">\(\,\boldsymbol{A}\,\)</span>
+from the left. Obviously, for a non-singular square matrix
+<span class="math notranslate nohighlight">\(\,\boldsymbol{A}\,\)</span> we get <span class="math notranslate nohighlight">\(\,\boldsymbol{D}=
+\boldsymbol{A}^{-1}.\ \)</span> <span class="math notranslate nohighlight">\(\\\)</span></p>
+<p><strong>Example.</strong>
+Given the matrix <span class="math notranslate nohighlight">\(\ \ \boldsymbol{A}\ =\
+\left[\begin{array}{rrrrr}
+1 &amp; 0 &amp; 2 &amp; -1 &amp; 2 \\ -1 &amp; 1 &amp; -2 &amp; 3 &amp; -3 \\ 2 &amp; 0 &amp; 4 &amp; -2 &amp; 4
+\end{array}\right]\,\in\,M_{3\times 5}(Q)\,,\)</span> <span class="math notranslate nohighlight">\(\\\)</span></p>
+<p>we shall find its rre form and the matrix
+<span class="math notranslate nohighlight">\(\,\boldsymbol{D}\,\)</span> such that the product
+<span class="math notranslate nohighlight">\(\,\boldsymbol{D}\boldsymbol{A}\,\)</span> is the rre form
+of <span class="math notranslate nohighlight">\(\,\boldsymbol{A}\,.\)</span> <span class="math notranslate nohighlight">\(\\\)</span></p>
+<p><strong>1.)</strong> <span class="math notranslate nohighlight">\(\,\)</span> Basic approach.
+The rre form of <span class="math notranslate nohighlight">\(\,\boldsymbol{A}\ \)</span> may be achieved
+by two elementary operations:</p>
+<ul class="simple">
+<li><p><span class="math notranslate nohighlight">\(\,\)</span> to the second row add the first row,</p></li>
+<li><p><span class="math notranslate nohighlight">\(\,\)</span> from the third row subtract the doubled first row.</p></li>
+</ul>
+<p>The row operations being represented by elementary matrices, we get</p>
+<div class="math notranslate nohighlight">
+\[ \begin{align}\begin{aligned}O_3(2,0,-2)\,O_3(1,0,1)\,\boldsymbol{A}\ =\
+\boldsymbol{E}_3(2,0,-2)\,\boldsymbol{E}_3(1,0,1)\,\boldsymbol{A}\ =\\\begin{split}\\ =\
+\left[\begin{array}{rrr}
+    1 &amp; 0 &amp; 0 \\ 0 &amp; 1 &amp; 0 \\ -2 &amp; 0 &amp; 1
+\end{array}\right]\
+\left[\begin{array}{rrr}
+    1 &amp; 0 &amp; 0 \\ 1 &amp; 1 &amp; 0 \\  0 &amp; 0 &amp; 1
+\end{array}\right]\
+\left[\begin{array}{rrrrr}
+    1 &amp; 0 &amp; 2 &amp; -1 &amp; 2 \\ -1 &amp; 1 &amp; -2 &amp; 3 &amp; -3 \\ 2 &amp; 0 &amp; 4 &amp; -2 &amp; 4
+\end{array}\right]\ =\end{split}\\\begin{split}\\ =\
+\left[\begin{array}{rrr}
+    1 &amp; 0 &amp; 0 \\ 1 &amp; 1 &amp; 0 \\ -2 &amp; 0 &amp; 1
+\end{array}\right]\
+\left[\begin{array}{rrrrr}
+1 &amp; 0 &amp; 2 &amp; -1 &amp; 2 \\ -1 &amp; 1 &amp; -2 &amp; 3 &amp; -3 \\ 2 &amp; 0 &amp; 4 &amp; -2 &amp; 4
+\end{array}\right]\ =\
+\left[\begin{array}{rrrrr}
+1 &amp; 0 &amp; 2 &amp; -1 &amp; 2 \\  0 &amp; 1 &amp;  0 &amp; 2 &amp; -1 \\ 0 &amp; 0 &amp; 0 &amp; 0 &amp; 0
+\end{array}\right]\,.\end{split}\end{aligned}\end{align} \]</div>
+<p>The matrix <span class="math notranslate nohighlight">\(\,\boldsymbol{D}\,\)</span> in demand is given by</p>
+<div class="math notranslate nohighlight">
+\[\begin{split}\boldsymbol{D}_1\ =\
+\left[\begin{array}{rrr}
+ 1 &amp; 0 &amp; 0 \\
+ 1 &amp; 1 &amp; 0 \\
+-2 &amp; 0 &amp; 1
+\end{array}\right]\,.\end{split}\]</div>
+<p><strong>2.)</strong> <span class="math notranslate nohighlight">\(\,\)</span> Application of the method
+<span class="math notranslate nohighlight">\(\,\)</span> <code class="docutils literal notranslate"><span class="pre">extended_echelon_form()</span></code>.</p>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="n">sage</span><span class="p">:</span> <span class="n">A</span> <span class="o">=</span> <span class="n">matrix</span><span class="p">(</span><span class="n">QQ</span><span class="p">,[[</span> <span class="mi">1</span><span class="p">,</span> <span class="mi">0</span><span class="p">,</span> <span class="mi">2</span><span class="p">,</span><span class="o">-</span><span class="mi">1</span><span class="p">,</span> <span class="mi">2</span><span class="p">],</span>
+                     <span class="p">[</span><span class="o">-</span><span class="mi">1</span><span class="p">,</span> <span class="mi">1</span><span class="p">,</span><span class="o">-</span><span class="mi">2</span><span class="p">,</span> <span class="mi">3</span><span class="p">,</span><span class="o">-</span><span class="mi">3</span><span class="p">],</span>
+                     <span class="p">[</span> <span class="mi">2</span><span class="p">,</span> <span class="mi">0</span><span class="p">,</span> <span class="mi">4</span><span class="p">,</span><span class="o">-</span><span class="mi">2</span><span class="p">,</span> <span class="mi">4</span><span class="p">]])</span>
+
+<span class="c1"># Create a 2-block Ae_D composed of matrices Ae and D</span>
+<span class="c1"># (here Ae := A in the reduced row echelon form);</span>
+<span class="c1"># display the result divided into the Ae and D parts:</span>
+
+<span class="n">sage</span><span class="p">:</span> <span class="n">Ae_D</span> <span class="o">=</span> <span class="n">A</span><span class="o">.</span><span class="n">extended_echelon_form</span><span class="p">(</span><span class="n">subdivide</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
+<span class="n">sage</span><span class="p">:</span> <span class="n">Ae_D</span>
+
+<span class="p">[</span>   <span class="mi">1</span>    <span class="mi">0</span>    <span class="mi">2</span>   <span class="o">-</span><span class="mi">1</span>    <span class="mi">2</span><span class="o">|</span>   <span class="mi">0</span>    <span class="mi">0</span>  <span class="mi">1</span><span class="o">/</span><span class="mi">2</span><span class="p">]</span>
+<span class="p">[</span>   <span class="mi">0</span>    <span class="mi">1</span>    <span class="mi">0</span>    <span class="mi">2</span>   <span class="o">-</span><span class="mi">1</span><span class="o">|</span>   <span class="mi">0</span>    <span class="mi">1</span>  <span class="mi">1</span><span class="o">/</span><span class="mi">2</span><span class="p">]</span>
+<span class="p">[</span><span class="o">------------------------+--------------</span><span class="p">]</span>
+<span class="p">[</span>   <span class="mi">0</span>    <span class="mi">0</span>    <span class="mi">0</span>    <span class="mi">0</span>    <span class="mi">0</span><span class="o">|</span>   <span class="mi">1</span>    <span class="mi">0</span> <span class="o">-</span><span class="mi">1</span><span class="o">/</span><span class="mi">2</span><span class="p">]</span>
+</pre></div>
+</div>
+<p>Thus we come up with another value of <span class="math notranslate nohighlight">\(\,\boldsymbol{D}\,:\)</span></p>
+<div class="math notranslate nohighlight">
+\[\begin{split}\boldsymbol{D}_2\ \,=\ \,
+\frac{1}{2}\ \,
+\left[\begin{array}{rrr}
+0 &amp; 0 &amp;  1 \\
+0 &amp; 2 &amp;  1 \\
+2 &amp; 0 &amp; -1
+\end{array}\right]\,.\end{split}\]</div>
+<p>Both matrices, <span class="math notranslate nohighlight">\(\,\boldsymbol{D}_1\ \)</span> and <span class="math notranslate nohighlight">\(\,\boldsymbol{D}_2\,,\ \)</span>
+transform the matrix <span class="math notranslate nohighlight">\(\,\boldsymbol{A}\ \)</span> to the same (unique) rre form
+by multiplying it from the left:</p>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="n">sage</span><span class="p">:</span> <span class="n">A</span> <span class="o">=</span> <span class="n">matrix</span><span class="p">(</span><span class="n">QQ</span><span class="p">,[[</span> <span class="mi">1</span><span class="p">,</span> <span class="mi">0</span><span class="p">,</span> <span class="mi">2</span><span class="p">,</span><span class="o">-</span><span class="mi">1</span><span class="p">,</span> <span class="mi">2</span><span class="p">],</span>
+                     <span class="p">[</span><span class="o">-</span><span class="mi">1</span><span class="p">,</span> <span class="mi">1</span><span class="p">,</span><span class="o">-</span><span class="mi">2</span><span class="p">,</span> <span class="mi">3</span><span class="p">,</span><span class="o">-</span><span class="mi">3</span><span class="p">],</span>
+                     <span class="p">[</span> <span class="mi">2</span><span class="p">,</span> <span class="mi">0</span><span class="p">,</span> <span class="mi">4</span><span class="p">,</span><span class="o">-</span><span class="mi">2</span><span class="p">,</span> <span class="mi">4</span><span class="p">]])</span>
+
+<span class="n">sage</span><span class="p">:</span> <span class="n">D1</span> <span class="o">=</span> <span class="n">matrix</span><span class="p">(</span><span class="n">QQ</span><span class="p">,[[</span> <span class="mi">1</span><span class="p">,</span> <span class="mi">0</span><span class="p">,</span> <span class="mi">0</span><span class="p">],</span>
+                      <span class="p">[</span> <span class="mi">1</span><span class="p">,</span> <span class="mi">1</span><span class="p">,</span> <span class="mi">0</span><span class="p">],</span>
+                      <span class="p">[</span><span class="o">-</span><span class="mi">2</span><span class="p">,</span> <span class="mi">0</span><span class="p">,</span> <span class="mi">1</span><span class="p">]])</span>
+
+<span class="n">sage</span><span class="p">:</span> <span class="n">D2</span> <span class="o">=</span> <span class="n">matrix</span><span class="p">(</span><span class="n">QQ</span><span class="p">,[[</span><span class="mi">0</span><span class="p">,</span> <span class="mi">0</span><span class="p">,</span> <span class="mi">1</span><span class="p">],</span>
+                      <span class="p">[</span><span class="mi">0</span><span class="p">,</span> <span class="mi">2</span><span class="p">,</span> <span class="mi">1</span><span class="p">],</span>
+                      <span class="p">[</span><span class="mi">2</span><span class="p">,</span> <span class="mi">0</span><span class="p">,</span><span class="o">-</span><span class="mi">1</span><span class="p">]])</span><span class="o">/</span><span class="mi">2</span>
+<span class="n">sage</span><span class="p">:</span> <span class="n">D1</span><span class="o">*</span><span class="n">A</span> <span class="o">==</span> <span class="n">D2</span><span class="o">*</span><span class="n">A</span>
+
+<span class="kc">True</span>
+</pre></div>
+</div>
+<dl class="footnote brackets">
+<dt class="label" id="id2"><span class="brackets"><a class="fn-backref" href="#id1">4</a></span></dt>
+<dd><p><a class="reference external" href="http://doc.sagemath.org/html/en/reference/matrices/sage/matrix/matrix2.html">http://doc.sagemath.org/html/en/reference/matrices/sage/matrix/matrix2.html</a></p>
+</dd>
+</dl>
+</section>
+</section>
+
+
+          </div>
+        </div>
+      </div>
+      <div class="sphinxsidebar" role="navigation" aria-label="main navigation">
+        <div class="sphinxsidebarwrapper">
+  <div class="sphinxlocaltoc">
+  <h3><a href="index.html">Table Of Contents</a></h3>
+  <ul>
+<li><a class="reference internal" href="#">Appendices</a><ul>
+<li><a class="reference internal" href="#a1-elementary-operations-and-elementary-matrices">A1. <span class="math notranslate nohighlight">\(\,\)</span> Elementary Operations and Elementary Matrices</a></li>
+<li><a class="reference internal" href="#a2-extended-reduced-row-echelon-form-of-a-matrix">A2. <span class="math notranslate nohighlight">\(\,\)</span> Extended (reduced row) Echelon Form of a Matrix</a></li>
+</ul>
+</li>
+</ul>
+
+  </div>
+  <h4>Previous topic</h4>
+  <p class="topless"><a href="operations_on_matrices_permutations.html"
+                        title="previous chapter">Permutation Matrices</a></p>
+  <h4>Next topic</h4>
+  <p class="topless"><a href="operations_on_matrices_problems.html"
+                        title="next chapter">Exercises and Problems</a></p>
+  <div role="note" aria-label="source link">
+    <h3>This Page</h3>
+    <ul class="this-page-menu">
+      <li><a href="_sources/operations_on_matrices_appendices.rst.txt"
+            rel="nofollow">Show Source</a></li>
+    </ul>
+   </div>
+<div id="searchbox" style="display: none" role="search">
+  <h3 id="searchlabel">Quick search</h3>
+    <div class="searchformwrapper">
+    <form class="search" action="search.html" method="get">
+      <input type="text" name="q" aria-labelledby="searchlabel" />
+      <input type="submit" value="Go" />
+    </form>
+    </div>
+</div>
+<script>$('#searchbox').show(0);</script>
+        </div>
+      </div>
+      <div class="clearer"></div>
+    </div>
+  </div>
+  <div class="relbar-bottom">
+    
+    <div class="related" role="navigation" aria-label="related navigation">
+      <h3>Navigation</h3>
+      <ul>
+        <li class="right" style="margin-right: 10px">
+          <a href="genindex.html" title="General Index"
+             >index</a></li>
+        <li class="right" >
+          <a href="operations_on_matrices_problems.html" title="Exercises and Problems"
+             >next</a> &nbsp; &nbsp;</li>
+        <li class="right" >
+          <a href="operations_on_matrices_permutations.html" title="Permutation Matrices"
+             >previous</a> &nbsp; &nbsp;</li>
+  <li><a href="index.html">Linear Algebra</a> &#187;</li>
+  
+        <li class="nav-item nav-item-this"><a href="">Appendices</a></li> 
+      </ul>
+    </div>
+  </div>
+  
+  <div class="footer">
+    <a class="logo" href="http://icse.us.edu.pl/" target="_blank"><img src="_static/logo-icse.png" alt="ICSE"/></a><br/>
+    &copy; Copyright 2018, Jan Aksamit, Joanna Marzec, and  Marcin Kostur.
+    Last updated on Jan 29, 2022.
+    Created using <a href="http://sphinx.pocoo.org/">Sphinx</a> 4.0.1.
+  </div>
+  </body>
+</html>

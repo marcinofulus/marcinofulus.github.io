@@ -1,0 +1,370 @@
+
+
+  
+<!DOCTYPE html>
+
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" /><meta name="generator" content="Docutils 0.17: http://docutils.sourceforge.net/" />
+
+    <title>Applications of the LU Decomposition &#8212; Linear Algebra</title>
+    <link rel="stylesheet" type="text/css" href="_static/pygments.css" />
+    <link rel="stylesheet" type="text/css" href="_static/cloud.css" />
+    <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Noticia+Text|Open+Sans|Droid+Sans+Mono&amp;subset=latin,latin-ext" type="text/css" />
+    <script data-url_root="./" id="documentation_options" src="_static/documentation_options.js"></script>
+    <script src="_static/jquery.js"></script>
+    <script src="_static/underscore.js"></script>
+    <script src="_static/doctools.js"></script>
+    <script async="async" src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js"></script>
+    <script src="_static/jquery.cookie.js"></script>
+    <script src="_static/cloud.js"></script>
+    <script type="text/javascript" src="http://sagecell.sagemath.org/static/jquery.min.js"></script>
+    <script type="text/javascript" src="http://sagecell.sagemath.org/embedded_sagecell.js"></script>
+    <script type="text/javascript">
+        sagecell.makeSagecell({inputLocation: ".sage_linked",
+                               linked: true});
+        sagecell.makeSagecell({inputLocation: ".sage_unlinked",
+                               linked: false});
+    </script>
+
+    <style type="text/css">
+        .sagecell .CodeMirror-scroll {
+            overflow-y: hidden;
+            overflow-x: auto;
+        }
+        .sagecell .CodeMirror {
+            height: auto;
+        }
+    </style>
+    
+    <link rel="index" title="Index" href="genindex.html" />
+    <link rel="search" title="Search" href="search.html" />
+    <link rel="next" title="Problems and Exercises" href="decomposition_problems.html" />
+    <link rel="prev" title="LU Factorization of a Matrix" href="decomposition_LU-factorization.html" />
+ 
+  <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, minimum-scale=1">
+  </head><body>
+  <div class="relbar-top">
+    
+    <div class="related" role="navigation" aria-label="related navigation">
+      <h3>Navigation</h3>
+      <ul>
+        <li class="right" style="margin-right: 10px">
+          <a href="genindex.html" title="General Index"
+             accesskey="I">index</a></li>
+        <li class="right" >
+          <a href="decomposition_problems.html" title="Problems and Exercises"
+             accesskey="N">next</a> &nbsp; &nbsp;</li>
+        <li class="right" >
+          <a href="decomposition_LU-factorization.html" title="LU Factorization of a Matrix"
+             accesskey="P">previous</a> &nbsp; &nbsp;</li>
+  <li><a href="index.html">Linear Algebra</a> &#187;</li>
+  
+        <li class="nav-item nav-item-this"><a href="">Applications of the LU Decomposition</a></li> 
+      </ul>
+    </div>
+  </div>
+  
+  <div class="content">  
+
+    <div class="document">
+      <div class="documentwrapper">
+        <div class="bodywrapper">
+          <div class="body">
+            
+  <section id="applications-of-the-lu-decomposition">
+<h1>Applications of the LU Decomposition<a class="headerlink" href="#applications-of-the-lu-decomposition" title="Permalink to this headline">¶</a></h1>
+<section id="solving-systems-of-linear-equations">
+<h2>Solving Systems of Linear Equations<a class="headerlink" href="#solving-systems-of-linear-equations" title="Permalink to this headline">¶</a></h2>
+<p>Consider a system of <span class="math notranslate nohighlight">\(\,m\,\)</span> linear equations in <span class="math notranslate nohighlight">\(\,n\,\)</span>
+variables over a field <span class="math notranslate nohighlight">\(\,K,\)</span> <span class="math notranslate nohighlight">\(\\\)</span>
+with a coefficient matrix
+<span class="math notranslate nohighlight">\(\,\boldsymbol{A}\in M_{m\times n}(K)\ \)</span> and <span class="math notranslate nohighlight">\(\,\)</span>
+a column of constants <span class="math notranslate nohighlight">\(\,\boldsymbol{b}\in K^m.\)</span></p>
+<p>Assuming the decomposition
+<span class="math notranslate nohighlight">\(\,\boldsymbol{P}\,\boldsymbol{A}=\boldsymbol{L}\,\boldsymbol{U},\ \)</span>
+the system may be transformed as follows:</p>
+<div class="math notranslate nohighlight">
+\[\begin{split}\begin{array}{c}
+\boldsymbol{A}\boldsymbol{x}\ =\ \boldsymbol{b}\,,
+\\ \\
+(\boldsymbol{P}\,\boldsymbol{A})\,\boldsymbol{x}\ =\
+\boldsymbol{P}\,\boldsymbol{b}\,,
+\\ \\
+(\boldsymbol{L}\,\boldsymbol{U})\,\boldsymbol{x}\ =\
+\boldsymbol{P}\,\boldsymbol{b}\,,
+\\ \\
+\boldsymbol{L}(\boldsymbol{U}\boldsymbol{x})\ =\
+\boldsymbol{P}\,\boldsymbol{b}\,.
+\end{array}\end{split}\]</div>
+<p>Denoting <span class="math notranslate nohighlight">\(\,\boldsymbol{y}\ =\ \boldsymbol{U}\boldsymbol{x}\,\)</span> we get
+a system of <span class="math notranslate nohighlight">\(\,2m\,\)</span> equations in <span class="math notranslate nohighlight">\(\,m+n\,\)</span> unknowns, <span class="math notranslate nohighlight">\(\\\)</span>
+separated into two subsystems with triangular coefficient matrices:</p>
+<div class="math notranslate nohighlight" id="equation-set-xy">
+<span class="eqno">(1)<a class="headerlink" href="#equation-set-xy" title="Permalink to this equation">¶</a></span>\[\begin{split}\left\{\ \ \begin{array}{ll}
+\boldsymbol{L}\,\boldsymbol{y}\ =\ \boldsymbol{P}\,\boldsymbol{b}\,,
+\qquad\qquad &amp;
+\boldsymbol{L}\in M_m(K),\ \ \boldsymbol{y}\in K^m \\
+\boldsymbol{U}\,\boldsymbol{x}\ =\ \boldsymbol{y}\,,
+\qquad\qquad &amp;
+\boldsymbol{U}\in M_{m\times n}(K),\ \ \boldsymbol{x}\in K^n\,.
+\end{array}\right.\end{split}\]</div>
+<p>The resulting subsystems are easily solved by forward or backward substitution.
+This approach is especially efficient in the case of several systems
+with the same matrix <span class="math notranslate nohighlight">\(\,\boldsymbol{A},\ \)</span> but with different columns
+<span class="math notranslate nohighlight">\(\,\boldsymbol{b},\ \)</span> since the decomposition
+<span class="math notranslate nohighlight">\(\,\boldsymbol{P}\boldsymbol{A}=\boldsymbol{L}\,\boldsymbol{U}\ \)</span>
+is then performed only once.</p>
+<p>As an example, we shall solve the following system
+over the rational field <span class="math notranslate nohighlight">\(\,Q:\)</span></p>
+<div class="math notranslate nohighlight">
+\begin{alignat*}{4}
+ 2\,x_1 &amp; {\,} + {\,} &amp;    x_2 &amp; {\,} + {\,} &amp;    x_3 &amp; {\;} = {} &amp;  6 \\
+ 4\,x_1 &amp; {\,} - {\,} &amp; 6\,x_2 &amp;             &amp;        &amp; {\;} = {} &amp; 14 \\
+-2\,x_1 &amp; {\,} + {\,} &amp; 7\,x_2 &amp; {\,} + {\,} &amp; 2\,x_3 &amp; {\;} = {} &amp; -5
+\end{alignat*}</div><p>The decomposition <span class="math notranslate nohighlight">\(\,\boldsymbol{A}=\boldsymbol{L}\,\boldsymbol{U}\ \)</span>
+for the coefficient matrix has been done in the previous section:</p>
+<div class="math notranslate nohighlight">
+\[\begin{split}\left[\begin{array}{rrr} 2 &amp;  1 &amp; 1 \\
+                         4 &amp; -6 &amp; 0 \\
+                        -2 &amp;  7 &amp; 2\end{array}\right]\ =\
+\left[\begin{array}{rrr}  1 &amp;  0 &amp; 0 \\
+                          2 &amp;  1 &amp; 0 \\
+                         -1 &amp; -1 &amp; 1\end{array}\right]
+\left[\begin{array}{rrr} 2 &amp;  1 &amp;  1 \\
+                         0 &amp; -8 &amp; -2 \\
+                         0 &amp;  0 &amp;  1\end{array}\right]\,.\end{split}\]</div>
+<p>Eqs. <a class="reference internal" href="#equation-set-xy">(1)</a> give two interconnected linear systems with triangular
+coefficient matrices:</p>
+<div class="math notranslate nohighlight">
+\begin{alignat*}{4}
+    y_1 &amp; {\,}   {\,} &amp;        &amp; {\,}   {\,} &amp;        &amp; {\;} = {} &amp;  6 \\
+ 2\,y_1 &amp; {\,} + {\,} &amp;    y_2 &amp;             &amp;        &amp; {\;} = {} &amp; 14 \\
+   -y_1 &amp; {\,} - {\,} &amp;    y_2 &amp; {\,} + {\,} &amp;    y_3 &amp; {\;} = {} &amp; -5
+\end{alignat*}</div><div class="math notranslate nohighlight">
+\begin{alignat*}{4}
+ 2\,x_1 &amp; {\,} + {\,} &amp;    x_2 &amp; {\,} + {\,} &amp;    x_3 &amp; {\;} = {\ } &amp; y_1 \\
+        &amp; {\,} - {\,} &amp; 8\,x_2 &amp; {\,} - {\,} &amp; 2\,x_3 &amp; {\;} = {\ } &amp; y_2 \\
+        &amp; {\,}   {\,} &amp;        &amp; {\,}   {\,} &amp;    x_3 &amp; {\;} = {\ } &amp; y_3
+\end{alignat*}</div><p>The forward and backward substitution
+in the first and second system, respectively, yields</p>
+<div class="math notranslate nohighlight">
+\[\begin{split}\textstyle
+\begin{array}{l}
+y_1\ =\ 6 \\ y_2\ =\ 14\ -\ 2\,y_1\ =\ 2 \\
+y_3\ =\ -5\ +\ y_1\ +\ y_2\ =\ 3\,,
+\end{array}
+\qquad
+\begin{array}{l}
+x_3\ =\ y_3\ =\ 3 \\
+x_2\ =\ -{1\over 8}\ (y_2+2\,x_3)\ =\ -1 \\
+x_1\ =\ {1\over 2}\ (y_1-x_2-x_3)\ =\ 2\,.
+\end{array}\end{split}\]</div>
+<p>Finally, the solution reads: <span class="math notranslate nohighlight">\(\ x_1=2,\ x_2=-1,\ x_3=3\,.\)</span></p>
+</section>
+<section id="inversion-of-a-matrix">
+<h2>Inversion of a Matrix<a class="headerlink" href="#inversion-of-a-matrix" title="Permalink to this headline">¶</a></h2>
+<p>Let <span class="math notranslate nohighlight">\(\,\boldsymbol{A}\in M_n(K)\,\)</span> be an invertible matrix. <span class="math notranslate nohighlight">\(\\\)</span>
+The problem of finding its inverse consists in solving the matrix equation</p>
+<div class="math notranslate nohighlight">
+\[\boldsymbol{A}\,\boldsymbol{X}\ =\ \boldsymbol{I}_n\,,\]</div>
+<p>where <span class="math notranslate nohighlight">\(\,\boldsymbol{I}_n\ \)</span> is the identity matrix of size <span class="math notranslate nohighlight">\(\,n.\ \)</span></p>
+<p>Using the column form of matrices</p>
+<div class="math notranslate nohighlight">
+\[\boldsymbol{X}\ =\
+\left[\,
+\boldsymbol{x}_1\,|\,
+\boldsymbol{x}_2\,|\,
+\ldots\,|\,
+\boldsymbol{x}_n\,
+\right]\,,
+\qquad
+\boldsymbol{I}_n\ =\
+\left[\,
+\boldsymbol{e}_1\,|\,
+\boldsymbol{e}_2\,|\,
+\ldots\,|\,
+\boldsymbol{e}_n\,
+\right]\,,\]</div>
+<p>and recalling the Column Rule of Matrix Multiplication, <span class="math notranslate nohighlight">\(\\\)</span>
+we obtain the set of <span class="math notranslate nohighlight">\(\,n\,\)</span> systems of linear equations, <span class="math notranslate nohighlight">\(\,\)</span>
+each in <span class="math notranslate nohighlight">\(\,n\,\)</span> unknowns:</p>
+<div class="math notranslate nohighlight">
+\[ \begin{align}\begin{aligned}\boldsymbol{A}\
+\left[\,\boldsymbol{x}_1\,|\,\boldsymbol{x}_2\,|\,\ldots\,|\,
+\boldsymbol{x}_n\,\right]\ =\
+\left[\,\boldsymbol{e}_1\,|\,\boldsymbol{e}_2\,|\,\ldots\,|\,
+\boldsymbol{e}_n\,\right]\,,\\\left[\,
+\boldsymbol{A}\boldsymbol{x}_1\,|\,
+\boldsymbol{A}\boldsymbol{x}_2\,|\,\ldots\,|\,
+\boldsymbol{A}\boldsymbol{x}_n\,\right]\ =\
+\left[\,\boldsymbol{e}_1\,|\,\boldsymbol{e}_2\,|\,\ldots\,|\,
+\boldsymbol{e}_n\,\right]\,,\\\boldsymbol{A}\,\boldsymbol{x}_j\ =\ \boldsymbol{e}_j\,,
+\qquad j=1,2,\ldots,n.\end{aligned}\end{align} \]</div>
+<p>All systems have the same coefficient matrix <span class="math notranslate nohighlight">\(\,\boldsymbol{A},\ \)</span>
+but differ in columns of constants.
+As remarked in the previous subsection,
+in such a situation the (presented therein) method of solution
+based on the <em>LU</em> decomposition may be a convenient one.</p>
+</section>
+<section id="calculation-of-determinants">
+<h2>Calculation of Determinants<a class="headerlink" href="#calculation-of-determinants" title="Permalink to this headline">¶</a></h2>
+<p>Suppose we have to calculate the determinant of a matrix
+<span class="math notranslate nohighlight">\(\,\boldsymbol{A}\in M_n(K)\,\)</span> given in the form:</p>
+<div class="math notranslate nohighlight" id="equation-a-plu">
+<span class="eqno">(2)<a class="headerlink" href="#equation-a-plu" title="Permalink to this equation">¶</a></span>\[\boldsymbol{A}\ =\ \boldsymbol{P}\,\boldsymbol{L}\,\boldsymbol{U}\,,\]</div>
+<p>where
+<span class="math notranslate nohighlight">\(\ \ \boldsymbol{P}=\boldsymbol{P}_\sigma\,,\ \ \sigma\in S_n\,,\quad
+\boldsymbol{L}=[l_{ij}]_{n\times n}\,,\quad
+\boldsymbol{U}=[u_{ij}]_{n\times n}\,.\)</span></p>
+<p>According to the Cauchy’s Theorem on the determinant of a product of matrices,
+we get</p>
+<div class="math notranslate nohighlight">
+\[\det\boldsymbol{A}\ \,=\ \,
+\det\boldsymbol{P}_\sigma\,\cdot\,\det\boldsymbol{L}\,\cdot\,\det\boldsymbol{U}\,.\]</div>
+<p>Representing the permutation <span class="math notranslate nohighlight">\(\,\sigma\,\)</span> as a product of transpositions,
+it’s easy to show that</p>
+<div class="math notranslate nohighlight">
+\[\det\boldsymbol{P}_\sigma\,=\,\text{sgn}\,\sigma\,.\]</div>
+<p>The determinant of a triangular matrix is equal to
+the product of its diagonal elements:</p>
+<div class="math notranslate nohighlight">
+\[\det\boldsymbol{L}\ =\ l_{11}\,l_{22}\,\dots\,l_{nn}\,,\qquad
+\det\boldsymbol{U}\ =\ u_{11}\,u_{22}\,\dots\,u_{nn}\,.\]</div>
+<p>Hence the formula for the determinant of a <em>LU</em>-decomposed matrix
+<span class="math notranslate nohighlight">\(\,\boldsymbol{A}\ \)</span> given by <a class="reference internal" href="#equation-a-plu">(2)</a> is</p>
+<div class="math notranslate nohighlight" id="equation-det-a">
+<span class="eqno">(3)<a class="headerlink" href="#equation-det-a" title="Permalink to this equation">¶</a></span>\[\det\boldsymbol{A}\ =\
+\text{sgn}\,\sigma\,\cdot\,
+l_{11}\,l_{22}\,\dots\,l_{nn}\,\cdot\,
+u_{11}\,u_{22}\,\dots\,u_{nn}\,.\]</div>
+<p>As an example, let’s take the matrix
+<span class="math notranslate nohighlight">\(\ \ \boldsymbol{A}\ =\
+\left[\begin{array}{rrr}
+2 &amp;  1 &amp; 1 \\
+4 &amp; -6 &amp; 0 \\
+-2 &amp;  7 &amp; 2
+\end{array}\right],\ \)</span> <span class="math notranslate nohighlight">\(\\\)</span><span class="math notranslate nohighlight">\(\\\)</span>
+for which two decompositions have been already derived:</p>
+<div class="math notranslate nohighlight">
+\[\begin{split}\begin{array}{rl}
+\left[\begin{array}{rrr}
+    2 &amp;  1 &amp; 1 \\
+    4 &amp; -6 &amp; 0 \\
+   -2 &amp;  7 &amp; 2
+\end{array}\right]
+&amp; =\ \ \
+\left[\begin{array}{rrr}
+    0 &amp; 1 &amp; 0 \\
+    1 &amp; 0 &amp; 0 \\
+    0 &amp; 0 &amp; 1
+\end{array}\right]\ \cdot\
+\left[\begin{array}{rrr}
+    1 &amp; 0 &amp; 0 \\
+    \textstyle{1\over 2} &amp; 1 &amp; 0 \\
+   -\textstyle{1\over 2} &amp; 1 &amp; 1
+\end{array}\right]\ \cdot\
+\left[\begin{array}{rrr}
+   4 &amp; -6 &amp; 0 \\
+   0 &amp;  4 &amp; 1 \\
+   0 &amp;  0 &amp; 1
+\end{array}\right]\,,
+\\ \\
+&amp; =\ \ \
+\left[\begin{array}{rrr}
+    1 &amp; 0 &amp; 0 \\
+    0 &amp; 1 &amp; 0 \\
+    0 &amp; 0 &amp; 1
+\end{array}\right]\ \cdot\
+\left[\begin{array}{rrr}
+       1 &amp;  0 &amp; 0 \\
+       2 &amp;  1 &amp; 0 \\
+      -1 &amp; -1 &amp; 1
+\end{array}\right]\ \cdot\
+\left[\begin{array}{rrr}
+      2 &amp;  1 &amp;  1 \\
+      0 &amp; -8 &amp; -2 \\
+      0 &amp;  0 &amp;  1
+\end{array}\right]\,.
+\end{array}\end{split}\]</div>
+<p>In both cases the formula <a class="reference internal" href="#equation-det-a">(3)</a> yields the same result:
+<span class="math notranslate nohighlight">\(\ \det{\boldsymbol{A}}=-16.\)</span></p>
+</section>
+</section>
+
+
+          </div>
+        </div>
+      </div>
+      <div class="sphinxsidebar" role="navigation" aria-label="main navigation">
+        <div class="sphinxsidebarwrapper">
+  <div class="sphinxlocaltoc">
+  <h3><a href="index.html">Table Of Contents</a></h3>
+  <ul>
+<li><a class="reference internal" href="#">Applications of the LU Decomposition</a><ul>
+<li><a class="reference internal" href="#solving-systems-of-linear-equations">Solving Systems of Linear Equations</a></li>
+<li><a class="reference internal" href="#inversion-of-a-matrix">Inversion of a Matrix</a></li>
+<li><a class="reference internal" href="#calculation-of-determinants">Calculation of Determinants</a></li>
+</ul>
+</li>
+</ul>
+
+  </div>
+  <h4>Previous topic</h4>
+  <p class="topless"><a href="decomposition_LU-factorization.html"
+                        title="previous chapter">LU Factorization of a Matrix</a></p>
+  <h4>Next topic</h4>
+  <p class="topless"><a href="decomposition_problems.html"
+                        title="next chapter">Problems and Exercises</a></p>
+  <div role="note" aria-label="source link">
+    <h3>This Page</h3>
+    <ul class="this-page-menu">
+      <li><a href="_sources/decomposition_LU-applications.rst.txt"
+            rel="nofollow">Show Source</a></li>
+    </ul>
+   </div>
+<div id="searchbox" style="display: none" role="search">
+  <h3 id="searchlabel">Quick search</h3>
+    <div class="searchformwrapper">
+    <form class="search" action="search.html" method="get">
+      <input type="text" name="q" aria-labelledby="searchlabel" />
+      <input type="submit" value="Go" />
+    </form>
+    </div>
+</div>
+<script>$('#searchbox').show(0);</script>
+        </div>
+      </div>
+      <div class="clearer"></div>
+    </div>
+  </div>
+  <div class="relbar-bottom">
+    
+    <div class="related" role="navigation" aria-label="related navigation">
+      <h3>Navigation</h3>
+      <ul>
+        <li class="right" style="margin-right: 10px">
+          <a href="genindex.html" title="General Index"
+             >index</a></li>
+        <li class="right" >
+          <a href="decomposition_problems.html" title="Problems and Exercises"
+             >next</a> &nbsp; &nbsp;</li>
+        <li class="right" >
+          <a href="decomposition_LU-factorization.html" title="LU Factorization of a Matrix"
+             >previous</a> &nbsp; &nbsp;</li>
+  <li><a href="index.html">Linear Algebra</a> &#187;</li>
+  
+        <li class="nav-item nav-item-this"><a href="">Applications of the LU Decomposition</a></li> 
+      </ul>
+    </div>
+  </div>
+  
+  <div class="footer">
+    <a class="logo" href="http://icse.us.edu.pl/" target="_blank"><img src="_static/logo-icse.png" alt="ICSE"/></a><br/>
+    &copy; Copyright 2018, Jan Aksamit, Joanna Marzec, and  Marcin Kostur.
+    Last updated on Jan 29, 2022.
+    Created using <a href="http://sphinx.pocoo.org/">Sphinx</a> 4.0.1.
+  </div>
+  </body>
+</html>

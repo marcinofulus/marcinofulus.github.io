@@ -1,0 +1,674 @@
+
+
+  
+<!DOCTYPE html>
+
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" /><meta name="generator" content="Docutils 0.17: http://docutils.sourceforge.net/" />
+
+    <title>Examples of Eigenproblems &#8212; Linear Algebra</title>
+    <link rel="stylesheet" type="text/css" href="_static/pygments.css" />
+    <link rel="stylesheet" type="text/css" href="_static/cloud.css" />
+    <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Noticia+Text|Open+Sans|Droid+Sans+Mono&amp;subset=latin,latin-ext" type="text/css" />
+    <script data-url_root="./" id="documentation_options" src="_static/documentation_options.js"></script>
+    <script src="_static/jquery.js"></script>
+    <script src="_static/underscore.js"></script>
+    <script src="_static/doctools.js"></script>
+    <script async="async" src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js"></script>
+    <script src="_static/jquery.cookie.js"></script>
+    <script src="_static/cloud.js"></script>
+    <script type="text/javascript" src="http://sagecell.sagemath.org/static/jquery.min.js"></script>
+    <script type="text/javascript" src="http://sagecell.sagemath.org/embedded_sagecell.js"></script>
+    <script type="text/javascript">
+        sagecell.makeSagecell({inputLocation: ".sage_linked",
+                               linked: true});
+        sagecell.makeSagecell({inputLocation: ".sage_unlinked",
+                               linked: false});
+    </script>
+
+    <style type="text/css">
+        .sagecell .CodeMirror-scroll {
+            overflow-y: hidden;
+            overflow-x: auto;
+        }
+        .sagecell .CodeMirror {
+            height: auto;
+        }
+    </style>
+    
+    <link rel="index" title="Index" href="genindex.html" />
+    <link rel="search" title="Search" href="search.html" />
+    <link rel="next" title="Application to Systems of Linear Differential Equations" href="problem_wlasny_rownania_rozniczkowe.html" />
+    <link rel="prev" title="Formulation of the Eigenproblem" href="problem_wlasny_definicja.html" />
+ 
+  <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, minimum-scale=1">
+  </head><body>
+  <div class="relbar-top">
+    
+    <div class="related" role="navigation" aria-label="related navigation">
+      <h3>Navigation</h3>
+      <ul>
+        <li class="right" style="margin-right: 10px">
+          <a href="genindex.html" title="General Index"
+             accesskey="I">index</a></li>
+        <li class="right" >
+          <a href="problem_wlasny_rownania_rozniczkowe.html" title="Application to Systems of Linear Differential Equations"
+             accesskey="N">next</a> &nbsp; &nbsp;</li>
+        <li class="right" >
+          <a href="problem_wlasny_definicja.html" title="Formulation of the Eigenproblem"
+             accesskey="P">previous</a> &nbsp; &nbsp;</li>
+  <li><a href="index.html">Linear Algebra</a> &#187;</li>
+  
+        <li class="nav-item nav-item-this"><a href="">Examples of Eigenproblems</a></li> 
+      </ul>
+    </div>
+  </div>
+  
+  <div class="content">  
+
+    <div class="document">
+      <div class="documentwrapper">
+        <div class="bodywrapper">
+          <div class="body">
+            
+  <section id="examples-of-eigenproblems">
+<h1>Examples of Eigenproblems<a class="headerlink" href="#examples-of-eigenproblems" title="Permalink to this headline">¶</a></h1>
+<section id="a-linear-operator-in-the-space-of-vectors-on-a-plane">
+<h2>A Linear Operator in the Space of Vectors on a Plane<a class="headerlink" href="#a-linear-operator-in-the-space-of-vectors-on-a-plane" title="Permalink to this headline">¶</a></h2>
+<p>In a two-dimensional space of geometric vectors <span class="math notranslate nohighlight">\(\,V\ \)</span> with a basis
+<span class="math notranslate nohighlight">\(\,\mathcal{B}=\{\vec{e}_1,\vec{e}_2\}\,,\ \)</span> where <span class="math notranslate nohighlight">\(\\\)</span>
+<span class="math notranslate nohighlight">\(\,|\vec{e}_1|=|\vec{e}_2|=1,\  \ \vec{e}_1\perp\vec{e}_2\,,\ \)</span>
+we define a linear operator <span class="math notranslate nohighlight">\(\,F\ \)</span> by assigning the image to the vectors from the basis <span class="math notranslate nohighlight">\(\,\mathcal{B}:\)</span></p>
+<div class="math notranslate nohighlight">
+\[F\vec{e}_1\,=\,2\,\vec{e}_1+\vec{e}_2\,,\qquad
+F\vec{e}_2\,=\,\vec{e}_1+2\,\vec{e}_2\,.\]</div>
+<p>We are looking for vectors <span class="math notranslate nohighlight">\(\ \vec{r}\,\in\,V\!\smallsetminus\!\{\vec{0}\}\ \)</span> which satisfy the equation
+<span class="math notranslate nohighlight">\(\,F\vec{r}=\lambda\,\vec{r}\ \)</span> for some <span class="math notranslate nohighlight">\(\ \lambda\in R\,.\ \)</span>
+When the operator <span class="math notranslate nohighlight">\(\,F\ \)</span> acts on these vectors it does not change their direction, but it may change their length or orientation. An outline of this situation provides a program  which outputs the consecutive vectors <span class="math notranslate nohighlight">\(\ \vec{r}\ \)</span> from a cetain set together with their images, and emphasizes the cases when <span class="math notranslate nohighlight">\(\ F(\vec{r})\parallel\vec{r}\ \)</span> (after running the program, preparation of the animation takes several dozen seconds). <span class="math notranslate nohighlight">\(\\\)</span></p>
+<div class='sage_linked'><script type='text/x-sage'>e1 = vector([1,0]); e2 = vector([0,1])
+
+P0 = point((0,0), color='white', faceted=True, size=20, zorder=8)
+
+n = 24          # defines number of frames
+dt = 2*pi/n     # step between two consecutive frames
+L = []          # initialization of the list of frames
+
+for k in range(1,n+1):
+
+    a1 = cos(k*dt); a2 = sin(k*dt)
+
+    plt = P0 +\
+          arrow((0,0),a1*e1+a2*e2, color='green',
+           legend_label=' $\\ \\ \\vec{r}$', legend_color='black', zorder=5) +\
+          arrow((0,0),(2*a1+a2)*e1+(a1+2*a2)*e2, color='red',
+           legend_label=' $F(\\vec{r})$', legend_color='black', zorder=5)
+
+    for l in range(1+3*(not mod(k-3,6))): L.append(plt)
+
+a = animate(L, aspect_ratio=1, axes_labels=['x','y'], figsize=6,
+            xmin=-2.25, xmax=+2.25, ymin=-2.25, ymax=+2.25)
+
+print a; a.show(delay=25, iterations=5)</script></div><p>In this example we solve the eigenvalue problem for the operator <span class="math notranslate nohighlight">\(\,F\ \)</span> directly, without referring to the general formulae from the previous section.</p>
+<p>By substituting <span class="math notranslate nohighlight">\(\ \vec{r}=\alpha_1\,\vec{e}_1+\alpha_2\,\vec{e}_2\ \)</span>
+to the eigenequation, we obtain:</p>
+<div class="math notranslate nohighlight">
+\begin{eqnarray*}
+F\,\vec{r} &amp; = &amp; \lambda\;\vec{r}\,,\quad\vec{r}\neq\vec{0}\,, \\
+F(\alpha_1\,\vec{e}_1+\alpha_2\,\vec{e}_2) &amp; = &amp; \lambda\;(\alpha_1\,\vec{e}_1+\alpha_2\,\vec{e}_2)\,, \\
+\alpha_1\,F\vec{e}_1+\alpha_2\,F\vec{e}_2 &amp; = &amp; \lambda\;(\alpha_1\,\vec{e}_1+\alpha_2\,\vec{e}_2)\,, \\
+\alpha_1\,(2\,\vec{e}_1+\vec{e}_2)+\alpha_2\,(\vec{e}_1+2\,\vec{e}_2) &amp; = &amp; \lambda\;(\alpha_1\,\vec{e}_1+\alpha_2\,\vec{e}_2)\,, \\
+2\,\alpha_1\,\vec{e}_1+\alpha_1\,\vec{e}_2+\alpha_2\,\vec{e}_1+2\,\alpha_2\,\vec{e}_2 &amp; = &amp; \lambda\,\alpha_1\,\vec{e}_1+\lambda\,\alpha_2\,\vec{e}_2\,, \\
+\left[\,(2-\lambda)\,\alpha_1+\alpha_2\,\right]\,\vec{e}_1+\left[\,\alpha_1+(2-\lambda)\,\alpha_2\,\right]\,\vec{e}_2 &amp; = &amp; \vec{0}\,.
+\end{eqnarray*}</div><p>A linear combination of linearly independent vectors <span class="math notranslate nohighlight">\(\ \vec{e}_1,\,\vec{e}_2\ \)</span>
+from the basis <span class="math notranslate nohighlight">\(\ \mathcal{B}\ \)</span> equals the zero vector if and only if its coefficients do not vanish:</p>
+<div class="math notranslate nohighlight" id="equation-2-set">
+<span class="eqno">(1)<a class="headerlink" href="#equation-2-set" title="Permalink to this equation">¶</a></span>\[\begin{split}\begin{cases}\ \ \begin{array}{c}
+(2-\lambda)\,\alpha_1+\alpha_2\,=\,0 \\
+\alpha_1+(2-\lambda)\,\alpha_2\,=\,0
+\end{array}\end{cases}\end{split}\]</div>
+<p>The formula <a class="reference internal" href="#equation-2-set">(1)</a> presents a homogeneous system of two linear equations with unknowns <span class="math notranslate nohighlight">\(\ \alpha_1,\,\alpha_2\)</span> <span class="math notranslate nohighlight">\(\\\)</span> and a parameter <span class="math notranslate nohighlight">\(\ \lambda.\ \)</span>
+The non-zero solutions: <span class="math notranslate nohighlight">\(\ \alpha_1^2+\alpha_2^2\,&gt;\,0\,,\ \)</span>
+exist if and only if</p>
+<div class="math notranslate nohighlight" id="equation-det-eqn">
+<span class="eqno">(2)<a class="headerlink" href="#equation-det-eqn" title="Permalink to this equation">¶</a></span>\[\begin{split}\left|\begin{array}{cc} 2-\lambda &amp; 1 \\
+                        1 &amp; 2-\lambda \end{array}\right|\ =\
+\lambda^2-4\,\lambda+3\ =\ (\lambda-1)(\lambda-3)\ =\ 0\,.\end{split}\]</div>
+<p>In this way we obtained two eigenvalues of the operator
+<span class="math notranslate nohighlight">\(\,F:\quad\blacktriangleright\quad\lambda_1=1\,,\ \ \lambda_2=3\,.\ \)</span></p>
+<p>Substitution of <span class="math notranslate nohighlight">\(\ \lambda=\lambda_1=1\ \)</span> into <a class="reference internal" href="#equation-2-set">(1)</a>
+leads to an underdetermined system of equations</p>
+<div class="math notranslate nohighlight">
+\[\begin{split}\quad\begin{cases}\ \begin{array}{c}
+\alpha_1+\alpha_2\,=\,0 \\ \alpha_1+\alpha_2\,=\,0
+\end{array}\end{cases}\end{split}\]</div>
+<p>whose solutions are of the form:
+<span class="math notranslate nohighlight">\(\quad\alpha_1=\alpha\,,\ \ \alpha_2=-\;\alpha\,,\ \ \alpha\in R.\)</span></p>
+<p>The eigenvectors associated with this eigenvalue:</p>
+<div class="math notranslate nohighlight" id="equation-eigen-vectors-1">
+<span class="eqno">(3)<a class="headerlink" href="#equation-eigen-vectors-1" title="Permalink to this equation">¶</a></span>\[\blacktriangleright\quad
+\vec{r}_1\,=\ \alpha\,\vec{e}_1-\alpha\,\vec{e}_2\,=\
+\alpha\,(\vec{e}_1-\vec{e}_2)\ \equiv\ \alpha\,\vec{f}_1\,,\quad
+\alpha\in R\!\smallsetminus\!\{0\}\,,\]</div>
+<p>comprise <span class="math notranslate nohighlight">\(\,\)</span> (together with the zero vector <span class="math notranslate nohighlight">\(\,\vec{0}\)</span>) <span class="math notranslate nohighlight">\(\,\)</span>
+a 1-dimensional subspace <span class="math notranslate nohighlight">\(\,V_1\ \)</span> of the space <span class="math notranslate nohighlight">\(\,V,\)</span> <span class="math notranslate nohighlight">\(\\\)</span>
+generated by the vector <span class="math notranslate nohighlight">\(\,\vec{f}_1=\vec{e}_1-\vec{e}_2:\)</span> <span class="math notranslate nohighlight">\(\ V_1=L(\vec{f}_1)\,.\)</span></p>
+<p>By substituting <span class="math notranslate nohighlight">\(\ \lambda=\lambda_2=3\ \)</span> into <span class="math notranslate nohighlight">\(\,\)</span> <a class="reference internal" href="#equation-2-set">(1)</a> <span class="math notranslate nohighlight">\(,\,\)</span>
+we obtain the system
+<span class="math notranslate nohighlight">\(\quad\begin{cases}\ \begin{array}{r}
+-\ \alpha_1+\alpha_2\,=\,0 \\ \alpha_1-\alpha_2\,=\,0
+\end{array}\end{cases}\)</span></p>
+<p>with solutions:
+<span class="math notranslate nohighlight">\(\quad\alpha_1=\alpha_2=\alpha\,,\ \ \alpha\in R.\ \)</span>
+The associated eigenvectors</p>
+<div class="math notranslate nohighlight" id="equation-eigen-vectors-2">
+<span class="eqno">(4)<a class="headerlink" href="#equation-eigen-vectors-2" title="Permalink to this equation">¶</a></span>\[\blacktriangleright\quad
+\vec{r}_2\,=\ \alpha\,\vec{e}_1+\alpha\,\vec{e}_2\,=\
+\alpha\,(\vec{e}_1+\vec{e}_2)\ \equiv\ \alpha\,\vec{f}_2\,,\quad
+\alpha\in R\!\smallsetminus\!\{0\}\]</div>
+<p>also comprise <span class="math notranslate nohighlight">\(\,\)</span> (together with the zero vector) <span class="math notranslate nohighlight">\(\,\)</span>
+a 1-dimensional subspace, <span class="math notranslate nohighlight">\(\\\)</span>
+this time generated by the vector <span class="math notranslate nohighlight">\(\,\vec{f}_2=\vec{e}_1+\vec{e}_2:\ \ V_2=L(\vec{f}_2)\,.\)</span></p>
+<p>Note that the vectors <span class="math notranslate nohighlight">\(\,\vec{f}_1\,,\ \vec{f}_2\ \,\)</span>
+are perpendicular to each other and of the same length:</p>
+<div class="math notranslate nohighlight">
+\[ \begin{align}\begin{aligned}\vec{f}_1\cdot\vec{f}_2\ =\ (\vec{e}_1-\vec{e}_2)\cdot(\vec{e}_1+\vec{e}_2)\ =\
+\vec{e}_1\cdot\vec{e}_1-\vec{e}_2\cdot\vec{e}_2\ =\ |\vec{e}_1|^2-|\vec{e}_2|^2\ =\
+1-1\ =\ 0\,,\\|\,\vec{f}_{1,2}\,|^2\ =\ (\vec{e}_1\mp\vec{e}_2)^2\ =\
+\vec{e}_1\cdot\vec{e}_1\mp 2\ \,\vec{e}_1\cdot\vec{e}_2+\vec{e}_2\cdot\vec{e}_2\ =\ 2\,.\end{aligned}\end{align} \]</div>
+<p>After dividing each of the vectors <span class="math notranslate nohighlight">\(\ \vec{f}_1,\,\vec{f}_2\ \)</span> by its length:</p>
+<div class="math notranslate nohighlight" id="equation-normal">
+<span class="eqno">(5)<a class="headerlink" href="#equation-normal" title="Permalink to this equation">¶</a></span>\[ \begin{align}\begin{aligned}\vec{f}_1\ \ \rightarrow\ \ \frac{1}{|\,\vec{f}_1\,|}\ \,\vec{f}_1\ \ =\ \
+                            \frac{1}{\sqrt{2}}\ \,(\vec{e}_1-\vec{e}_2)\,,\\\vec{f}_2\ \ \rightarrow\ \ \frac{1}{|\,\vec{f}_2\,|}\ \,\vec{f}_2\ \ =\ \
+                            \frac{1}{\sqrt{2}}\ \,(\vec{e}_1+\vec{e}_2)\,,\end{aligned}\end{align} \]</div>
+<p>we obtain a pair <span class="math notranslate nohighlight">\(\ (\vec{f}_1,\,\vec{f}_2)\ \)</span>
+of unit vectors perpendicular to each other.</p>
+<p>In this way, the space <span class="math notranslate nohighlight">\(\,V\ \)</span> possesses two <em>orthonormal</em> bases:
+the initial basis <span class="math notranslate nohighlight">\(\,\mathcal{B}=(\vec{e}_1,\vec{e}_2)\ \)</span> and
+the basis <span class="math notranslate nohighlight">\(\,\mathcal{F}=(\vec{f}_1,\,\vec{f}_2)\ \)</span>
+consisting of the eigenvectors of the operator <span class="math notranslate nohighlight">\(\,F:\)</span></p>
+<a class="reference internal image-reference" href="_images/Rys_8.png"><img alt="_images/Rys_8.png" class="align-center" src="_images/Rys_8.png" style="width: 263.25px; height: 300.3px;" /></a>
+<p><strong>Comments and remarks.</strong></p>
+<p>The operator <span class="math notranslate nohighlight">\(\,F\ \)</span> is Hermitian because in the orthonormal basis
+<span class="math notranslate nohighlight">\(\,\mathcal{B}\,\)</span> its matrix</p>
+<div class="math notranslate nohighlight" id="equation-mat-af">
+<span class="eqno">(6)<a class="headerlink" href="#equation-mat-af" title="Permalink to this equation">¶</a></span>\[\begin{split}\boldsymbol{A}\ =\ M_{\mathcal{B}}(F)\ =\
+\left[\,I_{\mathcal{B}}(F\vec{e}_1)\,|\,I_{\mathcal{B}}(F\vec{e}_2)\,\right]\ =\
+\left[\begin{array}{cc} 2 &amp; 1 \\ 1 &amp; 2 \end{array}\right]\end{split}\]</div>
+<p>is real and symmetric, and thus Hermitian. The orthogonality of the vectors
+<span class="math notranslate nohighlight">\(\ \,\vec{f}_1\ \ \text{and}\ \ \vec{f}_2\ \,\)</span> associated to  different eigenvalues,
+and existence of the orthonormal basis <span class="math notranslate nohighlight">\(\ \mathcal{F}\ \,\)</span> of the space <span class="math notranslate nohighlight">\(\,V\ \)</span> which comprises of the eigenvectors of the operator <span class="math notranslate nohighlight">\(\,F\ \,\)</span> is a consequence of this Hermitian property.</p>
+<p>The formula <a class="reference internal" href="#equation-det-eqn">(2)</a> presents the characteristic equation of the matrix <span class="math notranslate nohighlight">\(\,\boldsymbol{A}.\ \)</span> Hence, and also by the formulae
+<span class="math notranslate nohighlight">\(\,\)</span> <a class="reference internal" href="#equation-eigen-vectors-1">(3)</a> <span class="math notranslate nohighlight">\(\,\)</span> and <span class="math notranslate nohighlight">\(\,\)</span> <a class="reference internal" href="#equation-eigen-vectors-2">(4)</a>, <span class="math notranslate nohighlight">\(\,\)</span> the two eigenvalues
+<span class="math notranslate nohighlight">\(\,\)</span> <span class="math notranslate nohighlight">\(\ \lambda_1=1\ \ \text{and}\ \ \lambda_2=3\,,\ \ \)</span>
+are algebraic and of geometric multiplicty 1. The fact that the algebraic multiplicity of each eigenvalue is equal to its geometric multiplicity is also a feature of the Hermitian operators.</p>
+<p>The basis <span class="math notranslate nohighlight">\(\,\mathcal{F}\ \)</span> is a result of the rotaion of the basis <span class="math notranslate nohighlight">\(\,\mathcal{B}\ \)</span> by the angle <span class="math notranslate nohighlight">\(\,\pi/4.\ \)</span>
+As one should expect, the change-of-basis matrix between these two orthonormal bases,
+determined by the formulae <a class="reference internal" href="#equation-normal">(5)</a>:</p>
+<div class="math notranslate nohighlight">
+\[\begin{split}\boldsymbol{S}\ =\ \frac{1}{\sqrt{2}}\ \,
+\left[\begin{array}{rr} 1 &amp; 1 \\ -1 &amp; 1 \end{array}\right]\end{split}\]</div>
+<p>is unitary (in this case: real orthogonal):
+<span class="math notranslate nohighlight">\(\ \,\boldsymbol{S}^+\boldsymbol{S}=\boldsymbol{S}^{\,T}\boldsymbol{S}=\boldsymbol{I}_2\,.\)</span></p>
+<p>The formula <a class="reference internal" href="#equation-mat-af">(6)</a> presents a matrix <span class="math notranslate nohighlight">\(\,\boldsymbol{A}\ \)</span> of the operator <span class="math notranslate nohighlight">\(\,F\ \)</span> in the initial basis <span class="math notranslate nohighlight">\(\ \mathcal{B}.\)</span> <span class="math notranslate nohighlight">\(\\\)</span>
+Now we calculate the matrix <span class="math notranslate nohighlight">\(\,\boldsymbol{F}=[\varphi_{ij}]\ \)</span>
+of this operator in the basis <span class="math notranslate nohighlight">\(\ \mathcal{F}\)</span> by two methods.</p>
+<ul>
+<li><p>According to transformation formula for transition from the basis
+<span class="math notranslate nohighlight">\(\,\mathcal{B}\ \)</span> to <span class="math notranslate nohighlight">\(\,\mathcal{F}:\)</span></p>
+<div class="math notranslate nohighlight">
+\[\begin{split}\boldsymbol{F}\ =\
+\boldsymbol{S}^{-1}\boldsymbol{A}\,\boldsymbol{S}\ =\
+\boldsymbol{S}^T\boldsymbol{A}\,\boldsymbol{S}\ \,=\ \,
+\textstyle\frac12\ \,
+\left[\begin{array}{rr} 1 &amp; -1 \\ 1 &amp; 1 \end{array}\right]\
+\left[\begin{array}{cc} 2 &amp; 1 \\ 1 &amp; 2 \end{array}\right]\
+\left[\begin{array}{rr} 1 &amp; 1 \\ -1 &amp; 1 \end{array}\right]\ =\
+\left[\begin{array}{cc} 1 &amp; 0 \\ 0 &amp; 3 \end{array}\right]\,.\end{split}\]</div>
+</li>
+<li><p>We get the same result by using the formulae for the matrix elements of the operator in the orthonormal basis:</p>
+<div class="math notranslate nohighlight">
+\[ \begin{align}\begin{aligned}\varphi_{11}\,=\,\boldsymbol{f}_1\cdot F\boldsymbol{f}_1\,=\,
+1\ \ \boldsymbol{f}_1\cdot\boldsymbol{f}_1\,=\,1\,, \qquad
+\varphi_{12}\,=\,\boldsymbol{f}_1\cdot F\boldsymbol{f}_2\,=\,
+3\ \ \boldsymbol{f}_1\cdot\boldsymbol{f}_2\,=\,0\,,\\\varphi_{21}\,=\,\boldsymbol{f}_2\cdot F\boldsymbol{f}_1\,=\,
+1\ \ \boldsymbol{f}_2\cdot\boldsymbol{f}_1\,=\,0\,, \qquad
+\varphi_{22}\,=\,\boldsymbol{f}_2\cdot F\boldsymbol{f}_2\,=\,
+3\ \ \boldsymbol{f}_2\cdot\boldsymbol{f}_2\,=\,3\,.\end{aligned}\end{align} \]</div>
+</li>
+</ul>
+<p>Matrix of the operator <span class="math notranslate nohighlight">\(\,F\ \)</span> in the orthonormal basis <span class="math notranslate nohighlight">\(\ \mathcal{F}\ \)</span>
+consisting of its eigenvectors is diagonal, with the eigenvalues on the diagonal.</p>
+<p><strong>Digression.</strong></p>
+<p>Each vector <span class="math notranslate nohighlight">\(\,\vec{r}\ \)</span> of the space <span class="math notranslate nohighlight">\(\,V\ \)</span>
+of geometric vectors on a surface may be written in a unique way as
+a linear combination of the basis vectors <span class="math notranslate nohighlight">\(\,\vec{f}_1,\,\vec{f}_2:\)</span></p>
+<div class="math notranslate nohighlight">
+\[\vec{r}\,=\,\beta_1\,\vec{f}_1+\beta_2\,\vec{f}_2\,,\qquad\beta_1,\,\beta_1\in R\,.\]</div>
+<p>Moreover, <span class="math notranslate nohighlight">\(\ \,\beta_1\,\vec{f}_1\in V_1\,,\ \ \beta_2\,\vec{f}_2\in V_2\,,\ \,\)</span>
+where <span class="math notranslate nohighlight">\(\ \,V_1=L(\vec{f}_1)\ \ \text{and}\ \ \,V_2=L(\vec{f}_2)\ \,\)</span>
+are the subspaces of the eigenvectors of the operator <span class="math notranslate nohighlight">\(\,F\ \)</span>
+associated with the eigenvalues <span class="math notranslate nohighlight">\(\ \lambda_1\ \ \text{and}\ \ \lambda_2,\ \,\)</span>
+correspondingly. Hence, each vector <span class="math notranslate nohighlight">\(\,\vec{r}\in V\ \)</span> satisfies a unique decomposition</p>
+<div class="math notranslate nohighlight">
+\[\vec{r}\,=\,\vec{r}_1\,+\,\vec{r}_2\,,\qquad\vec{r}_1\in V_1\,,\ \ \vec{r}_2\in V_2\,.\]</div>
+<div class="admonition-definition admonition">
+<p class="admonition-title">Definition.</p>
+<p>Let <span class="math notranslate nohighlight">\(\ V_1\,,\ \,V_2\ \,\)</span> be subspaces of the vector space
+<span class="math notranslate nohighlight">\(\,V.\ \)</span> <span class="math notranslate nohighlight">\(\\\)</span> If each vector <span class="math notranslate nohighlight">\(\,x\in V\ \)</span> may be uniquely
+represented in a form <span class="math notranslate nohighlight">\(\,x_1+x_2\,,\ \)</span> where
+<span class="math notranslate nohighlight">\(\,x_1\in V_1\ \ \text{i}\ \ x_2\in V_2\,,\ \)</span>
+then we say that the space <span class="math notranslate nohighlight">\(\,V\ \)</span> <em>decomposes as direct product</em>
+of its subspaces <span class="math notranslate nohighlight">\(\,V_1\ \ \text{and}\ \ V_2\,,\ \)</span> what we write as:
+<span class="math notranslate nohighlight">\(\ \  V\,=\,V_1\,\oplus\,V_2\,.\)</span></p>
+</div>
+<p>In our example the space <span class="math notranslate nohighlight">\(\ V,\ \)</span> with the action of the operator <span class="math notranslate nohighlight">\(\,F,\ \)</span>
+decomposes as direct product of the subspaces <span class="math notranslate nohighlight">\(\ V_1\ \ \text{and}\ \ V_2\,,\ \)</span>
+associated with two eigenvalues <span class="math notranslate nohighlight">\(\ \lambda_1\ \ \text{and}\ \ \lambda_2\ \)</span>
+of this operator.</p>
+</section>
+<section id="transposition-of-2-times-2-square-matrices">
+<h2>Transposition of <span class="math notranslate nohighlight">\(\ 2\times 2\ \)</span> square matrices<a class="headerlink" href="#transposition-of-2-times-2-square-matrices" title="Permalink to this headline">¶</a></h2>
+<p>We define the transposition operator <span class="math notranslate nohighlight">\(\ T\ \)</span> defined on the algebra <span class="math notranslate nohighlight">\(\ M_2(R)\)</span> <span class="math notranslate nohighlight">\(\\\)</span> of real square matrices of order 2:</p>
+<div class="math notranslate nohighlight">
+\[\begin{split}T\
+\left[\begin{array}{cc}
+\alpha_1 &amp; \alpha_2 \\ \alpha_3 &amp; \alpha_4
+\end{array}\right]\ \,:\,=\ \,
+\left[\begin{array}{cc}
+\alpha_1 &amp; \alpha_2 \\ \alpha_3 &amp; \alpha_4
+\end{array}\right]^{\,T}=\ \;
+\left[\begin{array}{cc}
+\alpha_1 &amp; \alpha_3 \\ \alpha_2 &amp; \alpha_4
+\end{array}\right]\,,\quad
+\alpha_1,\,\alpha_2,\,\alpha_3,\,\alpha_4\in R\,.\end{split}\]</div>
+<p>Because the operator <span class="math notranslate nohighlight">\(\,T\ \)</span> is linear and bijective, it is an
+automorphism of the algebra <span class="math notranslate nohighlight">\(\,M_2(R).\)</span></p>
+<p>We solve the eigenvalue problem of the operator <span class="math notranslate nohighlight">\(\,T\ \)</span> using the method
+presented in the previous section.</p>
+<p>0.) Construction of the matrix <span class="math notranslate nohighlight">\(\,\boldsymbol{A}=M_{\mathcal{B}}(T)\ \)</span>
+of the automorphism <span class="math notranslate nohighlight">\(\,T\ \)</span> in a basis
+<span class="math notranslate nohighlight">\(\ \mathcal{B}=(\boldsymbol{e}_1,\boldsymbol{e}_2,\boldsymbol{e}_3,\boldsymbol{e}_4)\,,\ \)</span>
+where</p>
+<div class="math notranslate nohighlight">
+\[\begin{split}\boldsymbol{e}_1\ =\ \left[\begin{array}{cc} 1 &amp; 0 \\ 0 &amp; 0 \end{array}\right]\,,\quad
+\boldsymbol{e}_2\ =\ \left[\begin{array}{cc} 0 &amp; 1 \\ 0 &amp; 0 \end{array}\right]\,,\quad
+\boldsymbol{e}_3\ =\ \left[\begin{array}{cc} 0 &amp; 0 \\ 1 &amp; 0 \end{array}\right]\,,\quad
+\boldsymbol{e}_4\ =\ \left[\begin{array}{cc} 0 &amp; 0 \\ 0 &amp; 1 \end{array}\right]\,.\end{split}\]</div>
+<p>If we represent the images of the consecutive vectors from the basis <span class="math notranslate nohighlight">\(\ \mathcal{B}\ \)</span> in the same basis <span class="math notranslate nohighlight">\(\ \mathcal{B}:\)</span></p>
+<div class="math notranslate nohighlight">
+\begin{alignat*}{6}
+T\,\boldsymbol{e}_1 &amp; {\ } = {\ \,} &amp;
+   \boldsymbol{e}_1 &amp; {\ } = {\ \,} &amp; 1\cdot\boldsymbol{e}_1 &amp; {\ } + {\ \,} &amp;
+                                      0\cdot\boldsymbol{e}_2 &amp; {\ } + {\ \,} &amp;
+                                      0\cdot\boldsymbol{e}_3 &amp; {\ } + {\ \,} &amp;
+                                      0\cdot\boldsymbol{e}_4\,, \\
+T\,\boldsymbol{e}_2 &amp; {\ } = {\ \,} &amp;
+   \boldsymbol{e}_3 &amp; {\ } = {\ \,} &amp; 0\cdot\boldsymbol{e}_1 &amp; {\ } + {\ \,} &amp;
+                                      0\cdot\boldsymbol{e}_2 &amp; {\ } + {\ \,} &amp;
+                                      1\cdot\boldsymbol{e}_3 &amp; {\ } + {\ \,} &amp;
+                                      0\cdot\boldsymbol{e}_4\,, \\
+T\,\boldsymbol{e}_3 &amp; {\ } = {\ \,} &amp;
+   \boldsymbol{e}_2 &amp; {\ } = {\ \,} &amp; 0\cdot\boldsymbol{e}_1 &amp; {\ } + {\ \,} &amp;
+                                      1\cdot\boldsymbol{e}_2 &amp; {\ } + {\ \,} &amp;
+                                      0\cdot\boldsymbol{e}_3 &amp; {\ } + {\ \,} &amp;
+                                      0\cdot\boldsymbol{e}_4\,, \\
+T\,\boldsymbol{e}_4 &amp; {\ } = {\ \,} &amp;
+   \boldsymbol{e}_4 &amp; {\ } = {\ \,} &amp; 0\cdot\boldsymbol{e}_1 &amp; {\ } + {\ \,} &amp;
+                                      0\cdot\boldsymbol{e}_2 &amp; {\ } + {\ \,} &amp;
+                                      0\cdot\boldsymbol{e}_3 &amp; {\ } + {\ \,} &amp;
+                                      1\cdot\boldsymbol{e}_4\,,
+\end{alignat*}</div><p>then the <span class="math notranslate nohighlight">\(\ j\)</span>-th column of the matrix <span class="math notranslate nohighlight">\(\,\boldsymbol{A}\ \)</span>
+comprises of the coefficients of the matrix <span class="math notranslate nohighlight">\(\,T\boldsymbol{e}_j\,,\ \ j=1,2,3,4:\)</span></p>
+<div class="math notranslate nohighlight" id="equation-mat-at">
+<span class="eqno">(7)<a class="headerlink" href="#equation-mat-at" title="Permalink to this equation">¶</a></span>\[\begin{split}\boldsymbol{A}\ =\ M_{\mathcal{B}}(T)\ =\
+\left[\begin{array}{cccc} 1 &amp; 0 &amp; 0 &amp; 0 \\
+                          0 &amp; 0 &amp; 1 &amp; 0 \\
+                          0 &amp; 1 &amp; 0 &amp; 0 \\
+                          0 &amp; 0 &amp; 0 &amp; 1 \end{array}\right]\,.\end{split}\]</div>
+<p>Now the eigenequation of the operator <span class="math notranslate nohighlight">\(\,T:\)</span></p>
+<div class="math notranslate nohighlight">
+\[\begin{split}T\
+\left[\begin{array}{cc}
+\alpha_1 &amp; \alpha_2 \\ \alpha_3 &amp; \alpha_4
+\end{array}\right]\ \,=\ \,
+\lambda\
+\left[\begin{array}{cc}
+\alpha_1 &amp; \alpha_2 \\ \alpha_3 &amp; \alpha_4
+\end{array}\right]\end{split}\]</div>
+<p>takes the form of a homogeneous linear problem:</p>
+<div class="math notranslate nohighlight" id="equation-hom-eqn">
+<span class="eqno">(8)<a class="headerlink" href="#equation-hom-eqn" title="Permalink to this equation">¶</a></span>\[\begin{split}\left[\begin{array}{cccc}
+1-\lambda &amp;      0      &amp;      0     &amp;     0 \\
+    0     &amp; -\ \lambda  &amp;      1     &amp;     0 \\
+    0     &amp;      1      &amp; -\ \lambda &amp;     0 \\
+    0     &amp;      0      &amp;      0     &amp; 1-\lambda
+\end{array}\right]\
+\left[\begin{array}{c}
+\alpha_1 \\ \alpha_2 \\ \alpha_3 \\ \alpha_4
+\end{array}\right]\ =\
+\left[\begin{array}{c}
+0 \\ 0 \\ 0 \\ 0
+\end{array}\right]\,.\end{split}\]</div>
+<p>1.) Calculation of the eigenvalues as the roots of the characteristic equation.</p>
+<div class="math notranslate nohighlight">
+\[\begin{split}w(\lambda)\ =\
+\left|\begin{array}{cccc}
+1-\lambda &amp;      0      &amp;      0     &amp;     0 \\
+    0     &amp; -\ \lambda  &amp;      1     &amp;     0 \\
+    0     &amp;      1      &amp; -\ \lambda &amp;     0 \\
+    0     &amp;      0      &amp;      0     &amp; 1-\lambda
+\end{array}\right|\ =\
+(1-\lambda)^2\,(\lambda^2-1)\ =\ (\lambda-1)^3\,(\lambda+1)\ =\ 0\,.\end{split}\]</div>
+<p>The eigenvalues (and their algebraic multiplicities) are then the following:</p>
+<div class="math notranslate nohighlight">
+\[\blacktriangleright\qquad\lambda_1=1\quad(3)\,,\qquad\lambda_2=-1\quad(1)\,.\]</div>
+<p>2.) Determination of eigenvectors (here: eigenmatrices).</p>
+<p>By inserting <span class="math notranslate nohighlight">\(\,\lambda=\lambda_1=1\ \)</span> into the equation <a class="reference internal" href="#equation-hom-eqn">(8)</a>, we obtain</p>
+<div class="math notranslate nohighlight">
+\[\begin{split}\left[\begin{array}{rrrr}
+0 &amp;  0 &amp;  0 &amp; 0 \\
+0 &amp; -1 &amp;  1 &amp; 0 \\
+0 &amp;  1 &amp; -1 &amp; 0 \\
+0 &amp;  0 &amp;  0 &amp; 0
+\end{array}\right]\
+\left[\begin{array}{c}
+\alpha_1 \\ \alpha_2 \\ \alpha_3 \\ \alpha_4
+\end{array}\right]\ =\
+\left[\begin{array}{c}
+0 \\ 0 \\ 0 \\ 0
+\end{array}\right] ,\qquad\text{and thus}\qquad
+\begin{cases}\ \begin{array}{r}
+-\ \alpha_2+\alpha_3\,=\,0\,, \\ \alpha_2-\alpha_3\,=\,0\,.
+\end{array}\end{cases}\end{split}\]</div>
+<p>The solution is of the form:
+<span class="math notranslate nohighlight">\(\quad\alpha_1=\alpha\,,\ \ \alpha_2=\alpha_3=\beta\,,\ \ \alpha_4=\gamma\,,\quad
+\alpha,\,\beta,\,\gamma\in R.\)</span></p>
+<p>The eigenmatrices of the operator <span class="math notranslate nohighlight">\(\,T\ \)</span> associated with the eigenvalue <span class="math notranslate nohighlight">\(\,\lambda_1=1\,:\)</span></p>
+<div class="math notranslate nohighlight">
+\[\begin{split}\blacktriangleright\quad
+\left[\begin{array}{cc}
+\alpha &amp; \beta \\ \beta &amp; \gamma
+\end{array}\right]\ =\
+\alpha\
+\left[\begin{array}{cc}
+1 &amp; 0 \\ 0 &amp; 0
+\end{array}\right]\ +\
+\beta\
+\left[\begin{array}{cc}
+0 &amp; 1 \\ 1 &amp; 0
+\end{array}\right]\ +\
+\gamma\
+\left[\begin{array}{cc}
+0 &amp; 0 \\ 0 &amp; 1
+\end{array}\right]\,,\quad
+\begin{array}{l}
+\alpha,\,\beta,\,\gamma\in R\,, \\
+\alpha^2+\beta^2+\gamma^2&gt;0
+\end{array}\end{split}\]</div>
+<p>comprise <span class="math notranslate nohighlight">\(\,\)</span> (after adjoining the zero matrix) <span class="math notranslate nohighlight">\(\,\)</span>
+a 3-dimensional subspace <span class="math notranslate nohighlight">\(\ V_1\ \)</span> of the vector space <span class="math notranslate nohighlight">\(\ V=M_2(R),\ \\\)</span> generated by linearly independent matrices</p>
+<div class="math notranslate nohighlight">
+\[\begin{split}\boldsymbol{t}_1\ =\
+\left[\begin{array}{cc}
+1 &amp; 0 \\ 0 &amp; 0
+\end{array}\right]\,,\quad
+\boldsymbol{t}_2\ =\
+\left[\begin{array}{cc}
+0 &amp; 1 \\ 1 &amp; 0
+\end{array}\right]\,,\quad
+\boldsymbol{t}_3\ =\
+\left[\begin{array}{cc}
+0 &amp; 0 \\ 0 &amp; 1
+\end{array}\right]\,:\qquad
+V_1=L(\boldsymbol{t}_1,\boldsymbol{t}_2,\boldsymbol{t}_3)\,.\end{split}\]</div>
+<p>The eigenvalue <span class="math notranslate nohighlight">\(\ \lambda_1=1\ \)</span> has then both algebraic and geometric multiplicity 3.</p>
+<p>Substitution of <span class="math notranslate nohighlight">\(\ \lambda=\lambda_2=-1\ \)</span> into the equation <a class="reference internal" href="#equation-hom-eqn">(8)</a> gives</p>
+<div class="math notranslate nohighlight">
+\[\begin{split}\left[\begin{array}{rrrr}
+2 &amp; 0 &amp; 0 &amp; 0 \\
+0 &amp; 1 &amp; 1 &amp; 0 \\
+0 &amp; 1 &amp; 1 &amp; 0 \\
+0 &amp; 0 &amp; 0 &amp; 2
+\end{array}\right]\
+\left[\begin{array}{c}
+\alpha_1 \\ \alpha_2 \\ \alpha_3 \\ \alpha_4
+\end{array}\right]\ =\
+\left[\begin{array}{c}
+0 \\ 0 \\ 0 \\ 0
+\end{array}\right] ,\qquad\text{and thus}\qquad
+\begin{cases}\ \begin{array}{r}
+2\,\alpha_1\,=\,0\,, \\ \alpha_2+\alpha_3\,=\,0\,, \\
+\alpha_2+\alpha_3\,=\,0\,, \\ 2\,\alpha_4\,=\,0\,.
+\end{array}\end{cases}\end{split}\]</div>
+<p>Hence <span class="math notranslate nohighlight">\(\ \ \alpha_1=\alpha_4=0\,,\ \ \alpha_2=-\ \alpha_3=\delta\,,\ \ \delta\in R\,,\ \,\)</span> and the eigenmatrices for the eigenvalue <span class="math notranslate nohighlight">\(\ \lambda_2=-1:\)</span></p>
+<div class="math notranslate nohighlight">
+\[\begin{split}\blacktriangleright\quad
+\left[\begin{array}{rr}
+0 &amp; \delta \\ -\delta &amp; 0
+\end{array}\right]\ =\
+\delta\
+\left[\begin{array}{rr}
+0 &amp; 1 \\ -1 &amp; 0
+\end{array}\right]\ =\
+\delta\ \boldsymbol{t}_4\,,\qquad
+\boldsymbol{t}_4\,=\,
+\left[\begin{array}{rr}
+0 &amp; 1 \\ -1 &amp; 0
+\end{array}\right]\,,\quad
+\delta\in R\smallsetminus\!\{0\}\,,\end{split}\]</div>
+<p>comprise <span class="math notranslate nohighlight">\(\,\)</span> (together with the zero matrix) <span class="math notranslate nohighlight">\(\,\)</span>
+a 1-dimensional subspace <span class="math notranslate nohighlight">\(\ V_{-1}=L(\boldsymbol{t}_4)\,.\)</span>
+<span class="math notranslate nohighlight">\(\\\)</span>
+The geometric multiplicity of the eigenvalue <span class="math notranslate nohighlight">\(\ \lambda_2\ \)</span>
+is the same as its algebraic multiplicity and is equal to 1.</p>
+<p><strong>Comments and remarks.</strong></p>
+<p>The eigenmatrices
+<span class="math notranslate nohighlight">\(\ \boldsymbol{t}_1,\,\boldsymbol{t}_2,\,\boldsymbol{t}_3,\,\boldsymbol{t}_4\ \)</span>
+are linearly independent. <span class="math notranslate nohighlight">\(\\\)</span>
+Indeed, if their linear combination is equal to the zero matrix:</p>
+<div class="math notranslate nohighlight">
+\[\alpha\ \boldsymbol{t}_1\,+\,\beta\ \boldsymbol{t}_2\,+\,
+\gamma\ \boldsymbol{t}_3\,+\,\delta\ \boldsymbol{t}_4\ =\
+\boldsymbol{0}\,,\]</div>
+<p>then, adding the left hand side, we obtain</p>
+<div class="math notranslate nohighlight">
+\[\begin{split}\left[\begin{array}{cc}
+\alpha &amp; \beta+\delta \\ \beta-\delta &amp; \gamma
+\end{array}\right]\ =\
+\left[\begin{array}{cc}
+0 &amp; 0 \\ 0 &amp; 0
+\end{array}\right] ,\quad\text{so}\quad
+\begin{cases}\ \begin{array}{r}
+\alpha=0\,, \\ \beta+\delta=0\,, \\ \beta-\delta=0\,, \\ \gamma=0\,,
+\end{array}\end{cases}\quad\text{and thus}\quad
+\begin{cases}\ \begin{array}{r}
+\alpha=0\,, \\ \beta=0\,, \\ \gamma=0\,, \\ \delta=0\,.
+\end{array}\end{cases}\end{split}\]</div>
+<p>The system <span class="math notranslate nohighlight">\(\ \mathcal{T}=(\boldsymbol{t}_1,\boldsymbol{t}_2,\boldsymbol{t}_3,\boldsymbol{t}_4)\ \)</span>
+is then a basis of the algebra <span class="math notranslate nohighlight">\(\,M_2(R),\ \)</span> an alternative for the initial
+basis <span class="math notranslate nohighlight">\(\ \mathcal{B}=(\boldsymbol{e}_1,\boldsymbol{e}_2,\boldsymbol{e}_3,\boldsymbol{e}_4)\,.\ \)</span>
+The connections between the vectors of these bases:</p>
+<div class="math notranslate nohighlight">
+\begin{alignat*}{5}
+\boldsymbol{t}_1 &amp; {\ \,} = {\ \,} &amp; 1\cdot\boldsymbol{e}_1 {\ } + {\ }
+                                     0\cdot\boldsymbol{e}_2 {\ } + {\ }
+                                     0\cdot\boldsymbol{e}_3 {\ } + {\ }
+                                     0\cdot\boldsymbol{e}_4 \,, \\
+\boldsymbol{t}_2 &amp; {\ \,} = {\ \,} &amp; 0\cdot\boldsymbol{e}_1 {\ } + {\ }
+                                     1\cdot\boldsymbol{e}_2 {\ } + {\ }
+                                     1\cdot\boldsymbol{e}_3 {\ } + {\ }
+                                     0\cdot\boldsymbol{e}_4 \,, \\
+\boldsymbol{t}_3 &amp; {\ \,} = {\ \,} &amp; 0\cdot\boldsymbol{e}_1 {\ } + {\ }
+                                     0\cdot\boldsymbol{e}_2 {\ } + {\ }
+                                     0\cdot\boldsymbol{e}_3 {\ } + {\ }
+                                     1\cdot\boldsymbol{e}_4 \,, \\
+\boldsymbol{t}_4 &amp; {\ \,} = {\ \,} &amp; 0\cdot\boldsymbol{e}_1 {\ } + {\ }
+                                     1\cdot\boldsymbol{e}_2 {\ } - {\ }
+                                     1\cdot\boldsymbol{e}_3 {\ } + {\ }
+                                     0\cdot\boldsymbol{e}_4 \,,
+\end{alignat*}</div><p>gives a change-of-basis matrix <span class="math notranslate nohighlight">\(\,\boldsymbol{S}\ \)</span> from the basis <span class="math notranslate nohighlight">\(\,\mathcal{B}\ \)</span> to the basis <span class="math notranslate nohighlight">\(\,\mathcal{T}:\)</span></p>
+<div class="math notranslate nohighlight">
+\[\begin{split}\boldsymbol{S}\ =\
+\left[\begin{array}{rrrr}
+1 &amp; 0 &amp; 0 &amp;  0 \\
+0 &amp; 1 &amp; 0 &amp;  1 \\
+0 &amp; 1 &amp; 0 &amp; -1 \\
+0 &amp; 0 &amp; 1 &amp;  0
+\end{array}\right]\,.\end{split}\]</div>
+<p>The formula <span class="math notranslate nohighlight">\(\,\)</span> <a class="reference internal" href="#equation-mat-at">(7)</a> <span class="math notranslate nohighlight">\(\,\)</span> presents a matrix
+<span class="math notranslate nohighlight">\(\,\boldsymbol{A}\ \)</span> of the operator <span class="math notranslate nohighlight">\(\,T\ \)</span>
+in the initial basis <span class="math notranslate nohighlight">\(\ \mathcal{B}.\)</span> <span class="math notranslate nohighlight">\(\\\)</span>
+The matrix <span class="math notranslate nohighlight">\(\ \boldsymbol{T}=[\tau_{ij}]\ \)</span> of the operator <span class="math notranslate nohighlight">\(\ T\ \)</span>
+in the basis <span class="math notranslate nohighlight">\(\ \mathcal{T}\ \)</span> will be calculated by two methods.</p>
+<ul>
+<li><p>By definition, <span class="math notranslate nohighlight">\(\,\)</span> the entries <span class="math notranslate nohighlight">\(\,\tau_{ij}\ \)</span> of the matrix <span class="math notranslate nohighlight">\(\,\boldsymbol{T}\ \)</span> are defined by the equalities</p>
+<div class="math notranslate nohighlight">
+\[T\ \boldsymbol{t}_j\ =\
+\tau_{1j}\ \boldsymbol{t}_1\ +\
+\tau_{2j}\ \boldsymbol{t}_2\ +\
+\tau_{3j}\ \boldsymbol{t}_3\ +\
+\tau_{4j}\ \boldsymbol{t}_4\,,\qquad j=1,2,3,4.\]</div>
+<p>Taking into account that <span class="math notranslate nohighlight">\(\,\boldsymbol{t}_i\,,\ i=1,2,3,4,\ \)</span>
+are eigenmatrices of the operator <span class="math notranslate nohighlight">\(\,T,\ \)</span> we have:</p>
+<div class="math notranslate nohighlight">
+\begin{alignat*}{6}
+T\ \boldsymbol{t}_1 &amp; {\ \,} = {\ \,} &amp;
+   \boldsymbol{t}_1 &amp; {\ \,} = {\ \,} &amp; 1\cdot\boldsymbol{t}_1 {\ } + {\ }
+                                        0\cdot\boldsymbol{t}_2 {\ } + {\ }
+                                        0\cdot\boldsymbol{t}_3 {\ } + {\ }
+                                        0\cdot\boldsymbol{t}_4 \,, \\
+T\ \boldsymbol{t}_2 &amp; {\ \,} = {\ \,} &amp;
+   \boldsymbol{t}_2 &amp; {\ \,} = {\ \,} &amp; 0\cdot\boldsymbol{t}_1 {\ } + {\ }
+                                        1\cdot\boldsymbol{t}_2 {\ } + {\ }
+                                        0\cdot\boldsymbol{t}_3 {\ } + {\ }
+                                        0\cdot\boldsymbol{t}_4 \,, \\
+T\ \boldsymbol{t}_3 &amp; {\ \,} = {\ \,} &amp;
+   \boldsymbol{t}_3 &amp; {\ \,} = {\ \,} &amp; 0\cdot\boldsymbol{t}_1 {\ } + {\ }
+                                        0\cdot\boldsymbol{t}_2 {\ } + {\ }
+                                        1\cdot\boldsymbol{t}_3 {\ } + {\ }
+                                        0\cdot\boldsymbol{t}_4 \,, \\
+T\ \boldsymbol{t}_4 &amp; {\ \,} = {\ \,} &amp;
+-\ \boldsymbol{t}_4 &amp; {\ \,} = {\ \,} &amp; 0\cdot\boldsymbol{t}_1 {\ } + {\ }
+                                        0\cdot\boldsymbol{t}_2 {\ } + {\ }
+                                        0\cdot\boldsymbol{t}_3 {\ } - {\ }
+                                        1\cdot\boldsymbol{t}_4 \,.
+\end{alignat*}</div><p>The matrix <span class="math notranslate nohighlight">\(\,\boldsymbol{T}\ \)</span> is then diagonal
+with the eigenvalues of the operator <span class="math notranslate nohighlight">\(\,T\ \)</span> on the diagonal:</p>
+<div class="math notranslate nohighlight">
+\[\begin{split}\boldsymbol{T}\ =\ M_{\mathcal{T}}(T)\ =\
+\left[\begin{array}{rrrr}
+1 &amp; 0 &amp; 0 &amp;  0 \\
+0 &amp; 1 &amp; 0 &amp;  0 \\
+0 &amp; 0 &amp; 1 &amp;  0 \\
+0 &amp; 0 &amp; 0 &amp; -1
+\end{array}\right]\,.\end{split}\]</div>
+</li>
+<li><div class="line-block">
+<div class="line">The transformation formulae for the transition from the basis <span class="math notranslate nohighlight">\(\ \mathcal{B}\ \)</span>
+to the basis <span class="math notranslate nohighlight">\(\ \mathcal{T}\ \)</span> give:
+<span class="math notranslate nohighlight">\(\ \ \boldsymbol{T}\ =\ \boldsymbol{S}^{-1}\boldsymbol{A}\,\boldsymbol{S}\,.\)</span></div>
+<div class="line">In matrix calculations we use Sage:</div>
+</div>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="n">sage</span><span class="p">:</span> <span class="n">A</span> <span class="o">=</span> <span class="n">matrix</span><span class="p">(</span><span class="n">QQ</span><span class="p">,[[</span><span class="mi">1</span><span class="p">,</span><span class="mi">0</span><span class="p">,</span><span class="mi">0</span><span class="p">,</span><span class="mi">0</span><span class="p">],</span>
+                     <span class="p">[</span><span class="mi">0</span><span class="p">,</span><span class="mi">0</span><span class="p">,</span><span class="mi">1</span><span class="p">,</span><span class="mi">0</span><span class="p">],</span>
+                     <span class="p">[</span><span class="mi">0</span><span class="p">,</span><span class="mi">1</span><span class="p">,</span><span class="mi">0</span><span class="p">,</span><span class="mi">0</span><span class="p">],</span>
+                     <span class="p">[</span><span class="mi">0</span><span class="p">,</span><span class="mi">0</span><span class="p">,</span><span class="mi">0</span><span class="p">,</span><span class="mi">1</span><span class="p">]])</span>
+
+<span class="n">sage</span><span class="p">:</span> <span class="n">S</span> <span class="o">=</span> <span class="n">matrix</span><span class="p">(</span><span class="n">QQ</span><span class="p">,[[</span><span class="mi">1</span><span class="p">,</span><span class="mi">0</span><span class="p">,</span><span class="mi">0</span><span class="p">,</span> <span class="mi">0</span><span class="p">],</span>
+                     <span class="p">[</span><span class="mi">0</span><span class="p">,</span><span class="mi">1</span><span class="p">,</span><span class="mi">0</span><span class="p">,</span> <span class="mi">1</span><span class="p">],</span>
+                     <span class="p">[</span><span class="mi">0</span><span class="p">,</span><span class="mi">1</span><span class="p">,</span><span class="mi">0</span><span class="p">,</span><span class="o">-</span><span class="mi">1</span><span class="p">],</span>
+                     <span class="p">[</span><span class="mi">0</span><span class="p">,</span><span class="mi">0</span><span class="p">,</span><span class="mi">1</span><span class="p">,</span> <span class="mi">0</span><span class="p">]])</span>
+<span class="n">sage</span><span class="p">:</span> <span class="n">S</span><span class="o">.</span><span class="n">I</span><span class="o">*</span><span class="n">A</span><span class="o">*</span><span class="n">S</span>
+
+<span class="p">[</span> <span class="mi">1</span>  <span class="mi">0</span>  <span class="mi">0</span>  <span class="mi">0</span><span class="p">]</span>
+<span class="p">[</span> <span class="mi">0</span>  <span class="mi">1</span>  <span class="mi">0</span>  <span class="mi">0</span><span class="p">]</span>
+<span class="p">[</span> <span class="mi">0</span>  <span class="mi">0</span>  <span class="mi">1</span>  <span class="mi">0</span><span class="p">]</span>
+<span class="p">[</span> <span class="mi">0</span>  <span class="mi">0</span>  <span class="mi">0</span> <span class="o">-</span><span class="mi">1</span><span class="p">]</span>
+</pre></div>
+</div>
+</li>
+</ul>
+<p>Repeating the argumentation from the previous example we can state that the space
+<span class="math notranslate nohighlight">\(\ M_2(R)\ \)</span> decomposes as direct product of subspaces
+<span class="math notranslate nohighlight">\(\,V_1=L(\boldsymbol{t}_1,\boldsymbol{t}_2,\boldsymbol{t}_3)\ \)</span> of symmetric matrices and the subspaces <span class="math notranslate nohighlight">\(\,V_{-1}=L(\boldsymbol{t}_4)\ \)</span> of antisymmetric matrices:</p>
+<div class="math notranslate nohighlight">
+\[M_2(R)\ =\ V_1\,\oplus\,V_{-1}\,.\]</div>
+</section>
+</section>
+
+
+          </div>
+        </div>
+      </div>
+      <div class="sphinxsidebar" role="navigation" aria-label="main navigation">
+        <div class="sphinxsidebarwrapper">
+  <div class="sphinxlocaltoc">
+  <h3><a href="index.html">Table Of Contents</a></h3>
+  <ul>
+<li><a class="reference internal" href="#">Examples of Eigenproblems</a><ul>
+<li><a class="reference internal" href="#a-linear-operator-in-the-space-of-vectors-on-a-plane">A Linear Operator in the Space of Vectors on a Plane</a></li>
+<li><a class="reference internal" href="#transposition-of-2-times-2-square-matrices">Transposition of <span class="math notranslate nohighlight">\(\ 2\times 2\ \)</span> square matrices</a></li>
+</ul>
+</li>
+</ul>
+
+  </div>
+  <h4>Previous topic</h4>
+  <p class="topless"><a href="problem_wlasny_definicja.html"
+                        title="previous chapter">Formulation of the Eigenproblem</a></p>
+  <h4>Next topic</h4>
+  <p class="topless"><a href="problem_wlasny_rownania_rozniczkowe.html"
+                        title="next chapter">Application to Systems of Linear Differential Equations</a></p>
+  <div role="note" aria-label="source link">
+    <h3>This Page</h3>
+    <ul class="this-page-menu">
+      <li><a href="_sources/problem_wlasny_przyklady.rst.txt"
+            rel="nofollow">Show Source</a></li>
+    </ul>
+   </div>
+<div id="searchbox" style="display: none" role="search">
+  <h3 id="searchlabel">Quick search</h3>
+    <div class="searchformwrapper">
+    <form class="search" action="search.html" method="get">
+      <input type="text" name="q" aria-labelledby="searchlabel" />
+      <input type="submit" value="Go" />
+    </form>
+    </div>
+</div>
+<script>$('#searchbox').show(0);</script>
+        </div>
+      </div>
+      <div class="clearer"></div>
+    </div>
+  </div>
+  <div class="relbar-bottom">
+    
+    <div class="related" role="navigation" aria-label="related navigation">
+      <h3>Navigation</h3>
+      <ul>
+        <li class="right" style="margin-right: 10px">
+          <a href="genindex.html" title="General Index"
+             >index</a></li>
+        <li class="right" >
+          <a href="problem_wlasny_rownania_rozniczkowe.html" title="Application to Systems of Linear Differential Equations"
+             >next</a> &nbsp; &nbsp;</li>
+        <li class="right" >
+          <a href="problem_wlasny_definicja.html" title="Formulation of the Eigenproblem"
+             >previous</a> &nbsp; &nbsp;</li>
+  <li><a href="index.html">Linear Algebra</a> &#187;</li>
+  
+        <li class="nav-item nav-item-this"><a href="">Examples of Eigenproblems</a></li> 
+      </ul>
+    </div>
+  </div>
+  
+  <div class="footer">
+    <a class="logo" href="http://icse.us.edu.pl/" target="_blank"><img src="_static/logo-icse.png" alt="ICSE"/></a><br/>
+    &copy; Copyright 2018, Jan Aksamit, Joanna Marzec, and  Marcin Kostur.
+    Last updated on Jan 29, 2022.
+    Created using <a href="http://sphinx.pocoo.org/">Sphinx</a> 4.0.1.
+  </div>
+  </body>
+</html>

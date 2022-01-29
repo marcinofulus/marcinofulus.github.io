@@ -1,0 +1,571 @@
+
+
+  
+<!DOCTYPE html>
+
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" /><meta name="generator" content="Docutils 0.17: http://docutils.sourceforge.net/" />
+
+    <title>Hermitian and Unitary Matrices &#8212; Linear Algebra</title>
+    <link rel="stylesheet" type="text/css" href="_static/pygments.css" />
+    <link rel="stylesheet" type="text/css" href="_static/cloud.css" />
+    <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Noticia+Text|Open+Sans|Droid+Sans+Mono&amp;subset=latin,latin-ext" type="text/css" />
+    <script data-url_root="./" id="documentation_options" src="_static/documentation_options.js"></script>
+    <script src="_static/jquery.js"></script>
+    <script src="_static/underscore.js"></script>
+    <script src="_static/doctools.js"></script>
+    <script async="async" src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js"></script>
+    <script src="_static/jquery.cookie.js"></script>
+    <script src="_static/cloud.js"></script>
+    <script type="text/javascript" src="http://sagecell.sagemath.org/static/jquery.min.js"></script>
+    <script type="text/javascript" src="http://sagecell.sagemath.org/embedded_sagecell.js"></script>
+    <script type="text/javascript">
+        sagecell.makeSagecell({inputLocation: ".sage_linked",
+                               linked: true});
+        sagecell.makeSagecell({inputLocation: ".sage_unlinked",
+                               linked: false});
+    </script>
+
+    <style type="text/css">
+        .sagecell .CodeMirror-scroll {
+            overflow-y: hidden;
+            overflow-x: auto;
+        }
+        .sagecell .CodeMirror {
+            height: auto;
+        }
+    </style>
+    
+    <link rel="index" title="Index" href="genindex.html" />
+    <link rel="search" title="Search" href="search.html" />
+    <link rel="next" title="Application of Sage" href="p_unitarne_Sage.html" />
+    <link rel="prev" title="Gram-Schmidt Orthonormalization and QR Decomposition of a Matrix" href="p_unitarne_Gram-Schmidt_QR.html" />
+ 
+  <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, minimum-scale=1">
+  </head><body>
+  <div class="relbar-top">
+    
+    <div class="related" role="navigation" aria-label="related navigation">
+      <h3>Navigation</h3>
+      <ul>
+        <li class="right" style="margin-right: 10px">
+          <a href="genindex.html" title="General Index"
+             accesskey="I">index</a></li>
+        <li class="right" >
+          <a href="p_unitarne_Sage.html" title="Application of Sage"
+             accesskey="N">next</a> &nbsp; &nbsp;</li>
+        <li class="right" >
+          <a href="p_unitarne_Gram-Schmidt_QR.html" title="Gram-Schmidt Orthonormalization and QR Decomposition of a Matrix"
+             accesskey="P">previous</a> &nbsp; &nbsp;</li>
+  <li><a href="index.html">Linear Algebra</a> &#187;</li>
+  
+        <li class="nav-item nav-item-this"><a href="">Hermitian and Unitary Matrices</a></li> 
+      </ul>
+    </div>
+  </div>
+  
+  <div class="content">  
+
+    <div class="document">
+      <div class="documentwrapper">
+        <div class="bodywrapper">
+          <div class="body">
+            
+  <section id="hermitian-and-unitary-matrices">
+<h1>Hermitian and Unitary Matrices<a class="headerlink" href="#hermitian-and-unitary-matrices" title="Permalink to this headline">¶</a></h1>
+<section id="hermitian-conjugation-of-a-matrix">
+<h2>Hermitian Conjugation of a Matrix<a class="headerlink" href="#hermitian-conjugation-of-a-matrix" title="Permalink to this headline">¶</a></h2>
+<div class="admonition-definition admonition">
+<p class="admonition-title">Definition.</p>
+<p><em>Hermitian conjugate</em> of a rectangular complex matrix
+<span class="math notranslate nohighlight">\(\ \boldsymbol{A}\,=\,[\,\alpha_{ij}]_{m\times n}\ \)</span>
+is a matrix <span class="math notranslate nohighlight">\(\ \boldsymbol{A}^+=\,[\,\alpha_{ij}^+\,]_{n\times m}\,,\ \,\)</span>
+where <span class="math notranslate nohighlight">\(\ \alpha_{ij}^+\,:\,=\,\alpha_{ji}^*\,,\ \)</span> <span class="math notranslate nohighlight">\(i=1,2,\dots,n,\ \ j=1,2,\dots,m\,.\)</span></p>
+<p>Operation of Hermitian conjugation is thus a composition of matrix transposition
+<span class="math notranslate nohighlight">\(\\\)</span> and complex conjugation of its elements (the last two operations are
+commutative):</p>
+<div class="math notranslate nohighlight" id="equation-a-plus">
+<span class="eqno">(1)<a class="headerlink" href="#equation-a-plus" title="Permalink to this equation">¶</a></span>\[\boldsymbol{A}^+\,:\,=\ (\boldsymbol{A}^T)^*\,=\ (\boldsymbol{A}^*)^T\,.\]</div>
+</div>
+<p>The name comes from French mathematician Charles Hermite (1822-1901).</p>
+<p>In analogy to complex conjugation, we will use the notion “Hermitian conjugation” also for  an operation whose result is Hermitian conjugate of a matrix.</p>
+<p><strong>Example.</strong></p>
+<div class="math notranslate nohighlight">
+\[\begin{split}\boldsymbol{A}\ =\
+\left[\begin{array}{ccc}
+2-i &amp; 3 &amp; 1+i \\ 0 &amp; -1+2\,i &amp; 4\,i
+\end{array}\right]\in M_{2\times 3}(C)\,:\quad
+\boldsymbol{A}^+\,=\
+\left[\begin{array}{cc}
+2+i &amp; 0 \\ 3 &amp; -1-2\,i \\ 1-i &amp; -4\,i
+\end{array}\right]\in M_{3\times 2}(C)\,.\end{split}\]</div>
+<p><strong>Properties of Hermitian conjugation.</strong></p>
+<ol class="arabic">
+<li><p>Hermitian conjugate of sum of matrices <span class="math notranslate nohighlight">\(\ \boldsymbol{A},\boldsymbol{B}\in M_{m\times n}(C)\ \)</span> is equal to sum of their Hermitian conjugates:</p>
+<div class="math notranslate nohighlight">
+\[(\boldsymbol{A}+\boldsymbol{B})^+\,=\ \boldsymbol{A}^+\,+\ \boldsymbol{B}^+\,.\]</div>
+</li>
+<li><p>Multiplication of a matrix by scalar <span class="math notranslate nohighlight">\(\,\alpha\in C\ \)</span> multiplies its Hermitian conjugate by <span class="math notranslate nohighlight">\(\,\alpha^*:\)</span></p>
+<div class="math notranslate nohighlight">
+\[(\alpha\boldsymbol{A})^+\,=\ \alpha^*\boldsymbol{A}^+\,,\qquad
+\alpha\in C\,,\ \ \boldsymbol{A}\in M_{m\times n}(C)\,.\]</div>
+</li>
+<li><p>Hermitian conjugate of product of matrices
+<span class="math notranslate nohighlight">\(\ \boldsymbol{A}\in M_{m\times p}\ \)</span> and <span class="math notranslate nohighlight">\(\ \boldsymbol{B}\in M_{p\times n}\ \)</span> is equal to product of Hermitian conjugates with reverse order of the factors:</p>
+<div class="math notranslate nohighlight">
+\[(\boldsymbol{A}\boldsymbol{B})^+\,=\ \boldsymbol{B}^+\boldsymbol{A}^+\,.\]</div>
+</li>
+<li><p>Double Hermitian conjugation returns the initial matrix:</p>
+<div class="math notranslate nohighlight">
+\[(\boldsymbol{A}^+)^+\,=\ \boldsymbol{A}\,,\qquad\boldsymbol{A}\in M_{m\times n}(C)\,.\]</div>
+</li>
+</ol>
+<div class="admonition-corollary admonition">
+<p class="admonition-title">Corollary.</p>
+<p>Hermitian conjugation is an antilinear operation:</p>
+<div class="math notranslate nohighlight">
+\[(\alpha_1\boldsymbol{A}_1+\alpha_2\boldsymbol{A}_2)^+\,=\
+\alpha_1^*\,\boldsymbol{A}_1^+\,+\,\alpha_2^*\,\boldsymbol{A}_2^+\,,\quad
+\alpha_1,\alpha_2\in C\,,\ \ \boldsymbol{A}_1,\boldsymbol{A}_2\in M_{m\times n}(C)\,.\]</div>
+</div>
+<p>For a real matrix <span class="math notranslate nohighlight">\(\,\boldsymbol{A}\in M_{m\times n}(R),\ \)</span>
+Hermitian conjugate boils down to transpose:
+<span class="math notranslate nohighlight">\(\,\boldsymbol{A}^+\,=\ \boldsymbol{A}^T\,.\)</span></p>
+<p>Now, an inner product of vectors <span class="math notranslate nohighlight">\(\ \
+\boldsymbol{x}\,=\,
+\left[\begin{array}{c} \alpha_1 \\ \alpha_2 \\ \dots \\ \alpha_n \end{array}\right]
+\ \ \ \)</span> and <span class="math notranslate nohighlight">\(\quad
+\boldsymbol{y}\,=\,
+\left[\begin{array}{c} \beta_1 \\ \beta_2 \\ \dots \\ \beta_n \end{array}\right]\)</span>
+in the space <span class="math notranslate nohighlight">\(\,C^n\ \)</span> may be concisely written in a form of a matrix product:</p>
+<div class="math notranslate nohighlight" id="equation-x-y">
+<span class="eqno">(2)<a class="headerlink" href="#equation-x-y" title="Permalink to this equation">¶</a></span>\[\begin{split}\langle \boldsymbol{x},\boldsymbol{y}\rangle\ \,=\ \,
+\sum_{i\,=\,1}^n\ \alpha_i^*\,\beta_i\ \,=\ \,
+[\,\alpha_1^*,\,\alpha_2^*,\,\dots,\,\alpha_n^*\,]\
+\left[\begin{array}{c} \beta_1 \\ \beta_2 \\ \dots \\ \beta_n \end{array}\right]\ \,=\ \,
+\boldsymbol{x}^+\,\boldsymbol{y}\,.\end{split}\]</div>
+<div class="admonition-theorem-5 admonition">
+<p class="admonition-title">Theorem 5.</p>
+<p>For a given matrix <span class="math notranslate nohighlight">\(\,\boldsymbol{A}\in M_n(C),\ \)</span>
+<span class="math notranslate nohighlight">\(\ \boldsymbol{A}^+\ \)</span> is the only matrix satisfying the condition</p>
+<div class="math notranslate nohighlight" id="equation-x-a-y">
+<span class="eqno">(3)<a class="headerlink" href="#equation-x-a-y" title="Permalink to this equation">¶</a></span>\[\langle\,\boldsymbol{x},\boldsymbol{A}^+\boldsymbol{y}\,\rangle\ =\
+\langle\,\boldsymbol{A}\boldsymbol{x},\boldsymbol{y}\,\rangle\qquad
+\text{for every}\ \ \boldsymbol{x},\boldsymbol{y}\in C^n\,.\]</div>
+</div>
+<p><strong>Proof.</strong></p>
+<p>The property 3. of Hermitian conjugation and the formula <a class="reference internal" href="#equation-x-y">(2)</a> imply that</p>
+<div class="math notranslate nohighlight">
+\[\langle\boldsymbol{x},\boldsymbol{A}^+\boldsymbol{y}\rangle\,=\,
+\boldsymbol{x}^+(\boldsymbol{A}^+\boldsymbol{y})\,=\,
+(\boldsymbol{x}^+\boldsymbol{A}^+)\ \boldsymbol{y}\,=\,
+(\boldsymbol{A}\boldsymbol{x})^+\boldsymbol{y}\,=\,
+\langle\boldsymbol{A}\boldsymbol{x},\boldsymbol{y}\rangle\,.\]</div>
+<p>Hence, the matrix <span class="math notranslate nohighlight">\(\,\boldsymbol{A}^+\ \)</span> satisfies the condition  <a class="reference internal" href="#equation-x-a-y">(3)</a>.
+To show that this is the only matrix with such property <span class="math notranslate nohighlight">\(\,\)</span>
+denote <span class="math notranslate nohighlight">\(\,\boldsymbol{A}=[\,\alpha_{ij}\,]_{n\times n}\ \)</span> and <span class="math notranslate nohighlight">\(\,\)</span> assume
+that for certain matrix <span class="math notranslate nohighlight">\(\,\boldsymbol{B}=[\,\beta_{ij}\,]_{n\times n}:\)</span></p>
+<div class="math notranslate nohighlight">
+\[\langle\,\boldsymbol{x},\boldsymbol{B}\boldsymbol{y}\,\rangle\ =\
+\langle\,\boldsymbol{A}\boldsymbol{x},\boldsymbol{y}\,\rangle\qquad
+\text{for every}\ \ \boldsymbol{x},\boldsymbol{y}\in C^n\,.\]</div>
+<p>In particular, if
+<span class="math notranslate nohighlight">\(\ \,\boldsymbol{x},\,\boldsymbol{y}\ \,\)</span> are the canonical basis vectors
+<span class="math notranslate nohighlight">\(\ \,\boldsymbol{e}_i,\,\boldsymbol{e}_j\ ,\,\)</span> we obtain <span class="math notranslate nohighlight">\(\,\)</span>
+(<span class="math notranslate nohighlight">\(\ i,j=1,2,\dots,n\)</span>) :</p>
+<div class="math notranslate nohighlight">
+\[\beta_{ij}\,=\ \boldsymbol{e}_i^+\,\boldsymbol{B}\,\boldsymbol{e}_j\,=\
+\langle\,\boldsymbol{e}_i,\boldsymbol{B}\boldsymbol{e}_j\rangle\ =\
+\langle\,\boldsymbol{A}\boldsymbol{e}_i,\boldsymbol{e}_j\,\rangle\ =\
+\langle\,\boldsymbol{e}_j,\boldsymbol{A}\boldsymbol{e}_i\rangle^*\ =\
+(\boldsymbol{e}_j^+\boldsymbol{A}\;\boldsymbol{e}_i)^*\,=\ \alpha_{ji}^*\,=\
+\alpha_{ij}^+\,,\]</div>
+<p>which gives the equality <span class="math notranslate nohighlight">\(\ \boldsymbol{B}=\boldsymbol{A}^+\,.\)</span></p>
+<p>Hence, the condition <a class="reference internal" href="#equation-x-a-y">(3)</a> may be treated as an equivalent definition for Hermitian conjugate <span class="math notranslate nohighlight">\(\ \boldsymbol{A}^+\,\)</span> of a <em>square</em> matrix <span class="math notranslate nohighlight">\(\,\boldsymbol{A}.\ \)</span>
+Further we will see that exactly in this way one defines Hermitian conjugation of a linear operator.</p>
+<div class="admonition-theorem-6 admonition">
+<p class="admonition-title">Theorem 6.</p>
+<p>Determinant of Hermitian conjugate of a square complex matrix
+is equal to complex conjugate of its determinant:</p>
+<div class="math notranslate nohighlight">
+\[\det\boldsymbol{A}^+\ =\ (\det\boldsymbol{A})^*\,,\qquad\boldsymbol{A}\in M_n(C)\,.\]</div>
+</div>
+<p><strong>Proof.</strong> <span class="math notranslate nohighlight">\(\,\)</span> Let <span class="math notranslate nohighlight">\(\,\boldsymbol{A}=[\,\alpha_{ij}\,]_{n\times n}\in M_n(C).\)</span>
+By definition <a class="reference internal" href="#equation-a-plus">(1)</a>, we have</p>
+<div class="math notranslate nohighlight">
+\[\det\boldsymbol{A}^+\,=\ \det\,(\boldsymbol{A}^*)^T\,=\ \det\boldsymbol{A}^*\,,
+\qquad\text{where}\quad\boldsymbol{A}^*=[\,\alpha_{ij}^*\,]_{n\times n}\,.\]</div>
+<p>Now it is easy to see from permutation expansion of the determinant that the determinant of complex conjugate of a matrix is equal to  complex conjugate of its determinant:
+<span class="math notranslate nohighlight">\(\ \,\det\boldsymbol{A}^*\equiv\det[\,\alpha_{ij}^*\,]\ =\ (\det\boldsymbol{A})^*\,,\ \,\)</span>
+which leads directly to the hypothesis.</p>
+</section>
+<section id="hermitian-matrices">
+<h2>Hermitian Matrices<a class="headerlink" href="#hermitian-matrices" title="Permalink to this headline">¶</a></h2>
+<div class="admonition-definition admonition">
+<p class="admonition-title">Definition.</p>
+<p>Matrix <span class="math notranslate nohighlight">\(\,\boldsymbol{A}=[\,\alpha_{ij}\,]_{n\times n}\in M_n(C)\ \)</span>
+is a <em>Hermitian matrix</em> <span class="math notranslate nohighlight">\(\,\)</span> if it is equal to its Hermitian conjugation:</p>
+<div class="math notranslate nohighlight" id="equation-a-hermit">
+<span class="eqno">(4)<a class="headerlink" href="#equation-a-hermit" title="Permalink to this equation">¶</a></span>\[\boldsymbol{A}\,=\,\boldsymbol{A}^+\,,\qquad\text{that is}\quad
+\alpha_{ij}=\alpha_{ji}^*\,,\quad i,j=1,2,\dots,n.\]</div>
+</div>
+<p><strong>Example</strong> of a Hermitian matrix:</p>
+<div class="math notranslate nohighlight">
+\[\begin{split}\boldsymbol{A}\ =\
+\left[\begin{array}{ccc}
+3 &amp; 2-i &amp; -4+3\,i \\ 2+i &amp; -1 &amp; -i \\ -4-3\,i &amp; i &amp; 5
+\end{array}\right]\,.\end{split}\]</div>
+<p>The properties given below state that certain quantity related with a (complex)
+<span class="math notranslate nohighlight">\(\,\)</span> Hermitian matrix is real. To show that a complex number is a real number, it is useful to have the following</p>
+<p><strong>Lemma.</strong> <span class="math notranslate nohighlight">\(\,\)</span> Let <span class="math notranslate nohighlight">\(\,z\in C.\ \,\)</span>
+Then <span class="math notranslate nohighlight">\(\quad z\in R\quad\Leftrightarrow\quad z=z^*\,.\)</span></p>
+<p>Indeed, <span class="math notranslate nohighlight">\(\,\)</span> if <span class="math notranslate nohighlight">\(\ z=a+b\,i\,,\ \)</span> then the condition <span class="math notranslate nohighlight">\(\ \,z=z^*\ \,\)</span>
+means that <span class="math notranslate nohighlight">\(\ \,a+b\,i=a-b\,i\,,\ \,\)</span> <span class="math notranslate nohighlight">\(\\\)</span>
+which is equivalent to saying that <span class="math notranslate nohighlight">\(\ \,b\equiv\text{im}\,z=0.\)</span></p>
+<p><strong>Properties</strong> of Hermitian matrix.</p>
+<ol class="arabic">
+<li><p>Diagonal entries of a Hermitian matrix are real numbers. <span class="math notranslate nohighlight">\(\\\)</span>
+Indeed, if we write the condition <a class="reference internal" href="#equation-a-hermit">(4)</a> for <span class="math notranslate nohighlight">\(\,i=j\ \)</span> we obtain
+<span class="math notranslate nohighlight">\(\ \alpha_{ii}=\alpha_{ii}^*\,,\ \)</span> <span class="math notranslate nohighlight">\(\\\)</span>
+which means that <span class="math notranslate nohighlight">\(\ \alpha_{ii}\in R\,,\ \ i=1,2,\dots,n\,.\)</span></p></li>
+<li><p>Trace and determinant of a Hermitian matrix are real:
+<span class="math notranslate nohighlight">\(\ \text{tr}\,\boldsymbol{A},\,\det\boldsymbol{A}\,\in\,R\,.\)</span>
+This follows from the definition of trace as a sum of diagonal entries of the matrix
+and from Theorem 6. about determinant of Hermitian conjugate of a matrix:</p>
+<div class="math notranslate nohighlight">
+\[\begin{split}\begin{array}{rclcl}
+\boldsymbol{A}=\boldsymbol{A}^+ &amp; \Rightarrow &amp; \det\boldsymbol{A}\ =\ \det\boldsymbol{A}^+   &amp;                 &amp;                           \\
+                                &amp;             &amp; \det\boldsymbol{A}\ =\ (\det\boldsymbol{A})^* &amp; \Leftrightarrow &amp; \det\boldsymbol{A}\in R\,.
+\end{array}\end{split}\]</div>
+</li>
+<li><p>If <span class="math notranslate nohighlight">\(\,\boldsymbol{A}\in M_n(C)\ \)</span> is a Hermitian matrix,
+then for every vector <span class="math notranslate nohighlight">\(\ \boldsymbol{x}\in C^n\ \)</span> an inner product
+<span class="math notranslate nohighlight">\(\ \langle\,\boldsymbol{x},\boldsymbol{A}\boldsymbol{x}\,\rangle\ \)</span>
+is a real number:</p>
+<div class="math notranslate nohighlight" id="equation-xax">
+<span class="eqno">(5)<a class="headerlink" href="#equation-xax" title="Permalink to this equation">¶</a></span>\[\langle\,\boldsymbol{x},\boldsymbol{A}\boldsymbol{x}\,\rangle\in R\,,\qquad
+\boldsymbol{x}\in C^n\,.\]</div>
+<p><strong>Proof.</strong> <span class="math notranslate nohighlight">\(\,\)</span> Substitution
+<span class="math notranslate nohighlight">\(\ \,\boldsymbol{A}^+=\boldsymbol{A},\ \ \boldsymbol{y}=\boldsymbol{x}\ \)</span>
+in equation <a class="reference internal" href="#equation-x-a-y">(3)</a> leads to</p>
+<div class="math notranslate nohighlight" id="equation-xax-axx">
+<span class="eqno">(6)<a class="headerlink" href="#equation-xax-axx" title="Permalink to this equation">¶</a></span>\[\langle\,\boldsymbol{x},\boldsymbol{A}\boldsymbol{x}\,\rangle\ =\
+\langle\,\boldsymbol{A}\boldsymbol{x},\boldsymbol{x}\,\rangle\,,\qquad
+\boldsymbol{x}\in C^n\,.\]</div>
+<p>But since <span class="math notranslate nohighlight">\(\ \,\langle\,\boldsymbol{A}\boldsymbol{x},\boldsymbol{x}\,\rangle=
+\langle\,\boldsymbol{x},\boldsymbol{A}\boldsymbol{x}\,\rangle^*\,,\ \,\)</span> we have
+<span class="math notranslate nohighlight">\(\ \,\langle\,\boldsymbol{x},\boldsymbol{A}\boldsymbol{x}\,\rangle=
+\langle\,\boldsymbol{x},\boldsymbol{A}\boldsymbol{x}\,\rangle^*\,,\ \,\)</span> and thus
+<span class="math notranslate nohighlight">\(\ \,\langle\,\boldsymbol{x},\boldsymbol{A}\boldsymbol{x}\,\rangle\,\in R\,.\)</span></p>
+<p>One can prove that the condition <a class="reference internal" href="#equation-xax">(5)</a> is not only necessary, but also sufficient
+for a complex matrix <span class="math notranslate nohighlight">\(\,\boldsymbol{A}\ \)</span> to be Hermitian. This implies</p>
+<div class="admonition-corollary admonition">
+<p class="admonition-title">Corollary.</p>
+<p>If <span class="math notranslate nohighlight">\(\ \boldsymbol{A}\in M_n(C)\,,\ \)</span> then
+<span class="math notranslate nohighlight">\(\qquad
+\boldsymbol{A}\ =\ \boldsymbol{A}^+\quad\Leftrightarrow\quad
+\langle\,\boldsymbol{x},\boldsymbol{A}\boldsymbol{x}\,\rangle\in R\,,\quad
+\boldsymbol{x}\in C^n\,.\)</span></p>
+</div>
+</li>
+<li><p>For a Hermitian matrix <span class="math notranslate nohighlight">\(\,\boldsymbol{A}\in M_n(C)\ \)</span>
+the roots of characteristic polynomial
+<span class="math notranslate nohighlight">\(\,w(\lambda)=\det\,(\boldsymbol{A}-\lambda\,\boldsymbol{I}_n)\ \)</span>
+are real numbers.</p>
+<p><strong>Proof.</strong></p>
+<p>If <span class="math notranslate nohighlight">\(\ \det\,(\boldsymbol{A}-\lambda\,\boldsymbol{I}_n)=0\,,\ \)</span> then
+homogeneous linear problem with matrix
+<span class="math notranslate nohighlight">\(\,\boldsymbol{A}-\lambda\,\boldsymbol{I}_n\ \)</span> <span class="math notranslate nohighlight">\(\\\)</span>
+has nonzero solutions. <span class="math notranslate nohighlight">\(\,\)</span>
+Hence, there exists a nonzero vector <span class="math notranslate nohighlight">\(\,\boldsymbol{x}\in C^n\ \,\)</span> for which</p>
+<div class="math notranslate nohighlight">
+\begin{eqnarray*}
+(\boldsymbol{A}-\lambda\,\boldsymbol{I}_n)\ \boldsymbol{x} &amp; \! = \! &amp; \boldsymbol{0}\,,  \\
+\boldsymbol{A}\,\boldsymbol{x} &amp; \! = \! &amp; \lambda\,\boldsymbol{I}_n\,\boldsymbol{x}\,, \\
+\boldsymbol{A}\,\boldsymbol{x} &amp; \! = \! &amp; \lambda\,\boldsymbol{x}\,,
+\quad\text{where}\quad\boldsymbol{x}\neq\boldsymbol{0}\,.
+\end{eqnarray*}</div><p>If we substitute the last equality to the formula <a class="reference internal" href="#equation-xax-axx">(6)</a>, we obtain</p>
+<div class="math notranslate nohighlight">
+\begin{eqnarray*}
+\langle\,\boldsymbol{x},\boldsymbol{A}\,\boldsymbol{x}\,\rangle &amp; \! = \! &amp;
+\langle\,\boldsymbol{A}\,\boldsymbol{x},\boldsymbol{x}\,\rangle\,,          \\
+\langle\,\boldsymbol{x},\,\lambda\,\boldsymbol{x}\,\rangle &amp; \! = \! &amp;
+\langle\,\lambda\,\boldsymbol{x},\boldsymbol{x}\,\rangle\,,                 \\
+\lambda\ \langle\,\boldsymbol{x},\boldsymbol{x}\,\rangle &amp; \! = \! &amp;
+\lambda^*\;\langle\,\boldsymbol{x},\boldsymbol{x}\,\rangle\,,
+\quad\text{where}\quad\langle\,\boldsymbol{x},\boldsymbol{x}\,\rangle&gt;0\,;             \\
+\lambda &amp; \! = \! &amp; \lambda^*
+\quad\ \ \Leftrightarrow\quad\ \ \,\lambda\in R\,.
+\end{eqnarray*}</div></li>
+</ol>
+<p>Real Hermitian matrix is a symmetrix matrix: <span class="math notranslate nohighlight">\(\,\)</span>
+for <span class="math notranslate nohighlight">\(\ \boldsymbol{A}\in M_n(R)\)</span>,</p>
+<div class="math notranslate nohighlight">
+\[\boldsymbol{A}=\boldsymbol{A}^+\quad\Leftrightarrow\quad\boldsymbol{A}=\boldsymbol{A}^T\,.\]</div>
+</section>
+<section id="unitary-matrices">
+<h2>Unitary Matrices<a class="headerlink" href="#unitary-matrices" title="Permalink to this headline">¶</a></h2>
+<div class="admonition-definition admonition">
+<p class="admonition-title">Definition.</p>
+<p>Matrix <span class="math notranslate nohighlight">\(\ \boldsymbol{B}\in M_n(C)\ \,\)</span> is <span class="math notranslate nohighlight">\(\,\)</span> <em>unitary</em> <span class="math notranslate nohighlight">\(\,\)</span> if
+a product of Hermitian conjugate of a <span class="math notranslate nohighlight">\(\\\)</span>
+matrix <span class="math notranslate nohighlight">\(\boldsymbol{B}\ \)</span>
+and <span class="math notranslate nohighlight">\(\,\)</span> the matrix <span class="math notranslate nohighlight">\(\boldsymbol{B}\ \)</span> itself is an identity matrix:</p>
+<div class="math notranslate nohighlight" id="equation-unitary">
+<span class="eqno">(7)<a class="headerlink" href="#equation-unitary" title="Permalink to this equation">¶</a></span>\[\boldsymbol{B}^+\boldsymbol{B}\,=\,\boldsymbol{I}_n\,.\]</div>
+</div>
+<p><span class="math notranslate nohighlight">\(\;\)</span></p>
+<p><strong>Example.</strong>
+<span class="math notranslate nohighlight">\(\qquad\boldsymbol{B}\ =\ \displaystyle\frac{1}{\sqrt{2}}\
+\left[\begin{array}{rr} 1 &amp; i \\ i &amp; 1 \end{array}\right]\,;\qquad
+\boldsymbol{B}^+\ =\ \displaystyle\frac{1}{\sqrt{2}}
+\left[\begin{array}{rr} 1 &amp; -i \\ -i &amp; 1 \end{array}\right]\,;\)</span></p>
+<div class="math notranslate nohighlight">
+\[\begin{split}\boldsymbol{B}^+\boldsymbol{B}\ \ =\ \ \frac{1}{2}\
+\left[\begin{array}{rr} 1 &amp; -i \\ -i &amp; 1 \end{array}\right]\
+\left[\begin{array}{rr} 1 &amp; i \\ i &amp; 1 \end{array}\right]\ \ =\ \ \frac{1}{2}\
+\left[\begin{array}{rr} 2 &amp; 0 \\ 0 &amp; 2 \end{array}\right]\ \ =\ \
+\left[\begin{array}{rr} 1 &amp; 0 \\ 0 &amp; 1 \end{array}\right]\,.\end{split}\]</div>
+<p><span class="math notranslate nohighlight">\(\;\)</span></p>
+<p><strong>Properties of unitary matrices.</strong> <span class="math notranslate nohighlight">\(\\\)</span></p>
+<ol class="arabic" start="0">
+<li><p>The condition <a class="reference internal" href="#equation-unitary">(7)</a> means that <span class="math notranslate nohighlight">\(\,\boldsymbol{B}^+=\boldsymbol{B}^{-1},\ \)</span>
+which futrher implies that <span class="math notranslate nohighlight">\(\,\boldsymbol{B}\boldsymbol{B}^+\,=\,\boldsymbol{I}_n\,.\ \)</span>
+Hence, a unitary matrix <span class="math notranslate nohighlight">\(\,\boldsymbol{B}\ \)</span> satisfies identities</p>
+<div class="math notranslate nohighlight">
+\[\boldsymbol{B}^+\boldsymbol{B}\,=\,\boldsymbol{B}\boldsymbol{B}^+\,=\,\boldsymbol{I}_n\,.\]</div>
+</li>
+<li><p>The condition <span class="math notranslate nohighlight">\(\ \boldsymbol{B}\boldsymbol{B}^+=\boldsymbol{I}_n\ \)</span> may be
+written as <span class="math notranslate nohighlight">\(\ (\boldsymbol{B}^+)^+\boldsymbol{B}^+=\boldsymbol{I}_n\,,\ \)</span> which means that
+if <span class="math notranslate nohighlight">\(\ \boldsymbol{B}\in M_n(C)\ \)</span> is a unitary matrix, then so are the
+Hermitian conjugate <span class="math notranslate nohighlight">\(\ \boldsymbol{B}^+\ \)</span> and the inverse matrix
+<span class="math notranslate nohighlight">\(\ \boldsymbol{B}^{-1}\,.\)</span></p></li>
+<li><p>Let <span class="math notranslate nohighlight">\(\ \boldsymbol{B}_1,\boldsymbol{B}_2\in M_n(C)\ \)</span> be unitary matrices:
+<span class="math notranslate nohighlight">\(\ \ \boldsymbol{B}_1^+\,\boldsymbol{B}_1=\boldsymbol{B}_2^+\,\boldsymbol{B}_2=
+\boldsymbol{I}_n\,.\ \)</span>
+Then, by properties of Hermitian conjugation of matrices,</p>
+<div class="math notranslate nohighlight">
+\[(\boldsymbol{B}_1\boldsymbol{B}_2)^+(\boldsymbol{B}_1\boldsymbol{B}_2)\ =\
+\boldsymbol{B}_2^+\,(\boldsymbol{B}_1^+\boldsymbol{B}_1)\,\boldsymbol{B}_2\ =\
+\boldsymbol{B}_2^+\,\boldsymbol{I}_n\,\boldsymbol{B}_2\ =\
+\boldsymbol{B}_2^+\,\boldsymbol{B}_2\ =\ \boldsymbol{I}_n\,.\]</div>
+<p>Hence, a product of unitary matrices is also a unitary matrix. <span class="math notranslate nohighlight">\(\\\)</span>
+In this way, because an identity matrix <span class="math notranslate nohighlight">\(\ \boldsymbol{I}_n\ \)</span> is unitary,
+we may write</p>
+<div class="admonition-corollary-1 admonition">
+<p class="admonition-title">Corollary 1.</p>
+<p>A set of unitary matrices of size <span class="math notranslate nohighlight">\(\,n\ \)</span> together with matrix
+multiplication comprises a (nonabelian) group.</p>
+</div>
+</li>
+<li><p>An inner product of the <span class="math notranslate nohighlight">\(\,i\)</span>-th and the <span class="math notranslate nohighlight">\(\,j\)</span>-th
+column of a unitary matrix <span class="math notranslate nohighlight">\(\,\boldsymbol{B}\ \)</span> is given by</p>
+<div class="math notranslate nohighlight">
+\[\langle\,\boldsymbol{b}_i,\boldsymbol{b}_j\rangle\ \,=\ \,
+\boldsymbol{b}_i^+\,\boldsymbol{b}_j\ \,=\ \,
+\left(\boldsymbol{B}^+\boldsymbol{B}\right)_{ij}\ \,=\ \,
+\left(\boldsymbol{I}_n\right)_{ij}\ \,=\ \,\delta_{ij}\,,\qquad i,j=1,2,\dots,n\,,\]</div>
+<p>because <span class="math notranslate nohighlight">\(\,\boldsymbol{b}_i^+\ \)</span> is the <span class="math notranslate nohighlight">\(\,i\)</span>-th row of a matrix
+<span class="math notranslate nohighlight">\(\,\boldsymbol{B}^+,\ \ i=1,2,\dots,n.\)</span></p>
+<p>Taking into account the fact that matrix <span class="math notranslate nohighlight">\(\,\boldsymbol{B}^+,\ \)</span>
+whose columns are Hermitian conjugates of rows of matrix <span class="math notranslate nohighlight">\(\,\boldsymbol{B},\ \)</span>
+is also unitary, we may write</p>
+<div class="admonition-corollary-2 admonition">
+<p class="admonition-title">Corollary 2.</p>
+<p>Matrix <span class="math notranslate nohighlight">\(\ \boldsymbol{B}\in M_n(C)\ \)</span> is unitary
+if and only if its columns <span class="math notranslate nohighlight">\(\\\)</span>
+(and also rows) <span class="math notranslate nohighlight">\(\,\)</span>
+comprise an orthonormal system in the space <span class="math notranslate nohighlight">\(\,C^n.\)</span></p>
+</div>
+</li>
+<li><p>Unitary matrix <span class="math notranslate nohighlight">\(\,\boldsymbol{B}\in M_n(C)\ \)</span> preserves
+an inner product in the space <span class="math notranslate nohighlight">\(\,C^n:\)</span></p>
+<div class="math notranslate nohighlight">
+\[\langle\,\boldsymbol{B}\boldsymbol{x},\,\boldsymbol{B}\boldsymbol{y}\,\rangle\ \,=\ \,
+\langle\boldsymbol{x},\boldsymbol{y}\rangle\,,\qquad
+\boldsymbol{x},\boldsymbol{y}\in C^n\,.\]</div>
+<p>Indeed, by definition  of an inner product in the space <span class="math notranslate nohighlight">\(\,C^n,\ \)</span> we have</p>
+<div class="math notranslate nohighlight">
+\[ \begin{align}\begin{aligned}\langle\,\boldsymbol{B}\boldsymbol{x},\,\boldsymbol{B}\boldsymbol{y}\,\rangle\ =\
+(\boldsymbol{B}\boldsymbol{x})^+(\boldsymbol{B}\boldsymbol{y})\ =\
+(\boldsymbol{x}^+\boldsymbol{B}^+)(\boldsymbol{B}\boldsymbol{y})\ =\\\ =\
+\boldsymbol{x}^+(\boldsymbol{B}^+\boldsymbol{B})\ \boldsymbol{y}\ =\
+\boldsymbol{x}^+\boldsymbol{I}_n\,\boldsymbol{y}\ =\
+\boldsymbol{x}^+\boldsymbol{y}\ =\
+\langle\boldsymbol{x},\boldsymbol{y}\rangle\,.\end{aligned}\end{align} \]</div>
+<p>In particular, if <span class="math notranslate nohighlight">\(\,\boldsymbol{y}=\boldsymbol{x},\ \)</span> we get an identity</p>
+<div class="math notranslate nohighlight" id="equation-bx-bx">
+<span class="eqno">(8)<a class="headerlink" href="#equation-bx-bx" title="Permalink to this equation">¶</a></span>\[\langle\,\boldsymbol{B}\boldsymbol{x},\,\boldsymbol{B}\boldsymbol{x}\,\rangle\ \,=\ \,
+\langle\boldsymbol{x},\boldsymbol{x}\rangle\,,\qquad
+\boldsymbol{x}\in C^n\,,\]</div>
+<p>which describes behaviour of the norm:
+<span class="math notranslate nohighlight">\(\quad\|\,\boldsymbol{B}\boldsymbol{x}\,\|=
+\|\boldsymbol{x}\|\,,\ \ \boldsymbol{x}\in C^n\,.\)</span></p>
+<p>The last property allows to interpret multiplication (on the left hand side)
+of vector <span class="math notranslate nohighlight">\(\,\boldsymbol{x}\in C^n\ \)</span> by a unitary matrix
+<span class="math notranslate nohighlight">\(\,\boldsymbol{B}\ \)</span> as a generalised rotation of this vector.</p>
+</li>
+<li><p>Determinant of a unitary matrix <span class="math notranslate nohighlight">\(\,\boldsymbol{B}\ \)</span> is a complex number of modulus 1:
+<span class="math notranslate nohighlight">\(\ \,|\det\boldsymbol{B}\,|=1\,.\)</span></p>
+<p>Indeed, applying determinant on both sides of the equality <a class="reference internal" href="#equation-unitary">(7)</a>, we obtain</p>
+<div class="math notranslate nohighlight">
+\[\det\,(\boldsymbol{B}^+\boldsymbol{B})=
+\det\boldsymbol{B}^+\cdot\,\det\boldsymbol{B}=
+(\det\boldsymbol{B})^*\cdot\,\det\boldsymbol{B}=
+|\det\boldsymbol{B}\,|^2\quad=\quad
+\det\boldsymbol{I}_n=1\,.\]</div>
+</li>
+<li><p>For a unitarny matrix <span class="math notranslate nohighlight">\(\,\boldsymbol{B}\in M_n(C)\ \)</span>
+the roots of a characteristic polynomial
+<span class="math notranslate nohighlight">\(\,w(\lambda)=\det\,(\boldsymbol{B}-\lambda\,\boldsymbol{I}_n)\ \)</span>
+are complex numbers of modulus 1.</p>
+<p><strong>Proof.</strong> <span class="math notranslate nohighlight">\(\,\)</span>
+If <span class="math notranslate nohighlight">\(\ \det\,(\boldsymbol{B}-\lambda\,\boldsymbol{I}_n)=0\,,\ \)</span> then
+homogeneous linear problem with matrix
+<span class="math notranslate nohighlight">\(\,\boldsymbol{B}-\lambda\,\boldsymbol{I}_n\ \)</span> <span class="math notranslate nohighlight">\(\\\)</span>
+has nonzero solutions: <span class="math notranslate nohighlight">\(\,\)</span> there exists a nonzero vector
+<span class="math notranslate nohighlight">\(\,\boldsymbol{x}\in C^n\ \,\)</span> for which</p>
+<div class="math notranslate nohighlight">
+\begin{eqnarray*}
+(\boldsymbol{B}-\lambda\,\boldsymbol{I}_n)\;\boldsymbol{x} &amp; \! = \! &amp; \boldsymbol{0}\,,  \\
+\boldsymbol{B}\,\boldsymbol{x} &amp; \! = \! &amp; \lambda\,\boldsymbol{I}_n\,\boldsymbol{x}\,, \\
+\boldsymbol{B}\,\boldsymbol{x} &amp; \! = \! &amp; \lambda\,\boldsymbol{x}\,,
+\quad\text{where}\quad\boldsymbol{x}\neq\boldsymbol{0}\,.
+\end{eqnarray*}</div><p>If we substitute the last equality to the formula <a class="reference internal" href="#equation-bx-bx">(8)</a>, we obtain</p>
+<div class="math notranslate nohighlight">
+\begin{eqnarray*}
+\langle\,\boldsymbol{B}\boldsymbol{x},\,\boldsymbol{B}\boldsymbol{x}\,\rangle &amp; \! = \! &amp;
+\langle\,\boldsymbol{x},\boldsymbol{x}\,\rangle\,, \\
+\langle\,\lambda\,\boldsymbol{x},\,\lambda\,\boldsymbol{x}\,\rangle &amp; \! = \! &amp;
+\langle\,\boldsymbol{x},\boldsymbol{x}\,\rangle\,, \\
+\lambda^*\lambda\ \langle\,\boldsymbol{x},\boldsymbol{x}\,\rangle &amp; \! = \! &amp;
+\langle\,\boldsymbol{x},\boldsymbol{x}\,\rangle\,, \\
+|\lambda|^2\ \langle\,\boldsymbol{x},\boldsymbol{x}\,\rangle &amp; \! = \! &amp;
+\langle\,\boldsymbol{x},\boldsymbol{x}\,\rangle\,,
+\quad\text{where}\quad\langle\,\boldsymbol{x},\boldsymbol{x}\,\rangle&gt;0\,; \\
+|\lambda|^2 &amp; \! = \! &amp; 1
+\quad\Rightarrow\quad|\lambda|=1\,.
+\end{eqnarray*}</div></li>
+</ol>
+<p>Relation of a unitary matrix with a generalised rotation is also suggested by</p>
+<div class="admonition-theorem-7 admonition">
+<p class="admonition-title">Theorem 7.</p>
+<p>Let <span class="math notranslate nohighlight">\(\,V(C)\ \)</span> be a unitary finite dimensional vector space with an orhonormal basis
+<span class="math notranslate nohighlight">\(\,\mathcal{B}.\)</span> <span class="math notranslate nohighlight">\(\\\)</span>
+Basis <span class="math notranslate nohighlight">\(\,\mathcal{C}\ \)</span> of this space is orthonormal if and only if
+a transition matrix <span class="math notranslate nohighlight">\(\,\boldsymbol{S}\ \)</span>
+from basis <span class="math notranslate nohighlight">\(\,\mathcal{B}\ \)</span> to <span class="math notranslate nohighlight">\(\,\mathcal{C}\ \)</span> is unitary.</p>
+</div>
+<p><strong>Proof.</strong> <span class="math notranslate nohighlight">\(\,\)</span>
+Let <span class="math notranslate nohighlight">\(\ \ \dim V=n\,,\ \ \mathcal{B}=(u_1,u_2,\dots,u_n)\,,\ \
+\mathcal{C}=(w_1,w_2,\dots,w_n)\,,\ \ \boldsymbol{S}=[\,\sigma_{ij}\,]_{n\times n}\,.\)</span></p>
+<p>By assumption, basis <span class="math notranslate nohighlight">\(\,\mathcal{B}\ \)</span> is orthonormal:
+<span class="math notranslate nohighlight">\(\quad\langle u_i,u_j\rangle\,=\,\delta_{ij}\,,\quad i,j=1,2,\dots,n.\)</span></p>
+<p>Definition of transition matrix implies the relations:
+<span class="math notranslate nohighlight">\(\quad w_j\ =\ \displaystyle\sum_{i\,=\,1}^n\ \sigma_{ij}\,u_i\,,\quad j=1,2,\dots,n.\)</span></p>
+<p>Consider an inner product of two vectors from basis <span class="math notranslate nohighlight">\(\,\mathcal{C}\ \ (i,j=1,2,\dots,n):\)</span></p>
+<div class="math notranslate nohighlight">
+\[\begin{split}\begin{array}{ccccc}
+\langle w_i,w_j\rangle &amp; = &amp;
+\left\langle\ \displaystyle\sum_{k\,=\,1}^n\ \sigma_{ki}\,u_k\,,\
+\sum_{l\,=\,1}^n\ \sigma_{lj}\,u_l\right\rangle\ \,=\ \,
+\displaystyle\sum_{k,\,l\,=\,1}^n \sigma_{ki}^*\,\sigma_{lj}\,\langle u_k,u_l\rangle &amp; = &amp;
+\\
+&amp; = &amp; \displaystyle\sum_{k,\,l\,=\,1}^n\ \sigma_{ki}^*\ \sigma_{lj}\ \delta_{kl}\ \ \,=\ \ \,
+\displaystyle\sum_{k\,=\,1}^n\ \sigma_{ki}^*\ \sigma_{kj}\ \ \,=\ \ \,
+\displaystyle\sum_{k\,=\,1}^n\ \sigma_{ik}^+\ \sigma_{kj} &amp; = &amp;
+\left(\,\boldsymbol{S}^+\boldsymbol{S}\,\right)_{ij}\ .
+\end{array}\end{split}\]</div>
+<p>This implies in particular that</p>
+<div class="math notranslate nohighlight">
+\[\langle w_i,w_j\rangle\ =\ \delta_{ij}\qquad\Leftrightarrow\qquad
+\left(\,\boldsymbol{S}^+\boldsymbol{S}\,\right)_{ij}=\delta_{ij}=
+\left(\,\boldsymbol{I}_n\right)_{ij}\,,\qquad i,j=1,2,\dots,n,\]</div>
+<p>that is, basis <span class="math notranslate nohighlight">\(\,\mathcal{C}\ \)</span> is orthonormal if and only if
+<span class="math notranslate nohighlight">\(\ \boldsymbol{S}^+\boldsymbol{S}=\boldsymbol{I}_n.\)</span> <span class="math notranslate nohighlight">\(\\\)</span></p>
+<p>A real unitary matrix is an orthogonal matrix. Namely, for
+<span class="math notranslate nohighlight">\(\ \boldsymbol{B}\in M_n(R):\)</span></p>
+<div class="math notranslate nohighlight">
+\[\boldsymbol{B}^+\boldsymbol{B}=\boldsymbol{I}_n
+\quad\Leftrightarrow\quad
+\boldsymbol{B}^T\boldsymbol{B}=\boldsymbol{I}_n\,.\]</div>
+</section>
+</section>
+
+
+          </div>
+        </div>
+      </div>
+      <div class="sphinxsidebar" role="navigation" aria-label="main navigation">
+        <div class="sphinxsidebarwrapper">
+  <div class="sphinxlocaltoc">
+  <h3><a href="index.html">Table Of Contents</a></h3>
+  <ul>
+<li><a class="reference internal" href="#">Hermitian and Unitary Matrices</a><ul>
+<li><a class="reference internal" href="#hermitian-conjugation-of-a-matrix">Hermitian Conjugation of a Matrix</a></li>
+<li><a class="reference internal" href="#hermitian-matrices">Hermitian Matrices</a></li>
+<li><a class="reference internal" href="#unitary-matrices">Unitary Matrices</a></li>
+</ul>
+</li>
+</ul>
+
+  </div>
+  <h4>Previous topic</h4>
+  <p class="topless"><a href="p_unitarne_Gram-Schmidt_QR.html"
+                        title="previous chapter">Gram-Schmidt Orthonormalization and QR Decomposition of a Matrix</a></p>
+  <h4>Next topic</h4>
+  <p class="topless"><a href="p_unitarne_Sage.html"
+                        title="next chapter">Application of Sage</a></p>
+  <div role="note" aria-label="source link">
+    <h3>This Page</h3>
+    <ul class="this-page-menu">
+      <li><a href="_sources/p_unitarne_macierze_hermit_i_unit.rst.txt"
+            rel="nofollow">Show Source</a></li>
+    </ul>
+   </div>
+<div id="searchbox" style="display: none" role="search">
+  <h3 id="searchlabel">Quick search</h3>
+    <div class="searchformwrapper">
+    <form class="search" action="search.html" method="get">
+      <input type="text" name="q" aria-labelledby="searchlabel" />
+      <input type="submit" value="Go" />
+    </form>
+    </div>
+</div>
+<script>$('#searchbox').show(0);</script>
+        </div>
+      </div>
+      <div class="clearer"></div>
+    </div>
+  </div>
+  <div class="relbar-bottom">
+    
+    <div class="related" role="navigation" aria-label="related navigation">
+      <h3>Navigation</h3>
+      <ul>
+        <li class="right" style="margin-right: 10px">
+          <a href="genindex.html" title="General Index"
+             >index</a></li>
+        <li class="right" >
+          <a href="p_unitarne_Sage.html" title="Application of Sage"
+             >next</a> &nbsp; &nbsp;</li>
+        <li class="right" >
+          <a href="p_unitarne_Gram-Schmidt_QR.html" title="Gram-Schmidt Orthonormalization and QR Decomposition of a Matrix"
+             >previous</a> &nbsp; &nbsp;</li>
+  <li><a href="index.html">Linear Algebra</a> &#187;</li>
+  
+        <li class="nav-item nav-item-this"><a href="">Hermitian and Unitary Matrices</a></li> 
+      </ul>
+    </div>
+  </div>
+  
+  <div class="footer">
+    <a class="logo" href="http://icse.us.edu.pl/" target="_blank"><img src="_static/logo-icse.png" alt="ICSE"/></a><br/>
+    &copy; Copyright 2018, Jan Aksamit, Joanna Marzec, and  Marcin Kostur.
+    Last updated on Jan 29, 2022.
+    Created using <a href="http://sphinx.pocoo.org/">Sphinx</a> 4.0.1.
+  </div>
+  </body>
+</html>

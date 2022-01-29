@@ -1,0 +1,356 @@
+
+
+  
+<!DOCTYPE html>
+
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" /><meta name="generator" content="Docutils 0.17: http://docutils.sourceforge.net/" />
+
+    <title>Exercises and Problems &#8212; Linear Algebra</title>
+    <link rel="stylesheet" type="text/css" href="_static/pygments.css" />
+    <link rel="stylesheet" type="text/css" href="_static/cloud.css" />
+    <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Noticia+Text|Open+Sans|Droid+Sans+Mono&amp;subset=latin,latin-ext" type="text/css" />
+    <script data-url_root="./" id="documentation_options" src="_static/documentation_options.js"></script>
+    <script src="_static/jquery.js"></script>
+    <script src="_static/underscore.js"></script>
+    <script src="_static/doctools.js"></script>
+    <script async="async" src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js"></script>
+    <script src="_static/jquery.cookie.js"></script>
+    <script src="_static/cloud.js"></script>
+    <script type="text/javascript" src="http://sagecell.sagemath.org/static/jquery.min.js"></script>
+    <script type="text/javascript" src="http://sagecell.sagemath.org/embedded_sagecell.js"></script>
+    <script type="text/javascript">
+        sagecell.makeSagecell({inputLocation: ".sage_linked",
+                               linked: true});
+        sagecell.makeSagecell({inputLocation: ".sage_unlinked",
+                               linked: false});
+    </script>
+
+    <style type="text/css">
+        .sagecell .CodeMirror-scroll {
+            overflow-y: hidden;
+            overflow-x: auto;
+        }
+        .sagecell .CodeMirror {
+            height: auto;
+        }
+    </style>
+    
+    <link rel="index" title="Index" href="genindex.html" />
+    <link rel="search" title="Search" href="search.html" />
+    <link rel="next" title="Matrix Formulation of the Elimination Method" href="operations_on_matrices_elimination.html" />
+    <link rel="prev" title="Vectors and Matrices in Sage" href="algebra_of_matrices_Sage.html" />
+ 
+  <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, minimum-scale=1">
+  </head><body>
+  <div class="relbar-top">
+    
+    <div class="related" role="navigation" aria-label="related navigation">
+      <h3>Navigation</h3>
+      <ul>
+        <li class="right" style="margin-right: 10px">
+          <a href="genindex.html" title="General Index"
+             accesskey="I">index</a></li>
+        <li class="right" >
+          <a href="operations_on_matrices_elimination.html" title="Matrix Formulation of the Elimination Method"
+             accesskey="N">next</a> &nbsp; &nbsp;</li>
+        <li class="right" >
+          <a href="algebra_of_matrices_Sage.html" title="Vectors and Matrices in Sage"
+             accesskey="P">previous</a> &nbsp; &nbsp;</li>
+  <li><a href="index.html">Linear Algebra</a> &#187;</li>
+  
+        <li class="nav-item nav-item-this"><a href="">Exercises and Problems</a></li> 
+      </ul>
+    </div>
+  </div>
+  
+  <div class="content">  
+
+    <div class="document">
+      <div class="documentwrapper">
+        <div class="bodywrapper">
+          <div class="body">
+            
+  <section id="exercises-and-problems">
+<h1>Exercises and Problems<a class="headerlink" href="#exercises-and-problems" title="Permalink to this headline">¶</a></h1>
+<p><strong>Exercise 1.</strong></p>
+<p>Press “Activate” to display matrices <span class="math notranslate nohighlight">\(\,\boldsymbol{A}\,\)</span>
+and <span class="math notranslate nohighlight">\(\,\boldsymbol{B}\,\)</span> together with their product
+<span class="math notranslate nohighlight">\(\,\boldsymbol{A}\boldsymbol{B}.\)</span> <span class="math notranslate nohighlight">\(\\\)</span>
+To change the size of matrices set a new value of n. <span class="math notranslate nohighlight">\(\,\)</span> Additionally:</p>
+<ul>
+<li><p>Verify by hand the computer result <span class="math notranslate nohighlight">\(\,\boldsymbol{A}\boldsymbol{B}\,\)</span>
+of the multiplication.</p></li>
+<li><div class="line-block">
+<div class="line">Add a piece of code that displays the product
+<span class="math notranslate nohighlight">\(\,\boldsymbol{B}\boldsymbol{A}\,\)</span></div>
+<div class="line">and demonstrate thereby the noncommutativity of the matrix multiplication.</div>
+</div>
+</li>
+</ul>
+<div class='sage_linked'><script type='text/x-sage'>n = 3
+A = random_matrix(ZZ, n, x=-5, y=6)
+B = random_matrix(ZZ, n, x=-5, y=6)
+table([["  A :","","  B :","","  AB :"],[A,"*",B,"=",A*B]])</script></div><p><strong>Exercise 2.</strong></p>
+<p>This example concerns matrices whose elements
+depend (at least initially) on variables. <span class="math notranslate nohighlight">\(\\\)</span>
+Starting from the code in the cell below, add the following steps:</p>
+<ul>
+<li><div class="line-block">
+<div class="line">Create the matrix <span class="math notranslate nohighlight">\(\,\boldsymbol{A}\,\)</span> by two other ways.</div>
+</div>
+</li>
+<li><div class="line-block">
+<div class="line">Determine the base ring of the matrix <span class="math notranslate nohighlight">\(\,\boldsymbol{A}\ \)</span>
+(apply <span class="math notranslate nohighlight">\(\,\)</span> <code class="docutils literal notranslate"><span class="pre">A.base_ring()</span></code>).</div>
+</div>
+</li>
+<li><div class="line-block">
+<div class="line">Write the matrix <span class="math notranslate nohighlight">\(\,\boldsymbol{B}\,\)</span> obtained from
+<span class="math notranslate nohighlight">\(\,\boldsymbol{A}\,\)</span> by the substition <span class="math notranslate nohighlight">\(\,\)</span> a = -1</div>
+<div class="line">(apply <span class="math notranslate nohighlight">\(\,\)</span> <code class="docutils literal notranslate"><span class="pre">A.subs()</span></code>) <span class="math notranslate nohighlight">\(\,\)</span> and determine the ring thereof.</div>
+</div>
+</li>
+<li><div class="line-block">
+<div class="line">Write the matrix <span class="math notranslate nohighlight">\(\,\boldsymbol{C}\,\)</span> obtained from
+<span class="math notranslate nohighlight">\(\,\boldsymbol{B}\,\)</span> by changing the ring to RDF</div>
+<div class="line">(apply <span class="math notranslate nohighlight">\(\,\)</span> <code class="docutils literal notranslate"><span class="pre">B.change_ring()</span></code>) <span class="math notranslate nohighlight">\(\,\)</span> and check the ring.</div>
+</div>
+</li>
+</ul>
+<div class='sage_linked'><script type='text/x-sage'>var('a')
+A = matrix([[a, 2, 3.], [4/3, 5, 6]])
+A</script></div><p><strong>Exercise 3.</strong></p>
+<p>The program creates a random matrix <span class="math notranslate nohighlight">\(\,\boldsymbol{A}\,\)</span>
+over the integer ring with <span class="math notranslate nohighlight">\(\,m\,\)</span> rows and <span class="math notranslate nohighlight">\(\,n\,\)</span> columns.
+Next it extracts an <span class="math notranslate nohighlight">\(\,i\)</span>-th row and/or a <span class="math notranslate nohighlight">\(\,j\)</span>-th column
+of <span class="math notranslate nohighlight">\(\boldsymbol{A},\ \)</span> indicating the type thereof.</p>
+<p>Set the values of <span class="math notranslate nohighlight">\(\,m,n\,\)</span> as well as of <span class="math notranslate nohighlight">\(\,i,j\,\)</span>
+<span class="math notranslate nohighlight">\(\ (0 \leq i \leq m-1,\ 0 \leq j \leq n-1)\)</span> <span class="math notranslate nohighlight">\(\\\)</span>
+and uncomment one or more hashed commands to visualise <span class="math notranslate nohighlight">\(\\\)</span>
+various ways of obtaining the results.</p>
+<div class='sage_linked'><script type='text/x-sage'>m = 3; n = 4
+A = random_matrix(ZZ,m,n)
+print A, '\n'
+
+i = 2; j = 1
+
+# print A[i]; print type(A[i]), '\n'
+# print A.row(i); print type(A.row(i)), '\n'
+# print A[i,:]; print type(A[i,:]), '\n'
+
+# print A.column(j); print type(A.column(j)), '\n'
+# print A[:,j]; print type(A[:,j])</script></div><p><strong>Exercise 4.</strong></p>
+<p>Complete the code below by adding the following steps:</p>
+<ol class="arabic">
+<li><div class="line-block">
+<div class="line"><span class="math notranslate nohighlight">\(\,\)</span> Create a random <span class="math notranslate nohighlight">\(\ 5 \times 4\ \)</span> matrix
+<span class="math notranslate nohighlight">\(\,\boldsymbol{A}\,\)</span> over the integer ring</div>
+<div class="line"><span class="math notranslate nohighlight">\(\,\)</span> (apply <code class="docutils literal notranslate"><span class="pre">random_matrix()</span></code>).</div>
+</div>
+</li>
+<li><div class="line-block">
+<div class="line"><span class="math notranslate nohighlight">\(\,\)</span> Using the slicing technique, create the matrix
+<span class="math notranslate nohighlight">\(\,\boldsymbol{B},\,\)</span> whose consecutive rows</div>
+<div class="line"><span class="math notranslate nohighlight">\(\,\)</span> are the last, middle and first row of matrix
+<span class="math notranslate nohighlight">\(\,\boldsymbol{A}.\)</span></div>
+</div>
+</li>
+<li><div class="line-block">
+<div class="line"><span class="math notranslate nohighlight">\(\,\)</span> Write down a selected column of matrix
+<span class="math notranslate nohighlight">\(\,\boldsymbol{A}\,\)</span></div>
+<div class="line"><span class="math notranslate nohighlight">\(\,\)</span> as a vector <span class="math notranslate nohighlight">\(\,\boldsymbol{v}\,\)</span>
+and as a 1-column matrix <span class="math notranslate nohighlight">\(\,\boldsymbol{C}.\ \)</span></div>
+<div class="line"><span class="math notranslate nohighlight">\(\,\)</span> Check the type of the obtained objects.</div>
+</div>
+</li>
+</ol>
+<p><strong>Hint</strong> for the item 2.: <span class="math notranslate nohighlight">\(\\\)</span>
+Use the template <code class="docutils literal notranslate"><span class="pre">[p:q:r]</span></code> with the default value
+of q : <span class="math notranslate nohighlight">\(\,\)</span> <code class="docutils literal notranslate"><span class="pre">[p::r]</span></code>, <span class="math notranslate nohighlight">\(\\\)</span>
+and with <span class="math notranslate nohighlight">\(\,\)</span> p = -1, r = -2. <span class="math notranslate nohighlight">\(\,\)</span>
+What is the actual value of q ?</p>
+<div class='sage_linked'><script type='text/x-sage'>A =
+B =
+v =
+C =
+
+show ((A, B, v, C))
+print type(v)
+print type(C)</script></div><p><strong>Exercise 5.</strong></p>
+<p>Despite the Sage’s “row bias” with respect to vectors and matrices,
+it is possible to create a matrix with given columns
+(they are to be input as vectors). Run the following code:</p>
+<div class='sage_linked'><script type='text/x-sage'>v1 = random_vector(ZZ,5)
+v2 = random_vector(ZZ,5)
+v3 = random_vector(ZZ,5)
+
+A = column_matrix([v1,v2,v3])
+
+(v1,v2,v3,A)</script></div><p><strong>Problem 0.</strong> <span class="math notranslate nohighlight">\(\,\)</span></p>
+<p>Check the associative and distributive laws:</p>
+<div class="math notranslate nohighlight">
+\[ \begin{align}\begin{aligned}(\boldsymbol{A}\boldsymbol{B})\,\boldsymbol{C} \ =\
+\boldsymbol{A}\,(\boldsymbol{B}\boldsymbol{C})\,,\\(\boldsymbol{A}+\boldsymbol{B})\,\boldsymbol{C} \ =\
+\boldsymbol{A}\boldsymbol{C}\,+\,\boldsymbol{B}\boldsymbol{C}\,,\\\boldsymbol{A}\,(\boldsymbol{B}+\boldsymbol{C})\ =\
+\boldsymbol{A}\boldsymbol{B}\ +\ \boldsymbol{A}\boldsymbol{C}\,,\end{aligned}\end{align} \]</div>
+<p>for three randomly generated matrices
+<span class="math notranslate nohighlight">\(\ \boldsymbol{A},\boldsymbol{B},\boldsymbol{C}\in M_3(Q).\)</span></p>
+<p><strong>Problem 1.</strong> <span class="math notranslate nohighlight">\(\,\)</span></p>
+<p>Take, for example, the matrices</p>
+<div class="math notranslate nohighlight">
+\[\begin{split}\boldsymbol{A}\ =\
+\left[\begin{array}{cc}
+1 &amp; 2 \\ 0 &amp; 0
+\end{array}\right]\,,\quad
+\boldsymbol{B}\ =\
+\left[\begin{array}{cc}
+1 &amp; 0 \\ 3 &amp; 0
+\end{array}\right]\quad
+\in\ M_2(Q)\end{split}\]</div>
+<p>to show that the identity</p>
+<div class="math notranslate nohighlight" id="equation-sum-square">
+<span class="eqno">(1)<a class="headerlink" href="#equation-sum-square" title="Permalink to this equation">¶</a></span>\[(\boldsymbol{A}+\boldsymbol{B})^2\ =\
+\boldsymbol{A}^2+2\boldsymbol{A}\boldsymbol{B}+\boldsymbol{B}^2\]</div>
+<p>no longer holds true in algebra of matrices.
+In view of that, investigate the two issues:</p>
+<ul>
+<li><p>What is the actual formula for the square of a sum or difference
+<span class="math notranslate nohighlight">\(\ (\boldsymbol{A}\pm\boldsymbol{B})^2\ \,\)</span>
+of matrices?</p></li>
+<li><div class="line-block">
+<div class="line">When, i.e. on what conditions for
+<span class="math notranslate nohighlight">\(\ \boldsymbol{A},\boldsymbol{B}\in M_n(K),\ \)</span>
+the equation <a class="reference internal" href="#equation-sum-square">(1)</a> remains true?</div>
+</div>
+</li>
+</ul>
+<p><strong>Problem 2.</strong> <span class="math notranslate nohighlight">\(\,\)</span></p>
+<p>For the matrices
+<span class="math notranslate nohighlight">\(\ \ \boldsymbol{P}\ =\
+\left[\begin{array}{ccc}
+0 &amp; 0 &amp; 1 \\ 0 &amp; 1 &amp; 0 \\ 1 &amp; 0 &amp; 0
+\end{array}\right]
+\quad\text{and}\quad\
+\boldsymbol{Q}\ =\
+\left[\begin{array}{ccc}
+0 &amp; 1 &amp; 0 \\ 1 &amp; 0 &amp; 0 \\ 0 &amp; 0 &amp; 1
+\end{array}\right]\quad
+\in\ M_3(R):\)</span></p>
+<ol class="arabic">
+<li><p>Calculate the products
+<span class="math notranslate nohighlight">\(\ \,\boldsymbol{P}\boldsymbol{Q},\ \,\boldsymbol{Q}\boldsymbol{P},\
+\boldsymbol{P}^2,\ \boldsymbol{Q}^2.\)</span></p></li>
+<li><div class="line-block">
+<div class="line">Investigate the result of multiplying an arbitrary matrix
+<span class="math notranslate nohighlight">\(\ \boldsymbol{A}\in M_3(R)\ \)</span></div>
+<div class="line">from the left or from the right
+by <span class="math notranslate nohighlight">\(\ \boldsymbol{P}\ \)</span> or <span class="math notranslate nohighlight">\(\ \boldsymbol{Q}.\)</span></div>
+</div>
+</li>
+<li><div class="line-block">
+<div class="line">Find other matrices from <span class="math notranslate nohighlight">\(\ M_3(R),\ \)</span> whose square
+equals the identity matrix <span class="math notranslate nohighlight">\(\ \boldsymbol{I}_3\,.\)</span></div>
+</div>
+</li>
+</ol>
+<p><strong>Hint</strong> for the item 3.: <span class="math notranslate nohighlight">\(\\\)</span>
+Try matrices obtained from <span class="math notranslate nohighlight">\(\ \boldsymbol{I}_3\ \)</span>
+by swapping around two rows or two columns.</p>
+<p><strong>Problem 3.</strong> <span class="math notranslate nohighlight">\(\,\)</span></p>
+<p>Experiment with small exponents <span class="math notranslate nohighlight">\(\ n=2,3,4,\,\ldots\ \)</span>
+to come up with a general formula for an arbitrary power of the following matrices
+over the rational field <span class="math notranslate nohighlight">\(\ Q:\)</span></p>
+<div class="math notranslate nohighlight">
+\[\begin{split}\left[\begin{array}{cc} 1 &amp; c \\ 0 &amp; 1 \end{array}\right]\,,\quad
+\left[\begin{array}{cc} 2 &amp; 2 \\ 0 &amp; 0 \end{array}\right]\,,\quad
+\left[\begin{array}{cc} 2 &amp; 1 \\ 0 &amp; 1 \end{array}\right]\,,\quad
+\left[\begin{array}{cc} 1 &amp; 1 \\ 1 &amp; 1 \end{array}\right]\,,\quad
+\left[\begin{array}{cc} a &amp; b \\ 0 &amp; 0 \end{array}\right]\,,\quad
+\left[\begin{array}{cc} 1 &amp; 1 \\ 1 &amp; 0 \end{array}\right]\,.\end{split}\]</div>
+<p><strong>Problem 4.</strong> <span class="math notranslate nohighlight">\(\,\)</span></p>
+<p>Given the matrix <span class="math notranslate nohighlight">\(\ \boldsymbol{A}\ \)</span>
+and the vector <span class="math notranslate nohighlight">\(\ \boldsymbol{x},\ \)</span>
+calculate <span class="math notranslate nohighlight">\(\ \boldsymbol{A}^n,\ n\in\boldsymbol{N},\ \)</span>
+and the product <span class="math notranslate nohighlight">\(\ \boldsymbol{A}^n\,\boldsymbol{x}:\)</span></p>
+<div class="math notranslate nohighlight">
+\[\begin{split}\boldsymbol{A}\ =\
+\left[\begin{array}{cccc}
+0 &amp; 2 &amp; 0 &amp; 0 \\
+0 &amp; 0 &amp; 2 &amp; 0 \\
+0 &amp; 0 &amp; 0 &amp; 2 \\
+0 &amp; 0 &amp; 0 &amp; 0
+\end{array}\right]\
+\in\ M_4(Q),
+\qquad
+\boldsymbol{x}\ =\
+\left[\begin{array}{c}
+a \\ b \\ c \\ d \end{array}\right]\,
+\in\,Q^{\,4}\,.\end{split}\]</div>
+</section>
+
+
+          </div>
+        </div>
+      </div>
+      <div class="sphinxsidebar" role="navigation" aria-label="main navigation">
+        <div class="sphinxsidebarwrapper">
+  <h4>Previous topic</h4>
+  <p class="topless"><a href="algebra_of_matrices_Sage.html"
+                        title="previous chapter">Vectors and Matrices in Sage</a></p>
+  <h4>Next topic</h4>
+  <p class="topless"><a href="operations_on_matrices_elimination.html"
+                        title="next chapter">Matrix Formulation of the Elimination Method</a></p>
+  <div role="note" aria-label="source link">
+    <h3>This Page</h3>
+    <ul class="this-page-menu">
+      <li><a href="_sources/algebra_of_matrices_problems.rst.txt"
+            rel="nofollow">Show Source</a></li>
+    </ul>
+   </div>
+<div id="searchbox" style="display: none" role="search">
+  <h3 id="searchlabel">Quick search</h3>
+    <div class="searchformwrapper">
+    <form class="search" action="search.html" method="get">
+      <input type="text" name="q" aria-labelledby="searchlabel" />
+      <input type="submit" value="Go" />
+    </form>
+    </div>
+</div>
+<script>$('#searchbox').show(0);</script>
+        </div>
+      </div>
+      <div class="clearer"></div>
+    </div>
+  </div>
+  <div class="relbar-bottom">
+    
+    <div class="related" role="navigation" aria-label="related navigation">
+      <h3>Navigation</h3>
+      <ul>
+        <li class="right" style="margin-right: 10px">
+          <a href="genindex.html" title="General Index"
+             >index</a></li>
+        <li class="right" >
+          <a href="operations_on_matrices_elimination.html" title="Matrix Formulation of the Elimination Method"
+             >next</a> &nbsp; &nbsp;</li>
+        <li class="right" >
+          <a href="algebra_of_matrices_Sage.html" title="Vectors and Matrices in Sage"
+             >previous</a> &nbsp; &nbsp;</li>
+  <li><a href="index.html">Linear Algebra</a> &#187;</li>
+  
+        <li class="nav-item nav-item-this"><a href="">Exercises and Problems</a></li> 
+      </ul>
+    </div>
+  </div>
+  
+  <div class="footer">
+    <a class="logo" href="http://icse.us.edu.pl/" target="_blank"><img src="_static/logo-icse.png" alt="ICSE"/></a><br/>
+    &copy; Copyright 2018, Jan Aksamit, Joanna Marzec, and  Marcin Kostur.
+    Last updated on Jan 29, 2022.
+    Created using <a href="http://sphinx.pocoo.org/">Sphinx</a> 4.0.1.
+  </div>
+  </body>
+</html>

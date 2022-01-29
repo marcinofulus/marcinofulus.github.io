@@ -1,0 +1,754 @@
+
+
+  
+<!DOCTYPE html>
+
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" /><meta name="generator" content="Docutils 0.17: http://docutils.sourceforge.net/" />
+
+    <title>Algebraic Structures &#8212; Linear Algebra</title>
+    <link rel="stylesheet" type="text/css" href="_static/pygments.css" />
+    <link rel="stylesheet" type="text/css" href="_static/cloud.css" />
+    <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Noticia+Text|Open+Sans|Droid+Sans+Mono&amp;subset=latin,latin-ext" type="text/css" />
+    <script data-url_root="./" id="documentation_options" src="_static/documentation_options.js"></script>
+    <script src="_static/jquery.js"></script>
+    <script src="_static/underscore.js"></script>
+    <script src="_static/doctools.js"></script>
+    <script async="async" src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js"></script>
+    <script src="_static/jquery.cookie.js"></script>
+    <script src="_static/cloud.js"></script>
+    <script type="text/javascript" src="http://sagecell.sagemath.org/static/jquery.min.js"></script>
+    <script type="text/javascript" src="http://sagecell.sagemath.org/embedded_sagecell.js"></script>
+    <script type="text/javascript">
+        sagecell.makeSagecell({inputLocation: ".sage_linked",
+                               linked: true});
+        sagecell.makeSagecell({inputLocation: ".sage_unlinked",
+                               linked: false});
+    </script>
+
+    <style type="text/css">
+        .sagecell .CodeMirror-scroll {
+            overflow-y: hidden;
+            overflow-x: auto;
+        }
+        .sagecell .CodeMirror {
+            height: auto;
+        }
+    </style>
+    
+    <link rel="index" title="Index" href="genindex.html" />
+    <link rel="search" title="Search" href="search.html" />
+    <link rel="next" title="Fundamental Concepts in Linear Algebra" href="introduction_fundamental-concepts.html" />
+    <link rel="prev" title="Preliminaries and Notation" href="introduction_preliminaries.html" />
+ 
+  <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, minimum-scale=1">
+  </head><body>
+  <div class="relbar-top">
+    
+    <div class="related" role="navigation" aria-label="related navigation">
+      <h3>Navigation</h3>
+      <ul>
+        <li class="right" style="margin-right: 10px">
+          <a href="genindex.html" title="General Index"
+             accesskey="I">index</a></li>
+        <li class="right" >
+          <a href="introduction_fundamental-concepts.html" title="Fundamental Concepts in Linear Algebra"
+             accesskey="N">next</a> &nbsp; &nbsp;</li>
+        <li class="right" >
+          <a href="introduction_preliminaries.html" title="Preliminaries and Notation"
+             accesskey="P">previous</a> &nbsp; &nbsp;</li>
+  <li><a href="index.html">Linear Algebra</a> &#187;</li>
+  
+        <li class="nav-item nav-item-this"><a href="">Algebraic Structures</a></li> 
+      </ul>
+    </div>
+  </div>
+  
+  <div class="content">  
+
+    <div class="document">
+      <div class="documentwrapper">
+        <div class="bodywrapper">
+          <div class="body">
+            
+  <section id="algebraic-structures">
+<h1>Algebraic Structures<a class="headerlink" href="#algebraic-structures" title="Permalink to this headline">¶</a></h1>
+<section id="definitions-and-examples">
+<h2>Definitions and Examples<a class="headerlink" href="#definitions-and-examples" title="Permalink to this headline">¶</a></h2>
+<p>An <em>algebraic structure</em> <span class="math notranslate nohighlight">\(\,\)</span> is by definition a collection
+of a finite number of sets and a finite number of mappings of Cartesian
+products of these sets into these sets.</p>
+<p>To phrase that in a more straightforward way,
+an algebraic structure consists of one or
+several sets and some operations
+(a set the operations are defined upon is named
+an <em>underlying set</em> of the given structure).
+The definition of a particular structure specifies the underlying set(s)
+together with the operations
+and gives a list of axioms to be fulfilled by these operations.</p>
+<p>The most important algebraic structures are:
+<span class="math notranslate nohighlight">\(\,\)</span> <em>group</em>, <span class="math notranslate nohighlight">\(\,\)</span> <em>ring</em>, <span class="math notranslate nohighlight">\(\,\)</span> <em>field</em>, <span class="math notranslate nohighlight">\(\,\)</span>
+<em>vector space</em>, <span class="math notranslate nohighlight">\(\,\)</span> <em>algebra</em>.</p>
+<div class="line-block">
+<div class="line">A <span class="math notranslate nohighlight">\(\ \)</span> <strong>Group</strong> <span class="math notranslate nohighlight">\(\ \,\mathbb{G}\ \,\)</span> consists of one set
+<span class="math notranslate nohighlight">\(\ G\ \)</span> and <span class="math notranslate nohighlight">\(\,\)</span> one internal operation <span class="math notranslate nohighlight">\(\ \bot:\)</span></div>
+<div class="line"><span class="math notranslate nohighlight">\(\mathbb{G}\;=\;(G,\,\bot\,)\,,\ \ \)</span> where
+<span class="math notranslate nohighlight">\(\ \ \bot:\ \ G\times G \to G.\)</span></div>
+<div class="line"><br /></div>
+<div class="line">A group operation <span class="math notranslate nohighlight">\(\ \bot\ \)</span> satisfies the following conditions: <a class="footnote-reference brackets" href="#id2" id="id1">1</a></div>
+</div>
+<ol class="arabic">
+<li><p><span class="math notranslate nohighlight">\(\,\)</span> is associative:</p>
+<div class="math notranslate nohighlight">
+\[(g_1\,\bot\;g_2)\ \bot\ g_3\ \ =\ \ g_1\ \bot\ (g_2\;\bot\;g_3)\qquad
+\forall\ \ g_1,\,g_2,\,g_3\in G\,;\]</div>
+</li>
+<li><p><span class="math notranslate nohighlight">\(\,\)</span> there exists a neutral element <span class="math notranslate nohighlight">\(\ e\in G\ \,\)</span> such that</p>
+<div class="math notranslate nohighlight">
+\[e\;\bot\;g\ \,=\ \,g\;\bot\;e\ \,=\ \,g \qquad
+\forall\ g\in G\,;\]</div>
+</li>
+<li><p><span class="math notranslate nohighlight">\(\,\)</span> each element <span class="math notranslate nohighlight">\(\ g\in G\ \)</span> has its inverse
+<span class="math notranslate nohighlight">\(\ g^{-1}\in\,G\ \)</span> such that</p>
+<div class="math notranslate nohighlight">
+\[g\;\bot\;g^{-1}\ \,=\ \,g^{-1}\;\bot\;g\ \,=\ \,e\,.\]</div>
+</li>
+</ol>
+<p>If additionally the operation <span class="math notranslate nohighlight">\(\ \,\bot\,\ \)</span> is commutative:</p>
+<div class="math notranslate nohighlight">
+\[g_1\,\bot\;g_2 \ \,=\ \,g_2\;\bot\;g_1\qquad\forall\ \ g_1,\,g_2\,\in\,G\,,\]</div>
+<p>the group is called <span class="math notranslate nohighlight">\(\,\)</span> <em>abelian</em>. In an abelian group
+the operation is often symbolized by ‘+’ <span class="math notranslate nohighlight">\(\\\)</span>
+and the term ‘inverse’ is replaced by ‘opposite’:
+<span class="math notranslate nohighlight">\(\ \ g^{-1}\rightarrow (-g).\)</span></p>
+<p><strong>Examples</strong> of abelian groups.</p>
+<ul>
+<li><p>Additive groups of numbers <span class="math notranslate nohighlight">\(\,(X,\,+),\ \)</span>
+where <span class="math notranslate nohighlight">\(\ X = Z,\,Q,\,R\ \)</span> or <span class="math notranslate nohighlight">\(\ C\)</span>.</p></li>
+<li><div class="line-block">
+<div class="line">The additive group of integers modulo <span class="math notranslate nohighlight">\(\,n\in N:\ \ (Z_n,\,+_n)\,;\)</span></div>
+<div class="line">here <span class="math notranslate nohighlight">\(\,Z_n\,:=\{0,1,\ldots,n-1\}\ \)</span>
+and <span class="math notranslate nohighlight">\(\,+_n\,\)</span> symbolizes the addition modulo <span class="math notranslate nohighlight">\(n\)</span>.</div>
+</div>
+</li>
+<li><p>Multiplicative groups of nonzero numbers:
+<span class="math notranslate nohighlight">\(\,(K\!\smallsetminus\!\{0\},\,\cdot\,),\ \)</span> where <span class="math notranslate nohighlight">\(\ K=Q,\,R,\,C\)</span>.</p></li>
+<li><p>The additive group of geometric vectors in a plane or in the space:
+<span class="math notranslate nohighlight">\(\ (V,\,+\,)\)</span>.</p></li>
+</ul>
+<p><strong>Examples</strong> of non-abelian groups.</p>
+<ul>
+<li><div class="line-block">
+<div class="line">A group of permutations of an <span class="math notranslate nohighlight">\(\,n\)</span>-element set
+<span class="math notranslate nohighlight">\(\,(S_n,\,\circ\,)\)</span></div>
+<div class="line">(the group operation <span class="math notranslate nohighlight">\(\,\circ\,\)</span> is the composition
+of permutations as functions);</div>
+</div>
+</li>
+<li><div class="line-block">
+<div class="line">The group of real nonsingular square matrices of size <span class="math notranslate nohighlight">\(\,n\)</span></div>
+<div class="line">(with matrix multiplication as the group operation).</div>
+</div>
+</li>
+<li><div class="line-block">
+<div class="line">A symmetry group of a figure in a plane
+or of a solid figure in the space</div>
+<div class="line">(with composing the symmetry operations).</div>
+</div>
+</li>
+</ul>
+<div class="line-block">
+<div class="line">A <span class="math notranslate nohighlight">\(\ \)</span> <strong>Ring</strong> <span class="math notranslate nohighlight">\(\ \,\mathbb{P}\ \,\)</span>
+consists of one set <span class="math notranslate nohighlight">\(\,P\ \)</span> and <span class="math notranslate nohighlight">\(\,\)</span>
+two internal operations:</div>
+<div class="line"><span class="math notranslate nohighlight">\(\ \ \mathbb{P}\;=\;(P,\,+\,,\,\cdot\,)\,,\ \ \)</span>
+where <span class="math notranslate nohighlight">\(\ \ \,+\,,\ \cdot\ :\ \,P\times P \to P\,\)</span></div>
+<div class="line">(the operations shall be henceforth called addition and multiplication,
+respectively).</div>
+<div class="line"><br /></div>
+<div class="line">Ring operations satisfy the following conditions:</div>
+</div>
+<ol class="arabic">
+<li><div class="line-block">
+<div class="line"><span class="math notranslate nohighlight">\(\ \)</span> the structure <span class="math notranslate nohighlight">\(\ (P,\,+)\ \ \)</span> is an abelian group</div>
+<div class="line"><span class="math notranslate nohighlight">\(\ \)</span> (the <em>additive group</em> of the ring;
+its neutral element is the <em>zero</em> of the ring);</div>
+<div class="line"><span class="math notranslate nohighlight">\(\ \)</span></div>
+</div>
+</li>
+<li><p><span class="math notranslate nohighlight">\(\ \)</span> multiplication is associative:</p>
+<div class="math notranslate nohighlight">
+\[(a_1\cdot a_2)\cdot a_3 \ =\ a_1\cdot (a_2\cdot a_3)\qquad
+\forall\ \ a_1,\,a_2,\,a_3\,\in\,P\,;\]</div>
+</li>
+<li><p><span class="math notranslate nohighlight">\(\ \)</span> multiplication is distributive over addition:</p>
+<div class="math notranslate nohighlight">
+\[ \begin{align}\begin{aligned}a\cdot(b_1+b_2)\ =\ (a\cdot b_1)\ +\ (a\cdot b_2)\qquad
+\forall\ \ a,\,b_1,\,b_2\,\in\, P\,,\\(a_1+a_2)\cdot b\ =\ (a_1\cdot b)\ +\ (a_2\cdot b)\qquad
+\forall\ \ a_1,\,a_2,\,b\,\in\, P\,.\end{aligned}\end{align} \]</div>
+</li>
+</ol>
+<p>When, additionally, multiplication is commutative:</p>
+<div class="math notranslate nohighlight">
+\[a_1\cdot\,a_2 \ =\ a_2\cdot\,a_1\qquad
+\forall\ \ a_1,\,a_2\,\in\,P,\]</div>
+<p>the ring itself is said to be <em>commutative</em>.</p>
+<p>Furthermore, if there exists in <span class="math notranslate nohighlight">\(\,P\,\)</span> a multiplicative neutral element
+<span class="math notranslate nohighlight">\(\\\)</span> (named the <em>identity</em> of the ring and denoted by 1):</p>
+<div class="math notranslate nohighlight">
+\[1\cdot a\ =\ a\cdot 1\ =\ a\qquad\forall\ a\in P\,,\]</div>
+<p>then we are dealing with a <em>ring with identity</em>.</p>
+<p><strong>Examples</strong> of commutative rings with identity.</p>
+<ul>
+<li><p>The integer ring <span class="math notranslate nohighlight">\(\ \mathbb{Z} \,=\, (Z,\ +\,,\ \cdot\,)\ \)</span>
+with the usual addition and multiplication of numbers.</p></li>
+<li><div class="line-block">
+<div class="line">The ring of integers modulo <span class="math notranslate nohighlight">\(\,n&gt;1:\,\)</span>
+<span class="math notranslate nohighlight">\(\ \mathbb{Z}_n = (Z_n,\ +_n\,,\ \cdot_n\,)\,,\ \)</span>
+where <span class="math notranslate nohighlight">\(\ Z_n\,=\,\{0,1,\ldots,n-1\}\ \)</span></div>
+<div class="line">and the operations <span class="math notranslate nohighlight">\(\ \,+_n\ \ \)</span> and <span class="math notranslate nohighlight">\(\ \ \cdot_n\ \,\)</span>
+are the addition and multiplication modulo <span class="math notranslate nohighlight">\(\,n\)</span>.</div>
+</div>
+</li>
+<li><div class="line-block">
+<div class="line">The structure <span class="math notranslate nohighlight">\(\,(X,\ \oplus,\ \odot\,)\,,\ \)</span>
+where <span class="math notranslate nohighlight">\(\,X\,=\,Z,\,Q,\,R\ \)</span> or <span class="math notranslate nohighlight">\(\ C,\ \)</span>
+and the operations are</div>
+<div class="line">defined as follows: <span class="math notranslate nohighlight">\(\quad a\oplus b\,:\,=\,
+a+b+1,\quad a\odot b\,:\,=\,a+b+ab,\quad a,b\in X\)</span>.</div>
+<div class="line">Interestingly enough, the zero (additive neutral element)
+is here the number <span class="math notranslate nohighlight">\(\,-1,\,\)</span></div>
+<div class="line">whereas the identity (multiplicative neutral element)
+is the number <span class="math notranslate nohighlight">\(\,0\)</span>.</div>
+</div>
+</li>
+<li><div class="line-block">
+<div class="line">The set <span class="math notranslate nohighlight">\(\,\mathcal{F}_{[\,0,\,1\,]}\,\)</span>
+of all functions mapping the interval
+<span class="math notranslate nohighlight">\(\ [\,0,\,1\,]\ \)</span> into <span class="math notranslate nohighlight">\(\ R\)</span>,</div>
+<div class="line">in conjunction with the operations of adding and multiplying functions,</div>
+<div class="line">forms a ring in which the zero is the function
+<span class="math notranslate nohighlight">\(\ \,\theta(x)=0,\ \ x\in [\,0,\,1\,]\,,\)</span></div>
+<div class="line">and the identity is the function <span class="math notranslate nohighlight">\(\ e(x)=1,\ \ x\in [\,0,\,1\,]\,.\)</span></div>
+</div>
+</li>
+</ul>
+<p>An example of noncommutative ring is given by the set of square matrices
+of size <span class="math notranslate nohighlight">\(\,n&gt;1\,\)</span> over a ring with identity, considered together
+with the operations of matrix addition and multiplication. <span class="math notranslate nohighlight">\(\\\)</span></p>
+<p>A <span class="math notranslate nohighlight">\(\ \)</span> <strong>Field</strong> <span class="math notranslate nohighlight">\(\ \mathbb{K},\ \)</span> just as a ring,
+is composed of one set <span class="math notranslate nohighlight">\(\,K\ \)</span>
+and two internal operations, <span class="math notranslate nohighlight">\(\\\)</span>
+<span class="math notranslate nohighlight">\(\ \,+\ \,\)</span> and <span class="math notranslate nohighlight">\(\ \,\cdot\ \,,\ \ \)</span>
+named respectively addition and multiplication:
+<span class="math notranslate nohighlight">\(\ \ \mathbb{K}\;=\;(K,\,+\,,\,\cdot\,)\,.\)</span></p>
+<p>By definition, the field operations are subject to the following conditions:</p>
+<ol class="arabic">
+<li><p><span class="math notranslate nohighlight">\(\ (K,\,+)\ \ \)</span> is an abelian group with the neutral element
+<span class="math notranslate nohighlight">\(\, 0 \,\)</span> (zero of the field);</p></li>
+<li><p><span class="math notranslate nohighlight">\(\ (K\!\smallsetminus\!\{0\},\ \cdot\;)\ \ \)</span> is an abelian group
+with the neutral element <span class="math notranslate nohighlight">\(\, 1 \,\)</span> (identity of the field);</p></li>
+<li><p><span class="math notranslate nohighlight">\(\ \)</span> multiplication is distributive over addition:</p>
+<div class="math notranslate nohighlight">
+\[\alpha\cdot(\beta_1+\beta_2)\ =\
+(\alpha\cdot \beta_1)\ +\ (\alpha\cdot \beta_2)\qquad
+\forall\ \ \alpha,\,\beta_1,\,\beta_2\,\in\, K\,.\]</div>
+</li>
+</ol>
+<p><span class="math notranslate nohighlight">\((K,\,+)\ \)</span> and <span class="math notranslate nohighlight">\(\ K\!\smallsetminus\!\{0\},\ \cdot\;)\ \)</span> are the
+<em>additive group</em> and <em>multiplicative group</em> of the field, resp. <span class="math notranslate nohighlight">\(\\\)</span>
+It’s easy to note that every field is a ring (though the reverse is not true).
+More precisely: <span class="math notranslate nohighlight">\(\\\)</span>
+a field is a commutative ring with identity, in which
+each nonzero element has an inverse.</p>
+<p><strong>Examples</strong> of fields.</p>
+<ul>
+<li><div class="line-block">
+<div class="line">Field of rational numbers: <span class="math notranslate nohighlight">\(\ \mathbb{Q}\,=\,(Q,\,+\,,\;\cdot\;)\;;\ \)</span></div>
+<div class="line">field of real numbers: <span class="math notranslate nohighlight">\(\ \mathbb{R}\,=\,(R,\,+\,,\;\cdot\;)\;;\ \)</span></div>
+<div class="line">field of complex numbers: <span class="math notranslate nohighlight">\(\ \mathbb{C}\,=\,(C,\,+\,,\;\cdot\;)\,.\)</span></div>
+</div>
+</li>
+<li><div class="line-block">
+<div class="line">The set <span class="math notranslate nohighlight">\(\,Q(\sqrt{2})\,:\,=\,\{\,a+b\sqrt{2}\,:\ a,b\in Q\,\}\)</span></div>
+<div class="line">forms a field with the usual operations on real numbers.</div>
+</div>
+</li>
+<li><div class="line-block">
+<div class="line">The structure <span class="math notranslate nohighlight">\(\,(X,\ \oplus,\ \odot\,)\,,\ \)</span> where
+<span class="math notranslate nohighlight">\(\,X\,=\,Q,\,R\ \)</span> or <span class="math notranslate nohighlight">\(\,C,\ \)</span> and the operations are</div>
+<div class="line">defined as follows: <span class="math notranslate nohighlight">\(\quad a\oplus b\,:\,=\,
+a+b+1,\quad a\odot b\,:\,=\,a+b+ab,\quad a,b\in X\)</span>,</div>
+<div class="line">is a field <span class="math notranslate nohighlight">\(\ \)</span> (here the zero is the number <span class="math notranslate nohighlight">\(\,-1\,\)</span>
+and the identity is the number <span class="math notranslate nohighlight">\(\,0\,\)</span>).</div>
+</div>
+</li>
+<li><div class="line-block">
+<div class="line">The ring <span class="math notranslate nohighlight">\(\ \mathbb{Z}_n\ \)</span> of integers modulo
+<span class="math notranslate nohighlight">\(\,n\ \)</span> is <span class="math notranslate nohighlight">\(\,\)</span> a (finite) field <span class="math notranslate nohighlight">\(\,\)</span>
+if and only if <span class="math notranslate nohighlight">\(\,n\,\)</span> is a prime.</div>
+</div>
+</li>
+</ul>
+<p>Basic properties of fields are discussed in Appendix A1.</p>
+<div class="admonition-note-math admonition">
+<p class="admonition-title">Note. <span class="math notranslate nohighlight">\(\;\)</span></p>
+<p>In a less rigorous (yet widely used) language, an algebraic structure
+is often identified with its underlying set. <span class="math notranslate nohighlight">\(\\\)</span>
+So one says <span class="math notranslate nohighlight">\(\ \)</span>
+“<span class="math notranslate nohighlight">\(\ \sigma\,\)</span> is an element of the permutation group <span class="math notranslate nohighlight">\(\,S_n\,\)</span>”
+<span class="math notranslate nohighlight">\(\ \)</span> <span class="math notranslate nohighlight">\(\\\)</span> or <span class="math notranslate nohighlight">\(\,\)</span> “the set <span class="math notranslate nohighlight">\(\,2Z\,\)</span>
+of even integers is a commutative ring without identity”.</p>
+</div>
+<div class="line-block">
+<div class="line">A <span class="math notranslate nohighlight">\(\ \)</span> <strong>Vector Space</strong> <span class="math notranslate nohighlight">\(\,\)</span> over a field <span class="math notranslate nohighlight">\(\,K\ \ \)</span>
+is the structure <span class="math notranslate nohighlight">\(\ \ \mathbb{V}\,=
+\,(\,V,\,\oplus\,;\ \,K,\,+\,,\,\cdot\ \,;\ \;\boxdot\,)\,,\ \)</span></div>
+<div class="line">where <span class="math notranslate nohighlight">\(\quad\oplus:\ V\times V\rightarrow V\,;
+\quad +\ ,\ \cdot\,:\ K\times K\rightarrow K\,;
+\quad\boxdot\,:\ K\times V\rightarrow V\,.\)</span></div>
+<div class="line">By definition, the operations satisfy the following requirements:</div>
+</div>
+<ol class="arabic">
+<li><div class="line-block">
+<div class="line"><span class="math notranslate nohighlight">\(\ (V,\,\oplus\,)\ \ \)</span> is an abelian group</div>
+<div class="line"><span class="math notranslate nohighlight">\(\ \)</span> (the <em>additive group</em> of the vector space;
+its neutral element is the <em>zero vector</em> <span class="math notranslate nohighlight">\(\,\theta\)</span>);</div>
+</div>
+</li>
+<li><p><span class="math notranslate nohighlight">\(\ (K,\,+\,,\,\cdot\,)\ \ \)</span> is a field;</p></li>
+<li><div class="line-block">
+<div class="line"><span class="math notranslate nohighlight">\(\ (\alpha + \beta)\,\boxdot\,v \ \,=\ \,
+(\alpha\,\boxdot\,v)\,\oplus\,(\beta\,\boxdot\,v),\)</span></div>
+<div class="line"><span class="math notranslate nohighlight">\(\ \ \alpha\,\boxdot\,(v\,\oplus\,w) \ \,=\ \,
+(\alpha\,\boxdot\,v)\ \oplus\ (\alpha\,\boxdot\,w);\)</span></div>
+</div>
+</li>
+<li><p><span class="math notranslate nohighlight">\(\ \ \alpha\,\boxdot\,(\beta\,\boxdot\,v) \ \,=
+\ \,(\alpha\cdot\beta)\,\boxdot\,v;\)</span></p></li>
+<li><p><span class="math notranslate nohighlight">\(\ \ 1\ \boxdot\ v \ \,=\ \,v.\)</span></p></li>
+</ol>
+<p>In the above expressions <span class="math notranslate nohighlight">\(\ \alpha\ \)</span> and <span class="math notranslate nohighlight">\(\ \beta\ \)</span>
+are arbitrary elements of the field <span class="math notranslate nohighlight">\(\,K\ \)</span> <span class="math notranslate nohighlight">\(\\\)</span>
+(<span class="math notranslate nohighlight">\(\,1\,\)</span> is the identity of that field), <span class="math notranslate nohighlight">\(\ \)</span>
+whereas <span class="math notranslate nohighlight">\(\ v\ \)</span> and <span class="math notranslate nohighlight">\(\ w\ \)</span> are arbitrary elements
+of the set <span class="math notranslate nohighlight">\(\,V.\)</span></p>
+<p>Elements of the set <span class="math notranslate nohighlight">\(\,K\ \)</span> are called <em>scalars</em>, <span class="math notranslate nohighlight">\(\,\)</span>
+while those from the set <span class="math notranslate nohighlight">\(\,V\)</span> are <em>vectors</em>.</p>
+<p>As mentioned in the Note above, in a practical mathematical language
+the term “vector space” would refer to the set <span class="math notranslate nohighlight">\(\,V\,\)</span>
+rather than to the algebraic structure <span class="math notranslate nohighlight">\(\ \mathbb{V}\,\)</span> as a whole.
+Assuming this terminology, we may define a vector space in a less formal way
+as a collection <span class="math notranslate nohighlight">\(\,V\,\)</span> of vectors, which may be added
+(to form an abelian group) and multiplied by scalars from a field,
+the multiplication being distributive over both addition of scalars
+and addition of vectors, being also compatible with the field multiplication
+and satisfying the trivial condition <span class="math notranslate nohighlight">\(\,1\cdot v=v,\ v\in V\)</span>.</p>
+<p>A vector space over a field <span class="math notranslate nohighlight">\(\,K\,\)</span>
+will be denoted shortly by <span class="math notranslate nohighlight">\(\,V(K).\)</span> <span class="math notranslate nohighlight">\(\\\)</span>
+Usually, the field <span class="math notranslate nohighlight">\(\,K\,\)</span> is either
+the field of real numbers <span class="math notranslate nohighlight">\(\,R\,\)</span> or
+the field of complex numbers <span class="math notranslate nohighlight">\(\,C.\)</span> <span class="math notranslate nohighlight">\(\\\)</span>
+Accordingly, we talk about a real vector space <span class="math notranslate nohighlight">\(\,V(R)\,\)</span>
+<span class="math notranslate nohighlight">\(\,\)</span> or <span class="math notranslate nohighlight">\(\,\)</span> of a complex one <span class="math notranslate nohighlight">\(\,V(C).\)</span></p>
+<p><strong>Examples</strong> of vector spaces.</p>
+<ul>
+<li><div class="line-block">
+<div class="line">Set of real numbers <span class="math notranslate nohighlight">\(\,R\,\)</span> yields the vector space
+<span class="math notranslate nohighlight">\(\,R(Q)\,\)</span> over the field of rational numbers <span class="math notranslate nohighlight">\(\,Q\,,\ \)</span>
+as well as the vector space <span class="math notranslate nohighlight">\(\,R(R)\,\)</span> over the field of real
+numbers <span class="math notranslate nohighlight">\(\,R\,.\)</span></div>
+<div class="line">On an analogous basis, the set of complex numbers <span class="math notranslate nohighlight">\(\,C\,\)</span> forms
+the real space <span class="math notranslate nohighlight">\(\,C(R)\)</span> and the complex space <span class="math notranslate nohighlight">\(\,C(C)\,.\)</span></div>
+</div>
+</li>
+<li><p>Set of geometric vectors in a plane or in the space is a real vector
+space with respect to vector addition and multiplication by real numbers.</p></li>
+<li><p>Set <span class="math notranslate nohighlight">\(\,K^n\,\)</span> of <span class="math notranslate nohighlight">\(\,n\)</span>-tuples, represented by column vectors
+of size <span class="math notranslate nohighlight">\(\,n,\ \)</span> is a vector space
+under the vector addition and scalar multiplication.</p></li>
+<li><div class="line-block">
+<div class="line">Set <span class="math notranslate nohighlight">\(\,M_{m\times n}(K)\,\)</span> of rectangular matrices over a field
+<span class="math notranslate nohighlight">\(\,K\ \)</span> with <span class="math notranslate nohighlight">\(\,m\,\)</span> rows and  <span class="math notranslate nohighlight">\(\,n\,\)</span> columns</div>
+<div class="line">is a vector space over the field <span class="math notranslate nohighlight">\(\,K\ \)</span> under the matrix addition
+and scalar multiplication.</div>
+</div>
+</li>
+</ul>
+<p>Assuming the usual order of operations we shall apply henceforth
+the simplified notation:</p>
+<div class="math notranslate nohighlight">
+\[(\alpha\,\boxdot\,v)\ \oplus\ (\beta\,\boxdot\,w)\quad\rightarrow\quad
+\alpha\cdot v\,+\,\beta\cdot w\quad\rightarrow\quad
+\alpha\,v\,+\,\beta\,w\,.\]</div>
+<p>Basic properties of vector spaces are described in Appendix A2. <span class="math notranslate nohighlight">\(\\\)</span>
+A vector space over the field <span class="math notranslate nohighlight">\(\,R\ \)</span> or <span class="math notranslate nohighlight">\(\,C\ \)</span>
+is a fundamental object of linear algebra.
+However, the computer algebraic system Sage is based on
+a more general concept of a module over a ring.</p>
+<div class="line-block">
+<div class="line">A <span class="math notranslate nohighlight">\(\ \)</span> left <strong>Module</strong> <span class="math notranslate nohighlight">\(\,\)</span> over a ring <span class="math notranslate nohighlight">\(\,P\ \ \)</span>
+is the structure <span class="math notranslate nohighlight">\(\ \ \mathbb{M}\,=\,
+(\,M,\,\oplus\,;\ \,P,\,+\,,\,\cdot\ \,;\ \;\boxdot\,)\,,\ \)</span></div>
+<div class="line">where <span class="math notranslate nohighlight">\(\quad\oplus:\ M\times M\rightarrow M\,;
+\quad +\ ,\ \cdot\,:\ P\times P\rightarrow P\,;
+\quad\boxdot\,:\ P\times M\rightarrow M\,.\)</span></div>
+<div class="line">The operations are subject to the following axioms:</div>
+</div>
+<ol class="arabic">
+<li><p><span class="math notranslate nohighlight">\(\ (M,\,\oplus\,)\ \ \)</span> is an abelian group
+(called the <em>additive group</em> of the module);</p></li>
+<li><p><span class="math notranslate nohighlight">\(\ (P,\,+\,,\,\cdot\,)\ \ \)</span> is a ring with identity;</p></li>
+<li><div class="line-block">
+<div class="line"><span class="math notranslate nohighlight">\(\ (a + b)\,\boxdot\,m \ \,=\ \,
+(a\,\boxdot\,m)\,\oplus\,(b\,\boxdot\,m)\,,\)</span></div>
+<div class="line"><span class="math notranslate nohighlight">\(\ \ a\,\boxdot\,(m_1\,\oplus\,m_2) \ \,=\ \,
+(a\,\boxdot\,m_1)\ \oplus\ (a\,\boxdot\,m_2)\,;\)</span></div>
+</div>
+</li>
+<li><p><span class="math notranslate nohighlight">\(\ \ a\,\boxdot\,(b\,\boxdot\,m) \ \,=\ \,(a\cdot b)\,\boxdot\,m\,;\)</span></p></li>
+<li><p><span class="math notranslate nohighlight">\(\ \ 1\ \boxdot\ m \ \,=\ \,m\,;\qquad\quad
+\forall\ \ a,b\in P\,,\quad\forall\ \ m,m_1,m_2\in M.\)</span></p></li>
+</ol>
+<p>A left module <span class="math notranslate nohighlight">\(\,M\ \)</span> over a ring <span class="math notranslate nohighlight">\(\,P\ \ \)</span>
+(in short: a left <span class="math notranslate nohighlight">\(\,P\)</span>-module) is therefore an abelian group,
+whose elements can be multiplied by scalars from <span class="math notranslate nohighlight">\(\,P\,,\ \)</span>
+the distributivity and compatibility conditions <span class="math notranslate nohighlight">\(\,\)</span>
+3. <span class="math notranslate nohighlight">\(-\)</span> 5. <span class="math notranslate nohighlight">\(\,\)</span> being fulfilled.</p>
+<p>Definition of a right <span class="math notranslate nohighlight">\(\,P\)</span>-module differs from the above
+by the fourth postulate:</p>
+<ol class="arabic simple" start="4">
+<li><p><span class="math notranslate nohighlight">\(\ \ a\,\boxdot\,(b\,\boxdot\,m) \ \,=\ \,
+(b\cdot a)\,\boxdot\,m\,;
+\qquad\forall\ \ a,b\in P\,,\quad\forall\ m\in M.\)</span></p></li>
+</ol>
+<p>Then a modified notation would be more natural:
+<span class="math notranslate nohighlight">\(\quad\boxdot\,:\ M\times P\rightarrow M\,,\)</span></p>
+<ol class="arabic" start="3">
+<li><div class="line-block">
+<div class="line"><span class="math notranslate nohighlight">\(\ m\,\boxdot\,(a + b)\ \,=\ \,
+(m\,\boxdot\,a)\,\oplus\,(m\,\boxdot\,b)\,,\)</span></div>
+<div class="line"><span class="math notranslate nohighlight">\(\ \ (m_1\,\oplus\,m_2)\,\boxdot\,a \ \,=\ \,
+(m_1\,\boxdot\,a)\ \oplus\ (m_2\,\boxdot\,a)\,;\)</span></div>
+</div>
+</li>
+<li><p><span class="math notranslate nohighlight">\(\ \ (m\,\boxdot\,a)\,\boxdot\,b \ \,=\ \,m\,\boxdot\,(a\cdot b)\,;\)</span></p></li>
+<li><p><span class="math notranslate nohighlight">\(\ \ m\ \boxdot\ 1 \ \,=\ \,m\,;\qquad\quad
+\forall\ \ a,b\in P\,,\quad\forall\ \ m,m_1,m_2\in M.\)</span></p></li>
+</ol>
+<p>When a ring <span class="math notranslate nohighlight">\(\,P\,\)</span> is commutative, the left and right
+<span class="math notranslate nohighlight">\(\,P\)</span>-modules are identical, <span class="math notranslate nohighlight">\(\\\)</span> and when
+<span class="math notranslate nohighlight">\(\,P\,\)</span> is a field, the corresponding <span class="math notranslate nohighlight">\(\,P\)</span>-module
+becomes a vector space.</p>
+<p><strong>Examples</strong> of modules.</p>
+<ul class="simple">
+<li><p>A ring <span class="math notranslate nohighlight">\(\,P\ \)</span> is a (both left and right) module over itself.</p></li>
+<li><p>Given a ring <span class="math notranslate nohighlight">\(\,P,\ \)</span> consider the set <span class="math notranslate nohighlight">\(\,P^{\,n}\ \)</span>
+of <span class="math notranslate nohighlight">\(\,n\)</span>-tuples written vertically as columns.
+The operation of addition of tuples and that of multiplicating them
+by scalars from <span class="math notranslate nohighlight">\(\,P\ \)</span> being defined in the natural way,
+we obtain a left as well as a right module over <span class="math notranslate nohighlight">\(\,P.\)</span> <span class="math notranslate nohighlight">\(\\\)</span>
+An important example is the module <span class="math notranslate nohighlight">\(\,Z^n\,,\ \)</span> composed of
+<span class="math notranslate nohighlight">\(\,n\)</span>-element columns of integers. When <span class="math notranslate nohighlight">\(\,P\ \)</span> is a field,
+<span class="math notranslate nohighlight">\(\,P=K,\ \)</span> we get the vector space <span class="math notranslate nohighlight">\(\,K^n.\)</span></p></li>
+<li><p>On the same lines, the set <span class="math notranslate nohighlight">\(\,M_{m\times n}(P)\ \)</span>
+of rectangular matrices over a ring <span class="math notranslate nohighlight">\(\,P\ \)</span>
+is a (left as well as right) <span class="math notranslate nohighlight">\(\,P\)</span>-module.
+In particular we get the module <span class="math notranslate nohighlight">\(\,M_{m\times n}(Z)\ \)</span>
+of matrices with integer entries.</p></li>
+<li><p>The set <span class="math notranslate nohighlight">\(\,M_n(P)\ \)</span> of square matrices of size <span class="math notranslate nohighlight">\(\,n\ \)</span>
+over a ring <span class="math notranslate nohighlight">\(\,P\ \)</span> is a noncommutative ring with identity
+with respect to matrix addition and multiplication.
+The left-multiplication of columns from <span class="math notranslate nohighlight">\(\,P^{\,n}\ \)</span>
+by matrices from <span class="math notranslate nohighlight">\(\,M_n(P)\ \)</span> is an internal operation
+in <span class="math notranslate nohighlight">\(\,P^{\,n}\ \)</span> satisfying the conditions <span class="math notranslate nohighlight">\(\,\)</span> 3. - 5. <span class="math notranslate nohighlight">\(\,\)</span>
+in the definition of a module. Therefore <span class="math notranslate nohighlight">\(\,P^{\,n}\ \)</span> is a left
+(and only left) module over the ring <span class="math notranslate nohighlight">\(\,M_n(P).\)</span></p></li>
+<li><p>Every abelian group <span class="math notranslate nohighlight">\(\,G\ \)</span> is a module over
+the ring of integers <span class="math notranslate nohighlight">\(\,Z.\ \)</span></p></li>
+</ul>
+<div class="line-block">
+<div class="line">An <span class="math notranslate nohighlight">\(\ \)</span> <strong>Algebra</strong> <span class="math notranslate nohighlight">\(\,\)</span>
+over a field <span class="math notranslate nohighlight">\(\,K\ \ \)</span> is the structure
+<span class="math notranslate nohighlight">\(\ \ \mathbb{A}\,=\,(\,A,\,\oplus,\,\odot\,;\ \,K,\,+\ ,\,
+\cdot\ \,;\ \boxdot\,)\,,\ \)</span></div>
+<div class="line">where <span class="math notranslate nohighlight">\(\quad\oplus,\,\odot:\ A\times A\rightarrow A\,;
+\quad +\ ,\ \cdot\,:\ K\times K\rightarrow K\,;
+\quad\boxdot\,:\ K\times A\rightarrow A\,.\)</span></div>
+<div class="line">The operations are bound by the following conditions:</div>
+</div>
+<ol class="arabic simple">
+<li><p><span class="math notranslate nohighlight">\(\ (\,A,\ \oplus,\ \odot\,)\ \ \)</span> is a ring;</p></li>
+<li><p><span class="math notranslate nohighlight">\(\ (\,K,\ +\,,\ \cdot\ )\ \ \)</span> is a field;</p></li>
+<li><p><span class="math notranslate nohighlight">\(\ (\,A,\,\oplus\,;\ \,K,\,+\,,\,\cdot\ \,;\ \boxdot\,)\ \)</span>
+is a vector space (over the field <span class="math notranslate nohighlight">\(\,K\)</span>);</p></li>
+<li><p><span class="math notranslate nohighlight">\(\ \ (\lambda\boxdot x)\,\odot\,y \ \,=
+\ \,x\,\odot\,(\lambda\boxdot y) \ \,=
+\ \,\lambda\,\boxdot\,(x\odot y)\,,\quad
+\forall\ \lambda\in K,\quad \forall\ \ x,y\in A\,.\)</span></p></li>
+</ol>
+<p>Thus an algebra over a field <span class="math notranslate nohighlight">\(\,K\ \)</span> is a vector space over that field,
+wherein additionally vectors can be multiplied to yield a vector result.
+The vector multiplication is associative and distributive over the vector
+addition as well as compatible with the scalar multiplication of vectors
+in the sense of the condition 4. above.</p>
+<p>An algebra may be characterized both as a ring or as a vector space.
+Specifically,</p>
+<ul>
+<li><p>an algebra is commutative when the vector multiplication is commutative;</p></li>
+<li><p>an algebra with identity contains a multiplicative neutral element;</p></li>
+<li><div class="line-block">
+<div class="line">the basis and the dimension of an algebra refer to the respective features</div>
+<div class="line">of the vector space of the algebra.</div>
+</div>
+</li>
+</ul>
+<p><strong>Examples</strong> of algebras.</p>
+<ul class="simple">
+<li><p>An arbitrary field <span class="math notranslate nohighlight">\(\,K\,\)</span> is a 1-dimensional
+commutative algebra with identity over itself.</p></li>
+<li><p>The set <span class="math notranslate nohighlight">\(\,M_n(K)\,\)</span> of square matrices of size <span class="math notranslate nohighlight">\(\,n\,\)</span>
+over a field <span class="math notranslate nohighlight">\(\,K\,\)</span> is a <span class="math notranslate nohighlight">\(\,n^2\)</span>-dimensional noncommutative
+algebra with identity over <span class="math notranslate nohighlight">\(\,K\,\)</span> under matrix addition,
+multiplication and scalar multiplication.</p></li>
+<li><p>The set <span class="math notranslate nohighlight">\(\ \text{End}(V)\ \)</span> of linear operators
+on an <span class="math notranslate nohighlight">\(\,n\)</span>-dimensional vector space <span class="math notranslate nohighlight">\(\,V(K)\,\)</span>
+is a <span class="math notranslate nohighlight">\(\,n^2\)</span>-dimensional noncommutative
+algebra with identity over <span class="math notranslate nohighlight">\(\,K\,\)</span> under operator addition,
+composition and scalar multiplication.</p></li>
+</ul>
+</section>
+<section id="substructures">
+<h2>Substructures<a class="headerlink" href="#substructures" title="Permalink to this headline">¶</a></h2>
+<p>Suppose that the structure <span class="math notranslate nohighlight">\(\,\mathbb{G} = (G,\,\,\bot\,)\,\)</span> is a group.
+It may happen that <span class="math notranslate nohighlight">\(\\\)</span> a subset <span class="math notranslate nohighlight">\(\ H\,\)</span> of the set <span class="math notranslate nohighlight">\(\ G\,\)</span>
+also forms a group under the (properly restricted) operation
+<span class="math notranslate nohighlight">\(\,\bot\,\,.\ \)</span> <span class="math notranslate nohighlight">\(\\\)</span>
+Then we say that <span class="math notranslate nohighlight">\(\,H\,\)</span> is a <span class="math notranslate nohighlight">\(\,\)</span> <em>subgroup</em> <span class="math notranslate nohighlight">\(\,\)</span>
+of the group <span class="math notranslate nohighlight">\(\,G\,\ \)</span> and write <span class="math notranslate nohighlight">\(\ \,H\,&lt;\,G\,.\)</span></p>
+<p><strong>Examples</strong> of subgroups.</p>
+<ul class="simple">
+<li><p>The set <span class="math notranslate nohighlight">\(\,2Z\,\)</span> of even integers is a subgroup
+of the additive group <span class="math notranslate nohighlight">\(\,Z\,\)</span> of all integers.</p></li>
+<li><p>The two-element set <span class="math notranslate nohighlight">\(\ \{-1,\,1\}\ \)</span> is a subgroup
+of the multiplicative group <span class="math notranslate nohighlight">\(\\\)</span> of nonzero real numbers.</p></li>
+<li><p>The set of four rotations, <span class="math notranslate nohighlight">\(\ O_0,\,O_1,\,O_2,\,O_3\,,\ \)</span> is
+a subgroup of the eight-element <span class="math notranslate nohighlight">\(\\\)</span>
+symmetry group <span class="math notranslate nohighlight">\(\,D_4\,\)</span> of a square in a plane.</p></li>
+</ul>
+<p>Analogously are defined <span class="math notranslate nohighlight">\(\,\)</span> <em>subrings</em>, <span class="math notranslate nohighlight">\(\,\)</span> <em>subfields</em>,
+<span class="math notranslate nohighlight">\(\,\)</span> <em>vector subspaces</em> <span class="math notranslate nohighlight">\(\,\)</span> and <span class="math notranslate nohighlight">\(\,\)</span> <em>subalgebras</em>.</p>
+<p>A subset of the structure’s underlying set can form a substructure only if
+the operations of the structure do not move elements out from this subset,
+that is when the subset is closed under these operations.
+Also, all axioms concerning the operations
+should be satisfied in the subset.</p>
+<p>Fortunately, there are practical compact criteria allowing to omit
+a detailed verification whether each axiom is fulfilled in a given subset.
+For example, for groups one may easily prove (see Appendix A3) the following</p>
+<div class="admonition-criterion-for-a-subgroup-math admonition">
+<p class="admonition-title">Criterion for a subgroup. <span class="math notranslate nohighlight">\(\\\)</span></p>
+<p>Let <span class="math notranslate nohighlight">\(\ \,\mathbb{G}\;=\;(G,\;\bot\,)\ \,\)</span> be a group,
+<span class="math notranslate nohighlight">\(\ \,\emptyset\neq H\,\subset G\,.\ \)</span>
+Then <span class="math notranslate nohighlight">\(\ H&lt;G\ \)</span> if, and only if,</p>
+<div class="math notranslate nohighlight">
+\[a,b\,\in\, H\quad \Rightarrow\quad
+\left(\ a\;\bot\;b\ \in\ H\ \ \land\ \ a^{-1}\,\in\,H \ \right)\,.\]</div>
+<p>(a subset <span class="math notranslate nohighlight">\(\,H\,\)</span> of the group <span class="math notranslate nohighlight">\(\,G\,\)</span> is
+a subgroup iff it is closed under products and inverses).</p>
+</div>
+<p>By referencing to the definition and basic properties of vector space,
+one may prove (see Appendix A3) the necessary and sufficient condition
+for a subset to be a subspace of a space.</p>
+<div class="admonition-criterion-for-a-vector-subspace-math admonition">
+<p class="admonition-title">Criterion for a vector subspace. <span class="math notranslate nohighlight">\(\\\)</span></p>
+<p>Let <span class="math notranslate nohighlight">\(\ \,\emptyset\neq W \subset V\,,\ \)</span>
+where <span class="math notranslate nohighlight">\(\,V\,\)</span> is a vector space over a field <span class="math notranslate nohighlight">\(\,K.\)</span>
+<span class="math notranslate nohighlight">\(\\\)</span> Then <span class="math notranslate nohighlight">\(\ W &lt; V\ \)</span> if and only if
+<span class="math notranslate nohighlight">\(\,\)</span> for all <span class="math notranslate nohighlight">\(\ \alpha \in K\,,\ w_1,w_2 \in V\)</span> :</p>
+<div class="math notranslate nohighlight" id="equation-01">
+<span class="eqno">(1)<a class="headerlink" href="#equation-01" title="Permalink to this equation">¶</a></span>\[w_1,w_2\,\in\,W \quad\Rightarrow\quad
+\left(\ w_1+w_2\,\in\,W\ \ \land\ \ \alpha\,w_1\,\in\,W \ \right)\,,\]</div>
+<p>that is, <span class="math notranslate nohighlight">\(\,\)</span> equivalently, <span class="math notranslate nohighlight">\(\,\)</span> if and only if,
+<span class="math notranslate nohighlight">\(\,\)</span> for all <span class="math notranslate nohighlight">\(\ \alpha_1,\alpha_2 \in K\,,\ w_1,w_2 \in V\)</span> :</p>
+<div class="math notranslate nohighlight" id="equation-02">
+<span class="eqno">(2)<a class="headerlink" href="#equation-02" title="Permalink to this equation">¶</a></span>\[w_1,w_2\,\in\,W \quad\Rightarrow\quad
+\alpha_1\,w_1 + \alpha_2\,w_2\,\in\,W\]</div>
+<p>(a subset <span class="math notranslate nohighlight">\(\,W\,\)</span> of a vector space <span class="math notranslate nohighlight">\(\,V(K)\,\)</span> is a vector subspace
+iff <span class="math notranslate nohighlight">\(\,W\,\)</span> is closed under vector addition and scalar multiplication,
+<span class="math notranslate nohighlight">\(\,\)</span> that is <span class="math notranslate nohighlight">\(\,\)</span> iff for any two vectors from <span class="math notranslate nohighlight">\(\,W,\ \)</span>
+every linear combination of them also belongs to <span class="math notranslate nohighlight">\(\,W\)</span>).</p>
+</div>
+<p>Every vector space <span class="math notranslate nohighlight">\(\,V\,\)</span> has two <em>improper</em> subspaces,
+the whole space <span class="math notranslate nohighlight">\(\,V\,\)</span> and the one-element set <span class="math notranslate nohighlight">\(\,\{\theta\}\,,\ \)</span>
+where <span class="math notranslate nohighlight">\(\,\theta\,\)</span> is the zero vector. Other subspaces are <em>proper</em>.</p>
+<p><strong>Examples</strong> of subspaces.</p>
+<ul>
+<li><div class="line-block">
+<div class="line">The set <span class="math notranslate nohighlight">\(\,Q\,\)</span> of rational numbers is a vector space <span class="math notranslate nohighlight">\(\,Q(Q)\,\)</span>
+over itself under the usual operations on numbers.</div>
+<div class="line">It is a subspace of the rational space of real numbers
+<span class="math notranslate nohighlight">\(\,R(Q)\,:\ \ Q(Q)&lt;R(Q).\)</span></div>
+</div>
+</li>
+<li><div class="line-block">
+<div class="line">Let <span class="math notranslate nohighlight">\(\,V\,\)</span> denote the set of geometric vectors in the space,</div>
+<div class="line"><span class="math notranslate nohighlight">\(\,V_x,\,V_y,\,V_z\ \,-\ \,\)</span> subsets of vectors lying along
+the axes <span class="math notranslate nohighlight">\(\,Ox,\,Oy,\,Oz\,,\)</span> respectively,</div>
+<div class="line"><span class="math notranslate nohighlight">\(\,V_{xy},\,V_{yz},\,V_{xz}\ \,-\ \,\)</span> subsets of vectors lying
+in the planes <span class="math notranslate nohighlight">\(\,Oxy,\,Oyz,\,Oxz\,,\ \)</span> resp.</div>
+<div class="line">These subsets are subspaces of the space <span class="math notranslate nohighlight">\(\,V:\ \ \)</span>
+<span class="math notranslate nohighlight">\(\,V_x,\,V_y,\,V_z,\,V_{xy},\,V_{yz},\,V_{xz}\,&lt; \,V.\)</span></div>
+<div class="line">Moreover, we note that: <span class="math notranslate nohighlight">\(\quad V_x,\,V_y\,&lt;\,V_{xy}\,,
+\quad V_y,\,V_z\,&lt;\,V_{yz}\,,\quad V_x,\,V_z\,&lt;\,V_{xz}\,.\)</span></div>
+</div>
+</li>
+<li><p>Consider the space <span class="math notranslate nohighlight">\(\,K^n\ \)</span> of column vectors of size <span class="math notranslate nohighlight">\(\,n\,\)</span>
+over a field <span class="math notranslate nohighlight">\(\,K\,:\)</span></p>
+<div class="math notranslate nohighlight">
+\[\begin{split}K^n\ \ =
+\ \ \,\left\{\quad
+\left[\begin{array}{c}
+x_1 \\ \ldots \\ x_p \\ x_{p+1} \\ \ldots \\ x_n
+\end{array}\right]
+\ :\quad x_i\in K\,,\ \ i = 1,2,\ldots,n.\;\right\}\,,\end{split}\]</div>
+<p>and the subset
+<span class="math notranslate nohighlight">\(\ W_p\ =
+\ \{\ \boldsymbol{x}\in K^n\,:\ \ x_{p+1}=\ldots = x_n = 0\,\}\,,\ \)</span>
+where <span class="math notranslate nohighlight">\(\ 1 \leq p &lt; n\,:\)</span></p>
+<div class="math notranslate nohighlight">
+\[\begin{split}W_p\ \ :\,=
+\ \ \,\left\{\quad
+\left[\begin{array}{c}
+x_1 \\ \ldots \\ x_p \\ 0 \\ \ldots \\ 0
+\end{array}\right]
+\ :\quad x_i\in K\,,\ \ i = 1,2,\ldots,p.\;\right\}\,.\end{split}\]</div>
+<p>Using the conditions <a class="reference internal" href="primer_elimination-for-eqns.html#equation-01">(1)</a> or <a class="reference internal" href="operations_on_matrices_elimination.html#equation-02">(2)</a> we easily conclude that</p>
+<div class="math notranslate nohighlight">
+\[W_p\,&lt;\,K^n\,.\]</div>
+</li>
+<li><p>The set <span class="math notranslate nohighlight">\(\,M_n(K)\,\)</span> of square matrices of size <span class="math notranslate nohighlight">\(\,n\,\)</span> over
+a field <span class="math notranslate nohighlight">\(\,K\,\)</span> is a vector space over <span class="math notranslate nohighlight">\(\,K\,\)</span> under matrix
+addition and scalar multiplication:</p>
+<div class="math notranslate nohighlight">
+\[\begin{split}M_n(K)\ \ =\ \ \left\{\quad\left[\ \begin{array}{cccc}
+                                  a_{11} &amp; a_{12} &amp; \ldots &amp; a_{1n} \\
+                                  a_{21} &amp; a_{22} &amp; \ldots &amp; a_{2n} \\
+                                  \ldots &amp; \ldots &amp; \ldots &amp; \ldots \\
+                                  a_{n1} &amp; a_{n2} &amp; \ldots &amp; a_{nn}
+                                  \end{array}\ \right]
+\ :\quad a_{ij}\in K,\ \ i,j\,=\,1,2,\ldots,n.\;\right\}\,.\end{split}\]</div>
+<p>The conditions <a class="reference internal" href="primer_elimination-for-eqns.html#equation-01">(1)</a> or <a class="reference internal" href="operations_on_matrices_elimination.html#equation-02">(2)</a> being satisfied,
+the subset composed of all diagonal matrices</p>
+<div class="math notranslate nohighlight" id="equation-diag">
+<span class="eqno">(3)<a class="headerlink" href="#equation-diag" title="Permalink to this equation">¶</a></span>\[\begin{split}D_n(K)\ \ :\,=\ \ \left\{\quad\left[\ \begin{array}{cccc}
+                                  a_{11} &amp;   0    &amp; \ldots &amp;   0    \\
+                                    0    &amp; a_{22} &amp; \ldots &amp;   0    \\
+                                  \ldots &amp; \ldots &amp; \ldots &amp; \ldots \\
+                                    0    &amp;   0    &amp; \ldots &amp; a_{nn}
+                                  \end{array}\ \right]\ :\quad
+                          a_{ii}\in K,\ \ i\,=\,1,2,\ldots,n.\;\right\}\,.\end{split}\]</div>
+<p>is a subspace: <span class="math notranslate nohighlight">\(\quad D_n(K)&lt;M_n(K)\,.\)</span></p>
+</li>
+</ul>
+<p>The condition for a subalgebra is an extension of that for subspace.</p>
+<div class="admonition-criterion-for-a-subalgebra-math admonition">
+<p class="admonition-title">Criterion for a subalgebra. <span class="math notranslate nohighlight">\(\\\)</span></p>
+<p>A subset <span class="math notranslate nohighlight">\(\ B\ \)</span> of the algebra <span class="math notranslate nohighlight">\(\ A\ \)</span>
+over a field <span class="math notranslate nohighlight">\(\ K\ \)</span> is a subalgebra if and only if <span class="math notranslate nohighlight">\(\,\)</span>
+it is closed under vector addition and vector multiplication
+as well as under scalar multiplication, that is <span class="math notranslate nohighlight">\(\,\)</span>
+iff for arbitrary
+<span class="math notranslate nohighlight">\(\ x_1,x_2\in A\ \)</span> and <span class="math notranslate nohighlight">\(\ \lambda\in K:\)</span></p>
+<div class="math notranslate nohighlight">
+\[x_1,x_2\,\in\,B \quad\Rightarrow\quad
+\left(\ x_1+x_2\,\in\,B\ \ \land\ \ x_1\,x_2\,\in B
+\,\ \ \land\ \ \lambda\,x_1\,\in\,B\ \right)\,.\]</div>
+</div>
+<p>On that basis the set of diagonal matrices in Eq. <a class="reference internal" href="#equation-diag">(3)</a> is a subalgebra:
+<span class="math notranslate nohighlight">\(\ \,D_n(K)&lt;M_n(K)\,.\)</span></p>
+<dl class="footnote brackets">
+<dt class="label" id="id2"><span class="brackets"><a class="fn-backref" href="#id1">1</a></span></dt>
+<dd><p>a denotement <span class="math notranslate nohighlight">\(\ \forall\ x\in X\ \)</span>
+means <span class="math notranslate nohighlight">\(\,\)</span> “for all <span class="math notranslate nohighlight">\(\,x\in X\)</span>”.</p>
+</dd>
+</dl>
+</section>
+</section>
+
+
+          </div>
+        </div>
+      </div>
+      <div class="sphinxsidebar" role="navigation" aria-label="main navigation">
+        <div class="sphinxsidebarwrapper">
+  <div class="sphinxlocaltoc">
+  <h3><a href="index.html">Table Of Contents</a></h3>
+  <ul>
+<li><a class="reference internal" href="#">Algebraic Structures</a><ul>
+<li><a class="reference internal" href="#definitions-and-examples">Definitions and Examples</a></li>
+<li><a class="reference internal" href="#substructures">Substructures</a></li>
+</ul>
+</li>
+</ul>
+
+  </div>
+  <h4>Previous topic</h4>
+  <p class="topless"><a href="introduction_preliminaries.html"
+                        title="previous chapter">Preliminaries and Notation</a></p>
+  <h4>Next topic</h4>
+  <p class="topless"><a href="introduction_fundamental-concepts.html"
+                        title="next chapter">Fundamental Concepts in Linear Algebra</a></p>
+  <div role="note" aria-label="source link">
+    <h3>This Page</h3>
+    <ul class="this-page-menu">
+      <li><a href="_sources/introduction_algebraic-structures.rst.txt"
+            rel="nofollow">Show Source</a></li>
+    </ul>
+   </div>
+<div id="searchbox" style="display: none" role="search">
+  <h3 id="searchlabel">Quick search</h3>
+    <div class="searchformwrapper">
+    <form class="search" action="search.html" method="get">
+      <input type="text" name="q" aria-labelledby="searchlabel" />
+      <input type="submit" value="Go" />
+    </form>
+    </div>
+</div>
+<script>$('#searchbox').show(0);</script>
+        </div>
+      </div>
+      <div class="clearer"></div>
+    </div>
+  </div>
+  <div class="relbar-bottom">
+    
+    <div class="related" role="navigation" aria-label="related navigation">
+      <h3>Navigation</h3>
+      <ul>
+        <li class="right" style="margin-right: 10px">
+          <a href="genindex.html" title="General Index"
+             >index</a></li>
+        <li class="right" >
+          <a href="introduction_fundamental-concepts.html" title="Fundamental Concepts in Linear Algebra"
+             >next</a> &nbsp; &nbsp;</li>
+        <li class="right" >
+          <a href="introduction_preliminaries.html" title="Preliminaries and Notation"
+             >previous</a> &nbsp; &nbsp;</li>
+  <li><a href="index.html">Linear Algebra</a> &#187;</li>
+  
+        <li class="nav-item nav-item-this"><a href="">Algebraic Structures</a></li> 
+      </ul>
+    </div>
+  </div>
+  
+  <div class="footer">
+    <a class="logo" href="http://icse.us.edu.pl/" target="_blank"><img src="_static/logo-icse.png" alt="ICSE"/></a><br/>
+    &copy; Copyright 2018, Jan Aksamit, Joanna Marzec, and  Marcin Kostur.
+    Last updated on Jan 29, 2022.
+    Created using <a href="http://sphinx.pocoo.org/">Sphinx</a> 4.0.1.
+  </div>
+  </body>
+</html>

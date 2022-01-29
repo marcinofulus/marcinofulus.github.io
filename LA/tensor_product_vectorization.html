@@ -1,0 +1,313 @@
+
+
+  
+<!DOCTYPE html>
+
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" /><meta name="generator" content="Docutils 0.17: http://docutils.sourceforge.net/" />
+
+    <title>Vectorization of Matrices &#8212; Linear Algebra</title>
+    <link rel="stylesheet" type="text/css" href="_static/pygments.css" />
+    <link rel="stylesheet" type="text/css" href="_static/cloud.css" />
+    <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Noticia+Text|Open+Sans|Droid+Sans+Mono&amp;subset=latin,latin-ext" type="text/css" />
+    <script data-url_root="./" id="documentation_options" src="_static/documentation_options.js"></script>
+    <script src="_static/jquery.js"></script>
+    <script src="_static/underscore.js"></script>
+    <script src="_static/doctools.js"></script>
+    <script async="async" src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js"></script>
+    <script src="_static/jquery.cookie.js"></script>
+    <script src="_static/cloud.js"></script>
+    <script type="text/javascript" src="http://sagecell.sagemath.org/static/jquery.min.js"></script>
+    <script type="text/javascript" src="http://sagecell.sagemath.org/embedded_sagecell.js"></script>
+    <script type="text/javascript">
+        sagecell.makeSagecell({inputLocation: ".sage_linked",
+                               linked: true});
+        sagecell.makeSagecell({inputLocation: ".sage_unlinked",
+                               linked: false});
+    </script>
+
+    <style type="text/css">
+        .sagecell .CodeMirror-scroll {
+            overflow-y: hidden;
+            overflow-x: auto;
+        }
+        .sagecell .CodeMirror {
+            height: auto;
+        }
+    </style>
+    
+    <link rel="index" title="Index" href="genindex.html" />
+    <link rel="search" title="Search" href="search.html" />
+    <link rel="next" title="Kronecker Product as a Transformation Matrix" href="tensor_product_transformation-matrix.html" />
+    <link rel="prev" title="Definition and Properties" href="tensor_product_properties.html" />
+ 
+  <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, minimum-scale=1">
+  </head><body>
+  <div class="relbar-top">
+    
+    <div class="related" role="navigation" aria-label="related navigation">
+      <h3>Navigation</h3>
+      <ul>
+        <li class="right" style="margin-right: 10px">
+          <a href="genindex.html" title="General Index"
+             accesskey="I">index</a></li>
+        <li class="right" >
+          <a href="tensor_product_transformation-matrix.html" title="Kronecker Product as a Transformation Matrix"
+             accesskey="N">next</a> &nbsp; &nbsp;</li>
+        <li class="right" >
+          <a href="tensor_product_properties.html" title="Definition and Properties"
+             accesskey="P">previous</a> &nbsp; &nbsp;</li>
+  <li><a href="index.html">Linear Algebra</a> &#187;</li>
+  
+        <li class="nav-item nav-item-this"><a href="">Vectorization of Matrices</a></li> 
+      </ul>
+    </div>
+  </div>
+  
+  <div class="content">  
+
+    <div class="document">
+      <div class="documentwrapper">
+        <div class="bodywrapper">
+          <div class="body">
+            
+  <section id="vectorization-of-matrices">
+<h1>Vectorization of Matrices<a class="headerlink" href="#vectorization-of-matrices" title="Permalink to this headline">¶</a></h1>
+<p>The term <span class="math notranslate nohighlight">\(\,\)</span> <em>vectorization of a matrix</em> <span class="math notranslate nohighlight">\(\,\)</span> denotes a linear
+transformation which converts a matrix with <span class="math notranslate nohighlight">\(\,m\,\)</span> rows <span class="math notranslate nohighlight">\(\,\)</span>
+and <span class="math notranslate nohighlight">\(\,n\,\)</span> columns into a column vector of size <span class="math notranslate nohighlight">\(\,mn.\ \)</span></p>
+<p>Consider a matrix
+<span class="math notranslate nohighlight">\(\,\boldsymbol{A}=[\,a_{ij}\,]_{m\times n}\in M_{m\times n}(K),\ \)</span>
+where <span class="math notranslate nohighlight">\(\,M_{m\times n}(K)\ \)</span> is the vector space of
+<span class="math notranslate nohighlight">\(\,m \times n\ \)</span> matrices over a field <span class="math notranslate nohighlight">\(\,K.\ \)</span>
+Let <span class="math notranslate nohighlight">\(\,E_{\,m\times n}\,=\,\{\,\boldsymbol{E}_{ij}:\ \
+i=1,\ldots,m;\ j=1,\ldots,n\,\}\ \)</span>
+be the standard basis of <span class="math notranslate nohighlight">\(\,M_{m\times n}(K),\ \)</span>
+composed of matrices <span class="math notranslate nohighlight">\(\,\boldsymbol{E}_{ij}\ \)</span>
+with exactly one non-zero entry, <span class="math notranslate nohighlight">\(\,\)</span> equal to unity, <span class="math notranslate nohighlight">\(\,\)</span>
+in the <span class="math notranslate nohighlight">\(\,i\)</span>-th row and <span class="math notranslate nohighlight">\(\,j\)</span>-th column:</p>
+<div class="math notranslate nohighlight">
+\[\begin{split}\left(\boldsymbol{E}_{ij}\right)_{\,|\,kl}\ =\ \
+\delta_{ik}\ \delta_{jl}\,,
+\qquad
+\begin{array}{l}
+i,k=1,2,\ldots,m, \\
+j,l=1,2,\ldots,n.
+\end{array}\end{split}\]</div>
+<p>The matrix <span class="math notranslate nohighlight">\(\,\boldsymbol{A}\ \)</span> may be vectorized in two ways:</p>
+<ul>
+<li><p>by juxtaposing the consecutive <em>rows</em>
+of the matrix next to each other <span class="math notranslate nohighlight">\(\\\)</span>
+and taking the transpose of the obtained long “multi-row”:</p>
+<div class="math notranslate nohighlight">
+\[\boldsymbol{\Lambda}^{mn}(\boldsymbol{A})\ \,:\,=\ \,
+[\,a_{11}\ \,a_{12}\ \,\ldots\ \,a_{1n}\ \ \,
+   a_{21}\ \,a_{22}\ \,\ldots\ \,a_{2n}\ \ \,\ldots\ \ \,
+   a_{m1}\ \,a_{m2}\ \,\ldots\ \,a_{mn}\,]^{\,T} .\]</div>
+<p>The vector <span class="math notranslate nohighlight">\(\,\boldsymbol{\Lambda}^{mn}(\boldsymbol{A})\ \)</span>
+is the column of coordinates of matrix <span class="math notranslate nohighlight">\(\,\boldsymbol{A}\ \)</span>
+in the ordered basis</p>
+<div class="math notranslate nohighlight">
+\[\mathcal{E}^{\,row}_{m\times n}\ =\
+\left(\ \boldsymbol{E}_{11},\ \boldsymbol{E}_{12},\
+\ldots,\ \boldsymbol{E}_{1n},\ \
+\boldsymbol{E}_{21},\ \boldsymbol{E}_{22},\
+\ldots,\ \boldsymbol{E}_{2n},\ \
+\ldots,\ \ \boldsymbol{E}_{m1},\ \boldsymbol{E}_{m2},\
+\ldots,\ \boldsymbol{E}_{mn}\,\right)\,.\]</div>
+</li>
+<li><p>by stacking the <em>columns</em> of the matrix on top of one another:</p>
+<div class="math notranslate nohighlight">
+\[\boldsymbol{\mathrm{V}}^{mn}(\boldsymbol{A})\ \,:\,=\ \,
+[\,a_{11}\ \,a_{21}\ \,\ldots\ \,a_{m1}\ \ \,
+   a_{12}\ \,a_{22}\ \,\ldots\ \,a_{m2}\ \ \,\ldots\ \ \,
+   a_{1n}\ \,a_{2n}\ \,\ldots\ \,a_{mn}\,]^{\,T} .\]</div>
+<p>The vector <span class="math notranslate nohighlight">\(\,\boldsymbol{\mathrm{V}}^{mn}(\boldsymbol{A})\ \)</span>
+is the column of coordinates of matrix <span class="math notranslate nohighlight">\(\,\boldsymbol{A}\ \)</span>
+in the ordered basis</p>
+<div class="math notranslate nohighlight">
+\[\mathcal{E}^{\,col}_{m\times n}\ =\
+\left(\ \boldsymbol{E}_{11},\ \boldsymbol{E}_{21},\
+\ldots,\ \boldsymbol{E}_{m1},\ \
+\boldsymbol{E}_{12},\ \boldsymbol{E}_{22},\
+\ldots,\ \boldsymbol{E}_{m2},\ \
+\ldots,\ \ \boldsymbol{E}_{1n},\ \boldsymbol{E}_{2n},\
+\ldots,\ \boldsymbol{E}_{mn}\,\right)\,.\]</div>
+<p>In literature <a class="footnote-reference brackets" href="#id2" id="id1">1</a> <span class="math notranslate nohighlight">\(\ \)</span> the vector
+<span class="math notranslate nohighlight">\(\,\boldsymbol{\mathrm{V}}^{mn}(\boldsymbol{A})\ \)</span>
+is also denoted by <span class="math notranslate nohighlight">\(\,\text{vec}(\boldsymbol{A}).\)</span></p>
+</li>
+</ul>
+<p><strong>Example.</strong> <span class="math notranslate nohighlight">\(\,\)</span>
+The standard basis of the vector space <span class="math notranslate nohighlight">\(\ M_{2\times 3}(R)\ \)</span>
+is composed of the matrices</p>
+<div class="math notranslate nohighlight">
+\[\begin{split}\begin{array}{lll}
+\boldsymbol{E}_{11}\ =\
+\left[\begin{array}{ccc}
+1 &amp; 0 &amp; 0 \\ 0 &amp; 0 &amp; 0
+\end{array}\right],
+&amp;
+\boldsymbol{E}_{12}\ =\
+\left[\begin{array}{ccc}
+0 &amp; 1 &amp; 0 \\ 0 &amp; 0 &amp; 0
+\end{array}\right],
+&amp;
+\boldsymbol{E}_{13}\ =\
+\left[\begin{array}{ccc}
+0 &amp; 0 &amp; 1 \\ 0 &amp; 0 &amp; 0
+\end{array}\right],
+\\[12pt]
+\boldsymbol{E}_{21}\ =\
+\left[\begin{array}{ccc}
+0 &amp; 0 &amp; 0 \\ 1 &amp; 0 &amp; 0
+\end{array}\right],
+&amp;
+\boldsymbol{E}_{22}\ =\
+\left[\begin{array}{ccc}
+0 &amp; 0 &amp; 0 \\ 0 &amp; 1 &amp; 0
+\end{array}\right],
+&amp;
+\boldsymbol{E}_{23}\ =\
+\left[\begin{array}{ccc}
+0 &amp; 0 &amp; 0 \\ 0 &amp; 0 &amp; 1
+\end{array}\right],
+\end{array}\end{split}\]</div>
+<p>hence the ordered bases are:</p>
+<div class="math notranslate nohighlight">
+\[ \begin{align}\begin{aligned}\mathcal{E}^{\,row}_{2\times 3}\ =\
+\left(\
+\boldsymbol{E}_{11},\
+\boldsymbol{E}_{12},\
+\boldsymbol{E}_{13},\ \
+\boldsymbol{E}_{21},\
+\boldsymbol{E}_{22},\
+\boldsymbol{E}_{23}\
+\right)\,,\\\mathcal{E}^{\,col}_{2\times 3}\ =\
+\left(\
+\boldsymbol{E}_{11},\
+\boldsymbol{E}_{21},\
+\boldsymbol{E}_{12},\ \
+\boldsymbol{E}_{22},\
+\boldsymbol{E}_{13},\
+\boldsymbol{E}_{23}\
+\right)\,.\end{aligned}\end{align} \]</div>
+<p>For the matrix <span class="math notranslate nohighlight">\(\ \boldsymbol{A}\ =\
+\left[\begin{array}{ccc} 1 &amp; 2 &amp; 3 \\ 4 &amp; 5 &amp; 6 \end{array}\right]\ \ \)</span>
+we get
+<span class="math notranslate nohighlight">\(\ \ \boldsymbol{\Lambda}^{23}(\boldsymbol{A})\ =\
+\left[\begin{array}{c} 1 \\ 2 \\ 3 \\ 4 \\ 5 \\ 6 \end{array}\right],\ \
+\boldsymbol{\mathrm{V}}^{23}(\boldsymbol{A})\ =\
+\left[\begin{array}{c} 1 \\ 4 \\ 2 \\ 5 \\ 3 \\ 6 \end{array}\right]\,.\)</span></p>
+<p>For <span class="math notranslate nohighlight">\(\ \boldsymbol{A}\in M_{m\times n}(K)\ \)</span> obviously
+<span class="math notranslate nohighlight">\(\ \boldsymbol{\mathrm{V}}^{mn}(\boldsymbol{A})\ =\
+\boldsymbol{\Lambda}^{nm}(\boldsymbol{A}^T)\,,\quad\)</span>
+<span class="math notranslate nohighlight">\(\ \boldsymbol{\Lambda}^{mn}(\boldsymbol{A})\ =\
+\boldsymbol{\mathrm{V}}^{nm}(\boldsymbol{A}^T)\,.\)</span></p>
+<p>Using the Kronecker product, matrix multiplication can be expressed
+as a linear transformation of vectorized matrices.
+With this end in view, assume that
+<span class="math notranslate nohighlight">\(\ \boldsymbol{A}=[a_{ij}]_{m\times p},\ \)</span>
+<span class="math notranslate nohighlight">\(\ \boldsymbol{B}=[b_{ij}]_{p\times n}\ \)</span> and
+<span class="math notranslate nohighlight">\(\ \boldsymbol{C}\equiv\boldsymbol{A}\boldsymbol{B}=
+[c_{ij}]_{m\times n}\ \)</span> are matrices over a field <span class="math notranslate nohighlight">\(\ K.\ \)</span> Then</p>
+<div class="math notranslate nohighlight" id="equation-product">
+<span class="eqno">(1)<a class="headerlink" href="#equation-product" title="Permalink to this equation">¶</a></span>\[c_{ij}\ =\ \,\sum_{k=1}^p\ a_{ik}\ b_{kj}\,,\qquad
+i=1,2,\ldots,m;\ j=1,2,\ldots,n.\]</div>
+<p>Equation <a class="reference internal" href="#equation-product">(1)</a> may be rewritten as</p>
+<div class="math notranslate nohighlight">
+\[ \begin{align}\begin{aligned}c_{ij}\ = \ \displaystyle\sum_{v=1}^p\ a_{iv}\ b_{vj}
+      \ = \ \displaystyle\sum_{v=1}^p\sum_{w=1}^n\ a_{iv}\ \delta_{jw}\ b_{vw}
+      \ = \ \displaystyle\sum_{v=1}^p\sum_{w=1}^n\
+          \left(\boldsymbol{A}\otimes\boldsymbol{I}_n\right)_{ij,\,vw}\ b_{vw}\\i=1,2,\ldots,m;\ j=1,2,\ldots,n.\end{aligned}\end{align} \]</div>
+<p>which is equivalent to the matrix equation</p>
+<div class="math notranslate nohighlight">
+\[\blacktriangleright\quad
+\boldsymbol{\Lambda}^{mn}(\boldsymbol{A}\boldsymbol{B})\ \,=\ \,
+\left(\,\boldsymbol{A}\otimes\boldsymbol{I}_n\,\right)\ \cdot\
+\boldsymbol{\Lambda}^{pn}(\boldsymbol{B})\]</div>
+<p>On the other hand, Eq. <a class="reference internal" href="#equation-product">(1)</a> yields also</p>
+<div class="math notranslate nohighlight">
+\[c_{ij}\ = \ \displaystyle\sum_{w=1}^p\ b_{wj}\ a_{iw}
+      \ = \ \displaystyle\sum_{v=1}^m\sum_{w=1}^p\ \delta_{iv}\ b_{jw}^{\,T}\ a_{vw}
+      \ = \ \displaystyle\sum_{v=1}^m\sum_{w=1}^p\
+            \left(\boldsymbol{I}_m\otimes\boldsymbol{B}^T\right)_{ij,\,vw}\ a_{vw}\]</div>
+<p>wherefrom we obtain an alternative relation for the matrix product
+<span class="math notranslate nohighlight">\(\ \boldsymbol{A}\boldsymbol{B}\,:\)</span></p>
+<div class="math notranslate nohighlight">
+\[\blacktriangleright\quad
+\boldsymbol{\Lambda}^{mn}(\boldsymbol{A}\boldsymbol{B})\ \,=\ \,
+\left(\,\boldsymbol{I}_m\otimes\boldsymbol{B^{\,T}}\,\right)\ \cdot\
+\boldsymbol{\Lambda}^{mp}(\boldsymbol{A})\]</div>
+<dl class="footnote brackets">
+<dt class="label" id="id2"><span class="brackets"><a class="fn-backref" href="#id1">1</a></span></dt>
+<dd><p>see, e.g. <a class="reference external" href="https://en.wikipedia.org/wiki/Vectorization_(mathematics">https://en.wikipedia.org/wiki/Vectorization_(mathematics</a>)</p>
+</dd>
+</dl>
+</section>
+
+
+          </div>
+        </div>
+      </div>
+      <div class="sphinxsidebar" role="navigation" aria-label="main navigation">
+        <div class="sphinxsidebarwrapper">
+  <h4>Previous topic</h4>
+  <p class="topless"><a href="tensor_product_properties.html"
+                        title="previous chapter">Definition and Properties</a></p>
+  <h4>Next topic</h4>
+  <p class="topless"><a href="tensor_product_transformation-matrix.html"
+                        title="next chapter">Kronecker Product as a Transformation Matrix</a></p>
+  <div role="note" aria-label="source link">
+    <h3>This Page</h3>
+    <ul class="this-page-menu">
+      <li><a href="_sources/tensor_product_vectorization.rst.txt"
+            rel="nofollow">Show Source</a></li>
+    </ul>
+   </div>
+<div id="searchbox" style="display: none" role="search">
+  <h3 id="searchlabel">Quick search</h3>
+    <div class="searchformwrapper">
+    <form class="search" action="search.html" method="get">
+      <input type="text" name="q" aria-labelledby="searchlabel" />
+      <input type="submit" value="Go" />
+    </form>
+    </div>
+</div>
+<script>$('#searchbox').show(0);</script>
+        </div>
+      </div>
+      <div class="clearer"></div>
+    </div>
+  </div>
+  <div class="relbar-bottom">
+    
+    <div class="related" role="navigation" aria-label="related navigation">
+      <h3>Navigation</h3>
+      <ul>
+        <li class="right" style="margin-right: 10px">
+          <a href="genindex.html" title="General Index"
+             >index</a></li>
+        <li class="right" >
+          <a href="tensor_product_transformation-matrix.html" title="Kronecker Product as a Transformation Matrix"
+             >next</a> &nbsp; &nbsp;</li>
+        <li class="right" >
+          <a href="tensor_product_properties.html" title="Definition and Properties"
+             >previous</a> &nbsp; &nbsp;</li>
+  <li><a href="index.html">Linear Algebra</a> &#187;</li>
+  
+        <li class="nav-item nav-item-this"><a href="">Vectorization of Matrices</a></li> 
+      </ul>
+    </div>
+  </div>
+  
+  <div class="footer">
+    <a class="logo" href="http://icse.us.edu.pl/" target="_blank"><img src="_static/logo-icse.png" alt="ICSE"/></a><br/>
+    &copy; Copyright 2018, Jan Aksamit, Joanna Marzec, and  Marcin Kostur.
+    Last updated on Jan 29, 2022.
+    Created using <a href="http://sphinx.pocoo.org/">Sphinx</a> 4.0.1.
+  </div>
+  </body>
+</html>

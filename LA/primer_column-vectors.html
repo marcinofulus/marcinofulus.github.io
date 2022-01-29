@@ -1,0 +1,302 @@
+
+
+  
+<!DOCTYPE html>
+
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" /><meta name="generator" content="Docutils 0.17: http://docutils.sourceforge.net/" />
+
+    <title>Column Vectors &#8212; Linear Algebra</title>
+    <link rel="stylesheet" type="text/css" href="_static/pygments.css" />
+    <link rel="stylesheet" type="text/css" href="_static/cloud.css" />
+    <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Noticia+Text|Open+Sans|Droid+Sans+Mono&amp;subset=latin,latin-ext" type="text/css" />
+    <script data-url_root="./" id="documentation_options" src="_static/documentation_options.js"></script>
+    <script src="_static/jquery.js"></script>
+    <script src="_static/underscore.js"></script>
+    <script src="_static/doctools.js"></script>
+    <script async="async" src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js"></script>
+    <script src="_static/jquery.cookie.js"></script>
+    <script src="_static/cloud.js"></script>
+    <script type="text/javascript" src="http://sagecell.sagemath.org/static/jquery.min.js"></script>
+    <script type="text/javascript" src="http://sagecell.sagemath.org/embedded_sagecell.js"></script>
+    <script type="text/javascript">
+        sagecell.makeSagecell({inputLocation: ".sage_linked",
+                               linked: true});
+        sagecell.makeSagecell({inputLocation: ".sage_unlinked",
+                               linked: false});
+    </script>
+
+    <style type="text/css">
+        .sagecell .CodeMirror-scroll {
+            overflow-y: hidden;
+            overflow-x: auto;
+        }
+        .sagecell .CodeMirror {
+            height: auto;
+        }
+    </style>
+    
+    <link rel="index" title="Index" href="genindex.html" />
+    <link rel="search" title="Search" href="search.html" />
+    <link rel="next" title="Geometry of Linear Equations" href="primer_geometry-of-eqns-stat.html" />
+    <link rel="prev" title="References" href="introduction_references.html" />
+ 
+  <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, minimum-scale=1">
+  </head><body>
+  <div class="relbar-top">
+    
+    <div class="related" role="navigation" aria-label="related navigation">
+      <h3>Navigation</h3>
+      <ul>
+        <li class="right" style="margin-right: 10px">
+          <a href="genindex.html" title="General Index"
+             accesskey="I">index</a></li>
+        <li class="right" >
+          <a href="primer_geometry-of-eqns-stat.html" title="Geometry of Linear Equations"
+             accesskey="N">next</a> &nbsp; &nbsp;</li>
+        <li class="right" >
+          <a href="introduction_references.html" title="References"
+             accesskey="P">previous</a> &nbsp; &nbsp;</li>
+  <li><a href="index.html">Linear Algebra</a> &#187;</li>
+  
+        <li class="nav-item nav-item-this"><a href="">Column Vectors</a></li> 
+      </ul>
+    </div>
+  </div>
+  
+  <div class="content">  
+
+    <div class="document">
+      <div class="documentwrapper">
+        <div class="bodywrapper">
+          <div class="body">
+            
+  <section id="column-vectors">
+<h1>Column Vectors<a class="headerlink" href="#column-vectors" title="Permalink to this headline">¶</a></h1>
+<p>A <em>column vector</em> of size <span class="math notranslate nohighlight">\(\,n\,\)</span> over a field <span class="math notranslate nohighlight">\(\,K\,\)</span>
+is a sequence of <span class="math notranslate nohighlight">\(\,n\,\)</span> scalars, written vertically:</p>
+<div class="math notranslate nohighlight">
+\[\begin{split}\boldsymbol{x}\ =\ [x_{i}]_n\ \ =\ \
+\left[\begin{array}{c}
+x_{1} \\ x_{2} \\ \ldots \\ x_{n}
+\end{array}\right] \,,
+\quad
+\text{where}\quad x_{i}\in K,\quad i=1,2,\ldots,n\,; \quad n\in N.\end{split}\]</div>
+<p>The set of all such vectors is denoted by <span class="math notranslate nohighlight">\(\,K^n.\ \)</span>
+When dealing with practical problems, <span class="math notranslate nohighlight">\(\\\)</span>
+<span class="math notranslate nohighlight">\(\ K\ \)</span> is usually the field <span class="math notranslate nohighlight">\(\,R\ \)</span> of real numbers
+or the field <span class="math notranslate nohighlight">\(\ C\ \)</span> of complex numbers.</p>
+<p>The column vectors in <span class="math notranslate nohighlight">\(\,K^n\,\)</span> may be added: <a class="footnote-reference brackets" href="#id2" id="id1">1</a></p>
+<div class="math notranslate nohighlight">
+\[\begin{split}\left[\begin{array}{c}
+x_1 \\ x_2 \\ \ldots \\ x_n
+\end{array}\right] \ +\
+\left[\begin{array}{c}
+y_1 \\ y_2 \\ \ldots \\ y_n
+\end{array}\right] \ :\,=\ \,
+\left[\begin{array}{c}
+x_1+y_1 \\ x_2+y_2 \\ \ldots \\ x_n+y_n
+\end{array}\right]\,,\end{split}\]</div>
+<p>and multiplied by scalars <span class="math notranslate nohighlight">\(\, c \in K\)</span>:</p>
+<div class="math notranslate nohighlight">
+\[\begin{split}c \ \
+\left[\begin{array}{c}
+x_1 \\ x_2 \\ \ldots \\ x_n
+\end{array}\right] \ :\,=\ \,
+\left[\begin{array}{c}
+c\; x_1 \\ c\; x_2 \\ \ldots \\ c\; x_n
+\end{array}\right]\,.\end{split}\]</div>
+<p>In Sage it is equally simple:</p>
+<div class='sage_linked'><script type='text/x-sage'>v = vector([5,8,3])
+w = vector([1,2,3])
+c = 10
+print 'v + w = ', v + w
+print 'cv =', c*v</script></div><p>Press <strong>Evaluate</strong> to see the outcome of the code. You can modify the code yourself too. See what happens if the vectors are of different size. In section <a class="reference internal" href="algebra_of_matrices_Sage.html#algebra-of-matrices-sage"><span class="std std-ref">Vectors and Matrices in Sage</span></a> we explain how to indicate the underlying field.</p>
+<p>The addition and scalar multiplication of column vectors in <span class="math notranslate nohighlight">\(\,K^n\,\)</span>
+consist in addition and multiplication of scalars in <span class="math notranslate nohighlight">\(\,K.\ \)</span>
+On that basis, it’s easy to validate the following properties,
+which lead to the conclusion that <span class="math notranslate nohighlight">\(\,K^n\,\)</span> is an abelian group
+under addition of column vectors.</p>
+<ol class="arabic" start="0">
+<li><p><span class="math notranslate nohighlight">\(\,\)</span> The addition of column vectors is an internal operation
+in <span class="math notranslate nohighlight">\(\,K^n.\)</span></p></li>
+<li><p><span class="math notranslate nohighlight">\(\,\)</span> The addition is associative and commutative:</p>
+<div class="math notranslate nohighlight">
+\[ \begin{align}\begin{aligned}(\boldsymbol{x} + \boldsymbol{y}) \, + \, \boldsymbol{z} \ \; = \ \;
+\boldsymbol{x} \, + \,(\boldsymbol{y} + \boldsymbol{z})\,,\\\boldsymbol{x}\,+\,\boldsymbol{y}\ =\ \boldsymbol{y}\,+\,\boldsymbol{x},
+\qquad\forall\ \ \boldsymbol{x},\boldsymbol{y},\boldsymbol{z}\,\in\,K^n.\end{aligned}\end{align} \]</div>
+</li>
+<li><p><span class="math notranslate nohighlight">\(\,\)</span> The neutral element for addition is the zero column vector
+<span class="math notranslate nohighlight">\(\ \,\boldsymbol{\theta}\ =\
+\left[\begin{array}{c} 0 \\ 0 \\ \ldots \\ 0 \end{array}\right]\,.\)</span></p></li>
+<li><div class="line-block">
+<div class="line"><span class="math notranslate nohighlight">\(\,\)</span> For any <span class="math notranslate nohighlight">\(\ \boldsymbol{x}\in K^n,\ \)</span>
+there exists the opposite vector <span class="math notranslate nohighlight">\(\ (-\,\boldsymbol{x})\ \)</span>
+such that <span class="math notranslate nohighlight">\(\ \boldsymbol{x} + (-\,\boldsymbol{x}) =
+\boldsymbol{\theta}.\)</span></div>
+<div class="line"><br /></div>
+<div class="line"><span class="math notranslate nohighlight">\(\,\)</span> Namely, <span class="math notranslate nohighlight">\(\,\)</span> for <span class="math notranslate nohighlight">\(\ \,\boldsymbol{x}\,=\,
+\left[\begin{array}{c}
+x_{1} \\ x_{2} \\ \ldots \\ x_{n}
+\end{array}\right]\ \,\)</span>
+the opposite is <span class="math notranslate nohighlight">\(\ \,(-\,\boldsymbol{x})\,=\,
+\left[\begin{array}{c}
+-x_{1} \\ -x_{2} \\ \ldots \\ -x_{n}
+\end{array}\right]\,.\)</span></div>
+<div class="line"><span class="math notranslate nohighlight">\(\,\)</span></div>
+</div>
+</li>
+</ol>
+<p>Furthermore, since the scalar multiplication of column vectors
+is distributive,
+both over addition of scalars and over addition of vectors:</p>
+<div class="math notranslate nohighlight">
+\[(a + b)\ \boldsymbol{x}\ =\ a\,\boldsymbol{x}\ +\ b\,\boldsymbol{x}\,,
+\qquad
+a\,(\boldsymbol{x} + \boldsymbol{y})\ =\
+a\,\boldsymbol{x}\,+\,a\,\boldsymbol{y}\,,\]</div>
+<p>and satisfies the compatibility conditions</p>
+<div class="math notranslate nohighlight">
+\[a\,(b\,\boldsymbol{x})\ =\ (ab)\,\boldsymbol{x},\qquad
+1\,\boldsymbol{x}\ =\ \boldsymbol{x},\qquad\quad
+\forall\ \ a,b\in K,\quad\forall\ \ \boldsymbol{x},\boldsymbol{y}\in\ K^n,\]</div>
+<p>the set <span class="math notranslate nohighlight">\(\ K^n\ \)</span> is a vector space over the field <span class="math notranslate nohighlight">\(\,K\,\)</span>
+under addition and scalar multiplication of column vectors.</p>
+<p>Column vectors over the real field <span class="math notranslate nohighlight">\(\,R\,\)</span> of size two or three
+can be associated with geometric vectors in a plane or in the space,
+respectively. Namely, if <span class="math notranslate nohighlight">\(\ \,\vec{e}_1,\,\vec{e}_2\ \,\)</span> or
+<span class="math notranslate nohighlight">\(\ \,\vec{e}_1,\,\vec{e}_2\,,\vec{e}_3\ \,\)</span> form a basis
+of mutually perpendicular unit vectors, then:</p>
+<p><span class="math notranslate nohighlight">\(\quad\boldsymbol{x}\ =\
+\left[\begin{array}{c} x_1 \\ x_2 \end{array}\right]
+\quad\simeq\quad
+\vec{v}\ =\ x_1\,\vec{e}_1 + x_2\,\vec{e}_2\,;\)</span></p>
+<p><span class="math notranslate nohighlight">\(\quad\boldsymbol{x}\ =\
+\left[\begin{array}{c} x_1 \\ x_2 \\ x_3 \end{array}\right]
+\quad\simeq\quad
+\vec{v}\ =\ x_1\,\vec{e}_1 + x_2\,\vec{e}_2 + x_3\,\vec{e}_3\,.\)</span></p>
+<p>The relation <span class="math notranslate nohighlight">\(\ \simeq\ \)</span> between the column and geometric vectors
+has the property that</p>
+<p>if
+<span class="math notranslate nohighlight">\(\quad\boldsymbol{x}\ \simeq\ \vec{v}\quad\text{and}\quad
+\boldsymbol{y}\ \simeq\ \vec{w},\qquad\)</span></p>
+<p>then
+<span class="math notranslate nohighlight">\(\qquad\ \boldsymbol{x}+\boldsymbol{y}\ \,\simeq\ \,\vec{v}+\vec{w}\qquad\)</span>
+and <span class="math notranslate nohighlight">\(\qquad c\ \boldsymbol{x}\ \simeq\ c\ \vec{v}\ \)</span> for all <span class="math notranslate nohighlight">\(\ c\in R.\)</span></p>
+<p>A bijective correspondence between two vector spaces over the same field
+(geometric vectors also form a real vector space),
+which preserves space operations in the above sense,
+is called <em>isomorphism</em>, and the pertinent vector spaces
+are said to be <em>isomorphic</em>.</p>
+<p>The notion of isomorphism generalized to other algebraic structures
+(e.g. to algebras) will be discussed in subsequent parts of this textbook.</p>
+<div class="admonition-experiment-with-sage admonition">
+<p class="admonition-title">Experiment with Sage:</p>
+<p>For given values <span class="math notranslate nohighlight">\(\ x_1,\,x_2\ \)</span> you will get
+the geometric image <span class="math notranslate nohighlight">\(\ \vec{v}\ \)</span> of the vector
+<span class="math notranslate nohighlight">\(\ \,\boldsymbol{x} =
+\left[\begin{array}{c} x_1 \\ x_2 \end{array}\right]\)</span>.</p>
+</div>
+<p><span class="math notranslate nohighlight">\(\;\)</span></p>
+<div class='sage_linked'><script type='text/x-sage'>e1 = vector([1,0]); e2 = vector([0,1])
+
+@interact
+
+def _(x1=('$$x_1:$$', slider(-3, 3, 1/4, default=3)),
+      x2=('$$x_2:$$', slider(-2, 3, 1/4, default=2))):
+
+    plt = arrow((0,0),e1, color='green',
+           legend_label=' $\\vec{e}_1$', legend_color='black', zorder=6) +\
+          arrow((0,0),e2, color='red',
+           legend_label=' $\\vec{e}_2$', legend_color='black', zorder=6) +\
+          arrow((0,0),x1*e1, color='green',
+           width=1, arrowsize=3, zorder=7) +\
+          arrow((0,0),x2*e2, color='red',
+           width=1, arrowsize=3, zorder=7) +\
+          arrow((0,0),x1*e1+x2*e2, color='black',
+           legend_label=' $\\vec{v}$', legend_color='black', zorder=8) +\
+          line([x1*e1,x1*e1+x2*e2], color='black',
+           linestyle='dashed', thickness=0.5) +\
+          line([x2*e2,x1*e1+x2*e2], color='black',
+           linestyle='dashed', thickness=0.5) +\
+          point((0,0), color='white',
+           faceted=True,  size=18, zorder=9)
+
+    pretty_print(html("$\\qquad\\qquad\\qquad\\qquad\\qquad\
+                 \\vec{v}\\,=\\,\ x_1\\,\\vec{e}_1+x_2\\,\\vec{e}_2$"))
+    print ''
+    plt.set_axes_range(-3,5,-2,3)
+    plt.show(aspect_ratio=1, axes_labels=['x','y'], ticks=[1,1], figsize=7)</script></div><p><span class="math notranslate nohighlight">\(\;\)</span></p>
+<dl class="footnote brackets">
+<dt class="label" id="id2"><span class="brackets"><a class="fn-backref" href="#id1">1</a></span></dt>
+<dd><p>The symbol <span class="math notranslate nohighlight">\(\ \ &quot; :\,= &quot;\ \ \)</span> means <span class="math notranslate nohighlight">\(\ \)</span>
+“equal by definition”.</p>
+</dd>
+</dl>
+</section>
+
+
+          </div>
+        </div>
+      </div>
+      <div class="sphinxsidebar" role="navigation" aria-label="main navigation">
+        <div class="sphinxsidebarwrapper">
+  <h4>Previous topic</h4>
+  <p class="topless"><a href="introduction_references.html"
+                        title="previous chapter">References</a></p>
+  <h4>Next topic</h4>
+  <p class="topless"><a href="primer_geometry-of-eqns-stat.html"
+                        title="next chapter">Geometry of Linear Equations</a></p>
+  <div role="note" aria-label="source link">
+    <h3>This Page</h3>
+    <ul class="this-page-menu">
+      <li><a href="_sources/primer_column-vectors.rst.txt"
+            rel="nofollow">Show Source</a></li>
+    </ul>
+   </div>
+<div id="searchbox" style="display: none" role="search">
+  <h3 id="searchlabel">Quick search</h3>
+    <div class="searchformwrapper">
+    <form class="search" action="search.html" method="get">
+      <input type="text" name="q" aria-labelledby="searchlabel" />
+      <input type="submit" value="Go" />
+    </form>
+    </div>
+</div>
+<script>$('#searchbox').show(0);</script>
+        </div>
+      </div>
+      <div class="clearer"></div>
+    </div>
+  </div>
+  <div class="relbar-bottom">
+    
+    <div class="related" role="navigation" aria-label="related navigation">
+      <h3>Navigation</h3>
+      <ul>
+        <li class="right" style="margin-right: 10px">
+          <a href="genindex.html" title="General Index"
+             >index</a></li>
+        <li class="right" >
+          <a href="primer_geometry-of-eqns-stat.html" title="Geometry of Linear Equations"
+             >next</a> &nbsp; &nbsp;</li>
+        <li class="right" >
+          <a href="introduction_references.html" title="References"
+             >previous</a> &nbsp; &nbsp;</li>
+  <li><a href="index.html">Linear Algebra</a> &#187;</li>
+  
+        <li class="nav-item nav-item-this"><a href="">Column Vectors</a></li> 
+      </ul>
+    </div>
+  </div>
+  
+  <div class="footer">
+    <a class="logo" href="http://icse.us.edu.pl/" target="_blank"><img src="_static/logo-icse.png" alt="ICSE"/></a><br/>
+    &copy; Copyright 2018, Jan Aksamit, Joanna Marzec, and  Marcin Kostur.
+    Last updated on Jan 29, 2022.
+    Created using <a href="http://sphinx.pocoo.org/">Sphinx</a> 4.0.1.
+  </div>
+  </body>
+</html>

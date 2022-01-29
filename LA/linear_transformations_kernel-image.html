@@ -1,0 +1,321 @@
+
+
+  
+<!DOCTYPE html>
+
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" /><meta name="generator" content="Docutils 0.17: http://docutils.sourceforge.net/" />
+
+    <title>Kernel, Image and the Rank-Nullity Theorem &#8212; Linear Algebra</title>
+    <link rel="stylesheet" type="text/css" href="_static/pygments.css" />
+    <link rel="stylesheet" type="text/css" href="_static/cloud.css" />
+    <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Noticia+Text|Open+Sans|Droid+Sans+Mono&amp;subset=latin,latin-ext" type="text/css" />
+    <script data-url_root="./" id="documentation_options" src="_static/documentation_options.js"></script>
+    <script src="_static/jquery.js"></script>
+    <script src="_static/underscore.js"></script>
+    <script src="_static/doctools.js"></script>
+    <script async="async" src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js"></script>
+    <script src="_static/jquery.cookie.js"></script>
+    <script src="_static/cloud.js"></script>
+    <script type="text/javascript" src="http://sagecell.sagemath.org/static/jquery.min.js"></script>
+    <script type="text/javascript" src="http://sagecell.sagemath.org/embedded_sagecell.js"></script>
+    <script type="text/javascript">
+        sagecell.makeSagecell({inputLocation: ".sage_linked",
+                               linked: true});
+        sagecell.makeSagecell({inputLocation: ".sage_unlinked",
+                               linked: false});
+    </script>
+
+    <style type="text/css">
+        .sagecell .CodeMirror-scroll {
+            overflow-y: hidden;
+            overflow-x: auto;
+        }
+        .sagecell .CodeMirror {
+            height: auto;
+        }
+    </style>
+    
+    <link rel="index" title="Index" href="genindex.html" />
+    <link rel="search" title="Search" href="search.html" />
+    <link rel="next" title="Application to Homogeneous Systems of Equations" href="przeksztalcenia_lin_uklady_rownan.html" />
+    <link rel="prev" title="Properties and Examples" href="linear_transformations_properties-examples.html" />
+ 
+  <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, minimum-scale=1">
+  </head><body>
+  <div class="relbar-top">
+    
+    <div class="related" role="navigation" aria-label="related navigation">
+      <h3>Navigation</h3>
+      <ul>
+        <li class="right" style="margin-right: 10px">
+          <a href="genindex.html" title="General Index"
+             accesskey="I">index</a></li>
+        <li class="right" >
+          <a href="przeksztalcenia_lin_uklady_rownan.html" title="Application to Homogeneous Systems of Equations"
+             accesskey="N">next</a> &nbsp; &nbsp;</li>
+        <li class="right" >
+          <a href="linear_transformations_properties-examples.html" title="Properties and Examples"
+             accesskey="P">previous</a> &nbsp; &nbsp;</li>
+  <li><a href="index.html">Linear Algebra</a> &#187;</li>
+  
+        <li class="nav-item nav-item-this"><a href="">Kernel, Image and the Rank-Nullity Theorem</a></li> 
+      </ul>
+    </div>
+  </div>
+  
+  <div class="content">  
+
+    <div class="document">
+      <div class="documentwrapper">
+        <div class="bodywrapper">
+          <div class="body">
+            
+  <section id="kernel-image-and-the-rank-nullity-theorem">
+<h1>Kernel, Image and the Rank-Nullity Theorem<a class="headerlink" href="#kernel-image-and-the-rank-nullity-theorem" title="Permalink to this headline">¶</a></h1>
+<p>Let <span class="math notranslate nohighlight">\(\,V\,\)</span> and <span class="math notranslate nohighlight">\(\,W\,\)</span> be vector spaces over the field <span class="math notranslate nohighlight">\(\,K.\)</span></p>
+<div class="admonition-definition-math admonition">
+<p class="admonition-title">Definition. <span class="math notranslate nohighlight">\(\\\)</span></p>
+<p>The <em>kernel</em> of a linear transformation <span class="math notranslate nohighlight">\(\,F\in\text{Hom}(V,W)\ \)</span>
+is the set of all elements of the space <span class="math notranslate nohighlight">\(\,V,\ \)</span> which are mapped
+into the zero vector of the space <span class="math notranslate nohighlight">\(\,W:\)</span></p>
+<div class="math notranslate nohighlight">
+\[\text{Ker}\,F\ :\,=\ \{\,v\in V:\ F(v)=\theta_W\}\,.\]</div>
+</div>
+<p>In other words, the kernel of a homomorphism <span class="math notranslate nohighlight">\(\,F\in\text{Hom}(V,W)\ \)</span>
+is the preimage (inverse image) of the one-element set
+consisting of the zero vector of the space
+<span class="math notranslate nohighlight">\(\,W: \,\text{Ker}\,F\,=\,F^{-1}\{\,\theta_W\}.\)</span></p>
+<div class="admonition-definition-math admonition">
+<p class="admonition-title">Definition. <span class="math notranslate nohighlight">\(\\\)</span></p>
+<p>The <em>image</em> of a linear transformation <span class="math notranslate nohighlight">\(\,F\in\text{Hom}(V,W)\ \)</span>
+is the image of the space <span class="math notranslate nohighlight">\(\,V\ \)</span> under the map <span class="math notranslate nohighlight">\(\,F,\ \ \)</span>
+i.e. <span class="math notranslate nohighlight">\(\,\)</span> it is the set of values of the map <span class="math notranslate nohighlight">\(\,F:\)</span></p>
+<div class="math notranslate nohighlight">
+\[\text{Im}\,F\ :\,=\ F(V)\ \equiv\ \{\,F(v):\ v\in V\,\}\,.\]</div>
+</div>
+<p>Obviously, <span class="math notranslate nohighlight">\(\ \,\text{Ker}\,F\subset V,\ \,\text{Im}\,F\subset W.\ \)</span>
+<span class="math notranslate nohighlight">\(\,\)</span> Moreover</p>
+<div class="admonition-theorem-6-math admonition">
+<p class="admonition-title">Theorem 6. <span class="math notranslate nohighlight">\(\\\)</span></p>
+<p>The kernel of a linear transformation <span class="math notranslate nohighlight">\(\,F\in\text{Hom}(V,W)\ \)</span>
+is a subspace of the vector space <span class="math notranslate nohighlight">\(\,V,\ \)</span> whereas the image
+of <span class="math notranslate nohighlight">\(\,F\,\)</span> is a subspace of the vector space <span class="math notranslate nohighlight">\(\,W:\)</span></p>
+<div class="math notranslate nohighlight">
+\[\text{Ker}\,F &lt; V,\qquad\text{Im}\,F &lt; W.\]</div>
+</div>
+<p>The <strong>Proof</strong>
+is based on the following criterion for a subspace (see Chapter 1.).
+A subset <span class="math notranslate nohighlight">\(\,X\,\)</span> of the vector space <span class="math notranslate nohighlight">\(\,V\,\)</span>
+is a subspace of <span class="math notranslate nohighlight">\(\,V\,\)</span> if, and only if, <span class="math notranslate nohighlight">\(\,X\,\)</span> is closed
+under vector addition and scalar multiplication, that is iff
+for any two vectors from <span class="math notranslate nohighlight">\(\,X,\,\)</span> every linear combination of these
+vectors also belongs to <span class="math notranslate nohighlight">\(\,X.\)</span></p>
+<p>So let’s assume that <span class="math notranslate nohighlight">\(\ v_1,\,v_2\in\text{Ker}\,F:\ \)</span>
+<span class="math notranslate nohighlight">\(\ F(v_1)=F(v_2)=\theta_W\,.\)</span></p>
+<p>Then <span class="math notranslate nohighlight">\(\ \ F(a_1\,v_1+a_2\,v_2)\ =\
+a_1\,F(v_1)+a_2\,F(v_2)\ =\ \theta_W\,,\)</span> <span class="math notranslate nohighlight">\(\\\)</span>
+meaning that <span class="math notranslate nohighlight">\(\ \,a_1\,v_1+a_2\,v_2\in\text{Ker}\,F\ \,\)</span>
+<span class="math notranslate nohighlight">\(\ \forall\ \ a_1,a_2\in K.\)</span> <span class="math notranslate nohighlight">\(\,\)</span>
+Thus we have proved that <span class="math notranslate nohighlight">\(\ \text{Ker}\,F &lt; V.\)</span></p>
+<p>Now let <span class="math notranslate nohighlight">\(\,\ w_1,\,w_2\in\text{Im}\,F.\ \ \)</span>
+Then <span class="math notranslate nohighlight">\(\ \ w_1=F(v_1),\ \,w_2=F(v_2)\,,\ \,\)</span>
+<span class="math notranslate nohighlight">\(\ \exists\ v_1,\ \exists\ v_2\in V.\)</span></p>
+<p>Then for <span class="math notranslate nohighlight">\(\ \forall\ \  b_1,b_2\in K:\ \)</span>
+<span class="math notranslate nohighlight">\(\ b_1\,w_1+\,b_2\,w_2\ =\ b_1\,F(v_1)\,+\,b_2\,F(v_2)\ =\
+F(b_1\,v_1+\,b_2\,v_2)\in\text{Im}\,F.\ \)</span>
+This proves that <span class="math notranslate nohighlight">\(\ \ \text{Im}\,F &lt; W.\quad\bullet\)</span></p>
+<p>The <span class="math notranslate nohighlight">\(\,\text{Ker}\,F\ \)</span> and <span class="math notranslate nohighlight">\(\,\text{Im}\,F\ \)</span> being
+vector (sub)spaces, the following two definitions are sensible:</p>
+<div class="math notranslate nohighlight">
+\[\begin{split}\begin{array}{rclcl}
+\text{nul}\ F &amp; :\,= &amp;
+\dim\,\text{Ker}\,F  &amp; \qquad\quad &amp; \text{nullity of the homomorphism}\ F
+\\
+\text{rk}\ F  &amp; :\,= &amp;
+\dim\,\text{Im}\,F   &amp; \qquad\quad &amp; \text{rank of the homomorphism}\ F
+\end{array}\end{split}\]</div>
+<div class="admonition-theorem-7-math-the-rank-nullity-theorem-math admonition">
+<p class="admonition-title">Theorem 7. <span class="math notranslate nohighlight">\(\ \)</span> The Rank-Nullity Theorem. <span class="math notranslate nohighlight">\(\\\)</span></p>
+<p>If <span class="math notranslate nohighlight">\(\,F\ \)</span> is a linear transformation from the vector
+space <span class="math notranslate nohighlight">\(\,V\ \)</span> to the vector space <span class="math notranslate nohighlight">\(\,W,\ \)</span> then</p>
+<div class="math notranslate nohighlight" id="equation-rk-nul">
+<span class="eqno">(1)<a class="headerlink" href="#equation-rk-nul" title="Permalink to this equation">¶</a></span>\[\text{nul}\ F\ +\ \text{rk}\ F\ =\ \dim\,V\,.\]</div>
+</div>
+<p><strong>Proof.</strong> <span class="math notranslate nohighlight">\(\,\)</span> Assume that <span class="math notranslate nohighlight">\(\ \text{nul}\,F = k,\ \)</span>
+while <span class="math notranslate nohighlight">\(\ U = \{u_1,\,u_2,\,\dots,\,u_k\}\ \)</span>
+is a basis of <span class="math notranslate nohighlight">\(\ \text{Ker}\,F.\ \)</span> <span class="math notranslate nohighlight">\(\\\)</span>
+Since <span class="math notranslate nohighlight">\(\,\text{Ker}\,F &lt; V,\ \,\)</span> the set <span class="math notranslate nohighlight">\(\,U\,\)</span> can be extended
+to the basis <span class="math notranslate nohighlight">\(\,B\,\)</span> of the whole space <span class="math notranslate nohighlight">\(\,V:\)</span></p>
+<div class="math notranslate nohighlight">
+\[B\ \,=\ \,U\,\cup\,Y\ \,=\ \,
+\{\,u_1,\,u_2,\,\dots,\,u_k,\ y_1,\,y_2,\,\dots,\,y_r\,\}\,.\]</div>
+<p>Within this notation <span class="math notranslate nohighlight">\(\ \dim\,V=\,k+r,\ \)</span> where
+<span class="math notranslate nohighlight">\(\,k = \text{nul}\,F.\ \)</span> To prove the thesis <a class="reference internal" href="#equation-rk-nul">(1)</a>,
+it is enough to show that <span class="math notranslate nohighlight">\(\, r = \text{rk}\ F.\ \)</span>
+For that purpose we shall demonstrate that the image of the set <span class="math notranslate nohighlight">\(\,Y:\)</span></p>
+<div class="math notranslate nohighlight" id="equation-set-fy">
+<span class="eqno">(2)<a class="headerlink" href="#equation-set-fy" title="Permalink to this equation">¶</a></span>\[F(Y)\ :\,=\ \{\,Fy_1,\,Fy_2,\,\dots,\,Fy_r\,\}\]</div>
+<p>is a basis of <span class="math notranslate nohighlight">\(\,\text{Im}\,F.\ \,\)</span>
+This shall be accomplished in two steps.</p>
+<p>1.) To show that the set <a class="reference internal" href="#equation-set-fy">(2)</a> is linearly independent, we assume that</p>
+<div class="math notranslate nohighlight">
+\[c_1\,Fy_1\,+\;c_2\,Fy_2\,+\;\ldots\;+\;c_r\,Fy_r\ =\ \theta_W\,,\qquad
+c_1,\,c_2,\,\ldots,\,c_r\,\in\,K.\]</div>
+<p>Due to linear independence of vectors in the basis <span class="math notranslate nohighlight">\(\,B,\,\)</span> we obtain</p>
+<div class="math notranslate nohighlight">
+\[ \begin{align}\begin{aligned}F\left(c_1\,y_1\,+\;c_2\,y_2\,+\;\ldots\;+\;c_r\,y_r\right)\ =\ \theta_W\,,\\c_1\,y_1\,+\;c_2\,y_2\,+\;\ldots\;+\;c_r\,y_r\ \in\ \text{Ker}\,F\,,\\c_1\,y_1\,+\;c_2\,y_2\,+\;\ldots\;+\;c_r\,y_r\ =\
+-\ b_1\,u_1\,-\;b_2\,u_2\,+\;\ldots\;-\ b_k\,u_k\,,\\b_1\,u_1\,+\;b_2\,u_2\,+\;\ldots\;+\;b_k\,u_k\ +\
+c_1\,y_1\,+\;c_2\,y_2\,+\;\ldots\;+\;c_r\,y_r\ =\ \theta_V\,,\\b_1=\,b_2=\;\ldots\;=\;b_k\,=\;c_1=\,c_2=\;\ldots\;=\;c_r\ =\ 0\,.\end{aligned}\end{align} \]</div>
+<p>Thus we have evidenced the implication</p>
+<div class="math notranslate nohighlight">
+\[c_1\,Fy_1\,+\;c_2\,Fy_2\,+\;\ldots\;+\;c_r\,Fy_r\ =\ \theta_W
+\quad\Rightarrow\quad
+c_1\,=\,c_2\,=\,\ldots\,=\,c_r\ =\ 0\,,\]</div>
+<p>which expresses the linear independence of the set
+<span class="math notranslate nohighlight">\(\ F(Y)\)</span>.</p>
+<p>2.) To show that the set <span class="math notranslate nohighlight">\(\ F(Y)\ \)</span> spans <span class="math notranslate nohighlight">\(\,\text{Im}\,F,\ \)</span>
+we consider an arbitrary vector <span class="math notranslate nohighlight">\(\,w\in \text{Im}\,F:\)</span></p>
+<div class="math notranslate nohighlight">
+\[w\ =\ F(v),\quad
+v=b_1\,u_1+\;\ldots\;+\;b_k\,u_k\;+\ c_1\,y_1+\;\ldots\;+\;c_r\,y_r\,.\]</div>
+<p>Taking into account that <span class="math notranslate nohighlight">\(\ \,Fu_i=\theta_W,\ \,i=1,2,\dots,k,\ \,\)</span>
+we get</p>
+<div class="math notranslate nohighlight">
+\begin{eqnarray*}
+w &amp; = &amp; F\,(b_1\,u_1+\;\ldots\;+\;b_k\,u_k\;+\ c_1\,y_1+\;\ldots\;+\;c_r\,y_r)  \\
+  &amp; = &amp; b_1\,Fu_1+\;\ldots\;+\;b_k\,Fu_k\;+\ c_1\,Fy_1+\;\ldots\;+\;c_r\,Fy_r \\
+  &amp; = &amp; c_1\,Fy_1+\;\ldots\;+\;c_r\,Fy_r\,\in\,L(Fy_1,\dots,Fy_r)\,.
+\end{eqnarray*}</div><p>Thus <span class="math notranslate nohighlight">\(\ \text{Im}\,F\subset L(Fy_1,\dots,Fy_r).\ \)</span>
+On the other hand, <span class="math notranslate nohighlight">\(\ \text{Im}\,F\supset L(Fy_1,\dots,Fy_r),\ \)</span>
+<span class="math notranslate nohighlight">\(\\\)</span>
+whereby <span class="math notranslate nohighlight">\(\ \text{Im}\,F=L(Fy_1,\dots,Fy_r)=L\left(F(Y)\right).\)</span></p>
+<p>As a linearly independent spanning set, <span class="math notranslate nohighlight">\(\ F(Y)\ \)</span>
+is a basis of <span class="math notranslate nohighlight">\(\ \text{Im}\,F,\ \ \)</span> and <span class="math notranslate nohighlight">\(\ r\,=\,\text{rk}\ F.\)</span>
+<span class="math notranslate nohighlight">\(\ \ \bullet\)</span></p>
+<p>The following Criterion for the Isomorphism of Vector Spaces is based
+on the above-mentioned Theorem 7.:</p>
+<div class="admonition-theorem-8-math admonition">
+<p class="admonition-title">Theorem 8. <span class="math notranslate nohighlight">\(\\\)</span></p>
+<p>Any two finite-dimensional vector spaces over a field <span class="math notranslate nohighlight">\(\,K\ \)</span>
+are isomorphic <span class="math notranslate nohighlight">\(\\\)</span> if, and only if, they are of the same dimension:</p>
+<div class="math notranslate nohighlight">
+\[V\,\simeq\,W\qquad\Leftrightarrow\qquad\dim\,V\,=\ \dim\,W\,.\]</div>
+</div>
+<p><strong>Proof.</strong></p>
+<p><span class="math notranslate nohighlight">\(\Rightarrow\ :\ \)</span> We assume that the spaces
+<span class="math notranslate nohighlight">\(\ V\ \)</span> and <span class="math notranslate nohighlight">\(\ W\ \)</span> are isomorphic:
+<span class="math notranslate nohighlight">\(\ V\simeq W,\ \,\)</span> that is <span class="math notranslate nohighlight">\(\ \text{Iso}(V,W)\neq\emptyset.\)</span></p>
+<p>Let <span class="math notranslate nohighlight">\(\ F\ \)</span> be an isomorphism of the space <span class="math notranslate nohighlight">\(\,V\,\)</span> onto
+the space <span class="math notranslate nohighlight">\(\,W.\ \)</span> The map <span class="math notranslate nohighlight">\(\ F\ \)</span> being bijective, <span class="math notranslate nohighlight">\(\\\)</span>
+the preimage of each element of <span class="math notranslate nohighlight">\(\,W\,\)</span> is a set containing exactly
+one element of <span class="math notranslate nohighlight">\(\ V.\ \)</span> <span class="math notranslate nohighlight">\(\\\)</span> In particular, the zero vector
+<span class="math notranslate nohighlight">\(\ \theta_W\ \)</span> is the image of the zero vector <span class="math notranslate nohighlight">\(\ \theta_V\ \)</span>
+only, <span class="math notranslate nohighlight">\(\,\)</span> meaning that <span class="math notranslate nohighlight">\(\ \text{nul}\,F=\,\dim\,\text{Ker}\,F=0.\)</span></p>
+<p>But <span class="math notranslate nohighlight">\(\ F\ \)</span> is also surjective:
+<span class="math notranslate nohighlight">\(\ F(V)=\text{Im}\,F=W,\ \,\)</span> wherefrom
+<span class="math notranslate nohighlight">\(\ \,\text{rk}\ F=\dim\,\text{Im}\,F=\,\dim\,W.\ \)</span></p>
+<p>Using Theorem 7., <span class="math notranslate nohighlight">\(\,\)</span> we obtain</p>
+<div class="math notranslate nohighlight">
+\[\dim\,V\ =\ \,\text{nul}\,F\ +\ \,\text{rk}\,F\ =\
+0\ +\ \dim\,W\ =\ \dim\,W.\]</div>
+<p><span class="math notranslate nohighlight">\(\Leftarrow\ :\ \)</span> Let <span class="math notranslate nohighlight">\(\ \,\dim\,V=\,\dim\,W=n.\)</span></p>
+<p>Then every basis of <span class="math notranslate nohighlight">\(\,V,\,\)</span> as well as every basis of <span class="math notranslate nohighlight">\(\,W,\,\)</span>
+has <span class="math notranslate nohighlight">\(\,n\ \)</span> elements. Suppose that the set
+<span class="math notranslate nohighlight">\(\ B = \{\,v_1,v_2,\,\dots,\,v_n\,\}\ \)</span> is a basis of the space
+<span class="math notranslate nohighlight">\(\,V,\ \)</span> whereas <span class="math notranslate nohighlight">\(\ C = \{\,w_1,w_2,\,\dots,\,w_n\,\}\ \)</span>
+is a basis of the space <span class="math notranslate nohighlight">\(\,W.\ \)</span>
+On the grounds of the Corollary of Theorem 5.,
+we define the linear transformation <span class="math notranslate nohighlight">\(\,F:\,V\rightarrow W\ \)</span>
+by giving its values on vectors in <span class="math notranslate nohighlight">\(\ B:\)</span></p>
+<div class="math notranslate nohighlight" id="equation-iso">
+<span class="eqno">(3)<a class="headerlink" href="#equation-iso" title="Permalink to this equation">¶</a></span>\[F(v_i)\ :\,=\ w_i\,,\qquad i=1,2,\dots,n.\]</div>
+<p>Then the image of an arbitrary vector
+<span class="math notranslate nohighlight">\(\ \,v = \displaystyle\sum_{i\,=\,1}^n\ a_i\,v_i \in V\ \,\)</span>
+is given by</p>
+<div class="math notranslate nohighlight" id="equation-iso-1">
+<span class="eqno">(4)<a class="headerlink" href="#equation-iso-1" title="Permalink to this equation">¶</a></span>\[F\left(\,\sum_{i\,=\,1}^n\ a_i\,v_i\right)\ \ =\ \
+\sum_{i\,=\,1}^n\ a_i\,Fv_i\ \ =\ \
+\sum_{i\,=\,1}^n\ a_i\,w_i\,.\]</div>
+<p>If <span class="math notranslate nohighlight">\(\,w=F(v),\ \)</span> where <span class="math notranslate nohighlight">\(\ v\in V,\ w\in W,\ \)</span>
+then the coordinates of <span class="math notranslate nohighlight">\(\,w\,\)</span> in the basis <span class="math notranslate nohighlight">\(\,C\,\)</span> are equal
+to the respective coordinates of <span class="math notranslate nohighlight">\(\,v\,\)</span> in the basis <span class="math notranslate nohighlight">\(\,B.\)</span></p>
+<p>Given a basis, the vectors are in a one-to-one correspondence with
+the families of their coordinates. Consequently, the linear transformation
+<span class="math notranslate nohighlight">\(\,F\,\)</span> defined by Eqs. <a class="reference internal" href="#equation-iso">(3)</a> or <a class="reference internal" href="#equation-iso-1">(4)</a> is a bijection,
+hence an isomorphism. So <span class="math notranslate nohighlight">\(\,\text{Iso}(V,W)\neq\emptyset,\ \)</span>
+and <span class="math notranslate nohighlight">\(\,V\simeq W.\)</span> <span class="math notranslate nohighlight">\(\ \ \bullet\)</span></p>
+<p>Isomorphic vector spaces may consist of objects of different kinds.
+Having the same structure, they are however mathematically equivalent.</p>
+<div class="admonition-corollary admonition">
+<p class="admonition-title">Corollary.</p>
+<p>All <span class="math notranslate nohighlight">\(\,n\)</span>-dimensional vector spaces over a field <span class="math notranslate nohighlight">\(\,K\ \)</span>
+are isomorphic to the space <span class="math notranslate nohighlight">\(\,K^n.\)</span></p>
+</div>
+</section>
+
+
+          </div>
+        </div>
+      </div>
+      <div class="sphinxsidebar" role="navigation" aria-label="main navigation">
+        <div class="sphinxsidebarwrapper">
+  <h4>Previous topic</h4>
+  <p class="topless"><a href="linear_transformations_properties-examples.html"
+                        title="previous chapter">Properties and Examples</a></p>
+  <h4>Next topic</h4>
+  <p class="topless"><a href="przeksztalcenia_lin_uklady_rownan.html"
+                        title="next chapter">Application to Homogeneous Systems of Equations</a></p>
+  <div role="note" aria-label="source link">
+    <h3>This Page</h3>
+    <ul class="this-page-menu">
+      <li><a href="_sources/linear_transformations_kernel-image.rst.txt"
+            rel="nofollow">Show Source</a></li>
+    </ul>
+   </div>
+<div id="searchbox" style="display: none" role="search">
+  <h3 id="searchlabel">Quick search</h3>
+    <div class="searchformwrapper">
+    <form class="search" action="search.html" method="get">
+      <input type="text" name="q" aria-labelledby="searchlabel" />
+      <input type="submit" value="Go" />
+    </form>
+    </div>
+</div>
+<script>$('#searchbox').show(0);</script>
+        </div>
+      </div>
+      <div class="clearer"></div>
+    </div>
+  </div>
+  <div class="relbar-bottom">
+    
+    <div class="related" role="navigation" aria-label="related navigation">
+      <h3>Navigation</h3>
+      <ul>
+        <li class="right" style="margin-right: 10px">
+          <a href="genindex.html" title="General Index"
+             >index</a></li>
+        <li class="right" >
+          <a href="przeksztalcenia_lin_uklady_rownan.html" title="Application to Homogeneous Systems of Equations"
+             >next</a> &nbsp; &nbsp;</li>
+        <li class="right" >
+          <a href="linear_transformations_properties-examples.html" title="Properties and Examples"
+             >previous</a> &nbsp; &nbsp;</li>
+  <li><a href="index.html">Linear Algebra</a> &#187;</li>
+  
+        <li class="nav-item nav-item-this"><a href="">Kernel, Image and the Rank-Nullity Theorem</a></li> 
+      </ul>
+    </div>
+  </div>
+  
+  <div class="footer">
+    <a class="logo" href="http://icse.us.edu.pl/" target="_blank"><img src="_static/logo-icse.png" alt="ICSE"/></a><br/>
+    &copy; Copyright 2018, Jan Aksamit, Joanna Marzec, and  Marcin Kostur.
+    Last updated on Jan 29, 2022.
+    Created using <a href="http://sphinx.pocoo.org/">Sphinx</a> 4.0.1.
+  </div>
+  </body>
+</html>

@@ -1,0 +1,254 @@
+
+
+  
+<!DOCTYPE html>
+
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" /><meta name="generator" content="Docutils 0.17: http://docutils.sourceforge.net/" />
+
+    <title>Norm of a Vector &#8212; Linear Algebra</title>
+    <link rel="stylesheet" type="text/css" href="_static/pygments.css" />
+    <link rel="stylesheet" type="text/css" href="_static/cloud.css" />
+    <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Noticia+Text|Open+Sans|Droid+Sans+Mono&amp;subset=latin,latin-ext" type="text/css" />
+    <script data-url_root="./" id="documentation_options" src="_static/documentation_options.js"></script>
+    <script src="_static/jquery.js"></script>
+    <script src="_static/underscore.js"></script>
+    <script src="_static/doctools.js"></script>
+    <script async="async" src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js"></script>
+    <script src="_static/jquery.cookie.js"></script>
+    <script src="_static/cloud.js"></script>
+    <script type="text/javascript" src="http://sagecell.sagemath.org/static/jquery.min.js"></script>
+    <script type="text/javascript" src="http://sagecell.sagemath.org/embedded_sagecell.js"></script>
+    <script type="text/javascript">
+        sagecell.makeSagecell({inputLocation: ".sage_linked",
+                               linked: true});
+        sagecell.makeSagecell({inputLocation: ".sage_unlinked",
+                               linked: false});
+    </script>
+
+    <style type="text/css">
+        .sagecell .CodeMirror-scroll {
+            overflow-y: hidden;
+            overflow-x: auto;
+        }
+        .sagecell .CodeMirror {
+            height: auto;
+        }
+    </style>
+    
+    <link rel="index" title="Index" href="genindex.html" />
+    <link rel="search" title="Search" href="search.html" />
+    <link rel="next" title="Orthogonality of Vectors" href="p_unitarne_ortogonalnosc.html" />
+    <link rel="prev" title="Inner (Scalar) Product" href="p_unitarne_iloczyn_skalarny.html" />
+ 
+  <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, minimum-scale=1">
+  </head><body>
+  <div class="relbar-top">
+    
+    <div class="related" role="navigation" aria-label="related navigation">
+      <h3>Navigation</h3>
+      <ul>
+        <li class="right" style="margin-right: 10px">
+          <a href="genindex.html" title="General Index"
+             accesskey="I">index</a></li>
+        <li class="right" >
+          <a href="p_unitarne_ortogonalnosc.html" title="Orthogonality of Vectors"
+             accesskey="N">next</a> &nbsp; &nbsp;</li>
+        <li class="right" >
+          <a href="p_unitarne_iloczyn_skalarny.html" title="Inner (Scalar) Product"
+             accesskey="P">previous</a> &nbsp; &nbsp;</li>
+  <li><a href="index.html">Linear Algebra</a> &#187;</li>
+  
+        <li class="nav-item nav-item-this"><a href="">Norm of a Vector</a></li> 
+      </ul>
+    </div>
+  </div>
+  
+  <div class="content">  
+
+    <div class="document">
+      <div class="documentwrapper">
+        <div class="bodywrapper">
+          <div class="body">
+            
+  <section id="norm-of-a-vector">
+<h1>Norm of a Vector<a class="headerlink" href="#norm-of-a-vector" title="Permalink to this headline">¶</a></h1>
+<div class="admonition-definition admonition">
+<p class="admonition-title">Definition.</p>
+<div class="line-block">
+<div class="line">Let <span class="math notranslate nohighlight">\(\,V\ \)</span> be a real or complex vector space.</div>
+<div class="line">A <em>norm</em> on the space <span class="math notranslate nohighlight">\(\,V\ \)</span> is a function <span class="math notranslate nohighlight">\(\,f:\,V\rightarrow R\ \)</span>
+satisfying the following conditions</div>
+<div class="line">(and denoted <span class="math notranslate nohighlight">\(\,f(x)=\| x\|,\ \ x\in V\)</span>) :</div>
+</div>
+<ol class="arabic simple">
+<li><p><span class="math notranslate nohighlight">\(\ \|x\|\,\geq\,0
+\qquad\land\qquad
+(\ \,\|x\|=0\quad\Leftrightarrow\quad x=\theta\ \,)\,,\)</span></p></li>
+<li><p><span class="math notranslate nohighlight">\(\ \|\alpha\,x\|\ =\ |\alpha|\,\|x\|\,,\qquad
+\alpha\in R\ \ \lor\ \ \alpha\in C\,,\)</span></p></li>
+<li><p><span class="math notranslate nohighlight">\(\ \|\,x+y\,\|\ \leq\ \|x\|\,+\,\|y\|\,,\qquad x,y\in V\,.\)</span></p></li>
+</ol>
+</div>
+<p><strong>Comments and remarks.</strong></p>
+<ul>
+<li><div class="line-block">
+<div class="line">A norm of a vector is a non-negative real number,</div>
+<div class="line">and the only vector for which it is equal to zero  is the zero vector.</div>
+</div>
+</li>
+<li><div class="line-block">
+<div class="line">Multiplication of a vector by a scalar <span class="math notranslate nohighlight">\(\,\alpha\in K\ \)</span> multilplies its norm</div>
+<div class="line">by an absolute value of <span class="math notranslate nohighlight">\(\,\alpha\ \)</span> (if <span class="math notranslate nohighlight">\(\,K=R\)</span>) <span class="math notranslate nohighlight">\(\,\)</span>
+or by a modulus of <span class="math notranslate nohighlight">\(\,\alpha\ \)</span> (if <span class="math notranslate nohighlight">\(\,K=C\)</span>).</div>
+</div>
+</li>
+<li><div class="line-block">
+<div class="line">A norm of a sum of two vectors is not greater than a sum of their norms.</div>
+<div class="line">This condition is called the triangle inequality.</div>
+<div class="line">As one can see, a norm is a generalization of length of a geometric vector.</div>
+</div>
+</li>
+</ul>
+<p>A vector space <span class="math notranslate nohighlight">\(\,V\ \)</span> with a norm
+is called a <em>normed vector space</em>.</p>
+<p><strong>Examples.</strong></p>
+<ol class="arabic">
+<li><p><span class="math notranslate nohighlight">\(\ V=R^1\,;\quad\|x\|=|x|\,,\quad x\in R\ \ \)</span> (an absolute value of the number <span class="math notranslate nohighlight">\(\,x\)</span>).</p></li>
+<li><p><span class="math notranslate nohighlight">\(\ V=C^1\,;\quad\|z\|=|z|\,,\quad z\in C\ \ \)</span> (a modulus of the number <span class="math notranslate nohighlight">\(\,z\)</span>).</p></li>
+<li><p><span class="math notranslate nohighlight">\(\ V=R^3\,;\quad\text{for}\ \
+x\,=\,\left[\begin{array}{c} \alpha_1 \\ \alpha_2 \\ \alpha_3 \end{array}\right] :\quad
+\|x\|\,=\,\sqrt{\alpha_1^2+\alpha_2^2+\alpha_3^2}\ .\)</span></p></li>
+<li><p>On a vector space of geometric vectors the norm is the length of a vector.
+If we choose a basis <span class="math notranslate nohighlight">\(\,\mathcal{E}=(\vec{e}_1,\vec{e}_2,\vec{e}_3)\,\)</span> of three
+mutually perpendicular unit vectors, a norm of the vector
+<span class="math notranslate nohighlight">\(\ \vec{a}=\alpha_1\,\vec{e}_1+\alpha_2\,\vec{e}_2+\alpha_3\,\vec{e}_3\ \)</span>
+may be written as</p>
+<div class="math notranslate nohighlight">
+\[\|\,\vec{a}\,\|\ =\ |\,\vec{a}\,|\ =\ \sqrt{\alpha_1^2+\alpha_2^2+\alpha_3^2}\ \ =\ \
+\sqrt{\,\vec{a}\cdot\vec{a}}\ .\]</div>
+<p>Here the norm is equal to a square root of an inner product of the vector with itself.</p>
+</li>
+</ol>
+<p>The last result, which expresses the norm in terms of an inner product, may be generalized and applied to an arbitrary unitary (or Euclidean) vector space.</p>
+<div class="admonition-theorem-2 admonition">
+<p class="admonition-title">Theorem 2.</p>
+<p>On a unitary (or Euclidean) vector space <span class="math notranslate nohighlight">\(\ V\ \)</span> one may define a norm
+as a function</p>
+<div class="math notranslate nohighlight" id="equation-norm">
+<span class="eqno">(1)<a class="headerlink" href="#equation-norm" title="Permalink to this equation">¶</a></span>\[f(x)\ =\ \sqrt{\,\langle x,x\rangle}\ ,\qquad x\in V\,.\]</div>
+</div>
+<p><strong>Proof</strong> requires checking whether the function <a class="reference internal" href="#equation-norm">(1)</a> satisfies the postulates of a definition of a norm. <span class="math notranslate nohighlight">\(\\\)</span>
+By the definition of an inner product, we deduce that</p>
+<ol class="arabic">
+<li><p><span class="math notranslate nohighlight">\(\ f(x)\ \geq 0\qquad\land\qquad[\ \,f(x)\,=\,0\quad\Leftrightarrow\quad x=\theta\ \,]\,;\)</span></p></li>
+<li><p><span class="math notranslate nohighlight">\(\ f(\alpha\,x)\ \,=\ \,\sqrt{\,\langle\alpha\,x,\,\alpha\,x\rangle}\ \,=\ \,
+\sqrt{\,\alpha^*\,\alpha\,\langle x,x\rangle}\ \,=\ \,
+\sqrt{\,|\alpha|^2\,\langle x,x\rangle}\ \ =\ \
+|\alpha|\ \,f(x)\,;\)</span></p></li>
+<li><div class="line-block">
+<div class="line"><span class="math notranslate nohighlight">\(\ [\,f(x+y)\,]^2\ \ =\ \ \langle\,x+y,\,x+y\,\rangle\ \ =\)</span></div>
+<div class="line-block">
+<div class="line"><span class="math notranslate nohighlight">\(=\ \ \langle x,x\rangle\,+\,\langle x,y\rangle\,+\,\langle y,x\rangle\,+\,
+\langle y,y\rangle\ \ =\ \
+\langle x,x\rangle\,+\,\langle x,y\rangle\,+\,\langle x,y\rangle^*+\,\langle y,y\rangle\ \ =\)</span></div>
+<div class="line"><span class="math notranslate nohighlight">\(=\ \ \langle x,x\rangle\,+\,2\;\text{re}\,\langle x,y\rangle\,+\,
+\langle y,y\rangle\ \ \leq\ \
+\langle x,x\rangle\,+\,2\ |\langle x,y\rangle|\,+\,\langle y,y\rangle\ \ \leq\)</span></div>
+<div class="line"><span class="math notranslate nohighlight">\(\leq\ \ \langle x,x\rangle\,+\,2\,\sqrt{\langle x,x\rangle\,\langle y,y\rangle}\,+\,
+\langle y,y\rangle\ \ =\ \
+[\,f(x)\,]^2\,+\,2\,f(x)\,f(y)\,+\,[\,f(y)\,]^2\ \ =\)</span></div>
+</div>
+<div class="line"><span class="math notranslate nohighlight">\(\ =\ \ [\,f(x)+f(y)\,]^2\,;\)</span></div>
+<div class="line"><br /></div>
+<div class="line"><span class="math notranslate nohighlight">\(\ [\,f(x+y)\,]^2\ \leq\ [\,f(x)+f(y)\,]^2\qquad\Rightarrow\qquad
+f(x+y)\ \leq\ f(x)+f(y)\,.\)</span></div>
+<div class="line"><br /></div>
+</div>
+</li>
+</ol>
+<p>In point 3. we used the relations</p>
+<div class="math notranslate nohighlight">
+\[z+z^*=\,2\ \text{re}\,z\,,\quad \text{re}\,z\,\leq |z|\,,\qquad z\in C\]</div>
+<p>and Schwarz inequality
+<span class="math notranslate nohighlight">\(\ \ |\langle x,y\rangle|\ \leq\ \sqrt{\langle x,x\rangle\langle y,y\rangle}\,.\)</span></p>
+<p>Theorem 2. implies that on every unitary (or Euclidean) vector space <span class="math notranslate nohighlight">\(\,V\,\)</span>
+one may define a norm by <span class="math notranslate nohighlight">\(\ \|x\|\,=\,\sqrt{\langle x,x\rangle}\,,\ \ x\in V.\ \)</span>
+Then Schwarz inequality takes the form</p>
+<div class="math notranslate nohighlight">
+\[|\langle x,y\rangle|\ \ \leq\ \ \|x\|\,\|y\|\,,\qquad x,y\in V\,.\]</div>
+<p>On a space <span class="math notranslate nohighlight">\(\,V\,\)</span> different norms may also exist,
+eg. on a space <span class="math notranslate nohighlight">\(\,C^n\ \)</span> one may define a norm of a vector</p>
+<p><span class="math notranslate nohighlight">\(\ x\ =\
+\left[\begin{array}{c} \alpha_1 \\ \alpha_2 \\ \dots \\ \alpha_n \end{array}\right]\quad\)</span>
+not only by
+<span class="math notranslate nohighlight">\(\quad\|x\|\ =\ \sqrt{\langle x,x\rangle}\ =\
+\sqrt{\,|\alpha_1|^2+|\alpha_2|^2+\ldots+|\alpha_n|^2\,}\,,\)</span></p>
+<p>but also by <span class="math notranslate nohighlight">\(\quad\|x\|\ =\ |\alpha_1|+|\alpha_2|+\ldots+|\alpha_n|\,.\)</span></p>
+</section>
+
+
+          </div>
+        </div>
+      </div>
+      <div class="sphinxsidebar" role="navigation" aria-label="main navigation">
+        <div class="sphinxsidebarwrapper">
+  <h4>Previous topic</h4>
+  <p class="topless"><a href="p_unitarne_iloczyn_skalarny.html"
+                        title="previous chapter">Inner (Scalar) Product</a></p>
+  <h4>Next topic</h4>
+  <p class="topless"><a href="p_unitarne_ortogonalnosc.html"
+                        title="next chapter">Orthogonality of Vectors</a></p>
+  <div role="note" aria-label="source link">
+    <h3>This Page</h3>
+    <ul class="this-page-menu">
+      <li><a href="_sources/p_unitarne_norma.rst.txt"
+            rel="nofollow">Show Source</a></li>
+    </ul>
+   </div>
+<div id="searchbox" style="display: none" role="search">
+  <h3 id="searchlabel">Quick search</h3>
+    <div class="searchformwrapper">
+    <form class="search" action="search.html" method="get">
+      <input type="text" name="q" aria-labelledby="searchlabel" />
+      <input type="submit" value="Go" />
+    </form>
+    </div>
+</div>
+<script>$('#searchbox').show(0);</script>
+        </div>
+      </div>
+      <div class="clearer"></div>
+    </div>
+  </div>
+  <div class="relbar-bottom">
+    
+    <div class="related" role="navigation" aria-label="related navigation">
+      <h3>Navigation</h3>
+      <ul>
+        <li class="right" style="margin-right: 10px">
+          <a href="genindex.html" title="General Index"
+             >index</a></li>
+        <li class="right" >
+          <a href="p_unitarne_ortogonalnosc.html" title="Orthogonality of Vectors"
+             >next</a> &nbsp; &nbsp;</li>
+        <li class="right" >
+          <a href="p_unitarne_iloczyn_skalarny.html" title="Inner (Scalar) Product"
+             >previous</a> &nbsp; &nbsp;</li>
+  <li><a href="index.html">Linear Algebra</a> &#187;</li>
+  
+        <li class="nav-item nav-item-this"><a href="">Norm of a Vector</a></li> 
+      </ul>
+    </div>
+  </div>
+  
+  <div class="footer">
+    <a class="logo" href="http://icse.us.edu.pl/" target="_blank"><img src="_static/logo-icse.png" alt="ICSE"/></a><br/>
+    &copy; Copyright 2018, Jan Aksamit, Joanna Marzec, and  Marcin Kostur.
+    Last updated on Jan 29, 2022.
+    Created using <a href="http://sphinx.pocoo.org/">Sphinx</a> 4.0.1.
+  </div>
+  </body>
+</html>

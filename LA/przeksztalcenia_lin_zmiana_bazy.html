@@ -1,0 +1,796 @@
+
+
+  
+<!DOCTYPE html>
+
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" /><meta name="generator" content="Docutils 0.17: http://docutils.sourceforge.net/" />
+
+    <title>Change of Basis &#8212; Linear Algebra</title>
+    <link rel="stylesheet" type="text/css" href="_static/pygments.css" />
+    <link rel="stylesheet" type="text/css" href="_static/cloud.css" />
+    <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Noticia+Text|Open+Sans|Droid+Sans+Mono&amp;subset=latin,latin-ext" type="text/css" />
+    <script data-url_root="./" id="documentation_options" src="_static/documentation_options.js"></script>
+    <script src="_static/jquery.js"></script>
+    <script src="_static/underscore.js"></script>
+    <script src="_static/doctools.js"></script>
+    <script async="async" src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js"></script>
+    <script src="_static/jquery.cookie.js"></script>
+    <script src="_static/cloud.js"></script>
+    <script type="text/javascript" src="http://sagecell.sagemath.org/static/jquery.min.js"></script>
+    <script type="text/javascript" src="http://sagecell.sagemath.org/embedded_sagecell.js"></script>
+    <script type="text/javascript">
+        sagecell.makeSagecell({inputLocation: ".sage_linked",
+                               linked: true});
+        sagecell.makeSagecell({inputLocation: ".sage_unlinked",
+                               linked: false});
+    </script>
+
+    <style type="text/css">
+        .sagecell .CodeMirror-scroll {
+            overflow-y: hidden;
+            overflow-x: auto;
+        }
+        .sagecell .CodeMirror {
+            height: auto;
+        }
+    </style>
+    
+    <link rel="index" title="Index" href="genindex.html" />
+    <link rel="search" title="Search" href="search.html" />
+    <link rel="next" title="Application to Computer Graphics" href="linear_transformations_graphics.html" />
+    <link rel="prev" title="Linear Operators" href="przeksztalcenia_lin_operatory.html" />
+ 
+  <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, minimum-scale=1">
+  </head><body>
+  <div class="relbar-top">
+    
+    <div class="related" role="navigation" aria-label="related navigation">
+      <h3>Navigation</h3>
+      <ul>
+        <li class="right" style="margin-right: 10px">
+          <a href="genindex.html" title="General Index"
+             accesskey="I">index</a></li>
+        <li class="right" >
+          <a href="linear_transformations_graphics.html" title="Application to Computer Graphics"
+             accesskey="N">next</a> &nbsp; &nbsp;</li>
+        <li class="right" >
+          <a href="przeksztalcenia_lin_operatory.html" title="Linear Operators"
+             accesskey="P">previous</a> &nbsp; &nbsp;</li>
+  <li><a href="index.html">Linear Algebra</a> &#187;</li>
+  
+        <li class="nav-item nav-item-this"><a href="">Change of Basis</a></li> 
+      </ul>
+    </div>
+  </div>
+  
+  <div class="content">  
+
+    <div class="document">
+      <div class="documentwrapper">
+        <div class="bodywrapper">
+          <div class="body">
+            
+  <section id="change-of-basis">
+<h1>Change of Basis<a class="headerlink" href="#change-of-basis" title="Permalink to this headline">¶</a></h1>
+<p>If we choose a basis in a vector space, then each vector is uniquely characterised by its coordinates, and each linear operator <span class="math notranslate nohighlight">\(\,\)</span> - <span class="math notranslate nohighlight">\(\,\)</span> by its matrix in this basis. However, in different bases one vector has different coordinates, and one linear operator <span class="math notranslate nohighlight">\(\,\)</span> - <span class="math notranslate nohighlight">\(\,\)</span> different matrices.</p>
+<p>In this section we introduce formulae which describe a change of vector coordinates and matrices of linear operators under the change of basis.</p>
+<section id="change-of-basis-matrix">
+<h2>Change-of-Basis Matrix<a class="headerlink" href="#change-of-basis-matrix" title="Permalink to this headline">¶</a></h2>
+<p>Let <span class="math notranslate nohighlight">\(\ \mathcal{B}\,=\,(v_1,\,v_2,\,\dots,\,v_n)\ \)</span>
+and <span class="math notranslate nohighlight">\(\ \,\mathcal{B'}\,=\,(v_1',\,v_2',\,\dots,\,v_n')\ \)</span> be two bases of a vector space <span class="math notranslate nohighlight">\(\,V\ \)</span> over a field <span class="math notranslate nohighlight">\(\,K.\)</span></p>
+<div class="admonition-lemma admonition">
+<p class="admonition-title">Lemma.</p>
+<p>A linear transformation <span class="math notranslate nohighlight">\(\ T:\,V\rightarrow V\ \)</span> given by</p>
+<div class="math notranslate nohighlight">
+\[Tv_i\ :\,=\ v_i'\,,\qquad i=1,2,\dots,n,\]</div>
+<p>is an automorphism of the vector space <span class="math notranslate nohighlight">\(\,V.\ \\\)</span>
+We call it an <span class="math notranslate nohighlight">\(\,\)</span> <em>automorphism of transition</em> <span class="math notranslate nohighlight">\(\,\)</span>
+from basis <span class="math notranslate nohighlight">\(\ \mathcal{B}\ \)</span> to basis <span class="math notranslate nohighlight">\(\ \mathcal{B'}.\)</span></p>
+</div>
+<p><strong>Proof.</strong> <span class="math notranslate nohighlight">\(\, \\\)</span>
+A linear transformation <span class="math notranslate nohighlight">\(\,T\ \)</span> is uniquely defined if we fix images of vectors
+from basis <span class="math notranslate nohighlight">\(\ \mathcal{B}\ \)</span> (cf. Corollary to Theorem 5.).</p>
+<p>For a vector <span class="math notranslate nohighlight">\(\displaystyle\ \,v=\sum_{i\,=\,1}^n\ a_i\,v_i\,\in\,V\ \,\)</span> we have</p>
+<div class="math notranslate nohighlight">
+\[T\,\left(\,\sum_{i\,=\,1}^n\ a_i\,v_i\right)\ \ =\ \
+\sum_{i\,=\,1}^n\ a_i\;Tv_i\ \ =\ \ \sum_{i\,=\,1}^n\ a_i\,v_i'\,.\]</div>
+<p>Hence, a vector with coordinates <span class="math notranslate nohighlight">\(\ \,\,a_1,\,a_2,\,\dots,\,a_n\,\ \,\)</span> in basis <span class="math notranslate nohighlight">\(\ \mathcal{B}\ \,\)</span> is mapped to a vector with the same coordinates in basis <span class="math notranslate nohighlight">\(\ \mathcal{B}'.\ \)</span>
+Recall that in a vector space with a chosen basis the vector coordiates are determined uniquely.
+Therefore the transformation <span class="math notranslate nohighlight">\(\ T\ \)</span> is a bijective endomorphism, or in other words, an automorphism.</p>
+<div class="admonition-definition admonition">
+<p class="admonition-title">Definition.</p>
+<div class="line-block">
+<div class="line">A <em>transition matrix</em> <span class="math notranslate nohighlight">\(\ \boldsymbol{S}\ \)</span>
+from basis <span class="math notranslate nohighlight">\(\ \mathcal{B}\ \)</span> to basis <span class="math notranslate nohighlight">\(\ \mathcal{B}'\ \)</span>
+of a vector space <span class="math notranslate nohighlight">\(\,V\,\)</span></div>
+<div class="line">is a matrix of an automorphism of transition <span class="math notranslate nohighlight">\(\,T\ \)</span>
+in the basis <span class="math notranslate nohighlight">\(\,\mathcal{B}:\quad\boldsymbol{S}\ :\,=\ M_{\mathcal{B}}(T)\,.\)</span></div>
+</div>
+</div>
+<p>Let <span class="math notranslate nohighlight">\(\ \boldsymbol{S}\ =\ [\,s_{ij}\,]_{n\times n}\,.\ \)</span>
+Definition of matrix of a linear operator implies the relations</p>
+<div class="math notranslate nohighlight" id="equation-base-0">
+<span class="eqno">(1)<a class="headerlink" href="#equation-base-0" title="Permalink to this equation">¶</a></span>\[\begin{split}\begin{array}{lcl}
+&amp; &amp; v_j'\;=\ Tv_j\;=\ \displaystyle\sum_{i\,=\,1}^n\ s_{ij}\:v_i\,,\qquad j=1,2,\dots,n\,, \\ \\
+\text{that is} &amp; \qquad\quad &amp;
+\begin{array}{l}
+v_1'\ =\ s_{11}\,v_1\,+\ s_{21}\,v_2\,+\ \dots\ +\ s_{n1}\,v_n \\
+v_2'\ =\ s_{12}\,v_1\,+\ s_{22}\,v_2\,+\ \dots\ +\ s_{n2}\,v_n \\
+\ \dots \\
+v_n'\ =\ s_{1n}\,v_1\,+\ s_{2n}\,v_2\,+\ \dots\ +\ s_{nn}\,v_n
+\end{array}
+\end{array}\end{split}\]</div>
+<p>which give us a practical method to construct transition matrix:</p>
+<div class="admonition-corollary-1-math admonition">
+<p class="admonition-title">Corollary 1. <span class="math notranslate nohighlight">\(\\\)</span></p>
+<p>The <span class="math notranslate nohighlight">\(j\)</span>-th column of transition matrix <span class="math notranslate nohighlight">\(\ \boldsymbol{S}\ \)</span>
+from basis <span class="math notranslate nohighlight">\(\ \mathcal{B}\ \)</span> to <span class="math notranslate nohighlight">\(\ \mathcal{B}'\ \)</span> of
+vector space <span class="math notranslate nohighlight">\(\,V\,\)</span>
+is a column of coordinates <span class="math notranslate nohighlight">\(\,\)</span> (in basis <span class="math notranslate nohighlight">\(\ \mathcal{B}\)</span>) <span class="math notranslate nohighlight">\(\,\)</span>
+of the <span class="math notranslate nohighlight">\(j\)</span>-th vector from basis <span class="math notranslate nohighlight">\(\ \mathcal{B}',\ \ j=1,2,\dots,n:\)</span></p>
+<div class="math notranslate nohighlight" id="equation-s-col">
+<span class="eqno">(2)<a class="headerlink" href="#equation-s-col" title="Permalink to this equation">¶</a></span>\[\boldsymbol{S}\ \,=\ \,\left[\,I_{\mathcal{B}}(v_1')\,|\,
+                               I_{\mathcal{B}}(v_2')\,|\,
+                               \dots\,|\,
+                               I_{\mathcal{B}}(v_n')\,\right]\,.\]</div>
+</div>
+<p>A crucial property of transition matrices states</p>
+<div class="admonition-corollary-2 admonition">
+<p class="admonition-title">Corollary 2.</p>
+<p>Transition matrix is nondegenerate: <span class="math notranslate nohighlight">\(\ \ \det\,\boldsymbol{S}\neq 0\,.\)</span></p>
+</div>
+<p><strong>Proof.</strong> <span class="math notranslate nohighlight">\(\,\)</span> The mapping <span class="math notranslate nohighlight">\(\,I_{\mathcal{B}},\ \)</span> being an isomorphism of the space <span class="math notranslate nohighlight">\(\,V\ \)</span> onto the space <span class="math notranslate nohighlight">\(\,K^n,\ \)</span> preserves linear independence of vectors. Linear independence of vectors <span class="math notranslate nohighlight">\(\ v_1',\,v_2',\,\dots,\,v_n'\ \)</span>
+from the basis <span class="math notranslate nohighlight">\(\ \mathcal{B'}\ \)</span> implies then linear independence of columns of the matrix <span class="math notranslate nohighlight">\(\ \boldsymbol{S},\ \,\)</span> which further implies nonvanishing of its determinant.</p>
+<p><strong>Example.</strong></p>
+<p>Consider 3-dimensional vector space <span class="math notranslate nohighlight">\(\,V\ \)</span> with bases
+<span class="math notranslate nohighlight">\(\ \mathcal{B}=(v_1,\,v_2,\,v_3)\ \)</span> and <span class="math notranslate nohighlight">\(\ \mathcal{B'}=(v_1',\,v_2',\,v_3'),\ \,\)</span>
+where <span class="math notranslate nohighlight">\(\ \ v_1'=\,v_1,\)</span> <span class="math notranslate nohighlight">\(\ \ v_2'=\,v_1+\,v_2,\)</span> <span class="math notranslate nohighlight">\(\ \ v_3'=\,v_1+\,v_2+\,v_3\,.\)</span></p>
+<p>Relations between vectors from the two bases may be written as</p>
+<div class="math notranslate nohighlight">
+\[\begin{split}\begin{array}{l}
+v_1'\ =\ 1\cdot v_1\,+\;0\cdot v_2\,+\;0\cdot v_3 \\
+v_2'\ =\ 1\cdot v_1\,+\;1\cdot v_2\,+\;0\cdot v_3 \\
+v_3'\ =\ 1\cdot v_1\,+\;1\cdot v_2\,+\;1\cdot v_3\,,
+\end{array}
+\qquad\text{and thus the transition matrix}\qquad
+\boldsymbol{S}\ =\
+\left[\begin{array}{ccc} 1 &amp; 1 &amp; 1 \\ 0 &amp; 1 &amp; 1 \\ 0 &amp; 0 &amp; 1 \end{array}\right]\,.\end{split}\]</div>
+</section>
+<section id="change-of-basis-transformation-formulae">
+<h2>Change-of-Basis Transformation Formulae<a class="headerlink" href="#change-of-basis-transformation-formulae" title="Permalink to this headline">¶</a></h2>
+<p>From now on, the bases <span class="math notranslate nohighlight">\(\ \mathcal{B}\,=\,(v_1,\,v_2,\,\dots,\,v_n)\ \)</span>
+and <span class="math notranslate nohighlight">\(\ \,\mathcal{B'}\,=\,(v_1',\,v_2',\,\dots,\,v_n')\ \)</span>
+will be called the old and the new basis respectively.
+The relations <a class="reference internal" href="#equation-base-0">(1)</a> between their vectors may be writtes as:</p>
+<div class="math notranslate nohighlight">
+\[\begin{split}\begin{array}{lcl}
+&amp; &amp; v_i'\;=\ Tv_i\;=\ \displaystyle\sum_{j\,=\,1}^n\ s_{ij}^T\:v_j\,,\qquad i=1,2,\dots,n\,, \\ \\
+\text{and thus} &amp; \qquad\quad &amp;
+\begin{array}{l}
+v_1'\ =\ s_{11}^T\,v_1\,+\ s_{12}^T\,v_2\,+\ \dots\ +\ s_{1n}^T\,v_n \\
+v_2'\ =\ s_{21}^T\,v_1\,+\ s_{22}^T\,v_2\,+\ \dots\ +\ s_{2n}^T\,v_n \\
+\ \dots \\
+v_n'\ =\ s_{n1}^T\,v_1\,+\ s_{n2}^T\,v_2\,+\ \dots\ +\ s_{nn}^T\,v_n
+\end{array}
+\end{array}\end{split}\]</div>
+<p>This system of <span class="math notranslate nohighlight">\(\,n\ \)</span> equalities is equivalent to a matrix equation</p>
+<div class="math notranslate nohighlight" id="equation-trans-base">
+<span class="eqno">(3)<a class="headerlink" href="#equation-trans-base" title="Permalink to this equation">¶</a></span>\[\begin{split}\blacktriangleright\quad
+\left[\begin{array}{c} v_1' \\ v_2' \\ \dots \\ v_n' \end{array}\right]\ \,=\ \,
+\boldsymbol{S}^{\,T}\,
+\left[\begin{array}{c} v_1 \\ v_2 \\ \dots \\ v_n \end{array}\right]\,.\end{split}\]</div>
+<div class="admonition-rule-0-math-transformation-of-basis-vectors admonition">
+<p class="admonition-title">Rule 0. <span class="math notranslate nohighlight">\(\,\)</span> Transformation of basis vectors.</p>
+<p>A column consisting of vectors from the new basis is equal to a product of
+transposed transition matrix and a column consisting of vectors from the old basis.</p>
+</div>
+<p>It is worth to notice that (contrary to matrix equations we have seen so far) the elements of columns on both sides are not <em>scalars</em> (numbers), but <em>vectors</em>.
+However, the matrix in this equation is a standard numerical matrix.</p>
+<p>To find out the transformation of vector coordinates under a change of basis, we write
+a vector <span class="math notranslate nohighlight">\(\,v\in V\ \)</span> with respect to the old and the new basis:</p>
+<div class="math notranslate nohighlight">
+\begin{eqnarray*}
+\sum_{i\,=\,1}^n\ a_i\:v_i\  &amp; = &amp; \ \sum_{j\,=\,1}^n\ a_j'\ v_j' \ \ = \\
+                             &amp; = &amp; \ \sum_{j\,=\,1}^n\ a_j'\ \left(\,
+                                     \sum_{i\,=\,1}^n\ s_{ij}\:v_i\right) \ \ = \\
+                             &amp; = &amp; \ \sum_{i\,=\,1}^n\ \left(\,
+                                     \sum_{j\,=\,1}^n\ s_{ij}\:a_j'\right)\;v_i\,.
+\end{eqnarray*}</div><p>By uniqueness of representation of a vector in basis <span class="math notranslate nohighlight">\(\, \mathcal{B},\)</span></p>
+<div class="math notranslate nohighlight">
+\[\begin{split}\begin{array}{lcl}
+&amp; &amp; a_i\ =\ \displaystyle\sum_{j\,=\,1}^n\ s_{ij}\:a_j'\,,\qquad i=1,2,\dots,n\,, \\ \\
+\text{that is} &amp; \qquad\quad &amp;
+\begin{array}{l}
+a_1\ =\ s_{11}\,a_1'\,+\ s_{12}\,a_2'\,+\ \dots\ +\ s_{1n}\,a_n' \\
+a_2\ =\ s_{21}\,a_1'\,+\ s_{22}\,a_2'\,+\ \dots\ +\ s_{2n}\,a_n' \\
+\ \dots \\
+a_n\ =\ s_{n1}\,a_1'\,+\ s_{n2}\,a_2'\,+\ \dots\ +\ s_{nn}\,a_n'
+\end{array}
+\end{array}\end{split}\]</div>
+<p>If we write it in a matrix form, we obtain</p>
+<div class="math notranslate nohighlight" id="equation-trans-coord">
+<span class="eqno">(4)<a class="headerlink" href="#equation-trans-coord" title="Permalink to this equation">¶</a></span>\[\begin{split}\left[\begin{array}{c} a_1 \\ a_2 \\ \dots \\ a_n \end{array}\right]
+\ \,=\ \,\boldsymbol{S}\;
+\left[\begin{array}{c} a_1' \\ a_2' \\ \dots \\ a_n' \end{array}\right]\,,
+\qquad\qquad\blacktriangleright\quad
+\left[\begin{array}{c} a_1' \\ a_2' \\ \dots \\ a_n' \end{array}\right]
+\ \,=\ \,\boldsymbol{S}^{-1}\,
+\left[\begin{array}{c} a_1 \\ a_2 \\ \dots \\ a_n \end{array}\right]\,.\end{split}\]</div>
+<div class="admonition-rule-1-math-transformation-of-vector-coordinates admonition">
+<p class="admonition-title">Rule 1. <span class="math notranslate nohighlight">\(\,\)</span> Transformation of vector coordinates.</p>
+<div class="math notranslate nohighlight">
+\[I_{\mathcal{B}'}(v)\ \ =\ \ \boldsymbol{S}^{-1}\,\cdot\,I_{\mathcal{B}}(v)\,,\qquad
+v\in V.\]</div>
+</div>
+<p>We discuss now transformation of a matrix of a linear operator.</p>
+<p>Let <span class="math notranslate nohighlight">\(\,F\in\text{End}(V),\quad
+M_{\mathcal{B}}(F)=\boldsymbol{F}=[\,f_{ij}\,]_{n\times n}\,,\quad
+M_{\mathcal{B}'}(F)=\boldsymbol{F}'=[\,f_{ij}'\,]_{n\times n}\,.\)</span></p>
+<p>Starting from definition of a matrix of the opeartor <span class="math notranslate nohighlight">\(\,F\ \)</span> in basis <span class="math notranslate nohighlight">\(\,\mathcal{B},\,\)</span> we obtain (<span class="math notranslate nohighlight">\(j=1,2,\dots,n\)</span>):</p>
+<div class="math notranslate nohighlight">
+\begin{eqnarray*}
+Fv_j' &amp; = &amp; \sum_{i\,=\,1}^n\ f_{ij}'\ v_i'\,, \\
+F\left(Tv_j\right) &amp; = &amp; \sum_{i\,=\,1}^n\ f_{ij}'\ Tv_i\,, \\
+T^{-1}\left[\,F\left(Tv_j\right)\,\right] &amp; = &amp; \sum_{i\,=\,1}^n\ f_{ij}'\ T^{-1}(Tv_i)\,, \\
+(T^{-1}\circ\,F\,\circ\,T)\ v_j &amp; = &amp; \sum_{i\,=\,1}^n\ f_{ij}'\ v_i\,.
+\end{eqnarray*}</div><p>The last equation states that <span class="math notranslate nohighlight">\(\,\boldsymbol{F}\,\)</span> is a matrix
+<span class="math notranslate nohighlight">\(\,\)</span> (in basis <span class="math notranslate nohighlight">\(\,\mathcal{B}\,\)</span>) <span class="math notranslate nohighlight">\(\,\)</span> of the operator
+<span class="math notranslate nohighlight">\(\ \,T^{-1}\circ\,F\,\circ\,T\)</span> :</p>
+<div class="math notranslate nohighlight">
+\[ \begin{align}\begin{aligned}\boldsymbol{F}'\ =\ M_{\mathcal{B}}\left(\,T^{-1}\circ\,F\,\circ\,T\,\right)\ \,=\ \,
+M_{\mathcal{B}}(T^{-1})\,\cdot\,M_{\mathcal{B}}(F)\,\cdot\,M_{\mathcal{B}}(T)\ =\\=\
+[\,M_{\mathcal{B}}(T)\,]^{-1}\,\cdot\,M_{\mathcal{B}}(F)\,\cdot\,M_{\mathcal{B}}(T)\ \,=\ \,
+\boldsymbol{S}^{-1}\,\boldsymbol{F}\ \boldsymbol{S}\,.\end{aligned}\end{align} \]</div>
+<p>In this way, the matrix <span class="math notranslate nohighlight">\(\,\boldsymbol{F}'\ \)</span> of the linear operator
+<span class="math notranslate nohighlight">\(\,F\ \)</span> in basis <span class="math notranslate nohighlight">\(\,\mathcal{B}'\ \)</span> is given by</p>
+<div class="math notranslate nohighlight" id="equation-f-prim">
+<span class="eqno">(5)<a class="headerlink" href="#equation-f-prim" title="Permalink to this equation">¶</a></span>\[\blacktriangleright\quad
+\boldsymbol{F}'\ =\ \boldsymbol{S}^{-1}\,\boldsymbol{F}\ \boldsymbol{S}\,.\]</div>
+<div class="admonition-rule-2-math-transformation-of-a-matrix-of-a-linear-operator admonition">
+<p class="admonition-title">Rule 2. <span class="math notranslate nohighlight">\(\,\)</span> Transformation of a matrix of a linear operator.</p>
+<p>Under a change of basis described by the transition matrix <span class="math notranslate nohighlight">\(\,\boldsymbol{S},\ \)</span>
+a matrix of the linear operator <span class="math notranslate nohighlight">\(\,F\ \)</span> changes according to the formula:</p>
+<div class="math notranslate nohighlight">
+\[M_{\mathcal{B}'}(F)\ \,=\ \,
+\boldsymbol{S}^{-1}\,\cdot\,M_{\mathcal{B}}(F)\,\cdot\,\boldsymbol{S}\,.\]</div>
+</div>
+<p><strong>Remark.</strong></p>
+<p>From comparison of the formulae <a class="reference internal" href="#equation-trans-base">(3)</a> and <a class="reference internal" href="#equation-trans-coord">(4)</a>, we see that
+under a change of basis the vector coordinates change differently than the basis vectors, <span class="math notranslate nohighlight">\(\,\)</span> unless</p>
+<div class="math notranslate nohighlight" id="equation-orth-mat">
+<span class="eqno">(6)<a class="headerlink" href="#equation-orth-mat" title="Permalink to this equation">¶</a></span>\[\boldsymbol{S}^{-1}\;=\ \boldsymbol{S}^{\,T}\,,
+\qquad\text{that is}\qquad
+\boldsymbol{S}^{\,T}\boldsymbol{S}\ =\ \boldsymbol{I}_n\,.\]</div>
+<p>A matrix <span class="math notranslate nohighlight">\(\,\boldsymbol{S}\in M_n(K)\ \)</span> satisfying the condition <a class="reference internal" href="#equation-orth-mat">(6)</a>
+is called an <span class="math notranslate nohighlight">\(\,\)</span> <em>orthogonal matrix</em>.</p>
+<p>An example of an orthogonal matrix may be a matrix <span class="math notranslate nohighlight">\(\,\boldsymbol{S}\,\)</span>
+representating rotation of the basis <span class="math notranslate nohighlight">\(\,\mathcal{B}=(\vec{e}_1,\,\vec{e}_2,\,\vec{e}_3)\ \)</span>
+of 3-dimensional space of geometric vectors, where <span class="math notranslate nohighlight">\(\,(\vec{e}_1,\,\vec{e}_2,\,\vec{e}_3)\ \)</span>
+is a triple of mutually perpendicular unit vectors with right-handed coordinates.
+Matrices of permutation are also orthogonal.</p>
+<p><strong>Exercise.</strong></p>
+<ol class="arabic">
+<li><p>Justify that transition matrix <span class="math notranslate nohighlight">\(\ \boldsymbol{S}\ \)</span> from basis
+<span class="math notranslate nohighlight">\(\,\mathcal{B}\ \)</span> to <span class="math notranslate nohighlight">\(\,\mathcal{B}'\ \)</span> may be equivalently defined
+as a matrix of a transition automorphism <span class="math notranslate nohighlight">\(\,T\ \)</span>
+in the new basis <span class="math notranslate nohighlight">\(\,\mathcal{B}':\)</span></p>
+<div class="math notranslate nohighlight">
+\[\boldsymbol{S}\ :\,=\ M_{\mathcal{B}}(T)\ =\ M_{\mathcal{B}'}(T)\,.\]</div>
+</li>
+<li><p>Complete discussion leading to a formula <a class="reference internal" href="#equation-f-prim">(5)</a> by proving that
+for <span class="math notranslate nohighlight">\(\,T\in\text{Aut}(V),\ \)</span> we have</p>
+<div class="math notranslate nohighlight">
+\[M_{\mathcal{B}}(T^{-1})\ \ =\ \ [\,M_{\mathcal{B}}(T)\,]^{-1}\,.\]</div>
+</li>
+</ol>
+</section>
+<section id="examples">
+<h2>Examples<a class="headerlink" href="#examples" title="Permalink to this headline">¶</a></h2>
+<p><strong>Example 0.</strong></p>
+<p>In the space <span class="math notranslate nohighlight">\(\,R^4\,\)</span> find a transition matrix :</p>
+<ol class="loweralpha">
+<li><div class="line-block">
+<div class="line">from the canonical basis <span class="math notranslate nohighlight">\(\ \mathcal{E}\,=\,
+(\boldsymbol{e}_1,\,\boldsymbol{e}_2,\,\boldsymbol{e}_3,\,\boldsymbol{e}_4)\ =\
+\left(\
+\left[\begin{array}{c} 1 \\ 0 \\ 0 \\ 0 \end{array}\right]\,,
+\left[\begin{array}{c} 0 \\ 1 \\ 0 \\ 0 \end{array}\right]\,,
+\left[\begin{array}{c} 0 \\ 0 \\ 1 \\ 0 \end{array}\right]\,,
+\left[\begin{array}{c} 0 \\ 0 \\ 0 \\ 1 \end{array}\right]
+\ \right)\)</span></div>
+<div class="line"><br /></div>
+<div class="line">to <span class="math notranslate nohighlight">\(\ \mathcal{F}\,=\,
+(\boldsymbol{f}_1,\,\boldsymbol{f}_2,\,\boldsymbol{f}_3,\,\boldsymbol{f}_4)\ =\
+\left(\
+\left[\begin{array}{r}  1 \\  2 \\ -1 \\ 0 \end{array}\right]\,,
+\left[\begin{array}{r}  1 \\ -1 \\  1 \\ 1 \end{array}\right]\,,
+\left[\begin{array}{r} -1 \\  2 \\  1 \\ 1 \end{array}\right]\,,
+\left[\begin{array}{r} -1 \\ -1 \\  0 \\ 1 \end{array}\right]
+\ \right)\,.\)</span></div>
+</div>
+</li>
+<li><div class="line-block">
+<div class="line">from basis <span class="math notranslate nohighlight">\(\,\mathcal{F}\,=\,
+(\boldsymbol{f}_1,\,\boldsymbol{f}_2,\,\boldsymbol{f}_3,\,\boldsymbol{f}_4)\)</span></div>
+<div class="line">to <span class="math notranslate nohighlight">\(\,\mathcal{G}\,=\,
+(\boldsymbol{g}_1,\,\boldsymbol{g}_2,\,\boldsymbol{g}_3,\,\boldsymbol{g}_4)\,=\,
+\left(\
+\left[\begin{array}{r}  2 \\ 1 \\ 0 \\ 1 \end{array}\right],
+\left[\begin{array}{r}  0 \\ 1 \\ 2 \\ 2 \end{array}\right],
+\left[\begin{array}{r} -2 \\ 1 \\ 1 \\ 2 \end{array}\right],
+\left[\begin{array}{r}  1 \\ 3 \\ 1 \\ 2 \end{array}\right]
+\ \right).\)</span></div>
+</div>
+</li>
+</ol>
+<p><strong>Solution.</strong></p>
+<p>We start with a matrix <span class="math notranslate nohighlight">\(\,\boldsymbol{F}\ \)</span> whose columns consist of
+vectors from a basis <span class="math notranslate nohighlight">\(\,\mathcal{F}:\)</span></p>
+<div class="math notranslate nohighlight">
+\[\begin{split}\boldsymbol{F}\ :\,=\
+[\,\boldsymbol{f}_1\,|\,\boldsymbol{f}_2\,|\,\boldsymbol{f}_3\,|\,\boldsymbol{f}_4\,]\ =\
+\left[\begin{array}{rrrr}
+       1 &amp;  1 &amp; -1 &amp; -1 \\
+       2 &amp; -1 &amp;  2 &amp; -1 \\
+      -1 &amp;  1 &amp;  1 &amp;  0 \\
+       0 &amp;  1 &amp;  1 &amp;  1 \end{array}\right]\,.\end{split}\]</div>
+<p>The columns of transition matrix from the basis <span class="math notranslate nohighlight">\(\,\mathcal{E}\,\)</span> to <span class="math notranslate nohighlight">\(\,\mathcal{F}\,\)</span> consist of coordinates of the vectors from basis
+<span class="math notranslate nohighlight">\(\ \mathcal{F}\ \,\)</span> in basis <span class="math notranslate nohighlight">\(\ \mathcal{E}:\)</span></p>
+<div class="math notranslate nohighlight">
+\[\boldsymbol{S}_{\mathcal{E}\rightarrow\mathcal{F}}\ =\
+[\,I_{\mathcal{E}}(\boldsymbol{f}_1)\,|\,
+   I_{\mathcal{E}}(\boldsymbol{f}_2)\,|\,
+   I_{\mathcal{E}}(\boldsymbol{f}_3)\,|\,
+   I_{\mathcal{E}}(\boldsymbol{f}_4)\,]\,.\]</div>
+<p>Now recall that in the space <span class="math notranslate nohighlight">\(\,R^4\ \)</span> every vector is actually a column of its coordinates in the canonical basis:</p>
+<div class="math notranslate nohighlight">
+\[I_{\mathcal{E}}(\boldsymbol{x})\ =\ \boldsymbol{x}\,,\qquad \boldsymbol{x}\in R^4\,.\]</div>
+<p>Hence, the transition matrix we are looking for is simply given by</p>
+<div class="math notranslate nohighlight" id="equation-s-ef">
+<span class="eqno">(7)<a class="headerlink" href="#equation-s-ef" title="Permalink to this equation">¶</a></span>\[\begin{split}\blacktriangleright\quad
+\boldsymbol{S}_{\mathcal{E}\rightarrow\mathcal{F}}\ =\
+[\,\boldsymbol{f}_1\,|\,\boldsymbol{f}_2\,|\,\boldsymbol{f}_3\,|\,\boldsymbol{f}_4\,]\,=\,
+\boldsymbol{F}\ =\
+\left[\begin{array}{rrrr}
+       1 &amp;  1 &amp; -1 &amp; -1 \\
+       2 &amp; -1 &amp;  2 &amp; -1 \\
+      -1 &amp;  1 &amp;  1 &amp;  0 \\
+       0 &amp;  1 &amp;  1 &amp;  1 \end{array}\right]\,.\end{split}\]</div>
+<p><strong>Corollary</strong> (generalisation).</p>
+<p>In the space <span class="math notranslate nohighlight">\(\,K^n\,\)</span> transition matrix from the canonical basis <span class="math notranslate nohighlight">\(\ \mathcal{E}\ \)</span> to a basis <span class="math notranslate nohighlight">\(\,\mathcal{B}\ \)</span> is equal to a matrix <span class="math notranslate nohighlight">\(\,\boldsymbol{B}\ \)</span> whose columns are vectors from the basis  <span class="math notranslate nohighlight">\(\,\mathcal{B}\ \)</span> (taken in the same order).</p>
+<p>To describe a transition <span class="math notranslate nohighlight">\(\ \mathcal{F}\rightarrow\mathcal{G}\ \)</span> it will be useful to have, apart from a matrix <span class="math notranslate nohighlight">\(\,\boldsymbol{F},\ \)</span> also the matrix</p>
+<div class="math notranslate nohighlight">
+\[\begin{split}\boldsymbol{G}\ :\,=\
+[\,\boldsymbol{g}_1\,|\,\boldsymbol{g}_2\,|\,\boldsymbol{g}_3\,|\,\boldsymbol{g}_4\,]\ =\
+\left[\begin{array}{rrrr}
+       2 &amp; 0 &amp; -2 &amp; 1 \\
+       1 &amp; 1 &amp;  1 &amp; 3 \\
+       0 &amp; 2 &amp;  1 &amp; 1 \\
+       1 &amp; 2 &amp;  2 &amp; 2 \end{array}\right]\,.\end{split}\]</div>
+<p>By definition (see formula <a class="reference internal" href="#equation-base-0">(1)</a>), the <span class="math notranslate nohighlight">\(\,j\)</span>-th column of the transition matrix
+<span class="math notranslate nohighlight">\(\,\boldsymbol{S}_{\mathcal{F}\rightarrow\mathcal{G}}\equiv\boldsymbol{S}=
+[\,s_{ij}\,]_{4\times 4}(R)\ \)</span>
+from basis <span class="math notranslate nohighlight">\(\ \mathcal{F}\ \)</span> to <span class="math notranslate nohighlight">\(\ \mathcal{G}\ \)</span> is
+equal to a column of coordinates (in basis <span class="math notranslate nohighlight">\(\ \mathcal{F}\ \)</span>) of the <span class="math notranslate nohighlight">\(\,j\)</span>-th vector from the basis <span class="math notranslate nohighlight">\(\ \mathcal{G}:\)</span></p>
+<div class="math notranslate nohighlight" id="equation-s-4">
+<span class="eqno">(8)<a class="headerlink" href="#equation-s-4" title="Permalink to this equation">¶</a></span>\[\boldsymbol{g}_j\ =\ \sum_{i\,=\,1}^4\ s_{ij}\:\boldsymbol{f}_i\,,\qquad j=1,2,3,4.\]</div>
+<p>The relation <a class="reference internal" href="#equation-s-4">(8)</a> may be interpreted by the column rule of matrix multiplication:
+the <span class="math notranslate nohighlight">\(\,j\)</span>-th column of the matrix  <span class="math notranslate nohighlight">\(\,\boldsymbol{G}\ \)</span> is a linear combination
+of columns of matrix <span class="math notranslate nohighlight">\(\,\boldsymbol{F}\ \)</span> with coordinates from the <span class="math notranslate nohighlight">\(\,j\)</span>-th column of the matrix  <span class="math notranslate nohighlight">\(\,\boldsymbol{S},\ \ j=1,2,3,4.\ \)</span> This means that</p>
+<div class="math notranslate nohighlight">
+\[\boldsymbol{G}\ =\ \boldsymbol{F}\boldsymbol{S}\,.\]</div>
+<p>The matrix <span class="math notranslate nohighlight">\(\,\boldsymbol{F},\ \)</span> composed of linearly independent columns
+<span class="math notranslate nohighlight">\(\ \boldsymbol{f}_1\,,\,\boldsymbol{f}_2\,,\,\boldsymbol{f}_3\,,\,\boldsymbol{f}_4\,,\ \)</span>
+is nondegenerate: <span class="math notranslate nohighlight">\(\ \det\,\boldsymbol{F}\neq 0,\ \,\)</span> and thus invertible.
+Hence, the transition matrix</p>
+<div class="math notranslate nohighlight" id="equation-s-fg">
+<span class="eqno">(9)<a class="headerlink" href="#equation-s-fg" title="Permalink to this equation">¶</a></span>\[\blacktriangleright\quad
+\boldsymbol{S}_{\mathcal{F}\rightarrow\mathcal{G}}\ =\
+\boldsymbol{F}^{-1}\,\boldsymbol{G}\,.\]</div>
+<p><strong>Variant of a solution.</strong></p>
+<p>Let <span class="math notranslate nohighlight">\(\ T\in\text{Aut}(R^4)\ \)</span> be an automorphism of transition from
+basis <span class="math notranslate nohighlight">\(\ \mathcal{F}\ \)</span> to <span class="math notranslate nohighlight">\(\ \mathcal{G}.\ \)</span> Then
+a transition matrix we are looking for is a matrix of the automorphism <span class="math notranslate nohighlight">\(\,T\,\)</span>
+in basis <span class="math notranslate nohighlight">\(\,\mathcal{F}:\ \boldsymbol{S}_{\mathcal{F}\rightarrow\mathcal{G}}\equiv\boldsymbol{S}=
+M_{\mathcal{F}}(T).\ \)</span> Moreover,</p>
+<div class="math notranslate nohighlight">
+\[\boldsymbol{g}_j\,=\,T\,\boldsymbol{f}_j\,,
+\qquad\text{and so}\qquad
+\boldsymbol{g}_j\,=\,\boldsymbol{T}\cdot\boldsymbol{f}_j\,,
+\qquad j=1,2,3,4\,,\]</div>
+<p>where <span class="math notranslate nohighlight">\(\ \,\boldsymbol{T}:\,=M_{\mathcal{E}}(T)\ \,\)</span>
+is a matrix of automorphism <span class="math notranslate nohighlight">\(\,T\ \)</span> in the canonical basis.
+By the column rule of matrix multiplication, we state that vector equalities</p>
+<div class="math notranslate nohighlight">
+\[\boldsymbol{g}_1\,=\,\boldsymbol{T}\cdot\boldsymbol{f}_1\,,\quad
+\boldsymbol{g}_2\,=\,\boldsymbol{T}\cdot\boldsymbol{f}_2\,,\quad
+\boldsymbol{g}_3\,=\,\boldsymbol{T}\cdot\boldsymbol{f}_3\,,\quad
+\boldsymbol{g}_4\,=\,\boldsymbol{T}\cdot\boldsymbol{f}_4\,,\]</div>
+<p>imply an equality of matrices</p>
+<div class="math notranslate nohighlight">
+\[[\,\boldsymbol{g}_1\,|\,\boldsymbol{g}_2\,|\,\boldsymbol{g}_3\,|\,\boldsymbol{g}_4\,]\ =\
+\boldsymbol{T}\,\cdot\,
+[\,\boldsymbol{f}_1\,|\,\boldsymbol{f}_2\,|\,\boldsymbol{f}_3\,|\,\boldsymbol{f}_4\,]\,,
+\qquad\text{that is}\qquad
+\boldsymbol{G}\ =\ \boldsymbol{T}\boldsymbol{F}\,.\]</div>
+<p>Hence, <span class="math notranslate nohighlight">\(\ \,\boldsymbol{T}\equiv M_{\mathcal{E}}(T)\ =\ \boldsymbol{G}\boldsymbol{F}^{-1}.\ \,\)</span>
+The necessary matrix <span class="math notranslate nohighlight">\(\,\boldsymbol{S}\equiv M_{\mathcal{F}}(T)\ \)</span> may be calculated from the formula</p>
+<div class="math notranslate nohighlight">
+\[M_{\mathcal{F}}(T)\ =\ \boldsymbol{S}_{\mathcal{E}\rightarrow\mathcal{F}}^{-1}\,\cdot\,
+                       M_{\mathcal{E}}(T)\,\cdot\,
+                       \boldsymbol{S}_{\mathcal{E}\rightarrow\mathcal{F}}\,.\]</div>
+<p>However, as we showed earlier (equation <a class="reference internal" href="#equation-s-ef">(7)</a>):
+<span class="math notranslate nohighlight">\(\ \,\boldsymbol{S}_{\mathcal{E}\rightarrow\mathcal{F}}=\boldsymbol{F},\ \,\)</span> and thus</p>
+<div class="math notranslate nohighlight">
+\[\boldsymbol{S}_{\mathcal{F}\rightarrow\mathcal{G}}\ =\
+\boldsymbol{F}^{-1}\,(\boldsymbol{G}\boldsymbol{F}^{-1})\,\boldsymbol{F}\ =\
+\boldsymbol{F}^{-1}\,\boldsymbol{G}\,.\]</div>
+<p>To check correctness of the solution <a class="reference internal" href="#equation-s-fg">(9)</a>, let us consider a particular case when the basis <span class="math notranslate nohighlight">\(\ \mathcal{F}\ \,\)</span> is the canonical basis: <span class="math notranslate nohighlight">\(\ \mathcal{F}=\mathcal{E}.\ \,\)</span>
+Then <span class="math notranslate nohighlight">\(\ \boldsymbol{F}=\boldsymbol{I}_4,\ \ \)</span> and so we get a formula
+<span class="math notranslate nohighlight">\(\ \boldsymbol{S}_{\mathcal{E}\rightarrow\mathcal{G}}\ =\ \boldsymbol{G}\ \)</span>
+which is consistent (under different notation) with a previous result <a class="reference internal" href="#equation-s-ef">(7)</a>.</p>
+<p>Now, turning to calculations, we have to find product of matrices</p>
+<div class="math notranslate nohighlight">
+\[\begin{split}\boldsymbol{F}^{-1}\,\boldsymbol{G}\ =\
+   \left[\begin{array}{rrrr}
+       1 &amp;  1 &amp; -1 &amp; -1 \\
+       2 &amp; -1 &amp;  2 &amp; -1 \\
+      -1 &amp;  1 &amp;  1 &amp;  0 \\
+       0 &amp;  1 &amp;  1 &amp;  1 \end{array}\right]^{-1}
+\left[\begin{array}{rrrr}
+       2 &amp; 0 &amp; -2 &amp; 1 \\
+       1 &amp; 1 &amp;  1 &amp; 3 \\
+       0 &amp; 2 &amp;  1 &amp; 1 \\
+       1 &amp; 2 &amp;  2 &amp; 2 \end{array}\right]\,.\end{split}\]</div>
+<p>Computer calculations are the following:</p>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="n">sage</span><span class="p">:</span> <span class="n">F</span> <span class="o">=</span> <span class="n">matrix</span><span class="p">(</span><span class="n">QQ</span><span class="p">,[[</span> <span class="mi">1</span><span class="p">,</span> <span class="mi">1</span><span class="p">,</span><span class="o">-</span><span class="mi">1</span><span class="p">,</span><span class="o">-</span><span class="mi">1</span><span class="p">],</span>
+                     <span class="p">[</span> <span class="mi">2</span><span class="p">,</span><span class="o">-</span><span class="mi">1</span><span class="p">,</span> <span class="mi">2</span><span class="p">,</span><span class="o">-</span><span class="mi">1</span><span class="p">],</span>
+                     <span class="p">[</span><span class="o">-</span><span class="mi">1</span><span class="p">,</span> <span class="mi">1</span><span class="p">,</span> <span class="mi">1</span><span class="p">,</span> <span class="mi">0</span><span class="p">],</span>
+                     <span class="p">[</span> <span class="mi">0</span><span class="p">,</span> <span class="mi">1</span><span class="p">,</span> <span class="mi">1</span><span class="p">,</span> <span class="mi">1</span><span class="p">]])</span>
+
+<span class="n">sage</span><span class="p">:</span> <span class="n">G</span> <span class="o">=</span> <span class="n">matrix</span><span class="p">(</span><span class="n">QQ</span><span class="p">,[[</span> <span class="mi">2</span><span class="p">,</span> <span class="mi">0</span><span class="p">,</span><span class="o">-</span><span class="mi">2</span><span class="p">,</span> <span class="mi">1</span><span class="p">],</span>
+                     <span class="p">[</span> <span class="mi">1</span><span class="p">,</span> <span class="mi">1</span><span class="p">,</span> <span class="mi">1</span><span class="p">,</span> <span class="mi">3</span><span class="p">],</span>
+                     <span class="p">[</span> <span class="mi">0</span><span class="p">,</span> <span class="mi">2</span><span class="p">,</span> <span class="mi">1</span><span class="p">,</span> <span class="mi">1</span><span class="p">],</span>
+                     <span class="p">[</span> <span class="mi">1</span><span class="p">,</span> <span class="mi">2</span><span class="p">,</span> <span class="mi">2</span><span class="p">,</span> <span class="mi">2</span><span class="p">]])</span>
+
+<span class="n">sage</span><span class="p">:</span> <span class="n">F</span><span class="o">.</span><span class="n">I</span><span class="o">*</span><span class="n">G</span>
+
+<span class="p">[</span><span class="mi">1</span> <span class="mi">0</span> <span class="mi">0</span> <span class="mi">1</span><span class="p">]</span>
+<span class="p">[</span><span class="mi">1</span> <span class="mi">1</span> <span class="mi">0</span> <span class="mi">1</span><span class="p">]</span>
+<span class="p">[</span><span class="mi">0</span> <span class="mi">1</span> <span class="mi">1</span> <span class="mi">1</span><span class="p">]</span>
+<span class="p">[</span><span class="mi">0</span> <span class="mi">0</span> <span class="mi">1</span> <span class="mi">0</span><span class="p">]</span>
+</pre></div>
+</div>
+<p><strong>Example 1.</strong></p>
+<p>In 4-dimensional space <span class="math notranslate nohighlight">\(\,V(R)\ \)</span> with basis <span class="math notranslate nohighlight">\(\,\mathcal{B}=(v_1,\,v_2,\,v_3,\,v_4),\ \)</span> the vector <span class="math notranslate nohighlight">\(\,v\ \)</span> has coordinates
+<span class="math notranslate nohighlight">\(\ 2,\ -3,\ 0,\ 4.\ \)</span> What are its coordinates in basis <span class="math notranslate nohighlight">\(\,\mathcal{B}'=(v_1',\,v_2',\,v_3',\,v_4'),\ \)</span>
+where</p>
+<div class="math notranslate nohighlight">
+\[v_1'\,=\,-\ v_1\,,\quad v_2'\,=\,2\,v_1-\,v_3\,,\quad v_3'\,=\,v_1+\,v_2-\,v_3-\,2\,v_4\,,\quad
+v_4'\,=\,v_2-\,v_3+\,v_4\quad ?\]</div>
+<p><strong>Solution.</strong> <span class="math notranslate nohighlight">\(\,\)</span>
+The starting point is the Rule 1. which describes transformation of vector coordinates:</p>
+<div class="math notranslate nohighlight">
+\[I_{\mathcal{B}'}(v)\ \ =\ \ \boldsymbol{S}^{-1}\,\cdot\,I_{\mathcal{B}}(v)\,.\]</div>
+<p>The transition matrix <span class="math notranslate nohighlight">\(\,\boldsymbol{S}\ \)</span> may be determined from a relation between vectors from the old and the new basis:</p>
+<div class="math notranslate nohighlight">
+\begin{alignat*}{5}
+v_1' &amp; {\ } = {\ } &amp; -\ v_1 &amp;             &amp;     &amp;             &amp;     &amp;                      \\
+v_2' &amp; {\ } = {\ } &amp; 2\,v_1 &amp;             &amp;     &amp; {\,} - {\;} &amp; v_3 &amp;                      \\
+v_3' &amp; {\ } = {\ } &amp;    v_1 &amp; {\,} + {\;} &amp; v_2 &amp; {\,} - {\;} &amp; v_3 &amp; {\,} - {\;} &amp; 2\,v_4 \\
+v_4' &amp; {\ } = {\ } &amp;        &amp;             &amp; v_2 &amp; {\,} - {\;} &amp; v_3 &amp; {\,} + {\;} &amp;    v_4
+\end{alignat*}</div><p>Namely, by Corollary 1. stated after definition of transition matrix
+(equation <a class="reference internal" href="#equation-s-col">(2)</a>) :</p>
+<div class="math notranslate nohighlight">
+\[\begin{split}\boldsymbol{S}
+\ \ =\ \
+\left[\begin{array}{rrrr} -1 &amp;  2 &amp;  1 &amp;  0 \\
+                           0 &amp;  0 &amp;  1 &amp;  1 \\
+                           0 &amp; -1 &amp; -1 &amp; -1 \\
+                           0 &amp;  0 &amp; -2 &amp;  1 \end{array}\right]\,.\end{split}\]</div>
+<p>For our vector <span class="math notranslate nohighlight">\(v\)</span>:
+<span class="math notranslate nohighlight">\(\quad I_{\mathcal{B}}(v)\ =\ \left[\begin{array}{r} 2 \\ -3 \\ 0 \\ 4 \end{array}\right]\, .\quad\)</span>
+If we denote
+<span class="math notranslate nohighlight">\(\quad I_{\mathcal{B}'}(v)\ =\ \left[\begin{array}{r} a_1' \\ a_2' \\ a_3' \\ a_4' \end{array}\right] ,\quad\)</span>
+then</p>
+<div class="math notranslate nohighlight" id="equation-ex-1">
+<span class="eqno">(10)<a class="headerlink" href="#equation-ex-1" title="Permalink to this equation">¶</a></span>\[\begin{split}\left[\begin{array}{r} a_1' \\ a_2' \\ a_3' \\ a_4' \end{array}\right]\quad=\quad
+\left[\begin{array}{rrrr} -1 &amp;  2 &amp;  1 &amp;  0 \\
+                           0 &amp;  0 &amp;  1 &amp;  1 \\
+                           0 &amp; -1 &amp; -1 &amp; -1 \\
+                           0 &amp;  0 &amp; -2 &amp;  1 \end{array}\right]^{-1}\cdot\quad
+\left[\begin{array}{r} 2 \\ -3 \\ 0 \\ 4 \end{array}\right]\,.\end{split}\]</div>
+<p>Further calculations may be done in two ways. <span class="math notranslate nohighlight">\(\\\)</span></p>
+<p><strong>Method 1.</strong> <span class="math notranslate nohighlight">\(\,\)</span> By direct calculation of an inverse of the matrix <span class="math notranslate nohighlight">\(\,\boldsymbol{S}.\)</span></p>
+<p>Matrix <span class="math notranslate nohighlight">\(\,\boldsymbol{S}^{-1}\ \)</span> may be calculated by hand from the formula</p>
+<div class="math notranslate nohighlight">
+\[(\boldsymbol{S}^{-1})_{ij}\ \,=\ \ \frac{1}{\det\boldsymbol{S}}\ \ S_{ji}\,,\qquad
+i,j=1,2,\dots,n\,,\]</div>
+<p>where <span class="math notranslate nohighlight">\(\,S_{ij}\,\)</span> is an algebraic complement of the element <span class="math notranslate nohighlight">\(\,s_{ij}\,\)</span>
+of the matrix <span class="math notranslate nohighlight">\(\,\boldsymbol{S},\ \\\)</span>
+or by a computer, using functions provided by Sage. <span class="math notranslate nohighlight">\(\\\)</span></p>
+<p>In the second case, after computation of the matrix <span class="math notranslate nohighlight">\(\,\boldsymbol{S}^{-1}\ \)</span>
+we can perform matrix multipliction on the right hand side of the equation <a class="reference internal" href="#equation-ex-1">(10)</a> straight away. The result is a column of coordinates of the vector <span class="math notranslate nohighlight">\(\,v\,\)</span>
+in basis <span class="math notranslate nohighlight">\(\,\mathcal{B}'.\)</span></p>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="n">sage</span><span class="p">:</span> <span class="n">S</span> <span class="o">=</span> <span class="n">matrix</span><span class="p">(</span><span class="n">QQ</span><span class="p">,[[</span><span class="o">-</span><span class="mi">1</span><span class="p">,</span> <span class="mi">2</span><span class="p">,</span> <span class="mi">1</span><span class="p">,</span> <span class="mi">0</span><span class="p">],</span>
+                     <span class="p">[</span> <span class="mi">0</span><span class="p">,</span> <span class="mi">0</span><span class="p">,</span> <span class="mi">1</span><span class="p">,</span> <span class="mi">1</span><span class="p">],</span>
+                     <span class="p">[</span> <span class="mi">0</span><span class="p">,</span><span class="o">-</span><span class="mi">1</span><span class="p">,</span><span class="o">-</span><span class="mi">1</span><span class="p">,</span><span class="o">-</span><span class="mi">1</span><span class="p">],</span>
+                     <span class="p">[</span> <span class="mi">0</span><span class="p">,</span> <span class="mi">0</span><span class="p">,</span><span class="o">-</span><span class="mi">2</span><span class="p">,</span> <span class="mi">1</span><span class="p">]])</span>
+
+<span class="c1"># Inverse of the matrix S:</span>
+<span class="n">sage</span><span class="p">:</span> <span class="n">S_1</span> <span class="o">=</span> <span class="n">S</span><span class="o">.</span><span class="n">I</span>
+
+<span class="c1"># Column of coordinates of the vector v in basis B:</span>
+<span class="n">sage</span><span class="p">:</span> <span class="n">I_B</span> <span class="o">=</span> <span class="n">vector</span><span class="p">(</span><span class="n">QQ</span><span class="p">,[</span><span class="mi">2</span><span class="p">,</span><span class="o">-</span><span class="mi">3</span><span class="p">,</span><span class="mi">0</span><span class="p">,</span><span class="mi">4</span><span class="p">])</span><span class="o">.</span><span class="n">column</span><span class="p">()</span>
+
+<span class="n">sage</span><span class="p">:</span> <span class="n">table</span><span class="p">([[</span><span class="n">S_1</span><span class="p">,</span><span class="s1">&#39;*&#39;</span><span class="p">,</span><span class="n">I_B</span><span class="p">,</span><span class="s1">&#39;=&#39;</span><span class="p">,</span><span class="n">S_1</span><span class="o">*</span><span class="n">I_B</span><span class="p">]])</span>
+</pre></div>
+</div>
+<div class="math notranslate nohighlight" id="equation-calc-comp">
+<span class="eqno">(11)<a class="headerlink" href="#equation-calc-comp" title="Permalink to this equation">¶</a></span>\[\begin{split}\textstyle
+\left(\begin{array}{rrrr}
+-1 &amp; -\frac{5}{3} &amp; -2 &amp; -\frac{1}{3} \\
+ 0 &amp; -1           &amp; -1 &amp; 0            \\
+ 0 &amp; \frac{1}{3}  &amp;  0 &amp; -\frac{1}{3} \\
+ 0 &amp; \frac{2}{3}  &amp;  0 &amp; \frac{1}{3}
+\end{array}\right)
+\quad\ast\quad
+\left(\begin{array}{r} 2 \\ -3 \\ 0 \\ 4 \end{array}\right)
+\quad=\quad
+\left(\begin{array}{r} \frac{5}{3} \\ 3 \\ -\frac{7}{3} \\ -\frac{2}{3} \end{array}\right)\end{split}\]</div>
+<p>For clear presentation of vectors and numerical elements of the matrix, the calculations have been done in a field <span class="math notranslate nohighlight">\(\,Q\,\)</span> of rational numbers.</p>
+<p><strong>Answer.</strong> <span class="math notranslate nohighlight">\(\,\)</span>
+The coordinates of the vector <span class="math notranslate nohighlight">\(\,v\ \)</span> in basis <span class="math notranslate nohighlight">\(\,\mathcal{B}'\ \)</span> are:
+<span class="math notranslate nohighlight">\(\textstyle\quad\frac{5}{3}\,,\ \ \ 3\,,\ \ -\ \frac{7}{3}\,,\ \ -\ \frac{2}{3}\,. \\\)</span></p>
+<p><strong>Method 2.</strong> <span class="math notranslate nohighlight">\(\,\)</span>
+Instead of direct computation of the matrix <span class="math notranslate nohighlight">\(\,\boldsymbol{S}^{-1},\ \)</span> we may invert the relations</p>
+<div class="math notranslate nohighlight">
+\begin{alignat*}{6}
+v_1' &amp; {\ } = {\ } &amp; Tv_1 &amp; {\ \,} = {\ \,} &amp; -\ v_1 &amp;             &amp;     &amp;             &amp;     &amp;                      \\
+v_2' &amp; {\ } = {\ } &amp; Tv_2 &amp; {\ \,} = {\ \,} &amp; 2\ v_1 &amp;             &amp;     &amp; {\,} - {\;} &amp; v_3 &amp;                      \\
+v_3' &amp; {\ } = {\ } &amp; Tv_3 &amp; {\ \,} = {\ \,} &amp;    v_1 &amp; {\,} + {\;} &amp; v_2 &amp; {\,} - {\;} &amp; v_3 &amp; {\,} - {\;} &amp; 2\ v_4 \\
+v_4' &amp; {\ } = {\ } &amp; Tv_4 &amp; {\ \,} = {\ \,} &amp;        &amp;             &amp; v_2 &amp; {\,} - {\;} &amp; v_3 &amp; {\,} + {\;} &amp;    v_4
+\end{alignat*}</div><p>After simple elementary calculations we obtain the formulae</p>
+<div class="math notranslate nohighlight">
+\begin{alignat*}{6}
+v_1 &amp; {\ } = {\ } &amp; T^{-1}\,v_1' &amp; {\ \,} = {\ \,} &amp; -\ v_1'                        &amp;             &amp;      &amp;             &amp;                             &amp;                                           \\
+v_2 &amp; {\ } = {\ } &amp; T^{-1}\,v_2' &amp; {\ \,} = {\ \,} &amp; -\ \textstyle\frac{5}{3}\ v_1' &amp; {\,} - {\;} &amp; v_2' &amp; {\,} + {\;} &amp; \textstyle\frac{1}{3}\ v_3' &amp; {\,} + {\;} &amp; \textstyle\frac{2}{3}\ v_4' \\
+v_3 &amp; {\ } = {\ } &amp; T^{-1}\,v_3' &amp; {\ \,} = {\ \,} &amp; -\ 2\ v_1'                     &amp; {\,} - {\;} &amp; v_2' &amp;             &amp;                             &amp;                                           \\
+v_4 &amp; {\ } = {\ } &amp; T^{-1}\,v_4' &amp; {\ \,} = {\ \,} &amp; -\ \textstyle\frac{1}{3}\ v_1' &amp;             &amp;      &amp; {\,} - {\;} &amp; \textstyle\frac{1}{3}\ v_3' &amp; {\,} + {\;} &amp; \textstyle\frac{1}{3}\ v_4'
+\end{alignat*}</div><p>which allow us to write down a matrix of the automorphism <span class="math notranslate nohighlight">\(\,T^{-1}\ \)</span>
+in basis <span class="math notranslate nohighlight">\(\,\mathcal{B}':\)</span></p>
+<div class="math notranslate nohighlight" id="equation-mb-prim-t-1">
+<span class="eqno">(12)<a class="headerlink" href="#equation-mb-prim-t-1" title="Permalink to this equation">¶</a></span>\[\begin{split}M_{\mathcal{B}'}(T^{-1})\ \ =\ \ \textstyle
+\left[\begin{array}{rrrr}
+      -1 &amp; -\frac{5}{3} &amp; -2 &amp; -\frac{1}{3} \\
+       0 &amp; -1           &amp; -1 &amp;   0          \\
+       0 &amp;  \frac{1}{3} &amp;  0 &amp; -\frac{1}{3} \\
+       0 &amp;  \frac{2}{3} &amp;  0 &amp;  \frac{1}{3}
+      \end{array}\right]\,.\end{split}\]</div>
+<p>We are rather interested in matrix <span class="math notranslate nohighlight">\(\ \boldsymbol{S}^{-1}=[\,M_{\mathcal{B}}(T)\,]^{-1},\ \,\)</span>
+but according to the Rule 2.:</p>
+<div class="math notranslate nohighlight">
+\[M_{\mathcal{B}'}(T^{-1})\ \,=\ \,
+\boldsymbol{S}^{-1}\cdot M_{\mathcal{B}}(T^{-1})\cdot\boldsymbol{S}\ \,=\ \,
+\boldsymbol{S}^{-1}\cdot [\,M_{\mathcal{B}}(T)\,]^{-1}\cdot\boldsymbol{S}\ \,=\ \,
+\boldsymbol{S}^{-1}\cdot\boldsymbol{S}^{-1}\cdot\boldsymbol{S}\ \,=\ \,\boldsymbol{S}^{-1}\,.\]</div>
+<p>The equation <a class="reference internal" href="#equation-mb-prim-t-1">(12)</a> gives us then the matrix <span class="math notranslate nohighlight">\(\ \boldsymbol{S}^{-1},\ \)</span>
+which further leads to the result <a class="reference internal" href="#equation-calc-comp">(11)</a>.</p>
+<p><strong>Variant of a solution.</strong> <span class="math notranslate nohighlight">\(\,\)</span></p>
+<p>The relation <a class="reference internal" href="#equation-trans-coord">(4)</a> between coordinates of a vector in the new and the old basis,
+written in a form</p>
+<div class="math notranslate nohighlight">
+\[\begin{split}\boldsymbol{S}\cdot I_{\mathcal{B}'}(v)\ =\  I_{\mathcal{B}}(v)
+\qquad\text{that is}\qquad
+\left[\begin{array}{rrrr} -1 &amp;  2 &amp;  1 &amp;  0 \\
+                           0 &amp;  0 &amp;  1 &amp;  1 \\
+                           0 &amp; -1 &amp; -1 &amp; -1 \\
+                           0 &amp;  0 &amp; -2 &amp;  1 \end{array}\right]
+\left[\begin{array}{r} a_1' \\ a_2' \\ a_3' \\ a_4' \end{array}\right]\ =\
+\left[\begin{array}{r} 2 \\ -3 \\ 0 \\ 4 \end{array}\right]\end{split}\]</div>
+<p>gives Cramer system of equations</p>
+<div class="math notranslate nohighlight">
+\begin{alignat*}{5}
+-\ a_1' &amp; {\,} + {\,} &amp; 2\,a_2' &amp; {\,} + {\,} &amp;    a_3' &amp;             &amp;      &amp; {\;} = {} &amp;  2 \\
+        &amp;             &amp;         &amp;             &amp;    a_3' &amp; {\,} + {\,} &amp; a_4' &amp; {\;} = {} &amp; -3 \\
+        &amp; {\,} - {\,} &amp;    a_2' &amp; {\,} - {\,} &amp;    a_3' &amp; {\,} - {\,} &amp; a_4' &amp; {\;} = {} &amp;  0 \\
+        &amp;             &amp;         &amp; {\,} - {\,} &amp; 2\,a_3' &amp; {\,} + {\,} &amp; a_4' &amp; {\;} = {} &amp;  4
+\end{alignat*}</div><p>which may be solved by hand or by computer, using functions provided by Sage:</p>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="n">sage</span><span class="p">:</span> <span class="n">S</span> <span class="o">=</span> <span class="n">matrix</span><span class="p">(</span><span class="n">QQ</span><span class="p">,[[</span><span class="o">-</span><span class="mi">1</span><span class="p">,</span> <span class="mi">2</span><span class="p">,</span> <span class="mi">1</span><span class="p">,</span> <span class="mi">0</span><span class="p">],</span>
+                     <span class="p">[</span> <span class="mi">0</span><span class="p">,</span> <span class="mi">0</span><span class="p">,</span> <span class="mi">1</span><span class="p">,</span> <span class="mi">1</span><span class="p">],</span>
+                     <span class="p">[</span> <span class="mi">0</span><span class="p">,</span><span class="o">-</span><span class="mi">1</span><span class="p">,</span><span class="o">-</span><span class="mi">1</span><span class="p">,</span><span class="o">-</span><span class="mi">1</span><span class="p">],</span>
+                     <span class="p">[</span> <span class="mi">0</span><span class="p">,</span> <span class="mi">0</span><span class="p">,</span><span class="o">-</span><span class="mi">2</span><span class="p">,</span> <span class="mi">1</span><span class="p">]])</span>
+
+<span class="n">sage</span><span class="p">:</span> <span class="n">I_B</span> <span class="o">=</span> <span class="n">vector</span><span class="p">(</span><span class="n">QQ</span><span class="p">,[</span><span class="mi">2</span><span class="p">,</span><span class="o">-</span><span class="mi">3</span><span class="p">,</span><span class="mi">0</span><span class="p">,</span><span class="mi">4</span><span class="p">])</span> <span class="c1"># vector of constants</span>
+
+<span class="n">sage</span><span class="p">:</span> <span class="n">S</span> \ <span class="n">I_B</span>
+
+<span class="p">(</span><span class="mi">5</span><span class="o">/</span><span class="mi">3</span><span class="p">,</span> <span class="mi">3</span><span class="p">,</span> <span class="o">-</span><span class="mi">7</span><span class="o">/</span><span class="mi">3</span><span class="p">,</span> <span class="o">-</span><span class="mi">2</span><span class="o">/</span><span class="mi">3</span><span class="p">)</span>
+</pre></div>
+</div>
+<p><span class="math notranslate nohighlight">\(\;\)</span></p>
+<p><strong>Example 2.</strong></p>
+<p>In basis <span class="math notranslate nohighlight">\(\,\mathcal{B}=(v_1,\,v_2,\,v_3)\ \)</span> of the vector space
+<span class="math notranslate nohighlight">\(\,V(R)\ \)</span> an operator <span class="math notranslate nohighlight">\(\,F\in\text{End}(V)\ \)</span> has a matrix</p>
+<div class="math notranslate nohighlight">
+\[\begin{split}\boldsymbol{F}\ =\
+\left[\begin{array}{rrr}
+      3 &amp; -2 &amp; -1 \\
+      2 &amp;  1 &amp; -3 \\
+      1 &amp;  3 &amp;  2 \end{array}\right]\,.\end{split}\]</div>
+<p>Find a matrix <span class="math notranslate nohighlight">\(\,\boldsymbol{F}'\ \)</span> of this operator in basis
+<span class="math notranslate nohighlight">\(\,\mathcal{B}'=(v_1',\,v_2',\,v_3'):\,=(v_3,\,v_2,\,v_1).\)</span></p>
+<p><strong>Solution.</strong></p>
+<p><strong>Method 1.</strong> (direct) <span class="math notranslate nohighlight">\(\,\)</span></p>
+<p>By definition of matrices <span class="math notranslate nohighlight">\(\,\boldsymbol{F}=[\,f_{ij}\,]_{3\times 3}\ \)</span> and
+<span class="math notranslate nohighlight">\(\,\boldsymbol{F}'=[\,f_{ij}'\,]_{3\times 3}\ \)</span> of the operator <span class="math notranslate nohighlight">\(\,F\ \)</span>
+in bases <span class="math notranslate nohighlight">\(\,\mathcal{B}\ \)</span> and <span class="math notranslate nohighlight">\(\,\mathcal{B}':\)</span></p>
+<div class="math notranslate nohighlight">
+\[Fv_j\,=\ f_{1j}\,v_1+\,f_{2j}\,v_2+\,f_{3j}\,v_3\,,
+\qquad
+Fv_j'\,=\ f_{1j}'\,v_1'+\,f_{2j}'\,v_2'+\,f_{3j}'\,v_3'\,,
+\qquad j=1,2,3,\]</div>
+<p>and by relations <span class="math notranslate nohighlight">\(\, v_1'=v_3,\, v_2'=v_2,\, v_3'=v_1,\)</span></p>
+<div class="math notranslate nohighlight">
+\[\begin{split}\begin{array}{l}
+Fv_1\,=\quad 3\,v_1+\,2\,v_2+\,1\,v_3 \\
+Fv_2\,=\  -2\,v_1+\,1\,v_2+\,3\,v_3 \\
+Fv_3\,=\  -1\,v_1-\,3\,v_2+\,2\,v_3\,,
+\end{array}
+\qquad\qquad
+\begin{array}{l}
+Fv_1'\,=\ 2\,v_1'-\,3\,v_2'-\,1\,v_3' \\
+Fv_2'\,=\ 3\,v_1'+\,1\,v_2'-\,2\,v_3' \\
+Fv_3'\,=\ 1\,v_1'+\,2\,v_2'+\,3\,v_3'\,.
+\end{array}\end{split}\]</div>
+<p>The second system of equations provides:</p>
+<div class="math notranslate nohighlight">
+\[\begin{split}\boldsymbol{F}'\ =\
+\left[\begin{array}{rrr}
+       2 &amp;  3 &amp; 1 \\
+      -3 &amp;  1 &amp; 2 \\
+      -1 &amp; -2 &amp; 3 \end{array}\right]\,.\end{split}\]</div>
+<p><strong>Method 2.</strong> (standard)</p>
+<p>We use the Rule 2. describing transformation of a matrix of a linear operator (formula <a class="reference internal" href="#equation-f-prim">(5)</a>):</p>
+<div class="math notranslate nohighlight" id="equation-f-prim-bis">
+<span class="eqno">(13)<a class="headerlink" href="#equation-f-prim-bis" title="Permalink to this equation">¶</a></span>\[\boldsymbol{F}'\ =\ \boldsymbol{S}^{-1}\,\boldsymbol{F}\ \boldsymbol{S}\,,\]</div>
+<p>where <span class="math notranslate nohighlight">\(\,\boldsymbol{S}\ \)</span> is a transition matrix
+from basis <span class="math notranslate nohighlight">\(\,\mathcal{B}=(v_1,\,v_2,\,v_3)\ \)</span>
+to <span class="math notranslate nohighlight">\(\,\mathcal{B}'=(v_3,\,v_2,\,v_1).\)</span></p>
+<p>Relations between vectors from the new and the old basis</p>
+<div class="math notranslate nohighlight">
+\[\begin{split}\begin{array}{l}
+v_1'\,=\ 0\,v_1+\,0\,v_2+\,1\,v_3 \\
+v_2'\,=\ 0\,v_1+\,1\,v_2+\,0\,v_3 \\
+v_3'\,=\ 1\,v_1+\,0\,v_2+\,0\,v_3
+\end{array}
+\qquad\text{lead to}\qquad
+\boldsymbol{S}\ =\
+\left[\begin{array}{ccc} 0 &amp; 0 &amp; 1 \\
+                         0 &amp; 1 &amp; 0 \\
+                         1 &amp; 0 &amp; 0 \end{array}\right]\,.\end{split}\]</div>
+<p>Instead of direct computation of the matrix <span class="math notranslate nohighlight">\(\,\boldsymbol{S}^{-1}\ \)</span>
+note that the transition automorphism <span class="math notranslate nohighlight">\(\,T,\ \)</span> which maps
+vectors from basis <span class="math notranslate nohighlight">\(\,\mathcal{B}\ \)</span> to the corresponding vectors from the basis
+<span class="math notranslate nohighlight">\(\,\mathcal{B}':\ \ Tv_i=v_i',\ \ i=1,2,3,\ \ \)</span>
+satisfies a condition <span class="math notranslate nohighlight">\(\,T^2=I,\ \)</span> where <span class="math notranslate nohighlight">\(\,I\ \)</span> is an identity mapping:</p>
+<div class="math notranslate nohighlight">
+\[\begin{split}\begin{array}{l} Tv_1=v_3 \\ Tv_2=v_2 \\ Tv_3=v_1 \end{array}
+\qquad\Rightarrow\qquad
+\begin{array}{l}
+T^2\,v_1=\,Tv_3=\,v_1=\,I\,v_1 \\ T^2\,v_2=\,Tv_2=\,v_2=\,I\,v_2 \\ T^2\,v_3=\,Tv_1=\,v_3=\,I\,v_3
+\end{array}\end{split}\]</div>
+<p>By multiplicativity of matrix representation of linear operators, it follows taht the analogous property has transition matrix: <span class="math notranslate nohighlight">\(\ \boldsymbol{S}^2\ =\ \boldsymbol{I}_3,\ \,\)</span> and thus <span class="math notranslate nohighlight">\(\ \boldsymbol{S}^{-1}=\,\boldsymbol{S}.\)</span></p>
+<p>We substitute these matrices to the formula <a class="reference internal" href="#equation-f-prim-bis">(13)</a>. <span class="math notranslate nohighlight">\(\\\)</span></p>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="n">sage</span><span class="p">:</span> <span class="n">F</span> <span class="o">=</span> <span class="n">matrix</span><span class="p">(</span><span class="n">QQ</span><span class="p">,[[</span><span class="mi">3</span><span class="p">,</span> <span class="o">-</span><span class="mi">2</span><span class="p">,</span> <span class="o">-</span><span class="mi">1</span><span class="p">],</span>
+                     <span class="p">[</span><span class="mi">2</span><span class="p">,</span>  <span class="mi">1</span><span class="p">,</span> <span class="o">-</span><span class="mi">3</span><span class="p">],</span>
+                     <span class="p">[</span><span class="mi">1</span><span class="p">,</span>  <span class="mi">3</span><span class="p">,</span>  <span class="mi">2</span><span class="p">]])</span>
+
+<span class="n">sage</span><span class="p">:</span> <span class="n">S</span> <span class="o">=</span> <span class="n">matrix</span><span class="p">(</span><span class="n">QQ</span><span class="p">,[[</span><span class="mi">0</span><span class="p">,</span>  <span class="mi">0</span><span class="p">,</span>  <span class="mi">1</span><span class="p">],</span>
+                     <span class="p">[</span><span class="mi">0</span><span class="p">,</span>  <span class="mi">1</span><span class="p">,</span>  <span class="mi">0</span><span class="p">],</span>
+                     <span class="p">[</span><span class="mi">1</span><span class="p">,</span>  <span class="mi">0</span><span class="p">,</span>  <span class="mi">0</span><span class="p">]])</span>
+
+<span class="n">sage</span><span class="p">:</span> <span class="n">F_1</span> <span class="o">=</span> <span class="n">S</span><span class="o">*</span><span class="n">F</span><span class="o">*</span><span class="n">S</span>
+
+<span class="n">sage</span><span class="p">:</span> <span class="n">table</span><span class="p">([[</span><span class="n">S</span><span class="p">,</span> <span class="s1">&#39;*&#39;</span><span class="p">,</span> <span class="n">F</span><span class="p">,</span> <span class="s1">&#39;*&#39;</span><span class="p">,</span> <span class="n">S</span><span class="p">,</span> <span class="s1">&#39;=&#39;</span><span class="p">,</span> <span class="n">F_1</span><span class="p">]])</span>
+</pre></div>
+</div>
+<div class="math notranslate nohighlight">
+\[\begin{split}\left(\begin{array}{ccc} 0 &amp; 0 &amp; 1 \\
+                         0 &amp; 1 &amp; 0 \\
+                         1 &amp; 0 &amp; 0 \end{array}\right)
+\ \ast\
+\left(\begin{array}{rrr} 3 &amp; -2 &amp; -1 \\
+                         2 &amp;  1 &amp; -3 \\
+                         1 &amp;  3 &amp;  2 \end{array}\right)
+\ \ast\
+\left(\begin{array}{ccc} 0 &amp; 0 &amp; 1 \\
+                         0 &amp; 1 &amp; 0 \\
+                         1 &amp; 0 &amp; 0 \end{array}\right)
+\ =\
+\left(\begin{array}{rrr}
+       2 &amp;  3 &amp; 1 \\
+      -3 &amp;  1 &amp; 2 \\
+      -1 &amp; -2 &amp; 3 \end{array}\right)\,.\end{split}\]</div>
+<p><span class="math notranslate nohighlight">\(\\\)</span></p>
+</section>
+</section>
+
+
+          </div>
+        </div>
+      </div>
+      <div class="sphinxsidebar" role="navigation" aria-label="main navigation">
+        <div class="sphinxsidebarwrapper">
+  <div class="sphinxlocaltoc">
+  <h3><a href="index.html">Table Of Contents</a></h3>
+  <ul>
+<li><a class="reference internal" href="#">Change of Basis</a><ul>
+<li><a class="reference internal" href="#change-of-basis-matrix">Change-of-Basis Matrix</a></li>
+<li><a class="reference internal" href="#change-of-basis-transformation-formulae">Change-of-Basis Transformation Formulae</a></li>
+<li><a class="reference internal" href="#examples">Examples</a></li>
+</ul>
+</li>
+</ul>
+
+  </div>
+  <h4>Previous topic</h4>
+  <p class="topless"><a href="przeksztalcenia_lin_operatory.html"
+                        title="previous chapter">Linear Operators</a></p>
+  <h4>Next topic</h4>
+  <p class="topless"><a href="linear_transformations_graphics.html"
+                        title="next chapter">Application to Computer Graphics</a></p>
+  <div role="note" aria-label="source link">
+    <h3>This Page</h3>
+    <ul class="this-page-menu">
+      <li><a href="_sources/przeksztalcenia_lin_zmiana_bazy.rst.txt"
+            rel="nofollow">Show Source</a></li>
+    </ul>
+   </div>
+<div id="searchbox" style="display: none" role="search">
+  <h3 id="searchlabel">Quick search</h3>
+    <div class="searchformwrapper">
+    <form class="search" action="search.html" method="get">
+      <input type="text" name="q" aria-labelledby="searchlabel" />
+      <input type="submit" value="Go" />
+    </form>
+    </div>
+</div>
+<script>$('#searchbox').show(0);</script>
+        </div>
+      </div>
+      <div class="clearer"></div>
+    </div>
+  </div>
+  <div class="relbar-bottom">
+    
+    <div class="related" role="navigation" aria-label="related navigation">
+      <h3>Navigation</h3>
+      <ul>
+        <li class="right" style="margin-right: 10px">
+          <a href="genindex.html" title="General Index"
+             >index</a></li>
+        <li class="right" >
+          <a href="linear_transformations_graphics.html" title="Application to Computer Graphics"
+             >next</a> &nbsp; &nbsp;</li>
+        <li class="right" >
+          <a href="przeksztalcenia_lin_operatory.html" title="Linear Operators"
+             >previous</a> &nbsp; &nbsp;</li>
+  <li><a href="index.html">Linear Algebra</a> &#187;</li>
+  
+        <li class="nav-item nav-item-this"><a href="">Change of Basis</a></li> 
+      </ul>
+    </div>
+  </div>
+  
+  <div class="footer">
+    <a class="logo" href="http://icse.us.edu.pl/" target="_blank"><img src="_static/logo-icse.png" alt="ICSE"/></a><br/>
+    &copy; Copyright 2018, Jan Aksamit, Joanna Marzec, and  Marcin Kostur.
+    Last updated on Jan 29, 2022.
+    Created using <a href="http://sphinx.pocoo.org/">Sphinx</a> 4.0.1.
+  </div>
+  </body>
+</html>

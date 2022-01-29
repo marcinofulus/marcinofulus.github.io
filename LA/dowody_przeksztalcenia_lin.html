@@ -1,0 +1,299 @@
+
+
+  
+<!DOCTYPE html>
+
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" /><meta name="generator" content="Docutils 0.17: http://docutils.sourceforge.net/" />
+
+    <title>Linear Transformations &#8212; Linear Algebra</title>
+    <link rel="stylesheet" type="text/css" href="_static/pygments.css" />
+    <link rel="stylesheet" type="text/css" href="_static/cloud.css" />
+    <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Noticia+Text|Open+Sans|Droid+Sans+Mono&amp;subset=latin,latin-ext" type="text/css" />
+    <script data-url_root="./" id="documentation_options" src="_static/documentation_options.js"></script>
+    <script src="_static/jquery.js"></script>
+    <script src="_static/underscore.js"></script>
+    <script src="_static/doctools.js"></script>
+    <script async="async" src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js"></script>
+    <script src="_static/jquery.cookie.js"></script>
+    <script src="_static/cloud.js"></script>
+    <script type="text/javascript" src="http://sagecell.sagemath.org/static/jquery.min.js"></script>
+    <script type="text/javascript" src="http://sagecell.sagemath.org/embedded_sagecell.js"></script>
+    <script type="text/javascript">
+        sagecell.makeSagecell({inputLocation: ".sage_linked",
+                               linked: true});
+        sagecell.makeSagecell({inputLocation: ".sage_unlinked",
+                               linked: false});
+    </script>
+
+    <style type="text/css">
+        .sagecell .CodeMirror-scroll {
+            overflow-y: hidden;
+            overflow-x: auto;
+        }
+        .sagecell .CodeMirror {
+            height: auto;
+        }
+    </style>
+    
+    <link rel="index" title="Index" href="genindex.html" />
+    <link rel="search" title="Search" href="search.html" />
+    <link rel="next" title="Eigenvalues and Eigenvectors" href="dowody_problem_wlasny.html" />
+    <link rel="prev" title="Operations upon Matrices" href="dowody_operacje_na_macierzach.html" />
+ 
+  <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, minimum-scale=1">
+  </head><body>
+  <div class="relbar-top">
+    
+    <div class="related" role="navigation" aria-label="related navigation">
+      <h3>Navigation</h3>
+      <ul>
+        <li class="right" style="margin-right: 10px">
+          <a href="genindex.html" title="General Index"
+             accesskey="I">index</a></li>
+        <li class="right" >
+          <a href="dowody_problem_wlasny.html" title="Eigenvalues and Eigenvectors"
+             accesskey="N">next</a> &nbsp; &nbsp;</li>
+        <li class="right" >
+          <a href="dowody_operacje_na_macierzach.html" title="Operations upon Matrices"
+             accesskey="P">previous</a> &nbsp; &nbsp;</li>
+  <li><a href="index.html">Linear Algebra</a> &#187;</li>
+  
+        <li class="nav-item nav-item-this"><a href="">Linear Transformations</a></li> 
+      </ul>
+    </div>
+  </div>
+  
+  <div class="content">  
+
+    <div class="document">
+      <div class="documentwrapper">
+        <div class="bodywrapper">
+          <div class="body">
+            
+  <section id="linear-transformations">
+<h1>Linear Transformations<a class="headerlink" href="#linear-transformations" title="Permalink to this headline">¶</a></h1>
+<div class="admonition-theorem-1-math admonition">
+<p class="admonition-title">Theorem 1. <span class="math notranslate nohighlight">\(\\\)</span></p>
+<p>Let <span class="math notranslate nohighlight">\(\,V\ \)</span> and <span class="math notranslate nohighlight">\(\,W\ \)</span> be vector spaces over a field
+<span class="math notranslate nohighlight">\(\,K,\ \ F\in\text{Hom}(V,W).\)</span> <span class="math notranslate nohighlight">\(\\\)</span>
+The transformation <span class="math notranslate nohighlight">\(\,F\ \)</span> is an injective mapping if and only if</p>
+<div class="math notranslate nohighlight">
+\[\text{Ker}\,F\,=\,\{\,\theta_V\}\,,\qquad\text{that is}\qquad\text{def}\,F = 0\,.\]</div>
+</div>
+<p><strong>Proof and discussion.</strong></p>
+<p>A tranformation <span class="math notranslate nohighlight">\(\;F\;\)</span> is injective <span class="math notranslate nohighlight">\(\,\)</span>
+if distinct arguments are mapped to distinct images:</p>
+<div class="math notranslate nohighlight">
+\[v_1\neq v_2\qquad\Rightarrow\qquad F(v_1)\neq F(v_2)\,,\qquad v_1,v_2\in V\,.\]</div>
+<a class="reference internal image-reference" href="_images/Rys_7.png"><img alt="_images/Rys_7.png" class="align-center" src="_images/Rys_7.png" style="width: 207.2px; height: 265.3px;" /></a>
+<p>Image of the space <span class="math notranslate nohighlight">\(\;V\;\)</span> under the transformation <span class="math notranslate nohighlight">\(\;F\;\)</span> may be
+(as in the diagram above) a proper subset of the space
+<span class="math notranslate nohighlight">\(\;W:\ \ \text{Im}\,F\equiv F(V)\subsetneq W\,,\ \)</span>
+but each element <span class="math notranslate nohighlight">\(\;w\in\text{Im}\,F\ \)</span> corresponds to exactly
+one element <span class="math notranslate nohighlight">\(\;v\in V,\ \)</span> the one whose image is <span class="math notranslate nohighlight">\(\;w.\)</span></p>
+<p>Kernel of the transformation <span class="math notranslate nohighlight">\(\;F\in\text{Hom}(V,W)\ \)</span> is by definition a set of those vectors of the space <span class="math notranslate nohighlight">\(\;V,\ \)</span> whose image is the zero vector of the space <span class="math notranslate nohighlight">\(\;W,\ \)</span> and the defect of <span class="math notranslate nohighlight">\(\;F\ \)</span> is equal to dimension of the kernel:</p>
+<div class="math notranslate nohighlight">
+\[\text{Ker}\,F\,=\,\{\,v\in V:\ F(v)=\theta_W\}\,,\qquad\text{def}\,F\,=\,\dim\,\text{Ker}\,F\,.\]</div>
+<p><span class="math notranslate nohighlight">\(\;\Rightarrow\,:\ \)</span> Assume that <span class="math notranslate nohighlight">\(\;F\ \)</span> is injective.
+Then the zero vector <span class="math notranslate nohighlight">\(\;\theta_W\ \)</span> of the space <span class="math notranslate nohighlight">\(\;W\ \)</span>
+is an image only of the zero wector <span class="math notranslate nohighlight">\(\;\theta_V,\ \)</span> which means
+that <span class="math notranslate nohighlight">\(\ \,\text{Ker}\,F=\{\,\theta_V\}\ \)</span> and <span class="math notranslate nohighlight">\(\ \text{def}\,F=0\,.\)</span></p>
+<p><span class="math notranslate nohighlight">\(\;\Leftarrow\,:\ \)</span> Assume that <span class="math notranslate nohighlight">\(\;F\ \)</span> is not injective. <span class="math notranslate nohighlight">\(\\\)</span>
+Then there are two disctinct vectors <span class="math notranslate nohighlight">\(\;v_1\ \,\)</span> and <span class="math notranslate nohighlight">\(\ v_2,\ \)</span>
+which under the transformation <span class="math notranslate nohighlight">\(\;F\ \)</span> have the same image:</p>
+<div class="math notranslate nohighlight">
+\[ \begin{align}\begin{aligned}v_1\neq v_2\quad\land\quad F(v_1)\,=\,F(v_2)\,,\\\qquad\text{that is}\qquad
+v_1-v_2\neq\theta_V\quad\land\quad F(v_1)-F(v_2)=F(v_1-v_2)=\theta_W.\;\end{aligned}\end{align} \]</div>
+<p>Hence, <span class="math notranslate nohighlight">\(\ \,\theta_V\neq v_1-v_2\in\text{Ker}\,F,\ \,\)</span>
+and thus <span class="math notranslate nohighlight">\(\ \,\text{Ker}\,F\neq\{\,\theta_V\}\ \)</span> and <span class="math notranslate nohighlight">\(\ \text{def}\,F\neq 0\,.\)</span></p>
+<p>By contraposition we deduce that if <span class="math notranslate nohighlight">\(\ \text{def}\,F=0,\ \)</span>
+then <span class="math notranslate nohighlight">\(\ F\ \)</span> is injective.</p>
+<div class="admonition-theorem-2 admonition">
+<p class="admonition-title">Theorem 2.</p>
+<p>Tranformation <span class="math notranslate nohighlight">\(\,F\in\text{Hom}(V,W)\,\)</span> preserves linear
+independence of any set of vectors of the space <span class="math notranslate nohighlight">\(\,V\,\)</span> if
+and only if it is injective</p>
+</div>
+<p><strong>Proof</strong> bases on the <span class="math notranslate nohighlight">\(\,\)</span> (previous) <span class="math notranslate nohighlight">\(\,\)</span> theorem, which states that injectivity of the transformation <span class="math notranslate nohighlight">\(\ F\ \)</span> is equivalent to vanishing of the defect</p>
+<p><span class="math notranslate nohighlight">\(\;\Rightarrow\,:\ \)</span> Assume that <span class="math notranslate nohighlight">\(\;F\ \)</span> is not injective.</p>
+<p>Then <span class="math notranslate nohighlight">\(\ \text{def}\,F=\dim\,\text{Ker}\,F=k&gt;0.\ \)</span>
+Let <span class="math notranslate nohighlight">\(\,\mathcal{U}=(\,u_1,\,u_2,\,\dots,\,u_k)\ \)</span> be a basis of <span class="math notranslate nohighlight">\(\,\text{Ker}\,F.\ \)</span>
+The set <span class="math notranslate nohighlight">\(\,\mathcal{U}\ \)</span> is linearly independent, but its image under the transformation <span class="math notranslate nohighlight">\(\,F:\)</span></p>
+<div class="math notranslate nohighlight">
+\[F(\mathcal{U})\,=\,(\,Fu_1,\,Fu_2,\,\dots,\,Fu_k\,)\,=\,
+                 (\,\theta_W,\,\theta_W,\,\dots,\,\theta_W)\]</div>
+<p>is, of course, linearly dependent (actually, it is maximally linearly dependent).</p>
+<p>Hence, if <span class="math notranslate nohighlight">\(\,F\ \)</span> is not injective, then there are sets of vectors whose linear independence is not preserved under the transformation  <span class="math notranslate nohighlight">\(\,F.\,\)</span>
+On the other hand, if the transformation <span class="math notranslate nohighlight">\(\,F\,\)</span> preserves linear independence of any set of vectors, then it is injective.</p>
+<p><span class="math notranslate nohighlight">\(\;\Leftarrow\,:\ \)</span> Assume that <span class="math notranslate nohighlight">\(\;F\ \)</span> is injective, <span class="math notranslate nohighlight">\(\,\)</span>
+that is <span class="math notranslate nohighlight">\(\;\text{Ker}\,F=\{\,\theta_V\}\,.\)</span></p>
+<p>Consider a linearly independent set <span class="math notranslate nohighlight">\(\;(x_1,\,x_2,\,\dots,\,x_r)\ \)</span> of vectors of the space <span class="math notranslate nohighlight">\(\,V.\,\)</span> <span class="math notranslate nohighlight">\(\\\)</span>
+Then <span class="math notranslate nohighlight">\(\,\)</span> for <span class="math notranslate nohighlight">\(\,a_1,\,a_2,\,\dots,\,a_r\in K:\)</span></p>
+<div class="math notranslate nohighlight">
+\[\begin{split}\begin{array}{rcc}
+\text{if} &amp; \qquad &amp; a_1\,Fx_1\,+\,a_2\,Fx_2\,+\,\ldots\,+\,a_r\,Fx_r\,=\,\theta_W\,,
+\\ \\
+\text{then:}    &amp; \qquad &amp; F(a_1\,x_1+\,a_2\,x_2+\ldots+\,a_r\,x_r)\,=\,\theta_W\,,
+\\
+              &amp; \qquad &amp; a_1\,x_1+a_2\,x_2+\ldots+a_r\,x_r\in\text{Ker}\,F\,,
+\\
+              &amp; \qquad &amp; a_1\,x_1\,+a_2\,x_2\,+\ldots+\,a_r\,x_r\,=\,\theta_V\,,
+\\
+              &amp; \qquad &amp; a_1=\,a_2=\,\dots\,=\,a_r=0\,.
+\end{array}\end{split}\]</div>
+<p>Hence, the vectors <span class="math notranslate nohighlight">\(\ Fx_1,\,Fx_2,\,\dots,\,Fx_r\ \)</span> are also linearly independent.</p>
+<p>In this way we proved that for any vectors <span class="math notranslate nohighlight">\(\ \,x_1,\,x_2,\,\dots,\,x_r\,\in V\ \)</span>
+we have the implication (l.i. = linearly independent):</p>
+<div class="math notranslate nohighlight">
+\[(\,x_1,\,x_2,\,\dots,\,x_r)\ \ \ \ \text{l.i.}
+\qquad\Rightarrow\qquad
+(\,Fx_1,\,Fx_2,\,\dots,\,Fx_r)\ \ \ \ \text{l.i.}\]</div>
+<p>which means precisely that <span class="math notranslate nohighlight">\(\,F\ \)</span> preserves linear independence of any set of vectors.</p>
+<p><strong>Corollaries and discussion.</strong> <span class="math notranslate nohighlight">\(\,\)</span>
+Consider an <span class="math notranslate nohighlight">\(\,n\)</span>-dimensional vector space <span class="math notranslate nohighlight">\(\,V(K)\ \)</span>
+with basis <span class="math notranslate nohighlight">\(\,\mathcal{B}=(v_1,\,v_2,\,\dots,\,v_n).\ \)</span> The mapping</p>
+<div class="math notranslate nohighlight">
+\[\begin{split}I_{\mathcal{B}}:\quad V\,\ni\, x\,=\,\sum_{i\,=\,1}^n\ a_i\,v_i
+\quad\rightarrow\quad
+I_{\mathcal{B}}(x)\,:\,=\,
+\left[\begin{array}{c} a_1 \\ a_2 \\ \dots \\ a_n \end{array}\right]
+\,\in\,K^n\end{split}\]</div>
+<p>which transforms a vector <span class="math notranslate nohighlight">\(\,x\ \)</span> into a column of coordinates of this vector in basis <span class="math notranslate nohighlight">\(\,\mathcal{B}\ \)</span> is an isomorphism of the space
+<span class="math notranslate nohighlight">\(\,V\ \)</span> onto the space <span class="math notranslate nohighlight">\(\,K^n,\ \)</span> and thus it is injective. Hence,
+<span class="math notranslate nohighlight">\(\,I_{\mathcal{B}}\ \)</span> preserves linear independence of vectors.
+The same property holds for the inverse transformation, which is also an isomorphism.</p>
+<p>Consider a set <span class="math notranslate nohighlight">\(\,(x_1,\,x_2,\,\dots,\,x_r)\ \)</span> of vectors, where</p>
+<div class="math notranslate nohighlight">
+\[\begin{split}x_j\,=\;\sum_{i\,=\,1}^n\ a_{ij}\,v_i\,,
+\qquad\text{so that}\qquad
+I_{\mathcal{B}}(x_j)\,=\,
+\left[\begin{array}{c} a_{1j} \\ a_{2j} \\ \dots \\ a_{nj} \end{array}\right]
+\,,\quad j=1,2,\dots,r.\end{split}\]</div>
+<p>The aforementioned property of the isomorphisms
+<span class="math notranslate nohighlight">\(\ I_{\mathcal{B}}\ \)</span> and <span class="math notranslate nohighlight">\(\ I_{\mathcal{B}}^{-1}\ \)</span>
+implies that <span class="math notranslate nohighlight">\(\,\)</span> (l.i. = linearly independent):</p>
+<div class="math notranslate nohighlight">
+\[(\,x_1,\,x_2,\,\dots,\,x_r)\ \ \ \ \text{l.i.}
+\qquad\Leftrightarrow\qquad
+\left(\;
+I_{\mathcal{B}}(x_1),\,I_{\mathcal{B}}(x_2),\,\dots,\,I_{\mathcal{B}}(x_r)\;
+\right)
+\ \ \ \ \text{l.i.}\]</div>
+<div class="admonition-corollary-1a admonition">
+<p class="admonition-title">Corollary 1a.</p>
+<p>Vectors from an <span class="math notranslate nohighlight">\(\,n\)</span>-dimensional vector space <span class="math notranslate nohighlight">\(\,V(K)\ \)</span> are
+linearly independent if and only if columns of their coordinates <span class="math notranslate nohighlight">\(\,\)</span>
+(as vectors of the space <span class="math notranslate nohighlight">\(\,K^n\)</span>) <span class="math notranslate nohighlight">\(\,\)</span> are linearly independent
+in every basis of the space <span class="math notranslate nohighlight">\(\,V.\)</span></p>
+</div>
+<p>Since linear dependence is a negation of linear independence, we may also write
+<span class="math notranslate nohighlight">\(\,\)</span> (l.d. = linearly dependent):</p>
+<div class="math notranslate nohighlight">
+\[(\,x_1,\,x_2,\,\dots,\,x_r)\ \ \ \ \text{l.d.}
+\qquad\Leftrightarrow\qquad
+\left(\;
+I_{\mathcal{B}}(x_1),\,I_{\mathcal{B}}(x_2),\,\dots,\,I_{\mathcal{B}}(x_r)\;
+\right)
+\ \ \ \ \text{l.d.}\]</div>
+<div class="admonition-corollary-1b admonition">
+<p class="admonition-title">Corollary 1b.</p>
+<p>Vectors from an <span class="math notranslate nohighlight">\(\,n\)</span>-dimensional vector space <span class="math notranslate nohighlight">\(\,V(K)\ \)</span> are
+linearly dependent if and only if columns of their coordinates <span class="math notranslate nohighlight">\(\,\)</span>
+(as vectors of the space <span class="math notranslate nohighlight">\(\,K^n\)</span>) <span class="math notranslate nohighlight">\(\,\)</span> are linearly dependent
+in every basis of the space <span class="math notranslate nohighlight">\(\,V.\)</span></p>
+</div>
+<p>If <span class="math notranslate nohighlight">\(\,r=n,\ \)</span> then the columns of coordinates form a square matrix</p>
+<div class="math notranslate nohighlight">
+\[\boldsymbol{A}\ =\ [\,a_{ij}\,]_{n\times n}\ =\
+[\,I_{\mathcal{B}}(x_1)\,|\,I_{\mathcal{B}}(x_2)\,|\,\dots\,|\,I_{\mathcal{B}}(x_n)\,]\,.\]</div>
+<p>An element <span class="math notranslate nohighlight">\(\,a_{ij}\ \)</span> of this matrix is the <span class="math notranslate nohighlight">\(\,i\)</span>-th coordinate of the <span class="math notranslate nohighlight">\(\,j\)</span>-th vector from the set <span class="math notranslate nohighlight">\(\,(x_1,\,x_2,\,\dots,\,x_n).\ \\\)</span>
+Properties of determinant imply</p>
+<div class="math notranslate nohighlight">
+\[(\,x_1,\,x_2,\,\dots,\,x_n)\ \ \ \ \text{l.i.}
+\qquad\Leftrightarrow\qquad
+\det\,\boldsymbol{A}\neq 0\,.\]</div>
+<div class="admonition-corollary-2 admonition">
+<p class="admonition-title">Corollary 2.</p>
+<p>In an <span class="math notranslate nohighlight">\(\,n\)</span>-dimensional vector space <span class="math notranslate nohighlight">\(\,V(K)\ \)</span> a set of
+<span class="math notranslate nohighlight">\(\,n\ \)</span> vectors is linearly independent if and only if
+the determinant of the matrix formed from the coordinates of these vectors
+is non-zero.</p>
+</div>
+<p>Taking into account that in an <span class="math notranslate nohighlight">\(\,n\)</span>-dimensional vector space every set of
+<span class="math notranslate nohighlight">\(\,n\ \)</span> linearly independent vectors comprises a basis, <span class="math notranslate nohighlight">\(\,\)</span>
+we may formulate</p>
+<div class="admonition-corollary-3 admonition">
+<p class="admonition-title">Corollary 3.</p>
+<p>In an <span class="math notranslate nohighlight">\(\,n\)</span>-dimensional vector space <span class="math notranslate nohighlight">\(\,V(K)\ \)</span> a set of <span class="math notranslate nohighlight">\(\,n\ \)</span>
+vectors compises a basis of this space if and only if
+the determinant of the matrix formed from the coordinates of these vectors
+is non-zero.</p>
+</div>
+</section>
+
+
+          </div>
+        </div>
+      </div>
+      <div class="sphinxsidebar" role="navigation" aria-label="main navigation">
+        <div class="sphinxsidebarwrapper">
+  <h4>Previous topic</h4>
+  <p class="topless"><a href="dowody_operacje_na_macierzach.html"
+                        title="previous chapter">Operations upon Matrices</a></p>
+  <h4>Next topic</h4>
+  <p class="topless"><a href="dowody_problem_wlasny.html"
+                        title="next chapter">Eigenvalues and Eigenvectors</a></p>
+  <div role="note" aria-label="source link">
+    <h3>This Page</h3>
+    <ul class="this-page-menu">
+      <li><a href="_sources/dowody_przeksztalcenia_lin.rst.txt"
+            rel="nofollow">Show Source</a></li>
+    </ul>
+   </div>
+<div id="searchbox" style="display: none" role="search">
+  <h3 id="searchlabel">Quick search</h3>
+    <div class="searchformwrapper">
+    <form class="search" action="search.html" method="get">
+      <input type="text" name="q" aria-labelledby="searchlabel" />
+      <input type="submit" value="Go" />
+    </form>
+    </div>
+</div>
+<script>$('#searchbox').show(0);</script>
+        </div>
+      </div>
+      <div class="clearer"></div>
+    </div>
+  </div>
+  <div class="relbar-bottom">
+    
+    <div class="related" role="navigation" aria-label="related navigation">
+      <h3>Navigation</h3>
+      <ul>
+        <li class="right" style="margin-right: 10px">
+          <a href="genindex.html" title="General Index"
+             >index</a></li>
+        <li class="right" >
+          <a href="dowody_problem_wlasny.html" title="Eigenvalues and Eigenvectors"
+             >next</a> &nbsp; &nbsp;</li>
+        <li class="right" >
+          <a href="dowody_operacje_na_macierzach.html" title="Operations upon Matrices"
+             >previous</a> &nbsp; &nbsp;</li>
+  <li><a href="index.html">Linear Algebra</a> &#187;</li>
+  
+        <li class="nav-item nav-item-this"><a href="">Linear Transformations</a></li> 
+      </ul>
+    </div>
+  </div>
+  
+  <div class="footer">
+    <a class="logo" href="http://icse.us.edu.pl/" target="_blank"><img src="_static/logo-icse.png" alt="ICSE"/></a><br/>
+    &copy; Copyright 2018, Jan Aksamit, Joanna Marzec, and  Marcin Kostur.
+    Last updated on Jan 29, 2022.
+    Created using <a href="http://sphinx.pocoo.org/">Sphinx</a> 4.0.1.
+  </div>
+  </body>
+</html>

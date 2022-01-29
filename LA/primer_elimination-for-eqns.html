@@ -1,0 +1,307 @@
+
+
+  
+<!DOCTYPE html>
+
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" /><meta name="generator" content="Docutils 0.17: http://docutils.sourceforge.net/" />
+
+    <title>Elimination Method for Systems of Equations &#8212; Linear Algebra</title>
+    <link rel="stylesheet" type="text/css" href="_static/pygments.css" />
+    <link rel="stylesheet" type="text/css" href="_static/cloud.css" />
+    <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Noticia+Text|Open+Sans|Droid+Sans+Mono&amp;subset=latin,latin-ext" type="text/css" />
+    <script data-url_root="./" id="documentation_options" src="_static/documentation_options.js"></script>
+    <script src="_static/jquery.js"></script>
+    <script src="_static/underscore.js"></script>
+    <script src="_static/doctools.js"></script>
+    <script async="async" src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js"></script>
+    <script src="_static/jquery.cookie.js"></script>
+    <script src="_static/cloud.js"></script>
+    <script type="text/javascript" src="http://sagecell.sagemath.org/static/jquery.min.js"></script>
+    <script type="text/javascript" src="http://sagecell.sagemath.org/embedded_sagecell.js"></script>
+    <script type="text/javascript">
+        sagecell.makeSagecell({inputLocation: ".sage_linked",
+                               linked: true});
+        sagecell.makeSagecell({inputLocation: ".sage_unlinked",
+                               linked: false});
+    </script>
+
+    <style type="text/css">
+        .sagecell .CodeMirror-scroll {
+            overflow-y: hidden;
+            overflow-x: auto;
+        }
+        .sagecell .CodeMirror {
+            height: auto;
+        }
+    </style>
+    
+    <link rel="index" title="Index" href="genindex.html" />
+    <link rel="search" title="Search" href="search.html" />
+    <link rel="next" title="Exercises and Problems" href="primer_problems.html" />
+    <link rel="prev" title="Geometry of Linear Equations" href="primer_geometry-of-eqns-stat.html" />
+ 
+  <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, minimum-scale=1">
+  </head><body>
+  <div class="relbar-top">
+    
+    <div class="related" role="navigation" aria-label="related navigation">
+      <h3>Navigation</h3>
+      <ul>
+        <li class="right" style="margin-right: 10px">
+          <a href="genindex.html" title="General Index"
+             accesskey="I">index</a></li>
+        <li class="right" >
+          <a href="primer_problems.html" title="Exercises and Problems"
+             accesskey="N">next</a> &nbsp; &nbsp;</li>
+        <li class="right" >
+          <a href="primer_geometry-of-eqns-stat.html" title="Geometry of Linear Equations"
+             accesskey="P">previous</a> &nbsp; &nbsp;</li>
+  <li><a href="index.html">Linear Algebra</a> &#187;</li>
+  
+        <li class="nav-item nav-item-this"><a href="">Elimination Method for Systems of Equations</a></li> 
+      </ul>
+    </div>
+  </div>
+  
+  <div class="content">  
+
+    <div class="document">
+      <div class="documentwrapper">
+        <div class="bodywrapper">
+          <div class="body">
+            
+  <section id="elimination-method-for-systems-of-equations">
+<h1>Elimination Method for Systems of Equations<a class="headerlink" href="#elimination-method-for-systems-of-equations" title="Permalink to this headline">¶</a></h1>
+<section id="echelon-form-of-a-system-of-equations">
+<h2>Echelon Form of a System of Equations<a class="headerlink" href="#echelon-form-of-a-system-of-equations" title="Permalink to this headline">¶</a></h2>
+<p>We shall consider a system of <span class="math notranslate nohighlight">\(\,m\,\)</span> equations
+in <span class="math notranslate nohighlight">\(\,n\,\)</span> variables <span class="math notranslate nohighlight">\(\,(2\le m\le n):\)</span></p>
+<div class="math notranslate nohighlight" id="equation-01">
+<span class="eqno">(1)<a class="headerlink" href="#equation-01" title="Permalink to this equation">¶</a></span>\[\begin{split}\begin{array}{c}
+a_{11}\,x_1\; + \ \,a_{12}\,x_2\; + \ \,\ldots\  + \ \;a_{1n}\,x_n \ \, = \ \ b_1 \\
+a_{21}\,x_1\; + \ \,a_{22}\,x_2\; + \ \,\ldots\  + \ \;a_{2n}\,x_n \ \, = \ \ b_2 \\
+\quad\,\ldots\qquad\quad\ldots\qquad\ \,\ldots\qquad\ \ \ldots\qquad\ \ \,\ldots  \\
+a_{m1}\,x_1\; + \ \,a_{m2}\,x_2\; + \ \,\ldots\  + \ \;a_{mn}\,x_n \ \, = \ \ b_m\,.
+\end{array}\end{split}\]</div>
+<p>The coefficients <span class="math notranslate nohighlight">\(\,a_{ij}\,\)</span> and constants
+<span class="math notranslate nohighlight">\(\,b_i\ \ (i=1,2,\ldots,m;\ j=1,2,\ldots,n)\ \)</span>
+belong to a field <span class="math notranslate nohighlight">\(\,K,\,\)</span> e.g. they are rational,
+real or complex numbers.</p>
+<p>Given a particular equation of a linear system, we define
+a <em>leading variable</em> as a variable
+corresponding to the left-most non-zero coefficient in this equation.
+Thus <span class="math notranslate nohighlight">\(\,x_l\,\)</span> is a leading variable in the <span class="math notranslate nohighlight">\(\,i\)</span>-th equation
+of <a class="reference internal" href="#equation-01">(1)</a>, when <span class="math notranslate nohighlight">\(\ a_{il}\neq 0\ \)</span> and all variables with indices
+less than <span class="math notranslate nohighlight">\(\,l\ \)</span> (if any) actually do not occur in the equation
+because their coefficients vanish <span class="math notranslate nohighlight">\(\ (1 \le l \le n).\)</span></p>
+<p>For instance, in the equation <span class="math notranslate nohighlight">\(\ 2\,x_3\,+\,4\,x_4\,-\,8\,x_6\ =\ 10\ \)</span>
+coming from a linear system in variables <span class="math notranslate nohighlight">\(\,x_1,\,x_2,\,\ldots,\,x_7\,,\ \)</span>
+the leading variable is <span class="math notranslate nohighlight">\(\,x_3:\ \)</span> the “earlier” variables,
+<span class="math notranslate nohighlight">\(\ x_1,\,x_2,\ \)</span> are absent (their coefficients vanish).</p>
+<p>A system of linear equations <a class="reference internal" href="#equation-01">(1)</a> is in a (row) <em>echelon form</em>,
+when in each, but the first, equation the index of the leading variable
+is greater than the analogous index in any previous equation of the system.
+In other words, the sequence of indices of leading variables
+in consecutive equations of the system is strictly increasing.
+We note that then in each <span class="math notranslate nohighlight">\(\,k\)</span>-th equation
+of the system the variables <span class="math notranslate nohighlight">\(\ x_1,\dots,x_{k-1}\ \,\)</span> are absent
+<span class="math notranslate nohighlight">\((k=2,\dots,m)\,.\)</span></p>
+</section>
+<section id="gaussian-elimination">
+<span id="id1"></span><h2>Gaussian Elimination<a class="headerlink" href="#gaussian-elimination" title="Permalink to this headline">¶</a></h2>
+<p>Systems of linear equations are in a natural way represented by matrices
+and an advanced approach to them uses the matrix formalism.
+In Chapter 4. we shall redefine the aforementioned notions of
+a leading element and echelon form in relation to matrices.</p>
+<p>So far, however, we shall take advantage of the Sage’s ability
+to perform elementary operations on linear equations,
+each of the latter being treated as a whole.
+That way we shall illustrate the Gaussian and the Gauss-Jordan elimination
+methods on an elementary level, without even citing the concept of a matrix.</p>
+<p>Every system of linear equations can be transformed to the echelon form
+by the following <em>elementary operations</em>:</p>
+<ol class="arabic">
+<li><p><span class="math notranslate nohighlight">\(\,\)</span> swapping the positions of two equations;</p></li>
+<li><p><span class="math notranslate nohighlight">\(\,\)</span> multiplying an equation by a non-zero scalar;</p></li>
+<li><div class="line-block">
+<div class="line"><span class="math notranslate nohighlight">\(\,\)</span> adding to one equation a scalar multiple of another one</div>
+<div class="line"><span class="math notranslate nohighlight">\(\,\)</span> (in particular: adding or subtracting two equations).</div>
+</div>
+</li>
+</ol>
+<p>These operations do not change the set of solutions,
+so the obtained transformed system is equivalent to the initial one.</p>
+<p>Below we apply this procedure to a particular system of three equations
+in three unknowns over the rational field (for a better readability
+the output is simulated).</p>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="n">var</span><span class="p">(</span><span class="s1">&#39;x1 x2 x3&#39;</span><span class="p">)</span>
+
+<span class="n">eq1</span> <span class="o">=</span> <span class="n">x1</span><span class="o">+</span><span class="mi">2</span><span class="o">*</span><span class="n">x2</span><span class="o">+</span><span class="mi">2</span><span class="o">*</span><span class="n">x3</span><span class="o">==</span><span class="mi">4</span>
+<span class="n">eq2</span> <span class="o">=</span> <span class="n">x1</span><span class="o">+</span><span class="mi">3</span><span class="o">*</span><span class="n">x2</span><span class="o">+</span><span class="mi">3</span><span class="o">*</span><span class="n">x3</span><span class="o">==</span><span class="mi">5</span>
+<span class="n">eq3</span> <span class="o">=</span> <span class="mi">2</span><span class="o">*</span><span class="n">x1</span><span class="o">+</span><span class="mi">6</span><span class="o">*</span><span class="n">x2</span><span class="o">+</span><span class="mi">5</span><span class="o">*</span><span class="n">x3</span><span class="o">==</span><span class="mi">6</span>
+
+<span class="c1">#show(vector([eq1,eq2,eq3]).column())</span>
+</pre></div>
+</div>
+<div class="math notranslate nohighlight">
+\begin{alignat*}{4}
+      x_1 &amp; {\,} + {\,} &amp; 2\,x_2 &amp; {\,} + {\,} &amp; 2\,x_3 &amp; {\;} = {\;} &amp; 4 \\
+      x_1 &amp; {\,} + {\,} &amp; 3\,x_2 &amp; {\,} + {\,} &amp; 3\,x_3 &amp; {\;} = {\;} &amp; 5 \\
+   2\,x_1 &amp; {\,} + {\,} &amp; 6\,x_2 &amp; {\,} + {\,} &amp; 5\,x_3 &amp; {\;} = {\;} &amp; 6
+\end{alignat*}</div><div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="n">eq2</span> <span class="o">=</span> <span class="n">eq2</span><span class="o">-</span><span class="n">eq1</span>
+<span class="n">eq3</span> <span class="o">=</span> <span class="n">eq3</span><span class="o">-</span><span class="mi">2</span><span class="o">*</span><span class="n">eq1</span>
+
+<span class="c1">#show(vector([eq1,eq2,eq3]).column())</span>
+</pre></div>
+</div>
+<div class="math notranslate nohighlight">
+\begin{alignat*}{4}
+   x_1 &amp; {\,} + {\,} &amp; 2\,x_2 &amp; {\,} + {\,} &amp; 2\,x_3 &amp; {\;} = {} &amp;  4 \\
+       &amp;             &amp;    x_2 &amp; {\,} + {\,} &amp;    x_3 &amp; {\;} = {} &amp;  1 \\
+       &amp;             &amp; 2\,x_2 &amp; {\,} + {\,} &amp;    x_3 &amp; {\;} = {} &amp; -2
+\end{alignat*}</div><div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="n">eq3</span> <span class="o">=</span> <span class="n">eq3</span><span class="o">-</span><span class="mi">2</span><span class="o">*</span><span class="n">eq2</span>
+
+<span class="c1">#show(vector([eq1,eq2,eq3]).column())</span>
+</pre></div>
+</div>
+<div class="math notranslate nohighlight">
+\begin{alignat*}{4}
+   x_1 &amp; {\,} + {\,} &amp; 2\,x_2 &amp; {\,} + {\,} &amp; 2\,x_3 &amp; {\;} = {} &amp;  4 \\
+       &amp;             &amp;    x_2 &amp; {\,} + {\,} &amp;    x_3 &amp; {\;} = {} &amp;  1 \\
+       &amp;             &amp;        &amp; {\,} - {\,} &amp;    x_3 &amp; {\;} = {} &amp; -4
+\end{alignat*}</div><div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="n">eq3</span> <span class="o">=</span> <span class="o">-</span><span class="n">eq3</span>
+
+<span class="c1">#show(vector([eq1,eq2,eq3]).column())</span>
+</pre></div>
+</div>
+<div class="math notranslate nohighlight">
+\begin{alignat*}{4}
+   x_1 &amp; {\,} + {\,} &amp; 2\,x_2 &amp; {\,} + {\,} &amp; 2\,x_3 &amp; {\;} = {\;} &amp; 4 \\
+       &amp;             &amp;    x_2 &amp; {\,} + {\,} &amp;    x_3 &amp; {\;} = {\;} &amp; 1 \\
+       &amp;             &amp;        &amp;             &amp;    x_3 &amp; {\;} = {\;} &amp; 4
+\end{alignat*}</div><p>The system of equations is now in the echelon form. <span class="math notranslate nohighlight">\(\\\)</span>
+Performing the <em>backward substitution</em> we obtain the solution:</p>
+<div class="math notranslate nohighlight">
+\begin{alignat*}{5}
+   x_3 &amp; {\;} = {\;} &amp; 4 &amp;             &amp;        &amp;             &amp;        &amp;             &amp;   \\
+   x_2 &amp; {\;} = {\;} &amp; 1 &amp; {\,} - {\,} &amp;    x_3 &amp; {\,} = {\,} &amp; -3     &amp;             &amp;   \\
+   x_1 &amp; {\,} = {\,} &amp; 4 &amp; {\,} - {\,} &amp; 2\,x_2 &amp; {\,} - {\,} &amp; 2\,x_3 &amp; {\,} = {\,} &amp; 2
+\end{alignat*}</div><p>The algorithm for solving systems of linear equations by transforming them to
+the echelon form with the aid of elementary operations and by a subsequent
+backward substitution is called the <em>Gaussian elimination</em>.</p>
+</section>
+<section id="gauss-jordan-elimination">
+<h2>Gauss-Jordan Elimination<a class="headerlink" href="#gauss-jordan-elimination" title="Permalink to this headline">¶</a></h2>
+<p>Once the echelon form of the system is obtained:</p>
+<div class="math notranslate nohighlight">
+\begin{alignat*}{4}
+   x_1 &amp; {\,} + {\,} &amp; 2\,x_2 &amp; {\,} + {\,} &amp; 2\,x_3 &amp; {\;} = {\;} &amp; 4 \\
+       &amp;             &amp;    x_2 &amp; {\,} + {\,} &amp;    x_3 &amp; {\;} = {\;} &amp; 1 \\
+       &amp;             &amp;        &amp;             &amp;    x_3 &amp; {\;} = {\;} &amp; 4
+\end{alignat*}</div><p>one may continue elementary operations, until the form showing explicitly
+the solution of the system is achieved:</p>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="n">eq1</span> <span class="o">=</span> <span class="n">eq1</span><span class="o">-</span><span class="mi">2</span><span class="o">*</span><span class="n">eq2</span>
+<span class="n">eq2</span> <span class="o">=</span> <span class="n">eq2</span><span class="o">-</span><span class="n">eq3</span>
+
+<span class="c1">#show(vector([eq1,eq2,eq3]).column())</span>
+</pre></div>
+</div>
+<div class="math notranslate nohighlight">
+\begin{alignat*}{2}
+   x_1 &amp; {\,} = {} &amp;  2 \\
+   x_2 &amp; {\,} = {} &amp; -3 \\
+   x_3 &amp; {\,} = {} &amp;  4
+\end{alignat*}</div><p>The above algorithm, which transforms a linear system into
+the trivial echelon form <span class="math notranslate nohighlight">\(\\\)</span>
+that displays directly the values of unknowns,
+is called the <em>Gauss-Jordan elimination</em>. <span class="math notranslate nohighlight">\(\\\)</span></p>
+<p>At the end we shall check whether our result agrees with that provided
+by the built-in function <code class="docutils literal notranslate"><span class="pre">solve()</span></code> :</p>
+<div class='sage_linked'><script type='text/x-sage'>var('x1 x2 x3')
+
+eq1 = x1+2*x2+2*x3==4
+eq2 = x1+3*x2+3*x3==5
+eq3 = 2*x1+6*x2+5*x3==6
+
+show(solve([eq1,eq2,eq3],[x1,x2,x3]))</script></div><p><span class="math notranslate nohighlight">\(\\\)</span></p>
+</section>
+</section>
+
+
+          </div>
+        </div>
+      </div>
+      <div class="sphinxsidebar" role="navigation" aria-label="main navigation">
+        <div class="sphinxsidebarwrapper">
+  <div class="sphinxlocaltoc">
+  <h3><a href="index.html">Table Of Contents</a></h3>
+  <ul>
+<li><a class="reference internal" href="#">Elimination Method for Systems of Equations</a><ul>
+<li><a class="reference internal" href="#echelon-form-of-a-system-of-equations">Echelon Form of a System of Equations</a></li>
+<li><a class="reference internal" href="#gaussian-elimination">Gaussian Elimination</a></li>
+<li><a class="reference internal" href="#gauss-jordan-elimination">Gauss-Jordan Elimination</a></li>
+</ul>
+</li>
+</ul>
+
+  </div>
+  <h4>Previous topic</h4>
+  <p class="topless"><a href="primer_geometry-of-eqns-stat.html"
+                        title="previous chapter">Geometry of Linear Equations</a></p>
+  <h4>Next topic</h4>
+  <p class="topless"><a href="primer_problems.html"
+                        title="next chapter">Exercises and Problems</a></p>
+  <div role="note" aria-label="source link">
+    <h3>This Page</h3>
+    <ul class="this-page-menu">
+      <li><a href="_sources/primer_elimination-for-eqns.rst.txt"
+            rel="nofollow">Show Source</a></li>
+    </ul>
+   </div>
+<div id="searchbox" style="display: none" role="search">
+  <h3 id="searchlabel">Quick search</h3>
+    <div class="searchformwrapper">
+    <form class="search" action="search.html" method="get">
+      <input type="text" name="q" aria-labelledby="searchlabel" />
+      <input type="submit" value="Go" />
+    </form>
+    </div>
+</div>
+<script>$('#searchbox').show(0);</script>
+        </div>
+      </div>
+      <div class="clearer"></div>
+    </div>
+  </div>
+  <div class="relbar-bottom">
+    
+    <div class="related" role="navigation" aria-label="related navigation">
+      <h3>Navigation</h3>
+      <ul>
+        <li class="right" style="margin-right: 10px">
+          <a href="genindex.html" title="General Index"
+             >index</a></li>
+        <li class="right" >
+          <a href="primer_problems.html" title="Exercises and Problems"
+             >next</a> &nbsp; &nbsp;</li>
+        <li class="right" >
+          <a href="primer_geometry-of-eqns-stat.html" title="Geometry of Linear Equations"
+             >previous</a> &nbsp; &nbsp;</li>
+  <li><a href="index.html">Linear Algebra</a> &#187;</li>
+  
+        <li class="nav-item nav-item-this"><a href="">Elimination Method for Systems of Equations</a></li> 
+      </ul>
+    </div>
+  </div>
+  
+  <div class="footer">
+    <a class="logo" href="http://icse.us.edu.pl/" target="_blank"><img src="_static/logo-icse.png" alt="ICSE"/></a><br/>
+    &copy; Copyright 2018, Jan Aksamit, Joanna Marzec, and  Marcin Kostur.
+    Last updated on Jan 29, 2022.
+    Created using <a href="http://sphinx.pocoo.org/">Sphinx</a> 4.0.1.
+  </div>
+  </body>
+</html>

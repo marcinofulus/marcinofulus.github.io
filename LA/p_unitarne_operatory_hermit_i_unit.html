@@ -1,0 +1,641 @@
+
+
+  
+<!DOCTYPE html>
+
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" /><meta name="generator" content="Docutils 0.17: http://docutils.sourceforge.net/" />
+
+    <title>Hermitian and Unitary Operators &#8212; Linear Algebra</title>
+    <link rel="stylesheet" type="text/css" href="_static/pygments.css" />
+    <link rel="stylesheet" type="text/css" href="_static/cloud.css" />
+    <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Noticia+Text|Open+Sans|Droid+Sans+Mono&amp;subset=latin,latin-ext" type="text/css" />
+    <script data-url_root="./" id="documentation_options" src="_static/documentation_options.js"></script>
+    <script src="_static/jquery.js"></script>
+    <script src="_static/underscore.js"></script>
+    <script src="_static/doctools.js"></script>
+    <script async="async" src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js"></script>
+    <script src="_static/jquery.cookie.js"></script>
+    <script src="_static/cloud.js"></script>
+    <script type="text/javascript" src="http://sagecell.sagemath.org/static/jquery.min.js"></script>
+    <script type="text/javascript" src="http://sagecell.sagemath.org/embedded_sagecell.js"></script>
+    <script type="text/javascript">
+        sagecell.makeSagecell({inputLocation: ".sage_linked",
+                               linked: true});
+        sagecell.makeSagecell({inputLocation: ".sage_unlinked",
+                               linked: false});
+    </script>
+
+    <style type="text/css">
+        .sagecell .CodeMirror-scroll {
+            overflow-y: hidden;
+            overflow-x: auto;
+        }
+        .sagecell .CodeMirror {
+            height: auto;
+        }
+    </style>
+    
+    <link rel="index" title="Index" href="genindex.html" />
+    <link rel="search" title="Search" href="search.html" />
+    <link rel="next" title="Normal Operators" href="p_unitarne_operatory_normalne.html" />
+    <link rel="prev" title="Application of Sage" href="p_unitarne_Sage.html" />
+ 
+  <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, minimum-scale=1">
+  </head><body>
+  <div class="relbar-top">
+    
+    <div class="related" role="navigation" aria-label="related navigation">
+      <h3>Navigation</h3>
+      <ul>
+        <li class="right" style="margin-right: 10px">
+          <a href="genindex.html" title="General Index"
+             accesskey="I">index</a></li>
+        <li class="right" >
+          <a href="p_unitarne_operatory_normalne.html" title="Normal Operators"
+             accesskey="N">next</a> &nbsp; &nbsp;</li>
+        <li class="right" >
+          <a href="p_unitarne_Sage.html" title="Application of Sage"
+             accesskey="P">previous</a> &nbsp; &nbsp;</li>
+  <li><a href="index.html">Linear Algebra</a> &#187;</li>
+  
+        <li class="nav-item nav-item-this"><a href="">Hermitian and Unitary Operators</a></li> 
+      </ul>
+    </div>
+  </div>
+  
+  <div class="content">  
+
+    <div class="document">
+      <div class="documentwrapper">
+        <div class="bodywrapper">
+          <div class="body">
+            
+  <section id="hermitian-and-unitary-operators">
+<h1>Hermitian and Unitary Operators<a class="headerlink" href="#hermitian-and-unitary-operators" title="Permalink to this headline">¶</a></h1>
+<p>We start with two lemmas which will be useful in further considerations. <span class="math notranslate nohighlight">\(\\\)</span></p>
+<div class="admonition-lemma-0 admonition">
+<p class="admonition-title">Lemma 0.</p>
+<p>Let <span class="math notranslate nohighlight">\(\ y\in V\,,\ \)</span> where <span class="math notranslate nohighlight">\(\ V\ \)</span> is a unitary space.
+Then</p>
+<div class="math notranslate nohighlight">
+\[\langle x,y\rangle = 0 \quad\text{for all}\quad x\in V
+\qquad\Leftrightarrow\qquad y = \theta\,.\]</div>
+</div>
+<p><strong>Proof.</strong></p>
+<p><span class="math notranslate nohighlight">\(\ \Rightarrow\ :\ \)</span>
+If <span class="math notranslate nohighlight">\(\ \ \langle x,y\rangle = 0\,,\ \ x\in V\,,\ \)</span>
+then putting <span class="math notranslate nohighlight">\(\ x=y\ \)</span> we obtain <span class="math notranslate nohighlight">\(\ \langle y,y\rangle = 0\,,\ \)</span>
+and thus <span class="math notranslate nohighlight">\(\ y=\theta.\)</span></p>
+<p><span class="math notranslate nohighlight">\(\ \Leftarrow\ :\ \)</span>
+If <span class="math notranslate nohighlight">\(\ y = \theta\,,\ \)</span> then by properties of an inner product,
+<span class="math notranslate nohighlight">\(\ \langle x,y\rangle = \langle x,\theta\rangle = 0\,.\)</span></p>
+<p>If <span class="math notranslate nohighlight">\(\ \,y_1,\,y_2\,\in\,V\,,\ \)</span> where <span class="math notranslate nohighlight">\(\ V\ \)</span> is a unitary space, <span class="math notranslate nohighlight">\(\,\)</span> then</p>
+<blockquote>
+<div><div class="math notranslate nohighlight">
+\[\langle x,y_1\rangle = \langle x,y_2\rangle \quad\text{for all}\quad x\in V
+\qquad\Leftrightarrow\qquad y_1 = y_2\,.\]</div>
+</div></blockquote>
+<p>Indeed, if the condition
+<span class="math notranslate nohighlight">\(\ \langle x,y_1\rangle = \langle x,y_2\rangle\ \)</span> holds for all <span class="math notranslate nohighlight">\(\ x\in V\,,\)</span>
+then</p>
+<div class="math notranslate nohighlight">
+\[ \begin{align}\begin{aligned}\langle\,x,\,y_1-y_2\,\rangle = 0\,,\quad x\in V
+\qquad\Leftrightarrow\qquad y_1-y_2=\theta \qquad\Leftrightarrow\qquad y_1=y_2\,.\\\;\end{aligned}\end{align} \]</div>
+<p>The <em>zero operator</em> <span class="math notranslate nohighlight">\(\ \mathcal{O}\ \)</span> which occurs in the next
+lemma is defined by: <span class="math notranslate nohighlight">\(\ \ \mathcal{O}(v)=\theta\,,\ \ v\in V. \\\)</span></p>
+<div class="admonition-lemma-1 admonition">
+<p class="admonition-title">Lemma 1.</p>
+<p>Let <span class="math notranslate nohighlight">\(\ F\ \)</span> be a linear operator defined on a
+unitary space <span class="math notranslate nohighlight">\(\,V.\ \)</span> Then</p>
+<div class="math notranslate nohighlight">
+\[\langle\,x,Fy\,\rangle\,=\,0 \quad\text{for all}\quad x,y\in V
+\qquad\Leftrightarrow\qquad F=\mathcal{O}\,.\]</div>
+</div>
+<p><strong>Proof.</strong></p>
+<p><span class="math notranslate nohighlight">\(\ \Rightarrow\ :\ \)</span>
+If <span class="math notranslate nohighlight">\(\ \ \langle x,Fy\rangle = 0 \ \)</span> for all <span class="math notranslate nohighlight">\(\ \ x,y\in V\,,\ \)</span>
+then putting <span class="math notranslate nohighlight">\(\ x=Fy\ \)</span> we obtain:</p>
+<blockquote>
+<div><p><span class="math notranslate nohighlight">\(\ \langle Fy,Fy\rangle = 0\ \,\)</span>
+and thus <span class="math notranslate nohighlight">\(\ \,Fy=\theta\ \,\)</span> for every <span class="math notranslate nohighlight">\(\ y\in V\,,\ \,\)</span>
+which means that <span class="math notranslate nohighlight">\(\ \,F=\mathcal{O}\,.\)</span></p>
+</div></blockquote>
+<p><span class="math notranslate nohighlight">\(\ \Leftarrow\ :\ \)</span>
+If <span class="math notranslate nohighlight">\(\ \,F=\mathcal{O}\,,\ \)</span> then for arbitrary <span class="math notranslate nohighlight">\(\ x,y\in V:\ \
+\langle x,Fy\rangle = \langle x,\mathcal{O}y\rangle = \langle x,\theta\rangle = 0\,.\)</span></p>
+<div class="admonition-corollary admonition">
+<p class="admonition-title">Corollary.</p>
+<p>If <span class="math notranslate nohighlight">\(\ F,\,G\ \)</span> are linear operators defined on a unitary space
+<span class="math notranslate nohighlight">\(\,V,\ \,\)</span> then</p>
+<div class="math notranslate nohighlight">
+\[\langle\,x,Fy\,\rangle\,=\,\langle\,x,G\,y\,\rangle
+\quad\text{for all}\quad x,y\in V
+\qquad\Leftrightarrow\qquad F=\,G\,.\]</div>
+</div>
+<p>Indeed, if the condition <span class="math notranslate nohighlight">\(\ \langle\,x,Fy\,\rangle\,=\,\langle\,x,Gy\,\rangle\,\)</span> holds for every <span class="math notranslate nohighlight">\(\ x,y\in V\,,\)</span> then</p>
+<div class="math notranslate nohighlight">
+\[\langle\,x,(F-G)\,y\,\rangle\,=\,0\,,\quad x,y\in V\qquad\Leftrightarrow\qquad F-G=\mathcal{O}
+\qquad\Leftrightarrow\qquad F=G\,.\]</div>
+<section id="hermitian-conjugation-of-a-linear-operator">
+<h2>Hermitian Conjugation of a Linear Operator<a class="headerlink" href="#hermitian-conjugation-of-a-linear-operator" title="Permalink to this headline">¶</a></h2>
+<div class="admonition-definition admonition">
+<p class="admonition-title">Definition.</p>
+<p><em>Hermitian conjugation</em> <span class="math notranslate nohighlight">\(\,\)</span> of a linear operator <span class="math notranslate nohighlight">\(\ F\in\,\text{End}(V)\)</span> <span class="math notranslate nohighlight">\(\\\)</span>
+is a linear operator <span class="math notranslate nohighlight">\(\ F^+\in\,\text{End}(V)\ \)</span> which satisfies the condition</p>
+<div class="math notranslate nohighlight" id="equation-f-plus-0">
+<span class="eqno">(1)<a class="headerlink" href="#equation-f-plus-0" title="Permalink to this equation">¶</a></span>\[\langle\,x,F^+y\,\rangle\,=\,\langle\,Fx,y\,\rangle
+\quad\text{for all}\quad x,y\in V\,.\]</div>
+</div>
+<p>Observe that if the condition <a class="reference internal" href="#equation-f-plus-0">(1)</a> holds, <span class="math notranslate nohighlight">\(\,\)</span> then</p>
+<div class="math notranslate nohighlight" id="equation-f-plus-1">
+<span class="eqno">(2)<a class="headerlink" href="#equation-f-plus-1" title="Permalink to this equation">¶</a></span>\[\langle\,F^+x,\,\,y\,\rangle\ =\
+\langle\,y,\,F^+x\,\rangle^*\ =\ \langle\,Fy,\,x\,\rangle^*\ =\
+\langle\,x,\,Fy\,\rangle\,.\]</div>
+<p>The reverse implication is also true: the condition <a class="reference internal" href="#equation-f-plus-1">(2)</a> implies <a class="reference internal" href="#equation-f-plus-0">(1)</a>. We may write then</p>
+<div class="admonition-corollary admonition">
+<p class="admonition-title">Corollary.</p>
+<p>Hermitian conjugation <span class="math notranslate nohighlight">\(\,F^+\,\)</span> of the operator
+<span class="math notranslate nohighlight">\(\,F\in\text{End}(V)\ \)</span> <span class="math notranslate nohighlight">\(\\\)</span>
+satisfies two equivalent conditions:</p>
+<div class="math notranslate nohighlight" id="equation-f-plus-2">
+<span class="eqno">(3)<a class="headerlink" href="#equation-f-plus-2" title="Permalink to this equation">¶</a></span>\[\begin{split}\begin{array}{l}
+\langle\,x,F^+y\,\rangle\,=\,\langle\,Fx,y\,\rangle\,,
+\\ \\
+\langle\,F^+x,\,\,y\,\rangle\ =\ \langle\,x,\,Fy\,\rangle
+\end{array}
+\qquad\text{for all}\quad x,y\in V\,.\end{split}\]</div>
+</div>
+<p>We will explain the following issues that arise from using such a definition:</p>
+<ol class="arabic simple">
+<li><p>do the formulae <a class="reference internal" href="#equation-f-plus-2">(3)</a> define the operator <span class="math notranslate nohighlight">\(\,F^+\,,\ \)</span> i.e.,
+for a given operator <span class="math notranslate nohighlight">\(F\,\)</span> is it possible to effectively determine
+the image <span class="math notranslate nohighlight">\(\,F^+y\ \)</span> of any vector <span class="math notranslate nohighlight">\(\,y\in V\,?\)</span></p></li>
+<li><p>is the operator <span class="math notranslate nohighlight">\(\,F^+\ \)</span> linear?</p></li>
+<li><p>is the operator <span class="math notranslate nohighlight">\(\,F^+\ \)</span> uniquely defined?</p></li>
+</ol>
+<p>For the sake of an answer, assume that <span class="math notranslate nohighlight">\(\,\dim V=n\ \)</span> and
+<span class="math notranslate nohighlight">\(\ \mathcal{B}=(u_1,u_2,\ldots,u_n)\ \)</span> is an orthonormal basis.</p>
+<ol class="arabic">
+<li><p>Substitution <span class="math notranslate nohighlight">\(\ x=u_i\ \)</span> in <a class="reference internal" href="#equation-f-plus-0">(1)</a> gives a formula
+for the <span class="math notranslate nohighlight">\(\,i\)</span>-th coordinate of a vector <span class="math notranslate nohighlight">\(\,F^+y\,\)</span> in terms of basis vectors:</p>
+<div class="math notranslate nohighlight">
+\[(F^+y)_{\,i}\ =\ \langle u_i,F^+y\rangle\ =\ \langle Fu_i,y\rangle\,,
+\qquad i=1,2,\dots,n.\]</div>
+<p>Hence, the vector <span class="math notranslate nohighlight">\(\,F^+y\ \)</span> is determined by its coordinates in basis
+<span class="math notranslate nohighlight">\(\ \mathcal{B}.\)</span></p>
+</li>
+<li><p>Properties of an inner product imply that for arbitrary <span class="math notranslate nohighlight">\(\,x\in V:\)</span></p>
+<div class="math notranslate nohighlight">
+\[\begin{split}\begin{array}{rcl}
+\langle\,x,\,F^+(\alpha_1\,y_1+\alpha_2\,y_2)\,\rangle &amp; = &amp;
+\langle\,Fx,\,\alpha_1\,y_1\,+\,\alpha_2\,y_2\,\rangle\,= \\ \\
+&amp; = &amp; \alpha_1\,\langle Fx,y_1\rangle\,+\,\alpha_2\:\langle Fx,y_2\,\rangle\,= \\ \\
+&amp; = &amp; \alpha_1\,\langle x,F^+y_1\rangle\,+\,\alpha_2\:\langle x,F^+y_2\,\rangle\,= \\ \\
+&amp; = &amp; \langle\,x,\,\alpha_1\,F^+y_1+\alpha_2\,F^+y_2\,\rangle\,.
+\end{array}\end{split}\]</div>
+<p>Corollary to Lemma 0. implies linearity of the operator <span class="math notranslate nohighlight">\(\,F^+:\)</span></p>
+<div class="math notranslate nohighlight">
+\[F^+(\alpha_1\,y_1+\alpha_2\,y_2)\,=\ \alpha_1\,F^+y_1+\alpha_2\,F^+y_2\,,
+\qquad\alpha_1,\alpha_2\in C,\ \ y_1,y_2\in V\,.\]</div>
+</li>
+<li><p>In order to prove that the operator <span class="math notranslate nohighlight">\(\,F^+\ \)</span> is uniquely defined assume that
+there exists an operator <span class="math notranslate nohighlight">\(\,G\ \)</span> which satisfies the condition <a class="reference internal" href="#equation-f-plus-0">(1)</a>:</p>
+<div class="math notranslate nohighlight">
+\[\langle\,x,F^+y\,\rangle\,=\,\langle\,Fx,y\,\rangle
+\quad\text{and}\quad
+\langle\,x,Gy\,\rangle\,=\,\langle\,Fx,y\,\rangle
+\quad\text{for all}\quad x,y\in V\,.\]</div>
+<p>This means that <span class="math notranslate nohighlight">\(\ \langle\,x,F^+y\,\rangle\,=\,\langle\,x,Gy\,\rangle\ \)</span>
+for all <span class="math notranslate nohighlight">\(\ x,y\in V\,.\ \)</span> Lemma 1. implies that in this case <span class="math notranslate nohighlight">\(\,G=F^+.\ \)</span>
+Hence, the conditions <a class="reference internal" href="#equation-f-plus-2">(3)</a> define the operator <span class="math notranslate nohighlight">\(\,F^+\ \)</span> uniquely.</p>
+</li>
+</ol>
+<p>The issue of existence and uniqueness of the operator <span class="math notranslate nohighlight">\(\,F^+\ \)</span> may be independently explained by</p>
+<div class="admonition-theorem-8 admonition">
+<p class="admonition-title">Theorem 8.</p>
+<p>A linear operator <span class="math notranslate nohighlight">\(\,\widetilde{F}\ \)</span> is a Hermitian conjugation of the linear
+operator <span class="math notranslate nohighlight">\(\,F\ \)</span> <span class="math notranslate nohighlight">\(\\\)</span>
+if and only if its matrix in an orthonormal basis <span class="math notranslate nohighlight">\(\,\mathcal{B}\ \)</span> <span class="math notranslate nohighlight">\(\\\)</span>
+is a Hermitian congujate of the matrix of the operator <span class="math notranslate nohighlight">\(\,F\ \)</span> in this basis:</p>
+<div class="math notranslate nohighlight">
+\[\widetilde{F}=F^+\quad\Leftrightarrow\quad
+M_{\mathcal{B}}(\widetilde{F})\,=\,[\,M_{\mathcal{B}}(F)\,]^+\,,
+\qquad F,\,\widetilde{F}\,\in\,\text{End}(V)\,.\]</div>
+</div>
+<p><strong>Proof.</strong> <span class="math notranslate nohighlight">\(\,\)</span> Let <span class="math notranslate nohighlight">\(\ \ \mathcal{B}=(u_1,u_2,\ldots,u_n),\ \
+M_{\mathcal{B}}(F)=\boldsymbol{F}=[\,\varphi_{ij}\,]_{n\times n}\,,\ \
+M_{\mathcal{B}}(\widetilde{F})=\widetilde{\boldsymbol{F}}=
+[\,\widetilde{\varphi}_{ij}\,]_{n\times n}\,.\)</span></p>
+<p><span class="math notranslate nohighlight">\(\ \Rightarrow\ :\ \)</span>
+Assume that <span class="math notranslate nohighlight">\(\ \widetilde{F}=F^+,\ \)</span> that is, the operator <span class="math notranslate nohighlight">\(\ \widetilde{F}\ \)</span>
+satisfies the condition <a class="reference internal" href="#equation-f-plus-0">(1)</a>:</p>
+<div class="math notranslate nohighlight" id="equation-x-ft-y">
+<span class="eqno">(4)<a class="headerlink" href="#equation-x-ft-y" title="Permalink to this equation">¶</a></span>\[\langle\,x,\widetilde{F}y\,\rangle\,=\,\langle\,Fx,y\,\rangle
+\quad\text{for all}\quad x,y\in V\,.\]</div>
+<p>In particular, for <span class="math notranslate nohighlight">\(\,x=u_i,\,y=u_j\ \)</span> we obtain:</p>
+<div class="math notranslate nohighlight">
+\[\widetilde{\varphi}_{ij}\,=\,
+\langle\,u_i\,,\widetilde{F}u_j\,\rangle\,=\,\langle\,Fu_i,u_j\,\rangle\,=\,
+\langle\,u_j,Fu_i\,\rangle^*\,=\,
+\varphi_{ji}^*\,=\,\varphi_{ij}^+\,,\qquad i,j=1,2,\ldots,n.\]</div>
+<p>Equality of the corresponding matrix elements implies equality of matrices:</p>
+<div class="math notranslate nohighlight">
+\[\widetilde{\boldsymbol{F}}=\boldsymbol{F}^+\,,
+\qquad\text{and thus}\qquad
+M_{\mathcal{B}}(\widetilde{F})\ =\ \left[\,M_{\mathcal{B}}(F)\,\right]^+.\]</div>
+<p><span class="math notranslate nohighlight">\(\ \Leftarrow\ :\ \)</span>
+Assume that <span class="math notranslate nohighlight">\(\ M_{\mathcal{B}}(\widetilde{F})\ =\
+\left[\,M_{\mathcal{B}}(F)\,\right]^+,\ \,\)</span>
+that is, <span class="math notranslate nohighlight">\(\ \widetilde{\boldsymbol{F}}=\boldsymbol{F}^+.\)</span></p>
+<p>We have to show that the operator <span class="math notranslate nohighlight">\(\,\widetilde{F}\ \)</span> satisfies the condition <a class="reference internal" href="#equation-x-ft-y">(4)</a>, <span class="math notranslate nohighlight">\(\,\)</span>
+which will mean that <span class="math notranslate nohighlight">\(\ \widetilde{F}=F^+.\)</span></p>
+<p>Let <span class="math notranslate nohighlight">\(\ \ x\,=\,\displaystyle\sum_{i\,=\,1}^n\ \alpha_i\,u_i\,,\ \
+y=\displaystyle\sum_{j\,=\,1}^n\ \beta_j\,u_j\,.\ \)</span> Then</p>
+<div class="math notranslate nohighlight">
+\[\begin{split}\begin{array}{rcl}
+\langle\,x,\widetilde{F}y\,\rangle &amp; =\ &amp;
+\left\langle\ \;\displaystyle\sum_{i\,=\,1}^n\ \alpha_i\,u_i\,,\ \widetilde{F}
+\left(\:\sum_{j\,=\,1}^n\ \beta_j\,u_j\right)\;\right\rangle\ \ =
+\\ \\
+&amp; =\ \ &amp; \displaystyle\sum_{i,\,j=1}^n\,\alpha_i^*\,\beta_j\
+\langle\,u_i,\widetilde{F}u_j\,\rangle \ \,=\ \,
+\sum_{i,\,j=1}^n\,\alpha_i^*\,\beta_j\ \widetilde{\varphi}_{ij}\ \ =
+\\
+&amp; =\ \ &amp; \displaystyle\sum_{i,\,j=1}^n\,\alpha_i^*\,\beta_j\ \varphi_{ij}^+\ \,=\ \,
+\sum_{i,\,j=1}^n\,\alpha_i^*\,\beta_j\ \varphi_{ji}^*\ \,=
+\\
+&amp; =\ \ &amp; \displaystyle\sum_{i,\,j=1}^n\,\alpha_i^*\,\beta_j\
+\langle\,u_j,Fu_i\,\rangle^*\ \,=\ \,
+\sum_{i,\,j=1}^n\,\alpha_i^*\,\beta_j\ \langle\,Fu_i,u_j\,\rangle\ \,=
+\\ \\
+&amp; =\ \ &amp; \left\langle\ F\,\left(\,\displaystyle\sum_{i\,=\,1}^n\ \alpha_i\,u_i\right)\,,\ \
+\displaystyle\sum_{j\,=\,1}^n\ \beta_j\,u_j\,\right\rangle\ \ =
+\ \ \langle\,Fx,y\,\rangle\,.
+\end{array}\end{split}\]</div>
+<p>If we use the notion of Hermitian conjugation also for the operation of Hermitian conjugation, we may write</p>
+<div class="admonition-corollary admonition">
+<p class="admonition-title">Corollary.</p>
+<p>Hermitian conjugation of a linear operator <span class="math notranslate nohighlight">\(\,F\ \)</span> is equivalent to
+Hermitian conjugation of the matrix of this operator in every orthonormal
+basis <span class="math notranslate nohighlight">\(\,\mathcal{B}:\)</span></p>
+<div class="math notranslate nohighlight" id="equation-m-b-f-plus">
+<span class="eqno">(5)<a class="headerlink" href="#equation-m-b-f-plus" title="Permalink to this equation">¶</a></span>\[M_{\mathcal{B}}(F^+)\ =\ \left[\,M_{\mathcal{B}}(F)\,\right]^+\,.\]</div>
+</div>
+<p><span class="math notranslate nohighlight">\(\;\)</span></p>
+<p><strong>Properties of Hermitian conjugation.</strong> <span class="math notranslate nohighlight">\(\\\)</span></p>
+<ol class="arabic">
+<li><p>Hermitian conjugation of sum of two operators is equal to sum of their Hermitian conjugations:</p>
+<div class="math notranslate nohighlight">
+\[(F+G)^+\,=\;F^++\:G^+\,,\qquad F,\,G\,\in\,\text{End}(V)\,.\]</div>
+</li>
+<li><p>Multiplication of an operator by a complex number <span class="math notranslate nohighlight">\(\ \alpha\ \)</span> multiplies its Hermitian conjugation
+by <span class="math notranslate nohighlight">\(\ \alpha^*:\)</span></p>
+<div class="math notranslate nohighlight">
+\[(\alpha\,F)^+\ =\ \;\alpha^*\,F^+\,,\qquad\alpha\in C,\ \ F\in\text{End}(V)\,.\]</div>
+</li>
+<li><p>Hermitian conjugate of product (i.e., composition) of operators is equal to product
+of Hermitian conjugations with reverse order of the factors:</p>
+<div class="math notranslate nohighlight">
+\[(F\,G)^+\ =\ \;G^+\,F^+\,,\qquad F,\,G\,\in\,\text{End}(V)\,.\]</div>
+</li>
+<li><p>Double Hermitian conjugation returns the initial operator :</p>
+<div class="math notranslate nohighlight">
+\[(F^+)^+\,=\ F\,,\qquad F\in\text{End}(V)\,.\]</div>
+</li>
+</ol>
+<p><strong>Proof of the properties</strong> bases on Lemma 1. preceding this section. <span class="math notranslate nohighlight">\(\\\)</span></p>
+<ol class="arabic">
+<li><p>Definition of a sum of two linear operators implies the equalities:</p>
+<div class="math notranslate nohighlight">
+\[ \begin{align}\begin{aligned}\begin{split}\begin{array}{lcl}
+\langle\,x,\,(F+G)^+\,y\,\rangle &amp; \ = &amp; \ \langle\,(F+G)\,x,\,y\,\rangle\ \ =
+\\ \\
+&amp; \ = &amp; \ \langle\,Fx+Gx,\,y\,\rangle\ \ =
+\\ \\
+&amp; \ = &amp; \ \langle\,Fx,y\,\rangle + \langle\,Gx,\,y\,\rangle\ \ =
+\\ \\
+&amp; \ = &amp; \ \langle\,x,F^+y\,\rangle + \langle\,x,G^+y\,\rangle\ \ =
+\\ \\
+&amp; \ = &amp; \ \langle\,x,F^+y+G^+y\,\rangle\quad=\quad\langle\,x,(F^+\!+G^+)\,y\,\rangle\,;
+\\ &amp; &amp;
+\end{array}\end{split}\\\langle\,x,\,(F+G)^+\,y\,\rangle = \langle\,x,(F^+\!+G^+)\,y\,\rangle, \ \ x,y\in V
+\quad\Rightarrow\quad (F+G)^+\ =\ F^++\,G^+ .\end{aligned}\end{align} \]</div>
+</li>
+<li><p>A proof of this property proceeds in a similar way as in the point 1.</p></li>
+<li><p>By definition of composition of two linear operators:</p>
+<div class="math notranslate nohighlight">
+\[ \begin{align}\begin{aligned}\begin{split}\begin{array}{rclcl}
+\langle\,x,\,(F\,G)^+\,y\,\rangle &amp; = &amp;
+\langle\,(F\,G)\,x,\,y\,\rangle\ \ =\ \ \langle\,F(Gx),\,y\,\rangle &amp; = &amp;
+\\ \\
+&amp; = &amp; \langle\,Gx,F^+y\,\rangle\ \ =\ \ \langle\,x,G^+(F^+y)\,\rangle &amp; = &amp;
+\langle\,x,(G^+F^+)\,y\,\rangle\,;
+\\ &amp; &amp; &amp; &amp;
+\end{array}\end{split}\\\langle\,x,\,(F\,G)^+\,y\,\rangle = \langle\,x,(G^+F^+)\,y\,\rangle,\ \ x,y\in V
+\qquad\Rightarrow\qquad
+(F\,G)^+\ =\ G^+F^+\,.\end{aligned}\end{align} \]</div>
+</li>
+<li><p>Formulae <a class="reference internal" href="#equation-f-plus-2">(3)</a> imply:</p>
+<div class="math notranslate nohighlight">
+\[\begin{split}\begin{array}{c}
+\langle\,x,\,(F^+)^+\,y\,\rangle\ =\ \langle\,F^+x,\,\,y\,\rangle\ =\
+\langle\,x,\,Fy\,\rangle\,;
+\\ \\
+\langle\,x,\,(F^+)^+\,y\,\rangle\ =\ \langle\,x,\,Fy\,\rangle\,,\quad x,y\in V
+\qquad\Rightarrow\qquad
+(F^+)^+\ =\ F\,.
+\end{array}\end{split}\]</div>
+</li>
+</ol>
+<div class="admonition-corollary admonition">
+<p class="admonition-title">Corollary.</p>
+<p>Hermitian conjugation is an antilinear operation:</p>
+<div class="math notranslate nohighlight">
+\[(\alpha\,F+\beta\,G)^+\ =\ \,
+\alpha^*\,F^+\,+\,\beta^*\,G^+\,,\qquad
+\alpha,\beta\in C\,,\quad F,\,G\in\,\text{End}(V)\,.\]</div>
+</div>
+<p>In view of Theorem 8. and its corollary, an anlogy between properties of Hermitian conjugation of matrices and linear operators is not coincidental. <span class="math notranslate nohighlight">\(\\\)</span></p>
+</section>
+<section id="hermitian-operators">
+<h2>Hermitian Operators<a class="headerlink" href="#hermitian-operators" title="Permalink to this headline">¶</a></h2>
+<div class="admonition-definition admonition">
+<p class="admonition-title">Definition.</p>
+<p>A linear operator <span class="math notranslate nohighlight">\(\,F\in\text{End}(V)\ \)</span> is a <span class="math notranslate nohighlight">\(\,\)</span>
+<em>Hermitian operator</em> <span class="math notranslate nohighlight">\(\\\)</span>
+if it is equal to its Hermitian conjugation:</p>
+<div class="math notranslate nohighlight">
+\[F=F^+\qquad\text{that is}\qquad\langle\,x,Fy\,\rangle\ =\ \langle\,Fx,y\,\rangle\quad
+\text{for all}\quad x,y\in V\,.\]</div>
+</div>
+<p>In particular, for a Hermitian operator <span class="math notranslate nohighlight">\(\,F\,:\)</span></p>
+<div class="math notranslate nohighlight" id="equation-x-f-x">
+<span class="eqno">(6)<a class="headerlink" href="#equation-x-f-x" title="Permalink to this equation">¶</a></span>\[\langle\,x,Fx\,\rangle\ =\ \langle\,Fx,x\,\rangle\quad
+\text{for all}\quad x\in V\,.\]</div>
+<p>A corollary to Theorem 8. implies immediately</p>
+<div class="admonition-theorem-9 admonition">
+<p class="admonition-title">Theorem 9.</p>
+<p>A linear operator <span class="math notranslate nohighlight">\(\,F\in\text{End}(V)\ \)</span> is Hermitian
+if and only if in every orthonormal basis <span class="math notranslate nohighlight">\(\,\mathcal{B}\ \)</span>
+of the space <span class="math notranslate nohighlight">\(\ V\ \)</span> its matrix is Hermitian:</p>
+<div class="math notranslate nohighlight">
+\[F=F^+\quad\Leftrightarrow\quad M_{\mathcal{B}}(F)\,=\,[\,M_{\mathcal{B}}(F)\,]^+\,,
+\qquad F\in\text{End}(V)\,.\]</div>
+</div>
+<p>In what follows we will make use of a criterion for a complex number <span class="math notranslate nohighlight">\(\,z\,\)</span> to be real:</p>
+<div class="math notranslate nohighlight">
+\[z\in R\quad\Leftrightarrow\quad z^*=\,z\,,\qquad z\in C\,.\]</div>
+<p><strong>Properties of Hermitian operators.</strong> <span class="math notranslate nohighlight">\(\\\)</span></p>
+<p>Let <span class="math notranslate nohighlight">\(\,F\in\text{End}(V)\ \)</span> be a Hermitian operator. Then: <span class="math notranslate nohighlight">\(\\\)</span></p>
+<ol class="arabic">
+<li><p>For every <span class="math notranslate nohighlight">\(\,x\in V\,\)</span> an expression <span class="math notranslate nohighlight">\(\,\langle x,Fx\rangle\ \)</span> is a real number.</p>
+<p>Indeed, according to the definition of an inner product and the formula
+<a class="reference internal" href="#equation-x-f-x">(6)</a>, we have</p>
+<div class="math notranslate nohighlight">
+\[\langle\,x,Fx\,\rangle^*\ =\ \langle\,Fx,x\,\rangle\ =\ \langle\,x,Fx\,\rangle
+\qquad\Rightarrow\qquad\langle\,x,Fx\,\rangle\in R.\]</div>
+<p>One can prove that the condition <span class="math notranslate nohighlight">\(\,\forall_{x\in V}\langle x,Fx\rangle\in R\,\)</span>
+is not only necessary, but also sufficient for an operator <span class="math notranslate nohighlight">\(\,F\ \)</span> to be
+Hermitian. Hence,</p>
+<div class="admonition-corollary admonition">
+<p class="admonition-title">Corollary.</p>
+<p>If <span class="math notranslate nohighlight">\(\,F\in\text{End}(V)\,,\ \)</span> then
+<span class="math notranslate nohighlight">\(\qquad F\ =\ F^+\quad\Leftrightarrow\quad
+\langle\,x,Fx\,\rangle\in R\,,\quad x\in V\,.\)</span></p>
+</div>
+</li>
+</ol>
+<p><span class="math notranslate nohighlight">\(\;\)</span></p>
+<ol class="arabic" start="2">
+<li><p>Eigenvalues of the operator <span class="math notranslate nohighlight">\(\,F\ \)</span> are real.</p>
+<p><strong>Proof.</strong> <span class="math notranslate nohighlight">\(\,\)</span>
+Assume that <span class="math notranslate nohighlight">\(\quad Fv\,=\,\lambda\,v\,,\quad v\in V\!\smallsetminus\!\{\theta\},\quad\lambda\in C\,.\ \ \)</span>
+By the formula <a class="reference internal" href="#equation-x-f-x">(6)</a>,</p>
+<div class="math notranslate nohighlight">
+\begin{eqnarray*}
+\langle\,v,Fv\,\rangle &amp; \! = \! &amp; \langle\,Fv,v\,\rangle\,,                   \\
+\langle\,v,\,\lambda\,v\,\rangle &amp; \! = \! &amp; \langle\,\lambda\,v,v\,\rangle\,, \\
+\lambda\ \langle v,v\rangle &amp; \! = \! &amp; \lambda^*\;\langle v,v\rangle\,,
+\quad\text{where}\quad\langle v,v\rangle&gt;0\,;                                  \\
+\lambda &amp; \! = \! &amp; \lambda^* \quad\ \ \Leftrightarrow\quad\ \ \,\lambda\in R\,.
+\end{eqnarray*}</div></li>
+<li><p>Eigenvectors of the operator <span class="math notranslate nohighlight">\(\,F\ \)</span> associated with different eigenvalues are orthogonal.</p>
+<p><strong>Proof.</strong> <span class="math notranslate nohighlight">\(\,\)</span>
+Assume that <span class="math notranslate nohighlight">\(\quad Fv_1\,=\,\lambda_1\,v_1\,,\ \ Fv_2\,=\,\lambda_2\,v_2\,,\quad
+v_1,v_2\in V\!\smallsetminus\!\{\theta\}\,,\quad\lambda_1\neq\lambda_2\,.\)</span></p>
+<p>Starting from a definition of the Hermitian operator, we obtain</p>
+<div class="math notranslate nohighlight">
+\begin{eqnarray*}
+\langle\,v_1,Fv_2\,\rangle &amp; = &amp; \langle\,Fv_1,v_2\,\rangle \\
+\langle\,v_1,\lambda_2\,v_2\,\rangle &amp; = &amp; \langle\,\lambda_1\,v_1,v_2\,\rangle \\
+\lambda_2\ \langle v_1,v_2\rangle &amp; = &amp; \lambda_1^*\ \langle v_1,v_2\rangle \\
+\lambda_2\ \langle v_1,v_2\rangle &amp; = &amp; \lambda_1\ \langle v_1,v_2\rangle \\
+(\lambda_2-\lambda_1)\ \langle v_1,v_2\rangle &amp; = &amp; 0\,.
+\end{eqnarray*}</div><p>Since by an assumption <span class="math notranslate nohighlight">\(\ \lambda_1\neq\lambda_2\,,\ \)</span>
+so we must have <span class="math notranslate nohighlight">\(\ \langle v_1,v_2\rangle=0\,,\ \)</span> as required. <span class="math notranslate nohighlight">\(\\\)</span></p>
+</li>
+</ol>
+<p>Hence, eigenvectors of the Hermitian operator <span class="math notranslate nohighlight">\(\,F\ \)</span> associated with different eigenvalues comprise an orthogonal system. Recall that one may normalise any
+ortoghonal set of vectors and thus obtain an orthonormal system. This implies</p>
+<div class="admonition-corollary admonition">
+<p class="admonition-title">Corollary.</p>
+<p>If a Hermitian operator <span class="math notranslate nohighlight">\(\,F\ \)</span> defined on an <span class="math notranslate nohighlight">\(\,n\)</span>-dimensional
+unitary space <span class="math notranslate nohighlight">\(\,V\ \)</span> has <span class="math notranslate nohighlight">\(\,n\,\)</span> distinct eigenvalues,
+then one may choose an orthonormal basis for the space <span class="math notranslate nohighlight">\(\,V\ \)</span>
+consisting of eigenvectors of this operator.</p>
+</div>
+</section>
+<section id="unitary-operators">
+<h2>Unitary Operators<a class="headerlink" href="#unitary-operators" title="Permalink to this headline">¶</a></h2>
+<div class="admonition-definition admonition">
+<p class="admonition-title">Definition.</p>
+<p>A linear operator <span class="math notranslate nohighlight">\(\,U\ \)</span> defined on a unitary space <span class="math notranslate nohighlight">\(\,V\ \)</span>
+is <em>unitary</em> <span class="math notranslate nohighlight">\(\,\)</span> if</p>
+<div class="math notranslate nohighlight">
+\[U^+U\ =\ I\,,\]</div>
+<p>where <span class="math notranslate nohighlight">\(\,I\ \)</span> is an identity operator defined by the condition:
+<span class="math notranslate nohighlight">\(\,I(v)=v\,,\ v\in V.\)</span></p>
+</div>
+<p>Unitary operators are closely related with unitary matrices. Namely,</p>
+<div class="admonition-theorem-10 admonition">
+<p class="admonition-title">Theorem 10.</p>
+<p>A linear operator <span class="math notranslate nohighlight">\(\ U\ \)</span> defined on an <span class="math notranslate nohighlight">\(\,n\)</span>-dimensional
+unitary space <span class="math notranslate nohighlight">\(\,V\ \)</span> is unitary if and only if
+in every orthonormal basis <span class="math notranslate nohighlight">\(\ \mathcal{B}\ \)</span> its matrix is unitary:</p>
+<div class="math notranslate nohighlight">
+\[U^+U\ =\ I\qquad\Leftrightarrow\qquad
+\boldsymbol{B}^+\boldsymbol{B}\ =\ \boldsymbol{I}_n\,,\]</div>
+<p>where <span class="math notranslate nohighlight">\(\ \ \boldsymbol{B}\,=\,M_{\mathcal{B}}(U)\,,\ \ \boldsymbol{I}_n\ \)</span>
+- <span class="math notranslate nohighlight">\(\,\)</span> an identity matrix of size <span class="math notranslate nohighlight">\(\,n.\)</span></p>
+</div>
+<p><strong>Proof.</strong></p>
+<p>The mapping <span class="math notranslate nohighlight">\(\,M_{\mathcal{B}}:\,\text{End}(V)\rightarrow M_n(C)\,\)</span>
+which assigns matrices to linear operators is - as an algebra isomorphism -
+bijective and multiplicative. <span class="math notranslate nohighlight">\(\\\)</span>
+Hence, and also by the equation <a class="reference internal" href="#equation-m-b-f-plus">(5)</a>, the following equalities are equivalent:</p>
+<div class="math notranslate nohighlight">
+\begin{eqnarray*}
+U^+U &amp; = &amp; I\,, \\
+M_{\mathcal{B}}(U^+U) &amp; = &amp; M_{\mathcal{B}}(I)\,, \\
+M_{\mathcal{B}}(U^+)\,M_{\mathcal{B}}(U) &amp; = &amp; M_{\mathcal{B}}(I)\,, \\
+\left[\,M_{\mathcal{B}}(U)\,\right]^+M_{\mathcal{B}}(U) &amp; = &amp; M_{\mathcal{B}}(I)\,, \\
+\boldsymbol{B}^+\boldsymbol{B} &amp; = &amp; \boldsymbol{I}_n\,.
+\end{eqnarray*}</div><p><strong>Properties of unitary operators.</strong></p>
+<p>Consider a unitary operator <span class="math notranslate nohighlight">\(\ U\ \)</span> defined on a unitary space <span class="math notranslate nohighlight">\(\,V:\)</span></p>
+<div class="math notranslate nohighlight" id="equation-u0">
+<span class="eqno">(7)<a class="headerlink" href="#equation-u0" title="Permalink to this equation">¶</a></span>\[U^+U\ =\ I\,.\]</div>
+<ol class="arabic" start="0">
+<li><p>The condition <a class="reference internal" href="#equation-u0">(7)</a> implies existence of the inverse operator <span class="math notranslate nohighlight">\(\ U^{-1}=U^+\ \)</span> and an identity</p>
+<div class="math notranslate nohighlight">
+\[UU^+\ =\ \left(U^+\right)^+\,U^+\ =\ I\,,\]</div>
+<p>which means that if <span class="math notranslate nohighlight">\(\ U\ \)</span> is a unitary operator,
+then both the conjugate operator <span class="math notranslate nohighlight">\(\ U^+\ \)</span>
+and <span class="math notranslate nohighlight">\(\,\)</span> the inverse operator <span class="math notranslate nohighlight">\(\ U^{-1}\,\)</span> are unitary.</p>
+</li>
+<li><p>Product (i.e., composition) of two unitary operators is a unitary operator.</p>
+<p>Indeed, if <span class="math notranslate nohighlight">\(\,U_1^+U_1=U_2^+U_2=I\,,\ \ \)</span> then by properties of Hermitian
+conjugation <span class="math notranslate nohighlight">\(\\\)</span>
+of operators and by associativity of composition of operators, we obtain</p>
+<div class="math notranslate nohighlight">
+\[(U_1\,U_2)^+(U_1\,U_2)\ =\
+(U_2^+\,U_1^+)(U_1\,U_2)\ =\
+U_2^+\,(U_1^+U_1)\,U_2\ =\
+U_2^+\,I\ U_2\ =\
+U_2^+\,U_2\ =\ I\,.\]</div>
+<p>Hence, composition is an operation on the set of unitary operators. <span class="math notranslate nohighlight">\(\\\)</span>
+Further, since the identity operator <span class="math notranslate nohighlight">\(\,I\,\)</span> is unitary and so is an
+inverse of a unitary operator, we may write</p>
+<div class="admonition-corollary admonition">
+<p class="admonition-title">Corollary.</p>
+<p>Unitary operators defined on the space <span class="math notranslate nohighlight">\(\,V\ \)</span> together with their
+composition comprise a (nonabelian) group.</p>
+</div>
+<p><span class="math notranslate nohighlight">\(\,\)</span></p>
+</li>
+<li><p>The operator <span class="math notranslate nohighlight">\(\ U\ \)</span> preserves an inner product:</p>
+<div class="math notranslate nohighlight" id="equation-u1">
+<span class="eqno">(8)<a class="headerlink" href="#equation-u1" title="Permalink to this equation">¶</a></span>\[\langle\,Ux,\,Uy\,\rangle\ =\ \langle x,y\rangle\,,\qquad x,y\in V\,,\]</div>
+<p>since <span class="math notranslate nohighlight">\(\quad\langle\,Ux,\,Uy\,\rangle\ =\ \langle\,U^+U\,x,\,y\,\rangle\ =\
+\langle\,Ix,y\,\rangle\ =\ \langle x,y\rangle\,.\)</span></p>
+<p>In particular, <span class="math notranslate nohighlight">\(\ U\ \)</span> preserves a vector norm:</p>
+<div class="math notranslate nohighlight" id="equation-u2">
+<span class="eqno">(9)<a class="headerlink" href="#equation-u2" title="Permalink to this equation">¶</a></span>\[\|\,Ux\,\|\ =\ \|x\|\,,\qquad x\in V\,,\]</div>
+<p>because <span class="math notranslate nohighlight">\(\quad\|\,Ux\,\|^{\,2}\ =\ \langle\,Ux,Ux\,\rangle\ =\ \langle\,U^+U\,x,\,x\,\rangle\ =\
+\langle x,x\rangle\,.\)</span></p>
+<p>Preservation of a norm (which is a generalised length) of a vector by the operator <span class="math notranslate nohighlight">\(\ U\ \)</span>
+allows to interpret its action as a generalised rotation of a vector in the space
+<span class="math notranslate nohighlight">\(\ V.\)</span></p>
+<p>One may prove that the conditions <span class="math notranslate nohighlight">\(\,\)</span> <a class="reference internal" href="#equation-u0">(7)</a>, <span class="math notranslate nohighlight">\(\,\)</span> <a class="reference internal" href="#equation-u1">(8)</a> <span class="math notranslate nohighlight">\(\,\)</span>
+and <span class="math notranslate nohighlight">\(\,\)</span> <a class="reference internal" href="#equation-u2">(9)</a> <span class="math notranslate nohighlight">\(\,\)</span> are equivalent, <span class="math notranslate nohighlight">\(\\\)</span>
+and thus each of them may serve as a definition of a unitary operator. <span class="math notranslate nohighlight">\(\\\)</span></p>
+</li>
+<li><p>Eigenvalues of the operator <span class="math notranslate nohighlight">\(\ U\ \)</span> are complex numbers with modulus <span class="math notranslate nohighlight">\(\,1.\)</span></p>
+<p><strong>Proof.</strong> <span class="math notranslate nohighlight">\(\,\)</span></p>
+<p>Assume that <span class="math notranslate nohighlight">\(\ v\ \)</span> is an eigenvector of the operator <span class="math notranslate nohighlight">\(\ U\ \)</span>
+associated with an eigenvalue <span class="math notranslate nohighlight">\(\ \lambda\in C.\ \)</span> Then</p>
+<div class="math notranslate nohighlight">
+\begin{eqnarray*}
+Uv &amp; = &amp; \lambda\,v\,,\quad v\neq\theta\,, \\
+\|\,Uv\,\| &amp; = &amp; \|\,\lambda\,v\,\|\,, \\
+\|v\| &amp; = &amp; |\lambda|\ \|v\|\,, \\
+(|\lambda|-1)\ \|v\| &amp; = &amp; 0\,,\quad\|v\|\neq 0\,, \\
+|\lambda|-1 &amp; = &amp; 0\,, \\
+|\lambda| &amp; = &amp; 1\,.
+\end{eqnarray*}</div></li>
+<li><p>Eigenvectors of the operator <span class="math notranslate nohighlight">\(\ U\ \)</span> associated with different eigenvalues are orthogonal.</p>
+<p><strong>Proof.</strong> <span class="math notranslate nohighlight">\(\,\)</span>
+Assume that <span class="math notranslate nohighlight">\(\quad Uv_1\,=\,\lambda_1\,v_1\,,\ \ Uv_2\,=\,\lambda_2\,v_2\,,\quad
+v_1,v_2\in V\!\smallsetminus\!\{\theta\}\,,\quad\lambda_1\neq\lambda_2\,.\)</span></p>
+<p>We already know that <span class="math notranslate nohighlight">\(\quad|\lambda_1|=|\lambda_2|=1\,,\quad\)</span>
+and thus <span class="math notranslate nohighlight">\(\quad|\lambda_1|^2=\lambda_1^*\,\lambda_1=1\,,\quad\lambda_1^*=1/\lambda_1\,.\ \)</span>
+Hence,</p>
+<p><span class="math notranslate nohighlight">\(\langle v_1,v_2\rangle\ =\ \langle\,Uv_1,\,Uv_2\,\rangle\ =\
+\langle\,\lambda_1\,v_1,\,\lambda_2\,v_2\,\rangle\ =\
+\lambda_1^*\;\lambda_2\ \langle v_1,v_2\rangle\ =\
+\displaystyle\frac{\lambda_2}{\lambda_1}\ \ \langle v_1,v_2\rangle\,,\)</span></p>
+<p><span class="math notranslate nohighlight">\(\left(\,1\ -\ \displaystyle\frac{\lambda_2}{\lambda_1}\;\right)\
+\langle v_1,v_2\rangle\ =\ 0\,,\quad\text{and}\ \ \text{so}\quad\lambda_1\neq\lambda_2\,,
+\quad\text{implies}\quad\langle v_1,v_2\rangle\ =\ 0\,.\)</span></p>
+</li>
+</ol>
+</section>
+</section>
+
+
+          </div>
+        </div>
+      </div>
+      <div class="sphinxsidebar" role="navigation" aria-label="main navigation">
+        <div class="sphinxsidebarwrapper">
+  <div class="sphinxlocaltoc">
+  <h3><a href="index.html">Table Of Contents</a></h3>
+  <ul>
+<li><a class="reference internal" href="#">Hermitian and Unitary Operators</a><ul>
+<li><a class="reference internal" href="#hermitian-conjugation-of-a-linear-operator">Hermitian Conjugation of a Linear Operator</a></li>
+<li><a class="reference internal" href="#hermitian-operators">Hermitian Operators</a></li>
+<li><a class="reference internal" href="#unitary-operators">Unitary Operators</a></li>
+</ul>
+</li>
+</ul>
+
+  </div>
+  <h4>Previous topic</h4>
+  <p class="topless"><a href="p_unitarne_Sage.html"
+                        title="previous chapter">Application of Sage</a></p>
+  <h4>Next topic</h4>
+  <p class="topless"><a href="p_unitarne_operatory_normalne.html"
+                        title="next chapter">Normal Operators</a></p>
+  <div role="note" aria-label="source link">
+    <h3>This Page</h3>
+    <ul class="this-page-menu">
+      <li><a href="_sources/p_unitarne_operatory_hermit_i_unit.rst.txt"
+            rel="nofollow">Show Source</a></li>
+    </ul>
+   </div>
+<div id="searchbox" style="display: none" role="search">
+  <h3 id="searchlabel">Quick search</h3>
+    <div class="searchformwrapper">
+    <form class="search" action="search.html" method="get">
+      <input type="text" name="q" aria-labelledby="searchlabel" />
+      <input type="submit" value="Go" />
+    </form>
+    </div>
+</div>
+<script>$('#searchbox').show(0);</script>
+        </div>
+      </div>
+      <div class="clearer"></div>
+    </div>
+  </div>
+  <div class="relbar-bottom">
+    
+    <div class="related" role="navigation" aria-label="related navigation">
+      <h3>Navigation</h3>
+      <ul>
+        <li class="right" style="margin-right: 10px">
+          <a href="genindex.html" title="General Index"
+             >index</a></li>
+        <li class="right" >
+          <a href="p_unitarne_operatory_normalne.html" title="Normal Operators"
+             >next</a> &nbsp; &nbsp;</li>
+        <li class="right" >
+          <a href="p_unitarne_Sage.html" title="Application of Sage"
+             >previous</a> &nbsp; &nbsp;</li>
+  <li><a href="index.html">Linear Algebra</a> &#187;</li>
+  
+        <li class="nav-item nav-item-this"><a href="">Hermitian and Unitary Operators</a></li> 
+      </ul>
+    </div>
+  </div>
+  
+  <div class="footer">
+    <a class="logo" href="http://icse.us.edu.pl/" target="_blank"><img src="_static/logo-icse.png" alt="ICSE"/></a><br/>
+    &copy; Copyright 2018, Jan Aksamit, Joanna Marzec, and  Marcin Kostur.
+    Last updated on Jan 29, 2022.
+    Created using <a href="http://sphinx.pocoo.org/">Sphinx</a> 4.0.1.
+  </div>
+  </body>
+</html>

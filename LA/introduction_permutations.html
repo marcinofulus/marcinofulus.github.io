@@ -1,0 +1,541 @@
+
+
+  
+<!DOCTYPE html>
+
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" /><meta name="generator" content="Docutils 0.17: http://docutils.sourceforge.net/" />
+
+    <title>Group of Permutations &#8212; Linear Algebra</title>
+    <link rel="stylesheet" type="text/css" href="_static/pygments.css" />
+    <link rel="stylesheet" type="text/css" href="_static/cloud.css" />
+    <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Noticia+Text|Open+Sans|Droid+Sans+Mono&amp;subset=latin,latin-ext" type="text/css" />
+    <script data-url_root="./" id="documentation_options" src="_static/documentation_options.js"></script>
+    <script src="_static/jquery.js"></script>
+    <script src="_static/underscore.js"></script>
+    <script src="_static/doctools.js"></script>
+    <script async="async" src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js"></script>
+    <script src="_static/jquery.cookie.js"></script>
+    <script src="_static/cloud.js"></script>
+    <script type="text/javascript" src="http://sagecell.sagemath.org/static/jquery.min.js"></script>
+    <script type="text/javascript" src="http://sagecell.sagemath.org/embedded_sagecell.js"></script>
+    <script type="text/javascript">
+        sagecell.makeSagecell({inputLocation: ".sage_linked",
+                               linked: true});
+        sagecell.makeSagecell({inputLocation: ".sage_unlinked",
+                               linked: false});
+    </script>
+
+    <style type="text/css">
+        .sagecell .CodeMirror-scroll {
+            overflow-y: hidden;
+            overflow-x: auto;
+        }
+        .sagecell .CodeMirror {
+            height: auto;
+        }
+    </style>
+    
+    <link rel="index" title="Index" href="genindex.html" />
+    <link rel="search" title="Search" href="search.html" />
+    <link rel="next" title="References" href="introduction_references.html" />
+    <link rel="prev" title="Fundamental Concepts in Linear Algebra" href="introduction_fundamental-concepts.html" />
+ 
+  <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, minimum-scale=1">
+  </head><body>
+  <div class="relbar-top">
+    
+    <div class="related" role="navigation" aria-label="related navigation">
+      <h3>Navigation</h3>
+      <ul>
+        <li class="right" style="margin-right: 10px">
+          <a href="genindex.html" title="General Index"
+             accesskey="I">index</a></li>
+        <li class="right" >
+          <a href="introduction_references.html" title="References"
+             accesskey="N">next</a> &nbsp; &nbsp;</li>
+        <li class="right" >
+          <a href="introduction_fundamental-concepts.html" title="Fundamental Concepts in Linear Algebra"
+             accesskey="P">previous</a> &nbsp; &nbsp;</li>
+  <li><a href="index.html">Linear Algebra</a> &#187;</li>
+  
+        <li class="nav-item nav-item-this"><a href="">Group of Permutations</a></li> 
+      </ul>
+    </div>
+  </div>
+  
+  <div class="content">  
+
+    <div class="document">
+      <div class="documentwrapper">
+        <div class="bodywrapper">
+          <div class="body">
+            
+  <section id="group-of-permutations">
+<h1>Group of Permutations<a class="headerlink" href="#group-of-permutations" title="Permalink to this headline">¶</a></h1>
+<section id="definition-and-notation">
+<h2>Definition and Notation<a class="headerlink" href="#definition-and-notation" title="Permalink to this headline">¶</a></h2>
+<p>A <span class="math notranslate nohighlight">\(\,\)</span> <em>permutation</em> <span class="math notranslate nohighlight">\(\,\)</span> of a finite set
+<span class="math notranslate nohighlight">\(\,X=\{1,2,\dots,n\}\,\)</span> is a (bijective) mapping from <span class="math notranslate nohighlight">\(\,X\,\)</span>
+onto itself.</p>
+<p>The set of all permutations of the set <span class="math notranslate nohighlight">\(\,\{1,2,\dots,n\}\,\)</span>
+is denoted by <span class="math notranslate nohighlight">\(\,S_n\,.\)</span></p>
+<p>A convenient way of representing a permutation is the two-line notation:</p>
+<div class="math notranslate nohighlight">
+\[\begin{split}\sigma\ =\ \left(\begin{array}{cccc}
+                     1     &amp;     2     &amp; \dots &amp;     n     \\
+                 \sigma(1) &amp; \sigma(2) &amp; \dots &amp; \sigma(n)
+                 \end{array}\right)\,,\end{split}\]</div>
+<p>where in the upper row are listed arguments,
+and in the lower row the corresponding images.</p>
+<p>Arguments may appear in any order, provided that the respective images
+are attached to them. For example, the following permutation can be
+written down in 24 equivalent forms:</p>
+<div class="math notranslate nohighlight">
+\[\begin{split}\left(\begin{array}{cccc} 1 &amp; 2 &amp; 3 &amp; 4 \\
+                          3 &amp; 1 &amp; 2 &amp; 4 \end{array}\right)\ =\
+\left(\begin{array}{cccc} 2 &amp; 3 &amp; 4 &amp; 1 \\
+                          1 &amp; 2 &amp; 4 &amp; 3 \end{array}\right)\ =\
+\left(\begin{array}{cccc} 4 &amp; 1 &amp; 2 &amp; 3 \\
+                          4 &amp; 3 &amp; 1 &amp; 2 \end{array}\right)\ =\ \dots\end{split}\]</div>
+<p>Permutations can be composed as mappings: <span class="math notranslate nohighlight">\(\\\)</span>
+if <span class="math notranslate nohighlight">\(\,\rho,\sigma\in S_n,\ \,\)</span> then
+the composition <span class="math notranslate nohighlight">\(\,\rho\circ\sigma\,\)</span>
+is determined by</p>
+<div class="math notranslate nohighlight" id="equation-compose">
+<span class="eqno">(1)<a class="headerlink" href="#equation-compose" title="Permalink to this equation">¶</a></span>\[(\rho\circ\sigma)(k)\ =\ \rho\,[\,\sigma(k)\,]\,,
+\qquad k\in\{1,2,\dots,n\}\,.\]</div>
+<p>In the two-line notation the rule reads:</p>
+<div class="math notranslate nohighlight">
+\[ \begin{align}\begin{aligned}\begin{split}\rho\circ\sigma\ =\
+\left(\begin{array}{cccc}
+   1    &amp;    2    &amp; \dots &amp;    n    \\
+\rho(1) &amp; \rho(2) &amp; \dots &amp; \rho(n)
+\end{array}\right)\ \circ\
+\left(\begin{array}{cccc}
+    1     &amp;     2     &amp; \dots &amp;     n     \\
+\sigma(1) &amp; \sigma(2) &amp; \dots &amp; \sigma(n)
+\end{array}\right)\ =\end{split}\\\begin{split}=\
+\left(\begin{array}{cccc}
+              1   &amp;               2   &amp; \dots &amp;               n   \\
+\rho\,[\sigma(1)] &amp; \rho\,[\sigma(2)] &amp; \dots &amp; \rho\,[\sigma(n)]
+\end{array}\right)\,.\end{split}\end{aligned}\end{align} \]</div>
+<p>It’s worth pointing out the order of operations: <span class="math notranslate nohighlight">\(\\\)</span>
+for each number <span class="math notranslate nohighlight">\(\,k\in\{1,2,\dots,n\}\,\)</span>
+we first determine the image of <span class="math notranslate nohighlight">\(\,k\,\)</span>
+under permutation <span class="math notranslate nohighlight">\(\,\sigma,\ \)</span> <span class="math notranslate nohighlight">\(\\\)</span>
+and then the image of the obtained result
+under permutation <span class="math notranslate nohighlight">\(\,\rho.\ \)</span> For example,</p>
+<div class="math notranslate nohighlight">
+\[ \begin{align}\begin{aligned}\begin{split}\left(\begin{array}{ccccc} 1 &amp; 2 &amp; 3 &amp; 4 &amp; 5 \\
+                           4 &amp; 1 &amp; 3 &amp; 5 &amp; 2 \end{array}\right)\ \circ\
+\left(\begin{array}{ccccc} 1 &amp; 2 &amp; 3 &amp; 4 &amp; 5 \\
+                           2 &amp; 5 &amp; 1 &amp; 3 &amp; 4 \end{array}\right)\ =\
+\left(\begin{array}{ccccc} 1 &amp; 2 &amp; 3 &amp; 4 &amp; 5 \\
+                           1 &amp; 2 &amp; 4 &amp; 3 &amp; 5 \end{array}\right)\,.\end{split}\\\;\end{aligned}\end{align} \]</div>
+<p><strong>Theorem 1.</strong> <span class="math notranslate nohighlight">\(\,\)</span>
+The structure <span class="math notranslate nohighlight">\(\ \left(\,S_n,\,\circ\,\right)\ \)</span> is a group
+<span class="math notranslate nohighlight">\(\ (n\in N).\)</span></p>
+<p><strong>Proof.</strong> <span class="math notranslate nohighlight">\(\,\)</span>
+We shall check the consecutive axioms in the definition of a group.</p>
+<ol class="arabic" start="0">
+<li><div class="line-block">
+<div class="line"><span class="math notranslate nohighlight">\(\,\)</span> A composition of two permutations in <span class="math notranslate nohighlight">\(\,S_n\,\)</span>
+is also a permutation belonging to <span class="math notranslate nohighlight">\(\,S_n.\,\)</span></div>
+<div class="line"><span class="math notranslate nohighlight">\(\,\)</span> Therefore, the composition <span class="math notranslate nohighlight">\(\ \circ\ \)</span>
+is an internal operation in the set <span class="math notranslate nohighlight">\(\,S_n.\)</span></div>
+</div>
+</li>
+<li><div class="line-block">
+<div class="line"><span class="math notranslate nohighlight">\(\,\)</span> The composition of permutations, as composition of mappings,
+is associative.</div>
+<div class="line"><span class="math notranslate nohighlight">\(\,\)</span> Indeed, <span class="math notranslate nohighlight">\(\,\)</span> if <span class="math notranslate nohighlight">\(\,\rho,\sigma,\tau\in S_n,\ \)</span>
+then for each <span class="math notranslate nohighlight">\(\,k\in\{1,2,\dots,n\}:\)</span></div>
+</div>
+<div class="math notranslate nohighlight">
+\[ \begin{align}\begin{aligned}\left[\,\rho\circ (\sigma\circ\tau )\,\right]\,(k)
+\ =\
+\rho\,\left[\, (\sigma\circ\tau )(k)\,\right]
+\ =\
+\rho\,\{\,\sigma\,\left[\,\tau(k)\,\right]\,\}\,,\\\left[\, (\rho\circ\sigma )\circ\tau\,\right]\,(k)
+\ =\
+(\rho\circ\sigma )\,\left[\,\tau(k)\,\right]
+\ =\
+\rho\,\{\,\sigma\,\left[\,\tau(k)\,\right]\,\}\,.\end{aligned}\end{align} \]</div>
+<p><span class="math notranslate nohighlight">\(\,\)</span> Consequently,
+<span class="math notranslate nohighlight">\(\qquad\quad\rho\circ (\sigma\circ\tau )\ =\
+( \rho\circ\sigma )\circ\tau\,,\qquad\forall\ \ \rho,\sigma,\tau\in S_n\,.\)</span></p>
+</li>
+<li><div class="line-block">
+<div class="line"><span class="math notranslate nohighlight">\(\,\)</span> The neutral element for composition
+is the identity permutation id,</div>
+<div class="line"><span class="math notranslate nohighlight">\(\,\)</span> which maps every element of the set to itself:</div>
+</div>
+<div class="math notranslate nohighlight">
+\[\begin{split}\text{id}\ =\ \left(\begin{array}{cccccc}
+              1 &amp; 2 &amp; 3 &amp; \dots &amp; n \\
+              1 &amp; 2 &amp; 3 &amp; \dots &amp; n \end{array}\right)\,.\end{split}\]</div>
+<p><span class="math notranslate nohighlight">\(\,\)</span> Indeed, it’s easy to verify that
+<span class="math notranslate nohighlight">\(\quad\sigma\circ\text{id}\ =\
+\text{id}\circ\sigma\ =\
+\sigma\,,\quad\forall\ \sigma\in S_n.\)</span></p>
+</li>
+<li><p>Every permutation <span class="math notranslate nohighlight">\(\ \sigma\in S_n\ \)</span> has an inverse
+<span class="math notranslate nohighlight">\(\ \sigma^{-1}\in S_n\ \)</span> <span class="math notranslate nohighlight">\(\\\)</span>
+such that <span class="math notranslate nohighlight">\(\ \ \sigma\circ\sigma^{-1}\ =\
+\,\sigma^{-1}\circ\,\sigma\ =\
+\text{id}\,.\ \)</span> Expressly,</p>
+<div class="math notranslate nohighlight">
+\[\begin{split}\text{if}\quad
+\sigma\ =\ \left(\begin{array}{cccccc}
+             1 &amp;   2 &amp;   3 &amp; \dots &amp;   n  \\
+           s_1 &amp; s_2 &amp; s_3 &amp; \dots &amp; s_n
+           \end{array}\right)\,,
+\quad\text{then}\quad\
+\sigma^{-1}\ =\ \left(\begin{array}{cccccc}
+                s_1 &amp; s_2 &amp; s_3 &amp; \dots &amp; s_n  \\
+                  1 &amp;   2 &amp;   3 &amp; \dots &amp;   n
+                \end{array}\right)\,.
+\quad\bullet\end{split}\]</div>
+</li>
+</ol>
+<p>The group <span class="math notranslate nohighlight">\(\ S_n\ \)</span> of permutations is called the <em>symmetric group</em>.
+<span class="math notranslate nohighlight">\(\\\)</span>
+It has <span class="math notranslate nohighlight">\(\,n!\,\)</span> elements, <span class="math notranslate nohighlight">\(\,\)</span>
+and for <span class="math notranslate nohighlight">\(\,n&gt;2\,\)</span> is non-abelian.</p>
+<p>In the following we shall omit the symbol <span class="math notranslate nohighlight">\(\ \circ:\)</span>
+<span class="math notranslate nohighlight">\(\ \ \rho\circ\sigma\ \rightarrow\ \rho\,\sigma\,,\ \)</span> <span class="math notranslate nohighlight">\(\\\)</span>
+and a composition of permutations shall be called a product of them.</p>
+</section>
+<section id="cyclic-permutations-and-parity">
+<h2>Cyclic Permutations and Parity<a class="headerlink" href="#cyclic-permutations-and-parity" title="Permalink to this headline">¶</a></h2>
+<p>A permutation <span class="math notranslate nohighlight">\(\ \sigma\in S_n\ \)</span> is <span class="math notranslate nohighlight">\(\,\)</span> a <span class="math notranslate nohighlight">\(\,\)</span>
+<em>cycle of length</em> <span class="math notranslate nohighlight">\(\,k\ \)</span> (shortly: a <span class="math notranslate nohighlight">\(\,k\)</span>-<em>cycle</em>) <span class="math notranslate nohighlight">\(\,\)</span>
+when <span class="math notranslate nohighlight">\(\\\)</span> there exists a subset <span class="math notranslate nohighlight">\(\ Y=\{a_1,a_2,\dots,a_k\}\ \)</span>
+of the set <span class="math notranslate nohighlight">\(\,X=\{1,2,\dots,n\},\ \)</span> such that</p>
+<div class="math notranslate nohighlight">
+\[ \begin{align}\begin{aligned}\sigma(a_1)=a_2,\quad\sigma(a_2)=a_3,\quad\dots,\quad
+\sigma(a_{k-1})=a_k,\quad\sigma(a_k)=a_1,\\\text{and}\qquad\sigma(i)=i\qquad\text{for}\qquad i\notin Y\,.\end{aligned}\end{align} \]</div>
+<p>The aforementioned subset <span class="math notranslate nohighlight">\(\,Y\,\)</span> is called
+<span class="math notranslate nohighlight">\(\,\)</span> the <span class="math notranslate nohighlight">\(\,\)</span> <em>orbit</em> <span class="math notranslate nohighlight">\(\,\)</span> of the cycle.</p>
+<p>Elements mapped to themselves being omitted,
+a <span class="math notranslate nohighlight">\(\,k\)</span>-cycle is written in the one-line fashion as
+<span class="math notranslate nohighlight">\(\ \sigma=(a_1,a_2,\dots,a_k).\ \)</span>
+Thus, using the two-line notation, a <span class="math notranslate nohighlight">\(\,k\)</span>-cycle reads</p>
+<div class="math notranslate nohighlight">
+\[\begin{split}S_n\,\ni\,(a_1,a_2,\dots,a_k)\ =\
+\left(\begin{array}{ccccccccc}
+a_1 &amp; a_2 &amp; \dots &amp; a_{k-1} &amp; a_k &amp; a_{k+1} &amp; \dots &amp; a_{n-1} &amp; a_n \\
+a_2 &amp; a_3 &amp; \dots &amp;   a_k   &amp; a_1 &amp; a_{k+1} &amp; \dots &amp; a_{n-1} &amp; a_n
+\end{array}\right)\,.\end{split}\]</div>
+<p>Example:
+<span class="math notranslate nohighlight">\(\quad
+\left(\begin{array}{cccccc}
+1 &amp; 2 &amp; 3 &amp; 4 &amp; 5 &amp; 6 \\
+1 &amp; 6 &amp; 4 &amp; 2 &amp; 5 &amp; 3 \end{array}\right)\ =\
+\left(\begin{array}{cccccc}
+2 &amp; 6 &amp; 3 &amp; 4 &amp; 1 &amp; 5 \\
+6 &amp; 3 &amp; 4 &amp; 2 &amp; 1 &amp; 5 \end{array}\right)\ =\ (2,6,3,4)\,.\)</span></p>
+<p>Instead, the permutation
+<span class="math notranslate nohighlight">\(\quad
+\left(\begin{array}{ccccc}
+1 &amp; 2 &amp; 3 &amp; 4 &amp; 5 \\
+3 &amp; 1 &amp; 2 &amp; 5 &amp; 4 \end{array}\right)\ =\
+\left(\begin{array}{ccccc}
+1 &amp; 3 &amp; 2 &amp; 4 &amp; 5 \\
+3 &amp; 2 &amp; 1 &amp; 5 &amp; 4 \end{array}\right)\quad\)</span>
+is not a cycle.</p>
+<p>The one-line cycle notation is not unique. A <span class="math notranslate nohighlight">\(\,k\)</span>-cycle
+may be written in <span class="math notranslate nohighlight">\(\,k\,\)</span> different ways,
+depending on the choice of the initial element <span class="math notranslate nohighlight">\(\,a_1\,:\)</span></p>
+<div class="math notranslate nohighlight">
+\[(2,6,3,4)\ =\ (6,3,4,2)\ =\ (3,4,2,6)\ =\ (4,2,6,3)\,.\]</div>
+<p>A cycle of length 1 is the identity permutation:</p>
+<div class="math notranslate nohighlight">
+\[S_n\,\ni\,\text{id}\ =\ (1)\ =\ (2)\ =\ \dots\ =\ (n)\,.\]</div>
+<p>A cycle of length 2 (i.e. with a 2-element orbit) is called
+<span class="math notranslate nohighlight">\(\,\)</span> a <span class="math notranslate nohighlight">\(\,\)</span> <em>transposition</em>. <span class="math notranslate nohighlight">\(\,\)</span> An example is</p>
+<div class="math notranslate nohighlight">
+\[\begin{split}S_6\,\ni\,\tau_{25}\ =\ (2,5)\ =\ \left(\begin{array}{cccccc}
+                                  1 &amp; 2 &amp; 3 &amp; 4 &amp; 5 &amp; 6 \\
+                                  1 &amp; 5 &amp; 3 &amp; 4 &amp; 2 &amp; 6 \end{array}\right)\,.\end{split}\]</div>
+<p>Two cycles, <span class="math notranslate nohighlight">\(\ \rho=(a_1,a_2,\dots,a_k),\
+\sigma=(b_1,b_2,\dots,b_l)\in S_n\,,\ \)</span> are <em>disjoint</em>
+when their orbits <span class="math notranslate nohighlight">\(\ Y_{\rho}=\{a_1,a_2,\dots,a_k\},\)</span>
+<span class="math notranslate nohighlight">\(\ Y_{\sigma}=\{b_1,b_2,\dots,b_l\}\ \)</span> are disjoint sets:
+<span class="math notranslate nohighlight">\(\ Y_{\rho}\cap Y_{\sigma}=\emptyset\,.\ \,\)</span></p>
+<p>For example, the cycles <span class="math notranslate nohighlight">\(\ (3,6,2)\ \)</span> and <span class="math notranslate nohighlight">\(\ (1,7,4,5)\ \)</span>
+in the group <span class="math notranslate nohighlight">\(\ S_7\ \)</span> are disjoint, whereas <span class="math notranslate nohighlight">\(\ (4,2,5,1)\ \)</span>
+and <span class="math notranslate nohighlight">\(\ (3,1,6,2)\ \)</span> are not. It’s worth to notice that
+a product of two disjoint cycles is commutative:
+<span class="math notranslate nohighlight">\(\ \rho\,\sigma=\sigma\,\rho\,.\)</span></p>
+<p><strong>Theorem 2.</strong> <span class="math notranslate nohighlight">\(\\\)</span>
+Every permutation can be expressed as a product of disjoint cycles. <span class="math notranslate nohighlight">\(\\\)</span>
+The expression is unique up to the order of (commuting) factors. <a class="footnote-reference brackets" href="#id4" id="id1">3</a></p>
+<p>Example:
+<span class="math notranslate nohighlight">\(\quad\left(\begin{array}{cccccccccc}
+1 &amp; 2 &amp; 3 &amp; 4 &amp; 5 &amp; 6 &amp; 7 &amp;  8 &amp; 9 &amp; 10 \\
+6 &amp; 2 &amp; 4 &amp; 3 &amp; 5 &amp; 9 &amp; 8 &amp; 10 &amp; 1 &amp;  7 \end{array}\right)\ =\
+(1,6,9)(3,4)(7,8,10)\,.\)</span></p>
+<p><strong>Proposition 1.</strong> <span class="math notranslate nohighlight">\(\\\)</span>
+A <span class="math notranslate nohighlight">\(\,k\)</span>-cycle can be decomposed into the product of <span class="math notranslate nohighlight">\(\ k-1\ \)</span>
+transpositions <span class="math notranslate nohighlight">\(\ (k\geq 2):\)</span></p>
+<div class="math notranslate nohighlight">
+\[(a_1,a_2,a_3,\dots,a_{k-1},a_k)\ \,=\ \,
+(a_1,a_k)(a_1,a_{k-1})\ \dots\ (a_1,a_3)(a_1,a_2)\,.\]</div>
+<p><strong>Note:</strong> <span class="math notranslate nohighlight">\(\,\)</span> The order of factors on the right-hand side is relevant!</p>
+<p><strong>Corollary 1.</strong> <span class="math notranslate nohighlight">\(\\\)</span>
+Every permutation <span class="math notranslate nohighlight">\(\ \sigma\in S_n,\ n\geq 2,\ \)</span>
+can be represented as a product of transpositions <span class="math notranslate nohighlight">\(\\\)</span>
+(such representation is not unique). <span class="math notranslate nohighlight">\(\ \)</span> For example,</p>
+<div class="math notranslate nohighlight">
+\[ \begin{align}\begin{aligned}\begin{split}\left(\begin{array}{ccccc}
+1 &amp; 2 &amp; 3 &amp; 4 &amp; 5 \\
+2 &amp; 5 &amp; 4 &amp; 3 &amp; 1 \end{array}\right)\ =\ (1,2,5)(3,4)\ =\end{split}\\=\ (1,5)(1,2)(3,4)\ =\ (1,3)(3,4)(4,5)(2,4)(1,4)\,.\end{aligned}\end{align} \]</div>
+<p><strong>Proposition 2.</strong> <span class="math notranslate nohighlight">\(\,\)</span>
+Every transposition <span class="math notranslate nohighlight">\(\,\tau\in S_n,\ n\geq 2,\ \)</span> may be written
+as a product of an odd number of adjacent transpositions.
+Namely, for <span class="math notranslate nohighlight">\(\,i&lt;j\,\)</span> we get:</p>
+<div class="math notranslate nohighlight">
+\[\begin{split}\begin{array}{ccc}
+(i,j) &amp; = &amp; (i,i+1)\,(i+1,i+2)\,\dots\,(j-2,j-1)\,\circ \\
+      &amp;   &amp; \circ\,(j-1,j)\,\circ                       \\
+      &amp;   &amp; \circ\,(j-1,j-2)\,\dots\,\,(i+2,i+1)\,(i+1,i)\,,
+\end{array}\end{split}\]</div>
+<p><strong>Example.</strong> <span class="math notranslate nohighlight">\(\quad (1,4)\ =\ (1,2)\,(2,3)\,(3,4)\,(3,2)\,(2,1)\ =\
+(1,2)\,(2,3)\,(3,4)\,(2,3)\,(1,2)\,.\)</span></p>
+<p><strong>Corollary 2.</strong> <span class="math notranslate nohighlight">\(\\\)</span>
+Every permutation <span class="math notranslate nohighlight">\(\,\sigma\in S_n\,,\ n\geq 2,\ \)</span>
+may be represented as a product of adjacent transpositions
+(this representation is also not unique).</p>
+<p>Proposition 1. and Proposition 2. can be validated by a direct
+comparison of images of each <span class="math notranslate nohighlight">\(\,k\in\{\,1,\,2,\,\ldots,\,n\}\,\)</span>
+under permutations in left- and right-hand side of the equation.</p>
+<p>As we have pointed out, a decomposition of a given permutation into a product
+of transpositions is not unique. Nevertheless, the number of factors
+in every such decomposition is either always even or always odd.
+In Appendix A5. we prove the following</p>
+<p><strong>Theorem 3.</strong> <span class="math notranslate nohighlight">\(\\\)</span>
+Suppose a permutation <span class="math notranslate nohighlight">\(\,\sigma\in S_n\,\)</span> has two different
+representations as a product of transpositions:
+<span class="math notranslate nohighlight">\(\ \sigma\ =\ \tau_1\,\tau_2\,\dots\,\tau_r\ =\
+\tau'_1\,\tau'_2\,\dots\,\tau'_s\,.\ \)</span>
+Then both expressions yield the same parity of the number of factors:
+<span class="math notranslate nohighlight">\(\quad (-1)^r\,=\ (-1)^s\,.\)</span></p>
+<p><strong>Corollary 3.</strong> <span class="math notranslate nohighlight">\(\\\)</span>
+The above theorem makes it possible to define a <em>sign</em> of a permutation
+as follows:</p>
+<div class="math notranslate nohighlight">
+\[\text{sgn}:\qquad S_n\,\ni\,\sigma\quad\rightarrow
+\quad\text{sgn}\,\sigma\ :\,=\ (-1)^r\,\in\,\{-1,1\}\,,\]</div>
+<p>where <span class="math notranslate nohighlight">\(\,r\,\)</span> is the number of factors in an arbitrary decomposition
+of the permutation <span class="math notranslate nohighlight">\(\,\sigma\,\)</span> into a product of transpositions.
+Additionally, we assume that if <span class="math notranslate nohighlight">\(\ \sigma\in S_1\ \)</span>
+(then <span class="math notranslate nohighlight">\(\,\sigma=\text{id}\)</span>), <span class="math notranslate nohighlight">\(\,\)</span> then by convention
+<span class="math notranslate nohighlight">\(\,\text{sgn}\,\sigma = +1.\)</span></p>
+<p>A permutation <span class="math notranslate nohighlight">\(\ \sigma\in S_n\ \,\)</span> is <span class="math notranslate nohighlight">\(\,\)</span> <em>even</em> <span class="math notranslate nohighlight">\(\,\)</span>
+when <span class="math notranslate nohighlight">\(\,\text{sgn}\,\sigma = +1\,,\ \,\)</span> and is <span class="math notranslate nohighlight">\(\,\)</span> <em>odd</em> <span class="math notranslate nohighlight">\(\,\)</span>
+when <span class="math notranslate nohighlight">\(\,\text{sgn}\,\sigma = -1\,.\)</span></p>
+</section>
+<section id="permutations-in-sage">
+<span id="id2"></span><h2>Permutations in Sage<a class="headerlink" href="#permutations-in-sage" title="Permalink to this headline">¶</a></h2>
+<p>The Sage command <code class="docutils literal notranslate"><span class="pre">Permutations(n)</span></code> returns the class of permutations
+of <span class="math notranslate nohighlight">\(\,n\,\)</span> numbers, written in a one-line notation: <span class="math notranslate nohighlight">\(\\\)</span></p>
+<div class="math notranslate nohighlight">
+\[\begin{split}\left(\begin{array}{cccccc}
+  1 &amp;   2 &amp;   3 &amp; \dots &amp;   n  \\
+s_1 &amp; s_2 &amp; s_3 &amp; \dots &amp; s_n
+\end{array}\right)\quad\sim\quad
+[\,s_1,\ s_2,\ s_3,\ \ldots,\ s_n\,]\,.\end{split}\]</div>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="n">sage</span><span class="p">:</span> <span class="n">P3</span> <span class="o">=</span> <span class="n">Permutations</span><span class="p">(</span><span class="mi">3</span><span class="p">)</span>
+<span class="n">sage</span><span class="p">:</span> <span class="nb">print</span> <span class="n">P3</span><span class="p">;</span> <span class="n">P3</span><span class="o">.</span><span class="n">list</span><span class="p">()</span>
+
+<span class="n">Standard</span> <span class="n">permutations</span> <span class="n">of</span> <span class="mi">3</span>
+<span class="p">[[</span><span class="mi">1</span><span class="p">,</span> <span class="mi">2</span><span class="p">,</span> <span class="mi">3</span><span class="p">],</span> <span class="p">[</span><span class="mi">1</span><span class="p">,</span> <span class="mi">3</span><span class="p">,</span> <span class="mi">2</span><span class="p">],</span> <span class="p">[</span><span class="mi">2</span><span class="p">,</span> <span class="mi">1</span><span class="p">,</span> <span class="mi">3</span><span class="p">],</span> <span class="p">[</span><span class="mi">2</span><span class="p">,</span> <span class="mi">3</span><span class="p">,</span> <span class="mi">1</span><span class="p">],</span> <span class="p">[</span><span class="mi">3</span><span class="p">,</span> <span class="mi">1</span><span class="p">,</span> <span class="mi">2</span><span class="p">],</span> <span class="p">[</span><span class="mi">3</span><span class="p">,</span> <span class="mi">2</span><span class="p">,</span> <span class="mi">1</span><span class="p">]]</span>
+</pre></div>
+</div>
+<p>In general, the command <span class="math notranslate nohighlight">\(\,\)</span> <code class="docutils literal notranslate"><span class="pre">Permutations()</span></code>
+yields the class of permutations of any set:</p>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="n">sage</span><span class="p">:</span> <span class="n">P</span> <span class="o">=</span> <span class="n">Permutations</span><span class="p">([</span><span class="s1">&#39;a&#39;</span><span class="p">,</span> <span class="s1">&#39;b&#39;</span><span class="p">,</span> <span class="s1">&#39;c&#39;</span><span class="p">])</span>
+<span class="n">sage</span><span class="p">:</span> <span class="nb">print</span> <span class="n">P</span><span class="p">;</span> <span class="n">P</span><span class="o">.</span><span class="n">list</span><span class="p">()</span>
+
+<span class="n">Permutations</span> <span class="n">of</span> <span class="n">the</span> <span class="nb">set</span> <span class="p">[</span><span class="s1">&#39;a&#39;</span><span class="p">,</span> <span class="s1">&#39;b&#39;</span><span class="p">,</span> <span class="s1">&#39;c&#39;</span><span class="p">]</span>
+<span class="p">[[</span><span class="s1">&#39;a&#39;</span><span class="p">,</span> <span class="s1">&#39;b&#39;</span><span class="p">,</span> <span class="s1">&#39;c&#39;</span><span class="p">],</span>
+ <span class="p">[</span><span class="s1">&#39;a&#39;</span><span class="p">,</span> <span class="s1">&#39;c&#39;</span><span class="p">,</span> <span class="s1">&#39;b&#39;</span><span class="p">],</span>
+ <span class="p">[</span><span class="s1">&#39;b&#39;</span><span class="p">,</span> <span class="s1">&#39;a&#39;</span><span class="p">,</span> <span class="s1">&#39;c&#39;</span><span class="p">],</span>
+ <span class="p">[</span><span class="s1">&#39;b&#39;</span><span class="p">,</span> <span class="s1">&#39;c&#39;</span><span class="p">,</span> <span class="s1">&#39;a&#39;</span><span class="p">],</span>
+ <span class="p">[</span><span class="s1">&#39;c&#39;</span><span class="p">,</span> <span class="s1">&#39;a&#39;</span><span class="p">,</span> <span class="s1">&#39;b&#39;</span><span class="p">],</span>
+ <span class="p">[</span><span class="s1">&#39;c&#39;</span><span class="p">,</span> <span class="s1">&#39;b&#39;</span><span class="p">,</span> <span class="s1">&#39;a&#39;</span><span class="p">]]</span>
+</pre></div>
+</div>
+<p>A particular permutation can be extracted by a direct indication or by indexing:</p>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="n">sage</span><span class="p">:</span> <span class="n">P3</span> <span class="o">=</span> <span class="n">Permutations</span><span class="p">(</span><span class="mi">3</span><span class="p">)</span>
+<span class="n">sage</span><span class="p">:</span> <span class="n">L</span> <span class="o">=</span> <span class="n">P3</span><span class="o">.</span><span class="n">list</span><span class="p">()</span>
+<span class="n">sage</span><span class="p">:</span> <span class="n">p0</span> <span class="o">=</span> <span class="n">P3</span><span class="p">([</span><span class="mi">1</span><span class="p">,</span> <span class="mi">2</span><span class="p">,</span> <span class="mi">3</span><span class="p">])</span>
+<span class="n">sage</span><span class="p">:</span> <span class="n">p1</span> <span class="o">=</span> <span class="n">P3</span><span class="p">[</span><span class="mi">1</span><span class="p">]</span>
+<span class="n">sage</span><span class="p">:</span> <span class="n">p2</span> <span class="o">=</span> <span class="n">L</span><span class="p">[</span><span class="mi">2</span><span class="p">]</span>
+<span class="n">sage</span><span class="p">:</span> <span class="nb">print</span> <span class="n">L</span><span class="p">;</span> <span class="n">p0</span><span class="p">,</span> <span class="n">p1</span><span class="p">,</span> <span class="n">p2</span>
+
+<span class="p">[[</span><span class="mi">1</span><span class="p">,</span> <span class="mi">2</span><span class="p">,</span> <span class="mi">3</span><span class="p">],</span> <span class="p">[</span><span class="mi">1</span><span class="p">,</span> <span class="mi">3</span><span class="p">,</span> <span class="mi">2</span><span class="p">],</span> <span class="p">[</span><span class="mi">2</span><span class="p">,</span> <span class="mi">1</span><span class="p">,</span> <span class="mi">3</span><span class="p">],</span> <span class="p">[</span><span class="mi">2</span><span class="p">,</span> <span class="mi">3</span><span class="p">,</span> <span class="mi">1</span><span class="p">],</span> <span class="p">[</span><span class="mi">3</span><span class="p">,</span> <span class="mi">1</span><span class="p">,</span> <span class="mi">2</span><span class="p">],</span> <span class="p">[</span><span class="mi">3</span><span class="p">,</span> <span class="mi">2</span><span class="p">,</span> <span class="mi">1</span><span class="p">]]</span>
+<span class="p">([</span><span class="mi">1</span><span class="p">,</span> <span class="mi">2</span><span class="p">,</span> <span class="mi">3</span><span class="p">],</span> <span class="p">[</span><span class="mi">1</span><span class="p">,</span> <span class="mi">3</span><span class="p">,</span> <span class="mi">2</span><span class="p">],</span> <span class="p">[</span><span class="mi">2</span><span class="p">,</span> <span class="mi">1</span><span class="p">,</span> <span class="mi">3</span><span class="p">])</span>
+</pre></div>
+</div>
+<p>Given a permutation <span class="math notranslate nohighlight">\(\,p\,\)</span> written in one of the following ways:</p>
+<ul class="simple">
+<li><p>list of integers, viewed as one-line permutation notation,</p></li>
+<li><p>string of tuples of integers, expressing the permutation in cycle notation
+<span class="math notranslate nohighlight">\(\\\)</span>
+(a 1-cycle may be used to set the size of permutation),</p></li>
+<li><p>list of tuples, representing the cycles in cycle notation
+<span class="math notranslate nohighlight">\(\\\)</span>
+(a 1-cycle with a comma may be used to set the size of permutation),</p></li>
+</ul>
+<p>the function <code class="docutils literal notranslate"><span class="pre">Permutation()</span></code> returns <span class="math notranslate nohighlight">\(\,p\,\)</span>  as an object
+of the class of permutations.</p>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="n">sage</span><span class="p">:</span> <span class="n">p1</span> <span class="o">=</span> <span class="n">Permutation</span><span class="p">([</span><span class="mi">4</span><span class="p">,</span><span class="mi">1</span><span class="p">,</span><span class="mi">3</span><span class="p">,</span><span class="mi">5</span><span class="p">,</span><span class="mi">2</span><span class="p">])</span>
+<span class="n">sage</span><span class="p">:</span> <span class="n">p2</span> <span class="o">=</span> <span class="n">Permutation</span><span class="p">(</span><span class="s1">&#39;(1,3)(5)&#39;</span><span class="p">)</span>
+<span class="n">sage</span><span class="p">:</span> <span class="n">p3</span> <span class="o">=</span> <span class="n">Permutation</span><span class="p">([(</span><span class="mi">1</span><span class="p">,</span><span class="mi">4</span><span class="p">),(</span><span class="mi">5</span><span class="p">,)])</span>
+<span class="n">sage</span><span class="p">:</span> <span class="n">p4</span> <span class="o">=</span> <span class="n">Permutation</span><span class="p">(((</span><span class="mi">1</span><span class="p">,</span><span class="mi">3</span><span class="p">,</span><span class="mi">4</span><span class="p">),(</span><span class="mi">2</span><span class="p">,</span><span class="mi">5</span><span class="p">)))</span>
+
+<span class="n">sage</span><span class="p">:</span> <span class="nb">print</span> <span class="n">p1</span><span class="o">.</span><span class="n">parent</span><span class="p">()</span>
+<span class="n">sage</span><span class="p">:</span> <span class="nb">print</span> <span class="n">p1</span>
+<span class="n">sage</span><span class="p">:</span> <span class="nb">print</span> <span class="n">p2</span>
+<span class="n">sage</span><span class="p">:</span> <span class="nb">print</span> <span class="n">p3</span>
+<span class="n">sage</span><span class="p">:</span> <span class="nb">print</span> <span class="n">p4</span>
+
+<span class="n">Standard</span> <span class="n">permutations</span>
+<span class="p">[</span><span class="mi">4</span><span class="p">,</span> <span class="mi">1</span><span class="p">,</span> <span class="mi">3</span><span class="p">,</span> <span class="mi">5</span><span class="p">,</span> <span class="mi">2</span><span class="p">]</span>
+<span class="p">[</span><span class="mi">3</span><span class="p">,</span> <span class="mi">2</span><span class="p">,</span> <span class="mi">1</span><span class="p">,</span> <span class="mi">4</span><span class="p">,</span> <span class="mi">5</span><span class="p">]</span>
+<span class="p">[</span><span class="mi">4</span><span class="p">,</span> <span class="mi">2</span><span class="p">,</span> <span class="mi">3</span><span class="p">,</span> <span class="mi">1</span><span class="p">,</span> <span class="mi">5</span><span class="p">]</span>
+<span class="p">[</span><span class="mi">3</span><span class="p">,</span> <span class="mi">5</span><span class="p">,</span> <span class="mi">4</span><span class="p">,</span> <span class="mi">1</span><span class="p">,</span> <span class="mi">2</span><span class="p">]</span>
+</pre></div>
+</div>
+<p>There are two conventions,
+<span class="math notranslate nohighlight">\(\,\)</span> right-to-left <span class="math notranslate nohighlight">\(\,\)</span> and <span class="math notranslate nohighlight">\(\,\)</span> left-to-right, <span class="math notranslate nohighlight">\(\,\)</span>
+of composing (multiplying) <span class="math notranslate nohighlight">\(\,\)</span> permutations.</p>
+<p>A composition may be effectuated by means of the methods
+<code class="docutils literal notranslate"><span class="pre">left_action_product()</span></code>, <code class="docutils literal notranslate"><span class="pre">right_action_product()</span></code>
+<span class="math notranslate nohighlight">\(\,\)</span> or <span class="math notranslate nohighlight">\(\,\)</span> by the binary
+multiplication operator <span class="math notranslate nohighlight">\(\,&quot;\ast&quot;:\)</span></p>
+<ul class="simple">
+<li><p><code class="docutils literal notranslate"><span class="pre">p1.left_action_product(p2)</span></code> returns the product of <span class="math notranslate nohighlight">\(\,p1\,\)</span>
+and <span class="math notranslate nohighlight">\(\,p2,\ \)</span> in which <span class="math notranslate nohighlight">\(\,p2\ \)</span> is applied first;
+this right-to-left convention reflects the principle <a class="reference internal" href="#equation-compose">(1)</a>
+of composing permutations as mappings;</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">p1.right_action_product(p2)</span></code> returns the product of <span class="math notranslate nohighlight">\(\,p1\,\)</span>
+and <span class="math notranslate nohighlight">\(\,p2,\ \)</span> in which <span class="math notranslate nohighlight">\(\,p1\ \)</span> is applied first;
+this left-to-right convention becomes natural if the image of a
+number <span class="math notranslate nohighlight">\(\,i\,\)</span> under a permutation <span class="math notranslate nohighlight">\(\,p\,\)</span>
+is written as <span class="math notranslate nohighlight">\(\,i^p\,;\)</span> <span class="math notranslate nohighlight">\(\,\)</span>
+then <span class="math notranslate nohighlight">\(\ i^{(pq)}=\left(i^p\right)^q\,.\)</span></p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">p1*p2</span></code> <span class="math notranslate nohighlight">\(\,\)</span> by default yields a product of <span class="math notranslate nohighlight">\(\,p1\,\)</span> and
+<span class="math notranslate nohighlight">\(\,p2\ \)</span> calculated according to the latter (left-to-right) rule.</p></li>
+</ul>
+<p>The above regulations are illustrated by the following Sage code:</p>
+<div class='sage_linked'><script type='text/x-sage'>P5 = Permutations(5)
+p1 = P5.random_element()
+p2 = P5.random_element()
+
+p3 = p1.left_action_product(p2)
+p4 = p1.right_action_product(p2)
+p5 = p1*p2
+
+print p1, p2
+print p3, p4, p5</script></div><p>The class of permutations contains several other useful methods <a class="footnote-reference brackets" href="#id5" id="id3">4</a>,
+of which we shall mention here only a few.</p>
+<div class='sage_linked'><script type='text/x-sage'>P5 = Permutations(5)
+p = P5.random_element()
+p.show()
+print "p =", p
+print "p reverse =", p.reverse()
+print "p inverse =", p.inverse()
+print "p in cycles =", p.to_cycles()
+print "p is even?", p.is_even()</script></div><dl class="footnote brackets">
+<dt class="label" id="id4"><span class="brackets"><a class="fn-backref" href="#id1">3</a></span></dt>
+<dd><p>See <a class="reference external" href="http://math.mit.edu/~mckernan/Teaching/12-13/Spring/18.703/l_5.pdf">http://math.mit.edu/~mckernan/Teaching/12-13/Spring/18.703/l_5.pdf</a>
+for a proof.</p>
+</dd>
+<dt class="label" id="id5"><span class="brackets"><a class="fn-backref" href="#id3">4</a></span></dt>
+<dd><p><a class="reference external" href="http://doc.sagemath.org/html/en/reference/combinat/sage/combinat/permutation.html">http://doc.sagemath.org/html/en/reference/combinat/sage/combinat/permutation.html</a></p>
+</dd>
+</dl>
+</section>
+</section>
+
+
+          </div>
+        </div>
+      </div>
+      <div class="sphinxsidebar" role="navigation" aria-label="main navigation">
+        <div class="sphinxsidebarwrapper">
+  <div class="sphinxlocaltoc">
+  <h3><a href="index.html">Table Of Contents</a></h3>
+  <ul>
+<li><a class="reference internal" href="#">Group of Permutations</a><ul>
+<li><a class="reference internal" href="#definition-and-notation">Definition and Notation</a></li>
+<li><a class="reference internal" href="#cyclic-permutations-and-parity">Cyclic Permutations and Parity</a></li>
+<li><a class="reference internal" href="#permutations-in-sage">Permutations in Sage</a></li>
+</ul>
+</li>
+</ul>
+
+  </div>
+  <h4>Previous topic</h4>
+  <p class="topless"><a href="introduction_fundamental-concepts.html"
+                        title="previous chapter">Fundamental Concepts in Linear Algebra</a></p>
+  <h4>Next topic</h4>
+  <p class="topless"><a href="introduction_references.html"
+                        title="next chapter">References</a></p>
+  <div role="note" aria-label="source link">
+    <h3>This Page</h3>
+    <ul class="this-page-menu">
+      <li><a href="_sources/introduction_permutations.rst.txt"
+            rel="nofollow">Show Source</a></li>
+    </ul>
+   </div>
+<div id="searchbox" style="display: none" role="search">
+  <h3 id="searchlabel">Quick search</h3>
+    <div class="searchformwrapper">
+    <form class="search" action="search.html" method="get">
+      <input type="text" name="q" aria-labelledby="searchlabel" />
+      <input type="submit" value="Go" />
+    </form>
+    </div>
+</div>
+<script>$('#searchbox').show(0);</script>
+        </div>
+      </div>
+      <div class="clearer"></div>
+    </div>
+  </div>
+  <div class="relbar-bottom">
+    
+    <div class="related" role="navigation" aria-label="related navigation">
+      <h3>Navigation</h3>
+      <ul>
+        <li class="right" style="margin-right: 10px">
+          <a href="genindex.html" title="General Index"
+             >index</a></li>
+        <li class="right" >
+          <a href="introduction_references.html" title="References"
+             >next</a> &nbsp; &nbsp;</li>
+        <li class="right" >
+          <a href="introduction_fundamental-concepts.html" title="Fundamental Concepts in Linear Algebra"
+             >previous</a> &nbsp; &nbsp;</li>
+  <li><a href="index.html">Linear Algebra</a> &#187;</li>
+  
+        <li class="nav-item nav-item-this"><a href="">Group of Permutations</a></li> 
+      </ul>
+    </div>
+  </div>
+  
+  <div class="footer">
+    <a class="logo" href="http://icse.us.edu.pl/" target="_blank"><img src="_static/logo-icse.png" alt="ICSE"/></a><br/>
+    &copy; Copyright 2018, Jan Aksamit, Joanna Marzec, and  Marcin Kostur.
+    Last updated on Jan 29, 2022.
+    Created using <a href="http://sphinx.pocoo.org/">Sphinx</a> 4.0.1.
+  </div>
+  </body>
+</html>

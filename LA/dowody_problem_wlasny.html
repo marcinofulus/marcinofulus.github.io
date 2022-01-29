@@ -1,0 +1,363 @@
+
+
+  
+<!DOCTYPE html>
+
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" /><meta name="generator" content="Docutils 0.17: http://docutils.sourceforge.net/" />
+
+    <title>Eigenvalues and Eigenvectors &#8212; Linear Algebra</title>
+    <link rel="stylesheet" type="text/css" href="_static/pygments.css" />
+    <link rel="stylesheet" type="text/css" href="_static/cloud.css" />
+    <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Noticia+Text|Open+Sans|Droid+Sans+Mono&amp;subset=latin,latin-ext" type="text/css" />
+    <script data-url_root="./" id="documentation_options" src="_static/documentation_options.js"></script>
+    <script src="_static/jquery.js"></script>
+    <script src="_static/underscore.js"></script>
+    <script src="_static/doctools.js"></script>
+    <script async="async" src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js"></script>
+    <script src="_static/jquery.cookie.js"></script>
+    <script src="_static/cloud.js"></script>
+    <script type="text/javascript" src="http://sagecell.sagemath.org/static/jquery.min.js"></script>
+    <script type="text/javascript" src="http://sagecell.sagemath.org/embedded_sagecell.js"></script>
+    <script type="text/javascript">
+        sagecell.makeSagecell({inputLocation: ".sage_linked",
+                               linked: true});
+        sagecell.makeSagecell({inputLocation: ".sage_unlinked",
+                               linked: false});
+    </script>
+
+    <style type="text/css">
+        .sagecell .CodeMirror-scroll {
+            overflow-y: hidden;
+            overflow-x: auto;
+        }
+        .sagecell .CodeMirror {
+            height: auto;
+        }
+    </style>
+    
+    <link rel="index" title="Index" href="genindex.html" />
+    <link rel="search" title="Search" href="search.html" />
+    <link rel="next" title="Unitary Spaces" href="dowody_p_unitarne.html" />
+    <link rel="prev" title="Linear Transformations" href="dowody_przeksztalcenia_lin.html" />
+ 
+  <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, minimum-scale=1">
+  </head><body>
+  <div class="relbar-top">
+    
+    <div class="related" role="navigation" aria-label="related navigation">
+      <h3>Navigation</h3>
+      <ul>
+        <li class="right" style="margin-right: 10px">
+          <a href="genindex.html" title="General Index"
+             accesskey="I">index</a></li>
+        <li class="right" >
+          <a href="dowody_p_unitarne.html" title="Unitary Spaces"
+             accesskey="N">next</a> &nbsp; &nbsp;</li>
+        <li class="right" >
+          <a href="dowody_przeksztalcenia_lin.html" title="Linear Transformations"
+             accesskey="P">previous</a> &nbsp; &nbsp;</li>
+  <li><a href="index.html">Linear Algebra</a> &#187;</li>
+  
+        <li class="nav-item nav-item-this"><a href="">Eigenvalues and Eigenvectors</a></li> 
+      </ul>
+    </div>
+  </div>
+  
+  <div class="content">  
+
+    <div class="document">
+      <div class="documentwrapper">
+        <div class="bodywrapper">
+          <div class="body">
+            
+  <section id="eigenvalues-and-eigenvectors">
+<h1>Eigenvalues and Eigenvectors<a class="headerlink" href="#eigenvalues-and-eigenvectors" title="Permalink to this headline">¶</a></h1>
+<p>The set of eigenvalues of a linear operator is called the <em>spectrum</em> of this linear operator. We will show that eigenvectors of a linear operator associated with distinct eigenvalues are linearly independent.</p>
+<div class="admonition-theorem-1 admonition">
+<p class="admonition-title">Theorem 1.</p>
+<p>Let <span class="math notranslate nohighlight">\(\,F\in\text{End}(V)\,,\ \ V=V(K)\,,\ \ \dim V=n\geq 2.\ \,\)</span>
+If a spectrum of the operator <span class="math notranslate nohighlight">\(\,F\ \)</span> contains <span class="math notranslate nohighlight">\(\,k\leq n\ \)</span>
+distinct eigenvalues <span class="math notranslate nohighlight">\(\ \lambda_1,\,\lambda_2,\,\ldots,\,\lambda_k\,,\ \)</span>
+then the associated eigenvectors <span class="math notranslate nohighlight">\(\,v_1,\,v_2,\,\ldots,\,v_k\ \)</span>
+are linearly independent.</p>
+</div>
+<p><strong>Proof</strong> <span class="math notranslate nohighlight">\(\,\)</span> (induction on <span class="math notranslate nohighlight">\(\,k\,\)</span>).</p>
+<ol class="upperroman">
+<li><p><span class="math notranslate nohighlight">\(\ k=2.\ \ \)</span> Let <span class="math notranslate nohighlight">\(\quad
+Fv_1=\lambda_1\,v_1\,,\quad Fv_2=\lambda_2\,v_2\,,\quad
+v_1,v_2\in V\!\smallsetminus\!\{\theta\}\,.\)</span></p>
+<p>Assume that vectors <span class="math notranslate nohighlight">\(\ v_1,\,v_2\ \)</span> are linearly dependent,
+that is, there exists a non-trivial linear combination of these vectors which
+is equal to the zero vector:</p>
+<div class="math notranslate nohighlight">
+\[\alpha_1\,v_1\,+\;\alpha_2\,v_2\ =\ \theta\,,\qquad\alpha_1\neq 0\ \ \lor\ \ \alpha_2\neq 0\,.\]</div>
+<p>If <span class="math notranslate nohighlight">\(\ \alpha_2 = 0\,,\ \)</span> then <span class="math notranslate nohighlight">\(\ \alpha_1\,v_1=\theta\ \,\)</span>
+with <span class="math notranslate nohighlight">\(\ \alpha_1\neq 0\,,\ \,\)</span> which implies that <span class="math notranslate nohighlight">\(\\\)</span>
+<span class="math notranslate nohighlight">\(\ v_1=\theta.\ \)</span> Hence <span class="math notranslate nohighlight">\(\ \alpha_2\neq 0\,,\ \)</span> and thus we can write:</p>
+<div class="math notranslate nohighlight">
+\[v_2\,=\;\beta\,v_1\,,\qquad\beta\ =\ -\ \frac{\alpha_1}{\alpha_2}\ \,\neq\ \,0\,.\]</div>
+<p>Computing in two ways the action of the operator <span class="math notranslate nohighlight">\(\,F\ \)</span> on a vector
+<span class="math notranslate nohighlight">\(\,v_2 ,\ \)</span> we obtain</p>
+<div class="math notranslate nohighlight">
+\[ \begin{align}\begin{aligned}\begin{split}\begin{array}{l}
+Fv_2\ =\ \lambda_2\,v_2\ =\ \lambda_2\,(\beta\,v_1)\ =\ (\beta\,\lambda_2)\ v_1\,, \\
+Fv_2\ =\ F(\beta\,v_1)\ =\ \beta\ Fv_1
+    \ =\ \beta\,(\lambda_1\,v_1)\ =\ (\beta\,\lambda_1)\ v_1\,.
+\end{array}\end{split}\\\text{Hence}\qquad(\beta\,\lambda_2)\ v_1\ =\ (\beta\,\lambda_1)\ v_1\,,\qquad
+\text{and thus}\qquad\beta\,(\lambda_2-\lambda_1)\ v_1\ =\ \theta\,.\end{aligned}\end{align} \]</div>
+<p>Since <span class="math notranslate nohighlight">\(\ \beta\neq 0\ \)</span> and <span class="math notranslate nohighlight">\(\ v_1\neq\theta ,\ \)</span> we must have
+<span class="math notranslate nohighlight">\(\,\lambda_1=\lambda_2\,.\ \)</span>
+Linear independence of the eigenvectors <span class="math notranslate nohighlight">\(\,v_1,\ v_2\ \)</span>
+implies then the equality of the associated eigenvalues
+<span class="math notranslate nohighlight">\(\,\lambda_1,\,\lambda_2\,.\)</span> <span class="math notranslate nohighlight">\(\\\)</span>
+By contraposition we deduce that if the eigenvalues <span class="math notranslate nohighlight">\(\,\lambda_1,\,\lambda_2\ \)</span>
+are distinct, then <span class="math notranslate nohighlight">\(\\\)</span>
+the associated eigenvectors <span class="math notranslate nohighlight">\(\ v_1,\ v_2\ \)</span> are linearly independent,
+what was to be demonstrated.</p>
+</li>
+<li><div class="line-block">
+<div class="line">Assume that the theorem holds for certain <span class="math notranslate nohighlight">\(\ k&lt;n.\ \)</span></div>
+<div class="line">We wil show that the hopothesis is true also for <span class="math notranslate nohighlight">\(\ k+1\,.\)</span></div>
+</div>
+<p>Assume that the linear operator <span class="math notranslate nohighlight">\(\,F\ \)</span> has <span class="math notranslate nohighlight">\(\,k+1\ \)</span> distinct eigenvalues
+<span class="math notranslate nohighlight">\(\ \lambda_1,\,\ldots,\,\lambda_k,\,\lambda_{k+1}\,,\)</span> <span class="math notranslate nohighlight">\(\\\)</span>
+with the associated eigenvectors <span class="math notranslate nohighlight">\(\ v_1,\,\ldots,\,v_k,\,v_{k+1}\,.\)</span> <span class="math notranslate nohighlight">\(\\\)</span>
+By the inductive assumption, the vectors <span class="math notranslate nohighlight">\(\ v_1,\ldots,v_k\ \)</span> are linearly independent. <span class="math notranslate nohighlight">\(\\\)</span>
+We wil show that the whole set <span class="math notranslate nohighlight">\(\ (v_1,\ldots,v_k,v_{k+1})\,\)</span> is linearly independent.</p>
+<p>Assume that the vectors <span class="math notranslate nohighlight">\(\ v_1,\ldots,v_k,v_{k+1}\ \)</span> are linearly dependent
+that is, <span class="math notranslate nohighlight">\(\\\)</span>
+there exists a non-trivial linear combination of these vectors which is equal to the zero vector:</p>
+<div class="math notranslate nohighlight" id="equation-lin-dep">
+<span class="eqno">(1)<a class="headerlink" href="#equation-lin-dep" title="Permalink to this equation">¶</a></span>\[\alpha_1\,v_1\,+\,\ldots\,+\,\alpha_k\,v_k\,+\,\alpha_{k+1}\,v_{k+1}\ =\ \theta\,,\]</div>
+<p>but not all <span class="math notranslate nohighlight">\(\ \,\alpha_i\,,\ \ i=1,\ldots,k,\,k+1\,,\ \,\)</span> are zero. <span class="math notranslate nohighlight">\(\\\)</span>
+If <span class="math notranslate nohighlight">\(\,\alpha_{k+1}=0\,,\ \,\)</span>
+then <span class="math notranslate nohighlight">\(\,\)</span> the equation <span class="math notranslate nohighlight">\(\,\)</span> <a class="reference internal" href="#equation-lin-dep">(1)</a> <span class="math notranslate nohighlight">\(\,\)</span> implies</p>
+<div class="math notranslate nohighlight">
+\[\alpha_1\,v_1\,+\,\ldots\,+\,\alpha_k\,v_k\ = \theta\]</div>
+<p>with not all <span class="math notranslate nohighlight">\(\ \,\alpha_i\,,\ \ i=1,\ldots,k\,,\ \,\)</span> equal to zero. <span class="math notranslate nohighlight">\(\\\)</span>
+This contradicts the assumption that the vectors <span class="math notranslate nohighlight">\(\ v_1,\ldots,v_k\,\ \)</span>
+are linearly independent.</p>
+<p>Hence, <span class="math notranslate nohighlight">\(\ \alpha_{k+1}\neq 0\,,\ \,\)</span>
+and thus the equality <a class="reference internal" href="#equation-lin-dep">(1)</a> may be written as:</p>
+<div class="math notranslate nohighlight">
+\[v_{k+1}\ =\ \beta_1\,v_1\,+\,\ldots\,+\,\beta_k\,v_k\,,\qquad
+\beta_i\ =\ -\ \frac{\alpha_i}{\alpha_{k+1}}\ ,\quad i=1,\ldots,k\,.\]</div>
+<p>Since <span class="math notranslate nohighlight">\(\ v_{k+1}\neq\theta,\ \,\)</span> then not all the coefficients
+<span class="math notranslate nohighlight">\(\ \beta_i\ \)</span> are equal to zero: <span class="math notranslate nohighlight">\(\\\)</span>
+there exists (at least one) index <span class="math notranslate nohighlight">\(\ i_0\in\{\,1,\ldots,k\,\}\ \)</span>
+for which <span class="math notranslate nohighlight">\(\ \beta_{i_0}\neq 0\,.\)</span></p>
+<p>We compute in two ways a result of the action of the operator <span class="math notranslate nohighlight">\(\,F\ \)</span> on the vector <span class="math notranslate nohighlight">\(\,v_{k+1}:\)</span></p>
+<div class="math notranslate nohighlight">
+\[ \begin{align}\begin{aligned}\begin{split}\begin{array}{l}
+F\,v_{k+1}\ =\ \lambda_{k+1}\,v_{k+1}\ =\
+\lambda_{k+1}\ \displaystyle\sum_{i\,=\,1}^k\ \beta_i\,v_i\ =\
+\displaystyle\sum_{i\,=\,1}^k\ (\beta_i\,\lambda_{k+1})\ v_i\ , \\
+F\,v_{k+1}\ =\ F\,\left(\:\displaystyle\sum_{i\,=\,1}^k\ \beta_i\,v_i\right)\ =\
+\displaystyle\sum_{i\,=\,1}^k\ \beta_i\ Fv_i\ =\
+\displaystyle\sum_{i\,=\,1}^k\ (\beta_i\,\lambda_i)\ v_i\ .
+\end{array}\end{split}\\\begin{split}\begin{array}{l}
+\text{Hence}\qquad
+\displaystyle\sum_{i\,=\,1}^k\ (\beta_i\,\lambda_{k+1})\ v_i\ =\
+\displaystyle\sum_{i\,=\,1}^k\ (\beta_i\,\lambda_i)\ v_i\,, \\
+\text{so that}\qquad
+\displaystyle\sum_{i\,=\,1}^k\ \beta_i\ (\lambda_{k+1}-\lambda_i)\ v_i\ =\ \theta\,.
+\end{array}\end{split}\end{aligned}\end{align} \]</div>
+<p>Linear indpendence of vectors <span class="math notranslate nohighlight">\(\ v_1,\ldots,v_k\ \)</span> implies vanishing of all
+the coefficients of the above linear combination:</p>
+<div class="math notranslate nohighlight">
+\[\beta_i\ (\lambda_{k+1}-\lambda_i)\ =\ 0\qquad\text{for}\quad i=1,\ldots,k\,.\]</div>
+<p>In particular, <span class="math notranslate nohighlight">\(\,\)</span> for <span class="math notranslate nohighlight">\(\,i=i_0\ \)</span> we obtain
+<span class="math notranslate nohighlight">\(\ \beta_{i_0}\ (\lambda_{k+1}-\lambda_{i_0})\ =\ 0\,,\ \,\)</span> <span class="math notranslate nohighlight">\(\\\)</span>
+which means, <span class="math notranslate nohighlight">\(\,\)</span> since <span class="math notranslate nohighlight">\(\ \beta_{i_0}\neq 0\,,\ \,\)</span> that
+<span class="math notranslate nohighlight">\(\ \,\lambda_{k+1}=\lambda_{i_0}\,.\)</span></p>
+<p>Hence, the assumption that the vectors <span class="math notranslate nohighlight">\(\ v_1,\ldots,v_k,\,v_{k+1}\ \)</span>
+are linearly dependent leads to a contradiction with the assumption that
+all the eigenvalues
+<span class="math notranslate nohighlight">\(\ \lambda_1,\,\ldots,\,\lambda_k,\,\lambda_{k+1}\ \)</span> are distinct.
+This means that the above vectors are linearly independent, which finishes
+the proof.</p>
+</li>
+</ol>
+<p>As we showed earlier, in an <span class="math notranslate nohighlight">\(\,n\)</span>-dimensional vector space
+every linearly independent set of <span class="math notranslate nohighlight">\(\,n\ \)</span> vectors comprises a basis.
+Hence, if a linear operator <span class="math notranslate nohighlight">\(\,F\in\text{End}(V),\ \)</span> where <span class="math notranslate nohighlight">\(\,\dim V=n,\ \,\)</span>
+has <span class="math notranslate nohighlight">\(\,n\ \)</span> distinct eigenvalues, then the space <span class="math notranslate nohighlight">\(\,V\ \)</span>
+has a basis which consists of eigenvectors of <span class="math notranslate nohighlight">\(\,F.\,\)</span> More precisely, we may write</p>
+<div class="admonition-corollary admonition">
+<p class="admonition-title">Corollary.</p>
+<p>If a linear operator <span class="math notranslate nohighlight">\(\,F\ \)</span> defined on an <span class="math notranslate nohighlight">\(\,n\)</span>-dimensional vector
+space <span class="math notranslate nohighlight">\(\,V(K)\ \,\)</span> has <span class="math notranslate nohighlight">\(\ \,n\ \,\)</span> distinct eigenvalues
+<span class="math notranslate nohighlight">\(\ \,\lambda_1,\,\lambda_2,\,\ldots,\,\lambda_n\,,\ \,\)</span>
+and <span class="math notranslate nohighlight">\(\ v_1,\,v_2,\,\ldots,\,v_n\,\)</span> are the asscoaieted eigenvectors:</p>
+<div class="math notranslate nohighlight">
+\[Fv_i\ =\ \lambda_i\,v_i\,,\quad v_i\neq\theta\,,\qquad i=1,2,\ldots,n\,,\]</div>
+<p>then <span class="math notranslate nohighlight">\(\,\)</span> the set <span class="math notranslate nohighlight">\(\ \,\mathcal{B}=(v_1,v_2,\ldots,v_n)\ \,\)</span>
+is a basis of the space <span class="math notranslate nohighlight">\(\,V.\)</span></p>
+</div>
+<p>If <span class="math notranslate nohighlight">\(\,V\ \)</span> is a unitary or Euclidean vector space,
+and <span class="math notranslate nohighlight">\(\ \,F\ \)</span> a normal operator <span class="math notranslate nohighlight">\(\\\)</span>
+(e.g. Hermitian or unitary), <span class="math notranslate nohighlight">\(\,\)</span>
+then eigenvectors associated with distinct eigenvalues are orthogonal, and thus the set
+<span class="math notranslate nohighlight">\(\,\mathcal{B}\ \,\)</span> is an orthogonal basis.</p>
+<p>The above Corollary may be also proved  independently as the following</p>
+<div class="admonition-theorem-2 admonition">
+<p class="admonition-title">Theorem 2.</p>
+<p>If a linear operator <span class="math notranslate nohighlight">\(\,F\ \)</span> defined on an <span class="math notranslate nohighlight">\(\,n\)</span>-dimensional vector
+space <span class="math notranslate nohighlight">\(\,V(K)\ \,\)</span> has <span class="math notranslate nohighlight">\(\ \,n\ \,\)</span> distinct eigenvalues, then the
+associated eigenvectors are linearly independent and thus comprise a basis of
+the space <span class="math notranslate nohighlight">\(\ V.\)</span></p>
+</div>
+<p><strong>Proof.</strong> <span class="math notranslate nohighlight">\(\,\)</span> Assume that <span class="math notranslate nohighlight">\(\ \ F\in\text{End}(V)\,,\ \ \)</span>
+where <span class="math notranslate nohighlight">\(\ \ V=V(K)\,,\ \ \dim V=n\,,\ \ \)</span> and <span class="math notranslate nohighlight">\(\,\)</span> that</p>
+<div class="math notranslate nohighlight">
+\[Fv_i=\lambda_i\,v_i\,,\ \ v_i\in V\!\smallsetminus\!\{\theta\}\,,\ \ \lambda_i\in K\,,\ \
+\text{where}\ \ \lambda_i\neq\lambda_j\ \ \text{for}\ \ i\neq j,\quad i,j=1,2,\ldots,n.\]</div>
+<p>To prove linear independence of the set of vectors <span class="math notranslate nohighlight">\(\ (v_1,v_2,\ldots,v_n)\ \)</span>
+we show that every linear combination of these vectors which gives the zero vector must be the trivial combination.</p>
+<p>Assume that
+<span class="math notranslate nohighlight">\(\quad\alpha_1\,v_1+\alpha_2\,v_2+\ldots+\alpha_n\,v_n=\theta\,,\quad
+\alpha_i\in K\,,\ \ i=1,2,\ldots,n\,.\)</span></p>
+<p>Applying <span class="math notranslate nohighlight">\(\,n-1\ \)</span> times the operator <span class="math notranslate nohighlight">\(\,F\ \)</span> to both sides of the equality,  <span class="math notranslate nohighlight">\(\,\)</span> we obtain:</p>
+<div class="math notranslate nohighlight">
+\begin{alignat*}{5}
+1\ \,(\alpha_1\,v_1) &amp; {\ \,} + {\ }   &amp;
+1\ \,(\alpha_2\,v_2) &amp; {\ \,} + {\ \,} &amp;
+\ldots               &amp; {\ \,} + {\ }   &amp;
+1\ \,(\alpha_n\,v_n) &amp; {\ \ } = {\ }   &amp; \ \theta\,, \\
+\lambda_1\ \,(\alpha_1\,v_1) &amp; {\ \,} + {\ }   &amp;
+\lambda_2\ \,(\alpha_2\,v_2) &amp; {\ \,} + {\ \,} &amp;
+\ldots                       &amp; {\ \,} + {\ }   &amp;
+\lambda_n\ \,(\alpha_n\,v_n) &amp; {\ \ } = {\ }   &amp; \ \theta\,, \\
+\lambda_1^2\ \,(\alpha_1\,v_1) &amp; {\ \,} + {\ }   &amp;
+\lambda_2^2\ \,(\alpha_2\,v_2) &amp; {\ \,} + {\ \,} &amp;
+\ldots                         &amp; {\ \,} + {\ }   &amp;
+\lambda_n^2\ \,(\alpha_n\,v_n) &amp; {\ \ } = {\ }   &amp; \ \theta\,, \\
+\ldots\quad &amp; {\ \,}   {\ }   &amp;
+\ldots\quad &amp; {\ \,}   {\ \,} &amp;
+\ldots      &amp; {\ \,}   {\ }   &amp;
+\ldots\quad &amp; {\ \ }   {\ }   &amp; \ \\
+\lambda_1^{n-1}\ \,(\alpha_1\,v_1) &amp; {\ \,} + {\ }   &amp;
+\lambda_2^{n-1}\ \,(\alpha_2\,v_2) &amp; {\ \,} + {\ \,} &amp;
+\ldots                             &amp; {\ \,} + {\ }   &amp;
+\lambda_n^{n-1}\ \,(\alpha_n\,v_n) &amp; {\ \ } = {\ }   &amp; \ \theta\,.
+\end{alignat*}</div><p>The resulting set of equalities may be written in a form of a matrix equation:</p>
+<div class="math notranslate nohighlight">
+\[\begin{split}\left[\begin{array}{cccc} 1               &amp; 1               &amp; \dots &amp; 1               \\
+                          \lambda_1       &amp; \lambda_2       &amp; \dots &amp; \lambda_n       \\
+                          \lambda_1^2     &amp; \lambda_2^2     &amp; \dots &amp; \lambda_n^2     \\
+                          \cdots          &amp; \cdots          &amp;\cdots &amp; \cdots          \\
+                          \lambda_1^{n-1} &amp; \lambda_2^{n-1} &amp; \dots &amp; \lambda_n^{n-1}
+\end{array}\right]
+\left[\begin{array}{c}
+\alpha_1\,v_1 \\ \alpha_2\,v_2 \\ \alpha_3\,v_3 \\ \cdots \\ \alpha_n\,v_n
+\end{array}\right]
+\ \ =\ \
+\left[\begin{array}{c}
+\theta \\ \theta \\ \theta \\ \cdots \\ \theta
+\end{array}\right]\,.\end{split}\]</div>
+<p>If the eigenvalues <span class="math notranslate nohighlight">\(\ \lambda_1,\,\lambda_2,\,\dots,\lambda_n\ \)</span> are distinct,
+then the square matrix on the left hand side is nondegenerate, as follows from the formula for the Vandermonde determinant:</p>
+<div class="math notranslate nohighlight" id="equation-vandermonde">
+<span class="eqno">(2)<a class="headerlink" href="#equation-vandermonde" title="Permalink to this equation">¶</a></span>\[\begin{split}\left|\begin{array}{cccc} 1               &amp; 1               &amp; \dots &amp; 1               \\
+                         \lambda_1       &amp; \lambda_2       &amp; \dots &amp; \lambda_n       \\
+                         \lambda_1^2     &amp; \lambda_2^2     &amp; \dots &amp; \lambda_n^2     \\
+                         \cdots          &amp; \cdots          &amp;\cdots &amp; \cdots          \\
+                         \lambda_1^{n-1} &amp; \lambda_2^{n-1} &amp; \dots &amp; \lambda_n^{n-1}
+\end{array}\right|
+\quad =\ \
+\prod_{1\,\leq\,l\,&lt;\,k\,\leq\,n}^n\ (\lambda_k-\lambda_l)\quad\neq\quad0\,.\end{split}\]</div>
+<p>Therefore, since the inverse matrix exists, we obtain</p>
+<div class="math notranslate nohighlight">
+\[\begin{split}\left[\begin{array}{c}
+\alpha_1\,v_1 \\ \alpha_2\,v_2 \\ \alpha_3\,v_3 \\ \cdots \\ \alpha_n\,v_n
+\end{array}\right]
+\ \ =\ \
+\left[\begin{array}{cccc} 1               &amp; 1               &amp; \dots &amp; 1               \\
+                          \lambda_1       &amp; \lambda_2       &amp; \dots &amp; \lambda_n       \\
+                          \lambda_1^2     &amp; \lambda_2^2     &amp; \dots &amp; \lambda_n^2     \\
+                          \cdots          &amp; \cdots          &amp;\cdots &amp; \cdots          \\
+                          \lambda_1^{n-1} &amp; \lambda_2^{n-1} &amp; \dots &amp; \lambda_n^{n-1}
+\end{array}\right]^{-1}\
+\left[\begin{array}{c}
+\theta \\ \theta \\ \theta \\ \cdots \\ \theta
+\end{array}\right]\  =\
+\left[\begin{array}{c}
+\theta \\ \theta \\ \theta \\ \cdots \\ \theta
+\end{array}\right]\,.\end{split}\]</div>
+<p>In this way <span class="math notranslate nohighlight">\(\ \ \alpha_i\,v_i=\theta\,,\ \ \)</span>
+and because <span class="math notranslate nohighlight">\(\ \ v_i\neq\theta\,,\ \ \)</span>
+it follows that <span class="math notranslate nohighlight">\(\ \ \alpha_i=0\,,\quad i=1,2,\dots,n\,.\ \,\)</span>
+That is, we proved the implication</p>
+<div class="math notranslate nohighlight">
+\[\alpha_1\,v_1+\,\alpha_2\,v_2+\,\ldots\,+\,\alpha_n\,v_n\,=\,\theta
+\qquad\Rightarrow\qquad
+\alpha_1\,=\;\alpha_2\,=\;\ldots\;=\;\alpha_n\,=\;0\]</div>
+<p>which states linear independence of the vectors <span class="math notranslate nohighlight">\(\ v_1,\,v_2,\,\ldots,\,v_n\,.\)</span></p>
+</section>
+
+
+          </div>
+        </div>
+      </div>
+      <div class="sphinxsidebar" role="navigation" aria-label="main navigation">
+        <div class="sphinxsidebarwrapper">
+  <h4>Previous topic</h4>
+  <p class="topless"><a href="dowody_przeksztalcenia_lin.html"
+                        title="previous chapter">Linear Transformations</a></p>
+  <h4>Next topic</h4>
+  <p class="topless"><a href="dowody_p_unitarne.html"
+                        title="next chapter">Unitary Spaces</a></p>
+  <div role="note" aria-label="source link">
+    <h3>This Page</h3>
+    <ul class="this-page-menu">
+      <li><a href="_sources/dowody_problem_wlasny.rst.txt"
+            rel="nofollow">Show Source</a></li>
+    </ul>
+   </div>
+<div id="searchbox" style="display: none" role="search">
+  <h3 id="searchlabel">Quick search</h3>
+    <div class="searchformwrapper">
+    <form class="search" action="search.html" method="get">
+      <input type="text" name="q" aria-labelledby="searchlabel" />
+      <input type="submit" value="Go" />
+    </form>
+    </div>
+</div>
+<script>$('#searchbox').show(0);</script>
+        </div>
+      </div>
+      <div class="clearer"></div>
+    </div>
+  </div>
+  <div class="relbar-bottom">
+    
+    <div class="related" role="navigation" aria-label="related navigation">
+      <h3>Navigation</h3>
+      <ul>
+        <li class="right" style="margin-right: 10px">
+          <a href="genindex.html" title="General Index"
+             >index</a></li>
+        <li class="right" >
+          <a href="dowody_p_unitarne.html" title="Unitary Spaces"
+             >next</a> &nbsp; &nbsp;</li>
+        <li class="right" >
+          <a href="dowody_przeksztalcenia_lin.html" title="Linear Transformations"
+             >previous</a> &nbsp; &nbsp;</li>
+  <li><a href="index.html">Linear Algebra</a> &#187;</li>
+  
+        <li class="nav-item nav-item-this"><a href="">Eigenvalues and Eigenvectors</a></li> 
+      </ul>
+    </div>
+  </div>
+  
+  <div class="footer">
+    <a class="logo" href="http://icse.us.edu.pl/" target="_blank"><img src="_static/logo-icse.png" alt="ICSE"/></a><br/>
+    &copy; Copyright 2018, Jan Aksamit, Joanna Marzec, and  Marcin Kostur.
+    Last updated on Jan 29, 2022.
+    Created using <a href="http://sphinx.pocoo.org/">Sphinx</a> 4.0.1.
+  </div>
+  </body>
+</html>

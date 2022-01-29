@@ -1,0 +1,1133 @@
+
+
+  
+<!DOCTYPE html>
+
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" /><meta name="generator" content="Docutils 0.17: http://docutils.sourceforge.net/" />
+
+    <title>Vectors and Matrices in Sage &#8212; Linear Algebra</title>
+    <link rel="stylesheet" type="text/css" href="_static/pygments.css" />
+    <link rel="stylesheet" type="text/css" href="_static/cloud.css" />
+    <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Noticia+Text|Open+Sans|Droid+Sans+Mono&amp;subset=latin,latin-ext" type="text/css" />
+    <script data-url_root="./" id="documentation_options" src="_static/documentation_options.js"></script>
+    <script src="_static/jquery.js"></script>
+    <script src="_static/underscore.js"></script>
+    <script src="_static/doctools.js"></script>
+    <script async="async" src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js"></script>
+    <script src="_static/jquery.cookie.js"></script>
+    <script src="_static/cloud.js"></script>
+    <script type="text/javascript" src="http://sagecell.sagemath.org/static/jquery.min.js"></script>
+    <script type="text/javascript" src="http://sagecell.sagemath.org/embedded_sagecell.js"></script>
+    <script type="text/javascript">
+        sagecell.makeSagecell({inputLocation: ".sage_linked",
+                               linked: true});
+        sagecell.makeSagecell({inputLocation: ".sage_unlinked",
+                               linked: false});
+    </script>
+
+    <style type="text/css">
+        .sagecell .CodeMirror-scroll {
+            overflow-y: hidden;
+            overflow-x: auto;
+        }
+        .sagecell .CodeMirror {
+            height: auto;
+        }
+    </style>
+    
+    <link rel="index" title="Index" href="genindex.html" />
+    <link rel="search" title="Search" href="search.html" />
+    <link rel="next" title="Exercises and Problems" href="algebra_of_matrices_problems.html" />
+    <link rel="prev" title="Properties of Matrix Operations" href="algebra_of_matrices_properties.html" />
+ 
+  <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, minimum-scale=1">
+  </head><body>
+  <div class="relbar-top">
+    
+    <div class="related" role="navigation" aria-label="related navigation">
+      <h3>Navigation</h3>
+      <ul>
+        <li class="right" style="margin-right: 10px">
+          <a href="genindex.html" title="General Index"
+             accesskey="I">index</a></li>
+        <li class="right" >
+          <a href="algebra_of_matrices_problems.html" title="Exercises and Problems"
+             accesskey="N">next</a> &nbsp; &nbsp;</li>
+        <li class="right" >
+          <a href="algebra_of_matrices_properties.html" title="Properties of Matrix Operations"
+             accesskey="P">previous</a> &nbsp; &nbsp;</li>
+  <li><a href="index.html">Linear Algebra</a> &#187;</li>
+  
+        <li class="nav-item nav-item-this"><a href="">Vectors and Matrices in Sage</a></li> 
+      </ul>
+    </div>
+  </div>
+  
+  <div class="content">  
+
+    <div class="document">
+      <div class="documentwrapper">
+        <div class="bodywrapper">
+          <div class="body">
+            
+  <section id="vectors-and-matrices-in-sage">
+<span id="algebra-of-matrices-sage"></span><h1>Vectors and Matrices in Sage<a class="headerlink" href="#vectors-and-matrices-in-sage" title="Permalink to this headline">¶</a></h1>
+<p>In the previous section we have been assuming that the matrix elements
+are real or complex numbers from the field <span class="math notranslate nohighlight">\(\,R\,\)</span> or <span class="math notranslate nohighlight">\(\,C,\,\)</span>
+respectively.
+Actually, the operations on matrices are possible, and properties
+of these operations are preserved, even though elements belong
+to a simpler structure - a ring with identity.
+In Sage the algebra of polynomials or matrices is built just over a ring
+rather than over a field.</p>
+<p>Below we list the most important rings applied in Sage:</p>
+<table class="docutils align-default">
+<colgroup>
+<col style="width: 47%" />
+<col style="width: 53%" />
+</colgroup>
+<thead>
+<tr class="row-odd"><th class="head"><div class="line-block">
+<div class="line"><span class="math notranslate nohighlight">\(\qquad\qquad\quad\text{Symbol}\)</span>:</div>
+</div>
+</th>
+<th class="head"><div class="line-block">
+<div class="line">Description <span class="math notranslate nohighlight">\(\,\)</span> and <span class="math notranslate nohighlight">\(\,\)</span> name in Sage:</div>
+</div>
+</th>
+</tr>
+</thead>
+<tbody>
+<tr class="row-even"><td><div class="line-block">
+<div class="line"><span class="math notranslate nohighlight">\(\qquad\qquad\qquad\)</span> ZZ</div>
+</div>
+</td>
+<td><div class="line-block">
+<div class="line"><em>Ring of integer numbers</em>:</div>
+<div class="line">Integer Ring</div>
+</div>
+</td>
+</tr>
+<tr class="row-odd"><td><div class="line-block">
+<div class="line"><span class="math notranslate nohighlight">\(\qquad\qquad\qquad\)</span> QQ</div>
+</div>
+</td>
+<td><div class="line-block">
+<div class="line"><em>Field of rational numbers</em>:</div>
+<div class="line">Rational Field</div>
+</div>
+</td>
+</tr>
+<tr class="row-even"><td><div class="line-block">
+<div class="line"><span class="math notranslate nohighlight">\(\qquad\qquad\qquad\)</span> RR</div>
+</div>
+</td>
+<td><div class="line-block">
+<div class="line"><em>Field of real numbers</em>:</div>
+<div class="line">Real Field with 53 bits of precision</div>
+</div>
+</td>
+</tr>
+<tr class="row-odd"><td><div class="line-block">
+<div class="line"><span class="math notranslate nohighlight">\(\qquad\qquad\qquad\)</span> CC</div>
+</div>
+</td>
+<td><div class="line-block">
+<div class="line"><em>Field of complex numbers</em>:</div>
+<div class="line">Complex Field with 53 bits of precision</div>
+</div>
+</td>
+</tr>
+<tr class="row-even"><td><div class="line-block">
+<div class="line"><span class="math notranslate nohighlight">\(\qquad\qquad\qquad\)</span> RDF</div>
+</div>
+</td>
+<td><div class="line-block">
+<div class="line"><em>Field of real numbers</em></div>
+<div class="line"><em>with double precision</em> :</div>
+<div class="line">Real Double Field</div>
+</div>
+</td>
+</tr>
+<tr class="row-odd"><td><div class="line-block">
+<div class="line"><span class="math notranslate nohighlight">\(\qquad\qquad\qquad\)</span> CDF</div>
+</div>
+</td>
+<td><div class="line-block">
+<div class="line"><em>Field of complex numbers</em></div>
+<div class="line"><em>with double precision</em>:</div>
+<div class="line">Complex Double Field</div>
+</div>
+</td>
+</tr>
+<tr class="row-even"><td><div class="line-block">
+<div class="line"><span class="math notranslate nohighlight">\(\qquad\qquad\)</span> RealField(12)</div>
+</div>
+</td>
+<td><div class="line-block">
+<div class="line"><em>Field of real numbers</em></div>
+<div class="line"><em>with the given precision</em>:</div>
+<div class="line">Real Field with 12 bits of precision</div>
+</div>
+</td>
+</tr>
+<tr class="row-odd"><td><div class="line-block">
+<div class="line"><span class="math notranslate nohighlight">\(\qquad\qquad\)</span> ComplexField(248)</div>
+</div>
+</td>
+<td><div class="line-block">
+<div class="line"><em>Field of complex numbers</em></div>
+<div class="line"><em>with the given precision</em>:</div>
+<div class="line">Complex Field with 248 bits of precision</div>
+</div>
+</td>
+</tr>
+<tr class="row-even"><td><div class="line-block">
+<div class="line"><span class="math notranslate nohighlight">\(\qquad\qquad\qquad\)</span> SR</div>
+</div>
+</td>
+<td><div class="line-block">
+<div class="line"><em>Symbolic ring</em>:</div>
+<div class="line">Symbolic Ring</div>
+</div>
+</td>
+</tr>
+</tbody>
+</table>
+<p>There are two strategies of calculations on vectors and matrices:</p>
+<ul class="simple">
+<li><p>exact linear algebra: elements of vectors and matrices
+belong to the sets ZZ, QQ or SR; calculations are exact,
+but not all can be performed and their efficiency is limited;</p></li>
+<li><p>numerical linear algebra: elements of vectors and matrices are numbers
+of finite precision from fields RR, CC, RDF or CDF;
+the obtained results are rounded and errors from successive roundings
+may accumulate.</p></li>
+</ul>
+<div class="admonition note">
+<p class="admonition-title">Note</p>
+<p>The base ring of a matrix, whose elements depend on any variables,
+is the symbolic ring SR. If numerical values are assigned to these variables,
+the base ring of the matrix will be still SR, though the matrix will be
+composed of numbers only. To make numerical methods applicable,
+the function <code class="docutils literal notranslate"><span class="pre">change_ring()</span></code> is to be explicitly used.</p>
+</div>
+<p><strong>Example.</strong> <span class="math notranslate nohighlight">\(\\\)</span>
+The matrix <span class="math notranslate nohighlight">\(\,\boldsymbol{A}\,\)</span> depends on the variable
+<span class="math notranslate nohighlight">\(\,\)</span> <code class="docutils literal notranslate"><span class="pre">phi</span></code> <span class="math notranslate nohighlight">\(\,\)</span> and its base ring is Symbolic Ring:</p>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="n">sage</span><span class="p">:</span> <span class="n">var</span><span class="p">(</span><span class="s1">&#39;phi&#39;</span><span class="p">)</span>
+<span class="n">sage</span><span class="p">:</span> <span class="n">A</span> <span class="o">=</span> <span class="n">matrix</span><span class="p">([[</span><span class="n">cos</span><span class="p">(</span><span class="n">phi</span><span class="p">),</span><span class="o">-</span><span class="n">sin</span><span class="p">(</span><span class="n">phi</span><span class="p">)],</span>
+                  <span class="p">[</span><span class="n">sin</span><span class="p">(</span><span class="n">phi</span><span class="p">),</span> <span class="n">cos</span><span class="p">(</span><span class="n">phi</span><span class="p">)]])</span>
+
+<span class="n">sage</span><span class="p">:</span> <span class="nb">print</span> <span class="n">A</span><span class="p">,</span> <span class="s2">&quot;</span><span class="se">\n</span><span class="s2">&quot;</span>
+<span class="n">sage</span><span class="p">:</span> <span class="nb">print</span> <span class="s2">&quot;Base ring of the matrix A:&quot;</span><span class="p">,</span> <span class="n">A</span><span class="o">.</span><span class="n">base_ring</span><span class="p">()</span>
+
+<span class="p">[</span> <span class="n">cos</span><span class="p">(</span><span class="n">phi</span><span class="p">)</span> <span class="o">-</span><span class="n">sin</span><span class="p">(</span><span class="n">phi</span><span class="p">)]</span>
+<span class="p">[</span> <span class="n">sin</span><span class="p">(</span><span class="n">phi</span><span class="p">)</span>  <span class="n">cos</span><span class="p">(</span><span class="n">phi</span><span class="p">)]</span>
+
+<span class="n">Base</span> <span class="n">ring</span> <span class="n">of</span> <span class="n">the</span> <span class="n">matrix</span> <span class="n">A</span><span class="p">:</span> <span class="n">Symbolic</span> <span class="n">Ring</span>
+</pre></div>
+</div>
+<p>After substitution <span class="math notranslate nohighlight">\(\,\)</span> <code class="docutils literal notranslate"><span class="pre">phi</span></code> = 0.25 <span class="math notranslate nohighlight">\(\,\)</span>
+the base ring is still Symbolic Ring:</p>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="n">sage</span><span class="p">:</span> <span class="n">B</span> <span class="o">=</span> <span class="n">A</span><span class="o">.</span><span class="n">subs</span><span class="p">(</span><span class="n">phi</span><span class="o">=</span><span class="mf">0.25</span><span class="p">)</span>
+
+<span class="n">sage</span><span class="p">:</span> <span class="nb">print</span> <span class="n">B</span><span class="o">.</span><span class="n">n</span><span class="p">(</span><span class="n">digits</span><span class="o">=</span><span class="mi">4</span><span class="p">),</span> <span class="s2">&quot;</span><span class="se">\n</span><span class="s2">&quot;</span>
+<span class="n">sage</span><span class="p">:</span> <span class="nb">print</span> <span class="s2">&quot;Base ring of the matrix B:&quot;</span><span class="p">,</span> <span class="n">B</span><span class="o">.</span><span class="n">base_ring</span><span class="p">()</span>
+
+<span class="p">[</span> <span class="mf">0.9689</span> <span class="o">-</span><span class="mf">0.2474</span><span class="p">]</span>
+<span class="p">[</span> <span class="mf">0.2474</span>  <span class="mf">0.9689</span><span class="p">]</span>
+
+<span class="n">Base</span> <span class="n">ring</span> <span class="n">of</span> <span class="n">the</span> <span class="n">matrix</span> <span class="n">B</span><span class="p">:</span> <span class="n">Symbolic</span> <span class="n">Ring</span>
+</pre></div>
+</div>
+<p>Only the explicit change of ring returns the purely numerical matrix:</p>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="n">sage</span><span class="p">:</span> <span class="n">C</span> <span class="o">=</span> <span class="n">B</span><span class="o">.</span><span class="n">change_ring</span><span class="p">(</span><span class="n">RDF</span><span class="p">)</span>
+
+<span class="n">sage</span><span class="p">:</span> <span class="nb">print</span> <span class="n">C</span><span class="o">.</span><span class="n">n</span><span class="p">(</span><span class="n">digits</span><span class="o">=</span><span class="mi">4</span><span class="p">),</span> <span class="s2">&quot;</span><span class="se">\n</span><span class="s2">&quot;</span>
+<span class="n">sage</span><span class="p">:</span> <span class="nb">print</span> <span class="s2">&quot;Base ring of the matrix C:&quot;</span><span class="p">,</span> <span class="n">C</span><span class="o">.</span><span class="n">base_ring</span><span class="p">()</span>
+
+<span class="p">[</span> <span class="mf">0.9689</span> <span class="o">-</span><span class="mf">0.2474</span><span class="p">]</span>
+<span class="p">[</span> <span class="mf">0.2474</span>  <span class="mf">0.9689</span><span class="p">]</span>
+
+<span class="n">Base</span> <span class="n">ring</span> <span class="n">of</span> <span class="n">the</span> <span class="n">matrix</span> <span class="n">C</span><span class="p">:</span> <span class="n">Real</span> <span class="n">Double</span> <span class="n">Field</span>
+</pre></div>
+</div>
+<p>Sage supports the ‘row’ (as opposed to ‘column’) approach
+to vectors and matrices. Vectors are displayed ‘horizontally’,
+and matrix is a sequence (list) of rows.
+It is to be pointed out that in Sage a vector is an object
+different from a one-row as well as from a one-column matrix:
+it is just a finite sequence of elements of a ring.
+It can be transformed into an above-mentioned matrix
+only by application of the appropriate function.</p>
+<section id="creation-of-vectors-and-matrices">
+<h2>Creation of Vectors and Matrices<a class="headerlink" href="#creation-of-vectors-and-matrices" title="Permalink to this headline">¶</a></h2>
+<p>In Sage vectors and matrices are <em>objects</em> of the Python language,
+that belong to the respective <em>classes</em>. These objects are created
+using the <em>constructors</em> <code class="docutils literal notranslate"><span class="pre">vector()</span></code> and <code class="docutils literal notranslate"><span class="pre">matrix()</span></code>.</p>
+<aside class="sidebar">
+<p class="sidebar-title">Principles of the Object-Oriented Programming.</p>
+<div class="line-block">
+<div class="line">An <em>object</em> is composed of <em>attributes</em> and <em>methods</em>.</div>
+<div class="line">Methods can access attributes and modify them.</div>
+<div class="line">A <em>class</em> is a template for creating objects by means of</div>
+<div class="line"><em>constructors</em>, the objects beimg <em>instances</em> of the class.</div>
+</div>
+</aside>
+<p>Below we apply the standard syntax of the object-oriented programming:
+if the function <code class="docutils literal notranslate"><span class="pre">func()</span></code> is a method of a class,
+then the result of its application to the object <code class="docutils literal notranslate"><span class="pre">obj</span></code> of this class
+is denoted by <code class="docutils literal notranslate"><span class="pre">obj.func()</span></code>.</p>
+<p><strong>Vectors.</strong></p>
+<p>The constructor <code class="docutils literal notranslate"><span class="pre">vector()</span></code> can be called in several ways.
+Usually, the arguments are:</p>
+<ul class="simple">
+<li><p><code class="docutils literal notranslate"><span class="pre">ring</span></code> - a base ring (or field) which contains
+all the elements of the vector</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">degree</span></code> - number of elements</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">object</span></code> - a list containing entries of the vector</p></li>
+</ul>
+<p>In the examples below, the method <code class="docutils literal notranslate"><span class="pre">base_ring()</span></code> gives the ring (or field)
+over which vectors have been built, and <code class="docutils literal notranslate"><span class="pre">parent()</span></code> yields
+the class, to which the vectors belong.</p>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="n">sage</span><span class="p">:</span> <span class="c1"># A generic use of the constructor;</span>
+      <span class="c1"># the degree specification is actually redundant:</span>
+
+<span class="n">sage</span><span class="p">:</span> <span class="n">v</span> <span class="o">=</span> <span class="n">vector</span><span class="p">(</span><span class="n">QQ</span><span class="p">,</span> <span class="mi">3</span><span class="p">,</span> <span class="p">[</span><span class="mf">1.2</span><span class="p">,</span> <span class="mf">3.6</span><span class="p">,</span> <span class="o">-</span><span class="mf">0.48</span><span class="p">])</span>
+<span class="n">sage</span><span class="p">:</span> <span class="nb">print</span> <span class="n">v</span><span class="p">;</span> <span class="nb">print</span> <span class="n">v</span><span class="o">.</span><span class="n">base_ring</span><span class="p">();</span> <span class="n">v</span><span class="o">.</span><span class="n">parent</span><span class="p">()</span>
+
+<span class="p">(</span><span class="mi">6</span><span class="o">/</span><span class="mi">5</span><span class="p">,</span> <span class="mi">18</span><span class="o">/</span><span class="mi">5</span><span class="p">,</span> <span class="o">-</span><span class="mi">12</span><span class="o">/</span><span class="mi">25</span><span class="p">)</span>
+<span class="n">Rational</span> <span class="n">Field</span>
+<span class="n">Vector</span> <span class="n">space</span> <span class="n">of</span> <span class="n">dimension</span> <span class="mi">3</span> <span class="n">over</span> <span class="n">Rational</span> <span class="n">Field</span>
+</pre></div>
+</div>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="n">sage</span><span class="p">:</span> <span class="c1"># Specification of the base ring is optional;</span>
+      <span class="c1"># the default is the integer ring ZZ:</span>
+
+<span class="n">sage</span><span class="p">:</span> <span class="n">v</span> <span class="o">=</span> <span class="n">vector</span><span class="p">([</span><span class="mi">3</span><span class="p">,</span> <span class="mi">5</span><span class="p">,</span> <span class="o">-</span><span class="mi">11</span><span class="p">])</span>
+<span class="n">sage</span><span class="p">:</span> <span class="nb">print</span> <span class="n">v</span><span class="p">;</span> <span class="n">v</span><span class="o">.</span><span class="n">base_ring</span><span class="p">()</span>
+
+<span class="p">(</span><span class="mi">3</span><span class="p">,</span> <span class="mi">5</span><span class="p">,</span> <span class="o">-</span><span class="mi">11</span><span class="p">)</span>
+<span class="n">Integer</span> <span class="n">Ring</span>
+</pre></div>
+</div>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="n">sage</span><span class="p">:</span> <span class="c1"># if no entries of the object are specified,</span>
+      <span class="c1"># the vector is populated with zeros:</span>
+
+<span class="n">sage</span><span class="p">:</span> <span class="n">v</span> <span class="o">=</span> <span class="n">vector</span><span class="p">(</span><span class="n">RDF</span><span class="p">,</span><span class="mi">5</span><span class="p">)</span>
+<span class="n">sage</span><span class="p">:</span> <span class="nb">print</span> <span class="n">v</span><span class="p">;</span> <span class="n">v</span><span class="o">.</span><span class="n">parent</span><span class="p">()</span>
+
+<span class="p">(</span><span class="mf">0.0</span><span class="p">,</span> <span class="mf">0.0</span><span class="p">,</span> <span class="mf">0.0</span><span class="p">,</span> <span class="mf">0.0</span><span class="p">,</span> <span class="mf">0.0</span><span class="p">)</span>
+<span class="n">Vector</span> <span class="n">space</span> <span class="n">of</span> <span class="n">dimension</span> <span class="mi">5</span> <span class="n">over</span> <span class="n">Real</span> <span class="n">Double</span> <span class="n">Field</span>
+</pre></div>
+</div>
+<p>Vectors may also be created as instances of the
+<span class="math notranslate nohighlight">\(\,\)</span> <code class="docutils literal notranslate"><span class="pre">VectorSpace()</span></code> <span class="math notranslate nohighlight">\(\,\)</span> class:</p>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="n">sage</span><span class="p">:</span> <span class="n">VS</span> <span class="o">=</span> <span class="n">VectorSpace</span><span class="p">(</span><span class="n">QQ</span><span class="p">,</span><span class="mi">3</span><span class="p">)</span>
+<span class="n">sage</span><span class="p">:</span> <span class="n">v</span> <span class="o">=</span> <span class="n">VS</span><span class="p">([</span><span class="o">-</span><span class="mi">1</span><span class="p">,</span> <span class="mi">4</span><span class="p">,</span> <span class="mf">3.5</span><span class="p">])</span>
+<span class="n">sage</span><span class="p">:</span> <span class="nb">print</span> <span class="n">VS</span><span class="p">;</span> <span class="n">v</span>
+
+<span class="n">Vector</span> <span class="n">space</span> <span class="n">of</span> <span class="n">dimension</span> <span class="mi">3</span> <span class="n">over</span> <span class="n">Rational</span> <span class="n">Field</span>
+<span class="p">(</span><span class="o">-</span><span class="mi">1</span><span class="p">,</span> <span class="mi">4</span><span class="p">,</span> <span class="mi">7</span><span class="o">/</span><span class="mi">2</span><span class="p">)</span>
+</pre></div>
+</div>
+<p><strong>Matrices.</strong></p>
+<p>The constructor <code class="docutils literal notranslate"><span class="pre">matrix()</span></code> acts similarly to <code class="docutils literal notranslate"><span class="pre">vector()</span></code>.
+Its main arguments are:</p>
+<ul class="simple">
+<li><p><code class="docutils literal notranslate"><span class="pre">ring</span></code> – the base ring for the entries of the matrix;
+if not determined, defaults to ZZ</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">nrows</span></code> – the number of rows in the matrix</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">ncols</span></code> – the number of columns in the matrix;
+defaults to nrows if not specified</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">entries</span></code> - a flat list of elements, a list of lists
+(i.e., a list of rows) or a list of Sage vectors</p></li>
+</ul>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="n">sage</span><span class="p">:</span> <span class="c1"># A default constructor creates an empty matrix:</span>
+<span class="n">sage</span><span class="p">:</span> <span class="n">M</span> <span class="o">=</span> <span class="n">matrix</span><span class="p">()</span>
+<span class="n">sage</span><span class="p">:</span> <span class="nb">print</span> <span class="n">M</span><span class="p">;</span> <span class="nb">print</span> <span class="n">M</span><span class="o">.</span><span class="n">base_ring</span><span class="p">();</span> <span class="n">M</span><span class="o">.</span><span class="n">parent</span><span class="p">()</span>
+
+<span class="p">[]</span>
+<span class="n">Integer</span> <span class="n">Ring</span>
+<span class="n">Full</span> <span class="n">MatrixSpace</span> <span class="n">of</span> <span class="mi">0</span> <span class="n">by</span> <span class="mi">0</span> <span class="n">dense</span> <span class="n">matrices</span> <span class="n">over</span> <span class="n">Integer</span> <span class="n">Ring</span>
+</pre></div>
+</div>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="n">sage</span><span class="p">:</span> <span class="c1"># A generic use of the matrix constructor:</span>
+<span class="n">sage</span><span class="p">:</span> <span class="n">M1</span> <span class="o">=</span> <span class="n">matrix</span><span class="p">(</span><span class="n">RDF</span><span class="p">,</span> <span class="mi">2</span><span class="p">,</span><span class="mi">3</span><span class="p">,</span> <span class="p">[</span><span class="mi">1</span><span class="p">,</span><span class="mi">2</span><span class="p">,</span><span class="mi">3</span><span class="p">,</span><span class="mi">4</span><span class="p">,</span><span class="mi">5</span><span class="p">,</span><span class="mi">6</span><span class="p">])</span>
+<span class="n">sage</span><span class="p">:</span> <span class="n">M2</span> <span class="o">=</span> <span class="n">matrix</span><span class="p">(</span><span class="n">RDF</span><span class="p">,</span> <span class="p">[[</span><span class="mi">1</span><span class="p">,</span><span class="mi">2</span><span class="p">,</span><span class="mi">3</span><span class="p">],[</span><span class="mi">4</span><span class="p">,</span><span class="mi">5</span><span class="p">,</span><span class="mi">6</span><span class="p">]])</span>
+<span class="n">sage</span><span class="p">:</span> <span class="nb">print</span> <span class="n">M1</span><span class="p">,</span> <span class="s2">&quot;</span><span class="se">\n</span><span class="s2">&quot;</span><span class="p">;</span> <span class="nb">print</span> <span class="n">M2</span><span class="p">,</span> <span class="s2">&quot;</span><span class="se">\n</span><span class="s2">&quot;</span><span class="p">;</span> <span class="n">M1</span><span class="o">.</span><span class="n">parent</span><span class="p">()</span>
+
+<span class="p">[</span><span class="mf">1.0</span> <span class="mf">2.0</span> <span class="mf">3.0</span><span class="p">]</span>
+<span class="p">[</span><span class="mf">4.0</span> <span class="mf">5.0</span> <span class="mf">6.0</span><span class="p">]</span>
+
+<span class="p">[</span><span class="mf">1.0</span> <span class="mf">2.0</span> <span class="mf">3.0</span><span class="p">]</span>
+<span class="p">[</span><span class="mf">4.0</span> <span class="mf">5.0</span> <span class="mf">6.0</span><span class="p">]</span>
+
+<span class="n">Full</span> <span class="n">MatrixSpace</span> <span class="n">of</span> <span class="mi">2</span> <span class="n">by</span> <span class="mi">3</span> <span class="n">dense</span> <span class="n">matrices</span> <span class="n">over</span> <span class="n">Real</span> <span class="n">Double</span> <span class="n">Field</span>
+</pre></div>
+</div>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="n">sage</span><span class="p">:</span> <span class="c1"># Construction of a square matrix:</span>
+<span class="n">sage</span><span class="p">:</span> <span class="n">M</span> <span class="o">=</span> <span class="n">matrix</span><span class="p">(</span><span class="mi">3</span><span class="p">,</span><span class="nb">range</span><span class="p">(</span><span class="mi">9</span><span class="p">));</span> <span class="n">M</span>
+
+<span class="p">[</span><span class="mi">0</span> <span class="mi">1</span> <span class="mi">2</span><span class="p">]</span>
+<span class="p">[</span><span class="mi">3</span> <span class="mi">4</span> <span class="mi">5</span><span class="p">]</span>
+<span class="p">[</span><span class="mi">6</span> <span class="mi">7</span> <span class="mi">8</span><span class="p">]</span>
+</pre></div>
+</div>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="n">sage</span><span class="p">:</span> <span class="c1"># Matrix given as a list of vectors:</span>
+
+<span class="n">sage</span><span class="p">:</span> <span class="n">v1</span> <span class="o">=</span> <span class="n">vector</span><span class="p">([</span><span class="mi">1</span><span class="p">,</span><span class="mi">2</span><span class="p">,</span><span class="mi">3</span><span class="p">,</span><span class="o">-</span><span class="mi">1</span><span class="p">]);</span>\
+      <span class="n">v2</span> <span class="o">=</span> <span class="n">vector</span><span class="p">([</span><span class="mi">4</span><span class="p">,</span><span class="mi">5</span><span class="p">,</span><span class="mi">6</span><span class="p">,</span><span class="o">-</span><span class="mi">2</span><span class="p">]);</span>\
+      <span class="n">v3</span> <span class="o">=</span> <span class="n">vector</span><span class="p">([</span><span class="mi">7</span><span class="p">,</span><span class="mi">8</span><span class="p">,</span><span class="mi">9</span><span class="p">,</span><span class="o">-</span><span class="mi">3</span><span class="p">])</span>
+<span class="n">sage</span><span class="p">:</span> <span class="n">M</span> <span class="o">=</span> <span class="n">matrix</span><span class="p">([</span><span class="n">v1</span><span class="p">,</span><span class="n">v2</span><span class="p">,</span><span class="n">v3</span><span class="p">]);</span> <span class="n">M</span>
+
+<span class="p">[</span> <span class="mi">1</span>  <span class="mi">2</span>  <span class="mi">3</span> <span class="o">-</span><span class="mi">1</span><span class="p">]</span>
+<span class="p">[</span> <span class="mi">4</span>  <span class="mi">5</span>  <span class="mi">6</span> <span class="o">-</span><span class="mi">2</span><span class="p">]</span>
+<span class="p">[</span> <span class="mi">7</span>  <span class="mi">8</span>  <span class="mi">9</span> <span class="o">-</span><span class="mi">3</span><span class="p">]</span>
+</pre></div>
+</div>
+<p>By analogy with <code class="docutils literal notranslate"><span class="pre">VectorSpace()</span></code>, the command <code class="docutils literal notranslate"><span class="pre">MatrixSpace()</span></code>
+creates the space of matrices of definite dimensions over a given ring.
+The mandatory arguments are base ring and number of rows
+(the number of columns, by default equal to the number of rows, is optional).
+The appropriate methods give access to attributes of the space
+such as dimension, dimensions of matrices, basis.</p>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="n">sage</span><span class="p">:</span> <span class="n">MS32</span> <span class="o">=</span> <span class="n">MatrixSpace</span><span class="p">(</span><span class="n">ZZ</span><span class="p">,</span><span class="mi">3</span><span class="p">,</span><span class="mi">2</span><span class="p">)</span>
+<span class="n">sage</span><span class="p">:</span> <span class="nb">print</span> <span class="n">MS32</span><span class="p">;</span> <span class="nb">print</span> <span class="n">MS32</span><span class="o">.</span><span class="n">dimension</span><span class="p">();</span>\
+      <span class="nb">print</span> <span class="n">MS32</span><span class="o">.</span><span class="n">dims</span><span class="p">();</span> <span class="n">MS32</span><span class="o">.</span><span class="n">basis</span><span class="p">()</span>
+
+<span class="n">Full</span> <span class="n">MatrixSpace</span> <span class="n">of</span> <span class="mi">3</span> <span class="n">by</span> <span class="mi">2</span> <span class="n">dense</span> <span class="n">matrices</span> <span class="n">over</span> <span class="n">Integer</span> <span class="n">Ring</span>
+<span class="mi">6</span>
+<span class="p">(</span><span class="mi">3</span><span class="p">,</span> <span class="mi">2</span><span class="p">)</span>
+<span class="p">[</span>
+<span class="p">[</span><span class="mi">1</span> <span class="mi">0</span><span class="p">]</span>  <span class="p">[</span><span class="mi">0</span> <span class="mi">1</span><span class="p">]</span>  <span class="p">[</span><span class="mi">0</span> <span class="mi">0</span><span class="p">]</span>  <span class="p">[</span><span class="mi">0</span> <span class="mi">0</span><span class="p">]</span>  <span class="p">[</span><span class="mi">0</span> <span class="mi">0</span><span class="p">]</span>  <span class="p">[</span><span class="mi">0</span> <span class="mi">0</span><span class="p">]</span>
+<span class="p">[</span><span class="mi">0</span> <span class="mi">0</span><span class="p">]</span>  <span class="p">[</span><span class="mi">0</span> <span class="mi">0</span><span class="p">]</span>  <span class="p">[</span><span class="mi">1</span> <span class="mi">0</span><span class="p">]</span>  <span class="p">[</span><span class="mi">0</span> <span class="mi">1</span><span class="p">]</span>  <span class="p">[</span><span class="mi">0</span> <span class="mi">0</span><span class="p">]</span>  <span class="p">[</span><span class="mi">0</span> <span class="mi">0</span><span class="p">]</span>
+<span class="p">[</span><span class="mi">0</span> <span class="mi">0</span><span class="p">],</span> <span class="p">[</span><span class="mi">0</span> <span class="mi">0</span><span class="p">],</span> <span class="p">[</span><span class="mi">0</span> <span class="mi">0</span><span class="p">],</span> <span class="p">[</span><span class="mi">0</span> <span class="mi">0</span><span class="p">],</span> <span class="p">[</span><span class="mi">1</span> <span class="mi">0</span><span class="p">],</span> <span class="p">[</span><span class="mi">0</span> <span class="mi">1</span><span class="p">]</span>
+<span class="p">]</span>
+</pre></div>
+</div>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="n">sage</span><span class="p">:</span> <span class="c1"># Mat() is an alias for MatrixSpace():</span>
+
+<span class="n">sage</span><span class="p">:</span> <span class="n">MS</span> <span class="o">=</span> <span class="n">Mat</span><span class="p">(</span><span class="n">RealField</span><span class="p">(</span><span class="mi">12</span><span class="p">),</span><span class="mi">2</span><span class="p">)</span>
+<span class="n">sage</span><span class="p">:</span> <span class="nb">print</span> <span class="n">MS</span><span class="p">;</span> <span class="n">MS</span><span class="o">.</span><span class="n">basis</span><span class="p">()</span>
+
+<span class="n">Full</span> <span class="n">MatrixSpace</span> <span class="n">of</span> <span class="mi">2</span> <span class="n">by</span> <span class="mi">2</span> <span class="n">dense</span> <span class="n">matrices</span> <span class="n">over</span> <span class="n">Real</span> <span class="n">Field</span> <span class="k">with</span> <span class="mi">12</span> <span class="n">bits</span>
+<span class="n">of</span> <span class="n">precision</span>
+<span class="p">[</span>
+<span class="p">[</span><span class="mf">1.00</span>  <span class="mf">0.000</span><span class="p">]</span>  <span class="p">[</span><span class="mf">0.000</span> <span class="mf">1.00</span> <span class="p">]</span>  <span class="p">[</span><span class="mf">0.000</span> <span class="mf">0.000</span><span class="p">]</span>  <span class="p">[</span><span class="mf">0.000</span> <span class="mf">0.000</span><span class="p">]</span>
+<span class="p">[</span><span class="mf">0.000</span> <span class="mf">0.000</span><span class="p">],</span> <span class="p">[</span><span class="mf">0.000</span> <span class="mf">0.000</span><span class="p">],</span> <span class="p">[</span><span class="mf">1.00</span>  <span class="mf">0.000</span><span class="p">],</span> <span class="p">[</span><span class="mf">0.000</span> <span class="mf">1.00</span> <span class="p">]</span>
+<span class="p">]</span>
+</pre></div>
+</div>
+<p>A space of matrices being at disposal,
+the matrices may be created as its instances:</p>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="n">sage</span><span class="p">:</span> <span class="n">MS22</span> <span class="o">=</span> <span class="n">Mat</span><span class="p">(</span><span class="n">QQ</span><span class="p">,</span><span class="mi">2</span><span class="p">)</span>
+<span class="n">sage</span><span class="p">:</span> <span class="n">MS23</span> <span class="o">=</span> <span class="n">Mat</span><span class="p">(</span><span class="n">QQ</span><span class="p">,</span><span class="mi">2</span><span class="p">,</span><span class="mi">3</span><span class="p">)</span>
+
+<span class="n">sage</span><span class="p">:</span> <span class="n">A</span> <span class="o">=</span> <span class="n">MS22</span><span class="p">([</span><span class="mi">1</span><span class="p">,</span><span class="mi">2</span><span class="p">,</span><span class="mi">3</span><span class="p">,</span><span class="mi">4</span><span class="p">])</span>
+<span class="n">sage</span><span class="p">:</span> <span class="n">B</span> <span class="o">=</span> <span class="n">MS23</span><span class="p">([</span><span class="mi">1</span><span class="p">,</span><span class="mi">2</span><span class="p">,</span><span class="mi">3</span><span class="p">,</span><span class="mi">4</span><span class="p">,</span><span class="mi">5</span><span class="p">,</span><span class="mi">6</span><span class="p">])</span>
+
+<span class="n">sage</span><span class="p">:</span> <span class="n">A</span><span class="p">,</span> <span class="n">B</span><span class="p">,</span> <span class="n">A</span><span class="o">*</span><span class="n">B</span> <span class="c1"># matrices A, B and the product AB</span>
+
+<span class="p">(</span>
+<span class="p">[</span><span class="mi">1</span> <span class="mi">2</span><span class="p">]</span>  <span class="p">[</span><span class="mi">1</span> <span class="mi">2</span> <span class="mi">3</span><span class="p">]</span>  <span class="p">[</span> <span class="mi">9</span> <span class="mi">12</span> <span class="mi">15</span><span class="p">]</span>
+<span class="p">[</span><span class="mi">3</span> <span class="mi">4</span><span class="p">],</span> <span class="p">[</span><span class="mi">4</span> <span class="mi">5</span> <span class="mi">6</span><span class="p">],</span> <span class="p">[</span><span class="mi">19</span> <span class="mi">26</span> <span class="mi">33</span><span class="p">]</span>
+<span class="p">)</span>
+</pre></div>
+</div>
+<p>Alternatively, the <code class="docutils literal notranslate"><span class="pre">matrix()</span></code> statement
+is used as a method belonging to the matrix class:</p>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="n">sage</span><span class="p">:</span> <span class="n">MS33</span> <span class="o">=</span> <span class="n">Mat</span><span class="p">(</span><span class="n">QQ</span><span class="p">,</span><span class="mi">3</span><span class="p">)</span>
+<span class="n">sage</span><span class="p">:</span> <span class="n">MS34</span> <span class="o">=</span> <span class="n">Mat</span><span class="p">(</span><span class="n">QQ</span><span class="p">,</span><span class="mi">3</span><span class="p">,</span><span class="mi">4</span><span class="p">)</span>
+<span class="n">sage</span><span class="p">:</span> <span class="n">A</span> <span class="o">=</span> <span class="n">MS33</span><span class="o">.</span><span class="n">matrix</span><span class="p">(</span><span class="nb">range</span><span class="p">(</span><span class="mi">9</span><span class="p">))</span>
+<span class="n">sage</span><span class="p">:</span> <span class="n">B</span> <span class="o">=</span> <span class="n">MS34</span><span class="o">.</span><span class="n">matrix</span><span class="p">(</span><span class="nb">range</span><span class="p">(</span><span class="mi">12</span><span class="p">))</span>
+<span class="n">sage</span><span class="p">:</span> <span class="n">A</span><span class="p">,</span> <span class="n">B</span><span class="p">,</span> <span class="n">A</span><span class="o">*</span><span class="n">B</span> <span class="c1"># matrices A, B and the product AB</span>
+
+<span class="p">(</span>
+<span class="p">[</span><span class="mi">0</span> <span class="mi">1</span> <span class="mi">2</span><span class="p">]</span>  <span class="p">[</span> <span class="mi">0</span>  <span class="mi">1</span>  <span class="mi">2</span>  <span class="mi">3</span><span class="p">]</span>  <span class="p">[</span> <span class="mi">20</span>  <span class="mi">23</span>  <span class="mi">26</span>  <span class="mi">29</span><span class="p">]</span>
+<span class="p">[</span><span class="mi">3</span> <span class="mi">4</span> <span class="mi">5</span><span class="p">]</span>  <span class="p">[</span> <span class="mi">4</span>  <span class="mi">5</span>  <span class="mi">6</span>  <span class="mi">7</span><span class="p">]</span>  <span class="p">[</span> <span class="mi">56</span>  <span class="mi">68</span>  <span class="mi">80</span>  <span class="mi">92</span><span class="p">]</span>
+<span class="p">[</span><span class="mi">6</span> <span class="mi">7</span> <span class="mi">8</span><span class="p">],</span> <span class="p">[</span> <span class="mi">8</span>  <span class="mi">9</span> <span class="mi">10</span> <span class="mi">11</span><span class="p">],</span> <span class="p">[</span> <span class="mi">92</span> <span class="mi">113</span> <span class="mi">134</span> <span class="mi">155</span><span class="p">]</span>
+<span class="p">)</span>
+</pre></div>
+</div>
+<p>In addition to the universal constructor <code class="docutils literal notranslate"><span class="pre">matrix()</span></code>,
+Sage offers several specialized constructors creating
+some specific matrices in a ready form:</p>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="n">sage</span><span class="p">:</span> <span class="n">O</span> <span class="o">=</span> <span class="n">zero_matrix</span><span class="p">(</span><span class="n">QQ</span><span class="p">,</span><span class="mi">3</span><span class="p">,</span><span class="mi">2</span><span class="p">)</span>
+<span class="n">sage</span><span class="p">:</span> <span class="n">I</span> <span class="o">=</span> <span class="n">identity_matrix</span><span class="p">(</span><span class="mi">3</span><span class="p">)</span>
+<span class="n">sage</span><span class="p">:</span> <span class="n">J</span> <span class="o">=</span> <span class="n">ones_matrix</span><span class="p">(</span><span class="mi">3</span><span class="p">,</span><span class="mi">4</span><span class="p">)</span>
+<span class="n">sage</span><span class="p">:</span> <span class="n">D</span> <span class="o">=</span> <span class="n">diagonal_matrix</span><span class="p">([</span><span class="mi">1</span><span class="p">,</span><span class="mi">2</span><span class="p">,</span><span class="mi">3</span><span class="p">])</span>
+<span class="n">sage</span><span class="p">:</span> <span class="n">R</span> <span class="o">=</span> <span class="n">random_matrix</span><span class="p">(</span><span class="n">QQ</span><span class="p">,</span> <span class="mi">3</span><span class="p">,</span><span class="mi">3</span><span class="p">,</span> <span class="n">algorithm</span><span class="o">=</span><span class="s1">&#39;diagonalizable&#39;</span><span class="p">)</span>
+<span class="n">sage</span><span class="p">:</span> <span class="n">E</span> <span class="o">=</span> <span class="n">elementary_matrix</span><span class="p">(</span><span class="n">QQ</span><span class="p">,</span> <span class="mi">3</span><span class="p">,</span> <span class="n">row1</span><span class="o">=</span><span class="mi">1</span><span class="p">,</span> <span class="n">row2</span><span class="o">=</span><span class="mi">2</span><span class="p">,</span> <span class="n">scale</span><span class="o">=</span><span class="mi">2</span><span class="p">)</span>
+<span class="n">sage</span><span class="p">:</span> <span class="n">O</span><span class="p">,</span> <span class="n">I</span><span class="p">,</span> <span class="n">J</span><span class="p">,</span> <span class="n">D</span><span class="p">,</span> <span class="n">R</span><span class="p">,</span> <span class="n">E</span>
+
+<span class="p">(</span>
+<span class="p">[</span><span class="mi">0</span> <span class="mi">0</span><span class="p">]</span>  <span class="p">[</span><span class="mi">1</span> <span class="mi">0</span> <span class="mi">0</span><span class="p">]</span>  <span class="p">[</span><span class="mi">1</span> <span class="mi">1</span> <span class="mi">1</span> <span class="mi">1</span><span class="p">]</span>  <span class="p">[</span><span class="mi">1</span> <span class="mi">0</span> <span class="mi">0</span><span class="p">]</span>  <span class="p">[</span>  <span class="mi">8</span>  <span class="mi">10</span> <span class="o">-</span><span class="mi">20</span><span class="p">]</span>  <span class="p">[</span><span class="mi">1</span> <span class="mi">0</span> <span class="mi">0</span><span class="p">]</span>
+<span class="p">[</span><span class="mi">0</span> <span class="mi">0</span><span class="p">]</span>  <span class="p">[</span><span class="mi">0</span> <span class="mi">1</span> <span class="mi">0</span><span class="p">]</span>  <span class="p">[</span><span class="mi">1</span> <span class="mi">1</span> <span class="mi">1</span> <span class="mi">1</span><span class="p">]</span>  <span class="p">[</span><span class="mi">0</span> <span class="mi">2</span> <span class="mi">0</span><span class="p">]</span>  <span class="p">[</span><span class="o">-</span><span class="mi">36</span> <span class="o">-</span><span class="mi">22</span>  <span class="mi">24</span><span class="p">]</span>  <span class="p">[</span><span class="mi">0</span> <span class="mi">1</span> <span class="mi">2</span><span class="p">]</span>
+<span class="p">[</span><span class="mi">0</span> <span class="mi">0</span><span class="p">],</span> <span class="p">[</span><span class="mi">0</span> <span class="mi">0</span> <span class="mi">1</span><span class="p">],</span> <span class="p">[</span><span class="mi">1</span> <span class="mi">1</span> <span class="mi">1</span> <span class="mi">1</span><span class="p">],</span> <span class="p">[</span><span class="mi">0</span> <span class="mi">0</span> <span class="mi">3</span><span class="p">],</span> <span class="p">[</span><span class="o">-</span><span class="mi">18</span> <span class="o">-</span><span class="mi">10</span>  <span class="mi">10</span><span class="p">],</span> <span class="p">[</span><span class="mi">0</span> <span class="mi">0</span> <span class="mi">1</span><span class="p">]</span>
+<span class="p">)</span>
+</pre></div>
+</div>
+</section>
+<section id="properties-of-vectors-and-matrices">
+<h2>Properties of Vectors and Matrices<a class="headerlink" href="#properties-of-vectors-and-matrices" title="Permalink to this headline">¶</a></h2>
+<p><strong>Indices.</strong></p>
+<p>In the traditional mathematical notation the numbering of elements
+of a sequence starts from one. Thus a vector of size <span class="math notranslate nohighlight">\(\,n\ \)</span>
+and a matrix with <span class="math notranslate nohighlight">\(\,m\,\)</span> rows and <span class="math notranslate nohighlight">\(\,n\,\)</span> columns
+read as follows:</p>
+<div class="math notranslate nohighlight">
+\[\boldsymbol{v}\ =\ [v_i]_n\ =\ (\,v_1,\ v_2,\ \ldots,\ v_n\,)\,,\]</div>
+<div class="math notranslate nohighlight">
+\[\begin{split}\boldsymbol{A}\ \,=\ \,[a_{ij}]_{m\times n}\ \,=\ \,
+\left[\begin{array}{cccc}
+   a_{11} &amp; a_{12} &amp; \ldots &amp; a_{1n} \\
+   a_{21} &amp; a_{22} &amp; \ldots &amp; a_{2n} \\
+   \ldots &amp; \ldots &amp; \ldots &amp; \ldots \\
+   a_{m1} &amp; a_{m2} &amp; \ldots &amp; a_{mn}
+\end{array}\right]\,.\end{split}\]</div>
+<p>In Sage the starting number of elements of vectors
+as well as that of rows and columns of matrices is zero.
+Therefore vectors and matrices have the following index structure:</p>
+<div class="math notranslate nohighlight">
+\[\boldsymbol{v}\ =\ (\, v[0],\ v[1],\ \ldots,\ v[n-1]\, )\,,\]</div>
+<div class="math notranslate nohighlight">
+\[\begin{split}\boldsymbol{A}\quad=\quad\left(\begin{array}{cccc}
+    A[0,0]   &amp; A[0,1]   &amp; \ldots &amp; A[0,n-1]   \\
+    A[1,0]   &amp; A[1,1]   &amp; \ldots &amp; A[1,n-1]   \\
+    \ldots   &amp; \ldots   &amp; \ldots &amp; \ldots     \\
+    A[m-1,0] &amp; A[m-1,1] &amp; \ldots &amp; A[m-1,n-1]
+\end{array}\right)\,.\end{split}\]</div>
+<p>Let <span class="math notranslate nohighlight">\(\,\boldsymbol{v}\,\)</span> be an <span class="math notranslate nohighlight">\(\,n\)</span>-size vector:
+<span class="math notranslate nohighlight">\(\ \boldsymbol{v}\ =\ (\, v_1,\ v_2,\ \ldots,\ v_n\,)\
+=\ (\, v[0],\ v[1],\ \ldots,\ v[n-1]\, ).\ \)</span>
+The relation between the two numbering conventions is thus such that
+<span class="math notranslate nohighlight">\(\,v_i\,=\,v[i-1]:\ \)</span> the <span class="math notranslate nohighlight">\(\,i\)</span>-th element of
+<span class="math notranslate nohighlight">\(\ \boldsymbol{v}\ \)</span> is equal to the <span class="math notranslate nohighlight">\(\,[i-1]\)</span>-th element
+of this vector, <span class="math notranslate nohighlight">\(\ i=1,2,\ldots,n.\ \)</span> Analogous rules hold for matrices.
+Below these relations are illustrated by examples:</p>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="n">sage</span><span class="p">:</span> <span class="n">v</span> <span class="o">=</span> <span class="n">vector</span><span class="p">([</span><span class="o">-</span><span class="mi">1</span><span class="p">,</span> <span class="mi">5</span><span class="p">,</span> <span class="mi">3</span><span class="p">,</span> <span class="o">-</span><span class="mi">4</span><span class="p">,</span> <span class="mi">8</span><span class="p">])</span>
+<span class="n">sage</span><span class="p">:</span> <span class="nb">print</span> <span class="s1">&#39;Vector v and its selected elements:&#39;</span><span class="p">,</span> <span class="s1">&#39;</span><span class="se">\n</span><span class="s1">&#39;</span>
+<span class="n">sage</span><span class="p">:</span> <span class="nb">print</span> <span class="s1">&#39;v =&#39;</span><span class="p">,</span> <span class="n">v</span><span class="p">,</span> <span class="s1">&#39;</span><span class="se">\n\n</span><span class="s1">v[0] =&#39;</span><span class="p">,</span> <span class="n">v</span><span class="p">[</span><span class="mi">0</span><span class="p">],</span> <span class="s1">&#39;  v[3] =&#39;</span><span class="p">,</span> <span class="n">v</span><span class="p">[</span><span class="mi">3</span><span class="p">]</span>
+
+<span class="n">Vector</span> <span class="n">v</span> <span class="ow">and</span> <span class="n">its</span> <span class="n">selected</span> <span class="n">elements</span><span class="p">:</span>
+
+<span class="n">v</span> <span class="o">=</span> <span class="p">(</span><span class="o">-</span><span class="mi">1</span><span class="p">,</span> <span class="mi">5</span><span class="p">,</span> <span class="mi">3</span><span class="p">,</span> <span class="o">-</span><span class="mi">4</span><span class="p">,</span> <span class="mi">8</span><span class="p">)</span>
+
+<span class="n">v</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span> <span class="o">=</span> <span class="o">-</span><span class="mi">1</span>   <span class="n">v</span><span class="p">[</span><span class="mi">3</span><span class="p">]</span> <span class="o">=</span> <span class="o">-</span><span class="mi">4</span>
+</pre></div>
+</div>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="n">sage</span><span class="p">:</span> <span class="n">A</span> <span class="o">=</span> <span class="n">matrix</span><span class="p">([[</span><span class="mi">0</span><span class="p">,</span><span class="mi">2</span><span class="p">,</span><span class="mi">4</span><span class="p">,</span><span class="mi">6</span><span class="p">],[</span><span class="mi">1</span><span class="p">,</span><span class="mi">3</span><span class="p">,</span><span class="mi">5</span><span class="p">,</span><span class="mi">7</span><span class="p">],[</span><span class="mi">2</span><span class="p">,</span><span class="mi">4</span><span class="p">,</span><span class="mi">6</span><span class="p">,</span><span class="mi">8</span><span class="p">]])</span>
+
+<span class="n">sage</span><span class="p">:</span> <span class="nb">print</span> <span class="n">A</span>
+
+<span class="n">sage</span><span class="p">:</span> <span class="nb">print</span> <span class="s1">&#39;</span><span class="se">\n</span><span class="s1">Selected row, column and elements:&#39;</span>
+
+<span class="n">sage</span><span class="p">:</span> <span class="nb">print</span> <span class="s1">&#39;</span><span class="se">\n</span><span class="s1">Second row   = row number [1]    = A.row(1)    =&#39;</span><span class="p">,</span>\
+            <span class="n">A</span><span class="o">.</span><span class="n">row</span><span class="p">(</span><span class="mi">1</span><span class="p">)</span>
+
+<span class="n">sage</span><span class="p">:</span> <span class="nb">print</span> <span class="s1">&#39;</span><span class="se">\n</span><span class="s1">First column = column number [0] = A.column(0) =&#39;</span><span class="p">,</span>\
+            <span class="n">A</span><span class="o">.</span><span class="n">column</span><span class="p">(</span><span class="mi">0</span><span class="p">)</span>
+
+<span class="n">sage</span><span class="p">:</span> <span class="nb">print</span> <span class="s1">&#39;</span><span class="se">\n</span><span class="s1">A[0,0] =&#39;</span><span class="p">,</span> <span class="n">A</span><span class="p">[</span><span class="mi">0</span><span class="p">,</span><span class="mi">0</span><span class="p">],</span>\
+            <span class="s1">&#39;  A[1,3] =&#39;</span><span class="p">,</span> <span class="n">A</span><span class="p">[</span><span class="mi">1</span><span class="p">,</span><span class="mi">3</span><span class="p">],</span>\
+            <span class="s1">&#39;  A[2,2] =&#39;</span><span class="p">,</span> <span class="n">A</span><span class="p">[</span><span class="mi">2</span><span class="p">,</span><span class="mi">2</span><span class="p">]</span>
+
+<span class="p">[</span><span class="mi">0</span> <span class="mi">2</span> <span class="mi">4</span> <span class="mi">6</span><span class="p">]</span>
+<span class="p">[</span><span class="mi">1</span> <span class="mi">3</span> <span class="mi">5</span> <span class="mi">7</span><span class="p">]</span>
+<span class="p">[</span><span class="mi">2</span> <span class="mi">4</span> <span class="mi">6</span> <span class="mi">8</span><span class="p">]</span>
+
+<span class="n">Selected</span> <span class="n">row</span><span class="p">,</span> <span class="n">column</span> <span class="ow">and</span> <span class="n">elements</span><span class="p">:</span>
+
+<span class="n">Second</span> <span class="n">row</span>   <span class="o">=</span> <span class="n">row</span> <span class="n">number</span> <span class="p">[</span><span class="mi">1</span><span class="p">]</span>    <span class="o">=</span> <span class="n">A</span><span class="o">.</span><span class="n">row</span><span class="p">(</span><span class="mi">1</span><span class="p">)</span>    <span class="o">=</span> <span class="p">(</span><span class="mi">1</span><span class="p">,</span> <span class="mi">3</span><span class="p">,</span> <span class="mi">5</span><span class="p">,</span> <span class="mi">7</span><span class="p">)</span>
+
+<span class="n">First</span> <span class="n">column</span> <span class="o">=</span> <span class="n">column</span> <span class="n">number</span> <span class="p">[</span><span class="mi">0</span><span class="p">]</span> <span class="o">=</span> <span class="n">A</span><span class="o">.</span><span class="n">column</span><span class="p">(</span><span class="mi">0</span><span class="p">)</span> <span class="o">=</span> <span class="p">(</span><span class="mi">0</span><span class="p">,</span> <span class="mi">1</span><span class="p">,</span> <span class="mi">2</span><span class="p">)</span>
+
+<span class="n">A</span><span class="p">[</span><span class="mi">0</span><span class="p">,</span><span class="mi">0</span><span class="p">]</span> <span class="o">=</span> <span class="mi">0</span>   <span class="n">A</span><span class="p">[</span><span class="mi">1</span><span class="p">,</span><span class="mi">3</span><span class="p">]</span> <span class="o">=</span> <span class="mi">7</span>   <span class="n">A</span><span class="p">[</span><span class="mi">2</span><span class="p">,</span><span class="mi">2</span><span class="p">]</span> <span class="o">=</span> <span class="mi">6</span>
+</pre></div>
+</div>
+<p>Finally, we present two examples of the situation, when matrix elements
+are a function of their indices. <span class="math notranslate nohighlight">\(\,\boldsymbol{A}\ \)</span> is the general
+rectangular matrix of the given dimensions, with elements <span class="math notranslate nohighlight">\(\,a_{ij};\\\)</span>
+<span class="math notranslate nohighlight">\(\ \boldsymbol{B}\ \)</span> is the complex matrix (<span class="math notranslate nohighlight">\(\,i\,\)</span>
+is the imaginary unit) with elements</p>
+<div class="math notranslate nohighlight">
+\[\begin{split}b_{kl}\,=\,k+l\cdot i\,,\qquad
+\begin{array}{l} k\,=\,1,2,\ldots,m\,; \\ \,l\,=\,1,2,\ldots,n.\end{array}\end{split}\]</div>
+<div class='sage_linked'><script type='text/x-sage'>m, n = 4, 5
+A = matrix([[var("a%d%d" % (k,l)) for l in range(1,n+1)]
+                                  for k in range(1,m+1)])
+m, n = 4, 3
+B = matrix([[CIF(k,l) for l in range(1,n+1)]
+                      for k in range(1,m+1)])
+show((A,B))</script></div><p><strong>Slicing.</strong></p>
+<p>Slicing extracts selected elements from a sequence,
+thus creating sub-sequences. This technique is applicable, among others,
+to lists, vectors and matrices (a matrix being a list of rows).
+In particular, if <span class="math notranslate nohighlight">\(\,L\ \)</span> is a list of size <span class="math notranslate nohighlight">\(\,n,\ \)</span>
+then for <span class="math notranslate nohighlight">\(\ p = 0, 1, ..., n-1;\)</span> <span class="math notranslate nohighlight">\(\ q = 1, 2, ..., n;\)</span>
+<span class="math notranslate nohighlight">\(\ p&lt;q:\)</span></p>
+<ul>
+<li><div class="line-block">
+<div class="line"><code class="docutils literal notranslate"><span class="pre">L[p]</span></code> <span class="math notranslate nohighlight">\(\ \)</span> - <span class="math notranslate nohighlight">\(\ \)</span> the <code class="docutils literal notranslate"><span class="pre">[p]</span></code>-th,
+<span class="math notranslate nohighlight">\(\ \)</span> that is the (p+1)-th, <span class="math notranslate nohighlight">\(\ \)</span>
+element of <span class="math notranslate nohighlight">\(\,L\)</span>;</div>
+<div class="line"><code class="docutils literal notranslate"><span class="pre">L[-2]</span></code>, <code class="docutils literal notranslate"><span class="pre">L[-1]</span></code> <span class="math notranslate nohighlight">\(\ \)</span> - <span class="math notranslate nohighlight">\(\ \)</span>
+the next-to-last and last elements of <span class="math notranslate nohighlight">\(\,L\)</span>;</div>
+</div>
+</li>
+<li><div class="line-block">
+<div class="line"><code class="docutils literal notranslate"><span class="pre">L[p:q]</span></code> <span class="math notranslate nohighlight">\(\ \)</span> - <span class="math notranslate nohighlight">\(\ \)</span> sublist of
+<span class="math notranslate nohighlight">\(\ q-p\ \)</span> elements of <span class="math notranslate nohighlight">\(\,L,\ \)</span></div>
+<div class="line">starting at the <code class="docutils literal notranslate"><span class="pre">[p]</span></code>-th <span class="math notranslate nohighlight">\(\ \)</span> and <span class="math notranslate nohighlight">\(\ \)</span>
+ending with the <code class="docutils literal notranslate"><span class="pre">[q-1]</span></code>-th <span class="math notranslate nohighlight">\(\ \)</span> element;</div>
+</div>
+</li>
+<li><div class="line-block">
+<div class="line"><code class="docutils literal notranslate"><span class="pre">L[:q]</span></code> <span class="math notranslate nohighlight">\(\ \)</span> - <span class="math notranslate nohighlight">\(\ \)</span> sublist of <span class="math notranslate nohighlight">\(\,q\ \)</span>
+elements of <span class="math notranslate nohighlight">\(\,L,\ \)</span></div>
+<div class="line">starting at the beginning of the list and ending with the
+<code class="docutils literal notranslate"><span class="pre">[q-1]</span></code>-th element;</div>
+</div>
+</li>
+<li><div class="line-block">
+<div class="line"><code class="docutils literal notranslate"><span class="pre">L[p:]</span></code> <span class="math notranslate nohighlight">\(\ \)</span> - <span class="math notranslate nohighlight">\(\ \)</span> sublist of <span class="math notranslate nohighlight">\(\ n-p\ \)</span>
+elements of <span class="math notranslate nohighlight">\(\ L,\ \)</span></div>
+<div class="line">starting at the <code class="docutils literal notranslate"><span class="pre">[p]</span></code>-th element and going to the end;</div>
+</div>
+</li>
+<li><div class="line-block">
+<div class="line"><code class="docutils literal notranslate"><span class="pre">L[p:q:r]</span></code> <span class="math notranslate nohighlight">\(\ \)</span> - <span class="math notranslate nohighlight">\(\ \)</span> sublist of elements
+of <span class="math notranslate nohighlight">\(\,L\ \)</span> with numbers from <code class="docutils literal notranslate"><span class="pre">[p]</span></code> to <code class="docutils literal notranslate"><span class="pre">[q-1]</span></code> inclusively,</div>
+<div class="line">with the step (slicing increment) <span class="math notranslate nohighlight">\(\ r.\)</span></div>
+</div>
+</li>
+</ul>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="n">sage</span><span class="p">:</span> <span class="n">M</span> <span class="o">=</span> <span class="n">matrix</span><span class="p">(</span><span class="mi">4</span><span class="p">,</span><span class="mi">5</span><span class="p">,</span><span class="nb">range</span><span class="p">(</span><span class="mi">20</span><span class="p">))</span>
+<span class="n">sage</span><span class="p">:</span> <span class="c1"># Slicing yields a matrix composed of:</span>
+<span class="n">sage</span><span class="p">:</span> <span class="n">A</span> <span class="o">=</span> <span class="n">M</span><span class="p">[</span><span class="mi">1</span><span class="p">:</span><span class="mi">3</span><span class="p">]</span>     <span class="c1"># rows [1]., [2].</span>
+<span class="n">sage</span><span class="p">:</span> <span class="n">B</span> <span class="o">=</span> <span class="n">M</span><span class="p">[:,</span><span class="mi">2</span><span class="p">:</span><span class="mi">5</span><span class="p">]</span>   <span class="c1"># columns [2]., [3]., [4].</span>
+<span class="n">sage</span><span class="p">:</span> <span class="n">C</span> <span class="o">=</span> <span class="n">M</span><span class="p">[</span><span class="mi">1</span><span class="p">:</span><span class="mi">3</span><span class="p">,</span><span class="mi">2</span><span class="p">:</span><span class="mi">5</span><span class="p">]</span> <span class="c1"># elements of rows [1]., [2].</span>
+                     <span class="c1">#  and columns [2]., [3]., [4].</span>
+<span class="n">sage</span><span class="p">:</span> <span class="n">D</span> <span class="o">=</span> <span class="n">M</span><span class="p">[</span><span class="mi">1</span><span class="p">:,::</span><span class="mi">2</span><span class="p">]</span>  <span class="c1"># elements of rows [1]., [2]., [3].</span>
+                     <span class="c1">#  and columns [0]., [2]., [4].</span>
+<span class="n">sage</span><span class="p">:</span> <span class="nb">print</span> <span class="n">M</span>
+<span class="n">sage</span><span class="p">:</span> <span class="n">A</span><span class="p">,</span> <span class="n">B</span><span class="p">,</span> <span class="n">C</span><span class="p">,</span> <span class="n">D</span>
+
+<span class="p">[</span> <span class="mi">0</span>  <span class="mi">1</span>  <span class="mi">2</span>  <span class="mi">3</span>  <span class="mi">4</span><span class="p">]</span>
+<span class="p">[</span> <span class="mi">5</span>  <span class="mi">6</span>  <span class="mi">7</span>  <span class="mi">8</span>  <span class="mi">9</span><span class="p">]</span>
+<span class="p">[</span><span class="mi">10</span> <span class="mi">11</span> <span class="mi">12</span> <span class="mi">13</span> <span class="mi">14</span><span class="p">]</span>
+<span class="p">[</span><span class="mi">15</span> <span class="mi">16</span> <span class="mi">17</span> <span class="mi">18</span> <span class="mi">19</span><span class="p">]</span>
+<span class="p">(</span>
+                  <span class="p">[</span> <span class="mi">2</span>  <span class="mi">3</span>  <span class="mi">4</span><span class="p">]</span>
+                  <span class="p">[</span> <span class="mi">7</span>  <span class="mi">8</span>  <span class="mi">9</span><span class="p">]</span>              <span class="p">[</span> <span class="mi">5</span>  <span class="mi">7</span>  <span class="mi">9</span><span class="p">]</span>
+<span class="p">[</span> <span class="mi">5</span>  <span class="mi">6</span>  <span class="mi">7</span>  <span class="mi">8</span>  <span class="mi">9</span><span class="p">]</span>  <span class="p">[</span><span class="mi">12</span> <span class="mi">13</span> <span class="mi">14</span><span class="p">]</span>  <span class="p">[</span> <span class="mi">7</span>  <span class="mi">8</span>  <span class="mi">9</span><span class="p">]</span>  <span class="p">[</span><span class="mi">10</span> <span class="mi">12</span> <span class="mi">14</span><span class="p">]</span>
+<span class="p">[</span><span class="mi">10</span> <span class="mi">11</span> <span class="mi">12</span> <span class="mi">13</span> <span class="mi">14</span><span class="p">],</span> <span class="p">[</span><span class="mi">17</span> <span class="mi">18</span> <span class="mi">19</span><span class="p">],</span> <span class="p">[</span><span class="mi">12</span> <span class="mi">13</span> <span class="mi">14</span><span class="p">],</span> <span class="p">[</span><span class="mi">15</span> <span class="mi">17</span> <span class="mi">19</span><span class="p">]</span>
+<span class="p">)</span>
+</pre></div>
+</div>
+<div class="admonition note">
+<p class="admonition-title">Note</p>
+<p><span class="math notranslate nohighlight">\(\,\)</span></p>
+<p>Let <span class="math notranslate nohighlight">\(\,A\,\)</span> be an <span class="math notranslate nohighlight">\(\ m \times n\ \)</span>
+matrix over a ring <span class="math notranslate nohighlight">\(\,P,\
+i=0,1,\ldots,m-1;\ j=0,1,\ldots,n-1. \\\)</span></p>
+<p>Then its <code class="docutils literal notranslate"><span class="pre">[i]</span></code>-th row may be obtained in three ways:</p>
+<ul class="simple">
+<li><p><code class="docutils literal notranslate"><span class="pre">A[i]</span></code> <span class="math notranslate nohighlight">\(\ \)</span> or <span class="math notranslate nohighlight">\(\ \)</span> <code class="docutils literal notranslate"><span class="pre">A.row(i)</span></code>
+<span class="math notranslate nohighlight">\(\ \)</span> - <span class="math notranslate nohighlight">\(\ \)</span> as an <span class="math notranslate nohighlight">\(\,n\)</span>-size vector over <span class="math notranslate nohighlight">\(\,P;\)</span></p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">A[i,:]</span></code> <span class="math notranslate nohighlight">\(\ \)</span> - <span class="math notranslate nohighlight">\(\ \)</span> as an <span class="math notranslate nohighlight">\(\ 1\)</span>-row matrix
+over <span class="math notranslate nohighlight">\(\,P\ \)</span> with <span class="math notranslate nohighlight">\(\,n\ \)</span> elements. <span class="math notranslate nohighlight">\(\\\)</span></p></li>
+</ul>
+<p>For the <code class="docutils literal notranslate"><span class="pre">[j]</span></code>-th column there are two formulae:</p>
+<ul class="simple">
+<li><p><code class="docutils literal notranslate"><span class="pre">A.column(j)</span></code> <span class="math notranslate nohighlight">\(\ \)</span> - <span class="math notranslate nohighlight">\(\ \)</span>
+as a vector of size <span class="math notranslate nohighlight">\(\,m\ \)</span> over <span class="math notranslate nohighlight">\(\,P\ \)</span>
+(written horizontally);</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">A[:,j]</span></code> <span class="math notranslate nohighlight">\(\ \)</span> - <span class="math notranslate nohighlight">\(\ \)</span> as a <span class="math notranslate nohighlight">\(\,1\)</span>-column matrix
+over <span class="math notranslate nohighlight">\(\,P\ \)</span> with <span class="math notranslate nohighlight">\(\,m\ \)</span> elements.</p></li>
+</ul>
+</div>
+<p>The above rules are illustrated by the following example:</p>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="n">sage</span><span class="p">:</span> <span class="n">A</span> <span class="o">=</span> <span class="n">matrix</span><span class="p">(</span><span class="mi">3</span><span class="p">,</span><span class="mi">4</span><span class="p">,[</span><span class="o">-</span><span class="mi">1</span><span class="p">,</span><span class="mi">0</span><span class="p">,</span><span class="mi">2</span><span class="p">,</span><span class="mi">1</span><span class="p">,</span><span class="o">-</span><span class="mi">1</span><span class="p">,</span><span class="mi">7</span><span class="p">,</span><span class="o">-</span><span class="mi">1</span><span class="p">,</span><span class="mi">1</span><span class="p">,</span><span class="mi">1</span><span class="p">,</span><span class="o">-</span><span class="mi">1</span><span class="p">,</span><span class="mi">3</span><span class="p">,</span><span class="mi">2</span><span class="p">])</span>
+<span class="n">sage</span><span class="p">:</span> <span class="nb">print</span> <span class="n">A</span><span class="p">,</span> <span class="s1">&#39;</span><span class="se">\n</span><span class="s1">&#39;</span>
+
+<span class="n">sage</span><span class="p">:</span> <span class="nb">print</span> <span class="n">A</span><span class="p">[</span><span class="mi">2</span><span class="p">];</span> <span class="nb">print</span> <span class="nb">type</span><span class="p">(</span><span class="n">A</span><span class="p">[</span><span class="mi">2</span><span class="p">]),</span> <span class="s1">&#39;</span><span class="se">\n</span><span class="s1">&#39;</span>
+<span class="n">sage</span><span class="p">:</span> <span class="nb">print</span> <span class="n">A</span><span class="o">.</span><span class="n">row</span><span class="p">(</span><span class="mi">2</span><span class="p">);</span> <span class="nb">print</span> <span class="nb">type</span><span class="p">(</span><span class="n">A</span><span class="o">.</span><span class="n">row</span><span class="p">(</span><span class="mi">2</span><span class="p">)),</span> <span class="s1">&#39;</span><span class="se">\n</span><span class="s1">&#39;</span>
+<span class="n">sage</span><span class="p">:</span> <span class="nb">print</span> <span class="n">A</span><span class="p">[</span><span class="mi">2</span><span class="p">,:];</span> <span class="nb">print</span> <span class="nb">type</span><span class="p">(</span><span class="n">A</span><span class="p">[</span><span class="mi">2</span><span class="p">,:]),</span> <span class="s1">&#39;</span><span class="se">\n</span><span class="s1">&#39;</span>
+<span class="n">sage</span><span class="p">:</span> <span class="nb">print</span> <span class="n">A</span><span class="o">.</span><span class="n">column</span><span class="p">(</span><span class="mi">1</span><span class="p">);</span> <span class="nb">print</span> <span class="nb">type</span><span class="p">(</span><span class="n">A</span><span class="o">.</span><span class="n">column</span><span class="p">(</span><span class="mi">1</span><span class="p">)),</span> <span class="s1">&#39;</span><span class="se">\n</span><span class="s1">&#39;</span>
+<span class="n">sage</span><span class="p">:</span> <span class="nb">print</span> <span class="n">A</span><span class="p">[:,</span><span class="mi">1</span><span class="p">];</span> <span class="nb">print</span> <span class="nb">type</span><span class="p">(</span><span class="n">A</span><span class="p">[:,</span><span class="mi">1</span><span class="p">])</span>
+
+<span class="p">[</span><span class="o">-</span><span class="mi">1</span>  <span class="mi">0</span>  <span class="mi">2</span>  <span class="mi">1</span><span class="p">]</span>
+<span class="p">[</span><span class="o">-</span><span class="mi">1</span>  <span class="mi">7</span> <span class="o">-</span><span class="mi">1</span>  <span class="mi">1</span><span class="p">]</span>
+<span class="p">[</span> <span class="mi">1</span> <span class="o">-</span><span class="mi">1</span>  <span class="mi">3</span>  <span class="mi">2</span><span class="p">]</span>
+
+<span class="p">(</span><span class="mi">1</span><span class="p">,</span> <span class="o">-</span><span class="mi">1</span><span class="p">,</span> <span class="mi">3</span><span class="p">,</span> <span class="mi">2</span><span class="p">)</span>
+<span class="o">&lt;</span><span class="nb">type</span> <span class="s1">&#39;sage.modules.vector_integer_dense.Vector_integer_dense&#39;</span><span class="o">&gt;</span>
+
+<span class="p">(</span><span class="mi">1</span><span class="p">,</span> <span class="o">-</span><span class="mi">1</span><span class="p">,</span> <span class="mi">3</span><span class="p">,</span> <span class="mi">2</span><span class="p">)</span>
+<span class="o">&lt;</span><span class="nb">type</span> <span class="s1">&#39;sage.modules.vector_integer_dense.Vector_integer_dense&#39;</span><span class="o">&gt;</span>
+
+<span class="p">[</span> <span class="mi">1</span> <span class="o">-</span><span class="mi">1</span>  <span class="mi">3</span>  <span class="mi">2</span><span class="p">]</span>
+<span class="o">&lt;</span><span class="nb">type</span> <span class="s1">&#39;sage.matrix.matrix_integer_dense.Matrix_integer_dense&#39;</span><span class="o">&gt;</span>
+
+<span class="p">(</span><span class="mi">0</span><span class="p">,</span> <span class="mi">7</span><span class="p">,</span> <span class="o">-</span><span class="mi">1</span><span class="p">)</span>
+<span class="o">&lt;</span><span class="nb">type</span> <span class="s1">&#39;sage.modules.vector_integer_dense.Vector_integer_dense&#39;</span><span class="o">&gt;</span>
+
+<span class="p">[</span> <span class="mi">0</span><span class="p">]</span>
+<span class="p">[</span> <span class="mi">7</span><span class="p">]</span>
+<span class="p">[</span><span class="o">-</span><span class="mi">1</span><span class="p">]</span>
+<span class="o">&lt;</span><span class="nb">type</span> <span class="s1">&#39;sage.matrix.matrix_integer_dense.Matrix_integer_dense&#39;</span><span class="o">&gt;</span>
+</pre></div>
+</div>
+</section>
+<section id="operations-on-vectors-and-matrices">
+<h2>Operations on Vectors and Matrices<a class="headerlink" href="#operations-on-vectors-and-matrices" title="Permalink to this headline">¶</a></h2>
+<p><strong>Linear Combination of Vectors.</strong></p>
+<p>The addition and scalar multiplication of <span class="math notranslate nohighlight">\(\,n\)</span>-size vectors
+over a ring <span class="math notranslate nohighlight">\(\,P\,\)</span> are analogous to the operations on column vectors
+over a field <span class="math notranslate nohighlight">\(\,K.\ \)</span>
+If a vector <span class="math notranslate nohighlight">\(\ \boldsymbol{w} = (w_1,w_2,\ldots,w_n)\ \)</span>
+is the linear combination of vectors
+<span class="math notranslate nohighlight">\(\,\boldsymbol{x} = (x_1,x_2,\ldots,x_n)\ \)</span> and
+<span class="math notranslate nohighlight">\(\ \,\boldsymbol{y} = (y_1,y_2,\ldots,y_n):\ \)</span></p>
+<div class="math notranslate nohighlight">
+\[\boldsymbol{w}\ =\ a\,\boldsymbol{x}\, +\, b\,\boldsymbol{y}\,,
+\qquad a,b\in P,\]</div>
+<p>then its elements are given by</p>
+<div class="math notranslate nohighlight">
+\[w_i\ =\ a\,x_i\, +\, b\,y_i\,,\qquad i\,=\,1,2,\ldots,n.\]</div>
+<p>The <span class="math notranslate nohighlight">\(\,n\)</span>-element vectors over a ring <span class="math notranslate nohighlight">\(\,P\,\)</span> form a free module
+with respect to vector addition and scalar multiplication
+(for <span class="math notranslate nohighlight">\(\,n\)</span>-size vectors over a field the module is a vector space).</p>
+<p><strong>Dot Product of vectors.</strong></p>
+<p>Dot product (scalar product) of two vectors of the same size is defined as
+the sum of products of corresponding elements:</p>
+<div class="math notranslate nohighlight">
+\[\boldsymbol{x} \cdot \boldsymbol{y} \ \,:\,=\ \,
+\sum_{i=1}^n\,x_i\,y_i\ \,=\ \,
+x_1\,y_1\,+\,x_2\,y_2\,+\,\ldots\,+\,x_n\,y_n\,.\]</div>
+<p>This is an example of a linear combination and the dot product of vectors:</p>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="n">sage</span><span class="p">:</span> <span class="n">x</span> <span class="o">=</span> <span class="n">vector</span><span class="p">([</span><span class="o">-</span><span class="mi">1</span><span class="p">,</span><span class="mi">2</span><span class="p">,</span><span class="mi">5</span><span class="p">])</span>
+<span class="n">sage</span><span class="p">:</span> <span class="n">y</span> <span class="o">=</span> <span class="n">vector</span><span class="p">([</span><span class="mi">3</span><span class="p">,</span><span class="mi">0</span><span class="p">,</span><span class="mi">4</span><span class="p">])</span>
+
+<span class="c1"># Linear combination w of vectors x, y with coefficients 3, -2:</span>
+<span class="n">sage</span><span class="p">:</span> <span class="n">w</span> <span class="o">=</span> <span class="mi">3</span><span class="o">*</span><span class="n">x</span><span class="o">-</span><span class="mi">2</span><span class="o">*</span><span class="n">y</span>
+
+<span class="c1"># Dot product p of vectors x, y:</span>
+<span class="n">sage</span><span class="p">:</span> <span class="n">p</span> <span class="o">=</span> <span class="n">x</span><span class="o">*</span><span class="n">y</span>
+
+<span class="n">sage</span><span class="p">:</span> <span class="n">show</span><span class="p">(</span><span class="n">table</span><span class="p">([[</span><span class="mi">3</span><span class="p">,</span><span class="s1">&#39;$\cdot$&#39;</span><span class="p">,</span><span class="n">x</span><span class="p">,</span><span class="s1">&#39;-&#39;</span><span class="p">,</span><span class="mi">2</span><span class="p">,</span><span class="s1">&#39;$\cdot$&#39;</span><span class="p">,</span><span class="n">y</span><span class="p">,</span><span class="s1">&#39;=&#39;</span><span class="p">,</span><span class="n">w</span><span class="p">]]))</span>
+<span class="n">sage</span><span class="p">:</span> <span class="n">show</span><span class="p">(</span><span class="n">table</span><span class="p">([[</span><span class="n">x</span><span class="p">,</span><span class="s1">&#39;$\cdot$&#39;</span><span class="p">,</span><span class="n">y</span><span class="p">,</span><span class="s1">&#39;=&#39;</span><span class="p">,</span><span class="n">p</span><span class="p">]]))</span>
+</pre></div>
+</div>
+<p><span class="math notranslate nohighlight">\(\begin{array}{ccccccccc}
+3 &amp; \cdot &amp; \left(-1,\,2,\,5\right) &amp; - &amp;
+2 &amp; \cdot &amp; \left(3,\,0,\,4\right) &amp; = &amp;
+\left(-9,\,6,\,7\right)\end{array}\)</span></p>
+<p><span class="math notranslate nohighlight">\(\begin{array}{ccccc}
+\left(-1,\,2,\,5\right) &amp; \cdot &amp; \left(3,\,0,\,4\right) &amp; = &amp; 17
+\end{array}\)</span></p>
+<p>The dot product of two vectors <span class="math notranslate nohighlight">\(\,\boldsymbol{x},\,\boldsymbol{y}\ \)</span>
+is connected with the matrix product of the one-row matrix obtained
+from <span class="math notranslate nohighlight">\(\,\boldsymbol{x}\,\)</span> by the one-column matrix obtained from
+<span class="math notranslate nohighlight">\(\,\boldsymbol{y}\)</span>.</p>
+<p>A vector may be transformed into a one-row or one-column matrix
+by means of the methods <code class="docutils literal notranslate"><span class="pre">row()</span></code> or <code class="docutils literal notranslate"><span class="pre">column()</span></code>, respectively.</p>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="n">sage</span><span class="p">:</span> <span class="n">x</span> <span class="o">=</span> <span class="n">vector</span><span class="p">([</span><span class="o">-</span><span class="mi">1</span><span class="p">,</span><span class="mi">2</span><span class="p">,</span><span class="mi">5</span><span class="p">])</span>
+<span class="n">sage</span><span class="p">:</span> <span class="n">y</span> <span class="o">=</span> <span class="n">vector</span><span class="p">([</span><span class="mi">3</span><span class="p">,</span><span class="mi">0</span><span class="p">,</span><span class="mi">4</span><span class="p">])</span>
+
+<span class="n">sage</span><span class="p">:</span> <span class="n">x_row</span> <span class="o">=</span> <span class="n">x</span><span class="o">.</span><span class="n">row</span><span class="p">()</span>
+<span class="n">sage</span><span class="p">:</span> <span class="n">y_col</span> <span class="o">=</span> <span class="n">y</span><span class="o">.</span><span class="n">column</span><span class="p">()</span>
+
+<span class="n">sage</span><span class="p">:</span> <span class="n">p</span> <span class="o">=</span> <span class="n">x_row</span> <span class="o">*</span> <span class="n">y_col</span>
+<span class="n">sage</span><span class="p">:</span> <span class="n">table</span><span class="p">([[</span><span class="n">x_row</span><span class="p">,</span><span class="s1">&#39;*&#39;</span><span class="p">,</span><span class="n">y_col</span><span class="p">,</span><span class="s1">&#39;=&#39;</span><span class="p">,</span><span class="n">p</span><span class="p">]])</span>
+</pre></div>
+</div>
+<p><span class="math notranslate nohighlight">\(\begin{array}{ccccc}
+\left(\begin{array}{ccc} -1 &amp; 2 &amp; 5 \end{array}\right) &amp; \ast &amp;
+\left(\begin{array}{c} 3 \\ 0 \\ 4 \end{array}\right) &amp; = &amp; (17)
+\end{array}\)</span></p>
+<p><span class="math notranslate nohighlight">\(\,\)</span></p>
+<p><strong>Products of a matrix and a vector.</strong></p>
+<p>If <span class="math notranslate nohighlight">\(\ \boldsymbol{x}\ \)</span> is an <span class="math notranslate nohighlight">\(\ n\)</span>-element vector, <span class="math notranslate nohighlight">\(\ \)</span>
+and <span class="math notranslate nohighlight">\(\ \boldsymbol{A}\ \)</span> - <span class="math notranslate nohighlight">\(\ \)</span> a square matrix of size <span class="math notranslate nohighlight">\(\ n\)</span>:</p>
+<div class="math notranslate nohighlight">
+\[\begin{split}\boldsymbol{x}\ =\ (x_1,x_2,\ldots,x_n)\,,\qquad
+\boldsymbol{A}\ =\ \left[\begin{array}{cccc}
+    a_{11} &amp; a_{12} &amp; \ldots &amp; a_{1n} \\
+    a_{21} &amp; a_{22} &amp; \ldots &amp; a_{2n} \\
+    \ldots &amp; \ldots &amp; \ldots &amp; \ldots \\
+    a_{n1} &amp; a_{n2} &amp; \ldots &amp; a_{nn}
+\end{array}\right]\,,\end{split}\]</div>
+<p>then there exist products
+<span class="math notranslate nohighlight">\(\ \ \boldsymbol{v} = \boldsymbol{x} \cdot \boldsymbol{A}\ \ \)</span> and
+<span class="math notranslate nohighlight">\(\ \ \boldsymbol{w} = \boldsymbol{A} \cdot \boldsymbol{x}\,.\)</span></p>
+<p>Both results, <span class="math notranslate nohighlight">\(\ \boldsymbol{v}\ \)</span> and <span class="math notranslate nohighlight">\(\ \boldsymbol{w},\ \)</span>
+are vectors, and</p>
+<div class="math notranslate nohighlight">
+\[ \begin{align}\begin{aligned}v_j\ :\,=\ \sum_{i=1}^n\,x_i\,a_{ij}\ =\
+x_1\,a_{1j}\,+\,x_2\,a_{2j}\,+\,\ldots\,+\,x_n\,a_{nj}\,,
+\qquad j\,=\,1,2,\ldots,n,\\w_i\ :\,=\ \sum_{j=1}^n\,a_{ij}\,x_j\ =\
+a_{i1}\,x_1\,+\,a_{i2}\,x_2\,+\,\ldots\,+\,a_{in}\,x_n\,,
+\qquad i\,=\,1,2,\ldots,n.\end{aligned}\end{align} \]</div>
+<p><span class="math notranslate nohighlight">\(\ \)</span></p>
+<p>This is illustrated by the example:</p>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="n">sage</span><span class="p">:</span> <span class="n">x</span> <span class="o">=</span> <span class="n">vector</span><span class="p">(</span><span class="nb">range</span><span class="p">(</span><span class="mi">3</span><span class="p">))</span>
+<span class="n">sage</span><span class="p">:</span> <span class="n">A</span> <span class="o">=</span> <span class="n">matrix</span><span class="p">(</span><span class="mi">3</span><span class="p">,</span><span class="nb">range</span><span class="p">(</span><span class="mi">9</span><span class="p">))</span>
+
+<span class="n">sage</span><span class="p">:</span> <span class="n">v</span> <span class="o">=</span> <span class="n">x</span><span class="o">*</span><span class="n">A</span><span class="p">;</span> <span class="n">w</span> <span class="o">=</span> <span class="n">A</span><span class="o">*</span><span class="n">x</span>
+
+<span class="n">sage</span><span class="p">:</span> <span class="n">show</span><span class="p">(</span><span class="n">table</span><span class="p">([[</span><span class="n">x</span><span class="p">,</span><span class="s1">&#39;*&#39;</span><span class="p">,</span><span class="n">A</span><span class="p">,</span><span class="s1">&#39;=&#39;</span><span class="p">,</span><span class="n">v</span><span class="p">]]))</span>
+<span class="n">sage</span><span class="p">:</span> <span class="n">show</span><span class="p">(</span><span class="n">table</span><span class="p">([[</span><span class="n">A</span><span class="p">,</span><span class="s1">&#39;*&#39;</span><span class="p">,</span><span class="n">x</span><span class="p">,</span><span class="s1">&#39;=&#39;</span><span class="p">,</span><span class="n">w</span><span class="p">]]))</span>
+</pre></div>
+</div>
+<p><span class="math notranslate nohighlight">\(\begin{array}{ccccc}
+\left(0,\,1,\,2\right) &amp; \ast &amp;
+\left(\begin{array}{rrr}
+0 &amp; 1 &amp; 2 \\ 3 &amp; 4 &amp; 5 \\ 6 &amp; 7 &amp; 8
+\end{array}\right) &amp; = &amp;
+\left(15,\,18,\,21\right)
+\end{array}\)</span></p>
+<p><span class="math notranslate nohighlight">\(\begin{array}{ccccc}
+\left(\begin{array}{rrr}
+0 &amp; 1 &amp; 2 \\ 3 &amp; 4 &amp; 5 \\ 6 &amp; 7 &amp; 8
+\end{array}\right) &amp;
+\ast &amp; \left(0,\,1,\,2\right) &amp;
+= &amp; \left(5,\,14,\,23\right)
+\end{array}\)</span></p>
+<p>Note that if we replace vectors by one-row matrices,
+the first equation will remain true, while the second will become
+senseless (the product of a square matrix by a one-row matrix is not defined):</p>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="n">sage</span><span class="p">:</span> <span class="n">x</span> <span class="o">=</span> <span class="n">vector</span><span class="p">(</span><span class="nb">range</span><span class="p">(</span><span class="mi">3</span><span class="p">))</span>
+<span class="n">sage</span><span class="p">:</span> <span class="n">A</span> <span class="o">=</span> <span class="n">matrix</span><span class="p">(</span><span class="mi">3</span><span class="p">,</span><span class="nb">range</span><span class="p">(</span><span class="mi">9</span><span class="p">))</span>
+
+<span class="n">sage</span><span class="p">:</span> <span class="n">x_row</span> <span class="o">=</span> <span class="n">x</span><span class="o">.</span><span class="n">row</span><span class="p">()</span>
+
+<span class="n">sage</span><span class="p">:</span> <span class="n">v_row</span> <span class="o">=</span> <span class="n">x_row</span> <span class="o">*</span> <span class="n">A</span>
+<span class="n">sage</span><span class="p">:</span> <span class="n">show</span><span class="p">(</span><span class="n">table</span><span class="p">([[</span><span class="n">x_row</span><span class="p">,</span><span class="s1">&#39;*&#39;</span><span class="p">,</span><span class="n">A</span><span class="p">,</span><span class="s1">&#39;=&#39;</span><span class="p">,</span><span class="n">v_row</span><span class="p">]]))</span>
+
+<span class="n">sage</span><span class="p">:</span> <span class="n">w_row</span> <span class="o">=</span> <span class="n">A</span> <span class="o">*</span> <span class="n">x_row</span>
+<span class="n">sage</span><span class="p">:</span> <span class="n">show</span><span class="p">(</span><span class="n">table</span><span class="p">([[</span><span class="n">A</span><span class="p">,</span><span class="s1">&#39;*&#39;</span><span class="p">,</span><span class="n">x_row</span><span class="p">,</span><span class="s1">&#39;=&#39;</span><span class="p">,</span><span class="n">w_row</span><span class="p">]]))</span>
+</pre></div>
+</div>
+<p><span class="math notranslate nohighlight">\(\begin{array}{ccccc}
+\left(\begin{array}{rrr} 0 &amp; 1 &amp; 2 \end{array}\right) &amp; \ast &amp;
+\left(\begin{array}{rrr}
+0 &amp; 1 &amp; 2 \\ 3 &amp; 4 &amp; 5 \\ 6 &amp; 7 &amp; 8
+\end{array}\right) &amp; = &amp;
+\left(\begin{array}{rrr} 15 &amp; 18 &amp; 21 \end{array}\right)
+\end{array}\)</span></p>
+<hr class="docutils" />
+<p><code class="docutils literal notranslate"><span class="pre">TypeError:</span> <span class="pre">unsupported</span> <span class="pre">operand</span> <span class="pre">parent(s)</span> <span class="pre">for</span> <span class="pre">'*':</span>
+<span class="pre">'Full</span> <span class="pre">MatrixSpace</span> <span class="pre">of</span> <span class="pre">3</span> <span class="pre">by</span> <span class="pre">3</span> <span class="pre">dense</span> <span class="pre">matrices</span> <span class="pre">over</span> <span class="pre">Integer</span> <span class="pre">Ring'</span> <span class="pre">and</span>
+<span class="pre">'Full</span> <span class="pre">MatrixSpace</span> <span class="pre">of</span> <span class="pre">1</span> <span class="pre">by</span> <span class="pre">3</span> <span class="pre">dense</span> <span class="pre">matrices</span> <span class="pre">over</span> <span class="pre">Integer</span> <span class="pre">Ring'</span></code></p>
+<p>To get the correct matrix version of the second equation,
+vectors are to be replaced by one-column matrices:</p>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="n">sage</span><span class="p">:</span> <span class="n">x</span> <span class="o">=</span> <span class="n">vector</span><span class="p">(</span><span class="nb">range</span><span class="p">(</span><span class="mi">3</span><span class="p">))</span>
+<span class="n">sage</span><span class="p">:</span> <span class="n">A</span> <span class="o">=</span> <span class="n">matrix</span><span class="p">(</span><span class="mi">3</span><span class="p">,</span><span class="nb">range</span><span class="p">(</span><span class="mi">9</span><span class="p">))</span>
+
+<span class="n">sage</span><span class="p">:</span> <span class="n">x_col</span> <span class="o">=</span> <span class="n">x</span><span class="o">.</span><span class="n">column</span><span class="p">()</span>
+<span class="n">sage</span><span class="p">:</span> <span class="n">w_col</span> <span class="o">=</span> <span class="n">A</span> <span class="o">*</span> <span class="n">x_col</span>
+
+<span class="n">sage</span><span class="p">:</span> <span class="n">show</span><span class="p">(</span><span class="n">table</span><span class="p">([[</span><span class="n">A</span><span class="p">,</span><span class="s1">&#39;*&#39;</span><span class="p">,</span><span class="n">x_col</span><span class="p">,</span><span class="s1">&#39;=&#39;</span><span class="p">,</span><span class="n">w_col</span><span class="p">]]))</span>
+</pre></div>
+</div>
+<p><span class="math notranslate nohighlight">\(\begin{array}{ccccc}
+\left(\begin{array}{rrr}
+0 &amp; 1 &amp; 2 \\ 3 &amp; 4 &amp; 5 \\ 6 &amp; 7 &amp; 8
+\end{array}\right) &amp; \ast &amp;
+\left(\begin{array}{r} 0 \\ 1 \\ 2 \end{array}\right) &amp; = &amp;
+\left(\begin{array}{r} 5 \\ 14 \\ 23 \end{array}\right)
+\end{array}\)</span></p>
+<p>In passing we note that the first equation may be rewritten
+in the column version by transpose of both sides
+(transpose of a product of matrices
+yields the product of transposed factors in reverse order):</p>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="n">sage</span><span class="p">:</span> <span class="n">x</span> <span class="o">=</span> <span class="n">vector</span><span class="p">(</span><span class="nb">range</span><span class="p">(</span><span class="mi">3</span><span class="p">))</span>
+<span class="n">sage</span><span class="p">:</span> <span class="n">A</span> <span class="o">=</span> <span class="n">matrix</span><span class="p">(</span><span class="mi">3</span><span class="p">,</span><span class="nb">range</span><span class="p">(</span><span class="mi">9</span><span class="p">))</span>
+
+<span class="n">sage</span><span class="p">:</span> <span class="n">x_col</span> <span class="o">=</span> <span class="n">x</span><span class="o">.</span><span class="n">column</span><span class="p">()</span>
+<span class="n">sage</span><span class="p">:</span> <span class="n">A_t</span> <span class="o">=</span> <span class="n">A</span><span class="o">.</span><span class="n">transpose</span><span class="p">()</span>
+
+<span class="n">sage</span><span class="p">:</span> <span class="n">v_col</span> <span class="o">=</span> <span class="n">A_t</span> <span class="o">*</span> <span class="n">x_col</span>
+
+<span class="n">sage</span><span class="p">:</span> <span class="n">table</span><span class="p">([[</span><span class="n">A_t</span><span class="p">,</span><span class="s1">&#39;*&#39;</span><span class="p">,</span><span class="n">x_col</span><span class="p">,</span><span class="s1">&#39;=&#39;</span><span class="p">,</span><span class="n">v_col</span><span class="p">]])</span>
+</pre></div>
+</div>
+<p><span class="math notranslate nohighlight">\(\begin{array}{ccccc}
+\left(\begin{array}{rrr}
+0 &amp; 3 &amp; 6 \\ 1 &amp; 4 &amp; 7 \\ 2 &amp; 5 &amp; 8
+\end{array}\right) &amp; \ast &amp;
+\left(\begin{array}{r} 0 \\ 1 \\ 2 \end{array}\right) &amp; = &amp;
+\left(\begin{array}{r} 15 \\ 18 \\ 21 \end{array}\right)
+\end{array}\)</span></p>
+<p><span class="math notranslate nohighlight">\(\;\)</span></p>
+<p><strong>Product of matrices.</strong></p>
+<p>Sage of course deals with the multiplication of any two matrices
+with appropriate dimensions
+(the number of columns of the first matrix
+must equal the number of rows of the second).
+A few examples (in which one factor was a 1-row or 1-column matrix)
+have been already given in this section. Here is another example:</p>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="n">sage</span><span class="p">:</span> <span class="n">A</span> <span class="o">=</span> <span class="n">matrix</span><span class="p">(</span><span class="mi">2</span><span class="p">,</span><span class="mi">3</span><span class="p">,</span><span class="nb">range</span><span class="p">(</span><span class="mi">6</span><span class="p">))</span>
+<span class="n">sage</span><span class="p">:</span> <span class="n">B</span> <span class="o">=</span> <span class="n">matrix</span><span class="p">(</span><span class="mi">3</span><span class="p">,</span><span class="nb">range</span><span class="p">(</span><span class="mi">9</span><span class="p">))</span>
+<span class="n">sage</span><span class="p">:</span> <span class="n">C</span> <span class="o">=</span> <span class="n">A</span><span class="o">*</span><span class="n">B</span>
+<span class="n">sage</span><span class="p">:</span> <span class="n">table</span><span class="p">([[</span><span class="n">A</span><span class="p">,</span><span class="s1">&#39;*&#39;</span><span class="p">,</span><span class="n">B</span><span class="p">,</span><span class="s1">&#39;=&#39;</span><span class="p">,</span><span class="n">C</span><span class="p">]])</span>
+</pre></div>
+</div>
+<p><span class="math notranslate nohighlight">\(\begin{array}{ccccc}
+\left(\begin{array}{rrr}
+0 &amp; 1 &amp; 2 \\ 3 &amp; 4 &amp; 5
+\end{array}\right) &amp; \ast &amp;
+\left(\begin{array}{rrr}
+0 &amp; 1 &amp; 2 \\ 3 &amp; 4 &amp; 5 \\ 6 &amp; 7 &amp; 8
+\end{array}\right) &amp; = &amp;
+\left(\begin{array}{rrr}
+15 &amp; 18 &amp; 21 \\ 42 &amp; 54 &amp; 66
+\end{array}\right)
+\end{array}\)</span></p>
+<p><span class="math notranslate nohighlight">\(\;\)</span></p>
+<p>An attempt to multiply matrices with incompatible dimensions
+results in an error:</p>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="n">sage</span><span class="p">:</span> <span class="n">A</span> <span class="o">=</span> <span class="n">matrix</span><span class="p">(</span><span class="mi">3</span><span class="p">,</span><span class="nb">range</span><span class="p">(</span><span class="mi">9</span><span class="p">))</span>
+<span class="n">sage</span><span class="p">:</span> <span class="n">B</span> <span class="o">=</span> <span class="n">matrix</span><span class="p">(</span><span class="mi">2</span><span class="p">,</span><span class="mi">3</span><span class="p">,</span><span class="nb">range</span><span class="p">(</span><span class="mi">6</span><span class="p">))</span>
+
+<span class="n">sage</span><span class="p">:</span> <span class="n">C</span> <span class="o">=</span> <span class="n">A</span><span class="o">*</span><span class="n">B</span>
+</pre></div>
+</div>
+<p><code class="docutils literal notranslate"><span class="pre">TypeError:</span> <span class="pre">unsupported</span> <span class="pre">operand</span> <span class="pre">parent(s)</span> <span class="pre">for</span> <span class="pre">'*':</span>
+<span class="pre">'Full</span> <span class="pre">MatrixSpace</span> <span class="pre">of</span> <span class="pre">3</span> <span class="pre">by</span> <span class="pre">3</span> <span class="pre">dense</span> <span class="pre">matrices</span> <span class="pre">over</span> <span class="pre">Integer</span> <span class="pre">Ring'</span> <span class="pre">and</span>
+<span class="pre">'Full</span> <span class="pre">MatrixSpace</span> <span class="pre">of</span> <span class="pre">2</span> <span class="pre">by</span> <span class="pre">3</span> <span class="pre">dense</span> <span class="pre">matrices</span> <span class="pre">over</span> <span class="pre">Integer</span> <span class="pre">Ring'</span></code></p>
+<p>The above examples show that the symbols of addition,
+subtraction and multiplication have context-sensitive meaning.</p>
+<p>Specifically, the symbols <span class="math notranslate nohighlight">\(\,\)</span> “<code class="docutils literal notranslate"><span class="pre">+</span></code>/<code class="docutils literal notranslate"><span class="pre">-</span></code>” <span class="math notranslate nohighlight">\(\,\)</span>
+denote addition/subtraction of numbers (scalars), vectors or matrices;
+<span class="math notranslate nohighlight">\(\ \)</span> the symbol <span class="math notranslate nohighlight">\(\,\)</span> “<code class="docutils literal notranslate"><span class="pre">*</span></code>” <span class="math notranslate nohighlight">\(\,\)</span> denotes multiplication
+of numbers, multiplication of a vector by a number, dot product of two vectors,
+multiplication of a vector by a matrix and vice versa,
+or product of two matrices.</p>
+</section>
+<section id="block-matrices">
+<h2>Block Matrices<a class="headerlink" href="#block-matrices" title="Permalink to this headline">¶</a></h2>
+<p>Every matrix with dimensions at least two
+can be divided into four (or more) rectangular blocks.
+Such division being performed, we say of a block matrix.
+It turns out that the rules of multiplication of block matrices
+are completely analogous to those of elementary matrices:</p>
+<div class="math notranslate nohighlight" id="equation-blok1">
+<span class="eqno">(1)<a class="headerlink" href="#equation-blok1" title="Permalink to this equation">¶</a></span>\[\begin{split}\left[\begin{array}{c|c}
+    \boldsymbol{A} &amp; \boldsymbol{B} \\
+    \hline
+    \boldsymbol{C} &amp; \boldsymbol{D}
+ \end{array}\right]
+ \left[\begin{array}{c}
+     \boldsymbol{X} \\
+     \hline
+     \boldsymbol{Y}
+\end{array}\right]
+\ =\
+\left[\begin{array}{c}
+    \boldsymbol{A} \boldsymbol{X} + \boldsymbol{B} \boldsymbol{Y} \\
+    \hline
+    \boldsymbol{C} \boldsymbol{X} + \boldsymbol{D} \boldsymbol{Y}
+\end{array}\right]\,.\end{split}\]</div>
+<p>The blocks <span class="math notranslate nohighlight">\(\ \boldsymbol{A},\boldsymbol{B},
+\boldsymbol{C},\boldsymbol{D},\boldsymbol{X},\boldsymbol{Y}\ \)</span>
+are here any matrices provided that their dimensions
+make the matrix multiplications possible.</p>
+<p>Typically, using equation <a class="reference internal" href="#equation-blok1">(1)</a> does not reduce the volume
+of operations. However, when there are some zero or identity blocks,
+the calculations may be relevantly simplified.
+Consider e.g. the case, when there are two zero blocks
+(denoted by <span class="math notranslate nohighlight">\(\ \boldsymbol{O}\)</span>). <span class="math notranslate nohighlight">\(\ \)</span> Then</p>
+<div class="math notranslate nohighlight">
+\[\begin{split}\left[\begin{array}{c|c}
+   \boldsymbol{A} &amp; \boldsymbol{O} \\
+   \hline
+   \boldsymbol{O} &amp; \boldsymbol{D}
+\end{array}\right]
+\left[\begin{array}{c}
+    \boldsymbol{X} \\
+    \hline
+    \boldsymbol{Y}
+\end{array}\right]
+\ =\
+\left[\begin{array}{c}
+    \boldsymbol{A} \boldsymbol{X} \\
+    \hline
+    \boldsymbol{D} \boldsymbol{Y}
+\end{array}\right]\end{split}\]</div>
+<p>Sage has several functions destined to handle block matrices.</p>
+<p>The <code class="docutils literal notranslate"><span class="pre">block_matrix()</span></code> command takes a list of submatrices to add as blocks,
+optionally preceding it by a ring and the number of block rows
+and block columns. Its arguments are:</p>
+<ul class="simple">
+<li><p><code class="docutils literal notranslate"><span class="pre">ring</span></code> <span class="math notranslate nohighlight">\(\ -\ \)</span> the base ring</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">nrows</span></code> <span class="math notranslate nohighlight">\(\ -\ \)</span> the number of block rows</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">ncols</span></code> <span class="math notranslate nohighlight">\(\ -\ \)</span> the numbber of block columns</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">blocks</span></code> <span class="math notranslate nohighlight">\(\ -\ \)</span> submatrices to be assembled</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">subdivide</span></code> <span class="math notranslate nohighlight">\(\ -\ \)</span> boolean, whether or not to add subdivision
+information to the matrix</p></li>
+</ul>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="n">sage</span><span class="p">:</span> <span class="n">A</span> <span class="o">=</span> <span class="n">matrix</span><span class="p">(</span><span class="n">QQ</span><span class="p">,</span> <span class="mi">2</span><span class="p">,</span> <span class="mi">3</span><span class="p">,</span> <span class="p">[</span><span class="mi">3</span><span class="p">,</span><span class="mi">9</span><span class="p">,</span><span class="mi">6</span><span class="p">,</span><span class="mi">10</span><span class="p">,</span><span class="mi">12</span><span class="p">,</span><span class="mi">15</span><span class="p">])</span>
+<span class="n">sage</span><span class="p">:</span> <span class="n">block_matrix</span><span class="p">([[</span><span class="mi">1</span><span class="p">,</span><span class="n">A</span><span class="p">],</span> <span class="p">[</span><span class="mi">0</span><span class="p">,</span><span class="mi">1</span><span class="p">]])</span>
+
+<span class="p">[</span> <span class="mi">1</span>  <span class="mi">0</span><span class="o">|</span> <span class="mi">3</span>  <span class="mi">9</span>  <span class="mi">6</span><span class="p">]</span>
+<span class="p">[</span> <span class="mi">0</span>  <span class="mi">1</span><span class="o">|</span><span class="mi">10</span> <span class="mi">12</span> <span class="mi">15</span><span class="p">]</span>
+<span class="p">[</span><span class="o">-----+--------</span><span class="p">]</span>
+<span class="p">[</span> <span class="mi">0</span>  <span class="mi">0</span><span class="o">|</span> <span class="mi">1</span>  <span class="mi">0</span>  <span class="mi">0</span><span class="p">]</span>
+<span class="p">[</span> <span class="mi">0</span>  <span class="mi">0</span><span class="o">|</span> <span class="mi">0</span>  <span class="mi">1</span>  <span class="mi">0</span><span class="p">]</span>
+<span class="p">[</span> <span class="mi">0</span>  <span class="mi">0</span><span class="o">|</span> <span class="mi">0</span>  <span class="mi">0</span>  <span class="mi">1</span><span class="p">]</span>
+</pre></div>
+</div>
+<p>Here the 0 and 1 entry have been interpreted as the zero and identity matrix
+of compatible dimensions.
+The subdivision information (horizontal and vertical lines) may be lifted
+by putting <code class="docutils literal notranslate"><span class="pre">subdivision</span> <span class="pre">=</span> <span class="pre">False</span></code>.</p>
+<p>The <code class="docutils literal notranslate"><span class="pre">subdivide()</span></code> method divides a matrix into blocks,
+which can then be extracted. <span class="math notranslate nohighlight">\(\\\)</span> The arguments are</p>
+<ul class="simple">
+<li><p><code class="docutils literal notranslate"><span class="pre">row_lines</span></code> - None, an integer, or a list of integers</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">col_lines</span></code> - None, an integer, or a list of integers</p></li>
+</ul>
+<p>The <code class="docutils literal notranslate"><span class="pre">subdivision()</span></code> method extracts a given block from a matrix,
+whereas <code class="docutils literal notranslate"><span class="pre">subdivision_entry()</span></code> yields a selected element.</p>
+<p>The following examples should make their functioning clear:</p>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="n">sage</span><span class="p">:</span> <span class="n">A</span> <span class="o">=</span> <span class="n">matrix</span><span class="p">(</span><span class="n">QQ</span><span class="p">,</span> <span class="mi">5</span><span class="p">,</span> <span class="nb">range</span><span class="p">(</span><span class="mi">25</span><span class="p">))</span>
+<span class="n">sage</span><span class="p">:</span> <span class="n">A</span><span class="o">.</span><span class="n">subdivide</span><span class="p">(</span><span class="mi">3</span><span class="p">,</span><span class="mi">2</span><span class="p">)</span>
+<span class="n">sage</span><span class="p">:</span> <span class="nb">print</span> <span class="n">A</span><span class="p">,</span> <span class="s1">&#39;</span><span class="se">\n</span><span class="s1">&#39;</span>
+<span class="n">sage</span><span class="p">:</span> <span class="nb">print</span> <span class="n">A</span><span class="o">.</span><span class="n">subdivision</span><span class="p">(</span><span class="mi">1</span><span class="p">,</span><span class="mi">0</span><span class="p">),</span> <span class="s1">&#39;</span><span class="se">\n</span><span class="s1">&#39;</span>
+<span class="n">sage</span><span class="p">:</span> <span class="n">A</span><span class="o">.</span><span class="n">subdivision_entry</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span><span class="mi">1</span><span class="p">,</span><span class="mi">2</span><span class="p">,</span><span class="mi">1</span><span class="p">)</span>
+
+<span class="p">[</span> <span class="mi">0</span>  <span class="mi">1</span><span class="o">|</span> <span class="mi">2</span>  <span class="mi">3</span>  <span class="mi">4</span><span class="p">]</span>
+<span class="p">[</span> <span class="mi">5</span>  <span class="mi">6</span><span class="o">|</span> <span class="mi">7</span>  <span class="mi">8</span>  <span class="mi">9</span><span class="p">]</span>
+<span class="p">[</span><span class="mi">10</span> <span class="mi">11</span><span class="o">|</span><span class="mi">12</span> <span class="mi">13</span> <span class="mi">14</span><span class="p">]</span>
+<span class="p">[</span><span class="o">-----+--------</span><span class="p">]</span>
+<span class="p">[</span><span class="mi">15</span> <span class="mi">16</span><span class="o">|</span><span class="mi">17</span> <span class="mi">18</span> <span class="mi">19</span><span class="p">]</span>
+<span class="p">[</span><span class="mi">20</span> <span class="mi">21</span><span class="o">|</span><span class="mi">22</span> <span class="mi">23</span> <span class="mi">24</span><span class="p">]</span>
+
+<span class="p">[</span><span class="mi">15</span> <span class="mi">16</span><span class="p">]</span>
+<span class="p">[</span><span class="mi">20</span> <span class="mi">21</span><span class="p">]</span>
+
+<span class="mi">13</span>
+</pre></div>
+</div>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="n">sage</span><span class="p">:</span> <span class="n">A</span> <span class="o">=</span> <span class="n">matrix</span><span class="p">(</span><span class="mi">6</span><span class="p">,</span><span class="nb">range</span><span class="p">(</span><span class="mi">36</span><span class="p">))</span>
+<span class="n">sage</span><span class="p">:</span> <span class="n">A</span><span class="o">.</span><span class="n">subdivide</span><span class="p">([</span><span class="mi">1</span><span class="p">,</span><span class="mi">3</span><span class="p">,</span><span class="mi">5</span><span class="p">],[</span><span class="mi">2</span><span class="p">,</span><span class="mi">4</span><span class="p">])</span>
+<span class="n">sage</span><span class="p">:</span> <span class="nb">print</span> <span class="n">A</span><span class="p">,</span> <span class="s1">&#39;</span><span class="se">\n</span><span class="s1">&#39;</span>
+<span class="n">sage</span><span class="p">:</span> <span class="n">A</span><span class="o">.</span><span class="n">subdivision</span><span class="p">(</span><span class="mi">2</span><span class="p">,</span><span class="mi">1</span><span class="p">)</span>
+
+<span class="p">[</span> <span class="mi">0</span>  <span class="mi">1</span><span class="o">|</span> <span class="mi">2</span>  <span class="mi">3</span><span class="o">|</span> <span class="mi">4</span>  <span class="mi">5</span><span class="p">]</span>
+<span class="p">[</span><span class="o">-----+-----+-----</span><span class="p">]</span>
+<span class="p">[</span> <span class="mi">6</span>  <span class="mi">7</span><span class="o">|</span> <span class="mi">8</span>  <span class="mi">9</span><span class="o">|</span><span class="mi">10</span> <span class="mi">11</span><span class="p">]</span>
+<span class="p">[</span><span class="mi">12</span> <span class="mi">13</span><span class="o">|</span><span class="mi">14</span> <span class="mi">15</span><span class="o">|</span><span class="mi">16</span> <span class="mi">17</span><span class="p">]</span>
+<span class="p">[</span><span class="o">-----+-----+-----</span><span class="p">]</span>
+<span class="p">[</span><span class="mi">18</span> <span class="mi">19</span><span class="o">|</span><span class="mi">20</span> <span class="mi">21</span><span class="o">|</span><span class="mi">22</span> <span class="mi">23</span><span class="p">]</span>
+<span class="p">[</span><span class="mi">24</span> <span class="mi">25</span><span class="o">|</span><span class="mi">26</span> <span class="mi">27</span><span class="o">|</span><span class="mi">28</span> <span class="mi">29</span><span class="p">]</span>
+<span class="p">[</span><span class="o">-----+-----+-----</span><span class="p">]</span>
+<span class="p">[</span><span class="mi">30</span> <span class="mi">31</span><span class="o">|</span><span class="mi">32</span> <span class="mi">33</span><span class="o">|</span><span class="mi">34</span> <span class="mi">35</span><span class="p">]</span>
+
+<span class="p">[</span><span class="mi">20</span> <span class="mi">21</span><span class="p">]</span>
+<span class="p">[</span><span class="mi">26</span> <span class="mi">27</span><span class="p">]</span>
+</pre></div>
+</div>
+<div class="admonition-experiment-with-sage-math admonition">
+<p class="admonition-title">Experiment with Sage! <span class="math notranslate nohighlight">\(\\\)</span></p>
+<p>The program given below uses the function <code class="docutils literal notranslate"><span class="pre">block_matrix()</span></code>
+to compose a matrix of the given submatrices.</p>
+<p>The reader is encouraged to test equation <a class="reference internal" href="#equation-blok1">(1)</a>
+for various components of the block matrices.</p>
+</div>
+<div class='sage_linked'><script type='text/x-sage'>A  = random_matrix(ZZ,2)
+
+B1 = block_matrix([[identity_matrix(2),A],
+                   [zero_matrix(1,2),zero_matrix(1,2)]])
+
+B2 = block_matrix([[A],[identity_matrix(2)]])
+
+table([['$\\qquad\\quad\ \ B1$','','$\\qquad\ \ B2$','',
+        '$\\quad B1\ \\ast \ B2$'],
+       [B1,'*',B2,'=',B1*B2]])</script></div></section>
+</section>
+
+
+          </div>
+        </div>
+      </div>
+      <div class="sphinxsidebar" role="navigation" aria-label="main navigation">
+        <div class="sphinxsidebarwrapper">
+  <div class="sphinxlocaltoc">
+  <h3><a href="index.html">Table Of Contents</a></h3>
+  <ul>
+<li><a class="reference internal" href="#">Vectors and Matrices in Sage</a><ul>
+<li><a class="reference internal" href="#creation-of-vectors-and-matrices">Creation of Vectors and Matrices</a></li>
+<li><a class="reference internal" href="#properties-of-vectors-and-matrices">Properties of Vectors and Matrices</a></li>
+<li><a class="reference internal" href="#operations-on-vectors-and-matrices">Operations on Vectors and Matrices</a></li>
+<li><a class="reference internal" href="#block-matrices">Block Matrices</a></li>
+</ul>
+</li>
+</ul>
+
+  </div>
+  <h4>Previous topic</h4>
+  <p class="topless"><a href="algebra_of_matrices_properties.html"
+                        title="previous chapter">Properties of Matrix Operations</a></p>
+  <h4>Next topic</h4>
+  <p class="topless"><a href="algebra_of_matrices_problems.html"
+                        title="next chapter">Exercises and Problems</a></p>
+  <div role="note" aria-label="source link">
+    <h3>This Page</h3>
+    <ul class="this-page-menu">
+      <li><a href="_sources/algebra_of_matrices_Sage.rst.txt"
+            rel="nofollow">Show Source</a></li>
+    </ul>
+   </div>
+<div id="searchbox" style="display: none" role="search">
+  <h3 id="searchlabel">Quick search</h3>
+    <div class="searchformwrapper">
+    <form class="search" action="search.html" method="get">
+      <input type="text" name="q" aria-labelledby="searchlabel" />
+      <input type="submit" value="Go" />
+    </form>
+    </div>
+</div>
+<script>$('#searchbox').show(0);</script>
+        </div>
+      </div>
+      <div class="clearer"></div>
+    </div>
+  </div>
+  <div class="relbar-bottom">
+    
+    <div class="related" role="navigation" aria-label="related navigation">
+      <h3>Navigation</h3>
+      <ul>
+        <li class="right" style="margin-right: 10px">
+          <a href="genindex.html" title="General Index"
+             >index</a></li>
+        <li class="right" >
+          <a href="algebra_of_matrices_problems.html" title="Exercises and Problems"
+             >next</a> &nbsp; &nbsp;</li>
+        <li class="right" >
+          <a href="algebra_of_matrices_properties.html" title="Properties of Matrix Operations"
+             >previous</a> &nbsp; &nbsp;</li>
+  <li><a href="index.html">Linear Algebra</a> &#187;</li>
+  
+        <li class="nav-item nav-item-this"><a href="">Vectors and Matrices in Sage</a></li> 
+      </ul>
+    </div>
+  </div>
+  
+  <div class="footer">
+    <a class="logo" href="http://icse.us.edu.pl/" target="_blank"><img src="_static/logo-icse.png" alt="ICSE"/></a><br/>
+    &copy; Copyright 2018, Jan Aksamit, Joanna Marzec, and  Marcin Kostur.
+    Last updated on Jan 29, 2022.
+    Created using <a href="http://sphinx.pocoo.org/">Sphinx</a> 4.0.1.
+  </div>
+  </body>
+</html>

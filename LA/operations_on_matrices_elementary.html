@@ -1,0 +1,324 @@
+
+
+  
+<!DOCTYPE html>
+
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" /><meta name="generator" content="Docutils 0.17: http://docutils.sourceforge.net/" />
+
+    <title>Elementary Matrices &#8212; Linear Algebra</title>
+    <link rel="stylesheet" type="text/css" href="_static/pygments.css" />
+    <link rel="stylesheet" type="text/css" href="_static/cloud.css" />
+    <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Noticia+Text|Open+Sans|Droid+Sans+Mono&amp;subset=latin,latin-ext" type="text/css" />
+    <script data-url_root="./" id="documentation_options" src="_static/documentation_options.js"></script>
+    <script src="_static/jquery.js"></script>
+    <script src="_static/underscore.js"></script>
+    <script src="_static/doctools.js"></script>
+    <script async="async" src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js"></script>
+    <script src="_static/jquery.cookie.js"></script>
+    <script src="_static/cloud.js"></script>
+    <script type="text/javascript" src="http://sagecell.sagemath.org/static/jquery.min.js"></script>
+    <script type="text/javascript" src="http://sagecell.sagemath.org/embedded_sagecell.js"></script>
+    <script type="text/javascript">
+        sagecell.makeSagecell({inputLocation: ".sage_linked",
+                               linked: true});
+        sagecell.makeSagecell({inputLocation: ".sage_unlinked",
+                               linked: false});
+    </script>
+
+    <style type="text/css">
+        .sagecell .CodeMirror-scroll {
+            overflow-y: hidden;
+            overflow-x: auto;
+        }
+        .sagecell .CodeMirror {
+            height: auto;
+        }
+    </style>
+    
+    <link rel="index" title="Index" href="genindex.html" />
+    <link rel="search" title="Search" href="search.html" />
+    <link rel="next" title="Matrix Inverse by the Elimination Method" href="operations_on_matrices_inverse-elimination.html" />
+    <link rel="prev" title="Matrix Inverse" href="operations_on_matrices_inverse.html" />
+ 
+  <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, minimum-scale=1">
+  </head><body>
+  <div class="relbar-top">
+    
+    <div class="related" role="navigation" aria-label="related navigation">
+      <h3>Navigation</h3>
+      <ul>
+        <li class="right" style="margin-right: 10px">
+          <a href="genindex.html" title="General Index"
+             accesskey="I">index</a></li>
+        <li class="right" >
+          <a href="operations_on_matrices_inverse-elimination.html" title="Matrix Inverse by the Elimination Method"
+             accesskey="N">next</a> &nbsp; &nbsp;</li>
+        <li class="right" >
+          <a href="operations_on_matrices_inverse.html" title="Matrix Inverse"
+             accesskey="P">previous</a> &nbsp; &nbsp;</li>
+  <li><a href="index.html">Linear Algebra</a> &#187;</li>
+  
+        <li class="nav-item nav-item-this"><a href="">Elementary Matrices</a></li> 
+      </ul>
+    </div>
+  </div>
+  
+  <div class="content">  
+
+    <div class="document">
+      <div class="documentwrapper">
+        <div class="bodywrapper">
+          <div class="body">
+            
+  <section id="elementary-matrices">
+<h1>Elementary Matrices<a class="headerlink" href="#elementary-matrices" title="Permalink to this headline">¶</a></h1>
+<p>A matrix <span class="math notranslate nohighlight">\(\,\boldsymbol{E}\in M_m(K)\ \)</span> is an <em>elementary matrix</em>
+when it is obtained from the identity matrix <span class="math notranslate nohighlight">\(\,\boldsymbol{I}_m\,\)</span>
+by a single elementary operation.</p>
+<p>According to the three types of elementary operations
+<span class="math notranslate nohighlight">\(\ (i,j=0,1,\ldots,m-1):\)</span></p>
+<ol class="arabic simple">
+<li><p><span class="math notranslate nohighlight">\(\ O_1(i,j):\ \)</span> swapping the <span class="math notranslate nohighlight">\(\,i\)</span>-th and <span class="math notranslate nohighlight">\(\,j\)</span>-th rows,</p></li>
+<li><p><span class="math notranslate nohighlight">\(\ O_2(i,a):\ \)</span> multiplication of the <span class="math notranslate nohighlight">\(\,i\)</span>-th row
+by the scalar <span class="math notranslate nohighlight">\(\,a \neq 0\,,\)</span></p></li>
+<li><p><span class="math notranslate nohighlight">\(\ O_3(i,j,a):\ \)</span> addition to the <span class="math notranslate nohighlight">\(\,i\)</span>-th row
+the <span class="math notranslate nohighlight">\(\,a\,\)</span> multiple of the <span class="math notranslate nohighlight">\(\,j\)</span>-th row,</p></li>
+</ol>
+<p>there are three types of elementary matrices:</p>
+<ol class="arabic simple">
+<li><p><span class="math notranslate nohighlight">\(\ \boldsymbol{E}_1(i,j)\,=\,O_1(i,j)\ \boldsymbol{I}_m\,,\)</span></p></li>
+<li><p><span class="math notranslate nohighlight">\(\ \boldsymbol{E}_2(i,a)\,=\,O_2(i,a)\ \boldsymbol{I}_m\,,
+\quad (a \neq 0)\)</span></p></li>
+<li><p><span class="math notranslate nohighlight">\(\ \boldsymbol{E}_3(i,j,a)\,=\,O_3(i,j,a)\ \boldsymbol{I}_m\,.\)</span></p></li>
+</ol>
+<p>Below we give examples of elementary matrices for <span class="math notranslate nohighlight">\(\,K=Q,\ m=3:\)</span></p>
+<div class="math notranslate nohighlight">
+\[\begin{split}\boldsymbol{E}_1(0,1) =
+\left[\begin{array}{ccc}
+0 &amp; 1 &amp; 0 \\ 1 &amp; 0 &amp; 0 \\ 0 &amp; 0 &amp; 1
+\end{array}\right],\quad
+\boldsymbol{E}_2(0,\textstyle{2\over 3}) =
+\left[\begin{array}{ccc}
+\textstyle{2\over 3} &amp; 0 &amp; 0 \\ 0 &amp; 1 &amp; 0 \\ 0 &amp; 0 &amp; 1
+\end{array}\right],\quad
+\boldsymbol{E}_3(1,2,\textstyle{7\over 4}) =
+\left[\begin{array}{ccc}
+1 &amp; 0 &amp; 0 \\ 0 &amp; 1 &amp; \textstyle{7\over 4} \\ 0 &amp; 0 &amp; 1
+\end{array}\right].\end{split}\]</div>
+<p>An interesting property of elementary matrices is that an elementary (row)
+operation on a matrix can be achieved by pre-multiplying that matrix by
+the elementary matrix obtained from the identity matrix by the same operation.
+This may be stated as</p>
+<div class="admonition-theorem-2-math admonition">
+<p class="admonition-title">Theorem 2. <span class="math notranslate nohighlight">\(\ \)</span></p>
+<p>Let <span class="math notranslate nohighlight">\(\,\boldsymbol{A}\in M_{m\times n}(K).\ \)</span>
+Then <span class="math notranslate nohighlight">\(\,\)</span> for <span class="math notranslate nohighlight">\(\ i,j=0,1,\ldots,m-1:\)</span></p>
+<ol class="arabic simple">
+<li><p><span class="math notranslate nohighlight">\(\ O_1(i,j)\,\boldsymbol{A}\ =\
+\boldsymbol{E}_1(i,j)\,\boldsymbol{A}\,,\)</span></p></li>
+<li><p><span class="math notranslate nohighlight">\(\ O_2(i,a)\,\boldsymbol{A}\ =\
+\boldsymbol{E}_2(i,a)\,\boldsymbol{A}\,,
+\qquad (a\ne 0)\)</span></p></li>
+<li><p><span class="math notranslate nohighlight">\(\ O_3(i,j,a)\,\boldsymbol{A}\ =
+\boldsymbol{E}_3(i,j,a)\,\boldsymbol{A}\,,\)</span></p></li>
+</ol>
+<p>where <span class="math notranslate nohighlight">\(\ \boldsymbol{E}_1(i,j),\ \boldsymbol{E}_2(i,a),\
+\boldsymbol{E}_3(i,j,a)\in M_m(K).\)</span></p>
+</div>
+<p>(proof in Appendix A1)</p>
+<p>Elementary matrices are invertible,
+and their inverses are also elementary matrices. <span class="math notranslate nohighlight">\(\\\)</span>
+This is explained in detail by the following</p>
+<div class="admonition-proposition-2-math admonition">
+<p class="admonition-title">Proposition 2. <span class="math notranslate nohighlight">\(\ \)</span></p>
+<ol class="arabic simple">
+<li><p><span class="math notranslate nohighlight">\(\ [\boldsymbol{E}_1(i,j)]^{-1}\,=\ \boldsymbol{E}_1(i,j),\)</span></p></li>
+<li><p><span class="math notranslate nohighlight">\(\ [\boldsymbol{E}_2(i,a)]^{-1}\,=\ \boldsymbol{E}_2(i,a^{-1}),
+\qquad (a\ne 0)\)</span></p></li>
+<li><p><span class="math notranslate nohighlight">\(\ [\boldsymbol{E}_3(i,j,a)]^{-1}\,=\ \boldsymbol{E}_3(i,j,-a).\)</span></p></li>
+</ol>
+</div>
+<p>(proof in Appendix A1)</p>
+<p>In Sage elementary matrices are created by the function
+<span class="math notranslate nohighlight">\(\,\)</span> <code class="docutils literal notranslate"><span class="pre">elementary_matrix()</span></code>. <span class="math notranslate nohighlight">\(\\\)</span>
+Its arguments are: <span class="math notranslate nohighlight">\(\,\)</span> the base ring <span class="math notranslate nohighlight">\(\,\)</span> <code class="docutils literal notranslate"><span class="pre">R</span></code> <span class="math notranslate nohighlight">\(\,\)</span>
+(optional, defaults to ZZ), <span class="math notranslate nohighlight">\(\,\)</span> the order of the matrix
+<span class="math notranslate nohighlight">\(\,\)</span> <code class="docutils literal notranslate"><span class="pre">n</span></code>, <span class="math notranslate nohighlight">\(\\\)</span> the numbers <span class="math notranslate nohighlight">\(\,\)</span> <code class="docutils literal notranslate"><span class="pre">i</span></code> <span class="math notranslate nohighlight">\(\,\)</span> and
+<span class="math notranslate nohighlight">\(\,\)</span> <code class="docutils literal notranslate"><span class="pre">j</span></code> <span class="math notranslate nohighlight">\(\,\)</span> of <span class="math notranslate nohighlight">\(\,\)</span> rows <span class="math notranslate nohighlight">\(\,\)</span> (beginning at zero),
+<span class="math notranslate nohighlight">\(\,\)</span> and the scale factor <span class="math notranslate nohighlight">\(\,\)</span> <code class="docutils literal notranslate"><span class="pre">a</span></code>.</p>
+<p>For the three types of elementary matrices,
+the function is called respectively as:</p>
+<ol class="arabic simple">
+<li><p><span class="math notranslate nohighlight">\(\,\)</span> <code class="docutils literal notranslate"><span class="pre">elementary_matrix(R,</span> <span class="pre">n,</span> <span class="pre">row1=i,</span> <span class="pre">row2=j)</span></code></p></li>
+<li><p><span class="math notranslate nohighlight">\(\,\)</span> <code class="docutils literal notranslate"><span class="pre">elementary_matrix(R,</span> <span class="pre">n,</span> <span class="pre">row1=i,</span> <span class="pre">scale=a)</span></code></p></li>
+<li><p><span class="math notranslate nohighlight">\(\,\)</span> <code class="docutils literal notranslate"><span class="pre">elementary_matrix(R,</span> <span class="pre">n,</span> <span class="pre">row1=i,</span> <span class="pre">row2=j,</span> <span class="pre">scale=a)</span></code></p></li>
+</ol>
+<p>The Sage code returns elementary matrices shown in the foregoing example:</p>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="n">sage</span><span class="p">:</span> <span class="n">E1</span> <span class="o">=</span> <span class="n">elementary_matrix</span><span class="p">(</span><span class="n">QQ</span><span class="p">,</span> <span class="mi">3</span><span class="p">,</span> <span class="n">row1</span><span class="o">=</span><span class="mi">0</span><span class="p">,</span> <span class="n">row2</span><span class="o">=</span><span class="mi">2</span><span class="p">)</span>
+<span class="n">sage</span><span class="p">:</span> <span class="n">E2</span> <span class="o">=</span> <span class="n">elementary_matrix</span><span class="p">(</span><span class="n">QQ</span><span class="p">,</span> <span class="mi">3</span><span class="p">,</span> <span class="n">row1</span><span class="o">=</span><span class="mi">0</span><span class="p">,</span> <span class="n">scale</span><span class="o">=</span><span class="mi">2</span><span class="o">/</span><span class="mi">3</span><span class="p">)</span>
+<span class="n">sage</span><span class="p">:</span> <span class="n">E3</span> <span class="o">=</span> <span class="n">elementary_matrix</span><span class="p">(</span><span class="n">QQ</span><span class="p">,</span> <span class="mi">3</span><span class="p">,</span> <span class="n">row1</span><span class="o">=</span><span class="mi">1</span><span class="p">,</span> <span class="n">row2</span><span class="o">=</span><span class="mi">2</span><span class="p">,</span> <span class="n">scale</span><span class="o">=</span><span class="mi">7</span><span class="o">/</span><span class="mi">4</span><span class="p">)</span>
+<span class="n">sage</span><span class="p">:</span> <span class="n">E1</span><span class="p">,</span><span class="n">E2</span><span class="p">,</span><span class="n">E3</span>
+
+<span class="p">(</span>
+<span class="p">[</span><span class="mi">0</span> <span class="mi">0</span> <span class="mi">1</span><span class="p">]</span>  <span class="p">[</span><span class="mi">2</span><span class="o">/</span><span class="mi">3</span>   <span class="mi">0</span>   <span class="mi">0</span><span class="p">]</span>  <span class="p">[</span>  <span class="mi">1</span>   <span class="mi">0</span>   <span class="mi">0</span><span class="p">]</span>
+<span class="p">[</span><span class="mi">0</span> <span class="mi">1</span> <span class="mi">0</span><span class="p">]</span>  <span class="p">[</span>  <span class="mi">0</span>   <span class="mi">1</span>   <span class="mi">0</span><span class="p">]</span>  <span class="p">[</span>  <span class="mi">0</span>   <span class="mi">1</span> <span class="mi">7</span><span class="o">/</span><span class="mi">4</span><span class="p">]</span>
+<span class="p">[</span><span class="mi">1</span> <span class="mi">0</span> <span class="mi">0</span><span class="p">],</span> <span class="p">[</span>  <span class="mi">0</span>   <span class="mi">0</span>   <span class="mi">1</span><span class="p">],</span> <span class="p">[</span>  <span class="mi">0</span>   <span class="mi">0</span>   <span class="mi">1</span><span class="p">]</span>
+<span class="p">)</span>
+</pre></div>
+</div>
+<p>Taking a particular matrix <span class="math notranslate nohighlight">\(\,\boldsymbol{A},\ \)</span>
+we shall check Theorem 2., item 3.:</p>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="n">sage</span><span class="p">:</span> <span class="n">A</span> <span class="o">=</span> <span class="n">matrix</span><span class="p">(</span><span class="n">QQ</span><span class="p">,</span><span class="mi">3</span><span class="p">,</span><span class="mi">4</span><span class="p">,[[</span><span class="mi">0</span><span class="p">,</span> <span class="mi">1</span><span class="p">,</span> <span class="mi">2</span><span class="p">,</span> <span class="mi">3</span><span class="p">],</span>
+                         <span class="p">[</span><span class="mi">5</span><span class="p">,</span><span class="o">-</span><span class="mi">2</span><span class="p">,</span> <span class="mi">3</span><span class="p">,</span> <span class="mi">6</span><span class="p">],</span>
+                         <span class="p">[</span><span class="mi">4</span><span class="p">,</span><span class="o">-</span><span class="mi">4</span><span class="p">,</span> <span class="mi">0</span><span class="p">,</span> <span class="mi">8</span><span class="p">]])</span>
+
+<span class="c1"># Direct execution of the elementary operation:</span>
+<span class="n">sage</span><span class="p">:</span> <span class="n">B1</span> <span class="o">=</span> <span class="n">A</span><span class="o">.</span><span class="n">with_added_multiple_of_row</span><span class="p">(</span><span class="mi">1</span><span class="p">,</span><span class="mi">2</span><span class="p">,</span><span class="mi">7</span><span class="o">/</span><span class="mi">4</span><span class="p">)</span>
+
+<span class="c1"># Multiplication of the matrix A by the appropriate elementary matrix:</span>
+<span class="n">sage</span><span class="p">:</span> <span class="n">B2</span> <span class="o">=</span> <span class="n">elementary_matrix</span><span class="p">(</span><span class="n">QQ</span><span class="p">,</span> <span class="mi">3</span><span class="p">,</span> <span class="n">row1</span><span class="o">=</span><span class="mi">1</span><span class="p">,</span> <span class="n">row2</span><span class="o">=</span><span class="mi">2</span><span class="p">,</span> <span class="n">scale</span><span class="o">=</span><span class="mi">7</span><span class="o">/</span><span class="mi">4</span><span class="p">)</span> <span class="o">*</span> <span class="n">A</span>
+
+<span class="n">sage</span><span class="p">:</span> <span class="n">table</span><span class="p">([[</span><span class="n">A</span><span class="p">,</span> <span class="s1">&#39;$</span><span class="se">\\</span><span class="s1">rightarrow$&#39;</span><span class="p">,</span> <span class="n">B1</span><span class="p">,</span> <span class="s1">&#39;,&#39;</span><span class="p">,</span> <span class="n">B2</span><span class="p">]])</span>
+</pre></div>
+</div>
+<p>The output reads as expected:</p>
+<div class="math notranslate nohighlight">
+\[\begin{split}\left[\begin{array}{rrrr}
+0 &amp;  1 &amp; 2 &amp; 3 \\
+5 &amp; -2 &amp; 3 &amp; 6 \\
+4 &amp; -4 &amp; 0 &amp; 8
+\end{array}\right]
+\ \ \rightarrow\ \
+\left[\begin{array}{rrrr}
+ 0 &amp;  1 &amp; 2 &amp;  3 \\
+12 &amp; -9 &amp; 3 &amp; 20 \\
+ 4 &amp; -4 &amp; 0 &amp;  8
+\end{array}\right]
+\ \ ,\ \
+\left[\begin{array}{rrrr}
+  0 &amp;  1 &amp; 2 &amp;  3 \\
+ 12 &amp; -9 &amp; 3 &amp; 20 \\
+  4 &amp; -4 &amp; 0 &amp;  8
+ \end{array}\right]\end{split}\]</div>
+<p>We are now in a position to prove</p>
+<div class="admonition-theorem-3-math admonition">
+<p class="admonition-title">Theorem 3. <span class="math notranslate nohighlight">\(\,\)</span></p>
+<p>Let <span class="math notranslate nohighlight">\(\ \boldsymbol{A}\in M_n(K)\,.\ \)</span>
+The following three conditions are equivalent:</p>
+<ol class="arabic simple">
+<li><p><span class="math notranslate nohighlight">\(\,\)</span> <span class="math notranslate nohighlight">\(\boldsymbol{A}\ \)</span> is invertible;</p></li>
+<li><p><span class="math notranslate nohighlight">\(\,\)</span> The reduced row echelon form of <span class="math notranslate nohighlight">\(\boldsymbol{A}\ \)</span>
+is the identity matrix <span class="math notranslate nohighlight">\(\boldsymbol{I}_n\)</span>;</p></li>
+<li><p><span class="math notranslate nohighlight">\(\,\)</span> <span class="math notranslate nohighlight">\(\boldsymbol{A}\ \)</span> is a product of elementary matrices.</p></li>
+</ol>
+</div>
+<p><strong>Lemma.</strong></p>
+<p>Suppose that the transformation of matrix <span class="math notranslate nohighlight">\(\boldsymbol{A}\ \)</span> to the
+reduced row echelon form <span class="math notranslate nohighlight">\(\,\boldsymbol{C}\,\)</span> involves consecutive
+applications of elementary operations <span class="math notranslate nohighlight">\(\,O_1\,,O_2,\,\dots,\,O_k\,:\)</span></p>
+<div class="math notranslate nohighlight">
+\[O_k\ \dots\,O_2\ O_1\ \boldsymbol{A}\ =\ \boldsymbol{C}\]</div>
+<p>where <span class="math notranslate nohighlight">\(\,O_1\,,O_2,\,\dots,\,O_k\,\)</span> are represented by elementary
+matrices <span class="math notranslate nohighlight">\(\,\boldsymbol{E}_1,\boldsymbol{E}_2,\dots,\boldsymbol{E}_k\,.\)</span>
+Then</p>
+<div class="math notranslate nohighlight" id="equation-ac">
+<span class="eqno">(1)<a class="headerlink" href="#equation-ac" title="Permalink to this equation">¶</a></span>\[ \begin{align}\begin{aligned}\boldsymbol{E}_k\dots\boldsymbol{E}_2\,\boldsymbol{E}_1\,
+\boldsymbol{A}\ =\ \boldsymbol{C}\,,\\\boldsymbol{A}\ =\
+\boldsymbol{E}_1'\,\boldsymbol{E}_2'\,\dots\,\boldsymbol{E}_k'\
+\boldsymbol{C}\,,\end{aligned}\end{align} \]</div>
+<p>where <span class="math notranslate nohighlight">\(\ \boldsymbol{E}_i' \equiv \boldsymbol{E}_i^{-1}\ \)</span>
+are also elementary matrices.
+Taking into account Theorem 2. and its generalization to a product of
+several matrix factors, we conclude that a matrix <span class="math notranslate nohighlight">\(\boldsymbol{A}\ \)</span>
+is invertible if and only if its reduced row echelon form
+<span class="math notranslate nohighlight">\(\boldsymbol{C}\ \)</span> is invertible. <span class="math notranslate nohighlight">\(\quad\bullet\)</span></p>
+<p><strong>Proof of the Theorem.</strong></p>
+<p><span class="math notranslate nohighlight">\(\boldsymbol{1.\,\Rightarrow\,2.}\ \)</span>
+Assume that <span class="math notranslate nohighlight">\(\boldsymbol{A}\ \)</span> is invertible.
+Then its reduced row echelon form <span class="math notranslate nohighlight">\(\boldsymbol{C},\ \)</span>
+being also invertible, consists of <span class="math notranslate nohighlight">\(\,n\,\)</span> non-zero rows.
+In each row there is a leading unit, shifted to the right with respect to
+the leading unit in the preceding row. Moreover, each leading unit is
+the only non-zero entry in its column. Thus <span class="math notranslate nohighlight">\(\ \boldsymbol{C}\ \)</span>
+is the identity matrix: <span class="math notranslate nohighlight">\(\ \boldsymbol{C}=\boldsymbol{I}_n.\)</span></p>
+<p><span class="math notranslate nohighlight">\(\boldsymbol{2.\,\Rightarrow\,3.}\ \)</span>
+From the second equation in <a class="reference internal" href="#equation-ac">(1)</a> we see that when
+<span class="math notranslate nohighlight">\(\boldsymbol{C}\ \)</span> is equal to the identity matrix,
+<span class="math notranslate nohighlight">\(\boldsymbol{A}\ \)</span> is a product of elementary matrices.</p>
+<p><span class="math notranslate nohighlight">\(\boldsymbol{3.\,\Rightarrow\,1.}\ \)</span>
+This implication stems from the above-mentioned generalized Theorem 2.
+on the invertibility of a product of invertible matrices. <span class="math notranslate nohighlight">\(\quad\bullet\)</span></p>
+<p>The above discussion elucidates to some extent the question of matrix
+invertibility. <span class="math notranslate nohighlight">\(\\\)</span>
+Proposition 1. in the preceding section yields a necessary
+condition, whereas the items 2. and 3. of Theorem 3. state necessary and
+sufficient conditions for the existence of a matrix inverse. Yet another
+condition involving determinants will be given in a next chapter.</p>
+</section>
+
+
+          </div>
+        </div>
+      </div>
+      <div class="sphinxsidebar" role="navigation" aria-label="main navigation">
+        <div class="sphinxsidebarwrapper">
+  <h4>Previous topic</h4>
+  <p class="topless"><a href="operations_on_matrices_inverse.html"
+                        title="previous chapter">Matrix Inverse</a></p>
+  <h4>Next topic</h4>
+  <p class="topless"><a href="operations_on_matrices_inverse-elimination.html"
+                        title="next chapter">Matrix Inverse by the Elimination Method</a></p>
+  <div role="note" aria-label="source link">
+    <h3>This Page</h3>
+    <ul class="this-page-menu">
+      <li><a href="_sources/operations_on_matrices_elementary.rst.txt"
+            rel="nofollow">Show Source</a></li>
+    </ul>
+   </div>
+<div id="searchbox" style="display: none" role="search">
+  <h3 id="searchlabel">Quick search</h3>
+    <div class="searchformwrapper">
+    <form class="search" action="search.html" method="get">
+      <input type="text" name="q" aria-labelledby="searchlabel" />
+      <input type="submit" value="Go" />
+    </form>
+    </div>
+</div>
+<script>$('#searchbox').show(0);</script>
+        </div>
+      </div>
+      <div class="clearer"></div>
+    </div>
+  </div>
+  <div class="relbar-bottom">
+    
+    <div class="related" role="navigation" aria-label="related navigation">
+      <h3>Navigation</h3>
+      <ul>
+        <li class="right" style="margin-right: 10px">
+          <a href="genindex.html" title="General Index"
+             >index</a></li>
+        <li class="right" >
+          <a href="operations_on_matrices_inverse-elimination.html" title="Matrix Inverse by the Elimination Method"
+             >next</a> &nbsp; &nbsp;</li>
+        <li class="right" >
+          <a href="operations_on_matrices_inverse.html" title="Matrix Inverse"
+             >previous</a> &nbsp; &nbsp;</li>
+  <li><a href="index.html">Linear Algebra</a> &#187;</li>
+  
+        <li class="nav-item nav-item-this"><a href="">Elementary Matrices</a></li> 
+      </ul>
+    </div>
+  </div>
+  
+  <div class="footer">
+    <a class="logo" href="http://icse.us.edu.pl/" target="_blank"><img src="_static/logo-icse.png" alt="ICSE"/></a><br/>
+    &copy; Copyright 2018, Jan Aksamit, Joanna Marzec, and  Marcin Kostur.
+    Last updated on Jan 29, 2022.
+    Created using <a href="http://sphinx.pocoo.org/">Sphinx</a> 4.0.1.
+  </div>
+  </body>
+</html>

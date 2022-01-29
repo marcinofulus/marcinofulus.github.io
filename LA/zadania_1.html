@@ -1,0 +1,375 @@
+
+
+  
+<!DOCTYPE html>
+
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" /><meta name="generator" content="Docutils 0.17: http://docutils.sourceforge.net/" />
+
+    <title>Systems of Linear Equations &#8212; Linear Algebra</title>
+    <link rel="stylesheet" type="text/css" href="_static/pygments.css" />
+    <link rel="stylesheet" type="text/css" href="_static/cloud.css" />
+    <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Noticia+Text|Open+Sans|Droid+Sans+Mono&amp;subset=latin,latin-ext" type="text/css" />
+    <script data-url_root="./" id="documentation_options" src="_static/documentation_options.js"></script>
+    <script src="_static/jquery.js"></script>
+    <script src="_static/underscore.js"></script>
+    <script src="_static/doctools.js"></script>
+    <script async="async" src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js"></script>
+    <script src="_static/jquery.cookie.js"></script>
+    <script src="_static/cloud.js"></script>
+    <script type="text/javascript" src="http://sagecell.sagemath.org/static/jquery.min.js"></script>
+    <script type="text/javascript" src="http://sagecell.sagemath.org/embedded_sagecell.js"></script>
+    <script type="text/javascript">
+        sagecell.makeSagecell({inputLocation: ".sage_linked",
+                               linked: true});
+        sagecell.makeSagecell({inputLocation: ".sage_unlinked",
+                               linked: false});
+    </script>
+
+    <style type="text/css">
+        .sagecell .CodeMirror-scroll {
+            overflow-y: hidden;
+            overflow-x: auto;
+        }
+        .sagecell .CodeMirror {
+            height: auto;
+        }
+    </style>
+    
+    <link rel="index" title="Index" href="genindex.html" />
+    <link rel="search" title="Search" href="search.html" />
+    <link rel="next" title="Matrices" href="zadania_2.html" />
+    <link rel="prev" title="Unitary Spaces" href="dowody_p_unitarne.html" />
+ 
+  <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, minimum-scale=1">
+  </head><body>
+  <div class="relbar-top">
+    
+    <div class="related" role="navigation" aria-label="related navigation">
+      <h3>Navigation</h3>
+      <ul>
+        <li class="right" style="margin-right: 10px">
+          <a href="genindex.html" title="General Index"
+             accesskey="I">index</a></li>
+        <li class="right" >
+          <a href="zadania_2.html" title="Matrices"
+             accesskey="N">next</a> &nbsp; &nbsp;</li>
+        <li class="right" >
+          <a href="dowody_p_unitarne.html" title="Unitary Spaces"
+             accesskey="P">previous</a> &nbsp; &nbsp;</li>
+  <li><a href="index.html">Linear Algebra</a> &#187;</li>
+  
+        <li class="nav-item nav-item-this"><a href="">Systems of Linear Equations</a></li> 
+      </ul>
+    </div>
+  </div>
+  
+  <div class="content">  
+
+    <div class="document">
+      <div class="documentwrapper">
+        <div class="bodywrapper">
+          <div class="body">
+            
+  <section id="systems-of-linear-equations">
+<h1>Systems of Linear Equations<a class="headerlink" href="#systems-of-linear-equations" title="Permalink to this headline">¶</a></h1>
+<p><strong>Exercise 0.</strong> <span class="math notranslate nohighlight">\(\\\)</span>
+Write down the following problems in a form of a system of linear equations and find its solutions (by any means).</p>
+<ol class="arabic">
+<li><div class="line-block">
+<div class="line">Andrew is two times older than Peter, and the sum of their age equals 33.</div>
+<div class="line">How old are Andrew and Peter?</div>
+</div>
+</li>
+<li><div class="line-block">
+<div class="line">The points <span class="math notranslate nohighlight">\(\ P_1=(2,5)\ \)</span> and <span class="math notranslate nohighlight">\(\ P_2=(3,7)\ \)</span> lie on a line given by the equation
+<span class="math notranslate nohighlight">\(\ y=ax+b.\ \)</span></div>
+<div class="line">Find the parameters <span class="math notranslate nohighlight">\(\ a\ \)</span> and  <span class="math notranslate nohighlight">\(\ b.\)</span></div>
+</div>
+</li>
+<li><div class="line-block">
+<div class="line">The parabola passes through the points <span class="math notranslate nohighlight">\(\ P_1=(1,4),\ P_2=(2,8)\ \)</span> and <span class="math notranslate nohighlight">\(\ P_3=(3,14).\ \)</span></div>
+<div class="line">Find the coefficients <span class="math notranslate nohighlight">\(\ a,\,b,\,c\ \)</span> which determine the equation <span class="math notranslate nohighlight">\(\ y=ax^2+bx+c\ \)</span> of this parabola.</div>
+</div>
+</li>
+</ol>
+<p><strong>Exercise 1.</strong> <span class="math notranslate nohighlight">\(\\\)</span>
+Perform elementary operations on the equations (cf. <a class="reference internal" href="primer_elimination-for-eqns.html#gaussian-elimination"><span class="std std-ref">Gaussian Elimination</span></a>)
+or rows of the corresponding matrices (cf. <a class="reference internal" href="operations_on_matrices_elimination.html#practical-elimination-in-sage"><span class="std std-ref">Practical Elimination in Sage</span></a>), without applying functions <code class="docutils literal notranslate"><span class="pre">solve()</span></code>,
+<span class="math notranslate nohighlight">\(\,\)</span>   <code class="docutils literal notranslate"><span class="pre">X.solve_right()</span></code>, <span class="math notranslate nohighlight">\(\,\)</span> <code class="docutils literal notranslate"><span class="pre">X\y</span></code>, <span class="math notranslate nohighlight">\(\,\)</span> <code class="docutils literal notranslate"><span class="pre">X.rref()</span></code>, <span class="math notranslate nohighlight">\(\,\)</span>
+in order to solve the following systems of equations over the field <span class="math notranslate nohighlight">\(\ Q:\)</span></p>
+<ol class="arabic">
+<li><div class="math notranslate nohighlight">
+\begin{alignat*}{3}
+   x_1 &amp; \ -\  &amp;    x_2 &amp; \ =\  &amp; 0 \\
+-\,x_1 &amp; \ +\  &amp; 2\,x_2 &amp; \ =\  &amp; \ \textstyle\frac{1}{36}
+\end{alignat*}</div></li>
+<li><div class="math notranslate nohighlight">
+\begin{alignat*}{3}
+-\,2\,x_1 &amp; \ -\  &amp; 3\,x_2 &amp; \ =\  &amp; 0 \\
+   3\,x_1 &amp; \ +\  &amp; 4\,x_2 &amp; \ =\  &amp; \ \textstyle\frac{16}{7}
+\end{alignat*}</div></li>
+<li><div class="math notranslate nohighlight">
+\begin{alignat*}{4}
+  16\,x_1 &amp; \ +\ &amp; 41\,x_2 &amp; \ -\ &amp; 101\,x_3 &amp; \ =\ &amp; -\,\textstyle\frac{1}{10} \\
+      x_1 &amp; \ +\ &amp;  3\,x_2 &amp; \ -\ &amp;   7\,x_3 &amp; \ =\ &amp;  \ \textstyle\frac{1}{2}  \\
+-\,5\,x_1 &amp; \ -\ &amp; 13\,x_2 &amp; \ +\ &amp;  32\,x_3 &amp; \ =\ &amp;  1
+\end{alignat*}</div></li>
+<li><div class="math notranslate nohighlight">
+\begin{alignat*}{4}
+   -\,x_1 &amp; \ -\ &amp; 3\,x_2 &amp; \ +\ &amp; 9\,x_3 &amp; \ =\ &amp;    1 \\
+      x_1 &amp; \  \ &amp;        &amp; \ +\ &amp;    x_3 &amp; \ =\ &amp; -\,2 \\
+-\,2\,x_1 &amp; \ -\ &amp; 2\,x_2 &amp; \ +\ &amp; 5\,x_3 &amp; \ =\ &amp;    2
+\end{alignat*}</div></li>
+<li><div class="math notranslate nohighlight">
+\begin{alignat*}{4}
+-\,11\,x_1 &amp; \ +\ &amp; 44\,x_2 &amp; \ -\ &amp; 135\,x_3 &amp; \ =\ &amp;    0                     \\
+    2\,x_1 &amp; \ -\ &amp;  7\,x_2 &amp; \ +\ &amp;  20\,x_3 &amp; \ =\ &amp;    \textstyle\frac{1}{3} \\
+    4\,x_1 &amp; \ -\ &amp; 16\,x_2 &amp; \ +\ &amp;  49\,x_3 &amp; \ =\ &amp; -\ \textstyle\frac{1}{7}
+\end{alignat*}</div></li>
+<li><div class="math notranslate nohighlight">
+\begin{alignat*}{5}
+      x_1 &amp;\ +\ &amp;  3\,x_2 &amp;\ -\ &amp;    x_3 &amp;\ +\ &amp;  23 \,x_4 &amp;\ =\ &amp; -\,1 \\
+   4\,x_1 &amp;\ +\ &amp; 13\,x_2 &amp;\ -\ &amp; 3\,x_3 &amp;\ +\ &amp;  93 \,x_4 &amp;\ =\ &amp; -\,1 \\
+-\,5\,x_1 &amp;\ -\ &amp; 17\,x_2 &amp;\ +\ &amp; 4\,x_3 &amp;\ -\ &amp; 121 \,x_4 &amp;\ =\ &amp; -\ \textstyle\frac{1}{2} \\
+          &amp;\  \ &amp;     x_2 &amp;\ +\ &amp; 3\,x_3 &amp;\ -\ &amp;   6 \,x_4 &amp;\ =\ &amp;  \textstyle\frac{1}{2}
+\end{alignat*}</div></li>
+</ol>
+<p><strong>Exercise 2.</strong> <span class="math notranslate nohighlight">\(\,\)</span>
+Now use all necessary functions of Sage (c.f. <a class="reference internal" href="przyklad_z_dyskusja.html#example-with-discussion"><span class="std std-ref">Example with Discussion</span></a>)
+to solve real linear problems of the form <span class="math notranslate nohighlight">\(\ \boldsymbol{A}\,\boldsymbol{x}=\boldsymbol{b}\ \,\)</span>
+for the following data:</p>
+<ol class="arabic">
+<li><div class="math notranslate nohighlight">
+\[\begin{split}\boldsymbol{A}\ =\
+\left[\begin{array}{rrrr}
+ 1 &amp; -5 &amp;   9 &amp;  11 \\
+ 1 &amp; -4 &amp;   8 &amp;   9 \\
+-3 &amp; 15 &amp; -26 &amp; -33 \\
+-2 &amp;  7 &amp; -10 &amp; -16
+\end{array}\right]\,,\qquad
+\boldsymbol{b}\ =\
+\left[\begin{array}{r}
+-1 \\ 0 \\ 4 \\ 4
+\end{array}\right]\,;\end{split}\]</div>
+</li>
+<li><div class="math notranslate nohighlight">
+\[\begin{split}\boldsymbol{A}\ =\
+\left[\begin{array}{rrrr}
+ 1 &amp;   4 &amp;   5 &amp; -1 \\
+-3 &amp; -12 &amp; -14 &amp;  3 \\
+ 3 &amp;  12 &amp;  19 &amp; -3 \\
+-2 &amp;  -8 &amp; -12 &amp;  2
+\end{array}\right]\,,\qquad
+\boldsymbol{b}\ =\
+\left[\begin{array}{r}
+13 \\ -38 \\ 43 \\ -28
+\end{array}\right]\,;\end{split}\]</div>
+</li>
+</ol>
+<ol class="arabic" start="3">
+<li><div class="math notranslate nohighlight">
+\[\begin{split}\boldsymbol{A}\ =\
+\left[\begin{array}{rrr}
+1 &amp;  -5 &amp; -11 \\
+2 &amp;  -9 &amp; -20 \\
+4 &amp; -16 &amp; -36
+\end{array}\right]\,,\qquad
+\boldsymbol{b}\ =\
+\left[\begin{array}{r}
+-1 \\ -5 \\ 1
+\end{array}\right]\,.\end{split}\]</div>
+</li>
+</ol>
+<p>A basis of the solution space of the homogeneous linear problem
+<span class="math notranslate nohighlight">\(\ \boldsymbol{A}\,\boldsymbol{x}=\boldsymbol{0}\ \)</span> is called a <span class="math notranslate nohighlight">\(\,\)</span>
+<em>fundamental set of solutions</em> <span class="math notranslate nohighlight">\(\,\)</span> for this problem.</p>
+<p><strong>Exercise 3.</strong> <span class="math notranslate nohighlight">\(\,\)</span>
+Find a fundamental set of solutions of the homogeneous linear problem
+over <span class="math notranslate nohighlight">\(\ Q\ \)</span> with coefficient matrix</p>
+<div class="math notranslate nohighlight">
+\[\begin{split}\boldsymbol{A}\ =\
+\left[\begin{array}{rrrr}
+    1 &amp;   4 &amp;   5 &amp; -1 \\
+   -3 &amp; -12 &amp; -14 &amp;  3 \\
+    3 &amp;  12 &amp;  19 &amp; -3 \\
+   -2 &amp;  -8 &amp; -12 &amp;  2
+\end{array}\right]\,.\end{split}\]</div>
+<p><strong>Exercise 4.</strong> <span class="math notranslate nohighlight">\(\,\)</span>
+Find a homogeneous system of equations consisting of
+<span class="math notranslate nohighlight">\(\,\)</span> a.) two <span class="math notranslate nohighlight">\(\,\)</span> b.) three <span class="math notranslate nohighlight">\(\,\)</span> equations so that the vectors</p>
+<div class="math notranslate nohighlight">
+\[\begin{split}\left[\begin{array}{r} 1 \\  4 \\ -2 \\ 2 \\ -1 \end{array}\right]\,,\quad
+\left[\begin{array}{r} 3 \\ 13 \\ -1 \\ 2 \\  1 \end{array}\right]\,,\quad
+\left[\begin{array}{r} 2 \\  7 \\ -8 \\ 4 \\ -5 \end{array}\right]\end{split}\]</div>
+<p>comprise its fundamental set of solutions.</p>
+<p><strong>Exercise 5.</strong> <span class="math notranslate nohighlight">\(\,\)</span>
+Does there exist a homogeneous system of linear equations whose fundamental set of solutions
+is given both by the vectors
+<span class="math notranslate nohighlight">\(\ (\boldsymbol{x}_1,\boldsymbol{x}_2,\boldsymbol{x}_3)\ \)</span> and
+<span class="math notranslate nohighlight">\(\ (\boldsymbol{y}_1,\boldsymbol{y}_2,\boldsymbol{y}_3),\ \)</span> where</p>
+<div class="math notranslate nohighlight">
+\[\begin{split}\begin{array}{lll}
+\boldsymbol{x}_1=
+\left[\begin{array}{r} 2 \\ 3 \\ 1 \\ 2 \end{array}\right], &amp;
+\boldsymbol{x}_2=
+\left[\begin{array}{r} 1 \\ 1 \\ -2 \\ -2 \end{array}\right], &amp;
+\boldsymbol{x}_3=
+\left[\begin{array}{r} 3 \\ 4 \\ 2 \\ 1 \end{array}\right],
+\\ \\
+\boldsymbol{y}_1=
+\left[\begin{array}{r} 1 \\ 0 \\ 2 \\ -5 \end{array}\right], &amp;
+\boldsymbol{y}_2=
+\left[\begin{array}{r} 0 \\ 1 \\ 8 \\ 7 \end{array}\right], &amp;
+\boldsymbol{y}_3=
+\left[\begin{array}{r} 4 \\ 5 \\ -2 \\ 0 \end{array}\right].
+\end{array}\end{split}\]</div>
+<p><strong>Exercise 6.</strong> <span class="math notranslate nohighlight">\(\\\)</span>
+Does there exist <span class="math notranslate nohighlight">\(\ \lambda\in Q\ \)</span> for which the followng system of linear equations</p>
+<div class="math notranslate nohighlight">
+\begin{alignat*}{4}
+     x_1 &amp; \ +\ &amp; 2\,x_2 &amp; \ +\ &amp; 3\,\lambda\,x_3 &amp; \ =\ &amp; -1 \\
+     x_1 &amp; \ +\ &amp;    x_2 &amp; \ -\ &amp;             x_3 &amp; \ =\ &amp;  1 \\
+\,2\,x_1 &amp; \ +\ &amp;    x_2 &amp; \ +\ &amp;          5\,x_3 &amp; \ =\ &amp;  3
+\end{alignat*}</div><p>has infinitely many solutions over <span class="math notranslate nohighlight">\(\ Q\ \)</span>?</p>
+<p><strong>Hint.</strong> The (negative) answer may be given by computation of only one
+determinant of rank 3.</p>
+<p><strong>Exercise 7.</strong>
+For which <span class="math notranslate nohighlight">\(\ \lambda\in R\ \)</span> the following system of linear equations over the field <span class="math notranslate nohighlight">\(\ R\ \)</span>
+has a solution? <span class="math notranslate nohighlight">\(\,\)</span> Find this solution.</p>
+<div class="math notranslate nohighlight">
+\begin{alignat*}{5}
+2\,x_1 &amp;\ -\ &amp;    x_2 &amp;\ +\ &amp;    x_3 &amp;\ +\ &amp;     x_4 &amp;\ =\ &amp; 1 \\
+   x_1 &amp;\ +\ &amp; 2\,x_2 &amp;\ -\ &amp;    x_3 &amp;\ +\ &amp;  4\,x_4 &amp;\ =\ &amp; 2 \\
+   x_1 &amp;\ +\ &amp; 7\,x_2 &amp;\ -\ &amp; 4\,x_3 &amp;\ +\ &amp; 11\,x_4 &amp;\ =\ &amp; \lambda
+\end{alignat*}</div><p><strong>Exercise 8.</strong>
+Describe a solution space of the following systems of equations depending on <span class="math notranslate nohighlight">\(\ \lambda\)</span>:</p>
+<ol class="arabic">
+<li><div class="math notranslate nohighlight">
+\begin{alignat*}{4}
+3\,x_1 &amp; \ +\ &amp; 2\,x_2 &amp; \ +\ &amp;    x_3 &amp; \ =\ &amp; -1      \\
+7\,x_1 &amp; \ +\ &amp; 6\,x_2 &amp; \ +\ &amp; 5\,x_3 &amp; \ =\ &amp; \lambda \\
+5\,x_1 &amp; \ +\ &amp; 4\,x_2 &amp; \ +\ &amp; 3\,x_3 &amp; \ =\ &amp; 2
+\end{alignat*}</div></li>
+<li><div class="math notranslate nohighlight">
+\begin{alignat*}{4}
+\lambda\,x_1 &amp; \ +\ &amp;    x_2 &amp; \ +\ &amp;    x_3 &amp; \ =\ &amp;  0 \\
+      5\,x_1 &amp; \ +\ &amp;    x_2 &amp; \ -\ &amp; 2\,x_3 &amp; \ =\ &amp;  2 \\
+     -2\,x_1 &amp; \ -\ &amp; 2\,x_2 &amp; \ +\ &amp;    x_3 &amp; \ =\ &amp; -3
+\end{alignat*}</div></li>
+<li><div class="math notranslate nohighlight">
+\begin{alignat*}{4}
+         x_1 &amp; \ +\ &amp;          x_2 &amp; \ +\ &amp; \lambda\,x_3 &amp; \ =\ &amp; 1 \\
+         x_1 &amp; \ +\ &amp; \lambda\,x_2 &amp; \ +\ &amp;          x_3 &amp; \ =\ &amp; 1 \\
+\lambda\,x_1 &amp; \ +\ &amp;          x_2 &amp; \ +\ &amp;          x_3 &amp; \ =\ &amp; 1
+\end{alignat*}</div></li>
+</ol>
+<p><strong>Exercise 9.</strong> <span class="math notranslate nohighlight">\(\,\)</span>
+Determine all the values of <span class="math notranslate nohighlight">\(\ \lambda\in R\ \)</span> for which
+a vector <span class="math notranslate nohighlight">\(\ \boldsymbol{b}\ \)</span> may be expressed as a linear combination of vectors
+<span class="math notranslate nohighlight">\(\ \boldsymbol{a}_1,\,\boldsymbol{a}_2,\,\boldsymbol{a}_3:\)</span></p>
+<div class="math notranslate nohighlight">
+\[\begin{split}\begin{array}{lllll}
+1.) &amp; \qquad
+\boldsymbol{a}_1=\left[\begin{array}{r} 2 \\  3 \\ 5       \end{array}\right], &amp;
+\boldsymbol{a}_2=\left[\begin{array}{r} 3 \\  7 \\ 8       \end{array}\right], &amp;
+\boldsymbol{a}_3=\left[\begin{array}{r} 1 \\ -6 \\ 1       \end{array}\right], &amp; \quad
+\boldsymbol{b} = \left[\begin{array}{r} 7 \\ -2 \\ \lambda \end{array}\right]; \\ \\
+2.) &amp; \qquad
+\boldsymbol{a}_1=\left[\begin{array}{r} 4 \\ 4 \\ 3       \end{array}\right], &amp;
+\boldsymbol{a}_2=\left[\begin{array}{r} 7 \\ 2 \\ 1       \end{array}\right], &amp;
+\boldsymbol{a}_3=\left[\begin{array}{r} 4 \\ 1 \\ 6       \end{array}\right], &amp; \quad
+\boldsymbol{b} = \left[\begin{array}{r} 5 \\ 9 \\ \lambda \end{array}\right]; \\ \\
+3.) &amp; \qquad
+\boldsymbol{a}_1=\left[\begin{array}{r} 3       \\ 2 \\ 6 \end{array}\right], &amp;
+\boldsymbol{a}_2=\left[\begin{array}{r} 7       \\ 3 \\ 9 \end{array}\right], &amp;
+\boldsymbol{a}_3=\left[\begin{array}{r} 5       \\ 1 \\ 3 \end{array}\right], &amp; \quad
+\boldsymbol{b} = \left[\begin{array}{r} \lambda \\ 2 \\ 5 \end{array}\right]; \\ \\
+4.) &amp; \qquad
+\boldsymbol{a}_1=\left[\begin{array}{r} 3 \\ 2 \\ 5       \end{array}\right], &amp;
+\boldsymbol{a}_2=\left[\begin{array}{r} 2 \\ 4 \\ 7       \end{array}\right], &amp;
+\boldsymbol{a}_3=\left[\begin{array}{r} 5 \\ 6 \\ \lambda \end{array}\right], &amp; \quad
+\boldsymbol{b} = \left[\begin{array}{r} 1 \\ 3 \\ 5       \end{array}\right].
+\end{array}\end{split}\]</div>
+<p><strong>Hint.</strong> <span class="math notranslate nohighlight">\(\,\)</span>
+Study existence of solutions for a linear problem given in a column form</p>
+<div class="math notranslate nohighlight">
+\[x_1\,\boldsymbol{a}_1+x_2\,\boldsymbol{a}_2+x_3\,\boldsymbol{a}_3=\boldsymbol{b}.\]</div>
+<p><strong>Exercise 10.</strong>
+Consider a vector space of real polynomials of one variable <span class="math notranslate nohighlight">\(\ x\ \)</span>
+of degree (at most) <span class="math notranslate nohighlight">\(\ n.\ \)</span>
+What is the dimension of the subspace consisting of polynomials satisfying the conditions
+<span class="math notranslate nohighlight">\(\ w(x_1)=w(x_2)=\ldots=w(x_k)=0,\ \)</span> where <span class="math notranslate nohighlight">\(\ x_1,x_2,\ldots,x_k\ \)</span>
+are pairwise distinct numbers <span class="math notranslate nohighlight">\(\ (k\le n).\)</span></p>
+<p><strong>Hnt.</strong>
+Use a formula for the Vandermonde determinant (see equation <a class="reference internal" href="dowody_problem_wlasny.html#equation-vandermonde">(2)</a>).</p>
+<p><strong>Exercise 11.</strong>
+Find a basis for a vector space of real polynomials of one variable of degree (at most) 5
+satisfying the conditions <span class="math notranslate nohighlight">\(\ w(0)=w(1)=w(2)=w(3)=0.\)</span></p>
+</section>
+
+
+          </div>
+        </div>
+      </div>
+      <div class="sphinxsidebar" role="navigation" aria-label="main navigation">
+        <div class="sphinxsidebarwrapper">
+  <h4>Previous topic</h4>
+  <p class="topless"><a href="dowody_p_unitarne.html"
+                        title="previous chapter">Unitary Spaces</a></p>
+  <h4>Next topic</h4>
+  <p class="topless"><a href="zadania_2.html"
+                        title="next chapter">Matrices</a></p>
+  <div role="note" aria-label="source link">
+    <h3>This Page</h3>
+    <ul class="this-page-menu">
+      <li><a href="_sources/zadania_1.rst.txt"
+            rel="nofollow">Show Source</a></li>
+    </ul>
+   </div>
+<div id="searchbox" style="display: none" role="search">
+  <h3 id="searchlabel">Quick search</h3>
+    <div class="searchformwrapper">
+    <form class="search" action="search.html" method="get">
+      <input type="text" name="q" aria-labelledby="searchlabel" />
+      <input type="submit" value="Go" />
+    </form>
+    </div>
+</div>
+<script>$('#searchbox').show(0);</script>
+        </div>
+      </div>
+      <div class="clearer"></div>
+    </div>
+  </div>
+  <div class="relbar-bottom">
+    
+    <div class="related" role="navigation" aria-label="related navigation">
+      <h3>Navigation</h3>
+      <ul>
+        <li class="right" style="margin-right: 10px">
+          <a href="genindex.html" title="General Index"
+             >index</a></li>
+        <li class="right" >
+          <a href="zadania_2.html" title="Matrices"
+             >next</a> &nbsp; &nbsp;</li>
+        <li class="right" >
+          <a href="dowody_p_unitarne.html" title="Unitary Spaces"
+             >previous</a> &nbsp; &nbsp;</li>
+  <li><a href="index.html">Linear Algebra</a> &#187;</li>
+  
+        <li class="nav-item nav-item-this"><a href="">Systems of Linear Equations</a></li> 
+      </ul>
+    </div>
+  </div>
+  
+  <div class="footer">
+    <a class="logo" href="http://icse.us.edu.pl/" target="_blank"><img src="_static/logo-icse.png" alt="ICSE"/></a><br/>
+    &copy; Copyright 2018, Jan Aksamit, Joanna Marzec, and  Marcin Kostur.
+    Last updated on Jan 29, 2022.
+    Created using <a href="http://sphinx.pocoo.org/">Sphinx</a> 4.0.1.
+  </div>
+  </body>
+</html>

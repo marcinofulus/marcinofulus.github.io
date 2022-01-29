@@ -1,0 +1,228 @@
+
+
+  
+<!DOCTYPE html>
+
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" /><meta name="generator" content="Docutils 0.17: http://docutils.sourceforge.net/" />
+
+    <title>Fundamental Concepts in Linear Algebra &#8212; Linear Algebra</title>
+    <link rel="stylesheet" type="text/css" href="_static/pygments.css" />
+    <link rel="stylesheet" type="text/css" href="_static/cloud.css" />
+    <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Noticia+Text|Open+Sans|Droid+Sans+Mono&amp;subset=latin,latin-ext" type="text/css" />
+    <script data-url_root="./" id="documentation_options" src="_static/documentation_options.js"></script>
+    <script src="_static/jquery.js"></script>
+    <script src="_static/underscore.js"></script>
+    <script src="_static/doctools.js"></script>
+    <script async="async" src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js"></script>
+    <script src="_static/jquery.cookie.js"></script>
+    <script src="_static/cloud.js"></script>
+    <script type="text/javascript" src="http://sagecell.sagemath.org/static/jquery.min.js"></script>
+    <script type="text/javascript" src="http://sagecell.sagemath.org/embedded_sagecell.js"></script>
+    <script type="text/javascript">
+        sagecell.makeSagecell({inputLocation: ".sage_linked",
+                               linked: true});
+        sagecell.makeSagecell({inputLocation: ".sage_unlinked",
+                               linked: false});
+    </script>
+
+    <style type="text/css">
+        .sagecell .CodeMirror-scroll {
+            overflow-y: hidden;
+            overflow-x: auto;
+        }
+        .sagecell .CodeMirror {
+            height: auto;
+        }
+    </style>
+    
+    <link rel="index" title="Index" href="genindex.html" />
+    <link rel="search" title="Search" href="search.html" />
+    <link rel="next" title="Operations upon Matrices" href="dowody_operacje_na_macierzach.html" />
+    <link rel="prev" title="Matrix Diagonalization - Problems" href="diagonalizacja_zadania.html" />
+ 
+  <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, minimum-scale=1">
+  </head><body>
+  <div class="relbar-top">
+    
+    <div class="related" role="navigation" aria-label="related navigation">
+      <h3>Navigation</h3>
+      <ul>
+        <li class="right" style="margin-right: 10px">
+          <a href="genindex.html" title="General Index"
+             accesskey="I">index</a></li>
+        <li class="right" >
+          <a href="dowody_operacje_na_macierzach.html" title="Operations upon Matrices"
+             accesskey="N">next</a> &nbsp; &nbsp;</li>
+        <li class="right" >
+          <a href="diagonalizacja_zadania.html" title="Matrix Diagonalization - Problems"
+             accesskey="P">previous</a> &nbsp; &nbsp;</li>
+  <li><a href="index.html">Linear Algebra</a> &#187;</li>
+  
+        <li class="nav-item nav-item-this"><a href="">Fundamental Concepts in Linear Algebra</a></li> 
+      </ul>
+    </div>
+  </div>
+  
+  <div class="content">  
+
+    <div class="document">
+      <div class="documentwrapper">
+        <div class="bodywrapper">
+          <div class="body">
+            
+  <section id="fundamental-concepts-in-linear-algebra">
+<span id="proofs-fund"></span><h1>Fundamental Concepts in Linear Algebra<a class="headerlink" href="#fundamental-concepts-in-linear-algebra" title="Permalink to this headline">¶</a></h1>
+<div class="admonition-theorem admonition">
+<p class="admonition-title">Theorem.</p>
+<p>If a vector space has an <span class="math notranslate nohighlight">\(\,n\)</span>-element basis, then every set
+consisting of more than <span class="math notranslate nohighlight">\(\,n\,\)</span> vectors is linearly dependent.</p>
+</div>
+<p><strong>Proof.</strong></p>
+<p>Let <span class="math notranslate nohighlight">\(\ \mathcal{B}\,=\,(v_1,v_2,\ldots,v_n)\ \)</span>
+be a basis of the space <span class="math notranslate nohighlight">\(\,V(K).\ \)</span></p>
+<p>We have to show that every set <span class="math notranslate nohighlight">\(\ \mathcal{C}=(w_1,w_2,\ldots,w_p)\ \)</span>
+with <span class="math notranslate nohighlight">\(\ p&gt;n\ \)</span> is linearly dependent.</p>
+<p>This condition means that there exists a non-trivial linear combination of vectors
+<span class="math notranslate nohighlight">\(\ w_1,w_2,\ldots,w_p\ \)</span> which is equal to a zero vector <span class="math notranslate nohighlight">\(\,\theta,\ \)</span> that is,
+the equation</p>
+<div class="math notranslate nohighlight" id="equation-eqn-theta">
+<span class="eqno">(1)<a class="headerlink" href="#equation-eqn-theta" title="Permalink to this equation">¶</a></span>\[c_1\ w_1\ +\ c_2\ w_2\ +\ \ldots\ +\ c_p\ w_p\ =\ \theta\]</div>
+<p>with coefficients <span class="math notranslate nohighlight">\(\ c_1,\,c_2,\,\ldots,\,c_p\in K\ \,\)</span> has a non-zero solution.</p>
+<p>Each of the vectors <span class="math notranslate nohighlight">\(\ w_j\ \)</span> may be written as a
+linear combination of the basis vectors:</p>
+<div class="math notranslate nohighlight" id="equation-eqn-wj">
+<span class="eqno">(2)<a class="headerlink" href="#equation-eqn-wj" title="Permalink to this equation">¶</a></span>\[w_j\ =\ \sum_{i\,=\,1}^n\ a_{ij}\,v_i\,,\qquad j=1,2,\ldots,p.\]</div>
+<p>Here <span class="math notranslate nohighlight">\(\ a_{1j},\,a_{2j},\,\ldots,\,a_{nj}\ \)</span> are coefficients of a vector <span class="math notranslate nohighlight">\(\ w_j\ \)</span>
+in basis <span class="math notranslate nohighlight">\(\ \mathcal{B},\quad j=1,2,\ldots,p.\)</span></p>
+<p>We substitute <a class="reference internal" href="introduction_appendices.html#equation-eqn-wj">(8)</a> into <a class="reference internal" href="introduction_appendices.html#equation-eqn-theta">(7)</a> and write the left hand side of the equation
+<a class="reference internal" href="introduction_appendices.html#equation-eqn-theta">(7)</a> as a linear combination of the basis vectors:</p>
+<div class="math notranslate nohighlight">
+\[ \begin{align}\begin{aligned}\sum_{j\,=\,1}^p\ c_j\,w_j\ \ =\ \
+\sum_{j\,=\,1}^p\ c_j\;\left(\ \sum_{i\,=\,1}^n\ a_{ij}\,v_i\right)\ \ =\ \
+\sum_{i\,=\,1}^n\ \left(\ \sum_{j\,=\,1}^p\ a_{ij}\,c_j\right)\ v_i\ \ =\\\ \ =\ \
+\left(\ \sum_{j\,=\,1}^p\,a_{1j}\,c_j\right)\ v_1\ \ +\ \
+\left(\ \sum_{j\,=\,1}^p\,a_{2j}\,c_j\right)\ v_2\ \ +\ \
+\dots\ \ +\ \
+\left(\ \sum_{j\,=\,1}^p\,a_{nj}\,c_j\right)\ v_n\ \ =\ \ \theta\,.\end{aligned}\end{align} \]</div>
+<p>The basis vectors <span class="math notranslate nohighlight">\(\ v_1,\,v_2,\,\ldots,\,v_n\ \)</span> are linearly independent.
+Hence, if their linear combination gives a zero vector <span class="math notranslate nohighlight">\(\,\theta ,\,\)</span>
+then the coefficients must be equal to zero:</p>
+<div class="math notranslate nohighlight">
+\[\sum_{j\,=\,1}^p\ a_{ij}\ c_j\ \,=\ \,0\,,\qquad i=1,2,\ldots,n.\]</div>
+<p>Unfolding these equalities we obtain</p>
+<div class="math notranslate nohighlight">
+\[\begin{split}\begin{array}{l}
+a_{11}\ c_1\ +\ \,a_{12}\ c_2\ +\ \,\dots\ \,+\ \,a_{1p}\ c_p\ \,=\ \ 0 \\
+a_{21}\ c_1\ +\ \,a_{22}\ c_2\ +\ \,\dots\ \,+\ \,a_{2p}\ c_p\ \,=\ \ 0 \\
+\ \ \dots\qquad\quad\dots\qquad\,\dots\qquad\ \dots\qquad\ \dots\quad         \\
+a_{n1}\ c_1\ +\ \,a_{n2}\ c_2\ +\ \,\dots\ \,+\ \,a_{np}\ c_p\ \,=\ \ 0
+\end{array}\end{split}\]</div>
+<p>a homogeneous system of <span class="math notranslate nohighlight">\(\,n\,\)</span> linear equations
+with <span class="math notranslate nohighlight">\(\,p\,\)</span> unknowns <span class="math notranslate nohighlight">\(\ c_1,\,c_2,\,\ldots,\,c_p\,,\ \)</span>
+where the number of equations is smaller than the number of unknowns.</p>
+<p>Such a system has non-zero solutions. Indeed, if we solve this system
+by the Gauss elimination method, we perform elementary operations on
+rows of the coefficient matrix in order to bring it to the reduced row
+echelon form. Then the unknowns corresponding to the columns without
+leading unities are taken as parameters on which the other
+(i.e. corresponding to the columns with leading unities) unknowns
+depend.</p>
+<p>The number of parameters is equal to a difference between the number
+of unknowns and the number of leading unities, and the second number
+(equal to the rank of the coefficient matrix) is not greater than the
+number of equations. If there are more unknowns than the number of
+equations, then the number of parameters is positive, and that is
+equivalent to the existence of non-zero solutions.</p>
+<div class="admonition-corollary-1 admonition">
+<p class="admonition-title">Corollary 1.</p>
+<p>If a vector space has an <span class="math notranslate nohighlight">\(\,n\)</span>-element basis,
+then each basis of this space has <span class="math notranslate nohighlight">\(\,n\ \)</span> elements.</p>
+</div>
+<p>Suppose the space <span class="math notranslate nohighlight">\(\,V(K)\,\)</span> has two bases:
+basis <span class="math notranslate nohighlight">\(\ \mathcal{B}\ \)</span> with <span class="math notranslate nohighlight">\(\,n\,\)</span> elements and
+basis <span class="math notranslate nohighlight">\(\ \mathcal{C}\ \)</span> with <span class="math notranslate nohighlight">\(\,m\,\)</span> elements.</p>
+<p>If <span class="math notranslate nohighlight">\(\,n&gt;m,\ \)</span> then the set <span class="math notranslate nohighlight">\(\ \mathcal{B}\ \)</span> is linearly dependent (contradiction).
+<span class="math notranslate nohighlight">\(\,\)</span> Hence <span class="math notranslate nohighlight">\(\ \,n\le m.\)</span></p>
+<p>If <span class="math notranslate nohighlight">\(\,m&gt;n,\ \)</span> then the set <span class="math notranslate nohighlight">\(\ \mathcal{C}\ \)</span> is linearly dependent (contradiction).
+<span class="math notranslate nohighlight">\(\,\)</span> Hence <span class="math notranslate nohighlight">\(\ \,m\le n.\)</span></p>
+<p>In this way <span class="math notranslate nohighlight">\(\ \,n\le m\ \)</span> and <span class="math notranslate nohighlight">\(\ m\le n,\ \,\)</span> and thus <span class="math notranslate nohighlight">\(\ \,m=n.\)</span></p>
+<p>Corollary 1. allows to introduce a notion of dimension for a vector space as the number of elements of any finite basis of this space (if such a finite basis exists). <span class="math notranslate nohighlight">\(\\\)</span></p>
+<div class="admonition-corollary-2 admonition">
+<p class="admonition-title">Corollary 2.</p>
+<p>In an <span class="math notranslate nohighlight">\(\,n\)</span>-dimensional vector space each set containing more than <span class="math notranslate nohighlight">\(\,n\,\)</span>
+vectors is linearly dependent.</p>
+</div>
+<div class="admonition-corollary-3 admonition">
+<p class="admonition-title">Corollary 3.</p>
+<p>In an <span class="math notranslate nohighlight">\(\,n\)</span>-dimensional vector space each linarly independent set  <span class="math notranslate nohighlight">\(\,n\,\)</span>
+of vectors comprises a basis.</p>
+</div>
+<p>Indeed, Corollary 2. implies that such a linearly independent set of <span class="math notranslate nohighlight">\(\,n\,\)</span> vectors is a maximal linearly independent set, and thus a basis.</p>
+</section>
+
+
+          </div>
+        </div>
+      </div>
+      <div class="sphinxsidebar" role="navigation" aria-label="main navigation">
+        <div class="sphinxsidebarwrapper">
+  <h4>Previous topic</h4>
+  <p class="topless"><a href="diagonalizacja_zadania.html"
+                        title="previous chapter">Matrix Diagonalization - Problems</a></p>
+  <h4>Next topic</h4>
+  <p class="topless"><a href="dowody_operacje_na_macierzach.html"
+                        title="next chapter">Operations upon Matrices</a></p>
+  <div role="note" aria-label="source link">
+    <h3>This Page</h3>
+    <ul class="this-page-menu">
+      <li><a href="_sources/dowody_podstawy_algebry_liniowej.rst.txt"
+            rel="nofollow">Show Source</a></li>
+    </ul>
+   </div>
+<div id="searchbox" style="display: none" role="search">
+  <h3 id="searchlabel">Quick search</h3>
+    <div class="searchformwrapper">
+    <form class="search" action="search.html" method="get">
+      <input type="text" name="q" aria-labelledby="searchlabel" />
+      <input type="submit" value="Go" />
+    </form>
+    </div>
+</div>
+<script>$('#searchbox').show(0);</script>
+        </div>
+      </div>
+      <div class="clearer"></div>
+    </div>
+  </div>
+  <div class="relbar-bottom">
+    
+    <div class="related" role="navigation" aria-label="related navigation">
+      <h3>Navigation</h3>
+      <ul>
+        <li class="right" style="margin-right: 10px">
+          <a href="genindex.html" title="General Index"
+             >index</a></li>
+        <li class="right" >
+          <a href="dowody_operacje_na_macierzach.html" title="Operations upon Matrices"
+             >next</a> &nbsp; &nbsp;</li>
+        <li class="right" >
+          <a href="diagonalizacja_zadania.html" title="Matrix Diagonalization - Problems"
+             >previous</a> &nbsp; &nbsp;</li>
+  <li><a href="index.html">Linear Algebra</a> &#187;</li>
+  
+        <li class="nav-item nav-item-this"><a href="">Fundamental Concepts in Linear Algebra</a></li> 
+      </ul>
+    </div>
+  </div>
+  
+  <div class="footer">
+    <a class="logo" href="http://icse.us.edu.pl/" target="_blank"><img src="_static/logo-icse.png" alt="ICSE"/></a><br/>
+    &copy; Copyright 2018, Jan Aksamit, Joanna Marzec, and  Marcin Kostur.
+    Last updated on Jan 29, 2022.
+    Created using <a href="http://sphinx.pocoo.org/">Sphinx</a> 4.0.1.
+  </div>
+  </body>
+</html>

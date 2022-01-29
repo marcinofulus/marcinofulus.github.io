@@ -1,0 +1,723 @@
+
+
+  
+<!DOCTYPE html>
+
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" /><meta name="generator" content="Docutils 0.17: http://docutils.sourceforge.net/" />
+
+    <title>Matrix Diagonalization - Examples &#8212; Linear Algebra</title>
+    <link rel="stylesheet" type="text/css" href="_static/pygments.css" />
+    <link rel="stylesheet" type="text/css" href="_static/cloud.css" />
+    <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Noticia+Text|Open+Sans|Droid+Sans+Mono&amp;subset=latin,latin-ext" type="text/css" />
+    <script data-url_root="./" id="documentation_options" src="_static/documentation_options.js"></script>
+    <script src="_static/jquery.js"></script>
+    <script src="_static/underscore.js"></script>
+    <script src="_static/doctools.js"></script>
+    <script async="async" src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js"></script>
+    <script src="_static/jquery.cookie.js"></script>
+    <script src="_static/cloud.js"></script>
+    <script type="text/javascript" src="http://sagecell.sagemath.org/static/jquery.min.js"></script>
+    <script type="text/javascript" src="http://sagecell.sagemath.org/embedded_sagecell.js"></script>
+    <script type="text/javascript">
+        sagecell.makeSagecell({inputLocation: ".sage_linked",
+                               linked: true});
+        sagecell.makeSagecell({inputLocation: ".sage_unlinked",
+                               linked: false});
+    </script>
+
+    <style type="text/css">
+        .sagecell .CodeMirror-scroll {
+            overflow-y: hidden;
+            overflow-x: auto;
+        }
+        .sagecell .CodeMirror {
+            height: auto;
+        }
+    </style>
+    
+    <link rel="index" title="Index" href="genindex.html" />
+    <link rel="search" title="Search" href="search.html" />
+    <link rel="next" title="Matrix Diagonalization - Problems" href="diagonalizacja_zadania.html" />
+    <link rel="prev" title="Diagonalization by a Similarity Transformation" href="diagonalizacja_macierzy.html" />
+ 
+  <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, minimum-scale=1">
+  </head><body>
+  <div class="relbar-top">
+    
+    <div class="related" role="navigation" aria-label="related navigation">
+      <h3>Navigation</h3>
+      <ul>
+        <li class="right" style="margin-right: 10px">
+          <a href="genindex.html" title="General Index"
+             accesskey="I">index</a></li>
+        <li class="right" >
+          <a href="diagonalizacja_zadania.html" title="Matrix Diagonalization - Problems"
+             accesskey="N">next</a> &nbsp; &nbsp;</li>
+        <li class="right" >
+          <a href="diagonalizacja_macierzy.html" title="Diagonalization by a Similarity Transformation"
+             accesskey="P">previous</a> &nbsp; &nbsp;</li>
+  <li><a href="index.html">Linear Algebra</a> &#187;</li>
+  
+        <li class="nav-item nav-item-this"><a href="">Matrix Diagonalization - Examples</a></li> 
+      </ul>
+    </div>
+  </div>
+  
+  <div class="content">  
+
+    <div class="document">
+      <div class="documentwrapper">
+        <div class="bodywrapper">
+          <div class="body">
+            
+  <section id="matrix-diagonalization-examples">
+<h1>Matrix Diagonalization - Examples<a class="headerlink" href="#matrix-diagonalization-examples" title="Permalink to this headline">¶</a></h1>
+<p><strong>Example 0.</strong></p>
+<p>Show that the matrix <span class="math notranslate nohighlight">\(\ \boldsymbol{A}\ =\
+\left[\begin{array}{cc} 1 &amp; a \\ 0 &amp; 1 \end{array}\right]
+\in M_2(R),\quad a\neq 0,\ \)</span> is not diagonalizable by a similarity
+transformation, <span class="math notranslate nohighlight">\(\ \)</span> that is,
+there is no non-degenerate matrix <span class="math notranslate nohighlight">\(\ \boldsymbol{P}\ \)</span> such that</p>
+<div class="math notranslate nohighlight" id="equation-simil">
+<span class="eqno">(1)<a class="headerlink" href="#equation-simil" title="Permalink to this equation">¶</a></span>\[\boldsymbol{P}^{-1}\boldsymbol{A}\,\boldsymbol{P}\ =\ \boldsymbol{D},\]</div>
+<p>where <span class="math notranslate nohighlight">\(\ \boldsymbol{D}\ \)</span> is diagonal.</p>
+<p><strong>Proof.</strong></p>
+<p><strong>I.</strong> <span class="math notranslate nohighlight">\(\,\)</span> The matrix <span class="math notranslate nohighlight">\(\,\boldsymbol{A}\in M_n(K)\,\)</span>
+is diagonalizable by a similarity transformation <a class="reference internal" href="#equation-simil">(1)</a>
+if and only if its eigenvectors span the space
+<span class="math notranslate nohighlight">\(\,K^n,\ \)</span> that is, eigenvectors of the matrix <span class="math notranslate nohighlight">\(\,\boldsymbol{A}\)</span>
+comprise a basis of the space <span class="math notranslate nohighlight">\(\,K^n.\)</span></p>
+<p>The characteristic equation of the matrix <span class="math notranslate nohighlight">\(\,\boldsymbol{A}:\)</span></p>
+<div class="math notranslate nohighlight">
+\[\begin{split}\det{(\boldsymbol{A}-\lambda\,\boldsymbol{I}_n)}\ =\
+\left|\begin{array}{cc} 1-\lambda &amp;a \\ 0 &amp; 1-\lambda \end{array}\right|\ =\
+(1-\lambda)^2 =\,0\end{split}\]</div>
+<p>provides one eigenvalue <span class="math notranslate nohighlight">\(\,\lambda=1\,\)</span> whose algebraic multiplicity is equal to 2.</p>
+<p>Eigenvectors <span class="math notranslate nohighlight">\(\,\boldsymbol{x}\,\)</span> associated with this eigenvalue may be determined from the equation
+<span class="math notranslate nohighlight">\(\ (\boldsymbol{A}-\lambda\,\boldsymbol{I}_n)\,\boldsymbol{x}\,=\,
+\boldsymbol{0},\ \)</span> that is</p>
+<div class="math notranslate nohighlight">
+\[\begin{split}\left[\begin{array}{cc} 0 &amp; a \\ 0 &amp; 0 \end{array}\right]
+\left[\begin{array}{c} x_1 \\ x_2 \end{array}\right]\ =\
+\left[\begin{array}{c} 0 \\ 0 \end{array}\right]
+\quad : \quad
+\begin{cases}
+\ \ x_1 \text{  arbitrary,} \\ \ \ a\,x_2=0\,;
+\end{cases}
+\ : \quad
+\begin{cases}
+\ \ x_1 \text{  arbitrary,} \\ \ \ x_2=0\,.
+\end{cases}
+\,,\end{split}\]</div>
+<p>Hence, the eigenvectors are of the form</p>
+<div class="math notranslate nohighlight">
+\[\begin{split}\boldsymbol{x}\,=\,
+\left[\begin{array}{c} \beta \\ 0 \end{array}\right]\ =\
+\beta\ \left[\begin{array}{c} 1 \\ 0 \end{array}\right],\quad
+\beta\in R\setminus\{0\}\end{split}\]</div>
+<p>and comprise (together with a zero vector) 1-dimensional subspace:
+geometric multiplicity of the eigenvalue <span class="math notranslate nohighlight">\(\,\lambda=1\,\)</span>
+is 1 <span class="math notranslate nohighlight">\(\,\)</span> and thus <span class="math notranslate nohighlight">\(\,\)</span> it is different from the algebraic multiplicity.</p>
+<p>Hence, since any two eigenvectors of the matrix <span class="math notranslate nohighlight">\(\,\boldsymbol{A}\ \)</span> are linearly dependent,
+they do not form a basis of the space <span class="math notranslate nohighlight">\(\,R^2.\ \)</span> This means that it is not possible
+to diagonalize the matrix <span class="math notranslate nohighlight">\(\,\boldsymbol{A}\ \)</span> by a non-degenerate matrix
+<span class="math notranslate nohighlight">\(\,\boldsymbol{P}.\)</span></p>
+<p><strong>II.</strong> <span class="math notranslate nohighlight">\(\,\)</span> Similar matrices have the same chracteristic polynomial,
+and thus also the same set of eigenvalues with the same corresponding algebraic multiplicities.</p>
+<p>It is easy to see that the matrix <span class="math notranslate nohighlight">\(\,\boldsymbol{A}\,\)</span> has an eigenvalue
+<span class="math notranslate nohighlight">\(\,\lambda=1\,\)</span> with algebraic multiplicity 2.</p>
+<p>If there exists a matrix <span class="math notranslate nohighlight">\(\,\boldsymbol{P}\,\)</span>
+satisfying the condition <a class="reference internal" href="#equation-simil">(1)</a>, <span class="math notranslate nohighlight">\(\,\)</span> then the matrix
+<span class="math notranslate nohighlight">\(\,\boldsymbol{D}\,\)</span> in that equation is a diagonal matrix of size 2
+having an eigenvalue <span class="math notranslate nohighlight">\(\,\lambda=1\ \)</span> with algebraic multiplicity 2.
+These conditions uniquely determine an identity matrix:
+<span class="math notranslate nohighlight">\(\ \boldsymbol{D}\,=\,\boldsymbol{I}_2.\)</span></p>
+<p>Therefore we would have
+<span class="math notranslate nohighlight">\(\ \boldsymbol{P}^{-1}\boldsymbol{A}\,\boldsymbol{P}\ =\
+\boldsymbol{I}_2,\ \)</span> and thus <span class="math notranslate nohighlight">\(\ \boldsymbol{A}\,=\,
+\boldsymbol{P}\,\boldsymbol{I}_2\boldsymbol{P}^{-1}\ =\
+\boldsymbol{P}\boldsymbol{P}^{-1}\ =\ \boldsymbol{I}_2.\)</span></p>
+<p>This gives a contradiction as <span class="math notranslate nohighlight">\(\ \boldsymbol{A}\neq\boldsymbol{I}_2.\ \)</span>
+Hence, there is no matrix <span class="math notranslate nohighlight">\(\,\boldsymbol{P}\,\)</span> for which
+the equation <a class="reference internal" href="#equation-simil">(1)</a> would hold.</p>
+<p><strong>Example 1.</strong></p>
+<p>The matrix <span class="math notranslate nohighlight">\(\ \boldsymbol{\sigma}_x\,=\,
+\left[\begin{array}{cc} 0 &amp; 1 \\ 1 &amp; 0 \end{array}\right]\in M_2(C)\ \)</span>
+is real and symmetric, and thus Hermitian.</p>
+<p>We will verify that:</p>
+<ul class="simple">
+<li><p>its eigenvalues are real,</p></li>
+<li><p>eigenvectors associated with distinct eigenvalues are orthogonal,</p></li>
+<li><p>algebraic multiplicity of every eigenvalue is equal to its geometric multiplicity,</p></li>
+<li><p>eigenvectors of the matrix <span class="math notranslate nohighlight">\(\ \boldsymbol{\sigma}_x\ \)</span> comprise an orthonormal
+basis of the space <span class="math notranslate nohighlight">\(\,C^2,\)</span></p></li>
+<li><p>the matrix <span class="math notranslate nohighlight">\(\ \boldsymbol{\sigma}_x\ \)</span> is diagonalizable by a real orthogonal similarity transformation.</p></li>
+</ul>
+<p>The characteristic equation of the matrix <span class="math notranslate nohighlight">\(\,\boldsymbol{\sigma}_x\,:\)</span></p>
+<div class="math notranslate nohighlight">
+\[\begin{split}w(\lambda)\,=\,
+\left|\begin{array}{cc}
+-\lambda &amp; 1 \\ 1 &amp; -\lambda
+\end{array}\ \right|\ =\
+(-\lambda)^2-1\ =\ \lambda^2-1\ =\ (\lambda-1)(\lambda+1)\ =\ 0\end{split}\]</div>
+<p>provides two eigenvalues with their algebraic multiplicities:</p>
+<div class="math notranslate nohighlight">
+\[\lambda_1\,=\ 1\quad(1)\,,\qquad\lambda_2\,=\ -1\quad(1)\,.\]</div>
+<p>We substitute them to the equation</p>
+<div class="math notranslate nohighlight">
+\[(\boldsymbol{\sigma}_x -\lambda\,\boldsymbol{I}_2)\,\boldsymbol{x}\ =
+\ \boldsymbol{0}\]</div>
+<p>to determine the associated eigenvectors <span class="math notranslate nohighlight">\(\ \boldsymbol{x}.\)</span></p>
+<p>Eigenvectors associated with the eigenvalue <span class="math notranslate nohighlight">\(\,\lambda_1=\,1:\)</span></p>
+<div class="math notranslate nohighlight">
+\[\begin{split}\begin{array}{l}
+\left[\begin{array}{rr} -1 &amp; 1 \\ 1 &amp; -1 \end{array}\ \right]
+\left[\begin{array}{c} x_1 \\ x_2 \end{array}\right] \ =\
+\left[\begin{array}{c} 0 \\ 0 \end{array}\right]
+\quad : \quad
+\begin{cases}\
+\begin{array}{r} -x_1+x_2=0 \\ x_1-x_2=0 \end{array}
+\end{cases}
+: \quad
+x_1=x_2=\alpha,\ \ \alpha\in C.
+\\ \\
+\left[\begin{array}{c} x_1 \\ x_2 \end{array}\right] \ =\
+\left[\begin{array}{c} \alpha \\ \alpha \end{array}\right]\ =\
+\alpha\ \left[\begin{array}{c} 1 \\ 1 \end{array}\right]\,,
+\quad\alpha\in C\setminus\{0\}.
+\end{array}\end{split}\]</div>
+<p>Eigenvectors associated with the eigenvalue <span class="math notranslate nohighlight">\(\,\lambda_2=\,-1:\)</span></p>
+<div class="math notranslate nohighlight">
+\[\begin{split}\begin{array}{l}
+\left[\begin{array}{rr} 1 &amp; 1 \\ 1 &amp; 1 \end{array}\right]
+\left[\begin{array}{c} x_1 \\ x_2 \end{array}\right] \ =\
+\left[\begin{array}{c} 0 \\ 0 \end{array}\right]
+\quad : \quad
+\begin{cases}\
+\begin{array}{r} x_1+x_2=0 \\ x_1+x_2=0 \end{array}
+\end{cases}
+: \quad
+x_1=-x_2=\beta,\ \ \beta\in C.
+\\ \\
+\left[\begin{array}{c} x_1 \\ x_2 \end{array}\right] \ =\
+\left[\begin{array}{c} \beta \\ -\beta \end{array}\right]\ =\
+\beta\ \left[\begin{array}{r} 1 \\ -1 \end{array}\right]\,,
+\quad\beta\in C\setminus\{0\}.
+\end{array}\end{split}\]</div>
+<p>Geometric multiplicity of the two eigenvalues is equal to  1
+and agrees with the algebraic multiplicity. Moreover, every two eigenvectors
+associated with distinct eigenvalues are orthogonal:</p>
+<div class="math notranslate nohighlight">
+\[\begin{split}\left\langle\
+\left[\begin{array}{c} \alpha \\ \alpha \end{array}\right],\
+\left[\begin{array}{c}  \beta \\ -\beta \end{array}\right]\
+\right\rangle\ =\
+\alpha^*\beta\,+\,\alpha^*(-\beta)\ =\
+\alpha^*\beta\,-\,\alpha^*\beta\ =\ 0.\end{split}\]</div>
+<p>Hence, normalised eigenvectors of the matrix <span class="math notranslate nohighlight">\(\ \boldsymbol{\sigma}_x\,\)</span>
+comprise an orthonormal basis <span class="math notranslate nohighlight">\(\ \mathcal{F}\ \)</span> of the space <span class="math notranslate nohighlight">\(\,C^2\,:\)</span></p>
+<div class="math notranslate nohighlight">
+\[\begin{split}\mathcal{F}\ =\ \,(\,\boldsymbol{f}_1,\,\boldsymbol{f}_2\,)\,,
+\quad\text{where}\quad
+\boldsymbol{f}_1\ =\ \textstyle{\frac{1}{\sqrt{2}}}\,
+\left[\begin{array}{c} 1 \\ 1 \end{array}\right]\,,\quad
+\boldsymbol{f}_2\ =\ \textstyle{\frac{1}{\sqrt{2}}}\,
+\left[\begin{array}{c} 1 \\ -1 \end{array}\right]\,.\end{split}\]</div>
+<p>The basis vectors form a matrix <span class="math notranslate nohighlight">\(\,\boldsymbol{P}\ \)</span>
+which diagonalizes the matrix <span class="math notranslate nohighlight">\(\,\boldsymbol{\sigma}_x:\)</span></p>
+<div class="math notranslate nohighlight">
+\[\begin{split}\boldsymbol{P}\,=\
+[\ \boldsymbol{f}_1\ |\ \boldsymbol{f}_2\ ]\ =\
+\textstyle{\frac{1}{\sqrt{2}}}\,
+\left[\begin{array}{rr} 1 &amp; 1 \\ 1 &amp; -1 \end{array}\right]\,.\end{split}\]</div>
+<p>Note that <span class="math notranslate nohighlight">\(\,\boldsymbol{P}\,\)</span> is a real matrix which is both <span class="math notranslate nohighlight">\(\ \)</span>
+Hermitian (symmetric) <span class="math notranslate nohighlight">\(\ \)</span> and <span class="math notranslate nohighlight">\(\ \)</span> unitary
+(orthogonal):</p>
+<div class="math notranslate nohighlight">
+\[ \begin{align}\begin{aligned}\boldsymbol{P}^+\ =\ \,\boldsymbol{P}^T\ =\ \,\boldsymbol{P}
+\,,\qquad
+\boldsymbol{P}^+\boldsymbol{P}\ =\
+\boldsymbol{P}^T\boldsymbol{P}\ =\
+\boldsymbol{I}_2\,;\\\text{moreover:}\qquad
+\boldsymbol{P}^2\ =\ \boldsymbol{I}_2,\quad
+\boldsymbol{P}^{-1}\ =\ \boldsymbol{P}^+\ =\ \boldsymbol{P}\,.\end{aligned}\end{align} \]</div>
+<p>Numerical diagonalization of the matrix <span class="math notranslate nohighlight">\(\,\boldsymbol{\sigma}_x:\)</span></p>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="n">sage</span><span class="p">:</span> <span class="n">P</span> <span class="o">=</span> <span class="p">(</span><span class="mi">1</span><span class="o">/</span><span class="n">sqrt</span><span class="p">(</span><span class="mi">2</span><span class="p">))</span><span class="o">*</span><span class="n">matrix</span><span class="p">(</span><span class="n">RR</span><span class="p">,[[</span><span class="mi">1</span><span class="p">,</span> <span class="mi">1</span><span class="p">],</span>
+                           <span class="p">[</span><span class="mi">1</span><span class="p">,</span><span class="o">-</span><span class="mi">1</span><span class="p">]])</span>
+<span class="n">sage</span><span class="p">:</span> <span class="n">P</span><span class="o">*</span><span class="n">P</span>
+
+<span class="p">[</span> <span class="mf">1.00000000000000</span>  <span class="mf">0.000000000000000</span><span class="p">]</span>
+<span class="p">[</span> <span class="mf">0.000000000000000</span> <span class="mf">1.00000000000000</span> <span class="p">]</span>
+</pre></div>
+</div>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="n">sage</span><span class="p">:</span> <span class="n">S_x</span> <span class="o">=</span> <span class="n">matrix</span><span class="p">(</span><span class="n">RR</span><span class="p">,[[</span><span class="mi">0</span><span class="p">,</span> <span class="mi">1</span><span class="p">],</span>
+                       <span class="p">[</span><span class="mi">1</span><span class="p">,</span> <span class="mi">0</span><span class="p">]])</span>
+
+<span class="n">sage</span><span class="p">:</span> <span class="n">P</span> <span class="o">=</span> <span class="p">(</span><span class="mi">1</span><span class="o">/</span><span class="n">sqrt</span><span class="p">(</span><span class="mi">2</span><span class="p">))</span><span class="o">*</span><span class="n">matrix</span><span class="p">(</span><span class="n">RR</span><span class="p">,[[</span><span class="mi">1</span><span class="p">,</span> <span class="mi">1</span><span class="p">],</span>
+                           <span class="p">[</span><span class="mi">1</span><span class="p">,</span><span class="o">-</span><span class="mi">1</span><span class="p">]])</span>
+<span class="n">sage</span><span class="p">:</span> <span class="n">P</span><span class="o">*</span><span class="n">S_x</span><span class="o">*</span><span class="n">P</span>
+
+<span class="p">[</span> <span class="mf">1.00000000000000</span>   <span class="mf">0.000000000000000</span><span class="p">]</span>
+<span class="p">[</span> <span class="mf">0.000000000000000</span> <span class="o">-</span><span class="mf">1.00000000000000</span> <span class="p">]</span>
+</pre></div>
+</div>
+<p><strong>Example 2.</strong></p>
+<p>The matrix <span class="math notranslate nohighlight">\(\ \boldsymbol{R}_\phi\ =\
+\left[\begin{array}{cc}
+\cos{\phi} &amp; -\sin{\phi} \\ \sin{\phi} &amp; \cos{\phi}
+\end{array}\right] \in M_2(C)\ \)</span>
+is real orthogonal, and thus unitary:</p>
+<div class="math notranslate nohighlight">
+\[\boldsymbol{R}_\phi^+\,\boldsymbol{R}_\phi\ =\
+\boldsymbol{R}_\phi^T\,\boldsymbol{R}_\phi\ =\
+\boldsymbol{I}_2.\]</div>
+<p>We will verify that:</p>
+<ul class="simple">
+<li><p>its eigenvalues are complex numbers of modulus 1,</p></li>
+<li><p>eigenvectors associated with distinct eigenvalues are orthogonal,</p></li>
+<li><p>algebraic multiplicity of every eigenvalue is equal to its geometric multiplicity,</p></li>
+<li><p>eigenvectors of the matrix <span class="math notranslate nohighlight">\(\ \boldsymbol{R}_\phi\ \)</span> comprise an orthonormal
+basis of the space <span class="math notranslate nohighlight">\(\,C^2,\)</span></p></li>
+<li><p>the matrix <span class="math notranslate nohighlight">\(\ \boldsymbol{R}_\phi\ \)</span> is diagonalizable by a unitary similarity transformation.</p></li>
+</ul>
+<p>If <span class="math notranslate nohighlight">\(\,\phi=0\ \)</span> or <span class="math notranslate nohighlight">\(\,\phi=\pi,\ \)</span>
+then the matrix <span class="math notranslate nohighlight">\(\ \boldsymbol{R}_\phi\ \)</span> is diagonal and equals
+<span class="math notranslate nohighlight">\(\,\boldsymbol{I}_2\ \)</span> or <span class="math notranslate nohighlight">\(\ -\,\boldsymbol{I}_2,\ \)</span> correspondingly.
+We will assume then that <span class="math notranslate nohighlight">\(\ \phi\neq 0,\,\pi.\)</span></p>
+<p>A unitary matrix diagonalizing the matrix <span class="math notranslate nohighlight">\(\ \boldsymbol{R}_\phi\ \)</span>
+is a transition matrix from the canonical basis <span class="math notranslate nohighlight">\(\,\mathcal{E}\,=\,
+(\boldsymbol{e}_1,\, \boldsymbol{e}_2)\ \)</span> of the space <span class="math notranslate nohighlight">\(\,C^2\ \)</span>
+to an orthonormal basis <span class="math notranslate nohighlight">\(\,\mathcal{F}\,=\,
+(\boldsymbol{f}_1,\boldsymbol{f}_2)\ \)</span> consisting of normalised eigenvectors
+of the matrix <span class="math notranslate nohighlight">\(\ \boldsymbol{R}_\phi.\)</span></p>
+<p>We solve an eigenproblem of the matrix <span class="math notranslate nohighlight">\(\ \boldsymbol{R}_\phi\ \)</span>
+and <span class="math notranslate nohighlight">\(\,\)</span> construct the basis <span class="math notranslate nohighlight">\(\,\mathcal{F}.\)</span></p>
+<p>The characteristic polynomial <span class="math notranslate nohighlight">\(\,w(\lambda)\,=\,
+\det(\boldsymbol{R}_\phi -\,\lambda\,\boldsymbol{I}_2)\ \)</span>
+is given by</p>
+<div class="math notranslate nohighlight">
+\[\begin{split}\begin{array}{rl}
+w(\lambda) \!\! &amp; =\ \ \left|\begin{array}{cc}
+\cos{\phi}-\lambda &amp; -\sin{\phi} \\ \sin{\phi} &amp; \cos{\phi}-\lambda
+\end{array}\right| \ =\ (\cos{\phi}-\lambda)^2\,+\ {\sin}^2\phi\ =
+\\[12pt]
+&amp; =\ \, {\cos}^2\phi - 2\,\lambda\,\cos{\phi}\ + \lambda^2 +\ {\sin}^2\phi\
+=\ 1\, -\, 2\,\lambda\,\cos{\phi}\ +\,\lambda^2.
+\end{array}\end{split}\]</div>
+<p>Eigenvalues of the matrix <span class="math notranslate nohighlight">\(\ \boldsymbol{R}_\phi\ \)</span>
+are roots of the characteristic equation <span class="math notranslate nohighlight">\(\,w(\lambda)=0:\)</span></p>
+<div class="math notranslate nohighlight">
+\[\begin{split}\begin{array}{rl}
+\vartriangleright
+&amp; \lambda^2\,-\ 2\,\cos{\phi}\cdot\lambda\ +\ 1\ =\ 0 \\[8pt]
+&amp; \Delta\ =\ 4\,{\cos}^2\phi\ -\ 4\
+         =\ -\ 4\,(1-{\cos}^2\phi)\
+         =\ -\ 4\,{\sin}^2\phi\,&lt;\,0\,; \\[8pt]
+&amp; \sqrt{\Delta}\ =\ \pm\,2\,i\,\sin{\phi}; \\[8pt]
+&amp; \lambda_{1,2}\ =\ \frac{1}{2}\ (2\,\cos{\phi}\,\pm\,2i\sin{\phi})\
+                 =\ \cos{\phi}\,\pm\,i\,\sin{\phi}\
+                 =\ e^{\ \pm\,i\,\phi}\,.
+\end{array}\end{split}\]</div>
+<p>We obtained two eigenvalues with algebraic multiplicities equal to 1:</p>
+<div class="math notranslate nohighlight">
+\[\blacktriangleright\quad
+\lambda_1\,=\ e^{\ +\,i\,\phi}\,,\qquad
+\lambda_2\,=\ e^{\ -\,i\,\phi}\,.\]</div>
+<p>We substitute these values to the equation</p>
+<div class="math notranslate nohighlight">
+\[(\boldsymbol{R}_\phi-\lambda\,\boldsymbol{I}_2)\ \boldsymbol{x}\ =
+\ \boldsymbol{0}\]</div>
+<p>in order to determine the associated eigenvectors <span class="math notranslate nohighlight">\(\ \boldsymbol{x}.\)</span></p>
+<p>For an eigenvalue <span class="math notranslate nohighlight">\(\ \lambda_1 =\,
+e^{\ +\,i\,\phi}\,=\,\cos{\phi}\,+\,i\,\sin{\phi}\ :\)</span></p>
+<div class="math notranslate nohighlight">
+\[ \begin{align}\begin{aligned}\begin{split}\left[\begin{array}{cc}
+-i\,\sin{\phi} &amp; -\sin{\phi} \\ \sin{\phi} &amp; -i\,\sin{\phi}
+\end{array}\right]
+\left[\begin{array}{c} x_1 \\ x_2 \end{array}\right] \ =\
+\left[\begin{array}{c} 0 \\ 0 \end{array}\right]\,;\end{split}\\\begin{split}\sin{\phi}\,\cdot\,
+\left[\begin{array}{cc} -i &amp; -1 \\ 1 &amp; -i \end{array}\right]
+\left[\begin{array}{c} x_1 \\ x_2 \end{array}\right] \ =\
+\left[\begin{array}{c} 0 \\ 0 \end{array}\right],\quad
+\text{where  }\sin{\phi}\neq 0\,;\end{split}\\\begin{split}\left[\begin{array}{cc} -i &amp; -1 \\ 1 &amp; -i \end{array}\right]
+\left[\begin{array}{c} x_1 \\ x_2 \end{array}\right] \ =\
+\left[\begin{array}{c} 0 \\ 0 \end{array}\right]
+\quad : \quad
+\begin{cases}\
+\begin{array}{r} -i\,x_1 - x_2 = 0 \\ x_1 - i\,x_2 = 0 \end{array}
+\end{cases}
+: \quad
+x_1=i\,x_2\end{split}\\\begin{split}\blacktriangleright\quad
+\left[\begin{array}{c} x_1 \\ x_2 \end{array}\right]\ =\
+\left[\begin{array}{r} i\,\alpha \\ \alpha \end{array}\right]\ =\
+\alpha\,\left[\begin{array}{r} i \\ 1 \end{array}\right],
+\quad\alpha\in C\setminus\{0\}.\end{split}\end{aligned}\end{align} \]</div>
+<p>For an eigenvalue <span class="math notranslate nohighlight">\(\ \lambda_2 =\,
+e^{\ -\,i\,\phi}\,=\,\cos{\phi}\,-\,i\,\sin{\phi}\ :\)</span></p>
+<div class="math notranslate nohighlight">
+\[ \begin{align}\begin{aligned}\begin{split}\left[\begin{array}{cc}
+i\,\sin{\phi} &amp; -\sin{\phi} \\ \sin{\phi} &amp; i\,\sin{\phi}
+\end{array}\right]
+\left[\begin{array}{c} x_1 \\ x_2 \end{array}\right] \ =\
+\left[\begin{array}{c} 0 \\ 0 \end{array}\right]\,;\end{split}\\\begin{split}\sin{\phi}\,\cdot\,
+\left[\begin{array}{cc} i &amp; -1 \\ 1 &amp; i \end{array}\right]
+\left[\begin{array}{c} x_1 \\ x_2 \end{array}\right] \ =\
+\left[\begin{array}{c} 0 \\ 0 \end{array}\right],\quad
+\text{where  }\sin{\phi}\neq 0\,;\end{split}\\\begin{split}\left[\begin{array}{cc} i &amp; -1 \\ 1 &amp; i \end{array}\right]
+\left[\begin{array}{c} x_1 \\ x_2 \end{array}\right] \ =\
+\left[\begin{array}{c} 0 \\ 0 \end{array}\right]
+\quad : \quad
+\begin{cases}\
+\begin{array}{r} i\,x_1 - x_2 = 0 \\ x_1 + i\,x_2 = 0 \end{array}
+\end{cases}
+: \quad
+x_2=i\,x_1\end{split}\\\begin{split}\blacktriangleright\quad
+\left[\begin{array}{c} x_1 \\ x_2 \end{array}\right]\ =\
+\left[\begin{array}{r} \beta \\ i\,\beta \end{array}\right]\ =\
+\beta\,\left[\begin{array}{r} 1 \\ i \end{array}\right],
+\quad\beta\in C\setminus\{0\}.\end{split}\end{aligned}\end{align} \]</div>
+<p>Note that the eigenvectors do not depend on the angle <span class="math notranslate nohighlight">\(\,\phi.\ \)</span>
+Geometric multiplicities of the eigenvalues
+<span class="math notranslate nohighlight">\(\ \lambda_1,\,\lambda_2\ \)</span> are equal to 1
+and agree with the algebraic multiplicities.</p>
+<p>Furthermore, any two vectors associated with distinct eigenvalues are orthogonal:</p>
+<div class="math notranslate nohighlight">
+\[\begin{split}\left\langle\
+\left[\begin{array}{c} i\,\alpha \\ \alpha \end{array}\right],\
+\left[\begin{array}{c} \beta \\ i\,\beta \end{array}\right]\
+\right\rangle\ =\
+-i\,\alpha^*\beta\,+\,\alpha^*\,i\,\beta\ =\ 0.\end{split}\]</div>
+<p>Hence, we may now construct an orthonormal basis <span class="math notranslate nohighlight">\(\ \mathcal{F}\ \)</span>
+of the space <span class="math notranslate nohighlight">\(\,C^2\ \)</span> consisting of normalized eigenvectors
+of the matrix <span class="math notranslate nohighlight">\(\ \boldsymbol{R}_\phi\ \)</span>
+associated with distinct eigenvalues:</p>
+<div class="math notranslate nohighlight">
+\[\begin{split}\mathcal{F}\ =\ (\,\boldsymbol{f}_1,\,\boldsymbol{f}_2\,),
+\quad\text{where}\quad
+\boldsymbol{f}_1\ =\
+\textstyle{\frac{1}{\sqrt{2}}}\,
+\left[\begin{array}{c} i \\ 1 \end{array}\right],\quad
+\boldsymbol{f}_2\ =\
+\textstyle{\frac{1}{\sqrt{2}}}\,
+\left[\begin{array}{c} 1 \\ i \end{array}\right]\,.\end{split}\]</div>
+<p>The transition matrix <span class="math notranslate nohighlight">\(\ \boldsymbol{P}\ \)</span>
+from the canonical basis <span class="math notranslate nohighlight">\(\ \mathcal{E}\ \)</span> to the basis <span class="math notranslate nohighlight">\(\ \mathcal{F}\ \)</span>,
+which we form from the columns <span class="math notranslate nohighlight">\(\ \boldsymbol{f}_1,\,\boldsymbol{f}_2:\)</span></p>
+<div class="math notranslate nohighlight">
+\[\begin{split}\boldsymbol{P}\ =\ [\ \boldsymbol{f}_1\ |\ \boldsymbol{f}_2\ ]\ =
+\textstyle{\frac{1}{\sqrt{2}}}\,\left[\begin{array}{cc}
+i &amp; 1 \\ 1 &amp; i \end{array}\right]\end{split}\]</div>
+<p>is unitary and diagonalizes the matrix <span class="math notranslate nohighlight">\(\ \boldsymbol{R}_\phi:\)</span></p>
+<div class="math notranslate nohighlight">
+\[\boldsymbol{P}^+\boldsymbol{P}\ =\ \boldsymbol{I}_2,\qquad
+\boldsymbol{P}^{-1}\boldsymbol{R}_\phi\,\boldsymbol{P}\ =\
+\text{diag}(e^{\ +\,i\,\phi},\,e^{\ -\,i\,\phi})\,.\]</div>
+<p>The matrix <span class="math notranslate nohighlight">\(\ \boldsymbol{R}_\phi\ \)</span> represents an operation of rotation
+of a vector on a plane by the angle <span class="math notranslate nohighlight">\(\,\phi.\ \)</span> This interpretation explains why,
+apart from the cases when <span class="math notranslate nohighlight">\(\,\phi=0,\,\pi\,,\)</span> the eigenvalues are imaginary and not real:
+a vector rotated by an angle <span class="math notranslate nohighlight">\(\,\phi\ \)</span>
+is not parallel to the initial vector. In this situation diagonalization
+of a real matrix <span class="math notranslate nohighlight">\(\ \boldsymbol{R}_\phi\ \)</span> requires a unitary non-real matrix
+<span class="math notranslate nohighlight">\(\ \boldsymbol{P}.\)</span></p>
+<p><strong>Example 3.</strong></p>
+<p>The matrix <span class="math notranslate nohighlight">\(\ \boldsymbol{A}\ =\
+\left[\begin{array}{ccc} 0 &amp; 1 &amp; 1 \\ 1 &amp; 0 &amp; 1 \\ 1 &amp; 1 &amp; 0 \end{array}\right]
+\in M_3(R)\ \)</span> is real and symmetric, and thus Hermitian.</p>
+<p>We will verify that:</p>
+<ul class="simple">
+<li><p>its eigenvalues are real,</p></li>
+<li><p>eigenvectors associated with distinct eigenvalues are orthogonal,</p></li>
+<li><p>algebraic multiplicity of every eigenvalue is equal to its geometric multiplicity,</p></li>
+<li><p>eigenvectors of the matrix <span class="math notranslate nohighlight">\(\ \boldsymbol{A}\ \)</span> comprise an orthonormal
+basis of the space <span class="math notranslate nohighlight">\(\,R^3,\)</span></p></li>
+<li><p>the matrix <span class="math notranslate nohighlight">\(\ \boldsymbol{A}\ \)</span> is diagonalizable by a real orthogonal similarity transformation.</p></li>
+</ul>
+<p>An orthogonal matrix which diagonalizes the matrix <span class="math notranslate nohighlight">\(\ \boldsymbol{A}\ \)</span>
+is a transition matrix from the canonical basis <span class="math notranslate nohighlight">\(\,\mathcal{E}\,\)</span>
+of the space <span class="math notranslate nohighlight">\(\,R^3\,\)</span> to an orthonormal basis <span class="math notranslate nohighlight">\(\,\mathcal{F}^0\,\)</span>
+consisting of normalized eigenvectors of this matrix.
+Hence, we have to solve an eigenproblem of the matrix <span class="math notranslate nohighlight">\(\ \boldsymbol{A}\ \)</span>
+and then construct an orthonormal basis consisting of its eigenvectors.</p>
+<p>The characteristic equation:</p>
+<div class="math notranslate nohighlight">
+\[\begin{split}\det{(\boldsymbol{A}-\lambda\,\boldsymbol{I}_n)}\ =
+\ \left|\begin{array}{ccc}
+-\lambda &amp; 1 &amp; 1 \\ 1 &amp; -\lambda &amp; 1 \\ 1 &amp; 1 &amp; -\lambda
+\end{array}\ \,\right|\ =
+\ -\lambda^3+3\,\lambda + 2\ =
+-(\lambda-2)(\lambda+1)^2\ =\ 0\end{split}\]</div>
+<p>provides the eigenvalues with their algebraic multiplicities:</p>
+<div class="math notranslate nohighlight">
+\[\lambda_1=\,2 \quad (1)\,,\qquad \lambda_2=\,-1 \quad (2)\,.\]</div>
+<p>In general, vectors <span class="math notranslate nohighlight">\(\,\boldsymbol{x}\,\)</span>
+associated with an eigenvalue <span class="math notranslate nohighlight">\(\,\lambda\,\)</span> may be determined from the equation</p>
+<div class="math notranslate nohighlight" id="equation-eigen-vector">
+<span class="eqno">(2)<a class="headerlink" href="#equation-eigen-vector" title="Permalink to this equation">¶</a></span>\[(\boldsymbol{A}-\lambda\,\boldsymbol{I}_n)\ \boldsymbol{x}\ =
+\ \boldsymbol{0}.\]</div>
+<p>For <span class="math notranslate nohighlight">\(\ \lambda\,=\,\lambda_1=\,2\ \)</span> the equation <a class="reference internal" href="#equation-eigen-vector">(2)</a>
+is of the form</p>
+<div class="math notranslate nohighlight">
+\[\begin{split}\left[\begin{array}{ccc}
+-2 &amp; 1 &amp; 1 \\ 1 &amp; -2 &amp; 1 \\ 1 &amp; 1 &amp; -2
+\end{array}\right]
+\left[\begin{array}{c} x_1 \\ x_2 \\ x_3 \end{array}\right]
+\ =\
+\left[\begin{array}{c} 0 \\ 0 \\ 0 \end{array}\right]\,.\end{split}\]</div>
+<p>The method <code class="docutils literal notranslate"><span class="pre">rref()</span></code> of Sage transforms matrix of this homogeneous linear problem
+to reduced row echelon form:</p>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="n">sage</span><span class="p">:</span> <span class="n">A</span> <span class="o">=</span> <span class="n">matrix</span><span class="p">(</span><span class="n">QQ</span><span class="p">,[[</span><span class="o">-</span><span class="mi">2</span><span class="p">,</span> <span class="mi">1</span><span class="p">,</span> <span class="mi">1</span><span class="p">],</span>
+                     <span class="p">[</span> <span class="mi">1</span><span class="p">,</span><span class="o">-</span><span class="mi">2</span><span class="p">,</span> <span class="mi">1</span><span class="p">],</span>
+                     <span class="p">[</span> <span class="mi">1</span><span class="p">,</span> <span class="mi">1</span><span class="p">,</span><span class="o">-</span><span class="mi">2</span><span class="p">]])</span>
+<span class="n">sage</span><span class="p">:</span> <span class="n">A</span><span class="o">.</span><span class="n">rref</span><span class="p">()</span>
+
+<span class="p">[</span> <span class="mi">1</span>  <span class="mi">0</span> <span class="o">-</span><span class="mi">1</span><span class="p">]</span>
+<span class="p">[</span> <span class="mi">0</span>  <span class="mi">1</span> <span class="o">-</span><span class="mi">1</span><span class="p">]</span>
+<span class="p">[</span> <span class="mi">0</span>  <span class="mi">0</span>  <span class="mi">0</span><span class="p">]</span>
+</pre></div>
+</div>
+<p>We obtain an equivalent linear problem</p>
+<div class="math notranslate nohighlight">
+\[\begin{split}\left[\begin{array}{ccc}
+1 &amp; 0 &amp; -1 \\ 0 &amp; 1 &amp; -1 \\ 0 &amp; 0 &amp; 0
+\end{array}\right]
+\left[\begin{array}{c} x_1 \\ x_2 \\ x_3 \end{array}\right]
+\ =\
+\left[\begin{array}{c} 0 \\ 0 \\ 0 \end{array}\right]\end{split}\]</div>
+<p>corresponding to a system of equations</p>
+<div class="math notranslate nohighlight">
+\begin{alignat*}{7}
+x_1 &amp; \  \ &amp;     &amp; \  - \ \ &amp; x_3 &amp; \  = \ \ &amp; 0 \\
+    &amp; \  \ &amp; x_2 &amp; \  - \ \ &amp; x_3 &amp; \  = \ \ &amp; 0
+\end{alignat*}</div><p>whose general solution is
+<span class="math notranslate nohighlight">\(\ x_1=x_2=x_3=\alpha, \ \ \alpha\in R.\ \)</span> <span class="math notranslate nohighlight">\(\\\)</span>
+Hence, the eigenvectors associated with the eigenvalue <span class="math notranslate nohighlight">\(\,\lambda_1=2\,\)</span> are of the form</p>
+<div class="math notranslate nohighlight">
+\[\begin{split}\boldsymbol{x}\ =\
+\left[\begin{array}{c}
+\alpha \\ \alpha \\ \alpha
+\end{array}\right]
+\ =\
+\alpha\ \left[\begin{array}{c} 1 \\ 1 \\ 1 \end{array}\right],
+\quad\alpha\in R\setminus\{0\}.\end{split}\]</div>
+<p>Geometric multiplicity of this eigenvalue is 1
+and agrees with the algebraic multiplicity.</p>
+<p>Substitution of <span class="math notranslate nohighlight">\(\ \lambda\,=\,\lambda_2=\,-1\ \)</span>
+to the equation <a class="reference internal" href="#equation-eigen-vector">(2)</a> gives</p>
+<div class="math notranslate nohighlight">
+\[\begin{split}\left[\begin{array}{ccc}
+1 &amp; 1 &amp; 1 \\ 1 &amp; 1 &amp; 1 \\ 1 &amp; 1 &amp; 1
+\end{array}\right]
+\left[\begin{array}{c} x_1 \\ x_2 \\ x_3 \end{array}\right]
+\ =\
+\left[\begin{array}{c} 0 \\ 0 \\ 0 \end{array}\right]\,.\end{split}\]</div>
+<p>The function <code class="docutils literal notranslate"><span class="pre">right_kernel_matrix()</span></code> of Sage returns a matrix
+whose rows comprise a basis for the solution space of a
+homogeneous linear problem. In our case we obtain</p>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="n">sage</span><span class="p">:</span> <span class="n">A</span> <span class="o">=</span> <span class="n">matrix</span><span class="p">(</span><span class="n">QQ</span><span class="p">,[[</span><span class="mi">1</span><span class="p">,</span> <span class="mi">1</span><span class="p">,</span> <span class="mi">1</span><span class="p">],</span>
+                     <span class="p">[</span><span class="mi">1</span><span class="p">,</span> <span class="mi">1</span><span class="p">,</span> <span class="mi">1</span><span class="p">],</span>
+                     <span class="p">[</span><span class="mi">1</span><span class="p">,</span> <span class="mi">1</span><span class="p">,</span> <span class="mi">1</span><span class="p">]])</span>
+
+<span class="n">sage</span><span class="p">:</span> <span class="n">A</span><span class="o">.</span><span class="n">right_kernel_matrix</span><span class="p">()</span>
+
+<span class="p">[</span> <span class="mi">1</span>  <span class="mi">0</span> <span class="o">-</span><span class="mi">1</span><span class="p">]</span>
+<span class="p">[</span> <span class="mi">0</span>  <span class="mi">1</span> <span class="o">-</span><span class="mi">1</span><span class="p">]</span>
+</pre></div>
+</div>
+<p>Hence, the eigenvectors associated with the eigenvalue <span class="math notranslate nohighlight">\(\ \lambda_2\,=-1\ \)</span> are of the form</p>
+<div class="math notranslate nohighlight">
+\[\begin{split}\boldsymbol{x}\ =\
+\alpha\ \,\left[\begin{array}{r} 1 \\ 0 \\ -1 \end{array}\right]\ +\
+\beta \ \,\left[\begin{array}{r} 0 \\ 1 \\ -1 \end{array}\right]\ =\
+\left[\begin{array}{c}
+\alpha \\ \beta \\ -\alpha-\beta
+\end{array}\right]\,,
+\quad\alpha,\beta\in R,\ \ \alpha^2+\,\beta^2&gt;0.\end{split}\]</div>
+<p>Geometric multiplicity of this eigenvalue is 2
+and agrees with the algebraic multiplicity.</p>
+<p>Note that eigenvectors associated with distinct eigenvalues are orthogonal:</p>
+<div class="math notranslate nohighlight">
+\[\begin{split}\left\langle\ \
+\left[\begin{array}{c} \alpha \\ \alpha \\ \alpha \end{array}\right],\
+\left[\begin{array}{c}
+\beta \\ \gamma \\ -\,\beta-\gamma
+\end{array}\right]\ \
+\right\rangle\ \ =\ \
+\alpha\beta\,+\,\alpha\gamma\,+\,\alpha\,(-\,\beta-\gamma)\ =\ 0\,.\end{split}\]</div>
+<p>Denote three linearly independent eigenvectors of the matrix
+<span class="math notranslate nohighlight">\(\ \boldsymbol{A}\ \)</span> as:</p>
+<div class="math notranslate nohighlight">
+\[\begin{split}\boldsymbol{g}_1\,=\
+\left[\begin{array}{c} 1 \\ 1 \\ 1 \end{array}\right],\quad
+\boldsymbol{g}_2\,=\
+\left[\begin{array}{r} 1 \\ 0 \\ -1 \end{array}\right],\quad
+\boldsymbol{g}_3\,=\
+\left[\begin{array}{r} 0 \\ 1 \\ -1 \end{array}\right],\end{split}\]</div>
+<p>so that <span class="math notranslate nohighlight">\(\,\mathcal{G}=
+(\boldsymbol{g}_1,\boldsymbol{g}_2,\boldsymbol{g}_3)\ \)</span> is a basis of the space
+<span class="math notranslate nohighlight">\(\,R^3.\ \)</span></p>
+<p>Matrix <span class="math notranslate nohighlight">\(\ \boldsymbol{P}\,=\,
+[\ \boldsymbol{g}_1\,|\,\boldsymbol{g}_2\,|\,\boldsymbol{g}_3\ ]\ =\
+\left[\begin{array}{rrr}
+1 &amp; 1 &amp; 0 \\ 1 &amp; 0 &amp; 1 \\ 1 &amp; -1 &amp; -1
+\end{array}\right]\ \)</span> diagonalizes the matrix <span class="math notranslate nohighlight">\(\ \boldsymbol{A}:\)</span></p>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="n">sage</span><span class="p">:</span> <span class="n">A</span> <span class="o">=</span> <span class="n">matrix</span><span class="p">(</span><span class="n">QQ</span><span class="p">,[[</span><span class="mi">0</span><span class="p">,</span> <span class="mi">1</span><span class="p">,</span> <span class="mi">1</span><span class="p">],</span>
+                     <span class="p">[</span><span class="mi">1</span><span class="p">,</span> <span class="mi">0</span><span class="p">,</span> <span class="mi">1</span><span class="p">],</span>
+                     <span class="p">[</span><span class="mi">1</span><span class="p">,</span> <span class="mi">1</span><span class="p">,</span> <span class="mi">0</span><span class="p">]])</span>
+
+<span class="n">sage</span><span class="p">:</span> <span class="n">P</span> <span class="o">=</span> <span class="n">matrix</span><span class="p">(</span><span class="n">QQ</span><span class="p">,[[</span><span class="mi">1</span><span class="p">,</span> <span class="mi">1</span><span class="p">,</span> <span class="mi">0</span><span class="p">],</span>
+                     <span class="p">[</span><span class="mi">1</span><span class="p">,</span> <span class="mi">0</span><span class="p">,</span> <span class="mi">1</span><span class="p">],</span>
+                     <span class="p">[</span><span class="mi">1</span><span class="p">,</span><span class="o">-</span><span class="mi">1</span><span class="p">,</span><span class="o">-</span><span class="mi">1</span><span class="p">]])</span>
+<span class="n">sage</span><span class="p">:</span> <span class="n">P</span><span class="o">.</span><span class="n">I</span><span class="o">*</span><span class="n">A</span><span class="o">*</span><span class="n">P</span>
+
+<span class="p">[</span> <span class="mi">2</span>  <span class="mi">0</span>  <span class="mi">0</span><span class="p">]</span>
+<span class="p">[</span> <span class="mi">0</span> <span class="o">-</span><span class="mi">1</span>  <span class="mi">0</span><span class="p">]</span>
+<span class="p">[</span> <span class="mi">0</span>  <span class="mi">0</span> <span class="o">-</span><span class="mi">1</span><span class="p">]</span>
+</pre></div>
+</div>
+<p>The matrix <span class="math notranslate nohighlight">\(\ \boldsymbol{P}\ \)</span> is not orthogonal because the inner product
+<span class="math notranslate nohighlight">\(\ \langle\boldsymbol{g}_2,\boldsymbol{g}_3\rangle = 1 \neq 0.\)</span>
+To construct an orthogonal basis
+<span class="math notranslate nohighlight">\(\ \mathcal{F}=(\boldsymbol{f}_1,\boldsymbol{f}_2,\boldsymbol{f}_3)\)</span>,
+and later an orthonormal basis <span class="math notranslate nohighlight">\(\ \mathcal{F}^0=
+(\boldsymbol{f}_1^0,\boldsymbol{f}_2^0,\boldsymbol{f}_3^0)\)</span>, we have to apply the Gram-Schmidt ortogonalization process. Put</p>
+<div class="math notranslate nohighlight">
+\[\begin{split}\boldsymbol{f}_1=\,\boldsymbol{g}_1=\,
+\left[\begin{array}{c} 1 \\ 1 \\ 1 \end{array}\right],\quad
+\boldsymbol{f}_2=\,\boldsymbol{g}_2=\,
+\left[\begin{array}{r} 1 \\ 0 \\ -1 \end{array}\right],\quad
+\boldsymbol{f}_3=\,\boldsymbol{g}_3+\eta\,\boldsymbol{f}_2=\,
+\left[\begin{array}{c} \eta \\ 1 \\ -1-\eta \end{array}\right],\end{split}\]</div>
+<p>where <span class="math notranslate nohighlight">\(\,\eta\,\)</span> may be determined from the orthogonality condition
+<span class="math notranslate nohighlight">\(\ \langle\boldsymbol{f}_2,\boldsymbol{f}_3\rangle\,=\,2\eta+1\,=\,0,\ \)</span>
+so that</p>
+<div class="math notranslate nohighlight">
+\[\begin{split}\eta = - \textstyle\frac{1}{2}\,,\qquad
+\boldsymbol{f}_3\ =\
+\left[\begin{array}{r} -\frac{1}{2} \\ 1 \\ -\frac{1}{2} \end{array}\right]
+\ =\ -\frac{1}{2}\ \left[\begin{array}{r} 1 \\ -2 \\ 1 \end{array}\right]
+\ \ \sim\ \ \left[\begin{array}{r} 1 \\ -2 \\ 1 \end{array}\right]\,.\end{split}\]</div>
+<p>Hence, the orthogonal basis <span class="math notranslate nohighlight">\(\ \mathcal{F}\ \)</span> consists of eigenvectors</p>
+<div class="math notranslate nohighlight">
+\[\begin{split}\boldsymbol{f}_1\,=\
+\left[\begin{array}{c} 1 \\ 1 \\ 1 \end{array}\right],\quad
+\boldsymbol{f}_2\,=\
+\left[\begin{array}{r} 1 \\ 0 \\ -1 \end{array}\right],\quad
+\boldsymbol{f}_3\,=\
+\left[\begin{array}{r} 1 \\ -2 \\ 1 \end{array}\right]\,,\end{split}\]</div>
+<p>and the orthonormal basis <span class="math notranslate nohighlight">\(\ \mathcal{F}^0\ \)</span> may be obtained by dividing
+each vector by its norm:</p>
+<div class="math notranslate nohighlight">
+\[\begin{split}\boldsymbol{f}_1^0\,=\ \textstyle{\frac{1}{\sqrt{3}}}
+\left[\begin{array}{c} 1 \\ 1 \\ 1 \end{array}\right],\quad
+\boldsymbol{f}_2\,=\ \textstyle{\frac{1}{\sqrt{2}}}
+\left[\begin{array}{r} 1 \\ 0 \\ -1 \end{array}\right],\quad
+\boldsymbol{f}_3\,=\ \textstyle{\frac{1}{\sqrt{6}}}
+\left[\begin{array}{r} 1 \\ -2 \\ 1 \end{array}\right]\,.\end{split}\]</div>
+<p>The column vectors
+<span class="math notranslate nohighlight">\(\ \boldsymbol{f}_1^0,\,\boldsymbol{f}_2^0,\boldsymbol{f}_3^0\ \)</span>
+comprise an orthogonal transition matrix <span class="math notranslate nohighlight">\(\ \boldsymbol{P}^0\ \)</span>
+from the canonical basis <span class="math notranslate nohighlight">\(\,\mathcal{E}\,\)</span> to the basis <span class="math notranslate nohighlight">\(\ \mathcal{F}^0\ \)</span>
+of the space <span class="math notranslate nohighlight">\(\,R^3.\ \)</span> This is the matrix which diagonalizes the matrix
+<span class="math notranslate nohighlight">\(\,\boldsymbol{A}\,\)</span> by an orthogonal similarity transformation:</p>
+<div class="math notranslate nohighlight">
+\[\begin{split}\boldsymbol{P}^0\ =\ \,\textstyle
+\left[\begin{array}{rrr}
+\frac{1}{\sqrt{3}} &amp;  \frac{1}{\sqrt{2}}   &amp;    \frac{1}{\sqrt{6}} \\ \\
+\frac{1}{\sqrt{3}} &amp;  0                    &amp; -\,\frac{2}{\sqrt{6}} \\ \\
+\frac{1}{\sqrt{3}} &amp; -\,\frac{1}{\sqrt{2}} &amp;    \frac{1}{\sqrt{6}}
+\end{array}\right]\,.\end{split}\]</div>
+<p>Numerical verification:</p>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="n">sage</span><span class="p">:</span> <span class="n">P0</span> <span class="o">=</span> <span class="n">matrix</span><span class="p">(</span><span class="n">RR</span><span class="p">,[[</span><span class="mi">1</span><span class="o">/</span><span class="n">sqrt</span><span class="p">(</span><span class="mi">3</span><span class="p">),</span> <span class="mi">1</span><span class="o">/</span><span class="n">sqrt</span><span class="p">(</span><span class="mi">2</span><span class="p">),</span> <span class="mi">1</span><span class="o">/</span><span class="n">sqrt</span><span class="p">(</span><span class="mi">6</span><span class="p">)],</span>
+                      <span class="p">[</span><span class="mi">1</span><span class="o">/</span><span class="n">sqrt</span><span class="p">(</span><span class="mi">3</span><span class="p">),</span> <span class="mi">0</span><span class="p">,</span>        <span class="o">-</span><span class="mi">2</span><span class="o">/</span><span class="n">sqrt</span><span class="p">(</span><span class="mi">6</span><span class="p">)],</span>
+                      <span class="p">[</span><span class="mi">1</span><span class="o">/</span><span class="n">sqrt</span><span class="p">(</span><span class="mi">3</span><span class="p">),</span><span class="o">-</span><span class="mi">1</span><span class="o">/</span><span class="n">sqrt</span><span class="p">(</span><span class="mi">2</span><span class="p">),</span> <span class="mi">1</span><span class="o">/</span><span class="n">sqrt</span><span class="p">(</span><span class="mi">6</span><span class="p">)]])</span>
+
+<span class="n">sage</span><span class="p">:</span> <span class="n">P0</span><span class="o">.</span><span class="n">T</span><span class="o">*</span><span class="n">P0</span><span class="o">.</span><span class="n">n</span><span class="p">(</span><span class="n">digits</span><span class="o">=</span><span class="mi">4</span><span class="p">)</span>
+
+<span class="p">[</span><span class="mf">1.000</span>  <span class="mf">0.0000</span> <span class="mf">0.0000</span><span class="p">]</span>
+<span class="p">[</span><span class="mf">0.0000</span> <span class="mf">1.000</span>  <span class="mf">0.0000</span><span class="p">]</span>
+<span class="p">[</span><span class="mf">0.0000</span> <span class="mf">0.0000</span> <span class="mf">1.000</span> <span class="p">]</span>
+</pre></div>
+</div>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="n">sage</span><span class="p">:</span> <span class="n">A</span> <span class="o">=</span> <span class="n">matrix</span><span class="p">(</span><span class="n">RR</span><span class="p">,[[</span><span class="mi">0</span><span class="p">,</span> <span class="mi">1</span><span class="p">,</span> <span class="mi">1</span><span class="p">],</span>
+                     <span class="p">[</span><span class="mi">1</span><span class="p">,</span> <span class="mi">0</span><span class="p">,</span> <span class="mi">1</span><span class="p">],</span>
+                     <span class="p">[</span><span class="mi">1</span><span class="p">,</span> <span class="mi">1</span><span class="p">,</span> <span class="mi">0</span><span class="p">]])</span>
+
+<span class="n">sage</span><span class="p">:</span> <span class="n">P0</span> <span class="o">=</span> <span class="n">matrix</span><span class="p">(</span><span class="n">RR</span><span class="p">,[[</span><span class="mi">1</span><span class="o">/</span><span class="n">sqrt</span><span class="p">(</span><span class="mi">3</span><span class="p">),</span> <span class="mi">1</span><span class="o">/</span><span class="n">sqrt</span><span class="p">(</span><span class="mi">2</span><span class="p">),</span> <span class="mi">1</span><span class="o">/</span><span class="n">sqrt</span><span class="p">(</span><span class="mi">6</span><span class="p">)],</span>
+                      <span class="p">[</span><span class="mi">1</span><span class="o">/</span><span class="n">sqrt</span><span class="p">(</span><span class="mi">3</span><span class="p">),</span> <span class="mi">0</span><span class="p">,</span>        <span class="o">-</span><span class="mi">2</span><span class="o">/</span><span class="n">sqrt</span><span class="p">(</span><span class="mi">6</span><span class="p">)],</span>
+                      <span class="p">[</span><span class="mi">1</span><span class="o">/</span><span class="n">sqrt</span><span class="p">(</span><span class="mi">3</span><span class="p">),</span><span class="o">-</span><span class="mi">1</span><span class="o">/</span><span class="n">sqrt</span><span class="p">(</span><span class="mi">2</span><span class="p">),</span> <span class="mi">1</span><span class="o">/</span><span class="n">sqrt</span><span class="p">(</span><span class="mi">6</span><span class="p">)]])</span>
+
+<span class="n">sage</span><span class="p">:</span> <span class="n">P0</span><span class="o">.</span><span class="n">I</span><span class="o">*</span><span class="n">A</span><span class="o">*</span><span class="n">P0</span><span class="o">.</span><span class="n">n</span><span class="p">(</span><span class="n">digits</span><span class="o">=</span><span class="mi">4</span><span class="p">)</span>
+
+<span class="p">[</span><span class="mf">2.000</span>   <span class="mf">0.0000</span>  <span class="mf">0.0000</span><span class="p">]</span>
+<span class="p">[</span><span class="mf">0.0000</span> <span class="o">-</span><span class="mf">1.000</span>   <span class="mf">0.0000</span><span class="p">]</span>
+<span class="p">[</span><span class="mf">0.0000</span>  <span class="mf">0.0000</span> <span class="o">-</span><span class="mf">1.000</span> <span class="p">]</span>
+</pre></div>
+</div>
+</section>
+
+
+          </div>
+        </div>
+      </div>
+      <div class="sphinxsidebar" role="navigation" aria-label="main navigation">
+        <div class="sphinxsidebarwrapper">
+  <h4>Previous topic</h4>
+  <p class="topless"><a href="diagonalizacja_macierzy.html"
+                        title="previous chapter">Diagonalization by a Similarity Transformation</a></p>
+  <h4>Next topic</h4>
+  <p class="topless"><a href="diagonalizacja_zadania.html"
+                        title="next chapter">Matrix Diagonalization - Problems</a></p>
+  <div role="note" aria-label="source link">
+    <h3>This Page</h3>
+    <ul class="this-page-menu">
+      <li><a href="_sources/diagonalizacja_przyklady.rst.txt"
+            rel="nofollow">Show Source</a></li>
+    </ul>
+   </div>
+<div id="searchbox" style="display: none" role="search">
+  <h3 id="searchlabel">Quick search</h3>
+    <div class="searchformwrapper">
+    <form class="search" action="search.html" method="get">
+      <input type="text" name="q" aria-labelledby="searchlabel" />
+      <input type="submit" value="Go" />
+    </form>
+    </div>
+</div>
+<script>$('#searchbox').show(0);</script>
+        </div>
+      </div>
+      <div class="clearer"></div>
+    </div>
+  </div>
+  <div class="relbar-bottom">
+    
+    <div class="related" role="navigation" aria-label="related navigation">
+      <h3>Navigation</h3>
+      <ul>
+        <li class="right" style="margin-right: 10px">
+          <a href="genindex.html" title="General Index"
+             >index</a></li>
+        <li class="right" >
+          <a href="diagonalizacja_zadania.html" title="Matrix Diagonalization - Problems"
+             >next</a> &nbsp; &nbsp;</li>
+        <li class="right" >
+          <a href="diagonalizacja_macierzy.html" title="Diagonalization by a Similarity Transformation"
+             >previous</a> &nbsp; &nbsp;</li>
+  <li><a href="index.html">Linear Algebra</a> &#187;</li>
+  
+        <li class="nav-item nav-item-this"><a href="">Matrix Diagonalization - Examples</a></li> 
+      </ul>
+    </div>
+  </div>
+  
+  <div class="footer">
+    <a class="logo" href="http://icse.us.edu.pl/" target="_blank"><img src="_static/logo-icse.png" alt="ICSE"/></a><br/>
+    &copy; Copyright 2018, Jan Aksamit, Joanna Marzec, and  Marcin Kostur.
+    Last updated on Jan 29, 2022.
+    Created using <a href="http://sphinx.pocoo.org/">Sphinx</a> 4.0.1.
+  </div>
+  </body>
+</html>

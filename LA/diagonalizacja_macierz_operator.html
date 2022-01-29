@@ -1,0 +1,382 @@
+
+
+  
+<!DOCTYPE html>
+
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" /><meta name="generator" content="Docutils 0.17: http://docutils.sourceforge.net/" />
+
+    <title>Square Matrix as a Linear Operator &#8212; Linear Algebra</title>
+    <link rel="stylesheet" type="text/css" href="_static/pygments.css" />
+    <link rel="stylesheet" type="text/css" href="_static/cloud.css" />
+    <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Noticia+Text|Open+Sans|Droid+Sans+Mono&amp;subset=latin,latin-ext" type="text/css" />
+    <script data-url_root="./" id="documentation_options" src="_static/documentation_options.js"></script>
+    <script src="_static/jquery.js"></script>
+    <script src="_static/underscore.js"></script>
+    <script src="_static/doctools.js"></script>
+    <script async="async" src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js"></script>
+    <script src="_static/jquery.cookie.js"></script>
+    <script src="_static/cloud.js"></script>
+    <script type="text/javascript" src="http://sagecell.sagemath.org/static/jquery.min.js"></script>
+    <script type="text/javascript" src="http://sagecell.sagemath.org/embedded_sagecell.js"></script>
+    <script type="text/javascript">
+        sagecell.makeSagecell({inputLocation: ".sage_linked",
+                               linked: true});
+        sagecell.makeSagecell({inputLocation: ".sage_unlinked",
+                               linked: false});
+    </script>
+
+    <style type="text/css">
+        .sagecell .CodeMirror-scroll {
+            overflow-y: hidden;
+            overflow-x: auto;
+        }
+        .sagecell .CodeMirror {
+            height: auto;
+        }
+    </style>
+    
+    <link rel="index" title="Index" href="genindex.html" />
+    <link rel="search" title="Search" href="search.html" />
+    <link rel="next" title="Similarity Transformation" href="diagonalizacja_podobienstwo.html" />
+    <link rel="prev" title="Problems" href="p_unitarne_zadania.html" />
+ 
+  <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, minimum-scale=1">
+  </head><body>
+  <div class="relbar-top">
+    
+    <div class="related" role="navigation" aria-label="related navigation">
+      <h3>Navigation</h3>
+      <ul>
+        <li class="right" style="margin-right: 10px">
+          <a href="genindex.html" title="General Index"
+             accesskey="I">index</a></li>
+        <li class="right" >
+          <a href="diagonalizacja_podobienstwo.html" title="Similarity Transformation"
+             accesskey="N">next</a> &nbsp; &nbsp;</li>
+        <li class="right" >
+          <a href="p_unitarne_zadania.html" title="Problems"
+             accesskey="P">previous</a> &nbsp; &nbsp;</li>
+  <li><a href="index.html">Linear Algebra</a> &#187;</li>
+  
+        <li class="nav-item nav-item-this"><a href="">Square Matrix as a Linear Operator</a></li> 
+      </ul>
+    </div>
+  </div>
+  
+  <div class="content">  
+
+    <div class="document">
+      <div class="documentwrapper">
+        <div class="bodywrapper">
+          <div class="body">
+            
+  <section id="square-matrix-as-a-linear-operator">
+<h1>Square Matrix as a Linear Operator<a class="headerlink" href="#square-matrix-as-a-linear-operator" title="Permalink to this headline">¶</a></h1>
+<p>For a given matrix <span class="math notranslate nohighlight">\(\,\boldsymbol{A}\,\in M_n(C)\,\)</span>
+we define a mapping</p>
+<div class="math notranslate nohighlight" id="equation-transf">
+<span class="eqno">(1)<a class="headerlink" href="#equation-transf" title="Permalink to this equation">¶</a></span>\[F:\quad C^n \ni \,\boldsymbol{x} \ \,\to\ \, F(\boldsymbol{x})\,:\,=\,
+\boldsymbol{A}\,\boldsymbol{x} \,\in\, C^n\,.\]</div>
+<p>More precisely, <span class="math notranslate nohighlight">\(\,\)</span> if <span class="math notranslate nohighlight">\(\ \ \boldsymbol{A}=
+[\,\boldsymbol{A}_1\,|\,\boldsymbol{A}_2\,|\,\ldots\,|\,\boldsymbol{A}_n\,]=
+[a_{ij}]_{n\times n}\,,\ \ \boldsymbol{x}\ =\ [x_{i}]_n\,,\ \)</span> then</p>
+<div class="math notranslate nohighlight">
+\[\begin{split}F\ \left[\begin{array}{c}
+         x_{1} \\ x_{2} \\ \ldots \\ x_{n}
+         \end{array}\right]\ =
+\ \left[\begin{array}{cccc}
+        a_{11} &amp; a_{12} &amp; \ldots &amp; a_{1n} \\
+        a_{21} &amp; a_{22} &amp; \ldots &amp; a_{2n} \\
+        \ldots &amp; \ldots &amp; \ldots &amp; \ldots \\
+        a_{n1} &amp; a_{n2} &amp; \ldots &amp; a_{nn}
+        \end{array}\right]\
+\left[\begin{array}{c}
+      x_{1} \\ x_{2} \\ \ldots \\ x_{n}
+      \end{array}\right]\,.\end{split}\]</div>
+<p>We take a simplified notation for an image of a vector
+<span class="math notranslate nohighlight">\(\,\boldsymbol{x}\,\)</span> under the mapping <span class="math notranslate nohighlight">\(\,F\)</span>:</p>
+<div class="math notranslate nohighlight">
+\[F(\boldsymbol{x})\rightarrow F\boldsymbol{x}\,.\]</div>
+<p><strong>Theorem 0.</strong> <span class="math notranslate nohighlight">\(\\ \ \)</span>
+The mapping <a class="reference internal" href="#equation-transf">(1)</a> is a linear operator on the space
+<span class="math notranslate nohighlight">\(\,C^n\,\)</span>: <span class="math notranslate nohighlight">\(\ \ F\in\text{End}\,(C^n)\)</span>.</p>
+<p><strong>Proof.</strong> <span class="math notranslate nohighlight">\(\\\)</span>
+Linearity of the mapping <span class="math notranslate nohighlight">\(F\)</span> is a consequence of matrix multiplication:</p>
+<div class="math notranslate nohighlight">
+\[ \begin{align}\begin{aligned}F(\boldsymbol{x}+\boldsymbol{y})\ =\
+\boldsymbol{A}\,(\boldsymbol{x}+\boldsymbol{y})\ =\
+\boldsymbol{A}\,\boldsymbol{x}\ +\ \boldsymbol{A}\,\boldsymbol{y}\ =\
+F(\boldsymbol{x})\, +\, F(\boldsymbol{y})\,,\\F(\lambda\,\boldsymbol{x})\ =\
+\boldsymbol{A}\,(\lambda\,\boldsymbol{x})\ =\
+\lambda\ (\boldsymbol{A}\,\boldsymbol{x})\ =\
+\lambda\ F(\boldsymbol{x})\,,
+\quad \boldsymbol{x},\boldsymbol{y}\,\in C^n,\ \ \lambda \in C.\end{aligned}\end{align} \]</div>
+<p><strong>Theorem 1.</strong> <span class="math notranslate nohighlight">\(\\ \ \)</span>
+<span class="math notranslate nohighlight">\(\boldsymbol{A}\,\)</span> is a matrix of the operator <span class="math notranslate nohighlight">\(\,F\,\)</span>
+in the canonical basis <span class="math notranslate nohighlight">\(\,\mathcal{E}\,\)</span> of the space <span class="math notranslate nohighlight">\(\,C^n :\)</span>
+<span class="math notranslate nohighlight">\(\ \boldsymbol{A}\,=\,M_{\mathcal{E}}(F)\)</span>.</p>
+<p><strong>Proof.</strong> <span class="math notranslate nohighlight">\(\\\)</span>
+Let <span class="math notranslate nohighlight">\(\,\mathcal{E}\,=\,(\boldsymbol{e}_1,\,
+\boldsymbol{e}_2,\,\dots,\,\boldsymbol{e}_n)\,\)</span> be the canonical basis
+of the space <span class="math notranslate nohighlight">\(\,C^n.\ \)</span> Then</p>
+<div class="math notranslate nohighlight">
+\[\begin{split}\begin{array}{rl}
+M_{\mathcal{E}}(F) \!\!\!
+&amp; =\ \ [\ F(\boldsymbol{e}_1)\ |\ F(\boldsymbol{e}_2)\ |
+\ \ldots\,|\ F(\boldsymbol{e}_n)\,]\ \ = \\
+&amp; =\ \ [\ \boldsymbol{A}\boldsymbol{e}_1\,|
+\ \boldsymbol{A}\boldsymbol{e}_2\,|
+\,\ldots\,|\ \boldsymbol{A}\boldsymbol{e}_n\,]\ \ = \\
+&amp; = \ \ [\ \boldsymbol{A}_1\,|\ \boldsymbol{A}_2\,|
+\ \ldots\,|\ \boldsymbol{A}_n\,]\ \ =\ \ \boldsymbol{A}\,.
+\end{array}\end{split}\]</div>
+<p><strong>Theorem 2.</strong> <span class="math notranslate nohighlight">\(\\ \ \)</span>
+Eigenvalues of the operator <span class="math notranslate nohighlight">\(\,F\,\)</span> are roots of the characteristic
+equation of the matrix <span class="math notranslate nohighlight">\(\boldsymbol{A}.\)</span></p>
+<p><strong>Proof.</strong> <span class="math notranslate nohighlight">\(\\\)</span>
+A vector <span class="math notranslate nohighlight">\(\,\boldsymbol{x} \in C^n\setminus\{\boldsymbol{0}\}\,\)</span>
+is an eigenvector of the operator <span class="math notranslate nohighlight">\(\,F\,\)</span> associated with the eigenvalue
+<span class="math notranslate nohighlight">\(\,\lambda \in C\)</span> <span class="math notranslate nohighlight">\(\,\)</span> if</p>
+<div class="math notranslate nohighlight" id="equation-eigen-1">
+<span class="eqno">(2)<a class="headerlink" href="#equation-eigen-1" title="Permalink to this equation">¶</a></span>\[ \begin{align}\begin{aligned}\begin{split}\begin{array}{rc}
+&amp; F(\boldsymbol{x})\,=\,\lambda\,\boldsymbol{x}, \\
+\text{that is} &amp; \boldsymbol{A}\,\boldsymbol{x} = \lambda\,\boldsymbol{x}\,,
+\end{array}\end{split}\\(\boldsymbol{A}-\lambda\,\boldsymbol{I}_n)\ \boldsymbol{x}\ =\
+\boldsymbol{0}\,.\end{aligned}\end{align} \]</div>
+<p>The homogeneous linear problem <a class="reference internal" href="#equation-eigen-1">(2)</a> has a non-zero solution
+<span class="math notranslate nohighlight">\(\,\boldsymbol{x}\,\)</span> if and only if <span class="math notranslate nohighlight">\(\\\)</span>
+<span class="math notranslate nohighlight">\(\ \det{(\boldsymbol{A}-\lambda\,\boldsymbol{I}_n)}\ =\ 0\,,\ \)</span>
+that is, if <span class="math notranslate nohighlight">\(\,\lambda\,\)</span> is a characteristic root of the matrix <span class="math notranslate nohighlight">\(\,\boldsymbol{A}\)</span>.</p>
+<p>Numbers <span class="math notranslate nohighlight">\(\,\lambda\,\)</span> and the associated non-zero vectors
+<span class="math notranslate nohighlight">\(\,\boldsymbol{x}\,\)</span> determined by the equation <a class="reference internal" href="#equation-eigen-1">(2)</a>
+will be called eigenvalues and eigenvectors of the matrix
+<span class="math notranslate nohighlight">\(\,\boldsymbol{A}\)</span>.</p>
+<p>Hence, a vector <span class="math notranslate nohighlight">\(\,\boldsymbol{x} \in C^n\,\)</span> is an eigenvector
+of the matrix <span class="math notranslate nohighlight">\(\,\boldsymbol{A} \in M_n(C)\ \)</span> associated with an eigenvalue
+<span class="math notranslate nohighlight">\(\,\lambda \in C\ \)</span> if <span class="math notranslate nohighlight">\(\,\boldsymbol{x}\neq\boldsymbol{0}\ \ \)</span>
+and <span class="math notranslate nohighlight">\(\ \ \boldsymbol{A}\,\boldsymbol{x} = \lambda\,\boldsymbol{x}\)</span>.</p>
+<p><strong>Theorem 3.</strong></p>
+<ol class="arabic">
+<li><p><span class="math notranslate nohighlight">\(\ \)</span> If <span class="math notranslate nohighlight">\(\boldsymbol{A}\,\)</span> is a Hermitian matrix,
+<span class="math notranslate nohighlight">\(\ \)</span> then <span class="math notranslate nohighlight">\(\,F\,\)</span> is a Hermitian operator:</p>
+<div class="math notranslate nohighlight">
+\[\boldsymbol{A}^+=\ \boldsymbol{A}\quad\Rightarrow\quad F^+=\ F\,.\]</div>
+</li>
+<li><p><span class="math notranslate nohighlight">\(\ \)</span> If <span class="math notranslate nohighlight">\(\boldsymbol{A}\,\)</span> is a unitary matrix,
+<span class="math notranslate nohighlight">\(\ \)</span> then <span class="math notranslate nohighlight">\(\,F\,\)</span> is a unitary operator:</p>
+<div class="math notranslate nohighlight">
+\[\boldsymbol{A}^+\boldsymbol{A}\,=\,\boldsymbol{I}_n
+\quad\Rightarrow\quad F^+F\,=\,I\,,\]</div>
+<p>(<span class="math notranslate nohighlight">\(I\ \)</span> the identity operator on the space <span class="math notranslate nohighlight">\(\ C^n\)</span>).</p>
+</li>
+<li><p><span class="math notranslate nohighlight">\(\ \)</span> If <span class="math notranslate nohighlight">\(\boldsymbol{A}\,\)</span> is a normal matrix,
+<span class="math notranslate nohighlight">\(\ \)</span> then <span class="math notranslate nohighlight">\(\,F\,\)</span> is a normal operator:</p>
+<div class="math notranslate nohighlight">
+\[\boldsymbol{A}^+\boldsymbol{A}\,=\,\boldsymbol{A}\,\boldsymbol{A}^+
+\quad\Rightarrow\quad F^+F\,=\,F\,F^+\,.\]</div>
+</li>
+</ol>
+<p>Hence, all the theorems about eigenvalues and eigenvectors of Hermitian (unitary, normal)
+operators may be applied to eigenvalues and eigenvectors of
+Hermitian (unitary, normal) matrices.</p>
+<p><strong>Introduction to a proof of Theorem 3.</strong></p>
+<p>Hermitian conjugate of a matrix <span class="math notranslate nohighlight">\(\boldsymbol{A} \in M_n(C)\)</span>:</p>
+<div class="math notranslate nohighlight">
+\[\boldsymbol{A}^+:\,=\,(\boldsymbol{A}^T)^* =\,(\boldsymbol{A}^*)^T\,.\]</div>
+<p>Hermitian conjugation of an operator
+<span class="math notranslate nohighlight">\(\ F\in\text{End}(V)\ \)</span> on a unitary space <span class="math notranslate nohighlight">\(\ V=V(C)\ \)</span>:</p>
+<div class="math notranslate nohighlight">
+\[\langle\boldsymbol{x},F^+\boldsymbol{y}\rangle:\,=\,
+\langle F\boldsymbol{x},\boldsymbol{y}\rangle\,,\quad
+\boldsymbol{x},\boldsymbol{y}\in V\,.\]</div>
+<p>A necessary and sufficient condition for equality of two vectors:</p>
+<blockquote>
+<div><p>Let <span class="math notranslate nohighlight">\(\ \boldsymbol{x},\boldsymbol{y} \in V\,,\ \)</span>
+where <span class="math notranslate nohighlight">\(\ V=V(C)\ \)</span> unitary. Then</p>
+<div class="math notranslate nohighlight">
+\[\boldsymbol{x} = \boldsymbol{y} \quad \Leftrightarrow \quad
+\langle \boldsymbol{z}, \boldsymbol{x} \rangle =
+\langle \boldsymbol{z}, \boldsymbol{y} \rangle \quad
+\text{for all } \boldsymbol{z} \in V\,.\]</div>
+</div></blockquote>
+<p>A necessary and sufficient condition for equality of two linear operators:</p>
+<blockquote>
+<div><p>Let <span class="math notranslate nohighlight">\(\ F,G\in\text{End}(V)\,,\ \)</span>
+where <span class="math notranslate nohighlight">\(\ V=V(C)\ \)</span> unitary. Then</p>
+<div class="math notranslate nohighlight">
+\[F = G \quad \Leftrightarrow \quad
+\langle \boldsymbol{x}, F \boldsymbol{y} \rangle =
+\langle \boldsymbol{x}, G \boldsymbol{y} \rangle \quad
+\text{for all } \boldsymbol{x},\boldsymbol{y} \in V\,.\]</div>
+</div></blockquote>
+<p>An inner product on the space <span class="math notranslate nohighlight">\(C^n\)</span>:</p>
+<blockquote>
+<div><p>For <span class="math notranslate nohighlight">\(\ \ \boldsymbol{x}\ =\
+\left[\begin{array}{c} x_1 \\ x_2 \\ \ldots \\ x_n \end{array}\right],\ \
+\boldsymbol{y}\ =\
+\left[\begin{array}{c} y_1 \\ y_2 \\ \ldots \\ y_n \end{array}\right]
+\in C^n\,,\)</span></p>
+</div></blockquote>
+<div class="math notranslate nohighlight">
+\[\begin{split}\langle \boldsymbol{x},\boldsymbol{y} \rangle \ =\
+x_1^*\,y_1\,+\;x_2^*\,y_2\,+\;\dots\;+\;x_n^*\,y_n
+\,=\;[\,x_1^*,\,x_2^*,\,\dots,\,x_n^*\,]\
+\left[\begin{array}{c}
+y_1 \\ y_2 \\ \dots \\ y_n
+\end{array}\right]\ =\
+\boldsymbol{x}^+\boldsymbol{y}\,.\end{split}\]</div>
+<p>Hermitian conjuagation <span class="math notranslate nohighlight">\(\ F^+\ \)</span> of the operator <span class="math notranslate nohighlight">\(\ F\ \)</span>
+given by <a class="reference internal" href="#equation-transf">(1)</a> describes</p>
+<p><strong>Lemma</strong>.</p>
+<div class="math notranslate nohighlight" id="equation-lemma">
+<span class="eqno">(3)<a class="headerlink" href="#equation-lemma" title="Permalink to this equation">¶</a></span>\[\begin{split}\begin{array}{lc}
+&amp; F(\boldsymbol{x})=\boldsymbol{A}\,\boldsymbol{x}\quad\Rightarrow\quad
+F^+(\boldsymbol{x})=\boldsymbol{A}^+\boldsymbol{x}, \\
+\text{that is,}
+&amp; F\,\boldsymbol{x}=\boldsymbol{A}\,\boldsymbol{x}\quad\Rightarrow\quad
+F^+\,\boldsymbol{x}=\boldsymbol{A}^+\boldsymbol{x}.
+\end{array}\end{split}\]</div>
+<p><strong>Proof</strong> of the lemma.
+For every vector <span class="math notranslate nohighlight">\(\ \boldsymbol{y}\in C^n:\)</span></p>
+<div class="math notranslate nohighlight">
+\[\begin{split}\begin{array}{rcl}
+\langle\boldsymbol{y},F^+\boldsymbol{x}\rangle \!\! &amp;
+=\ \ \ \langle F\boldsymbol{y},\boldsymbol{x}\rangle
+\ =\ \langle \boldsymbol{A}\,\boldsymbol{y},\boldsymbol{x}\rangle\ = &amp; \\
+&amp; =\ (\boldsymbol{A}\,\boldsymbol{y})^+\,\boldsymbol{x}\ =\ \
+\boldsymbol{y}^+\boldsymbol{A}^+\boldsymbol{x}\ = &amp; \!\!
+\langle\boldsymbol{y},\boldsymbol{A}^+\boldsymbol{x}\rangle\,,
+\end{array}\end{split}\]</div>
+<p>and thus
+<span class="math notranslate nohighlight">\(\ F^+\boldsymbol{x}=\boldsymbol{A}^+\boldsymbol{x},
+\ \ \boldsymbol{x}\in C^n\)</span>.</p>
+<p><strong>Proof</strong> of the Theorem 3.</p>
+<ol class="arabic">
+<li><p><span class="math notranslate nohighlight">\(\ \)</span> Assume that <span class="math notranslate nohighlight">\(\ \boldsymbol{A}^+=\,\boldsymbol{A}.\ \)</span>
+Then for arbitrary <span class="math notranslate nohighlight">\(\,\boldsymbol{x},\boldsymbol{y}\in C^n\)</span>:</p>
+<div class="math notranslate nohighlight">
+\[\begin{split}\begin{array}{rll}
+\langle\boldsymbol{x},F^+\boldsymbol{y}\rangle \!\! &amp;
+=\ \ \langle F\boldsymbol{x},\boldsymbol{y}\rangle\ \ =\ \
+\langle\boldsymbol{A}\,\boldsymbol{x},\boldsymbol{y}\rangle\ \ =\ \
+(\boldsymbol{A}\,\boldsymbol{x})^+\boldsymbol{y}\ \ =
+&amp; \\
+&amp; =\ \ \boldsymbol{x}^+\boldsymbol{A}^+\boldsymbol{y}\ \ =\ \ \
+\boldsymbol{x}^+\boldsymbol{A}\,\boldsymbol{y}\ \ \ =\ \
+\langle\boldsymbol{x},\boldsymbol{A}\,\boldsymbol{y}\rangle\ \ =
+&amp; \!\! \langle\boldsymbol{x},F\boldsymbol{y}\rangle ,
+\end{array}\end{split}\]</div>
+<p>so that <span class="math notranslate nohighlight">\(\ F^+=\ F\)</span>.</p>
+</li>
+<li><p><span class="math notranslate nohighlight">\(\ \)</span> Assume that <span class="math notranslate nohighlight">\(\ \boldsymbol{A}^+\boldsymbol{A}=\boldsymbol{I}_n.\ \)</span>
+Then for arbitrary <span class="math notranslate nohighlight">\(\,\boldsymbol{x},\boldsymbol{y}\in C^n\)</span>:</p>
+<div class="math notranslate nohighlight">
+\[\begin{split}\begin{array}{rll}
+\langle\boldsymbol{x},(F^+F)\,\boldsymbol{y}\rangle \!\! &amp;
+=\ \ \langle\boldsymbol{x},F^+(F\boldsymbol{y})\rangle\ \ =\ \
+\langle F\boldsymbol{x}\,,F\boldsymbol{y}\rangle\ \ =\ \
+\langle\boldsymbol{A}\,\boldsymbol{x},
+\boldsymbol{A}\,\boldsymbol{y}\rangle\ \ =
+&amp; \\
+&amp; =\ \ (\boldsymbol{A}\boldsymbol{x})^+\,
+(\boldsymbol{A}\boldsymbol{x})\ \ =\ \
+\boldsymbol{x}^+\boldsymbol{A}^+
+\boldsymbol{A}\,\boldsymbol{y}\ \ \, = \quad
+\boldsymbol{x}^+\boldsymbol{I}_n\,\boldsymbol{y}\quad\ =
+&amp; \langle\boldsymbol{x},I\,\boldsymbol{y}\rangle ,
+\end{array}\end{split}\]</div>
+<p>so that <span class="math notranslate nohighlight">\(\ F^+F=I\)</span>.</p>
+</li>
+<li><p><span class="math notranslate nohighlight">\(\ \)</span> Assume that <span class="math notranslate nohighlight">\(\ \boldsymbol{A}^+\boldsymbol{A}=
+\boldsymbol{A}\boldsymbol{A}^+.\ \)</span>
+By Lemma <a class="reference internal" href="#equation-lemma">(3)</a>,</p>
+<div class="math notranslate nohighlight">
+\[\begin{split}\begin{array}{rl}
+\langle\boldsymbol{x},(F^+F)\,\boldsymbol{y}\rangle \!\! &amp;
+=\ \ \langle\boldsymbol{x},F^+(F\boldsymbol{y})\rangle\ \ =\ \
+\langle F\boldsymbol{x}\,,F\boldsymbol{y}\rangle\ \ =\ \
+\langle\boldsymbol{A}\,\boldsymbol{x},
+\boldsymbol{A}\,\boldsymbol{y}\rangle\ \ = \\
+&amp; =\ (\boldsymbol{A}\,\boldsymbol{x})^+
+(\boldsymbol{A}\,\boldsymbol{y})\ \ =\ \
+\boldsymbol{x}^+(\boldsymbol{A}^+\boldsymbol{A})\,\boldsymbol{y}\ \ =\ \
+\boldsymbol{x}^+(\boldsymbol{A}\boldsymbol{A}^+)\,\boldsymbol{y}\ = \\
+&amp; =\ (\boldsymbol{A}^+\boldsymbol{x})^+
+(\boldsymbol{A}^+\boldsymbol{y})\ =\
+\langle\boldsymbol{A}^+\boldsymbol{x},
+\boldsymbol{A}^+\boldsymbol{y}\rangle\ =\
+\langle F^+\boldsymbol{x},F^+\boldsymbol{y}\rangle\ = \\
+\langle\boldsymbol{x},(FF^+)\,\boldsymbol{y}\rangle ,
+\end{array}\end{split}\]</div>
+<p>for every <span class="math notranslate nohighlight">\(\,\boldsymbol{x},\boldsymbol{y}\in C^n,\ \)</span>
+and thus <span class="math notranslate nohighlight">\(\ F^+F=FF^+\)</span>.</p>
+</li>
+</ol>
+</section>
+
+
+          </div>
+        </div>
+      </div>
+      <div class="sphinxsidebar" role="navigation" aria-label="main navigation">
+        <div class="sphinxsidebarwrapper">
+  <h4>Previous topic</h4>
+  <p class="topless"><a href="p_unitarne_zadania.html"
+                        title="previous chapter">Problems</a></p>
+  <h4>Next topic</h4>
+  <p class="topless"><a href="diagonalizacja_podobienstwo.html"
+                        title="next chapter">Similarity Transformation</a></p>
+  <div role="note" aria-label="source link">
+    <h3>This Page</h3>
+    <ul class="this-page-menu">
+      <li><a href="_sources/diagonalizacja_macierz_operator.rst.txt"
+            rel="nofollow">Show Source</a></li>
+    </ul>
+   </div>
+<div id="searchbox" style="display: none" role="search">
+  <h3 id="searchlabel">Quick search</h3>
+    <div class="searchformwrapper">
+    <form class="search" action="search.html" method="get">
+      <input type="text" name="q" aria-labelledby="searchlabel" />
+      <input type="submit" value="Go" />
+    </form>
+    </div>
+</div>
+<script>$('#searchbox').show(0);</script>
+        </div>
+      </div>
+      <div class="clearer"></div>
+    </div>
+  </div>
+  <div class="relbar-bottom">
+    
+    <div class="related" role="navigation" aria-label="related navigation">
+      <h3>Navigation</h3>
+      <ul>
+        <li class="right" style="margin-right: 10px">
+          <a href="genindex.html" title="General Index"
+             >index</a></li>
+        <li class="right" >
+          <a href="diagonalizacja_podobienstwo.html" title="Similarity Transformation"
+             >next</a> &nbsp; &nbsp;</li>
+        <li class="right" >
+          <a href="p_unitarne_zadania.html" title="Problems"
+             >previous</a> &nbsp; &nbsp;</li>
+  <li><a href="index.html">Linear Algebra</a> &#187;</li>
+  
+        <li class="nav-item nav-item-this"><a href="">Square Matrix as a Linear Operator</a></li> 
+      </ul>
+    </div>
+  </div>
+  
+  <div class="footer">
+    <a class="logo" href="http://icse.us.edu.pl/" target="_blank"><img src="_static/logo-icse.png" alt="ICSE"/></a><br/>
+    &copy; Copyright 2018, Jan Aksamit, Joanna Marzec, and  Marcin Kostur.
+    Last updated on Jan 29, 2022.
+    Created using <a href="http://sphinx.pocoo.org/">Sphinx</a> 4.0.1.
+  </div>
+  </body>
+</html>

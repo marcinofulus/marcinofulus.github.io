@@ -1,0 +1,598 @@
+
+
+  
+<!DOCTYPE html>
+
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" /><meta name="generator" content="Docutils 0.17: http://docutils.sourceforge.net/" />
+
+    <title>Fundamental Concepts in Linear Algebra &#8212; Linear Algebra</title>
+    <link rel="stylesheet" type="text/css" href="_static/pygments.css" />
+    <link rel="stylesheet" type="text/css" href="_static/cloud.css" />
+    <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Noticia+Text|Open+Sans|Droid+Sans+Mono&amp;subset=latin,latin-ext" type="text/css" />
+    <script data-url_root="./" id="documentation_options" src="_static/documentation_options.js"></script>
+    <script src="_static/jquery.js"></script>
+    <script src="_static/underscore.js"></script>
+    <script src="_static/doctools.js"></script>
+    <script async="async" src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js"></script>
+    <script src="_static/jquery.cookie.js"></script>
+    <script src="_static/cloud.js"></script>
+    <script type="text/javascript" src="http://sagecell.sagemath.org/static/jquery.min.js"></script>
+    <script type="text/javascript" src="http://sagecell.sagemath.org/embedded_sagecell.js"></script>
+    <script type="text/javascript">
+        sagecell.makeSagecell({inputLocation: ".sage_linked",
+                               linked: true});
+        sagecell.makeSagecell({inputLocation: ".sage_unlinked",
+                               linked: false});
+    </script>
+
+    <style type="text/css">
+        .sagecell .CodeMirror-scroll {
+            overflow-y: hidden;
+            overflow-x: auto;
+        }
+        .sagecell .CodeMirror {
+            height: auto;
+        }
+    </style>
+    
+    <link rel="index" title="Index" href="genindex.html" />
+    <link rel="search" title="Search" href="search.html" />
+    <link rel="next" title="Group of Permutations" href="introduction_permutations.html" />
+    <link rel="prev" title="Algebraic Structures" href="introduction_algebraic-structures.html" />
+ 
+  <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, minimum-scale=1">
+  </head><body>
+  <div class="relbar-top">
+    
+    <div class="related" role="navigation" aria-label="related navigation">
+      <h3>Navigation</h3>
+      <ul>
+        <li class="right" style="margin-right: 10px">
+          <a href="genindex.html" title="General Index"
+             accesskey="I">index</a></li>
+        <li class="right" >
+          <a href="introduction_permutations.html" title="Group of Permutations"
+             accesskey="N">next</a> &nbsp; &nbsp;</li>
+        <li class="right" >
+          <a href="introduction_algebraic-structures.html" title="Algebraic Structures"
+             accesskey="P">previous</a> &nbsp; &nbsp;</li>
+  <li><a href="index.html">Linear Algebra</a> &#187;</li>
+  
+        <li class="nav-item nav-item-this"><a href="">Fundamental Concepts in Linear Algebra</a></li> 
+      </ul>
+    </div>
+  </div>
+  
+  <div class="content">  
+
+    <div class="document">
+      <div class="documentwrapper">
+        <div class="bodywrapper">
+          <div class="body">
+            
+  <section id="fundamental-concepts-in-linear-algebra">
+<h1>Fundamental Concepts in Linear Algebra<a class="headerlink" href="#fundamental-concepts-in-linear-algebra" title="Permalink to this headline">¶</a></h1>
+<section id="linear-combination-of-vectors">
+<h2>Linear Combination of Vectors<a class="headerlink" href="#linear-combination-of-vectors" title="Permalink to this headline">¶</a></h2>
+<p>Suppose that a vector <span class="math notranslate nohighlight">\(\,x\in V(K)\,\)</span> can be expressed as</p>
+<div class="math notranslate nohighlight">
+\[x\,=\,\alpha_1\,x_1\,+\,\alpha_2\,x_2\,+\,\ldots\,+\,\alpha_m\,x_m\,,\]</div>
+<p>where <span class="math notranslate nohighlight">\(\ \ \alpha_1,\,\alpha_2,\,\ldots,\,\alpha_m\in K\,,\ \
+x_1,\,x_2,\,\ldots,\,x_m\in V\,.\ \)</span></p>
+<p>Then the vector <span class="math notranslate nohighlight">\(\,x\,\)</span> is said to be a <em>linear combination</em>
+of vectors <span class="math notranslate nohighlight">\(\ x_1,\,x_2,\,\ldots,\,x_m\ \)</span> <span class="math notranslate nohighlight">\(\\\)</span>
+with coefficients <span class="math notranslate nohighlight">\(\ \alpha_1,\,\alpha_2,\,\ldots,\,\alpha_m\,.\)</span></p>
+<p>When all coefficients vanish, the combination is called <em>trivial</em>. <span class="math notranslate nohighlight">\(\\\)</span>
+A trivial linear combination of any vectors equals the zero vector:</p>
+<div class="math notranslate nohighlight" id="equation-triv">
+<span class="eqno">(1)<a class="headerlink" href="#equation-triv" title="Permalink to this equation">¶</a></span>\[\alpha_1=\alpha_2=\ldots=\alpha_r=0\qquad\Rightarrow\qquad
+\alpha_1\,x_1\,+\,\alpha_2\,x_2\,+\,\ldots\,+\,\alpha_r\,x_r\ =\ \theta\,.\]</div>
+<p>Let <span class="math notranslate nohighlight">\(\ X\ \)</span> be <span class="math notranslate nohighlight">\(\,\)</span> a set <span class="math notranslate nohighlight">\(\,\)</span> (possibly infinite)
+<span class="math notranslate nohighlight">\(\,\)</span> of vectors from <span class="math notranslate nohighlight">\(\,V(K)\,.\ \)</span> <span class="math notranslate nohighlight">\(\\\)</span>
+A <em>span</em> of the set <span class="math notranslate nohighlight">\(\ X\ \)</span> is defined as the set of all finite
+linear combinations of elements in <span class="math notranslate nohighlight">\(\,X:\)</span></p>
+<div class="math notranslate nohighlight">
+\[L(X)\ \ :\,=\ \
+\left\{\ \ \ \sum_{k=1}^n\ \alpha_k\,x_k\,:\ \
+n\in N,\ \ \alpha_k\in K,\ \ x_k\in X,\ \ k=1,2,\ldots,n.\ \right\}\,.\]</div>
+<p>For a finite set <span class="math notranslate nohighlight">\(\ X\ =\ \{x_1,x_2,\ldots,x_m\}\ \)</span>
+we get simply:</p>
+<div class="math notranslate nohighlight">
+\[L(X)\,\equiv\,L(x_1,x_2,\ldots,x_m)\ =\
+\left\{\,\alpha_1\,x_1 +\,\alpha_2\,x_2 +,\ldots\,+\,\alpha_m\,x_m:\ \
+\alpha_1,\alpha_2,\ldots,\alpha_m\in K\,\right\}\,.\]</div>
+<p>It’s easy to note that <span class="math notranslate nohighlight">\(\,L(X)\,\)</span> is a subspace:
+<span class="math notranslate nohighlight">\(\,L(X) &lt; V\,.\ \)</span> Then it is said that</p>
+<ul class="simple">
+<li><p>the set <span class="math notranslate nohighlight">\(\,X\,\)</span> <em>spans</em> (<em>generates</em>)
+the subspace <span class="math notranslate nohighlight">\(\ L(X)\,;\)</span></p></li>
+<li><p>the subspace <span class="math notranslate nohighlight">\(\,L(X)\,\)</span> is <em>spanned</em>
+by the set <span class="math notranslate nohighlight">\(\,X\ \)</span> (or by the vectors
+in <span class="math notranslate nohighlight">\(\,X\)</span>) ;</p></li>
+<li><p><span class="math notranslate nohighlight">\(\,X\,\)</span> is a <em>spanning set</em>
+of the subspace <span class="math notranslate nohighlight">\(\,L(X)\,.\)</span></p></li>
+</ul>
+<p>If <span class="math notranslate nohighlight">\(\ L(X) = V\,,\ \)</span>
+the set <span class="math notranslate nohighlight">\(\,X\,\)</span> is a spanning set of the space <span class="math notranslate nohighlight">\(\,V\ \)</span>
+(generates the space <span class="math notranslate nohighlight">\(\,V\)</span>).</p>
+<p><strong>Example.</strong></p>
+<p>Suppose that <span class="math notranslate nohighlight">\(\ \vec{v}_1,\,\vec{v}_2,\,\vec{v}_3\ \)</span> are three
+non-coplanar (not lying in the same plane) <span class="math notranslate nohighlight">\(\\\)</span>
+geometric vectors fixed at a given point <span class="math notranslate nohighlight">\(\,O.\ \,\)</span> Then</p>
+<ol class="arabic simple">
+<li><p><span class="math notranslate nohighlight">\(L(\vec{v}_1)\,=\,
+\left\{\ \alpha\,\vec{v}_1 :\ \alpha\in R\ \right\}\ \)</span>
+is a set of vectors lying in the straight line <span class="math notranslate nohighlight">\(\\\)</span>
+with the direction vector <span class="math notranslate nohighlight">\(\,\vec{v}_1\ \)</span> and passing
+through the point <span class="math notranslate nohighlight">\(\,O\,;\)</span></p></li>
+<li><p><span class="math notranslate nohighlight">\(L(\vec{v}_1,\vec{v}_2)\,=\,
+\left\{\ \alpha_1\,\vec{v}_1 + \alpha_2\,\vec{v}_2 :\
+\alpha_1,\alpha_2\in R\ \right\}\ \)</span> is a set of vectors <span class="math notranslate nohighlight">\(\\\)</span>
+in the plane passing through the point <span class="math notranslate nohighlight">\(\,O\ \)</span> and determined
+by the vectors <span class="math notranslate nohighlight">\(\,\vec{v}_1,\,\vec{v}_2\,;\)</span></p></li>
+<li><p><span class="math notranslate nohighlight">\(L(\vec{v}_1,\vec{v}_2,\vec{v}_3)\,=\,
+\left\{\ \alpha_1\,\vec{v}_1+\alpha_2\,\vec{v}_2+\alpha_3\,\vec{v}_3 :\
+\alpha_1,\alpha_2,\alpha_3\in R\ \right\}\ \)</span> is the whole space <span class="math notranslate nohighlight">\(\\\)</span>
+of vectors fixed at the point <span class="math notranslate nohighlight">\(\,O.\)</span></p></li>
+</ol>
+<p>The subspaces are bound by the relations</p>
+<div class="math notranslate nohighlight">
+\[L(\vec{v}_1)\,&lt;\,
+L(\vec{v}_1,\vec{v}_2)\,&lt;\,
+L(\vec{v}_1,\vec{v}_2,\vec{v}_3)\,.\]</div>
+</section>
+<section id="linear-dependence-and-independence">
+<h2>Linear Dependence and Independence<a class="headerlink" href="#linear-dependence-and-independence" title="Permalink to this headline">¶</a></h2>
+<p>We shall consider sets of vectors <span class="math notranslate nohighlight">\(\,x_1,x_2,\ldots,x_r\ \)</span>
+from a vector space <span class="math notranslate nohighlight">\(\,V\,\)</span> over a field <span class="math notranslate nohighlight">\(\,K.\)</span></p>
+<p>By definition, <span class="math notranslate nohighlight">\(\,\)</span> a set <span class="math notranslate nohighlight">\(\,\{x_1,x_2,\ldots,x_r\}\ \)</span>
+is <em>linearly dependent</em> <span class="math notranslate nohighlight">\(\,\)</span> (or vectors <span class="math notranslate nohighlight">\(\ x_1,x_2,\ldots,x_r\ \)</span>
+are <em>linearly dependent</em>) <span class="math notranslate nohighlight">\(\,\)</span> if, and only if, <span class="math notranslate nohighlight">\(\,\)</span> there exists
+a non-trivial linear combination of these vectors equal to the zero vector
+<span class="math notranslate nohighlight">\(\,\theta\)</span>.</p>
+<p>A set <span class="math notranslate nohighlight">\(\ \{x_1,x_2,\ldots,x_r\}\ \)</span> is
+<span class="math notranslate nohighlight">\(\,\)</span> <em>linearly independent</em> <span class="math notranslate nohighlight">\(\,\)</span>
+(or vectors <span class="math notranslate nohighlight">\(\,x_1,x_2,\ldots,x_r\ \)</span> are <em>linearly independent</em>)
+<span class="math notranslate nohighlight">\(\,\)</span> if it is not linearly dependent, <span class="math notranslate nohighlight">\(\,\)</span> that is when every
+non-trivial linear combination of these vectors is different
+from the zero vector <span class="math notranslate nohighlight">\(\,\theta\)</span>.</p>
+<p>Therefore, a set <span class="math notranslate nohighlight">\(\,\{x_1,x_2,\ldots,x_r\}\,\)</span> is linearly dependent if,
+and only if, there exists a set
+<span class="math notranslate nohighlight">\(\,\{\alpha_1,\alpha_2,\ldots,\alpha_r\}\,\)</span> of scalars,
+<span class="math notranslate nohighlight">\(\,\)</span> not all zero, <span class="math notranslate nohighlight">\(\,\)</span> such that</p>
+<div class="math notranslate nohighlight" id="equation-lindep">
+<span class="eqno">(2)<a class="headerlink" href="#equation-lindep" title="Permalink to this equation">¶</a></span>\[\alpha_1\,x_1\,+\,\alpha_2\,x_2\,+\,\ldots\,+\,\alpha_r\,x_r\ =\ \theta\,.\]</div>
+<p>On the other hand, a set is linearly independent when the trivial linear
+combination of its vectors is the only one that equals the zero vector:</p>
+<div class="math notranslate nohighlight" id="equation-linindep">
+<span class="eqno">(3)<a class="headerlink" href="#equation-linindep" title="Permalink to this equation">¶</a></span>\[\alpha_1\,x_1\,+\,\alpha_2\,x_2\,+\,\ldots\,+\,\alpha_r\,x_r\ =\ \theta
+\qquad\Rightarrow\qquad
+\alpha_1=\alpha_2=\ldots=\alpha_r=0\,.\]</div>
+<p>It’s worthwhile to note that the condition <a class="reference internal" href="#equation-linindep">(3)</a>
+is a converse of <a class="reference internal" href="#equation-triv">(1)</a>.</p>
+<p>More generally, a countably infinite set <span class="math notranslate nohighlight">\(\,S\,\)</span> of vectors
+is <em>linearly dependent</em>, when there exists a finite linearly dependent subset
+of <span class="math notranslate nohighlight">\(\,S\,;\ \)</span> such a set <span class="math notranslate nohighlight">\(\,S\,\)</span> is <em>linearly independent</em>,
+when each its finite subset is linearly independent.</p>
+<p><strong>Theorem 1.</strong> <span class="math notranslate nohighlight">\(\,\)</span>
+Vectors <span class="math notranslate nohighlight">\(\ x_1,x_2,\ldots,x_r\,\ \ \)</span> (<span class="math notranslate nohighlight">\(r \geq 2\)</span>) <span class="math notranslate nohighlight">\(\ \)</span>
+are linearly dependent if, and only if, <span class="math notranslate nohighlight">\(\\\)</span>
+at least one of them can be represented as a linear combination
+of the remaining ones: <a class="footnote-reference brackets" href="#id2" id="id1">2</a></p>
+<div class="math notranslate nohighlight" id="equation-detach">
+<span class="eqno">(4)<a class="headerlink" href="#equation-detach" title="Permalink to this equation">¶</a></span>\[x_i\ =\ \beta_1\,x_1\,+\,\ldots\,+\,\beta_{i-1}\,x_{i-1}\,+\,
+        \beta_{i+1}\,x_{i+1}\,+\,\ldots\,+\,\beta_r\,x_r\,,
+\quad\exists\ i\in\{1,2,\ldots,r\}.\]</div>
+<p><strong>Note.</strong> <span class="math notranslate nohighlight">\(\ \)</span> ‘at least one’ does not mean ‘each’.</p>
+<p><strong>Proof.</strong></p>
+<p><span class="math notranslate nohighlight">\(\Rightarrow\,:\ \)</span>
+We assume that the vectors <span class="math notranslate nohighlight">\(\ x_1,x_2,\ldots,x_r\ \)</span>
+are linearly dependent. Thus, let</p>
+<div class="math notranslate nohighlight" id="equation-comb-zero">
+<span class="eqno">(5)<a class="headerlink" href="#equation-comb-zero" title="Permalink to this equation">¶</a></span>\[\alpha_1\,x_1\,+\,\alpha_2\,x_2\,+\,\ldots\,+\,\alpha_r\,x_r\ =\ \theta\,,\]</div>
+<p>and let <span class="math notranslate nohighlight">\(\ i\in\{\,1,2,\ldots,r\,\}\ \)</span> be an index for which
+<span class="math notranslate nohighlight">\(\ \alpha_i\neq 0.\ \)</span></p>
+<p>The Eq. <a class="reference internal" href="#equation-comb-zero">(5)</a> can be rewritten as</p>
+<div class="math notranslate nohighlight" id="equation-ith">
+<span class="eqno">(6)<a class="headerlink" href="#equation-ith" title="Permalink to this equation">¶</a></span>\[\alpha_i\,x_i\ =\
+-\,\alpha_1\,x_1\,-\,\ldots\,-\,\alpha_{i-1}\,x_{i-1}\,-\,
+\alpha_{i+1}\,x_{i+1}\,-\,\ldots\,-\,\alpha_r\,x_r\,.\]</div>
+<p>The condition <span class="math notranslate nohighlight">\(\,\alpha_i\neq 0\,\)</span> implies that there exists
+in <span class="math notranslate nohighlight">\(\,K\,\)</span> an element <span class="math notranslate nohighlight">\(\,\alpha_i^{-1}\,\)</span> such that
+<span class="math notranslate nohighlight">\(\,\alpha_i\cdot\,\alpha_i^{-1}=1.\ \)</span>
+Multiplying both sides of <span class="math notranslate nohighlight">\(\,\)</span> Eq. <a class="reference internal" href="#equation-ith">(6)</a> <span class="math notranslate nohighlight">\(\,\)</span> by
+<span class="math notranslate nohighlight">\(\ \,\alpha_i^{-1}\ \,\)</span> and using the denotement
+<span class="math notranslate nohighlight">\(\ \beta_j\,=\,-\,\alpha_i^{-1}\,\alpha_j\,\)</span> <span class="math notranslate nohighlight">\(\\\)</span> for
+<span class="math notranslate nohighlight">\(\ j\,=\,1,\ldots,i-1,\ i+1,\ldots,r\,,\ \)</span> we come up to
+Eq. <a class="reference internal" href="#equation-detach">(4)</a>.</p>
+<p><span class="math notranslate nohighlight">\(\Leftarrow\,:\ \)</span> Now we assume that the condition <a class="reference internal" href="#equation-detach">(4)</a> is true.
+Moving the term <span class="math notranslate nohighlight">\(\,x_i\,\)</span> to the right-hand side and taking into account
+the relation <span class="math notranslate nohighlight">\(\ \,-\,x_i\,=\,(-1)\cdot x_i\,,\ \)</span> we get</p>
+<div class="math notranslate nohighlight">
+\[\beta_1\,x_1\,+\,\ldots\,+\,\beta_{i-1}\,x_{i-1}\,+\,(-1)\,x_i\,+\,
+\beta_{i+1}\,x_{i+1}\,+\,\ldots\,+\,\beta_r\,x_r\ = \theta\,.\]</div>
+<p>Since <span class="math notranslate nohighlight">\(\,-1\neq 0\,,\ \)</span> the linear combination
+on the left-hand side above is non-trivial, hence vectors
+<span class="math notranslate nohighlight">\(\ x_1,x_2,\ldots,x_r\ \)</span> are linearly dependent. <span class="math notranslate nohighlight">\(\quad\bullet\)</span></p>
+<p><strong>Corollary.</strong> <span class="math notranslate nohighlight">\(\,\)</span>
+Vectors <span class="math notranslate nohighlight">\(\ \,x_1,x_2,\ldots,x_r\ \,\)</span> are linearly independent
+if, and only if, <span class="math notranslate nohighlight">\(\\\)</span> none of them can be written
+as a linear combination of the remaining ones.</p>
+<p>It’s easy to justify the following useful statements <span class="math notranslate nohighlight">\(\\\)</span>
+(l.dp. = linearly dependent, <span class="math notranslate nohighlight">\(\,\)</span> l.idp. = linearly independent).</p>
+<ul>
+<li><p>A set <span class="math notranslate nohighlight">\(\,\{x\}\,\)</span> of a single vector <span class="math notranslate nohighlight">\(\,x\ \)</span>
+is <span class="math notranslate nohighlight">\(\,\)</span> l.dp. <span class="math notranslate nohighlight">\(\,\)</span> if, and only if, <span class="math notranslate nohighlight">\(\ x = \theta\,.\)</span></p></li>
+<li><div class="line-block">
+<div class="line">If a subset of a given set is <span class="math notranslate nohighlight">\(\,\)</span> l.dp.,
+<span class="math notranslate nohighlight">\(\,\)</span> then the whole set is also <span class="math notranslate nohighlight">\(\,\)</span> l.dp.</div>
+<div class="line">Conclusion 1.: <span class="math notranslate nohighlight">\(\,\)</span> Every set containing
+the zero vector is <span class="math notranslate nohighlight">\(\,\)</span> l.dp.;</div>
+<div class="line">Conclusion 2.: <span class="math notranslate nohighlight">\(\,\)</span> If any two vectors are proportional:
+<span class="math notranslate nohighlight">\(\ x_j = \alpha\,x_i\,,\ \)</span> then the set is l.dp.</div>
+</div>
+</li>
+<li><div class="line-block">
+<div class="line">Every subset of a <span class="math notranslate nohighlight">\(\,\)</span> l.idp. set <span class="math notranslate nohighlight">\(\,\)</span>
+is also <span class="math notranslate nohighlight">\(\,\)</span> l.idp.</div>
+<div class="line">Conclusion 3.: <span class="math notranslate nohighlight">\(\,\)</span> A <span class="math notranslate nohighlight">\(\,\)</span> l.idp. set <span class="math notranslate nohighlight">\(\,\)</span>
+does not contain zero vector nor proportional vectors.</div>
+</div>
+</li>
+</ul>
+<p><strong>Example 0.</strong> <span class="math notranslate nohighlight">\(\,\)</span>
+Consider the vector space <span class="math notranslate nohighlight">\(\,C(R)\,\)</span> of complex numbers
+over the <em>real</em> field <span class="math notranslate nohighlight">\(\,R\,.\)</span></p>
+<p>The two vectors (actually numbers), <span class="math notranslate nohighlight">\(\ 1\ \)</span> and <span class="math notranslate nohighlight">\(\ i\,,\ \)</span>
+are <span class="math notranslate nohighlight">\(\,\)</span> l.idp., <span class="math notranslate nohighlight">\(\,\)</span> since for arbitrary
+<span class="math notranslate nohighlight">\(\,\alpha,\beta\in R\,:\)</span></p>
+<div class="math notranslate nohighlight">
+\[\alpha\cdot 1\,+\,\beta\cdot i\ =\ 0
+\qquad\Rightarrow\qquad
+\alpha = \beta = 0\,.\]</div>
+<p>On the other hand, if we interpret  <span class="math notranslate nohighlight">\(\ 1\ \)</span> and <span class="math notranslate nohighlight">\(\ i\ \,\)</span>
+as vectors from the <em>complex</em> space <span class="math notranslate nohighlight">\(\,C(C)\,,\ \)</span> <span class="math notranslate nohighlight">\(\\\)</span>
+they become <span class="math notranslate nohighlight">\(\,\)</span> l.dp., <span class="math notranslate nohighlight">\(\,\)</span> since a non-trivial combination
+thereof is equal to the zero vector:</p>
+<div class="math notranslate nohighlight">
+\[1\cdot 1\,+\,i\cdot i\ =\ 0\,.\]</div>
+<p><strong>Example 1.</strong> <span class="math notranslate nohighlight">\(\ \)</span>
+Let <span class="math notranslate nohighlight">\(\quad
+x\ =\ \left[\begin{array}{c} 1 \\ 0 \\ 1 \end{array}\right]\,,\quad
+y\ =\ \left[\begin{array}{c} 0 \\ 1 \\ 0 \end{array}\right]\,,\quad
+z\ =\ \left[\begin{array}{c} 2 \\ 2 \\ 2 \end{array}\right]\quad\in\ R^3\,.\)</span></p>
+<p>The set <span class="math notranslate nohighlight">\(\,\{x,y,z\}\,\)</span> is <span class="math notranslate nohighlight">\(\,\)</span> l.dp., <span class="math notranslate nohighlight">\(\,\)</span> because</p>
+<ul class="simple">
+<li><p><span class="math notranslate nohighlight">\(\,2\,x\,+\,2\,y\,-\,z\,=\,\theta\quad\)</span>
+(a non-trivial linear combination of the vectors equals <span class="math notranslate nohighlight">\(\,\theta\)</span>);</p></li>
+<li><p><span class="math notranslate nohighlight">\(\,z\,=\,2\,x\,+\,2\,y\quad\)</span>
+(one of the vectors can be expressed linearly by the remaining two).</p></li>
+</ul>
+<p>Both above conditions are mutually equivalent and it suffices to ascertain
+only one of them.</p>
+<p><strong>Example 2.</strong> <span class="math notranslate nohighlight">\(\ \)</span>
+Let <span class="math notranslate nohighlight">\(\quad
+x\ =\ \left[\begin{array}{c} 2 \\ 2 \end{array}\right]\,,\quad
+y\ =\ \left[\begin{array}{c} 1 \\ 0 \end{array}\right]\quad\in\ R^2\,.\)</span></p>
+<p>The set <span class="math notranslate nohighlight">\(\,\{x,y\}\,\)</span> is <span class="math notranslate nohighlight">\(\,\)</span> l.idp. <span class="math notranslate nohighlight">\(\ \)</span>
+Indeed, let us assume that</p>
+<div class="math notranslate nohighlight">
+\[\begin{split}\alpha\,x\,+\,\beta\,y\,=\,\theta\,,\qquad\text{that is}\qquad
+\alpha\ \left[\begin{array}{c} 2 \\ 2 \end{array}\right]\ +\
+\beta\  \left[\begin{array}{c} 1 \\ 0 \end{array}\right]\ =\
+\left[\begin{array}{c} 0 \\ 0 \end{array}\right]\,.\end{split}\]</div>
+<p>The operations on the left-hand side being performed,
+we come to the system of equations</p>
+<div class="math notranslate nohighlight">
+\begin{alignat*}{3}
+\ 2\,\alpha &amp; {\,} + {\,} &amp; \beta &amp; {\;} = {\;} &amp; 0 \\
+  2\,\alpha &amp; {\,}   {\,} &amp;       &amp; {\;} = {\;} &amp; 0
+\end{alignat*}</div><p>which has only the zero solution: <span class="math notranslate nohighlight">\(\ \alpha = \beta = 0\,.\ \)</span>
+Thus the vectors <span class="math notranslate nohighlight">\(\ x,y\ \)</span> fulfil the condition</p>
+<div class="math notranslate nohighlight">
+\[\alpha\,x\,+\,\beta\,y\,=\,\theta\qquad\Rightarrow\qquad\alpha = \beta = 0\,,\]</div>
+<p>wherefrom, <span class="math notranslate nohighlight">\(\ \)</span> according to <a class="reference internal" href="#equation-linindep">(3)</a>, <span class="math notranslate nohighlight">\(\ \)</span>
+they are <span class="math notranslate nohighlight">\(\ \)</span> l.idp.</p>
+</section>
+<section id="basis-of-a-vector-space">
+<h2>Basis of a Vector Space<a class="headerlink" href="#basis-of-a-vector-space" title="Permalink to this headline">¶</a></h2>
+<p>A set <span class="math notranslate nohighlight">\(\,B\subset V\,\)</span> is by definition a <em>basis</em> of the vector space
+<span class="math notranslate nohighlight">\(\,V(K)\,\ \)</span> when every vector <span class="math notranslate nohighlight">\(\,x\in V\,\)</span> can be represented
+in a unique way as a linear combination of vectors from <span class="math notranslate nohighlight">\(\,B\,:\ \)</span></p>
+<div class="math notranslate nohighlight">
+\[x\ \,=\ \,\displaystyle\sum_{v\,\in\,B}\,\alpha_v\ v\,,
+\qquad\text{where}\quad
+\alpha_v\in K,\, v\in B.\]</div>
+<p>A scalar <span class="math notranslate nohighlight">\(\,\alpha_v\,\)</span> is named a <em>coordinate</em>
+of the vector <span class="math notranslate nohighlight">\(\,x,\,\)</span> corresponding to the basis vector
+<span class="math notranslate nohighlight">\(\,v\in B.\)</span></p>
+<p>Thus every vector in a space <span class="math notranslate nohighlight">\(\,V\,\)</span> is uniquely characterized
+by the family <span class="math notranslate nohighlight">\(\,\left(\alpha_v\right)_{v\,\in\,B}\,\)</span>
+of its coordinates.
+In the present textbook we restrict ourselves to vector spaces
+with finite bases (finite-dimensional spaces).</p>
+<p>To represent vectors by columns of their coordinates
+and linear transformations by matrices, one has to impose an order
+on basis vectors and, consequently, on coordinates.
+This motivates the following modification of the definition of basis.</p>
+<p>Suppose a basis <span class="math notranslate nohighlight">\(\,B\,\)</span> is a set of <span class="math notranslate nohighlight">\(\,n\,\)</span> vectors.
+We define a corresponding <span class="math notranslate nohighlight">\(\,\)</span> <em>ordered basis</em> <span class="math notranslate nohighlight">\(\ \mathcal{B}\ \,\)</span>
+as a family of vectors in <span class="math notranslate nohighlight">\(\,B,\ \)</span> indexed by the set
+<span class="math notranslate nohighlight">\(\ \mathrm{n} = \{1,2,\ldots,n\}\ \)</span> of first
+<span class="math notranslate nohighlight">\(\,n\,\)</span> natural numbers:</p>
+<div class="math notranslate nohighlight">
+\[\mathcal{B}\ =\ \left(v_i\right)_{i\,\in\,\mathrm{n}}\ =\
+\left(\,v_1,\,v_2\,\ldots,\,v_n\,\right)\,.\]</div>
+<p>Accordingly, the coordinates form a family</p>
+<div class="math notranslate nohighlight">
+\[\mathcal{A}\ =\ \left(\alpha_i\right)_{i\,\in\,\mathrm{n}}\ =\
+\left(\,\alpha_1,\,\alpha_2\,\ldots,\,\alpha_n\,\right)\,,
+\quad\text{where}\quad\alpha_i:\,=\alpha_{v_i}\,,\ \
+\forall\ i\in\mathrm{n}\,.\]</div>
+<p>In the following we shall distinguish between a basis
+<span class="math notranslate nohighlight">\(\,B\,=\,\{v_i\}_{i\,\in\,\mathrm{n}}\,=\,\{v_1,v_2,\ldots,v_n\}\,\)</span>
+(a set) and <span class="math notranslate nohighlight">\(\,\)</span> an ordered basis
+<span class="math notranslate nohighlight">\(\ \mathcal{B}\,=\,(v_i)_{i\,\in\,\mathrm{n}}\,=\,(v_1,v_2,\ldots,v_n)\ \)</span>
+(a sequence).
+In either event, every vector <span class="math notranslate nohighlight">\(\,x\in V\,\)</span> has a unique representation
+as a linear combination of basis vectors:</p>
+<div class="math notranslate nohighlight" id="equation-base">
+<span class="eqno">(7)<a class="headerlink" href="#equation-base" title="Permalink to this equation">¶</a></span>\[x\ =\ \alpha_1\,v_1\,+\,\alpha_2\,v_2\,+\,\ldots\,+\,\alpha_n\,v_n\,.\]</div>
+<p><strong>Theorem 2.</strong> <span class="math notranslate nohighlight">\(\,\)</span>
+A set <span class="math notranslate nohighlight">\(\,B\subset V\,\)</span> is a basis of the vector space <span class="math notranslate nohighlight">\(\,V(K)\,\)</span>
+if, and only if, <span class="math notranslate nohighlight">\(\,B\,\)</span> is a linearly independent spanning set
+of the space <span class="math notranslate nohighlight">\(\,V.\)</span></p>
+<p><strong>Proof.</strong> <span class="math notranslate nohighlight">\(\,\)</span> Let <span class="math notranslate nohighlight">\(\,B = \{v_1,v_2,\ldots,v_n\}\,.\)</span></p>
+<p><span class="math notranslate nohighlight">\(\Rightarrow\,:\ \)</span>
+We assume that <span class="math notranslate nohighlight">\(\,B\,\)</span> is a basis of <span class="math notranslate nohighlight">\(\,V.\)</span></p>
+<p>The condition <a class="reference internal" href="#equation-base">(7)</a> implies that <span class="math notranslate nohighlight">\(\ V \subset L(B)\,.\ \)</span>
+On the other hand, <span class="math notranslate nohighlight">\(\,\)</span> obviously <span class="math notranslate nohighlight">\(\ L(B) \subset V.\ \)</span>
+<span class="math notranslate nohighlight">\(\\\)</span>
+Thus <span class="math notranslate nohighlight">\(\ V = L(B)\,,\ \)</span> that is <span class="math notranslate nohighlight">\(\,B\,\)</span> is a spanning set
+of the space <span class="math notranslate nohighlight">\(\,V.\)</span></p>
+<p>To demonstrate the linear independence of the set <span class="math notranslate nohighlight">\(\,B\,,\)</span>
+we notice that the identity</p>
+<div class="math notranslate nohighlight">
+\[0\cdot v_1\,+\,0\cdot v_2\,+\,\ldots\,+\,0\cdot v_n\ =\ \theta\]</div>
+<p>can be interpreted as a representation of the zero vector <span class="math notranslate nohighlight">\(\,\theta\,\)</span>
+in the basis <span class="math notranslate nohighlight">\(\,B\,.\ \)</span> From the uniqueness of this representation,
+we deduce that the trivial linear combination of vectors from <span class="math notranslate nohighlight">\(\,B\,\)</span>
+is the only combination that equals the zero vector. This means the linear
+independence of the set <span class="math notranslate nohighlight">\(\,B.\)</span></p>
+<p><span class="math notranslate nohighlight">\(\Leftarrow\,:\ \)</span> Now we assume that <span class="math notranslate nohighlight">\(\,B\,\)</span>
+is a linearly independent set spanning the space <span class="math notranslate nohighlight">\(\,V.\)</span></p>
+<p>Since the set <span class="math notranslate nohighlight">\(\,B\,\)</span> spans the space <span class="math notranslate nohighlight">\(\,V,\ \)</span> every vector
+<span class="math notranslate nohighlight">\(\,x\in V\,\)</span> has the form <a class="reference internal" href="#equation-base">(7)</a>. <span class="math notranslate nohighlight">\(\\\)</span>
+It remains to prove that such a representation is unique.</p>
+<p>Let us suppose that, on the contrary, a vector <span class="math notranslate nohighlight">\(\,x\ \)</span>
+can be expressed in two different ways:</p>
+<div class="math notranslate nohighlight">
+\[\begin{split}\begin{array}{l}
+x\ =\ \alpha_1\,v_1\,+\,\alpha_2\,v_2\,+\,\ldots\,+\,\alpha_n\,v_n\,, \\
+x\ =\ \beta_1\,v_1\,+\,\beta_2\,v_2\,+\,\ldots\,+\,\beta_n\,v_n\,,
+\end{array}
+\qquad\text{while}\quad\beta_i\neq\alpha_i\,,\ \ \exists\ i\in\mathrm{n}.\end{split}\]</div>
+<p>By subtracting the second equation from the first we obtain</p>
+<div class="math notranslate nohighlight">
+\[(\alpha_1-\beta_1)\ v_1\,+\,(\alpha_2-\beta_2)\ v_2\,+\,\ldots\,+\,
+(\alpha_n-\beta_n)\ v_n\ =\ \theta\,,
+\quad\alpha_i-\beta_i\neq 0\,,\ \exists\ i\in\mathrm{n}.\]</div>
+<p>Thus we conclude that a non-trivial linear combination
+of vectors <span class="math notranslate nohighlight">\(\,v_1,\,v_2,\,\ldots,\,v_n\,\)</span> equals the zero vector.
+This is in contradiction with the premise on the linear independence
+of the set <span class="math notranslate nohighlight">\(\,B.\ \)</span></p>
+<p>The representation <a class="reference internal" href="#equation-base">(7)</a> is therefore unique and the set <span class="math notranslate nohighlight">\(\,B\,\)</span>
+is a basis of the space <span class="math notranslate nohighlight">\(\,V.\)</span> <span class="math notranslate nohighlight">\(\quad\bullet\)</span></p>
+<p>The necessary and sufficient condition claimed by Theorem 2.
+is often cited as a definition of basis. Below we show yet another
+approach to the notion of basis, built upon the following definition.</p>
+<p>A linearly independent set <span class="math notranslate nohighlight">\(\,M\,\)</span> of vectors is called
+a <em>maximal linearly independent</em> (m.l.idp.) set when no other
+linearly independent set contains <span class="math notranslate nohighlight">\(\,M\,\)</span> as a proper subset.</p>
+<p>In other words, <span class="math notranslate nohighlight">\(\,\)</span> a set <span class="math notranslate nohighlight">\(\,M\subset V\,\)</span> is
+<span class="math notranslate nohighlight">\(\,\)</span> a <span class="math notranslate nohighlight">\(\,\)</span> m.l.idp. set of vectors
+in a space <span class="math notranslate nohighlight">\(\,V\ \,\)</span> if, and only if, <span class="math notranslate nohighlight">\(\,\)</span> for every vector
+<span class="math notranslate nohighlight">\(\ x\in V\ \)</span> the set <span class="math notranslate nohighlight">\(\ \,M'=\,\{x\}\cup M\ \,\)</span>
+is linearly dependent.</p>
+<p><strong>Theorem 3.</strong> <span class="math notranslate nohighlight">\(\,\)</span>
+A set <span class="math notranslate nohighlight">\(\,B\subset V\,\)</span> is a basis of the vector space <span class="math notranslate nohighlight">\(\,V(K)\,\)</span>
+<span class="math notranslate nohighlight">\(\,\)</span> if, and only if, <span class="math notranslate nohighlight">\(\ B\ \)</span>  is a maximal linearly
+independent set.</p>
+<p><strong>Proof.</strong> <span class="math notranslate nohighlight">\(\,\)</span> Let <span class="math notranslate nohighlight">\(\,B = \{v_1,v_2,\ldots,v_n\}\,.\)</span></p>
+<p><span class="math notranslate nohighlight">\(\Rightarrow\,:\ \)</span>
+We assume that <span class="math notranslate nohighlight">\(\,B\,\)</span> is a basis of <span class="math notranslate nohighlight">\(\,V.\)</span></p>
+<p>Then <span class="math notranslate nohighlight">\(\,B\,\)</span> is a <span class="math notranslate nohighlight">\(\,\)</span> l.idp. set, <span class="math notranslate nohighlight">\(\,\)</span>
+and for every vector <span class="math notranslate nohighlight">\(\,x\in V\,\)</span>
+there holds the expansion <a class="reference internal" href="#equation-base">(7)</a>. <span class="math notranslate nohighlight">\(\\\)</span>
+This means that for every vector <span class="math notranslate nohighlight">\(\,x\in V\,\)</span>
+the set <span class="math notranslate nohighlight">\(\,\{x,\,v_1,v_2,\ldots,v_n\}\,\)</span> is <span class="math notranslate nohighlight">\(\,\)</span> l.dp.
+<span class="math notranslate nohighlight">\(\\\)</span>
+Therefore the set <span class="math notranslate nohighlight">\(\,B = \{v_1,v_2,\ldots,v_n\}\,\)</span>
+is <span class="math notranslate nohighlight">\(\,\)</span> a <span class="math notranslate nohighlight">\(\,\)</span> m.l.idp. set.</p>
+<p><span class="math notranslate nohighlight">\(\Leftarrow\,:\ \)</span> Now we assume that <span class="math notranslate nohighlight">\(\,B\ \)</span>
+is <span class="math notranslate nohighlight">\(\,\)</span> a <span class="math notranslate nohighlight">\(\,\)</span> m.l.idp. set of vectors in <span class="math notranslate nohighlight">\(\,V.\)</span></p>
+<p>Then for every vector <span class="math notranslate nohighlight">\(\,x\in V\,\)</span> the set
+<span class="math notranslate nohighlight">\(\,\{x,\,v_1,v_2,\ldots,v_n\}\ \)</span> is <span class="math notranslate nohighlight">\(\,\)</span> l.dp.:</p>
+<div class="math notranslate nohighlight" id="equation-ldep">
+<span class="eqno">(8)<a class="headerlink" href="#equation-ldep" title="Permalink to this equation">¶</a></span>\[\alpha_0\ x\,+\,
+\alpha_1\,v_1\,+\,\alpha_2\,v_2\,+\,\ldots\,+\,\alpha_n\,v_n\,=\,
+\theta\,,\]</div>
+<p>where the linear combination on the left-hand side is non-trivial, <span class="math notranslate nohighlight">\(\\\)</span>
+that is not all coefficients
+<span class="math notranslate nohighlight">\(\,\alpha_0,\,\alpha_1,\,\ldots,\,\alpha_n\,\)</span> are zeroes.</p>
+<p>One may ask whether <span class="math notranslate nohighlight">\(\,\alpha_0\,\)</span> can vanish.
+If that was the case, we would obtain the equation</p>
+<div class="math notranslate nohighlight">
+\[\alpha_1\,v_1\,+\,\alpha_2\,v_2\,+\,\ldots\,+\,\alpha_n\,v_n\,=\,\theta\,,\]</div>
+<p>where not all <span class="math notranslate nohighlight">\(\,\alpha_1,\,\ldots,\,\alpha_n\,\)</span> are zeroes.
+This would mean that the vectors <span class="math notranslate nohighlight">\(\,v_1,v_2,\ldots,v_n\,\)</span> are
+linearly dependent, in contradiction with the assumption that <span class="math notranslate nohighlight">\(\,B\ \)</span>
+is linearly independent. <span class="math notranslate nohighlight">\(\\\)</span>
+Thus <span class="math notranslate nohighlight">\(\ \alpha_0\neq 0\ \,\)</span> and we may rewrite Eq. <a class="reference internal" href="#equation-ldep">(8)</a>  as</p>
+<div class="math notranslate nohighlight">
+\[x\ =\ \beta_1\,v_1\,+\,\beta_2\,v_2\,+\,\ldots\,+\,\beta_n\,v_n\,,\]</div>
+<p>where <span class="math notranslate nohighlight">\(\ \,\beta_i\,=\,-\,\alpha_0^{-1}\,\alpha_i\ \,\)</span>
+for <span class="math notranslate nohighlight">\(\ i\,=\,1,\ldots,n\,.\ \)</span> The above condition being fulfilled
+for every <span class="math notranslate nohighlight">\(\,x\in V,\ \)</span> we infer that <span class="math notranslate nohighlight">\(\,B\ \)</span> is
+<span class="math notranslate nohighlight">\(\,\)</span> a <span class="math notranslate nohighlight">\(\,\)</span> l.idp. spanning set of the space <span class="math notranslate nohighlight">\(\,V,\ \)</span>
+hence is a basis of <span class="math notranslate nohighlight">\(\,V.\ \)</span> <span class="math notranslate nohighlight">\(\ \ \bullet\)</span></p>
+</section>
+<section id="dimension-of-a-vector-space">
+<span id="intro-dimension"></span><h2>Dimension of a Vector Space<a class="headerlink" href="#dimension-of-a-vector-space" title="Permalink to this headline">¶</a></h2>
+<p>The concept of the dimension of a vector space is based on</p>
+<p><strong>Theorem 4.</strong> <span class="math notranslate nohighlight">\(\ \)</span>
+All bases of a given vector space have equal cardinality.
+In particular, if a vector space <span class="math notranslate nohighlight">\(\,V(K)\,\)</span> has
+an <span class="math notranslate nohighlight">\(\,n\)</span>-element base <span class="math notranslate nohighlight">\(\,B,\ \)</span> then all its bases
+have the same number <span class="math notranslate nohighlight">\(\,n\,\)</span> of elements
+(a proof for the case of a finite base is given in the Appendix).</p>
+<p>Therefore the following definition makes sense.</p>
+<p>If a vector space <span class="math notranslate nohighlight">\(\,V\,\)</span> has a finite base <span class="math notranslate nohighlight">\(\,B,\ \)</span>
+then the number of elements of <span class="math notranslate nohighlight">\(\,B\ \)</span> <span class="math notranslate nohighlight">\(\\\)</span>
+is called the <em>dimension</em> of the space <span class="math notranslate nohighlight">\(\,V\,\)</span>
+and is denoted by <span class="math notranslate nohighlight">\(\,\text{dim}\,V.\)</span></p>
+<p>Vector spaces having finite bases are named <em>finite-dimensional</em>,
+and if specifically <span class="math notranslate nohighlight">\(\,\text{dim}\,V = n\,,\)</span> then <span class="math notranslate nohighlight">\(\,V\,\)</span>
+is an <span class="math notranslate nohighlight">\(\,n\)</span>-dimensional vector space.
+Additionally, we assume by convention that the dimension
+of the zero space (consisting of the zero vector only) equals zero:
+<span class="math notranslate nohighlight">\(\ \text{dim}\,\{\theta\} = 0\,.\)</span></p>
+<p>In the Appendix A4 we prove the following useful</p>
+<p><strong>Theorem 5.</strong> <span class="math notranslate nohighlight">\(\ \)</span>
+In an <span class="math notranslate nohighlight">\(\,n\)</span>-dimensional vector space:</p>
+<ol class="arabic simple">
+<li><p>every set consisting of more than <span class="math notranslate nohighlight">\(\,n\,\)</span> vectors
+is linearly dependent;</p></li>
+<li><p>every linearly independent set of <span class="math notranslate nohighlight">\(\,n\,\)</span> vectors is a basis.</p></li>
+</ol>
+<p><strong>Examples.</strong></p>
+<ul>
+<li><p>In the real space <span class="math notranslate nohighlight">\(\,R(R),\ \)</span>
+as well as in the complex space <span class="math notranslate nohighlight">\(\,C(C),\)</span>
+every one-element set containing a non-zero number, <span class="math notranslate nohighlight">\(\,\)</span>
+for example <span class="math notranslate nohighlight">\(B = \{1\},\ \)</span> may be a basis.
+Thus <span class="math notranslate nohighlight">\(\ \text{dim}\,R(R) = \text{dim}\,C(C) = \,1\,.\ \)</span>
+On the other hand, <span class="math notranslate nohighlight">\(\,\)</span> in the space <span class="math notranslate nohighlight">\(\,C(R)\,\)</span>
+of complex numbers over the real field, a natural basis is the set
+<span class="math notranslate nohighlight">\(\ B = \{1,\,i\},\ \)</span> hence <span class="math notranslate nohighlight">\(\ \text{dim}\,C(R) = 2\,.\)</span></p></li>
+<li><p>In the space <span class="math notranslate nohighlight">\(\,V\,\)</span> of geometric (fixed or free) vectors a basis
+may be any set of three non-coplanar vectors. The most convenient one is
+a triplet of three mutually perpendicular unit vectors
+<span class="math notranslate nohighlight">\(\ B = \{\,\vec{e}_1,\,\vec{e}_2,\,\vec{e}_3\}.\ \,\)</span>
+So our ‘physical’ space is three-dimensional also in the algebraic sense:
+<span class="math notranslate nohighlight">\(\ \text{dim}\,V = 3\,.\)</span></p></li>
+<li><p>In the vector space <span class="math notranslate nohighlight">\(\,K^n\,\)</span> composed of <span class="math notranslate nohighlight">\(\,n\)</span>-element
+column vectors with entries from the field <span class="math notranslate nohighlight">\(\,K,\ \)</span> the most handy
+is <span class="math notranslate nohighlight">\(\,\)</span> the <span class="math notranslate nohighlight">\(\,\)</span> <em>canonical basis</em>
+<span class="math notranslate nohighlight">\(\ E\,=\,\{\,e_1,\,e_2,\,\ldots,\,e_n\}\,,\ \)</span> where</p>
+<div class="math notranslate nohighlight">
+\[\begin{split}e_1\ =\ \left[\begin{array}{c} 1 \\ 0 \\ \cdots \\ 0 \end{array}\right]\,,
+\quad
+e_2\ =\ \left[\begin{array}{c} 0 \\ 1 \\ \cdots \\ 0 \end{array}\right]\,,
+\quad\ldots,\quad
+e_n\ =\ \left[\begin{array}{c} 0 \\ 0 \\ \cdots \\ 1 \end{array}\right]\,.\end{split}\]</div>
+<p>Consequently, <span class="math notranslate nohighlight">\(\ \ \text{dim}\,K^n = n\,,\ \ \forall\ n\in N.\)</span></p>
+</li>
+<li><p>In the subspace
+<span class="math notranslate nohighlight">\(\ \ W_p\ =\ \left\{\ \,\left[\begin{array}{c}
+x_1 \\ \ldots \\ x_p \\ 0 \\ \ldots \\ 0
+\end{array}\right]\ :\quad x_i\in K\,,\ \
+i = 1,2,\ldots,p.\;\right\}\ \ &lt;\ \ K^n\,,\ \)</span></p>
+<p>where <span class="math notranslate nohighlight">\(\ 1 \leq p &lt; n\,,\ \)</span>
+a basis may be e.g. <span class="math notranslate nohighlight">\(\,E_p = \{\,e_1,\,e_2,\,\ldots,\,e_p\},\ \,\)</span>
+hence <span class="math notranslate nohighlight">\(\ \text{dim}\,W_p = p.\)</span></p>
+</li>
+</ul>
+<dl class="footnote brackets">
+<dt class="label" id="id2"><span class="brackets"><a class="fn-backref" href="#id1">2</a></span></dt>
+<dd><p>a denotement <span class="math notranslate nohighlight">\(\ \exists\ i\in I\ \,\)</span> means <span class="math notranslate nohighlight">\(\ \)</span>
+“there exists <span class="math notranslate nohighlight">\(\ i\in I\)</span>”.</p>
+</dd>
+<dt class="label" id="id3"><span class="brackets">3</span></dt>
+<dd><p>A family <span class="math notranslate nohighlight">\((x_i)_{i\in I}\)</span> of elements <span class="math notranslate nohighlight">\(x\in X\)</span>
+indexed by <span class="math notranslate nohighlight">\(I\)</span> is a map <span class="math notranslate nohighlight">\(\,I\rightarrow X\,,\ \)</span>
+with emphasis on the collection <span class="math notranslate nohighlight">\(X\)</span>.</p>
+</dd>
+</dl>
+</section>
+</section>
+
+
+          </div>
+        </div>
+      </div>
+      <div class="sphinxsidebar" role="navigation" aria-label="main navigation">
+        <div class="sphinxsidebarwrapper">
+  <div class="sphinxlocaltoc">
+  <h3><a href="index.html">Table Of Contents</a></h3>
+  <ul>
+<li><a class="reference internal" href="#">Fundamental Concepts in Linear Algebra</a><ul>
+<li><a class="reference internal" href="#linear-combination-of-vectors">Linear Combination of Vectors</a></li>
+<li><a class="reference internal" href="#linear-dependence-and-independence">Linear Dependence and Independence</a></li>
+<li><a class="reference internal" href="#basis-of-a-vector-space">Basis of a Vector Space</a></li>
+<li><a class="reference internal" href="#dimension-of-a-vector-space">Dimension of a Vector Space</a></li>
+</ul>
+</li>
+</ul>
+
+  </div>
+  <h4>Previous topic</h4>
+  <p class="topless"><a href="introduction_algebraic-structures.html"
+                        title="previous chapter">Algebraic Structures</a></p>
+  <h4>Next topic</h4>
+  <p class="topless"><a href="introduction_permutations.html"
+                        title="next chapter">Group of Permutations</a></p>
+  <div role="note" aria-label="source link">
+    <h3>This Page</h3>
+    <ul class="this-page-menu">
+      <li><a href="_sources/introduction_fundamental-concepts.rst.txt"
+            rel="nofollow">Show Source</a></li>
+    </ul>
+   </div>
+<div id="searchbox" style="display: none" role="search">
+  <h3 id="searchlabel">Quick search</h3>
+    <div class="searchformwrapper">
+    <form class="search" action="search.html" method="get">
+      <input type="text" name="q" aria-labelledby="searchlabel" />
+      <input type="submit" value="Go" />
+    </form>
+    </div>
+</div>
+<script>$('#searchbox').show(0);</script>
+        </div>
+      </div>
+      <div class="clearer"></div>
+    </div>
+  </div>
+  <div class="relbar-bottom">
+    
+    <div class="related" role="navigation" aria-label="related navigation">
+      <h3>Navigation</h3>
+      <ul>
+        <li class="right" style="margin-right: 10px">
+          <a href="genindex.html" title="General Index"
+             >index</a></li>
+        <li class="right" >
+          <a href="introduction_permutations.html" title="Group of Permutations"
+             >next</a> &nbsp; &nbsp;</li>
+        <li class="right" >
+          <a href="introduction_algebraic-structures.html" title="Algebraic Structures"
+             >previous</a> &nbsp; &nbsp;</li>
+  <li><a href="index.html">Linear Algebra</a> &#187;</li>
+  
+        <li class="nav-item nav-item-this"><a href="">Fundamental Concepts in Linear Algebra</a></li> 
+      </ul>
+    </div>
+  </div>
+  
+  <div class="footer">
+    <a class="logo" href="http://icse.us.edu.pl/" target="_blank"><img src="_static/logo-icse.png" alt="ICSE"/></a><br/>
+    &copy; Copyright 2018, Jan Aksamit, Joanna Marzec, and  Marcin Kostur.
+    Last updated on Jan 29, 2022.
+    Created using <a href="http://sphinx.pocoo.org/">Sphinx</a> 4.0.1.
+  </div>
+  </body>
+</html>

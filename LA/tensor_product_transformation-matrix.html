@@ -1,0 +1,317 @@
+
+
+  
+<!DOCTYPE html>
+
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" /><meta name="generator" content="Docutils 0.17: http://docutils.sourceforge.net/" />
+
+    <title>Kronecker Product as a Transformation Matrix &#8212; Linear Algebra</title>
+    <link rel="stylesheet" type="text/css" href="_static/pygments.css" />
+    <link rel="stylesheet" type="text/css" href="_static/cloud.css" />
+    <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Noticia+Text|Open+Sans|Droid+Sans+Mono&amp;subset=latin,latin-ext" type="text/css" />
+    <script data-url_root="./" id="documentation_options" src="_static/documentation_options.js"></script>
+    <script src="_static/jquery.js"></script>
+    <script src="_static/underscore.js"></script>
+    <script src="_static/doctools.js"></script>
+    <script async="async" src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js"></script>
+    <script src="_static/jquery.cookie.js"></script>
+    <script src="_static/cloud.js"></script>
+    <script type="text/javascript" src="http://sagecell.sagemath.org/static/jquery.min.js"></script>
+    <script type="text/javascript" src="http://sagecell.sagemath.org/embedded_sagecell.js"></script>
+    <script type="text/javascript">
+        sagecell.makeSagecell({inputLocation: ".sage_linked",
+                               linked: true});
+        sagecell.makeSagecell({inputLocation: ".sage_unlinked",
+                               linked: false});
+    </script>
+
+    <style type="text/css">
+        .sagecell .CodeMirror-scroll {
+            overflow-y: hidden;
+            overflow-x: auto;
+        }
+        .sagecell .CodeMirror {
+            height: auto;
+        }
+    </style>
+    
+    <link rel="index" title="Index" href="genindex.html" />
+    <link rel="search" title="Search" href="search.html" />
+    <link rel="next" title="Kronecker Sum of Discrete Laplacians" href="tensor_product_Kronecker-sum.html" />
+    <link rel="prev" title="Vectorization of Matrices" href="tensor_product_vectorization.html" />
+ 
+  <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, minimum-scale=1">
+  </head><body>
+  <div class="relbar-top">
+    
+    <div class="related" role="navigation" aria-label="related navigation">
+      <h3>Navigation</h3>
+      <ul>
+        <li class="right" style="margin-right: 10px">
+          <a href="genindex.html" title="General Index"
+             accesskey="I">index</a></li>
+        <li class="right" >
+          <a href="tensor_product_Kronecker-sum.html" title="Kronecker Sum of Discrete Laplacians"
+             accesskey="N">next</a> &nbsp; &nbsp;</li>
+        <li class="right" >
+          <a href="tensor_product_vectorization.html" title="Vectorization of Matrices"
+             accesskey="P">previous</a> &nbsp; &nbsp;</li>
+  <li><a href="index.html">Linear Algebra</a> &#187;</li>
+  
+        <li class="nav-item nav-item-this"><a href="">Kronecker Product as a Transformation Matrix</a></li> 
+      </ul>
+    </div>
+  </div>
+  
+  <div class="content">  
+
+    <div class="document">
+      <div class="documentwrapper">
+        <div class="bodywrapper">
+          <div class="body">
+            
+  <section id="kronecker-product-as-a-transformation-matrix">
+<h1>Kronecker Product as a Transformation Matrix<a class="headerlink" href="#kronecker-product-as-a-transformation-matrix" title="Permalink to this headline">¶</a></h1>
+<p>Suppose we are given matrices
+<span class="math notranslate nohighlight">\(\ \boldsymbol{A} = [a_{ij}]_{m\times n}\in M_{m\times n}(K)\ \)</span> and
+<span class="math notranslate nohighlight">\(\ \boldsymbol{B} = [b_{ij}]_{p\times q}\in M_{p\times q}(K).\ \)</span>
+<span class="math notranslate nohighlight">\(\\\)</span>
+Then <span class="math notranslate nohighlight">\(\,\)</span> for every
+<span class="math notranslate nohighlight">\(\ \boldsymbol{G} = [g_{ij}]_{n\times q}\in M_{n\times q}(K)\ \)</span>
+there exists the product
+<span class="math notranslate nohighlight">\(\ \boldsymbol{A}\,\boldsymbol{G}\,\boldsymbol{B}^T\in M_{m\times p}(K).\)</span></p>
+<p>Due to the properties of matrix multiplication, the mapping</p>
+<div class="math notranslate nohighlight" id="equation-homo">
+<span class="eqno">(1)<a class="headerlink" href="#equation-homo" title="Permalink to this equation">¶</a></span>\[F_{AB}\,:\qquad
+M_{n\times q}(K)\ni\boldsymbol{G}\ \ \mapsto\ \ F_{AB}(\boldsymbol{G}) :\,=
+\boldsymbol{A}\,\boldsymbol{G}\,\boldsymbol{B}^T\in M_{m\times p}(K)\]</div>
+<p>is linear, <span class="math notranslate nohighlight">\(\,\)</span> i.e. <span class="math notranslate nohighlight">\(\,\)</span> <span class="math notranslate nohighlight">\(\,F_{AB}\,\)</span>
+is a homomorphism of vector spaces <span class="math notranslate nohighlight">\(\,M_{n\times q}(K)\ \)</span> and
+<span class="math notranslate nohighlight">\(\ M_{m\times p}(K) :\)</span></p>
+<div class="math notranslate nohighlight">
+\[F_{AB}\ \in\ \text{Hom}\left(M_{n\times q}(K),\,M_{m\times p}(K)\right).\]</div>
+<p>Accepting the notation <span class="math notranslate nohighlight">\(\,\)</span>
+<span class="math notranslate nohighlight">\(\boldsymbol{H}\,\equiv\,[h_{ij}]_{m\times p}\ :\,=\
+\boldsymbol{A}\,\boldsymbol{G}\,\boldsymbol{B}^T,\ \)</span> we obtain</p>
+<div class="math notranslate nohighlight">
+\[ \begin{align}\begin{aligned}h_{ij}
+\ =\ \displaystyle\sum_{v=1}^n\sum_{w=1}^q a_{iv}\ g_{vw}\ b^T_{wj}
+\ =\ \displaystyle\sum_{v=1}^n\sum_{w=1}^q (a_{iv}\,b_{jw})\ g_{vw}
+\ =\ \displaystyle\sum_{v=1}^n\sum_{w=1}^q
+(\boldsymbol{A}\otimes\boldsymbol{B})_{\,|\,ij,\,vw}\ g_{vw}\\\text{where}\quad i=1,2,\ldots,m;\ j=1,2,\ldots,p.\end{aligned}\end{align} \]</div>
+<p>Thus, for arbitrary matrices
+<span class="math notranslate nohighlight">\(\ \boldsymbol{G}\in M_{n\times q}(K),\,\)</span>
+<span class="math notranslate nohighlight">\(\,\boldsymbol{H}\in M_{m\times p}(K):\)</span></p>
+<div class="math notranslate nohighlight" id="equation-conclusion">
+<span class="eqno">(2)<a class="headerlink" href="#equation-conclusion" title="Permalink to this equation">¶</a></span>\[\boldsymbol{H}\ =\ F_{AB}(\boldsymbol{G})
+\quad\Leftrightarrow\quad
+\boldsymbol{\Lambda}^{mp}(\boldsymbol{H})\ \,=\ \,
+(\boldsymbol{A}\otimes\boldsymbol{B})\ \cdot\
+\boldsymbol{\Lambda}^{nq}(\boldsymbol{G}),\]</div>
+<p>Relation <a class="reference internal" href="#equation-conclusion">(2)</a> means that
+<span class="math notranslate nohighlight">\(\ \boldsymbol{A}\otimes\boldsymbol{B}\ \)</span>
+is the matrix of the homomorphism <span class="math notranslate nohighlight">\(\ F_{AB}\ \)</span>
+in the standard bases of the spaces of matrices.
+The resulting Theorem stated below shall be afterwards used
+for independent proofs of some properties of the Kronecker product.</p>
+<div class="admonition-theorem-math admonition">
+<p class="admonition-title">Theorem. <span class="math notranslate nohighlight">\(\\\)</span></p>
+<p>Let <span class="math notranslate nohighlight">\(\ \boldsymbol{A}\in M_{m\times n}(K),\)</span>
+<span class="math notranslate nohighlight">\(\ \boldsymbol{B}\in M_{p\times q}(K).\ \)</span>
+Then the tensor product <span class="math notranslate nohighlight">\(\ \boldsymbol{A}\otimes\boldsymbol{B}\ \)</span>
+is the matrix of the homomorphism</p>
+<div class="math notranslate nohighlight">
+\[F_{AB}\,:\qquad
+M_{n\times q}(K)\ni\boldsymbol{G}
+\ \ \mapsto\ \
+F_{AB}(\boldsymbol{G}) :\,=
+\boldsymbol{A}\,\boldsymbol{G}\boldsymbol{B}^{\,T}\in M_{m\times p}(K)\]</div>
+<p>in the standard bases
+<span class="math notranslate nohighlight">\(\ \mathcal{E}_{n\times q}\ \)</span> and <span class="math notranslate nohighlight">\(\ \ \mathcal{E}_{m\times p}\ \)</span>
+of vector spaces <span class="math notranslate nohighlight">\(\ M_{n\times q}(K)\ \)</span> and
+<span class="math notranslate nohighlight">\(\ M_{m\times p}(K).\ \)</span> Consequently</p>
+<div class="math notranslate nohighlight">
+\[\boldsymbol{\Lambda}^{mp}
+(\boldsymbol{A}\,\boldsymbol{G}\,\boldsymbol{B}^{\,T})
+\ \,=\ \,
+(\boldsymbol{A}\otimes\boldsymbol{B})\,\cdot\,
+\boldsymbol{\Lambda}^{nq}(\boldsymbol{G})\,,
+\qquad\forall\ \ \boldsymbol{G}\in M_{n\times q}(K)\,.\]</div>
+<p>Here <span class="math notranslate nohighlight">\(\ \boldsymbol{\Lambda}^{rs}(\boldsymbol{X})\ \)</span>
+is a column of coordinates of matrix
+<span class="math notranslate nohighlight">\(\ \boldsymbol{X}\in M_{r\times s}(K)\ \)</span>
+in the basis <span class="math notranslate nohighlight">\(\ \mathcal{E}_{r\times s}\,.\)</span></p>
+</div>
+<p>Let <span class="math notranslate nohighlight">\(\ \boldsymbol{A}\in M_{m\times n}(K),\ \)</span>
+<span class="math notranslate nohighlight">\(\ \boldsymbol{B}\in M_{p\times q}(K).\ \ \)</span>
+Equation <a class="reference internal" href="#equation-conclusion">(2)</a> can be rewritten as</p>
+<div class="math notranslate nohighlight" id="equation-main">
+<span class="eqno">(3)<a class="headerlink" href="#equation-main" title="Permalink to this equation">¶</a></span>\[\blacktriangleright\quad
+(\boldsymbol{A}\otimes\boldsymbol{B})\,\cdot\,
+\boldsymbol{\Lambda}^{nq}(\boldsymbol{G})\ \,=\ \,
+\boldsymbol{\Lambda}^{mp}
+(\boldsymbol{A}\,\boldsymbol{G}\,\boldsymbol{B}^T)
+\qquad\forall\ \ \boldsymbol{G}\in M_{n\times q}(K).\]</div>
+<p>Substituting in <a class="reference internal" href="#equation-main">(3)</a>
+<span class="math notranslate nohighlight">\(\ \boldsymbol{A}\to\boldsymbol{A}_1 + \boldsymbol{A}_2\,,\ \)</span> where
+<span class="math notranslate nohighlight">\(\ \boldsymbol{A}_1,\ \boldsymbol{A}_2 \in M_{m\times n}(K),\ \)</span>
+we get</p>
+<div class="math notranslate nohighlight">
+\[\begin{split}\begin{array}{ll}
+\left[\,(\boldsymbol{A}_1 + \boldsymbol{A}_2)\otimes\boldsymbol{B}\,\right]
+\,\cdot\,\boldsymbol{\Lambda}^{nq}(\boldsymbol{G}) &amp;
+=\ \ \boldsymbol{\Lambda}^{mp}
+\left[\,(\boldsymbol{A}_1 + \boldsymbol{A}_2)\
+\boldsymbol{G}\,\boldsymbol{B}^T\,\right]\ =
+\\[6pt] &amp;
+=\ \ \boldsymbol{\Lambda}^{mp}
+\left(\boldsymbol{A}_1\,\boldsymbol{G}\,\boldsymbol{B}^T + \,
+\boldsymbol{A}_2\,\boldsymbol{G}\,\boldsymbol{B}^T\right)\ =
+\\[6pt] &amp;
+=\ \ \boldsymbol{\Lambda}^{mp}
+\left(\boldsymbol{A}_1\,\boldsymbol{G}\,\boldsymbol{B}^T\right)\ +\
+\boldsymbol{\Lambda}^{mp}
+\left(\boldsymbol{A}_2\,\boldsymbol{G}\,\boldsymbol{B}^T\right)\ =
+\\[6pt] &amp;
+=\ \ (\boldsymbol{A}_1\otimes\boldsymbol{B})\,\cdot\,
+\boldsymbol{\Lambda}^{nq}(\boldsymbol{G})\ +\
+(\boldsymbol{A}_2\otimes\boldsymbol{B})\,\cdot\,
+\boldsymbol{\Lambda}^{nq}(\boldsymbol{G})\ =
+\\[6pt] &amp;
+=\ \ \left[\,(\boldsymbol{A}_1\otimes\boldsymbol{B})\ +\
+(\boldsymbol{A}_2\otimes\boldsymbol{B})\,\right]\,\cdot\,
+\boldsymbol{\Lambda}^{nq}(\boldsymbol{G})
+\end{array}\end{split}\]</div>
+<p>for arbitrary matrix <span class="math notranslate nohighlight">\(\ \boldsymbol{G}\in M_{n\times q}(K).\ \)</span>
+Inserting, in place of <span class="math notranslate nohighlight">\(\ \boldsymbol{G},\ \)</span> the consecutive elements
+of the standard basis <span class="math notranslate nohighlight">\(\ \mathcal{E}_{n\times q}:\ \)</span>
+<span class="math notranslate nohighlight">\(\ \boldsymbol{G} = \boldsymbol{E}_{11},\
+\boldsymbol{E}_{12},\ \ldots,\ \boldsymbol{E}_{nq}\,,\ \)</span>
+we ascertain the equality of the corresponding columns of matrices
+<span class="math notranslate nohighlight">\(\ (\boldsymbol{A}_1 + \boldsymbol{A}_2)\otimes\boldsymbol{B}\ \,\)</span>
+and <span class="math notranslate nohighlight">\(\ \,(\boldsymbol{A}_1\otimes\boldsymbol{B})\ +\
+(\boldsymbol{A}_2\otimes\boldsymbol{B})\,,\ \)</span> which is equivalent to
+the equality of the matrices themselves:</p>
+<div class="math notranslate nohighlight">
+\[(\boldsymbol{A}_1 + \boldsymbol{A}_2)\otimes\boldsymbol{B}\ \,=\ \,
+(\boldsymbol{A}_1\otimes\boldsymbol{B})\ +\
+(\boldsymbol{A}_2\otimes\boldsymbol{B})\,.\quad\bullet\]</div>
+<p>To prove the <span class="math notranslate nohighlight">\(\,\)</span> “<em>mixed-product property</em>” of the Kronecker product,
+we substitute in Eq. <a class="reference internal" href="#equation-main">(3)</a>:</p>
+<div class="math notranslate nohighlight">
+\[\begin{split}\begin{array}{lr}
+\boldsymbol{A}\to\boldsymbol{A}\,\boldsymbol{C},\ \ &amp;
+\begin{array}{r}
+\boldsymbol{A}\ :\ m \times r \\
+\boldsymbol{C}\ :\ r \times n
+\end{array};
+\end{array}
+\qquad
+\begin{array}{ll}
+\boldsymbol{B}\to\boldsymbol{B}\,\boldsymbol{D},\ \ &amp;
+\begin{array}{l}
+\boldsymbol{B}\ :\ p \times s \\
+\boldsymbol{D}\ :\ s \times q
+\end{array}:
+\end{array}
+\\[8pt]
+\begin{array}{ll}
+\left[\,(\boldsymbol{A}\boldsymbol{C})\otimes
+(\boldsymbol{B}\boldsymbol{D})\,\right]\,\cdot\,
+\boldsymbol{\Lambda}^{nq}(\boldsymbol{G}) &amp;
+=\ \ \boldsymbol{\Lambda}^{mp}
+\left[\,(\boldsymbol{A}\boldsymbol{C})\ \boldsymbol{G}\
+(\boldsymbol{B}\boldsymbol{D})^T\,\right]\ \ =\
+\\[6pt] &amp;
+=\ \ \boldsymbol{\Lambda}^{mp}
+\left[\,\boldsymbol{A}\
+(\boldsymbol{C}\boldsymbol{G}\boldsymbol{D}^T)\
+\boldsymbol{B}^T\,\right]\ \ =
+\\[6pt] &amp;
+=\ \ (\boldsymbol{A}\otimes\boldsymbol{B})\,\cdot\,
+\boldsymbol{\Lambda}^{rs}
+(\boldsymbol{C}\boldsymbol{G}\boldsymbol{D}^T)\ \ =
+\\[6pt] &amp;
+=\ \ (\boldsymbol{A}\otimes\boldsymbol{B})\,\cdot\,
+\left[\,(\boldsymbol{C}\otimes\boldsymbol{D})\,\cdot\,
+\boldsymbol{\Lambda}^{nq}(\boldsymbol{G})\,\right]\ \ =
+\\[6pt] &amp;
+=\ \ \left[\,(\boldsymbol{A}\otimes\boldsymbol{B})\cdot
+(\boldsymbol{C}\otimes\boldsymbol{D})\,\right]\,\cdot\,
+\boldsymbol{\Lambda}^{nq}(\boldsymbol{G}).
+\end{array}\end{split}\]</div>
+<p>The matrix <span class="math notranslate nohighlight">\(\ \boldsymbol{G}\in M_{n\times q}(K)\ \)</span> being arbitrary,
+we come up with the matrix equality to be proved:</p>
+<div class="math notranslate nohighlight">
+\[(\boldsymbol{A}\boldsymbol{C})\otimes
+(\boldsymbol{B}\boldsymbol{D})\ =\
+(\boldsymbol{A}\otimes\boldsymbol{B})\
+(\boldsymbol{C}\otimes\boldsymbol{D})\,.\quad\bullet\]</div>
+</section>
+
+
+          </div>
+        </div>
+      </div>
+      <div class="sphinxsidebar" role="navigation" aria-label="main navigation">
+        <div class="sphinxsidebarwrapper">
+  <h4>Previous topic</h4>
+  <p class="topless"><a href="tensor_product_vectorization.html"
+                        title="previous chapter">Vectorization of Matrices</a></p>
+  <h4>Next topic</h4>
+  <p class="topless"><a href="tensor_product_Kronecker-sum.html"
+                        title="next chapter">Kronecker Sum of Discrete Laplacians</a></p>
+  <div role="note" aria-label="source link">
+    <h3>This Page</h3>
+    <ul class="this-page-menu">
+      <li><a href="_sources/tensor_product_transformation-matrix.rst.txt"
+            rel="nofollow">Show Source</a></li>
+    </ul>
+   </div>
+<div id="searchbox" style="display: none" role="search">
+  <h3 id="searchlabel">Quick search</h3>
+    <div class="searchformwrapper">
+    <form class="search" action="search.html" method="get">
+      <input type="text" name="q" aria-labelledby="searchlabel" />
+      <input type="submit" value="Go" />
+    </form>
+    </div>
+</div>
+<script>$('#searchbox').show(0);</script>
+        </div>
+      </div>
+      <div class="clearer"></div>
+    </div>
+  </div>
+  <div class="relbar-bottom">
+    
+    <div class="related" role="navigation" aria-label="related navigation">
+      <h3>Navigation</h3>
+      <ul>
+        <li class="right" style="margin-right: 10px">
+          <a href="genindex.html" title="General Index"
+             >index</a></li>
+        <li class="right" >
+          <a href="tensor_product_Kronecker-sum.html" title="Kronecker Sum of Discrete Laplacians"
+             >next</a> &nbsp; &nbsp;</li>
+        <li class="right" >
+          <a href="tensor_product_vectorization.html" title="Vectorization of Matrices"
+             >previous</a> &nbsp; &nbsp;</li>
+  <li><a href="index.html">Linear Algebra</a> &#187;</li>
+  
+        <li class="nav-item nav-item-this"><a href="">Kronecker Product as a Transformation Matrix</a></li> 
+      </ul>
+    </div>
+  </div>
+  
+  <div class="footer">
+    <a class="logo" href="http://icse.us.edu.pl/" target="_blank"><img src="_static/logo-icse.png" alt="ICSE"/></a><br/>
+    &copy; Copyright 2018, Jan Aksamit, Joanna Marzec, and  Marcin Kostur.
+    Last updated on Jan 29, 2022.
+    Created using <a href="http://sphinx.pocoo.org/">Sphinx</a> 4.0.1.
+  </div>
+  </body>
+</html>

@@ -1,0 +1,416 @@
+
+
+  
+<!DOCTYPE html>
+
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" /><meta name="generator" content="Docutils 0.17: http://docutils.sourceforge.net/" />
+
+    <title>Definition and Properties of the Deteminant &#8212; Linear Algebra</title>
+    <link rel="stylesheet" type="text/css" href="_static/pygments.css" />
+    <link rel="stylesheet" type="text/css" href="_static/cloud.css" />
+    <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Noticia+Text|Open+Sans|Droid+Sans+Mono&amp;subset=latin,latin-ext" type="text/css" />
+    <script data-url_root="./" id="documentation_options" src="_static/documentation_options.js"></script>
+    <script src="_static/jquery.js"></script>
+    <script src="_static/underscore.js"></script>
+    <script src="_static/doctools.js"></script>
+    <script async="async" src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js"></script>
+    <script src="_static/jquery.cookie.js"></script>
+    <script src="_static/cloud.js"></script>
+    <script type="text/javascript" src="http://sagecell.sagemath.org/static/jquery.min.js"></script>
+    <script type="text/javascript" src="http://sagecell.sagemath.org/embedded_sagecell.js"></script>
+    <script type="text/javascript">
+        sagecell.makeSagecell({inputLocation: ".sage_linked",
+                               linked: true});
+        sagecell.makeSagecell({inputLocation: ".sage_unlinked",
+                               linked: false});
+    </script>
+
+    <style type="text/css">
+        .sagecell .CodeMirror-scroll {
+            overflow-y: hidden;
+            overflow-x: auto;
+        }
+        .sagecell .CodeMirror {
+            height: auto;
+        }
+    </style>
+    
+    <link rel="index" title="Index" href="genindex.html" />
+    <link rel="search" title="Search" href="search.html" />
+    <link rel="next" title="The Permutation Expansion" href="determinants_permutation-expansion.html" />
+    <link rel="prev" title="Exercises and Problems" href="operations_on_matrices_problems.html" />
+ 
+  <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, minimum-scale=1">
+  </head><body>
+  <div class="relbar-top">
+    
+    <div class="related" role="navigation" aria-label="related navigation">
+      <h3>Navigation</h3>
+      <ul>
+        <li class="right" style="margin-right: 10px">
+          <a href="genindex.html" title="General Index"
+             accesskey="I">index</a></li>
+        <li class="right" >
+          <a href="determinants_permutation-expansion.html" title="The Permutation Expansion"
+             accesskey="N">next</a> &nbsp; &nbsp;</li>
+        <li class="right" >
+          <a href="operations_on_matrices_problems.html" title="Exercises and Problems"
+             accesskey="P">previous</a> &nbsp; &nbsp;</li>
+  <li><a href="index.html">Linear Algebra</a> &#187;</li>
+  
+        <li class="nav-item nav-item-this"><a href="">Definition and Properties of the Deteminant</a></li> 
+      </ul>
+    </div>
+  </div>
+  
+  <div class="content">  
+
+    <div class="document">
+      <div class="documentwrapper">
+        <div class="bodywrapper">
+          <div class="body">
+            
+  <section id="definition-and-properties-of-the-deteminant">
+<h1>Definition and Properties of the Deteminant<a class="headerlink" href="#definition-and-properties-of-the-deteminant" title="Permalink to this headline">¶</a></h1>
+<p>In the following the column notation of matrices is being used:</p>
+<div class="math notranslate nohighlight">
+\[\begin{split}M_n(K)\ni\boldsymbol{A}\ =\ [a_{ij}]_{n\times n}\ =\
+\left[\,\boldsymbol{A}_1\,|\;\boldsymbol{A}_2\,|\,
+\dots\,|\,\boldsymbol{A}_n\,\right]\,,\quad
+\text{where}\quad
+\boldsymbol{A}_j\ =\
+\left[\begin{array}{c}
+a_{1j} \\ a_{2j} \\ \dots \\ a_{nj}
+\end{array}\right]\,,\quad j=1,2,\ldots,n.\end{split}\]</div>
+<p>We shall accept an axiomatic definition, which establishes in advance
+the basic properties of determinants.</p>
+<div class="admonition-definition-math admonition">
+<p class="admonition-title">Definition. <span class="math notranslate nohighlight">\(\\\)</span></p>
+<p>The determinant of size <span class="math notranslate nohighlight">\(\ n\ \)</span> is a function
+<span class="math notranslate nohighlight">\(\ \det : M_n(K)\to K\ \)</span> <span class="math notranslate nohighlight">\(\\\)</span> satisfying
+the following Axioms (<span class="math notranslate nohighlight">\(j\;-\)</span> any column number,
+<span class="math notranslate nohighlight">\(\ \lambda\in K\)</span>) : <span class="math notranslate nohighlight">\(\\\)</span></p>
+<ol class="arabic simple">
+<li><p><span class="math notranslate nohighlight">\(\ \det\ [\,\boldsymbol{A}_1\,|\,\dots\,|\,
+\boldsymbol{A}_j+\boldsymbol{A}'_j\,|\,\dots\,|\,
+\boldsymbol{A}_n\,]\ \ = \\
+\ \det\ [\,\boldsymbol{A}_1\,|\,\dots\,|\,\boldsymbol{A}_j\,|\,
+\dots\,|\,\boldsymbol{A}_n\,]\ +\
+\det\ [\,\boldsymbol{A}_1\,|\,\dots\,|\,\boldsymbol{A}'_j\,|\,
+\dots\,|\,\boldsymbol{A}_n\,]\,; \\\)</span></p></li>
+<li><p><span class="math notranslate nohighlight">\(\ \det\ [\,\boldsymbol{A}_1\,|\,\dots\,|\,
+\lambda\,\boldsymbol{A}_j\,|\,\dots\,|\,\boldsymbol{A}_n\,]\ \ =\ \
+\lambda\,\cdot\,\det\ [\,\boldsymbol{A}_1\,|\,\dots\,|\,
+\boldsymbol{A}_j\,|\,\dots\,|\,\boldsymbol{A}_n\,]\,;\\\)</span></p></li>
+<li><p><span class="math notranslate nohighlight">\(\ \boldsymbol{A}_j\ =\ \boldsymbol{A}_{j+1}
+\quad\Rightarrow\quad
+\det\ [\,\boldsymbol{A}_1\,|\,\dots\,|\,\boldsymbol{A}_j\,|\,
+\boldsymbol{A}_{j+1}\,|\,\dots\,|\,\boldsymbol{A}_n\,]\ =\ 0\,;\\\)</span></p></li>
+<li><p><span class="math notranslate nohighlight">\(\ \det\ \boldsymbol{I}_n\ =\ 1\,,\qquad
+\boldsymbol{I}_n\ -\ \text{identity matrix.}\)</span></p></li>
+</ol>
+</div>
+<p><span class="math notranslate nohighlight">\(\ \)</span></p>
+<p>The determinant of a matrix <span class="math notranslate nohighlight">\(\,\boldsymbol{A}\,\)</span> is denoted as</p>
+<div class="math notranslate nohighlight">
+\[\begin{split}\det\boldsymbol{A}\ =\
+\det\ [a_{ij}]_{n\times n}\ =\
+\det
+\left[\begin{array}{cccc}
+      a_{11} &amp; a_{12} &amp; \dots &amp; a_{1n} \\
+      a_{21} &amp; a_{22} &amp; \dots &amp; a_{2n} \\
+       \dots &amp;  \dots &amp; \dots &amp;  \dots \\
+      a_{n1} &amp; a_{n2} &amp; \dots &amp; a_{nn}
+      \end{array}
+\right]\ \ =\ \
+\left|\begin{array}{cccc}
+      a_{11} &amp; a_{12} &amp; \dots &amp; a_{1n} \\
+      a_{21} &amp; a_{22} &amp; \dots &amp; a_{2n} \\
+       \dots &amp;  \dots &amp; \dots &amp;  \dots \\
+      a_{n1} &amp; a_{n2} &amp; \dots &amp; a_{nn}
+      \end{array}
+\right|\,.\end{split}\]</div>
+<p><span class="math notranslate nohighlight">\(\\\)</span></p>
+<p><strong>Notes and Comments.</strong></p>
+<ul>
+<li><p>Determinant is a function that ascribes numbers to square matrices.</p>
+<p>Axioms <span class="math notranslate nohighlight">\(\,\)</span> 1. <span class="math notranslate nohighlight">\(\,\)</span> and <span class="math notranslate nohighlight">\(\ \)</span> 2. <span class="math notranslate nohighlight">\(\,\)</span> assert
+that this function is linear with respect to each column of matrix
+<span class="math notranslate nohighlight">\(\,\boldsymbol{A}\ \)</span> <em>taken apart</em>. <span class="math notranslate nohighlight">\(\,\)</span>
+However, <span class="math notranslate nohighlight">\(\,\det\boldsymbol{A}\ \)</span> <em>is not</em> <span class="math notranslate nohighlight">\(\,\)</span> linear
+with respect to matrix <span class="math notranslate nohighlight">\(\,\boldsymbol{A}\ \)</span> itself:</p>
+<div class="math notranslate nohighlight">
+\[\det\ (\boldsymbol{A} + \boldsymbol{B})\ \ne\
+\det\ \boldsymbol{A} + \det\ \boldsymbol{B}\,,\quad
+\det\ (\lambda\,\boldsymbol{A})\ \ne\ \lambda\cdot\boldsymbol{A}\,,
+\quad\boldsymbol{A},\boldsymbol{B}\in M_n(K).\]</div>
+<p>Namely, the Axiom <span class="math notranslate nohighlight">\(\,\)</span> 2. <span class="math notranslate nohighlight">\(\,\)</span> implies that
+<span class="math notranslate nohighlight">\(\ \ \det\ (\lambda\,\boldsymbol{A})\ =\
+\lambda^n\cdot\boldsymbol{A},\quad n=1,2,\ldots\)</span></p>
+<p>Axiom <span class="math notranslate nohighlight">\(\,\)</span> 3. <span class="math notranslate nohighlight">\(\,\)</span> means that if any two
+<span class="math notranslate nohighlight">\(\,\)</span> <em>adjacent</em> <span class="math notranslate nohighlight">\(\,\)</span> columns of matrix <span class="math notranslate nohighlight">\(\,\boldsymbol{A}\ \)</span>
+are identical, <span class="math notranslate nohighlight">\(\,\)</span> then the determinant of that matrix vanishes.</p>
+<p>Axiom <span class="math notranslate nohighlight">\(\,\)</span> 4. <span class="math notranslate nohighlight">\(\,\)</span> postulates that the determinant
+of an identity matrix equals unity.</p>
+</li>
+<li><p>Determinant is definite only for square matrices:
+there does not exist a determinant of any rectangular non-square matrix.</p></li>
+<li><p>Determinant of a matrix is something else than the matrix itself.
+This is expressed by the notation (square brackets or parentheses
+for matrices, vertical bars for determinants).</p></li>
+</ul>
+<p>Postponing the question of existence of the function <span class="math notranslate nohighlight">\(\,\det,\ \)</span>
+we shall derive its further properties. <span class="math notranslate nohighlight">\(\\\)</span></p>
+<div class="admonition-property-math-i-math admonition">
+<p class="admonition-title">Property <span class="math notranslate nohighlight">\(\,\)</span> I. <span class="math notranslate nohighlight">\(\,\)</span></p>
+<p>If any column of matrix <span class="math notranslate nohighlight">\(\,\boldsymbol{A}\ \)</span> contains zeros only,
+<span class="math notranslate nohighlight">\(\,\)</span> then <span class="math notranslate nohighlight">\(\ \det{\boldsymbol{A}}=0.\)</span></p>
+</div>
+<p><strong>Proof.</strong> <span class="math notranslate nohighlight">\(\,\)</span> Let
+<span class="math notranslate nohighlight">\(\ \ d\,:\,=\,\det{\ [\,\boldsymbol{A}_1\,|\,\dots\,|\,
+\boldsymbol{A}_j\,|\,\dots\,|\,\boldsymbol{A}_n\,]}\,,\quad
+j\in\{1,2,\ldots,n\}\,.\ \ \\\)</span>
+If <span class="math notranslate nohighlight">\(\ \boldsymbol{A}_j=\boldsymbol{0},\ \,\)</span>
+then <span class="math notranslate nohighlight">\(\ \boldsymbol{A}_j=0\cdot\boldsymbol{A}_j\,.\ \)</span>
+From Axiom 2. we get <span class="math notranslate nohighlight">\(\ \,d = 0\cdot d = 0\,.\quad\bullet\)</span> <span class="math notranslate nohighlight">\(\\\)</span></p>
+<div class="admonition-property-math-iia-math admonition">
+<p class="admonition-title">Property <span class="math notranslate nohighlight">\(\,\)</span> IIa. <span class="math notranslate nohighlight">\(\,\)</span></p>
+<p>A transposition of two <span class="math notranslate nohighlight">\(\,\)</span> <em>adjacent</em> <span class="math notranslate nohighlight">\(\,\)</span>
+columns changes the sign of the determinant.</p>
+</div>
+<p><strong>Proof.</strong> <span class="math notranslate nohighlight">\(\,\)</span>
+In virtue of Axioms <span class="math notranslate nohighlight">\(\,\)</span> 1. <span class="math notranslate nohighlight">\(\,\)</span> and <span class="math notranslate nohighlight">\(\,\)</span> 3. <span class="math notranslate nohighlight">\(\,\)</span>
+we may write</p>
+<div class="math notranslate nohighlight">
+\[ \begin{align}\begin{aligned}\det\ [\,\boldsymbol{A}_1\,|\,\dots\,|\,\boldsymbol{A}' +
+\boldsymbol{A}''\,|\,\boldsymbol{A}' +
+\boldsymbol{A}''\,|\,\dots\,|\,\boldsymbol{A}_n\,]\ \ =\\=\ \
+\det\ [\,\boldsymbol{A}_1\,|\,\dots\,|\,\boldsymbol{A}'\,|\,
+\boldsymbol{A}'\,|\,\dots\,|\,\boldsymbol{A}_n\,]\ +\
+\det\ [\,\boldsymbol{A}_1\,|\,\dots\,|\,\boldsymbol{A}'\,|\,
+\boldsymbol{A}''\,|\,\dots\,|\,\boldsymbol{A}_n\,]\ \ +\\\ \ +\ \
+\det\ [\,\boldsymbol{A}_1\,|\,\dots\,|\,\boldsymbol{A}''\,|\,
+\boldsymbol{A}'\,|\,\dots\,|\,\boldsymbol{A}_n\,]\ +\
+\det\ [\,\boldsymbol{A}_1\,|\,\dots\,|\,\boldsymbol{A}''\,|\,
+\boldsymbol{A}''\,|\,\dots\,|\,\boldsymbol{A}_n\,]\ \ =\\=\ \
+\det\ [\,\boldsymbol{A}_1\,|\,\dots\,|\,\boldsymbol{A}'\,|\,
+\boldsymbol{A}''\,|\,\dots\,|\,\boldsymbol{A}_n\,]\ +\
+\det\ [\,\boldsymbol{A}_1\,|\,\dots\,|\,\boldsymbol{A}''\,|\,
+\boldsymbol{A}'\,|\,\dots\,|\,\boldsymbol{A}_n\,]\ \ =\ \ 0\,.\end{aligned}\end{align} \]</div>
+<div class="math notranslate nohighlight">
+\[\text{Therefore}\quad\det\ [\,\boldsymbol{A}_1\,|\,\dots\,|\,
+\boldsymbol{A}''\,|\,\boldsymbol{A}'\,|\,\dots\,|\,\boldsymbol{A}_n\,]
+\ \ =\ \ -\
+\det\ [\,\boldsymbol{A}_1\,|\,\dots\,|\,\boldsymbol{A}'\,|\,
+\boldsymbol{A}''\,|\,\dots\,|\,\boldsymbol{A}_n\,]\,.\quad\bullet\]</div>
+<div class="admonition-property-math-iib-math admonition">
+<p class="admonition-title">Property <span class="math notranslate nohighlight">\(\,\)</span> IIb. <span class="math notranslate nohighlight">\(\,\)</span></p>
+<p>A transposition of <span class="math notranslate nohighlight">\(\,\)</span> <em>any</em>  <span class="math notranslate nohighlight">\(\,\)</span> two columns
+changes the sign of the determinant.</p>
+</div>
+<p><strong>Proof.</strong> <span class="math notranslate nohighlight">\(\,\)</span>
+A transposition of any two columns is composed of an odd number
+of transpositions of adjacent columns. <span class="math notranslate nohighlight">\(\quad\bullet\)</span></p>
+<p><span class="math notranslate nohighlight">\(\;\)</span></p>
+<div class="admonition-property-math-iic-math admonition">
+<p class="admonition-title">Property <span class="math notranslate nohighlight">\(\,\)</span> IIc. <span class="math notranslate nohighlight">\(\\\)</span></p>
+<p>For any permutation <span class="math notranslate nohighlight">\(\,\sigma\in S_n:\)</span></p>
+<div class="math notranslate nohighlight">
+\[\det\ [\,
+\boldsymbol{A}_{\sigma(1)}\,|\;\boldsymbol{A}_{\sigma(2)}\,|\,\dots\,|\,
+\boldsymbol{A}_{\sigma(n)}\,]
+\ \ =\ \
+\text{sgn}\,\sigma\,\cdot\,
+\det\ [\,\boldsymbol{A}_1\,|\;\boldsymbol{A}_2\,|\,
+         \dots\,|\,\boldsymbol{A}_n\,]\,,\]</div>
+</div>
+<p><strong>Proof.</strong> <span class="math notranslate nohighlight">\(\\\)</span>
+Reordering of columns into the layout corresponding
+to permutation <span class="math notranslate nohighlight">\(\,\sigma\ \)</span> can be achieved by an even
+(when <span class="math notranslate nohighlight">\(\,\text{sgn}\,\sigma=+1\)</span>) or odd
+(when <span class="math notranslate nohighlight">\(\,\text{sgn}\,\sigma=-1\)</span>) number of transpositions,
+each of which changes sign of the determinant.
+As a result, the sign of the determinant remains unchanged or
+turns into the opposite, respectively. <span class="math notranslate nohighlight">\(\quad\bullet\)</span></p>
+<p><strong>Practical conclusion.</strong> <span class="math notranslate nohighlight">\(\\\)</span>
+Reordering of columns of a matrix yields
+at most change of sign of its determinant.</p>
+<p><span class="math notranslate nohighlight">\(\;\)</span></p>
+<div class="admonition-property-math-iiia-math admonition">
+<p class="admonition-title">Property <span class="math notranslate nohighlight">\(\,\)</span> IIIa. <span class="math notranslate nohighlight">\(\,\)</span></p>
+<p>When <span class="math notranslate nohighlight">\(\,\)</span> <em>any</em> <span class="math notranslate nohighlight">\(\,\)</span> two columns of a matrix are identical,
+<span class="math notranslate nohighlight">\(\,\)</span> then its determinant vanishes.</p>
+</div>
+<p><strong>Proof.</strong> <span class="math notranslate nohighlight">\(\\\)</span>
+Let <span class="math notranslate nohighlight">\(\ d\,:\,=\,\det{\ [\,\boldsymbol{A}_1\,|\,\dots\,|\,
+\boldsymbol{A}_j\,|\,\dots\,|\,\boldsymbol{A}_k\,|\,
+\dots\,|\,\boldsymbol{A}_n\,]}\,,\quad j&lt;k\in\{1,2,\dots,n\}\,.\)</span></p>
+<p>If <span class="math notranslate nohighlight">\(\ \boldsymbol{A}_j = \boldsymbol{A}_k\,,\ \)</span>
+then according to Property IIb.: <span class="math notranslate nohighlight">\(\ \,d = -\ d,\ \,\)</span>
+wherefrom <span class="math notranslate nohighlight">\(\ \,d = 0.\)</span> <span class="math notranslate nohighlight">\(\quad\bullet\)</span></p>
+<p><span class="math notranslate nohighlight">\(\;\)</span></p>
+<div class="admonition-property-math-iiib-math admonition">
+<p class="admonition-title">Property <span class="math notranslate nohighlight">\(\,\)</span> IIIb. <span class="math notranslate nohighlight">\(\,\)</span></p>
+<p>If any two columns of a matrix are proportional,
+then its determinant vanishes.</p>
+</div>
+<p><strong>Proof.</strong> <span class="math notranslate nohighlight">\(\\\)</span>
+Indeed, <span class="math notranslate nohighlight">\(\,\)</span> from <span class="math notranslate nohighlight">\(\,\)</span> Axiom 2. <span class="math notranslate nohighlight">\(\,\)</span> and <span class="math notranslate nohighlight">\(\,\)</span>
+Property <span class="math notranslate nohighlight">\(\,\)</span> IIIa. <span class="math notranslate nohighlight">\(\,\)</span> we infer
+that for <span class="math notranslate nohighlight">\(\,\lambda\in K :\)</span></p>
+<div class="math notranslate nohighlight">
+\[\det{\ [\,\boldsymbol{A}_1\,|\,\dots\,|\,\boldsymbol{A}'\,|\,\dots\,|\,
+\lambda\,\boldsymbol{A}'\,|\,\dots\,|\,\boldsymbol{A}_n\,]}\ \ =\ \
+\lambda\,\cdot\,\det{\ [\,\boldsymbol{A}_1\,|\,\dots\,|\,
+\boldsymbol{A}'\,|\,\dots\,|\,\boldsymbol{A}'\,|\,\dots\,|\,
+\boldsymbol{A}_n\,]}\ =\ 0\,.\]</div>
+<p><span class="math notranslate nohighlight">\(\;\)</span></p>
+<div class="admonition-property-math-iiic-math admonition">
+<p class="admonition-title">Property <span class="math notranslate nohighlight">\(\,\)</span> IIIc. <span class="math notranslate nohighlight">\(\,\)</span></p>
+<p>Adding to a column of a matrix a scalar multiple of another column
+does not influence the determinant of the matrix.</p>
+</div>
+<p><strong>Proof.</strong> <span class="math notranslate nohighlight">\(\\\)</span>
+This property stems from the <span class="math notranslate nohighlight">\(\,\)</span> 1.  and  2. <span class="math notranslate nohighlight">\(\,\)</span> Axioms
+as well as from the Property IIIb.:</p>
+<div class="math notranslate nohighlight">
+\[ \begin{align}\begin{aligned}\det{\ [\,\boldsymbol{A}_1\,|\,\dots\,|\,\boldsymbol{A}_j\,|\,\dots\,|\,
+\boldsymbol{A}_k + \lambda\,\boldsymbol{A}_j\,|\,\dots\,|\,
+\boldsymbol{A}_n\,]}\ \ =\\=\ \
+\det{\ [\,\boldsymbol{A}_1\,|\,\dots\,|\,\boldsymbol{A}_j\,|\,\dots\,|\,
+\boldsymbol{A}_k\,|\,\dots\,|\,\boldsymbol{A}_n\,]}\ +\
+\lambda\
+\det{\ [\,\boldsymbol{A}_1\,|\,\dots\,|\,\boldsymbol{A}_j\,|\,\dots\,|\,
+\boldsymbol{A}_j\,|\,\dots\,|\,\boldsymbol{A}_n\,]}\ \ =\\=\ \
+\det{\ [\,\boldsymbol{A}_1\,|\,\dots\,|\,\boldsymbol{A}_j\,|\,\dots\,|\,
+\boldsymbol{A}_k\,|\,\dots\,|\,\boldsymbol{A}_n\,]}\,.
+\quad\bullet\end{aligned}\end{align} \]</div>
+<div class="admonition-property-math-iv-math admonition">
+<p class="admonition-title">Property <span class="math notranslate nohighlight">\(\,\)</span> IV. <span class="math notranslate nohighlight">\(\\\)</span></p>
+<p>For any two matrices
+<span class="math notranslate nohighlight">\(\ \boldsymbol{A},\boldsymbol{B}\in M_n(K),\ \)</span> where
+<span class="math notranslate nohighlight">\(\ \boldsymbol{B} = [b_{ij}]_{n\times n}:\)</span></p>
+<div class="math notranslate nohighlight">
+\[\det\,(\boldsymbol{A}\boldsymbol{B})\ \,=\ \,
+\det\boldsymbol{A}\ \cdot \sum_{\sigma\,\in\,S_n}\,
+\text{sgn}\,\sigma\,\cdot\,
+b_{\sigma(1),1}\ b_{\sigma(2),2}\ \ldots,\ b_{\sigma(n),\,n}\,.\]</div>
+</div>
+<p><strong>Proof.</strong></p>
+<p>Let
+<span class="math notranslate nohighlight">\(\ \boldsymbol{A}\ =\
+[\,\boldsymbol{A}_1\,|\;\boldsymbol{A}_2\,|\,\dots\,|\,\boldsymbol{A}_n\,]\,,
+\quad
+\boldsymbol{B}\ =\ [b_{ij}]_{n\times n}\,,\quad
+\boldsymbol{A}\boldsymbol{B}\ =\
+[\,\boldsymbol{C}_1\,|\;\boldsymbol{C}_2\,|\,\dots\,|\,\boldsymbol{C}_n\,]\,.\)</span></p>
+<p>According to the Column Rule of Matrix Multiplication,
+the <span class="math notranslate nohighlight">\(\,j\)</span>-th column of the product <span class="math notranslate nohighlight">\(\boldsymbol{A}\boldsymbol{B}\ \)</span>
+is a linear combination of columns of matrix <span class="math notranslate nohighlight">\(\boldsymbol{A}\ \)</span> with
+coefficients equal to the consecutive elements of the <span class="math notranslate nohighlight">\(\,j\)</span>-th column of
+matrix <span class="math notranslate nohighlight">\(\boldsymbol{B}:\)</span></p>
+<div class="math notranslate nohighlight">
+\[\boldsymbol{C}_j\ \ =\ \ \sum_{p\,=\,1}^n\ b_{pj}\ \boldsymbol{A}_p\,,
+\qquad j=1,2,\dots,n\,.\]</div>
+<p>The determinant being linear with respect to each column, we obtain</p>
+<div class="math notranslate nohighlight">
+\[ \begin{align}\begin{aligned}\det{\,(\boldsymbol{A}\boldsymbol{B})}\ \,=\ \,
+\det{\,[\,
+\boldsymbol{C}_1\,|\;\boldsymbol{C}_2\,|\,\dots\,|\,\boldsymbol{C}_n\,]}
+\ \ =\\=\ \
+\det{\,
+\left[\left.\ \   \sum_{r\,=\,1}^n\ \,b_{r1}\,\boldsymbol{A}_r\ \ \right|
+\left.\ \ \sum_{s\,=\,1}^n\ \,b_{s2}\,\boldsymbol{A}_s\ \ \right|
+\ \ \dots\ \
+\left|\ \ \,\sum_{t\,=\,1}^n\ \,b_{tn}\,\boldsymbol{A}_t\ \,\right.
+\right]}\ \ =\\=\ \
+\sum_{r\,=\,1}^n\ \sum_{s\,=\,1}^n\ \ldots\ \sum_{t\,=\,1}^n\ \
+b_{r1}\ b_{s2}\ \ldots\ b_{tn}\
+\det{\,[\,
+\boldsymbol{A}_r\,|\;\boldsymbol{A}_s\,|\,\dots\,|\,\boldsymbol{A}_t\,]}\,.\end{aligned}\end{align} \]</div>
+<p>By the Property IIIa of determinants, in this multiple sum
+only the components in which the columns
+<span class="math notranslate nohighlight">\(\ \boldsymbol{A}_r,\,\boldsymbol{A}_s,\,\ldots,\,\boldsymbol{A}_t\ \)</span>
+have different indices may not vanish. Thus the sum actually runs over
+all permutations of the set <span class="math notranslate nohighlight">\(\ \{1,2,\dots,n\},\ \)</span> that is over
+permutations <span class="math notranslate nohighlight">\(\,\sigma\in S_n\,.\)</span></p>
+<p>Using the Property IIc. we get finally</p>
+<div class="math notranslate nohighlight">
+\[ \begin{align}\begin{aligned}\det{\,(\boldsymbol{A}\boldsymbol{B})}\ \,=\ \,
+\sum_{\sigma\,\in\,S_n}\
+b_{\sigma(1),1}\ b_{\sigma(2),2}\ \ldots,\ b_{\sigma(n),n}\
+\det{\,[\,
+\boldsymbol{A}_{\sigma(1)}\,|\;\boldsymbol{A}_{\sigma(2)}\,|\,\ldots\,|\,
+\boldsymbol{A}_{\sigma(n)}\,]}\ \ =\\=\ \
+\det{\boldsymbol{A}}\,\cdot\,\sum_{\sigma\,\in\,S_n}\
+\text{sgn}\,\sigma\,\cdot\,
+b_{\sigma(1),1}\ b_{\sigma(2),2}\ \ldots,\ b_{\sigma(n),n}\,.
+\quad\bullet\end{aligned}\end{align} \]</div>
+</section>
+
+
+          </div>
+        </div>
+      </div>
+      <div class="sphinxsidebar" role="navigation" aria-label="main navigation">
+        <div class="sphinxsidebarwrapper">
+  <h4>Previous topic</h4>
+  <p class="topless"><a href="operations_on_matrices_problems.html"
+                        title="previous chapter">Exercises and Problems</a></p>
+  <h4>Next topic</h4>
+  <p class="topless"><a href="determinants_permutation-expansion.html"
+                        title="next chapter">The Permutation Expansion</a></p>
+  <div role="note" aria-label="source link">
+    <h3>This Page</h3>
+    <ul class="this-page-menu">
+      <li><a href="_sources/determinants_definition-properties.rst.txt"
+            rel="nofollow">Show Source</a></li>
+    </ul>
+   </div>
+<div id="searchbox" style="display: none" role="search">
+  <h3 id="searchlabel">Quick search</h3>
+    <div class="searchformwrapper">
+    <form class="search" action="search.html" method="get">
+      <input type="text" name="q" aria-labelledby="searchlabel" />
+      <input type="submit" value="Go" />
+    </form>
+    </div>
+</div>
+<script>$('#searchbox').show(0);</script>
+        </div>
+      </div>
+      <div class="clearer"></div>
+    </div>
+  </div>
+  <div class="relbar-bottom">
+    
+    <div class="related" role="navigation" aria-label="related navigation">
+      <h3>Navigation</h3>
+      <ul>
+        <li class="right" style="margin-right: 10px">
+          <a href="genindex.html" title="General Index"
+             >index</a></li>
+        <li class="right" >
+          <a href="determinants_permutation-expansion.html" title="The Permutation Expansion"
+             >next</a> &nbsp; &nbsp;</li>
+        <li class="right" >
+          <a href="operations_on_matrices_problems.html" title="Exercises and Problems"
+             >previous</a> &nbsp; &nbsp;</li>
+  <li><a href="index.html">Linear Algebra</a> &#187;</li>
+  
+        <li class="nav-item nav-item-this"><a href="">Definition and Properties of the Deteminant</a></li> 
+      </ul>
+    </div>
+  </div>
+  
+  <div class="footer">
+    <a class="logo" href="http://icse.us.edu.pl/" target="_blank"><img src="_static/logo-icse.png" alt="ICSE"/></a><br/>
+    &copy; Copyright 2018, Jan Aksamit, Joanna Marzec, and  Marcin Kostur.
+    Last updated on Jan 29, 2022.
+    Created using <a href="http://sphinx.pocoo.org/">Sphinx</a> 4.0.1.
+  </div>
+  </body>
+</html>

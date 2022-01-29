@@ -1,0 +1,538 @@
+
+
+  
+<!DOCTYPE html>
+
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" /><meta name="generator" content="Docutils 0.17: http://docutils.sourceforge.net/" />
+
+    <title>Definition and Properties &#8212; Linear Algebra</title>
+    <link rel="stylesheet" type="text/css" href="_static/pygments.css" />
+    <link rel="stylesheet" type="text/css" href="_static/cloud.css" />
+    <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Noticia+Text|Open+Sans|Droid+Sans+Mono&amp;subset=latin,latin-ext" type="text/css" />
+    <script data-url_root="./" id="documentation_options" src="_static/documentation_options.js"></script>
+    <script src="_static/jquery.js"></script>
+    <script src="_static/underscore.js"></script>
+    <script src="_static/doctools.js"></script>
+    <script async="async" src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js"></script>
+    <script src="_static/jquery.cookie.js"></script>
+    <script src="_static/cloud.js"></script>
+    <script type="text/javascript" src="http://sagecell.sagemath.org/static/jquery.min.js"></script>
+    <script type="text/javascript" src="http://sagecell.sagemath.org/embedded_sagecell.js"></script>
+    <script type="text/javascript">
+        sagecell.makeSagecell({inputLocation: ".sage_linked",
+                               linked: true});
+        sagecell.makeSagecell({inputLocation: ".sage_unlinked",
+                               linked: false});
+    </script>
+
+    <style type="text/css">
+        .sagecell .CodeMirror-scroll {
+            overflow-y: hidden;
+            overflow-x: auto;
+        }
+        .sagecell .CodeMirror {
+            height: auto;
+        }
+    </style>
+    
+    <link rel="index" title="Index" href="genindex.html" />
+    <link rel="search" title="Search" href="search.html" />
+    <link rel="next" title="Vectorization of Matrices" href="tensor_product_vectorization.html" />
+    <link rel="prev" title="Problems and Exercises" href="decomposition_problems.html" />
+ 
+  <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, minimum-scale=1">
+  </head><body>
+  <div class="relbar-top">
+    
+    <div class="related" role="navigation" aria-label="related navigation">
+      <h3>Navigation</h3>
+      <ul>
+        <li class="right" style="margin-right: 10px">
+          <a href="genindex.html" title="General Index"
+             accesskey="I">index</a></li>
+        <li class="right" >
+          <a href="tensor_product_vectorization.html" title="Vectorization of Matrices"
+             accesskey="N">next</a> &nbsp; &nbsp;</li>
+        <li class="right" >
+          <a href="decomposition_problems.html" title="Problems and Exercises"
+             accesskey="P">previous</a> &nbsp; &nbsp;</li>
+  <li><a href="index.html">Linear Algebra</a> &#187;</li>
+  
+        <li class="nav-item nav-item-this"><a href="">Definition and Properties</a></li> 
+      </ul>
+    </div>
+  </div>
+  
+  <div class="content">  
+
+    <div class="document">
+      <div class="documentwrapper">
+        <div class="bodywrapper">
+          <div class="body">
+            
+  <section id="definition-and-properties">
+<h1>Definition and Properties<a class="headerlink" href="#definition-and-properties" title="Permalink to this headline">¶</a></h1>
+<section id="definition-and-example">
+<h2>Definition and Example<a class="headerlink" href="#definition-and-example" title="Permalink to this headline">¶</a></h2>
+<p>Let <span class="math notranslate nohighlight">\(\,\boldsymbol{A}\ \text{and}\,\boldsymbol{B}\,\)</span>
+be arbitrary matrices over a field <span class="math notranslate nohighlight">\(\,K:\)</span>
+<span class="math notranslate nohighlight">\(\,\boldsymbol{A}\,=\,[a_{ij}]_{m\times n}\,,\)</span>
+<span class="math notranslate nohighlight">\(\,\boldsymbol{B}\,=\,[b_{ij}]_{p\times q}\in M(K).\)</span>
+Their <span class="math notranslate nohighlight">\(\,\)</span> <em>tensor product</em> <span class="math notranslate nohighlight">\(\,\)</span> (<em>Kronecker product</em>)
+written in the block notation reads</p>
+<div class="math notranslate nohighlight">
+\[\begin{split}\boldsymbol{A}\otimes\boldsymbol{B}\ :\,=\
+\left[\begin{array}{cccc}
+a_{11}\,\boldsymbol{B} &amp; a_{12}\,\boldsymbol{B} &amp;
+        \ldots         &amp; a_{1n}\,\boldsymbol{B} \\
+a_{21}\,\boldsymbol{B} &amp; a_{22}\,\boldsymbol{B} &amp;
+        \ldots         &amp; a_{2n}\,\boldsymbol{B} \\
+        \ldots         &amp;         \ldots         &amp;
+        \ldots         &amp;         \ldots         \\
+a_{m1}\,\boldsymbol{B} &amp; a_{m2}\,\boldsymbol{B} &amp;
+        \ldots         &amp; a_{mn}\,\boldsymbol{B}
+\end{array}\right]\ \in\ M_{mp\times nq}(K).\end{split}\]</div>
+<p>For instance, <span class="math notranslate nohighlight">\(\,\)</span> if
+<span class="math notranslate nohighlight">\(\ \,\boldsymbol{A}\,=\,\left[\begin{array}{rc}
+3 &amp; 2 \\ -1 &amp; 1 \\ -2 &amp; 0 \end{array}\right],\ \)</span>
+<span class="math notranslate nohighlight">\(\ \boldsymbol{B}\,=\,\left[\begin{array}{rc}
+2 &amp; -1 \\ 0 &amp; 4 \end{array}\right]\,,\ \,\)</span> then</p>
+<div class="math notranslate nohighlight">
+\[\begin{split}\boldsymbol{A}\otimes\boldsymbol{B}\,=\,
+\left[\begin{array}{rr}
+ 3\ \left[\begin{array}{rr} 2 &amp; -1 \\ 0 &amp; 4 \end{array}\right] &amp;
+ 2\ \left[\begin{array}{rr} 2 &amp; -1 \\ 0 &amp; 4 \end{array}\right] \\[8pt]
+-1\ \left[\begin{array}{rr} 2 &amp; -1 \\ 0 &amp; 4 \end{array}\right] &amp;
+ 1\ \left[\begin{array}{rr} 2 &amp; -1 \\ 0 &amp; 4 \end{array}\right] \\[10pt]
+-2\ \left[\begin{array}{rr} 2 &amp; -1 \\ 0 &amp; 4 \end{array}\right] &amp;
+ 0\ \left[\begin{array}{rr} 2 &amp; -1 \\ 0 &amp; 4 \end{array}\right]
+\end{array}\right]\ =\
+\left[\begin{array}{rrrr}
+ 6 &amp; -3 &amp; 4 &amp; -2 \\ 0 &amp; 12 &amp; 0 &amp; 8 \\
+-2 &amp;  1 &amp; 2 &amp; -1 \\ 0 &amp; -4 &amp; 0 &amp; 4 \\
+-4 &amp;  2 &amp; 0 &amp;  0 \\ 0 &amp; -8 &amp; 0 &amp; 0
+\end{array}\right],\end{split}\]</div>
+<div class="math notranslate nohighlight">
+\[\begin{split}\boldsymbol{B}\otimes\boldsymbol{A}\,=\,
+\left[\begin{array}{rr}
+ 2\ \left[\begin{array}{rr} 3 &amp; 2 \\ -1 &amp; 1 \\ -2 &amp; 0 \end{array}\right] &amp;
+-1\ \left[\begin{array}{rr} 3 &amp; 2 \\ -1 &amp; 1 \\ -2 &amp; 0 \end{array}\right]
+\\[16pt]
+ 0\ \left[\begin{array}{rr} 3 &amp; 2 \\ -1 &amp; 1 \\ -2 &amp; 0 \end{array}\right] &amp;
+ 4\ \left[\begin{array}{rr} 3 &amp; 2 \\ -1 &amp; 1 \\ -2 &amp; 0 \end{array}\right]
+\end{array}\right]\ =\
+\left[\begin{array}{rrrr}
+ 6 &amp; 4 &amp; -3 &amp; -2 \\
+-2 &amp; 2 &amp;  1 &amp; -1 \\
+-4 &amp; 0 &amp;  2 &amp;  0 \\
+ 0 &amp; 0 &amp; 12 &amp;  8 \\
+ 0 &amp; 0 &amp; -4 &amp;  4 \\
+ 0 &amp; 0 &amp; -8 &amp;  0
+\end{array}\right].\end{split}\]</div>
+<p>The entries of a Kronecker product may be numbered by double indices
+<span class="math notranslate nohighlight">\(\ ij\,\)</span> and <span class="math notranslate nohighlight">\(\,kl\,:\)</span></p>
+<div class="math notranslate nohighlight">
+\[\begin{split}\begin{array}{lr}
+(\boldsymbol{A}\otimes\boldsymbol{B})_{\,ij,\,kl}\,:\,=\
+(\boldsymbol{A}\otimes\boldsymbol{B})_{\ (i-1)\,p\,+\,j,\ (k-1)\,q\,+\,l}\ =\
+a_{ik}\,b_{jl}, &amp;
+\begin{array}{ll}
+i=1,\ldots,m; &amp; k=1,\ldots,n; \\
+j=1,\ldots,p; &amp; l=1,\ldots,q.
+\end{array}
+\end{array}\end{split}\]</div>
+<p>The indices <span class="math notranslate nohighlight">\(\ i\ \)</span> and <span class="math notranslate nohighlight">\(\ k\ \)</span> relate to block rows
+and block columns, whereas <span class="math notranslate nohighlight">\(\\\)</span>
+the indices <span class="math notranslate nohighlight">\(\ j\ \)</span> and <span class="math notranslate nohighlight">\(\ l\ \)</span> designate elementary
+rows and columns, respectively.</p>
+</section>
+<section id="properties-of-the-kronecker-product">
+<h2>Properties of the Kronecker Product<a class="headerlink" href="#properties-of-the-kronecker-product" title="Permalink to this headline">¶</a></h2>
+<p><strong>0.)</strong> <span class="math notranslate nohighlight">\(\,\)</span> The tensor product of matrices is non-commutative:
+<span class="math notranslate nohighlight">\(\ \boldsymbol{A}\otimes\boldsymbol{B}
+\neq\boldsymbol{B}\otimes\boldsymbol{A}.\)</span></p>
+<p>However, matrices <span class="math notranslate nohighlight">\(\ \boldsymbol{A}\otimes\boldsymbol{B}\ \)</span> and
+<span class="math notranslate nohighlight">\(\ \boldsymbol{B}\otimes\boldsymbol{A}\ \)</span> are permutation equivalent,
+meaning that <span class="math notranslate nohighlight">\(\\\)</span>
+there exist permutation matrices <span class="math notranslate nohighlight">\(\ \boldsymbol{P}\ \)</span> and
+<span class="math notranslate nohighlight">\(\ \boldsymbol{Q}\ \)</span> such that
+<span class="math notranslate nohighlight">\(\ \boldsymbol{B}\otimes\boldsymbol{A} \ =\
+\boldsymbol{P}\,(\boldsymbol{A}\otimes\boldsymbol{B})\,\boldsymbol{Q}.\)</span></p>
+<p>If <span class="math notranslate nohighlight">\(\ \boldsymbol{A}\ \)</span> and <span class="math notranslate nohighlight">\(\ \boldsymbol{B}\ \)</span> are square
+matrices, then the products <span class="math notranslate nohighlight">\(\ \boldsymbol{A}\otimes\boldsymbol{B}\ \)</span>
+and <span class="math notranslate nohighlight">\(\ \boldsymbol{B}\otimes\boldsymbol{A}\ \)</span> are even permutation
+similar: <span class="math notranslate nohighlight">\(\ \boldsymbol{Q}\,=\,\boldsymbol{P}^{\,T}=\,
+\boldsymbol{P}^{-1}.\ \)</span> That is to say, the product
+<span class="math notranslate nohighlight">\(\ \boldsymbol{A}\otimes\boldsymbol{B}\ \)</span> can be transformed into
+<span class="math notranslate nohighlight">\(\ \boldsymbol{B}\otimes\boldsymbol{A}\ \)</span> by means of a permutation
+of rows followed by the same permutation of columns. <a class="footnote-reference brackets" href="#id2" id="id1">1</a></p>
+<p><strong>1.)</strong> <span class="math notranslate nohighlight">\(\,\)</span> The Kronecker product is associative and
+distributive over addition of matrices:</p>
+<div class="math notranslate nohighlight">
+\[ \begin{align}\begin{aligned}(\boldsymbol{A}\otimes\boldsymbol{B})\otimes\boldsymbol{C}\ =\
+\boldsymbol{A}\otimes(\boldsymbol{B}\otimes\boldsymbol{C})\\(\boldsymbol{A}_1\pm\boldsymbol{A}_2)\otimes\boldsymbol{B}\ =\
+(\boldsymbol{A}_1\otimes\boldsymbol{B})\pm
+(\boldsymbol{A}_2\otimes\boldsymbol{B})\\\boldsymbol{A}\otimes(\boldsymbol{B}_1\pm\boldsymbol{B}_2)\ =\
+(\boldsymbol{A}\otimes\boldsymbol{B}_1)\pm
+(\boldsymbol{A}\otimes\boldsymbol{B}_2)\end{aligned}\end{align} \]</div>
+<p>and is compatible with the scalar multiplication of matrices:</p>
+<div class="math notranslate nohighlight">
+\[(\gamma\,\boldsymbol{A})\otimes\boldsymbol{B}\ =\
+\boldsymbol{A}\otimes(\gamma\,\boldsymbol{B})\ =\
+\gamma\ (\boldsymbol{A}\otimes\boldsymbol{B}),\quad\gamma\in K.\]</div>
+<p><strong>2.)</strong> <span class="math notranslate nohighlight">\(\,\)</span> If sizes of matrices
+<span class="math notranslate nohighlight">\(\ \boldsymbol{A},\boldsymbol{B},\boldsymbol{C},\boldsymbol{D}\ \)</span>
+are such that there exist products <span class="math notranslate nohighlight">\(\ \boldsymbol{A}\boldsymbol{C}\ \)</span>
+and <span class="math notranslate nohighlight">\(\ \boldsymbol{B}\boldsymbol{D},\ \)</span> then</p>
+<div class="math notranslate nohighlight" id="equation-mixed-product">
+<span class="eqno">(1)<a class="headerlink" href="#equation-mixed-product" title="Permalink to this equation">¶</a></span>\[\blacktriangleright\quad
+(\boldsymbol{A}\otimes\boldsymbol{B})\,(\boldsymbol{C}\otimes\boldsymbol{D})
+\ =\ (\boldsymbol{A}\boldsymbol{C})\otimes(\boldsymbol{B}\boldsymbol{D}).\]</div>
+<p><strong>Proof.</strong> <span class="math notranslate nohighlight">\(\ \)</span> Suppose the matrices
+<span class="math notranslate nohighlight">\(\ \boldsymbol{A},\,\boldsymbol{B},\,\boldsymbol{C},\,\boldsymbol{D}\,\)</span>
+are given by</p>
+<div class="math notranslate nohighlight">
+\[\begin{split}\begin{array}{lr}
+\boldsymbol{A}\,=\,[a_{ij}]_{m\times r}\,, &amp; \quad
+\boldsymbol{B}\,=\,[b_{ij}]_{p\times s}\,, \\
+\boldsymbol{C}\,=\,[c_{ij}]_{r\times n}\,, &amp; \quad
+\boldsymbol{D}\,=\,[d_{ij}]_{s\times q}\,.
+\end{array}\end{split}\]</div>
+<p>We shall verify that matrices on both sides of Eq. <a class="reference internal" href="#equation-mixed-product">(1)</a>
+have equal dimensions and are composed of the same elements.</p>
+<p>a.) <span class="math notranslate nohighlight">\(\ \)</span> comparison of dimensions of matrices:</p>
+<div class="math notranslate nohighlight">
+\[\begin{split}\begin{array}{rr}
+\begin{array}{rr}
+\boldsymbol{A}\otimes\boldsymbol{B}\ : &amp; mp\times rs \\[4pt]
+\boldsymbol{C}\otimes\boldsymbol{D}\ : &amp; rs\times nq \\[4pt]
+(\boldsymbol{A}\otimes\boldsymbol{B})
+(\boldsymbol{C}\otimes\boldsymbol{D})\ : &amp; mp\times nq
+\end{array} &amp;
+\begin{array}{rr}
+\boldsymbol{A}\boldsymbol{C}\ : &amp; m\times n \\[4pt]
+\boldsymbol{B}\boldsymbol{D}\ : &amp; p\times q \\[4pt]
+\qquad (\boldsymbol{A}\boldsymbol{C})\otimes
+(\boldsymbol{B}\boldsymbol{D})\ : &amp; mp\times nq
+\end{array}
+\end{array}\end{split}\]</div>
+<p>b.) <span class="math notranslate nohighlight">\(\ \)</span> comparison of corresponding elements:</p>
+<div class="math notranslate nohighlight">
+\[\begin{split}\begin{array}{l}
+(\boldsymbol{A}\otimes\boldsymbol{B})
+(\boldsymbol{C}\otimes\boldsymbol{D})_{\ |\ ij,\,kl}\ \ = \
+\displaystyle\sum_{v=1}^r\ \sum_{w=1}^s\
+(\boldsymbol{A}\otimes\boldsymbol{B})_{\ |\ ij,\,vw}\
+(\boldsymbol{C}\otimes\boldsymbol{D})_{\ |\ vw,\,kl}\ \ = \\[16pt]
+=\ \ \displaystyle\sum_{v=1}^r\ \sum_{w=1}^s\
+a_{iv}\ b_{jw}\ c_{vk}\ d_{wl}\ \ = \
+\left(\displaystyle\sum_{v=1}^r\ a_{iv}\ c_{vk}\ \right)
+\left(\displaystyle\sum_{w=1}^s\ b_{jw}\ d_{wl}\ \right)\ \ = \\[26pt]
+=\ \ (\boldsymbol{A}\boldsymbol{C})_{\,|\,ik}\ \cdot\
+(\boldsymbol{B}\boldsymbol{D})_{\,|\,jl}\ \ = \
+(\boldsymbol{A}\boldsymbol{C})\otimes
+(\boldsymbol{B}\boldsymbol{D})_{\ |\ ij,\,kl}\,;
+\end{array}
+\\[8pt]
+\begin{array}{ll}
+\text{where} &amp;
+\begin{array}{ll}
+i=1,2,\ldots,m; &amp; j=1,2,\ldots,p; \\
+k=1,2,\ldots,n; &amp; l=1,2,\ldots,q.
+\end{array}
+\end{array}\quad\bullet\end{split}\]</div>
+<p>It’s worthwhile to write down a special case of Eq. <a class="reference internal" href="#equation-mixed-product">(1)</a>,
+with <span class="math notranslate nohighlight">\(\,\boldsymbol{A}\in M_m(C),\ \)</span> <span class="math notranslate nohighlight">\(\,\boldsymbol{B}\in M_p(C),\ \)</span>
+<span class="math notranslate nohighlight">\(\,\boldsymbol{x}\in C^m\sim M_{m\times 1}(C),\ \)</span>
+<span class="math notranslate nohighlight">\(\,\boldsymbol{y}\in C^p\sim M_{p\times 1}(C)\,:\)</span></p>
+<div class="math notranslate nohighlight">
+\[(\boldsymbol{A}\otimes\boldsymbol{B})
+(\boldsymbol{x}\otimes\boldsymbol{y})\ =\
+\boldsymbol{A}\boldsymbol{x}\otimes\boldsymbol{B}\boldsymbol{y}.\]</div>
+<p>This formula is useful for a mathematical description
+of a bipartite quantum system. <span class="math notranslate nohighlight">\(\\\)</span></p>
+<p><strong>3.)</strong> <span class="math notranslate nohighlight">\(\,\)</span> If
+<span class="math notranslate nohighlight">\(\ \boldsymbol{A}\,=\,[a_{ij}]_{m\times m}\in M_m(K),\
+\boldsymbol{B}\,=\,[b_{ij}]_{n\times n}\in M_n(K),\ \)</span> then</p>
+<p><em>i</em>.) <span class="math notranslate nohighlight">\(\quad\text{Tr}\ (\boldsymbol{A}\otimes\boldsymbol{B})\ =\
+\text{Tr}\,\boldsymbol{A}\ \cdot\ \text{Tr}\,\boldsymbol{B}.\)</span></p>
+<p><em>ii</em>.) <span class="math notranslate nohighlight">\(\quad\det{(\boldsymbol{A}\otimes\boldsymbol{B})}\ =\
+(\det{\boldsymbol{A}})^n\ \cdot\ (\det{\boldsymbol{B}})^m.\)</span></p>
+<p><em>iii</em>.) <span class="math notranslate nohighlight">\(\ \ \)</span> If additionally <span class="math notranslate nohighlight">\(\ \det{\boldsymbol{A}}\neq 0,\ \)</span>
+<span class="math notranslate nohighlight">\(\ \det{\boldsymbol{B}}\neq 0,\quad\)</span> then
+<span class="math notranslate nohighlight">\(\quad (\boldsymbol{A}\otimes\boldsymbol{B})^{-1}\ =\ \,
+\boldsymbol{A}^{-1}\otimes\,\boldsymbol{B}^{-1}.\)</span></p>
+<p><strong>Proof.</strong></p>
+<p><span class="math notranslate nohighlight">\(\begin{array}{ll}
+i.) \quad\text{Tr}\ (\boldsymbol{A}\otimes\boldsymbol{B}) &amp;
+= \ \ \displaystyle\sum_{i=1}^m\displaystyle\sum_{j=1}^n\
+(\boldsymbol{A}\otimes\boldsymbol{B})_{\ |\ ij,\,ij}\ \ = \ \
+\displaystyle\sum_{i=1}^m \displaystyle\sum_{j=1}^n\ a_{ii}\ b_{jj}\ \ = \\
+&amp; = \ \ \left(\displaystyle\sum_{i=1}^m a_{ii}\right)\
+\left(\displaystyle\sum_{j=1}^n b_{jj}\right)\ \ = \ \
+\text{Tr}\,\boldsymbol{A}\ \cdot\ \text{Tr}\,\boldsymbol{B}\,.\quad\bullet
+\end{array}\)</span></p>
+<p><em>ii</em>.) <span class="math notranslate nohighlight">\(\,\)</span> We shall use Eq. <a class="reference internal" href="#equation-mixed-product">(1)</a>
+and the remarks to the item <strong>0.)</strong> of the present discussion.</p>
+<div class="math notranslate nohighlight">
+\[ \begin{align}\begin{aligned}\boldsymbol{A}\otimes\boldsymbol{B}\ =\
+(\boldsymbol{A}\,\boldsymbol{I}_m)\otimes
+(\boldsymbol{I}_n\,\boldsymbol{B})\ =\
+(\boldsymbol{A}\otimes\boldsymbol{I}_n)\,
+(\boldsymbol{I}_m\otimes\boldsymbol{B})\,;\\\boldsymbol{A}\otimes\boldsymbol{I}_n\ \, = \ \,
+\boldsymbol{P}\ (\boldsymbol{I}_n\otimes
+\boldsymbol{A})\,\boldsymbol{P}^{-1}.\end{aligned}\end{align} \]</div>
+<p><span class="math notranslate nohighlight">\(\ \boldsymbol{I}_m\ \)</span> and   <span class="math notranslate nohighlight">\(\ \boldsymbol{I}_n\ \)</span>
+are identity matrices of size <span class="math notranslate nohighlight">\(\,m\,\)</span> and <span class="math notranslate nohighlight">\(\,n,\ \)</span>
+whereas <span class="math notranslate nohighlight">\(\ \boldsymbol{P}\ \)</span> is a permutation matrix.
+Using the theorem on a determinant of a product of matrices, we get</p>
+<div class="math notranslate nohighlight">
+\[ \begin{align}\begin{aligned}\det{(\boldsymbol{A}\otimes\boldsymbol{B})}\ =\
+\det{(\boldsymbol{A}\otimes\boldsymbol{I}_n)}\,\cdot\,
+\det{(\boldsymbol{I}_m\otimes\boldsymbol{B})},\\\begin{split}\begin{array}{lll}
+\det{(\boldsymbol{A}\otimes\boldsymbol{I}_n)} &amp;
+=\ \ \det{\left[\,\boldsymbol{P}\,
+(\boldsymbol{I}_n\otimes\boldsymbol{A})\,
+\boldsymbol{P}^{-1}\right]}\ \ = &amp; \\
+&amp; =\ \ \det{\boldsymbol{P}}\,\cdot\,
+\det{(\boldsymbol{I}_n\otimes\boldsymbol{A})}\,\cdot\,
+\det{(\boldsymbol{P}^{-1})}\ \ = &amp; \\
+&amp; =\ \ \det{\boldsymbol{P}}\,\cdot\,\
+\det{(\boldsymbol{I}_n\otimes\boldsymbol{A})}\,\cdot\,
+(\det{\boldsymbol{P}})^{-1}\ \ = &amp;
+\det{(\boldsymbol{I}_n\otimes\boldsymbol{A})}\,.
+\end{array}\end{split}\end{aligned}\end{align} \]</div>
+<p>Therefore the determinant of a tensor product of two matrices,
+<span class="math notranslate nohighlight">\(\,\boldsymbol{A}\,\)</span> and <span class="math notranslate nohighlight">\(\,\boldsymbol{B},\ \)</span>
+is given by</p>
+<div class="math notranslate nohighlight" id="equation-det-axb">
+<span class="eqno">(2)<a class="headerlink" href="#equation-det-axb" title="Permalink to this equation">¶</a></span>\[\qquad\det{(\boldsymbol{A}\otimes\boldsymbol{B})}\ =\
+\det{(\boldsymbol{I}_n\otimes\boldsymbol{A})}\,\cdot\,
+\det{(\boldsymbol{I}_m\otimes\boldsymbol{B})}\,.\]</div>
+<p>The matrices <span class="math notranslate nohighlight">\(\ \boldsymbol{I}_n\otimes\boldsymbol{A}\ \)</span> and
+<span class="math notranslate nohighlight">\(\ \boldsymbol{I}_m\otimes\boldsymbol{B}\ \)</span> have block-diagonal
+structure:</p>
+<div class="math notranslate nohighlight">
+\[\begin{split}\boldsymbol{I}_n\otimes\boldsymbol{A}\ =\
+\underbrace{
+\left[\begin{array}{cccc}
+\boldsymbol{A} &amp; \boldsymbol{0} &amp; \cdots &amp; \boldsymbol{0} \\
+\boldsymbol{0} &amp; \boldsymbol{A} &amp; \cdots &amp; \boldsymbol{0} \\
+\cdots &amp; \cdots &amp; \cdots &amp; \cdots \\
+\boldsymbol{0} &amp; \boldsymbol{0} &amp; \cdots &amp; \boldsymbol{A}
+\end{array}\right]}_{n\ \text{blocks}}\,,
+\qquad
+\boldsymbol{I}_m\otimes\boldsymbol{B}\ =\
+\underbrace{
+\left[\begin{array}{cccc}
+\boldsymbol{B} &amp; \boldsymbol{0} &amp; \cdots &amp; \boldsymbol{0} \\
+\boldsymbol{0} &amp; \boldsymbol{B} &amp; \cdots &amp; \boldsymbol{0} \\
+\cdots &amp; \cdots &amp; \cdots &amp; \cdots \\
+\boldsymbol{0} &amp; \boldsymbol{0} &amp; \cdots &amp; \boldsymbol{B}
+\end{array}\right]}_{m\ \text{blocks}} \,,\end{split}\]</div>
+<p>whereby their determinants read</p>
+<div class="math notranslate nohighlight" id="equation-i-ab">
+<span class="eqno">(3)<a class="headerlink" href="#equation-i-ab" title="Permalink to this equation">¶</a></span>\[\begin{array}{ll}
+\det{(\boldsymbol{I}_n\otimes\boldsymbol{A})}\ =\
+(\det{\boldsymbol{A}})^n \,, &amp; \qquad
+\det{(\boldsymbol{I}_m\otimes\boldsymbol{B})}\ =\
+(\det{\boldsymbol{B}})^m\,.
+\end{array}\]</div>
+<p>Inserting <a class="reference internal" href="#equation-i-ab">(3)</a> to <a class="reference internal" href="#equation-det-axb">(2)</a> yields the desired relation:
+<span class="math notranslate nohighlight">\(\ \det{(\boldsymbol{A}\otimes\boldsymbol{B})}\,=\,
+(\det{\boldsymbol{A}})^n\,\cdot\,(\det{\boldsymbol{B}})^m\,.\ \ \bullet\)</span></p>
+<p><em>iii</em>.) <span class="math notranslate nohighlight">\(\,\)</span>
+First, we note that the tensor product of two invertible matrices
+is invertible as well:</p>
+<div class="math notranslate nohighlight">
+\[\left(\ \det{\boldsymbol{A}}\neq 0\,,\ \det{\boldsymbol{B}}\neq 0\ \right)
+\quad\Rightarrow\quad
+\det{(\boldsymbol{A}\otimes\boldsymbol{B})}\ \equiv\
+(\det{\boldsymbol{A}})^n\,\cdot\,(\det{\boldsymbol{B}})^m\ \neq\ 0\,.\]</div>
+<p>Next, making use of Eq. <a class="reference internal" href="#equation-mixed-product">(1)</a>, we obtain</p>
+<div class="math notranslate nohighlight">
+\[ \begin{align}\begin{aligned}(\boldsymbol{A}\otimes\boldsymbol{B})\,
+(\boldsymbol{A}^{-1}\otimes\,\boldsymbol{B}^{-1})\ =\
+(\boldsymbol{A}\boldsymbol{A}^{-1})\otimes
+(\boldsymbol{B}\boldsymbol{B}^{-1})\ =\
+\boldsymbol{I}_m\otimes\boldsymbol{I}_n\ =\
+\boldsymbol{I}_{mn}\,,\\(\boldsymbol{A}^{-1}\otimes\,\boldsymbol{B}^{-1})\,
+(\boldsymbol{A}\otimes\boldsymbol{B})\ =\
+(\boldsymbol{A}^{-1}\boldsymbol{A})\otimes
+(\boldsymbol{B}^{-1}\boldsymbol{B})\ =\
+\boldsymbol{I}_m\otimes\boldsymbol{I}_n\ =\
+\boldsymbol{I}_{mn}\,.\end{aligned}\end{align} \]</div>
+<p>This means that <span class="math notranslate nohighlight">\(\quad (\boldsymbol{A}\otimes\boldsymbol{B})^{-1}\,=\
+\boldsymbol{A}^{-1}\otimes\,\boldsymbol{B}^{-1}\,.\quad\bullet\)</span></p>
+<p><strong>4.)</strong> <span class="math notranslate nohighlight">\(\,\)</span> If
+<span class="math notranslate nohighlight">\(\ \boldsymbol{A}\,=\,[a_{ij}]_{m\times n}\in M_{m\times n}(K),\
+\boldsymbol{B}\,=\,[b_{ij}]_{p\times q}\in M_{p\times q}(K),\ \)</span> then</p>
+<p><em>i</em>.) <span class="math notranslate nohighlight">\(\quad(\boldsymbol{A}\otimes\boldsymbol{B})^T\ =\
+\boldsymbol{A}^T\ \otimes\ \boldsymbol{B}^{\,T}.\)</span></p>
+<p>For complex matrices (<span class="math notranslate nohighlight">\(K=C\)</span>)
+the rules for complex or Hermitian conjugate are:</p>
+<p><em>ii</em>.) <span class="math notranslate nohighlight">\(\quad(\boldsymbol{A}\otimes\boldsymbol{B})^{\,\ast}\ =\
+\boldsymbol{A}^{\ast}\otimes\ \boldsymbol{B}^{\,\ast}.\)</span></p>
+<p><em>iii</em>.) <span class="math notranslate nohighlight">\(\quad(\boldsymbol{A}\otimes\boldsymbol{B})^+\ =\
+\boldsymbol{A}^+\otimes\ \boldsymbol{B}^+.\)</span></p>
+<p><strong>Proof.</strong></p>
+<p><em>i</em>.) <span class="math notranslate nohighlight">\(\,\)</span>
+To be equal, two matrices should have the same sizes
+and the same corresponding entries.</p>
+<p>a.) <span class="math notranslate nohighlight">\(\ \)</span> comparison of dimensions of matrices:</p>
+<div class="math notranslate nohighlight">
+\[\begin{split}\begin{array}{lcr}
+\begin{array}{rr}
+\boldsymbol{A}                          \ : &amp; m\times n   \\[4pt]
+\boldsymbol{B}                          \ : &amp; p\times q   \\[4pt]
+\boldsymbol{A}\otimes\boldsymbol{B}     \ : &amp; mp\times nq \\[4pt]
+(\boldsymbol{A}\otimes\boldsymbol{B})^T \ : &amp; nq\times mp
+\end{array}
+&amp;
+\begin{array}{c}
+\qquad
+\end{array}
+&amp;
+\begin{array}{rr}
+\boldsymbol{A}^T                        \ : &amp; n\times m \\[4pt]
+\boldsymbol{B}^T                        \ : &amp; q\times p \\[4pt]
+\boldsymbol{A}^T\otimes\boldsymbol{B}^T \ : &amp; nq\times mp
+\end{array}
+\end{array}\end{split}\]</div>
+<p>b.) <span class="math notranslate nohighlight">\(\ \)</span> comparison of corresponding elements:</p>
+<div class="math notranslate nohighlight">
+\[\begin{split}\begin{array}{l}
+(\boldsymbol{A}\otimes\boldsymbol{B})^T_{\ |\ ij,\,kl}\ \ =\ \
+(\boldsymbol{A}\otimes\boldsymbol{B})_{\ |\ kl,\,ij}\ \ =\ \
+a_{ki}\,b_{lj}
+\\[4pt]
+(\boldsymbol{A}^T\otimes\boldsymbol{B}^T)_{\ |\ ij,\,kl}\ \ =\ \
+a^T_{ik}\,b^T_{jl}\ =\ a_{ki}\,b_{lj}
+\end{array}
+\\[8pt]
+\begin{array}{ll}
+\text{where} &amp; \quad
+\begin{array}{ll}
+i=1,2,\ldots,n; &amp; j=1,2,\ldots,q; \\
+k=1,2,\ldots,m; &amp; l=1,2,\ldots,p.\qquad\bullet
+\end{array}
+\end{array}\end{split}\]</div>
+<p>Therefore, the transpose of a tensor product of two matrices
+is equal to the tensor product of the transposed matrices,
+the order of factors being preserved.</p>
+<p><em>ii</em>.) <span class="math notranslate nohighlight">\(\,\)</span>
+Matrices <span class="math notranslate nohighlight">\(\ (\boldsymbol{A}\otimes\boldsymbol{B})^*\ \)</span> and
+<span class="math notranslate nohighlight">\(\ \boldsymbol{A}^*\otimes\boldsymbol{B}^*\ \)</span> are of the same size
+and have the same entries:</p>
+<div class="math notranslate nohighlight">
+\[\begin{split}(\boldsymbol{A}\otimes\boldsymbol{B})^{*}_{\ |\ ij,\,kl}\ \ =\ \
+(a_{ik}\,b_{jl})^*\,=\ \,a^*_{ik}\ b^*_{jl}\ \,=\ \,
+(\boldsymbol{A}^*\otimes\,\boldsymbol{B}^*)_{\ |\ ij,\,kl}\,,
+\\[8pt]
+\begin{array}{ll}
+\text{where} &amp; \quad
+\begin{array}{ll}
+i=1,2,\ldots,m; &amp; j=1,2,\ldots,p; \\
+k=1,2,\ldots,n; &amp; l=1,2,\ldots,q.\qquad\bullet
+\end{array}
+\end{array}\end{split}\]</div>
+<p><em>iii</em>.) <span class="math notranslate nohighlight">\(\,\)</span>
+The Hermitian conjugate being composed of complex conjugate and transpose,
+we obtain</p>
+<div class="math notranslate nohighlight">
+\[(\boldsymbol{A}\otimes\boldsymbol{B})^+\,=\
+\left[\,(\boldsymbol{A}\otimes\boldsymbol{B})^T\right]^* =\ \,
+\left(\boldsymbol{A}^T\otimes\,\boldsymbol{B}^T\right)^*\ =\ \,
+(\boldsymbol{A}^T)^*\otimes\,(\boldsymbol{B}^T)^*\ =\ \,
+\boldsymbol{A}^+\otimes\,\boldsymbol{B}^+.\ \bullet\]</div>
+<p>So the complex or Hermitian conjugate of a tensor product of two matrices
+is equal to the tensor product of the conjugated matrices, the order of factors
+being preserved.</p>
+<dl class="footnote brackets">
+<dt class="label" id="id2"><span class="brackets"><a class="fn-backref" href="#id1">1</a></span></dt>
+<dd><p>H. V. Henderson; S. R. Searle (1980). “The vec-permutation matrix,
+the vec operator and Kronecker products: a review”.
+LINEAR AND MULTILINEAR ALGEBRA. 9 (4): 271–288.
+<a class="reference external" href="https://dx.doi.org/10.1080%2F03081088108817379">https://dx.doi.org/10.1080%2F03081088108817379</a></p>
+</dd>
+</dl>
+</section>
+</section>
+
+
+          </div>
+        </div>
+      </div>
+      <div class="sphinxsidebar" role="navigation" aria-label="main navigation">
+        <div class="sphinxsidebarwrapper">
+  <div class="sphinxlocaltoc">
+  <h3><a href="index.html">Table Of Contents</a></h3>
+  <ul>
+<li><a class="reference internal" href="#">Definition and Properties</a><ul>
+<li><a class="reference internal" href="#definition-and-example">Definition and Example</a></li>
+<li><a class="reference internal" href="#properties-of-the-kronecker-product">Properties of the Kronecker Product</a></li>
+</ul>
+</li>
+</ul>
+
+  </div>
+  <h4>Previous topic</h4>
+  <p class="topless"><a href="decomposition_problems.html"
+                        title="previous chapter">Problems and Exercises</a></p>
+  <h4>Next topic</h4>
+  <p class="topless"><a href="tensor_product_vectorization.html"
+                        title="next chapter">Vectorization of Matrices</a></p>
+  <div role="note" aria-label="source link">
+    <h3>This Page</h3>
+    <ul class="this-page-menu">
+      <li><a href="_sources/tensor_product_properties.rst.txt"
+            rel="nofollow">Show Source</a></li>
+    </ul>
+   </div>
+<div id="searchbox" style="display: none" role="search">
+  <h3 id="searchlabel">Quick search</h3>
+    <div class="searchformwrapper">
+    <form class="search" action="search.html" method="get">
+      <input type="text" name="q" aria-labelledby="searchlabel" />
+      <input type="submit" value="Go" />
+    </form>
+    </div>
+</div>
+<script>$('#searchbox').show(0);</script>
+        </div>
+      </div>
+      <div class="clearer"></div>
+    </div>
+  </div>
+  <div class="relbar-bottom">
+    
+    <div class="related" role="navigation" aria-label="related navigation">
+      <h3>Navigation</h3>
+      <ul>
+        <li class="right" style="margin-right: 10px">
+          <a href="genindex.html" title="General Index"
+             >index</a></li>
+        <li class="right" >
+          <a href="tensor_product_vectorization.html" title="Vectorization of Matrices"
+             >next</a> &nbsp; &nbsp;</li>
+        <li class="right" >
+          <a href="decomposition_problems.html" title="Problems and Exercises"
+             >previous</a> &nbsp; &nbsp;</li>
+  <li><a href="index.html">Linear Algebra</a> &#187;</li>
+  
+        <li class="nav-item nav-item-this"><a href="">Definition and Properties</a></li> 
+      </ul>
+    </div>
+  </div>
+  
+  <div class="footer">
+    <a class="logo" href="http://icse.us.edu.pl/" target="_blank"><img src="_static/logo-icse.png" alt="ICSE"/></a><br/>
+    &copy; Copyright 2018, Jan Aksamit, Joanna Marzec, and  Marcin Kostur.
+    Last updated on Jan 29, 2022.
+    Created using <a href="http://sphinx.pocoo.org/">Sphinx</a> 4.0.1.
+  </div>
+  </body>
+</html>

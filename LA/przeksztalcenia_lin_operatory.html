@@ -1,0 +1,298 @@
+
+
+  
+<!DOCTYPE html>
+
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" /><meta name="generator" content="Docutils 0.17: http://docutils.sourceforge.net/" />
+
+    <title>Linear Operators &#8212; Linear Algebra</title>
+    <link rel="stylesheet" type="text/css" href="_static/pygments.css" />
+    <link rel="stylesheet" type="text/css" href="_static/cloud.css" />
+    <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Noticia+Text|Open+Sans|Droid+Sans+Mono&amp;subset=latin,latin-ext" type="text/css" />
+    <script data-url_root="./" id="documentation_options" src="_static/documentation_options.js"></script>
+    <script src="_static/jquery.js"></script>
+    <script src="_static/underscore.js"></script>
+    <script src="_static/doctools.js"></script>
+    <script async="async" src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js"></script>
+    <script src="_static/jquery.cookie.js"></script>
+    <script src="_static/cloud.js"></script>
+    <script type="text/javascript" src="http://sagecell.sagemath.org/static/jquery.min.js"></script>
+    <script type="text/javascript" src="http://sagecell.sagemath.org/embedded_sagecell.js"></script>
+    <script type="text/javascript">
+        sagecell.makeSagecell({inputLocation: ".sage_linked",
+                               linked: true});
+        sagecell.makeSagecell({inputLocation: ".sage_unlinked",
+                               linked: false});
+    </script>
+
+    <style type="text/css">
+        .sagecell .CodeMirror-scroll {
+            overflow-y: hidden;
+            overflow-x: auto;
+        }
+        .sagecell .CodeMirror {
+            height: auto;
+        }
+    </style>
+    
+    <link rel="index" title="Index" href="genindex.html" />
+    <link rel="search" title="Search" href="search.html" />
+    <link rel="next" title="Change of Basis" href="przeksztalcenia_lin_zmiana_bazy.html" />
+    <link rel="prev" title="Matrix Representation of Linear Transformations" href="przeksztalcenia_lin_macierze.html" />
+ 
+  <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, minimum-scale=1">
+  </head><body>
+  <div class="relbar-top">
+    
+    <div class="related" role="navigation" aria-label="related navigation">
+      <h3>Navigation</h3>
+      <ul>
+        <li class="right" style="margin-right: 10px">
+          <a href="genindex.html" title="General Index"
+             accesskey="I">index</a></li>
+        <li class="right" >
+          <a href="przeksztalcenia_lin_zmiana_bazy.html" title="Change of Basis"
+             accesskey="N">next</a> &nbsp; &nbsp;</li>
+        <li class="right" >
+          <a href="przeksztalcenia_lin_macierze.html" title="Matrix Representation of Linear Transformations"
+             accesskey="P">previous</a> &nbsp; &nbsp;</li>
+  <li><a href="index.html">Linear Algebra</a> &#187;</li>
+  
+        <li class="nav-item nav-item-this"><a href="">Linear Operators</a></li> 
+      </ul>
+    </div>
+  </div>
+  
+  <div class="content">  
+
+    <div class="document">
+      <div class="documentwrapper">
+        <div class="bodywrapper">
+          <div class="body">
+            
+  <section id="linear-operators">
+<h1>Linear Operators<a class="headerlink" href="#linear-operators" title="Permalink to this headline">¶</a></h1>
+<p>A linear operator is a linear transformation of a vector space into itself, that is, an endomorphism. All theorems proved for homomorphisms are also valid for endomorphisms.
+However, because we will only deal with one vector space and one basis, some notation  may be simplified.</p>
+<p>Let <span class="math notranslate nohighlight">\(\,F\ \)</span> be a linear operator defined on an <span class="math notranslate nohighlight">\(\,n\)</span>-dimensional vector space <span class="math notranslate nohighlight">\(\,V\ \)</span> over a field <span class="math notranslate nohighlight">\(\,K.\ \)</span>
+We denote a matrix of the operator <span class="math notranslate nohighlight">\(\,F\ \)</span> with respect to basis <span class="math notranslate nohighlight">\(\ \mathcal{B}=(v_1,v_2,\dots,v_n)\ \)</span>
+of the space <span class="math notranslate nohighlight">\(\,V\ \)</span> by any of:
+<span class="math notranslate nohighlight">\(\ M_{\mathcal{B}}(F)=\boldsymbol{F}=[\,f_{ij}\,]_{n\times n}\in M_n(K).\ \)</span>
+Its entries are defined by a system of equations which present images of consecutive vectors from the basis <span class="math notranslate nohighlight">\(\ \mathcal{B}\ \)</span> <em>in the same basis</em>:</p>
+<div class="math notranslate nohighlight">
+\[\begin{split}\begin{array}{l}
+Fv_1\ =\ f_{11}\,v_1\,+\ f_{21}\,v_2\,+\ \dots\ +\ f_{n1}\,v_n \\
+Fv_2\ =\ f_{12}\,v_1\,+\ f_{22}\,v_2\,+\ \dots\ +\ f_{n2}\,v_n \\
+\ \dots \\
+Fv_n\ =\ f_{1n}\,v_1\,+\ f_{2n}\,v_2\,+\ \dots\ +\ f_{nn}\,v_n ,
+\end{array}\end{split}\]</div>
+<p>in short:
+<span class="math notranslate nohighlight">\(\displaystyle\quad Fv_j\;=\;\sum_{i\,=\,1}^n\ f_{ij}\:v_i\,,\quad j=1,2,\dots,n.\)</span></p>
+<p>Therefore, in a column form:</p>
+<div class="math notranslate nohighlight">
+\[M_{\mathcal{B}}(F)\ \,=\ \,
+\left[\;I_{\mathcal{B}}(Fv_1\,|\,I_{\mathcal{B}}(Fv_2\,|\ \dots\ |\,
+I_{\mathcal{B}}(Fv_n\,\right]\,,\]</div>
+<p>where <span class="math notranslate nohighlight">\(\ I_{\mathcal{B}}(v)\ \)</span> is a column of coordinates
+<span class="math notranslate nohighlight">\(\,\)</span> (in the basis <span class="math notranslate nohighlight">\(\,\mathcal{B}\,\)</span>) <span class="math notranslate nohighlight">\(\,\)</span> of a vector <span class="math notranslate nohighlight">\(\,v\in V.\)</span></p>
+<p>Theorem 10. may be now stated as follows</p>
+<div class="math notranslate nohighlight" id="equation-fund-end">
+<span class="eqno">(1)<a class="headerlink" href="#equation-fund-end" title="Permalink to this equation">¶</a></span>\[v'\,=\,F(v)\qquad\Rightarrow\qquad
+I_{\mathcal{B}}(v')\ =\ M_{\mathcal{B}}(F)\,\cdot\,I_{\mathcal{B}}(v)\,,
+\qquad v,v'\in V.\]</div>
+<p>The set <span class="math notranslate nohighlight">\(\ \text{End}(V)\ \)</span> of linear operators on the space <span class="math notranslate nohighlight">\(\,V\ \)</span>
+is equipped with operations of addition, multiplication by scalars from
+the field <span class="math notranslate nohighlight">\(\,K\ \)</span> and composition
+(with these operations <span class="math notranslate nohighlight">\(\,\text{End}(V)\,\)</span> is an algebra over the field <span class="math notranslate nohighlight">\(\,K\)</span>). <span class="math notranslate nohighlight">\(\,\)</span>
+Form of a matrix associated with composition of two operators is described in</p>
+<div class="admonition-theorem-12-math admonition">
+<p class="admonition-title">Theorem 12. <span class="math notranslate nohighlight">\(\\\)</span></p>
+<p>Let <span class="math notranslate nohighlight">\(\,F,\,G\in\text{End}(V),\ \)</span> where <span class="math notranslate nohighlight">\(\,V\,\)</span> is a finite dimensional
+vector space with basis <span class="math notranslate nohighlight">\(\,\mathcal{B}.\ \)</span>
+Then the matrix <span class="math notranslate nohighlight">\(\,\)</span> (in basis <span class="math notranslate nohighlight">\(\,\mathcal{B}\)</span>) <span class="math notranslate nohighlight">\(\,\)</span>
+associated with composition of the operators <span class="math notranslate nohighlight">\(\,F\ \)</span> and  <span class="math notranslate nohighlight">\(\,G\ \)</span>
+is equal to product of their matrices in this basis:</p>
+<div class="math notranslate nohighlight" id="equation-multi">
+<span class="eqno">(2)<a class="headerlink" href="#equation-multi" title="Permalink to this equation">¶</a></span>\[M_{\mathcal{B}}(F\circ G)\ =\ M_{\mathcal{B}}(F)\,\cdot\,M_{\mathcal{B}}(G)\,.\]</div>
+</div>
+<p><strong>Proof.</strong> <span class="math notranslate nohighlight">\(\,\)</span></p>
+<p>Recall that composition of linear operators
+<span class="math notranslate nohighlight">\(\,F,\,G\in\text{End}(V)\,\)</span> is defined as</p>
+<div class="math notranslate nohighlight">
+\[(F\circ G)(v)\ :\,=\ F\,[\,G(v)\,]\,,\qquad v\in V\,.\]</div>
+<p>Denote:
+<span class="math notranslate nohighlight">\(\quad\dim\,V=n,\quad\mathcal{B}=(v_1,v_2,\dots,v_n)\quad\)</span> and</p>
+<div class="math notranslate nohighlight">
+\[M_{\mathcal{B}}(F)=\boldsymbol{F}=[\,f_{ij}\,]_{n\times n}\,,\quad
+M_{\mathcal{B}}(G)=\boldsymbol{G}=[\,g_{ij}\,]_{n\times n}\,,\quad
+M_{\mathcal{B}}(F\circ G)=\boldsymbol{H}=[\,h_{ij}\,]_{n\times n}\ \ \in\ M_n(K)\,.\]</div>
+<p>Image of the <span class="math notranslate nohighlight">\(\,j\)</span>-th vector from the basis <span class="math notranslate nohighlight">\(\,\mathcal{B}\ \)</span> under the mapping <span class="math notranslate nohighlight">\(\,F\circ G\ \)</span>
+may be written as a linear combination of vectors from the basis <span class="math notranslate nohighlight">\(\,\mathcal{B}\,\)</span>
+in two ways:</p>
+<div class="math notranslate nohighlight">
+\[ \begin{align}\begin{aligned}\triangleright\quad (F\circ G)(v_j)\ =\ \sum_{i\,=\,1}^n\ h_{ij}\:v_i\,;\\\triangleright\quad (F\circ G)(v_j)
+\ \,=\ \,F\,\left[\,G(v_j)\,\right]
+\ \,=\ \,F\,\left(\ \sum_{k\,=\,1}^n\ g_{kj}\:v_k\right)
+\ \ =\ \ \sum_{k\,=\,1}^n\ g_{kj}\:F(v_k)\ \ =\\\ \ =\ \ \sum_{k\,=\,1}^n\ g_{kj} \left(\ \sum_{i\,=\,1}^n\ f_{ik}\:v_i\right)
+\ \ =\ \ \sum_{i\,=\,1}^n\,\left(\ \sum_{k\,=\,1}^n\ f_{ik}\:g_{kj}\right)\,v_i\,,
+\qquad j=1,2,\dots,n.\end{aligned}\end{align} \]</div>
+<p>The uniqueness of such representation implies</p>
+<div class="math notranslate nohighlight">
+\[h_{ij}\ \,=\ \ \sum_{k\,=\,1}^n\ f_{ik}\:g_{kj}\,,\qquad i,j=1,2,\dots,n,\]</div>
+<p>which means that <span class="math notranslate nohighlight">\(\quad\boldsymbol{H}=\boldsymbol{F}\boldsymbol{G},\quad\)</span>
+and so <span class="math notranslate nohighlight">\(\quad M_{\mathcal{B}}(F\circ G)\,=\,M_{\mathcal{B}}(F)\cdot M_{\mathcal{B}}(G)\,.\)</span></p>
+<p>Association of matrices (under a chosen basis) to linear operators
+is not only additive and homogeneous (cf. proof of Theorem 11.), but also
+multiplicative in a sense of <a class="reference internal" href="#equation-multi">(2)</a>. This allows us to formulate</p>
+<div class="admonition-corollary-math admonition">
+<p class="admonition-title">Corollary. <span class="math notranslate nohighlight">\(\\\)</span></p>
+<p>If <span class="math notranslate nohighlight">\(\,V\,\)</span> is a vector space over a field <span class="math notranslate nohighlight">\(\,K\,\)</span> with basis
+<span class="math notranslate nohighlight">\(\,\mathcal{B}=(v_1,\dots,v_n),\ \)</span> then mapping</p>
+<div class="math notranslate nohighlight">
+\[M_{\mathcal{B}}:\quad
+\text{End}(V)\ni F\ \rightarrow\ M_{\mathcal{B}}(F):\,=
+\left[\;I_{\mathcal{B}}(Fv_1\,|\,\dots\,|\,
+I_{\mathcal{B}}(Fv_n\,\right]\in M_n(K)\]</div>
+<p>is an isomorphism of algebras
+<span class="math notranslate nohighlight">\(\ \ \text{End}(V)\ \)</span> and <span class="math notranslate nohighlight">\(\ \ \,M_n(K).\)</span></p>
+</div>
+<p><strong>Digression.</strong></p>
+<p>One of the reasons why current definition of matrix multiplication has been adopted is because then the mapping <span class="math notranslate nohighlight">\(\,M_{\mathcal{B}}\,\)</span> is multiplicative:
+product (i.e. composition) of operators corresponds to product of matrices.
+Another explanation of such definition is that then determinant of product of two matrices equals a product of determinants.</p>
+<p><strong>Example.</strong></p>
+<p>We discuss matrix representation of a linear operator <span class="math notranslate nohighlight">\(\,F\,\)</span> defined on the real three dimensional space <span class="math notranslate nohighlight">\(\,V\,\)</span> of geometric vectors by a formula</p>
+<div class="math notranslate nohighlight">
+\[F(\vec{r})\ :\,=\,\vec{a}\times \vec{r}\,,\qquad\vec{r}\in V,\]</div>
+<p>where <span class="math notranslate nohighlight">\(\,\vec{a}\,\)</span> is a fixed vector.
+Linearity of <span class="math notranslate nohighlight">\(\,F\,\)</span> follows from properties of the cross product.</p>
+<p>As a basis of the space <span class="math notranslate nohighlight">\(\,V\,\)</span> we choose a triple of mutually perpendicular unit vectors with right-handed coordinates: <span class="math notranslate nohighlight">\(\ \mathcal{E}=(\vec{e}_1,\,\vec{e}_2,\,\vec{e}_3).\ \)</span> Let
+<span class="math notranslate nohighlight">\(\ \,\vec{a}=a_1\,\vec{e}_1+a_2\,\vec{e}_2+a_3\,\vec{e}_3,\ \,
+\vec{r}=x_1\,\vec{e}_1+x_2\,\vec{e}_2+x_3\,\vec{e}_3.\ \)</span>
+Writing cross product in a form of determinant, we obtain</p>
+<div class="math notranslate nohighlight" id="equation-prod-det">
+<span class="eqno">(3)<a class="headerlink" href="#equation-prod-det" title="Permalink to this equation">¶</a></span>\[\begin{split}F(\vec{r})\ \,=\ \,
+\left|\begin{array}{ccc}
+\vec{e}_1 &amp; \vec{e}_2 &amp; \vec{e}_3 \\
+  a_1     &amp;   a_2     &amp;   a_3     \\
+  x_1     &amp;   x_2     &amp;   x_3
+\end{array}\right|\,.\end{split}\]</div>
+<p>In oder to find a matrix of the operator <span class="math notranslate nohighlight">\(\,F\,\)</span> in the basis <span class="math notranslate nohighlight">\(\ \mathcal{E},\ \)</span> we compute images of the basis vectors:</p>
+<div class="math notranslate nohighlight">
+\[\begin{split}\begin{array}{l}
+F(\vec{e}_1)\ \,=\ \,\vec{a}\times\vec{e}_1\ \;=\ \
+\left|\begin{array}{ccc}
+\vec{e}_1 &amp; \vec{e}_2 &amp; \vec{e}_3 \\
+  a_1     &amp;   a_2     &amp;   a_3     \\
+    1     &amp;     0     &amp;     0
+\end{array}\right|\ \ \,=\ \ \,
+0\,\cdot\,\vec{e}_1\ \,+\ \,a_3\,\cdot\;\vec{e}_2\ \,-\ \,a_2\,\cdot\;\vec{e}_3\,, \\
+F(\vec{e}_2)\ \,=\ \,\vec{a}\times\vec{e}_2\ \;=\ \
+\left|\begin{array}{ccc}
+\vec{e}_1 &amp; \vec{e}_2 &amp; \vec{e}_3 \\
+  a_1     &amp;   a_2     &amp;   a_3     \\
+    0     &amp;     1     &amp;     0
+\end{array}\right|\ \ \,=\ \ \,
+-\ a_3\,\cdot\,\vec{e}_1\ \,+\ \,0\,\cdot\;\vec{e}_2\ \,+\ \,a_1\,\cdot\;\vec{e}_3\,, \\
+F(\vec{e}_3)\ \,=\ \,\vec{a}\times\vec{e}_3\ \;=\ \
+\left|\begin{array}{ccc}
+\vec{e}_1 &amp; \vec{e}_2 &amp; \vec{e}_3 \\
+  a_1     &amp;   a_2     &amp;   a_3     \\
+    0     &amp;     0     &amp;     1
+\end{array}\right|\ \ \,=\ \ \,
+a_2\,\cdot\,\vec{e}_1\ \,-\ \,a_1\,\cdot\;\vec{e}_2\ \,+\ \,0\,\cdot\;\vec{e}_3\,.
+\end{array}\end{split}\]</div>
+<p>Hence:
+<span class="math notranslate nohighlight">\(\quad M_{\mathcal{E}}(F)\ =\ \left[\begin{array}{ccc}
+0 &amp; -\ a_3 &amp; a_2 \\ a_3 &amp; 0 &amp; -\ a_1 \\ -\ a_2 &amp; a_1 &amp; 0
+\end{array}\right]\,.\)</span></p>
+<p>(On a side, note that the matrix <span class="math notranslate nohighlight">\(\ M_{\mathcal{E}}(F)\equiv\boldsymbol{F}\,\)</span>
+is antisymmetric: <span class="math notranslate nohighlight">\(\ \boldsymbol{F}^{\,T}=-\,\boldsymbol{F}.\)</span>)</p>
+<p>If we put
+<span class="math notranslate nohighlight">\(\ \,F(\vec{r})\,=\,\vec{r}\;'\,=\ x_1'\;\vec{e}_1+\,x_2'\;\vec{e}_2+\,x_3'\;\vec{e}_3\,,\ \,\)</span>
+then by equation <a class="reference internal" href="#equation-prod-det">(3)</a> :</p>
+<div class="math notranslate nohighlight">
+\[\begin{split}\begin{array}{l}
+x_1'\ =\ a_2\;x_3\ -\ a_3\;x_2 \\
+x_2'\ =\ a_3\;x_1\ -\ a_1\;x_3 \\
+x_3'\ =\ a_1\;x_2\ -\ a_2\;x_1
+\end{array}
+\qquad\text{that is}\qquad
+\left[\begin{array}{c} x_1' \\ x_2' \\ x_3' \end{array}\right]
+\ =\
+\left[\begin{array}{ccc}
+          0  &amp; -\ a_3 &amp;    a_2 \\
+         a_3 &amp;     0  &amp; -\ a_1 \\
+      -\ a_2 &amp;    a_1 &amp;     0
+\end{array}\right]
+\left[\begin{array}{c} x_1 \\ x_2 \\ x_3 \end{array}\right]\,.\end{split}\]</div>
+<p>The last equality states, <span class="math notranslate nohighlight">\(\,\)</span> in consonance with <a class="reference internal" href="#equation-fund-end">(1)</a>, <span class="math notranslate nohighlight">\(\,\)</span> that
+<span class="math notranslate nohighlight">\(\ \ I_{\mathcal{E}}(\vec{r}\;')\,=\,M_{\mathcal{E}}(F)\cdot I_{\mathcal{E}}(\vec{r})\,.\)</span></p>
+</section>
+
+
+          </div>
+        </div>
+      </div>
+      <div class="sphinxsidebar" role="navigation" aria-label="main navigation">
+        <div class="sphinxsidebarwrapper">
+  <h4>Previous topic</h4>
+  <p class="topless"><a href="przeksztalcenia_lin_macierze.html"
+                        title="previous chapter">Matrix Representation of Linear Transformations</a></p>
+  <h4>Next topic</h4>
+  <p class="topless"><a href="przeksztalcenia_lin_zmiana_bazy.html"
+                        title="next chapter">Change of Basis</a></p>
+  <div role="note" aria-label="source link">
+    <h3>This Page</h3>
+    <ul class="this-page-menu">
+      <li><a href="_sources/przeksztalcenia_lin_operatory.rst.txt"
+            rel="nofollow">Show Source</a></li>
+    </ul>
+   </div>
+<div id="searchbox" style="display: none" role="search">
+  <h3 id="searchlabel">Quick search</h3>
+    <div class="searchformwrapper">
+    <form class="search" action="search.html" method="get">
+      <input type="text" name="q" aria-labelledby="searchlabel" />
+      <input type="submit" value="Go" />
+    </form>
+    </div>
+</div>
+<script>$('#searchbox').show(0);</script>
+        </div>
+      </div>
+      <div class="clearer"></div>
+    </div>
+  </div>
+  <div class="relbar-bottom">
+    
+    <div class="related" role="navigation" aria-label="related navigation">
+      <h3>Navigation</h3>
+      <ul>
+        <li class="right" style="margin-right: 10px">
+          <a href="genindex.html" title="General Index"
+             >index</a></li>
+        <li class="right" >
+          <a href="przeksztalcenia_lin_zmiana_bazy.html" title="Change of Basis"
+             >next</a> &nbsp; &nbsp;</li>
+        <li class="right" >
+          <a href="przeksztalcenia_lin_macierze.html" title="Matrix Representation of Linear Transformations"
+             >previous</a> &nbsp; &nbsp;</li>
+  <li><a href="index.html">Linear Algebra</a> &#187;</li>
+  
+        <li class="nav-item nav-item-this"><a href="">Linear Operators</a></li> 
+      </ul>
+    </div>
+  </div>
+  
+  <div class="footer">
+    <a class="logo" href="http://icse.us.edu.pl/" target="_blank"><img src="_static/logo-icse.png" alt="ICSE"/></a><br/>
+    &copy; Copyright 2018, Jan Aksamit, Joanna Marzec, and  Marcin Kostur.
+    Last updated on Jan 29, 2022.
+    Created using <a href="http://sphinx.pocoo.org/">Sphinx</a> 4.0.1.
+  </div>
+  </body>
+</html>

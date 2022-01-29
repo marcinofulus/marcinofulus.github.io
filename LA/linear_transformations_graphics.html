@@ -1,0 +1,698 @@
+
+
+  
+<!DOCTYPE html>
+
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" /><meta name="generator" content="Docutils 0.17: http://docutils.sourceforge.net/" />
+
+    <title>Application to Computer Graphics &#8212; Linear Algebra</title>
+    <link rel="stylesheet" type="text/css" href="_static/pygments.css" />
+    <link rel="stylesheet" type="text/css" href="_static/cloud.css" />
+    <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Noticia+Text|Open+Sans|Droid+Sans+Mono&amp;subset=latin,latin-ext" type="text/css" />
+    <script data-url_root="./" id="documentation_options" src="_static/documentation_options.js"></script>
+    <script src="_static/jquery.js"></script>
+    <script src="_static/underscore.js"></script>
+    <script src="_static/doctools.js"></script>
+    <script async="async" src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js"></script>
+    <script src="_static/jquery.cookie.js"></script>
+    <script src="_static/cloud.js"></script>
+    <script type="text/javascript" src="http://sagecell.sagemath.org/static/jquery.min.js"></script>
+    <script type="text/javascript" src="http://sagecell.sagemath.org/embedded_sagecell.js"></script>
+    <script type="text/javascript">
+        sagecell.makeSagecell({inputLocation: ".sage_linked",
+                               linked: true});
+        sagecell.makeSagecell({inputLocation: ".sage_unlinked",
+                               linked: false});
+    </script>
+
+    <style type="text/css">
+        .sagecell .CodeMirror-scroll {
+            overflow-y: hidden;
+            overflow-x: auto;
+        }
+        .sagecell .CodeMirror {
+            height: auto;
+        }
+    </style>
+    
+    <link rel="index" title="Index" href="genindex.html" />
+    <link rel="search" title="Search" href="search.html" />
+    <link rel="next" title="Problems" href="przeksztalcenia_lin_zadania.html" />
+    <link rel="prev" title="Change of Basis" href="przeksztalcenia_lin_zmiana_bazy.html" />
+ 
+  <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, minimum-scale=1">
+  </head><body>
+  <div class="relbar-top">
+    
+    <div class="related" role="navigation" aria-label="related navigation">
+      <h3>Navigation</h3>
+      <ul>
+        <li class="right" style="margin-right: 10px">
+          <a href="genindex.html" title="General Index"
+             accesskey="I">index</a></li>
+        <li class="right" >
+          <a href="przeksztalcenia_lin_zadania.html" title="Problems"
+             accesskey="N">next</a> &nbsp; &nbsp;</li>
+        <li class="right" >
+          <a href="przeksztalcenia_lin_zmiana_bazy.html" title="Change of Basis"
+             accesskey="P">previous</a> &nbsp; &nbsp;</li>
+  <li><a href="index.html">Linear Algebra</a> &#187;</li>
+  
+        <li class="nav-item nav-item-this"><a href="">Application to Computer Graphics</a></li> 
+      </ul>
+    </div>
+  </div>
+  
+  <div class="content">  
+
+    <div class="document">
+      <div class="documentwrapper">
+        <div class="bodywrapper">
+          <div class="body">
+            
+  <section id="application-to-computer-graphics">
+<h1>Application to Computer Graphics<a class="headerlink" href="#application-to-computer-graphics" title="Permalink to this headline">¶</a></h1>
+<p>Every 2- or 3-dimensional space can be endowed with a coordinate system at a chosen origin. In this way every object in such a space, e.g. every pixel on a computer screen, acquires coordinates which determine its position in time. Of course, at every moment of a computer game there are millions of pixels that have to be handled by a graphic card. This is possible because graphic cards may perform thousands of parallel linear computations, and - luckily - it is the compositions of linear transformations which describe many movements. Among them are rotation, scaling, shear, reflection and translation <a class="footnote-reference brackets" href="#id5" id="id1">1</a>. We describe them and their implementation in the following sections. First try yourself if you can find a transformation which moves a single point to a desired location:</p>
+<div class="admonition-experiment-with-sage admonition">
+<p class="admonition-title">Experiment with Sage!</p>
+<figure class="align-right">
+<a class="reference internal image-reference" href="_images/grafika1.png"><img alt="_images/grafika1.png" src="_images/grafika1.png" style="width: 198.1px; height: 147.0px;" /></a>
+</figure>
+<p>The picture on the right presents a point <span class="math notranslate nohighlight">\(\ (1,0)\ \)</span>.</p>
+<p>Try to find entries <span class="math notranslate nohighlight">\(\ a, b, c, d\ \)</span> of the matrix <span class="math notranslate nohighlight">\(\ A\ \)</span> in the code below which transforms
+this point to the point <span class="math notranslate nohighlight">\(\ (0,1)\ \)</span>.
+You will see the effect on the picture which will be generated.</p>
+<p>Can you find a matrix which sends the point <span class="math notranslate nohighlight">\(\ (1,0)\ \)</span> to <span class="math notranslate nohighlight">\(\ (\frac12,0)\ \)</span>,
+<span class="math notranslate nohighlight">\(\ (5,0)\ \)</span> or <span class="math notranslate nohighlight">\(\ (\frac{\sqrt{2}}{2},\frac{\sqrt{2}}{2})\ \)</span>?</p>
+<p><span class="math notranslate nohighlight">\(\text{}\)</span></p>
+</div>
+<div class='sage_linked'><script type='text/x-sage'>a=
+b=
+c=
+d=
+A=Matrix([[a,b],[c,d]])
+p=point((1,0), color='red', size=20)
+q=point(A*vector(p[0][0]), size=20)
+(p+q).show(figsize=4) # in order to treat a few graphics objects as one it suffices to 'add' them</script></div><section id="dimensional-graphics">
+<h2>2-dimensional Graphics<a class="headerlink" href="#dimensional-graphics" title="Permalink to this headline">¶</a></h2>
+<p>We start with presenting explicit forms of basic linear transformations.
+We will extend the idea hidden behind the exercise above to objects which are determined by a few coordinates: triangles, rectangles, circles, …</p>
+<section id="rotation">
+<h3>Rotation<a class="headerlink" href="#rotation" title="Permalink to this headline">¶</a></h3>
+<p>The anti-clockwise rotation by the angle <span class="math notranslate nohighlight">\(t\)</span> about the origin of the coordinate system is given by the matrix</p>
+<div class="math notranslate nohighlight">
+\[\begin{split}R=\left[\begin{matrix} \cos t &amp; -\sin t\\ \sin t &amp; \cos t\end{matrix}\right]\end{split}\]</div>
+<p>An explanation of this fact can be found in <a class="reference internal" href="#cam" id="id2"><span>[Cam]</span></a>, section 5.6.3.</p>
+<p>For example, rotation of a triangle with vertices <span class="math notranslate nohighlight">\(\ (0, 0),\, (3, 0),\, (1,1.5)\ \)</span> can be implemented by the following code (we marked the vertex <span class="math notranslate nohighlight">\(\ (0, 0)\ \)</span> for better clarity):</p>
+<div class='sage_linked'><script type='text/x-sage'>@interact
+def _(t=slider(0,2*pi,pi/36)):
+    R=Matrix([[cos(t), -sin(t)],[sin(t),cos(t)]])
+    P=polygon2d([(0, 0), (3, 0), (1,1.5)]) # defines a polygon with specified vertices
+    V=list(R*vector(P[0][i]) for i in range(3)) # a list which collects vertices after rotation
+    p=point(R*vector(P[0][0]), color='red', size=80) # marked vertex after rotation
+    RP=polygon([V[0],V[1],V[2]])+p
+    RP.show(figsize=4)</script></div><p>The first two lines are included so that you can experiment with various angles:
+<span class="math notranslate nohighlight">\(\ t\in\left[ 0, \pi/36, 2\pi/36, \ldots, 2\pi\right]\ \)</span>.
+Note also that in order to access the <span class="math notranslate nohighlight">\(i\)</span>-th vertex of the polygon <span class="math notranslate nohighlight">\(\ P\ \)</span> one has to write <span class="math notranslate nohighlight">\(\ P[0][i]\ \)</span>.
+Moreover, since <span class="math notranslate nohighlight">\(\ P[0][i]\ \)</span> is not seen as a vector, one has to use the constructor <code class="docutils literal notranslate"><span class="pre">vector()</span></code> before being able to multiply it by a matrix.</p>
+<div class="admonition-experiment-with-sage admonition">
+<p class="admonition-title">Experiment with Sage!</p>
+<p>See what happens if in the above code you replace the vertex <span class="math notranslate nohighlight">\(\ (0, 0)\ \)</span> of a polygon with another point,
+e.g. with <span class="math notranslate nohighlight">\(\ (1, 0)\ \)</span>.</p>
+<p>Does the triangle rotate the way you expected it?</p>
+</div>
+<p>As we said at the beginning, the rotation matrix represents the rotation about the origin. In order to rotate an object about a chosen point,
+one has to translate this point (and everything else) to the origin, apply the rotation matrix and translate back to the starting place.</p>
+</section>
+<section id="translation">
+<h3>Translation<a class="headerlink" href="#translation" title="Permalink to this headline">¶</a></h3>
+<p>In order to translate a point <span class="math notranslate nohighlight">\(\ (a_1,a_2)\ \)</span> to a point <span class="math notranslate nohighlight">\(\ (b_1,b_2)\ \)</span>,
+or in other words: in order to translate a vector <span class="math notranslate nohighlight">\(\ [a_1,a_2]\ \)</span> to a vector <span class="math notranslate nohighlight">\(\ [b_1,b_2]\ \)</span>,
+one has to add a suitable vector <span class="math notranslate nohighlight">\(\ [t_x,t_y]\ \)</span>:</p>
+<div class="math notranslate nohighlight">
+\[\begin{split}\left[\begin{matrix} b_1 \\ b_2 \end{matrix}\right]=
+\left[\begin{matrix} a_1 \\ a_2 \end{matrix}\right] +
+\left[\begin{matrix} t_x \\ t_y \end{matrix}\right]\end{split}\]</div>
+<p>For example, if we want to shift the point <span class="math notranslate nohighlight">\(\ (a_1,a_2)\ \)</span> to the origin <span class="math notranslate nohighlight">\(\ (0,0)\ \)</span>,
+we should shift it by the vector <span class="math notranslate nohighlight">\(\ \left[-a_1,-a_2\right]\ \)</span>.
+However,</p>
+<div class="admonition note">
+<p class="admonition-title">Note</p>
+<p>Operation of addition of a fixed <span class="math notranslate nohighlight">\(n\)</span>-dimensional constant vector cannot be expressed by a matrix of size <span class="math notranslate nohighlight">\(n\)</span>.</p>
+</div>
+<p>On the other hand,</p>
+<div class="math notranslate nohighlight">
+\[\begin{split}\left[\begin{matrix} 1 &amp; 0 &amp; t_1\\ 0 &amp; 1 &amp; t_2\\  0 &amp; 0 &amp; 1\end{matrix}\right]
+\left[\begin{matrix} a_1 \\ a_2 \\ 1\end{matrix}\right]
+= \left[\begin{matrix} a_1 + t_1 \\ a_2 + t_2 \\ 1\end{matrix}\right] .\end{split}\]</div>
+<p>In general, if we view the points in dimension greater by one (or if we write them in <span class="math notranslate nohighlight">\(\,\)</span> <em>projective</em>  or  <em>homogeneous</em> <span class="math notranslate nohighlight">\(\,\)</span> coordinates, see <a class="reference internal" href="#cam" id="id3"><span>[Cam]</span></a>, section 6.5),
+then translation becomes a linear operation. This means in particular that it can be easily composed with other linear transformations.
+Therefore from now on all the (<span class="math notranslate nohighlight">\(2\)</span>-dimensional) points will have coordinates <span class="math notranslate nohighlight">\(\ (x,y,1)\ \)</span>, and linear transformations will be given by <span class="math notranslate nohighlight">\(\ 3\times 3\ \)</span> matrices. In particular, the rotation matrix takes the form</p>
+<div class="math notranslate nohighlight">
+\[\begin{split}R=\left[\begin{matrix} \cos t &amp; -\sin t &amp; 0\\ \sin t &amp; \cos t &amp; 0\\ 0 &amp; 0 &amp; 1 \end{matrix}\right]\end{split}\]</div>
+<p>and the translation by a vector <span class="math notranslate nohighlight">\(\ [t_1,t_2]\ \)</span> is given by</p>
+<div class="math notranslate nohighlight">
+\[\begin{split}T=\left[\begin{matrix} 1 &amp; 0 &amp; t_1\\ 0 &amp; 1 &amp; t_2\\  0 &amp; 0 &amp; 1 \end{matrix}\right] .\end{split}\]</div>
+<div class="admonition-experiment-with-sage admonition">
+<p class="admonition-title">Experiment with Sage!</p>
+<p>In order to translate a circle one only needs to know its center and radius. Run the code below and find the values of
+<span class="math notranslate nohighlight">\(\ [t_1,t_2]\ \)</span> so that the center of the circle changes from <span class="math notranslate nohighlight">\(\ (1, 0)\ \)</span> to <span class="math notranslate nohighlight">\(\ (-1, 2)\ \)</span>.</p>
+</div>
+<div class='sage_linked'><script type='text/x-sage'>@interact
+def _(t_x=slider(-5,5,0.5), t_y=slider(-5,5,0.5)):
+    p=(1,0)
+    c=circle(p,1)
+    T=Matrix([[1,0,t_x],[0,1,t_y],[0,0,1]])
+    Tp=list(T*vector(list(p)+[1]))
+    del Tp[2]
+    circle(vector(Tp),1).show(figsize=4)</script></div><p><strong>Example 1.</strong></p>
+<p>We will rotate a triangle with vertices <span class="math notranslate nohighlight">\(\ (1, 0),\, (3, 0),\, (1,1.5)\ \)</span> by the angle <span class="math notranslate nohighlight">\(t\)</span>.
+As before, we write the code in such a way that one can easily vary this angle.</p>
+<div class='sage_linked'><script type='text/x-sage'>@interact
+def _(t=slider(0,2*pi,pi/36)):
+    R=Matrix([[cos(t),-sin(t),0],[sin(t),cos(t),0],[0,0,1]])
+    P=polygon2d([(1, 0), (3, 0), (1,1.5)], rgbcolor=(0.6,0.96,0.92))
+    Pl=[list(P[0][i])+[1] for i in range(3)]
+    tr=[-P[0][0][i] for i in range(2)] # translation vector, equal to (-1,0)
+    T=Matrix([[1,0,tr[0]],[0,1,tr[1]],[0,0,1]])
+    V=list(T.inverse()*R*T*vector(Pl[i]) for i in range(3))
+    p=point(T.inverse()*R*T*vector(Pl[0]), color='red', size=20) # marked vertex after rotation and translations
+    P1=P.plot3d(z=1) # original polygon plotted on a plane z=1
+    RP=polygon([V[0],V[1],V[2]])+p+P1
+    print V
+    RP.show()</script></div><p>We obtain a 3-dimensional picture because we lifted the vertices to <span class="math notranslate nohighlight">\(\ R^3\ \)</span>. In order to present everything on a plane, we need to get rid of the last coordinate ( which will be always equal to <span class="math notranslate nohighlight">\(1\)</span>):</p>
+<div class='sage_linked'><script type='text/x-sage'>@interact
+def _(t=slider(0,2*pi,pi/36)):
+    R=Matrix([[cos(t),-sin(t),0],[sin(t),cos(t),0],[0,0,1]])
+    P=polygon2d([(1, 0), (3, 0), (1,1.5)], rgbcolor=(0.6,0.96,0.92))
+    Pl=[list(P[0][i])+[1] for i in range(3)]
+    tr=[-P[0][0][i] for i in range(2)]
+    T=Matrix([[1,0,tr[0]],[0,1,tr[1]],[0,0,1]])
+    V=list(T.inverse()*R*T*vector(Pl[i]) for i in range(3))
+    p=point((V[0][0],V[0][1]), color='red', size=20)
+    RP=polygon([(V[i][0],V[i][1]) for i in range(3)])+p+P # we create polygon RP out of first two coordinates of each vector in V
+    RP.show(figsize=6)</script></div></section>
+<section id="scaling">
+<h3>Scaling<a class="headerlink" href="#scaling" title="Permalink to this headline">¶</a></h3>
+<p>Scaling may be done separately for each axis direction:</p>
+<blockquote>
+<div><ul class="simple">
+<li><p>with respect to the <span class="math notranslate nohighlight">\(x\)</span>-axis: <span class="math notranslate nohighlight">\(\ \ S_x=\left[\begin{matrix} k &amp; 0\\ 0 &amp; 1 \end{matrix}\right]\ \ ,\ k\in R\ \)</span>,</p></li>
+<li><p>with respect to the <span class="math notranslate nohighlight">\(y\)</span>-axis: <span class="math notranslate nohighlight">\(\ \ S_y=\left[\begin{matrix} 1 &amp; 0\\ 0 &amp; l \end{matrix}\right]\ \ ,\ l\in R\ \)</span>,</p></li>
+</ul>
+</div></blockquote>
+<p>or in both directions at the same time, which is a result of composition of these two transformations:</p>
+<div class="math notranslate nohighlight">
+\[\begin{split}\left[\begin{matrix} k &amp; 0\\ 0 &amp; 1 \end{matrix}\right]\left[\begin{matrix} 1 &amp; 0\\ 0 &amp; l \end{matrix}\right]
+=\left[\begin{matrix} k &amp; 0\\ 0 &amp; l \end{matrix}\right]\end{split}\]</div>
+<p><strong>Example 2.</strong></p>
+<p>Press <strong>Evaluate</strong> to check the effect of choice of various scales on a triangle.
+The original triangle is filled with light blue colour.</p>
+<div class='sage_linked'><script type='text/x-sage'>@interact
+def _(k=slider(-5,5,0.2), l=slider(-5,5,0.2)):
+    S=Matrix([[k,0],[0,l]])
+    P=polygon2d([(0, 0), (3, 1), (1,1.5)], rgbcolor=(0.6,0.96,0.92))
+    V=list(S*vector(P[0][i]) for i in range(3))
+    SP=polygon([V[0],V[1],V[2]], fill=False)
+    (P+SP).show() # see what happens if instead of P+SP you write SP+P</script></div><div class="admonition-experiment-with-sage admonition">
+<p class="admonition-title">Experiment with Sage!</p>
+<p>See what happens if in the code above you replace the vertex <span class="math notranslate nohighlight">\(\ (0, 0)\ \)</span> of the polygon <span class="math notranslate nohighlight">\(\ P\ \)</span> with other points,
+e.g. <span class="math notranslate nohighlight">\(\ (1, 0),\, (0, 1)\ \)</span> or <span class="math notranslate nohighlight">\(\ (2, 2)\ \)</span>.</p>
+<p>How does the coordinate which is equal to zero influence the result?</p>
+</div>
+<p>The reason for the above phenomenon is that scaling scales the whole axis, not just the object. Therefore, as it was the case with rotation,
+if one wants to scale an object and keep one of the vertices at the same place, one has to translate the chosen vertex to the origin, apply scaling and translate everything back.</p>
+<p>Now that we need to use translation, we go back to homogeneous coordinates. In particular, the scaling matrix takes the form</p>
+<div class="math notranslate nohighlight">
+\[\begin{split}S=\left[\begin{matrix} k &amp; 0 &amp; 0\\ 0 &amp; l &amp; 0\\  0 &amp; 0 &amp; 1 \end{matrix}\right]\end{split}\]</div>
+<div class='sage_linked'><script type='text/x-sage'>@interact
+def _(k=slider(-5,5,0.25), l=slider(-5,5,0.25)):
+    S=Matrix([[k,0,0],[0,l,0],[0,0,1]])
+    P=polygon2d([(2, 2), (3, 1), (1,1.5)], rgbcolor=(0.6,0.96,0.92))
+    Pl=[list(P[0][i])+[1] for i in range(3)]
+    tr=[-P[0][0][i] for i in range(2)]
+    T=Matrix([[1,0,tr[0]],[0,1,tr[1]],[0,0,1]])
+    V=list(T.inverse()*S*T*vector(Pl[i]) for i in range(3))
+    SP=polygon([(V[i][0],V[i][1]) for i in range(3)], fill=False)
+    (P+SP).show()</script></div><p>It is easy to see that in general scaling changes the volume and shape of an object.
+The only case when volume is preserved is when the scales <span class="math notranslate nohighlight">\(\ k,l\ \)</span> satisfy
+<span class="math notranslate nohighlight">\(\ k=\frac1l\ \)</span> (this defines a <em>squeeze mapping</em> <span class="math notranslate nohighlight">\(\,\)</span>). The shape is preserved if and only if <span class="math notranslate nohighlight">\(\ k=l\ \)</span>.
+Try some of such values in the code above!</p>
+</section>
+<section id="shear">
+<h3>Shear<a class="headerlink" href="#shear" title="Permalink to this headline">¶</a></h3>
+<p>As it was the case for scaling, we distinguish two types of shearing mappings:</p>
+<ul class="simple">
+<li><p>horizontal shear (parallel to the <span class="math notranslate nohighlight">\(x\)</span>-axis): <span class="math notranslate nohighlight">\(\ \ Sh_x=\left[\begin{matrix} 1 &amp; a\\ 0 &amp; 1 \end{matrix}\right]\ ,\ a\in R\ \)</span>,</p></li>
+<li><p>vertical shear (parallel to the <span class="math notranslate nohighlight">\(y\)</span>-axis): <span class="math notranslate nohighlight">\(\ \ Sh_y=\left[\begin{matrix} 1 &amp; 0\\ b &amp; 1 \end{matrix}\right]\ ,\ b\in R\ \)</span>.</p></li>
+</ul>
+<p>Observe their effect by running the code below and changing the values of parameters <span class="math notranslate nohighlight">\(\ a\ \)</span> and <span class="math notranslate nohighlight">\(\ b\ \)</span>.
+Start with setting one of them to be equal to zero.</p>
+<div class='sage_linked'><script type='text/x-sage'>@interact
+def _(a=slider(-5,5,0.25), b=slider(-5,5,0.25)):
+    Sh=Matrix([[1,a],[b,1]])
+    P=polygon2d([(0, 1), (2, 1), (2,2), (0,2)], rgbcolor=(0.6,0.96,0.92))
+    V=list(Sh*vector(P[0][i]) for i in range(4))
+    ShP=polygon2d([V[i] for i in range(4)], fill=False)
+    (ShP+P).show(figsize=6)</script></div><p>As you could see, varying <span class="math notranslate nohighlight">\(\ a\ \)</span> ( which is responsible for shear parallel to the <span class="math notranslate nohighlight">\(x\)</span>-axis) resulted in shifting the parallelogram away from the <span class="math notranslate nohighlight">\(y\)</span>-axis. As you might have guessed by now, the reason is that none of <span class="math notranslate nohighlight">\(y\)</span>-coordinates of the parallelogram is equal to zero. Indeed, for a point <span class="math notranslate nohighlight">\(\ p=(x_p,y_p)\ \)</span>:</p>
+<div class="math notranslate nohighlight">
+\[\begin{split}Sh_xp=\left[\begin{matrix} 1 &amp; a\\ 0 &amp; 1 \end{matrix}\right]
+\left[\begin{matrix} x_p\\ y_p\end{matrix}\right]
+= x_p+a y_p\, ,\end{split}\]</div>
+<p>which means that for any <span class="math notranslate nohighlight">\(\ a\neq 0\ \)</span>, <span class="math notranslate nohighlight">\(\ x_p+a y_p\neq x_p\ \)</span> whenever <span class="math notranslate nohighlight">\(\ y_p\neq 0\ \)</span>, that is:
+if <span class="math notranslate nohighlight">\(\ y_p\neq 0\ \)</span>, then the <span class="math notranslate nohighlight">\(x\)</span>-coordinate of the point <span class="math notranslate nohighlight">\(\ p\ \)</span> will always change.</p>
+<p>In order to produce the shear effect and keep it attached to the chosen vertex, we have to move to projective coordinates and apply the translation trick. In this setting shear matrices are of the form</p>
+<div class="math notranslate nohighlight">
+\[\begin{split}Sh_x=\left[\begin{matrix} 1 &amp; a &amp; 0\\ 0 &amp; 1 &amp; 0\\ 0 &amp; 0 &amp; 1\end{matrix}\right]\qquad\text{and}\qquad
+Sh_y=\left[\begin{matrix} 1 &amp; 0 &amp; 0\\ b &amp; 1 &amp; 0\\ 0 &amp; 0 &amp; 1\end{matrix}\right]\, .\end{split}\]</div>
+<p><strong>Exercise.</strong></p>
+<p>Produce the shear effect with parameters <span class="math notranslate nohighlight">\(\ a = 3,\, b=0\ \)</span> for the parallelogram from the code above
+so that the resulting parallelogram remains attached to the vertex <span class="math notranslate nohighlight">\(\ (0,1)\ \)</span>.
+Write suitable code in the window below.</p>
+<div class='sage_linked'><script type='text/x-sage'></script></div></section>
+<section id="reflection">
+<h3>Reflection<a class="headerlink" href="#reflection" title="Permalink to this headline">¶</a></h3>
+<p>In order to find reflection of the point <span class="math notranslate nohighlight">\(\ p\ \)</span> with respect to the line <span class="math notranslate nohighlight">\(\ l\ \)</span>, one has to construct the line <span class="math notranslate nohighlight">\(\ l'\ \)</span> which is orthogonal to <span class="math notranslate nohighlight">\(\ l\ \)</span> and passes throught the point <span class="math notranslate nohighlight">\(\ p\ \)</span>, and then mark the point on <span class="math notranslate nohighlight">\(\ l'\ \)</span> whose distance from <span class="math notranslate nohighlight">\(\ l\ \)</span> is the same as distance of <span class="math notranslate nohighlight">\(\ p\ \)</span> from <span class="math notranslate nohighlight">\(\ l\ \)</span>.</p>
+<p>If we want to find a reflection with respect to the <span class="math notranslate nohighlight">\(y\)</span>-axis, that is <span class="math notranslate nohighlight">\(\ l:\ x=0\ \)</span>,
+then the reflection <span class="math notranslate nohighlight">\(\ q\ \)</span> of the point <span class="math notranslate nohighlight">\(\ p=(x_p,y_p)\ \)</span> has coordinates <span class="math notranslate nohighlight">\(\ q=(-x_p,y_p)\ \)</span>, e.g.</p>
+<figure class="align-center">
+<a class="reference internal image-reference" href="_images/grafika2.png"><img alt="_images/grafika2.png" src="_images/grafika2.png" style="width: 275.09999999999997px; height: 199.5px;" /></a>
+</figure>
+<p>This corresponds to a linear transformation given by matrix
+<span class="math notranslate nohighlight">\(\ R_{\infty}=\left[\begin{matrix} -1 &amp; 0 \\ 0 &amp; 1\end{matrix}\right]\ \)</span>
+as</p>
+<div class="math notranslate nohighlight">
+\[\begin{split}R_{\infty}p=\left[\begin{matrix} -1 &amp; 0 \\ 0 &amp; 1\end{matrix}\right]
+\left[\begin{matrix} x_p\\ y_p\end{matrix}\right]
+=\left[\begin{matrix} -x_p\\ y_p\end{matrix}\right]\, .\end{split}\]</div>
+<p>In general, reflection <span class="math notranslate nohighlight">\(\ q\ \)</span> of the point <span class="math notranslate nohighlight">\(\ p=(x_p,y_p)\ \)</span> with respect to the line passing through the origin:
+<span class="math notranslate nohighlight">\(\ l:\ y=ax\, ,\, a\in R\ \)</span> is given by the formula
+<span class="math notranslate nohighlight">\(\ q=((-1+\frac{2}{1+a^2})x_p+ \frac{2a}{1+a^2} y_p, \frac{2a}{1+a^2} x_p+(1-\frac{2}{1+a^2})y_p)\ \)</span>,
+which is described by the matrix</p>
+<div class="math notranslate nohighlight">
+\[\begin{split}R_a=\left[\begin{matrix} -1+\frac{2}{1+a^2} &amp; \frac{2a}{1+a^2} \\
+\frac{2a}{1+a^2} &amp; 1-\frac{2}{1+a^2}\end{matrix}\right]\, .\end{split}\]</div>
+<p><strong>Example 3.</strong></p>
+<p>The following code describes reflection of a triangle with respect to a line
+<span class="math notranslate nohighlight">\(\ l:\ y=ax\, ,\, a\in [-5,5]\ \)</span>.
+Observe that again it suffices to determine the action on the vertices of the triangle.
+Press <strong>Evaluate</strong> to observe the effect for various values of <span class="math notranslate nohighlight">\(\ a\ \)</span>.
+How does the picture change when <span class="math notranslate nohighlight">\(\ a\ \)</span> increases or decreases?
+How is this related to reflection defined by <span class="math notranslate nohighlight">\(\ R_{\infty}\ \)</span>?</p>
+<div class='sage_linked'><script type='text/x-sage'>@interact
+def _(a=slider(-5,5,0.2)):
+    var('x')
+    l=plot(a*x, (x,-2.5,2.5), color='green', linestyle="--")
+    Ra=Matrix([[-1+2/(1+a^2), 2*a/(1+a^2)],[2*a/(1+a^2),1-2/(1+a^2)]])
+    P=polygon2d([(1,1),(1.5,4),(3,2)], rgbcolor=(0.6,0.96,0.92), fill=False)
+    V=list(Ra*vector(P[0][i]) for i in range(3))
+    RaP=polygon2d([V[i] for i in range(3)], fill=False)
+    (RaP+P+l).show(figsize=6)</script></div></section>
+<section id="projection">
+<h3>Projection<a class="headerlink" href="#projection" title="Permalink to this headline">¶</a></h3>
+<p>We distinguish projections to the <span class="math notranslate nohighlight">\(x\)</span>-axis and to the <span class="math notranslate nohighlight">\(y\)</span>-axis:</p>
+<figure class="align-center" id="id7">
+<a class="reference internal image-reference" href="_images/proj_to_x-and-y.png"><img alt="_images/proj_to_x-and-y.png" src="_images/proj_to_x-and-y.png" style="width: 473.6px; height: 230.4px;" /></a>
+<figcaption>
+<p><span class="caption-text">Projection to the <span class="math notranslate nohighlight">\(x\)</span>-axis. <span class="math notranslate nohighlight">\(\ \qquad\qquad\ \)</span> Projection to the <span class="math notranslate nohighlight">\(y\)</span>-axis.</span><a class="headerlink" href="#id7" title="Permalink to this image">¶</a></p>
+</figcaption>
+</figure>
+<p>They are given by projection matrices which neglect the input of the <span class="math notranslate nohighlight">\(y\)</span>- or <span class="math notranslate nohighlight">\(x\)</span>-coordinate, correspondingly:</p>
+<div class="math notranslate nohighlight">
+\[\begin{split}Pr_x=\left[\begin{matrix} 1 &amp; 0\\ 0 &amp; 0\end{matrix}\right]\, ,\qquad\qquad
+Pr_y=\left[\begin{matrix} 0 &amp; 0\\ 0 &amp; 1\end{matrix}\right]\, .\end{split}\]</div>
+<figure class="align-right">
+<a class="reference internal image-reference" href="_images/graf_vector_projection.png"><img alt="_images/graf_vector_projection.png" src="_images/graf_vector_projection.png" style="width: 260.8px; height: 347.20000000000005px;" /></a>
+</figure>
+<p>These projections are very natural, because we often choose the coordinate system whose axes agree with the standard (orthogonal) basis vectors:
+<span class="math notranslate nohighlight">\(x\)</span>-axis with <span class="math notranslate nohighlight">\(\ e_1=[1,0]\ \)</span> and <span class="math notranslate nohighlight">\(y\)</span>-axis with <span class="math notranslate nohighlight">\(\ e_2=[0,1]\ \)</span>. In this way every point <span class="math notranslate nohighlight">\(\ (a,b)\ \)</span> on a plane determines a vector <span class="math notranslate nohighlight">\(\ [a,b]=ae_1+be_2\ \)</span>. If we project to the <span class="math notranslate nohighlight">\(x\)</span>-axis, then since the vectors <span class="math notranslate nohighlight">\(\ e_1\ \)</span> and <span class="math notranslate nohighlight">\(\ e_2\ \)</span> are orthogonal, the contribution  from the second vector vanishes (for more details look at the chapter <a class="reference internal" href="index.html#unitary-spaces"><span class="std std-ref">Unitary Spaces</span></a>). However, if we change the basis from <span class="math notranslate nohighlight">\(\ e_1,\, e_2\ \)</span> to an (orthonormal) basis <span class="math notranslate nohighlight">\(\ v,\, w\ \)</span> <a class="footnote-reference brackets" href="#id6" id="id4">2</a>, then it is equaly easy to find <span class="math notranslate nohighlight">\(\ \alpha ,\,\beta\ \)</span> so that <span class="math notranslate nohighlight">\(\ [a,b]=\alpha v+\beta w\ \)</span>. Then the projection of the point <span class="math notranslate nohighlight">\(\ (a,b)\ \)</span> to the axis determined by the vector <span class="math notranslate nohighlight">\(\ v\ \)</span> will be equal to <span class="math notranslate nohighlight">\(\ \alpha\ \)</span>. In fact, we know the precise formulae for <span class="math notranslate nohighlight">\(\ \alpha\ \)</span> (see Example 4). in <a class="reference internal" href="p_unitarne_iloczyn_skalarny.html#inner-product"><span class="std std-ref">Inner (Scalar) Product</span></a>), which allows us to give a matrix representation of projection onto the vector <span class="math notranslate nohighlight">\(\ v=[v_1,v_2]\ \)</span>:</p>
+<div class="math notranslate nohighlight">
+\[\begin{split}Pr_v=\left[\begin{matrix} v_1^2 &amp; v_1v_2\\ v_1v_2 &amp; v_2^2\end{matrix}\right]\, ;\end{split}\]</div>
+<p>if <span class="math notranslate nohighlight">\(v\)</span> is not of length <span class="math notranslate nohighlight">\(1\)</span>, one has to normalise the matrix by dividing each entry by <span class="math notranslate nohighlight">\(\ v_1^2\, +\,v_2^2\ \)</span>.</p>
+<p><strong>Example 4</strong></p>
+<p>Press <strong>Evaluate</strong> to observe the effect of projecting the figure from example above onto various vectors <span class="math notranslate nohighlight">\(v\)</span>.
+The code also returns coordinates of a vector and projection matrix that were used.</p>
+<div class='sage_linked'><script type='text/x-sage'>col=["black","blue","red"]
+e1vec=[vector([0.3+.2*cos(x),1+0.2+.2*sin(x)]) for x in srange(0,2*pi,0.1)]
+eye1=points(e1vec,color=col[0])
+e2vec=[vector([-0.3+.1*cos(x),1+0.2+.1*sin(x)]) for x in srange(0,2*pi,0.1)]
+eye2=points(e2vec,color=col[1])
+smvec=[vector([.5*cos(x),1+.5*sin(x)]) for x in srange(pi+.5,2*pi-.5,0.04)]
+smile=points(smvec,color=col[2])
+face=eye1+eye2+smile
+v=random_vector(QQ,2) # not necessarily of length 1
+Pr=matrix([[v[0]^2,v[0]*v[1]],[v[0]*v[1],v[1]^2]])/(v[0]^2+v[1]^2) # matrix representation of projection onto vector v
+Pre1vec=[Pr*e1vec[i] for i in range(len(e1vec))]
+Pre2vec=[Pr*e2vec[i] for i in range(len(e2vec))]
+Prsmvec=[Pr*smvec[i] for i in range(len(smvec))]
+Prface=points(Pre1vec,color=col[0])+points(Pre2vec,color=col[1])+points(Prsmvec,color=col[2])
+(Prface+face).show(figsize=4, aspect_ratio=1)
+print "v =", v, "\n"
+print "Projection matrix:"; Pr</script></div></section>
+<section id="functional-programming">
+<h3>Functional programming<a class="headerlink" href="#functional-programming" title="Permalink to this headline">¶</a></h3>
+<p>In this section we briefly introduce a concise way of transforming big lists of
+points at the same time. We limit ourselves to one example; the interested reader
+will find a more detailed treatment of this topic at</p>
+<p><a class="reference external" href="http://doc.sagemath.org/html/en/thematic_tutorials/functional_programming.html">http://doc.sagemath.org/html/en/thematic_tutorials/functional_programming.html</a> .</p>
+<p>Consider a picture given by a set of points defined by the following code:</p>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="n">sage</span><span class="p">:</span> <span class="n">pic</span><span class="o">=</span><span class="p">[</span><span class="n">vector</span><span class="p">([</span><span class="n">cos</span><span class="p">(</span><span class="n">x</span><span class="p">),</span><span class="mi">1</span><span class="o">+</span><span class="n">sin</span><span class="p">(</span><span class="n">x</span><span class="p">)])</span> <span class="k">for</span> <span class="n">x</span> <span class="ow">in</span> <span class="n">srange</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span><span class="mi">2</span><span class="o">*</span><span class="n">pi</span><span class="p">,</span><span class="mf">0.03</span><span class="p">)]</span>
+<span class="n">sage</span><span class="p">:</span> <span class="n">pic</span><span class="o">+=</span><span class="p">[</span><span class="n">vector</span><span class="p">([</span><span class="mf">0.3</span><span class="o">+.</span><span class="mi">2</span><span class="o">*</span><span class="n">cos</span><span class="p">(</span><span class="n">x</span><span class="p">),</span><span class="mi">1</span><span class="o">+</span><span class="mf">0.2</span><span class="o">+.</span><span class="mi">2</span><span class="o">*</span><span class="n">sin</span><span class="p">(</span><span class="n">x</span><span class="p">)])</span> <span class="k">for</span> <span class="n">x</span> <span class="ow">in</span> <span class="n">srange</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span><span class="mi">2</span><span class="o">*</span><span class="n">pi</span><span class="p">,</span><span class="mf">0.1</span><span class="p">)]</span>
+<span class="n">sage</span><span class="p">:</span> <span class="n">pic</span><span class="o">+=</span><span class="p">[</span><span class="n">vector</span><span class="p">([</span><span class="o">-</span><span class="mf">0.3</span><span class="o">+.</span><span class="mi">1</span><span class="o">*</span><span class="n">cos</span><span class="p">(</span><span class="n">x</span><span class="p">),</span><span class="mi">1</span><span class="o">+</span><span class="mf">0.2</span><span class="o">+.</span><span class="mi">1</span><span class="o">*</span><span class="n">sin</span><span class="p">(</span><span class="n">x</span><span class="p">)])</span> <span class="k">for</span> <span class="n">x</span> <span class="ow">in</span> <span class="n">srange</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span><span class="mi">2</span><span class="o">*</span><span class="n">pi</span><span class="p">,</span><span class="mf">0.1</span><span class="p">)]</span>
+<span class="n">sage</span><span class="p">:</span> <span class="n">pic</span><span class="o">+=</span><span class="p">[</span><span class="n">vector</span><span class="p">([</span><span class="o">.</span><span class="mi">5</span><span class="o">*</span><span class="n">cos</span><span class="p">(</span><span class="n">x</span><span class="p">),</span><span class="mi">1</span><span class="o">+.</span><span class="mi">5</span><span class="o">*</span><span class="n">sin</span><span class="p">(</span><span class="n">x</span><span class="p">)])</span> <span class="k">for</span> <span class="n">x</span> <span class="ow">in</span> <span class="n">srange</span><span class="p">(</span><span class="n">pi</span><span class="o">+.</span><span class="mi">5</span><span class="p">,</span><span class="mi">2</span><span class="o">*</span><span class="n">pi</span><span class="o">-.</span><span class="mi">5</span><span class="p">,</span><span class="mf">0.04</span><span class="p">)]</span>
+<span class="n">sage</span><span class="p">:</span> <span class="n">points</span><span class="p">(</span><span class="n">pic</span><span class="p">)</span><span class="o">.</span><span class="n">show</span><span class="p">(</span><span class="n">aspect_ratio</span><span class="o">=</span><span class="mi">1</span><span class="p">,</span><span class="n">figsize</span><span class="o">=</span><span class="mi">4</span><span class="p">)</span> <span class="c1"># points() transforms a list of pairs to a set of points</span>
+</pre></div>
+</div>
+<figure class="align-center">
+<img alt="_images/grafika-face.png" src="_images/grafika-face.png" />
+</figure>
+<p>In order to apply a linear transformation to such a big set we could proceed as previously,
+that is, to create long lists of points and use a loop to apply an action of the
+matrix on each of the points. This may be written in a cleaner way by
+applying the Python built-in function <code class="docutils literal notranslate"><span class="pre">map()</span></code>, which applies one
+function (provided as the first argument) to each element of the chosen
+domain (provided as the consecutive arguments). In our case, the function takes one argument
+and multiplies it by a fixed matrix <span class="math notranslate nohighlight">\(\ A\ \)</span>;
+such function may be defined shortly using <code class="docutils literal notranslate"><span class="pre">lambda</span></code> statement as below.
+For example, to transform the above picture by the matrix
+<span class="math notranslate nohighlight">\(\ A=\left[\begin{matrix} 2 &amp; -2 \\ 0 &amp; -1 \end{matrix}\right]\ \)</span>, we write:</p>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="n">sage</span><span class="p">:</span> <span class="n">A</span><span class="o">=</span><span class="n">matrix</span><span class="p">([[</span><span class="mi">2</span><span class="p">,</span><span class="o">-</span><span class="mi">2</span><span class="p">],[</span><span class="mi">0</span><span class="p">,</span><span class="o">-</span><span class="mi">1</span><span class="p">]])</span>
+<span class="n">sage</span><span class="p">:</span> <span class="n">Apic</span><span class="o">=</span><span class="nb">map</span><span class="p">(</span><span class="k">lambda</span> <span class="n">w</span><span class="p">:</span> <span class="n">A</span><span class="o">*</span><span class="n">w</span><span class="p">,</span><span class="n">pic</span><span class="p">)</span>
+<span class="c1"># lambda w: A*w defines a function &quot;multiply w by A on the left&quot;</span>
+<span class="c1"># second argument pic provides a set on which this function is defined</span>
+<span class="n">sage</span><span class="p">:</span> <span class="n">newpic</span><span class="o">=</span><span class="n">points</span><span class="p">(</span><span class="n">pic</span><span class="p">)</span><span class="o">+</span><span class="n">points</span><span class="p">(</span><span class="n">Apic</span><span class="p">,</span><span class="n">color</span><span class="o">=</span><span class="s1">&#39;green&#39;</span><span class="p">)</span>
+<span class="n">sage</span><span class="p">:</span> <span class="n">newpic</span><span class="o">.</span><span class="n">show</span><span class="p">(</span><span class="n">aspect_ratio</span><span class="o">=</span><span class="mi">1</span><span class="p">,</span><span class="n">figsize</span><span class="o">=</span><span class="p">(</span><span class="mi">6</span><span class="p">,</span><span class="mi">6</span><span class="p">))</span>
+</pre></div>
+</div>
+<figure class="align-center">
+<a class="reference internal image-reference" href="_images/grafika-Aface.png"><img alt="_images/grafika-Aface.png" src="_images/grafika-Aface.png" style="width: 525.6px; height: 366.3px;" /></a>
+</figure>
+<div class="admonition-experiment-with-sage admonition">
+<p class="admonition-title">Experiment with Sage!</p>
+<p>The code below transforms the picture introduced above by a randomly chosen <span class="math notranslate nohighlight">\(\ 2\times 2\ \)</span> matrix.
+Can you find a decomposition of this matrix to linear transformations that were introduced above?</p>
+</div>
+<div class='sage_linked'><script type='text/x-sage'>A=random_matrix(QQ,2)
+pic=[vector([cos(x),1+sin(x)]) for x in srange(0,2*pi,0.03)]
+pic+=[vector([0.3+.2*cos(x),1+0.2+.2*sin(x)]) for x in srange(0,2*pi,0.1)]
+pic+=[vector([-0.3+.1*cos(x),1+0.2+.1*sin(x)]) for x in srange(0,2*pi,0.1)]
+pic+=[vector([.5*cos(x),1+.5*sin(x)]) for x in srange(pi+.5,2*pi-.5,0.04)]
+Apic=map(lambda w:A*w,pic)
+newpic=points(pic)+points(Apic,color='green')
+newpic.show(aspect_ratio=1,figsize=(6,6))
+print A</script></div><p>In order to transform a colorful picture and preserve the colour under every transformation, one may create a list which stores information on colours in RGB format (with values between <span class="math notranslate nohighlight">\(0\)</span> and <span class="math notranslate nohighlight">\(1\)</span>) and assign them to points/figures/etc. in a desirable manner. This was done on a small scale in Example 4. above. To introduce more complicated colouring (and with use of <code class="docutils literal notranslate"><span class="pre">lambda</span></code> and <code class="docutils literal notranslate"><span class="pre">map()</span></code>) one can proceed as follows:</p>
+<div class='sage_linked'><script type='text/x-sage'>colors = [(1, 0, 0), (1, 0.25, 0), (1, 0.5, 0), (1, 0.75, 0), (1, 1, 0), (0.75, 1, 0), (0.5, 1, 0), (0.25, 1, 0),
+(0, 1, 0), (0, 1, 0.25), (0, 1, 0.5), (0, 1, 0.75), (0, 1, 1), (0, 0.75, 1), (0, 0.5, 1), (0, 0.25, 1),
+(0, 0, 1), (0.25, 0, 1), (0.5, 0, 1), (0.75, 0, 1), (1, 0, 1), (1, 0, 0.75), (1, 0, 0.5), (1, 0, 0.25)] # a list of colors
+pic=[vector([cos(x),1+sin(x)]) for x in srange(0,2*pi,0.03)]
+pic+=[vector([0.3+.2*cos(x),1+0.2+.2*sin(x)]) for x in srange(0,2*pi,0.1)]
+pic+=[vector([-0.3+.1*cos(x),1+0.2+.1*sin(x)]) for x in srange(0,2*pi,0.1)]
+pic+=[vector([.5*cos(x),1+.5*sin(x)]) for x in srange(pi+.5,2*pi-.5,0.04)]
+face=point(pic[0],rgbcolor=colors[0])
+for i in range(len(pic)): # assigns colors to points stored in pic; len(pic)=length of the list 'pic'
+    j=i%len(colors)
+    # this means that the colors of points: point(pic[i]) and point(pic[i+len(colors)]) are the same
+    face=face+point(pic[i],rgbcolor=colors[j])
+A=random_matrix(QQ,2)
+Apic=map(lambda w: A*w,pic)
+Aface=point(Apic[0],rgbcolor=colors[0])
+for i in range(len(pic)):
+# assigns colors to points stored in Apic so that the color of a point before and after multiplication by A is the same
+    j=i%len(colors)
+    Aface=Aface+point(Apic[i],rgbcolor=colors[j])
+(face+Aface).show()</script></div><p>Note that <code class="docutils literal notranslate"><span class="pre">Apic</span></code> which is defined via <code class="docutils literal notranslate"><span class="pre">map(lambda</span> <span class="pre">w:</span> <span class="pre">A*w,pic)</span></code> is a list of vectors <code class="docutils literal notranslate"><span class="pre">A*w</span></code>, where <code class="docutils literal notranslate"><span class="pre">w</span></code> runs over the consecutive elements of the list <code class="docutils literal notranslate"><span class="pre">pic</span></code>. Therefore the order of colouring of the initial points and the points after multiplication by <code class="docutils literal notranslate"><span class="pre">A</span></code> will be the same.</p>
+<div class="admonition-experiment-with-sage admonition">
+<p class="admonition-title">Experiment with Sage!</p>
+<p>Change the code above so that the eyes of the figure are all blue and they remain blue after a transformation.</p>
+</div>
+</section>
+<section id="modelling-of-movement">
+<h3>Modelling of movement<a class="headerlink" href="#modelling-of-movement" title="Permalink to this headline">¶</a></h3>
+<p>We finish discussion on fundamentals of 2d graphics with an example of modelling of movement of a simple object along a given curve.</p>
+<p><strong>Example 5.</strong></p>
+<p>If we ignore air resistance, then position of a ball shot from the cannon with velocity <span class="math notranslate nohighlight">\(\ v_0\ \)</span> at an angle of <span class="math notranslate nohighlight">\(\ \alpha\ \)</span> degrees is described by the equation</p>
+<div class="math notranslate nohighlight" id="equation-rzut-ukosny">
+<span class="eqno">(1)<a class="headerlink" href="#equation-rzut-ukosny" title="Permalink to this equation">¶</a></span>\[y=x\tan\alpha -\frac{g}{2v_0^2\cos^2\alpha}x^2,\]</div>
+<p>where <span class="math notranslate nohighlight">\(\ g=9.80665 \frac{m}{s^2}\ \)</span> denotes standard gravity and the coordinate system
+is chosen so that the cannon is placed at the origin.
+In order to model the movement of this ball it suffices to know the position of its centre, which
+at the <span class="math notranslate nohighlight">\(i\)</span>-th moment will be denoted by <span class="math notranslate nohighlight">\(\ (x_i,y_i)\ \)</span>.
+The consecutive positions of the centre may be viewed as an effect of its translations along the curve
+<span class="math notranslate nohighlight">\(\ f(x)=x\tan\alpha -\frac{g}{2v_0^2\cos^2\alpha}x^2\ \)</span>, that is (in projective coordinates),</p>
+<div class="math notranslate nohighlight">
+\[\begin{split}\left[\begin{matrix} x_{i+1} \\ y_{i+1} \\ 1 \end{matrix}\right] =
+\left[\begin{matrix} 1 &amp; 0 &amp; a\\ 0 &amp; 1 &amp; b\\  0 &amp; 0 &amp; 1 \end{matrix}\right]
+\left[\begin{matrix} x_i \\ y_i \\ 1 \end{matrix}\right]\, .\end{split}\]</div>
+<p>for some <span class="math notranslate nohighlight">\(\ a,\, b&gt;0\ \)</span>. From here we see that</p>
+<div class="math notranslate nohighlight">
+\[a=x_{i+1}-x_i\qquad\text{and}\qquad b=y_{i+1}-y_i=f(x_{i+1})-f(x_i)\, .\]</div>
+<p>After the time <span class="math notranslate nohighlight">\(\ t\ \)</span>, the ball covers the horizontal distance (i.e. along the <span class="math notranslate nohighlight">\(x\)</span>-axis) described by
+<span class="math notranslate nohighlight">\(\ x(t)=v_0t\cos\alpha\ \)</span>. Hence, if <span class="math notranslate nohighlight">\(\ i\ \)</span> describes the unit of time, then
+<span class="math notranslate nohighlight">\(\ a=x_{i+1}-x_i=v_0\cos\alpha\ \)</span> and</p>
+<div class="math notranslate nohighlight">
+\[b=f(x_i+v_0\cos\alpha)-f(x_i)
+=(x_i+a)\tan\alpha -\frac{g}{2a^2}(x_i+a)^2-(x_i\tan\alpha -\frac{g}{2a^2}x_i^2)
+=a\tan\alpha-\frac{gx_i}{a}-\frac{g}{2}\, .\]</div>
+<p>If we let <span class="math notranslate nohighlight">\(\ A=-\frac{g}{a}\ \)</span>, <span class="math notranslate nohighlight">\(\ B=a\tan\alpha-\frac{g}{2}\ \)</span>,
+then the translation matrix takes the form</p>
+<div class="math notranslate nohighlight">
+\[\begin{split}T=\left[\begin{matrix} 1 &amp; 0 &amp; a\\ 0 &amp; 1 &amp; Ax_i+B\\  0 &amp; 0 &amp; 1 \end{matrix}\right]\, .\end{split}\]</div>
+<p>The above considerations can be implemented in Sage as follows:</p>
+<div class='sage_linked'><script type='text/x-sage'>v0=100
+al=pi/3
+a=v0*cos(al)
+g=9.80665
+A=-g/a
+B=a*tan(al)-g/2
+x=0
+y=0
+P=list()   # P is an empty list of an unspecified length
+P.insert(0,(0,0)) # we set the zero (the first) element of P to be the point (0,0)
+t=1
+while y>0 or y==0:
+    T=Matrix([[1,0,a],[0,1,A*x+B],[0,0,1]])
+    y=(T*vector([x,y,1]))[1]
+    x=a*t
+    P.insert(t,(x,y))
+    t=t+1 # note constant change of time!
+del P[t-1] # y-coordinate of P[t-1] is negative, so we remove this point
+points(P).show(figsize=6)</script></div><div class="admonition-experiment-with-sage admonition">
+<p class="admonition-title">Experiment with Sage!</p>
+<p>Change the values of the initial velocity <code class="docutils literal notranslate"><span class="pre">v0</span></code> and the angle <code class="docutils literal notranslate"><span class="pre">al</span></code>
+in the code above to observe how these values affect the range of movement and the
+time before the ball hits the ground.
+Observe how the distance covered within the same amount of time (gaps between the consecutive dots on the picture)
+varies depending on the position of the ball.</p>
+</div>
+<p>Now it is very easy to adjust the code written above to produce an animation:</p>
+<div class='sage_linked'><script type='text/x-sage'>v0=200
+al=pi/3
+a=v0*cos(al)
+g=9.80665
+A=-g/a
+B=a*tan(al)-g/2
+x=0
+y=0
+P=list()   # P is an empty list of an unspecified length
+P.insert(0,(0,0))
+t=1
+while y>0 or y==0:
+    T=Matrix([[1,0,a],[0,1,A*x+B],[0,0,1]])
+    y=(T*vector([x,y,1]))[1]
+    x=a*t
+    P.insert(t,(x,y))
+    t=t+1
+del P[t-1]
+tm=floor((t-1)/2) # the moment when the ball is highest
+anim=animate([point(P[i]) for i in range(t-1)], xmin=0, xmax=P[t-2][0], ymin=0, ymax=P[tm][1])
+anim.show()</script></div><p>Note that at the second to the last line we fixed the minimal and maximal points on the <span class="math notranslate nohighlight">\(x\)</span>- and <span class="math notranslate nohighlight">\(y\)</span>-axes.
+Thanks to this the axes stay fixed during the animation.</p>
+<div class="admonition-experiment-with-sage admonition">
+<p class="admonition-title">Experiment with Sage!</p>
+<p>Produce an animation for various values of <code class="docutils literal notranslate"><span class="pre">v0</span></code> and the angle <code class="docutils literal notranslate"><span class="pre">al</span></code> (the greater <code class="docutils literal notranslate"><span class="pre">v0</span></code>, the longer the animation).
+To obtain more refined movement, shorten the time unit in which the position of the ball is computed:
+replace  <code class="docutils literal notranslate"><span class="pre">t=1</span></code>  and  <code class="docutils literal notranslate"><span class="pre">t=t+1</span></code>  with  <code class="docutils literal notranslate"><span class="pre">t=0.5</span></code>  and  <code class="docutils literal notranslate"><span class="pre">t=t+0.5</span></code>  or with smaller values.</p>
+</div>
+<p>In a similar way we can adjust previously created code to produce an animation:</p>
+<blockquote>
+<div><p>1). Create a list which stores the points that define an object.</p>
+<p>2). Define a number of frames for an animation (the range).</p>
+<p>3). Animate an object (provide bounds for the axes).</p>
+</div></blockquote>
+<p><strong>Example 6.</strong></p>
+<p>The code below generates a rotating triangle. Observe minor changes that had to be applied to the code from Example 1.</p>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="n">sage</span><span class="p">:</span> <span class="n">L</span><span class="o">=</span><span class="nb">list</span><span class="p">()</span>
+<span class="n">sage</span><span class="p">:</span> <span class="n">t</span><span class="o">=</span><span class="mi">0</span>
+<span class="n">sage</span><span class="p">:</span> <span class="k">for</span> <span class="n">j</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="mi">72</span><span class="p">):</span>
+<span class="n">sage</span><span class="p">:</span>     <span class="n">R</span><span class="o">=</span><span class="n">Matrix</span><span class="p">([[</span><span class="n">cos</span><span class="p">(</span><span class="n">t</span><span class="p">),</span><span class="o">-</span><span class="n">sin</span><span class="p">(</span><span class="n">t</span><span class="p">),</span><span class="mi">0</span><span class="p">],[</span><span class="n">sin</span><span class="p">(</span><span class="n">t</span><span class="p">),</span><span class="n">cos</span><span class="p">(</span><span class="n">t</span><span class="p">),</span><span class="mi">0</span><span class="p">],[</span><span class="mi">0</span><span class="p">,</span><span class="mi">0</span><span class="p">,</span><span class="mi">1</span><span class="p">]])</span>
+<span class="n">sage</span><span class="p">:</span>     <span class="n">P</span><span class="o">=</span><span class="n">polygon2d</span><span class="p">([(</span><span class="mi">1</span><span class="p">,</span> <span class="mi">0</span><span class="p">),</span> <span class="p">(</span><span class="mi">3</span><span class="p">,</span> <span class="mi">0</span><span class="p">),</span> <span class="p">(</span><span class="mi">1</span><span class="p">,</span><span class="mf">1.5</span><span class="p">)])</span>
+<span class="n">sage</span><span class="p">:</span>     <span class="n">Pl</span><span class="o">=</span><span class="p">[</span><span class="nb">list</span><span class="p">(</span><span class="n">P</span><span class="p">[</span><span class="mi">0</span><span class="p">][</span><span class="n">i</span><span class="p">])</span><span class="o">+</span><span class="p">[</span><span class="mi">1</span><span class="p">]</span> <span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="mi">3</span><span class="p">)]</span>
+<span class="n">sage</span><span class="p">:</span>     <span class="n">tr</span><span class="o">=</span><span class="p">[</span><span class="o">-</span><span class="n">P</span><span class="p">[</span><span class="mi">0</span><span class="p">][</span><span class="mi">0</span><span class="p">][</span><span class="n">i</span><span class="p">]</span> <span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="mi">2</span><span class="p">)]</span>
+<span class="n">sage</span><span class="p">:</span>     <span class="n">T</span><span class="o">=</span><span class="n">Matrix</span><span class="p">([[</span><span class="mi">1</span><span class="p">,</span><span class="mi">0</span><span class="p">,</span><span class="n">tr</span><span class="p">[</span><span class="mi">0</span><span class="p">]],[</span><span class="mi">0</span><span class="p">,</span><span class="mi">1</span><span class="p">,</span><span class="n">tr</span><span class="p">[</span><span class="mi">1</span><span class="p">]],[</span><span class="mi">0</span><span class="p">,</span><span class="mi">0</span><span class="p">,</span><span class="mi">1</span><span class="p">]])</span>
+<span class="n">sage</span><span class="p">:</span>     <span class="n">V</span><span class="o">=</span><span class="nb">list</span><span class="p">(</span><span class="n">T</span><span class="o">.</span><span class="n">inverse</span><span class="p">()</span><span class="o">*</span><span class="n">R</span><span class="o">*</span><span class="n">T</span><span class="o">*</span><span class="n">vector</span><span class="p">(</span><span class="n">Pl</span><span class="p">[</span><span class="n">i</span><span class="p">])</span> <span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="mi">3</span><span class="p">))</span>
+<span class="n">sage</span><span class="p">:</span>     <span class="n">L</span><span class="o">.</span><span class="n">insert</span><span class="p">(</span><span class="n">j</span><span class="p">,[(</span><span class="n">V</span><span class="p">[</span><span class="n">i</span><span class="p">][</span><span class="mi">0</span><span class="p">],</span><span class="n">V</span><span class="p">[</span><span class="n">i</span><span class="p">][</span><span class="mi">1</span><span class="p">])</span> <span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="mi">3</span><span class="p">)])</span>
+<span class="n">sage</span><span class="p">:</span>     <span class="n">t</span><span class="o">=</span><span class="n">t</span><span class="o">+</span><span class="n">pi</span><span class="o">/</span><span class="mi">36</span>
+<span class="n">sage</span><span class="p">:</span> <span class="n">rotatetriangle</span><span class="o">=</span><span class="n">animate</span><span class="p">([</span><span class="n">polygon</span><span class="p">(</span><span class="n">L</span><span class="p">[</span><span class="n">t</span><span class="p">])</span> <span class="k">for</span> <span class="n">t</span> <span class="ow">in</span> <span class="nb">range</span> <span class="p">(</span><span class="mi">72</span><span class="p">)],</span> <span class="n">xmin</span><span class="o">=-</span><span class="mi">3</span><span class="p">,</span> <span class="n">xmax</span><span class="o">=</span><span class="mi">3</span><span class="p">,</span> <span class="n">ymin</span><span class="o">=-</span><span class="mi">3</span><span class="p">,</span> <span class="n">ymax</span><span class="o">=</span><span class="mi">3</span><span class="p">)</span>
+<span class="n">sage</span><span class="p">:</span> <span class="n">rotatetriangle</span><span class="o">.</span><span class="n">show</span><span class="p">()</span>
+</pre></div>
+</div>
+<figure class="align-center">
+<a class="reference internal image-reference" href="_images/rotatetriangle.gif"><img alt="_images/rotatetriangle.gif" src="_images/rotatetriangle.gif" style="width: 408.79999999999995px; height: 408.79999999999995px;" /></a>
+</figure>
+</section>
+</section>
+<section id="exercises">
+<h2>Exercises<a class="headerlink" href="#exercises" title="Permalink to this headline">¶</a></h2>
+<p>The exercises can be downloaded in a form of a notebook from <a class="reference external" href="http://visual.icse.us.edu.pl/LA/Notebooks/Graphics-exercises.ipynb">here</a> .</p>
+<p><strong>Exercise 1.</strong></p>
+<p>Define a polygon on vertices <span class="math notranslate nohighlight">\(\ (3,3),\, (2,3+\sqrt{3}),\, (3,3+\frac{2\sqrt{3}}{3}),\, (4,3+\sqrt{3})\ \)</span>
+and find its reflection with respect to a line <span class="math notranslate nohighlight">\(\ l: y=2x-1\ \)</span>.</p>
+<div class='sage_linked'><script type='text/x-sage'></script></div><p>(Hint: Use the translation with <code class="docutils literal notranslate"><span class="pre">t_1=0,</span> <span class="pre">t_2=1</span></code>.)</p>
+<p><strong>Exercise 2.</strong></p>
+<p>Produce an animation which rotates the polygon from Exercise 1.</p>
+<p>a). around the origin <span class="math notranslate nohighlight">\(\ (0,0)\ \)</span>,</p>
+<div class='sage_linked'><script type='text/x-sage'></script></div><p>b). around the point <span class="math notranslate nohighlight">\(\ (3,3)\ \)</span>.</p>
+<div class='sage_linked'><script type='text/x-sage'></script></div><p>c). Fill in the code below to produce the following effect (each part should be done in a separate window; the commands written at the bottom verify whether the third vertex of the polygon is translated to a correct position):</p>
+<ul class="simple">
+<li><p>first <span class="math notranslate nohighlight">\(\ 60^{\circ}\ \)</span> of rotation is around the point <span class="math notranslate nohighlight">\(\ (3,3)\ \)</span>,</p></li>
+</ul>
+<div class='sage_linked'><script type='text/x-sage'>import numpy.testing as npt
+P=   # define the initial polygon: order the points in the same way as in the statement of the exercise
+
+V=  # define the list of points of the polygon after rotation by 60 degrees
+
+npt.assert_almost_equal(V[2],(2,3.57735026918963, 1))</script></div><ul class="simple">
+<li><dl class="simple">
+<dt>next <span class="math notranslate nohighlight">\(\ 120^{\circ}\ \)</span> of rotation is around the point <span class="math notranslate nohighlight">\(\ (1,3)\ \)</span></dt><dd><p>(this is where the vertex <span class="math notranslate nohighlight">\(\ (2,3+\sqrt{3})\ \)</span> lands after rotation by <span class="math notranslate nohighlight">\(\ 60^{\circ}\ \)</span>),</p>
+</dd>
+</dl>
+</li>
+</ul>
+<div class='sage_linked'><script type='text/x-sage'>#write the code here
+
+
+RV=  # define the list of points of the polygon after rotation by 120 degrees
+
+npt.assert_almost_equal(RV[2],(0, 3.57735026918962, 1))</script></div><ul class="simple">
+<li><p>next <span class="math notranslate nohighlight">\(\ 120^{\circ}\ \)</span> of rotation is around the point <span class="math notranslate nohighlight">\(\ (-1,3)\ \)</span>,</p></li>
+</ul>
+<div class='sage_linked'><script type='text/x-sage'>#write the code here
+
+
+RRV=  # define the list of points of the polygon after rotation by next 120 degrees
+
+npt.assert_almost_equal(RRV[2],(-2, 3.57735026918962, 1))</script></div><ul class="simple">
+<li><p>last <span class="math notranslate nohighlight">\(\ 60^{\circ}\ \)</span> of rotation is around the point <span class="math notranslate nohighlight">\(\ (-3,3)\ \)</span>.</p></li>
+</ul>
+<div class='sage_linked'><script type='text/x-sage'>#write the code here
+
+
+RRRV=  # define the list of points of the polygon after rotation by last 60 degrees
+
+npt.assert_almost_equal(RRRV[2],(-2, 2.42264973081038, 1))</script></div><p>d). Use the code produced in point c). to obtain an animation.</p>
+<div class='sage_linked'><script type='text/x-sage'></script></div><p>e). Mark a thick red point on the vertex <span class="math notranslate nohighlight">\(\ (3,3)\ \)</span>.
+Imagine that this is a ball which rolls along the edge of the polygon while
+the polygon is rotating. Include the movement of this ball inside the polygon.</p>
+<div class='sage_linked'><script type='text/x-sage'></script></div><dl class="footnote brackets">
+<dt class="label" id="id5"><span class="brackets"><a class="fn-backref" href="#id1">1</a></span></dt>
+<dd><p>As we explain in the subsequent part of this section, translation of a 2-dimensional object becomes a linear transformation when it is viewed in a 3-dimensional space (but not 2-dimensional!).</p>
+</dd>
+<dt class="label" id="id6"><span class="brackets"><a class="fn-backref" href="#id4">2</a></span></dt>
+<dd><p>The basis <span class="math notranslate nohighlight">\(\ \left\{ \left[v_1,v_2\right],\, \left[w_1,w_2\right]\right\}\ \)</span> is orthonormal if the basis vectors are orthogonal (perpendicular) and are of length <span class="math notranslate nohighlight">\(1\)</span>, that is, <span class="math notranslate nohighlight">\(\ v_1w_1+v_2w_2=0\ \)</span> and <span class="math notranslate nohighlight">\(\ v_1^2+v_2^2=1\ \)</span>, <span class="math notranslate nohighlight">\(\ w_1^2+w_2^2=1\ \)</span>. (For details consult chapter <a class="reference internal" href="index.html#unitary-spaces"><span class="std std-ref">Unitary Spaces</span></a>.)</p>
+</dd>
+</dl>
+<dl class="citation">
+<dt class="label" id="cam"><span class="brackets">Cam</span><span class="fn-backref">(<a href="#id2">1</a>,<a href="#id3">2</a>)</span></dt>
+<dd><p>Jonathan G. Campbell, Notes  on  Mathematics  for  2D  and  3D  Graphics. Available at <a class="reference external" href="http://www.multiresolutions.com/strule/jon/www-jgcampbell-com/bscgp1/grmaths.pdf">http://www.multiresolutions.com/strule/jon/www-jgcampbell-com/bscgp1/grmaths.pdf</a></p>
+</dd>
+</dl>
+</section>
+</section>
+
+
+          </div>
+        </div>
+      </div>
+      <div class="sphinxsidebar" role="navigation" aria-label="main navigation">
+        <div class="sphinxsidebarwrapper">
+  <div class="sphinxlocaltoc">
+  <h3><a href="index.html">Table Of Contents</a></h3>
+  <ul>
+<li><a class="reference internal" href="#">Application to Computer Graphics</a><ul>
+<li><a class="reference internal" href="#dimensional-graphics">2-dimensional Graphics</a><ul>
+<li><a class="reference internal" href="#rotation">Rotation</a></li>
+<li><a class="reference internal" href="#translation">Translation</a></li>
+<li><a class="reference internal" href="#scaling">Scaling</a></li>
+<li><a class="reference internal" href="#shear">Shear</a></li>
+<li><a class="reference internal" href="#reflection">Reflection</a></li>
+<li><a class="reference internal" href="#projection">Projection</a></li>
+<li><a class="reference internal" href="#functional-programming">Functional programming</a></li>
+<li><a class="reference internal" href="#modelling-of-movement">Modelling of movement</a></li>
+</ul>
+</li>
+<li><a class="reference internal" href="#exercises">Exercises</a></li>
+</ul>
+</li>
+</ul>
+
+  </div>
+  <h4>Previous topic</h4>
+  <p class="topless"><a href="przeksztalcenia_lin_zmiana_bazy.html"
+                        title="previous chapter">Change of Basis</a></p>
+  <h4>Next topic</h4>
+  <p class="topless"><a href="przeksztalcenia_lin_zadania.html"
+                        title="next chapter">Problems</a></p>
+  <div role="note" aria-label="source link">
+    <h3>This Page</h3>
+    <ul class="this-page-menu">
+      <li><a href="_sources/linear_transformations_graphics.rst.txt"
+            rel="nofollow">Show Source</a></li>
+    </ul>
+   </div>
+<div id="searchbox" style="display: none" role="search">
+  <h3 id="searchlabel">Quick search</h3>
+    <div class="searchformwrapper">
+    <form class="search" action="search.html" method="get">
+      <input type="text" name="q" aria-labelledby="searchlabel" />
+      <input type="submit" value="Go" />
+    </form>
+    </div>
+</div>
+<script>$('#searchbox').show(0);</script>
+        </div>
+      </div>
+      <div class="clearer"></div>
+    </div>
+  </div>
+  <div class="relbar-bottom">
+    
+    <div class="related" role="navigation" aria-label="related navigation">
+      <h3>Navigation</h3>
+      <ul>
+        <li class="right" style="margin-right: 10px">
+          <a href="genindex.html" title="General Index"
+             >index</a></li>
+        <li class="right" >
+          <a href="przeksztalcenia_lin_zadania.html" title="Problems"
+             >next</a> &nbsp; &nbsp;</li>
+        <li class="right" >
+          <a href="przeksztalcenia_lin_zmiana_bazy.html" title="Change of Basis"
+             >previous</a> &nbsp; &nbsp;</li>
+  <li><a href="index.html">Linear Algebra</a> &#187;</li>
+  
+        <li class="nav-item nav-item-this"><a href="">Application to Computer Graphics</a></li> 
+      </ul>
+    </div>
+  </div>
+  
+  <div class="footer">
+    <a class="logo" href="http://icse.us.edu.pl/" target="_blank"><img src="_static/logo-icse.png" alt="ICSE"/></a><br/>
+    &copy; Copyright 2018, Jan Aksamit, Joanna Marzec, and  Marcin Kostur.
+    Last updated on Jan 29, 2022.
+    Created using <a href="http://sphinx.pocoo.org/">Sphinx</a> 4.0.1.
+  </div>
+  </body>
+</html>

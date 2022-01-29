@@ -1,0 +1,426 @@
+
+
+  
+<!DOCTYPE html>
+
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" /><meta name="generator" content="Docutils 0.17: http://docutils.sourceforge.net/" />
+
+    <title>Application of Sage &#8212; Linear Algebra</title>
+    <link rel="stylesheet" type="text/css" href="_static/pygments.css" />
+    <link rel="stylesheet" type="text/css" href="_static/cloud.css" />
+    <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Noticia+Text|Open+Sans|Droid+Sans+Mono&amp;subset=latin,latin-ext" type="text/css" />
+    <script data-url_root="./" id="documentation_options" src="_static/documentation_options.js"></script>
+    <script src="_static/jquery.js"></script>
+    <script src="_static/underscore.js"></script>
+    <script src="_static/doctools.js"></script>
+    <script async="async" src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js"></script>
+    <script src="_static/jquery.cookie.js"></script>
+    <script src="_static/cloud.js"></script>
+    <script type="text/javascript" src="http://sagecell.sagemath.org/static/jquery.min.js"></script>
+    <script type="text/javascript" src="http://sagecell.sagemath.org/embedded_sagecell.js"></script>
+    <script type="text/javascript">
+        sagecell.makeSagecell({inputLocation: ".sage_linked",
+                               linked: true});
+        sagecell.makeSagecell({inputLocation: ".sage_unlinked",
+                               linked: false});
+    </script>
+
+    <style type="text/css">
+        .sagecell .CodeMirror-scroll {
+            overflow-y: hidden;
+            overflow-x: auto;
+        }
+        .sagecell .CodeMirror {
+            height: auto;
+        }
+    </style>
+    
+    <link rel="index" title="Index" href="genindex.html" />
+    <link rel="search" title="Search" href="search.html" />
+    <link rel="next" title="Hermitian and Unitary Operators" href="p_unitarne_operatory_hermit_i_unit.html" />
+    <link rel="prev" title="Hermitian and Unitary Matrices" href="p_unitarne_macierze_hermit_i_unit.html" />
+ 
+  <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, minimum-scale=1">
+  </head><body>
+  <div class="relbar-top">
+    
+    <div class="related" role="navigation" aria-label="related navigation">
+      <h3>Navigation</h3>
+      <ul>
+        <li class="right" style="margin-right: 10px">
+          <a href="genindex.html" title="General Index"
+             accesskey="I">index</a></li>
+        <li class="right" >
+          <a href="p_unitarne_operatory_hermit_i_unit.html" title="Hermitian and Unitary Operators"
+             accesskey="N">next</a> &nbsp; &nbsp;</li>
+        <li class="right" >
+          <a href="p_unitarne_macierze_hermit_i_unit.html" title="Hermitian and Unitary Matrices"
+             accesskey="P">previous</a> &nbsp; &nbsp;</li>
+  <li><a href="index.html">Linear Algebra</a> &#187;</li>
+  
+        <li class="nav-item nav-item-this"><a href="">Application of Sage</a></li> 
+      </ul>
+    </div>
+  </div>
+  
+  <div class="content">  
+
+    <div class="document">
+      <div class="documentwrapper">
+        <div class="bodywrapper">
+          <div class="body">
+            
+  <section id="application-of-sage">
+<h1>Application of Sage<a class="headerlink" href="#application-of-sage" title="Permalink to this headline">¶</a></h1>
+<section id="inner-product">
+<h2>Inner Product<a class="headerlink" href="#inner-product" title="Permalink to this headline">¶</a></h2>
+<p>An inner product of vectors <span class="math notranslate nohighlight">\(\quad
+\boldsymbol{x}\,=\,
+\left[\begin{array}{c} x_1 \\ x_2 \\ \dots \\ x_n \end{array}\right]\,,
+\quad
+\boldsymbol{y}\,=\,
+\left[\begin{array}{c} y_1 \\ y_2 \\ \dots \\ y_n \end{array}\right]\quad
+\in K^n\,,\)</span> <span class="math notranslate nohighlight">\(\\\)</span></p>
+<p>where <span class="math notranslate nohighlight">\(\ K=R\ \,\)</span> or <span class="math notranslate nohighlight">\(\ K=C\,,\ \)</span> may be computed by multiplication operation
+<span class="math notranslate nohighlight">\(\,\)</span> * <span class="math notranslate nohighlight">\(\,\)</span>  or Sage methods:
+<span class="math notranslate nohighlight">\(\,\)</span> <code class="docutils literal notranslate"><span class="pre">dot_product()</span></code>, <span class="math notranslate nohighlight">\(\,\)</span> <code class="docutils literal notranslate"><span class="pre">hermitian_inner_product()</span></code>,
+<span class="math notranslate nohighlight">\(\,\)</span> <code class="docutils literal notranslate"><span class="pre">inner_product()</span></code>.</p>
+<p>First two methods compute an inner product according to the formula</p>
+<div class="math notranslate nohighlight" id="equation-xty">
+<span class="eqno">(1)<a class="headerlink" href="#equation-xty" title="Permalink to this equation">¶</a></span>\[\langle\boldsymbol{x},\boldsymbol{y}\rangle\ \ =\ \
+\boldsymbol{x}^T\boldsymbol{y}\ \ =\ \
+\sum_{i\,=\,1}^n\ x_i\;y_i\,,\]</div>
+<p>which is suitable for real vectors. The code below returns an inner product of two vectors
+of size <span class="math notranslate nohighlight">\(\,n\ \)</span> in a symbolic form and verifies whether the two methods are equivalent:</p>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="n">sage</span><span class="p">:</span> <span class="n">n</span> <span class="o">=</span> <span class="mi">4</span>
+<span class="n">sage</span><span class="p">:</span> <span class="n">x</span> <span class="o">=</span> <span class="n">vector</span><span class="p">([</span><span class="n">var</span><span class="p">(</span><span class="s1">&#39;x</span><span class="si">%d</span><span class="s1">&#39;</span> <span class="o">%</span> <span class="n">k</span><span class="p">)</span> <span class="k">for</span> <span class="n">k</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="mi">1</span><span class="p">,</span><span class="n">n</span><span class="o">+</span><span class="mi">1</span><span class="p">)])</span>
+<span class="n">sage</span><span class="p">:</span> <span class="n">y</span> <span class="o">=</span> <span class="n">vector</span><span class="p">([</span><span class="n">var</span><span class="p">(</span><span class="s1">&#39;y</span><span class="si">%d</span><span class="s1">&#39;</span> <span class="o">%</span> <span class="n">l</span><span class="p">)</span> <span class="k">for</span> <span class="n">l</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="mi">1</span><span class="p">,</span><span class="n">n</span><span class="o">+</span><span class="mi">1</span><span class="p">)])</span>
+<span class="n">sage</span><span class="p">:</span> <span class="nb">print</span> <span class="n">x</span><span class="o">.</span><span class="n">dot_product</span><span class="p">(</span><span class="n">y</span><span class="p">),</span> <span class="nb">bool</span><span class="p">(</span><span class="n">x</span><span class="o">.</span><span class="n">dot_product</span><span class="p">(</span><span class="n">y</span><span class="p">)</span><span class="o">==</span><span class="n">x</span><span class="o">*</span><span class="n">y</span><span class="p">)</span>
+
+<span class="n">x1</span><span class="o">*</span><span class="n">y1</span> <span class="o">+</span> <span class="n">x2</span><span class="o">*</span><span class="n">y2</span> <span class="o">+</span> <span class="n">x3</span><span class="o">*</span><span class="n">y3</span> <span class="o">+</span> <span class="n">x4</span><span class="o">*</span><span class="n">y4</span> <span class="kc">True</span>
+</pre></div>
+</div>
+<p>The vectors may come from different rings as long as the operations on their entries make sense:</p>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="n">sage</span><span class="p">:</span> <span class="n">x</span> <span class="o">=</span> <span class="n">vector</span><span class="p">(</span><span class="n">ZZ</span><span class="p">,</span> <span class="p">[</span> <span class="mi">3</span><span class="p">,</span><span class="o">-</span><span class="mi">1</span><span class="p">,</span> <span class="mi">4</span><span class="p">])</span>
+<span class="n">sage</span><span class="p">:</span> <span class="n">y</span> <span class="o">=</span> <span class="n">vector</span><span class="p">(</span><span class="n">CDF</span><span class="p">,[</span><span class="o">-</span><span class="mi">2</span><span class="p">,</span> <span class="mi">7</span><span class="p">,</span> <span class="mi">5</span><span class="p">])</span>
+<span class="n">sage</span><span class="p">:</span> <span class="n">xdy</span> <span class="o">=</span> <span class="n">x</span><span class="o">.</span><span class="n">dot_product</span><span class="p">(</span><span class="n">y</span><span class="p">)</span>
+<span class="n">sage</span><span class="p">:</span> <span class="nb">print</span> <span class="n">xdy</span><span class="p">,</span> <span class="n">xdy</span><span class="o">.</span><span class="n">base_ring</span><span class="p">()</span>
+
+<span class="mf">7.0</span> <span class="n">Complex</span> <span class="n">Double</span> <span class="n">Field</span>
+</pre></div>
+</div>
+<p>The method <span class="math notranslate nohighlight">\(\,\)</span> <code class="docutils literal notranslate"><span class="pre">hermitian_inner_product()</span></code> <span class="math notranslate nohighlight">\(\,\)</span> computes an inner product of the form</p>
+<div class="math notranslate nohighlight">
+\[\langle\boldsymbol{x},\boldsymbol{y}\rangle\ \ =\ \
+\boldsymbol{x}^+\boldsymbol{y}\ \ =\ \
+\sum_{i\,=\,1}^n\ x_i^*\,y_i\,,\]</div>
+<p>which is suitable for the unitary space <span class="math notranslate nohighlight">\(\,C^n\ \,\)</span>
+(here <code class="docutils literal notranslate"><span class="pre">dot_product()</span></code> returns an incorrect result):</p>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="n">sage</span><span class="p">:</span> <span class="n">x</span> <span class="o">=</span> <span class="n">vector</span><span class="p">([</span><span class="mi">3</span><span class="o">+</span><span class="mi">2</span><span class="o">*</span><span class="n">I</span><span class="p">,</span><span class="o">-</span><span class="mi">1</span><span class="o">+</span><span class="n">I</span><span class="p">,</span><span class="mi">2</span><span class="o">-</span><span class="n">I</span><span class="p">])</span>
+<span class="n">sage</span><span class="p">:</span> <span class="n">y</span> <span class="o">=</span> <span class="n">vector</span><span class="p">([</span><span class="mi">1</span><span class="o">+</span><span class="n">I</span><span class="p">,</span><span class="mi">2</span><span class="p">,</span><span class="o">-</span><span class="mi">3</span><span class="o">*</span><span class="n">I</span><span class="p">])</span>
+<span class="n">sage</span><span class="p">:</span> <span class="n">xdy</span>  <span class="o">=</span> <span class="n">x</span><span class="o">.</span><span class="n">dot_product</span><span class="p">(</span><span class="n">y</span><span class="p">)</span>
+<span class="n">sage</span><span class="p">:</span> <span class="n">xhy</span> <span class="o">=</span> <span class="n">x</span><span class="o">.</span><span class="n">hermitian_inner_product</span><span class="p">(</span><span class="n">y</span><span class="p">)</span>
+<span class="n">sage</span><span class="p">:</span> <span class="nb">print</span> <span class="s2">&quot;Erroneous result: &quot;</span><span class="p">,</span> <span class="n">xdy</span>
+<span class="n">sage</span><span class="p">:</span> <span class="nb">print</span> <span class="s2">&quot;Correct result:&quot;</span><span class="p">,</span> <span class="n">xhy</span>
+
+<span class="n">Erroneous</span> <span class="n">result</span><span class="p">:</span>  <span class="n">I</span> <span class="o">-</span> <span class="mi">4</span>
+<span class="n">Correct</span> <span class="n">result</span><span class="p">:</span> <span class="o">-</span><span class="mi">7</span><span class="o">*</span><span class="n">I</span> <span class="o">+</span> <span class="mi">6</span>
+</pre></div>
+</div>
+<p>An inner product in the space <span class="math notranslate nohighlight">\(\,R^n\ \)</span> may be also defined in a more general way:</p>
+<div class="math notranslate nohighlight" id="equation-xtay">
+<span class="eqno">(2)<a class="headerlink" href="#equation-xtay" title="Permalink to this equation">¶</a></span>\[\langle\boldsymbol{x},\boldsymbol{y}\rangle\ \ =\ \
+\boldsymbol{x}^T\boldsymbol{A}\,\boldsymbol{y}\ \ =\ \
+\sum_{i,\,j=1}^n\ a_{ij}\;x_i\,y_j\,,\]</div>
+<p>where <span class="math notranslate nohighlight">\(\ \boldsymbol{A}=[\,a_{ij}\,]_{n\times n}\in M_n(R)\ \)</span> is a symmetric positive definite matrix:</p>
+<div class="math notranslate nohighlight" id="equation-ata">
+<span class="eqno">(3)<a class="headerlink" href="#equation-ata" title="Permalink to this equation">¶</a></span>\[\boldsymbol{A}^T=\boldsymbol{A}\,,\qquad\
+\left[\
+\boldsymbol{x}^T\boldsymbol{A}\,\boldsymbol{x}\geq 0
+\quad\land\quad
+\left(\ \boldsymbol{x}^T\boldsymbol{A}\,\boldsymbol{x}=0
+\ \ \Leftrightarrow\ \
+\boldsymbol{x}=\boldsymbol{0}\ \right)\ \right]\,,\ \
+\boldsymbol{x}\in R^n\,.\]</div>
+<p>(the condition <a class="reference internal" href="#equation-ata">(3)</a> is satisfied if and only if
+<span class="math notranslate nohighlight">\(\ \boldsymbol{A}=\boldsymbol{C}^T\boldsymbol{C}\,,\ \ \det\boldsymbol{C}\neq 0\,\)</span>).</p>
+<p>To compute an inner product of the form <a class="reference internal" href="#equation-xtay">(2)</a> one may use the method
+<span class="math notranslate nohighlight">\(\,\)</span> <code class="docutils literal notranslate"><span class="pre">inner_product()</span></code>.
+The matrix <span class="math notranslate nohighlight">\(\,\boldsymbol{A}\ \)</span> may be included in a definition of the ring
+to which the vector <span class="math notranslate nohighlight">\(\,\boldsymbol{x}\ \)</span> belongs. If it is not included, then the method
+works exactly the same as <span class="math notranslate nohighlight">\(\,\)</span> <code class="docutils literal notranslate"><span class="pre">dot_product()</span></code>:</p>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="n">sage</span><span class="p">:</span> <span class="n">x</span> <span class="o">=</span> <span class="n">vector</span><span class="p">(</span><span class="n">QQ</span><span class="p">,[</span><span class="mi">3</span><span class="p">,</span> <span class="mi">2</span><span class="p">,</span> <span class="mi">4</span><span class="p">,</span><span class="o">-</span><span class="mi">1</span><span class="p">])</span>
+<span class="n">sage</span><span class="p">:</span> <span class="n">y</span> <span class="o">=</span> <span class="n">vector</span><span class="p">(</span><span class="n">ZZ</span><span class="p">,[</span><span class="mi">3</span><span class="p">,</span> <span class="mi">1</span><span class="p">,</span><span class="o">-</span><span class="mi">4</span><span class="p">,</span> <span class="mi">2</span><span class="p">])</span>
+<span class="n">sage</span><span class="p">:</span> <span class="n">xiy</span> <span class="o">=</span> <span class="n">x</span><span class="o">.</span><span class="n">inner_product</span><span class="p">(</span><span class="n">y</span><span class="p">)</span>
+<span class="n">sage</span><span class="p">:</span> <span class="n">xiy</span><span class="p">,</span> <span class="n">xiy</span><span class="o">==</span><span class="n">x</span><span class="o">.</span><span class="n">dot_product</span><span class="p">(</span><span class="n">y</span><span class="p">)</span>
+
+<span class="p">(</span><span class="o">-</span><span class="mi">7</span><span class="p">,</span> <span class="kc">True</span><span class="p">)</span>
+</pre></div>
+</div>
+<p>The code below computes an inner product <a class="reference internal" href="#equation-xtay">(2)</a>
+with matrix <span class="math notranslate nohighlight">\(\ \,\boldsymbol{A}=\boldsymbol{C}^T\boldsymbol{C}\ \,\)</span>
+for the same vectors <span class="math notranslate nohighlight">\(\,\)</span> <code class="docutils literal notranslate"><span class="pre">x,y</span></code> <span class="math notranslate nohighlight">\(\,\)</span>
+and <span class="math notranslate nohighlight">\(\,\)</span> verifies correctness of the result by direct computation.
+Matrix <span class="math notranslate nohighlight">\(\,\boldsymbol{A}\ \)</span>
+is read from a definition of the <em>first</em> factor.
+Hence, change of order of the factors returns a different result
+(in this case: a standard inner product <a class="reference internal" href="#equation-xty">(1)</a>).</p>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="n">sage</span><span class="p">:</span> <span class="n">C</span><span class="o">=</span> <span class="n">matrix</span><span class="p">(</span><span class="n">QQ</span><span class="p">,[[</span> <span class="mi">2</span><span class="p">,</span><span class="o">-</span><span class="mi">1</span><span class="p">,</span> <span class="mi">0</span><span class="p">,</span> <span class="mi">3</span><span class="p">],</span>
+                    <span class="p">[</span> <span class="mi">4</span><span class="p">,</span><span class="o">-</span><span class="mi">2</span><span class="p">,</span> <span class="mi">1</span><span class="p">,</span><span class="o">-</span><span class="mi">1</span><span class="p">],</span>
+                    <span class="p">[</span> <span class="mi">4</span><span class="p">,</span> <span class="mi">1</span><span class="p">,</span> <span class="mi">2</span><span class="p">,</span><span class="o">-</span><span class="mi">5</span><span class="p">],</span>
+                    <span class="p">[</span><span class="o">-</span><span class="mi">3</span><span class="p">,</span> <span class="mi">0</span><span class="p">,</span> <span class="mi">2</span><span class="p">,</span> <span class="mi">0</span><span class="p">]])</span>
+
+<span class="n">sage</span><span class="p">:</span> <span class="n">A</span> <span class="o">=</span> <span class="n">C</span><span class="o">.</span><span class="n">T</span><span class="o">*</span><span class="n">C</span>
+
+<span class="n">sage</span><span class="p">:</span> <span class="n">X</span> <span class="o">=</span> <span class="n">VectorSpace</span><span class="p">(</span><span class="n">QQ</span><span class="p">,</span> <span class="mi">4</span><span class="p">,</span> <span class="n">inner_product_matrix</span><span class="o">=</span><span class="n">A</span><span class="p">)</span>
+<span class="n">sage</span><span class="p">:</span> <span class="n">x</span> <span class="o">=</span> <span class="n">X</span><span class="p">([</span><span class="mi">3</span><span class="p">,</span><span class="mi">2</span><span class="p">,</span><span class="mi">4</span><span class="p">,</span><span class="o">-</span><span class="mi">1</span><span class="p">])</span>
+
+<span class="n">sage</span><span class="p">:</span> <span class="n">Y</span> <span class="o">=</span> <span class="n">FreeModule</span><span class="p">(</span><span class="n">ZZ</span><span class="p">,</span><span class="mi">4</span><span class="p">)</span>
+<span class="n">sage</span><span class="p">:</span> <span class="n">y</span> <span class="o">=</span> <span class="n">Y</span><span class="p">([</span><span class="mi">3</span><span class="p">,</span><span class="mi">1</span><span class="p">,</span><span class="o">-</span><span class="mi">4</span><span class="p">,</span><span class="mi">2</span><span class="p">])</span>
+
+<span class="n">sage</span><span class="p">:</span> <span class="n">xiy</span> <span class="o">=</span> <span class="n">x</span><span class="o">.</span><span class="n">inner_product</span><span class="p">(</span><span class="n">y</span><span class="p">)</span>
+<span class="n">sage</span><span class="p">:</span> <span class="n">yix</span> <span class="o">=</span> <span class="n">y</span><span class="o">.</span><span class="n">inner_product</span><span class="p">(</span><span class="n">x</span><span class="p">)</span>
+
+<span class="n">sage</span><span class="p">:</span> <span class="n">test_xy</span> <span class="o">=</span> <span class="n">xiy</span><span class="o">==</span><span class="p">(</span><span class="n">x</span><span class="o">.</span><span class="n">row</span><span class="p">()</span><span class="o">*</span><span class="n">A</span><span class="o">*</span><span class="n">y</span><span class="o">.</span><span class="n">column</span><span class="p">())[</span><span class="mi">0</span><span class="p">,</span><span class="mi">0</span><span class="p">]</span>
+<span class="n">sage</span><span class="p">:</span> <span class="n">test_yx</span> <span class="o">=</span> <span class="n">yix</span><span class="o">==</span><span class="p">(</span><span class="n">y</span><span class="o">.</span><span class="n">row</span><span class="p">()</span><span class="o">*</span><span class="n">x</span><span class="o">.</span><span class="n">column</span><span class="p">())[</span><span class="mi">0</span><span class="p">,</span><span class="mi">0</span><span class="p">]</span>
+
+<span class="n">sage</span><span class="p">:</span> <span class="nb">print</span> <span class="s2">&quot;Scalar product with the matrix A: &lt;x,y&gt; =&quot;</span><span class="p">,</span>\
+      <span class="n">xiy</span><span class="p">,</span> <span class="n">test_xy</span>
+
+<span class="n">sage</span><span class="p">:</span> <span class="nb">print</span> <span class="s2">&quot;The generic scalar product:       &lt;y,x&gt; = &quot;</span><span class="p">,</span>\
+      <span class="n">yix</span><span class="p">,</span> <span class="n">test_yx</span>
+
+<span class="n">Scalar</span> <span class="n">product</span> <span class="k">with</span> <span class="n">the</span> <span class="n">matrix</span> <span class="n">A</span><span class="p">:</span> <span class="o">&lt;</span><span class="n">x</span><span class="p">,</span><span class="n">y</span><span class="o">&gt;</span> <span class="o">=</span> <span class="o">-</span><span class="mi">55</span> <span class="kc">True</span>
+<span class="n">The</span> <span class="n">generic</span> <span class="n">scalar</span> <span class="n">product</span><span class="p">:</span>       <span class="o">&lt;</span><span class="n">y</span><span class="p">,</span><span class="n">x</span><span class="o">&gt;</span> <span class="o">=</span>  <span class="o">-</span><span class="mi">7</span> <span class="kc">True</span>
+</pre></div>
+</div>
+</section>
+<section id="norm">
+<h2>Norm<a class="headerlink" href="#norm" title="Permalink to this headline">¶</a></h2>
+<p>Function (method) <span class="math notranslate nohighlight">\(\,\)</span> <code class="docutils literal notranslate"><span class="pre">norm()</span></code> <span class="math notranslate nohighlight">\(\,\)</span> computes a <span class="math notranslate nohighlight">\(\,p\)</span>-norm
+of a real or complex vector</p>
+<div class="math notranslate nohighlight">
+\[\begin{split}\boldsymbol{x}\,=\,
+\left[\begin{array}{c} x_1 \\ x_2 \\ \ldots \\ x_n \end{array}\right]\
+\in K^n\,,\qquad K=R\quad\lor\quad K=C\end{split}\]</div>
+<p>according to the formula:
+<span class="math notranslate nohighlight">\(\qquad\|\boldsymbol{x}\|_p\ \ :\,=\ \
+\left(\ \displaystyle\sum_{i\,=\,1}^n\ |x_i|^{\,p}\right)^{1/p}\,,\qquad
+1 \leq p \leq \infty\,.\)</span></p>
+<p>Particular cases:</p>
+<p><span class="math notranslate nohighlight">\(\quad\|\boldsymbol{x}\|_1\ \ =\ \
+|x_1|+\,|x_2|+\,\ldots\,+\,|x_n|\ ;\)</span></p>
+<p><span class="math notranslate nohighlight">\(\quad\|\boldsymbol{x}\|_2\ \ =\ \
+\sqrt{\,|x_1|^2+\,|x_2|^2+\ldots\,+\,|x_n|^2\,}\quad\)</span> (Euclidean norm)</p>
+<p><span class="math notranslate nohighlight">\(\quad\|\boldsymbol{x}\|_\infty\ \ =\ \
+\displaystyle\lim_{p\rightarrow\infty}\|\boldsymbol{x}\|_p\ \ =\ \
+\max_{i=1\dots n} |x_i|\,.\)</span></p>
+<p>The command <code class="docutils literal notranslate"><span class="pre">norm</span></code> may be used as a function: <code class="docutils literal notranslate"><span class="pre">norm(x)</span></code>,
+or as a method: <code class="docutils literal notranslate"><span class="pre">x.norm(p)</span></code>, <span class="math notranslate nohighlight">\(\\\)</span>
+where a default value for the parameter <span class="math notranslate nohighlight">\(\,p\ \)</span> is 2, which corresponds to the Euclidean norm.</p>
+<div class="admonition-experiment-with-sage admonition">
+<p class="admonition-title">Experiment with Sage:</p>
+<p>If you set the size <span class="math notranslate nohighlight">\(\,n\ \)</span> of a vector <span class="math notranslate nohighlight">\(\,\boldsymbol{x}\ \)</span>
+and the norm parameter <span class="math notranslate nohighlight">\(\,p\,,\ \)</span> you obtain a symbolic <span class="math notranslate nohighlight">\(\\\)</span>
+expression for the Euclidean norm and the <span class="math notranslate nohighlight">\(\,p\)</span>-norm of a vector
+<span class="math notranslate nohighlight">\(\,\boldsymbol{x}.\ \)</span></p>
+</div>
+<div class='sage_linked'><script type='text/x-sage'>n = 3
+p = 4
+x = vector([var('x%d' % k) for k in range(1,n+1)])
+show(norm(x))
+show(x.norm(p))</script></div><p><span class="math notranslate nohighlight">\(\;\)</span></p>
+<p>The method <code class="docutils literal notranslate"><span class="pre">norm()</span></code> also computes the matrix norm</p>
+<div class="math notranslate nohighlight" id="equation-m-norm">
+<span class="eqno">(4)<a class="headerlink" href="#equation-m-norm" title="Permalink to this equation">¶</a></span>\[\|\boldsymbol{A}\|_p\ \ :\,=\ \ \max_{\boldsymbol{x}\neq\boldsymbol{0}}\
+\frac{\|\boldsymbol{A}\boldsymbol{x}\|_p}{\|\boldsymbol{x}\|_p}\ ,\qquad
+\boldsymbol{A}=[\,a_{ij}\,]_{n\times n}\in M_n(K)\,,\quad 1 \leq p \leq \infty\,,\]</div>
+<p>induced in algebra <span class="math notranslate nohighlight">\(\,M_n(K)\ \)</span> by the <span class="math notranslate nohighlight">\(\,p\)</span>-norm on <span class="math notranslate nohighlight">\(\,K^n\,,\ \)</span>
+and also the Frobenius norm</p>
+<div class="math notranslate nohighlight">
+\[\|\boldsymbol{A}\|_F\ \ :\,=\ \ \sqrt{\,\sum_{i,\,j=1}^n\ |a_{ij}|^2}\,,\qquad
+\boldsymbol{A}=[\,a_{ij}\,]_{n\times n}\in M_n(K)\,,\]</div>
+<p>which is a direct generalisation of the Euclidean vector norm. <span class="math notranslate nohighlight">\(\\\)</span>
+Particular cases of the norm <a class="reference internal" href="#equation-m-norm">(4)</a> are:</p>
+<p><span class="math notranslate nohighlight">\(\quad\|\boldsymbol{A}\|_1\ \,=\ \,
+\displaystyle\max_{j=1\dots n}\ \sum_{i\,=\,1}^n\ |a_{ij}|\quad\)</span>
+(the greatest column sum) ;</p>
+<p><span class="math notranslate nohighlight">\(\quad\|\boldsymbol{A}\|_\infty\ \,=\ \,
+\displaystyle\max_{i=1\dots n}\ \sum_{j\,=\,1}^n\ |a_{ij}|\quad\)</span>
+(the greatest row sum) .</p>
+<div class="admonition-experiment-with-sage admonition">
+<p class="admonition-title">Experiment with Sage:</p>
+<p>Try the following programs for different vectors and matrices.</p>
+</div>
+<p>Inner products and norms of complex vectors.</p>
+<div class='sage_linked'><script type='text/x-sage'>x = vector(CDF,[1-2*I,3*I,-4,-1+I])
+
+# Three equivalent statements for the Euclidean norm:
+print (norm(x), x.norm(), x.norm(2)), '\n'
+
+# A few exemplary exotic norms:
+print (x.norm(1), x.norm(5), x.norm(pi/2), x.norm(Infinity))</script></div><div class='sage_linked'><script type='text/x-sage'>x = vector(CDF,[1-2*I,3*I,-4,-1+I])
+y = vector(CDF,[-2,2-I,1,3+2*I])
+
+# Verification of the Schwarz inequality:
+print abs(x.hermitian_inner_product(y)) <= norm(x)*norm(y)
+print abs(x.hermitian_inner_product(y)), '<=', \
+      norm(x), '*', norm(y), '=', norm(x)*norm(y), '\n'
+
+# Verification of the triangle inequality:
+print norm(x+y) <= norm(x)+norm(y)
+print norm(x+y), '<=', norm(x), '+', norm(y), '=', norm(x)+norm(y)</script></div><p>Different norms of square and rectangular matrices:</p>
+<div class='sage_linked'><script type='text/x-sage'>A = matrix(RR, [[13,-4],
+                [-4, 7]])
+
+A.norm(1), A.norm(2), A.norm('frob'), A.norm(Infinity)</script></div><div class='sage_linked'><script type='text/x-sage'>A = matrix(QQbar, [[ 1, 2, 4,  3],
+                   [-1, 0, 3,-10]])
+
+print (A.norm(1),A.norm(2),A.norm('frob'),A.norm(Infinity)),'\n'
+
+# Verification of the Euclidean norm (p=2):
+ATA = A.T*A
+max([sqrt(lambda2) for lambda2 in ATA.eigenvalues()])</script></div><p>If we view complex numbers as vectors in the space <span class="math notranslate nohighlight">\(\,C^1,\ \)</span> then the natural norm becomes the modulus:</p>
+<div class="math notranslate nohighlight">
+\[\|z\|\ =\ |z|\,,\quad z\in C\,,\]</div>
+<p>where for <span class="math notranslate nohighlight">\(\ z=a+b\,i:\ |z|\,=\,\sqrt{z^*z}\,=\,\sqrt{a^2+b^2}\,.\)</span></p>
+<p>It is surprising that the function <code class="docutils literal notranslate"><span class="pre">norm()</span></code> applied to complex numbers
+does not return the modulus, but its square:</p>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="n">sage</span><span class="p">:</span> <span class="n">var</span><span class="p">(</span><span class="s1">&#39;a,b&#39;</span><span class="p">)</span>
+<span class="n">sage</span><span class="p">:</span> <span class="n">z</span> <span class="o">=</span> <span class="n">a</span><span class="o">+</span><span class="n">b</span><span class="o">*</span><span class="n">I</span>
+<span class="n">sage</span><span class="p">:</span> <span class="n">norm</span><span class="p">(</span><span class="n">z</span><span class="p">)</span><span class="o">.</span><span class="n">simplify</span><span class="p">()</span>
+
+<span class="n">a</span><span class="o">^</span><span class="mi">2</span> <span class="o">+</span> <span class="n">b</span><span class="o">^</span><span class="mi">2</span>
+</pre></div>
+</div>
+<p>A “norm” of this type (which does not satisfy conditions required by a definition of the norm) is used in number theory.
+In order to obtain a correct result one has to rewrite a complex number as a one-dimensional vector or a matrix of size one:</p>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="n">sage</span><span class="p">:</span> <span class="n">z0</span> <span class="o">=</span> <span class="mi">1</span><span class="o">-</span><span class="mi">2</span><span class="o">*</span><span class="n">I</span>
+<span class="n">sage</span><span class="p">:</span> <span class="n">z1</span> <span class="o">=</span> <span class="n">vector</span><span class="p">(</span><span class="n">CDF</span><span class="p">,[</span><span class="n">z0</span><span class="p">])</span>
+<span class="n">sage</span><span class="p">:</span> <span class="n">z2</span> <span class="o">=</span> <span class="n">matrix</span><span class="p">(</span><span class="n">CDF</span><span class="p">,[[</span><span class="n">z0</span><span class="p">]])</span>
+<span class="n">sage</span><span class="p">:</span> <span class="n">norm</span><span class="p">(</span><span class="n">z0</span><span class="p">),</span> <span class="n">norm</span><span class="p">(</span><span class="n">z1</span><span class="p">),</span> <span class="n">norm</span><span class="p">(</span><span class="n">z2</span><span class="p">)</span>
+
+<span class="p">(</span><span class="mi">5</span><span class="p">,</span> <span class="mf">2.2360679775</span><span class="p">,</span> <span class="mf">2.2360679775</span><span class="p">)</span>
+</pre></div>
+</div>
+</section>
+<section id="operations-on-matrices">
+<h2>Operations on Matrices<a class="headerlink" href="#operations-on-matrices" title="Permalink to this headline">¶</a></h2>
+<p>Operations on real or complex matrices implemented in Sage:</p>
+<ul class="simple">
+<li><p>transpose: <span class="math notranslate nohighlight">\(\,\)</span> <code class="docutils literal notranslate"><span class="pre">transpose()</span></code>, <span class="math notranslate nohighlight">\(\,\)</span> in short <span class="math notranslate nohighlight">\(\,\)</span> <code class="docutils literal notranslate"><span class="pre">T</span></code> ;</p></li>
+<li><p>complex conjugation: <span class="math notranslate nohighlight">\(\,\)</span> <code class="docutils literal notranslate"><span class="pre">conjugate()</span></code>, <span class="math notranslate nohighlight">\(\,\)</span> in short <span class="math notranslate nohighlight">\(\,\)</span> <code class="docutils literal notranslate"><span class="pre">C</span></code> ;</p></li>
+<li><p>Hermitian conjugation: <span class="math notranslate nohighlight">\(\,\)</span> <code class="docutils literal notranslate"><span class="pre">conjugate_transpose()</span></code>, <span class="math notranslate nohighlight">\(\,\)</span>
+w skrócie <span class="math notranslate nohighlight">\(\,\)</span> <code class="docutils literal notranslate"><span class="pre">H</span></code> ;</p></li>
+<li><p>inverse: <span class="math notranslate nohighlight">\(\,\)</span> <code class="docutils literal notranslate"><span class="pre">inverse()</span></code>, <span class="math notranslate nohighlight">\(\,\)</span> in short <span class="math notranslate nohighlight">\(\,\)</span> <code class="docutils literal notranslate"><span class="pre">I</span></code> .</p></li>
+</ul>
+<p>The following methods verify different properties of a matrix, namely whether it is:</p>
+<ul class="simple">
+<li><p>symmetric: <span class="math notranslate nohighlight">\(\,\)</span> <code class="docutils literal notranslate"><span class="pre">is_symmetric()</span></code> ;</p></li>
+<li><p>antisymmetric: <span class="math notranslate nohighlight">\(\,\)</span> <code class="docutils literal notranslate"><span class="pre">is_skew_symmetric()</span></code> ;</p></li>
+<li><p>Hermitian: <span class="math notranslate nohighlight">\(\,\)</span> <code class="docutils literal notranslate"><span class="pre">is_hermitian()</span></code> ;</p></li>
+<li><p>unitary: <span class="math notranslate nohighlight">\(\,\)</span> <code class="docutils literal notranslate"><span class="pre">is_unitary()</span></code> ;</p></li>
+<li><p>singular: <span class="math notranslate nohighlight">\(\,\)</span> <code class="docutils literal notranslate"><span class="pre">is_singular()</span></code></p></li>
+<li><p>square: <span class="math notranslate nohighlight">\(\,\)</span> <code class="docutils literal notranslate"><span class="pre">is_square()</span></code> <span class="math notranslate nohighlight">\(\\\)</span></p></li>
+</ul>
+<p><strong>Example.</strong></p>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="n">sage</span><span class="p">:</span> <span class="n">A</span> <span class="o">=</span> <span class="n">matrix</span><span class="p">(</span><span class="mi">3</span><span class="p">,[</span> <span class="mi">1</span><span class="o">+</span><span class="n">I</span><span class="p">,</span> <span class="mi">2</span><span class="o">-</span><span class="mi">3</span><span class="o">*</span><span class="n">I</span><span class="p">,</span> <span class="o">-</span><span class="mi">1</span><span class="o">+</span><span class="mi">2</span><span class="o">*</span><span class="n">I</span><span class="p">,</span>
+                    <span class="o">-</span><span class="mi">3</span><span class="o">+</span><span class="n">I</span><span class="p">,</span>   <span class="mi">4</span><span class="o">*</span><span class="n">I</span><span class="p">,</span> <span class="o">-</span><span class="mi">2</span><span class="o">-</span><span class="mi">4</span><span class="o">*</span><span class="n">I</span><span class="p">,</span>
+                     <span class="mi">4</span><span class="o">-</span><span class="n">I</span><span class="p">,</span>    <span class="o">-</span><span class="n">I</span><span class="p">,</span>  <span class="mi">1</span><span class="o">+</span><span class="mi">3</span><span class="o">*</span><span class="n">I</span><span class="p">])</span>
+
+<span class="n">sage</span><span class="p">:</span> <span class="n">show</span><span class="p">(</span><span class="n">table</span><span class="p">([[</span><span class="s2">&quot;Hermitian conjugation:&quot;</span><span class="p">],</span>
+                  <span class="p">[</span><span class="n">A</span><span class="p">,</span> <span class="s1">&#39;$</span><span class="se">\\</span><span class="s1">rightarrow$&#39;</span><span class="p">,</span> <span class="n">A</span><span class="o">.</span><span class="n">H</span><span class="p">]]))</span>
+
+<span class="n">sage</span><span class="p">:</span> <span class="n">A</span><span class="o">.</span><span class="n">is_hermitian</span><span class="p">(),</span> <span class="p">(</span><span class="n">A</span><span class="o">.</span><span class="n">H</span><span class="o">*</span><span class="n">A</span><span class="p">)</span><span class="o">.</span><span class="n">is_hermitian</span><span class="p">()</span>
+</pre></div>
+</div>
+<p><span class="math notranslate nohighlight">\(\qquad\)</span> Hermitian conjugation:</p>
+<p><span class="math notranslate nohighlight">\(\\ \left(\begin{array}{rrr}
+i+1 &amp; -\,3\,i+2 &amp; 2\,i-1 \\ i-3 &amp; 4\,i &amp; -\,4\,i-2 \\ -\,i+4 &amp; -\,i &amp; 3\,i+1
+\end{array}\right)
+\quad\rightarrow\quad
+\left(\begin{array}{rrr}
+-\,i+1 &amp; -\,i-3 &amp; i+4 \\ 3\,i+2 &amp; -\,4\,i &amp; i \\ -\,2\,i-1 &amp; 4\,i-2 &amp; -\,3\,i+1
+\end{array}\right)\)</span></p>
+<p>(False, True)</p>
+</section>
+</section>
+
+
+          </div>
+        </div>
+      </div>
+      <div class="sphinxsidebar" role="navigation" aria-label="main navigation">
+        <div class="sphinxsidebarwrapper">
+  <div class="sphinxlocaltoc">
+  <h3><a href="index.html">Table Of Contents</a></h3>
+  <ul>
+<li><a class="reference internal" href="#">Application of Sage</a><ul>
+<li><a class="reference internal" href="#inner-product">Inner Product</a></li>
+<li><a class="reference internal" href="#norm">Norm</a></li>
+<li><a class="reference internal" href="#operations-on-matrices">Operations on Matrices</a></li>
+</ul>
+</li>
+</ul>
+
+  </div>
+  <h4>Previous topic</h4>
+  <p class="topless"><a href="p_unitarne_macierze_hermit_i_unit.html"
+                        title="previous chapter">Hermitian and Unitary Matrices</a></p>
+  <h4>Next topic</h4>
+  <p class="topless"><a href="p_unitarne_operatory_hermit_i_unit.html"
+                        title="next chapter">Hermitian and Unitary Operators</a></p>
+  <div role="note" aria-label="source link">
+    <h3>This Page</h3>
+    <ul class="this-page-menu">
+      <li><a href="_sources/p_unitarne_Sage.rst.txt"
+            rel="nofollow">Show Source</a></li>
+    </ul>
+   </div>
+<div id="searchbox" style="display: none" role="search">
+  <h3 id="searchlabel">Quick search</h3>
+    <div class="searchformwrapper">
+    <form class="search" action="search.html" method="get">
+      <input type="text" name="q" aria-labelledby="searchlabel" />
+      <input type="submit" value="Go" />
+    </form>
+    </div>
+</div>
+<script>$('#searchbox').show(0);</script>
+        </div>
+      </div>
+      <div class="clearer"></div>
+    </div>
+  </div>
+  <div class="relbar-bottom">
+    
+    <div class="related" role="navigation" aria-label="related navigation">
+      <h3>Navigation</h3>
+      <ul>
+        <li class="right" style="margin-right: 10px">
+          <a href="genindex.html" title="General Index"
+             >index</a></li>
+        <li class="right" >
+          <a href="p_unitarne_operatory_hermit_i_unit.html" title="Hermitian and Unitary Operators"
+             >next</a> &nbsp; &nbsp;</li>
+        <li class="right" >
+          <a href="p_unitarne_macierze_hermit_i_unit.html" title="Hermitian and Unitary Matrices"
+             >previous</a> &nbsp; &nbsp;</li>
+  <li><a href="index.html">Linear Algebra</a> &#187;</li>
+  
+        <li class="nav-item nav-item-this"><a href="">Application of Sage</a></li> 
+      </ul>
+    </div>
+  </div>
+  
+  <div class="footer">
+    <a class="logo" href="http://icse.us.edu.pl/" target="_blank"><img src="_static/logo-icse.png" alt="ICSE"/></a><br/>
+    &copy; Copyright 2018, Jan Aksamit, Joanna Marzec, and  Marcin Kostur.
+    Last updated on Jan 29, 2022.
+    Created using <a href="http://sphinx.pocoo.org/">Sphinx</a> 4.0.1.
+  </div>
+  </body>
+</html>

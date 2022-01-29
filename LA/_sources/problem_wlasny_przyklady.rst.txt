@@ -1,0 +1,683 @@
+
+Examples of Eigenproblems
+-------------------------
+
+A Linear Operator in the Space of Vectors on a Plane
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+
+In a two-dimensional space of geometric vectors :math:`\,V\ ` with a basis 
+:math:`\,\mathcal{B}=\{\vec{e}_1,\vec{e}_2\}\,,\ ` where :math:`\\`
+:math:`\,|\vec{e}_1|=|\vec{e}_2|=1,\  \ \vec{e}_1\perp\vec{e}_2\,,\ `
+we define a linear operator :math:`\,F\ ` by assigning the image to the vectors from the basis :math:`\,\mathcal{B}:`
+
+.. math::
+   
+   F\vec{e}_1\,=\,2\,\vec{e}_1+\vec{e}_2\,,\qquad 
+   F\vec{e}_2\,=\,\vec{e}_1+2\,\vec{e}_2\,.
+
+We are looking for vectors :math:`\ \vec{r}\,\in\,V\!\smallsetminus\!\{\vec{0}\}\ ` which satisfy the equation
+:math:`\,F\vec{r}=\lambda\,\vec{r}\ ` for some :math:`\ \lambda\in R\,.\ `
+When the operator :math:`\,F\ ` acts on these vectors it does not change their direction, but it may change their length or orientation. An outline of this situation provides a program  which outputs the consecutive vectors :math:`\ \vec{r}\ ` from a cetain set together with their images, and emphasizes the cases when :math:`\ F(\vec{r})\parallel\vec{r}\ ` (after running the program, preparation of the animation takes several dozen seconds). :math:`\\`
+
+.. sagecellserver::
+
+   e1 = vector([1,0]); e2 = vector([0,1])
+
+   P0 = point((0,0), color='white', faceted=True, size=20, zorder=8)
+
+   n = 24          # defines number of frames
+   dt = 2*pi/n     # step between two consecutive frames
+   L = []          # initialization of the list of frames
+
+   for k in range(1,n+1):
+
+       a1 = cos(k*dt); a2 = sin(k*dt)
+
+       plt = P0 +\
+             arrow((0,0),a1*e1+a2*e2, color='green',
+              legend_label=' $\\ \\ \\vec{r}$', legend_color='black', zorder=5) +\
+             arrow((0,0),(2*a1+a2)*e1+(a1+2*a2)*e2, color='red', 
+              legend_label=' $F(\\vec{r})$', legend_color='black', zorder=5)
+
+       for l in range(1+3*(not mod(k-3,6))): L.append(plt)
+        
+   a = animate(L, aspect_ratio=1, axes_labels=['x','y'], figsize=6,
+               xmin=-2.25, xmax=+2.25, ymin=-2.25, ymax=+2.25)
+
+   print a; a.show(delay=25, iterations=5)
+
+In this example we solve the eigenvalue problem for the operator :math:`\,F\ ` directly, without referring to the general formulae from the previous section.
+
+By substituting :math:`\ \vec{r}=\alpha_1\,\vec{e}_1+\alpha_2\,\vec{e}_2\ ` 
+to the eigenequation, we obtain:
+
+.. math::
+   :nowrap:
+   
+   \begin{eqnarray*}
+   F\,\vec{r} & = & \lambda\;\vec{r}\,,\quad\vec{r}\neq\vec{0}\,, \\
+   F(\alpha_1\,\vec{e}_1+\alpha_2\,\vec{e}_2) & = & \lambda\;(\alpha_1\,\vec{e}_1+\alpha_2\,\vec{e}_2)\,, \\
+   \alpha_1\,F\vec{e}_1+\alpha_2\,F\vec{e}_2 & = & \lambda\;(\alpha_1\,\vec{e}_1+\alpha_2\,\vec{e}_2)\,, \\
+   \alpha_1\,(2\,\vec{e}_1+\vec{e}_2)+\alpha_2\,(\vec{e}_1+2\,\vec{e}_2) & = & \lambda\;(\alpha_1\,\vec{e}_1+\alpha_2\,\vec{e}_2)\,, \\
+   2\,\alpha_1\,\vec{e}_1+\alpha_1\,\vec{e}_2+\alpha_2\,\vec{e}_1+2\,\alpha_2\,\vec{e}_2 & = & \lambda\,\alpha_1\,\vec{e}_1+\lambda\,\alpha_2\,\vec{e}_2\,, \\
+   \left[\,(2-\lambda)\,\alpha_1+\alpha_2\,\right]\,\vec{e}_1+\left[\,\alpha_1+(2-\lambda)\,\alpha_2\,\right]\,\vec{e}_2 & = & \vec{0}\,.
+   \end{eqnarray*}
+
+A linear combination of linearly independent vectors :math:`\ \vec{e}_1,\,\vec{e}_2\ `
+from the basis :math:`\ \mathcal{B}\ ` equals the zero vector if and only if its coefficients do not vanish:
+
+.. math::
+   :label: 2_set
+   
+   \begin{cases}\ \ \begin{array}{c}
+   (2-\lambda)\,\alpha_1+\alpha_2\,=\,0 \\
+   \alpha_1+(2-\lambda)\,\alpha_2\,=\,0
+   \end{array}\end{cases}
+
+The formula :eq:`2_set` presents a homogeneous system of two linear equations with unknowns :math:`\ \alpha_1,\,\alpha_2` :math:`\\` and a parameter :math:`\ \lambda.\ `
+The non-zero solutions: :math:`\ \alpha_1^2+\alpha_2^2\,>\,0\,,\ `
+exist if and only if
+
+.. math::
+   :label: det_eqn
+   
+   \left|\begin{array}{cc} 2-\lambda & 1 \\
+                           1 & 2-\lambda \end{array}\right|\ =\ 
+   \lambda^2-4\,\lambda+3\ =\ (\lambda-1)(\lambda-3)\ =\ 0\,.
+
+In this way we obtained two eigenvalues of the operator 
+:math:`\,F:\quad\blacktriangleright\quad\lambda_1=1\,,\ \ \lambda_2=3\,.\ `
+
+Substitution of :math:`\ \lambda=\lambda_1=1\ ` into :eq:`2_set` 
+leads to an underdetermined system of equations
+
+.. math::
+    \quad\begin{cases}\ \begin{array}{c}
+    \alpha_1+\alpha_2\,=\,0 \\ \alpha_1+\alpha_2\,=\,0
+    \end{array}\end{cases}
+
+whose solutions are of the form:
+:math:`\quad\alpha_1=\alpha\,,\ \ \alpha_2=-\;\alpha\,,\ \ \alpha\in R.`
+
+The eigenvectors associated with this eigenvalue:
+
+.. math::
+   :label: eigen_vectors_1
+   
+   \blacktriangleright\quad
+   \vec{r}_1\,=\ \alpha\,\vec{e}_1-\alpha\,\vec{e}_2\,=\ 
+   \alpha\,(\vec{e}_1-\vec{e}_2)\ \equiv\ \alpha\,\vec{f}_1\,,\quad
+   \alpha\in R\!\smallsetminus\!\{0\}\,,
+
+comprise :math:`\,` (together with the zero vector :math:`\,\vec{0}`) :math:`\,` 
+a 1-dimensional subspace :math:`\,V_1\ ` of the space :math:`\,V,` :math:`\\`
+generated by the vector :math:`\,\vec{f}_1=\vec{e}_1-\vec{e}_2:` :math:`\ V_1=L(\vec{f}_1)\,.`
+
+By substituting :math:`\ \lambda=\lambda_2=3\ ` into :math:`\,` :eq:`2_set` :math:`,\,`
+we obtain the system
+:math:`\quad\begin{cases}\ \begin{array}{r}
+-\ \alpha_1+\alpha_2\,=\,0 \\ \alpha_1-\alpha_2\,=\,0
+\end{array}\end{cases}`
+
+with solutions:
+:math:`\quad\alpha_1=\alpha_2=\alpha\,,\ \ \alpha\in R.\ `
+The associated eigenvectors 
+
+.. math::
+   :label: eigen_vectors_2
+   
+   \blacktriangleright\quad
+   \vec{r}_2\,=\ \alpha\,\vec{e}_1+\alpha\,\vec{e}_2\,=\ 
+   \alpha\,(\vec{e}_1+\vec{e}_2)\ \equiv\ \alpha\,\vec{f}_2\,,\quad
+   \alpha\in R\!\smallsetminus\!\{0\}
+
+also comprise :math:`\,` (together with the zero vector) :math:`\,` 
+a 1-dimensional subspace, :math:`\\`
+this time generated by the vector :math:`\,\vec{f}_2=\vec{e}_1+\vec{e}_2:\ \ V_2=L(\vec{f}_2)\,.`
+
+Note that the vectors :math:`\,\vec{f}_1\,,\ \vec{f}_2\ \,`
+are perpendicular to each other and of the same length:
+
+.. math::
+   
+   \vec{f}_1\cdot\vec{f}_2\ =\ (\vec{e}_1-\vec{e}_2)\cdot(\vec{e}_1+\vec{e}_2)\ =\ 
+   \vec{e}_1\cdot\vec{e}_1-\vec{e}_2\cdot\vec{e}_2\ =\ |\vec{e}_1|^2-|\vec{e}_2|^2\ =\ 
+   1-1\ =\ 0\,,
+   
+   |\,\vec{f}_{1,2}\,|^2\ =\ (\vec{e}_1\mp\vec{e}_2)^2\ =\ 
+   \vec{e}_1\cdot\vec{e}_1\mp 2\ \,\vec{e}_1\cdot\vec{e}_2+\vec{e}_2\cdot\vec{e}_2\ =\ 2\,.
+
+After dividing each of the vectors :math:`\ \vec{f}_1,\,\vec{f}_2\ ` by its length:
+
+.. math::
+   :label: normal
+   
+   \vec{f}_1\ \ \rightarrow\ \ \frac{1}{|\,\vec{f}_1\,|}\ \,\vec{f}_1\ \ =\ \ 
+                               \frac{1}{\sqrt{2}}\ \,(\vec{e}_1-\vec{e}_2)\,,
+   
+   \vec{f}_2\ \ \rightarrow\ \ \frac{1}{|\,\vec{f}_2\,|}\ \,\vec{f}_2\ \ =\ \ 
+                               \frac{1}{\sqrt{2}}\ \,(\vec{e}_1+\vec{e}_2)\,,
+
+we obtain a pair :math:`\ (\vec{f}_1,\,\vec{f}_2)\ ` 
+of unit vectors perpendicular to each other.
+
+In this way, the space :math:`\,V\ ` possesses two *orthonormal* bases:
+the initial basis :math:`\,\mathcal{B}=(\vec{e}_1,\vec{e}_2)\ ` and
+the basis :math:`\,\mathcal{F}=(\vec{f}_1,\,\vec{f}_2)\ ` 
+consisting of the eigenvectors of the operator :math:`\,F:`
+
+.. image:: /figures/Rys_8.png
+   :align: center
+   :scale: 65%
+
+**Comments and remarks.**
+
+The operator :math:`\,F\ ` is Hermitian because in the orthonormal basis
+:math:`\,\mathcal{B}\,` its matrix 
+
+.. math::
+   :label: mat_AF
+   
+   \boldsymbol{A}\ =\ M_{\mathcal{B}}(F)\ =\ 
+   \left[\,I_{\mathcal{B}}(F\vec{e}_1)\,|\,I_{\mathcal{B}}(F\vec{e}_2)\,\right]\ =\ 
+   \left[\begin{array}{cc} 2 & 1 \\ 1 & 2 \end{array}\right]
+
+is real and symmetric, and thus Hermitian. The orthogonality of the vectors 
+:math:`\ \,\vec{f}_1\ \ \text{and}\ \ \vec{f}_2\ \,` associated to  different eigenvalues,  
+and existence of the orthonormal basis :math:`\ \mathcal{F}\ \,` of the space :math:`\,V\ ` which comprises of the eigenvectors of the operator :math:`\,F\ \,` is a consequence of this Hermitian property.
+
+The formula :eq:`det_eqn` presents the characteristic equation of the matrix :math:`\,\boldsymbol{A}.\ ` Hence, and also by the formulae
+:math:`\,` :eq:`eigen_vectors_1` :math:`\,` and :math:`\,` :eq:`eigen_vectors_2`, :math:`\,` the two eigenvalues
+:math:`\,` :math:`\ \lambda_1=1\ \ \text{and}\ \ \lambda_2=3\,,\ \ `
+are algebraic and of geometric multiplicty 1. The fact that the algebraic multiplicity of each eigenvalue is equal to its geometric multiplicity is also a feature of the Hermitian operators.
+
+The basis :math:`\,\mathcal{F}\ ` is a result of the rotaion of the basis :math:`\,\mathcal{B}\ ` by the angle :math:`\,\pi/4.\ ` 
+As one should expect, the change-of-basis matrix between these two orthonormal bases,
+determined by the formulae :eq:`normal`:
+
+.. math::
+   
+   \boldsymbol{S}\ =\ \frac{1}{\sqrt{2}}\ \,
+   \left[\begin{array}{rr} 1 & 1 \\ -1 & 1 \end{array}\right]
+
+is unitary (in this case: real orthogonal): 
+:math:`\ \,\boldsymbol{S}^+\boldsymbol{S}=\boldsymbol{S}^{\,T}\boldsymbol{S}=\boldsymbol{I}_2\,.`
+
+The formula :eq:`mat_AF` presents a matrix :math:`\,\boldsymbol{A}\ ` of the operator :math:`\,F\ ` in the initial basis :math:`\ \mathcal{B}.` :math:`\\`
+Now we calculate the matrix :math:`\,\boldsymbol{F}=[\varphi_{ij}]\ ` 
+of this operator in the basis :math:`\ \mathcal{F}` by two methods.
+
+.. Macierz :math:`\,\boldsymbol{F}=M_{\mathcal{F}}(F)=[\,\varphi_{ij}\,]_{2\times 2}\in M_2(R)\ ` 
+   operatora :math:`\,F\ ` w bazie :math:`\ \mathcal{F}\ ` wyliczymy dwoma sposobami.
+
+* According to transformation formula for transition from the basis 
+  :math:`\,\mathcal{B}\ ` to :math:`\,\mathcal{F}:`
+
+  .. math::
+     
+     \boldsymbol{F}\ =\ 
+     \boldsymbol{S}^{-1}\boldsymbol{A}\,\boldsymbol{S}\ =\  
+     \boldsymbol{S}^T\boldsymbol{A}\,\boldsymbol{S}\ \,=\ \,
+     \textstyle\frac12\ \,
+     \left[\begin{array}{rr} 1 & -1 \\ 1 & 1 \end{array}\right]\ 
+     \left[\begin{array}{cc} 2 & 1 \\ 1 & 2 \end{array}\right]\ 
+     \left[\begin{array}{rr} 1 & 1 \\ -1 & 1 \end{array}\right]\ =\ 
+     \left[\begin{array}{cc} 1 & 0 \\ 0 & 3 \end{array}\right]\,.
+
+* We get the same result by using the formulae for the matrix elements of the operator in the orthonormal basis:
+  
+  .. math::
+     
+     \varphi_{11}\,=\,\boldsymbol{f}_1\cdot F\boldsymbol{f}_1\,=\,
+     1\ \ \boldsymbol{f}_1\cdot\boldsymbol{f}_1\,=\,1\,, \qquad
+     \varphi_{12}\,=\,\boldsymbol{f}_1\cdot F\boldsymbol{f}_2\,=\,
+     3\ \ \boldsymbol{f}_1\cdot\boldsymbol{f}_2\,=\,0\,, 
+
+     \varphi_{21}\,=\,\boldsymbol{f}_2\cdot F\boldsymbol{f}_1\,=\,
+     1\ \ \boldsymbol{f}_2\cdot\boldsymbol{f}_1\,=\,0\,, \qquad
+     \varphi_{22}\,=\,\boldsymbol{f}_2\cdot F\boldsymbol{f}_2\,=\,
+     3\ \ \boldsymbol{f}_2\cdot\boldsymbol{f}_2\,=\,3\,.
+
+Matrix of the operator :math:`\,F\ ` in the orthonormal basis :math:`\ \mathcal{F}\ `
+consisting of its eigenvectors is diagonal, with the eigenvalues on the diagonal.
+
+**Digression.**
+
+Each vector :math:`\,\vec{r}\ ` of the space :math:`\,V\ ` 
+of geometric vectors on a surface may be written in a unique way as 
+a linear combination of the basis vectors :math:`\,\vec{f}_1,\,\vec{f}_2:`
+
+.. math::
+   
+   \vec{r}\,=\,\beta_1\,\vec{f}_1+\beta_2\,\vec{f}_2\,,\qquad\beta_1,\,\beta_1\in R\,.
+
+Moreover, :math:`\ \,\beta_1\,\vec{f}_1\in V_1\,,\ \ \beta_2\,\vec{f}_2\in V_2\,,\ \,`
+where :math:`\ \,V_1=L(\vec{f}_1)\ \ \text{and}\ \ \,V_2=L(\vec{f}_2)\ \,` 
+are the subspaces of the eigenvectors of the operator :math:`\,F\ `
+associated with the eigenvalues :math:`\ \lambda_1\ \ \text{and}\ \ \lambda_2,\ \,`
+correspondingly. Hence, each vector :math:`\,\vec{r}\in V\ ` satisfies a unique decomposition
+
+.. math::
+   
+   \vec{r}\,=\,\vec{r}_1\,+\,\vec{r}_2\,,\qquad\vec{r}_1\in V_1\,,\ \ \vec{r}_2\in V_2\,.
+
+.. admonition:: Definition.
+   
+   Let :math:`\ V_1\,,\ \,V_2\ \,` be subspaces of the vector space 
+   :math:`\,V.\ ` :math:`\\` If each vector :math:`\,x\in V\ ` may be uniquely 
+   represented in a form :math:`\,x_1+x_2\,,\ ` where 
+   :math:`\,x_1\in V_1\ \ \text{i}\ \ x_2\in V_2\,,\ `
+   then we say that the space :math:`\,V\ ` *decomposes as direct product* 
+   of its subspaces :math:`\,V_1\ \ \text{and}\ \ V_2\,,\ ` what we write as:
+   :math:`\ \  V\,=\,V_1\,\oplus\,V_2\,.`
+
+In our example the space :math:`\ V,\ ` with the action of the operator :math:`\,F,\ `
+decomposes as direct product of the subspaces :math:`\ V_1\ \ \text{and}\ \ V_2\,,\ `
+associated with two eigenvalues :math:`\ \lambda_1\ \ \text{and}\ \ \lambda_2\ `
+of this operator.
+
+Transposition of :math:`\ 2\times 2\ ` square matrices
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+
+We define the transposition operator :math:`\ T\ ` defined on the algebra :math:`\ M_2(R)` :math:`\\` of real square matrices of order 2:
+
+.. math::
+   
+   T\ 
+   \left[\begin{array}{cc}
+   \alpha_1 & \alpha_2 \\ \alpha_3 & \alpha_4
+   \end{array}\right]\ \,:\,=\ \,
+   \left[\begin{array}{cc}
+   \alpha_1 & \alpha_2 \\ \alpha_3 & \alpha_4
+   \end{array}\right]^{\,T}=\ \;
+   \left[\begin{array}{cc}
+   \alpha_1 & \alpha_3 \\ \alpha_2 & \alpha_4
+   \end{array}\right]\,,\quad
+   \alpha_1,\,\alpha_2,\,\alpha_3,\,\alpha_4\in R\,.
+
+Because the operator :math:`\,T\ ` is linear and bijective, it is an 
+automorphism of the algebra :math:`\,M_2(R).`
+
+We solve the eigenvalue problem of the operator :math:`\,T\ ` using the method 
+presented in the previous section.
+
+0.) Construction of the matrix :math:`\,\boldsymbol{A}=M_{\mathcal{B}}(T)\ ` 
+of the automorphism :math:`\,T\ ` in a basis 
+:math:`\ \mathcal{B}=(\boldsymbol{e}_1,\boldsymbol{e}_2,\boldsymbol{e}_3,\boldsymbol{e}_4)\,,\ `
+where
+   
+.. math::
+      
+   \boldsymbol{e}_1\ =\ \left[\begin{array}{cc} 1 & 0 \\ 0 & 0 \end{array}\right]\,,\quad
+   \boldsymbol{e}_2\ =\ \left[\begin{array}{cc} 0 & 1 \\ 0 & 0 \end{array}\right]\,,\quad
+   \boldsymbol{e}_3\ =\ \left[\begin{array}{cc} 0 & 0 \\ 1 & 0 \end{array}\right]\,,\quad
+   \boldsymbol{e}_4\ =\ \left[\begin{array}{cc} 0 & 0 \\ 0 & 1 \end{array}\right]\,.
+
+If we represent the images of the consecutive vectors from the basis :math:`\ \mathcal{B}\ ` in the same basis :math:`\ \mathcal{B}:`
+
+.. math::
+   :nowrap:
+   
+   \begin{alignat*}{6}
+   T\,\boldsymbol{e}_1 & {\ } = {\ \,} & 
+      \boldsymbol{e}_1 & {\ } = {\ \,} & 1\cdot\boldsymbol{e}_1 & {\ } + {\ \,} & 
+                                         0\cdot\boldsymbol{e}_2 & {\ } + {\ \,} & 
+                                         0\cdot\boldsymbol{e}_3 & {\ } + {\ \,} & 
+                                         0\cdot\boldsymbol{e}_4\,, \\
+   T\,\boldsymbol{e}_2 & {\ } = {\ \,} & 
+      \boldsymbol{e}_3 & {\ } = {\ \,} & 0\cdot\boldsymbol{e}_1 & {\ } + {\ \,} & 
+                                         0\cdot\boldsymbol{e}_2 & {\ } + {\ \,} & 
+                                         1\cdot\boldsymbol{e}_3 & {\ } + {\ \,} & 
+                                         0\cdot\boldsymbol{e}_4\,, \\
+   T\,\boldsymbol{e}_3 & {\ } = {\ \,} & 
+      \boldsymbol{e}_2 & {\ } = {\ \,} & 0\cdot\boldsymbol{e}_1 & {\ } + {\ \,} & 
+                                         1\cdot\boldsymbol{e}_2 & {\ } + {\ \,} & 
+                                         0\cdot\boldsymbol{e}_3 & {\ } + {\ \,} & 
+                                         0\cdot\boldsymbol{e}_4\,, \\
+   T\,\boldsymbol{e}_4 & {\ } = {\ \,} & 
+      \boldsymbol{e}_4 & {\ } = {\ \,} & 0\cdot\boldsymbol{e}_1 & {\ } + {\ \,} & 
+                                         0\cdot\boldsymbol{e}_2 & {\ } + {\ \,} & 
+                                         0\cdot\boldsymbol{e}_3 & {\ } + {\ \,} & 
+                                         1\cdot\boldsymbol{e}_4\,,
+   \end{alignat*}
+
+then the :math:`\ j`-th column of the matrix :math:`\,\boldsymbol{A}\ `
+comprises of the coefficients of the matrix :math:`\,T\boldsymbol{e}_j\,,\ \ j=1,2,3,4:`
+
+.. math::
+   :label: mat_AT
+   
+   \boldsymbol{A}\ =\ M_{\mathcal{B}}(T)\ =\ 
+   \left[\begin{array}{cccc} 1 & 0 & 0 & 0 \\ 
+                             0 & 0 & 1 & 0 \\ 
+                             0 & 1 & 0 & 0 \\ 
+                             0 & 0 & 0 & 1 \end{array}\right]\,.
+
+Now the eigenequation of the operator :math:`\,T:`
+
+.. math::
+   
+   T\ 
+   \left[\begin{array}{cc}
+   \alpha_1 & \alpha_2 \\ \alpha_3 & \alpha_4
+   \end{array}\right]\ \,=\ \,
+   \lambda\ 
+   \left[\begin{array}{cc}
+   \alpha_1 & \alpha_2 \\ \alpha_3 & \alpha_4
+   \end{array}\right]
+
+takes the form of a homogeneous linear problem:
+
+.. math::
+   :label: hom_eqn
+   
+   \left[\begin{array}{cccc}
+   1-\lambda &      0      &      0     &     0 \\
+       0     & -\ \lambda  &      1     &     0 \\
+       0     &      1      & -\ \lambda &     0 \\
+       0     &      0      &      0     & 1-\lambda
+   \end{array}\right]\ 
+   \left[\begin{array}{c}
+   \alpha_1 \\ \alpha_2 \\ \alpha_3 \\ \alpha_4
+   \end{array}\right]\ =\ 
+   \left[\begin{array}{c}
+   0 \\ 0 \\ 0 \\ 0
+   \end{array}\right]\,. 
+
+1.) Calculation of the eigenvalues as the roots of the characteristic equation.
+
+.. math::
+   
+   w(\lambda)\ =\ 
+   \left|\begin{array}{cccc}
+   1-\lambda &      0      &      0     &     0 \\
+       0     & -\ \lambda  &      1     &     0 \\
+       0     &      1      & -\ \lambda &     0 \\
+       0     &      0      &      0     & 1-\lambda
+   \end{array}\right|\ =\ 
+   (1-\lambda)^2\,(\lambda^2-1)\ =\ (\lambda-1)^3\,(\lambda+1)\ =\ 0\,.
+
+The eigenvalues (and their algebraic multiplicities) are then the following:
+
+.. math::
+   
+   \blacktriangleright\qquad\lambda_1=1\quad(3)\,,\qquad\lambda_2=-1\quad(1)\,.
+
+2.) Determination of eigenvectors (here: eigenmatrices).
+
+By inserting :math:`\,\lambda=\lambda_1=1\ ` into the equation :eq:`hom_eqn`, we obtain
+
+.. math::
+   
+   \left[\begin{array}{rrrr}
+   0 &  0 &  0 & 0 \\
+   0 & -1 &  1 & 0 \\
+   0 &  1 & -1 & 0 \\
+   0 &  0 &  0 & 0
+   \end{array}\right]\ 
+   \left[\begin{array}{c}
+   \alpha_1 \\ \alpha_2 \\ \alpha_3 \\ \alpha_4
+   \end{array}\right]\ =\ 
+   \left[\begin{array}{c}
+   0 \\ 0 \\ 0 \\ 0
+   \end{array}\right] ,\qquad\text{and thus}\qquad
+   \begin{cases}\ \begin{array}{r}
+   -\ \alpha_2+\alpha_3\,=\,0\,, \\ \alpha_2-\alpha_3\,=\,0\,.
+   \end{array}\end{cases}
+
+The solution is of the form: 
+:math:`\quad\alpha_1=\alpha\,,\ \ \alpha_2=\alpha_3=\beta\,,\ \ \alpha_4=\gamma\,,\quad
+\alpha,\,\beta,\,\gamma\in R.`
+
+The eigenmatrices of the operator :math:`\,T\ ` associated with the eigenvalue :math:`\,\lambda_1=1\,:`
+
+.. math::
+   
+   \blacktriangleright\quad
+   \left[\begin{array}{cc}
+   \alpha & \beta \\ \beta & \gamma
+   \end{array}\right]\ =\ 
+   \alpha\ 
+   \left[\begin{array}{cc}
+   1 & 0 \\ 0 & 0
+   \end{array}\right]\ +\ 
+   \beta\ 
+   \left[\begin{array}{cc}
+   0 & 1 \\ 1 & 0
+   \end{array}\right]\ +\ 
+   \gamma\ 
+   \left[\begin{array}{cc}
+   0 & 0 \\ 0 & 1
+   \end{array}\right]\,,\quad
+   \begin{array}{l}
+   \alpha,\,\beta,\,\gamma\in R\,, \\
+   \alpha^2+\beta^2+\gamma^2>0
+   \end{array}
+
+comprise :math:`\,` (after adjoining the zero matrix) :math:`\,` 
+a 3-dimensional subspace :math:`\ V_1\ ` of the vector space :math:`\ V=M_2(R),\ \\` generated by linearly independent matrices
+
+.. math::
+   
+   \boldsymbol{t}_1\ =\ 
+   \left[\begin{array}{cc}
+   1 & 0 \\ 0 & 0
+   \end{array}\right]\,,\quad 
+   \boldsymbol{t}_2\ =\ 
+   \left[\begin{array}{cc}
+   0 & 1 \\ 1 & 0
+   \end{array}\right]\,,\quad 
+   \boldsymbol{t}_3\ =\ 
+   \left[\begin{array}{cc}
+   0 & 0 \\ 0 & 1
+   \end{array}\right]\,:\qquad
+   V_1=L(\boldsymbol{t}_1,\boldsymbol{t}_2,\boldsymbol{t}_3)\,.
+
+The eigenvalue :math:`\ \lambda_1=1\ ` has then both algebraic and geometric multiplicity 3.
+
+Substitution of :math:`\ \lambda=\lambda_2=-1\ ` into the equation :eq:`hom_eqn` gives
+
+.. math::
+   
+   \left[\begin{array}{rrrr}
+   2 & 0 & 0 & 0 \\
+   0 & 1 & 1 & 0 \\
+   0 & 1 & 1 & 0 \\
+   0 & 0 & 0 & 2
+   \end{array}\right]\ 
+   \left[\begin{array}{c}
+   \alpha_1 \\ \alpha_2 \\ \alpha_3 \\ \alpha_4
+   \end{array}\right]\ =\ 
+   \left[\begin{array}{c}
+   0 \\ 0 \\ 0 \\ 0
+   \end{array}\right] ,\qquad\text{and thus}\qquad
+   \begin{cases}\ \begin{array}{r}
+   2\,\alpha_1\,=\,0\,, \\ \alpha_2+\alpha_3\,=\,0\,, \\ 
+   \alpha_2+\alpha_3\,=\,0\,, \\ 2\,\alpha_4\,=\,0\,.
+   \end{array}\end{cases}
+
+Hence :math:`\ \ \alpha_1=\alpha_4=0\,,\ \ \alpha_2=-\ \alpha_3=\delta\,,\ \ \delta\in R\,,\ \,` and the eigenmatrices for the eigenvalue :math:`\ \lambda_2=-1:`
+
+.. math::
+   
+   \blacktriangleright\quad
+   \left[\begin{array}{rr}
+   0 & \delta \\ -\delta & 0
+   \end{array}\right]\ =\ 
+   \delta\ 
+   \left[\begin{array}{rr}
+   0 & 1 \\ -1 & 0
+   \end{array}\right]\ =\ 
+   \delta\ \boldsymbol{t}_4\,,\qquad
+   \boldsymbol{t}_4\,=\,
+   \left[\begin{array}{rr} 
+   0 & 1 \\ -1 & 0 
+   \end{array}\right]\,,\quad
+   \delta\in R\smallsetminus\!\{0\}\,,
+
+comprise :math:`\,` (together with the zero matrix) :math:`\,` 
+a 1-dimensional subspace :math:`\ V_{-1}=L(\boldsymbol{t}_4)\,.` 
+:math:`\\`
+The geometric multiplicity of the eigenvalue :math:`\ \lambda_2\ ` 
+is the same as its algebraic multiplicity and is equal to 1.
+
+**Comments and remarks.**
+
+The eigenmatrices 
+:math:`\ \boldsymbol{t}_1,\,\boldsymbol{t}_2,\,\boldsymbol{t}_3,\,\boldsymbol{t}_4\ `
+are linearly independent. :math:`\\`
+Indeed, if their linear combination is equal to the zero matrix:
+
+.. math::
+   
+   \alpha\ \boldsymbol{t}_1\,+\,\beta\ \boldsymbol{t}_2\,+\,
+   \gamma\ \boldsymbol{t}_3\,+\,\delta\ \boldsymbol{t}_4\ =\ 
+   \boldsymbol{0}\,,
+
+then, adding the left hand side, we obtain
+
+.. math::
+   
+   \left[\begin{array}{cc}
+   \alpha & \beta+\delta \\ \beta-\delta & \gamma
+   \end{array}\right]\ =\ 
+   \left[\begin{array}{cc}
+   0 & 0 \\ 0 & 0
+   \end{array}\right] ,\quad\text{so}\quad
+   \begin{cases}\ \begin{array}{r}
+   \alpha=0\,, \\ \beta+\delta=0\,, \\ \beta-\delta=0\,, \\ \gamma=0\,,
+   \end{array}\end{cases}\quad\text{and thus}\quad
+   \begin{cases}\ \begin{array}{r}
+   \alpha=0\,, \\ \beta=0\,, \\ \gamma=0\,, \\ \delta=0\,.
+   \end{array}\end{cases}
+
+The system :math:`\ \mathcal{T}=(\boldsymbol{t}_1,\boldsymbol{t}_2,\boldsymbol{t}_3,\boldsymbol{t}_4)\ `
+is then a basis of the algebra :math:`\,M_2(R),\ ` an alternative for the initial 
+basis :math:`\ \mathcal{B}=(\boldsymbol{e}_1,\boldsymbol{e}_2,\boldsymbol{e}_3,\boldsymbol{e}_4)\,.\ `
+The connections between the vectors of these bases:
+
+.. math::
+   :nowrap:
+   
+   \begin{alignat*}{5}
+   \boldsymbol{t}_1 & {\ \,} = {\ \,} & 1\cdot\boldsymbol{e}_1 {\ } + {\ } 
+                                        0\cdot\boldsymbol{e}_2 {\ } + {\ } 
+                                        0\cdot\boldsymbol{e}_3 {\ } + {\ } 
+                                        0\cdot\boldsymbol{e}_4 \,, \\
+   \boldsymbol{t}_2 & {\ \,} = {\ \,} & 0\cdot\boldsymbol{e}_1 {\ } + {\ } 
+                                        1\cdot\boldsymbol{e}_2 {\ } + {\ } 
+                                        1\cdot\boldsymbol{e}_3 {\ } + {\ } 
+                                        0\cdot\boldsymbol{e}_4 \,, \\
+   \boldsymbol{t}_3 & {\ \,} = {\ \,} & 0\cdot\boldsymbol{e}_1 {\ } + {\ } 
+                                        0\cdot\boldsymbol{e}_2 {\ } + {\ } 
+                                        0\cdot\boldsymbol{e}_3 {\ } + {\ } 
+                                        1\cdot\boldsymbol{e}_4 \,, \\
+   \boldsymbol{t}_4 & {\ \,} = {\ \,} & 0\cdot\boldsymbol{e}_1 {\ } + {\ } 
+                                        1\cdot\boldsymbol{e}_2 {\ } - {\ } 
+                                        1\cdot\boldsymbol{e}_3 {\ } + {\ } 
+                                        0\cdot\boldsymbol{e}_4 \,,
+   \end{alignat*}
+
+gives a change-of-basis matrix :math:`\,\boldsymbol{S}\ ` from the basis :math:`\,\mathcal{B}\ ` to the basis :math:`\,\mathcal{T}:`
+
+.. math::
+   
+   \boldsymbol{S}\ =\ 
+   \left[\begin{array}{rrrr}
+   1 & 0 & 0 &  0 \\
+   0 & 1 & 0 &  1 \\
+   0 & 1 & 0 & -1 \\
+   0 & 0 & 1 &  0 
+   \end{array}\right]\,.
+
+The formula :math:`\,` :eq:`mat_AT` :math:`\,` presents a matrix 
+:math:`\,\boldsymbol{A}\ ` of the operator :math:`\,T\ `
+in the initial basis :math:`\ \mathcal{B}.` :math:`\\`
+The matrix :math:`\ \boldsymbol{T}=[\tau_{ij}]\ ` of the operator :math:`\ T\ `
+in the basis :math:`\ \mathcal{T}\ ` will be calculated by two methods.
+
+* By definition, :math:`\,` the entries :math:`\,\tau_{ij}\ ` of the matrix :math:`\,\boldsymbol{T}\ ` are defined by the equalities
+  
+  .. math::
+     
+     T\ \boldsymbol{t}_j\ =\ 
+     \tau_{1j}\ \boldsymbol{t}_1\ +\  
+     \tau_{2j}\ \boldsymbol{t}_2\ +\ 
+     \tau_{3j}\ \boldsymbol{t}_3\ +\ 
+     \tau_{4j}\ \boldsymbol{t}_4\,,\qquad j=1,2,3,4.
+
+  Taking into account that :math:`\,\boldsymbol{t}_i\,,\ i=1,2,3,4,\ ` 
+  are eigenmatrices of the operator :math:`\,T,\ ` we have:
+  
+  .. math::
+     :nowrap:
+     
+     \begin{alignat*}{6}
+     T\ \boldsymbol{t}_1 & {\ \,} = {\ \,} & 
+        \boldsymbol{t}_1 & {\ \,} = {\ \,} & 1\cdot\boldsymbol{t}_1 {\ } + {\ } 
+                                             0\cdot\boldsymbol{t}_2 {\ } + {\ } 
+                                             0\cdot\boldsymbol{t}_3 {\ } + {\ } 
+                                             0\cdot\boldsymbol{t}_4 \,, \\
+     T\ \boldsymbol{t}_2 & {\ \,} = {\ \,} & 
+        \boldsymbol{t}_2 & {\ \,} = {\ \,} & 0\cdot\boldsymbol{t}_1 {\ } + {\ } 
+                                             1\cdot\boldsymbol{t}_2 {\ } + {\ } 
+                                             0\cdot\boldsymbol{t}_3 {\ } + {\ } 
+                                             0\cdot\boldsymbol{t}_4 \,, \\
+     T\ \boldsymbol{t}_3 & {\ \,} = {\ \,} & 
+        \boldsymbol{t}_3 & {\ \,} = {\ \,} & 0\cdot\boldsymbol{t}_1 {\ } + {\ } 
+                                             0\cdot\boldsymbol{t}_2 {\ } + {\ } 
+                                             1\cdot\boldsymbol{t}_3 {\ } + {\ } 
+                                             0\cdot\boldsymbol{t}_4 \,, \\
+     T\ \boldsymbol{t}_4 & {\ \,} = {\ \,} & 
+     -\ \boldsymbol{t}_4 & {\ \,} = {\ \,} & 0\cdot\boldsymbol{t}_1 {\ } + {\ } 
+                                             0\cdot\boldsymbol{t}_2 {\ } + {\ } 
+                                             0\cdot\boldsymbol{t}_3 {\ } - {\ } 
+                                             1\cdot\boldsymbol{t}_4 \,.
+     \end{alignat*}
+  
+  The matrix :math:`\,\boldsymbol{T}\ ` is then diagonal 
+  with the eigenvalues of the operator :math:`\,T\ ` on the diagonal:
+  
+  .. math::
+     
+     \boldsymbol{T}\ =\ M_{\mathcal{T}}(T)\ =\ 
+     \left[\begin{array}{rrrr}
+     1 & 0 & 0 &  0 \\
+     0 & 1 & 0 &  0 \\
+     0 & 0 & 1 &  0 \\
+     0 & 0 & 0 & -1
+     \end{array}\right]\,.
+
+* | The transformation formulae for the transition from the basis :math:`\ \mathcal{B}\ ` 
+    to the basis :math:`\ \mathcal{T}\ ` give:
+    :math:`\ \ \boldsymbol{T}\ =\ \boldsymbol{S}^{-1}\boldsymbol{A}\,\boldsymbol{S}\,.`
+  | In matrix calculations we use Sage:
+  
+  .. code-block:: python
+     
+     sage: A = matrix(QQ,[[1,0,0,0],
+                          [0,0,1,0],
+                          [0,1,0,0],
+                          [0,0,0,1]])
+
+     sage: S = matrix(QQ,[[1,0,0, 0],
+                          [0,1,0, 1],
+                          [0,1,0,-1],
+                          [0,0,1, 0]])
+     sage: S.I*A*S                             
+  
+     [ 1  0  0  0]
+     [ 0  1  0  0]
+     [ 0  0  1  0]
+     [ 0  0  0 -1]
+
+Repeating the argumentation from the previous example we can state that the space
+:math:`\ M_2(R)\ ` decomposes as direct product of subspaces
+:math:`\,V_1=L(\boldsymbol{t}_1,\boldsymbol{t}_2,\boldsymbol{t}_3)\ ` of symmetric matrices and the subspaces :math:`\,V_{-1}=L(\boldsymbol{t}_4)\ ` of antisymmetric matrices:
+
+.. math::
+   
+   M_2(R)\ =\ V_1\,\oplus\,V_{-1}\,.
+
+
+

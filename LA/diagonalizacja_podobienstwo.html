@@ -1,0 +1,275 @@
+
+
+  
+<!DOCTYPE html>
+
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" /><meta name="generator" content="Docutils 0.17: http://docutils.sourceforge.net/" />
+
+    <title>Similarity Transformation &#8212; Linear Algebra</title>
+    <link rel="stylesheet" type="text/css" href="_static/pygments.css" />
+    <link rel="stylesheet" type="text/css" href="_static/cloud.css" />
+    <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Noticia+Text|Open+Sans|Droid+Sans+Mono&amp;subset=latin,latin-ext" type="text/css" />
+    <script data-url_root="./" id="documentation_options" src="_static/documentation_options.js"></script>
+    <script src="_static/jquery.js"></script>
+    <script src="_static/underscore.js"></script>
+    <script src="_static/doctools.js"></script>
+    <script async="async" src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js"></script>
+    <script src="_static/jquery.cookie.js"></script>
+    <script src="_static/cloud.js"></script>
+    <script type="text/javascript" src="http://sagecell.sagemath.org/static/jquery.min.js"></script>
+    <script type="text/javascript" src="http://sagecell.sagemath.org/embedded_sagecell.js"></script>
+    <script type="text/javascript">
+        sagecell.makeSagecell({inputLocation: ".sage_linked",
+                               linked: true});
+        sagecell.makeSagecell({inputLocation: ".sage_unlinked",
+                               linked: false});
+    </script>
+
+    <style type="text/css">
+        .sagecell .CodeMirror-scroll {
+            overflow-y: hidden;
+            overflow-x: auto;
+        }
+        .sagecell .CodeMirror {
+            height: auto;
+        }
+    </style>
+    
+    <link rel="index" title="Index" href="genindex.html" />
+    <link rel="search" title="Search" href="search.html" />
+    <link rel="next" title="Diagonalization by a Similarity Transformation" href="diagonalizacja_macierzy.html" />
+    <link rel="prev" title="Square Matrix as a Linear Operator" href="diagonalizacja_macierz_operator.html" />
+ 
+  <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, minimum-scale=1">
+  </head><body>
+  <div class="relbar-top">
+    
+    <div class="related" role="navigation" aria-label="related navigation">
+      <h3>Navigation</h3>
+      <ul>
+        <li class="right" style="margin-right: 10px">
+          <a href="genindex.html" title="General Index"
+             accesskey="I">index</a></li>
+        <li class="right" >
+          <a href="diagonalizacja_macierzy.html" title="Diagonalization by a Similarity Transformation"
+             accesskey="N">next</a> &nbsp; &nbsp;</li>
+        <li class="right" >
+          <a href="diagonalizacja_macierz_operator.html" title="Square Matrix as a Linear Operator"
+             accesskey="P">previous</a> &nbsp; &nbsp;</li>
+  <li><a href="index.html">Linear Algebra</a> &#187;</li>
+  
+        <li class="nav-item nav-item-this"><a href="">Similarity Transformation</a></li> 
+      </ul>
+    </div>
+  </div>
+  
+  <div class="content">  
+
+    <div class="document">
+      <div class="documentwrapper">
+        <div class="bodywrapper">
+          <div class="body">
+            
+  <section id="similarity-transformation">
+<h1>Similarity Transformation<a class="headerlink" href="#similarity-transformation" title="Permalink to this headline">¶</a></h1>
+<div class="admonition-definition admonition">
+<p class="admonition-title">Definition.</p>
+<p>Matrices <span class="math notranslate nohighlight">\(\,\boldsymbol{A},\,\boldsymbol{B}\in M_n(C)\,\)</span>
+are <em>similar</em> if there exists a matrix
+<span class="math notranslate nohighlight">\(\ \boldsymbol{P}\in M_n(C)\ \)</span> such that</p>
+<div class="math notranslate nohighlight">
+\[\boldsymbol{B}\ =\ \boldsymbol{P}^{-1} \boldsymbol{A}\,\boldsymbol{P}\,.\]</div>
+<p>Then the matrix <span class="math notranslate nohighlight">\(\,\boldsymbol{B}\,\)</span> is related with
+<span class="math notranslate nohighlight">\(\,\boldsymbol{A}\,\)</span> by a <em>similarity transformation</em>.</p>
+</div>
+<p><strong>Theorem 4.</strong> <span class="math notranslate nohighlight">\(\ \)</span>
+Characteristic polynomials of similar matrices are equal.</p>
+<p>Namely, if <span class="math notranslate nohighlight">\(\ \boldsymbol{B}\,=\,
+\boldsymbol{P}^{-1} \boldsymbol{A}\,\boldsymbol{P},\ \ \
+\boldsymbol{A},\boldsymbol{B},\boldsymbol{P}\in M_n(C),\
+\det\boldsymbol{P}\neq 0\,,\ \)</span> then
+<span class="math notranslate nohighlight">\(\ \ w_{\boldsymbol{B}}(\lambda) = w_{\boldsymbol{A}}(\lambda)\,,\ \)</span>
+where <span class="math notranslate nohighlight">\(\ w_{\boldsymbol{X}}(\lambda) =
+\det(\boldsymbol{X}-\lambda\,\boldsymbol{I}_n)\,\)</span> with
+<span class="math notranslate nohighlight">\(\ \boldsymbol{I}_n\ \)</span> an identity matrix of size <span class="math notranslate nohighlight">\(n\)</span>
+denotes a characteristic polynomial
+of matrix <span class="math notranslate nohighlight">\(\boldsymbol{X} = \boldsymbol{A},\,\boldsymbol{B}\,.\)</span></p>
+<p><strong>Proof</strong> bases on Cauchy’s theorem on determinant of a product of matrices:</p>
+<div class="math notranslate nohighlight">
+\[\begin{split}\begin{array}{rl}
+w_{\boldsymbol{B}}(\lambda) \!\! &amp;
+=\ \ \det{(\boldsymbol{B}-\lambda\,\boldsymbol{I}_n)}\ = \\
+&amp; =\ \ \det{(\boldsymbol{P}^{-1}\boldsymbol{A}\,\boldsymbol{P} -
+\boldsymbol{P}^{-1}\lambda\,\boldsymbol{I}_n\ \boldsymbol{P})}\ = \\
+&amp; =\ \ \det{[\,\boldsymbol{P}^{-1}
+(\boldsymbol{A}-\lambda\,\boldsymbol{I}_n)\,
+\boldsymbol{P}\,]}\ = \\
+&amp; =\ \ \det{\boldsymbol{P}^{-1}}\cdot\
+\det{(\boldsymbol{A}-\lambda\,\boldsymbol{I}_n)}\ \cdot\
+\det{\boldsymbol{P}}\ = \\
+&amp; =\ \ (\det{\boldsymbol{P}})^{-1}\cdot\
+\det{(\boldsymbol{A}-\lambda\,\boldsymbol{I}_n)}\,\cdot\,
+\det{\boldsymbol{P}}\ = \\
+&amp; =\ \ \det{(\boldsymbol{A}-\lambda\,\boldsymbol{I}_n)}\ \ =\ \
+w_{\boldsymbol{A}}(\lambda)\,.
+\end{array}\end{split}\]</div>
+<p><strong>Corollary.</strong> Similar matrices have the same set of eigenvalues.
+The corresponding eigenvalues have the same algebraic multiplicities.</p>
+<p><strong>Theorem 5.</strong> <span class="math notranslate nohighlight">\(\\\)</span>
+The corresponding eigenvalues of similar matrices have the same geometric multilplicity.</p>
+<p><strong>Proof.</strong> <span class="math notranslate nohighlight">\(\\\)</span>
+Let <span class="math notranslate nohighlight">\(\ \lambda\in C\ \)</span> be an eigenvalue of the matrix
+<span class="math notranslate nohighlight">\(\ \boldsymbol{A}\in M_n(C)\ \)</span> with  geometric mutliplicity <span class="math notranslate nohighlight">\(\,k\)</span>.
+Then this eigenvalue is associated with <span class="math notranslate nohighlight">\(\,k\,\)</span> linearly independent eigenvectors
+<span class="math notranslate nohighlight">\(\ \boldsymbol{x}_i\,\)</span> of the matrix <span class="math notranslate nohighlight">\(\ \boldsymbol{A}:\)</span></p>
+<div class="math notranslate nohighlight" id="equation-condition">
+<span class="eqno">(1)<a class="headerlink" href="#equation-condition" title="Permalink to this equation">¶</a></span>\[ \begin{align}\begin{aligned}\boldsymbol{A}\,\boldsymbol{x}_i\ =\ \lambda\,\boldsymbol{x}_i\,,
+\quad i=1,2,\ldots,k\,;\\\sum_{i=1}^k\,\alpha_i\,\boldsymbol{x}_i\ =\ \boldsymbol{0}
+\quad\Rightarrow\quad\alpha_i=0,\ \ i=1,2,\ldots,k\,.\end{aligned}\end{align} \]</div>
+<p>Let <span class="math notranslate nohighlight">\(\ \boldsymbol{B}\,=\,
+\boldsymbol{P}^{-1}\boldsymbol{A}\,\boldsymbol{P},\ \)</span>
+<span class="math notranslate nohighlight">\(\ \boldsymbol{y}_i\,=\,\boldsymbol{P}^{-1}\,\boldsymbol{x}_i,\ \
+i=1,2,\ldots,k\,,\ \)</span> <span class="math notranslate nohighlight">\(\ \boldsymbol{P}\in M_n(C),\,
+\det{\boldsymbol{P}}\neq 0.\ \)</span> Then</p>
+<div class="math notranslate nohighlight">
+\[ \begin{align}\begin{aligned}\boldsymbol{B}\,\boldsymbol{y}_i\ =\
+(\boldsymbol{P}^{-1}\boldsymbol{A}\,\boldsymbol{P})\,
+(\boldsymbol{P}^{-1}\boldsymbol{x}_i)\ =\
+\boldsymbol{P}^{-1}\boldsymbol{A}\,(\boldsymbol{P}\,
+\boldsymbol{P}^{-1})\ \boldsymbol{x}_i\ =\\\quad =\
+\boldsymbol{P}^{-1}(\boldsymbol{A}\,\boldsymbol{x}_i)\ =\
+\boldsymbol{P}^{-1}(\lambda\,\boldsymbol{x}_i)\ =\
+\lambda\,(\boldsymbol{P}^{-1}\boldsymbol{x}_i)\ =\
+\lambda\,\boldsymbol{y}_i\,,\\\sum_{i=1}^k\,\alpha_i\,\boldsymbol{y}_i\ =\ \boldsymbol{0}
+\quad\Leftrightarrow\quad
+\sum_{i=1}^k\,\alpha_i\,(\boldsymbol{P}^{-1}\,\boldsymbol{x}_i)\ =\
+\boldsymbol{0}
+\quad\Leftrightarrow\quad
+\boldsymbol{P}^{-1}\,\sum_{i=1}^k\,\alpha_i\,\boldsymbol{x}_i\ =\
+\boldsymbol{0}
+\quad\Leftrightarrow\quad\\\Leftrightarrow\qquad\sum_{i=1}^k\,\alpha_i\,\boldsymbol{x}_i\ =\
+\boldsymbol{0}
+\quad\Rightarrow\quad
+\alpha_i=0,\ \ i=1,2,\ldots,k.\end{aligned}\end{align} \]</div>
+<p>Hence, the matrix <span class="math notranslate nohighlight">\(\ \boldsymbol{B}\ \)</span> satisfies the conditions
+analogous to <a class="reference internal" href="#equation-condition">(1)</a>:</p>
+<div class="math notranslate nohighlight">
+\[ \begin{align}\begin{aligned}\boldsymbol{B}\,\boldsymbol{y}_i\ =\ \lambda\,\boldsymbol{y}_i\,,
+\quad i=1,2,\ldots,k\,;\\\sum_{i=1}^k\,\alpha_i\,\boldsymbol{y}_i\ =\ \boldsymbol{0}
+\quad\Rightarrow\quad\alpha_i=0,\ \ i=1,2,\ldots,k\,,\end{aligned}\end{align} \]</div>
+<p>which means that <span class="math notranslate nohighlight">\(\ \lambda\ \)</span> is an eigenvalue of the matrix
+<span class="math notranslate nohighlight">\(\ \boldsymbol{B}\ \)</span> with the same
+(as the matrix <span class="math notranslate nohighlight">\(\,\boldsymbol{A})\)</span> geometric multiplicity
+<span class="math notranslate nohighlight">\(\,k\)</span>.</p>
+<p><strong>Theorem 6.</strong> <span class="math notranslate nohighlight">\(\\\)</span>
+Similar matrices have the same determinant and trace, and are of the same rank,
+i.e., if <span class="math notranslate nohighlight">\(\ \boldsymbol{B}\,=\,
+\boldsymbol{P}^{-1}\boldsymbol{A}\,\boldsymbol{P},\ \)</span>
+<span class="math notranslate nohighlight">\(\boldsymbol{A},\boldsymbol{B},\boldsymbol{P}\in M_n(C),
+\ \det{\boldsymbol{P}}\neq 0,\ \ \)</span> then</p>
+<div class="math notranslate nohighlight">
+\[\det{\boldsymbol{B}}\,=\det{\boldsymbol{A}},\quad
+\text{Tr}\,{\boldsymbol{B}}\,=\,\text{Tr}\,{\boldsymbol{A}},\quad
+\text{rk}\,{\boldsymbol{B}}\,=\,\text{rk}\,{\boldsymbol{A}}\,.\]</div>
+<p>First two equalities follow from a previous theorem on equality of
+characteristic polynomials of similar matrices.
+Namely, <span class="math notranslate nohighlight">\(\ \det{\boldsymbol{A}},\,\det{\boldsymbol{B}}\ \)</span>
+are constant terms (coefficients of <span class="math notranslate nohighlight">\(\ \lambda^0\)</span>), <span class="math notranslate nohighlight">\(\ \)</span>
+and <span class="math notranslate nohighlight">\(\ \text{Tr}\,\boldsymbol{A},\,\text{Tr}\,\boldsymbol{B}\ \)</span>
+are coefficients of the term <span class="math notranslate nohighlight">\(\ \lambda^{(n-1)}\ \)</span> in
+characteristic polynomials of matrices <span class="math notranslate nohighlight">\(\ \boldsymbol{A},\,\boldsymbol{B}\)</span>.
+Equality of polynomials implies equality of the coefficients of the
+terms having the same power <span class="math notranslate nohighlight">\(\ \lambda.\)</span></p>
+<p>These relations may be also proved directly from properties of determinant and trace of a matrix.
+Cauchy’s theorem on determinant of a product of matrices implies that</p>
+<div class="math notranslate nohighlight">
+\[ \begin{align}\begin{aligned}\det{\boldsymbol{B}}\ =\
+\det{(\boldsymbol{P}^{-1}\boldsymbol{A}\,\boldsymbol{P})}\ =\\=\
+\det{\boldsymbol{P}^{-1}}\cdot\
+\det{\boldsymbol{A}}\ \cdot\
+\det{\boldsymbol{P}}\ =\\=\
+(\det{\boldsymbol{P}})^{-1}\cdot\
+\det{\boldsymbol{A}}\ \cdot\
+\det{\boldsymbol{P}}\ =\ \det{\boldsymbol{A}}\,,\end{aligned}\end{align} \]</div>
+<p>and reordering cyclicly the factors under the trace symbol, we obtain</p>
+<div class="math notranslate nohighlight">
+\[\text{Tr}\,\boldsymbol{B}\ =\
+\text{Tr}\,(\boldsymbol{P}^{-1}\boldsymbol{A}\,\boldsymbol{P})\ =\
+\text{Tr}\,(\boldsymbol{A}\,\boldsymbol{P}\,\boldsymbol{P}^{-1})\ =\
+\text{Tr}\,\boldsymbol{A}\,.\]</div>
+<p>Equality of ranks of similar matrices follows from the fact that multiplication
+of a given matrix by a square non-degenerate matrix (on the left or on the right)
+does not change its rank:</p>
+<div class="math notranslate nohighlight">
+\[\text{rk}\,\boldsymbol{A}\ =\
+\text{rk}\,(\boldsymbol{A}\,\boldsymbol{P})\ =\
+\text{rk}\,(\boldsymbol{P}^{-1}\boldsymbol{A}\,\boldsymbol{P})\ =\
+\text{rk}\,{\boldsymbol{B}}\,.\]</div>
+</section>
+
+
+          </div>
+        </div>
+      </div>
+      <div class="sphinxsidebar" role="navigation" aria-label="main navigation">
+        <div class="sphinxsidebarwrapper">
+  <h4>Previous topic</h4>
+  <p class="topless"><a href="diagonalizacja_macierz_operator.html"
+                        title="previous chapter">Square Matrix as a Linear Operator</a></p>
+  <h4>Next topic</h4>
+  <p class="topless"><a href="diagonalizacja_macierzy.html"
+                        title="next chapter">Diagonalization by a Similarity Transformation</a></p>
+  <div role="note" aria-label="source link">
+    <h3>This Page</h3>
+    <ul class="this-page-menu">
+      <li><a href="_sources/diagonalizacja_podobienstwo.rst.txt"
+            rel="nofollow">Show Source</a></li>
+    </ul>
+   </div>
+<div id="searchbox" style="display: none" role="search">
+  <h3 id="searchlabel">Quick search</h3>
+    <div class="searchformwrapper">
+    <form class="search" action="search.html" method="get">
+      <input type="text" name="q" aria-labelledby="searchlabel" />
+      <input type="submit" value="Go" />
+    </form>
+    </div>
+</div>
+<script>$('#searchbox').show(0);</script>
+        </div>
+      </div>
+      <div class="clearer"></div>
+    </div>
+  </div>
+  <div class="relbar-bottom">
+    
+    <div class="related" role="navigation" aria-label="related navigation">
+      <h3>Navigation</h3>
+      <ul>
+        <li class="right" style="margin-right: 10px">
+          <a href="genindex.html" title="General Index"
+             >index</a></li>
+        <li class="right" >
+          <a href="diagonalizacja_macierzy.html" title="Diagonalization by a Similarity Transformation"
+             >next</a> &nbsp; &nbsp;</li>
+        <li class="right" >
+          <a href="diagonalizacja_macierz_operator.html" title="Square Matrix as a Linear Operator"
+             >previous</a> &nbsp; &nbsp;</li>
+  <li><a href="index.html">Linear Algebra</a> &#187;</li>
+  
+        <li class="nav-item nav-item-this"><a href="">Similarity Transformation</a></li> 
+      </ul>
+    </div>
+  </div>
+  
+  <div class="footer">
+    <a class="logo" href="http://icse.us.edu.pl/" target="_blank"><img src="_static/logo-icse.png" alt="ICSE"/></a><br/>
+    &copy; Copyright 2018, Jan Aksamit, Joanna Marzec, and  Marcin Kostur.
+    Last updated on Jan 29, 2022.
+    Created using <a href="http://sphinx.pocoo.org/">Sphinx</a> 4.0.1.
+  </div>
+  </body>
+</html>

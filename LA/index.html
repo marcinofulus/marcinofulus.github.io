@@ -1,0 +1,575 @@
+
+
+  
+<!DOCTYPE html>
+
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" /><meta name="generator" content="Docutils 0.17: http://docutils.sourceforge.net/" />
+
+    <title>Lectures on Linear Algebra &#8212; Linear Algebra</title>
+    <link rel="stylesheet" type="text/css" href="_static/pygments.css" />
+    <link rel="stylesheet" type="text/css" href="_static/cloud.css" />
+    <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Noticia+Text|Open+Sans|Droid+Sans+Mono&amp;subset=latin,latin-ext" type="text/css" />
+    <script data-url_root="./" id="documentation_options" src="_static/documentation_options.js"></script>
+    <script src="_static/jquery.js"></script>
+    <script src="_static/underscore.js"></script>
+    <script src="_static/doctools.js"></script>
+    <script async="async" src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js"></script>
+    <script src="_static/jquery.cookie.js"></script>
+    <script src="_static/cloud.js"></script>
+    <script type="text/javascript" src="http://sagecell.sagemath.org/static/jquery.min.js"></script>
+    <script type="text/javascript" src="http://sagecell.sagemath.org/embedded_sagecell.js"></script>
+    <script type="text/javascript">
+        sagecell.makeSagecell({inputLocation: ".sage_linked",
+                               linked: true});
+        sagecell.makeSagecell({inputLocation: ".sage_unlinked",
+                               linked: false});
+    </script>
+
+    <style type="text/css">
+        .sagecell .CodeMirror-scroll {
+            overflow-y: hidden;
+            overflow-x: auto;
+        }
+        .sagecell .CodeMirror {
+            height: auto;
+        }
+    </style>
+    
+    <link rel="index" title="Index" href="genindex.html" />
+    <link rel="search" title="Search" href="search.html" />
+    <link rel="next" title="Preliminaries and Notation" href="introduction_preliminaries.html" />
+ 
+  <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, minimum-scale=1">
+  </head><body>
+  <div class="relbar-top">
+    
+    <div class="related" role="navigation" aria-label="related navigation">
+      <h3>Navigation</h3>
+      <ul>
+        <li class="right" style="margin-right: 10px">
+          <a href="genindex.html" title="General Index"
+             accesskey="I">index</a></li>
+        <li class="right" >
+          <a href="introduction_preliminaries.html" title="Preliminaries and Notation"
+             accesskey="N">next</a> &nbsp; &nbsp;</li>
+  <li><a href="#">Linear Algebra</a> &#187;</li>
+  
+        <li class="nav-item nav-item-this"><a href="">Lectures on Linear Algebra</a></li> 
+      </ul>
+    </div>
+  </div>
+  
+  <div class="content">  
+
+    <div class="document">
+      <div class="documentwrapper">
+        <div class="bodywrapper">
+          <div class="body">
+            
+  <section id="lectures-on-linear-algebra">
+<h1>Lectures on Linear Algebra<a class="headerlink" href="#lectures-on-linear-algebra" title="Permalink to this headline">¶</a></h1>
+<section id="introduction">
+<h2>Introduction<a class="headerlink" href="#introduction" title="Permalink to this headline">¶</a></h2>
+<div class="toctree-wrapper compound">
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="introduction_preliminaries.html">Preliminaries and Notation</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="introduction_preliminaries.html#rudiments-of-logic">Rudiments of Logic</a></li>
+<li class="toctree-l2"><a class="reference internal" href="introduction_preliminaries.html#notation-of-the-set-theory">Notation of the Set Theory</a></li>
+<li class="toctree-l2"><a class="reference internal" href="introduction_preliminaries.html#mappings-and-operations">Mappings and Operations</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="introduction_algebraic-structures.html">Algebraic Structures</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="introduction_algebraic-structures.html#definitions-and-examples">Definitions and Examples</a></li>
+<li class="toctree-l2"><a class="reference internal" href="introduction_algebraic-structures.html#substructures">Substructures</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="introduction_fundamental-concepts.html">Fundamental Concepts in Linear Algebra</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="introduction_fundamental-concepts.html#linear-combination-of-vectors">Linear Combination of Vectors</a></li>
+<li class="toctree-l2"><a class="reference internal" href="introduction_fundamental-concepts.html#linear-dependence-and-independence">Linear Dependence and Independence</a></li>
+<li class="toctree-l2"><a class="reference internal" href="introduction_fundamental-concepts.html#basis-of-a-vector-space">Basis of a Vector Space</a></li>
+<li class="toctree-l2"><a class="reference internal" href="introduction_fundamental-concepts.html#dimension-of-a-vector-space">Dimension of a Vector Space</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="introduction_permutations.html">Group of Permutations</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="introduction_permutations.html#definition-and-notation">Definition and Notation</a></li>
+<li class="toctree-l2"><a class="reference internal" href="introduction_permutations.html#cyclic-permutations-and-parity">Cyclic Permutations and Parity</a></li>
+<li class="toctree-l2"><a class="reference internal" href="introduction_permutations.html#permutations-in-sage">Permutations in Sage</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="introduction_references.html">References</a></li>
+</ul>
+</div>
+</section>
+<section id="a-primer-on-linear-systems">
+<h2>A Primer on Linear Systems<a class="headerlink" href="#a-primer-on-linear-systems" title="Permalink to this headline">¶</a></h2>
+<div class="line-block">
+<div class="line"><em>Space of the column vectors over a field.</em></div>
+<div class="line"><em>Geometric interpretation of consistent
+and inconsistent systems of equations.</em></div>
+<div class="line"><em>Transformation of a system of equations
+to the echelon form by elementary operations.</em></div>
+</div>
+<div class="toctree-wrapper compound">
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="primer_column-vectors.html">Column Vectors</a></li>
+<li class="toctree-l1"><a class="reference internal" href="primer_geometry-of-eqns-stat.html">Geometry of Linear Equations</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="primer_geometry-of-eqns-stat.html#row-picture">Row Picture</a></li>
+<li class="toctree-l2"><a class="reference internal" href="primer_geometry-of-eqns-stat.html#column-picture">Column Picture</a></li>
+<li class="toctree-l2"><a class="reference internal" href="primer_geometry-of-eqns-stat.html#consistent-system-a-unique-solution">Consistent System: a unique solution</a></li>
+<li class="toctree-l2"><a class="reference internal" href="primer_geometry-of-eqns-stat.html#consistent-system-infinitely-many-solutions">Consistent System: infinitely many solutions</a></li>
+<li class="toctree-l2"><a class="reference internal" href="primer_geometry-of-eqns-stat.html#inconsistent-system-no-solution">Inconsistent System: no solution</a></li>
+<li class="toctree-l2"><a class="reference internal" href="primer_geometry-of-eqns-stat.html#matrix-picture-of-a-linear-system">Matrix Picture of a Linear System</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="primer_elimination-for-eqns.html">Elimination Method for Systems of Equations</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="primer_elimination-for-eqns.html#echelon-form-of-a-system-of-equations">Echelon Form of a System of Equations</a></li>
+<li class="toctree-l2"><a class="reference internal" href="primer_elimination-for-eqns.html#gaussian-elimination">Gaussian Elimination</a></li>
+<li class="toctree-l2"><a class="reference internal" href="primer_elimination-for-eqns.html#gauss-jordan-elimination">Gauss-Jordan Elimination</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="primer_problems.html">Exercises and Problems</a></li>
+</ul>
+</div>
+</section>
+<section id="algebra-of-matrices">
+<h2>Algebra of Matrices<a class="headerlink" href="#algebra-of-matrices" title="Permalink to this headline">¶</a></h2>
+<div class="line-block">
+<div class="line"><em>Matrix as a rectangular layout of elements from a field.</em></div>
+<div class="line"><em>Matrix addition and scalar multiplication.</em></div>
+<div class="line"><em>The</em> <span class="math notranslate nohighlight">\(\,m\times n\,\)</span> <em>matrices over a field</em> <span class="math notranslate nohighlight">\(K\)</span>
+<em>form the vector space over</em> <span class="math notranslate nohighlight">\(K\)</span>.</div>
+<div class="line"><em>Row and column rules defining product of two matrices.</em></div>
+<div class="line"><em>Practical vector and matrix operations in Sage.</em></div>
+</div>
+<div class="toctree-wrapper compound">
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="algebra_of_matrices_operations.html">Basic Operations on Matrices</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="algebra_of_matrices_operations.html#matrix-definition-and-terminology">Matrix Definition and Terminology</a></li>
+<li class="toctree-l2"><a class="reference internal" href="algebra_of_matrices_operations.html#addition-and-scalar-multiplication-vector-space-of-matrices">Addition and Scalar Multiplication. Vector Space of Matrices</a></li>
+<li class="toctree-l2"><a class="reference internal" href="algebra_of_matrices_operations.html#multiplication-of-a-matrix-by-a-column-vector">Multiplication of a Matrix by a Column Vector</a></li>
+<li class="toctree-l2"><a class="reference internal" href="algebra_of_matrices_operations.html#matrix-multiplication-product-of-two-matrices">Matrix Multiplication (Product of Two Matrices)</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="algebra_of_matrices_properties.html">Properties of Matrix Operations</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="algebra_of_matrices_properties.html#alternative-definition-of-the-product-of-two-square-matrices">Alternative Definition of the Product of Two Square Matrices</a></li>
+<li class="toctree-l2"><a class="reference internal" href="algebra_of_matrices_properties.html#properties-of-matrix-multiplication">Properties of Matrix Multiplication</a></li>
+<li class="toctree-l2"><a class="reference internal" href="algebra_of_matrices_properties.html#the-row-and-column-rules-of-matrix-multiplication">The Row and Column Rules of Matrix Multiplication</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="algebra_of_matrices_Sage.html">Vectors and Matrices in Sage</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="algebra_of_matrices_Sage.html#creation-of-vectors-and-matrices">Creation of Vectors and Matrices</a></li>
+<li class="toctree-l2"><a class="reference internal" href="algebra_of_matrices_Sage.html#properties-of-vectors-and-matrices">Properties of Vectors and Matrices</a></li>
+<li class="toctree-l2"><a class="reference internal" href="algebra_of_matrices_Sage.html#operations-on-vectors-and-matrices">Operations on Vectors and Matrices</a></li>
+<li class="toctree-l2"><a class="reference internal" href="algebra_of_matrices_Sage.html#block-matrices">Block Matrices</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="algebra_of_matrices_problems.html">Exercises and Problems</a></li>
+</ul>
+</div>
+</section>
+<section id="operations-upon-matrices">
+<h2>Operations upon Matrices<a class="headerlink" href="#operations-upon-matrices" title="Permalink to this headline">¶</a></h2>
+<div class="line-block">
+<div class="line"><em>Row-echelon and reduced row-echelon form of a matrix.</em></div>
+<div class="line"><em>Elimination method applied to the augmented matrix
+of a system of linear equations.</em></div>
+<div class="line"><em>Transpose of a matrix and its properties.
+Symmetric and skew-symmetric matrices.</em></div>
+<div class="line"><em>Inverse of a matrix. Elementary matrices.
+Permutation matrices.</em></div>
+<div class="line"><em>A practical algorithm for the matrix inversion
+by Gauss-Jordan elimination.</em></div>
+</div>
+<div class="toctree-wrapper compound">
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="operations_on_matrices_elimination.html">Matrix Formulation of the Elimination Method</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="operations_on_matrices_elimination.html#augmented-matrix-of-a-system-of-equations">Augmented Matrix of a System of Equations</a></li>
+<li class="toctree-l2"><a class="reference internal" href="operations_on_matrices_elimination.html#echelon-form-of-a-matrix">Echelon Form of a Matrix</a></li>
+<li class="toctree-l2"><a class="reference internal" href="operations_on_matrices_elimination.html#practical-elimination-in-sage">Practical Elimination in Sage</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="operations_on_matrices_transpose.html">Matrix Transpose</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="operations_on_matrices_transpose.html#symmetric-and-skew-symmetric-matrices">Symmetric and Skew-Symmetric Matrices</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="operations_on_matrices_inverse.html">Matrix Inverse</a></li>
+<li class="toctree-l1"><a class="reference internal" href="operations_on_matrices_elementary.html">Elementary Matrices</a></li>
+<li class="toctree-l1"><a class="reference internal" href="operations_on_matrices_inverse-elimination.html">Matrix Inverse by the Elimination Method</a></li>
+<li class="toctree-l1"><a class="reference internal" href="operations_on_matrices_permutations.html">Permutation Matrices</a></li>
+<li class="toctree-l1"><a class="reference internal" href="operations_on_matrices_appendices.html">Appendices</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="operations_on_matrices_appendices.html#a1-elementary-operations-and-elementary-matrices">A1. <span class="math notranslate nohighlight">\(\,\)</span> Elementary Operations and Elementary Matrices</a></li>
+<li class="toctree-l2"><a class="reference internal" href="operations_on_matrices_appendices.html#a2-extended-reduced-row-echelon-form-of-a-matrix">A2. <span class="math notranslate nohighlight">\(\,\)</span> Extended (reduced row) Echelon Form of a Matrix</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="operations_on_matrices_problems.html">Exercises and Problems</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="operations_on_matrices_problems.html#solution-of-a-linear-system-by-the-gauss-jordan-elimination">Solution of a Linear System by the Gauss-Jordan Elimination</a></li>
+<li class="toctree-l2"><a class="reference internal" href="operations_on_matrices_problems.html#elementary-operations-on-matrices-by-the-sage-commands">Elementary Operations on Matrices by the Sage Commands</a></li>
+<li class="toctree-l2"><a class="reference internal" href="operations_on_matrices_problems.html#matrix-inverse">Matrix Inverse</a></li>
+<li class="toctree-l2"><a class="reference internal" href="operations_on_matrices_problems.html#matrix-inverse-by-the-elimination-method">Matrix Inverse by the Elimination Method</a></li>
+<li class="toctree-l2"><a class="reference internal" href="operations_on_matrices_problems.html#permutation-matrices">Permutation Matrices</a></li>
+<li class="toctree-l2"><a class="reference internal" href="operations_on_matrices_problems.html#column-version-of-permutation-matrices">Column Version of Permutation Matrices</a></li>
+</ul>
+</li>
+</ul>
+</div>
+</section>
+<section id="determinants">
+<h2>Determinants<a class="headerlink" href="#determinants" title="Permalink to this headline">¶</a></h2>
+<div class="toctree-wrapper compound">
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="determinants_definition-properties.html">Definition and Properties of the Deteminant</a></li>
+<li class="toctree-l1"><a class="reference internal" href="determinants_permutation-expansion.html">The Permutation Expansion</a></li>
+<li class="toctree-l1"><a class="reference internal" href="determinants_practical-calculation.html">Practical Calculation of Determinants</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="determinants_practical-calculation.html#elementary-operations">Elementary Operations</a></li>
+<li class="toctree-l2"><a class="reference internal" href="determinants_practical-calculation.html#the-laplace-expansion">The Laplace Expansion</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="determinants_applications.html">Applications of Determinants</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="determinants_applications.html#examination-of-the-linear-dependence-of-vectors">Examination of the Linear Dependence of Vectors</a></li>
+<li class="toctree-l2"><a class="reference internal" href="determinants_applications.html#calculation-of-the-inverse-of-a-matrix">Calculation of the Inverse of a Matrix</a></li>
+<li class="toctree-l2"><a class="reference internal" href="determinants_applications.html#cramer-s-rule-to-solve-systems-of-linear-equations">Cramer’s Rule to Solve Systems of Linear Equations</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="operations_app_Hill_cipher.html">Application to Hill Cipher</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="operations_app_Hill_cipher.html#example">Example</a></li>
+<li class="toctree-l2"><a class="reference internal" href="operations_app_Hill_cipher.html#modular-arithmetic">Modular arithmetic</a></li>
+<li class="toctree-l2"><a class="reference internal" href="operations_app_Hill_cipher.html#security">Security</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="determinants_problems.html">Problems</a></li>
+</ul>
+</div>
+</section>
+<section id="matrix-decompositions">
+<h2>Matrix Decompositions<a class="headerlink" href="#matrix-decompositions" title="Permalink to this headline">¶</a></h2>
+<div class="line-block">
+<div class="line"><em>LU decomposition of a matrix
+into the product of lower- and upper-triangular factors.</em></div>
+</div>
+<div class="toctree-wrapper compound">
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="decomposition_LU-triangular-matrices.html">Triangular Matrices</a></li>
+<li class="toctree-l1"><a class="reference internal" href="decomposition_LU-factorization.html">LU Factorization of a Matrix</a></li>
+<li class="toctree-l1"><a class="reference internal" href="decomposition_LU-applications.html">Applications of the LU Decomposition</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="decomposition_LU-applications.html#solving-systems-of-linear-equations">Solving Systems of Linear Equations</a></li>
+<li class="toctree-l2"><a class="reference internal" href="decomposition_LU-applications.html#inversion-of-a-matrix">Inversion of a Matrix</a></li>
+<li class="toctree-l2"><a class="reference internal" href="decomposition_LU-applications.html#calculation-of-determinants">Calculation of Determinants</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="decomposition_problems.html">Problems and Exercises</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="decomposition_problems.html#lu-factorization">LU Factorization</a></li>
+</ul>
+</li>
+</ul>
+</div>
+</section>
+<section id="tensor-kronecker-product-of-matrices">
+<span id="ch-kronecker"></span><h2>Tensor (Kronecker) Product of Matrices<a class="headerlink" href="#tensor-kronecker-product-of-matrices" title="Permalink to this headline">¶</a></h2>
+<div class="toctree-wrapper compound">
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="tensor_product_properties.html">Definition and Properties</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="tensor_product_properties.html#definition-and-example">Definition and Example</a></li>
+<li class="toctree-l2"><a class="reference internal" href="tensor_product_properties.html#properties-of-the-kronecker-product">Properties of the Kronecker Product</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="tensor_product_vectorization.html">Vectorization of Matrices</a></li>
+<li class="toctree-l1"><a class="reference internal" href="tensor_product_transformation-matrix.html">Kronecker Product as a Transformation Matrix</a></li>
+<li class="toctree-l1"><a class="reference internal" href="tensor_product_Kronecker-sum.html">Kronecker Sum of Discrete Laplacians</a></li>
+<li class="toctree-l1"><a class="reference internal" href="tensor_product_problems.html">Problems with Solutions</a></li>
+</ul>
+</div>
+</section>
+<section id="systems-of-linear-equations-theory-and-practice">
+<h2>Systems of Linear Equations: Theory and Practice<a class="headerlink" href="#systems-of-linear-equations-theory-and-practice" title="Permalink to this headline">¶</a></h2>
+<div class="line-block">
+<div class="line"><em>Rank of a matrix and the Kronecker-Capelli consistency condition.</em></div>
+<div class="line"><em>Practical implementation of the general theorems
+on systems of linear equations.</em></div>
+<div class="line"><em>An instructive example with comprehensive discussion.</em></div>
+<div class="line"><em>Application to mechanics: Equilibrium of a set of masses on springs.</em></div>
+<div class="line"><em>Solving systems of linear equations in Sage.</em></div>
+</div>
+<div class="toctree-wrapper compound">
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="teoria_ukladow_rownan.html">Theorems on Solutions of Linear Equations</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="teoria_ukladow_rownan.html#rank-of-a-matrix">Rank of a Matrix</a></li>
+<li class="toctree-l2"><a class="reference internal" href="teoria_ukladow_rownan.html#general-solution-of-a-system-of-equations">General Solution of a System of Equations</a></li>
+<li class="toctree-l2"><a class="reference internal" href="teoria_ukladow_rownan.html#systems-of-linear-equations-in-sage">Systems of Linear Equations in Sage</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="przyklad_z_dyskusja.html">Example with Discussion</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="przyklad_z_dyskusja.html#elimination-method">Elimination Method</a></li>
+<li class="toctree-l2"><a class="reference internal" href="przyklad_z_dyskusja.html#a-direct-approach">A Direct Approach</a></li>
+<li class="toctree-l2"><a class="reference internal" href="przyklad_z_dyskusja.html#comparison-of-results">Comparison of Results</a></li>
+<li class="toctree-l2"><a class="reference internal" href="przyklad_z_dyskusja.html#alternative-solution-of-the-homogeneous-system">Alternative Solution of the Homogeneous System</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="przyklad_ze_statyki.html">Equilibrium of a Linear Set of Masses Connected by Springs</a></li>
+<li class="toctree-l1"><a class="reference internal" href="regression.html">Linear and Polynomial Regression</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="regression.html#linear-regression">Linear Regression</a></li>
+<li class="toctree-l2"><a class="reference internal" href="regression.html#polynomial-regression">Polynomial Regression</a></li>
+<li class="toctree-l2"><a class="reference internal" href="regression.html#exercises">Exercises</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="linear_programming.html">Linear Programming</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="linear_programming.html#the-geometric-method">The Geometric Method</a></li>
+<li class="toctree-l2"><a class="reference internal" href="linear_programming.html#the-simplex-method">The Simplex Method</a></li>
+<li class="toctree-l2"><a class="reference internal" href="linear_programming.html#exercises">Exercises</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="teoria_i_praktyka_ukladow_zadania.html">Problems</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="teoria_i_praktyka_ukladow_zadania.html#rank-of-a-matrix">Rank of a Matrix</a></li>
+<li class="toctree-l2"><a class="reference internal" href="teoria_i_praktyka_ukladow_zadania.html#systems-of-linear-equations">Systems of Linear Equations</a></li>
+</ul>
+</li>
+</ul>
+</div>
+</section>
+<section id="linear-transformations">
+<h2>Linear Transformations<a class="headerlink" href="#linear-transformations" title="Permalink to this headline">¶</a></h2>
+<div class="line-block">
+<div class="line"><em>Properties of linear transformations.</em></div>
+<div class="line"><em>Isomorphic vector spaces.</em></div>
+<div class="line"><em>Matrices of linear transformations.</em></div>
+<div class="line"><em>Change of basis and related formulae.</em></div>
+</div>
+<div class="toctree-wrapper compound">
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="linear_transformations_definitions.html">Definitions and Terminology</a></li>
+<li class="toctree-l1"><a class="reference internal" href="linear_transformations_properties-examples.html">Properties and Examples</a></li>
+<li class="toctree-l1"><a class="reference internal" href="linear_transformations_kernel-image.html">Kernel, Image and the Rank-Nullity Theorem</a></li>
+<li class="toctree-l1"><a class="reference internal" href="przeksztalcenia_lin_uklady_rownan.html">Application to Homogeneous Systems of Equations</a></li>
+<li class="toctree-l1"><a class="reference internal" href="przeksztalcenia_lin_macierze.html">Matrix Representation of Linear Transformations</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="przeksztalcenia_lin_macierze.html#introduction">Introduction</a></li>
+<li class="toctree-l2"><a class="reference internal" href="przeksztalcenia_lin_macierze.html#matrix-of-a-linear-transformation">Matrix of a Linear Transformation</a></li>
+<li class="toctree-l2"><a class="reference internal" href="przeksztalcenia_lin_macierze.html#basic-theorems">Basic Theorems</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="przeksztalcenia_lin_operatory.html">Linear Operators</a></li>
+<li class="toctree-l1"><a class="reference internal" href="przeksztalcenia_lin_zmiana_bazy.html">Change of Basis</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="przeksztalcenia_lin_zmiana_bazy.html#change-of-basis-matrix">Change-of-Basis Matrix</a></li>
+<li class="toctree-l2"><a class="reference internal" href="przeksztalcenia_lin_zmiana_bazy.html#change-of-basis-transformation-formulae">Change-of-Basis Transformation Formulae</a></li>
+<li class="toctree-l2"><a class="reference internal" href="przeksztalcenia_lin_zmiana_bazy.html#examples">Examples</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="linear_transformations_graphics.html">Application to Computer Graphics</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="linear_transformations_graphics.html#dimensional-graphics">2-dimensional Graphics</a></li>
+<li class="toctree-l2"><a class="reference internal" href="linear_transformations_graphics.html#exercises">Exercises</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="przeksztalcenia_lin_zadania.html">Problems</a></li>
+</ul>
+</div>
+</section>
+<section id="eigenvalues-and-eigenvectors">
+<h2>Eigenvalues and Eigenvectors<a class="headerlink" href="#eigenvalues-and-eigenvectors" title="Permalink to this headline">¶</a></h2>
+<div class="line-block">
+<div class="line"><em>General solution of the eigenproblem in finite-dimensional vector spaces.</em></div>
+<div class="line"><em>Application to the theory of systems
+of ordinary 1st order differential equations.</em></div>
+<div class="line"><em>Similarity and diagonalization of matrices.</em></div>
+</div>
+<div class="toctree-wrapper compound">
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="problem_wlasny_definicja.html">Formulation of the Eigenproblem</a></li>
+<li class="toctree-l1"><a class="reference internal" href="problem_wlasny_przyklady.html">Examples of Eigenproblems</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="problem_wlasny_przyklady.html#a-linear-operator-in-the-space-of-vectors-on-a-plane">A Linear Operator in the Space of Vectors on a Plane</a></li>
+<li class="toctree-l2"><a class="reference internal" href="problem_wlasny_przyklady.html#transposition-of-2-times-2-square-matrices">Transposition of <span class="math notranslate nohighlight">\(\ 2\times 2\ \)</span> square matrices</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="problem_wlasny_rownania_rozniczkowe.html">Application to Systems of Linear Differential Equations</a></li>
+<li class="toctree-l1"><a class="reference internal" href="problem_wlasny_Google.html">Google’s Application - PageRank Algorithm</a></li>
+<li class="toctree-l1"><a class="reference internal" href="problem_wlasny_zadania.html">Exercises</a></li>
+</ul>
+</div>
+</section>
+<section id="unitary-spaces">
+<span id="id1"></span><h2>Unitary Spaces<a class="headerlink" href="#unitary-spaces" title="Permalink to this headline">¶</a></h2>
+<div class="line-block">
+<div class="line"><em>Inner (scalar) product in complex and real spaces.</em></div>
+<div class="line"><em>Definition and examples of unitary (complex) and Euclidean (real) spaces.</em></div>
+<div class="line"><em>Schwarz inequality and its specific implementations.</em></div>
+<div class="line"><em>Orthogonality of vectors. Orthogonal complement of a subspace.</em></div>
+<div class="line"><em>Orthogonal and orthonormal basis of a unitary space.</em></div>
+<div class="line"><em>Gram-Schmidt method for orthonormalizing
+a set of vectors and the QR decomposition.</em></div>
+<div class="line"><em>Hermitian and unitary matrices vs Hermitian and unitary operators.</em></div>
+<div class="line"><em>Properties of normal matrices and operators.</em></div>
+</div>
+<div class="toctree-wrapper compound">
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="p_unitarne_iloczyn_skalarny.html">Inner (Scalar) Product</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="p_unitarne_iloczyn_skalarny.html#axiomatic-definition-and-its-implementations">Axiomatic Definition and its Implementations</a></li>
+<li class="toctree-l2"><a class="reference internal" href="p_unitarne_iloczyn_skalarny.html#the-schwarz-inequality">The Schwarz Inequality</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="p_unitarne_norma.html">Norm of a Vector</a></li>
+<li class="toctree-l1"><a class="reference internal" href="p_unitarne_ortogonalnosc.html">Orthogonality of Vectors</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="p_unitarne_ortogonalnosc.html#orthogonal-set-of-vectors">Orthogonal Set of Vectors</a></li>
+<li class="toctree-l2"><a class="reference internal" href="p_unitarne_ortogonalnosc.html#orthonormal-basis">Orthonormal Basis</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="p_unitarne_Gram-Schmidt_QR.html">Gram-Schmidt Orthonormalization and QR Decomposition of a Matrix</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="p_unitarne_Gram-Schmidt_QR.html#construction-of-the-orthonormal-basis">Construction of the Orthonormal Basis</a></li>
+<li class="toctree-l2"><a class="reference internal" href="p_unitarne_Gram-Schmidt_QR.html#orthogonal-matrices-and-the-qr-decomposition">Orthogonal Matrices and the QR Decomposition</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="p_unitarne_macierze_hermit_i_unit.html">Hermitian and Unitary Matrices</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="p_unitarne_macierze_hermit_i_unit.html#hermitian-conjugation-of-a-matrix">Hermitian Conjugation of a Matrix</a></li>
+<li class="toctree-l2"><a class="reference internal" href="p_unitarne_macierze_hermit_i_unit.html#hermitian-matrices">Hermitian Matrices</a></li>
+<li class="toctree-l2"><a class="reference internal" href="p_unitarne_macierze_hermit_i_unit.html#unitary-matrices">Unitary Matrices</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="p_unitarne_Sage.html">Application of Sage</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="p_unitarne_Sage.html#inner-product">Inner Product</a></li>
+<li class="toctree-l2"><a class="reference internal" href="p_unitarne_Sage.html#norm">Norm</a></li>
+<li class="toctree-l2"><a class="reference internal" href="p_unitarne_Sage.html#operations-on-matrices">Operations on Matrices</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="p_unitarne_operatory_hermit_i_unit.html">Hermitian and Unitary Operators</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="p_unitarne_operatory_hermit_i_unit.html#hermitian-conjugation-of-a-linear-operator">Hermitian Conjugation of a Linear Operator</a></li>
+<li class="toctree-l2"><a class="reference internal" href="p_unitarne_operatory_hermit_i_unit.html#hermitian-operators">Hermitian Operators</a></li>
+<li class="toctree-l2"><a class="reference internal" href="p_unitarne_operatory_hermit_i_unit.html#unitary-operators">Unitary Operators</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="p_unitarne_operatory_normalne.html">Normal Operators</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="p_unitarne_operatory_normalne.html#commutator-and-its-properties">Commutator and its Properties</a></li>
+<li class="toctree-l2"><a class="reference internal" href="p_unitarne_operatory_normalne.html#normal-matrices-and-normal-operators">Normal Matrices and Normal Operators</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="p_unitarne_zadania.html">Problems</a></li>
+</ul>
+</div>
+</section>
+<section id="diagonalization-of-matrices">
+<h2>Diagonalization of Matrices<a class="headerlink" href="#diagonalization-of-matrices" title="Permalink to this headline">¶</a></h2>
+<div class="toctree-wrapper compound">
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="diagonalizacja_macierz_operator.html">Square Matrix as a Linear Operator</a></li>
+<li class="toctree-l1"><a class="reference internal" href="diagonalizacja_podobienstwo.html">Similarity Transformation</a></li>
+<li class="toctree-l1"><a class="reference internal" href="diagonalizacja_macierzy.html">Diagonalization by a Similarity Transformation</a></li>
+<li class="toctree-l1"><a class="reference internal" href="diagonalizacja_przyklady.html">Matrix Diagonalization - Examples</a></li>
+<li class="toctree-l1"><a class="reference internal" href="diagonalizacja_zadania.html">Matrix Diagonalization - Problems</a></li>
+</ul>
+</div>
+</section>
+<section id="proofs-of-selected-theorems">
+<h2>Proofs of Selected Theorems<a class="headerlink" href="#proofs-of-selected-theorems" title="Permalink to this headline">¶</a></h2>
+<div class="toctree-wrapper compound">
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="dowody_podstawy_algebry_liniowej.html">Fundamental Concepts in Linear Algebra</a></li>
+<li class="toctree-l1"><a class="reference internal" href="dowody_operacje_na_macierzach.html">Operations upon Matrices</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="dowody_operacje_na_macierzach.html#elementary-operations-and-elementary-matrices">Elementary Operations and Elementary Matrices</a></li>
+<li class="toctree-l2"><a class="reference internal" href="dowody_operacje_na_macierzach.html#permutation-matrices">Permutation Matrices</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="dowody_przeksztalcenia_lin.html">Linear Transformations</a></li>
+<li class="toctree-l1"><a class="reference internal" href="dowody_problem_wlasny.html">Eigenvalues and Eigenvectors</a></li>
+<li class="toctree-l1"><a class="reference internal" href="dowody_p_unitarne.html">Unitary Spaces</a></li>
+</ul>
+</div>
+</section>
+<section id="problems-in-linear-algebra">
+<h2>Problems in Linear Algebra<a class="headerlink" href="#problems-in-linear-algebra" title="Permalink to this headline">¶</a></h2>
+<p><em>Problems from this Chapter (or similar ones) may occur on the Exam.</em></p>
+<div class="toctree-wrapper compound">
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="zadania_1.html">Systems of Linear Equations</a></li>
+<li class="toctree-l1"><a class="reference internal" href="zadania_2.html">Matrices</a></li>
+</ul>
+</div>
+</section>
+<section id="indices-and-tables">
+<h2>Indices and tables<a class="headerlink" href="#indices-and-tables" title="Permalink to this headline">¶</a></h2>
+<ul class="simple">
+<li><p><a class="reference internal" href="genindex.html"><span class="std std-ref">Index</span></a></p></li>
+<li><p><a class="reference internal" href="py-modindex.html"><span class="std std-ref">Module Index</span></a></p></li>
+<li><p><a class="reference internal" href="search.html"><span class="std std-ref">Search Page</span></a></p></li>
+</ul>
+</section>
+</section>
+
+
+          </div>
+        </div>
+      </div>
+      <div class="sphinxsidebar" role="navigation" aria-label="main navigation">
+        <div class="sphinxsidebarwrapper">
+  <div class="sphinxlocaltoc">
+  <h3><a href="#">Table Of Contents</a></h3>
+  <ul>
+<li><a class="reference internal" href="#">Lectures on Linear Algebra</a><ul>
+<li><a class="reference internal" href="#introduction">Introduction</a></li>
+<li><a class="reference internal" href="#a-primer-on-linear-systems">A Primer on Linear Systems</a></li>
+<li><a class="reference internal" href="#algebra-of-matrices">Algebra of Matrices</a></li>
+<li><a class="reference internal" href="#operations-upon-matrices">Operations upon Matrices</a></li>
+<li><a class="reference internal" href="#determinants">Determinants</a></li>
+<li><a class="reference internal" href="#matrix-decompositions">Matrix Decompositions</a></li>
+<li><a class="reference internal" href="#tensor-kronecker-product-of-matrices">Tensor (Kronecker) Product of Matrices</a></li>
+<li><a class="reference internal" href="#systems-of-linear-equations-theory-and-practice">Systems of Linear Equations: Theory and Practice</a></li>
+<li><a class="reference internal" href="#linear-transformations">Linear Transformations</a></li>
+<li><a class="reference internal" href="#eigenvalues-and-eigenvectors">Eigenvalues and Eigenvectors</a></li>
+<li><a class="reference internal" href="#unitary-spaces">Unitary Spaces</a></li>
+<li><a class="reference internal" href="#diagonalization-of-matrices">Diagonalization of Matrices</a></li>
+<li><a class="reference internal" href="#proofs-of-selected-theorems">Proofs of Selected Theorems</a></li>
+<li><a class="reference internal" href="#problems-in-linear-algebra">Problems in Linear Algebra</a></li>
+<li><a class="reference internal" href="#indices-and-tables">Indices and tables</a></li>
+</ul>
+</li>
+</ul>
+
+  </div>
+  <h4>Next topic</h4>
+  <p class="topless"><a href="introduction_preliminaries.html"
+                        title="next chapter">Preliminaries and Notation</a></p>
+  <div role="note" aria-label="source link">
+    <h3>This Page</h3>
+    <ul class="this-page-menu">
+      <li><a href="_sources/index.rst.txt"
+            rel="nofollow">Show Source</a></li>
+    </ul>
+   </div>
+<div id="searchbox" style="display: none" role="search">
+  <h3 id="searchlabel">Quick search</h3>
+    <div class="searchformwrapper">
+    <form class="search" action="search.html" method="get">
+      <input type="text" name="q" aria-labelledby="searchlabel" />
+      <input type="submit" value="Go" />
+    </form>
+    </div>
+</div>
+<script>$('#searchbox').show(0);</script>
+        </div>
+      </div>
+      <div class="clearer"></div>
+    </div>
+  </div>
+  <div class="relbar-bottom">
+    
+    <div class="related" role="navigation" aria-label="related navigation">
+      <h3>Navigation</h3>
+      <ul>
+        <li class="right" style="margin-right: 10px">
+          <a href="genindex.html" title="General Index"
+             >index</a></li>
+        <li class="right" >
+          <a href="introduction_preliminaries.html" title="Preliminaries and Notation"
+             >next</a> &nbsp; &nbsp;</li>
+  <li><a href="#">Linear Algebra</a> &#187;</li>
+  
+        <li class="nav-item nav-item-this"><a href="">Lectures on Linear Algebra</a></li> 
+      </ul>
+    </div>
+  </div>
+  
+  <div class="footer">
+    <a class="logo" href="http://icse.us.edu.pl/" target="_blank"><img src="_static/logo-icse.png" alt="ICSE"/></a><br/>
+    &copy; Copyright 2018, Jan Aksamit, Joanna Marzec, and  Marcin Kostur.
+    Last updated on Jan 29, 2022.
+    Created using <a href="http://sphinx.pocoo.org/">Sphinx</a> 4.0.1.
+  </div>
+  </body>
+</html>

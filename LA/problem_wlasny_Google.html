@@ -1,0 +1,531 @@
+
+
+  
+<!DOCTYPE html>
+
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" /><meta name="generator" content="Docutils 0.17: http://docutils.sourceforge.net/" />
+
+    <title>Google’s Application - PageRank Algorithm &#8212; Linear Algebra</title>
+    <link rel="stylesheet" type="text/css" href="_static/pygments.css" />
+    <link rel="stylesheet" type="text/css" href="_static/cloud.css" />
+    <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Noticia+Text|Open+Sans|Droid+Sans+Mono&amp;subset=latin,latin-ext" type="text/css" />
+    <script data-url_root="./" id="documentation_options" src="_static/documentation_options.js"></script>
+    <script src="_static/jquery.js"></script>
+    <script src="_static/underscore.js"></script>
+    <script src="_static/doctools.js"></script>
+    <script async="async" src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js"></script>
+    <script src="_static/jquery.cookie.js"></script>
+    <script src="_static/cloud.js"></script>
+    <script type="text/javascript" src="http://sagecell.sagemath.org/static/jquery.min.js"></script>
+    <script type="text/javascript" src="http://sagecell.sagemath.org/embedded_sagecell.js"></script>
+    <script type="text/javascript">
+        sagecell.makeSagecell({inputLocation: ".sage_linked",
+                               linked: true});
+        sagecell.makeSagecell({inputLocation: ".sage_unlinked",
+                               linked: false});
+    </script>
+
+    <style type="text/css">
+        .sagecell .CodeMirror-scroll {
+            overflow-y: hidden;
+            overflow-x: auto;
+        }
+        .sagecell .CodeMirror {
+            height: auto;
+        }
+    </style>
+    
+    <link rel="index" title="Index" href="genindex.html" />
+    <link rel="search" title="Search" href="search.html" />
+    <link rel="next" title="Exercises" href="problem_wlasny_zadania.html" />
+    <link rel="prev" title="Application to Systems of Linear Differential Equations" href="problem_wlasny_rownania_rozniczkowe.html" />
+ 
+  <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, minimum-scale=1">
+  </head><body>
+  <div class="relbar-top">
+    
+    <div class="related" role="navigation" aria-label="related navigation">
+      <h3>Navigation</h3>
+      <ul>
+        <li class="right" style="margin-right: 10px">
+          <a href="genindex.html" title="General Index"
+             accesskey="I">index</a></li>
+        <li class="right" >
+          <a href="problem_wlasny_zadania.html" title="Exercises"
+             accesskey="N">next</a> &nbsp; &nbsp;</li>
+        <li class="right" >
+          <a href="problem_wlasny_rownania_rozniczkowe.html" title="Application to Systems of Linear Differential Equations"
+             accesskey="P">previous</a> &nbsp; &nbsp;</li>
+  <li><a href="index.html">Linear Algebra</a> &#187;</li>
+  
+        <li class="nav-item nav-item-this"><a href="">Google’s Application - PageRank Algorithm</a></li> 
+      </ul>
+    </div>
+  </div>
+  
+  <div class="content">  
+
+    <div class="document">
+      <div class="documentwrapper">
+        <div class="bodywrapper">
+          <div class="body">
+            
+  <section id="google-s-application-pagerank-algorithm">
+<span id="pagerank-algorithm"></span><h1>Google’s Application - PageRank Algorithm<a class="headerlink" href="#google-s-application-pagerank-algorithm" title="Permalink to this headline">¶</a></h1>
+<p>A big part of Google’s success is its PageRank Algorithm which rates importance of the websites and then presents them accordingly to the user. Quite often most relevant and helpful pages are listed first. It turns out that the reason is yet another disguise of the eigenvector problem. This section is based on an article of Bryan and Leise “The $25,000,000,000 Eigenvector. The Linear Algebra Behind Google” <a class="reference internal" href="#bl" id="id1"><span>[BL]</span></a>, which is available at <a class="reference external" href="https://www.rose-hulman.edu/~bryan/google.html">https://www.rose-hulman.edu/~bryan/google.html</a> .</p>
+<p>One of the tasks of Google browser is to locate the websites with public access and index them with relevant keywords and phrases. Once this is done, the websites have to be ordered according to their importance. The main idea behind this procedure relies on an assumption that more important web pages are linked by other pages more often. We will call the links to a given page by the <em>backlinks</em>.</p>
+<p><strong>Example 1.</strong></p>
+<p>Consider a web consisting of four pages which are linked with each other according to the following scheme (an arrow from page A to page B indicates a link from page A to page B):</p>
+<figure class="align-center">
+<a class="reference internal image-reference" href="_images/PR1.png"><img alt="_images/PR1.png" src="_images/PR1.png" style="width: 437.5px; height: 408.79999999999995px;" /></a>
+</figure>
+<p>It was plotted using the following code:</p>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="n">sage</span><span class="p">:</span> <span class="n">A</span> <span class="o">=</span> <span class="n">matrix</span><span class="p">([[</span><span class="mi">0</span><span class="p">,</span><span class="mi">1</span><span class="p">,</span><span class="mi">0</span><span class="p">,</span><span class="mi">1</span><span class="p">],</span> <span class="p">[</span><span class="mi">0</span><span class="p">,</span><span class="mi">0</span><span class="p">,</span><span class="mi">1</span><span class="p">,</span><span class="mi">0</span><span class="p">],[</span><span class="mi">1</span><span class="p">,</span><span class="mi">1</span><span class="p">,</span><span class="mi">0</span><span class="p">,</span><span class="mi">1</span><span class="p">],[</span><span class="mi">1</span><span class="p">,</span><span class="mi">1</span><span class="p">,</span><span class="mi">0</span><span class="p">,</span><span class="mi">0</span><span class="p">]])</span>
+<span class="n">sage</span><span class="p">:</span> <span class="n">W</span><span class="o">=</span><span class="n">DiGraph</span><span class="p">(</span><span class="n">A</span><span class="p">)</span>
+<span class="n">sage</span><span class="p">:</span> <span class="n">W</span><span class="o">.</span><span class="n">relabel</span><span class="p">({</span><span class="mi">0</span><span class="p">:</span><span class="s1">&#39;1&#39;</span> <span class="p">,</span> <span class="mi">1</span><span class="p">:</span><span class="s1">&#39;2&#39;</span><span class="p">,</span> <span class="mi">2</span><span class="p">:</span><span class="s1">&#39;3&#39;</span><span class="p">,</span> <span class="mi">3</span><span class="p">:</span><span class="s1">&#39;4&#39;</span><span class="p">})</span>
+<span class="n">sage</span><span class="p">:</span> <span class="n">W</span><span class="o">.</span><span class="n">plot</span><span class="p">()</span>
+</pre></div>
+</div>
+<p>where the matrix <span class="math notranslate nohighlight">\(A\)</span> determines the arrows between the websites, e.g. the first row of the matrix contains <span class="math notranslate nohighlight">\(1\)</span> at the entries 2 and 4 because website 1 links to these pages. In other words: the <span class="math notranslate nohighlight">\(i\)</span>-th row tells us to which pages page <span class="math notranslate nohighlight">\(i\)</span> links, and the <span class="math notranslate nohighlight">\(i\)</span>-th column tells us where the backlinks for page <span class="math notranslate nohighlight">\(i\)</span> come from. Such a matrix is called an <em>adjacency matrix</em>. Note that we had to relabel the names of vertices in the graph, so that the enumeration starts from 1 and not from 0.</p>
+<p>Having created the web by such a code, we can easily count the number of backlinks of a given page - it suffices to add the entries in a corresponding column:</p>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="n">sage</span><span class="p">:</span> <span class="n">n</span><span class="o">=</span><span class="n">A</span><span class="o">.</span><span class="n">ncols</span><span class="p">()</span>   <span class="c1"># size of the (square) matrix A</span>
+<span class="n">sage</span><span class="p">:</span> <span class="n">b</span><span class="o">=</span><span class="n">vector</span><span class="p">(</span><span class="mi">0</span> <span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="n">n</span><span class="p">))</span>
+<span class="n">sage</span><span class="p">:</span> <span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="n">n</span><span class="p">):</span>
+<span class="n">sage</span><span class="p">:</span>     <span class="n">b</span><span class="p">[</span><span class="n">i</span><span class="p">]</span><span class="o">=</span><span class="nb">sum</span><span class="p">(</span><span class="n">A</span><span class="p">[</span><span class="n">j</span><span class="p">][</span><span class="n">i</span><span class="p">]</span> <span class="k">for</span> <span class="n">j</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="n">n</span><span class="p">))</span>
+<span class="n">sage</span><span class="p">:</span> <span class="nb">print</span> <span class="n">b</span>
+
+<span class="p">(</span><span class="mi">2</span><span class="p">,</span> <span class="mi">3</span><span class="p">,</span> <span class="mi">1</span><span class="p">,</span> <span class="mi">2</span><span class="p">)</span>
+</pre></div>
+</div>
+<p>The outcome suggests that the page 2 is most important, next are the pages 1 and 4 of equal importance, and the least important is the page 3. One may view this as a result of democrative vote of websites for the most important one.</p>
+<p>The basic approach presented in the above example does not take into account a few important factors:</p>
+<ol class="arabic simple">
+<li><p>a link from an important page should matter much more than a link from a mediocre page;</p></li>
+<li><p>not all the websites are connected with each other via links, in fact the actual web comprises a highly disconnected graph; how to compare such pages?</p></li>
+<li><p>is there always a unique most important website?</p></li>
+<li><p>some pages do not contain any links (such pages are called <em>dangling nodes</em>).</p></li>
+</ol>
+<p>In what follows we extend the idea presented above to tackle all these problems.</p>
+<div class="admonition-problem-1 admonition">
+<p class="admonition-title">Problem 1.</p>
+<p>It should matter where the backlinks come from.</p>
+</div>
+<p>Denote by <span class="math notranslate nohighlight">\(\ x_i\ \)</span> the importance score of the web page <span class="math notranslate nohighlight">\(\ i\ \)</span> (we do not specify yet how it may be computed), and let <span class="math notranslate nohighlight">\(\ n_i\ \)</span> be the number of links on the page <span class="math notranslate nohighlight">\(\ i\,.\)</span> For instance, in the example presented above, the score of page 1 would be determined by the relation <span class="math notranslate nohighlight">\(\ x_1=x_3+x_4\,.\)</span> However, in this way the page 3 may vote three times. To avoid such a situation, we normalise the vote by the the number of links that the page contains, i.e. the score of page 1 should be rather given by a formula <span class="math notranslate nohighlight">\(\ x_1=\frac{x_3}{3} +\frac{x_4}{2}\,.\)</span> In general, if a web consists of <span class="math notranslate nohighlight">\(\ n\ \)</span> pages and <span class="math notranslate nohighlight">\(\ L_k\subset\{ 1,2,\ldots ,n\}\ \)</span> denotes the set of pages which link to the page <span class="math notranslate nohighlight">\(\ k\,,\ \)</span> then we define (assumming that <span class="math notranslate nohighlight">\(\ L_k\neq\emptyset\)</span> ):</p>
+<div class="math notranslate nohighlight" id="equation-basic-formula">
+<span class="eqno">(1)<a class="headerlink" href="#equation-basic-formula" title="Permalink to this equation">¶</a></span>\[x_k=\sum_{j\in L_k} \frac{x_j}{n_j}\]</div>
+<p>We will assume additionally that a link from a page to itself does not count.</p>
+<p><strong>Example 2.</strong></p>
+<p>Consider the web from Example 1. The importance scores of the websites are as follows:</p>
+<div class="math notranslate nohighlight">
+\[\begin{split}\begin{eqnarray*}
+x_1 &amp; = &amp; \frac{x_3}{3} +\frac{x_4}{2}\\
+x_2 &amp; = &amp; \frac{x_1}{2} + \frac{x_3}{3} +\frac{x_4}{2}\\
+x_3 &amp; = &amp; \frac{x_2}{1}\\
+x_4 &amp; = &amp; \frac{x_1}{2} + \frac{x_3}{3}
+\end{eqnarray*}\end{split}\]</div>
+<p>The above equalities may be written in a form of matrix equation <span class="math notranslate nohighlight">\(\ x=Ax\,,\ \)</span> where</p>
+<div class="math notranslate nohighlight">
+\[\begin{split}x =
+\left[\begin{array}{c}
+x_{1} \\ x_{2} \\ x_3 \\ x_4
+\end{array}\right]
+\qquad\text{and}\qquad
+A=\left[\begin{matrix}
+0 &amp; 0 &amp; 1/3 &amp; 1/2\\
+1/2 &amp; 0 &amp; 1/3 &amp; 1/2\\
+0 &amp; 1 &amp; 0 &amp; 0\\
+1/2 &amp; 0 &amp; 1/3 &amp; 0
+\end{matrix}\right]\end{split}\]</div>
+<p>In this way, finding importance scores of web pages is equivalent to finding an eigenvector of the matrix <span class="math notranslate nohighlight">\(\ A\ \)</span> with the eigenvalue <span class="math notranslate nohighlight">\(1\,\)</span>! Let us check first whether <span class="math notranslate nohighlight">\(1\)</span> is indeed an eigenvalue of <span class="math notranslate nohighlight">\(\ A\,.\ \)</span> We will do the computations in Sage.</p>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="n">sage</span><span class="p">:</span> <span class="n">Ad</span> <span class="o">=</span> <span class="n">matrix</span><span class="p">([[</span><span class="mi">0</span><span class="p">,</span><span class="mi">1</span><span class="p">,</span><span class="mi">0</span><span class="p">,</span><span class="mi">1</span><span class="p">],</span> <span class="p">[</span><span class="mi">0</span><span class="p">,</span><span class="mi">0</span><span class="p">,</span><span class="mi">1</span><span class="p">,</span><span class="mi">0</span><span class="p">],[</span><span class="mi">1</span><span class="p">,</span><span class="mi">1</span><span class="p">,</span><span class="mi">0</span><span class="p">,</span><span class="mi">1</span><span class="p">],[</span><span class="mi">1</span><span class="p">,</span><span class="mi">1</span><span class="p">,</span><span class="mi">0</span><span class="p">,</span><span class="mi">0</span><span class="p">]])</span>
+<span class="n">sage</span><span class="p">:</span> <span class="n">W</span><span class="o">=</span><span class="n">DiGraph</span><span class="p">(</span><span class="n">A</span><span class="p">)</span>
+<span class="n">sage</span><span class="p">:</span> <span class="c1"># First we need to normalise adjacency matrix Ad so that the sum of entries in each row is 1.</span>
+<span class="n">sage</span><span class="p">:</span> <span class="n">n</span><span class="o">=</span><span class="n">Ad</span><span class="o">.</span><span class="n">ncolumns</span><span class="p">()</span> <span class="c1"># counts the number of columns of Ad</span>
+<span class="n">sage</span><span class="p">:</span> <span class="n">l</span><span class="o">=</span><span class="n">vector</span><span class="p">(</span><span class="mi">0</span> <span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="n">n</span><span class="p">))</span>
+<span class="n">sage</span><span class="p">:</span> <span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="n">n</span><span class="p">):</span>
+<span class="n">sage</span><span class="p">:</span>     <span class="n">l</span><span class="p">[</span><span class="n">i</span><span class="p">]</span><span class="o">=</span><span class="nb">sum</span><span class="p">(</span><span class="n">A</span><span class="p">[</span><span class="n">i</span><span class="p">,</span><span class="n">j</span><span class="p">]</span> <span class="k">for</span> <span class="n">j</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="n">n</span><span class="p">))</span> <span class="c1"># counts the number of links on page i</span>
+<span class="n">sage</span><span class="p">:</span> <span class="n">D</span><span class="o">=</span><span class="n">matrix</span><span class="p">(</span><span class="n">n</span><span class="p">)</span> <span class="c1"># n by n zero matrix</span>
+<span class="n">sage</span><span class="p">:</span> <span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="n">n</span><span class="p">):</span>
+<span class="n">sage</span><span class="p">:</span>     <span class="n">D</span><span class="p">[</span><span class="n">i</span><span class="p">,</span><span class="n">i</span><span class="p">]</span><span class="o">=</span><span class="n">l</span><span class="p">[</span><span class="n">i</span><span class="p">]</span>
+<span class="n">sage</span><span class="p">:</span> <span class="nb">print</span> <span class="n">D</span><span class="o">.</span><span class="n">inverse</span><span class="p">()</span><span class="o">*</span><span class="n">Ad</span>
+
+<span class="p">[</span>  <span class="mi">0</span> <span class="mi">1</span><span class="o">/</span><span class="mi">2</span>   <span class="mi">0</span> <span class="mi">1</span><span class="o">/</span><span class="mi">2</span> <span class="p">]</span>
+<span class="p">[</span>  <span class="mi">0</span>   <span class="mi">0</span>   <span class="mi">1</span>   <span class="mi">0</span> <span class="p">]</span>
+<span class="p">[</span><span class="mi">1</span><span class="o">/</span><span class="mi">3</span> <span class="mi">1</span><span class="o">/</span><span class="mi">3</span>   <span class="mi">0</span> <span class="mi">1</span><span class="o">/</span><span class="mi">3</span> <span class="p">]</span>
+<span class="p">[</span><span class="mi">1</span><span class="o">/</span><span class="mi">2</span> <span class="mi">1</span><span class="o">/</span><span class="mi">2</span>   <span class="mi">0</span>   <span class="mi">0</span> <span class="p">]</span>
+</pre></div>
+</div>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="c1"># Now note that the matrix we are looking for is the transpose of the normalised adjacency matrix.</span>
+<span class="n">sage</span><span class="p">:</span> <span class="n">A</span><span class="o">=</span><span class="p">(</span><span class="n">D</span><span class="o">.</span><span class="n">inverse</span><span class="p">()</span><span class="o">*</span><span class="n">Ad</span><span class="p">)</span><span class="o">.</span><span class="n">transpose</span><span class="p">()</span>
+<span class="n">sage</span><span class="p">:</span> <span class="nb">print</span> <span class="n">A</span>
+
+<span class="p">[</span>  <span class="mi">0</span>   <span class="mi">0</span> <span class="mi">1</span><span class="o">/</span><span class="mi">3</span> <span class="mi">1</span><span class="o">/</span><span class="mi">2</span> <span class="p">]</span>
+<span class="p">[</span><span class="mi">1</span><span class="o">/</span><span class="mi">2</span>   <span class="mi">0</span> <span class="mi">1</span><span class="o">/</span><span class="mi">3</span> <span class="mi">1</span><span class="o">/</span><span class="mi">2</span> <span class="p">]</span>
+<span class="p">[</span>  <span class="mi">0</span>   <span class="mi">1</span>   <span class="mi">0</span>   <span class="mi">0</span> <span class="p">]</span>
+<span class="p">[</span><span class="mi">1</span><span class="o">/</span><span class="mi">2</span>   <span class="mi">0</span> <span class="mi">1</span><span class="o">/</span><span class="mi">3</span>   <span class="mi">0</span> <span class="p">]</span>
+</pre></div>
+</div>
+<p>We are ready to compute the eigenvalues of <span class="math notranslate nohighlight">\(A\)</span>. This can be done in a few ways: by computing and factorising the characteristic polynomial</p>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="n">sage</span><span class="p">:</span> <span class="n">f</span><span class="o">=</span><span class="n">A</span><span class="o">.</span><span class="n">charpoly</span><span class="p">()</span>
+<span class="n">sage</span><span class="p">:</span> <span class="n">f</span><span class="o">.</span><span class="n">factor</span><span class="p">()</span>
+
+<span class="p">(</span><span class="n">x</span> <span class="o">-</span> <span class="mi">1</span><span class="p">)</span> <span class="o">*</span> <span class="p">(</span><span class="n">x</span> <span class="o">+</span> <span class="mi">1</span><span class="o">/</span><span class="mi">2</span><span class="p">)</span> <span class="o">*</span> <span class="p">(</span><span class="n">x</span><span class="o">^</span><span class="mi">2</span> <span class="o">+</span> <span class="mi">1</span><span class="o">/</span><span class="mi">2</span><span class="o">*</span><span class="n">x</span> <span class="o">+</span> <span class="mi">1</span><span class="o">/</span><span class="mi">6</span><span class="p">)</span>
+</pre></div>
+</div>
+<p>by applying a direct function</p>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span>sage: A.eigenvalues()
+
+[1, -1/2, -0.25000000000000000? - 0.3227486121839514?*I, -0.25000000000000000? + 0.3227486121839514?*I]
+</pre></div>
+</div>
+<p>or even by asking sage to provide directly the eigenvectors</p>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span>sage: A.eigenvectors_right()
+
+[(1, [
+(1, 3/2, 3/2, 1)
+], 1), (-1/2, [
+(1, 0, 0, -1)
+], 1), (-0.25000000000000000? - 0.3227486121839514?*I,
+[(1, 0.25000000000000000? + 0.9682458365518542?*I, -2.2500000000000000? - 0.9682458365518542?*I, 1)],
+1), (-0.25000000000000000? + 0.3227486121839514?*I,
+[(1, 0.25000000000000000? - 0.9682458365518542?*I, -2.2500000000000000? + 0.9682458365518542?*I, 1)],
+1)]
+</pre></div>
+</div>
+<p>Note that the function <code class="docutils literal notranslate"><span class="pre">eigenvectors_right()</span></code> provides first an eigenvalue, and then the associated eigenvector.</p>
+<p>We obtained a completely different importance score vector!</p>
+<ul class="simple">
+<li><p>Basic approach: <span class="math notranslate nohighlight">\(\ (2, 3, 1, 2)\ \)</span>.</p></li>
+<li><p>Normalised approach: <span class="math notranslate nohighlight">\(\ (1, \frac32, \frac32, 1)\ \)</span>.</p></li>
+</ul>
+<p>However, if we look once again at the picture presenting our web, we see that the new result is not that surprising after all: page 2 gets most votes, and page 3 just one, but this one vote comes from page 2 which is considered to be most important.</p>
+<p>Every matrix which arises in the same way as the matrix <span class="math notranslate nohighlight">\(A\)</span> in the above example will be called a <em>link matrix</em>. Note that all the entries of a link matrix are nonnegative and, thanks to the normalisation, the entries in each column sum to one, that is, a link matrix is an example of a <em>column-stochastic matrix</em>.</p>
+<p>The problem of existence of an eigenvector with the eigenvalue <span class="math notranslate nohighlight">\(1\)</span> solves the following proposition (proven in <a class="reference internal" href="#bl" id="id2"><span>[BL]</span></a>).</p>
+<div class="admonition-proposition admonition">
+<p class="admonition-title">Proposition.</p>
+<p>Every column-stochastic matrix has <span class="math notranslate nohighlight">\(1\)</span> as an eigenvalue.</p>
+</div>
+<p>We denote by <span class="math notranslate nohighlight">\(\ V_1(A)\ \)</span> the eigenspace for eigenvalue <span class="math notranslate nohighlight">\(1\)</span> of a column-stochastic
+matrix <span class="math notranslate nohighlight">\(A.\)</span> If <span class="math notranslate nohighlight">\(A\)</span> is the link matrix, the space <span class="math notranslate nohighlight">\(\ V_1(A)\ \)</span> contains vectors which carry information about importance scores of websites. However, is <span class="math notranslate nohighlight">\(\ V_1(A)\ \)</span> always <span class="math notranslate nohighlight">\(1\)</span>-dimensional?</p>
+<p><strong>Example 3.</strong></p>
+<p>Consider a web consisting of two disconnected subwebs <span class="math notranslate nohighlight">\(\ W_1\ \)</span> (pages 1-4) and <span class="math notranslate nohighlight">\(\ W_2\ \)</span> (pages 5,6):</p>
+<figure class="align-center">
+<a class="reference internal image-reference" href="_images/PR2.png"><img alt="_images/PR2.png" src="_images/PR2.png" style="width: 548.8px; height: 253.39999999999998px;" /></a>
+</figure>
+<p>The diagram was made by adding two paths to a graph from Example 1.:</p>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="n">sage</span><span class="p">:</span> <span class="n">W</span><span class="o">.</span><span class="n">add_path</span><span class="p">([</span><span class="s1">&#39;5&#39;</span><span class="p">,</span><span class="s1">&#39;6&#39;</span><span class="p">])</span>
+<span class="n">sage</span><span class="p">:</span> <span class="n">W</span><span class="o">.</span><span class="n">add_path</span><span class="p">([</span><span class="s1">&#39;6&#39;</span><span class="p">,</span><span class="s1">&#39;5&#39;</span><span class="p">])</span>
+<span class="n">sage</span><span class="p">:</span> <span class="n">W</span><span class="o">.</span><span class="n">plot</span><span class="p">()</span>
+</pre></div>
+</div>
+<p>Note that if we apply the function <code class="docutils literal notranslate"><span class="pre">W.add_path()</span></code> then new vertices are created automatically. (We wrote <code class="docutils literal notranslate"><span class="pre">W.add_path(['5','6'])</span></code> instead of <code class="docutils literal notranslate"><span class="pre">W.add_path([5,6])</span></code> so that if we call a function <code class="docutils literal notranslate"><span class="pre">W.vertices()</span></code>, then we obtain a vector [‘1’, ‘2’, ‘3’, ‘4’, ‘5’, ‘6’] rather than [5, 6, ‘1’, ‘2’, ‘3’, ‘4’].)</p>
+<p>Following an approach presented in Example 2. we obtain exactly the same relations for <span class="math notranslate nohighlight">\(\ x_1, x_2, x_3, x_4\ \)</span>, and additionally <span class="math notranslate nohighlight">\(\ x_5= \frac{x_6}{1} =x_6\,.\)</span> This leads into the matrix equation <span class="math notranslate nohighlight">\(\ x=Ax\ \)</span> with</p>
+<div class="math notranslate nohighlight">
+\[\begin{split}A=\left[\begin{matrix}
+0 &amp; 0 &amp; 1/3 &amp; 1/2 &amp; 0 &amp; 0\\
+1/2 &amp; 0 &amp; 1/3 &amp; 1/2 &amp; 0 &amp; 0\\
+0 &amp; 1 &amp; 0 &amp; 0 &amp; 0 &amp; 0\\
+1/2 &amp; 0 &amp; 1/3 &amp; 0 &amp; 0 &amp; 0\\
+0 &amp; 0 &amp; 0 &amp; 0 &amp; 0 &amp; 1\\
+0 &amp; 0 &amp; 0 &amp; 0 &amp; 1 &amp; 0
+\end{matrix}\right]\, .\end{split}\]</div>
+<p>As before, we compute the eigenvectors for the eigenvalue <span class="math notranslate nohighlight">\(1\)</span> using Sage (now we know that there exists at least one such eigenvector):</p>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="c1"># First, we find an adjacency matrix of the web W.</span>
+<span class="n">sage</span><span class="p">:</span> <span class="n">Ad</span><span class="o">=</span><span class="n">W</span><span class="o">.</span><span class="n">adjacency_matrix</span><span class="p">()</span>
+<span class="n">sage</span><span class="p">:</span> <span class="nb">print</span> <span class="n">Ad</span>
+
+<span class="p">[</span><span class="mi">0</span> <span class="mi">1</span> <span class="mi">0</span> <span class="mi">1</span> <span class="mi">0</span> <span class="mi">0</span><span class="p">]</span>
+<span class="p">[</span><span class="mi">0</span> <span class="mi">0</span> <span class="mi">1</span> <span class="mi">0</span> <span class="mi">0</span> <span class="mi">0</span><span class="p">]</span>
+<span class="p">[</span><span class="mi">1</span> <span class="mi">1</span> <span class="mi">0</span> <span class="mi">1</span> <span class="mi">0</span> <span class="mi">0</span><span class="p">]</span>
+<span class="p">[</span><span class="mi">1</span> <span class="mi">1</span> <span class="mi">0</span> <span class="mi">0</span> <span class="mi">0</span> <span class="mi">0</span><span class="p">]</span>
+<span class="p">[</span><span class="mi">0</span> <span class="mi">0</span> <span class="mi">0</span> <span class="mi">0</span> <span class="mi">0</span> <span class="mi">1</span><span class="p">]</span>
+<span class="p">[</span><span class="mi">0</span> <span class="mi">0</span> <span class="mi">0</span> <span class="mi">0</span> <span class="mi">1</span> <span class="mi">0</span><span class="p">]</span>
+</pre></div>
+</div>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="c1"># Secondly, we find the link matrix.</span>
+<span class="n">sage</span><span class="p">:</span> <span class="n">n</span><span class="o">=</span><span class="n">Ad</span><span class="o">.</span><span class="n">ncols</span><span class="p">()</span> <span class="c1"># counts the number of columns of Ad</span>
+<span class="n">sage</span><span class="p">:</span> <span class="n">l</span><span class="o">=</span><span class="n">vector</span><span class="p">(</span><span class="mi">0</span> <span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="n">n</span><span class="p">))</span>
+<span class="n">sage</span><span class="p">:</span> <span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="n">n</span><span class="p">):</span>
+<span class="n">sage</span><span class="p">:</span>     <span class="n">l</span><span class="p">[</span><span class="n">i</span><span class="p">]</span><span class="o">=</span><span class="nb">sum</span><span class="p">(</span><span class="n">A</span><span class="p">[</span><span class="n">i</span><span class="p">,</span><span class="n">j</span><span class="p">]</span> <span class="k">for</span> <span class="n">j</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="n">n</span><span class="p">))</span> <span class="c1"># counts the number of links on page i</span>
+<span class="n">sage</span><span class="p">:</span> <span class="n">D</span><span class="o">=</span><span class="n">matrix</span><span class="p">(</span><span class="n">n</span><span class="p">)</span> <span class="c1"># n by n zero matrix</span>
+<span class="n">sage</span><span class="p">:</span> <span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="n">n</span><span class="p">):</span>
+<span class="n">sage</span><span class="p">:</span>     <span class="n">D</span><span class="p">[</span><span class="n">i</span><span class="p">,</span><span class="n">i</span><span class="p">]</span><span class="o">=</span><span class="n">l</span><span class="p">[</span><span class="n">i</span><span class="p">]</span>
+<span class="n">sage</span><span class="p">:</span> <span class="n">A</span><span class="o">=</span><span class="p">(</span><span class="n">D</span><span class="o">.</span><span class="n">inverse</span><span class="p">()</span><span class="o">*</span><span class="n">Ad</span><span class="p">)</span><span class="o">.</span><span class="n">transpose</span><span class="p">()</span>
+<span class="n">sage</span><span class="p">:</span> <span class="nb">print</span> <span class="n">A</span>
+
+<span class="p">[</span>  <span class="mi">0</span>   <span class="mi">0</span> <span class="mi">1</span><span class="o">/</span><span class="mi">3</span> <span class="mi">1</span><span class="o">/</span><span class="mi">2</span>   <span class="mi">0</span>   <span class="mi">0</span><span class="p">]</span>
+<span class="p">[</span><span class="mi">1</span><span class="o">/</span><span class="mi">2</span>   <span class="mi">0</span> <span class="mi">1</span><span class="o">/</span><span class="mi">3</span> <span class="mi">1</span><span class="o">/</span><span class="mi">2</span>   <span class="mi">0</span>   <span class="mi">0</span><span class="p">]</span>
+<span class="p">[</span>  <span class="mi">0</span>   <span class="mi">1</span>   <span class="mi">0</span>   <span class="mi">0</span>   <span class="mi">0</span>   <span class="mi">0</span><span class="p">]</span>
+<span class="p">[</span><span class="mi">1</span><span class="o">/</span><span class="mi">2</span>   <span class="mi">0</span> <span class="mi">1</span><span class="o">/</span><span class="mi">3</span>   <span class="mi">0</span>   <span class="mi">0</span>   <span class="mi">0</span><span class="p">]</span>
+<span class="p">[</span>  <span class="mi">0</span>   <span class="mi">0</span>   <span class="mi">0</span>   <span class="mi">0</span>   <span class="mi">0</span>   <span class="mi">1</span><span class="p">]</span>
+<span class="p">[</span>  <span class="mi">0</span>   <span class="mi">0</span>   <span class="mi">0</span>   <span class="mi">0</span>   <span class="mi">1</span>   <span class="mi">0</span><span class="p">]</span>
+</pre></div>
+</div>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="c1"># Finally, we compute the eigenvectors. This time we do it differently.</span>
+<span class="n">sage</span><span class="p">:</span> <span class="n">B</span><span class="o">=</span><span class="n">A</span><span class="o">-</span><span class="n">identity_matrix</span><span class="p">(</span><span class="n">n</span><span class="p">)</span>
+<span class="n">sage</span><span class="p">:</span> <span class="n">B</span><span class="o">.</span><span class="n">rref</span><span class="p">()</span> <span class="c1"># B in the reduced row echelon form</span>
+
+<span class="p">[</span>   <span class="mi">1</span>    <span class="mi">0</span>    <span class="mi">0</span>   <span class="o">-</span><span class="mi">1</span>    <span class="mi">0</span>    <span class="mi">0</span><span class="p">]</span>
+<span class="p">[</span>   <span class="mi">0</span>    <span class="mi">1</span>    <span class="mi">0</span> <span class="o">-</span><span class="mi">3</span><span class="o">/</span><span class="mi">2</span>    <span class="mi">0</span>    <span class="mi">0</span><span class="p">]</span>
+<span class="p">[</span>   <span class="mi">0</span>    <span class="mi">0</span>    <span class="mi">1</span> <span class="o">-</span><span class="mi">3</span><span class="o">/</span><span class="mi">2</span>    <span class="mi">0</span>    <span class="mi">0</span><span class="p">]</span>
+<span class="p">[</span>   <span class="mi">0</span>    <span class="mi">0</span>    <span class="mi">0</span>    <span class="mi">0</span>    <span class="mi">1</span>   <span class="o">-</span><span class="mi">1</span><span class="p">]</span>
+<span class="p">[</span>   <span class="mi">0</span>    <span class="mi">0</span>    <span class="mi">0</span>    <span class="mi">0</span>    <span class="mi">0</span>    <span class="mi">0</span><span class="p">]</span>
+<span class="p">[</span>   <span class="mi">0</span>    <span class="mi">0</span>    <span class="mi">0</span>    <span class="mi">0</span>    <span class="mi">0</span>    <span class="mi">0</span><span class="p">]</span>
+</pre></div>
+</div>
+<p>Hence,</p>
+<div class="math notranslate nohighlight">
+\[x_1=x_4,\qquad x_2=\frac32\, x_4,\qquad x_3=\frac32\, x_4,\qquad x_5=x_6\]</div>
+<p>and thus</p>
+<div class="math notranslate nohighlight">
+\[V_1(A)=L(\left(1,\frac32, \frac32, 1, 0, 0\right)^T,\, (0,0,0,0,1,1)^T)
+        =L(\left(\frac23, 1, 1, \frac23, 0, 0\right)^T,\, (0,0,0,0,1,1)^T) \qquad\text{(after normalisation).}\]</div>
+<p>This time the space of eigenvectors is <span class="math notranslate nohighlight">\(\ 2\)</span>-dimensional and <span class="math notranslate nohighlight">\(\,\)</span> <em>any</em> <span class="math notranslate nohighlight">\(\,\)</span> of the vectors</p>
+<div class="math notranslate nohighlight">
+\[\lambda\cdot \left(\frac23, 1, 1, \frac23, 0, 0\right)^T + (1-\lambda)\cdot \left(0,0,0,0,1,1\right)^T,\qquad \lambda\in Q\]</div>
+<p>could carry information about an importance score of the websites.</p>
+<p>In fact, if a web <span class="math notranslate nohighlight">\(\ W\ \)</span> contains <span class="math notranslate nohighlight">\(r\)</span> subwebs, then <span class="math notranslate nohighlight">\(\ \mathrm{dim}(V_1(A))\geq r\,.\)</span> Indeed, if
+<span class="math notranslate nohighlight">\(\ W_1,W_2\ldots W_r\ \)</span> are subwebs of <span class="math notranslate nohighlight">\(\ W\ \)</span> and <span class="math notranslate nohighlight">\(\ A_1, A_2,\ldots, A_r\ \)</span> are their link matrices, then the link matrix <span class="math notranslate nohighlight">\(\ A\ \)</span> of <span class="math notranslate nohighlight">\(\ W\ \)</span> is of the form</p>
+<div class="math notranslate nohighlight">
+\[\begin{split}A=\left[\begin{matrix}
+A_1 &amp; 0 &amp; \ldots &amp; 0\\
+0   &amp; A_2 &amp; 0    &amp; 0\\
+\vdots &amp; \vdots &amp; \ddots &amp; 0\\
+0   &amp; 0   &amp; 0    &amp; A_r
+\end{matrix}\right]\end{split}\]</div>
+<p>and</p>
+<div class="math notranslate nohighlight">
+\[\begin{split}V_1(A)=L(
+\left[\begin{array}{c} v_1\\ 0\\ 0\\ \vdots\\ 0\end{array}\right],
+\left[\begin{array}{c} 0\\ v_2\\ 0\\ \vdots\\ 0\end{array}\right],
+\ldots,
+\left[\begin{array}{c} 0\\ 0\\ 0\\ \vdots\\ v_r\end{array}\right])\,,\end{split}\]</div>
+<p>where <span class="math notranslate nohighlight">\(\ v_1, v_2 \ldots, v_r\ \)</span> are eigenvectors for the eigenvalue <span class="math notranslate nohighlight">\(1\)</span> of matrices <span class="math notranslate nohighlight">\(\ A_1, A_2,\ldots, A_r\,.\)</span></p>
+<div class="admonition-problem-2 admonition">
+<p class="admonition-title">Problem 2.</p>
+<p>How to compare web pages that are not connected via a path of links and find the most important one?</p>
+</div>
+<p>To deal with this problem we will assume for simplicity that every page has at least one link.</p>
+<p>Assume that a web <span class="math notranslate nohighlight">\(\ W\ \)</span> consists of <span class="math notranslate nohighlight">\(\ n\ \)</span> pages. Let <span class="math notranslate nohighlight">\(\ S\ \)</span> be an <span class="math notranslate nohighlight">\(\ n\times n\ \)</span> matrix with all entries equal to <span class="math notranslate nohighlight">\(\ \frac1n\,\)</span>. We replace the link matrix <span class="math notranslate nohighlight">\(\ A\ \)</span> with the matrix</p>
+<div class="math notranslate nohighlight" id="equation-matrix-m">
+<span class="eqno">(2)<a class="headerlink" href="#equation-matrix-m" title="Permalink to this equation">¶</a></span>\[M = (1−m)A + mS,\]</div>
+<p>where <span class="math notranslate nohighlight">\(\ m\in [0,1]\ \)</span> is a certain fixed value. The value of <span class="math notranslate nohighlight">\(m\)</span> originally used by Google was <span class="math notranslate nohighlight">\(0.15\)</span>. It is not difficult to check that the matrix <span class="math notranslate nohighlight">\(M\)</span> is a column-stochastic matrix, and thus it has an eigenvector for the eigenvalue <span class="math notranslate nohighlight">\(1 .\,\)</span> Moreover, one can prove (c.f. <a class="reference internal" href="#bl" id="id3"><span>[BL]</span></a>)</p>
+<div class="admonition-proposition admonition">
+<p class="admonition-title">Proposition.</p>
+<p>If <span class="math notranslate nohighlight">\(M\)</span> is column-stochastic and each of its entry is positive, then <span class="math notranslate nohighlight">\(\ \mathrm{dim}(V_1(M))=1\,.\)</span></p>
+</div>
+<p><strong>Example 4.</strong></p>
+<p>Consider a web from Example 3. and take <span class="math notranslate nohighlight">\(\ m=0.15\,.\)</span> Then the matrix <span class="math notranslate nohighlight">\(M\)</span> may be easily found by the following code:</p>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span>sage: A=matrix(QQ,[[0, 0, 1/3, 1/2, 0, 0], [1/2, 0, 1/3, 1/2, 0, 0], [0, 1, 0, 0, 0, 0], [1/2, 0, 1/3, 0, 0, 0],
+[0, 0, 0, 0, 0, 1], [0, 0, 0, 0, 1, 0]])
+sage: n=A.ncols()
+sage: m=0.15
+sage: S=ones_matrix(QQ,n)/n # the all ones matrix multiplied by 1/n
+sage: M = (1−m)*A + m*S
+sage: print M.n(digits=3) # each entry has a precision up to 0.001
+
+[0.0250 0.0250  0.308  0.450 0.0250 0.0250]
+[ 0.450 0.0250  0.308  0.450 0.0250 0.0250]
+[0.0250  0.875 0.0250 0.0250 0.0250 0.0250]
+[ 0.450 0.0250  0.308 0.0250 0.0250 0.0250]
+[0.0250 0.0250 0.0250 0.0250 0.0250  0.875]
+[0.0250 0.0250 0.0250 0.0250  0.875 0.0250]
+</pre></div>
+</div>
+<p>We can easily in SageMath determine the eigenvector corresponding to eigenvalue 1.</p>
+<div class="admonition note">
+<p class="admonition-title">Note</p>
+<p>It is important to change ring of the matrix <span class="math notranslate nohighlight">\(M\)</span> to RDF or CDF, since the computations might cause problems in exact arithmetics.</p>
+</div>
+<div class="admonition-experiment-with-sage admonition">
+<p class="admonition-title">Experiment with Sage!</p>
+<p>Run the code below to compute the eigenvector for eigenvalue 1.</p>
+</div>
+<div class='sage_linked'><script type='text/x-sage'>A=matrix(QQ,[[0, 0, 1/3, 1/2, 0, 0], [1/2, 0, 1/3, 1/2, 0, 0], [0, 1, 0, 0, 0, 0], [1/2, 0, 1/3, 0, 0, 0],
+[0, 0, 0, 0, 0, 1], [0, 0, 0, 0, 1, 0]])
+n=A.ncols()
+m=0.15
+l=1-m
+S=ones_matrix(QQ,n)/n # the all ones matrix multiplied by 1/n
+M = l*A + m*S
+
+for e,evs,k in M.change_ring(RDF).eigenvectors_right():
+    if abs(e-1)<1e-6:
+        if k==1:
+            ev = evs[0]
+            print(ev)
+        else:
+            print("k not 0",k)</script></div><p>we see that the most important website is the second one, and just after it is the third one, which agrees to some extent with both normalised and basic approach.</p>
+<p>Thanks to Sage we did not have to spend a lot of time doing unpleasant computations by hand. However, the bigger the matrix is, the longer one has to wait for the answer. And if currently there are almost <span class="math notranslate nohighlight">\(\ 2\cdot 10^9\ \)</span> websites <a class="footnote-reference brackets" href="#id7" id="id4">2</a>…</p>
+<div class="admonition-problem-3 admonition">
+<p class="admonition-title">Problem 3.</p>
+<p>How to compute an eigenvector of a huge matrix efficiently?</p>
+</div>
+<p>We will discuss, after <a class="reference internal" href="#bl" id="id5"><span>[BL]</span></a>, an idea behind <span class="math notranslate nohighlight">\(\,\)</span> <em>the power method</em> . <span class="math notranslate nohighlight">\(\,\)</span> This method bases on</p>
+<div class="admonition-theorem-bl admonition">
+<p class="admonition-title">Theorem <a class="reference internal" href="#bl" id="id6"><span>[BL]</span></a>.</p>
+<p>The matrix <span class="math notranslate nohighlight">\(M\)</span> defined by equation <a class="reference internal" href="#equation-matrix-m">(2)</a> for a web with no dangling nodes will always be a
+column-stochastic matrix with positive entries and so have a unique vector <span class="math notranslate nohighlight">\(\ q=[q_i]_n\ \)</span> with positive components
+such that <span class="math notranslate nohighlight">\(\ Mq = q\ \)</span> and <span class="math notranslate nohighlight">\(\ \sum_{i=1}^n q_i=1\ \)</span>.
+The vector <span class="math notranslate nohighlight">\(\ q\ \)</span> may be computed as the limit of iterations</p>
+<div class="math notranslate nohighlight">
+\[x_k = (1 − m)Ax_{k−1} + ms,\]</div>
+<p>where <span class="math notranslate nohighlight">\(\ x_0=[x_{0,i}]_n\ \)</span> is any initial vector with positive components such that
+<span class="math notranslate nohighlight">\(\ \sum_{i=1}^n x_{0,i}=1\ \)</span>, and <span class="math notranslate nohighlight">\(\ s=[1/n,\ldots, 1/n]^T\ \)</span>.</p>
+</div>
+<p>This theorem does not only tell us that every column-stochastic matrix has a <span class="math notranslate nohighlight">\(\,\)</span> <em>unique</em> <span class="math notranslate nohighlight">\(\,\)</span> eiegenvector for the eigenvalue <span class="math notranslate nohighlight">\(1\)</span> (which results in a unique importance score ranking), <span class="math notranslate nohighlight">\(\,\)</span> but also <span class="math notranslate nohighlight">\(\,\)</span> <em>how</em> <span class="math notranslate nohighlight">\(\,\)</span> it may be computed. And this computation is surprisingly simple! Note also that if we apply the matrix <span class="math notranslate nohighlight">\(\ M\ \)</span> to a vector <span class="math notranslate nohighlight">\(\ x=[x_i]_n\ \)</span> whose entries sum up to one: <span class="math notranslate nohighlight">\(\ \sum_{i=1}^n x_i=1\ \)</span>, then</p>
+<div class="math notranslate nohighlight">
+\[Mx = ((1−m)A + mS)x = (1−m)Ax + mSx = (1−m)Ax + ms,\]</div>
+<p>because</p>
+<div class="math notranslate nohighlight">
+\[\begin{split}Sx = \left[\begin{matrix}
+\frac1n &amp; \cdots &amp; \frac1n\\
+\vdots  &amp; \ddots &amp; \vdots\\
+\frac1n &amp; \cdots &amp; \frac1n
+\end{matrix}\right]
+\left[\begin{matrix} x_1\\ \vdots \\x_n \end{matrix}\right]
+=\left[\begin{matrix} \sum_{i=1}^n (\frac1n x_i)\\ \vdots \\\sum_{i=1}^n (\frac1n x_i) \end{matrix}\right]
+=\left[\begin{matrix} \frac1n\\ \vdots \\\frac1n \end{matrix}\right]
+=s.\end{split}\]</div>
+<p>This fact significantly decreases the amount of computations that have to be performed. Indeed, to calculate
+<span class="math notranslate nohighlight">\(\ Mx\ \)</span> it suffices to add the known quantity <span class="math notranslate nohighlight">\(\ ms\ \)</span> to a product <span class="math notranslate nohighlight">\(\ (1−m)Ax\ \)</span>, where the matrix <span class="math notranslate nohighlight">\(A\)</span> consists mainly of zeros.</p>
+<p><strong>Example 5.</strong></p>
+<p>We will compare the results from Example 4. with a construction suggested by the above theorem. The code below takes as the initial vector <span class="math notranslate nohighlight">\(\ x_0=[1/n,\ldots, 1/n]\ \)</span> , where <span class="math notranslate nohighlight">\(n\)</span> is the size of matrix <span class="math notranslate nohighlight">\(A\)</span>, and performs <span class="math notranslate nohighlight">\(10\)</span> iterations. See what happens if you change the entries of <span class="math notranslate nohighlight">\(x_0\)</span>, number of iterations or the value of <span class="math notranslate nohighlight">\(m\)</span>. How good is the approximation of the importance score vector? How many iterations need to be done to obtain the same ranking of web pages as in Example 4.? See also what happens if some entries of <span class="math notranslate nohighlight">\(x_0\)</span> are non-positive or do not sum up to one.</p>
+<div class='sage_linked'><script type='text/x-sage'>A=matrix(QQ,[[0, 0, 1/3, 1/2, 0, 0], [1/2, 0, 1/3, 1/2, 0, 0], [0, 1, 0, 0, 0, 0], [1/2, 0, 1/3, 0, 0, 0],
+[0, 0, 0, 0, 0, 1], [0, 0, 0, 0, 1, 0]])
+n=A.ncols()
+m=0.15
+ms=m*vector(QQ,[1/n for i in range(n)])/n
+mA = (1-m)*A
+x0=vector(QQ,[1/n for i in range(n)])
+N=10
+for k in range(N):
+    x0=mA*x0+ms
+    print 'k = ', k, ':', x0/x0[n-1] # we normalize x0 so that the last entry is equal to one</script></div><div class="admonition-problem-4 admonition">
+<p class="admonition-title">Problem 4.</p>
+<p>If a web contains dangling nodes, then the link matrix is not column-stochastic and thus the methods discussed
+above cannot be applied.</p>
+</div>
+<p>If a web contains websites with no links (i.e. dangling nodes), then the corresponding columns of the link matrix <span class="math notranslate nohighlight">\(A\)</span>  will contain only zeros. In such situation <span class="math notranslate nohighlight">\(A\)</span> is <em>column-substochastic</em>, that is, sum of entries of <span class="math notranslate nohighlight">\(A\)</span> is less or equal to one. The eigenvalues of <span class="math notranslate nohighlight">\(A\)</span> still need to be less or equal to one, but <span class="math notranslate nohighlight">\(1\)</span> does not have to be an eigenvalue. However, <span class="math notranslate nohighlight">\(A\)</span> will still have a positive eigenvalue and a corresponding eigenevctor with non-negative entries may be taken as the importance score vector. If instead of a link matrix <span class="math notranslate nohighlight">\(A\)</span> we consider the matrix <span class="math notranslate nohighlight">\(M\)</span> defined by the formula <a class="reference internal" href="#equation-matrix-m">(2)</a>, then the eigenvector will be unique:</p>
+<div class="admonition-perron-s-theorem admonition">
+<p class="admonition-title">Perron’s theorem.</p>
+<p>Let <span class="math notranslate nohighlight">\(\ A\ \)</span> be a square matrix with positive entries and <span class="math notranslate nohighlight">\(\ \lambda\ \)</span> its greatest eigenvalue. Then:</p>
+<ol class="arabic simple">
+<li><p><span class="math notranslate nohighlight">\(\ \lambda &gt; 0\ \)</span>,</p></li>
+<li><p>algebraic multiplicity of <span class="math notranslate nohighlight">\(\ \lambda\ \)</span> is equal to one,</p></li>
+<li><p>there exists a unique eigenvector for <span class="math notranslate nohighlight">\(\ \lambda\ \)</span> with all the entries positive (the <em>Perron vector</em>),</p></li>
+<li><p>entries of eigenvectors for other eigenvalues are not all positive.</p></li>
+</ol>
+</div>
+<p>More general situation of a matrix with non-negative entries is treated in Perron–Frobenius Theorem, which we do not include here.</p>
+<p><strong>Example 6.</strong></p>
+<p>Consider the web illustrated by the following graph:</p>
+<figure class="align-center">
+<a class="reference internal image-reference" href="_images/PR3.png"><img alt="_images/PR3.png" src="_images/PR3.png" style="width: 385.7px; height: 408.79999999999995px;" /></a>
+</figure>
+<p>Its link matrix is</p>
+<div class="math notranslate nohighlight">
+\[\begin{split}A=\left[\begin{matrix}
+0 &amp; 0 &amp; 1/3 &amp; 1/2\\
+1/2 &amp; 0 &amp; 1/3 &amp; 1/2\\
+0 &amp; 0 &amp; 0 &amp; 0\\
+1/2 &amp; 0 &amp; 1/3 &amp; 0
+\end{matrix}\right]\end{split}\]</div>
+<p>We will compute an eigenvector of <span class="math notranslate nohighlight">\(A\)</span> for the greatest eigenvalue using the formula <a class="reference internal" href="#equation-basic-formula">(1)</a> without constructing the matrix <span class="math notranslate nohighlight">\(M\)</span>:</p>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="n">sage</span><span class="p">:</span> <span class="n">A</span><span class="o">=</span><span class="n">matrix</span><span class="p">(</span><span class="n">QQ</span><span class="p">,[[</span><span class="mi">0</span><span class="p">,</span> <span class="mi">0</span><span class="p">,</span> <span class="mi">1</span><span class="o">/</span><span class="mi">3</span><span class="p">,</span> <span class="mi">1</span><span class="o">/</span><span class="mi">2</span><span class="p">],</span> <span class="p">[</span><span class="mi">1</span><span class="o">/</span><span class="mi">2</span><span class="p">,</span> <span class="mi">0</span><span class="p">,</span> <span class="mi">1</span><span class="o">/</span><span class="mi">3</span><span class="p">,</span> <span class="mi">1</span><span class="o">/</span><span class="mi">2</span><span class="p">],</span> <span class="p">[</span><span class="mi">0</span><span class="p">,</span> <span class="mi">0</span><span class="p">,</span> <span class="mi">0</span><span class="p">,</span> <span class="mi">0</span><span class="p">],</span> <span class="p">[</span><span class="mi">1</span><span class="o">/</span><span class="mi">2</span><span class="p">,</span> <span class="mi">0</span><span class="p">,</span> <span class="mi">1</span><span class="o">/</span><span class="mi">3</span><span class="p">,</span> <span class="mi">0</span><span class="p">]])</span>
+<span class="n">sage</span><span class="p">:</span> <span class="n">l</span><span class="o">=</span><span class="nb">sorted</span><span class="p">(</span><span class="n">A</span><span class="o">.</span><span class="n">eigenvectors_right</span><span class="p">())</span> <span class="c1"># sorted list of eigenvectors</span>
+<span class="n">sage</span><span class="p">:</span> <span class="nb">print</span> <span class="n">l</span><span class="p">,</span> <span class="s1">&#39;</span><span class="se">\n</span><span class="s1">&#39;</span><span class="p">;</span> <span class="n">l</span><span class="p">[</span><span class="nb">len</span><span class="p">(</span><span class="n">l</span><span class="p">)</span><span class="o">-</span><span class="mi">1</span><span class="p">]</span> <span class="c1"># len(l) = length of the list l</span>
+
+<span class="p">[(</span><span class="o">-</span><span class="mi">1</span><span class="o">/</span><span class="mi">2</span><span class="p">,</span> <span class="p">[</span>
+<span class="p">(</span><span class="mi">1</span><span class="p">,</span> <span class="mi">0</span><span class="p">,</span> <span class="mi">0</span><span class="p">,</span> <span class="o">-</span><span class="mi">1</span><span class="p">)</span>
+<span class="p">],</span> <span class="mi">1</span><span class="p">),</span> <span class="p">(</span><span class="mi">0</span><span class="p">,</span> <span class="p">[</span>
+<span class="p">(</span><span class="mi">0</span><span class="p">,</span> <span class="mi">1</span><span class="p">,</span> <span class="mi">0</span><span class="p">,</span> <span class="mi">0</span><span class="p">)</span>
+<span class="p">],</span> <span class="mi">2</span><span class="p">),</span> <span class="p">(</span><span class="mi">1</span><span class="o">/</span><span class="mi">2</span><span class="p">,</span> <span class="p">[</span>
+<span class="p">(</span><span class="mi">1</span><span class="p">,</span> <span class="mi">2</span><span class="p">,</span> <span class="mi">0</span><span class="p">,</span> <span class="mi">1</span><span class="p">)</span>
+<span class="p">],</span> <span class="mi">1</span><span class="p">)]</span>
+
+<span class="p">(</span><span class="mi">1</span><span class="o">/</span><span class="mi">2</span><span class="p">,</span> <span class="p">[</span>
+<span class="p">(</span><span class="mi">1</span><span class="p">,</span> <span class="mi">2</span><span class="p">,</span> <span class="mi">0</span><span class="p">,</span> <span class="mi">1</span><span class="p">)</span>
+<span class="p">],</span> <span class="mi">1</span><span class="p">)</span>
+</pre></div>
+</div>
+<dl class="citation">
+<dt class="label" id="bl"><span class="brackets">BL</span><span class="fn-backref">(<a href="#id1">1</a>,<a href="#id2">2</a>,<a href="#id3">3</a>,<a href="#id5">4</a>,<a href="#id6">5</a>)</span></dt>
+<dd><ol class="upperalpha simple" start="11">
+<li><p>Bryan and T. Leise, “The $25,000,000,000 Eigenvector. The Linear Algebra Behind Google”. Available at <a class="reference external" href="https://www.rose-hulman.edu/~bryan/google.html">https://www.rose-hulman.edu/~bryan/google.html</a> .</p></li>
+</ol>
+</dd>
+</dl>
+<dl class="footnote brackets">
+<dt class="label" id="id7"><span class="brackets"><a class="fn-backref" href="#id4">2</a></span></dt>
+<dd><p><a class="reference external" href="http://www.internetlivestats.com/watch/websites/">http://www.internetlivestats.com/watch/websites/</a> .</p>
+</dd>
+</dl>
+</section>
+
+
+          </div>
+        </div>
+      </div>
+      <div class="sphinxsidebar" role="navigation" aria-label="main navigation">
+        <div class="sphinxsidebarwrapper">
+  <h4>Previous topic</h4>
+  <p class="topless"><a href="problem_wlasny_rownania_rozniczkowe.html"
+                        title="previous chapter">Application to Systems of Linear Differential Equations</a></p>
+  <h4>Next topic</h4>
+  <p class="topless"><a href="problem_wlasny_zadania.html"
+                        title="next chapter">Exercises</a></p>
+  <div role="note" aria-label="source link">
+    <h3>This Page</h3>
+    <ul class="this-page-menu">
+      <li><a href="_sources/problem_wlasny_Google.rst.txt"
+            rel="nofollow">Show Source</a></li>
+    </ul>
+   </div>
+<div id="searchbox" style="display: none" role="search">
+  <h3 id="searchlabel">Quick search</h3>
+    <div class="searchformwrapper">
+    <form class="search" action="search.html" method="get">
+      <input type="text" name="q" aria-labelledby="searchlabel" />
+      <input type="submit" value="Go" />
+    </form>
+    </div>
+</div>
+<script>$('#searchbox').show(0);</script>
+        </div>
+      </div>
+      <div class="clearer"></div>
+    </div>
+  </div>
+  <div class="relbar-bottom">
+    
+    <div class="related" role="navigation" aria-label="related navigation">
+      <h3>Navigation</h3>
+      <ul>
+        <li class="right" style="margin-right: 10px">
+          <a href="genindex.html" title="General Index"
+             >index</a></li>
+        <li class="right" >
+          <a href="problem_wlasny_zadania.html" title="Exercises"
+             >next</a> &nbsp; &nbsp;</li>
+        <li class="right" >
+          <a href="problem_wlasny_rownania_rozniczkowe.html" title="Application to Systems of Linear Differential Equations"
+             >previous</a> &nbsp; &nbsp;</li>
+  <li><a href="index.html">Linear Algebra</a> &#187;</li>
+  
+        <li class="nav-item nav-item-this"><a href="">Google’s Application - PageRank Algorithm</a></li> 
+      </ul>
+    </div>
+  </div>
+  
+  <div class="footer">
+    <a class="logo" href="http://icse.us.edu.pl/" target="_blank"><img src="_static/logo-icse.png" alt="ICSE"/></a><br/>
+    &copy; Copyright 2018, Jan Aksamit, Joanna Marzec, and  Marcin Kostur.
+    Last updated on Jan 29, 2022.
+    Created using <a href="http://sphinx.pocoo.org/">Sphinx</a> 4.0.1.
+  </div>
+  </body>
+</html>

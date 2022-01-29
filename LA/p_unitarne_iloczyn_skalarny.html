@@ -1,0 +1,362 @@
+
+
+  
+<!DOCTYPE html>
+
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" /><meta name="generator" content="Docutils 0.17: http://docutils.sourceforge.net/" />
+
+    <title>Inner (Scalar) Product &#8212; Linear Algebra</title>
+    <link rel="stylesheet" type="text/css" href="_static/pygments.css" />
+    <link rel="stylesheet" type="text/css" href="_static/cloud.css" />
+    <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Noticia+Text|Open+Sans|Droid+Sans+Mono&amp;subset=latin,latin-ext" type="text/css" />
+    <script data-url_root="./" id="documentation_options" src="_static/documentation_options.js"></script>
+    <script src="_static/jquery.js"></script>
+    <script src="_static/underscore.js"></script>
+    <script src="_static/doctools.js"></script>
+    <script async="async" src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js"></script>
+    <script src="_static/jquery.cookie.js"></script>
+    <script src="_static/cloud.js"></script>
+    <script type="text/javascript" src="http://sagecell.sagemath.org/static/jquery.min.js"></script>
+    <script type="text/javascript" src="http://sagecell.sagemath.org/embedded_sagecell.js"></script>
+    <script type="text/javascript">
+        sagecell.makeSagecell({inputLocation: ".sage_linked",
+                               linked: true});
+        sagecell.makeSagecell({inputLocation: ".sage_unlinked",
+                               linked: false});
+    </script>
+
+    <style type="text/css">
+        .sagecell .CodeMirror-scroll {
+            overflow-y: hidden;
+            overflow-x: auto;
+        }
+        .sagecell .CodeMirror {
+            height: auto;
+        }
+    </style>
+    
+    <link rel="index" title="Index" href="genindex.html" />
+    <link rel="search" title="Search" href="search.html" />
+    <link rel="next" title="Norm of a Vector" href="p_unitarne_norma.html" />
+    <link rel="prev" title="Exercises" href="problem_wlasny_zadania.html" />
+ 
+  <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, minimum-scale=1">
+  </head><body>
+  <div class="relbar-top">
+    
+    <div class="related" role="navigation" aria-label="related navigation">
+      <h3>Navigation</h3>
+      <ul>
+        <li class="right" style="margin-right: 10px">
+          <a href="genindex.html" title="General Index"
+             accesskey="I">index</a></li>
+        <li class="right" >
+          <a href="p_unitarne_norma.html" title="Norm of a Vector"
+             accesskey="N">next</a> &nbsp; &nbsp;</li>
+        <li class="right" >
+          <a href="problem_wlasny_zadania.html" title="Exercises"
+             accesskey="P">previous</a> &nbsp; &nbsp;</li>
+  <li><a href="index.html">Linear Algebra</a> &#187;</li>
+  
+        <li class="nav-item nav-item-this"><a href="">Inner (Scalar) Product</a></li> 
+      </ul>
+    </div>
+  </div>
+  
+  <div class="content">  
+
+    <div class="document">
+      <div class="documentwrapper">
+        <div class="bodywrapper">
+          <div class="body">
+            
+  <section id="inner-scalar-product">
+<span id="inner-product"></span><h1>Inner (Scalar) Product<a class="headerlink" href="#inner-scalar-product" title="Permalink to this headline">¶</a></h1>
+<section id="axiomatic-definition-and-its-implementations">
+<h2>Axiomatic Definition and its Implementations<a class="headerlink" href="#axiomatic-definition-and-its-implementations" title="Permalink to this headline">¶</a></h2>
+<div class="admonition-definition admonition">
+<p class="admonition-title">Definition.</p>
+<div class="line-block">
+<div class="line">Let <span class="math notranslate nohighlight">\(\,V(C)\ \)</span> be a vector space.</div>
+<div class="line">An <em>inner product</em> is a map <span class="math notranslate nohighlight">\(\,f:\ V\times V\rightarrow C\ \)</span>
+satisfying the conditions</div>
+<div class="line">(and denoted <span class="math notranslate nohighlight">\(\,f(x,y)=\langle x,y\rangle,\ \ x,y\in V\)</span>) :</div>
+</div>
+<ol class="arabic simple">
+<li><p><span class="math notranslate nohighlight">\(\,\langle y,x\rangle\,=\,\langle x,y\rangle^*\,,\)</span></p></li>
+<li><p><span class="math notranslate nohighlight">\(\,\langle\,x,\,y_1+y_2\,\rangle\,=\,\langle x,y_1\rangle\,+\,\langle x,y_2\rangle\,,\)</span></p></li>
+<li><p><span class="math notranslate nohighlight">\(\,\langle x,\,\alpha\,y\rangle\,=\,\alpha\,\langle x,y\rangle\,,\quad\alpha\in C\,,\)</span></p></li>
+<li><p><span class="math notranslate nohighlight">\(\,\langle x,x\rangle\geq 0\quad\land\quad
+[\ \,\langle x,x\rangle=0\ \ \Leftrightarrow\ \ x=\theta\ \,]\,.\)</span></p></li>
+</ol>
+</div>
+<p><strong>Comments and remarks.</strong></p>
+<ul class="simple">
+<li><p>An inner product of two vectors belonging to the complex space <span class="math notranslate nohighlight">\(\,V\ \)</span>
+is a complex number.</p></li>
+<li><p>The condition 1. states that swapping of vectors is equivalent to
+complex conjugation of an inner product.
+If <span class="math notranslate nohighlight">\(\ y=x,\ \)</span> then: <span class="math notranslate nohighlight">\(\ \langle x,x\rangle=\langle x,x\rangle^*\,,\ \)</span>
+which means that an inner product of a vector with itself is a real number.
+Because of this, it makes sense to introduce
+an additional condition 4., which requires that <span class="math notranslate nohighlight">\(\ \langle x,x\rangle\geq 0.\)</span></p></li>
+<li><p>The conditions 2. and <span class="math notranslate nohighlight">\(\,\)</span> 3. state in turn additivity and homogeneity of
+an inner product with respect to the <em>second</em> vector.</p></li>
+<li><p>The condition 4. imposes that an inner product of a vector with itself
+is a non-negative number, and the only vector for which it is zero
+is the zero vector.</p></li>
+</ul>
+<p>The definition directly implies further properties of an inner product:</p>
+<div class="math notranslate nohighlight">
+\[ \begin{align}\begin{aligned}\langle x_1+x_2,y\rangle\,=\,\langle y,x_1+x_2\rangle^*=\,
+[\,\langle y,x_1\rangle+\langle y,x_2\rangle\,]^*=\,
+\langle y,x_1\rangle^*+\,\langle y,x_2\rangle^*=\,\langle x_1,y\rangle\,+\,\langle x_2,y\rangle\,;\\\langle\alpha\,x,y\rangle\,=\,\langle y,\alpha\,x\rangle^*=\,[\,\alpha\,\langle y,x\rangle\,]^*=
+\,\alpha^*\langle y,x\rangle^*=\,\alpha^*\langle x,y\rangle\,.\end{aligned}\end{align} \]</div>
+<p>Hence, an inner product is linear with respect to the second vector and antilinear with respect to the first one:</p>
+<div class="math notranslate nohighlight">
+\[ \begin{align}\begin{aligned}\langle\,x,\ \alpha_1\,y_1\,+\,\alpha_2\,y_2\,\rangle\ =\
+\alpha_1\ \langle x,y_1\rangle\,+\,\alpha_2\ \langle x,y_2\rangle\,,\\\langle\,\alpha_1\,x_1\,+\,\alpha_2\,x_2,\,y\,\rangle\ =\
+\alpha_1^*\ \langle x_1,y\rangle\,+\,\alpha_2^*\,\langle x_2,y\rangle\,,\end{aligned}\end{align} \]</div>
+<p>where <span class="math notranslate nohighlight">\(\ \,\alpha_1,\alpha_2\in C,\ \ x,\,x_1,x_2,\ y,\,y_1,y_2\in V\,.\)</span></p>
+<p>The definition of an inner product which is given in mathematical textbooks
+may differ from the one given here in point 3., which tends to be written as:
+<span class="math notranslate nohighlight">\(\,(\alpha\,x,y)=\alpha\,(x,y)\,,\ \ \alpha\in C.\ \)</span>
+Then an inner product is linear with respect to the first vector and antilinear
+with respect to the second one. For applications in physics, and especially in
+quantum mechanics, more suitable is the definition taken in this script.</p>
+<p>One can easily prove the following</p>
+<div class="admonition-theorem-0 admonition">
+<p class="admonition-title">Theorem 0.</p>
+<blockquote>
+<div><p>If one of the two vectors is zero, then the inner product vanishes:</p>
+</div></blockquote>
+<div class="math notranslate nohighlight" id="equation-zero">
+<span class="eqno">(1)<a class="headerlink" href="#equation-zero" title="Permalink to this equation">¶</a></span>\[(\,x=\theta\quad\lor\quad y=\theta\,)\qquad\Rightarrow\qquad \langle x,y\rangle\,=\,0\,.\]</div>
+</div>
+<p>Indeed, <span class="math notranslate nohighlight">\(\,\)</span> if for example <span class="math notranslate nohighlight">\(\ y=\theta,\ \)</span> then <span class="math notranslate nohighlight">\(\ y=0\cdot y\ \)</span>
+and <span class="math notranslate nohighlight">\(\ \,\langle x,y\rangle=\langle x,\,0\cdot y\rangle=0\cdot\langle x,y\rangle\,=\,0.\)</span></p>
+<div class="admonition-remark admonition">
+<p class="admonition-title">Remark:</p>
+<p>The converse of the theorem <a class="reference internal" href="#equation-zero">(1)</a> is not true:
+an inner product of two non-zero vectors may be zero
+(then we talk about <em>orthogonal</em> vectors).</p>
+</div>
+<p>An inner product defined on a real vector space <span class="math notranslate nohighlight">\(\,V(R)\ \)</span>
+is a map <span class="math notranslate nohighlight">\(\,f:\ V\times V\rightarrow R\,,\ \)</span> satisfying the conditions 1.- 4.
+The postulate 1. becomes then a symmetry condition:
+<span class="math notranslate nohighlight">\(\ \langle y,x\rangle=\langle x,y\rangle,\ \ x,y\in V,\ \)</span>
+and thus an inner product is linear with respect to both variables
+(it may be then defined as a real positive definite symmetric bilinear functional).</p>
+<div class="admonition-definition admonition">
+<p class="admonition-title">Definition.</p>
+<p>A <em>unitary space</em> <span class="math notranslate nohighlight">\(\,\)</span> is a complex vector space with an inner product.</p>
+<p>A real vector space with an inner product is called a <span class="math notranslate nohighlight">\(\,\)</span>
+<em>Euclidean space</em>.</p>
+</div>
+<p><strong>Examples.</strong></p>
+<p>1.) A standard unitary space is a space of column vectors</p>
+<div class="math notranslate nohighlight">
+\[\begin{split}C^n\ =\ \,\left\{\
+\left[\begin{array}{c} \alpha_1 \\ \alpha_2 \\ \dots \\ \alpha_n \end{array}\right]\,:\ \
+\alpha_1,\,\alpha_2,\,\dots,\,\alpha_n\in C\ \right\}\,,\end{split}\]</div>
+<p>where an inner product of vectors <span class="math notranslate nohighlight">\(\quad
+\boldsymbol{x}\,=\,
+\left[\begin{array}{c} \alpha_1 \\ \alpha_2 \\ \dots \\ \alpha_n \end{array}\right]\,,\quad
+\boldsymbol{y}\,=\,
+\left[\begin{array}{c} \beta_1 \\ \beta_2 \\ \dots \\ \beta_n \end{array}\right]\quad\)</span>
+is given by a formula</p>
+<div class="math notranslate nohighlight">
+\[\begin{split}\langle\boldsymbol{x},\boldsymbol{y}\rangle\,=\,\sum_{i\,=\,1}^n\ \alpha_i^*\,\beta_i
+     \,=\;\alpha_1^*\,\beta_1\,+\;\alpha_2^*\,\beta_2\,+\;\dots\;+\;\alpha_n^*\,\beta_n
+     \,=\;[\,\alpha_1^*,\,\alpha_2^*,\,\dots,\,\alpha_n^*\,]\
+     \left[\begin{array}{c} \beta_1 \\ \beta_2 \\ \dots \\ \beta_n \end{array}\right]\,.\end{split}\]</div>
+<p>For example, if <span class="math notranslate nohighlight">\(\ \ \boldsymbol{x}\,=\,
+\left[\begin{array}{c} 1+i \\ -2 \\ 4\,i \end{array}\right]\,,\ \
+\boldsymbol{y}\,=\,
+\left[\begin{array}{c} -i \\ -1+2\,i \\ 0 \end{array}\right]\ \in\ C^3\quad\)</span>
+then</p>
+<div class="math notranslate nohighlight">
+\[\langle\boldsymbol{x},\boldsymbol{y}\rangle\ =\
+(1-i)\,(-i)\,+\,(-2)\,(-1+2\,i)\,+\,(-4\,i)\,0\ =\ -i-1+2-4\,i\ =\ 1-5\,i\,.\]</div>
+<p>2.) An example of a Euclidean space is a set of column vectors</p>
+<div class="math notranslate nohighlight">
+\[\begin{split}R^n\ =\ \,\left\{\
+\left[\begin{array}{c} \alpha_1 \\ \alpha_2 \\ \dots \\ \alpha_n \end{array}\right]\,:\ \
+\alpha_1,\,\alpha_2,\,\dots,\,\alpha_n\in R\ \right\}\,,\end{split}\]</div>
+<p>where an inner product of vectors <span class="math notranslate nohighlight">\(\quad
+\boldsymbol{x}\,=\,
+\left[\begin{array}{c} \alpha_1 \\ \alpha_2 \\ \dots \\ \alpha_n \end{array}\right]\,,\quad
+\boldsymbol{y}\,=\,
+\left[\begin{array}{c} \beta_1 \\ \beta_2 \\ \dots \\ \beta_n \end{array}\right]\quad\)</span>
+is given by a formula</p>
+<div class="math notranslate nohighlight">
+\[\begin{split}\langle\boldsymbol{x},\boldsymbol{y}\rangle\,=\,\sum_{i\,=\,1}^n\ \alpha_i\,\beta_i
+\,=\;\alpha_1\,\beta_1\,+\;\alpha_2\,\beta_2\,+\;\dots\;+\;\alpha_n\,\beta_n
+\,=\;[\,\alpha_1,\,\alpha_2,\,\dots,\,\alpha_n\,]\
+\left[\begin{array}{c} \beta_1 \\ \beta_2 \\ \dots \\ \beta_n \end{array}\right]\,.\end{split}\]</div>
+<p>3.) A special application in quantum mechanics finds a unitary space <span class="math notranslate nohighlight">\(\,L^2\ \)</span>
+consisting of complex functions defined on a real line which are square integrable:</p>
+<div class="math notranslate nohighlight">
+\[L^2\ \,=\ \,\left\{\ \varphi : R\rightarrow C\ \ :\ \
+\int_{-\infty}^{+\infty}\ |\,\varphi(x)\,|^2\,&lt;\,\infty\ \right\}\,,\]</div>
+<p>where an inner product of <span class="math notranslate nohighlight">\(\quad\varphi,\,\psi\in L^2\quad\)</span> is given by
+<span class="math notranslate nohighlight">\(\quad \langle\varphi,\psi\rangle\ =\
+\displaystyle\int_{-\infty}^{+\infty}\ [\,\varphi(x)\,]^*\,\psi(x)\ dx\,.\)</span></p>
+<p>4.) An example of a Euclidean space is a (2- or 3-dimensional) vector space of geometric vectors
+with an inner product given by
+<span class="math notranslate nohighlight">\(\ \ \vec{a}\cdot\vec{b}\,=\,|\vec{a}|\,|\vec{b}|\,\cos\phi\,,
+\ \)</span> where <span class="math notranslate nohighlight">\(\,\phi=\angle(\vec{a},\vec{b})\,.\)</span></p>
+<p>In a Euclidean space of 2-dimensional geometric vectors an inner product of a vector <span class="math notranslate nohighlight">\(\vec{v}\)</span> and a unit vector <span class="math notranslate nohighlight">\(\vec{a}\)</span> represents the <em>scalar projection</em> of <span class="math notranslate nohighlight">\(\vec{v}\)</span> onto <span class="math notranslate nohighlight">\(\vec{a}\)</span>, that is, it is equal to the length of the segment <span class="math notranslate nohighlight">\(AB\)</span>:</p>
+<figure class="align-center">
+<a class="reference internal image-reference" href="_images/vector_projection.png"><img alt="_images/vector_projection.png" src="_images/vector_projection.png" style="width: 247.20000000000002px; height: 347.20000000000005px;" /></a>
+</figure>
+<p>Furthermore, the vector <span class="math notranslate nohighlight">\(\ \vec{AB}:=\ (\vec{v}\cdot\vec{a} )\,\vec{a}\ \)</span>
+is the <em>vector projection</em> of <span class="math notranslate nohighlight">\(\vec{v}\)</span> onto <span class="math notranslate nohighlight">\(\vec{a}\)</span>.
+If <span class="math notranslate nohighlight">\(\vec{a}\)</span> is not the unit vector, then the scalar projection and
+the vector projection of <span class="math notranslate nohighlight">\(\vec{v}\)</span> onto <span class="math notranslate nohighlight">\(\vec{a}\)</span> are given respectively by
+<span class="math notranslate nohighlight">\(\ \vec{v}\cdot\frac{\vec{a}}{|\vec{a}|}\ \)</span> and
+<span class="math notranslate nohighlight">\(\ \frac{(\vec{v}\cdot\vec{a} )\,\vec{a}}{|\vec{a}|^2}\ \)</span>.</p>
+<p>Having in mind applications, we wil mainly consider unitary (and so: complex) vector spaces.
+However, the introduced notions, properties and theorems are in general (with some exceptions) also true in Euclidean spaces.</p>
+</section>
+<section id="the-schwarz-inequality">
+<h2>The Schwarz Inequality<a class="headerlink" href="#the-schwarz-inequality" title="Permalink to this headline">¶</a></h2>
+<div class="admonition-theorem-1-math-schwarz-inequality admonition">
+<p class="admonition-title">Theorem 1. <span class="math notranslate nohighlight">\(\,\)</span> (Schwarz inequality)</p>
+<p>For any vectors <span class="math notranslate nohighlight">\(\,x,y\ \)</span> belonging to a unitary vector space <span class="math notranslate nohighlight">\(\,V(C):\)</span></p>
+<div class="math notranslate nohighlight" id="equation-schwarz">
+<span class="eqno">(2)<a class="headerlink" href="#equation-schwarz" title="Permalink to this equation">¶</a></span>\[|\,\langle x,y\rangle\,|^2\ \ \leq\ \
+\langle x,x\rangle\,\langle y,y\rangle\,,\qquad x,y\in V(C)\,.\]</div>
+</div>
+<p><strong>Proof.</strong> <span class="math notranslate nohighlight">\(\,\)</span> If <span class="math notranslate nohighlight">\(\,y=\theta,\ \,\)</span> the inequality <a class="reference internal" href="#equation-schwarz">(2)</a> reads: <span class="math notranslate nohighlight">\(\,0\,\leq 0\,.\)</span></p>
+<p>We may assume then that <span class="math notranslate nohighlight">\(\ \,y\neq\theta\,.\ \,\)</span>
+Then, <span class="math notranslate nohighlight">\(\,\)</span> for any <span class="math notranslate nohighlight">\(\,\alpha\in C:\)</span></p>
+<div class="math notranslate nohighlight">
+\[ \begin{align}\begin{aligned}\langle\,x-\alpha\,y,\;x-\alpha\,y\,\rangle\ \ \geq\ \ 0\,,\\\langle x,x\rangle\ -\ \langle x,\,\alpha\,y\rangle\ -\
+\langle\alpha\,y,\,x\rangle\ +\ \langle\alpha\,y,\,\alpha\,y\rangle\ \ \geq\ \ 0\,,\\\langle x,x\rangle\ -\ \alpha\,\langle x,y\rangle\ -\
+\alpha^*\,\langle x,y\rangle^*\ +\ \alpha^*\alpha\ \langle y,y\rangle\ \ \geq\ \ 0\,.\end{aligned}\end{align} \]</div>
+<p>In particular, we may substitute <span class="math notranslate nohighlight">\(\ \ \alpha\ =\
+\displaystyle\frac{\langle x,y\rangle^*}{\langle y,y\rangle}\,:\)</span></p>
+<div class="math notranslate nohighlight">
+\[\langle x,x\rangle\ -\ \frac{\langle x,y\rangle^*}{\langle y,y\rangle}\ \langle x,y\rangle\ -\
+\frac{\langle x,y\rangle}{\langle y,y\rangle}\ \langle x,y\rangle^*\ +\ \,
+\frac{\langle x,y\rangle}{\langle y,y\rangle}\ \frac{\langle x,y\rangle^*}{\langle y,y\rangle}\
+\langle y,y\rangle\ \ \geq\ \ 0\,.\]</div>
+<p>If we multilpy both sides of the inequality by <span class="math notranslate nohighlight">\(\ \;\langle y,y\rangle&gt;0,\ \;\)</span> we obtain</p>
+<div class="math notranslate nohighlight">
+\[ \begin{align}\begin{aligned}\langle x,x\rangle\,\langle y,y\rangle\ -\ |\,\langle x,y\rangle\,|^2\ -\
+|\,\langle x,y\rangle\,|^2\ +\ \,|\,\langle x,y\rangle\,|^2\ \ \geq\ \ 0\,,\\\langle x,x\rangle\,\langle y,y\rangle\ \ \geq\ \ |\,\langle x,y\rangle\,|^2\,.\end{aligned}\end{align} \]</div>
+<p>One can prove that the inequality <a class="reference internal" href="#equation-schwarz">(2)</a> turns into equality if and only if vectors
+<span class="math notranslate nohighlight">\(\,x,y\ \)</span> are linearly independent. In a Euclidean space the inequality is of the form:</p>
+<div class="math notranslate nohighlight" id="equation-schwarz-real">
+<span class="eqno">(3)<a class="headerlink" href="#equation-schwarz-real" title="Permalink to this equation">¶</a></span>\[\langle x,y\rangle^2\ \ \leq\ \ \langle x,x\rangle\,\langle y,y\rangle\,,\qquad x,y\in V(R)\,.\]</div>
+<p><strong>Examples.</strong></p>
+<p>1.) Schwarz Inequality applied to the space <span class="math notranslate nohighlight">\(\,C^n\ \)</span> states that
+<span class="math notranslate nohighlight">\(\\\)</span> for any two complex sequences
+<span class="math notranslate nohighlight">\(\ \,(\alpha_1,\,\alpha_2,\,\dots,\,\alpha_n)\,,\ \ (\beta_1,\,\beta_2,\,\dots,\,\beta_n) :\)</span></p>
+<div class="math notranslate nohighlight">
+\[\left|\ \ \sum_{i\,=\,1}^n\ \alpha_i^*\ \beta_i\ \,\right|^{\ 2}
+\ \ \,\leq\quad
+\left(\ \sum_{i\,=\,1}^n\ |\,\alpha_i|^2\,\right)\
+\left(\ \sum_{i\,=\,1}^n\ |\,\beta_i\,|^2\,\right)\,.\]</div>
+<p>2.) In a Euclidean space <span class="math notranslate nohighlight">\(\,R^n,\ \)</span> for any two real sequences
+<span class="math notranslate nohighlight">\(\ \,(\alpha_1,\,\alpha_2,\,\dots,\,\alpha_n)\,,\ \ (\beta_1,\,\beta_2,\,\dots,\,\beta_n),\ \)</span>
+the inequality <a class="reference internal" href="#equation-schwarz-real">(3)</a> implies:</p>
+<div class="math notranslate nohighlight">
+\[\left(\ \ \sum_{i\,=\,1}^n\ \alpha_i\ \beta_i\ \right)^2
+\ \ \,\leq\quad
+\left(\ \sum_{i\,=\,1}^n\ \alpha_i^2\,\right)\
+\left(\ \sum_{i\,=\,1}^n\ \beta_i^2\,\right)\,,\]</div>
+<p>3.) In a unitary space <span class="math notranslate nohighlight">\(\,L^2\ \)</span> of square-inegrable functions, any functions
+<span class="math notranslate nohighlight">\(\,\varphi,\psi\ \)</span> satisfy the inequality</p>
+<div class="math notranslate nohighlight">
+\[\left|\ \ \int_{-\infty}^{+\infty}\ [\,\varphi(x)\,]^*\,\psi(x)\ dx\ \ \right|^{\,2}
+\ \ \ \leq\ \ \
+\int_{-\infty}^{+\infty}\ |\,\varphi(x)\,|^2\ dx\ \ \cdot\
+\int_{-\infty}^{+\infty}\ |\,\psi(x)\,|^2\ dx\,.\]</div>
+<p>4.) In a Euclidean space of geometric vectors with an inner product</p>
+<div class="math notranslate nohighlight">
+\[\vec{a}\cdot\vec{b}\,=\,|\vec{a}|\,|\vec{b}|\,\cos\phi\,,\]</div>
+<p>Schwarz Inequality gives: <span class="math notranslate nohighlight">\(\quad (\vec{a}\cdot\vec{b})^2\ \,\leq\ \,|\vec{a}|^2\ |\vec{b}|^2\,,
+\quad\text{that is}\quad |\,\vec{a}\cdot\vec{b}\,|\ \,\leq\ \,|\vec{a}|\ |\vec{b}|\,.\)</span></p>
+<p>This condition though is quite obvious, <span class="math notranslate nohighlight">\(\,\)</span> because <span class="math notranslate nohighlight">\(\ \,|\cos\phi\,|\,\leq\,1\,.\)</span></p>
+</section>
+</section>
+
+
+          </div>
+        </div>
+      </div>
+      <div class="sphinxsidebar" role="navigation" aria-label="main navigation">
+        <div class="sphinxsidebarwrapper">
+  <div class="sphinxlocaltoc">
+  <h3><a href="index.html">Table Of Contents</a></h3>
+  <ul>
+<li><a class="reference internal" href="#">Inner (Scalar) Product</a><ul>
+<li><a class="reference internal" href="#axiomatic-definition-and-its-implementations">Axiomatic Definition and its Implementations</a></li>
+<li><a class="reference internal" href="#the-schwarz-inequality">The Schwarz Inequality</a></li>
+</ul>
+</li>
+</ul>
+
+  </div>
+  <h4>Previous topic</h4>
+  <p class="topless"><a href="problem_wlasny_zadania.html"
+                        title="previous chapter">Exercises</a></p>
+  <h4>Next topic</h4>
+  <p class="topless"><a href="p_unitarne_norma.html"
+                        title="next chapter">Norm of a Vector</a></p>
+  <div role="note" aria-label="source link">
+    <h3>This Page</h3>
+    <ul class="this-page-menu">
+      <li><a href="_sources/p_unitarne_iloczyn_skalarny.rst.txt"
+            rel="nofollow">Show Source</a></li>
+    </ul>
+   </div>
+<div id="searchbox" style="display: none" role="search">
+  <h3 id="searchlabel">Quick search</h3>
+    <div class="searchformwrapper">
+    <form class="search" action="search.html" method="get">
+      <input type="text" name="q" aria-labelledby="searchlabel" />
+      <input type="submit" value="Go" />
+    </form>
+    </div>
+</div>
+<script>$('#searchbox').show(0);</script>
+        </div>
+      </div>
+      <div class="clearer"></div>
+    </div>
+  </div>
+  <div class="relbar-bottom">
+    
+    <div class="related" role="navigation" aria-label="related navigation">
+      <h3>Navigation</h3>
+      <ul>
+        <li class="right" style="margin-right: 10px">
+          <a href="genindex.html" title="General Index"
+             >index</a></li>
+        <li class="right" >
+          <a href="p_unitarne_norma.html" title="Norm of a Vector"
+             >next</a> &nbsp; &nbsp;</li>
+        <li class="right" >
+          <a href="problem_wlasny_zadania.html" title="Exercises"
+             >previous</a> &nbsp; &nbsp;</li>
+  <li><a href="index.html">Linear Algebra</a> &#187;</li>
+  
+        <li class="nav-item nav-item-this"><a href="">Inner (Scalar) Product</a></li> 
+      </ul>
+    </div>
+  </div>
+  
+  <div class="footer">
+    <a class="logo" href="http://icse.us.edu.pl/" target="_blank"><img src="_static/logo-icse.png" alt="ICSE"/></a><br/>
+    &copy; Copyright 2018, Jan Aksamit, Joanna Marzec, and  Marcin Kostur.
+    Last updated on Jan 29, 2022.
+    Created using <a href="http://sphinx.pocoo.org/">Sphinx</a> 4.0.1.
+  </div>
+  </body>
+</html>

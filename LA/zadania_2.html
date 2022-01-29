@@ -1,0 +1,371 @@
+
+
+  
+<!DOCTYPE html>
+
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" /><meta name="generator" content="Docutils 0.17: http://docutils.sourceforge.net/" />
+
+    <title>Matrices &#8212; Linear Algebra</title>
+    <link rel="stylesheet" type="text/css" href="_static/pygments.css" />
+    <link rel="stylesheet" type="text/css" href="_static/cloud.css" />
+    <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Noticia+Text|Open+Sans|Droid+Sans+Mono&amp;subset=latin,latin-ext" type="text/css" />
+    <script data-url_root="./" id="documentation_options" src="_static/documentation_options.js"></script>
+    <script src="_static/jquery.js"></script>
+    <script src="_static/underscore.js"></script>
+    <script src="_static/doctools.js"></script>
+    <script async="async" src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js"></script>
+    <script src="_static/jquery.cookie.js"></script>
+    <script src="_static/cloud.js"></script>
+    <script type="text/javascript" src="http://sagecell.sagemath.org/static/jquery.min.js"></script>
+    <script type="text/javascript" src="http://sagecell.sagemath.org/embedded_sagecell.js"></script>
+    <script type="text/javascript">
+        sagecell.makeSagecell({inputLocation: ".sage_linked",
+                               linked: true});
+        sagecell.makeSagecell({inputLocation: ".sage_unlinked",
+                               linked: false});
+    </script>
+
+    <style type="text/css">
+        .sagecell .CodeMirror-scroll {
+            overflow-y: hidden;
+            overflow-x: auto;
+        }
+        .sagecell .CodeMirror {
+            height: auto;
+        }
+    </style>
+    
+    <link rel="index" title="Index" href="genindex.html" />
+    <link rel="search" title="Search" href="search.html" />
+    <link rel="prev" title="Systems of Linear Equations" href="zadania_1.html" />
+ 
+  <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, minimum-scale=1">
+  </head><body>
+  <div class="relbar-top">
+    
+    <div class="related" role="navigation" aria-label="related navigation">
+      <h3>Navigation</h3>
+      <ul>
+        <li class="right" style="margin-right: 10px">
+          <a href="genindex.html" title="General Index"
+             accesskey="I">index</a></li>
+        <li class="right" >
+          <a href="zadania_1.html" title="Systems of Linear Equations"
+             accesskey="P">previous</a> &nbsp; &nbsp;</li>
+  <li><a href="index.html">Linear Algebra</a> &#187;</li>
+  
+        <li class="nav-item nav-item-this"><a href="">Matrices</a></li> 
+      </ul>
+    </div>
+  </div>
+  
+  <div class="content">  
+
+    <div class="document">
+      <div class="documentwrapper">
+        <div class="bodywrapper">
+          <div class="body">
+            
+  <section id="matrices">
+<h1>Matrices<a class="headerlink" href="#matrices" title="Permalink to this headline">¶</a></h1>
+<p><strong>Exercise 0.</strong> <span class="math notranslate nohighlight">\(\,\)</span> For three randomly chosen matrices
+<span class="math notranslate nohighlight">\(\ \boldsymbol{A},\boldsymbol{B},\boldsymbol{C}\in M_3(Q)\ \)</span>
+verify distributivity of multiplication over addition:</p>
+<div class="math notranslate nohighlight">
+\[\boldsymbol{A}\,(\boldsymbol{B}+\boldsymbol{C})\ =\
+\boldsymbol{A}\boldsymbol{B}+\boldsymbol{A}\boldsymbol{C}\,.\]</div>
+<p><strong>Exercise 1.</strong> <span class="math notranslate nohighlight">\(\,\)</span> For matrices
+<span class="math notranslate nohighlight">\(\ \,\boldsymbol{A}=
+\left[\begin{array}{rrr} 5 &amp; -1 &amp; 0 \\ 2 &amp;  3 &amp; 1 \\ -1 &amp;  2 &amp; 2 \end{array}\right]\,,\ \)</span>
+<span class="math notranslate nohighlight">\(\ \boldsymbol{B}=
+\left[\begin{array}{rrr} -1 &amp; 2 &amp; 0 \\ 1 &amp; 3 &amp; 2 \\ -2 &amp; 5 &amp; 4 \end{array}\right]\ \
+\in\ M_3(R)\)</span></p>
+<p>compute <span class="math notranslate nohighlight">\(\ \,\boldsymbol{A}\boldsymbol{B},\ \,\boldsymbol{B}\boldsymbol{A},\ \,\)</span>
+<span class="math notranslate nohighlight">\(\ [\boldsymbol{A},\boldsymbol{B}]=
+\boldsymbol{A}\boldsymbol{B}-\boldsymbol{B}\boldsymbol{A}\ \,\)</span>
+and also determinants and traces of these three expressions.</p>
+<p>Verify the equalities <span class="math notranslate nohighlight">\(\ \,\det(\boldsymbol{A}\boldsymbol{B})=
+\det\boldsymbol{A}\cdot\det\boldsymbol{B}=
+\det(\boldsymbol{B}\boldsymbol{A}),\ \)</span>
+<span class="math notranslate nohighlight">\(\ \,\text{tr}\,(\boldsymbol{A}\boldsymbol{B})=
+\text{tr}\,(\boldsymbol{B}\boldsymbol{A}).\)</span></p>
+<p>Is <span class="math notranslate nohighlight">\(\ \,\text{tr}\,(\boldsymbol{A}\boldsymbol{B})=
+\text{tr}\boldsymbol{A}\cdot\text{tr}\boldsymbol{B}\ \)</span> ?</p>
+<p><strong>Exercise 2.</strong> <span class="math notranslate nohighlight">\(\,\)</span> Observe on the example of matrices</p>
+<div class="math notranslate nohighlight">
+\[\begin{split}\boldsymbol{A}\ =\
+\left[\begin{array}{cc}
+1 &amp; 2 \\ 0 &amp; 0
+\end{array}\right]\,,\quad
+\boldsymbol{B}\ =\
+\left[\begin{array}{cc}
+1 &amp; 0 \\ 3 &amp; 0
+\end{array}\right]\quad
+\in\ M_2(Q)\end{split}\]</div>
+<p>that the identity</p>
+<div class="math notranslate nohighlight" id="equation-sum-square2">
+<span class="eqno">(1)<a class="headerlink" href="#equation-sum-square2" title="Permalink to this equation">¶</a></span>\[(\boldsymbol{A}+\boldsymbol{B})^2\ =\
+\boldsymbol{A}^2+2\boldsymbol{A}\boldsymbol{B}+\boldsymbol{B}^2\]</div>
+<p>does not hold in a matrix algebra.</p>
+<ol class="arabic simple">
+<li><p>What is the correct formula for a square of sum or difference
+<span class="math notranslate nohighlight">\(\ (\boldsymbol{A}\pm\boldsymbol{B})^2\ \,\)</span>
+of matrices  <span class="math notranslate nohighlight">\(\ \boldsymbol{A},\boldsymbol{B}\in M_n(K)\,\)</span> ?</p></li>
+<li><p>Under what condition on matrices <span class="math notranslate nohighlight">\(\ \boldsymbol{A},\boldsymbol{B}\in M_n(K)\ \)</span>
+the formula <a class="reference internal" href="#equation-sum-square2">(1)</a> is true ?</p></li>
+</ol>
+<p><strong>Exercise 3.</strong> <span class="math notranslate nohighlight">\(\,\)</span> Let
+<span class="math notranslate nohighlight">\(\ \ \boldsymbol{P}\ =\
+\left[\begin{array}{ccc} 0 &amp; 0 &amp; 1 \\ 0 &amp; 1 &amp; 0 \\ 1 &amp; 0 &amp; 0 \end{array}\right]\, ,
+\quad\ \boldsymbol{Q}\ =\
+\left[\begin{array}{ccc} 0 &amp; 1 &amp; 0 \\ 1 &amp; 0 &amp; 0 \\ 0 &amp; 0 &amp; 1 \end{array}\right]\quad
+\in\ M_3(R):\)</span></p>
+<ol class="arabic simple">
+<li><p>Compute
+<span class="math notranslate nohighlight">\(\ \,\boldsymbol{P}\boldsymbol{Q},\ \,\boldsymbol{Q}\boldsymbol{P},\
+\boldsymbol{P}^2,\ \boldsymbol{Q}^2.\)</span></p></li>
+<li><p>What is the effect of multiplication of an arbitrary matrix <span class="math notranslate nohighlight">\(\ \boldsymbol{A}\in M_3(R)\ \)</span>
+on the left or on the right by <span class="math notranslate nohighlight">\(\ \boldsymbol{P}\ \)</span> or <span class="math notranslate nohighlight">\(\ \boldsymbol{Q}\,\)</span> ?</p></li>
+<li><p>Give examples of other matrices of order three
+whose square is equal to the identity matrix.</p></li>
+</ol>
+<p><strong>Hint</strong> to point 3.
+<span class="math notranslate nohighlight">\(\ \boldsymbol{P}\ \)</span> and <span class="math notranslate nohighlight">\(\ \boldsymbol{Q}\ \)</span> are permutation matrices.
+The square of a permutation matrix is the identity matrix if and only if the square
+of the corresponding permutation is the identity permutation. Such a property holds
+for example for transpositions.</p>
+<p><strong>Exercise 4.</strong> <span class="math notranslate nohighlight">\(\,\)</span>
+Experiment with small exponents <span class="math notranslate nohighlight">\(\ n=2,3,4,\,\ldots\)</span> <span class="math notranslate nohighlight">\(\\\)</span>
+to find a formula  for the <span class="math notranslate nohighlight">\(\ n\)</span>-th power of the following matrices
+over the field <span class="math notranslate nohighlight">\(\ Q:\)</span></p>
+<div class="math notranslate nohighlight">
+\[\begin{split}\left[\begin{array}{cc} 1 &amp; c \\ 0 &amp; 1 \end{array}\right]\,,\quad
+\left[\begin{array}{cc} 2 &amp; 2 \\ 0 &amp; 0 \end{array}\right]\,,\quad
+\left[\begin{array}{cc} 2 &amp; 1 \\ 0 &amp; 1 \end{array}\right]\,,\quad
+\left[\begin{array}{cc} 1 &amp; 1 \\ 1 &amp; 1 \end{array}\right]\,,\quad
+\left[\begin{array}{cc} a &amp; b \\ 0 &amp; 0 \end{array}\right]\,,\quad
+\left[\begin{array}{cc} 1 &amp; 1 \\ 1 &amp; 0 \end{array}\right]\,.\end{split}\]</div>
+<p><strong>Hint.</strong> <span class="math notranslate nohighlight">\(\\\)</span>
+In the last case it may be helpful to use Wikipedia page on Fibonacci numbers.</p>
+<p><strong>Exercise 5.</strong> <span class="math notranslate nohighlight">\(\,\)</span> Let</p>
+<div class="math notranslate nohighlight">
+\[\begin{split}\boldsymbol{A}\ =\
+\left[\begin{array}{cccc}
+0 &amp; 2 &amp; 0 &amp; 0 \\
+0 &amp; 0 &amp; 2 &amp; 0 \\
+0 &amp; 0 &amp; 0 &amp; 2 \\
+0 &amp; 0 &amp; 0 &amp; 0
+\end{array}\right]\ \in\ M_4(Q),\qquad
+\boldsymbol{v}\ =\
+\left[\begin{array}{c} a \\ b \\ c \\ d \end{array}\right]\,\in\,Q^{\,4}\,.\end{split}\]</div>
+<p>Compute <span class="math notranslate nohighlight">\(\ \boldsymbol{A}^n\ \)</span> and <span class="math notranslate nohighlight">\(\ \boldsymbol{A}^n\boldsymbol{v}\ \)</span>
+for arbitrary <span class="math notranslate nohighlight">\(\ n\in\boldsymbol{N}\ \)</span>.</p>
+<p><strong>Exercise 6.</strong> <span class="math notranslate nohighlight">\(\,\)</span>
+Given a rectangular matrix <span class="math notranslate nohighlight">\(\ \boldsymbol{A}\,,\)</span>
+assume that the solutions <span class="math notranslate nohighlight">\(\ \boldsymbol{X}_1,\boldsymbol{X}_2,\boldsymbol{X}_3\ \)</span>
+to linear problems</p>
+<div class="math notranslate nohighlight" id="equation-3-set">
+<span class="eqno">(2)<a class="headerlink" href="#equation-3-set" title="Permalink to this equation">¶</a></span>\[\begin{split}\boldsymbol{A}\boldsymbol{X}_1\ =\
+\left[\begin{array}{c} 1 \\ 0 \\ 0 \end{array}\right]\,,\qquad
+\boldsymbol{A}\boldsymbol{X}_2\ =\
+\left[\begin{array}{c} 0 \\ 1 \\ 0 \end{array}\right]\,,\qquad
+\boldsymbol{A}\boldsymbol{X}_3\ =\
+\left[\begin{array}{c} 0 \\ 0 \\ 1 \end{array}\right]\end{split}\]</div>
+<p>are known. Consider a matrix <span class="math notranslate nohighlight">\(\ \boldsymbol{X}\ \)</span> whose columns are
+<span class="math notranslate nohighlight">\(\ \boldsymbol{X}_1,\boldsymbol{X}_2,\boldsymbol{X}_3:\ \)</span>
+<span class="math notranslate nohighlight">\(\ \boldsymbol{X}\,=\,[\,\boldsymbol{X}_1\,|\,\boldsymbol{X}_2\,|\,\boldsymbol{X}_3\,].\ \)</span></p>
+<ol class="arabic">
+<li><p>What is the effect of matrix multiplication <span class="math notranslate nohighlight">\(\ \boldsymbol{A}\boldsymbol{X}\,\)</span> ?</p></li>
+<li><p>Assume that <span class="math notranslate nohighlight">\(\ \boldsymbol{A}\ \)</span> is a nondegenerate square matrix of order 3.:
+<span class="math notranslate nohighlight">\(\ \det\boldsymbol{A}\ne0.\)</span> What is the meaning of the matrix <span class="math notranslate nohighlight">\(\ \boldsymbol{X}\ \)</span> ?</p></li>
+<li><p>Assume that <span class="math notranslate nohighlight">\(\ \boldsymbol{A}\ \)</span> is a degenerate square matrix of order 3.:
+<span class="math notranslate nohighlight">\(\ \det\boldsymbol{A} = 0.\)</span></p>
+<p>a). Explain why in such case one of the problems <a class="reference internal" href="#equation-3-set">(2)</a> does not have a solution.</p>
+<p>b). Denote by <span class="math notranslate nohighlight">\(\ N\ \)</span> the number of linear problems without solutions.
+In what situations <span class="math notranslate nohighlight">\(\ N=1,\,2,\,3\ \)</span>? Give an example of each such situation.</p>
+</li>
+<li><p>Consider matrix equation <span class="math notranslate nohighlight">\(\ \boldsymbol{A}\boldsymbol{X}=\boldsymbol{B},\ \)</span>
+where <span class="math notranslate nohighlight">\(\ \boldsymbol{A}\in M_{p\times q}(K),\ \)</span>
+<span class="math notranslate nohighlight">\(\ \boldsymbol{B}\,=\,[\,\boldsymbol{B}_1\,|\,\boldsymbol{B}_2\,|\,\ldots\,|\,
+\boldsymbol{B}_r\,]\in M_{p\times r}(K),\ \)</span>
+and <span class="math notranslate nohighlight">\(\ \boldsymbol{X}\,=\,[\,\boldsymbol{X}_1\,|\,\boldsymbol{X}_2\,
+|\,\ldots\,|\,\boldsymbol{X}_r\,]\in M_{q\times r}(K)\ \)</span> is the unknown matrix.
+Explain why solving this equation is equivalent to solving
+<span class="math notranslate nohighlight">\(\ r\ \)</span> linear systems of equations of the form
+<span class="math notranslate nohighlight">\(\ \boldsymbol{A}\boldsymbol{X}_j=\boldsymbol{B}_j\,,\ \ j=1,2,\ldots,r\ \)</span>
+with <span class="math notranslate nohighlight">\(\ q\ \)</span> unknowns.</p></li>
+</ol>
+<p><strong>Hints.</strong></p>
+<ol class="arabic simple">
+<li><p>Apply the column rule of matrix multiplication (section <a class="reference internal" href="algebra_of_matrices_operations.html#matrix-mult"><span class="std std-ref">Matrix Multiplication (Product of Two Matrices)</span></a>).</p></li>
+</ol>
+<ol class="arabic simple" start="3">
+<li><p>Use a necessary and sufficient condition for a matrix to be invertible (section <a class="reference internal" href="determinants_applications.html#calc-inv-matrix"><span class="std std-ref">Calculation of the Inverse of a Matrix</span></a>, Theorem 7).</p></li>
+</ol>
+<p><strong>Discussion</strong> of the point 3. <span class="math notranslate nohighlight">\(\,\)</span>
+Denote by <span class="math notranslate nohighlight">\(\ \boldsymbol{R}_1,\boldsymbol{R}_2,\boldsymbol{R}_3\ \)</span>
+the consecutive rows of the matrix <span class="math notranslate nohighlight">\(\ \boldsymbol{A}.\)</span> <span class="math notranslate nohighlight">\(\\\)</span>
+Since <span class="math notranslate nohighlight">\(\ \det\boldsymbol{A}=0,\ \)</span> then rank of the matrix <span class="math notranslate nohighlight">\(\ \boldsymbol{A}\ \)</span>
+equals 1 or 2.</p>
+<ol class="arabic">
+<li><p><span class="math notranslate nohighlight">\(\ \text{rk}\boldsymbol{A}=1.\ \ \)</span>
+Without loss of generality we may assume that
+<span class="math notranslate nohighlight">\(\ \,\boldsymbol{A}=
+\left[\begin{array}{c} \boldsymbol{R}_1 \\ c_2\,\boldsymbol{R}_1 \\ c_3\,\boldsymbol{R}_1
+\end{array}\right],\ \,\boldsymbol{R}_1\ne\boldsymbol{0}\)</span>
+(the other cases can be solved analogously).
+It is easy to see that then the second and the third problem in <a class="reference internal" href="#equation-3-set">(2)</a> are inconsistent.
+Indeed, <span class="math notranslate nohighlight">\(\\\)</span>
+if <span class="math notranslate nohighlight">\(\ \,\boldsymbol{R}_1\boldsymbol{X}=0,\ \,\)</span>
+then <span class="math notranslate nohighlight">\(\ \,\boldsymbol{R}_2\boldsymbol{X}=c_2\,(\boldsymbol{R}_1\boldsymbol{X})=0\ \,\)</span>
+and <span class="math notranslate nohighlight">\(\ \,\boldsymbol{R}_3\boldsymbol{X}=c_3\,(\boldsymbol{R}_1\boldsymbol{X})=0,\)</span> <span class="math notranslate nohighlight">\(\\\)</span>
+which means that <span class="math notranslate nohighlight">\(\ \,\boldsymbol{A}\boldsymbol{X}=\boldsymbol{0}.\)</span></p>
+<p>If <span class="math notranslate nohighlight">\(\ \,\boldsymbol{R}_1\boldsymbol{X}=1,\ \,\)</span>
+then <span class="math notranslate nohighlight">\(\ \,\boldsymbol{R}_2\boldsymbol{X}=c_2\,(\boldsymbol{R}_1\boldsymbol{X})=c_2\ \,\)</span>
+and <span class="math notranslate nohighlight">\(\ \,\boldsymbol{R}_3\boldsymbol{X}=c_3\,(\boldsymbol{R}_1\boldsymbol{X})=c_3.\)</span> <span class="math notranslate nohighlight">\(\\\)</span>
+This means that the first problem is consistent if and only if <span class="math notranslate nohighlight">\(\ c_2=c_3=0.\)</span></p>
+<p>Hence, <span class="math notranslate nohighlight">\(\,\)</span> if <span class="math notranslate nohighlight">\(\ c_2\ne 0\ \)</span> or <span class="math notranslate nohighlight">\(\ c_3\ne 0,\ \)</span>
+then <span class="math notranslate nohighlight">\(\ N=3,\ \,\)</span> and if <span class="math notranslate nohighlight">\(\ c_2=c_3=0,\ \)</span> then <span class="math notranslate nohighlight">\(\ N=2.\)</span></p>
+</li>
+<li><div class="line-block">
+<div class="line"><span class="math notranslate nohighlight">\(\ \text{rk}\boldsymbol{A}=2.\ \ \)</span> Without loss of generality (up to the order of the rows)
+we may assume that
+<span class="math notranslate nohighlight">\(\ \,\boldsymbol{A}=
+\left[\begin{array}{c} \boldsymbol{R}_1 \\ \boldsymbol{R}_2 \\
+c_1\boldsymbol{R}_1+c_2\boldsymbol{R}_2
+\end{array}\right],\)</span></div>
+<div class="line">where <span class="math notranslate nohighlight">\(\ \boldsymbol{R}_1,\,\boldsymbol{R}_2\ \)</span> are linearly independent.</div>
+<div class="line">Now the third problem of <a class="reference internal" href="#equation-3-set">(2)</a> is inconsistent for any values of constants <span class="math notranslate nohighlight">\(\ c_1,\,c_2.\)</span></div>
+<div class="line">Furthermore, by the same argument as above, we find that</div>
+<div class="line">if <span class="math notranslate nohighlight">\(\ c_1\ne 0\ \)</span> and <span class="math notranslate nohighlight">\(\ c_2\ne 0,\ \)</span> then <span class="math notranslate nohighlight">\(\ N=3\,;\)</span></div>
+<div class="line">if <span class="math notranslate nohighlight">\(\ c_1=0,\ c_2\ne 0\ \)</span> or <span class="math notranslate nohighlight">\(\ c_1\ne 0,\ c_2=0,\ \)</span> then <span class="math notranslate nohighlight">\(\ N=2\,;\)</span></div>
+<div class="line">if <span class="math notranslate nohighlight">\(\ c_1=c_2=0,\ \)</span> then <span class="math notranslate nohighlight">\(\ N=1\ \)</span>.</div>
+</div>
+</li>
+</ol>
+<p><strong>Exercise 7.</strong> <span class="math notranslate nohighlight">\(\,\)</span>
+Find inverse matrices to:</p>
+<div class="math notranslate nohighlight">
+\[\begin{split}\boldsymbol{A}\ =\
+\left[\begin{array}{rrrr} 1 &amp; -a &amp;  0 &amp;  0 \\
+                          0 &amp;  1 &amp; -b &amp;  0 \\
+                          0 &amp;  0 &amp;  1 &amp; -c \\
+                          0 &amp;  0 &amp;  0 &amp;  1  \end{array}\right]\,,\qquad
+\boldsymbol{L}_5\ =\
+\left[\begin{array}{rrrrr} 1 &amp; 0 &amp; 0 &amp; 0 &amp; 0 \\
+                           1 &amp; 1 &amp; 0 &amp; 0 &amp; 0 \\
+                           1 &amp; 2 &amp; 1 &amp; 0 &amp; 0 \\
+                           1 &amp; 3 &amp; 3 &amp; 1 &amp; 0 \\
+                           1 &amp; 4 &amp; 6 &amp; 4 &amp; 1 \end{array}\right]\,.\end{split}\]</div>
+<p>The matrix <span class="math notranslate nohighlight">\(L_5\ \)</span> is a lower triangular Pascal matrix:
+its <span class="math notranslate nohighlight">\(\ k\)</span>-th row contains coefficients of the Newton’s binomial formula for
+<span class="math notranslate nohighlight">\(\ (a+b)^k\,,\ \)</span> <span class="math notranslate nohighlight">\(\ k=0,1,2,3,4\ \)</span>
+and the supplementary zeros.</p>
+<p>Write the code which generates matrix <span class="math notranslate nohighlight">\(\ L_n\ \)</span> and its inverse <span class="math notranslate nohighlight">\(\ L_n^{-1}\ \)</span>
+for arbitrary order <span class="math notranslate nohighlight">\(\ n=2,3,\,\ldots\)</span></p>
+<div class='sage_linked'><script type='text/x-sage'></script></div><p><strong>Exercise 8.</strong> <span class="math notranslate nohighlight">\(\,\)</span>
+Find the inverse of the matrix</p>
+<div class="math notranslate nohighlight">
+\[\begin{split}\boldsymbol{A}\ =\
+\left[\begin{array}{rrrrr} 1 &amp; -1 &amp;  1 &amp; -1 &amp;  1 \\
+                           0 &amp;  1 &amp; -1 &amp;  1 &amp; -1 \\
+                           0 &amp;  0 &amp;  1 &amp; -1 &amp;  1 \\
+                           0 &amp;  0 &amp;  0 &amp;  1 &amp; -1 \\
+                           0 &amp;  0 &amp;  0 &amp;  0 &amp;  1 \end{array}\right]\,.\end{split}\]</div>
+<p>Generalise the answer to similar matrices of arbitary orders.</p>
+<p>In Sage such an upper triangular matrix of order  <span class="math notranslate nohighlight">\(\ n\ \)</span>
+may be constructed as follows:</p>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="n">sage</span><span class="p">:</span> <span class="n">n</span> <span class="o">=</span> <span class="mi">5</span>
+<span class="n">sage</span><span class="p">:</span> <span class="n">A</span> <span class="o">=</span> <span class="n">matrix</span><span class="p">([[(</span><span class="o">-</span><span class="mi">1</span><span class="p">)</span><span class="o">^</span><span class="p">(</span><span class="n">i</span><span class="o">+</span><span class="n">j</span><span class="p">)</span> <span class="k">if</span> <span class="n">j</span><span class="o">&gt;=</span><span class="n">i</span> <span class="k">else</span> <span class="mi">0</span> <span class="k">for</span> <span class="n">j</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="n">n</span><span class="p">)]</span>
+                                             <span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="n">n</span><span class="p">)])</span>
+</pre></div>
+</div>
+<p><strong>Exercise 9.</strong> <span class="math notranslate nohighlight">\(\,\)</span> Determine the matrix <span class="math notranslate nohighlight">\(\ \boldsymbol{X}\ \)</span> from an equation:</p>
+<p>a.) <span class="math notranslate nohighlight">\(\ \ \boldsymbol{X}\,
+\left[\begin{array}{ccc} 1 &amp; 2 &amp; 3 \\ 2 &amp; 3 &amp; 4 \\ 3 &amp; 4 &amp; 1 \end{array}\right]\,=\,
+\left[\begin{array}{ccc} 6 &amp; 9 &amp; 8 \\ 0 &amp; 1 &amp; 6 \end{array}\right]\,;\quad\ \)</span>
+b.) <span class="math notranslate nohighlight">\(\ \ \left[\begin{array}{rr} 3 &amp; -1 \\ 5 &amp; -2 \end{array}\right]\,
+\boldsymbol{X}\,
+\left[\begin{array}{rr} 5 &amp; 6 \\ 7 &amp; 8 \end{array}\right]\,=\,
+\left[\begin{array}{rr} 14 &amp; 16 \\ 9 &amp; 10 \end{array}\right]\,.\)</span></p>
+<p><strong>Exercise 10.</strong> <span class="math notranslate nohighlight">\(\,\)</span> Solve a matrix equation:</p>
+<p>a.) <span class="math notranslate nohighlight">\(\ \ \left[\begin{array}{rr} 2 &amp; -3 \\ 4 &amp; -6 \end{array}\right]\,
+\boldsymbol{X}\,=\,
+\left[\begin{array}{rr} 1 &amp; 4 \\ 2 &amp; 8 \end{array}\right]\,;\qquad\ \)</span>
+b.) <span class="math notranslate nohighlight">\(\ \ \left[\begin{array}{cc} 2 &amp; 1 \\ 2 &amp; 1 \end{array}\right]\,
+\boldsymbol{X}\,=\,
+\left[\begin{array}{rr} 1 &amp; 1 \\ 1 &amp; 1 \end{array}\right]\,.\)</span></p>
+<p><strong>Exercise 11.</strong> <span class="math notranslate nohighlight">\(\\\)</span>
+Can a square matrix of order 4. whose rows consist of numbers 0, 1, 2, 3
+in a certain order be invertible ?
+What would be the answer if the rows consisted of numbers 0, 1, 2, -3 ?</p>
+<p><strong>Exercise 12.</strong> <span class="math notranslate nohighlight">\(\,\)</span>
+Find all matrices which commute with the matrix
+<span class="math notranslate nohighlight">\(\ \,\boldsymbol{A}\,=\,
+\left[\begin{array}{rr} 1 &amp; 2 \\ 1 &amp; 1 \end{array}\right]\,\in M_2(R),\ \)</span>
+i.e., find all the matrices <span class="math notranslate nohighlight">\(\ \boldsymbol{X}\in M_2(R),\ \)</span>
+such that <span class="math notranslate nohighlight">\(\ \,\boldsymbol{A}\boldsymbol{X}=\boldsymbol{X}\boldsymbol{A}.\)</span> <span class="math notranslate nohighlight">\(\\\)</span>
+Observe that the solutions comprise a subalgebra of the matrix algebra <span class="math notranslate nohighlight">\(\ M_2(R).\)</span> <span class="math notranslate nohighlight">\(\\\)</span>
+Determine dimension of this subalgebra and give an example of its basis.</p>
+</section>
+
+
+          </div>
+        </div>
+      </div>
+      <div class="sphinxsidebar" role="navigation" aria-label="main navigation">
+        <div class="sphinxsidebarwrapper">
+  <h4>Previous topic</h4>
+  <p class="topless"><a href="zadania_1.html"
+                        title="previous chapter">Systems of Linear Equations</a></p>
+  <div role="note" aria-label="source link">
+    <h3>This Page</h3>
+    <ul class="this-page-menu">
+      <li><a href="_sources/zadania_2.rst.txt"
+            rel="nofollow">Show Source</a></li>
+    </ul>
+   </div>
+<div id="searchbox" style="display: none" role="search">
+  <h3 id="searchlabel">Quick search</h3>
+    <div class="searchformwrapper">
+    <form class="search" action="search.html" method="get">
+      <input type="text" name="q" aria-labelledby="searchlabel" />
+      <input type="submit" value="Go" />
+    </form>
+    </div>
+</div>
+<script>$('#searchbox').show(0);</script>
+        </div>
+      </div>
+      <div class="clearer"></div>
+    </div>
+  </div>
+  <div class="relbar-bottom">
+    
+    <div class="related" role="navigation" aria-label="related navigation">
+      <h3>Navigation</h3>
+      <ul>
+        <li class="right" style="margin-right: 10px">
+          <a href="genindex.html" title="General Index"
+             >index</a></li>
+        <li class="right" >
+          <a href="zadania_1.html" title="Systems of Linear Equations"
+             >previous</a> &nbsp; &nbsp;</li>
+  <li><a href="index.html">Linear Algebra</a> &#187;</li>
+  
+        <li class="nav-item nav-item-this"><a href="">Matrices</a></li> 
+      </ul>
+    </div>
+  </div>
+  
+  <div class="footer">
+    <a class="logo" href="http://icse.us.edu.pl/" target="_blank"><img src="_static/logo-icse.png" alt="ICSE"/></a><br/>
+    &copy; Copyright 2018, Jan Aksamit, Joanna Marzec, and  Marcin Kostur.
+    Last updated on Jan 29, 2022.
+    Created using <a href="http://sphinx.pocoo.org/">Sphinx</a> 4.0.1.
+  </div>
+  </body>
+</html>

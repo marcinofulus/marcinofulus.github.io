@@ -1,0 +1,421 @@
+
+
+  
+<!DOCTYPE html>
+
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" /><meta name="generator" content="Docutils 0.17: http://docutils.sourceforge.net/" />
+
+    <title>The Permutation Expansion &#8212; Linear Algebra</title>
+    <link rel="stylesheet" type="text/css" href="_static/pygments.css" />
+    <link rel="stylesheet" type="text/css" href="_static/cloud.css" />
+    <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Noticia+Text|Open+Sans|Droid+Sans+Mono&amp;subset=latin,latin-ext" type="text/css" />
+    <script data-url_root="./" id="documentation_options" src="_static/documentation_options.js"></script>
+    <script src="_static/jquery.js"></script>
+    <script src="_static/underscore.js"></script>
+    <script src="_static/doctools.js"></script>
+    <script async="async" src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js"></script>
+    <script src="_static/jquery.cookie.js"></script>
+    <script src="_static/cloud.js"></script>
+    <script type="text/javascript" src="http://sagecell.sagemath.org/static/jquery.min.js"></script>
+    <script type="text/javascript" src="http://sagecell.sagemath.org/embedded_sagecell.js"></script>
+    <script type="text/javascript">
+        sagecell.makeSagecell({inputLocation: ".sage_linked",
+                               linked: true});
+        sagecell.makeSagecell({inputLocation: ".sage_unlinked",
+                               linked: false});
+    </script>
+
+    <style type="text/css">
+        .sagecell .CodeMirror-scroll {
+            overflow-y: hidden;
+            overflow-x: auto;
+        }
+        .sagecell .CodeMirror {
+            height: auto;
+        }
+    </style>
+    
+    <link rel="index" title="Index" href="genindex.html" />
+    <link rel="search" title="Search" href="search.html" />
+    <link rel="next" title="Practical Calculation of Determinants" href="determinants_practical-calculation.html" />
+    <link rel="prev" title="Definition and Properties of the Deteminant" href="determinants_definition-properties.html" />
+ 
+  <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, minimum-scale=1">
+  </head><body>
+  <div class="relbar-top">
+    
+    <div class="related" role="navigation" aria-label="related navigation">
+      <h3>Navigation</h3>
+      <ul>
+        <li class="right" style="margin-right: 10px">
+          <a href="genindex.html" title="General Index"
+             accesskey="I">index</a></li>
+        <li class="right" >
+          <a href="determinants_practical-calculation.html" title="Practical Calculation of Determinants"
+             accesskey="N">next</a> &nbsp; &nbsp;</li>
+        <li class="right" >
+          <a href="determinants_definition-properties.html" title="Definition and Properties of the Deteminant"
+             accesskey="P">previous</a> &nbsp; &nbsp;</li>
+  <li><a href="index.html">Linear Algebra</a> &#187;</li>
+  
+        <li class="nav-item nav-item-this"><a href="">The Permutation Expansion</a></li> 
+      </ul>
+    </div>
+  </div>
+  
+  <div class="content">  
+
+    <div class="document">
+      <div class="documentwrapper">
+        <div class="bodywrapper">
+          <div class="body">
+            
+  <section id="the-permutation-expansion">
+<h1>The Permutation Expansion<a class="headerlink" href="#the-permutation-expansion" title="Permalink to this headline">¶</a></h1>
+<div class="admonition-theorem-0-math-permutation-expansion-of-the-determinant-math admonition">
+<p class="admonition-title">Theorem 0. <span class="math notranslate nohighlight">\(\,\)</span>
+             Permutation Expansion of the Determinant. <span class="math notranslate nohighlight">\(\\\)</span></p>
+<p>There exists exactly one function <span class="math notranslate nohighlight">\(\ \det: M_n(K)\to K\ \)</span>
+satisfying the Axioms 1. - 4. in the axiomatic definition
+of the determinant.
+Namely, for a matrix <span class="math notranslate nohighlight">\(\,\boldsymbol{A}\ =\ [a_{ij}]_{n\times n}:\)</span></p>
+<div class="math notranslate nohighlight" id="equation-perm-exp-col">
+<span class="eqno">(1)<a class="headerlink" href="#equation-perm-exp-col" title="Permalink to this equation">¶</a></span>\[\det\,\boldsymbol{A}\ \ =\ \
+\sum_{\sigma\,\in\,S_n}\ \text{sgn}\,\sigma\,\cdot\,
+a_{\sigma(1),1}\ a_{\sigma(2),2}\ \ldots\ a_{\sigma(n),n}\,.\]</div>
+</div>
+<p><strong>Proof.</strong> <span class="math notranslate nohighlight">\(\,\)</span></p>
+<p>It may be checked by a direct calculation that the expression
+<a class="reference internal" href="#equation-perm-exp-col">(1)</a> fulfills Axioms 1. - 4. in the definition
+of the determinant.</p>
+<p>As regards the uniqueness, every function <span class="math notranslate nohighlight">\(\,\det\,\)</span>
+defined by Axioms I. - 4. has the Property IV.
+Putting there <span class="math notranslate nohighlight">\(\,\boldsymbol{A}=\boldsymbol{I}_n\ \)</span> and substtuting
+<span class="math notranslate nohighlight">\(\,\boldsymbol{B}\rightarrow\boldsymbol{A}\ \)</span> we infer that
+the function <a class="reference internal" href="#equation-perm-exp-col">(1)</a> is the only one to satisfy
+the requirements of the axiomatic definition. <span class="math notranslate nohighlight">\(\quad\bullet\)</span></p>
+<p><strong>Notes and Comments.</strong></p>
+<ul class="simple">
+<li><p>A determinant of size <span class="math notranslate nohighlight">\(\,n\ \)</span> is a sum of <span class="math notranslate nohighlight">\(\,n\,!\,\)</span> components
+corresponding to permutations of the set <span class="math notranslate nohighlight">\(\,\{1,2,\ldots,n\}.\)</span></p></li>
+<li><p>Even (odd) permutations contribute components with the sign
+plus (minus), respectively.
+The number of even permutations equals that of the odd ones.</p></li>
+<li><p>Every component is a product of <span class="math notranslate nohighlight">\(\,n\,\)</span> matrix elements,
+among which there is exactly one element from each row and exactly
+one element from each column.</p></li>
+</ul>
+<p><span class="math notranslate nohighlight">\(\,\)</span></p>
+<p>Using <a class="reference internal" href="#equation-perm-exp-col">(1)</a> we shall derive formulae for determinants
+of size <span class="math notranslate nohighlight">\(\,\)</span> 2 <span class="math notranslate nohighlight">\(\,\)</span> and <span class="math notranslate nohighlight">\(\,\)</span> 3.</p>
+<p>The group <span class="math notranslate nohighlight">\(\ S_2\ \)</span> consists of two permutations:</p>
+<div class="math notranslate nohighlight">
+\[\begin{split}S_2\ \ =\ \
+\left\{\
+\left(\begin{array}{cc} 1 &amp; 2 \\ 1 &amp; 2 \end{array}\right),\
+\left(\begin{array}{cc} 1 &amp; 2 \\ 2 &amp; 1 \end{array}\right)
+\ \right\}\ \ =\ \
+\{\;\text{id},\,(1,2)\,\}\,,\end{split}\]</div>
+<p>where <span class="math notranslate nohighlight">\(\ \ \text{sgn}\ \text{id} = +1,\ \ \text{sgn}\,(1,2) = -1.\ \,\)</span>
+Thus</p>
+<div class="math notranslate nohighlight">
+\[\begin{split}\det
+\left[\begin{array}{cc}
+      a_{11} &amp; a_{12} \\
+      a_{21} &amp; a_{22}
+      \end{array}
+\right]\ \ =\ \
+\sum_{\sigma\,\in\,S_2}\
+\text{sgn}\,\sigma\,\cdot\,a_{\sigma(1),\,1}\ a_{\sigma(2),\,2}\ \ =\ \
+a_{11}\,a_{22}\,-\ a_{21}\,a_{12}\,.\end{split}\]</div>
+<p>The group <span class="math notranslate nohighlight">\(\ S_3\ \)</span> contains six permutations:
+<span class="math notranslate nohighlight">\(\ \text{id},\ (1,2,3),\ (3,2,1),\ (1,2),\ (1,3),\ (2,3)\,.\)</span> <span class="math notranslate nohighlight">\(\\\)</span>
+The identity and both <span class="math notranslate nohighlight">\(\,3\)</span>-cycles are even,
+whereas the transpositions are odd. Therefore</p>
+<div class="math notranslate nohighlight">
+\[\begin{split}\det
+\left[\begin{array}{ccc}
+      a_{11} &amp; a_{12} &amp; a_{13} \\
+      a_{21} &amp; a_{22} &amp; a_{23} \\
+      a_{31} &amp; a_{32} &amp; a_{33}
+      \end{array}
+\right]\ \ =\ \
+\sum_{\sigma\,\in\,S_3}\ \text{sgn}\,\sigma\,\cdot\,
+a_{\sigma(1),1}\ a_{\sigma(2),2}\ a_{\sigma(3),3}\ \ =\end{split}\]</div>
+<div class="math notranslate nohighlight">
+\[ \begin{align}\begin{aligned}=\ \ a_{11}\,a_{22}\,a_{33}\ +\ a_{21}\,a_{32}\,a_{13}\ +\ a_{31}\,a_{12}\,a_{23}\ \ +\\-\ \ a_{21}\,a_{12}\,a_{33}\ -\ a_{31}\,a_{22}\,a_{13}\ -\ a_{11}\,a_{32}\,a_{23}\,.\end{aligned}\end{align} \]</div>
+<p>This formula results from the <em>Sarrus’ Rule</em> of computing the determinant
+of a <span class="math notranslate nohighlight">\(\,3\times 3\,\)</span> matrix. The rule reads as follows.
+Augment the matrix by writing out the first two columns to the right
+of the third column.
+Then add the three products along diagonals
+determined by the upper arrows and subtract the three products along diagonals
+determined by the lower arrows.</p>
+<div class="math notranslate nohighlight">
+\[\begin{split}\begin{array}{cccccc}
+\searrow &amp; \searrow &amp; \searrow &amp;   &amp;    &amp;                 \\
+         &amp;  a_{11}  &amp;  a_{12}  &amp; a_{13} &amp; a_{11} &amp; a_{12} \\
+         &amp;  a_{21}  &amp;  a_{22}  &amp; a_{23} &amp; a_{21} &amp; a_{22} \\
+         &amp;  a_{31}  &amp; a_{32}   &amp; a_{33} &amp; a_{31} &amp; a_{32} \\
+\nearrow &amp; \nearrow &amp; \nearrow &amp;        &amp;        &amp;
+\end{array}\quad :\quad
+\begin{array}{r}
++\ \ a_{11}\,a_{22}\,a_{33}\ +\ a_{12}\,a_{23}\,a_{31}\ +\ a_{13}\,a_{21}\,a_{32} \\
+-\ \ a_{31}\,a_{22}\,a_{13}\ -\ a_{32}\,a_{23}\,a_{11}\ -\ a_{33}\,a_{21}\,a_{12}
+\end{array}\end{split}\]</div>
+<div class="admonition warning">
+<p class="admonition-title">Warning</p>
+<p>The Sarrus’ Rule is applicable <em>only</em> to determinants of size 3 !</p>
+</div>
+<p>The Permutation Expansion is also a convenient starting point for deriving
+the rule for the determinant of a triangular matrix.</p>
+<div class="admonition-theorem-1-math-determinant-of-a-triangular-matrix admonition">
+<p class="admonition-title">Theorem 1. <span class="math notranslate nohighlight">\(\,\)</span> Determinant of a triangular matrix.</p>
+<p>The determinant of a triangular matrix (upper or lower)
+is given by the product of its diagonal elements.</p>
+</div>
+<p><strong>Proof.</strong> <span class="math notranslate nohighlight">\(\,\)</span>
+Let’s consider an upper triangular matrix of size <span class="math notranslate nohighlight">\(\,n:\)</span></p>
+<div class="math notranslate nohighlight">
+\[\begin{split}\boldsymbol{A}\ \ =\ \
+\left[\begin{array}{cccccc}
+      a_{11} &amp; a_{12} &amp; a_{13} &amp; \dots  &amp; a_{1,n-1}   &amp; a_{1n}    \\
+        0    &amp; a_{22} &amp; a_{23} &amp; \dots  &amp; a_{2,n-1}   &amp; a_{2n}    \\
+        0    &amp;   0    &amp; a_{33} &amp; \dots  &amp; a_{3,n-1}   &amp; a_{3n}    \\
+      \dots  &amp; \dots  &amp; \dots  &amp; \dots  &amp; \dots       &amp; \dots     \\
+        0    &amp;   0    &amp;   0    &amp; \dots  &amp; a_{n-1,n-1} &amp; a_{n-1,n} \\
+        0    &amp;   0    &amp;   0    &amp; \dots  &amp;    0        &amp; a_{nn}
+      \end{array}
+\right]\,.\end{split}\]</div>
+<p><span class="math notranslate nohighlight">\(\det{\boldsymbol{A}}\ \)</span> is a sum of
+(taken with an appropriate sign) <span class="math notranslate nohighlight">\(\ n\,!\ \)</span> products.
+Every product contains exactly one element from each column
+and exactly one element from each row:</p>
+<div class="math notranslate nohighlight">
+\[\det{\boldsymbol{A}}\ =\
+\sum_{\sigma\,\in\,S_n}\
+\text{sgn}\,\sigma\,\cdot\,
+a_{\sigma(1),1}\ a_{\sigma(2),2}\ a_{\sigma(3),3}\
+\dots\
+a_{\sigma(n-1),n-1}\ a_{\sigma(n),n}\,.\]</div>
+<p>A permutation <span class="math notranslate nohighlight">\(\ \sigma\ \)</span> yields a non-zero contribution only
+if all elements in the corresponding product are different from zero.
+This condition is fulfilled only if</p>
+<div class="math notranslate nohighlight">
+\[\sigma(1)=1,\quad\sigma(2)=2,\quad\sigma(3)=3,\quad\dots,\quad
+\sigma(n-1)=n-1,\quad\sigma(n)=n\,.\]</div>
+<p>Thus the only non-zero component of the sum comes from the identity permutation.
+<span class="math notranslate nohighlight">\(\\\)</span>
+Since <span class="math notranslate nohighlight">\(\ \text{sgn}\,\text{id} = +1,\ \)</span> we get finally:
+<span class="math notranslate nohighlight">\(\quad\det\boldsymbol{A}\ =\
+a_{11}\ a_{22}\ a_{33}\ \dots\ a_{n-1,n-1}\ a_{nn}\,.\)</span> <span class="math notranslate nohighlight">\(\quad\bullet\)</span></p>
+<p>The proof for a lower triangular matrix goes along analogous way.</p>
+<p><strong>Corollary.</strong> <span class="math notranslate nohighlight">\(\,\)</span>
+Determinant of a diagonal matrix is equal to
+the product of its diagonal elements:</p>
+<div class="math notranslate nohighlight">
+\[\begin{split}\left|\,\begin{array}{cccccc}
+      a_{11} &amp;   0    &amp;   0    &amp; \dots  &amp;   0         &amp;   0    \\
+        0    &amp; a_{22} &amp;   0    &amp; \dots  &amp;   0         &amp;   0    \\
+        0    &amp;   0    &amp; a_{33} &amp; \dots  &amp;   0         &amp;   0    \\
+      \dots  &amp; \dots  &amp; \dots  &amp; \dots  &amp; \dots       &amp; \dots  \\
+        0    &amp;   0    &amp;   0    &amp; \dots  &amp; a_{n-1,n-1} &amp;   0    \\
+        0    &amp;   0    &amp;   0    &amp; \dots  &amp;    0        &amp; a_{nn}
+      \end{array}
+\right|\ \ =\ \
+a_{11}\ a_{22}\ a_{33}\ \dots\ a_{n-1,n-1}\ a_{nn}\,.\end{split}\]</div>
+<p><span class="math notranslate nohighlight">\(\\\)</span></p>
+<div class="admonition-theorem-2-math-determinant-of-a-matrix-product admonition">
+<p class="admonition-title">Theorem 2. <span class="math notranslate nohighlight">\(\,\)</span> Determinant of a matrix product.</p>
+<p>Determinant of a product of two matrices equals the product of their
+determinants:</p>
+<div class="math notranslate nohighlight" id="equation-det-prod">
+<span class="eqno">(2)<a class="headerlink" href="#equation-det-prod" title="Permalink to this equation">¶</a></span>\[\det{\,(\boldsymbol{A}\boldsymbol{B})}\ \,=\
+\,\det{\boldsymbol{A}}\,\cdot\,\det{\boldsymbol{B}}\,,
+\qquad\boldsymbol{A},\boldsymbol{B}\in M_n(K).\]</div>
+</div>
+<p><strong>Proof.</strong> <span class="math notranslate nohighlight">\(\,\)</span>
+Using the Property IV and the Permutation Expansion <a class="reference internal" href="#equation-perm-exp-col">(1)</a> we get</p>
+<div class="math notranslate nohighlight">
+\[\det{\,(\boldsymbol{A}\boldsymbol{B})}\ \,=\ \,
+\det{\boldsymbol{A}}\,\cdot\,\sum_{\sigma\,\in\,S_n}\,
+\text{sgn}\,\sigma\,\cdot\,
+b_{\sigma(1),1}\ b_{\sigma(2),2}\ \ldots,\ b_{\sigma(n),n}\ \ =\ \
+\det{\boldsymbol{A}}\,\cdot\,\det{\boldsymbol{B}}\,.
+\quad\bullet\]</div>
+<p>Formula <a class="reference internal" href="#equation-det-prod">(2)</a> may be generalized to the case of several
+matrix factors under the <span class="math notranslate nohighlight">\(\,\det\,\)</span> symbol:</p>
+<div class="math notranslate nohighlight">
+\[\begin{split}\det{\,\left(\boldsymbol{A}_1\,\boldsymbol{A}_2\,\ldots\,
+\boldsymbol{A}_k\,\right)}\ =\
+\det{\boldsymbol{A}_1}\ \cdot\ \det{\boldsymbol{A}_2}\ \cdot\
+\ldots\ \cdot\ \det{\boldsymbol{A}_k}\,,
+\qquad
+\begin{array}{l}
+\boldsymbol{A}_i\in M_n(K), \\
+i=1,2,\ldots,k.
+\end{array}\end{split}\]</div>
+<div class="admonition-theorem-3-math-determinant-of-a-transposed-matrix admonition">
+<p class="admonition-title">Theorem 3. <span class="math notranslate nohighlight">\(\,\)</span> Determinant of a transposed matrix.</p>
+<p>Determinant is invariant under the matrix transpose:</p>
+<div class="math notranslate nohighlight">
+\[\det{\boldsymbol{A}^T}\ =\ \,
+\det{\boldsymbol{A}}\,,\qquad\boldsymbol{A}\in M_n(K).\]</div>
+</div>
+<p><strong>Corollary.</strong> <span class="math notranslate nohighlight">\(\,\)</span>
+All true statements on determinants remain true, if the words “column”
+are exchanged for “row”, and conversely. In particular, the Properties I.-IV.,
+derived in the preceding section, pertain to rows as well. The definition of
+determinant may be equivalently formulated in terms of rows, leading to
+the row version of the Permutation Expansion:</p>
+<div class="math notranslate nohighlight" id="equation-perm-exp-verse">
+<span class="eqno">(3)<a class="headerlink" href="#equation-perm-exp-verse" title="Permalink to this equation">¶</a></span>\[\det{\,\boldsymbol{A}}\ \ =\ \
+\sum_{\sigma\,\in\,S_n}\ \text{sgn}\,\sigma\,\cdot\,
+a_{1,\,\sigma(1)}\ a_{2,\,\sigma(2)}\ \ldots\ a_{n,\,\sigma(n)}\,.\]</div>
+<p>The proof of Theorem 3. is preceded by three lemmas.</p>
+<p><strong>Lemma 1.</strong> <span class="math notranslate nohighlight">\(\\\)</span>
+The set of inverses of all elements belonging to the group <span class="math notranslate nohighlight">\(\,S_n\ \)</span>
+is identical to the set <span class="math notranslate nohighlight">\(\,S_n\,\)</span> itself:</p>
+<div class="math notranslate nohighlight">
+\[\{\ \sigma^{-1}:\ \sigma\in S_n\ \}\ =\
+S_n\ =\
+\{\ \sigma:\ \sigma\in S_n\ \}\,.\]</div>
+<p>This stems from the fact that the mapping
+<span class="math notranslate nohighlight">\(\ f :\ S_n\ni\sigma\ \rightarrow\ f(\sigma):\,=\sigma^{-1}\in S_n\ \)</span>
+is bijective.</p>
+<p><strong>Conclusion.</strong> <span class="math notranslate nohighlight">\(\,\)</span>
+If the addition of elements <span class="math notranslate nohighlight">\(\,F(\sigma)\,\)</span> is commutative, <span class="math notranslate nohighlight">\(\ \)</span>
+then</p>
+<div class="math notranslate nohighlight" id="equation-lem-1">
+<span class="eqno">(4)<a class="headerlink" href="#equation-lem-1" title="Permalink to this equation">¶</a></span>\[\sum_{\sigma\,\in\,S_n} F(\sigma)\ \,=\ \,
+\sum_{\sigma\,\in\,S_n} F(\sigma^{-1})\,.\]</div>
+<p><strong>Lemma 2.</strong> <span class="math notranslate nohighlight">\(\,\)</span>
+The set of values of a permutation <span class="math notranslate nohighlight">\(\,\sigma\in S_n\,\)</span> is
+the set <span class="math notranslate nohighlight">\(\,\{\,1,2,\ldots,n\,\}\,:\)</span></p>
+<div class="math notranslate nohighlight">
+\[\left\{\;\sigma(i):\ i\in\{1,2,\ldots,n\,\}\,\right\}\ =\ \{1,2,\ldots,n\,\}\,.\]</div>
+<p>This is a consequence of the definition of the permutation <span class="math notranslate nohighlight">\(\,\sigma\in S_n\,\)</span>
+as a mapping of the set <span class="math notranslate nohighlight">\(\,\{\,1,2,\ldots,n\,\}\,\)</span> <em>onto</em> itself.</p>
+<p><strong>Conclusion.</strong> <span class="math notranslate nohighlight">\(\,\)</span>
+If the multiplication of elements <span class="math notranslate nohighlight">\(\,F(i)\,\)</span> is commutative, <span class="math notranslate nohighlight">\(\,\)</span>
+then for any <span class="math notranslate nohighlight">\(\,\sigma\in S_n\,:\)</span></p>
+<div class="math notranslate nohighlight" id="equation-lem-2">
+<span class="eqno">(5)<a class="headerlink" href="#equation-lem-2" title="Permalink to this equation">¶</a></span>\[\prod_{i\,=\,1}^n\,F(i)\ \,=\ \,\prod_{i\,=\,1}^n\,F\,[\,\sigma(i)\,]\,.\]</div>
+<p><strong>Lemma 3.</strong> <span class="math notranslate nohighlight">\(\,\)</span>
+If <span class="math notranslate nohighlight">\(\,\sigma\in S_n\,,\ \,\)</span> then the permutations <span class="math notranslate nohighlight">\(\ \sigma\ \)</span> and
+<span class="math notranslate nohighlight">\(\ \sigma^{-1}\ \)</span> have the same parity:</p>
+<div class="math notranslate nohighlight" id="equation-lem-3">
+<span class="eqno">(6)<a class="headerlink" href="#equation-lem-3" title="Permalink to this equation">¶</a></span>\[\text{sgn}\,\sigma^{-1}\ =\ \,\text{sgn}\,\sigma\,,\qquad\sigma\in S_n\,.\]</div>
+<p><strong>Proof</strong> of the Lemma 3. <span class="math notranslate nohighlight">\(\\\)</span>
+Suppose that the decomposition of <span class="math notranslate nohighlight">\(\,\sigma\,\)</span> into a product of
+transpositions reads</p>
+<div class="math notranslate nohighlight">
+\[\sigma\ \,=\ \,\tau_1\ \tau_2\ \ldots\ \tau_{k-1}\ \tau_k\,.\]</div>
+<p>Then <span class="math notranslate nohighlight">\(\ \ \sigma^{-1}\ =\
+(\tau_1\,\tau_2\,\ldots\,\tau_{k-1}\,\tau_k)^{-1}\ =\ \,
+\tau_k^{-1}\ \tau_{k-1}^{-1}\ \ldots\,\tau_2^{-1}\ \tau_1^{-1}\ =\ \,
+\tau_k\ \tau_{k-1}\ \ldots\ \tau_2\ \tau_1\,,\)</span></p>
+<div class="math notranslate nohighlight">
+\[\text{sgn}\,\sigma^{-1}\ =\ (-1)^k\ =\ \text{sgn}\,\sigma\,.
+\quad\bullet\]</div>
+<p><strong>Proof</strong> of the Theorem 3. <span class="math notranslate nohighlight">\(\,\)</span>
+Let <span class="math notranslate nohighlight">\(\,\boldsymbol{A}  = [a_{ij}]_{n\times n}\in M_n(K).\ \ \)</span></p>
+<p>Then <span class="math notranslate nohighlight">\(\,\boldsymbol{A}^T= [\,a_{ij}^T\,]_{n\times n},\ \ \)</span>
+where <span class="math notranslate nohighlight">\(\ \ a_{ij}^T = a_{ji},\ \ i,j = 1,2,\ldots,n.\)</span></p>
+<p>Making use of Equations
+<span class="math notranslate nohighlight">\(\,\)</span> <a class="reference internal" href="#equation-lem-1">(4)</a>, <span class="math notranslate nohighlight">\(\,\)</span> <a class="reference internal" href="#equation-lem-2">(5)</a> <span class="math notranslate nohighlight">\(\,\)</span>
+and <span class="math notranslate nohighlight">\(\,\)</span> <a class="reference internal" href="#equation-lem-3">(6)</a>, <span class="math notranslate nohighlight">\(\,\)</span> we get</p>
+<div class="math notranslate nohighlight">
+\begin{eqnarray*}
+\det{\boldsymbol{A}^T}\
+&amp; = &amp;
+\ \sum_{\sigma\,\in\,S_n}\ \text{sgn}\,\sigma\,\cdot\,
+a_{\,\sigma(1),\,1}^T\ \,a_{\,\sigma(2),\,2}^T\ \,
+\ldots\ \,a_{\,\sigma(n),\,n}^T \ \ = \\
+&amp; = &amp;
+\ \sum_{\sigma\,\in\,S_n}\ \text{sgn}\,\sigma\,\cdot\,
+a_{\,1,\,\sigma(1)}\ \,a_{\,2,\,\sigma(2)}\ \,
+\ldots\ \,a_{\,n,\,\sigma(n)} \ \ = \\
+&amp; = &amp;
+\ \sum_{\sigma\,\in\,S_n}\ \text{sgn}\,\sigma^{-1}\,\cdot\,
+a_{\,1,\,\sigma^{-1}(1)}\ \,a_{\,2,\,\sigma^{-1}(2)}\ \,
+\ldots\ \,a_{\,n,\,\sigma^{-1}(n)}\ \ = \\
+&amp; = &amp;
+\ \sum_{\sigma\,\in\,S_n}\ \text{sgn}\,\sigma^{-1}\,\cdot\,
+a_{\,\sigma(1),\,\sigma^{-1}[\sigma(1)]}\ \,
+a_{\,\sigma(2),\,\sigma^{-1}[\sigma(2)]}\ \,\ldots\ \,
+a_{\,\sigma(n),\,\sigma^{-1}[\sigma(n)]} \ \ = \\
+&amp; = &amp;
+\ \sum_{\sigma\,\in\,S_n}\ \text{sgn}\,\sigma\,\cdot\,
+a_{\,\sigma(1),1}\ \,a_{\,\sigma(2),2}\ \,
+\ldots\ \,a_{\,\sigma(n),n} \ \ = \\[5pt]
+&amp; = &amp;
+\ \det{\boldsymbol{A}}\;.\quad\bullet
+\end{eqnarray*}</div></section>
+
+
+          </div>
+        </div>
+      </div>
+      <div class="sphinxsidebar" role="navigation" aria-label="main navigation">
+        <div class="sphinxsidebarwrapper">
+  <h4>Previous topic</h4>
+  <p class="topless"><a href="determinants_definition-properties.html"
+                        title="previous chapter">Definition and Properties of the Deteminant</a></p>
+  <h4>Next topic</h4>
+  <p class="topless"><a href="determinants_practical-calculation.html"
+                        title="next chapter">Practical Calculation of Determinants</a></p>
+  <div role="note" aria-label="source link">
+    <h3>This Page</h3>
+    <ul class="this-page-menu">
+      <li><a href="_sources/determinants_permutation-expansion.rst.txt"
+            rel="nofollow">Show Source</a></li>
+    </ul>
+   </div>
+<div id="searchbox" style="display: none" role="search">
+  <h3 id="searchlabel">Quick search</h3>
+    <div class="searchformwrapper">
+    <form class="search" action="search.html" method="get">
+      <input type="text" name="q" aria-labelledby="searchlabel" />
+      <input type="submit" value="Go" />
+    </form>
+    </div>
+</div>
+<script>$('#searchbox').show(0);</script>
+        </div>
+      </div>
+      <div class="clearer"></div>
+    </div>
+  </div>
+  <div class="relbar-bottom">
+    
+    <div class="related" role="navigation" aria-label="related navigation">
+      <h3>Navigation</h3>
+      <ul>
+        <li class="right" style="margin-right: 10px">
+          <a href="genindex.html" title="General Index"
+             >index</a></li>
+        <li class="right" >
+          <a href="determinants_practical-calculation.html" title="Practical Calculation of Determinants"
+             >next</a> &nbsp; &nbsp;</li>
+        <li class="right" >
+          <a href="determinants_definition-properties.html" title="Definition and Properties of the Deteminant"
+             >previous</a> &nbsp; &nbsp;</li>
+  <li><a href="index.html">Linear Algebra</a> &#187;</li>
+  
+        <li class="nav-item nav-item-this"><a href="">The Permutation Expansion</a></li> 
+      </ul>
+    </div>
+  </div>
+  
+  <div class="footer">
+    <a class="logo" href="http://icse.us.edu.pl/" target="_blank"><img src="_static/logo-icse.png" alt="ICSE"/></a><br/>
+    &copy; Copyright 2018, Jan Aksamit, Joanna Marzec, and  Marcin Kostur.
+    Last updated on Jan 29, 2022.
+    Created using <a href="http://sphinx.pocoo.org/">Sphinx</a> 4.0.1.
+  </div>
+  </body>
+</html>
