@@ -1,0 +1,370 @@
+<!DOCTYPE html>
+<html lang="pl">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>JEPA Representation Lab</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script src="https://cdn.jsdelivr.net/npm/@tensorflow/tfjs@4.17.0/dist/tf.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+    <style>
+        body { background-color: #0f172a; color: #f8fafc; font-family: 'Inter', sans-serif; }
+        .slider { -webkit-appearance: none; width: 100%; height: 6px; background: #334155; border-radius: 5px; outline: none; }
+        .slider::-webkit-slider-thumb { -webkit-appearance: none; width: 18px; height: 18px; background: #38bdf8; cursor: pointer; border-radius: 50%; }
+        .math-block { background: #020617; padding: 1rem; border-radius: 0.5rem; font-family: 'Fira Code', monospace; font-size: 0.85rem; color: #7dd3fc; border: 1px solid #1e293b; margin: 1rem 0; overflow-x: auto;}
+        #heatmapCanvas { image-rendering: pixelated; width: 100%; height: auto; aspect-ratio: 1/1; border-radius: 0.5rem; border: 1px solid #334155; background: #020617; }
+        .step-card { border-left: 4px solid #334155; transition: all 0.3s; background: rgba(30, 41, 59, 0.3); }
+        .step-card:hover { border-left-color: #38bdf8; background: rgba(56, 189, 248, 0.05); }
+        details > summary { list-style: none; cursor: pointer; }
+        details > summary::-webkit-details-marker { display: none; }
+    </style>
+</head>
+<body class="p-4 md:p-8">
+
+    <div class="max-w-7xl mx-auto">
+        <header class="mb-10 border-b border-slate-800 pb-6">
+            <h1 class="text-3xl font-extrabold text-white tracking-tight">
+                JEPA World Model <span class="text-sky-400">Lab v2</span>
+            </h1>
+            <p class="text-slate-400 text-sm italic">Badanie odporności reprezentacji na szum i kolaps.</p>
+        </header>
+
+        <div class="grid grid-cols-1 lg:grid-cols-12 gap-12 items-start">
+            
+            <!-- Lewa kolumna: Sterowanie i Wykresy -->
+            <div class="lg:col-span-6 space-y-6">
+                
+                <div class="p-6 bg-slate-900 rounded-2xl border border-sky-500/30 space-y-6 shadow-lg">
+                    <div class="flex justify-between items-center">
+                        <h3 class="text-lg font-bold text-white uppercase tracking-widest text-sm">Sterowanie Silnikiem</h3>
+                        <div id="jepaStatus" class="px-3 py-1 bg-slate-800 rounded-md text-xs font-mono text-emerald-400 border border-slate-700">Idle</div>
+                    </div>
+
+                    <div class="space-y-4">
+                        <div>
+                            <label class="block text-xs font-bold text-slate-400 uppercase flex justify-between">
+                                Regularyzacja (SIGReg) <span id="jepaRegVal" class="text-sky-400 font-mono">0.50</span>
+                            </label>
+                            <input type="range" id="jepaReg" min="0" max="2" step="0.05" value="0.5" class="slider mt-2">
+                        </div>
+                        <div>
+                            <label class="block text-xs font-bold text-slate-400 uppercase flex justify-between">
+                                Szum w Embeddingach (Test) <span id="jepaNoiseVal" class="text-rose-400 font-mono">0.050</span>
+                            </label>
+                            <input type="range" id="jepaNoise" min="0" max="0.5" step="0.01" value="0.05" class="slider mt-2">
+                        </div>
+                        <div>
+                            <label class="block text-xs font-bold text-slate-400 uppercase flex justify-between">
+                                Kroki Treningowe <span id="jepaStepsVal" class="text-sky-400 font-mono">1000</span>
+                            </label>
+                            <input type="range" id="jepaSteps" min="500" max="10000" step="500" value="1000" class="slider mt-2">
+                        </div>
+                    </div>
+
+                    <button id="btnTrainJepa" class="w-full py-4 bg-sky-600 hover:bg-sky-500 text-white rounded-xl font-bold transition-all shadow-lg flex items-center justify-center gap-2 mt-4">
+                        🚀 Rozpocznij Symulację
+                    </button>
+                    
+                    <div class="w-full bg-slate-800 h-2 rounded-full overflow-hidden">
+                        <div id="jepaProgress" class="bg-sky-400 h-full w-0 transition-all duration-75"></div>
+                    </div>
+                </div>
+
+                <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
+                    <div class="p-4 bg-slate-800/40 rounded-xl border border-slate-700 shadow-sm">
+                        <h3 class="text-[10px] uppercase font-bold text-slate-500 mb-2">Latent Space (PCA)</h3>
+                        <div class="w-full h-48">
+                            <canvas id="latentChart"></canvas>
+                        </div>
+                    </div>
+
+                    <div class="p-4 bg-slate-800/40 rounded-xl border border-slate-700 shadow-sm flex flex-col items-center text-center">
+                        <h3 class="text-[10px] uppercase font-bold text-slate-500 w-full mb-2">Błąd Predykcji Kroku</h3>
+                        <div class="w-full h-32 flex items-center justify-center">
+                            <canvas id="heatmapCanvas" width="8" height="8" style="height: 100%; object-fit: contain;"></canvas>
+                        </div>
+                        <div class="w-full mt-3 flex flex-col px-4">
+                            <div class="w-full h-1.5 rounded bg-gradient-to-r from-yellow-100 to-red-600"></div>
+                            <div class="flex justify-between text-[8px] text-slate-500 font-mono mt-1"><span>IDEALNIE</span><span>BŁĄD</span></div>
+                        </div>
+                    </div>
+
+                    <div class="p-4 bg-slate-800/40 rounded-xl border border-slate-700 shadow-sm col-span-1 md:col-span-2">
+                        <h3 class="text-[10px] uppercase font-bold text-slate-500 mb-2">Loss (Skala Log)</h3>
+                        <div class="w-full h-40">
+                            <canvas id="lossChart"></canvas>
+                        </div>
+                    </div>
+                </div>
+
+                <div id="collapseAlert" class="p-5 rounded-xl border border-slate-700 bg-slate-800/40 transition-all grid grid-cols-2 gap-4">
+                    <div>
+                        <h3 class="text-[10px] uppercase font-bold text-slate-500 mb-1">Skala Sygnału (Var)</h3>
+                        <div id="jepaVarText" class="text-xl font-mono text-white">--</div>
+                    </div>
+                    <div class="border-l border-slate-700 pl-4">
+                        <h3 class="text-[10px] uppercase font-bold text-slate-500 mb-1">Błąd Sondy (Z SZUMEM)</h3>
+                        <div id="jepaProbeText" class="text-xl font-mono text-white">-- cells</div>
+                    </div>
+                </div>
+
+            </div>
+
+            <div class="lg:col-span-6 space-y-8">
+                <section class="bg-slate-800/20 p-6 rounded-2xl border border-slate-700/50">
+                    <div class="flex justify-between items-center mb-4">
+                        <h2 class="text-2xl font-bold text-white">Wizualizacja "Myśli"</h2>
+                        <span id="replayStatus" class="text-[10px] font-mono text-rose-400 bg-rose-900/30 px-2 py-1 rounded">Czekam na trening</span>
+                    </div>
+                    <div class="w-full h-72 bg-slate-950 rounded-xl border border-slate-800 relative overflow-hidden shadow-inner">
+                        <canvas id="envCanvas"></canvas>
+                    </div>
+                </section>
+
+                <!-- INTERAKTYWNY BOX: PRZEWODNIK PO SONDZIE -->
+                <section>
+                    <details class="group bg-slate-900 rounded-2xl border border-emerald-500/30 overflow-hidden shadow-xl" open>
+                        <summary class="p-6 flex justify-between items-center bg-emerald-500/5 hover:bg-emerald-500/10 transition-all">
+                            <h2 class="text-xl font-bold text-emerald-400 flex items-center gap-3">
+                                <span>🔍 Linear Probe: Interpretacja</span>
+                            </h2>
+                            <span class="text-emerald-500 group-open:rotate-180 transition-transform">▼</span>
+                        </summary>
+                        <div class="p-6 pt-0 space-y-4">
+                            <p class="text-slate-400 text-xs leading-relaxed">
+                                Sonda liniowa mierzy błąd odległości (Euklidesowy) między faktyczną pozycją agenta a pozycją odkodowaną z embeddingu.
+                            </p>
+                            
+                            <div class="grid grid-cols-1 gap-2 text-[11px]">
+                                <div class="flex items-center gap-3 p-2 rounded-lg bg-emerald-500/10 border border-emerald-500/20">
+                                    <span class="w-16 font-mono text-emerald-400">0.0 - 0.4</span>
+                                    <span class="text-slate-300"><strong>Idealny:</strong> Kryształowa mapa geometryczna.</span>
+                                </div>
+                                <div class="flex items-center gap-3 p-2 rounded-lg bg-sky-500/10 border border-sky-500/20">
+                                    <span class="w-16 font-mono text-sky-400">0.5 - 0.9</span>
+                                    <span class="text-slate-300"><strong>Dobry:</strong> Zdrowy model, wysoka odporność.</span>
+                                </div>
+                                <div class="flex items-center gap-3 p-2 rounded-lg bg-amber-500/10 border border-amber-500/20">
+                                    <span class="w-16 font-mono text-amber-400">1.0 - 1.8</span>
+                                    <span class="text-slate-300"><strong>Słaby:</strong> Model "półślepy", niska precyzja.</span>
+                                </div>
+                                <div class="flex items-center gap-3 p-2 rounded-lg bg-rose-500/10 border border-rose-500/20">
+                                    <span class="w-16 font-mono text-rose-400">2.5 - 3.8</span>
+                                    <span class="text-slate-300"><strong>Brak wiedzy:</strong> Kolaps lub czysty szum.</span>
+                                </div>
+                            </div>
+
+                            <div class="bg-slate-950 p-4 rounded-xl border border-slate-800 text-[10px] text-slate-500 italic">
+                                <strong>Wniosek:</strong> Jeśli przy <strong>Reg=0</strong> błąd wynosi 1.5+, oznacza to, że reprezentacja jest zbyt mała, by przetrwać szum. SIGReg działa jak wzmacniacz sygnału.
+                            </div>
+                        </div>
+                    </details>
+                </section>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        let trainedEncoder = null, trainedPredictor = null, trainedProbe = null;
+        let pcaPoints = [], lossChart, latentChart, isTraining = false;
+
+        const GRID_SIZE = 8;
+        function stepAction(r, c, a) {
+            if(a===0) r=Math.max(0, r-1); if(a===1) r=Math.min(7, r+1);
+            if(a===2) c=Math.max(0, c-1); if(a===3) c=Math.min(7, c+1);
+            return [r, c];
+        }
+
+        function stateToImage(r, c) {
+            const img = new Float32Array(64);
+            for(let i=0; i<8; i++) for(let j=0; j<8; j++) img[i*8+j] = Math.exp(-(Math.abs(i-r)+Math.abs(j-c))/2.0);
+            return img;
+        }
+
+        function getTop2PCA(matrix, rows, cols) {
+            if(cols<=2) return matrix.map(r=>({x: r[0], y: r[1]}));
+            let means = new Array(cols).fill(0); matrix.forEach(r=>r.forEach((v,i)=>means[i]+=v)); means = means.map(v=>v/rows);
+            let centered = matrix.map(r=>r.map((v,i)=>v-means[i]));
+            let cov = new Array(cols).fill(0).map(()=>new Array(cols).fill(0));
+            for(let i=0; i<rows; i++) for(let j=0; j<cols; j++) for(let k=0; k<cols; k++) cov[j][k] += centered[i][j]*centered[i][k];
+            function powerIter(m) {
+                let v = new Array(cols).fill(0).map(()=>Math.random()-0.5);
+                for(let i=0; i<20; i++) {
+                    let nv = new Array(cols).fill(0);
+                    for(let x=0; x<cols; x++) for(let y=0; y<cols; y++) nv[x] += m[x][y] * v[y];
+                    let norm = Math.sqrt(nv.reduce((s, v)=>s+v*v, 0)) + 1e-8; v = nv.map(v=>v/norm);
+                }
+                let val = 0; for(let x=0; x<cols; x++) { let mv=0; for(let y=0; y<cols; y++) mv+=m[x][y]*v[y]; val+=v[x]*mv; }
+                return {vec: v, val};
+            }
+            let p1 = powerIter(cov), cov2 = cov.map((r,i)=>r.map((v,j)=>v - p1.val*p1.vec[i]*p1.vec[j])), p2 = powerIter(cov2);
+            return centered.map(r=>({x: r.reduce((s,v,i)=>s+v*p1.vec[i],0), y: r.reduce((s,v,i)=>s+v*p2.vec[i],0)}));
+        }
+
+        async function trainJEPA() {
+            if(isTraining) return; isTraining=true;
+            
+            const btn = document.getElementById('btnTrainJepa');
+            const status = document.getElementById('jepaStatus');
+            const progress = document.getElementById('jepaProgress');
+            const replayStat = document.getElementById('replayStatus');
+
+            if(btn) btn.innerText = "⚙️ Trenowanie...";
+            if(status) { status.innerText = "Running"; status.className = "px-3 py-1 bg-sky-900/30 rounded-md text-xs font-mono text-sky-400 border border-sky-700"; }
+            if(replayStat) replayStat.innerText = "Trwa trening...";
+
+            const oldEnc = trainedEncoder, oldPred = trainedPredictor, oldProbe = trainedProbe;
+            trainedEncoder = null; trainedPredictor = null; trainedProbe = null;
+            if(oldEnc) oldEnc.dispose(); if(oldPred) oldPred.dispose(); if(oldProbe) oldProbe.dispose();
+
+            const regS = parseFloat(document.getElementById('jepaReg').value); 
+            const steps = parseInt(document.getElementById('jepaSteps').value);
+            const noiseStd = parseFloat(document.getElementById('jepaNoise').value);
+            const latentDim = 16, batchSize = 128;
+            
+            const obsArr=[], actArr=[], nextObsArr=[];
+            for(let i=0; i<600; i++) {
+                let r=Math.floor(Math.random()*8), c=Math.floor(Math.random()*8), a=Math.floor(Math.random()*4);
+                obsArr.push(stateToImage(r, c)); let a1h=[0,0,0,0]; a1h[a]=1; actArr.push(a1h);
+                let [nr,nc]=stepAction(r,c,a); nextObsArr.push(stateToImage(nr,nc));
+            }
+            const oT=tf.tensor2d(obsArr), aT=tf.tensor2d(actArr), nT=tf.tensor2d(nextObsArr);
+            const enc = tf.sequential({layers:[tf.layers.dense({units:64, activation:'relu', inputShape:[64]}), tf.layers.dense({units:latentDim})]});
+            const pred = tf.sequential({layers:[tf.layers.dense({units:64, activation:'relu', inputShape:[latentDim+4]}), tf.layers.dense({units:latentDim})]});
+            const opt = tf.train.adam(0.01);
+
+            lossChart.data.labels = []; lossChart.data.datasets[0].data = []; lossChart.data.datasets[1].data = [];
+
+            for(let i=0; i<=steps; i++) {
+                let pLossVal, rLossVal;
+                tf.tidy(()=>{
+                    const idx=tf.randomUniform([batchSize], 0, 600, 'int32'), bO=oT.gather(idx), bA=aT.gather(idx), bN=nT.gather(idx);
+                    const targetEmb = enc.apply(bN); 
+                    opt.minimize(()=>{
+                        const curE=enc.apply(bO), pE=pred.apply(tf.concat([curE, bA], 1));
+                        const pLoss=tf.losses.meanSquaredError(targetEmb, pE);
+                        const nexE=enc.apply(bN), allE=tf.concat([curE, nexE], 0);
+                        const mean=tf.mean(allE, 0), variance=tf.moments(allE, 0).variance;
+                        const rLoss=tf.add(tf.mean(tf.square(tf.sub(variance, 1.0))), tf.mean(tf.square(mean)));
+                        const w1 = enc.getWeights()[0], w2 = pred.getWeights()[0];
+                        const decay = tf.add(tf.mean(tf.square(w1)), tf.mean(tf.square(w2))).mul(0.005);
+                        pLossVal = pLoss.dataSync()[0]; rLossVal = rLoss.dataSync()[0]; 
+                        return pLoss.add(rLoss.mul(regS)).add(decay);
+                    }, true, [...enc.getWeights(), ...pred.getWeights()]);
+                });
+                if(i%50===0 || i===steps) { 
+                    lossChart.data.labels.push(i); lossChart.data.datasets[0].data.push(pLossVal); lossChart.data.datasets[1].data.push(rLossVal); lossChart.update('none');
+                    if(progress) progress.style.width = (i/steps*100) + "%";
+                    await tf.nextFrame(); 
+                }
+            }
+
+            const gridImgs=[]; for(let r=0; r<8; r++) for(let c=0; c<8; c++) gridImgs.push(stateToImage(r,c));
+            const gridT=tf.tensor2d(gridImgs); 
+            const cleanEmbs = enc.apply(gridT);
+            const noise = tf.randomNormal([64, latentDim], 0, noiseStd);
+            const noisyEmbs = tf.add(cleanEmbs, noise);
+            
+            const probe=tf.sequential({layers:[tf.layers.dense({units:2, inputShape:[latentDim]})]}), pOpt=tf.train.adam(0.1), pT=tf.tensor2d(Array.from({length:64},(_,i)=>[Math.floor(i/8),i%8]));
+            for(let i=0; i<150; i++) pOpt.minimize(()=>tf.losses.meanSquaredError(pT, probe.apply(noisyEmbs)));
+            
+            trainedEncoder = enc; trainedPredictor = pred; trainedProbe = probe;
+            const variance = tf.mean(tf.moments(cleanEmbs,0).variance).dataSync()[0];
+            const finalNoisy = tf.add(cleanEmbs, tf.randomNormal([64, latentDim], 0, noiseStd));
+            const pError = tf.mean(tf.norm(tf.sub(pT, probe.apply(finalNoisy)), 'euclidean', 1)).dataSync()[0];
+
+            document.getElementById('jepaVarText').innerText = variance.toFixed(4);
+            document.getElementById('jepaProbeText').innerText = pError.toFixed(2) + " cells";
+            
+            const alrt = document.getElementById('collapseAlert');
+            if (alrt) {
+                if (variance < 0.05 || pError > 1.5) alrt.className = "p-5 rounded-xl border border-rose-500 bg-rose-900/20 grid grid-cols-2 gap-4 transition-all";
+                else alrt.className = "p-5 rounded-xl border border-emerald-500 bg-emerald-900/20 grid grid-cols-2 gap-4 transition-all";
+            }
+
+            pcaPoints = getTop2PCA(cleanEmbs.arraySync(), 64, latentDim);
+            latentChart.data.datasets[0].data=pcaPoints.map((pt, i)=>({ x: pt.x, y: pt.y }));
+            latentChart.data.datasets[0].backgroundColor=pcaPoints.map((_,i)=>`hsl(${(i/64)*360},80%,60%)`);
+            latentChart.update();
+
+            const hmCanvas=document.getElementById('heatmapCanvas'); const hmCtx=hmCanvas.getContext('2d');
+            for(let r=0; r<8; r++) for(let c=0; c<8; c++) {
+                const curE=enc.apply(tf.tensor2d([stateToImage(r,c)])); let eSum=0;
+                for(let a=0; a<4; a++) {
+                    let [nr,nc]=stepAction(r,c,a); const nE=enc.apply(tf.tensor2d([stateToImage(nr,nc)]));
+                    let a1h=[0,0,0,0]; a1h[a]=1; const pE=pred.apply(tf.concat([curE, tf.tensor2d([a1h])], 1));
+                    eSum+=Math.sqrt(tf.losses.meanSquaredError(nE, pE).dataSync()[0]);
+                }
+                const val=Math.min(eSum/4, 1.0); hmCtx.fillStyle=`hsl(${60-(val*60)},100%,${95-(val*45)}%)`; hmCtx.fillRect(c,r,1,1);
+            }
+
+            if(replayStat) { replayStat.innerText = "Model Live"; replayStat.className = "text-[10px] font-mono text-emerald-400 bg-emerald-900/30 px-2 py-1 rounded"; }
+            if(status) { status.innerText = "Completed"; status.className = "px-3 py-1 bg-emerald-900/30 rounded-md text-xs font-mono text-emerald-400 border border-emerald-700"; }
+            if(btn) btn.innerText = "🚀 Ponów Symulację";
+            isTraining=false;
+        }
+
+        const envCanvas=document.getElementById('envCanvas'); const envCtx=envCanvas.getContext('2d');
+        let envTimer = 0, envState = { r: 3, c: 3, a: 3, nr: 3, nc: 4 };
+
+        function drawEnv() {
+            const w = envCanvas.parentElement.clientWidth, h = envCanvas.parentElement.clientHeight;
+            if(envCanvas.width !== w || envCanvas.height !== h) { envCanvas.width = w; envCanvas.height = h; }
+            envTimer++;
+            if (envTimer > 120) { 
+                envTimer = 0; envState.r = Math.floor(Math.random()*8); envState.c = Math.floor(Math.random()*8);
+                envState.a = Math.floor(Math.random()*4); let [nr, nc] = stepAction(envState.r, envState.c, envState.a);
+                envState.nr = nr; envState.nc = nc;
+            }
+            envCtx.clearRect(0, 0, w, h);
+            let predCoords = null;
+            if (trainedEncoder && trainedPredictor && trainedProbe) {
+                try {
+                    tf.tidy(() => {
+                        const z_t = trainedEncoder.apply(tf.tensor2d([stateToImage(envState.r, envState.c)]));
+                        const a_1h = tf.tensor2d([[envState.a===0?1:0, envState.a===1?1:0, envState.a===2?1:0, envState.a===3?1:0]]);
+                        const z_hat = trainedPredictor.apply(tf.concat([z_t, a_1h], 1));
+                        predCoords = trainedProbe.apply(z_hat).dataSync();
+                    });
+                } catch(e) {}
+            }
+            function drawGrid(cx, cy, size, r, c, label, pr=null, pc=null) {
+                const cellSize = size/8, startX = cx - size/2, startY = cy - size/2;
+                for(let i=0; i<8; i++) for(let j=0; j<8; j++){
+                    envCtx.fillStyle = (i===r && j===c) ? '#38bdf8' : '#0f172a';
+                    envCtx.fillRect(startX + j*cellSize, startY + i*cellSize, cellSize, cellSize);
+                    envCtx.strokeStyle = 'rgba(255,255,255,0.1)'; envCtx.strokeRect(startX + j*cellSize, startY + i*cellSize, cellSize, cellSize);
+                }
+                if (pr !== null) {
+                    envCtx.fillStyle = '#f472b6'; envCtx.beginPath();
+                    envCtx.arc(startX + pc*cellSize + cellSize/2, startY + pr*cellSize + cellSize/2, cellSize/2.5, 0, Math.PI*2);
+                    envCtx.fill(); envCtx.strokeStyle = 'white'; envCtx.lineWidth=2; envCtx.stroke();
+                }
+                envCtx.fillStyle = '#94a3b8'; envCtx.textAlign = 'center'; envCtx.font = 'bold 9px Inter';
+                envCtx.fillText(label, cx, cy + size/2 + 15);
+            }
+            const gridSize = Math.min(75, w/4.5);
+            drawGrid(w*0.15, h/2, gridSize, envState.r, envState.c, "Obserwacja (x_t)");
+            drawGrid(w*0.50, h/2, gridSize, envState.nr, envState.nc, "Actual (x_t+1)");
+            drawGrid(w*0.85, h/2, gridSize, -1, -1, "Mental Prediction", predCoords ? predCoords[0] : null, predCoords ? predCoords[1] : null);
+            requestAnimationFrame(drawEnv);
+        }
+
+        window.onload = function() {
+            lossChart = new Chart(document.getElementById('lossChart').getContext('2d'), { 
+                type: 'line', data: { labels: [], datasets: [{ label: 'Błąd predykcji', data: [], borderColor: '#38bdf8', borderWidth: 2, pointRadius: 0 }, { label: 'SIGReg', data: [], borderColor: '#f59e0b', borderWidth: 2, pointRadius: 0 }]}, 
+                options: { responsive: true, maintainAspectRatio: false, scales: { y: { type: 'logarithmic', grid: {color:'#1e293b'}}}}
+            });
+            latentChart = new Chart(document.getElementById('latentChart').getContext('2d'), { 
+                type: 'scatter', data: { datasets: [{ data: [], pointRadius: 4 }] }, 
+                options: { responsive: true, maintainAspectRatio: false, plugins: { legend: { display: false }}, scales: { x: { grid: {color:'#1e293b'} }, y: { grid: {color:'#1e293b'} }}}
+            });
+            document.getElementById('btnTrainJepa').onclick=trainJEPA;
+            document.getElementById('jepaReg').oninput = (e) => document.getElementById('jepaRegVal').innerText = parseFloat(e.target.value).toFixed(2);
+            document.getElementById('jepaSteps').oninput = (e) => document.getElementById('jepaStepsVal').innerText = e.target.value;
+            document.getElementById('jepaNoise').oninput = (e) => document.getElementById('jepaNoiseVal').innerText = parseFloat(e.target.value).toFixed(3);
+            drawEnv();
+        };
+    </script>
+</body>
+</html>
