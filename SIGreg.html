@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Particle Intuition - SIGReg Physics</title>
+    <title>Particle Intuition - SIGReg Physics Lab</title>
     <script src="https://cdn.tailwindcss.com"></script>
     <style>
         body { background-color: #0f172a; color: #f8fafc; font-family: 'Inter', sans-serif; overflow-x: hidden; }
@@ -11,590 +11,386 @@
         canvas { width: 100%; height: 100%; display: block; }
         .slider { -webkit-appearance: none; width: 100%; height: 6px; background: #334155; border-radius: 5px; outline: none; }
         .slider::-webkit-slider-thumb { -webkit-appearance: none; width: 20px; height: 20px; background: #38bdf8; cursor: pointer; border-radius: 50%; box-shadow: 0 0 10px rgba(56, 189, 248, 0.5); }
+        .slider.red { -webkit-appearance: none; }
         .slider.red::-webkit-slider-thumb { background: #f43f5e; box-shadow: 0 0 10px rgba(244, 63, 94, 0.5); }
         .slider.emerald::-webkit-slider-thumb { background: #10b981; box-shadow: 0 0 10px rgba(16, 185, 129, 0.5); }
-        .step-card { border-left: 4px solid #334155; transition: all 0.3s; background: rgba(30, 41, 59, 0.3); }
-        .step-card:hover { border-left-color: #38bdf8; background: rgba(56, 189, 248, 0.05); }
-        .math-block { background: #0f172a; padding: 1rem; border-radius: 0.5rem; font-family: 'Fira Code', monospace; font-size: 0.85rem; color: #7dd3fc; border: 1px solid #1e293b; margin: 0.5rem 0;}
         
         .corner-pause {
-            position: absolute;
-            top: 1rem;
-            right: 1rem;
-            width: 44px;
-            height: 44px;
-            border-radius: 50%;
-            background: rgba(30, 41, 59, 0.8);
-            border: 1px solid rgba(56, 189, 248, 0.4);
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            cursor: pointer;
-            z-index: 20;
-            backdrop-filter: blur(8px);
-            transition: all 0.2s;
+            position: absolute; top: 1rem; right: 1rem; width: 44px; height: 44px; border-radius: 50%;
+            background: rgba(30, 41, 59, 0.8); border: 1px solid rgba(56, 189, 248, 0.4);
+            display: flex; align-items: center; justify-content: center; cursor: pointer; z-index: 20;
+            backdrop-filter: blur(8px); transition: all 0.2s;
         }
         .corner-pause:hover { background: rgba(56, 189, 248, 0.2); transform: scale(1.05); }
+
+        .method-switch {
+            background: #1e293b; border-radius: 999px; padding: 4px; display: flex; gap: 4px; border: 1px solid #334155;
+        }
+        .method-btn {
+            padding: 4px 12px; border-radius: 999px; font-size: 10px; font-weight: bold; transition: all 0.2s; color: #94a3b8;
+        }
+        .method-btn.active { background: #38bdf8; color: #020617; }
+        
+        details > summary { list-style: none; cursor: pointer; }
+        details > summary::-webkit-details-marker { display: none; }
+        .code-snippet { background: #020617; padding: 8px; border-radius: 6px; font-family: 'Fira Code', monospace; font-size: 11px; color: #7dd3fc; border: 1px solid #1e293b; margin: 4px 0; }
     </style>
 </head>
 <body class="p-4 md:p-8">
 
     <div class="max-w-7xl mx-auto">
-        <header class="mb-8 border-b border-slate-800 pb-6">
-            <h1 class="text-4xl font-extrabold text-white tracking-tight mb-2">
-                Particle <span class="text-sky-400">Intuition</span>
-            </h1>
-            <p class="text-slate-400 text-lg">Visualizing Sliced Wasserstein Distance & SSL Class Clustering</p>
+        <header class="mb-8 border-b border-slate-800 pb-6 flex justify-between items-end">
+            <div>
+                <h1 class="text-4xl font-extrabold text-white tracking-tight mb-2">
+                    Particle <span class="text-sky-400">Intuition</span>
+                </h1>
+                <p class="text-slate-400 text-lg">Visualizing SIGReg and Representation Collapse</p>
+            </div>
+            
+            <div class="flex flex-col items-end gap-2 mb-2">
+                <span class="text-[10px] font-bold text-slate-500 uppercase tracking-widest">Regularization Method</span>
+                <div class="method-switch" id="methodSwitch">
+                    <button class="method-btn active" id="btnW" onclick="setMethod('wasserstein')">WASSERSTEIN</button>
+                    <button class="method-btn" id="btnF" onclick="setMethod('fourier')">FOURIER</button>
+                </div>
+            </div>
         </header>
 
         <div class="grid grid-cols-1 lg:grid-cols-12 gap-10 items-start">
             
-            <!-- Left Column: Canvas & Controls -->
             <div class="lg:col-span-7 space-y-6">
-                <!-- Visualizer Canvas -->
                 <div class="canvas-container relative">
                     <canvas id="physicsCanvas"></canvas>
                     
-                    <!-- Floating Metric Overlays -->
                     <div class="absolute top-4 left-4 p-3 bg-slate-900/80 backdrop-blur-md border border-slate-700 rounded-xl shadow-lg flex flex-col gap-1 pointer-events-none">
                         <span class="text-[10px] font-bold text-slate-400 uppercase tracking-widest">Latent State</span>
-                        <div id="stateLabel" class="text-emerald-400 font-mono font-bold text-sm">HEALTHY</div>
+                        <div id="stateLabel" class="font-mono font-bold text-sm text-emerald-400">READY</div>
                     </div>
                     <div class="absolute top-20 right-4 p-3 bg-slate-900/80 backdrop-blur-md border border-slate-700 rounded-xl shadow-lg flex flex-col items-end pointer-events-none min-w-[140px]">
                         <span class="text-[10px] font-bold text-slate-400 uppercase tracking-widest">Avg Variance (~1.0)</span>
-                        <div id="varLabel" class="text-white font-mono font-bold text-lg leading-tight">1.00</div>
+                        <div id="varLabel" class="text-white font-mono font-bold text-lg leading-tight">0.00</div>
                         <div class="w-full h-px bg-slate-700 my-2"></div>
-                        <span class="text-[10px] font-bold text-emerald-400 uppercase tracking-widest" title="Davies-Bouldin Index (Lower is better, dense & separate clusters)">Davies-Bouldin</span>
+                        <span class="text-[10px] font-bold text-emerald-400 uppercase tracking-widest">Davies-Bouldin</span>
                         <div id="dbLabel" class="text-white font-mono font-bold text-lg leading-tight">0.00</div>
                     </div>
                     
-                    <!-- Interactive Buttons -->
-                    <button id="btnCornerPause" class="corner-pause" onclick="togglePause()" title="Play/Pause Simulation">
-                        <span id="pauseIcon" class="text-sky-400 text-xl font-bold">⏸</span>
-                    </button>
-
-                    <button id="btnAxisMode" class="absolute bottom-4 right-4 py-1.5 px-4 bg-slate-900/80 backdrop-blur-md border border-slate-700 text-sky-400 text-[10px] font-bold uppercase tracking-widest rounded-lg shadow-lg hover:bg-sky-500/20 transition-all z-20" onclick="toggleAxisMode()">
-                        Axis: Rotating
-                    </button>
+                    <button id="btnCornerPause" class="corner-pause" onclick="togglePause()"><span id="pauseIcon" class="text-sky-400 text-xl">⏸</span></button>
+                    <button id="btnAxisMode" class="absolute bottom-4 right-4 py-1.5 px-4 bg-slate-900/80 backdrop-blur-md border border-slate-700 text-sky-400 text-[10px] font-bold uppercase tracking-widest rounded-lg" onclick="toggleAxisMode()">Axis: Rotating</button>
                 </div>
 
-                <!-- Physics Controls -->
                 <div class="grid grid-cols-1 md:grid-cols-3 gap-6 p-6 bg-slate-900 rounded-2xl border border-slate-800 shadow-xl">
-                    
-                    <!-- Force 1: SSL Clustering -->
                     <div class="space-y-4">
-                        <label class="block text-[10px] font-bold text-emerald-400 uppercase tracking-widest flex justify-between">
-                            SSL Attraction <span id="valSSL" class="text-white">0.40</span>
-                        </label>
-                        <input type="range" id="sliderSSL" min="0" max="100" value="40" class="slider emerald">
-                        <p class="text-[9px] text-slate-500 leading-tight">Pulls positive pairs (same color) together.</p>
+                        <label class="block text-[10px] font-bold text-emerald-400 uppercase flex justify-between">SSL Attraction <span id="valSSL" class="text-white">0.00</span></label>
+                        <input type="range" id="sliderSSL" min="0" max="10" step="0.01" value="0" class="slider emerald">
+                    </div>
+                    <div class="space-y-4">
+                        <label class="block text-[10px] font-bold text-rose-400 uppercase flex justify-between">Global Collapse <span id="valCollapse" class="text-white">0.00</span></label>
+                        <input type="range" id="sliderCollapse" min="0" max="10" step="0.01" value="0" class="slider red">
+                    </div>
+                    <div class="space-y-4">
+                        <label class="block text-[10px] font-bold text-sky-400 uppercase flex justify-between">SIGReg Penalty <span id="valSigreg" class="text-white">0.00</span></label>
+                        <input type="range" id="sliderSigreg" min="0" max="10" step="0.01" value="0" class="slider">
                     </div>
 
-                    <!-- Force 2: Collapse -->
-                    <div class="space-y-4">
-                        <label class="block text-[10px] font-bold text-rose-400 uppercase tracking-widest flex justify-between">
-                            Global Collapse <span id="valCollapse" class="text-white">0.20</span>
-                        </label>
-                        <input type="range" id="sliderCollapse" min="0" max="100" value="20" class="slider red">
-                        <p class="text-[9px] text-slate-500 leading-tight">Pulls all points to the origin (The "Cheat").</p>
-                    </div>
-
-                    <!-- Force 3: SIGReg Penalty -->
-                    <div class="space-y-4">
-                        <label class="block text-[10px] font-bold text-sky-400 uppercase tracking-widest flex justify-between">
-                            SIGReg Penalty <span id="valSigreg" class="text-white">1.00</span>
-                        </label>
-                        <input type="range" id="sliderSigreg" min="0" max="200" value="100" class="slider">
-                        <p class="text-[9px] text-slate-500 leading-tight">Forces points into an overall 2D Gaussian shape.</p>
-                    </div>
-
-                    <!-- Preset Scenarios -->
                     <div class="md:col-span-3 grid grid-cols-3 gap-3 pt-2 border-t border-slate-800">
-                        <button onclick="setScenario('init')" class="py-2 px-4 bg-slate-800 hover:bg-slate-700 border border-slate-600 text-white text-xs font-bold rounded-lg transition-colors">
-                            1. Random Init
-                        </button>
-                        <button onclick="setScenario('collapse')" class="py-2 px-4 bg-rose-500/10 hover:bg-rose-500/20 border border-rose-500/50 text-rose-400 text-xs font-bold rounded-lg transition-colors">
-                            2. Collapse (No SIGReg)
-                        </button>
-                        <button onclick="setScenario('sigreg')" class="py-2 px-4 bg-sky-500/10 hover:bg-sky-500/20 border border-sky-500/50 text-sky-400 text-xs font-bold rounded-lg transition-colors">
-                            3. SSL + SIGReg
-                        </button>
+                        <button onclick="setScenario('init')" class="py-2 px-4 bg-slate-800 hover:bg-slate-700 text-white text-xs font-bold rounded-lg transition-colors">1. Random Init</button>
+                        <button onclick="setScenario('collapse')" class="py-2 px-4 bg-rose-500/10 hover:bg-rose-500/20 text-rose-400 text-xs font-bold rounded-lg border border-rose-500/50 transition-colors">2. Trigger Collapse</button>
+                        <button onclick="setScenario('sigreg')" class="py-2 px-4 bg-sky-500/10 hover:bg-sky-500/20 text-sky-400 text-xs font-bold rounded-lg border border-sky-500/50 transition-colors">3. SSL + SIGReg</button>
                     </div>
                 </div>
             </div>
 
-            <!-- Right Column: Theory -->
-            <div class="lg:col-span-5 space-y-8">
-                <section>
-                    <h3 class="text-2xl font-extrabold text-white mb-4">Trivial SSL in 2D</h3>
-                    <p class="text-slate-400 text-sm leading-relaxed mb-4">
-                        Let's simulate a basic Self-Supervised task. We have data belonging to <strong>4 hidden classes</strong> (represented by Red, Blue, Green, and Yellow dots).
-                    </p>
+            <!-- Side Panels -->
+            <div class="lg:col-span-5 space-y-6 overflow-y-auto max-h-[85vh] pr-2">
+                
+                <!-- NEW SECTION: CONCEPTUAL GUIDE -->
+                <section class="bg-slate-900 rounded-xl border border-sky-500/40 overflow-hidden shadow-lg">
+                    <div class="p-4 bg-sky-500/10 border-b border-sky-500/20">
+                        <h2 class="text-sm font-bold text-sky-400 uppercase tracking-widest">🧠 Conceptual Guide</h2>
+                    </div>
+                    <div class="p-5 space-y-4 text-xs leading-relaxed">
+                        <p class="text-slate-300">
+                            Based on <a href="https://arxiv.org/abs/2511.08544" class="text-sky-400 underline decoration-sky-800 underline-offset-4" target="_blank">arxiv:2511.08544</a>, this lab illustrates <strong>Statistical Invariant Gaussian Regularization (SIGReg)</strong>.
+                        </p>
+                        <ul class="space-y-3">
+                            <li class="flex gap-3">
+                                <span class="text-emerald-400 font-bold">1. Embeddings:</span>
+                                <span>Dots represent high-dimensional vectors in a latent space. Colors represent data classes (e.g., different objects).</span>
+                            </li>
+                            <li class="flex gap-3">
+                                <span class="text-rose-400 font-bold">2. SSL Attraction:</span>
+                                <span>Simulates the Invariance Loss in JEPA. It pulls similar samples together, forming clusters (features).</span>
+                            </li>
+                            <li class="flex gap-3">
+                                <span class="text-sky-400 font-bold">3. SIGReg:</span>
+                                <span>A global force that ensures the total distribution of embeddings matches a target (Gaussian). It prevents all clusters from collapsing into a single point.</span>
+                            </li>
+                        </ul>
+                        <div class="p-3 bg-slate-950 rounded-lg border border-slate-800 italic text-slate-500">
+                            "A healthy representation must be discriminative (low DB index) and informative (high variance)."
+                        </div>
+                    </div>
                 </section>
 
-                <div class="step-card p-5 rounded-r-xl border-emerald-500/50">
-                    <h4 class="font-bold text-emerald-400 mb-2 uppercase text-xs tracking-widest">Force 1: SSL Attraction</h4>
-                    <p class="text-slate-300 text-sm leading-relaxed mb-3">
-                        In SSL (like JEPA), the model learns by bringing "positive pairs" closer together. This force pulls particles of the same color towards their shared center of mass.
-                        <br/><span class="text-xs text-slate-400 mt-1 block">Watch the <strong>Davies-Bouldin</strong> index drop as groups become tight and well-separated.</span>
-                    </p>
-                </div>
+                <!-- NEW SECTION: EXPERIMENT INSTRUCTIONS -->
+                <section class="bg-slate-900 rounded-xl border border-slate-700 overflow-hidden">
+                    <div class="p-4 bg-slate-800/50 border-b border-slate-700">
+                        <h2 class="text-sm font-bold text-white uppercase tracking-widest">🧪 How to Experiment</h2>
+                    </div>
+                    <div class="p-5 space-y-4 text-[11px]">
+                        <div class="flex items-start gap-3">
+                            <div class="bg-slate-800 text-sky-400 font-bold px-2 py-1 rounded">Exp A</div>
+                            <p class="text-slate-400">Click <strong>Trigger Collapse</strong>. Observe how SSL pulls same-colored dots together, but without SIGReg, the Global Collapse pulls everything to (0,0). Information is lost.</p>
+                        </div>
+                        <div class="flex items-start gap-3">
+                            <div class="bg-slate-800 text-sky-400 font-bold px-2 py-1 rounded">Exp B</div>
+                            <p class="text-slate-400">Click <strong>SSL + SIGReg</strong>. Watch how SIGReg (sky blue slider) fights the collapse. It forces the clusters to spread out and occupy different quadrants while remaining distinct.</p>
+                        </div>
+                        <div class="flex items-start gap-3">
+                            <div class="bg-slate-800 text-sky-400 font-bold px-2 py-1 rounded">Exp C</div>
+                            <p class="text-slate-400">Switch between <strong>Wasserstein</strong> and <strong>Fourier</strong>. Notice how Fourier often "glues" clusters together because it optimizes global density moments rather than specific point positions.</p>
+                        </div>
+                    </div>
+                </section>
 
-                <div class="step-card p-5 rounded-r-xl border-sky-500/50">
-                    <h4 class="font-bold text-sky-400 mb-2 uppercase text-xs tracking-widest">Force 2: SIGReg Sliced Wasserstein</h4>
-                    <p class="text-slate-300 text-sm leading-relaxed mb-3">
-                        To prevent collapse, SIGReg projects the points onto 1D lines and compares them to a perfect Gaussian. It pushes the aggregate cloud to expand and fit the Gaussian density.
-                    </p>
-                    <p class="text-slate-400 text-xs italic bg-slate-950 p-2 rounded-lg border border-slate-800">
-                        <strong>The Result:</strong> The classes remain clustered due to SSL attraction, but SIGReg forces the 4 clusters to spread out and occupy distinct quadrants, solving the representation problem!
-                    </p>
-                </div>
+                <section>
+                    <details class="group bg-slate-900 rounded-xl border border-slate-700 overflow-hidden" open>
+                        <summary class="p-4 flex justify-between items-center bg-slate-800/30 hover:bg-slate-800/50 transition-all cursor-pointer">
+                            <h2 class="text-sm font-bold text-slate-400 uppercase tracking-widest flex items-center gap-2">
+                                <span>🛠️ Algorithm Internals</span>
+                            </h2>
+                            <span class="text-slate-500 group-open:rotate-180 transition-transform">▼</span>
+                        </summary>
+                        <div class="p-4 pt-2 space-y-4 text-[11px] leading-relaxed">
+                            <div>
+                                <h4 class="font-bold text-white mb-1 uppercase tracking-tighter">1. Sliced Wasserstein (Sorting)</h4>
+                                <div class="code-snippet">
+                                    sorted = [...projections].sort();<br>
+                                    error = gaussian_quantile[i] - sorted[i];<br>
+                                    force = error * projection_vector;
+                                </div>
+                            </div>
+                            <div>
+                                <h4 class="font-bold text-white mb-1 uppercase tracking-tighter">2. Fourier (Epps-Pulley)</h4>
+                                <div class="code-snippet">
+                                    re_emp = average(cos(t * projections));<br>
+                                    loss = (re_emp - target_gaussian_char_func)^2;<br>
+                                    force = -grad(loss);
+                                </div>
+                            </div>
+                        </div>
+                    </details>
+                </section>
 
                 <div class="p-4 bg-slate-800/40 rounded-xl border border-slate-700">
-                    <h4 class="font-bold text-white text-sm mb-2">Visual Guide:</h4>
-                    <ul class="text-slate-400 text-xs space-y-2">
-                        <li><span class="inline-block w-3 h-3 rounded-full bg-emerald-400 mr-2"></span> <strong>Dots:</strong> Data embeddings (4 classes).</li>
-                        <li><span class="inline-block w-8 h-1 bg-white/20 mr-2 align-middle"></span> <strong>Projection Line:</strong> The 1D "Sketch" vector.</li>
-                        <li><span class="inline-block w-8 h-3 bg-white/40 mr-2 align-middle"></span> <strong>White Bars (Center):</strong> Projection histogram (only in rotating mode).</li>
-                        <li><span class="inline-block w-8 h-3 bg-white/10 border border-white/30 mr-2 align-middle"></span> <strong>Edge Histograms:</strong> Live marginal distributions for X (bottom) and Y (left).</li>
+                    <h4 class="font-bold text-white text-sm mb-2 text-xs uppercase tracking-widest text-slate-400">Histogram Guide:</h4>
+                    <ul class="text-slate-400 text-[10px] space-y-2">
+                        <li><span class="inline-block w-4 h-2 bg-white/40 mr-2"></span> <strong>Center Bars:</strong> Live 1D projection on the rotating axis.</li>
+                        <li><span class="inline-block w-4 h-2 bg-white/10 mr-2"></span> <strong>Edge Bars (X/Y):</strong> Marginal distributions of the 2D cloud.</li>
+                        <li><span class="inline-block w-4 h-0.5 bg-sky-500/40 mr-2 align-middle"></span> <strong>Blue Line:</strong> Target Ideal Standard Normal $N(0,1)$.</li>
                     </ul>
                 </div>
             </div>
-
         </div>
     </div>
 
     <script>
-        // --- 1. Math Utils: Inverse Normal CDF ---
+        // --- 1. Math Utils ---
         function invNormalCDF(p) {
             const a1 = -39.69683028665376, a2 = 220.9460984245205, a3 = -275.9285104469687, a4 = 138.3577518672690, a5 = -30.66479806614716, a6 = 2.506628277459239;
             const b1 = -54.47609879822406, b2 = 161.5858368580409, b3 = -155.6989798598866, b4 = 66.80131188771972, b5 = -13.28068155288572;
             const c1 = -0.007784894002430293, c2 = -0.3223964580411365, c3 = -2.400758277161838, c4 = -2.549732539343734, c5 = 4.374664141464968, c6 = 2.938163982698783;
             const d1 = 0.007784695709041462, d2 = 0.3224671290700398, d3 = 2.445134137142996, d4 = 3.754408661907416;
             let q, r, val;
-
-            if (p < 0.02425) {
-                q = Math.sqrt(-2.0 * Math.log(p));
-                val = (((((c1 * q + c2) * q + c3) * q + c4) * q + c5) * q + c6) / ((((d1 * q + d2) * q + d3) * q + d4) * q + 1.0);
-            } else if (p > 0.97575) {
-                q = Math.sqrt(-2.0 * Math.log(1.0 - p));
-                val = -(((((c1 * q + c2) * q + c3) * q + c4) * q + c5) * q + c6) / ((((d1 * q + d2) * q + d3) * q + d4) * q + 1.0);
-            } else {
-                q = p - 0.5; r = q * q;
-                val = (((((a1 * r + a2) * r + a3) * r + a4) * r + a5) * r + a6) * q / (((((b1 * r + b2) * r + b3) * r + b4) * r + b5) * r + 1.0);
-            }
+            if (p < 0.02425) { q = Math.sqrt(-2.0 * Math.log(p)); val = (((((c1 * q + c2) * q + c3) * q + c4) * q + c5) * q + c6) / ((((d1 * q + d2) * q + d3) * q + d4) * q + 1.0); } 
+            else if (p > 0.97575) { q = Math.sqrt(-2.0 * Math.log(1.0 - p)); val = -(((((c1 * q + c2) * q + c3) * q + c4) * q + c5) * q + c6) / ((((d1 * q + d2) * q + d3) * q + d4) * q + 1.0); } 
+            else { q = p - 0.5; r = q * q; val = (((((a1 * r + a2) * r + a3) * r + a4) * r + a5) * r + a6) * q / (((((b1 * r + b2) * r + b3) * r + b4) * r + b5) * r + 1.0); }
             return val;
         }
 
-        // --- 2. Canvas & State Setup ---
-        const canvas = document.getElementById('physicsCanvas');
-        const ctx = canvas.getContext('2d');
-        let width, height, cx, cy;
-        
-        let isPaused = false; 
-        let axisMode = 'rotating'; // 'rotating' | 'random'
-        let frameCount = 0;
+        // --- 2. State & Initialization ---
+        const canvas = document.getElementById('physicsCanvas'), ctx = canvas.getContext('2d');
+        let width, height, cx, cy, isPaused = false, axisMode = 'rotating', currentMethod = 'wasserstein', frameCount = 0;
+        const NUM_POINTS = 300, SIGMA_SCALE = 80, NUM_CLASSES = 4, COLORS = ['#f43f5e', '#3b82f6', '#10b981', '#f59e0b']; 
+        let points = [], sketchAngle = 0, currentProjections = [];
 
-        // Physics constants
-        const NUM_POINTS = 300;
-        const SIGMA_SCALE = 80; 
-        const NUM_CLASSES = 4;
-        const COLORS = ['#f43f5e', '#3b82f6', '#10b981', '#f59e0b']; 
-        
-        let points = [];
-        let sketchAngle = 0;
-        let currentProjections = [];
-        
-        // Sliders
-        const slSSL = document.getElementById('sliderSSL');
-        const slCollapse = document.getElementById('sliderCollapse');
-        const slSigreg = document.getElementById('sliderSigreg');
-        const valSSL = document.getElementById('valSSL');
-        const valCollapse = document.getElementById('valCollapse');
-        const valSigreg = document.getElementById('valSigreg');
+        const slSSL = document.getElementById('sliderSSL'), slCollapse = document.getElementById('sliderCollapse'), slSigreg = document.getElementById('sliderSigreg');
+        const valSSL = document.getElementById('valSSL'), valCollapse = document.getElementById('valCollapse'), valSigreg = document.getElementById('valSigreg');
 
-        // Precompute ideal Gaussian targets
         const gaussianTargets = new Float32Array(NUM_POINTS);
-        for(let i=0; i<NUM_POINTS; i++) {
-            const p = (i + 0.5) / NUM_POINTS; 
-            gaussianTargets[i] = invNormalCDF(p);
-        }
+        for(let i=0; i<NUM_POINTS; i++) gaussianTargets[i] = invNormalCDF((i + 0.5) / NUM_POINTS);
+
+        const KNOTS = 18, U_LIMIT = 4.0;
+        const fourierT = Array.from({length: KNOTS}, (_, i) => (i + 1) * (U_LIMIT / KNOTS));
+        const fourierWeights = fourierT.map(t => Math.exp(-0.5 * t * t)); 
 
         function resize() {
-            width = canvas.parentElement.clientWidth;
-            height = canvas.parentElement.clientHeight;
-            canvas.width = width;
-            canvas.height = height;
-            cx = width / 2;
-            cy = height / 2;
+            width = canvas.parentElement.clientWidth; height = canvas.parentElement.clientHeight;
+            canvas.width = width; canvas.height = height; cx = width/2; cy = height/2;
         }
-        window.addEventListener('resize', resize);
-        resize();
+        window.addEventListener('resize', resize); resize();
 
         function initParticles() {
             points = [];
             for (let i = 0; i < NUM_POINTS; i++) {
-                const radius = Math.random() * 3 * SIGMA_SCALE;
-                const angle = Math.random() * Math.PI * 2;
-                const classId = i % NUM_CLASSES;
-                
-                points.push({
-                    id: i,
-                    classId: classId,
-                    x: Math.cos(angle) * radius,
-                    y: Math.sin(angle) * radius,
-                    vx: 0,
-                    vy: 0,
-                    color: COLORS[classId]
-                });
+                const radius = (Math.random() * 2) * SIGMA_SCALE, angle = Math.random() * Math.PI * 2, classId = i % NUM_CLASSES;
+                points.push({ id: i, classId: classId, x: Math.cos(angle) * radius, y: Math.sin(angle) * radius, vx: 0, vy: 0, color: COLORS[classId] });
             }
         }
         initParticles();
 
-        // --- 3. UI Handlers ---
+        function setMethod(m) {
+            currentMethod = m;
+            document.getElementById('btnW').classList.toggle('active', m === 'wasserstein');
+            document.getElementById('btnF').classList.toggle('active', m === 'fourier');
+        }
+
         function setScenario(type) {
-            if (type === 'init') {
-                slSSL.value = 0;
-                slCollapse.value = 0;
-                slSigreg.value = 0;
-                initParticles();
-            } else if (type === 'collapse') {
-                slSSL.value = 80;
-                slCollapse.value = 40;
-                slSigreg.value = 0;
-            } else if (type === 'sigreg') {
-                slSSL.value = 60;
-                slCollapse.value = 20;
-                slSigreg.value = 120;
-            }
+            if (type === 'init') { slSSL.value = 0; slCollapse.value = 0; slSigreg.value = 0; initParticles(); }
+            else if (type === 'collapse') { slSSL.value = 2; slCollapse.value = 4; slSigreg.value = 0; }
+            else if (type === 'sigreg') { slSSL.value = 2; slCollapse.value = 2; slSigreg.value = 2; }
             updateLabels();
             if (isPaused) togglePause();
         }
 
         function updateLabels() {
-            valSSL.innerText = (slSSL.value / 100).toFixed(2);
-            valCollapse.innerText = (slCollapse.value / 100).toFixed(2);
-            valSigreg.innerText = (slSigreg.value / 100).toFixed(2);
+            valSSL.innerText = (parseFloat(slSSL.value) / 100).toFixed(2);
+            valCollapse.innerText = (parseFloat(slCollapse.value) / 100).toFixed(2);
+            valSigreg.innerText = (parseFloat(slSigreg.value) / 100).toFixed(2);
         }
-        slSSL.oninput = updateLabels;
-        slCollapse.oninput = updateLabels;
-        slSigreg.oninput = updateLabels;
-        updateLabels();
+        slSSL.oninput = slCollapse.oninput = slSigreg.oninput = updateLabels;
 
-        function togglePause() {
-            isPaused = !isPaused;
-            document.getElementById('pauseIcon').innerText = isPaused ? "▶" : "⏸";
-            document.getElementById('btnCornerPause').style.borderColor = isPaused ? "rgba(244, 63, 94, 0.8)" : "rgba(56, 189, 248, 0.4)";
-        }
+        function togglePause() { isPaused = !isPaused; document.getElementById('pauseIcon').innerText = isPaused ? "▶" : "⏸"; }
+        function toggleAxisMode() { axisMode = axisMode === 'rotating' ? 'random' : 'rotating'; document.getElementById('btnAxisMode').innerText = "Axis: " + axisMode; }
 
-        function toggleAxisMode() {
-            axisMode = axisMode === 'rotating' ? 'random' : 'rotating';
-            document.getElementById('btnAxisMode').innerText = "Axis: " + axisMode;
-        }
-
-        // --- 4. Main Physics Loop ---
         function physicsStep() {
             frameCount++;
-            // Spowolnienie symulacji (mnożnik 0.6)
-            const forceSSL = (slSSL.value / 2000) * 0.6;
-            const forceCollapse = (slCollapse.value / 10000) * 0.6; 
-            const forceSigreg = (slSigreg.value / 2000) * 0.6;
+            const forceSSL = (parseFloat(slSSL.value) / 100) * 0.12;
+            const forceCollapse = (parseFloat(slCollapse.value) / 100) * 0.01; 
+            const forceSigreg = (parseFloat(slSigreg.value) / 100) * 0.20;
 
-            // 1. Calculate Class Centroids
-            let centroids = Array(NUM_CLASSES).fill(0).map(() => ({ x: 0, y: 0, count: 0 }));
-            points.forEach(p => {
-                centroids[p.classId].x += p.x;
-                centroids[p.classId].y += p.y;
-                centroids[p.classId].count++;
-            });
-            centroids.forEach(c => {
-                if(c.count > 0) { c.x /= c.count; c.y /= c.count; }
-            });
+            let centroids = Array(NUM_CLASSES).fill(0).map(() => ({ x: 0, y: 0, count: 0, S: 0 }));
+            points.forEach(p => { centroids[p.classId].x += p.x; centroids[p.classId].y += p.y; centroids[p.classId].count++; });
+            centroids.forEach(c => { if(c.count > 0) { c.x /= c.count; c.y /= c.count; } });
 
-            // 2. Apply SSL Clustering and Global Collapse
             points.forEach(p => {
                 p.vx += (centroids[p.classId].x - p.x) * forceSSL;
                 p.vy += (centroids[p.classId].y - p.y) * forceSSL;
-                
-                p.vx -= p.x * forceCollapse;
-                p.vy -= p.y * forceCollapse;
+                p.vx -= p.x * forceCollapse; p.vy -= p.y * forceCollapse;
             });
 
-            // Update Sketch Axis
-            if (axisMode === 'rotating') {
-                sketchAngle += 0.010; // Wolniejszy obrót
-                if (sketchAngle > Math.PI * 2) sketchAngle -= Math.PI * 2;
-            } else {
-                // Zmiana osi rzadziej (co 6 klatek)
-                if (frameCount % 6 === 0) {
-                    sketchAngle = Math.random() * Math.PI * 2;
-                }
-            }
-            
-            const ux = Math.cos(sketchAngle);
-            const uy = Math.sin(sketchAngle);
+            if (axisMode === 'rotating') { sketchAngle += 0.01; } else if (frameCount % 6 === 0) { sketchAngle = Math.random() * Math.PI * 2; }
+            const ux = Math.cos(sketchAngle), uy = Math.sin(sketchAngle);
+            currentProjections = points.map(p => ({ val: (p.x * ux + p.y * uy) / SIGMA_SCALE, idx: p.id }));
 
-            // Project points
-            currentProjections = points.map(p => {
-                return { val: (p.x * ux + p.y * uy) / SIGMA_SCALE, idx: p.id };
-            });
-
-            // 3. SIGReg Penalty
             if (forceSigreg > 0) {
-                let sortedProjections = [...currentProjections].sort((a, b) => a.val - b.val);
-                for (let i = 0; i < NUM_POINTS; i++) {
-                    const targetVal = gaussianTargets[i];
-                    const currentVal = sortedProjections[i].val;
-                    const error = targetVal - currentVal; 
-                    
-                    const pIdx = sortedProjections[i].idx;
-                    points[pIdx].vx += error * ux * SIGMA_SCALE * forceSigreg;
-                    points[pIdx].vy += error * uy * SIGMA_SCALE * forceSigreg;
+                if (currentMethod === 'wasserstein') {
+                    let sorted = [...currentProjections].sort((a, b) => a.val - b.val);
+                    for (let i = 0; i < NUM_POINTS; i++) {
+                        const error = gaussianTargets[i] - sorted[i].val;
+                        points[sorted[i].idx].vx += error * ux * SIGMA_SCALE * forceSigreg;
+                        points[sorted[i].idx].vy += error * uy * SIGMA_SCALE * forceSigreg;
+                    }
+                } else {
+                    fourierT.forEach((t, k) => {
+                        const targetVal = fourierWeights[k];
+                        let re_emp = 0, im_emp = 0;
+                        currentProjections.forEach(p => { re_emp += Math.cos(t * p.val); im_emp += Math.sin(t * p.val); });
+                        re_emp /= NUM_POINTS; im_emp /= NUM_POINTS;
+                        const coeffRe = (re_emp - targetVal) * t / NUM_POINTS;
+                        const coeffIm = im_emp * t / NUM_POINTS;
+                        points.forEach((p, idx) => {
+                            const p_j = currentProjections[idx].val;
+                            const forceVal = coeffRe * Math.sin(t * p_j) - coeffIm * Math.cos(t * p_j);
+                            p.vx += forceVal * ux * SIGMA_SCALE * forceSigreg * 20.0; 
+                            p.vy += forceVal * uy * SIGMA_SCALE * forceSigreg * 20.0;
+                        });
+                    });
                 }
             }
 
-            // 4. Noise & Update
-            const noise = 0.4; 
             let variance = 0;
-            
-            // Initialize cluster dispersion S for Davies-Bouldin
-            centroids.forEach(c => { c.S = 0; });
-            
             points.forEach(p => {
-                p.vx += (Math.random() - 0.5) * noise;
-                p.vy += (Math.random() - 0.5) * noise;
-                
-                p.vx *= 0.88; 
-                p.vy *= 0.88;
-                p.x += p.vx;
-                p.y += p.vy;
-
-                // Calculate empirical variance per dimension
+                p.vx += (Math.random() - 0.5) * 0.3; p.vy += (Math.random() - 0.5) * 0.3;
+                p.vx *= 0.88; p.vy *= 0.88; p.x += p.vx; p.y += p.vy;
                 variance += (p.x * p.x + p.y * p.y) / (2 * SIGMA_SCALE * SIGMA_SCALE);
-
-                // Accumulate distance to class centroid for Davies-Bouldin
-                const cDistX = (p.x - centroids[p.classId].x) / SIGMA_SCALE;
-                const cDistY = (p.y - centroids[p.classId].y) / SIGMA_SCALE;
-                centroids[p.classId].S += Math.sqrt(cDistX * cDistX + cDistY * cDistY);
+                centroids[p.classId].S += Math.sqrt(Math.pow(p.x - centroids[p.classId].x, 2) + Math.pow(p.y - centroids[p.classId].y, 2)) / SIGMA_SCALE;
             });
             variance /= NUM_POINTS;
 
-            // Calculate Davies-Bouldin Index
-            let dbIndex = 0;
-            let validClasses = 0;
-            
-            centroids.forEach(c => {
-                if(c.count > 0) c.S /= c.count; // Mean distance to centroid
-            });
-
+            let dbIndex = 0, validClasses = 0;
+            centroids.forEach(c => { if(c.count > 0) c.S /= c.count; });
             for (let i = 0; i < NUM_CLASSES; i++) {
                 if (centroids[i].count === 0) continue;
-                let maxR = 0;
-                validClasses++;
+                let maxR = 0; validClasses++;
                 for (let j = 0; j < NUM_CLASSES; j++) {
                     if (i === j || centroids[j].count === 0) continue;
-                    const mDistX = (centroids[i].x - centroids[j].x) / SIGMA_SCALE;
-                    const mDistY = (centroids[i].y - centroids[j].y) / SIGMA_SCALE;
-                    const M_ij = Math.sqrt(mDistX * mDistX + mDistY * mDistY) + 1e-6; // Add epsilon to prevent div by zero
-                    const R_ij = (centroids[i].S + centroids[j].S) / M_ij;
+                    const mDist = Math.sqrt(Math.pow(centroids[i].x - centroids[j].x, 2) + Math.pow(centroids[i].y - centroids[j].y, 2)) / SIGMA_SCALE;
+                    const R_ij = (centroids[i].S + centroids[j].S) / (mDist + 1e-6);
                     if (R_ij > maxR) maxR = R_ij;
                 }
                 dbIndex += maxR;
             }
             if (validClasses > 0) dbIndex /= validClasses;
 
-            // UI Updates
             document.getElementById('varLabel').innerText = variance.toFixed(2);
             document.getElementById('dbLabel').innerText = dbIndex.toFixed(2);
             const stateLabel = document.getElementById('stateLabel');
-            
-            if (variance < 0.1) {
-                stateLabel.innerText = "COLLAPSED";
-                stateLabel.className = "text-rose-500 font-mono font-bold text-sm";
-            } else if (variance > 2.0) {
-                stateLabel.innerText = "EXPLODED";
-                stateLabel.className = "text-amber-500 font-mono font-bold text-sm";
-            } else {
-                stateLabel.innerText = "HEALTHY";
-                stateLabel.className = "text-emerald-400 font-mono font-bold text-sm";
-            }
+            if (variance < 0.2) { stateLabel.innerText = "COLLAPSED"; stateLabel.className = "font-mono font-bold text-sm text-rose-500"; } 
+            else if (variance > 2.0) { stateLabel.innerText = "EXPLODED"; stateLabel.className = "font-mono font-bold text-sm text-amber-500"; } 
+            else if (dbIndex > 2.5) { stateLabel.innerText = "POOR SEPARATION"; stateLabel.className = "font-mono font-bold text-sm text-amber-400"; } 
+            else { stateLabel.innerText = "HEALTHY"; stateLabel.className = "font-mono font-bold text-sm text-emerald-400"; }
         }
 
-        // --- 5. Rendering Loop ---
         function draw() {
-            if (!isPaused) {
-                physicsStep();
-            }
-
+            if (!isPaused) physicsStep();
             ctx.clearRect(0, 0, width, height);
 
-            // Draw Origin Crosshair
-            ctx.strokeStyle = 'rgba(255, 255, 255, 0.1)';
-            ctx.lineWidth = 1;
-            ctx.beginPath();
-            ctx.moveTo(cx, 0); ctx.lineTo(cx, height);
-            ctx.moveTo(0, cy); ctx.lineTo(width, cy);
-            ctx.stroke();
+            ctx.strokeStyle = 'rgba(255, 255, 255, 0.05)'; ctx.lineWidth = 1;
+            ctx.beginPath(); ctx.moveTo(cx, 0); ctx.lineTo(cx, height); ctx.moveTo(0, cy); ctx.lineTo(width, cy); ctx.stroke();
 
-            const forceSigreg = slSigreg.value / 2000;
-            const ux = Math.cos(sketchAngle);
-            const uy = Math.sin(sketchAngle);
-            const nx = -Math.sin(sketchAngle); 
-            const ny = Math.cos(sketchAngle);
+            const ux = Math.cos(sketchAngle), uy = Math.sin(sketchAngle), nx = -uy, ny = ux;
 
             if (axisMode === 'rotating') {
-                // Sweep Line
-                ctx.beginPath();
-                ctx.moveTo(cx - ux * 2000, cy - uy * 2000);
-                ctx.lineTo(cx + ux * 2000, cy + uy * 2000);
-                ctx.strokeStyle = 'rgba(255, 255, 255, 0.15)';
-                ctx.lineWidth = 2;
-                ctx.stroke();
-
-                // Target Gaussian on Sketch Line
+                ctx.beginPath(); ctx.moveTo(cx - ux * 2000, cy - uy * 2000); ctx.lineTo(cx + ux * 2000, cy + uy * 2000);
+                ctx.strokeStyle = 'rgba(255, 255, 255, 0.1)'; ctx.lineWidth = 1; ctx.stroke();
                 ctx.beginPath();
                 for (let t = -4; t <= 4; t += 0.1) {
-                    const base_x = cx + t * SIGMA_SCALE * ux;
-                    const base_y = cy + t * SIGMA_SCALE * uy;
-                    const h = Math.exp(-0.5 * t * t) * 80; 
-                    const curve_x = base_x + nx * h;
-                    const curve_y = base_y + ny * h;
-                    if (t === -4) ctx.moveTo(curve_x, curve_y);
-                    else ctx.lineTo(curve_x, curve_y);
+                    const bx = cx + t * SIGMA_SCALE * ux, by = cy + t * SIGMA_SCALE * uy, h = Math.exp(-0.5*t*t) * 80;
+                    if (t === -4) ctx.moveTo(bx + nx*h, by + ny*h); else ctx.lineTo(bx + nx*h, by + ny*h);
                 }
                 for (let t = 4; t >= -4; t -= 0.1) {
-                    const base_x = cx + t * SIGMA_SCALE * ux;
-                    const base_y = cy + t * SIGMA_SCALE * uy;
-                    const h = Math.exp(-0.5 * t * t) * 80;
-                    const curve_x = base_x - nx * h;
-                    const curve_y = base_y - ny * h;
-                    ctx.lineTo(curve_x, curve_y);
+                    const bx = cx + t * SIGMA_SCALE * ux, by = cy + t * SIGMA_SCALE * uy, h = Math.exp(-0.5*t*t) * 80;
+                    ctx.lineTo(bx - nx*h, by - ny*h);
                 }
-                ctx.closePath();
-                ctx.fillStyle = forceSigreg > 0 ? 'rgba(56, 189, 248, 0.1)' : 'rgba(56, 189, 248, 0.03)';
-                ctx.fill();
-                ctx.strokeStyle = forceSigreg > 0 ? 'rgba(56, 189, 248, 0.4)' : 'rgba(56, 189, 248, 0.1)';
-                ctx.lineWidth = 1;
-                ctx.stroke();
+                ctx.closePath(); ctx.fillStyle = 'rgba(56, 189, 248, 0.05)'; ctx.fill();
 
-                // Draw Live Histogram on Rotating Axis
-                if (currentProjections.length > 0) {
-                    const BINS = 50;
-                    const RANGE = 4.0;
-                    const binWidth = (2 * RANGE) / BINS;
-                    let hist = new Array(BINS).fill(0);
-                    
-                    currentProjections.forEach(p => {
-                        let binIdx = Math.floor((p.val + RANGE) / binWidth);
-                        if (binIdx >= 0 && binIdx < BINS) hist[binIdx]++;
-                    });
-
-                    ctx.fillStyle = 'rgba(255, 255, 255, 0.4)';
-                    ctx.strokeStyle = 'rgba(255, 255, 255, 0.1)';
-                    ctx.lineWidth = 1;
-                    const heightScale = 80 / (NUM_POINTS * 0.08); 
-
-                    for (let i = 0; i < BINS; i++) {
-                        if (hist[i] === 0) continue;
-                        const t1 = -RANGE + i * binWidth;
-                        const t2 = t1 + binWidth;
-                        const h = hist[i] * heightScale;
-                        
-                        const bx1 = cx + t1 * SIGMA_SCALE * ux;
-                        const by1 = cy + t1 * SIGMA_SCALE * uy;
-                        const bx2 = cx + t2 * SIGMA_SCALE * ux;
-                        const by2 = cy + t2 * SIGMA_SCALE * uy;
-                        
-                        const px1 = bx1 + nx * h;
-                        const py1 = by1 + ny * h;
-                        const px2 = bx2 + nx * h;
-                        const py2 = by2 + ny * h;
-                        
-                        ctx.beginPath();
-                        ctx.moveTo(bx1, by1); ctx.lineTo(bx2, by2); ctx.lineTo(px2, py2); ctx.lineTo(px1, py1);
-                        ctx.closePath();
-                        ctx.fill(); ctx.stroke();
-                    }
+                const BINS = 40, RANGE = 4.0, binW = (2*RANGE)/BINS, hist = new Array(BINS).fill(0);
+                currentProjections.forEach(p => { let b = Math.floor((p.val + RANGE) / binW); if (b >= 0 && b < BINS) hist[b]++; });
+                ctx.fillStyle = 'rgba(255, 255, 255, 0.3)';
+                for (let i = 0; i < BINS; i++) {
+                    const t1 = -RANGE + i * binW, t2 = t1 + binW, h = hist[i] * (SIGMA_SCALE / 30);
+                    const bx1 = cx + t1 * SIGMA_SCALE * ux, by1 = cy + t1 * SIGMA_SCALE * uy, bx2 = cx + t2 * SIGMA_SCALE * ux, by2 = cy + t2 * SIGMA_SCALE * uy;
+                    ctx.beginPath(); ctx.moveTo(bx1, by1); ctx.lineTo(bx2, by2); ctx.lineTo(bx2 + nx*h, by2 + ny*h); ctx.lineTo(bx1 + nx*h, by1 + ny*h); ctx.closePath(); ctx.fill();
                 }
             }
 
-            // --- DRAW MARGINAL X/Y HISTOGRAMS ON EDGES ---
-            const MARGIN_BINS = 60;
-            const MARGIN_RANGE = 4.0;
-            let histX = new Array(MARGIN_BINS).fill(0);
-            let histY = new Array(MARGIN_BINS).fill(0);
-            const mBinW = (2 * MARGIN_RANGE) / MARGIN_BINS;
-
-            points.forEach(p => {
-                let vX = p.x / SIGMA_SCALE;
-                let vY = p.y / SIGMA_SCALE;
-                let bX = Math.floor((vX + MARGIN_RANGE) / mBinW);
-                let bY = Math.floor((vY + MARGIN_RANGE) / mBinW);
-                if (bX >= 0 && bX < MARGIN_BINS) histX[bX]++;
-                if (bY >= 0 && bY < MARGIN_BINS) histY[bY]++;
+            const MBINS = 50, MRANGE = 4.0, mBinW = (2*MRANGE)/MBINS, histX = new Array(MBINS).fill(0), histY = new Array(MBINS).fill(0);
+            points.forEach(p => { 
+                let bX = Math.floor((p.x/SIGMA_SCALE + MRANGE) / mBinW), bY = Math.floor((p.y/SIGMA_SCALE + MRANGE) / mBinW);
+                if (bX >= 0 && bX < MBINS) histX[bX]++; if (bY >= 0 && bY < MBINS) histY[bY]++;
             });
-
-            const startX_m = cx - MARGIN_RANGE * SIGMA_SCALE;
-            const startY_m = cy - MARGIN_RANGE * SIGMA_SCALE;
-            const pxPerBin = (2 * MARGIN_RANGE * SIGMA_SCALE) / MARGIN_BINS;
-            const mHistScale = 3; 
-
-            // Draw X Marginal (Bottom)
-            ctx.fillStyle = 'rgba(255, 255, 255, 0.15)';
-            for (let i = 0; i < MARGIN_BINS; i++) {
-                if (histX[i] > 0) {
-                    let h = histX[i] * mHistScale;
-                    ctx.fillRect(startX_m + i * pxPerBin, height - h, pxPerBin - 1, h);
-                }
-            }
-            // Draw Y Marginal (Left)
-            for (let i = 0; i < MARGIN_BINS; i++) {
-                if (histY[i] > 0) {
-                    let w = histY[i] * mHistScale;
-                    ctx.fillRect(0, startY_m + i * pxPerBin, w, pxPerBin - 1);
-                }
+            const sX = cx - MRANGE * SIGMA_SCALE, sY = cy - MRANGE * SIGMA_SCALE, pxBin = (2*MRANGE*SIGMA_SCALE)/MBINS;
+            ctx.fillStyle = 'rgba(255, 255, 255, 0.1)';
+            for (let i = 0; i < MBINS; i++) {
+                ctx.fillRect(sX + i*pxBin, height - histX[i]*2.5, pxBin-1, histX[i]*2.5);
+                ctx.fillRect(0, sY + i*pxBin, histY[i]*2.5, pxBin-1);
             }
 
-            // Draw Reference Gaussians for Marginals
-            ctx.strokeStyle = 'rgba(56, 189, 248, 0.4)';
-            ctx.lineWidth = 1;
-            
-            // X Reference
-            ctx.beginPath();
-            for (let i = 0; i <= MARGIN_BINS; i++) {
-                let t = -MARGIN_RANGE + i * mBinW;
-                let expectedH = (NUM_POINTS * mBinW) * (1/Math.sqrt(2*Math.PI)) * Math.exp(-0.5*t*t) * mHistScale;
-                let plotX = startX_m + i * pxPerBin;
-                let plotY = height - expectedH;
-                if (i === 0) ctx.moveTo(plotX, plotY); else ctx.lineTo(plotX, plotY);
-            }
-            ctx.stroke();
-
-            // Y Reference
-            ctx.beginPath();
-            for (let i = 0; i <= MARGIN_BINS; i++) {
-                let t = -MARGIN_RANGE + i * mBinW;
-                let expectedW = (NUM_POINTS * mBinW) * (1/Math.sqrt(2*Math.PI)) * Math.exp(-0.5*t*t) * mHistScale;
-                let plotY = startY_m + i * pxPerBin;
-                let plotX = expectedW;
-                if (i === 0) ctx.moveTo(plotX, plotY); else ctx.lineTo(plotX, plotY);
-            }
-            ctx.stroke();
-
-            // Draw Particles
-            points.forEach(p => {
-                ctx.beginPath();
-                ctx.arc(cx + p.x, cy + p.y, 4, 0, Math.PI * 2);
-                ctx.fillStyle = p.color;
-                ctx.fill();
-            });
-
+            points.forEach(p => { ctx.beginPath(); ctx.arc(cx + p.x, cy + p.y, 4, 0, Math.PI * 2); ctx.fillStyle = p.color; ctx.fill(); });
             requestAnimationFrame(draw);
         }
-
-        // Start animation loop
         requestAnimationFrame(draw);
-
     </script>
 </body>
 </html>
