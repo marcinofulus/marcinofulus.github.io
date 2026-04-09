@@ -1,0 +1,750 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Interactive Electrolysis Simulator</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <style>
+        body {
+            background-color: #f8fafc;
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+        }
+        canvas {
+            background: transparent;
+            touch-action: none;
+        }
+        .control-panel {
+            box-shadow: 0 4px 6px -1px rgb(0 0 0 / 0.1);
+        }
+        .btn-active {
+            background-color: #2563eb !important;
+            color: white !important;
+        }
+    </style>
+</head>
+<body class="p-4 md:p-8">
+    <div class="max-w-5xl mx-auto">
+        <header class="mb-6 text-center">
+            <h1 class="text-3xl font-bold text-slate-800">Electrolysis Interactive Simulator</h1>
+            <p class="text-slate-600">Visualize ion migration and electron flow in different chemical cells.</p>
+        </header>
+
+        <!-- Tab Navigation -->
+        <div class="flex justify-center mb-6 space-x-4 border-b border-slate-200 pb-2">
+            <button onclick="switchTab('simulator')" id="tab-btn-simulator" class="px-6 py-2 font-bold text-blue-600 border-b-2 border-blue-600 transition">Simulator</button>
+            <button onclick="switchTab('quiz')" id="tab-btn-quiz" class="px-6 py-2 font-bold text-slate-500 hover:text-slate-700 border-b-2 border-transparent transition">Knowledge Quiz</button>
+        </div>
+
+        <!-- Simulator View -->
+        <div id="view-simulator">
+            <div class="grid grid-cols-1 lg:grid-cols-4 gap-6">
+                <!-- Sidebar Controls -->
+                <div class="lg:col-span-1 space-y-4">
+                    <div class="bg-white p-4 rounded-xl control-panel border border-slate-200">
+                        <h2 class="font-bold text-slate-700 mb-3 border-b pb-2">Cell Type</h2>
+                        <div class="flex flex-col space-y-2">
+                            <button onclick="setMode('molten')" id="btn-molten" class="mode-btn px-4 py-2 text-sm bg-slate-100 text-slate-700 rounded-lg hover:bg-slate-200 transition btn-active">Molten Salts</button>
+                            <button onclick="setMode('aqueous')" id="btn-aqueous" class="mode-btn px-4 py-2 text-sm bg-slate-100 text-slate-700 rounded-lg hover:bg-slate-200 transition">Aqueous Solutions</button>
+                            <button onclick="setMode('plating')" id="btn-plating" class="mode-btn px-4 py-2 text-sm bg-slate-100 text-slate-700 rounded-lg hover:bg-slate-200 transition">Electroplating</button>
+                        </div>
+                    </div>
+
+                    <div class="bg-white p-4 rounded-xl control-panel border border-slate-200">
+                        <h2 class="font-bold text-slate-700 mb-3 border-b pb-2">Substance</h2>
+                        <select id="substance-select" onchange="updateSubstance()" class="w-full p-2 border border-slate-300 rounded-lg text-sm bg-white focus:ring-2 focus:ring-blue-500 outline-none">
+                            <!-- Populated by JS -->
+                        </select>
+                    </div>
+                    
+                    <div class="bg-white p-4 rounded-xl control-panel border border-slate-200">
+                        <h2 class="font-bold text-slate-700 mb-2 border-b pb-2">Power Source</h2>
+                        <div class="flex items-center justify-between mb-2">
+                            <span class="text-xs font-medium text-slate-500 uppercase">Voltage</span>
+                            <span id="voltage-display" class="text-sm font-bold text-blue-600">3.0 V</span>
+                        </div>
+                        <input type="range" id="voltage-slider" min="0" max="6" step="0.5" value="3" oninput="updateVoltage(this.value)" class="w-full h-2 bg-slate-200 rounded-lg appearance-none cursor-pointer accent-blue-600">
+                        
+                        <button id="toggle-power" onclick="togglePower()" class="w-full mt-4 py-2 bg-emerald-500 hover:bg-emerald-600 text-white rounded-lg font-bold transition">
+                            TURN OFF
+                        </button>
+                    </div>
+
+                    <div id="info-box" class="bg-blue-50 p-4 rounded-xl border border-blue-100 text-xs leading-relaxed text-blue-800">
+                        <!-- Info populated by JS -->
+                    </div>
+                </div>
+
+                <!-- Main Canvas Area -->
+                <div class="lg:col-span-3 bg-white rounded-2xl border border-slate-200 shadow-sm overflow-hidden relative">
+                    <canvas id="simCanvas"></canvas>
+            </div>
+        </div>
+        
+        <!-- Reaction Display -->
+        <div class="mt-6 grid grid-cols-1 md:grid-cols-2 gap-4">
+            <div class="bg-red-50 p-4 rounded-xl border border-red-100">
+                <h3 class="text-red-700 font-bold mb-2 flex items-center">
+                    <span class="mr-2">⚡</span> Oxidation at Anode
+                </h3>
+                <div id="anode-reaction" class="font-mono text-sm text-red-900 bg-white p-2 rounded border border-red-200">
+                    <!-- Formula here -->
+                </div>
+            </div>
+            <div class="bg-blue-50 p-4 rounded-xl border border-blue-100">
+                <h3 class="text-blue-700 font-bold mb-2 flex items-center">
+                    <span class="mr-2">⚡</span> Reduction at Cathode
+                </h3>
+                <div id="cathode-reaction" class="font-mono text-sm text-blue-900 bg-white p-2 rounded border border-blue-200">
+                    <!-- Formula here -->
+                </div>
+            </div>
+        </div>
+        </div> <!-- End of Simulator View -->
+
+        <!-- Quiz View -->
+        <div id="view-quiz" class="hidden max-w-4xl mx-auto bg-white p-6 md:p-8 rounded-2xl border border-slate-200 shadow-sm">
+            <div class="flex justify-between items-center mb-6">
+                <h2 class="text-2xl font-bold text-slate-800">Electrolysis Knowledge Check</h2>
+                <div id="quiz-results-top" class="text-lg font-bold text-slate-800 hidden bg-blue-50 px-4 py-2 rounded-lg border border-blue-200">
+                    Score: <span id="quiz-score-top" class="text-blue-600">0</span> / 20
+                </div>
+            </div>
+            
+            <div id="quiz-container" class="grid grid-cols-1 md:grid-cols-2 gap-6 mb-8">
+                <!-- Quiz questions injected here by JS -->
+            </div>
+            
+            <div class="border-t border-slate-200 pt-6 flex justify-center items-center">
+                <button onclick="submitQuiz()" class="px-8 py-3 bg-blue-600 hover:bg-blue-700 text-white font-bold rounded-xl transition shadow-sm w-full md:w-auto">Submit Quiz & Check Answers</button>
+            </div>
+        </div>
+
+    </div>
+
+    <script>
+        const canvas = document.getElementById('simCanvas');
+        const ctx = canvas.getContext('2d');
+        const substanceSelect = document.getElementById('substance-select');
+        const voltageDisplay = document.getElementById('voltage-display');
+        const powerBtn = document.getElementById('toggle-power');
+        const infoBox = document.getElementById('info-box');
+        const anodeFormula = document.getElementById('anode-reaction');
+        const cathodeFormula = document.getElementById('cathode-reaction');
+
+        // Configuration and Data
+        const chemData = {
+            molten: [
+                { 
+                    name: "Molten Sodium Chloride (NaCl)", 
+                    anode: "2Cl⁻ → Cl₂ + 2e⁻", 
+                    cathode: "Na⁺ + e⁻ → Na", 
+                    anodeColor: "#99ff99", 
+                    cathodeColor: "#cccccc",
+                    liquidColor: "rgba(255, 255, 200, 0.3)",
+                    ions: [
+                        {type: 'Na+', color: '#ef4444', product: 'solid', productColor: '#94a3b8'}, 
+                        {type: 'Cl-', color: '#22c55e', product: 'gas', productColor: '#bcf6b1', productLabel: 'Cl₂'}
+                    ],
+                    info: "In molten NaCl, Na+ ions migrate to the cathode to become sodium metal, and Cl- ions migrate to the anode to form chlorine gas."
+                },
+                { 
+                    name: "Molten Lead(II) Bromide (PbBr₂)", 
+                    anode: "2Br⁻ → Br₂ + 2e⁻", 
+                    cathode: "Pb²⁺ + 2e⁻ → Pb", 
+                    anodeColor: "#ff9933", 
+                    cathodeColor: "#888888",
+                    liquidColor: "rgba(200, 200, 255, 0.2)",
+                    ions: [
+                        {type: 'Pb2+', color: '#64748b', product: 'solid', productColor: '#475569'}, 
+                        {type: 'Br-', color: '#d97706', product: 'gas', productColor: '#fcd34d', productLabel: 'Br₂'}
+                    ],
+                    info: "PbBr2 electrolysis produces reddish-brown bromine vapor at the anode and molten lead at the cathode."
+                },
+                { 
+                    name: "Molten Potassium Iodide (KI)", 
+                    anode: "2I⁻ → I₂ + 2e⁻", 
+                    cathode: "K⁺ + e⁻ → K", 
+                    anodeColor: "#d8b4fe", 
+                    cathodeColor: "#cccccc",
+                    liquidColor: "rgba(243, 244, 246, 0.5)",
+                    ions: [
+                        {type: 'K+', color: '#ef4444', product: 'solid', productColor: '#cbd5e1'}, 
+                        {type: 'I-', color: '#a855f7', product: 'gas', productColor: '#d8b4fe', productLabel: 'I₂'}
+                    ],
+                    info: "Electrolysis of molten KI produces silvery liquid potassium at the cathode and purple iodine vapor at the anode."
+                }
+            ],
+            aqueous: [
+                { 
+                    name: "Concentrated NaCl (Brine)", 
+                    anode: "2Cl⁻ → Cl₂ + 2e⁻", 
+                    cathode: "2H₂O + 2e⁻ → H₂ + 2OH⁻", 
+                    anodeColor: "#99ff99", 
+                    cathodeColor: "#ffffff",
+                    liquidColor: "rgba(0, 150, 255, 0.2)",
+                    ions: [
+                        {type: 'Na+', color: '#ef4444', product: 'none'}, 
+                        {type: 'Cl-', color: '#22c55e', product: 'gas', productColor: '#bcf6b1', productLabel: 'Cl₂'}, 
+                        {type: 'H+', color: '#8b5cf6', product: 'gas', productColor: '#f8fafc', productLabel: 'H₂'}, 
+                        {type: 'OH-', color: '#ec4899', product: 'none'}
+                    ],
+                    info: "In CONCENTRATED aqueous NaCl, Cl- concentration is high enough that chlorine gas forms at the anode. H+ is discharged at the cathode to form hydrogen gas."
+                },
+                { 
+                    name: "Dilute NaCl Solution", 
+                    anode: "2H₂O → O₂ + 4H⁺ + 4e⁻", 
+                    cathode: "2H₂O + 2e⁻ → H₂ + 2OH⁻", 
+                    anodeColor: "#ffffff", 
+                    cathodeColor: "#ffffff",
+                    liquidColor: "rgba(0, 150, 255, 0.1)",
+                    ions: [
+                        {type: 'Na+', color: '#ef4444', product: 'none'}, 
+                        {type: 'Cl-', color: '#22c55e', product: 'none'}, 
+                        {type: 'H+', color: '#8b5cf6', product: 'gas', productColor: '#f8fafc', productLabel: 'H₂'}, 
+                        {type: 'OH-', color: '#ec4899', product: 'gas', productColor: '#e2e8f0', productLabel: 'O₂'}
+                    ],
+                    info: "In DILUTE aqueous NaCl, water is preferentially oxidized at the anode to form oxygen gas, because the Cl- concentration is too low. Hydrogen forms at the cathode."
+                },
+                { 
+                    name: "Copper(II) Chloride (CuCl₂)", 
+                    anode: "2Cl⁻ → Cl₂ + 2e⁻", 
+                    cathode: "Cu²⁺ + 2e⁻ → Cu", 
+                    anodeColor: "#99ff99", 
+                    cathodeColor: "#cd7f32",
+                    liquidColor: "rgba(16, 185, 129, 0.2)",
+                    ions: [
+                        {type: 'Cu2+', color: '#2563eb', product: 'solid', productColor: '#b45309'}, 
+                        {type: 'Cl-', color: '#22c55e', product: 'gas', productColor: '#bcf6b1', productLabel: 'Cl₂'},
+                        {type: 'H+', color: '#8b5cf6', product: 'none'},
+                        {type: 'OH-', color: '#ec4899', product: 'none'}
+                    ],
+                    info: "Cu2+ is more easily reduced than H+, so copper deposits at the cathode. Cl- is oxidized at the anode to form chlorine gas."
+                },
+                { 
+                    name: "Dilute Sulfuric Acid (H₂SO₄)", 
+                    anode: "2H₂O → O₂ + 4H⁺ + 4e⁻", 
+                    cathode: "2H⁺ + 2e⁻ → H₂", 
+                    anodeColor: "#ffffff", 
+                    cathodeColor: "#ffffff",
+                    liquidColor: "rgba(0, 0, 0, 0.05)",
+                    ions: [
+                        {type: 'H+', color: '#8b5cf6', product: 'gas', productColor: '#f8fafc', productLabel: 'H₂'}, 
+                        {type: 'SO4 2-', color: '#eab308', product: 'none'}, 
+                        {type: 'OH-', color: '#ec4899', product: 'gas', productColor: '#e2e8f0', productLabel: 'O₂'}
+                    ],
+                    info: "Electrolysis of dilute sulfuric acid is essentially the electrolysis of water. It produces twice the volume of hydrogen at the cathode compared to oxygen at the anode."
+                }
+            ],
+            plating: [
+                { 
+                    name: "Silver Plating (Ag⁺)", 
+                    anode: "Ag → Ag⁺ + e⁻", 
+                    cathode: "Ag⁺ + e⁻ → Ag", 
+                    anodeColor: "#e5e7eb", 
+                    cathodeColor: "#e5e7eb",
+                    liquidColor: "rgba(200, 220, 255, 0.2)",
+                    ions: [{type: 'Ag+', color: '#475569', product: 'solid', productColor: '#cbd5e1'}],
+                    info: "A silver anode dissolves into the solution as silver ions, which then deposit onto the cathode (the object to be plated)."
+                },
+                { 
+                    name: "Copper Plating (Cu²⁺)", 
+                    anode: "Cu → Cu²⁺ + 2e⁻", 
+                    cathode: "Cu²⁺ + 2e⁻ → Cu", 
+                    anodeColor: "#cd7f32", 
+                    cathodeColor: "#cd7f32",
+                    liquidColor: "rgba(0, 150, 255, 0.3)",
+                    ions: [{type: 'Cu2+', color: '#2563eb', product: 'solid', productColor: '#b45309'}],
+                    info: "Used to purify copper or coat objects. The anode is pure copper, and the electrolyte contains Cu2+ ions."
+                },
+                { 
+                    name: "Gold Plating (Au³⁺)", 
+                    anode: "Au → Au³⁺ + 3e⁻", 
+                    cathode: "Au³⁺ + 3e⁻ → Au", 
+                    anodeColor: "#fbbf24", 
+                    cathodeColor: "#fcd34d",
+                    liquidColor: "rgba(252, 211, 77, 0.2)",
+                    ions: [{type: 'Au3+', color: '#d97706', product: 'solid', productColor: '#fbbf24'}],
+                    info: "The anode consists of pure gold, which oxidizes into the solution. Gold ions in the bath reduce and plate onto the cathode."
+                }
+            ]
+        };
+
+        let currentMode = 'molten';
+        let currentSubstance = chemData.molten[0];
+        let powerOn = true;
+        let voltage = 3.0;
+        let particles = [];
+        let electrons = [];
+        let bubbles = [];
+        let deposits = [];
+        let animationFrame;
+
+        // Quiz Data
+        const quizQuestions = [
+            { q: "What is the primary purpose of electrolysis?", options: ["To generate electricity from chemicals", "To break down a substance using electricity", "To measure electrical current", "To combine elements into new compounds"], answer: 1 },
+            { q: "In an electrolytic cell, the anode is the...", options: ["Positive electrode", "Negative electrode", "Neutral electrode", "Ground wire"], answer: 0 },
+            { q: "In an electrolytic cell, the cathode is the...", options: ["Positive electrode", "Negative electrode", "Neutral electrode", "Power supply"], answer: 1 },
+            { q: "Which chemical process occurs at the anode?", options: ["Reduction", "Neutralization", "Oxidation", "Precipitation"], answer: 2 },
+            { q: "Which chemical process occurs at the cathode?", options: ["Reduction", "Neutralization", "Oxidation", "Evaporation"], answer: 0 },
+            { q: "What particles carry the electrical charge through the metal wires?", options: ["Cations", "Anions", "Protons", "Electrons"], answer: 3 },
+            { q: "What particles carry the electrical charge through the electrolyte?", options: ["Electrons", "Neutrons", "Ions", "Atoms"], answer: 2 },
+            { q: "During the electrolysis of molten NaCl, what is produced at the cathode?", options: ["Chlorine gas", "Sodium metal", "Hydrogen gas", "Oxygen gas"], answer: 1 },
+            { q: "During the electrolysis of molten NaCl, what is produced at the anode?", options: ["Chlorine gas", "Sodium metal", "Hydrogen gas", "Oxygen gas"], answer: 0 },
+            { q: "Why must an ionic compound be molten or dissolved in water to act as an electrolyte?", options: ["To lower its temperature", "So the ions are free to move", "So electrons can dissolve in it", "To prevent it from catching fire"], answer: 1 },
+            { q: "In the electrolysis of very DILUTE aqueous NaCl, what gas is preferentially produced at the anode?", options: ["Chlorine", "Hydrogen", "Oxygen", "Sodium"], answer: 2 },
+            { q: "In the electrolysis of CONCENTRATED NaCl (brine), what gas is preferentially produced at the anode?", options: ["Chlorine", "Hydrogen", "Oxygen", "Nitrogen"], answer: 0 },
+            { q: "In an aqueous solution containing highly reactive metal ions (like Na+ or K+), what is usually produced at the cathode instead of the metal?", options: ["Oxygen gas", "Hydrogen gas", "Chlorine gas", "Carbon dioxide"], answer: 1 },
+            { q: "During the electrolysis of Copper(II) Sulfate (CuSO₄) with inert electrodes, what coats the cathode?", options: ["Sulfur", "Oxygen gas", "Hydrogen gas", "Copper metal"], answer: 3 },
+            { q: "In the industrial refining of copper, what happens to the mass of the pure copper cathode?", options: ["It increases", "It decreases", "It stays exactly the same", "It evaporates completely"], answer: 0 },
+            { q: "What is an anion?", options: ["A positively charged ion", "A negatively charged ion", "A neutral atom", "A subatomic particle in the nucleus"], answer: 1 },
+            { q: "Towards which electrode do cations migrate during electrolysis?", options: ["The anode", "The cathode", "Neither", "Both simultaneously"], answer: 1 },
+            { q: "Which of the following materials CANNOT be used as an electrolyte?", options: ["Molten lead bromide", "Dilute sulfuric acid", "Solid sodium chloride", "Concentrated brine"], answer: 2 },
+            { q: "What is the primary purpose of electroplating an object?", options: ["To make it lighter", "To coat it with a more desirable or corrosion-resistant metal", "To increase its melting point", "To turn it into a battery"], answer: 1 },
+            { q: "If you want to plate a piece of jewelry with gold, what material should the anode be made of?", options: ["Iron", "Copper", "Platinum", "Gold"], answer: 3 }
+        ];
+
+        function switchTab(tabId) {
+            document.getElementById('view-simulator').classList.add('hidden');
+            document.getElementById('view-quiz').classList.add('hidden');
+            document.getElementById(`view-${tabId}`).classList.remove('hidden');
+            
+            // Reset tab styles
+            document.getElementById('tab-btn-simulator').className = "px-6 py-2 font-bold text-slate-500 hover:text-slate-700 border-b-2 border-transparent transition";
+            document.getElementById('tab-btn-quiz').className = "px-6 py-2 font-bold text-slate-500 hover:text-slate-700 border-b-2 border-transparent transition";
+            
+            // Set active tab style
+            document.getElementById(`tab-btn-${tabId}`).className = "px-6 py-2 font-bold text-blue-600 border-b-2 border-blue-600 transition";
+        }
+
+        function renderQuiz() {
+            const container = document.getElementById('quiz-container');
+            container.innerHTML = quizQuestions.map((q, index) => `
+                <div class="quiz-question bg-slate-50 p-5 rounded-xl border border-slate-200 shadow-sm">
+                    <p class="font-bold text-slate-800 mb-3 leading-snug"><span class="text-blue-600 mr-2">${index + 1}.</span>${q.q}</p>
+                    <div class="space-y-2">
+                        ${q.options.map((opt, optIndex) => `
+                            <label class="flex items-start space-x-3 p-2 rounded-lg hover:bg-slate-200 cursor-pointer transition">
+                                <input type="radio" name="q${index}" value="${optIndex}" class="mt-1 w-4 h-4 text-blue-600 focus:ring-blue-500">
+                                <span class="text-slate-700 text-sm leading-tight">${opt}</span>
+                            </label>
+                        `).join('')}
+                    </div>
+                    <div id="feedback-${index}" class="mt-3 text-sm font-bold hidden p-2 rounded bg-opacity-20"></div>
+                </div>
+            `).join('');
+        }
+
+        function submitQuiz() {
+            let score = 0;
+            quizQuestions.forEach((q, index) => {
+                const selected = document.querySelector(`input[name="q${index}"]:checked`);
+                const feedback = document.getElementById(`feedback-${index}`);
+                feedback.className = "mt-3 text-sm font-bold p-2 rounded"; // Reset classes
+                
+                if (selected && parseInt(selected.value) === q.answer) {
+                    score++;
+                    feedback.textContent = "✓ Correct";
+                    feedback.classList.add('text-emerald-700', 'bg-emerald-100');
+                } else {
+                    const ansText = q.options[q.answer];
+                    feedback.textContent = `✗ Incorrect. Correct answer: ${ansText}`;
+                    feedback.classList.add('text-red-700', 'bg-red-100');
+                }
+            });
+            
+            document.getElementById('quiz-results-top').classList.remove('hidden');
+            document.getElementById('quiz-score-top').textContent = score;
+            
+            window.scrollTo({ top: 0, behavior: 'smooth' });
+        }
+
+        class Bubble {
+            constructor(x, y, color, label) {
+                this.x = x;
+                this.y = y;
+                this.color = color;
+                this.label = label;
+                this.size = 6 + Math.random() * 3;
+                this.vx = (Math.random() - 0.5) * 0.5;
+                this.vy = -1 - Math.random() * 1.0;
+            }
+            
+            update() {
+                if (!powerOn) return;
+                this.x += this.vx;
+                this.y += this.vy;
+                this.vx += (Math.random() - 0.5) * 0.2;
+                this.vx *= 0.9; 
+            }
+            
+            draw() {
+                ctx.beginPath();
+                ctx.arc(this.x, this.y, this.size, 0, Math.PI * 2);
+                ctx.fillStyle = this.color;
+                ctx.globalAlpha = 0.8;
+                ctx.fill();
+                ctx.strokeStyle = 'rgba(255,255,255,0.9)';
+                ctx.lineWidth = 1;
+                ctx.stroke();
+                ctx.globalAlpha = 1.0;
+                
+                if (this.label) {
+                    ctx.fillStyle = '#333';
+                    ctx.font = 'bold 8px Arial';
+                    ctx.textAlign = 'center';
+                    ctx.fillText(this.label, this.x, this.y + 3);
+                }
+            }
+        }
+
+        // Particle Class
+        class Particle {
+            constructor(type, x, y, color, isElectron = false) {
+                this.type = type;
+                this.x = x;
+                this.y = y;
+                this.color = color;
+                this.isElectron = isElectron;
+                this.size = isElectron ? 3 : 12;
+                this.vx = (Math.random() - 0.5) * 1;
+                this.vy = (Math.random() - 0.5) * 1;
+                this.target = null;
+            }
+
+            draw() {
+                ctx.beginPath();
+                ctx.arc(this.x, this.y, this.size, 0, Math.PI * 2);
+                ctx.fillStyle = this.color;
+                ctx.fill();
+                if (!this.isElectron) {
+                    ctx.strokeStyle = 'rgba(255, 255, 255, 0.8)';
+                    ctx.lineWidth = 1.5;
+                    ctx.stroke();
+                    ctx.fillStyle = 'white';
+                    ctx.font = 'bold 10px Arial';
+                    ctx.textAlign = 'center';
+                    ctx.fillText(this.type, this.x, this.y + 3.5);
+                } else {
+                    ctx.fillStyle = 'white';
+                    ctx.font = 'bold 8px Arial';
+                    ctx.textAlign = 'center';
+                    ctx.fillText('e-', this.x, this.y + 3);
+                }
+                ctx.closePath();
+            }
+
+            update() {
+                if (!powerOn) {
+                    this.x += this.vx * 0.2;
+                    this.y += this.vy * 0.2;
+                } else {
+                    if (this.isElectron) {
+                        this.moveElectron();
+                    } else {
+                        this.moveIon();
+                    }
+                }
+                this.boundsCheck();
+            }
+
+            moveIon() {
+                const speed = 0.02 * voltage;
+                const beakerWidth = canvas.width * 0.6;
+                const beakerLeft = (canvas.width - beakerWidth) / 2;
+                const beakerRight = beakerLeft + beakerWidth;
+                const electrodeYStart = 150;
+                const electrodeYEnd = 350;
+
+                // Anode is left, Cathode is right
+                if (this.type.includes('-')) { // Anion -> Anode (+)
+                    this.vx -= speed * 0.1;
+                    if (this.x < beakerLeft + 90 && this.y > electrodeYStart && this.y < electrodeYEnd) {
+                        this.handleCollision('anode');
+                    }
+                } else { // Cation -> Cathode (-)
+                    this.vx += speed * 0.1;
+                    if (this.x > beakerRight - 90 && this.y > electrodeYStart && this.y < electrodeYEnd) {
+                        this.handleCollision('cathode');
+                    }
+                }
+                
+                this.x += this.vx;
+                this.y += this.vy;
+                this.vx *= 0.98;
+                this.vy *= 0.98;
+            }
+
+            handleCollision(electrode) {
+                const ionDef = currentSubstance.ions.find(i => i.type === this.type);
+                if (ionDef) {
+                    const beakerWidth = canvas.width * 0.6;
+                    const beakerLeft = (canvas.width - beakerWidth) / 2;
+                    const beakerRight = beakerLeft + beakerWidth;
+                    
+                    if (ionDef.product === 'gas') {
+                        let spawnX = electrode === 'anode' ? beakerLeft + 90 : beakerRight - 90;
+                        bubbles.push(new Bubble(spawnX, this.y, ionDef.productColor, ionDef.productLabel));
+                    } else if (ionDef.product === 'solid') {
+                        let depX = electrode === 'anode' ? beakerLeft + 90 : beakerRight - 90;
+                        let offsetX = electrode === 'anode' ? (Math.random() * -6) : (Math.random() * 6);
+                        deposits.push({
+                            x: depX + offsetX,
+                            y: this.y + (Math.random() * 10 - 5),
+                            color: ionDef.productColor
+                        });
+                        if (deposits.length > 800) deposits.shift();
+                    }
+                }
+                this.reset(electrode);
+            }
+
+            moveElectron() {
+                const speed = 1.5 * voltage;
+                const wireTop = 80;
+                const wireLeft = canvas.width * 0.2 + 25;
+                const wireRight = canvas.width * 0.8 - 25;
+                const batteryMid = canvas.width / 2;
+
+                // Simple path: Anode -> Battery -> Cathode
+                // Path logic based on x coordinate
+                if (this.y === wireTop) {
+                    this.x += speed;
+                    if (this.x >= wireRight) {
+                        this.x = wireRight;
+                        this.y += 0.1; // trigger vertical fall
+                    }
+                } else if (this.x === wireLeft) {
+                    this.y -= speed;
+                    if (this.y <= wireTop) {
+                        this.y = wireTop;
+                    }
+                } else if (this.x === wireRight) {
+                    this.y += speed;
+                    if (this.y >= 150) {
+                        this.reset('wireEnd');
+                    }
+                }
+            }
+
+            boundsCheck() {
+                const beakerWidth = canvas.width * 0.6;
+                const beakerLeft = (canvas.width - beakerWidth) / 2;
+                const beakerTop = 140;
+                const beakerBottom = 380;
+                
+                if (this.isElectron) return;
+
+                if (this.x < beakerLeft + 10 || this.x > beakerLeft + beakerWidth - 10) this.vx *= -1;
+                if (this.y < beakerTop + 10 || this.y > beakerBottom - 10) this.vy *= -1;
+            }
+
+            reset(reason) {
+                if (this.isElectron) {
+                    this.x = canvas.width * 0.2 + 25;
+                    this.y = 150;
+                } else {
+                    const beakerWidth = canvas.width * 0.6;
+                    const beakerLeft = (canvas.width - beakerWidth) / 2;
+                    this.x = beakerLeft + 20 + Math.random() * (beakerWidth - 40);
+                    this.y = 150 + Math.random() * 200;
+                    this.vx = (Math.random() - 0.5) * 1;
+                    this.vy = (Math.random() - 0.5) * 1;
+                }
+            }
+        }
+
+        function init() {
+            resize();
+            setMode('molten');
+            renderQuiz();
+            animate();
+        }
+
+        function resize() {
+            const container = canvas.parentElement;
+            canvas.width = container.clientWidth;
+            canvas.height = 450;
+        }
+
+        function setMode(mode) {
+            currentMode = mode;
+            document.querySelectorAll('.mode-btn').forEach(btn => btn.classList.remove('btn-active'));
+            const activeBtn = document.getElementById(`btn-${mode}`);
+            if (activeBtn) activeBtn.classList.add('btn-active');
+            
+            substanceSelect.innerHTML = '';
+            chemData[mode].forEach((s, i) => {
+                const opt = document.createElement('option');
+                opt.value = i;
+                opt.textContent = s.name;
+                substanceSelect.appendChild(opt);
+            });
+            
+            updateSubstance();
+        }
+
+        function updateSubstance() {
+            const index = substanceSelect.value;
+            currentSubstance = chemData[currentMode][index];
+            
+            infoBox.innerHTML = currentSubstance.info;
+            anodeFormula.textContent = currentSubstance.anode;
+            cathodeFormula.textContent = currentSubstance.cathode;
+            
+            createParticles();
+        }
+
+        function createParticles() {
+            particles = [];
+            electrons = [];
+            bubbles = [];
+            deposits = [];
+            
+            // Create ions
+            for (let i = 0; i < 25; i++) {
+                const ionDef = currentSubstance.ions[i % currentSubstance.ions.length];
+                const beakerWidth = canvas.width * 0.6;
+                const beakerLeft = (canvas.width - beakerWidth) / 2;
+                
+                particles.push(new Particle(
+                    ionDef.type,
+                    beakerLeft + 20 + Math.random() * (beakerWidth - 40),
+                    150 + Math.random() * 200,
+                    ionDef.color
+                ));
+            }
+
+            // Create wire electrons
+            for (let i = 0; i < 15; i++) {
+                const wireLeft = canvas.width * 0.2 + 25;
+                const wireRight = canvas.width * 0.8 - 25;
+                const totalPath = (wireRight - wireLeft) + (150 - 80) + (150 - 80);
+                
+                // Spread electrons along the circuit path
+                const p = new Particle('e-', 0, 0, '#ffff00', true);
+                p.x = wireLeft;
+                p.y = 150 - (i * 30); // Start staggered
+                if (p.y < 80) {
+                   p.x = wireLeft + (80 - p.y);
+                   p.y = 80;
+                }
+                electrons.push(p);
+            }
+        }
+
+        function updateVoltage(val) {
+            voltage = parseFloat(val);
+            voltageDisplay.textContent = voltage.toFixed(1) + ' V';
+        }
+
+        function togglePower() {
+            powerOn = !powerOn;
+            powerBtn.textContent = powerOn ? 'TURN OFF' : 'TURN ON';
+            powerBtn.className = powerOn ? 
+                "w-full mt-4 py-2 bg-emerald-500 hover:bg-emerald-600 text-white rounded-lg font-bold transition" :
+                "w-full mt-4 py-2 bg-slate-500 hover:bg-slate-600 text-white rounded-lg font-bold transition";
+        }
+
+        function drawApparatus() {
+            const beakerWidth = canvas.width * 0.6;
+            const beakerLeft = (canvas.width - beakerWidth) / 2;
+            const beakerRight = beakerLeft + beakerWidth;
+            
+            // Draw Electrolyte Liquid
+            ctx.fillStyle = currentSubstance.liquidColor;
+            ctx.fillRect(beakerLeft, 140, beakerWidth, 240);
+            
+            // Draw Beaker
+            ctx.strokeStyle = '#94a3b8';
+            ctx.lineWidth = 4;
+            ctx.beginPath();
+            ctx.moveTo(beakerLeft, 120);
+            ctx.lineTo(beakerLeft, 380);
+            ctx.lineTo(beakerRight, 380);
+            ctx.lineTo(beakerRight, 120);
+            ctx.stroke();
+
+            // Draw Electrodes
+            // Anode (+)
+            ctx.fillStyle = currentSubstance.anodeColor || '#444';
+            ctx.shadowBlur = powerOn ? 5 : 0;
+            ctx.shadowColor = 'red';
+            ctx.fillRect(beakerLeft + 40, 100, 50, 250);
+            
+            // Cathode (-)
+            ctx.fillStyle = currentSubstance.cathodeColor || '#444';
+            ctx.shadowColor = 'blue';
+            ctx.fillRect(beakerRight - 90, 100, 50, 250);
+            ctx.shadowBlur = 0;
+
+            // Draw Deposits
+            deposits.forEach(d => {
+                ctx.beginPath();
+                ctx.arc(d.x, d.y, 4, 0, Math.PI * 2);
+                ctx.fillStyle = d.color;
+                ctx.fill();
+                ctx.strokeStyle = 'rgba(0,0,0,0.3)';
+                ctx.lineWidth = 0.5;
+                ctx.stroke();
+            });
+
+            // Draw Wire Circuit
+            ctx.strokeStyle = '#334155';
+            ctx.lineWidth = 6;
+            ctx.beginPath();
+            ctx.moveTo(beakerLeft + 65, 100);
+            ctx.lineTo(beakerLeft + 65, 80);
+            ctx.lineTo(beakerRight - 65, 80);
+            ctx.lineTo(beakerRight - 65, 100);
+            ctx.stroke();
+
+            // Draw Battery
+            const batteryX = canvas.width / 2;
+            ctx.fillStyle = '#1e293b';
+            ctx.fillRect(batteryX - 40, 60, 80, 40);
+            ctx.fillStyle = 'white';
+            ctx.font = 'bold 12px Arial';
+            ctx.fillText('POWER', batteryX, 85);
+            
+            // Terminal markings
+            ctx.fillStyle = '#ef4444';
+            ctx.fillText('+', batteryX - 30, 85);
+            ctx.fillStyle = '#3b82f6';
+            ctx.fillText('-', batteryX + 30, 85);
+        }
+
+        function animate() {
+            ctx.clearRect(0, 0, canvas.width, canvas.height);
+            
+            drawApparatus();
+            
+            particles.forEach(p => {
+                p.update();
+                p.draw();
+            });
+
+            if (voltage > 0) {
+                electrons.forEach(e => {
+                    e.update();
+                    e.draw();
+                });
+
+                bubbles.forEach(b => {
+                    b.update();
+                    b.draw();
+                });
+                // Remove bubbles that reach the top of the liquid
+                bubbles = bubbles.filter(b => b.y > 140);
+            } else {
+                bubbles.forEach(b => b.draw());
+            }
+
+            animationFrame = requestAnimationFrame(animate);
+        }
+
+        window.onload = init;
+        window.onresize = resize;
+    </script>
+</body>
+</html>
