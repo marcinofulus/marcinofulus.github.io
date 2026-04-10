@@ -58,12 +58,30 @@
                     </div>
                     
                     <div class="bg-white p-4 rounded-xl control-panel border border-slate-200">
-                        <h2 class="font-bold text-slate-700 mb-2 border-b pb-2">Power Source</h2>
+                        <div class="flex justify-between items-center mb-2 border-b pb-2">
+                            <h2 class="font-bold text-slate-700">Power Source</h2>
+                            <button onclick="toggleVoltageInfo()" class="text-slate-400 hover:text-blue-600 transition focus:outline-none" title="Learn about voltage thresholds">
+                                <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M13 16h-1v-4h-1m1-4h.01M21 12a9 9 0 11-18 0 9 9 0 0118 0z"></path></svg>
+                            </button>
+                        </div>
+
+                        <div id="voltage-info-box" class="hidden mb-4 p-3 bg-slate-50 border border-slate-200 rounded-lg text-xs text-slate-700 space-y-2">
+                            <p class="font-bold text-blue-700 border-b border-slate-200 pb-1">Why do reactions stall at low voltage?</p>
+                            <ul class="list-disc pl-4 space-y-1.5">
+                                <li><strong>Decomposition Voltage:</strong> Electrolysis is forced; reactions require a minimum theoretical voltage to start.</li>
+                                <li><strong>Overpotential:</strong> Real-world resistance requires extra voltage beyond the theoretical minimum to actually form gases or metals.</li>
+                                <li><strong>Capacitor Effect:</strong> Below the threshold, ions briefly align but can't trade electrons. No steady current flows.</li>
+                            </ul>
+                        </div>
+
                         <div class="flex items-center justify-between mb-2">
                             <span class="text-xs font-medium text-slate-500 uppercase">Voltage</span>
                             <span id="voltage-display" class="text-sm font-bold text-blue-600">3.0 V</span>
                         </div>
                         <input type="range" id="voltage-slider" min="0" max="6" step="0.5" value="3" oninput="updateVoltage(this.value)" class="w-full h-2 bg-slate-200 rounded-lg appearance-none cursor-pointer accent-blue-600">
+                        <div id="threshold-warning" class="text-xs text-red-600 font-bold mt-2 hidden text-center bg-red-50 py-1.5 rounded border border-red-100 transition-all">
+                            Voltage too low! Min: <span id="threshold-val"></span> V
+                        </div>
                         
                         <button id="toggle-power" onclick="togglePower()" class="w-full mt-4 py-2 bg-emerald-500 hover:bg-emerald-600 text-white rounded-lg font-bold transition">
                             TURN OFF
@@ -78,28 +96,42 @@
                 <!-- Main Canvas Area -->
                 <div class="lg:col-span-3 bg-white rounded-2xl border border-slate-200 shadow-sm overflow-hidden relative">
                     <canvas id="simCanvas"></canvas>
-            </div>
-        </div>
-        
-        <!-- Reaction Display -->
-        <div class="mt-6 grid grid-cols-1 md:grid-cols-2 gap-4">
-            <div class="bg-red-50 p-4 rounded-xl border border-red-100">
-                <h3 class="text-red-700 font-bold mb-2 flex items-center">
-                    <span class="mr-2">⚡</span> Oxidation at Anode
-                </h3>
-                <div id="anode-reaction" class="font-mono text-sm text-red-900 bg-white p-2 rounded border border-red-200">
-                    <!-- Formula here -->
+                    
+                    <!-- Short Circuit Overlay -->
+                    <div id="short-circuit-overlay" class="absolute inset-0 bg-red-900/90 flex-col items-center justify-center hidden z-20">
+                        <h2 class="text-4xl md:text-5xl font-black text-white mb-2 shadow-sm tracking-widest text-center">⚡ SHORT CIRCUIT ⚡</h2>
+                        <p class="text-red-100 text-lg md:text-xl mb-8 font-medium text-center px-4">The metal dendrites have bridged the gap and connected the electrodes!</p>
+                        <button onclick="updateSubstance()" class="px-8 py-3 bg-white text-red-700 font-bold rounded-xl hover:bg-slate-100 transition shadow-xl transform hover:scale-105">Reset Simulation</button>
+                    </div>
+
+                    <!-- Overlay Labels -->
+                    <div id="labels-container" class="absolute inset-0 pointer-events-none p-4 z-10">
+                        <div id="label-anode" class="absolute font-bold text-red-600 text-sm uppercase tracking-wider" style="top: 15%; left: 20%;">ANODE (+)</div>
+                        <div id="label-cathode" class="absolute font-bold text-blue-600 text-sm uppercase tracking-wider" style="top: 15%; right: 20%;">CATHODE (-)</div>
+                        <div id="label-battery" class="absolute font-bold text-slate-700 text-sm uppercase tracking-wider" style="top: 5%; left: 50%; transform: translateX(-50%);">DC POWER SUPPLY</div>
+                    </div>
                 </div>
             </div>
-            <div class="bg-blue-50 p-4 rounded-xl border border-blue-100">
-                <h3 class="text-blue-700 font-bold mb-2 flex items-center">
-                    <span class="mr-2">⚡</span> Reduction at Cathode
-                </h3>
-                <div id="cathode-reaction" class="font-mono text-sm text-blue-900 bg-white p-2 rounded border border-blue-200">
-                    <!-- Formula here -->
+
+            <!-- Reaction Display -->
+            <div class="mt-6 grid grid-cols-1 md:grid-cols-2 gap-4">
+                <div class="bg-red-50 p-4 rounded-xl border border-red-100">
+                    <h3 class="text-red-700 font-bold mb-2 flex items-center">
+                        <span class="mr-2">⚡</span> Oxidation at Anode
+                    </h3>
+                    <div id="anode-reaction" class="font-mono text-sm text-red-900 bg-white p-2 rounded border border-red-200">
+                        <!-- Formula here -->
+                    </div>
+                </div>
+                <div class="bg-blue-50 p-4 rounded-xl border border-blue-100">
+                    <h3 class="text-blue-700 font-bold mb-2 flex items-center">
+                        <span class="mr-2">⚡</span> Reduction at Cathode
+                    </h3>
+                    <div id="cathode-reaction" class="font-mono text-sm text-blue-900 bg-white p-2 rounded border border-blue-200">
+                        <!-- Formula here -->
+                    </div>
                 </div>
             </div>
-        </div>
         </div> <!-- End of Simulator View -->
 
         <!-- Quiz View -->
@@ -137,6 +169,7 @@
             molten: [
                 { 
                     name: "Molten Sodium Chloride (NaCl)", 
+                    threshold: 4.0,
                     anode: "2Cl⁻ → Cl₂ + 2e⁻", 
                     cathode: "Na⁺ + e⁻ → Na", 
                     anodeColor: "#99ff99", 
@@ -150,6 +183,7 @@
                 },
                 { 
                     name: "Molten Lead(II) Bromide (PbBr₂)", 
+                    threshold: 1.5,
                     anode: "2Br⁻ → Br₂ + 2e⁻", 
                     cathode: "Pb²⁺ + 2e⁻ → Pb", 
                     anodeColor: "#ff9933", 
@@ -157,12 +191,13 @@
                     liquidColor: "rgba(200, 200, 255, 0.2)",
                     ions: [
                         {type: 'Pb2+', color: '#64748b', product: 'solid', productColor: '#475569'}, 
-                        {type: 'Br-', color: '#d97706', product: 'gas', productColor: '#fcd34d', productLabel: 'Br₂'}
+                        {type: 'Br-', color: '#d97706', product: 'gas', productColor: '#fcd34d', productLabel: 'Br₂', bubbleSize: 1.4}
                     ],
                     info: "PbBr2 electrolysis produces reddish-brown bromine vapor at the anode and molten lead at the cathode."
                 },
                 { 
                     name: "Molten Potassium Iodide (KI)", 
+                    threshold: 3.5,
                     anode: "2I⁻ → I₂ + 2e⁻", 
                     cathode: "K⁺ + e⁻ → K", 
                     anodeColor: "#d8b4fe", 
@@ -170,7 +205,7 @@
                     liquidColor: "rgba(243, 244, 246, 0.5)",
                     ions: [
                         {type: 'K+', color: '#ef4444', product: 'solid', productColor: '#cbd5e1'}, 
-                        {type: 'I-', color: '#a855f7', product: 'gas', productColor: '#d8b4fe', productLabel: 'I₂'}
+                        {type: 'I-', color: '#a855f7', product: 'gas', productColor: '#d8b4fe', productLabel: 'I₂', bubbleSize: 1.4}
                     ],
                     info: "Electrolysis of molten KI produces silvery liquid potassium at the cathode and purple iodine vapor at the anode."
                 }
@@ -178,6 +213,7 @@
             aqueous: [
                 { 
                     name: "Concentrated NaCl (Brine)", 
+                    threshold: 2.0,
                     anode: "2Cl⁻ → Cl₂ + 2e⁻", 
                     cathode: "2H₂O + 2e⁻ → H₂ + 2OH⁻", 
                     anodeColor: "#99ff99", 
@@ -185,7 +221,7 @@
                     liquidColor: "rgba(0, 150, 255, 0.2)",
                     ions: [
                         {type: 'Na+', color: '#ef4444', product: 'none'}, 
-                        {type: 'Cl-', color: '#22c55e', product: 'gas', productColor: '#bcf6b1', productLabel: 'Cl₂'}, 
+                        {type: 'Cl-', color: '#22c55e', product: 'gas', productColor: '#bcf6b1', productLabel: 'Cl₂', bubbleSize: 1.6}, 
                         {type: 'H+', color: '#8b5cf6', product: 'gas', productColor: '#f8fafc', productLabel: 'H₂'}, 
                         {type: 'OH-', color: '#ec4899', product: 'none'}
                     ],
@@ -193,6 +229,7 @@
                 },
                 { 
                     name: "Dilute NaCl Solution", 
+                    threshold: 1.5,
                     anode: "2H₂O → O₂ + 4H⁺ + 4e⁻", 
                     cathode: "2H₂O + 2e⁻ → H₂ + 2OH⁻", 
                     anodeColor: "#ffffff", 
@@ -208,6 +245,7 @@
                 },
                 { 
                     name: "Copper(II) Chloride (CuCl₂)", 
+                    threshold: 1.0,
                     anode: "2Cl⁻ → Cl₂ + 2e⁻", 
                     cathode: "Cu²⁺ + 2e⁻ → Cu", 
                     anodeColor: "#99ff99", 
@@ -215,7 +253,7 @@
                     liquidColor: "rgba(16, 185, 129, 0.2)",
                     ions: [
                         {type: 'Cu2+', color: '#2563eb', product: 'solid', productColor: '#b45309'}, 
-                        {type: 'Cl-', color: '#22c55e', product: 'gas', productColor: '#bcf6b1', productLabel: 'Cl₂'},
+                        {type: 'Cl-', color: '#22c55e', product: 'gas', productColor: '#bcf6b1', productLabel: 'Cl₂', bubbleSize: 1.6},
                         {type: 'H+', color: '#8b5cf6', product: 'none'},
                         {type: 'OH-', color: '#ec4899', product: 'none'}
                     ],
@@ -223,6 +261,7 @@
                 },
                 { 
                     name: "Dilute Sulfuric Acid (H₂SO₄)", 
+                    threshold: 1.5,
                     anode: "2H₂O → O₂ + 4H⁺ + 4e⁻", 
                     cathode: "2H⁺ + 2e⁻ → H₂", 
                     anodeColor: "#ffffff", 
@@ -239,6 +278,7 @@
             plating: [
                 { 
                     name: "Silver Plating (Ag⁺)", 
+                    threshold: 0.5,
                     anode: "Ag → Ag⁺ + e⁻", 
                     cathode: "Ag⁺ + e⁻ → Ag", 
                     anodeColor: "#e5e7eb", 
@@ -249,6 +289,7 @@
                 },
                 { 
                     name: "Copper Plating (Cu²⁺)", 
+                    threshold: 0.5,
                     anode: "Cu → Cu²⁺ + 2e⁻", 
                     cathode: "Cu²⁺ + 2e⁻ → Cu", 
                     anodeColor: "#cd7f32", 
@@ -259,6 +300,7 @@
                 },
                 { 
                     name: "Gold Plating (Au³⁺)", 
+                    threshold: 0.5,
                     anode: "Au → Au³⁺ + 3e⁻", 
                     cathode: "Au³⁺ + 3e⁻ → Au", 
                     anodeColor: "#fbbf24", 
@@ -278,7 +320,37 @@
         let electrons = [];
         let bubbles = [];
         let deposits = [];
+        let droplets = [];
+        let anodeAtoms = [];
+        let isShortCircuited = false;
         let animationFrame;
+
+        function toggleVoltageInfo() {
+            const box = document.getElementById('voltage-info-box');
+            box.classList.toggle('hidden');
+        }
+
+        function getEffectiveVoltage() {
+            if (!powerOn) return 0;
+            return Math.max(0, voltage - currentSubstance.threshold);
+        }
+
+        function checkThreshold() {
+            const warningEl = document.getElementById('threshold-warning');
+            const thresholdValSpan = document.getElementById('threshold-val');
+            
+            if (!powerOn || isShortCircuited) {
+                warningEl.classList.add('hidden');
+                return;
+            }
+            
+            if (voltage < currentSubstance.threshold) {
+                thresholdValSpan.textContent = currentSubstance.threshold.toFixed(1);
+                warningEl.classList.remove('hidden');
+            } else {
+                warningEl.classList.add('hidden');
+            }
+        }
 
         // Quiz Data
         const quizQuestions = [
@@ -360,18 +432,18 @@
         }
 
         class Bubble {
-            constructor(x, y, color, label) {
+            constructor(x, y, color, label, sizeMod = 1) {
                 this.x = x;
                 this.y = y;
                 this.color = color;
                 this.label = label;
-                this.size = 6 + Math.random() * 3;
+                this.size = (6 + Math.random() * 3) * sizeMod;
                 this.vx = (Math.random() - 0.5) * 0.5;
                 this.vy = -1 - Math.random() * 1.0;
             }
             
             update() {
-                if (!powerOn) return;
+                // Bubbles float up naturally even if power is turned off
                 this.x += this.vx;
                 this.y += this.vy;
                 this.vx += (Math.random() - 0.5) * 0.2;
@@ -398,6 +470,47 @@
             }
         }
 
+        class Droplet {
+            constructor(x, y, color, label) {
+                this.x = x;
+                this.y = y;
+                this.color = color;
+                this.label = label;
+                this.size = 5 + Math.random() * 2;
+                this.vx = (Math.random() - 0.5) * 1.5;
+                this.vy = 0.5 + Math.random() * 1.5;
+            }
+            
+            update() {
+                if (!powerOn) return;
+                const beakerBottom = 375;
+                if (this.y < beakerBottom) {
+                    this.x += this.vx;
+                    this.y += this.vy;
+                    this.vx *= 0.95; // friction
+                }
+            }
+            
+            draw() {
+                ctx.beginPath();
+                ctx.arc(this.x, this.y, this.size, 0, Math.PI * 2);
+                ctx.fillStyle = this.color;
+                ctx.globalAlpha = 0.85;
+                ctx.fill();
+                ctx.strokeStyle = 'rgba(255,255,255,0.3)';
+                ctx.lineWidth = 1;
+                ctx.stroke();
+                ctx.globalAlpha = 1.0;
+                
+                if (this.label && this.size > 5.5) {
+                    ctx.fillStyle = '#fff';
+                    ctx.font = 'bold 7px Arial';
+                    ctx.textAlign = 'center';
+                    ctx.fillText(this.label, this.x, this.y + 2.5);
+                }
+            }
+        }
+
         // Particle Class
         class Particle {
             constructor(type, x, y, color, isElectron = false) {
@@ -407,8 +520,8 @@
                 this.color = color;
                 this.isElectron = isElectron;
                 this.size = isElectron ? 3 : 12;
-                this.vx = (Math.random() - 0.5) * 1;
-                this.vy = (Math.random() - 0.5) * 1;
+                this.vx = (Math.random() - 0.5) * 2; // Increased initial Brownian jitter
+                this.vy = (Math.random() - 0.5) * 2;
                 this.target = null;
             }
 
@@ -435,72 +548,140 @@
             }
 
             update() {
-                if (!powerOn) {
+                const effV = getEffectiveVoltage();
+                
+                if (this.isElectron) {
+                    if (effV > 0 && !isShortCircuited) this.moveElectron(effV);
+                    return; // No bounds check for electrons
+                }
+                
+                if (effV === 0 || isShortCircuited) {
+                    // Random thermal motion when voltage is below threshold, off, or shorted
                     this.x += this.vx * 0.2;
                     this.y += this.vy * 0.2;
                 } else {
-                    if (this.isElectron) {
-                        this.moveElectron();
-                    } else {
-                        this.moveIon();
-                    }
+                    this.moveIon(effV);
                 }
                 this.boundsCheck();
             }
 
-            moveIon() {
-                const speed = 0.02 * voltage;
+            moveIon(effV) {
+                const speed = 0.02 * effV;
                 const beakerWidth = canvas.width * 0.6;
                 const beakerLeft = (canvas.width - beakerWidth) / 2;
                 const beakerRight = beakerLeft + beakerWidth;
-                const electrodeYStart = 150;
-                const electrodeYEnd = 350;
+                const anodeRight = beakerLeft + 90;
+                const cathodeLeft = beakerRight - 90;
+                const electrodeYStart = 100;
+                const electrodeYEnd = 380;
+
+                const ionDef = currentSubstance.ions.find(i => i.type === this.type);
+
+                // Add Brownian motion to make dendrite growth (DLA) more organic
+                this.vx += (Math.random() - 0.5) * 0.3;
+                this.vy += (Math.random() - 0.5) * 0.3;
 
                 // Anode is left, Cathode is right
-                if (this.type.includes('-')) { // Anion -> Anode (+)
+                if (this.type.includes('-')) { 
+                    // Anion -> Anode (+)
                     this.vx -= speed * 0.1;
-                    if (this.x < beakerLeft + 90 && this.y > electrodeYStart && this.y < electrodeYEnd) {
+                    if (this.x < anodeRight + this.size && this.y > electrodeYStart && this.y < electrodeYEnd) {
                         this.handleCollision('anode');
                     }
-                } else { // Cation -> Cathode (-)
-                    this.vx += speed * 0.1;
-                    if (this.x > beakerRight - 90 && this.y > electrodeYStart && this.y < electrodeYEnd) {
-                        this.handleCollision('cathode');
+                } else { 
+                    // Cation -> Cathode (-)
+                    if (ionDef && ionDef.product === 'solid') {
+                        // Dendrite Growth Logic (E-field deformation + DLA)
+                        let targetX = cathodeLeft;
+                        let targetY = this.y;
+                        let minDist = Math.abs(this.x - cathodeLeft); // Dist to flat cathode
+
+                        // Find nearest deposit to act as local E-field concentration
+                        for (let d of deposits) {
+                            let dist = Math.hypot(this.x - d.x, this.y - d.y);
+                            if (dist < minDist) {
+                                minDist = dist;
+                                targetX = d.x;
+                                targetY = d.y;
+                            }
+                        }
+
+                        // Apply Electric Field force towards nearest high-field point (tip of dendrite)
+                        let dx = targetX - this.x;
+                        let dy = targetY - this.y;
+                        let mag = Math.hypot(dx, dy);
+
+                        if (mag > 0) {
+                            // E-field is stronger the closer the ion gets to the tip
+                            let pullStrength = speed * 0.1 * (1 + (25 / Math.max(mag, 5)));
+                            this.vx += (dx / mag) * pullStrength;
+                            this.vy += (dy / mag) * pullStrength;
+                        }
+
+                        // Ions act as symbols. They must get very close (center-to-center) to deposit as a tiny atom
+                        if (minDist <= 3) { 
+                            // Lock exactly where it hit to form a dendrite structure
+                            this.handleCollision('cathode', this.x, this.y); 
+                        }
+                    } else {
+                        // Standard gas/liquid forming cation behavior
+                        this.vx += speed * 0.1;
+                        if (this.x > cathodeLeft - this.size && this.y > electrodeYStart && this.y < electrodeYEnd) {
+                            this.handleCollision('cathode');
+                        }
                     }
                 }
                 
                 this.x += this.vx;
                 this.y += this.vy;
-                this.vx *= 0.98;
-                this.vy *= 0.98;
+                this.vx *= 0.96; // Viscous drag
+                this.vy *= 0.96;
             }
 
-            handleCollision(electrode) {
+            handleCollision(electrode, hitX = null, hitY = null) {
                 const ionDef = currentSubstance.ions.find(i => i.type === this.type);
                 if (ionDef) {
                     const beakerWidth = canvas.width * 0.6;
                     const beakerLeft = (canvas.width - beakerWidth) / 2;
                     const beakerRight = beakerLeft + beakerWidth;
+                    const anodeRight = beakerLeft + 90;
+                    const cathodeLeft = beakerRight - 90;
                     
                     if (ionDef.product === 'gas') {
-                        let spawnX = electrode === 'anode' ? beakerLeft + 90 : beakerRight - 90;
-                        bubbles.push(new Bubble(spawnX, this.y, ionDef.productColor, ionDef.productLabel));
+                        let spawnX = electrode === 'anode' ? anodeRight : cathodeLeft;
+                        bubbles.push(new Bubble(spawnX, this.y, ionDef.productColor, ionDef.productLabel, ionDef.bubbleSize || 1));
                     } else if (ionDef.product === 'solid') {
-                        let depX = electrode === 'anode' ? beakerLeft + 90 : beakerRight - 90;
-                        let offsetX = electrode === 'anode' ? (Math.random() * -6) : (Math.random() * 6);
+                        // Deposit exactly where it hit to build dendrites
+                        let depX = hitX || (electrode === 'anode' ? anodeRight : cathodeLeft);
+                        let depY = hitY || this.y;
+                        
+                        // Prevent dendrites from drawing inside the anode itself
+                        if (depX <= anodeRight) depX = anodeRight + 1.5;
+
                         deposits.push({
-                            x: depX + offsetX,
-                            y: this.y + (Math.random() * 10 - 5),
+                            x: depX,
+                            y: depY,
+                            r: 1.5, // Tiny atoms forming the dendrite
                             color: ionDef.productColor
                         });
-                        if (deposits.length > 800) deposits.shift();
+                        
+                        // Game Over Condition: Dendrites reach the anode
+                        if (depX <= anodeRight + 4) {
+                            triggerShortCircuit();
+                        }
+
+                        if (deposits.length > 4000) deposits.shift();
+                    } else if (ionDef.product === 'liquid') {
+                        let spawnX = electrode === 'anode' ? anodeRight : cathodeLeft;
+                        droplets.push(new Droplet(spawnX, this.y, ionDef.productColor, ionDef.productLabel));
+                        if (droplets.length > 200) droplets.shift();
                     }
                 }
                 this.reset(electrode);
             }
 
-            moveElectron() {
-                const speed = 1.5 * voltage;
+            moveElectron(effV) {
+                const speed = 1.5 * effV;
                 const wireTop = 80;
                 const wireLeft = canvas.width * 0.2 + 25;
                 const wireRight = canvas.width * 0.8 - 25;
@@ -535,21 +716,44 @@
                 
                 if (this.isElectron) return;
 
-                if (this.x < beakerLeft + 10 || this.x > beakerLeft + beakerWidth - 10) this.vx *= -1;
-                if (this.y < beakerTop + 10 || this.y > beakerBottom - 10) this.vy *= -1;
+                const r = this.size;
+                if (this.x < beakerLeft + r) { this.x = beakerLeft + r; this.vx = Math.abs(this.vx); }
+                if (this.x > beakerLeft + beakerWidth - r) { this.x = beakerLeft + beakerWidth - r; this.vx = -Math.abs(this.vx); }
+                if (this.y < beakerTop + r) { this.y = beakerTop + r; this.vy = Math.abs(this.vy); }
+                if (this.y > beakerBottom - r) { this.y = beakerBottom - r; this.vy = -Math.abs(this.vy); }
             }
 
-            reset(reason) {
+            reset(electrodeHit) {
                 if (this.isElectron) {
                     this.x = canvas.width * 0.2 + 25;
                     this.y = 150;
                 } else {
                     const beakerWidth = canvas.width * 0.6;
                     const beakerLeft = (canvas.width - beakerWidth) / 2;
-                    this.x = beakerLeft + 20 + Math.random() * (beakerWidth - 40);
-                    this.y = 150 + Math.random() * 200;
-                    this.vx = (Math.random() - 0.5) * 1;
-                    this.vy = (Math.random() - 0.5) * 1;
+                    const anodeRight = beakerLeft + 90;
+
+                    // Realistic Plating: Anode dissolves to replace the deposited ion
+                    if (currentMode === 'plating' && electrodeHit === 'cathode' && !this.type.includes('-')) {
+                        if (anodeAtoms.length > 0) {
+                            // Pop a random atom from the rightmost exposed surface (top ~10 elements)
+                            const exposedSurfaceCount = Math.min(10, anodeAtoms.length);
+                            const spliceIndex = anodeAtoms.length - 1 - Math.floor(Math.random() * exposedSurfaceCount);
+                            const dissolvedAtom = anodeAtoms.splice(spliceIndex, 1)[0];
+                            
+                            this.x = dissolvedAtom.x;
+                            this.y = dissolvedAtom.y;
+                        } else {
+                            // Fallback if the anode is somehow completely eaten away
+                            this.x = anodeRight + 5;
+                            this.y = 150 + Math.random() * 200;
+                        }
+                    } else {
+                        // Bulk replacement: spawn in the middle to represent constant concentration
+                        this.x = beakerLeft + 120 + Math.random() * (beakerWidth - 240);
+                        this.y = 150 + Math.random() * 200;
+                    }
+                    this.vx = (Math.random() - 0.5) * 2;
+                    this.vy = (Math.random() - 0.5) * 2;
                 }
             }
         }
@@ -593,6 +797,7 @@
             cathodeFormula.textContent = currentSubstance.cathode;
             
             createParticles();
+            checkThreshold();
         }
 
         function createParticles() {
@@ -600,6 +805,43 @@
             electrons = [];
             bubbles = [];
             deposits = [];
+            droplets = [];
+            anodeAtoms = [];
+            
+            // Reset Short Circuit State
+            isShortCircuited = false;
+            document.getElementById('short-circuit-overlay').classList.add('hidden');
+            document.getElementById('short-circuit-overlay').classList.remove('flex');
+            
+            // Reset Power Button UI
+            powerBtn.disabled = false;
+            if (powerOn) {
+                powerBtn.textContent = 'TURN OFF';
+                powerBtn.className = "w-full mt-4 py-2 bg-emerald-500 hover:bg-emerald-600 text-white rounded-lg font-bold transition";
+            }
+
+            const beakerWidth = canvas.width * 0.6;
+            const beakerLeft = (canvas.width - beakerWidth) / 2;
+
+            // Generate atomic structure for the Anode if in Electroplating mode
+            if (currentMode === 'plating') {
+                const cationDef = currentSubstance.ions.find(i => !i.type.includes('-'));
+                const atomColor = cationDef.productColor || '#ccc';
+                
+                // Pack atoms into the anode bounding box
+                for (let x = beakerLeft + 42; x <= beakerLeft + 88; x += 4) {
+                    for (let y = 102; y <= 378; y += 4) {
+                        anodeAtoms.push({x, y, r: 2.2, color: atomColor});
+                    }
+                }
+                
+                // Sort ascending by X. The `.splice()` removes from the end (highest X / right edge).
+                // If X is similar, randomize the order to make the dissolving surface look organic/rough.
+                anodeAtoms.sort((a, b) => {
+                    if (Math.abs(a.x - b.x) > 1) return a.x - b.x;
+                    return Math.random() - 0.5;
+                });
+            }
             
             // Create ions
             for (let i = 0; i < 25; i++) {
@@ -636,14 +878,35 @@
         function updateVoltage(val) {
             voltage = parseFloat(val);
             voltageDisplay.textContent = voltage.toFixed(1) + ' V';
+            checkThreshold();
+        }
+
+        function triggerShortCircuit() {
+            if (isShortCircuited) return;
+            isShortCircuited = true;
+            powerOn = false;
+            
+            // Update UI
+            powerBtn.textContent = 'SHORT CIRCUITED';
+            powerBtn.className = "w-full mt-4 py-2 bg-red-600 text-white rounded-lg font-bold opacity-50 cursor-not-allowed";
+            powerBtn.disabled = true;
+            
+            // Show Overlay
+            const overlay = document.getElementById('short-circuit-overlay');
+            overlay.classList.remove('hidden');
+            overlay.classList.add('flex');
+            
+            checkThreshold();
         }
 
         function togglePower() {
+            if (isShortCircuited) return;
             powerOn = !powerOn;
             powerBtn.textContent = powerOn ? 'TURN OFF' : 'TURN ON';
             powerBtn.className = powerOn ? 
                 "w-full mt-4 py-2 bg-emerald-500 hover:bg-emerald-600 text-white rounded-lg font-bold transition" :
                 "w-full mt-4 py-2 bg-slate-500 hover:bg-slate-600 text-white rounded-lg font-bold transition";
+            checkThreshold();
         }
 
         function drawApparatus() {
@@ -667,24 +930,46 @@
 
             // Draw Electrodes
             // Anode (+)
-            ctx.fillStyle = currentSubstance.anodeColor || '#444';
-            ctx.shadowBlur = powerOn ? 5 : 0;
-            ctx.shadowColor = 'red';
-            ctx.fillRect(beakerLeft + 40, 100, 50, 250);
+            if (currentMode === 'plating') {
+                // Faint ghost outline of original anode
+                ctx.fillStyle = 'rgba(0, 0, 0, 0.03)';
+                ctx.fillRect(beakerLeft + 40, 100, 50, 280);
+                
+                // Draw remaining atoms
+                anodeAtoms.forEach(a => {
+                    ctx.beginPath();
+                    ctx.arc(a.x, a.y, a.r, 0, Math.PI * 2);
+                    ctx.fillStyle = a.color;
+                    ctx.fill();
+                    ctx.strokeStyle = 'rgba(0,0,0,0.2)';
+                    ctx.lineWidth = 0.5;
+                    ctx.stroke();
+                });
+                
+                // Draw connecting wire stump
+                ctx.fillStyle = '#334155';
+                ctx.fillRect(beakerLeft + 60, 80, 10, 20);
+            } else {
+                ctx.fillStyle = currentSubstance.anodeColor || '#444';
+                ctx.shadowBlur = powerOn && !isShortCircuited ? 5 : 0;
+                ctx.shadowColor = 'red';
+                ctx.fillRect(beakerLeft + 40, 100, 50, 280);
+                ctx.shadowBlur = 0;
+            }
             
             // Cathode (-)
             ctx.fillStyle = currentSubstance.cathodeColor || '#444';
             ctx.shadowColor = 'blue';
-            ctx.fillRect(beakerRight - 90, 100, 50, 250);
+            ctx.fillRect(beakerRight - 90, 100, 50, 280);
             ctx.shadowBlur = 0;
 
-            // Draw Deposits
+            // Draw Deposits (Dendrites)
             deposits.forEach(d => {
                 ctx.beginPath();
-                ctx.arc(d.x, d.y, 4, 0, Math.PI * 2);
+                ctx.arc(d.x, d.y, d.r, 0, Math.PI * 2);
                 ctx.fillStyle = d.color;
                 ctx.fill();
-                ctx.strokeStyle = 'rgba(0,0,0,0.3)';
+                ctx.strokeStyle = 'rgba(0,0,0,0.5)';
                 ctx.lineWidth = 0.5;
                 ctx.stroke();
             });
@@ -724,21 +1009,22 @@
                 p.draw();
             });
 
-            if (voltage > 0) {
-                electrons.forEach(e => {
-                    e.update();
-                    e.draw();
-                });
+            electrons.forEach(e => {
+                e.update();
+                e.draw();
+            });
 
-                bubbles.forEach(b => {
-                    b.update();
-                    b.draw();
-                });
-                // Remove bubbles that reach the top of the liquid
-                bubbles = bubbles.filter(b => b.y > 140);
-            } else {
-                bubbles.forEach(b => b.draw());
-            }
+            droplets.forEach(d => {
+                d.update();
+                d.draw();
+            });
+
+            bubbles.forEach(b => {
+                b.update();
+                b.draw();
+            });
+            // Remove bubbles that reach the top of the liquid
+            bubbles = bubbles.filter(b => b.y > 140);
 
             animationFrame = requestAnimationFrame(animate);
         }
