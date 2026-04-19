@@ -85,6 +85,23 @@
                         <i class="fa-solid fa-location-dot mr-1"></i> WPs Only
                     </button>
                 </div>
+
+                <!-- GPX Upload Button -->
+                <button onclick="document.getElementById('gpx-upload').click()" class="w-full mt-2 bg-gray-600 hover:bg-gray-700 text-white font-bold py-2 px-2 rounded transition text-xs shadow">
+                    <i class="fa-solid fa-upload mr-1"></i> Upload Background GPX
+                </button>
+                <input type="file" id="gpx-upload" accept=".gpx" class="hidden" multiple onchange="handleGPXUpload(event)">
+                
+                <!-- Background Tracks List -->
+                <div id="bg-tracks-container" class="mt-3 hidden">
+                    <h4 class="text-xs font-bold text-gray-600 border-b pb-1 mb-2">Background Tracks</h4>
+                    <div id="bg-tracks-list" class="space-y-2 max-h-32 overflow-y-auto pr-1"></div>
+                </div>
+
+                <!-- PTTK Vector Trails -->
+                <button id="btn-fetch-trails" onclick="fetchVectorTrails()" class="w-full mt-2 bg-amber-500 hover:bg-amber-600 text-white font-bold py-2 px-2 rounded transition text-xs shadow">
+                    <i class="fa-solid fa-map-location-dot mr-1"></i> Fetch PTTK Trails (In View)
+                </button>
             </div>
             
             <div id="output-log" class="mt-3 text-xs text-gray-600 font-mono h-6 overflow-hidden">Ready. Click map to add waypoints.</div>
@@ -115,16 +132,76 @@
         let lastRouteCoords = []; // Used for GPX export [lat, lng, ele]
         let routeSummary = { distance: 0, ascent: 0 }; // Store metrics for filename
         
+        let bgTracks = []; // Stores uploaded background tracks
+        
         let chartData = []; // Data for the elevation plot
         let elevationChart = null; 
         let mapHoverMarker = null; // Syncs chart hover to map
 
         // --- 2. Map Initialization ---
         const map = L.map('map').setView([49.7395, 18.9953], 14);
-        L.tileLayer('https://{s}.tile.opentopomap.org/{z}/{x}/{y}.png', {
+        
+        // Create custom pane to ensure the calculated route always stays on top of everything
+        map.createPane('routePane');
+        map.getPane('routePane').style.zIndex = 450;
+        map.getPane('routePane').style.pointerEvents = 'none'; // Lets you click the map beneath the route line
+        
+        // Base Maps
+        const openTopoMap = L.tileLayer('https://{s}.tile.opentopomap.org/{z}/{x}/{y}.png', {
             maxZoom: 17,
             attribution: 'Map data: &copy; OpenStreetMap contributors, SRTM | Map style: &copy; OpenTopoMap'
-        }).addTo(map);
+        });
+        
+        const osmStandard = L.tileLayer('https://tile.openstreetmap.org/{z}/{x}/{y}.png', {
+            maxZoom: 19,
+            attribution: '&copy; OpenStreetMap contributors'
+        });
+
+        const esriSatellite = L.tileLayer('https://server.arcgisonline.com/ArcGIS/rest/services/World_Imagery/MapServer/tile/{z}/{y}/{x}', {
+            maxZoom: 19,
+            attribution: 'Tiles &copy; Esri &mdash; Source: Esri, i-cubed, USDA, USGS, AEX, GeoEye, Getmapping, Aerogrid, IGN, IGP, UPR-EGP, and the GIS User Community'
+        });
+
+        const cyclOSM = L.tileLayer('https://{s}.tile-cyclosm.openstreetmap.fr/cyclosm/{z}/{x}/{y}.png', {
+            maxZoom: 20,
+            attribution: 'CyclOSM | Map data: &copy; OpenStreetMap contributors'
+        });
+        
+        openTopoMap.addTo(map);
+
+        // Open Source Route Overlays (Waymarked Trails)
+        const hikingOverlay = L.tileLayer('https://tile.waymarkedtrails.org/hiking/{z}/{x}/{y}.png', {
+            maxZoom: 18,
+            attribution: 'Trails: &copy; Waymarked Trails (OSM)'
+        });
+        
+        const cyclingOverlay = L.tileLayer('https://tile.waymarkedtrails.org/cycling/{z}/{x}/{y}.png', {
+            maxZoom: 18,
+            attribution: 'Trails: &copy; Waymarked Trails (OSM)'
+        });
+
+        const mtbOverlay = L.tileLayer('https://tile.waymarkedtrails.org/mtb/{z}/{x}/{y}.png', {
+            maxZoom: 18,
+            attribution: 'Trails: &copy; Waymarked Trails (OSM)'
+        });
+
+        // Vector Trail Layer
+        const pttkTrailsLayer = L.layerGroup();
+
+        // Add Layer Control
+        const baseMaps = {
+            "OpenTopoMap (Default)": openTopoMap,
+            "OSM Standard": osmStandard,
+            "CyclOSM (Cycling)": cyclOSM,
+            "Esri Satellite": esriSatellite
+        };
+        const overlayMaps = {
+            "Hiking Routes (Raster)": hikingOverlay,
+            "Cycling Routes (Raster)": cyclingOverlay,
+            "MTB Routes (Raster)": mtbOverlay,
+            "PTTK Trails (Vector)": pttkTrailsLayer
+        };
+        L.control.layers(baseMaps, overlayMaps, { position: 'topright' }).addTo(map);
 
         // --- 3. UI Element Bindings ---
         const uiList = document.getElementById('wp-list');
@@ -192,8 +269,18 @@
         async function fetchLocationName(wpData) {
             try {
                 const url = `https://api.openrouteservice.org/geocode/reverse?api_key=${API_KEY}&point.lon=${wpData.lng}&point.lat=${wpData.lat}&size=1`;
-                const response = await fetch(url);
-                const data = await response.json();
+                const response = await fetch(url, {
+                    headers: { 'Accept': 'application/json; charset=utf-8' }
+                });
+                
+                const resText = await response.text();
+                let data;
+                try {
+                    data = JSON.parse(resText);
+                } catch (e) {
+                    console.error("Reverse geocoding returned non-JSON:", resText.substring(0, 50));
+                    return; // Fail gracefully if API hits rate limit and returns XML/HTML
+                }
                 
                 if (data.features && data.features.length > 0) {
                     const props = data.features[0].properties;
@@ -368,6 +455,295 @@
             }
         }
 
+        // --- GPX Upload & Background Tracking ---
+        function renderBgTracks() {
+            const container = document.getElementById('bg-tracks-container');
+            const list = document.getElementById('bg-tracks-list');
+            list.innerHTML = '';
+            
+            if (bgTracks.length === 0) {
+                container.classList.add('hidden');
+                return;
+            }
+            container.classList.remove('hidden');
+
+            bgTracks.forEach(track => {
+                const div = document.createElement('div');
+                div.className = 'flex justify-between items-center bg-gray-100 p-1 rounded text-xs';
+                div.innerHTML = `
+                    <div class="flex items-center space-x-2 overflow-hidden flex-1">
+                        <input type="color" value="${track.color}" onchange="updateBgTrackColor('${track.id}', this.value)" class="w-5 h-5 border-0 p-0 cursor-pointer rounded shrink-0">
+                        <span class="truncate text-gray-700" title="${track.name}">${track.name}</span>
+                    </div>
+                    <button onclick="removeBgTrack('${track.id}')" class="text-red-500 hover:text-red-700 p-1 shrink-0"><i class="fa-solid fa-trash"></i></button>
+                `;
+                list.appendChild(div);
+            });
+        }
+
+        window.updateBgTrackColor = (id, color) => {
+            const track = bgTracks.find(t => t.id === id);
+            if (track) {
+                track.color = color;
+                track.layer.setStyle({ color: color });
+            }
+        };
+
+        window.removeBgTrack = (id) => {
+            const idx = bgTracks.findIndex(t => t.id === id);
+            if (idx > -1) {
+                map.removeLayer(bgTracks[idx].layer);
+                bgTracks.splice(idx, 1);
+                renderBgTracks();
+            }
+        };
+
+        window.handleGPXUpload = (event) => {
+            const files = event.target.files;
+            Array.from(files).forEach(file => {
+                const reader = new FileReader();
+                reader.onload = (e) => {
+                    const text = e.target.result;
+                    const parser = new DOMParser();
+                    const xml = parser.parseFromString(text, "text/xml");
+                    
+                    // 1. Extract WPTs and add them to main route waypoints
+                    const wpts = xml.querySelectorAll('wpt');
+                    wpts.forEach((wpt, index) => {
+                        const lat = parseFloat(wpt.getAttribute('lat'));
+                        const lon = parseFloat(wpt.getAttribute('lon'));
+                        const nameNode = wpt.querySelector('name');
+                        const name = nameNode ? nameNode.textContent : 'Loaded WP';
+                        
+                        setTimeout(() => {
+                            addWaypoint(L.latLng(lat, lon), null, { name });
+                        }, index * 10);
+                    });
+                    
+                    // 2. Extract TrkPts as background trace
+                    const trkpts = xml.querySelectorAll('trkpt');
+                    if (trkpts.length > 0) {
+                        const coords = Array.from(trkpts).map(pt => [
+                            parseFloat(pt.getAttribute('lat')),
+                            parseFloat(pt.getAttribute('lon'))
+                        ]);
+                        
+                        // Generate a distinct random color
+                        const hue = Math.floor(Math.random() * 360);
+                        const color = `hsl(${hue}, 70%, 50%)`; 
+                        
+                        const nameNode = xml.querySelector('trk > name');
+                        const trackName = nameNode ? nameNode.textContent : file.name;
+                        
+                        const layer = L.polyline(coords, { color: color, weight: 4, opacity: 0.6, dashArray: '5, 5' }).addTo(map);
+                        
+                        // Add to state and render
+                        bgTracks.push({ id: Date.now().toString() + Math.random().toString(), name: trackName, layer, color });
+                        renderBgTracks();
+                        map.fitBounds(layer.getBounds());
+                    }
+                };
+                reader.readAsText(file);
+            });
+            event.target.value = ''; // Reset input
+        };
+
+        // --- Fetch Dynamic PTTK Trails (Overpass API) ---
+        window.fetchVectorTrails = async () => {
+            if (map.getZoom() < 12) {
+                setLog("Please zoom in closer (at least level 12) to load vector trails.", true);
+                return;
+            }
+            
+            const btn = document.getElementById('btn-fetch-trails');
+            const originalText = '<i class="fa-solid fa-map-location-dot mr-1"></i> Fetch PTTK Trails (In View)';
+            btn.disabled = true;
+            btn.innerHTML = '<i class="fa-solid fa-spinner fa-spin mr-1"></i> Loading Data...';
+            setLog("Fetching PTTK trails from OpenStreetMap...");
+
+            const bounds = map.getBounds();
+            const bbox = `${bounds.getSouth()},${bounds.getWest()},${bounds.getNorth()},${bounds.getEast()}`;
+            
+            // Query OSM for hiking relations within current view bounds
+            const query = `
+                [out:json][timeout:25];
+                (
+                  relation["route"="hiking"](${bbox});
+                  relation["route"="foot"](${bbox});
+                );
+                out geom;
+            `;
+
+            // Fallback endpoints in case the main server is overloaded
+            const overpassEndpoints = [
+                'https://overpass-api.de/api/interpreter',
+                'https://overpass.kumi.systems/api/interpreter',
+                'https://lz4.overpass-api.de/api/interpreter'
+            ];
+
+            let resText = null;
+            let success = false;
+
+            for (let endpoint of overpassEndpoints) {
+                try {
+                    // Implement a strict 10-second timeout to prevent the app from getting stuck
+                    const controller = new AbortController();
+                    const timeoutId = setTimeout(() => controller.abort(), 10000); 
+
+                    const response = await fetch(endpoint, {
+                        method: 'POST',
+                        headers: { 'Content-Type': 'application/x-www-form-urlencoded' },
+                        body: 'data=' + encodeURIComponent(query),
+                        signal: controller.signal
+                    });
+                    
+                    clearTimeout(timeoutId);
+                    resText = await response.text();
+                    
+                    if (response.ok) {
+                        success = true;
+                        break; 
+                    }
+                } catch (e) {
+                    console.warn(`Endpoint ${endpoint} failed or timed out, trying next...`);
+                }
+            }
+
+            try {
+                if (!success || !resText) throw new Error("All Overpass servers are currently busy or unreachable. Try again in a minute.");
+
+                let data;
+                try {
+                    data = JSON.parse(resText);
+                } catch (e) {
+                    console.error("Overpass API returned non-JSON:", resText.substring(0, 300));
+                    let errMsg = "Overpass API returned an invalid response.";
+                    const match = resText.match(/Error<\/strong>: (.*?)<\/p>/i) || resText.match(/<p>(.*?)<\/p>/i);
+                    if (match) errMsg = "Overpass API Error: " + match[1].replace(/<[^>]*>?/gm, '').trim();
+                    throw new Error(errMsg);
+                }
+                
+                if (!data || !data.elements) throw new Error("Received empty data from OSM.");
+                
+                pttkTrailsLayer.clearLayers(); 
+                
+                if (!map.hasLayer(pttkTrailsLayer)) {
+                    map.addLayer(pttkTrailsLayer); // Auto-enable the layer so user sees results
+                }
+
+                let trailCount = 0;
+                data.elements.forEach(rel => {
+                    if (rel.type !== 'relation') return;
+                    trailCount++;
+                    
+                    // Parse OSM color tags
+                    let colorName = 'blue';
+                    if (rel.tags['osmc:symbol']) {
+                        colorName = rel.tags['osmc:symbol'].split(':')[0];
+                    } else if (rel.tags.colour) {
+                        colorName = rel.tags.colour;
+                    }
+                    
+                    const colorMap = {
+                        'red': '#ef4444',
+                        'blue': '#3b82f6',
+                        'green': '#22c55e',
+                        'yellow': '#eab308',
+                        'black': '#1f2937',
+                        'orange': '#f97316'
+                    };
+                    const hexColor = colorMap[colorName.toLowerCase()] || colorMap['blue'];
+                    const trailName = rel.tags.name || rel.tags.ref || 'Hiking Trail';
+
+                    // Draw geometries
+                    rel.members.forEach(member => {
+                        if (member.type === 'way' && Array.isArray(member.geometry)) {
+                            // Safely filter out any null geometries before attempting to draw
+                            const validGeom = member.geometry.filter(g => g !== null && g.lat !== undefined && g.lon !== undefined);
+                            
+                            if (validGeom.length >= 2) {
+                                const coords = validGeom.map(g => [g.lat, g.lon]);
+                                
+                                // Colored dashed stripe with transparent gaps (increased width by 20% from 3 to 3.6)
+                                L.polyline(coords, { color: hexColor, weight: 3.6, opacity: 1, dashArray: '6, 6', lineCap: 'butt' })
+                                 .bindTooltip(`<span class="font-bold" style="color:${hexColor}">${trailName}</span>`)
+                                 .addTo(pttkTrailsLayer);
+                            }
+                        }
+                    });
+                });
+                
+                setLog(`Loaded ${trailCount} PTTK trails in view.`);
+            } catch (e) {
+                console.error(e);
+                setLog(e.message || "Failed to fetch trails from Overpass API.", true);
+            } finally {
+                btn.disabled = false;
+                btn.innerHTML = originalText;
+            }
+        };
+
+        // --- Math & Filtering ---
+        function sanitizeElevation(coords) {
+            // Fix DEM holes (abrupt drops to exactly 0)
+            for (let i = 0; i < coords.length; i++) {
+                if (coords[i][2] === 0 || coords[i][2] == null) {
+                    let isMissing = false;
+                    if (coords[i][2] == null) isMissing = true;
+                    else {
+                        // Check if neighbors are significantly higher
+                        let prevValid = null;
+                        for (let j = i - 1; j >= 0; j--) { if (coords[j][2] !== 0) { prevValid = coords[j][2]; break; } }
+                        if (prevValid !== null && Math.abs(prevValid - 0) > 20) isMissing = true;
+                        
+                        if (!isMissing) {
+                            let nextValid = null;
+                            for (let j = i + 1; j < coords.length; j++) { if (coords[j][2] !== 0) { nextValid = coords[j][2]; break; } }
+                            if (nextValid !== null && Math.abs(nextValid - 0) > 20) isMissing = true;
+                        }
+                    }
+
+                    if (isMissing) {
+                        // Interpolate between the nearest valid points
+                        let prevEle = null, nextEle = null, prevDist = 0, nextDist = 0;
+                        for (let j = i - 1; j >= 0; j--) { if (coords[j][2] != null && coords[j][2] !== 0) { prevEle = coords[j][2]; prevDist = i - j; break; } }
+                        for (let j = i + 1; j < coords.length; j++) { if (coords[j][2] != null && coords[j][2] !== 0) { nextEle = coords[j][2]; nextDist = j - i; break; } }
+                        
+                        if (prevEle !== null && nextEle !== null) {
+                            coords[i][2] = prevEle + (nextEle - prevEle) * (prevDist / (prevDist + nextDist));
+                        } else if (prevEle !== null) coords[i][2] = prevEle;
+                        else if (nextEle !== null) coords[i][2] = nextEle;
+                    }
+                }
+            }
+            return coords;
+        }
+
+        function calculateElevationGain(coords, prominence = 10) {
+            if (coords.length === 0) return 0;
+            let gain = 0;
+            let min_alt = coords[0][2];
+            let max_alt = coords[0][2];
+
+            // Replicates scipy find_peaks topographic prominence hysteresis
+            for (let i = 1; i < coords.length; i++) {
+                let alt = coords[i][2];
+                if (alt < max_alt - prominence) {
+                    gain += (max_alt - min_alt);
+                    min_alt = alt; 
+                    max_alt = alt;
+                } else if (alt > max_alt) {
+                    max_alt = alt;
+                } else if (alt < min_alt) {
+                    min_alt = alt;
+                }
+            }
+            if (max_alt > min_alt) {
+                gain += (max_alt - min_alt);
+            }
+            return gain;
+        }
+
         // --- 8. GPX Export Logic ---
         function getDynamicFilename() {
             const clean = str => str.replace(/\s+/g, '_').replace(/[^\p{L}0-9_-]/gu, '').replace(/_+/g, '_').replace(/^_|_$/g, '');
@@ -532,10 +908,11 @@
                             const idx = activeElements[0].index;
                             const pt = data[idx];
                             
-                            // Move/Create map hover marker
+                            // Move/Create map hover marker (Added to routePane so it sits above trails)
                             if (!mapHoverMarker) {
                                 mapHoverMarker = L.circleMarker([pt.lat, pt.lng], {
-                                    radius: 6, color: '#2563eb', fillColor: '#fff', fillOpacity: 1, weight: 3
+                                    radius: 6, color: '#2563eb', fillColor: '#fff', fillOpacity: 1, weight: 3,
+                                    pane: 'routePane' 
                                 }).addTo(map);
                             } else {
                                 mapHoverMarker.setLatLng([pt.lat, pt.lng]);
@@ -570,8 +947,9 @@
             let totalDistance = 0;
             let totalAscent = 0;
 
+            // Restrict Accept header to JSON strictly to prevent GPX/XML responses from OpenRouteService 
             const headers = {
-                'Accept': 'application/json, application/geo+json, application/gpx+xml, img/png; charset=utf-8',
+                'Accept': 'application/json, application/geo+json; charset=utf-8',
                 'Authorization': API_KEY,
                 'Content-Type': 'application/json; charset=utf-8'
             };
@@ -590,7 +968,14 @@
                         body: JSON.stringify({ coordinates: coordsList, preference: Array.from(prefs)[0], elevation: true })
                     });
                     
-                    const data = await response.json();
+                    const resText = await response.text();
+                    let data;
+                    try {
+                        data = JSON.parse(resText);
+                    } catch (e) {
+                        console.error("API returned non-JSON:", resText.substring(0, 50));
+                        throw new Error("API returned an invalid format (possibly XML due to rate limits or errors).");
+                    }
                     if (!response.ok) throw new Error(data.error?.message || "Unknown API error");
 
                     const geoJsonCoords = data.features[0].geometry.coordinates;
@@ -614,7 +999,14 @@
                             })
                         });
                         
-                        const data = await response.json();
+                        const resText = await response.text();
+                        let data;
+                        try {
+                            data = JSON.parse(resText);
+                        } catch (e) {
+                            console.error("Segment API returned non-JSON:", resText.substring(0, 50));
+                            throw new Error(`Segment WP${i+1}->WP${i+2} failed: Invalid response format (XML).`);
+                        }
                         if (!response.ok) throw new Error(`Segment WP${i+1}->WP${i+2} failed: ${data.error?.message || "Unknown error"}`);
 
                         let segCoords = data.features[0].geometry.coordinates.map(c => [c[1], c[0], c[2]]);
@@ -634,25 +1026,21 @@
                 }
 
                 if (lastRouteCoords.length > 0) {
-                    totalAscent = 0;
-                    let referenceEle = lastRouteCoords[0][2];
-                    
-                    // Filter: Only accumulate elevation if delta > 10m threshold to ignore GPS noise
-                    for (let i = 1; i < lastRouteCoords.length; i++) {
-                        const ele = lastRouteCoords[i][2];
-                        if (referenceEle !== undefined && ele !== undefined) {
-                            const diff = ele - referenceEle;
-                            if (Math.abs(diff) >= 10) { 
-                                if (diff > 0) {
-                                    totalAscent += diff;
-                                }
-                                referenceEle = ele; // Shift reference point once threshold is broken
-                            }
-                        }
-                    }
+                    // Sanitize DEM Data (Remove 0 drops/spikes)
+                    lastRouteCoords = sanitizeElevation(lastRouteCoords);
+
+                    // Calculate total ascent with JS equivalent of find_peaks (Hysteresis)
+                    totalAscent = calculateElevationGain(lastRouteCoords, 10);
 
                     routeSummary = { distance: totalDistance, ascent: totalAscent };
-                    routeLayer = L.polyline(lastRouteCoords.map(c => [c[0], c[1]]), { color: 'red', weight: 5, opacity: 0.8 }).addTo(map);
+                    
+                    // Tell Leaflet to render this line specifically inside the 'routePane'
+                    routeLayer = L.polyline(lastRouteCoords.map(c => [c[0], c[1]]), { 
+                        color: 'red', 
+                        weight: 5, 
+                        opacity: 0.8,
+                        pane: 'routePane'
+                    }).addTo(map);
                     
                     // --- Generate Data for Elevation Chart ---
                     chartData = [];
