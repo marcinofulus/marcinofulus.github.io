@@ -9,6 +9,9 @@
     <link rel="stylesheet" href="https://unpkg.com/leaflet@1.9.4/dist/leaflet.css" />
     <script src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js"></script>
     
+    <!-- Chart.js for Elevation Profile -->
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+    
     <!-- Tailwind CSS for styling -->
     <script src="https://cdn.tailwindcss.com"></script>
     
@@ -93,8 +96,15 @@
         </div>
     </div>
 
-    <!-- MAP AREA -->
-    <div id="map" class="flex-1 h-[55vh] md:h-full relative z-10"></div>
+    <!-- RIGHT PANEL (Map + Elevation Chart) -->
+    <div class="flex-1 flex flex-col h-[55vh] md:h-full relative z-10 overflow-hidden">
+        <div id="map" class="flex-1 relative w-full"></div>
+        
+        <!-- Elevation Chart Container -->
+        <div id="elevation-container" class="h-48 md:h-64 bg-white border-t border-gray-300 hidden w-full p-2 flex-shrink-0 relative">
+            <canvas id="elevationChart"></canvas>
+        </div>
+    </div>
 
     <!-- APPLICATION LOGIC -->
     <script>
@@ -104,6 +114,10 @@
         let routeLayer = null;
         let lastRouteCoords = []; // Used for GPX export [lat, lng, ele]
         let routeSummary = { distance: 0, ascent: 0 }; // Store metrics for filename
+        
+        let chartData = []; // Data for the elevation plot
+        let elevationChart = null; 
+        let mapHoverMarker = null; // Syncs chart hover to map
 
         // --- 2. Map Initialization ---
         const map = L.map('map').setView([49.7395, 18.9953], 14);
@@ -119,6 +133,7 @@
         const smartInsert = document.getElementById('smart-insert');
         const log = document.getElementById('output-log');
         const exportContainer = document.getElementById('export-container');
+        const elevationContainer = document.getElementById('elevation-container');
 
         function setLog(msg, isError = false) {
             log.innerHTML = `<span class="${isError ? 'text-red-600 font-bold' : ''}">${msg}</span>`;
@@ -162,26 +177,32 @@
             if (routeLayer) map.removeLayer(routeLayer);
             routeLayer = null;
             lastRouteCoords = [];
+            chartData = [];
             routeSummary = { distance: 0, ascent: 0 };
             exportContainer.classList.add('hidden'); // Hide export buttons
+            
+            // Clear Chart
+            elevationContainer.classList.add('hidden');
+            if (mapHoverMarker) {
+                map.removeLayer(mapHoverMarker);
+                mapHoverMarker = null;
+            }
         }
 
         async function fetchLocationName(wpData) {
             try {
-                // Reverse geocoding using OpenRouteService API
                 const url = `https://api.openrouteservice.org/geocode/reverse?api_key=${API_KEY}&point.lon=${wpData.lng}&point.lat=${wpData.lat}&size=1`;
                 const response = await fetch(url);
                 const data = await response.json();
                 
                 if (data.features && data.features.length > 0) {
                     const props = data.features[0].properties;
-                    // Attempt to extract the most logical name/landmark
                     wpData.name = props.name || props.street || props.locality || (props.label ? props.label.split(',')[0] : `WP ${waypoints.indexOf(wpData) + 1}`);
                     
                     if (wpData.marker.getTooltip()) {
                         wpData.marker.setTooltipContent(wpData.name);
                     }
-                    renderUI(); // Re-render the sidebar to show new name
+                    renderUI(); 
                 }
             } catch (e) {
                 console.error("Reverse geocoding failed", e);
@@ -192,11 +213,9 @@
             uiList.innerHTML = '';
             waypoints.forEach((wp, i) => {
                 const isLast = i === waypoints.length - 1;
-                
                 const div = document.createElement('div');
                 div.className = 'mb-3 bg-white border border-gray-200 rounded shadow-sm p-2';
                 
-                // Top row: Editable Label + Buttons
                 let row1 = `
                     <div class="flex justify-between items-center mb-2">
                         <div class="flex-1 mr-2 overflow-hidden">
@@ -211,7 +230,6 @@
                     </div>
                 `;
 
-                // Bottom row: Segments (if not last)
                 let row2 = '';
                 if (!isLast) {
                     row2 = `
@@ -235,10 +253,9 @@
                 div.innerHTML = row1 + row2;
                 uiList.appendChild(div);
             });
-            saveState(); // Save to localStorage on every UI render
+            saveState(); 
         }
 
-        // Exposed global functions for inline HTML event handlers
         window.updateWp = (idx, key, val) => { waypoints[idx][key] = val; clearRoute(); saveState(); };
         window.updateWpName = (idx, val) => { 
             waypoints[idx].name = val; 
@@ -264,14 +281,13 @@
                     const newPos = e.target.getLatLng();
                     waypoints[wpIdx].lat = newPos.lat;
                     waypoints[wpIdx].lng = newPos.lng;
-                    renderUI(); // Updates coordinates in UI
-                    fetchLocationName(waypoints[wpIdx]); // Fetch new name based on new location
+                    renderUI(); 
+                    fetchLocationName(waypoints[wpIdx]); 
                 }
             });
 
             const defaultName = existingData && existingData.name ? existingData.name : `Loading...`;
             
-            // Add a tooltip to the marker for the name
             marker.bindTooltip(defaultName, { 
                 direction: 'right', 
                 offset: [15, -20],
@@ -297,7 +313,6 @@
             clearRoute();
             renderUI();
 
-            // Auto-fetch landmark name if it's a freshly placed waypoint
             if (!existingData || !existingData.name) {
                 fetchLocationName(wpData);
             }
@@ -329,9 +344,8 @@
             addWaypoint(p, bestInsertIdx);
         });
 
-        // --- 7. Local Storage (Cookies Replacement) ---
+        // --- 7. Local Storage ---
         function saveState() {
-            // Strip out the Leaflet marker object to save as pure JSON string
             const safeData = waypoints.map(wp => ({ lat: wp.lat, lng: wp.lng, profile: wp.profile, pref: wp.pref, name: wp.name }));
             localStorage.setItem('mapRouterState', JSON.stringify(safeData));
         }
@@ -344,10 +358,9 @@
                     data.forEach(wp => addWaypoint(L.latLng(wp.lat, wp.lng), null, wp));
                     if(waypoints.length > 0) map.panTo([waypoints[0].lat, waypoints[0].lng]);
                     setLog("Loaded saved session.");
-                    // Unhide WPs Only button if we have loaded points
                     if(waypoints.length > 0) {
                         exportContainer.classList.remove('hidden');
-                        document.getElementById('btn-export-route').classList.add('hidden'); // Hide route until calculated
+                        document.getElementById('btn-export-route').classList.add('hidden');
                     }
                 } catch (e) {
                     console.error("Error loading state", e);
@@ -357,7 +370,6 @@
 
         // --- 8. GPX Export Logic ---
         function getDynamicFilename() {
-            // Regex \p{L} grabs all native alphabet letters (including Polish ą,ć,ę,ł,ń,ó,ś,ź,ż)
             const clean = str => str.replace(/\s+/g, '_').replace(/[^\p{L}0-9_-]/gu, '').replace(/_+/g, '_').replace(/^_|_$/g, '');
             const startName = waypoints[0] ? clean(waypoints[0].name) : 'Start';
             const endName = waypoints[waypoints.length - 1] ? clean(waypoints[waypoints.length - 1].name) : 'End';
@@ -387,7 +399,6 @@
             return tags;
         }
 
-        // Export 1: Route + Embedded Waypoints
         document.getElementById('btn-export-route').addEventListener('click', () => {
             if (!lastRouteCoords || lastRouteCoords.length === 0) return;
             const info = getDynamicFilename();
@@ -399,7 +410,7 @@
             gpx += `  <trk>\n    <name>${filename.replace('.gpx', '')}</name>\n    <trkseg>\n`;
             lastRouteCoords.forEach(c => {
                 gpx += `      <trkpt lat="${c[0]}" lon="${c[1]}">`;
-                if (c[2] !== undefined && c[2] !== null) gpx += `<ele>${c[2]}</ele>`; // Add altitude if present
+                if (c[2] !== undefined && c[2] !== null) gpx += `<ele>${c[2]}</ele>`; 
                 gpx += `</trkpt>\n`;
             });
             gpx += `    </trkseg>\n  </trk>\n</gpx>`;
@@ -407,7 +418,6 @@
             downloadBlob(gpx, filename);
         });
 
-        // Export 2: Waypoints Only
         document.getElementById('btn-export-wp').addEventListener('click', () => {
             if (waypoints.length === 0) return;
             const info = getDynamicFilename();
@@ -420,7 +430,126 @@
             downloadBlob(gpx, filename);
         });
 
-        // --- 9. Routing API Logic ---
+        // --- 9. Chart & Gradient Logic ---
+        function getChartGradient(context, data, opacity) {
+            const chart = context.chart;
+            const {ctx, chartArea} = chart;
+            if (!chartArea) return null;
+
+            // Generate gradient dynamically across chart width
+            const gradient = ctx.createLinearGradient(chartArea.left, 0, chartArea.right, 0);
+            const totalDist = data[data.length - 1].x;
+            const step = Math.max(1, Math.ceil(data.length / 300)); // Limit color stops for performance
+            
+            for (let i = 0; i < data.length; i += step) {
+                let pt = data[i];
+                let offset = Math.max(0, Math.min(1, pt.x / totalDist));
+                let absSlope = Math.abs(pt.slope || 0); // Calculate absolute slope
+                
+                let r, g, b;
+                if (absSlope >= 30) { 
+                    r=239; g=68; b=68; // Red (Hot / Extreme Steepness)
+                } else if (absSlope < 10) {
+                    // Blue to Green (Cold to Cool / Flat to Mild)
+                    let pct = absSlope / 10;
+                    r = Math.round(59 + pct * (34 - 59));
+                    g = Math.round(130 + pct * (197 - 130));
+                    b = Math.round(246 + pct * (94 - 246));
+                } else if (absSlope < 20) {
+                    // Green to Yellow (Cool to Warm / Moderate steepness)
+                    let pct = (absSlope - 10) / 10;
+                    r = Math.round(34 + pct * (234 - 34));
+                    g = Math.round(197 + pct * (179 - 197));
+                    b = Math.round(94 + pct * (8 - 94));
+                } else {
+                    // Yellow to Red (Warm to Hot / Heavy steepness)
+                    let pct = (absSlope - 20) / 10;
+                    r = Math.round(234 + pct * (239 - 234));
+                    g = Math.round(179 + pct * (68 - 179));
+                    b = Math.round(8 + pct * (68 - 8));
+                }
+                gradient.addColorStop(offset, `rgba(${r},${g},${b},${opacity})`);
+            }
+            return gradient;
+        }
+
+        function renderElevationChart(data) {
+            elevationContainer.classList.remove('hidden');
+
+            if (elevationChart) {
+                elevationChart.destroy();
+            }
+
+            const ctx = document.getElementById('elevationChart').getContext('2d');
+
+            elevationChart = new Chart(ctx, {
+                type: 'line',
+                data: {
+                    datasets: [{
+                        label: 'Elevation',
+                        data: data,
+                        fill: true,
+                        tension: 0.1,
+                        pointRadius: 0, 
+                        pointHoverRadius: 6,
+                        borderWidth: 2,
+                        borderColor: (context) => getChartGradient(context, data, 1.0),
+                        backgroundColor: (context) => getChartGradient(context, data, 0.4)
+                    }]
+                },
+                options: {
+                    responsive: true,
+                    maintainAspectRatio: false,
+                    interaction: {
+                        mode: 'index',
+                        intersect: false,
+                    },
+                    plugins: {
+                        legend: { display: false },
+                        tooltip: {
+                            backgroundColor: 'rgba(0,0,0,0.8)',
+                            callbacks: {
+                                label: function(context) {
+                                    let pt = context.raw;
+                                    let sign = pt.slope > 0 ? '+' : '';
+                                    return `Elevation: ${Math.round(pt.y)} m | Steepness: ${sign}${pt.slope.toFixed(1)}%`;
+                                }
+                            }
+                        }
+                    },
+                    scales: {
+                        x: {
+                            type: 'linear',
+                            title: { display: true, text: 'Distance (km)' },
+                            ticks: { callback: function(val) { return val.toFixed(1); } }
+                        },
+                        y: {
+                            title: { display: true, text: 'Elevation (m)' }
+                        }
+                    },
+                    onHover: (e, activeElements) => {
+                        if (activeElements.length > 0) {
+                            const idx = activeElements[0].index;
+                            const pt = data[idx];
+                            
+                            // Move/Create map hover marker
+                            if (!mapHoverMarker) {
+                                mapHoverMarker = L.circleMarker([pt.lat, pt.lng], {
+                                    radius: 6, color: '#2563eb', fillColor: '#fff', fillOpacity: 1, weight: 3
+                                }).addTo(map);
+                            } else {
+                                mapHoverMarker.setLatLng([pt.lat, pt.lng]);
+                            }
+                        } else if (mapHoverMarker) {
+                            map.removeLayer(mapHoverMarker);
+                            mapHoverMarker = null;
+                        }
+                    }
+                }
+            });
+        }
+
+        // --- 10. Routing API Logic ---
         document.getElementById('btn-clear').addEventListener('click', () => {
             waypoints.forEach(wp => map.removeLayer(wp.marker));
             waypoints = [];
@@ -438,7 +567,6 @@
             btn.disabled = true; btn.innerHTML = '<i class="fa-solid fa-spinner fa-spin"></i> Loading...';
             
             clearRoute();
-            lastRouteCoords = [];
             let totalDistance = 0;
             let totalAscent = 0;
 
@@ -459,7 +587,6 @@
                     
                     const response = await fetch(url, {
                         method: 'POST', headers: headers,
-                        // Request elevation data from ORS
                         body: JSON.stringify({ coordinates: coordsList, preference: Array.from(prefs)[0], elevation: true })
                     });
                     
@@ -467,7 +594,6 @@
                     if (!response.ok) throw new Error(data.error?.message || "Unknown API error");
 
                     const geoJsonCoords = data.features[0].geometry.coordinates;
-                    // Format is [lon, lat, alt] -> Save as [lat, lng, alt]
                     lastRouteCoords = geoJsonCoords.map(c => [c[1], c[0], c[2]]); 
                     totalDistance = data.features[0].properties.summary.distance / 1000;
 
@@ -481,7 +607,6 @@
                         
                         const response = await fetch(url, {
                             method: 'POST', headers: headers,
-                            // Request elevation data from ORS
                             body: JSON.stringify({ 
                                 coordinates: [[startWp.lng, startWp.lat], [endWp.lng, endWp.lat]], 
                                 preference: startWp.pref,
@@ -494,7 +619,6 @@
 
                         let segCoords = data.features[0].geometry.coordinates.map(c => [c[1], c[0], c[2]]);
                         
-                        // Prevent duplicating the coordinate at the joint of segments
                         if (i > 0 && lastRouteCoords.length > 0 && segCoords.length > 0) {
                             const lastPt = lastRouteCoords[lastRouteCoords.length - 1];
                             if (lastPt[0] === segCoords[0][0] && lastPt[1] === segCoords[0][1]) {
@@ -505,30 +629,75 @@
                         lastRouteCoords.push(...segCoords);
                         totalDistance += data.features[0].properties.summary.distance / 1000;
                         
-                        await sleep(400); // Respect free API rate limits
+                        await sleep(400); 
                     }
                 }
 
-                // Draw final route
                 if (lastRouteCoords.length > 0) {
-                    // Calculate total ascent manually from 3D coordinates
                     totalAscent = 0;
+                    let referenceEle = lastRouteCoords[0][2];
+                    
+                    // Filter: Only accumulate elevation if delta > 10m threshold to ignore GPS noise
                     for (let i = 1; i < lastRouteCoords.length; i++) {
-                        const ele1 = lastRouteCoords[i-1][2];
-                        const ele2 = lastRouteCoords[i][2];
-                        if (ele1 !== undefined && ele2 !== undefined && ele2 > ele1) {
-                            totalAscent += (ele2 - ele1);
+                        const ele = lastRouteCoords[i][2];
+                        if (referenceEle !== undefined && ele !== undefined) {
+                            const diff = ele - referenceEle;
+                            if (Math.abs(diff) >= 10) { 
+                                if (diff > 0) {
+                                    totalAscent += diff;
+                                }
+                                referenceEle = ele; // Shift reference point once threshold is broken
+                            }
                         }
                     }
 
                     routeSummary = { distance: totalDistance, ascent: totalAscent };
-                    // Tell Leaflet to draw just lat/lng (it naturally ignores the 3rd alt dimension)
                     routeLayer = L.polyline(lastRouteCoords.map(c => [c[0], c[1]]), { color: 'red', weight: 5, opacity: 0.8 }).addTo(map);
                     
-                    setLog(`Success! Dist: ${totalDistance.toFixed(1)} km, Asc: ${Math.round(totalAscent)} m`);
+                    // --- Generate Data for Elevation Chart ---
+                    chartData = [];
+                    let cumDist = 0;
+                    for(let i = 0; i < lastRouteCoords.length; i++) {
+                        let pt = lastRouteCoords[i];
+                        if(i > 0) {
+                            let prev = lastRouteCoords[i-1];
+                            let dist = map.distance([prev[0], prev[1]], [pt[0], pt[1]]);
+                            cumDist += dist / 1000; // Track cumulative km
+                        }
+                        chartData.push({ x: cumDist, y: pt[2] || 0, lat: pt[0], lng: pt[1] });
+                    }
                     
-                    exportContainer.classList.remove('hidden'); // Show both buttons
-                    document.getElementById('btn-export-route').classList.remove('hidden'); // Ensure route button is visible
+                    // Calculate raw steepness slope %
+                    let rawSlopes = [];
+                    for(let i = 0; i < chartData.length; i++) {
+                        if (i < chartData.length - 1) {
+                            let dx = chartData[i+1].x - chartData[i].x; // km
+                            let dy = chartData[i+1].y - chartData[i].y; // m
+                            rawSlopes.push(dx > 0 ? (dy / (dx * 10)) : 0);
+                        } else {
+                            rawSlopes.push(rawSlopes[i-1] || 0);
+                        }
+                    }
+                    
+                    // Apply 5-point running average to smooth the steepness coloring
+                    const windowSize = 5;
+                    const halfWindow = Math.floor(windowSize / 2);
+                    for(let i = 0; i < chartData.length; i++) {
+                        let sum = 0;
+                        let count = 0;
+                        for(let j = Math.max(0, i - halfWindow); j <= Math.min(chartData.length - 1, i + halfWindow); j++) {
+                            sum += rawSlopes[j];
+                            count++;
+                        }
+                        chartData[i].slope = sum / count;
+                    }
+                    
+                    renderElevationChart(chartData);
+                    // -----------------------------------------
+
+                    setLog(`Success! Dist: ${totalDistance.toFixed(1)} km, Asc: ${Math.round(totalAscent)} m`);
+                    exportContainer.classList.remove('hidden');
+                    document.getElementById('btn-export-route').classList.remove('hidden');
                 }
 
             } catch (err) {
