@@ -75,7 +75,7 @@
                         <i class="fa-solid fa-trash mr-1"></i> Clear All
                     </button>
                 </div>
-                
+
                 <!-- Dual Export Buttons Container -->
                 <div id="export-container" class="grid grid-cols-2 gap-2 mt-2 hidden">
                     <button id="btn-export-route" class="bg-blue-600 hover:bg-blue-700 text-white font-bold py-2 px-2 rounded transition text-xs shadow">
@@ -127,12 +127,14 @@
     <script>
         // --- 1. Global State & Config ---
         const API_KEY = 'eyJvcmciOiI1YjNjZTM1OTc4NTExMTAwMDFjZjYyNDgiLCJpZCI6IjlhZWQ0OGIzOWQ4MzQ5MTFhNzllNWRiOTllN2RmNWFjIiwiaCI6Im11cm11cjY0In0=';
-        let waypoints = []; // Array of { lat, lng, profile, pref, name, marker }
+        let waypoints = []; // Array of { lat, lng, profile, pref, name, alt, marker }
         let routeLayer = null;
         let lastRouteCoords = []; // Used for GPX export [lat, lng, ele]
         let routeSummary = { distance: 0, ascent: 0 }; // Store metrics for filename
         
         let bgTracks = []; // Stores uploaded background tracks
+        let fetchedSegments = []; // Stores alternative routes from API per segment
+        let selectedAltIndices = []; // Stores the currently selected alternative index for each segment
         
         let chartData = []; // Data for the elevation plot
         let elevationChart = null; 
@@ -144,8 +146,10 @@
         // Create custom pane to ensure the calculated route always stays on top of everything
         map.createPane('routePane');
         map.getPane('routePane').style.zIndex = 450;
-        map.getPane('routePane').style.pointerEvents = 'none'; // Lets you click the map beneath the route line
+        // Removed pointerEvents = 'none' so that the orange alternative lines can be clicked!
         
+        const altLayers = L.layerGroup().addTo(map); // Layer group for alternative orange lines
+
         // Base Maps
         const openTopoMap = L.tileLayer('https://{s}.tile.opentopomap.org/{z}/{x}/{y}.png', {
             maxZoom: 17,
@@ -252,12 +256,24 @@
 
         function clearRoute() {
             if (routeLayer) map.removeLayer(routeLayer);
+            altLayers.clearLayers();
             routeLayer = null;
             lastRouteCoords = [];
+            fetchedSegments = [];
+            selectedAltIndices = [];
             chartData = [];
             routeSummary = { distance: 0, ascent: 0 };
             exportContainer.classList.add('hidden'); // Hide export buttons
             
+            // Hide per-segment dropdowns
+            waypoints.forEach((_, i) => {
+                const container = document.getElementById(`alt-dropdown-container-${i}`);
+                if (container) {
+                    container.classList.add('hidden');
+                    container.innerHTML = '';
+                }
+            });
+
             // Clear Chart
             elevationContainer.classList.add('hidden');
             if (mapHoverMarker) {
@@ -319,20 +335,28 @@
 
                 let row2 = '';
                 if (!isLast) {
+                    const forceAlt = waypoints.length === 2;
                     row2 = `
-                        <div class="flex items-center text-xs bg-gray-50 p-1 rounded border border-dashed border-gray-300">
-                            <span class="text-gray-500 w-16">&rarr; to next:</span>
-                            <select onchange="updateWp(${i}, 'profile', this.value)" class="flex-1 p-1 mr-1 border rounded bg-white">
-                                <option value="foot-hiking" ${wp.profile === 'foot-hiking' ? 'selected' : ''}>Hike</option>
-                                <option value="cycling-mountain" ${wp.profile === 'cycling-mountain' ? 'selected' : ''}>MTB</option>
-                                <option value="cycling-regular" ${wp.profile === 'cycling-regular' ? 'selected' : ''}>Cycle</option>
-                                <option value="foot-walking" ${wp.profile === 'foot-walking' ? 'selected' : ''}>Walk</option>
-                            </select>
-                            <select onchange="updateWp(${i}, 'pref', this.value)" class="w-20 p-1 border rounded bg-white">
-                                <option value="recommended" ${wp.pref === 'recommended' ? 'selected' : ''}>Rec</option>
-                                <option value="shortest" ${wp.pref === 'shortest' ? 'selected' : ''}>Short</option>
-                                <option value="fastest" ${wp.pref === 'fastest' ? 'selected' : ''}>Fast</option>
-                            </select>
+                        <div class="flex flex-col bg-gray-50 p-1 rounded border border-dashed border-gray-300">
+                            <div class="flex items-center text-xs w-full">
+                                <span class="text-gray-500 w-12">&rarr; to:</span>
+                                <label class="flex items-center space-x-1 mr-2 cursor-pointer" title="Find alternative routes for this segment">
+                                    <input type="checkbox" onchange="updateWp(${i}, 'alt', this.checked)" ${wp.alt || forceAlt ? 'checked' : ''} ${forceAlt ? 'disabled' : ''} class="cursor-pointer">
+                                    <span class="font-bold text-gray-600">Alt</span>
+                                </label>
+                                <select onchange="updateWp(${i}, 'profile', this.value)" class="flex-1 p-1 mr-1 border rounded bg-white">
+                                    <option value="foot-hiking" ${wp.profile === 'foot-hiking' ? 'selected' : ''}>Hike</option>
+                                    <option value="cycling-mountain" ${wp.profile === 'cycling-mountain' ? 'selected' : ''}>MTB</option>
+                                    <option value="cycling-regular" ${wp.profile === 'cycling-regular' ? 'selected' : ''}>Cycle</option>
+                                    <option value="foot-walking" ${wp.profile === 'foot-walking' ? 'selected' : ''}>Walk</option>
+                                </select>
+                                <select onchange="updateWp(${i}, 'pref', this.value)" class="w-16 p-1 border rounded bg-white">
+                                    <option value="recommended" ${wp.pref === 'recommended' ? 'selected' : ''}>Rec</option>
+                                    <option value="shortest" ${wp.pref === 'shortest' ? 'selected' : ''}>Short</option>
+                                    <option value="fastest" ${wp.pref === 'fastest' ? 'selected' : ''}>Fast</option>
+                                </select>
+                            </div>
+                            <div id="alt-dropdown-container-${i}" class="mt-1 hidden w-full"></div>
                         </div>
                     `;
                 }
@@ -387,6 +411,7 @@
                 profile: existingData ? existingData.profile : defaultProfile.value,
                 pref: existingData ? existingData.pref : defaultPref.value,
                 name: defaultName,
+                alt: existingData && existingData.alt !== undefined ? existingData.alt : false,
                 marker: marker
             };
 
@@ -433,7 +458,7 @@
 
         // --- 7. Local Storage ---
         function saveState() {
-            const safeData = waypoints.map(wp => ({ lat: wp.lat, lng: wp.lng, profile: wp.profile, pref: wp.pref, name: wp.name }));
+            const safeData = waypoints.map(wp => ({ lat: wp.lat, lng: wp.lng, profile: wp.profile, pref: wp.pref, name: wp.name, alt: wp.alt }));
             localStorage.setItem('mapRouterState', JSON.stringify(safeData));
         }
 
@@ -944,8 +969,6 @@
             btn.disabled = true; btn.innerHTML = '<i class="fa-solid fa-spinner fa-spin"></i> Loading...';
             
             clearRoute();
-            let totalDistance = 0;
-            let totalAscent = 0;
 
             // Restrict Accept header to JSON strictly to prevent GPX/XML responses from OpenRouteService 
             const headers = {
@@ -954,18 +977,29 @@
                 'Content-Type': 'application/json; charset=utf-8'
             };
 
-            const profiles = new Set(waypoints.slice(0, -1).map(wp => wp.profile));
-            const prefs = new Set(waypoints.slice(0, -1).map(wp => wp.pref));
-
             try {
-                if (profiles.size === 1 && prefs.size === 1) {
-                    setLog(`Calculating unified route with elevation...`);
-                    const coordsList = waypoints.map(wp => [wp.lng, wp.lat]);
-                    const url = `https://api.openrouteservice.org/v2/directions/${Array.from(profiles)[0]}/geojson`;
+                setLog(`Calculating segment-by-segment routes...`);
+                
+                for (let i = 0; i < waypoints.length - 1; i++) {
+                    const startWp = waypoints[i];
+                    const endWp = waypoints[i+1];
+                    const url = `https://api.openrouteservice.org/v2/directions/${startWp.profile}/geojson`;
+                    
+                    const requestAlts = waypoints.length === 2 ? true : startWp.alt;
+                    
+                    const body = { 
+                        coordinates: [[startWp.lng, startWp.lat], [endWp.lng, endWp.lat]], 
+                        preference: startWp.pref,
+                        elevation: true
+                    };
+
+                    if (requestAlts) {
+                        body.alternative_routes = { target_count: 3 };
+                    }
                     
                     const response = await fetch(url, {
                         method: 'POST', headers: headers,
-                        body: JSON.stringify({ coordinates: coordsList, preference: Array.from(prefs)[0], elevation: true })
+                        body: JSON.stringify(body)
                     });
                     
                     const resText = await response.text();
@@ -973,119 +1007,27 @@
                     try {
                         data = JSON.parse(resText);
                     } catch (e) {
-                        console.error("API returned non-JSON:", resText.substring(0, 50));
-                        throw new Error("API returned an invalid format (possibly XML due to rate limits or errors).");
+                        console.error("Segment API returned non-JSON:", resText.substring(0, 50));
+                        throw new Error(`Segment WP${i+1}->WP${i+2} failed: Invalid response format (XML).`);
                     }
-                    if (!response.ok) throw new Error(data.error?.message || "Unknown API error");
+                    if (!response.ok) throw new Error(`Segment WP${i+1}->WP${i+2} failed: ${data.error?.message || "Unknown error"}`);
 
-                    const geoJsonCoords = data.features[0].geometry.coordinates;
-                    lastRouteCoords = geoJsonCoords.map(c => [c[1], c[0], c[2]]); 
-                    totalDistance = data.features[0].properties.summary.distance / 1000;
+                    let segAlts = data.features.map((feature) => {
+                        let coords = feature.geometry.coordinates.map(c => [c[1], c[0], c[2]]);
+                        coords = sanitizeElevation(coords);
+                        let asc = calculateElevationGain(coords, 10);
+                        let dist = feature.properties.summary.distance / 1000;
+                        return { coords, distance: dist, ascent: asc };
+                    });
 
-                } else {
-                    setLog(`Calculating multi-modal route (Segment by segment)...`);
+                    fetchedSegments.push(segAlts);
+                    selectedAltIndices.push(0); // Default to primary route (0) for this segment
                     
-                    for (let i = 0; i < waypoints.length - 1; i++) {
-                        const startWp = waypoints[i];
-                        const endWp = waypoints[i+1];
-                        const url = `https://api.openrouteservice.org/v2/directions/${startWp.profile}/geojson`;
-                        
-                        const response = await fetch(url, {
-                            method: 'POST', headers: headers,
-                            body: JSON.stringify({ 
-                                coordinates: [[startWp.lng, startWp.lat], [endWp.lng, endWp.lat]], 
-                                preference: startWp.pref,
-                                elevation: true
-                            })
-                        });
-                        
-                        const resText = await response.text();
-                        let data;
-                        try {
-                            data = JSON.parse(resText);
-                        } catch (e) {
-                            console.error("Segment API returned non-JSON:", resText.substring(0, 50));
-                            throw new Error(`Segment WP${i+1}->WP${i+2} failed: Invalid response format (XML).`);
-                        }
-                        if (!response.ok) throw new Error(`Segment WP${i+1}->WP${i+2} failed: ${data.error?.message || "Unknown error"}`);
-
-                        let segCoords = data.features[0].geometry.coordinates.map(c => [c[1], c[0], c[2]]);
-                        
-                        if (i > 0 && lastRouteCoords.length > 0 && segCoords.length > 0) {
-                            const lastPt = lastRouteCoords[lastRouteCoords.length - 1];
-                            if (lastPt[0] === segCoords[0][0] && lastPt[1] === segCoords[0][1]) {
-                                segCoords.shift();
-                            }
-                        }
-                        
-                        lastRouteCoords.push(...segCoords);
-                        totalDistance += data.features[0].properties.summary.distance / 1000;
-                        
-                        await sleep(400); 
-                    }
+                    await sleep(400); // Respect free API limits
                 }
 
-                if (lastRouteCoords.length > 0) {
-                    // Sanitize DEM Data (Remove 0 drops/spikes)
-                    lastRouteCoords = sanitizeElevation(lastRouteCoords);
-
-                    // Calculate total ascent with JS equivalent of find_peaks (Hysteresis)
-                    totalAscent = calculateElevationGain(lastRouteCoords, 10);
-
-                    routeSummary = { distance: totalDistance, ascent: totalAscent };
-                    
-                    // Tell Leaflet to render this line specifically inside the 'routePane'
-                    routeLayer = L.polyline(lastRouteCoords.map(c => [c[0], c[1]]), { 
-                        color: 'red', 
-                        weight: 5, 
-                        opacity: 0.8,
-                        pane: 'routePane'
-                    }).addTo(map);
-                    
-                    // --- Generate Data for Elevation Chart ---
-                    chartData = [];
-                    let cumDist = 0;
-                    for(let i = 0; i < lastRouteCoords.length; i++) {
-                        let pt = lastRouteCoords[i];
-                        if(i > 0) {
-                            let prev = lastRouteCoords[i-1];
-                            let dist = map.distance([prev[0], prev[1]], [pt[0], pt[1]]);
-                            cumDist += dist / 1000; // Track cumulative km
-                        }
-                        chartData.push({ x: cumDist, y: pt[2] || 0, lat: pt[0], lng: pt[1] });
-                    }
-                    
-                    // Calculate raw steepness slope %
-                    let rawSlopes = [];
-                    for(let i = 0; i < chartData.length; i++) {
-                        if (i < chartData.length - 1) {
-                            let dx = chartData[i+1].x - chartData[i].x; // km
-                            let dy = chartData[i+1].y - chartData[i].y; // m
-                            rawSlopes.push(dx > 0 ? (dy / (dx * 10)) : 0);
-                        } else {
-                            rawSlopes.push(rawSlopes[i-1] || 0);
-                        }
-                    }
-                    
-                    // Apply 5-point running average to smooth the steepness coloring
-                    const windowSize = 5;
-                    const halfWindow = Math.floor(windowSize / 2);
-                    for(let i = 0; i < chartData.length; i++) {
-                        let sum = 0;
-                        let count = 0;
-                        for(let j = Math.max(0, i - halfWindow); j <= Math.min(chartData.length - 1, i + halfWindow); j++) {
-                            sum += rawSlopes[j];
-                            count++;
-                        }
-                        chartData[i].slope = sum / count;
-                    }
-                    
-                    renderElevationChart(chartData);
-                    // -----------------------------------------
-
-                    setLog(`Success! Dist: ${totalDistance.toFixed(1)} km, Asc: ${Math.round(totalAscent)} m`);
-                    exportContainer.classList.remove('hidden');
-                    document.getElementById('btn-export-route').classList.remove('hidden');
+                if (fetchedSegments.length > 0) {
+                    drawSelectedRoutes();
                 }
 
             } catch (err) {
@@ -1094,6 +1036,118 @@
                 btn.disabled = false; btn.innerHTML = '<i class="fa-solid fa-play mr-1"></i> Calculate';
             }
         });
+
+        // --- Draw Selected Routes & Handle Alternatives UI ---
+        window.selectSegmentRoute = (segIdx, altIdx) => {
+            selectedAltIndices[segIdx] = parseInt(altIdx);
+            drawSelectedRoutes();
+        };
+
+        function drawSelectedRoutes() {
+            if (routeLayer) map.removeLayer(routeLayer);
+            altLayers.clearLayers();
+            lastRouteCoords = [];
+            let totalDistance = 0;
+
+            fetchedSegments.forEach((segmentAlts, segIdx) => {
+                const selectedIdx = selectedAltIndices[segIdx];
+                
+                // Update the Dropdown UI for this segment
+                const container = document.getElementById(`alt-dropdown-container-${segIdx}`);
+                if (container && segmentAlts.length > 1) {
+                    container.classList.remove('hidden');
+                    let optionsHtml = segmentAlts.map((alt, altIdx) => {
+                        const isSel = altIdx === selectedIdx ? 'selected' : '';
+                        const label = altIdx === 0 ? 'Primary' : `Alt ${altIdx}`;
+                        return `<option value="${altIdx}" ${isSel}>${label} (${alt.distance.toFixed(1)} km, Asc: ${Math.round(alt.ascent)} m)</option>`;
+                    }).join('');
+                    
+                    container.innerHTML = `<select onchange="selectSegmentRoute(${segIdx}, this.value)" class="w-full p-1 border border-blue-300 rounded bg-blue-50 text-xs font-bold text-blue-800">${optionsHtml}</select>`;
+                } else if (container) {
+                    container.classList.add('hidden');
+                    container.innerHTML = '';
+                }
+
+                // 1. Draw alternative orange routes first (so the red one is painted on top)
+                segmentAlts.forEach((alt, altIdx) => {
+                    if (altIdx !== selectedIdx) {
+                        const altLine = L.polyline(alt.coords.map(c => [c[0], c[1]]), {
+                            color: 'orange', weight: 3, opacity: 0.8, pane: 'routePane'
+                        }).addTo(altLayers);
+                        
+                        // Allow user to click the orange line directly on the map to switch to it
+                        altLine.on('click', () => selectSegmentRoute(segIdx, altIdx));
+                    }
+                });
+
+                // 2. Stitch the primary active red route segment
+                const activeAlt = segmentAlts[selectedIdx];
+                let segCoords = [...activeAlt.coords];
+                
+                if (segIdx > 0 && lastRouteCoords.length > 0 && segCoords.length > 0) {
+                    const lastPt = lastRouteCoords[lastRouteCoords.length - 1];
+                    if (lastPt[0] === segCoords[0][0] && lastPt[1] === segCoords[0][1]) {
+                        segCoords.shift();
+                    }
+                }
+                lastRouteCoords.push(...segCoords);
+                totalDistance += activeAlt.distance;
+            });
+
+            // Calculate final accurate ascent over the stitched combination
+            let totalAscent = calculateElevationGain(lastRouteCoords, 10);
+            routeSummary = { distance: totalDistance, ascent: totalAscent };
+
+            // Draw the full combined red route
+            routeLayer = L.polyline(lastRouteCoords.map(c => [c[0], c[1]]), { 
+                color: 'red', weight: 5, opacity: 0.8, pane: 'routePane' 
+            }).addTo(map);
+
+            // --- Generate Data for Elevation Chart ---
+            chartData = [];
+            let cumDist = 0;
+            for(let i = 0; i < lastRouteCoords.length; i++) {
+                let pt = lastRouteCoords[i];
+                if(i > 0) {
+                    let prev = lastRouteCoords[i-1];
+                    let dist = map.distance([prev[0], prev[1]], [pt[0], pt[1]]);
+                    cumDist += dist / 1000; // Track cumulative km
+                }
+                chartData.push({ x: cumDist, y: pt[2] || 0, lat: pt[0], lng: pt[1] });
+            }
+            
+            // Calculate raw steepness slope %
+            let rawSlopes = [];
+            for(let i = 0; i < chartData.length; i++) {
+                if (i < chartData.length - 1) {
+                    let dx = chartData[i+1].x - chartData[i].x; // km
+                    let dy = chartData[i+1].y - chartData[i].y; // m
+                    rawSlopes.push(dx > 0 ? (dy / (dx * 10)) : 0);
+                } else {
+                    rawSlopes.push(rawSlopes[i-1] || 0);
+                }
+            }
+            
+            // Apply 5-point running average to smooth the steepness coloring
+            const windowSize = 5;
+            const halfWindow = Math.floor(windowSize / 2);
+            for(let i = 0; i < chartData.length; i++) {
+                let sum = 0;
+                let count = 0;
+                for(let j = Math.max(0, i - halfWindow); j <= Math.min(chartData.length - 1, i + halfWindow); j++) {
+                    sum += rawSlopes[j];
+                    count++;
+                }
+                chartData[i].slope = sum / count;
+            }
+            
+            renderElevationChart(chartData);
+            // -----------------------------------------
+
+            setLog(`Success! Dist: ${totalDistance.toFixed(1)} km, Asc: ${Math.round(totalAscent)} m`);
+            exportContainer.classList.remove('hidden');
+            document.getElementById('btn-export-route').classList.remove('hidden');
+        }
 
         // Initialize state on load
         loadState();
