@@ -1,0 +1,602 @@
+<!DOCTYPE html>
+<html lang="pl">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Interaktywne Metryki Klasteryzacji</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <style>
+        @import url('https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap');
+        body { font-family: 'Inter', sans-serif; }
+        .tab-active { border-bottom: 2px solid #2563eb; color: #2563eb; font-weight: 600; }
+        .tab-inactive { color: #6b7280; }
+        .tab-inactive:hover { color: #374151; }
+        canvas { background-color: #f8fafc; border: 1px solid #e2e8f0; border-radius: 0.5rem; display: block; }
+        
+        /* Animacje podświetlenia */
+        .highlight-math { animation: pulse 1s infinite alternate; }
+        @keyframes pulse { from { transform: scale(1); } to { transform: scale(1.05); } }
+    </style>
+</head>
+<body class="bg-gray-50 min-h-screen text-gray-800 p-4 md:p-8">
+
+    <div class="max-w-7xl mx-auto bg-white rounded-2xl shadow-xl overflow-hidden">
+        <!-- Header -->
+        <header class="bg-blue-600 text-white p-6 md:px-8">
+            <h1 class="text-3xl font-bold mb-2">Ewaluacja Klasteryzacji - Krok po Kroku</h1>
+            <p class="text-blue-100">Interaktywna demonstracja obliczania SSE, Indeksu Daviesa-Bouldina i Dunna.</p>
+        </header>
+
+        <div class="grid grid-cols-1 lg:grid-cols-4">
+            <!-- Sidebar / Controls -->
+            <div class="bg-gray-50 p-6 lg:col-span-1 border-r border-gray-200 flex flex-col h-full">
+                <h2 class="text-lg font-semibold mb-3 text-gray-700">1. Zbiór danych</h2>
+                <div class="space-y-2 mb-6" id="dataset-buttons">
+                    <button onclick="selectDataset('ideal')" id="btn-ideal" class="w-full text-left px-3 py-2 rounded-lg border-2 border-blue-500 bg-blue-50 font-medium text-sm transition-colors">
+                        🟢 Idealne
+                    </button>
+                    <button onclick="selectDataset('overlapping')" id="btn-overlapping" class="w-full text-left px-3 py-2 rounded-lg border-2 border-transparent bg-white hover:bg-gray-100 font-medium text-sm transition-colors shadow-sm">
+                        🔴 Nakładające się
+                    </button>
+                    <button onclick="selectDataset('different')" id="btn-different" class="w-full text-left px-3 py-2 rounded-lg border-2 border-transparent bg-white hover:bg-gray-100 font-medium text-sm transition-colors shadow-sm">
+                        🟡 Różna gęstość
+                    </button>
+                    <button onclick="selectDataset('moons')" id="btn-moons" class="w-full text-left px-3 py-2 rounded-lg border-2 border-transparent bg-white hover:bg-gray-100 font-medium text-sm transition-colors shadow-sm">
+                        🌙 Księżyce (Moons)
+                    </button>
+                </div>
+
+                <h2 class="text-lg font-semibold mb-3 text-gray-700">2. Wybierz metrykę</h2>
+                <div class="flex flex-col space-y-1 mb-4" id="metric-tabs">
+                    <button onclick="selectMetric('sse')" id="tab-sse" class="text-left px-4 py-2 rounded-md tab-active bg-blue-50">SSE</button>
+                    <button onclick="selectMetric('db')" id="tab-db" class="text-left px-4 py-2 rounded-md tab-inactive">Indeks Daviesa-Bouldina</button>
+                    <button onclick="selectMetric('dunn')" id="tab-dunn" class="text-left px-4 py-2 rounded-md tab-inactive">Indeks Dunna</button>
+                </div>
+
+                <!-- NOWA SEKCJA: Wzór i Właściwości (Zmienia się dynamicznie) -->
+                <div id="metric-details" class="mt-auto bg-white border border-gray-200 rounded-lg shadow-sm text-sm p-4 text-gray-700">
+                    <!-- Treść wstrzykiwana przez JS -->
+                </div>
+            </div>
+
+            <!-- Main Content Area -->
+            <div class="p-6 lg:col-span-3 flex flex-col">
+                
+                <!-- Odtwarzacz Krok po Kroku -->
+                <div class="bg-slate-800 rounded-xl p-4 mb-4 flex flex-col sm:flex-row items-center justify-between shadow-lg">
+                    <div class="text-slate-200 text-sm font-semibold mb-2 sm:mb-0">
+                        Krok <span id="step-counter" class="text-white bg-slate-700 px-2 py-1 rounded">1 / X</span>
+                    </div>
+                    <div class="flex space-x-2">
+                        <button onclick="animControl('restart')" class="bg-slate-700 hover:bg-slate-600 text-white px-3 py-2 rounded transition-colors text-sm flex items-center">
+                            ⏮ Restart
+                        </button>
+                        <button onclick="animControl('prev')" class="bg-slate-700 hover:bg-slate-600 text-white px-3 py-2 rounded transition-colors text-sm">
+                            ◀ W tył
+                        </button>
+                        <button id="btn-play" onclick="animControl('play')" class="bg-blue-600 hover:bg-blue-500 font-bold text-white px-5 py-2 rounded transition-colors text-sm shadow-[0_0_10px_rgba(37,99,235,0.5)]">
+                            ▶ Odtwórz
+                        </button>
+                        <button onclick="animControl('next')" class="bg-slate-700 hover:bg-slate-600 text-white px-3 py-2 rounded transition-colors text-sm">
+                            Krok ▶
+                        </button>
+                    </div>
+                </div>
+
+                <!-- Visualization -->
+                <div class="relative w-full aspect-video md:h-96 mb-6 bg-white overflow-hidden rounded-lg">
+                    <canvas id="viz-canvas" class="w-full h-full block"></canvas>
+                </div>
+
+                <!-- Explanation Area -->
+                <div id="explanation-area" class="flex-1 bg-blue-50/50 border border-blue-100 rounded-xl p-6 min-h-[160px]">
+                    <!-- Dynamic Content injected via JS -->
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        // --- DATASETS (X: 0-100, Y: 0-100) ---
+        const colors = ['#ef4444', '#3b82f6', '#22c55e', '#f59e0b']; 
+        
+        function generatePoints(cx, cy, radius, count, clusterId) {
+            let pts = [];
+            for(let i=0; i<count; i++) {
+                let r = radius * Math.sqrt(Math.random());
+                let theta = Math.random() * 2 * Math.PI;
+                pts.push({ x: cx + r * Math.cos(theta), y: cy + r * Math.sin(theta), cluster: clusterId });
+            }
+            return pts;
+        }
+
+        function generateMoons() {
+            let pts = [];
+            for(let i=0; i<45; i++) {
+                let angle = (i / 44) * Math.PI; 
+                pts.push({ x: 40 + Math.cos(angle)*25 + (Math.random()*6-3), y: 55 - Math.sin(angle)*25 + (Math.random()*6-3), cluster: 0 });
+                pts.push({ x: 60 - Math.cos(angle)*25 + (Math.random()*6-3), y: 45 + Math.sin(angle)*25 + (Math.random()*6-3), cluster: 1 });
+            }
+            return pts;
+        }
+
+        const datasets = {
+            'ideal': [ ...generatePoints(20, 50, 12, 25, 0), ...generatePoints(80, 20, 12, 25, 1), ...generatePoints(70, 80, 12, 25, 2) ],
+            'overlapping': [ ...generatePoints(45, 50, 25, 25, 0), ...generatePoints(55, 45, 25, 25, 1), ...generatePoints(50, 60, 25, 25, 2) ],
+            'different': [ ...generatePoints(25, 50, 5, 30, 0), ...generatePoints(75, 50, 30, 30, 1) ],
+            'moons': generateMoons()
+        };
+
+        // --- MATH DEFINITIONS (STATIC INFO) ---
+        const staticDetails = {
+            'sse': `
+                <h4 class="font-bold text-gray-800 mb-2 border-b border-gray-100 pb-1 flex justify-between items-center">
+                    Definicja: SSE
+                    <span class="text-[10px] bg-blue-100 text-blue-700 px-2 py-0.5 rounded uppercase tracking-wider">Mniejsze = Lepsze</span>
+                </h4>
+                <div class="font-mono text-center text-xs bg-gray-50 py-2 rounded mb-3 border border-gray-200">
+                    SSE = &Sigma; &Sigma; ||x - &mu;<sub>i</sub>||&sup2;
+                </div>
+                <ul class="list-disc pl-4 space-y-1.5 text-[13px]">
+                    <li><span class="font-semibold text-green-600">Dobra separacja:</span> Niska wartość (oznacza zwarte, gęste klastry).</li>
+                    <li><span class="font-semibold text-red-500">Wada:</span> Dodanie kolejnej grupy zawsze obniża wynik. Wymaga stosowania "metody łokcia".</li>
+                    <li>Zakłada, że klastry mają <b>kształt sferyczny</b> (kulisty). Mylnie ocenia klastry takie jak na zbiorze Księżyce.</li>
+                </ul>
+            `,
+            'db': `
+                <h4 class="font-bold text-gray-800 mb-2 border-b border-gray-100 pb-1 flex justify-between items-center">
+                    Indeks Daviesa-Bouldina
+                    <span class="text-[10px] bg-blue-100 text-blue-700 px-2 py-0.5 rounded uppercase tracking-wider">Bliżej 0 = Lepsze</span>
+                </h4>
+                <div class="font-mono text-center text-[10px] bg-gray-50 py-2 rounded mb-3 border border-gray-200 overflow-x-auto">
+                    DB = <sup>1</sup>&frasl;<sub>k</sub> &Sigma; MAX( (S<sub>i</sub> + S<sub>j</sub>) / d(&mu;<sub>i</sub>, &mu;<sub>j</sub>) )
+                </div>
+                <ul class="list-disc pl-4 space-y-1.5 text-[13px]">
+                    <li><span class="font-semibold text-green-600">Dobry podział:</span> Niska wartość (bliska zeru). Klastry mają mały rozrzut wew. (S) i ich środki (&mu;) są daleko.</li>
+                    <li><span class="font-semibold text-red-500">Słaby podział:</span> Wysoka wartość. Oznacza, że "najgorsza" para klastrów zbytnio na siebie nachodzi.</li>
+                    <li>Skupia się na relacji grupy z jej najbardziej podobnym sąsiadem.</li>
+                </ul>
+            `,
+            'dunn': `
+                <h4 class="font-bold text-gray-800 mb-2 border-b border-gray-100 pb-1 flex justify-between items-center">
+                    Indeks Dunna
+                    <span class="text-[10px] bg-green-100 text-green-700 px-2 py-0.5 rounded uppercase tracking-wider">Większe = Lepsze</span>
+                </h4>
+                <div class="font-mono text-center text-xs bg-gray-50 py-2 rounded mb-3 border border-gray-200">
+                    Dunn = MIN(separacja) / MAX(rozrzut)
+                </div>
+                <ul class="list-disc pl-4 space-y-1.5 text-[13px]">
+                    <li><span class="font-semibold text-green-600">Złoty Graal:</span> Wysoka wartość. Zwarte grupy oddzielone pasem pustej przestrzeni.</li>
+                    <li><span class="font-semibold text-red-500">Słaby podział:</span> Blisko zera. Klastry się nakładają lub są ogromnie "rozmyte".</li>
+                    <li>Radzi sobie z klastrami niesferycznymi (jak Księżyce), pod warunkiem posiadania wyraźnych luk między nimi.</li>
+                    <li><b>Wada:</b> Bardzo wrażliwy na pojedyncze punkty szumu.</li>
+                </ul>
+            `
+        };
+
+
+        // --- STATE & ANIMATION ---
+        let currentDatasetKey = 'ideal';
+        let currentMetric = 'sse';
+        let canvas = document.getElementById('viz-canvas');
+        let ctx = canvas.getContext('2d');
+        
+        let anim = {
+            steps: [], current: 0, timer: null, isPlaying: false
+        };
+
+        // --- MATH HELPERS ---
+        function getDist(p1, p2) { return Math.sqrt(Math.pow(p1.x - p2.x, 2) + Math.pow(p1.y - p2.y, 2)); }
+        
+        function getCentroids(points) {
+            let sums = {}, counts = {};
+            points.forEach(p => {
+                if(!sums[p.cluster]) { sums[p.cluster] = {x:0, y:0}; counts[p.cluster] = 0; }
+                sums[p.cluster].x += p.x; sums[p.cluster].y += p.y; counts[p.cluster]++;
+            });
+            let centroids = {};
+            for(let k in sums) centroids[k] = { x: sums[k].x / counts[k], y: sums[k].y / counts[k], cluster: parseInt(k) };
+            return centroids;
+        }
+
+        // --- STEP BUILDERS ---
+        function buildSSESteps(points) {
+            let steps = [];
+            let centroids = getCentroids(points);
+            let clusterIds = Object.keys(centroids).map(Number);
+            
+            steps.push({ 
+                type: 'intro', 
+                title: "Krok 1: Inicjalizacja i Centroidy",
+                desc: "Algorytm lokalizuje środki ciężkości (centroidy - zaznaczone znakami X) dla każdego klastra. SSE początkowo wynosi 0.",
+                html: `<div class="font-mono text-lg text-center p-4 bg-white rounded shadow">SSE = 0</div>`,
+                draw: { centroids: true, lines: [] }
+            });
+
+            let sseTotal = 0;
+            let linesSoFar = [];
+            
+            clusterIds.forEach(cid => {
+                let clusterPts = points.filter(p => p.cluster === cid);
+                let clusterSse = 0;
+                let stepLines = [];
+                
+                clusterPts.forEach(p => {
+                    let d = getDist(p, centroids[cid]);
+                    clusterSse += (d*d);
+                    stepLines.push({from: p, to: centroids[cid], cluster: cid});
+                });
+                
+                let oldSse = sseTotal;
+                sseTotal += clusterSse;
+                linesSoFar = linesSoFar.concat(stepLines);
+                
+                let colorName = cid === 0 ? "czerwonej" : (cid === 1 ? "niebieskiej" : (cid===2?"zielonej":"pomarańczowej"));
+
+                steps.push({
+                    type: 'calc',
+                    title: `Krok ${cid+2}: Obliczanie błędów dla grupy ${colorName}`,
+                    desc: `Mierzymy odległość każdego punktu od jego centrum (cienkie linie), podnosimy do kwadratu i dodajemy do sumy całkowitej.`,
+                    html: `
+                        <div class="font-mono text-lg text-center p-4 bg-white rounded shadow">
+                            SSE = <span class="text-gray-500">${oldSse.toFixed(1)}</span> 
+                            <span class="text-red-500 font-bold highlight-math">+ ${clusterSse.toFixed(1)}</span> 
+                            = <span class="text-black font-bold">${sseTotal.toFixed(1)}</span>
+                        </div>
+                    `,
+                    draw: { centroids: true, lines: [...linesSoFar], activeCluster: cid }
+                });
+            });
+
+            steps.push({
+                type: 'done',
+                title: "Zakończono: Pełne SSE",
+                desc: "Wewnątrzklastrowa Suma Błędów Kwadratowych została obliczona. Mniejsze SSE oznacza bardziej zwarte klastry.",
+                html: `<div class="font-mono text-xl font-bold text-center p-4 bg-green-100 text-green-800 rounded shadow border border-green-300">Całkowite SSE = ${sseTotal.toFixed(1)}</div>`,
+                draw: { centroids: true, lines: linesSoFar }
+            });
+
+            return steps;
+        }
+
+        function buildDunnSteps(points) {
+            let steps = [];
+            
+            steps.push({ 
+                type: 'intro', title: "Krok 1: Wzór na Indeks Dunna",
+                desc: "Indeks Dunna składa się z dwóch elementów: licznika (najmniejsza odległość między grupami) oraz mianownika (największy rozrzut wewnątrz jakiejkolwiek grupy).",
+                html: `<div class="font-mono text-sm sm:text-base text-center p-4 bg-white rounded shadow">Dunn = <span class="text-green-600 font-bold">MIN(separacja)</span> / <span class="text-red-600 font-bold">MAX(rozrzut)</span></div>`,
+                draw: { pointsOnly: true }
+            });
+
+            // Mianownik (MAX Intra)
+            let maxIntraDist = 0, maxIntraPair = null;
+            for(let i=0; i<points.length; i++) {
+                for(let j=i+1; j<points.length; j++) {
+                    if(points[i].cluster === points[j].cluster) {
+                        let d = getDist(points[i], points[j]);
+                        if(d > maxIntraDist) { maxIntraDist = d; maxIntraPair = [points[i], points[j]]; }
+                    }
+                }
+            }
+
+            steps.push({ 
+                type: 'intra', title: "Krok 2: Szukanie Mianownika (MAX rozrzut)",
+                desc: "Szukamy dwóch najdalej oddalonych od siebie punktów należących do tej samej grupy. To definiuje jak 'szeroki' jest nasz najgorszy klaster.",
+                html: `
+                    <div class="font-mono text-sm sm:text-base text-center p-4 bg-white rounded shadow">
+                        Dunn = MIN(separacja) / <span class="text-red-600 font-bold bg-red-100 px-2 py-1 highlight-math">${maxIntraDist.toFixed(2)}</span>
+                    </div>
+                `,
+                draw: { pointsOnly: true, dunnIntra: {pair: maxIntraPair} }
+            });
+
+            // Licznik (MIN Inter)
+            let minInterDist = Infinity, minInterPair = null;
+            for(let i=0; i<points.length; i++) {
+                for(let j=i+1; j<points.length; j++) {
+                    if(points[i].cluster !== points[j].cluster) {
+                        let d = getDist(points[i], points[j]);
+                        if(d < minInterDist) { minInterDist = d; minInterPair = [points[i], points[j]]; }
+                    }
+                }
+            }
+
+            steps.push({ 
+                type: 'inter', title: "Krok 3: Szukanie Licznika (MIN separacja)",
+                desc: "Teraz szukamy dwóch najbliższych sobie punktów pochodzących z RÓŻNYCH grup. To weryfikuje margines (lukę) między klastrami.",
+                html: `
+                    <div class="font-mono text-sm sm:text-base text-center p-4 bg-white rounded shadow">
+                        Dunn = <span class="text-green-600 font-bold bg-green-100 px-2 py-1 highlight-math">${minInterDist.toFixed(2)}</span> / <span class="text-red-600 font-bold">${maxIntraDist.toFixed(2)}</span>
+                    </div>
+                `,
+                draw: { pointsOnly: true, dunnIntra: {pair: maxIntraPair}, dunnInter: {pair: minInterPair} }
+            });
+
+            let dunnVal = minInterDist / maxIntraDist;
+            steps.push({ 
+                type: 'done', title: "Zakończono: Indeks Dunna",
+                desc: "Dzielimy zieloną wartość przez czerwoną. Im wynik wyższy, tym klastry są lepiej rozdzielone i jednocześnie bardziej zwarte.",
+                html: `<div class="font-mono text-xl font-bold text-center p-4 bg-green-100 text-green-800 rounded shadow border border-green-300">Wartość Dunna = ${dunnVal.toFixed(4)}</div>`,
+                draw: { pointsOnly: true, dunnIntra: {pair: maxIntraPair}, dunnInter: {pair: minInterPair} }
+            });
+
+            return steps;
+        }
+
+        function buildDBSteps(points) {
+            let steps = [];
+            let centroids = getCentroids(points);
+            let clusterIds = Object.keys(centroids).map(Number);
+            
+            steps.push({ 
+                type: 'intro', title: "Krok 1: Wstęp do Daviesa-Bouldina",
+                desc: "Indeks sprawdza podobieństwo każdego klastra z jego 'najgorszym' sąsiadem. Im wartość bliższa zera, tym lepszy (bardziej separowalny) podział.",
+                html: `<div class="font-mono text-center p-4 bg-white rounded shadow text-sm">Rozrzut wewnątrz klastrów nie został jeszcze policzony.</div>`,
+                draw: { centroids: true }
+            });
+
+            // Scatters (S_i)
+            let scatters = {}; 
+            clusterIds.forEach(k => {
+                let pts = points.filter(p => p.cluster === k);
+                let sumDist = pts.reduce((acc, p) => acc + getDist(p, centroids[k]), 0);
+                scatters[k] = sumDist / pts.length;
+            });
+
+            steps.push({ 
+                type: 'scatters', title: "Krok 2: Średni Rozrzut (S)",
+                desc: "Dla każdego klastra wyznaczamy średnią odległość jego punktów do własnego środka. Te 'rozrzuty' obrazują przezroczyste koła na wykresie.",
+                html: `
+                    <div class="font-mono text-sm text-center p-4 bg-white rounded shadow">
+                        ${clusterIds.map(k => `<span style="color:${colors[k]}">S<sub>${k}</sub>=${scatters[k].toFixed(1)}</span>`).join(' | ')}
+                    </div>
+                `,
+                draw: { centroids: true, dbScatters: scatters }
+            });
+
+            let dbSum = 0;
+            let maxRPairs = {};
+            
+            clusterIds.forEach((i, idx) => {
+                let maxR = -1;
+                let worstJ = -1;
+                let mathHtml = [];
+
+                clusterIds.forEach(j => {
+                    if(i !== j) {
+                        let m_ij = getDist(centroids[i], centroids[j]);
+                        let r_ij = (scatters[i] + scatters[j]) / m_ij;
+                        let isWorst = r_ij > maxR;
+                        if(isWorst) { maxR = r_ij; worstJ = j; }
+                        mathHtml.push(`<div class="${isWorst ? 'font-bold text-red-600' : 'text-gray-500'}">Para(${i},${j}): R = (${scatters[i].toFixed(1)} + ${scatters[j].toFixed(1)}) / dystans = ${r_ij.toFixed(2)}</div>`);
+                    }
+                });
+                dbSum += maxR;
+                
+                let colorName = i === 0 ? "Czerwona" : (i === 1 ? "Niebieska" : (i===2?"Zielona":"Pomarańczowa"));
+
+                steps.push({ 
+                    type: 'compare', title: `Krok ${idx+3}: Szukanie najgorszego sąsiada dla grupy ${i} (${colorName})`,
+                    desc: `Sprawdzamy sumę rozrzutów podzieloną przez odległość środków dla każdej innej grupy. Wybieramy najwyższy wynik R (najgorsze podobieństwo).`,
+                    html: `<div class="font-mono text-sm p-4 bg-white rounded shadow text-left">${mathHtml.join('')} <hr class="my-2 border-gray-300"> <div class="text-center"><b>Wybrano MAX: ${maxR.toFixed(2)}</b></div></div>`,
+                    draw: { centroids: true, dbScatters: scatters, dbHighlight: {from: i, to: worstJ} }
+                });
+            });
+
+            let dbVal = dbSum / clusterIds.length;
+            
+            steps.push({ 
+                type: 'done', title: "Zakończono: Indeks DB",
+                desc: `Na koniec wyciągamy średnią z maksymalnych wartości 'R' wyznaczonych dla każdej grupy (${(dbSum).toFixed(2)} / ${clusterIds.length}).`,
+                html: `<div class="font-mono text-xl font-bold text-center p-4 bg-green-100 text-green-800 rounded shadow border border-green-300">Wartość Daviesa-Bouldina = ${dbVal.toFixed(3)}</div>`,
+                draw: { centroids: true, dbScatters: scatters }
+            });
+
+            return steps;
+        }
+
+        function loadAnimation() {
+            let pts = datasets[currentDatasetKey];
+            anim.isPlaying = false;
+            anim.current = 0;
+            clearInterval(anim.timer);
+            document.getElementById('btn-play').innerHTML = '▶ Odtwórz';
+
+            if(currentMetric === 'sse') anim.steps = buildSSESteps(pts);
+            else if(currentMetric === 'dunn') anim.steps = buildDunnSteps(pts);
+            else if(currentMetric === 'db') anim.steps = buildDBSteps(pts);
+            
+            renderFrame();
+        }
+
+        // --- DRAWING & RENDER ---
+        function setupCanvas() {
+            const rect = canvas.parentElement.getBoundingClientRect();
+            const dpr = window.devicePixelRatio || 1;
+            
+            canvas.width = rect.width * dpr;
+            canvas.height = rect.height * dpr;
+            
+            ctx.scale(dpr, dpr);
+            
+            canvas.logicalWidth = rect.width;
+            canvas.logicalHeight = rect.height;
+        }
+
+        window.addEventListener('resize', () => {
+            setupCanvas();
+            renderFrame();
+        });
+
+        function renderFrame() {
+            if(!canvas.logicalWidth) {
+                setupCanvas();
+            }
+
+            const step = anim.steps[anim.current];
+            const data = datasets[currentDatasetKey];
+            
+            ctx.clearRect(0, 0, canvas.logicalWidth, canvas.logicalHeight);
+            ctx.lineCap = 'round';
+            ctx.lineJoin = 'round';
+
+            // ZABEZPIECZENIE PROPORCJI
+            const logicalSize = 100;
+            const scale = Math.min(canvas.logicalWidth / logicalSize, canvas.logicalHeight / logicalSize) * 0.85; 
+            const offsetX = (canvas.logicalWidth - logicalSize * scale) / 2;
+            const offsetY = (canvas.logicalHeight - logicalSize * scale) / 2;
+
+            const mapP = (p) => ({
+                x: p.x * scale + offsetX, 
+                y: p.y * scale + offsetY
+            });
+            
+            // DRAW OVERLAYS FIRST
+            if(step.draw) {
+                if(step.draw.dbScatters) {
+                    let cents = getCentroids(data);
+                    Object.keys(step.draw.dbScatters).forEach(k => {
+                        let c = mapP(cents[k]);
+                        let radius = step.draw.dbScatters[k] * scale; 
+                        ctx.beginPath(); ctx.arc(c.x, c.y, radius, 0, Math.PI * 2);
+                        ctx.fillStyle = colors[k] + '30'; ctx.fill();
+                        ctx.strokeStyle = colors[k]; ctx.lineWidth = 2; ctx.stroke();
+                    });
+                }
+                
+                if(step.draw.dbHighlight) {
+                    let cents = getCentroids(data);
+                    let cFrom = mapP(cents[step.draw.dbHighlight.from]);
+                    let cTo = mapP(cents[step.draw.dbHighlight.to]);
+                    ctx.beginPath(); ctx.moveTo(cFrom.x, cFrom.y); ctx.lineTo(cTo.x, cTo.y);
+                    ctx.strokeStyle = '#ef4444'; ctx.lineWidth = 4; ctx.setLineDash([10,5]); ctx.stroke(); ctx.setLineDash([]);
+                }
+
+                if(step.draw.lines) {
+                    step.draw.lines.forEach(line => {
+                        let from = mapP(line.from), to = mapP(line.to);
+                        ctx.beginPath(); ctx.moveTo(from.x, from.y); ctx.lineTo(to.x, to.y);
+                        if(step.draw.activeCluster === line.cluster) {
+                            ctx.strokeStyle = colors[line.cluster]; ctx.lineWidth = 2.5;
+                        } else {
+                            ctx.strokeStyle = colors[line.cluster] + '40'; ctx.lineWidth = 1;
+                        }
+                        ctx.stroke();
+                    });
+                }
+                
+                if(step.draw.dunnIntra && step.draw.dunnIntra.pair) {
+                    let p1 = mapP(step.draw.dunnIntra.pair[0]), p2 = mapP(step.draw.dunnIntra.pair[1]);
+                    ctx.beginPath(); ctx.moveTo(p1.x, p1.y); ctx.lineTo(p2.x, p2.y);
+                    ctx.strokeStyle = '#ef4444'; ctx.lineWidth = 3; ctx.setLineDash([6, 6]); ctx.stroke(); ctx.setLineDash([]);
+                }
+                if(step.draw.dunnInter && step.draw.dunnInter.pair) {
+                    let p1 = mapP(step.draw.dunnInter.pair[0]), p2 = mapP(step.draw.dunnInter.pair[1]);
+                    ctx.beginPath(); ctx.moveTo(p1.x, p1.y); ctx.lineTo(p2.x, p2.y);
+                    ctx.strokeStyle = '#22c55e'; ctx.lineWidth = 4; ctx.stroke();
+                }
+            }
+
+            // DRAW POINTS
+            data.forEach(p => {
+                let m = mapP(p);
+                ctx.beginPath(); ctx.arc(m.x, m.y, 5.5, 0, Math.PI * 2);
+                ctx.fillStyle = colors[p.cluster]; ctx.fill();
+                ctx.strokeStyle = '#ffffff'; ctx.lineWidth = 1.5; ctx.stroke();
+            });
+
+            // DRAW CENTROIDS
+            if(step.draw && step.draw.centroids) {
+                let cents = getCentroids(data);
+                Object.values(cents).forEach(c => {
+                    let m = mapP(c), size = 8;
+                    ctx.beginPath();
+                    ctx.moveTo(m.x - size, m.y - size); ctx.lineTo(m.x + size, m.y + size);
+                    ctx.moveTo(m.x + size, m.y - size); ctx.lineTo(m.x - size, m.y + size);
+                    ctx.strokeStyle = 'rgba(255, 255, 255, 0.9)'; ctx.lineWidth = 7; ctx.stroke();
+                    
+                    ctx.beginPath();
+                    ctx.moveTo(m.x - size, m.y - size); ctx.lineTo(m.x + size, m.y + size);
+                    ctx.moveTo(m.x + size, m.y - size); ctx.lineTo(m.x - size, m.y + size);
+                    ctx.strokeStyle = '#111827'; ctx.lineWidth = 3.5; ctx.stroke();
+                    ctx.strokeStyle = colors[c.cluster]; ctx.lineWidth = 2; ctx.stroke();
+                });
+            }
+
+            // UPDATE DOM
+            document.getElementById('step-counter').innerText = `${anim.current + 1} / ${anim.steps.length}`;
+            
+            document.getElementById('explanation-area').innerHTML = `
+                <h3 class="text-xl font-bold text-gray-800 mb-2">${step.title}</h3>
+                <p class="mb-4 text-gray-600">${step.desc}</p>
+                ${step.html}
+            `;
+        }
+
+        // --- CONTROLS ---
+        window.animControl = function(action) {
+            if(action === 'play') {
+                anim.isPlaying = !anim.isPlaying;
+                if(anim.isPlaying) {
+                    document.getElementById('btn-play').innerHTML = '⏸ Pauza';
+                    if(anim.current >= anim.steps.length - 1) anim.current = 0; 
+                    anim.timer = setInterval(() => { animControl('next_auto'); }, 2000);
+                } else {
+                    document.getElementById('btn-play').innerHTML = '▶ Odtwórz';
+                    clearInterval(anim.timer);
+                }
+            } else if(action === 'restart') {
+                anim.current = 0;
+                anim.isPlaying = false; clearInterval(anim.timer);
+                document.getElementById('btn-play').innerHTML = '▶ Odtwórz';
+            } else if(action === 'prev') {
+                anim.isPlaying = false; clearInterval(anim.timer);
+                document.getElementById('btn-play').innerHTML = '▶ Odtwórz';
+                if(anim.current > 0) anim.current--;
+            } else if(action === 'next' || action === 'next_auto') {
+                if(action === 'next') { anim.isPlaying = false; clearInterval(anim.timer); document.getElementById('btn-play').innerHTML = '▶ Odtwórz'; }
+                
+                if(anim.current < anim.steps.length - 1) {
+                    anim.current++;
+                } else if(anim.isPlaying) {
+                    anim.isPlaying = false; clearInterval(anim.timer);
+                    document.getElementById('btn-play').innerHTML = '▶ Odtwórz';
+                }
+            }
+            renderFrame();
+        }
+
+        window.selectDataset = function(key) {
+            currentDatasetKey = key;
+            ['ideal', 'overlapping', 'different', 'moons'].forEach(k => {
+                let btn = document.getElementById('btn-' + k);
+                if(k === key) { btn.classList.remove('border-transparent', 'bg-white'); btn.classList.add('border-blue-500', 'bg-blue-50'); }
+                else { btn.classList.add('border-transparent', 'bg-white'); btn.classList.remove('border-blue-500', 'bg-blue-50'); }
+            });
+            loadAnimation();
+        };
+
+        window.selectMetric = function(key) {
+            currentMetric = key;
+            ['sse', 'db', 'dunn'].forEach(k => {
+                let tab = document.getElementById('tab-' + k);
+                if(k === key) { tab.classList.remove('tab-inactive', 'bg-transparent'); tab.classList.add('tab-active', 'bg-blue-50'); }
+                else { tab.classList.add('tab-inactive', 'bg-transparent'); tab.classList.remove('tab-active', 'bg-blue-50'); }
+            });
+            
+            // Aktualizacja sekcji z cechami i matematyką
+            document.getElementById('metric-details').innerHTML = staticDetails[key];
+            
+            loadAnimation();
+        };
+
+        // --- INIT ---
+        window.onload = () => { 
+            // Wymuszamy domyślne wstrzyknięcie tekstu dla SSE
+            document.getElementById('metric-details').innerHTML = staticDetails['sse'];
+            setTimeout(() => { loadAnimation(); }, 100); 
+        };
+    </script>
+</body>
+</html>
