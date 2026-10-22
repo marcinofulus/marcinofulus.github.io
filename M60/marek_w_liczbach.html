@@ -1,0 +1,1140 @@
+<!DOCTYPE html>
+<html lang="pl" class="dark">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Marek w Liczbach - Interaktywny Reportaż 60 Lat</title>
+    <!-- Tailwind CSS CDN -->
+    <script src="https://cdn.tailwindcss.com"></script>
+    <!-- FontAwesome Icons -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <!-- Google Fonts: Inter & JetBrains Mono -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;900&family=JetBrains+Mono:wght@400;700&display=swap" rel="stylesheet">
+    <style>
+        body {
+            font-family: 'Inter', sans-serif;
+            background-color: #030712;
+            color: #f8fafc;
+            overflow-x: hidden;
+        }
+        .font-mono-stats {
+            font-family: 'JetBrains Mono', monospace;
+        }
+        .glass-panel {
+            background: rgba(15, 23, 42, 0.75);
+            backdrop-filter: blur(16px);
+            border: 1px solid rgba(56, 189, 248, 0.15);
+        }
+        @keyframes pulse-slow {
+            0%, 100% { transform: scale(1); opacity: 0.9; }
+            50% { transform: scale(1.06); opacity: 1; }
+        }
+        .animate-pulse-slow {
+            animation: pulse-slow 3s infinite ease-in-out;
+        }
+        .layout-transition {
+            transition: all 0.7s cubic-bezier(0.4, 0, 0.2, 1);
+        }
+        .stage-active-glow {
+            box-shadow: 0 0 30px rgba(0, 210, 255, 0.35);
+            border-color: rgba(0, 210, 255, 0.6) !important;
+        }
+        .grid-layout-transition {
+            transition: grid-template-columns 0.7s cubic-bezier(0.4, 0, 0.2, 1);
+        }
+    </style>
+</head>
+<body class="h-[100dvh] w-full flex flex-col overflow-hidden bg-[radial-gradient(ellipse_at_top,_var(--tw-gradient-stops))] from-slate-900 via-slate-950 to-black">
+
+    <header class="w-full flex-none border-b border-slate-800/80 bg-slate-950/80 backdrop-blur-md z-50">
+            <div class="flex items-center gap-3">
+                <div class="w-10 h-10 rounded-xl bg-gradient-to-tr from-cyan-500 to-blue-600 flex items-center justify-center shadow-lg shadow-cyan-500/30">
+                    <i class="fa-solid fa-bolt text-white text-lg"></i>
+                </div>
+                <div>
+                    <h1 class="text-base sm:text-lg font-black tracking-tight text-white flex items-center gap-2">
+                        MAREK W LICZBACH <span class="text-xs px-2 py-0.5 rounded-full bg-cyan-500/20 text-cyan-300 font-mono-stats border border-cyan-500/30">60 LAT</span>
+                    </h1>
+                    <p class="text-xs text-slate-400">Interaktywny Reportaż Jubileuszowy • Z danych Garmina</p>
+                </div>
+            </div>
+
+            <!-- Scene Switcher Navigation Pills -->
+            <nav class="flex items-center gap-1.5 overflow-x-auto max-w-full pb-1 sm:pb-0" id="scene-nav-pills">
+                <!-- Dynamically populated -->
+            </nav>
+
+            <!-- Quick Controls -->
+            <div class="flex items-center gap-2">
+                <button onclick="prevScene()" id="btn-prev-scene" class="px-3 py-1.5 rounded-xl bg-slate-900 hover:bg-slate-800 text-slate-200 border border-slate-800 text-xs font-mono-stats transition flex items-center gap-1.5 disabled:opacity-40 disabled:cursor-not-allowed">
+                    <i class="fa-solid fa-chevron-left"></i> Poprzednia
+                </button>
+                <button onclick="nextScene()" id="btn-next-scene" class="px-3 py-1.5 rounded-xl bg-cyan-600 hover:bg-cyan-500 text-white text-xs font-mono-stats font-bold transition flex items-center gap-1.5 shadow-lg shadow-cyan-600/30 disabled:opacity-40 disabled:cursor-not-allowed">
+                    Następna <i class="fa-solid fa-chevron-right"></i>
+                </button>
+            </div>
+        </div>
+    </header>
+
+    <main class="flex-grow w-full px-4 py-3 flex flex-col gap-3 min-h-0 overflow-hidden">
+        
+        <!-- Scene Header Banner -->
+        <div class="flex-none glass-panel rounded-2xl p-3 sm:p-4 border-l-4 border-l-cyan-400 flex flex-col md:flex-row md:items-center justify-between gap-3">
+            <div>
+                <div class="flex items-center gap-3 mb-1">
+                    <span class="text-xs font-mono-stats uppercase tracking-widest text-cyan-400" id="scene-subtitle">SCENA 1 Z 5</span>
+                    <span id="stage-status-pill" class="text-[11px] font-mono-stats px-2.5 py-0.5 rounded-full bg-cyan-500/20 text-cyan-300 border border-cyan-500/40 flex items-center gap-1.5">
+                        <span class="w-2 h-2 rounded-full bg-cyan-400 animate-ping"></span>
+                        <span id="stage-status-text">ETAP 1: START Z ANIMACJĄ</span>
+                    </span>
+                </div>
+                <h2 class="text-2xl sm:text-3xl lg:text-4xl font-black text-white tracking-tight" id="scene-title">Ładowanie sceny...</h2>
+            </div>
+            <div class="flex flex-wrap items-center gap-3 self-start md:self-center">
+                <!-- Manual Layout Swap Toggle Button -->
+                <button onclick="toggleSpotlightMode()" class="px-3.5 py-2 rounded-xl bg-slate-800 hover:bg-cyan-600/30 text-cyan-300 border border-cyan-500/40 text-xs font-mono-stats font-bold transition flex items-center gap-2 shadow-lg" title="Zamień rozmiar">
+                    <i class="fa-solid fa-arrows-left-right-to-line"></i>
+                    <span id="swap-btn-label">Powiększ zdjęcia</span>
+                </button>
+
+                <div class="px-3.5 py-2 rounded-xl bg-slate-900/90 border border-slate-800 flex items-center gap-2.5">
+                    <i id="scene-icon" class="fa-solid fa-heart-pulse text-rose-500 text-xl animate-pulse"></i>
+                    <div>
+                        <div class="text-[10px] uppercase tracking-wider text-slate-400">Główny wskaźnik</div>
+                        <div class="text-sm sm:text-base font-mono-stats font-bold text-white" id="scene-badge">VO₂ Max: 48.0</div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Dynamic Main Grid: Swaps via CSS grid-template-columns -->
+        <div class="flex-grow flex flex-col lg:grid lg:grid-cols-[1fr_2fr] gap-4 min-h-0 grid-layout-transition overflow-y-auto lg:overflow-hidden pb-4 lg:pb-0" id="dynamic-stage-grid">
+            
+            <!-- LEFT COLUMN: PHOTOS -->
+            <div id="col-photos" class="flex flex-col gap-4 min-h-0">
+                <div id="panel-photos" class="flex-grow glass-panel rounded-2xl overflow-hidden border border-slate-800 flex flex-col min-h-[300px] lg:min-h-0 layout-transition">
+                    <div class="px-3 py-2 bg-slate-900/90 border-b border-slate-800 flex flex-wrap items-center justify-between gap-2">
+                        <div class="flex items-center gap-2">
+                            <i class="fa-solid fa-images text-emerald-400 text-base"></i>
+                            <span class="text-xs sm:text-sm font-mono-stats font-bold uppercase tracking-wider text-white">GALERIA</span>
+                            <span id="gallery-size-badge" class="hidden sm:inline-block text-[10px] font-mono-stats px-2 py-0.5 rounded bg-slate-800 text-slate-400 border border-slate-700">KOMPAKT</span>
+                        </div>
+                        <div class="flex items-center gap-1.5">
+                            <button onclick="setSpotlightMode('photos')" class="text-[11px] bg-slate-800 hover:bg-slate-700 text-slate-200 px-2 py-1 rounded-lg border border-slate-700 transition" title="Powiększ">
+                                <i class="fa-solid fa-expand text-cyan-400"></i>
+                            </button>
+                            <label class="cursor-pointer text-[11px] bg-slate-800 hover:bg-slate-700 text-cyan-300 px-2 py-1 rounded-lg border border-slate-700 transition flex items-center gap-1">
+                                <i class="fa-solid fa-plus"></i> <span class="hidden sm:inline">Dodaj</span>
+                                <input type="file" accept="image/*" multiple class="hidden" onchange="loadCustomPhotosForCurrentScene(event)">
+                            </label>
+                            <button onclick="toggleSlideshowAutoplay()" id="autoplay-btn" class="text-[11px] bg-emerald-500/20 text-emerald-300 border border-emerald-500/30 px-2 py-1 rounded-lg font-mono-stats">
+                                <i class="fa-solid fa-play"></i> Auto
+                            </button>
+                        </div>
+                    </div>
+
+                    <!-- Main Active Photo Display -->
+                    <div id="photo-viewport" class="flex-grow relative w-full bg-slate-950 overflow-hidden group">
+                        <img id="carousel-main-img" src="" alt="Zdjęcie Marka" class="absolute inset-0 w-full h-full object-cover transition-all duration-500" onerror="this.src='https://placehold.co/1200x750/0f172a/00d2ff?text=Dodaj+zdjecie+do+katalogu'">
+                        
+                        <div class="absolute inset-x-0 bottom-0 bg-gradient-to-t from-slate-950 via-slate-950/75 to-transparent p-3 flex items-end justify-between">
+                            <div>
+                                <span class="text-[10px] font-mono-stats uppercase px-2 py-0.5 rounded bg-black/70 text-cyan-300 border border-cyan-500/30" id="photo-counter-badge">1 / 3</span>
+                                <p class="text-xs sm:text-sm font-bold text-white mt-1 drop-shadow" id="photo-caption-text">Podpis zdjęcia</p>
+                            </div>
+                            <button onclick="openFullscreenPhoto()" class="p-2 rounded-xl bg-slate-900/80 hover:bg-slate-800 text-slate-200 text-sm border border-slate-700" title="Pełny ekran">
+                                <i class="fa-solid fa-expand"></i>
+                            </button>
+                        </div>
+
+                        <!-- Prev/Next Photo Controls -->
+                        <button onclick="changePhoto(-1)" class="absolute left-2 top-1/2 -translate-y-1/2 w-8 h-8 rounded-full bg-slate-900/80 hover:bg-cyan-600 text-white flex items-center justify-center border border-slate-700 transition opacity-85 group-hover:opacity-100">
+                            <i class="fa-solid fa-chevron-left text-xs"></i>
+                        </button>
+                        <button onclick="changePhoto(1)" class="absolute right-2 top-1/2 -translate-y-1/2 w-8 h-8 rounded-full bg-slate-900/80 hover:bg-cyan-600 text-white flex items-center justify-center border border-slate-700 transition opacity-85 group-hover:opacity-100">
+                            <i class="fa-solid fa-chevron-right text-xs"></i>
+                        </button>
+                    </div>
+
+                    <!-- Thumbnails Strip -->
+                    <div class="p-2 bg-slate-900/60 flex items-center gap-2 overflow-x-auto h-16 sm:h-20 flex-none" id="carousel-thumbnails">
+                        <!-- Populated via JS -->
+                    </div>
+                </div>
+            </div>
+
+            <!-- RIGHT COLUMN: CANVAS + VIDEO -->
+            <div id="col-canvas" class="flex flex-col gap-4 min-h-0">
+                
+                <!-- CANVAS BOX -->
+                <div id="panel-canvas" class="flex-grow glass-panel rounded-2xl overflow-hidden flex flex-col relative border border-slate-800 min-h-[300px] lg:min-h-0 stage-active-glow layout-transition">
+                    <div class="px-3 py-2 bg-slate-900/90 border-b border-slate-800 flex items-center justify-between z-10">
+                        <div class="flex items-center gap-2">
+                            <span class="w-2 h-2 rounded-full bg-emerald-400 animate-ping"></span>
+                            <span class="text-[11px] sm:text-xs font-mono-stats uppercase tracking-wider text-slate-300 truncate" id="canvas-label">SYMULACJA CANVAS</span>
+                        </div>
+                        <div class="flex items-center gap-1.5">
+                            <button onclick="setSpotlightMode('canvas')" class="text-[11px] text-cyan-400 hover:text-white font-mono-stats px-2 py-0.5 rounded bg-slate-800 border border-slate-700" title="Powiększ">
+                                <i class="fa-solid fa-expand"></i>
+                            </button>
+                            <button onclick="resetCurrentCanvasAnimation()" class="text-[11px] text-slate-300 hover:text-cyan-300 font-mono-stats px-2 py-0.5 rounded bg-slate-800">
+                                <i class="fa-solid fa-rotate-right"></i>
+                            </button>
+                        </div>
+                    </div>
+                    <div class="flex-grow relative w-full bg-slate-950" id="canvas-container">
+                        <canvas id="scene-canvas" class="absolute inset-0 w-full h-full"></canvas>
+                        <!-- Overlay hint -->
+                        <div id="canvas-overlay-info" class="absolute bottom-2 left-2 right-2 pointer-events-none flex justify-between items-end">
+                            <div class="bg-slate-900/85 backdrop-blur-md px-2 py-1 rounded-lg border border-slate-700/70 text-[10px] text-slate-300 truncate max-w-[80%]">
+                                <i class="fa-solid fa-wand-magic-sparkles text-cyan-400 mr-1"></i>
+                                <span id="canvas-caption">Interaktywna wizualizacja</span>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- VIDEO + SCRIPT BOX -->
+                <div class="flex-none flex flex-col sm:flex-row gap-4 h-auto lg:h-[30%] min-h-[160px]">
+                    <!-- Media Player -->
+                    <div id="panel-video" class="flex-1 glass-panel rounded-2xl overflow-hidden border border-slate-800 flex flex-col">
+                        <div class="px-2 py-1.5 bg-slate-900/90 border-b border-slate-800 flex items-center justify-between">
+                            <div class="flex items-center gap-1.5">
+                                <i class="fa-solid fa-circle-play text-cyan-400 animate-pulse text-[10px]"></i>
+                                <span class="text-[10px] font-mono-stats uppercase text-slate-200">PLAYER</span>
+                            </div>
+                            <span class="text-[9px] font-mono-stats text-amber-400 bg-amber-500/10 px-1.5 py-0.5 rounded border border-amber-500/20 truncate max-w-[100px]" id="video-filename-badge">scena1.mp4</span>
+                        </div>
+                        <div class="flex-grow relative bg-black w-full flex items-center justify-center overflow-hidden">
+                            <video id="scene-video" class="absolute inset-0 w-full h-full object-cover z-10" controls playsinline preload="auto">
+                            </video>
+                            <div id="video-fallback" class="hidden absolute inset-0 bg-slate-950/95 z-20 flex flex-col items-center justify-center p-2 text-center">
+                                <div class="w-8 h-8 rounded-xl bg-cyan-500/10 border border-cyan-500/30 flex items-center justify-center mb-1 text-cyan-400">
+                                    <i class="fa-solid fa-volume-high text-sm"></i>
+                                </div>
+                                <p class="text-[10px] text-white mb-1">Brak <code id="fallback-file-code" class="text-amber-300">mp4</code></p>
+                                <label class="cursor-pointer px-2 py-1 rounded bg-cyan-600 text-white text-[10px] font-bold shadow-lg">
+                                    Wczytaj plik
+                                    <input type="file" accept="video/*,audio/*" class="hidden" onchange="loadCustomVideoForCurrentScene(event)">
+                                </label>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Script -->
+                    <div class="flex-1 glass-panel rounded-2xl p-3 border border-slate-800 flex flex-col overflow-hidden">
+                        <div class="flex items-center justify-between mb-1.5">
+                            <span class="text-[10px] font-mono-stats uppercase text-amber-400 flex items-center gap-1">
+                                <i class="fa-solid fa-microphone-lines"></i> Lektor
+                            </span>
+                        </div>
+                        <p class="text-[11px] text-slate-300 leading-snug italic overflow-y-auto flex-grow pr-1" id="scene-script-text">
+                            Tekst narracji...
+                        </p>
+                    </div>
+                </div>
+
+            </div>
+        </div>
+
+        <!-- STATS GRID (Full Width Bottom) -->
+        <div class="flex-none grid grid-cols-2 sm:grid-cols-3 gap-3" id="stats-grid">
+            <!-- Populated via JS -->
+        </div>
+    </main>
+
+    <footer class="w-full flex-none border-t border-slate-800/80 bg-slate-950/90 py-2 sm:py-3 px-4 text-center text-[10px] text-slate-400 z-50">
+                </div>
+
+            </div>
+        </div>
+    </main>
+
+    <footer class="w-full border-t border-slate-800/80 bg-slate-950/90 py-4 px-6 text-center text-xs text-slate-400">
+        <div class="max-w-7xl mx-auto flex flex-col sm:flex-row items-center justify-between gap-3">
+            <p>Wszystkiego najlepszego z okazji 60. urodzin! Utworzono na podstawie bazy danych Garmin Connect.</p>
+            <div class="hidden sm:flex flex-col items-center">
+                <div class="text-xs text-slate-400 font-mono-stats" id="footer-scene-progress">SCENA 1 / 5</div>
+                <div class="w-48 h-2 bg-slate-800 rounded-full overflow-hidden mt-1">
+                    <div id="footer-progress-bar" class="h-full bg-gradient-to-r from-cyan-400 to-blue-500 transition-all duration-300" style="width: 20%"></div>
+                </div>
+            </div>
+            <div class="flex items-center gap-3">
+                <span class="text-[11px] font-mono-stats text-cyan-400">Sterowanie: Przyciski góra/dół lub strzałki</span>
+            </div>
+        </div>
+    </footer>
+
+    <!-- Fullscreen Photo Modal -->
+    <div id="fullscreen-modal" class="fixed inset-0 z-50 bg-black/90 backdrop-blur-lg hidden flex flex-col items-center justify-center p-4">
+        <button onclick="closeFullscreenPhoto()" class="absolute top-6 right-6 w-12 h-12 rounded-full bg-slate-800 text-white flex items-center justify-center hover:bg-rose-600 transition text-lg">
+            <i class="fa-solid fa-xmark"></i>
+        </button>
+        <img id="fullscreen-img" src="" alt="Pełny ekran" class="max-w-full max-h-[82vh] object-contain rounded-xl shadow-2xl mb-4">
+        <p id="fullscreen-caption" class="text-white text-sm sm:text-base font-medium text-center max-w-xl"></p>
+    </div>
+
+    <!-- JavaScript Application Logic -->
+    <script>
+        /* ============================================================================
+         * 🎬 KONFIGURACJA MEDIÓW I 5 SCEN
+         * ============================================================================
+         */
+        const SCENES_DATA = [
+            {
+                id: 1,
+                subtitle: "SCENA 1 Z 5 • TAJEMNICA ZEGARKA",
+                title: "60 Lat na Pełnych Obrotach!",
+                badge: "4 038 Aktywności",
+                icon: "fa-stopwatch-20 text-cyan-400",
+                canvasLabel: "RADAR SATELITARNY GARMIN & PULS SPORTOWCA",
+                canvasCaption: "Analiza 2 846 aktywnych dni z bazy danych satelitarnych Garmina",
+                musicHint: "Muzyka: Tykanie zegarka, bicie serca i epicki wstęp filmowy",
+                videoUrl: "Sześćdziesiątka_na_liczniku.mp4",
+                script: "„Mówią, że życie zaczyna się po sześćdziesiątce. Ale kiedy spojrzymy w tajne bazy danych satelitarnych firmy Garmin, odkryjemy coś zupełnie innego... Marek w wieku 60 lat ma już na liczniku tyle, co niejeden autobus komunikacji miejskiej! Przeanalizowaliśmy tysiące godzin potu, kilometrów i spalonych kalorii. Przed Wami cała prawda. Oto Marek w liczbach!”",
+                stats: [
+                    { label: "Zarejestrowane treningi", value: 4038, suffix: "", icon: "fa-medal text-amber-400" },
+                    { label: "Dni aktywności", value: 2846, suffix: " dni", icon: "fa-calendar-check text-emerald-400" },
+                    { label: "Stopień aktywności", value: 7, suffix: " / 10", icon: "fa-fire-flame-curved text-rose-500" }
+                ],
+                photos: [
+                    { src: "scena1/scena1_1.jpg", fallback: "", caption: "Marek gotowy do kolejnego wyzwania sportowego" },
+{ src: "scena1/scena1_2.jpg", fallback: "", caption: "Marek gotowy do kolejnego wyzwania sportowego" },
+{ src: "scena1/scena1_3.jpg", fallback: "", caption: "Marek gotowy do kolejnego wyzwania sportowego" },
+{ src: "scena1/scena1_4.jpg", fallback: "", caption: "Marek gotowy do kolejnego wyzwania sportowego" },
+{ src: "scena1/scena1_5.jpg", fallback: "", caption: "Marek gotowy do kolejnego wyzwania sportowego" },
+{ src: "scena1/scena1_6.jpg", fallback: "", caption: "Marek gotowy do kolejnego wyzwania sportowego" },
+{ src: "scena1/scena1_7.jpg", fallback: "", caption: "Marek gotowy do kolejnego wyzwania sportowego" },
+{ src: "scena1/scena1_8.jpg", fallback: "", caption: "Marek gotowy do kolejnego wyzwania sportowego" },
+{ src: "scena1/scena1_9.jpg", fallback: "", caption: "Marek gotowy do kolejnego wyzwania sportowego" }                ]
+            },
+            {
+                id: 2,
+                subtitle: "SCENA 2 Z 5 • KROKI I DYSTANS",
+                title: "Dookoła Świata o Własnych Siłach",
+                badge: "40 887.63 km",
+                icon: "fa-earth-europe text-emerald-400",
+                canvasLabel: "SYMULACJA: BIEG I ROWER DOOKOŁA ZIEMI (40 887 KM)",
+                canvasCaption: "Obwód Ziemi to 40 075 km – Marek okrążył planetę i dorzucił 812 km gratis!",
+                musicHint: "Klimat: Rzeczowy głos dokumentalny z minimalistycznym tłem",
+                videoUrl: "Dystans_między_śniadaniem.mp4",
+                script: "„Zacznijmy od rzeczy wręcz kosmicznych. Garmin zarejestrował dokładnie 4 038 aktywności Marka. W ich trakcie pokonał on łącznie 40 887 kilometrów i 630 metrów! Obwód Ziemi na równiku wynosi 40 075 kilometrów. Tak jest! Marek oficjalnie okrążył kulę ziemską o własnych siłach – i dorzucił jeszcze ponad 800 kilometrów gratis, czyli trasę z Gdańska w Bieszczady! Samych kroków zrobił ponad 22 miliony (22 140 874), co daje prawie 20 tysięcy kilometrów na nogach! A jego rekordowy dzień z 2024 roku? 53 677 kroków w jedną dobę!”",
+                stats: [
+                    { label: "Łączny dystans", value: 40888, suffix: " km", icon: "fa-route text-cyan-400" },
+                    { label: "Liczba kroków", value: 22140874, suffix: "", icon: "fa-shoe-prints text-emerald-400" },
+                    { label: "Rekord kroków w 1 dzień", value: 53677, suffix: "", icon: "fa-bolt text-amber-400" }
+                ],
+                photos: [
+                    { src: "scena2/scena2_1.jpg", fallback: "", caption: "Marek gotowy do kolejnego wyzwania sportowego" },
+{ src: "scena2/scena2_2.jpg", fallback: "", caption: "Marek gotowy do kolejnego wyzwania sportowego" },
+{ src: "scena2/scena2_3.jpg", fallback: "", caption: "Marek gotowy do kolejnego wyzwania sportowego" },
+{ src: "scena2/scena2_4.jpg", fallback: "", caption: "Marek gotowy do kolejnego wyzwania sportowego" },
+{ src: "scena2/scena2_5.jpg", fallback: "", caption: "Marek gotowy do kolejnego wyzwania sportowego" },
+{ src: "scena2/scena2_6.jpg", fallback: "", caption: "Marek gotowy do kolejnego wyzwania sportowego" },
+{ src: "scena2/scena2_7.jpg", fallback: "", caption: "Marek gotowy do kolejnego wyzwania sportowego" },
+{ src: "scena2/scena2_8.jpg", fallback: "", caption: "Marek gotowy do kolejnego wyzwania sportowego" },
+{ src: "scena2/scena2_9.jpg", fallback: "", caption: "Marek gotowy do kolejnego wyzwania sportowego" }
+                ]
+            },
+            {
+                id: 3,
+                subtitle: "SCENA 3 Z 5 • CAŁKOWITY WZNBIOS",
+                title: "Korona Himalajów: 392 123 m w Pionie",
+                badge: "44x Mount Everest",
+                icon: "fa-mountain-sun text-amber-400",
+                canvasLabel: "SYMULACJA WYSOKOŚCI: 44 WEJŚCIA NA MOUNT EVEREST",
+                canvasCaption: "392 km w pionie – niemal pułap Międzynarodowej Stacji Kosmicznej (ISS)!",
+                musicHint: "Klimat: Szum wiatru na szczycie góry i surowa recytacja",
+                videoUrl: "Pionowe_ambicje_Marka.mp4",
+                script: "„Ale płaskie trasy są dla amatorów! Marek lubi, gdy jest pod górkę! Całkowity wznios z jego aktywności to zawrotne ponad 392 tysiące metrów w pionie. Przeliczmy to: to tak, jakby Marek wszedł na Mount Everest 44 razy z poziomu morza! Albo wdrapał się na Rysy dokładnie 157 razy! Albo wszedł po schodach na Pałac Kultury i Nauki w Warszawie ponad 1 700 razy! Mało? Ta wysokość to prawie poziom, na którym lata Międzynarodowa Stacja Kosmiczna! Tylko podczas jednego wypadu rowerowego w 2026 roku zrobił ponad 3 tysiące metrów przewyższenia!”",
+                stats: [
+                    { label: "Całkowity wznios", value: 392123, suffix: " m", icon: "fa-mountain text-cyan-400" },
+                    { label: "Mount Everest (8848m)", value: 44, suffix: " razy", icon: "fa-flag text-amber-400" },
+                    { label: "Najdłuższa jazda", value: 170, suffix: ".4 km", icon: "fa-bicycle text-emerald-400" }
+                ],
+                photos: [
+
+                { src: "scena3/scena3_1.jpg", fallback: "", caption: "Marek gotowy do kolejnego wyzwania sportowego" },
+                { src: "scena3/scena3_2.jpg", fallback: "", caption: "Marek gotowy do kolejnego wyzwania sportowego" },
+                { src: "scena3/scena3_3.jpg", fallback: "", caption: "Marek gotowy do kolejnego wyzwania sportowego" },
+                { src: "scena3/scena3_4.jpg", fallback: "", caption: "Marek gotowy do kolejnego wyzwania sportowego" },
+                { src: "scena3/scena3_5.jpg", fallback: "", caption: "Marek gotowy do kolejnego wyzwania sportowego" },
+                { src: "scena3/scena3_6.jpg", fallback: "", caption: "Marek gotowy do kolejnego wyzwania sportowego" },
+                { src: "scena3/scena3_7.jpg", fallback: "", caption: "Marek gotowy do kolejnego wyzwania sportowego" },
+                { src: "scena3/scena3_8.jpg", fallback: "", caption: "Marek gotowy do kolejnego wyzwania sportowego" }
+
+                ]
+            },
+            {
+                id: 4,
+                subtitle: "SCENA 4 Z 5 • BILANS ENERGETYCZNY",
+                title: "Czekoladowa Fabryka: 10 Milionów Kalorii",
+                badge: "9 858 266 kcal",
+                icon: "fa-cookie-bite text-amber-500",
+                canvasLabel: "SYMULACJA: DESZCZ 18 600 CZEKOLAD I 32 860 PĄCZKÓW",
+                canvasCaption: "Prawie 2 tony czekolady lub 40 000 kufli złocistego izotoniku!",
+                musicHint: "Klimat: Zmysłowy, niski głos kobiecy i tajemniczy Noir Jazz",
+                videoUrl: "Słodki_rachunek.mp4",
+                script: "„Podczas samych naszych słodkich treningów Marek spalił ponad 2 miliony kalorii, a łącznie z codziennym ruchem rejestrowanym przez jego super-duper czasomierz... uwaga... niemal 10 MILIONÓW KALORII! Co musiałby zjeść i wypić człowiek, żeby wyjść na zero przy takim wyniku? To dokładnie 18 600 tabliczek mlecznej czekolady – czyli prawie dwie tony czekolady! Wolisz Tłusty Czwartek? Proszę bardzo: to 32 860 pączków z lukrem!”",
+                stats: [
+                    { label: "Suma spalonych kalorii", value: 9858266, suffix: " kcal", icon: "fa-fire text-rose-500" },
+                    { label: "Tabliczki czekolady", value: 18600, suffix: " szt.", icon: "fa-candy-cane text-amber-400" },
+                    { label: "Pączki z lukrem", value: 32860, suffix: " szt.", icon: "fa-circle-dot text-pink-400" }
+                ],
+                photos: [
+                { src: "scena4/scena4_1.jpg", fallback: "", caption: "Marek gotowy do kolejnego wyzwania sportowego" },
+{ src: "scena4/scena4_2.jpg", fallback: "", caption: "Marek gotowy do kolejnego wyzwania sportowego" },
+{ src: "scena4/scena4_3.jpg", fallback: "", caption: "Marek gotowy do kolejnego wyzwania sportowego" }                ]
+            },
+            {
+                id: 5,
+                subtitle: "SCENA 5 Z 5 • OSIĄGNIĘCIA, VO₂ MAX I WIEK 25 LAT!",
+                title: "Rekordy Triathlonowe & Wydolność 25-Latka!",
+                badge: "VO₂ Max 48 • Top 1%",
+                icon: "fa-trophy text-amber-400",
+                canvasLabel: "TRIATHLON + ZEGAR BIOLOGICZNY (60 ➔ 25 LAT) & VO₂ MAX 48",
+                canvasCaption: "Półmaraton 1:57:30 | 100m wpław 1:14 | 40km rower 1:19:31 | Wiek biologiczny: 25 lat!",
+                musicHint: "Klimat: Triumfalny finał, życiówki i górny 1% populacji – Sto Lat!",
+                videoUrl: "Górny_pierwszy_procent.mp4",
+                script: "„Osiągnięcia sportowe: Bieganie – półmaraton poniżej dwóch godzin (1:57:30 w 2025 roku), dycha poniżej 50 minut, maraton na koncie! Pływanie – 100 metrów w 1 minutę i 14 sekund, najdłuższy dystans to 3 kilometry wpław. Rower – 40 kilometrów w godzinę i 19 minut, najdłuższy podjazd ponad 3 tysiące metrów w pionie! Wydolność tlenowa dwudziestopięciolatka: każdy kilogram Marka potrafi zużyć 48 mililitrów tlenu w minutę (VO₂ max 48.0). Według tabel fizjologicznych dla mężczyzn po sześćdziesiątce, wynik powyżej 41 to już górny pierwszy procent populacji – absolutna elita! STO LAT, MISTRZU!”",
+                stats: [
+                    { label: "Półmaraton / 40km Rower", value: 117, suffix: " min / 79 min", icon: "fa-medal text-emerald-400" },
+                    { label: "VO₂ Max (Górny 1% Elity)", value: 48, suffix: ".0 ml/kg/min", icon: "fa-heart-circle-bolt text-rose-500" },
+                    { label: "Biologiczny wiek płuc", value: 25, suffix: " lat!", icon: "fa-crown text-amber-400" }
+                ],
+                    photos: [
+    { src: "scena5/scena5_1.jpg", fallback: "", caption: "Marek gotowy do kolejnego wyzwania sportowego" },
+    { src: "scena5/scena5_2.jpg", fallback: "", caption: "Marek gotowy do kolejnego wyzwania sportowego" },
+    { src: "scena5/scena5_3.jpg", fallback: "", caption: "Marek gotowy do kolejnego wyzwania sportowego" },
+    { src: "scena5/scena5_4.jpg", fallback: "", caption: "Marek gotowy do kolejnego wyzwania sportowego" },
+    { src: "scena5/scena5_5.jpg", fallback: "", caption: "Marek gotowy do kolejnego wyzwania sportowego" },
+    { src: "scena5/scena5_6.jpg", fallback: "", caption: "Marek gotowy do kolejnego wyzwania sportowego" },
+    { src: "scena5/scena5_7.jpg", fallback: "", caption: "Marek gotowy do kolejnego wyzwania sportowego" },
+    { src: "scena5/scena5_8.jpg", fallback: "", caption: "Marek gotowy do kolejnego wyzwania sportowego" },
+    { src: "scena5/scena5_9.jpg", fallback: "", caption: "Marek gotowy do kolejnego wyzwania sportowego" }                ]
+                }
+            ];
+
+        let currentSceneIndex = 0;
+        let currentPhotoIndex = 0;
+        let slideshowInterval = null;
+        let isAutoplayOn = true;
+        let animFrameId = null;
+        let animTick = 0;
+        let currentSpotlightMode = 'canvas'; // Starts with canvas spotlight, then swaps to photos
+        let stageSwapTimeout = null;
+        let resizeObserver = null;
+
+        // Particles & helper objects for Canvas animations
+        let canvasParticles = [];
+
+        // DOM elements
+        const canvas = document.getElementById('scene-canvas');
+        const ctx = canvas.getContext('2d');
+
+        window.addEventListener('DOMContentLoaded', () => {
+            initApp();
+            window.addEventListener('resize', resizeCanvas);
+        });
+
+        function initApp() {
+            renderSceneIndicators();
+            
+            // Auto-resize canvas fluidly during CSS grid transitions
+            resizeObserver = new ResizeObserver(() => {
+                resizeCanvas();
+            });
+            const canvasContainer = document.getElementById('canvas-container');
+            if(canvasContainer) resizeObserver.observe(canvasContainer);
+
+            loadScene(0);
+            startSlideshowTimer();
+            startCanvasLoop();
+        }
+
+        function resizeCanvas() {
+            const container = document.getElementById('canvas-container');
+            if (!container) return;
+            canvas.width = container.clientWidth;
+            canvas.height = container.clientHeight;
+        }
+
+        function renderSceneIndicators() {
+            const nav = document.getElementById('scene-nav-pills');
+            nav.innerHTML = '';
+            SCENES_DATA.forEach((s, idx) => {
+                const btn = document.createElement('button');
+                btn.className = `px-3 py-1.5 rounded-xl text-xs font-mono-stats transition flex items-center gap-1.5 border ${idx === currentSceneIndex ? 'bg-cyan-600 text-white border-cyan-500 shadow-md shadow-cyan-600/30 font-bold' : 'bg-slate-900 text-slate-300 border-slate-800 hover:bg-slate-800'}`;
+                btn.innerHTML = `<span class="w-1.5 h-1.5 rounded-full ${idx === currentSceneIndex ? 'bg-white animate-pulse' : 'bg-slate-500'}"></span> Scena ${idx + 1}`;
+                btn.onclick = () => loadScene(idx);
+                nav.appendChild(btn);
+            });
+        }
+
+        function setSpotlightMode(mode) {
+            currentSpotlightMode = mode;
+            const grid = document.getElementById('dynamic-stage-grid');
+            const panelPhotos = document.getElementById('panel-photos');
+            const panelCanvas = document.getElementById('panel-canvas');
+            const galleryBadge = document.getElementById('gallery-size-badge');
+            const swapBtnLabel = document.getElementById('swap-btn-label');
+            const stageStatusText = document.getElementById('stage-status-text');
+
+            if (mode === 'canvas') {
+                // Canvas takes 2fr (Right side gets bigger)
+                grid.className = "flex-grow flex flex-col lg:grid lg:grid-cols-[1fr_2fr] gap-4 min-h-0 grid-layout-transition overflow-y-auto lg:overflow-hidden pb-4 lg:pb-0";
+                
+                panelCanvas.classList.add('stage-active-glow');
+                panelPhotos.classList.remove('stage-active-glow');
+
+                galleryBadge.textContent = "KOMPAKT";
+                galleryBadge.className = "hidden sm:inline-block text-[10px] font-mono-stats px-2 py-0.5 rounded bg-slate-800 text-slate-400 border border-slate-700";
+                swapBtnLabel.textContent = "Powiększ zdjęcia";
+                stageStatusText.textContent = "ETAP 1: START Z ANIMACJĄ";
+            } else {
+                // Photos takes 2fr (Left side gets bigger)
+                grid.className = "flex-grow flex flex-col lg:grid lg:grid-cols-[2fr_1fr] gap-4 min-h-0 grid-layout-transition overflow-y-auto lg:overflow-hidden pb-4 lg:pb-0";
+                
+                panelPhotos.classList.add('stage-active-glow');
+                panelCanvas.classList.remove('stage-active-glow');
+
+                galleryBadge.textContent = "GŁÓWNY EKRAN";
+                galleryBadge.className = "hidden sm:inline-block text-[10px] font-mono-stats px-2 py-0.5 rounded bg-emerald-500/20 text-emerald-300 border border-emerald-500/30";
+                swapBtnLabel.textContent = "Powiększ animację";
+                stageStatusText.textContent = "ETAP 2: DUŻA GALERIA ZDJĘĆ";
+            }
+        }
+
+        function toggleSpotlightMode() {
+            if (stageSwapTimeout) {
+                clearTimeout(stageSwapTimeout);
+                stageSwapTimeout = null;
+            }
+            setSpotlightMode(currentSpotlightMode === 'photos' ? 'canvas' : 'photos');
+        }
+
+        function loadScene(index) {
+            currentSceneIndex = index;
+            currentPhotoIndex = 0;
+            animTick = 0;
+            initCanvasParticlesForScene(index);
+
+            const scene = SCENES_DATA[index];
+
+            document.getElementById('scene-subtitle').textContent = scene.subtitle;
+            document.getElementById('scene-title').textContent = scene.title;
+            document.getElementById('scene-badge').textContent = scene.badge;
+            document.getElementById('scene-icon').className = `fa-solid ${scene.icon} text-xl animate-pulse`;
+
+            document.getElementById('canvas-label').textContent = scene.canvasLabel;
+            document.getElementById('canvas-caption').textContent = scene.canvasCaption;
+
+            document.getElementById('scene-script-text').textContent = scene.script;
+
+            if (stageSwapTimeout) clearTimeout(stageSwapTimeout);
+            setSpotlightMode('canvas');
+
+            stageSwapTimeout = setTimeout(() => {
+                setSpotlightMode('photos');
+            }, 4200);
+
+            const videoEl = document.getElementById('scene-video');
+            const fallbackEl = document.getElementById('video-fallback');
+            document.getElementById('video-filename-badge').textContent = scene.videoUrl;
+            document.getElementById('fallback-file-code').textContent = scene.videoUrl;
+
+            fallbackEl.classList.add('hidden');
+            videoEl.src = scene.videoUrl;
+            videoEl.load();
+
+            const playPromise = videoEl.play();
+            if (playPromise !== undefined) {
+                playPromise.catch(() => {});
+            }
+
+            videoEl.onended = () => {
+                if (currentSceneIndex < SCENES_DATA.length - 1) {
+                    nextScene();
+                }
+            };
+
+            videoEl.onerror = () => {
+                fallbackEl.classList.remove('hidden');
+            };
+
+            renderStatsCards(scene.stats);
+            renderPhotoCarousel();
+
+            document.getElementById('btn-prev-scene').disabled = (index === 0);
+            document.getElementById('btn-next-scene').disabled = (index === SCENES_DATA.length - 1);
+            document.getElementById('footer-scene-progress').textContent = `SCENA ${index + 1} / ${SCENES_DATA.length}`;
+            document.getElementById('footer-progress-bar').style.width = `${((index + 1) / SCENES_DATA.length) * 100}%`;
+
+            renderSceneIndicators();
+        }
+
+        function nextScene() {
+            if (currentSceneIndex < SCENES_DATA.length - 1) {
+                loadScene(currentSceneIndex + 1);
+            }
+        }
+
+        function prevScene() {
+            if (currentSceneIndex > 0) {
+                loadScene(currentSceneIndex - 1);
+            }
+        }
+
+        window.addEventListener('keydown', (e) => {
+            if (e.key === 'ArrowRight' || e.key === 'PageDown') {
+                nextScene();
+            } else if (e.key === 'ArrowLeft' || e.key === 'PageUp') {
+                prevScene();
+            }
+        });
+
+        function renderStatsCards(stats) {
+            const grid = document.getElementById('stats-grid');
+            grid.innerHTML = '';
+            stats.forEach(st => {
+                const card = document.createElement('div');
+                card.className = "glass-panel rounded-xl p-3 border border-slate-800 flex flex-col justify-between hover:border-cyan-500/40 transition";
+                card.innerHTML = `
+                    <div class="flex items-center justify-between mb-1">
+                        <span class="text-[10px] font-mono-stats uppercase text-slate-400 truncate">${st.label}</span>
+                        <div class="w-6 h-6 rounded-lg bg-slate-900 border border-slate-800 flex items-center justify-center text-xs">
+                            <i class="fa-solid ${st.icon}"></i>
+                        </div>
+                    </div>
+                    <div class="text-lg sm:text-xl font-black font-mono-stats text-white tracking-tight truncate">
+                        ${st.value.toLocaleString('pl-PL')}<span class="text-xs font-normal text-cyan-400 ml-1">${st.suffix}</span>
+                    </div>
+                `;
+                grid.appendChild(card);
+            });
+        }
+
+        function renderPhotoCarousel() {
+            const scene = SCENES_DATA[currentSceneIndex];
+            const photos = scene.photos;
+            const mainImg = document.getElementById('carousel-main-img');
+            const captionText = document.getElementById('photo-caption-text');
+            const counterBadge = document.getElementById('photo-counter-badge');
+            const thumbContainer = document.getElementById('carousel-thumbnails');
+
+            const activePhoto = photos[currentPhotoIndex];
+            mainImg.src = activePhoto.src;
+            mainImg.onerror = function() {
+                this.src = activePhoto.fallback;
+            };
+            captionText.textContent = activePhoto.caption;
+            counterBadge.textContent = `${currentPhotoIndex + 1} / ${photos.length}`;
+
+            thumbContainer.innerHTML = '';
+            photos.forEach((p, idx) => {
+                const thumb = document.createElement('div');
+                thumb.className = `relative flex-shrink-0 w-20 aspect-[16/10] rounded-lg overflow-hidden cursor-pointer border-2 transition ${idx === currentPhotoIndex ? 'border-cyan-400 scale-105 shadow-md shadow-cyan-500/30' : 'border-slate-800 opacity-60 hover:opacity-100'}`;
+                thumb.innerHTML = `<img src="${p.src}" class="w-full h-full object-cover" onerror="this.src='${p.fallback}'">`;
+                thumb.onclick = () => {
+                    currentPhotoIndex = idx;
+                    renderPhotoCarousel();
+                };
+                thumbContainer.appendChild(thumb);
+            });
+        }
+
+        function changePhoto(dir) {
+            const photos = SCENES_DATA[currentSceneIndex].photos;
+            currentPhotoIndex = (currentPhotoIndex + dir + photos.length) % photos.length;
+            renderPhotoCarousel();
+        }
+
+        function toggleSlideshowAutoplay() {
+            isAutoplayOn = !isAutoplayOn;
+            const btn = document.getElementById('autoplay-btn');
+            if (isAutoplayOn) {
+                btn.className = "text-[11px] bg-emerald-500/20 text-emerald-300 border border-emerald-500/30 px-2.5 py-1 rounded-lg font-mono-stats";
+                btn.innerHTML = `<i class="fa-solid fa-play mr-1"></i>Auto`;
+                startSlideshowTimer();
+            } else {
+                btn.className = "text-[11px] bg-slate-800 text-slate-400 border border-slate-700 px-2.5 py-1 rounded-lg font-mono-stats";
+                btn.innerHTML = `<i class="fa-solid fa-pause mr-1"></i>Pauza`;
+                if (slideshowInterval) clearInterval(slideshowInterval);
+            }
+        }
+
+        function startSlideshowTimer() {
+            if (slideshowInterval) clearInterval(slideshowInterval);
+            slideshowInterval = setInterval(() => {
+                if (isAutoplayOn) {
+                    changePhoto(1);
+                }
+            }, 4500);
+        }
+
+        function openFullscreenPhoto() {
+            const modal = document.getElementById('fullscreen-modal');
+            const fullImg = document.getElementById('fullscreen-img');
+            const fullCap = document.getElementById('fullscreen-caption');
+            const activePhoto = SCENES_DATA[currentSceneIndex].photos[currentPhotoIndex];
+
+            fullImg.src = activePhoto.src;
+            fullImg.onerror = function() {
+                this.src = activePhoto.fallback;
+            };
+            fullCap.textContent = activePhoto.caption;
+            modal.classList.remove('hidden');
+        }
+
+        function closeFullscreenPhoto() {
+            document.getElementById('fullscreen-modal').classList.add('hidden');
+        }
+
+        function loadCustomPhotosForCurrentScene(event) {
+            const files = event.target.files;
+            if (!files || files.length === 0) return;
+            const scene = SCENES_DATA[currentSceneIndex];
+            scene.photos = [];
+            for (let i = 0; i < files.length; i++) {
+                const url = URL.createObjectURL(files[i]);
+                scene.photos.push({
+                    src: url,
+                    fallback: url,
+                    caption: `Wgrane zdjęcie ${i + 1} (Scena ${currentSceneIndex + 1})`
+                });
+            }
+            currentPhotoIndex = 0;
+            renderPhotoCarousel();
+        }
+
+        function loadCustomVideoForCurrentScene(event) {
+            const file = event.target.files[0];
+            if (!file) return;
+            const url = URL.createObjectURL(file);
+            const videoEl = document.getElementById('scene-video');
+            const fallbackEl = document.getElementById('video-fallback');
+            fallbackEl.classList.add('hidden');
+            videoEl.src = url;
+            videoEl.play();
+        }
+
+        function resetCurrentCanvasAnimation() {
+            animTick = 0;
+            initCanvasParticlesForScene(currentSceneIndex);
+        }
+
+        function startCanvasLoop() {
+            resizeCanvas();
+            animateCanvasLoop();
+        }
+
+        // ==========================================
+        // CANVAS ANIMATIONS SECTION
+        // ==========================================
+        function initCanvasParticlesForScene(sceneIdx) {
+            canvasParticles = [];
+            if (sceneIdx === 1) {
+                // Earth orbit particles
+                for (let i = 0; i < 40; i++) {
+                    canvasParticles.push({
+                        angle: Math.random() * Math.PI * 2,
+                        dist: Math.random() * 30 + 110,
+                        speed: (Math.random() * 0.02 + 0.01) * (Math.random() > 0.5 ? 1 : -1),
+                        size: Math.random() * 2 + 1,
+                        color: ['#00d2ff', '#38bdf8', '#10b981'][Math.floor(Math.random() * 3)]
+                    });
+                }
+            } else if (sceneIdx === 2) {
+                // Mountain snow particles
+                for (let i = 0; i < 60; i++) {
+                    canvasParticles.push({
+                        x: Math.random(),
+                        y: Math.random(),
+                        vy: Math.random() * 0.005 + 0.002,
+                        vx: (Math.random() - 0.5) * 0.002,
+                        size: Math.random() * 2.5 + 0.5
+                    });
+                }
+            } else if (sceneIdx === 3) {
+                // Calories sweets rain (now with rotation)
+                for (let i = 0; i < 35; i++) {
+                    canvasParticles.push({
+                        x: Math.random(),
+                        y: Math.random() * -1,
+                        vy: Math.random() * 0.008 + 0.004,
+                        type: ['🍫', '🍩', '🍺', '🍬'][Math.floor(Math.random() * 4)],
+                        size: Math.random() * 10 + 14,
+                        rot: Math.random() * Math.PI * 2,
+                        vrot: (Math.random() - 0.5) * 0.05
+                    });
+                }
+            } else if (sceneIdx === 4) {
+                // Fireworks particles for Combined Scene 5 Finale
+                for (let i = 0; i < 45; i++) {
+                    const angle = (Math.PI * 2 * i) / 45;
+                    const speed = Math.random() * 2.5 + 0.8;
+                    canvasParticles.push({
+                        x: 0.72,
+                        y: 0.42,
+                        vx: Math.cos(angle) * speed,
+                        vy: Math.sin(angle) * speed,
+                        color: ['#00d2ff', '#10b981', '#f59e0b', '#f43f5e'][i % 4]
+                    });
+                }
+            }
+        }
+
+        function animateCanvasLoop() {
+            animTick++;
+            const w = canvas.width;
+            const h = canvas.height;
+            if (w > 0 && h > 0) {
+                ctx.clearRect(0, 0, w, h);
+
+                switch (currentSceneIndex) {
+                    case 0:
+                        drawScene1WatchAndPulse(w, h);
+                        break;
+                    case 1:
+                        drawScene2EarthOrbit(w, h);
+                        break;
+                    case 2:
+                        drawScene3EverestClimb(w, h);
+                        break;
+                    case 3:
+                        drawScene4CalorieFactory(w, h);
+                        break;
+                    case 4:
+                        drawScene5CombinedFinale(w, h);
+                        break;
+                }
+            }
+            animFrameId = requestAnimationFrame(animateCanvasLoop);
+        }
+
+        function drawScene1WatchAndPulse(w, h) {
+            const cx = w / 2;
+            const cy = h / 2;
+            const r = Math.min(w, h) * 0.36;
+
+            // Outer watch bezel
+            ctx.beginPath();
+            ctx.arc(cx, cy, r, 0, Math.PI * 2);
+            ctx.fillStyle = '#090d16';
+            ctx.fill();
+            ctx.strokeStyle = '#00d2ff';
+            ctx.lineWidth = 4;
+            ctx.stroke();
+
+            // Radar sweep inside the watch
+            const radarAngle = animTick * 0.03;
+            ctx.beginPath();
+            ctx.moveTo(cx, cy);
+            ctx.arc(cx, cy, r, radarAngle, radarAngle + Math.PI / 4);
+            ctx.closePath();
+            ctx.fillStyle = 'rgba(16, 185, 129, 0.15)';
+            ctx.fill();
+
+            // Ticks
+            for (let i = 0; i < 12; i++) {
+                const angle = (i * Math.PI) / 6;
+                const x1 = cx + Math.cos(angle) * (r - 10);
+                const y1 = cy + Math.sin(angle) * (r - 10);
+                const x2 = cx + Math.cos(angle) * (r - 3);
+                const y2 = cy + Math.sin(angle) * (r - 3);
+                ctx.strokeStyle = '#38bdf8';
+                ctx.lineWidth = 2;
+                ctx.beginPath();
+                ctx.moveTo(x1, y1);
+                ctx.lineTo(x2, y2);
+                ctx.stroke();
+            }
+
+            // Pulsing EKG wave in center
+            ctx.beginPath();
+            const graphW = r * 1.2;
+            const startX = cx - graphW / 2;
+            for (let x = 0; x < graphW; x++) {
+                const sampleX = startX + x;
+                const normX = x / graphW * Math.PI * 6 + animTick * 0.05;
+                const ekgSpike = Math.sin(normX) * Math.exp(-Math.pow((x - graphW * 0.5) / 30, 2)) * 35;
+                const sampleY = cy + Math.sin(normX * 2) * 8 - ekgSpike;
+                if (x === 0) ctx.moveTo(sampleX, sampleY);
+                else ctx.lineTo(sampleX, sampleY);
+            }
+            ctx.strokeStyle = '#10b981';
+            ctx.lineWidth = 3;
+            ctx.stroke();
+
+            // Center Text
+            ctx.fillStyle = '#ffffff';
+            ctx.font = `bold ${Math.max(12, Math.floor(r * 0.18))}px "JetBrains Mono", monospace`;
+            ctx.textAlign = 'center';
+            ctx.fillText('4 038 TRENINGÓW', cx, cy - r * 0.42);
+
+            ctx.fillStyle = '#00d2ff';
+            ctx.font = `bold ${Math.max(10, Math.floor(r * 0.12))}px "Inter", sans-serif`;
+            ctx.fillText('GARMIN FENIX 60 PRO', cx, cy + r * 0.52);
+        }
+
+        function drawScene2EarthOrbit(w, h) {
+            const cx = w / 2;
+            const cy = h / 2;
+            const globeR = Math.min(w, h) * 0.25;
+
+            // Kula ziemska
+            ctx.beginPath();
+            ctx.arc(cx, cy, globeR, 0, Math.PI * 2);
+            const earthGrad = ctx.createRadialGradient(cx - globeR*0.3, cy - globeR*0.3, globeR*0.1, cx, cy, globeR);
+            earthGrad.addColorStop(0, '#38bdf8');
+            earthGrad.addColorStop(1, '#0369a1');
+            ctx.fillStyle = earthGrad;
+            ctx.fill();
+            
+            // Orbita
+            ctx.beginPath();
+            ctx.arc(cx, cy, globeR + 30, 0, Math.PI * 2);
+            ctx.strokeStyle = 'rgba(255, 255, 255, 0.15)';
+            ctx.lineWidth = 1;
+            ctx.setLineDash([4, 4]);
+            ctx.stroke();
+            ctx.setLineDash([]);
+
+            // Cząsteczki okrążające ziemię (biegacze/rowerzyści)
+            canvasParticles.forEach(p => {
+                p.angle += p.speed;
+                const px = cx + Math.cos(p.angle) * p.dist;
+                const py = cy + Math.sin(p.angle) * p.dist;
+                ctx.fillStyle = p.color;
+                ctx.beginPath();
+                ctx.arc(px, py, p.size, 0, Math.PI * 2);
+                ctx.fill();
+            });
+
+            ctx.fillStyle = '#ffffff';
+            ctx.font = 'bold 12px "JetBrains Mono", monospace';
+            ctx.textAlign = 'center';
+            ctx.fillText('40 887 KM (102% ZIEMI)', cx, cy - globeR - 45);
+        }
+
+        function drawScene3EverestClimb(w, h) {
+            const cx = w / 2;
+            const cy = h / 2;
+
+            // Mountain Silhouette (Better gradient and shape)
+            const grad = ctx.createLinearGradient(0, 0, 0, h);
+            grad.addColorStop(0, '#0B132B');
+            grad.addColorStop(1, '#1e293b');
+            ctx.fillStyle = grad;
+            
+            ctx.beginPath();
+            ctx.moveTo(0, h);
+            ctx.lineTo(w * 0.2, h * 0.5);
+            ctx.lineTo(cx, h * 0.15); // Peak
+            ctx.lineTo(w * 0.8, h * 0.6);
+            ctx.lineTo(w, h);
+            ctx.fill();
+
+            // Peak highlight
+            ctx.beginPath();
+            ctx.moveTo(w * 0.35, h * 0.32);
+            ctx.lineTo(cx, h * 0.15);
+            ctx.lineTo(w * 0.6, h * 0.37);
+            ctx.strokeStyle = '#38bdf8';
+            ctx.lineWidth = 3;
+            ctx.stroke();
+
+            // Snow particles falling
+            ctx.fillStyle = '#ffffff';
+            canvasParticles.forEach(p => {
+                p.y += p.vy;
+                p.x += p.vx;
+                if (p.y > 1) p.y = 0;
+                if (p.x > 1) p.x = 0;
+                if (p.x < 0) p.x = 1;
+                ctx.beginPath();
+                ctx.arc(p.x * w, p.y * h, p.size, 0, Math.PI * 2);
+                ctx.fill();
+            });
+
+            // Winding mountain trail
+            ctx.strokeStyle = 'rgba(255, 255, 255, 0.15)';
+            ctx.lineWidth = 2;
+            ctx.setLineDash([5, 5]);
+            ctx.beginPath();
+            ctx.moveTo(w * 0.1, h);
+            // Bezier curve up the mountain
+            ctx.bezierCurveTo(w * 0.3, h * 0.8, w * 0.1, h * 0.5, cx, h * 0.15);
+            ctx.stroke();
+            ctx.setLineDash([]);
+
+            // Move Bike along the bezier curve
+            const t = (Math.sin(animTick * 0.015) + 1) * 0.5; // Oscillates 0 to 1
+            
+            // Cubic Bezier interpolation
+            const getBezier = (t, p0, p1, p2, p3) => {
+                const mt = 1 - t;
+                return mt*mt*mt*p0 + 3*mt*mt*t*p1 + 3*mt*t*t*p2 + t*t*t*p3;
+            };
+
+            const bx = getBezier(t, w * 0.1, w * 0.3, w * 0.1, cx);
+            const by = getBezier(t, h, h * 0.8, h * 0.5, h * 0.15);
+
+            // Calculate angle for realistic rotation
+            const dt = 0.01;
+            const bx2 = getBezier(Math.min(t + dt, 1), w * 0.1, w * 0.3, w * 0.1, cx);
+            const by2 = getBezier(Math.min(t + dt, 1), h, h * 0.8, h * 0.5, h * 0.15);
+            const angle = Math.atan2(by2 - by, bx2 - bx);
+
+            ctx.font = '32px sans-serif';
+            ctx.textAlign = 'center';
+            ctx.textBaseline = 'middle';
+            
+            ctx.save();
+            ctx.translate(bx, by - 12); // Slightly above the trail
+            ctx.rotate(angle);
+            ctx.fillText('🚵‍♂️', 0, 0); // Mountain Biker Emoji
+            ctx.restore();
+
+            ctx.fillStyle = '#ffffff';
+            ctx.font = 'bold 13px "JetBrains Mono", monospace';
+            ctx.textAlign = 'center';
+            ctx.fillText('392 123 M W PIONIE (44x EVEREST)', cx, 32);
+        }
+
+        function drawScene4CalorieFactory(w, h) {
+            // Falling Sweets Rain with rotation
+            canvasParticles.forEach(p => {
+                p.y += p.vy;
+                p.rot += p.vrot;
+                if (p.y > 1.1) {
+                    p.y = -0.1;
+                    p.x = Math.random();
+                }
+                
+                ctx.save();
+                ctx.translate(p.x * w, p.y * h);
+                ctx.rotate(p.rot);
+                ctx.font = `${p.size}px sans-serif`;
+                ctx.textAlign = 'center';
+                ctx.textBaseline = 'middle';
+                ctx.fillText(p.type, 0, 0);
+                ctx.restore();
+            });
+
+            // Center Banner
+            const boxW = Math.min(w * 0.85, 380);
+            const boxH = 90;
+            const bx = (w - boxW) / 2;
+            const by = (h - boxH) / 2;
+
+            ctx.fillStyle = 'rgba(15, 23, 42, 0.9)';
+            ctx.strokeStyle = '#f43f5e';
+            ctx.lineWidth = 2.5;
+            ctx.beginPath();
+            ctx.roundRect(bx, by, boxW, boxH, 16);
+            ctx.fill();
+            ctx.stroke();
+
+            ctx.textAlign = 'center';
+            ctx.fillStyle = '#f43f5e';
+            ctx.font = 'bold 12px "JetBrains Mono", monospace';
+            ctx.fillText('BILANS ENERGETYCZNY', w / 2, by + 26);
+
+            ctx.fillStyle = '#ffffff';
+            ctx.font = 'bold 22px "Inter", sans-serif';
+            ctx.fillText('9 858 266 KCAL', w / 2, by + 60);
+        }
+
+        function drawScene5CombinedFinale(w, h) {
+            const prog = Math.min((animTick % 260) / 180, 1);
+
+            // Celebratory fireworks in background
+            canvasParticles.forEach(p => {
+                const t = (animTick % 120) / 28;
+                const px = p.x * w + p.vx * t * 14;
+                const py = p.y * h + p.vy * t * 14 + 0.5 * 3.5 * t * t;
+                ctx.fillStyle = p.color;
+                ctx.beginPath();
+                ctx.arc(px, py, 2.2, 0, Math.PI * 2);
+                ctx.fill();
+            });
+
+            // Adaptive layout inside Canvas
+            const isCompact = w < 520;
+            const leftZoneW = isCompact ? w * 0.56 : w * 0.58;
+            const lanes = [
+                { title: "PŁYWANIE (3 km)", record: "100m: 1:14", emoji: "🏊", color: "#00d2ff", y: h * 0.22 },
+                { title: "ROWER (3067m wznios)", record: "40km: 1:19", emoji: "🚴", color: "#10b981", y: h * 0.50 },
+                { title: "BIEG (Maraton)", record: "21km: 1:57:30", emoji: "🏃", color: "#f59e0b", y: h * 0.78 }
+            ];
+
+            const padL = 16;
+            const trackW = leftZoneW - padL * 2;
+
+            lanes.forEach((ln, idx) => {
+                ctx.fillStyle = '#1e293b';
+                ctx.beginPath();
+                ctx.roundRect(padL, ln.y, trackW, 10, 5);
+                ctx.fill();
+
+                const laneProg = Math.min(prog * (1 + idx * 0.08), 1);
+                ctx.fillStyle = ln.color;
+                ctx.beginPath();
+                ctx.roundRect(padL, ln.y, trackW * laneProg, 10, 5);
+                ctx.fill();
+
+                ctx.fillStyle = '#ffffff';
+                ctx.font = `bold ${isCompact ? 10 : 12}px "Inter", sans-serif`;
+                ctx.textAlign = 'left';
+                ctx.fillText(ln.title, padL, ln.y - 7);
+
+                ctx.fillStyle = ln.color;
+                ctx.font = `bold ${isCompact ? 10 : 11}px "JetBrains Mono", monospace`;
+                ctx.textAlign = 'right';
+                ctx.fillText(ln.record, padL + trackW, ln.y - 7);
+
+                ctx.font = `${isCompact ? 16 : 20}px sans-serif`;
+                ctx.textAlign = 'center';
+                ctx.fillText(ln.emoji, padL + trackW * laneProg, ln.y + 4);
+            });
+
+            // Right Side of Canvas: Biological Clock (60 -> 25 lat) & VO2 Max 48.0 Gauge
+            const cx = leftZoneW + (w - leftZoneW) * 0.5;
+            const cy = h * 0.48;
+            const r = Math.min((w - leftZoneW) * 0.36, h * 0.32);
+
+            ctx.beginPath();
+            ctx.arc(cx, cy, r, Math.PI * 0.8, Math.PI * 2.2);
+            ctx.strokeStyle = '#1e293b';
+            ctx.lineWidth = isCompact ? 10 : 14;
+            ctx.lineCap = 'round';
+            ctx.stroke();
+
+            const displayedAge = Math.round(60 - prog * (60 - 25));
+
+            ctx.beginPath();
+            ctx.arc(cx, cy, r, Math.PI * 0.8, Math.PI * 0.8 + prog * Math.PI * 1.4);
+            ctx.strokeStyle = '#10b981';
+            ctx.lineWidth = isCompact ? 10 : 14;
+            ctx.lineCap = 'round';
+            ctx.stroke();
+
+            ctx.textAlign = 'center';
+            ctx.fillStyle = '#38bdf8';
+            ctx.font = `bold ${isCompact ? 9 : 11}px "JetBrains Mono", monospace`;
+            ctx.fillText('VO₂ MAX 48.0 (TOP 1%)', cx, cy - r - 12);
+
+            ctx.fillStyle = '#ffffff';
+            ctx.font = `900 ${Math.max(15, Math.floor(r * 0.48))}px "Inter", sans-serif`;
+            ctx.fillText(`${displayedAge} LAT`, cx, cy + 5);
+
+            ctx.fillStyle = '#f59e0b';
+            ctx.font = `bold ${isCompact ? 9 : 11}px "JetBrains Mono", monospace`;
+            ctx.fillText('WIEK BIOLOGICZNY', cx, cy + r * 0.65);
+        }
+    </script>
+</body>
+</html>

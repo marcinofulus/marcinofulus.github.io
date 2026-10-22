@@ -1,0 +1,388 @@
+<!DOCTYPE html>
+<html lang="pl">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Drzewa Decyzyjne i Ensemble Learning</title>
+    
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script>
+        window.MathJax = {
+            tex: { inlineMath: [['$', '$'], ['\\(', '\\)']], displayMath: [['$$', '$$'], ['\\[', '\\]']] },
+            svg: { fontCache: 'global' }
+        };
+    </script>
+    <script id="MathJax-script" async src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js"></script>
+
+    <style>
+        table { width: 100%; border-collapse: collapse; text-align: left; }
+        th, td { border: 1px solid #e5e7eb; padding: 8px 12px; }
+        th { background-color: #f3f4f6; }
+        .data-row { transition: all 0.3s ease; }
+        .row-left { background-color: #d1fae5; } /* Emerald-100 */
+        .row-right { background-color: #fee2e2; } /* Red-100 */
+        canvas { border: 1px solid #d1d5db; border-radius: 8px; background-color: #fff; cursor: crosshair; }
+    </style>
+</head>
+<body class="bg-gray-100 text-gray-800 font-sans antialiased min-h-screen pb-12">
+
+    <!-- Nagłówek -->
+    <header class="bg-emerald-800 text-white shadow-md py-6 px-4 text-center">
+        <h1 class="text-3xl md:text-4xl font-bold mb-2">Matematyka Drzew i Zespołów</h1>
+        <p class="text-emerald-200 max-w-2xl mx-auto">Przewodnik oparty na twardych danych: od podziału węzła po nieliniowe granice decyzyjne lasów.</p>
+    </header>
+
+    <main class="max-w-5xl mx-auto mt-8 px-4 space-y-8">
+
+        <!-- SEKCJA 1: DRZEWA DECYZYJNE (DANE) -->
+        <section class="bg-white rounded-xl shadow-lg p-6 md:p-8">
+            <h2 class="text-2xl font-bold text-emerald-800 mb-4 border-b-2 border-emerald-100 pb-2">1. Jak drzewo dzieli konkretne dane?</h2>
+            <p class="mb-4">Zamiast abstrakcyjnych koncepcji, spójrzmy na zbiór 6 klientów. Chcemy przewidzieć, czy klient **Kupi usługę (TAK)** czy **NIE**. Algorytm w bibliotece np. <code>scikit-learn</code> szuka iteracyjnie po wszystkich cechach takiego punktu odcięcia, który da najczystsze zbiory po podziale (minimalizacja indeksu Giniego).</p>
+            
+            <div class="grid md:grid-cols-2 gap-8 items-start">
+                <div class="overflow-x-auto">
+                    <h3 class="font-bold mb-2">Dane wejściowe (Korzeń)</h3>
+                    <table id="dataTable" class="text-sm">
+                        <thead>
+                            <tr>
+                                <th>ID</th>
+                                <th>Wiek</th>
+                                <th>Zarobki (tys.)</th>
+                                <th>Kupił? (Cel)</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr id="row-1"><td>1</td><td>22</td><td>3.0</td><td>NIE</td></tr>
+                            <tr id="row-2"><td>2</td><td>36</td><td>5.5</td><td>TAK</td></tr>
+                            <tr id="row-3"><td>3</td><td>45</td><td>8.0</td><td>TAK</td></tr>
+                            <tr id="row-4"><td>4</td><td>28</td><td>4.0</td><td>NIE</td></tr>
+                            <tr id="row-5"><td>5</td><td>31</td><td>9.0</td><td>TAK</td></tr>
+                            <tr id="row-6"><td>6</td><td>50</td><td>3.5</td><td>NIE</td></tr>
+                        </tbody>
+                    </table>
+                    <div class="mt-4 flex gap-2">
+                        <button onclick="applySplit('Wiek', 30)" class="bg-blue-600 text-white px-4 py-2 rounded text-sm hover:bg-blue-700">Podział: Wiek > 30</button>
+                        <button onclick="applySplit('Zarobki', 4.5)" class="bg-purple-600 text-white px-4 py-2 rounded text-sm hover:bg-purple-700">Podział: Zarobki > 4.5k</button>
+                        <button onclick="resetSplit()" class="bg-gray-200 text-gray-700 px-4 py-2 rounded text-sm hover:bg-gray-300">Reset</button>
+                    </div>
+                </div>
+
+                <div class="bg-gray-50 border rounded-lg p-4">
+                    <h3 class="font-bold mb-2">Wynik podziału</h3>
+                    <div id="splitResult" class="text-sm text-gray-600 italic">
+                        Kliknij przycisk po lewej, aby przetestować warunek podziału. Algorytm sprawdza setki takich podziałów i wybiera najlepszy.
+                    </div>
+                    <div class="mt-4 border-t pt-2">
+                        <h4 class="font-semibold text-sm">Implementacja (pseudo-kod sklearn):</h4>
+                        <pre class="text-xs bg-gray-800 text-green-400 p-2 rounded mt-1 overflow-x-auto"><code>def build_tree(data, depth):
+  if depth == MAX_DEPTH or is_pure(data):
+    return Leaf(majority_class(data))
+    
+  best_feature, best_threshold = find_best_split(data) # Minimalizuje Gini
+  left_data, right_data = split(data, best_feature, best_threshold)
+  
+  node = Node(best_feature, best_threshold)
+  node.left = build_tree(left_data, depth+1)
+  node.right = build_tree(right_data, depth+1)
+  return node</code></pre>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- SEKCJA 2: INDEKS GINIEGO -->
+        <section class="bg-white rounded-xl shadow-lg p-6 md:p-8">
+            <h2 class="text-2xl font-bold text-emerald-800 mb-4 border-b-2 border-emerald-100 pb-2">2. Gini Impurity (Uczenie Maszynowe) vs Współczynnik Giniego (Socjologia)</h2>
+            <div class="grid md:grid-cols-2 gap-8 mb-6">
+                <div>
+                    <h3 class="text-lg font-bold text-blue-800 mb-2">Węzeł w drzewie (Gini Impurity)</h3>
+                    <p class="text-sm mb-2 text-gray-700">Oblicza ryzyko, że losowy element z węzła zostanie źle sklasyfikowany, jeśli przypiszemy mu klasę losowo zgodnie z rozkładem w węźle.</p>
+                    <div class="text-center my-2">$$Gini = 1 - \sum_{i=1}^{k} p_i^2$$</div>
+                    <p class="text-sm text-gray-700">Gdzie $p_i$ to odsetek klasy $i$ w węźle. Zakres to <strong>[0.0, 0.5]</strong> dla dwóch klas.</p>
+                </div>
+                <div>
+                    <h3 class="text-lg font-bold text-purple-800 mb-2">Nierówności dochodowe (Krzywa Lorenza)</h3>
+                    <p class="text-sm mb-2 text-gray-700">W socjologii to miara rozwarstwienia. Pole pod krzywą idealnej równości ($A$) przez całkowite pole ($A+B$).</p>
+                    <div class="text-center my-2">$$G = \frac{A}{A+B}$$</div>
+                    <p class="text-sm text-gray-700">Zakres <strong>[0.0, 1.0]</strong>. 0 to idealny komunizm majątkowy, 1 to pełen monopol (jeden człowiek ma wszystko).</p>
+                </div>
+            </div>
+
+            <div class="bg-gray-50 border rounded-lg p-6">
+                <h3 class="font-bold text-gray-800 mb-4">Wylicz Gini dla przykładowego węzła</h3>
+                <div class="grid md:grid-cols-2 gap-8 items-center">
+                    <div>
+                        <label class="block text-sm font-semibold mb-1">Klasa TAK (np. Kupił): <span id="valA" class="text-emerald-600 font-bold">5</span> szt.</label>
+                        <input type="range" id="rangeA" min="0" max="20" value="5" class="w-full mb-4 accent-emerald-600" oninput="calculateGini()">
+                        <label class="block text-sm font-semibold mb-1">Klasa NIE (np. Odrzucił): <span id="valB" class="text-red-600 font-bold">5</span> szt.</label>
+                        <input type="range" id="rangeB" min="0" max="20" value="5" class="w-full accent-red-600" oninput="calculateGini()">
+                    </div>
+                    <div class="text-center flex flex-col justify-center items-center">
+                        <div id="giniEquation" class="text-sm text-gray-600 mb-2 font-mono bg-white border p-2 rounded">
+                            1 - ( (5/10)² + (5/10)² ) = 1 - (0.25 + 0.25)
+                        </div>
+                        <div id="giniScore" class="text-5xl font-black text-gray-800 mb-2">0.500</div>
+                        <div id="giniStatus" class="text-sm font-bold text-red-700 bg-red-100 px-3 py-1 rounded-full">Max. Wymieszanie (Gini=0.5)</div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- SEKCJA 3: LASY LOSOWE I NIELINIOWOŚĆ -->
+        <section class="bg-white rounded-xl shadow-lg p-6 md:p-8">
+            <h2 class="text-2xl font-bold text-emerald-800 mb-4 border-b-2 border-emerald-100 pb-2">3. Las Losowy jako klasyfikator nieliniowy</h2>
+            <p class="mb-4">Użytkownicy często pytają: <em>Czy Lasy mogą być nieliniowe, skoro pojedyncze drzewo dzieli przestrzeń tylko liniami prostymi (wertykalnie/horyzontalnie)?</em> <strong>TAK.</strong> Agregacja (Bagging) wielu "kwadratowych" i "schodkowych" granic decyzyjnych prowadzi do wygładzenia i tworzy złożone, nieliniowe kształty.</p>
+            
+            <div class="grid md:grid-cols-2 gap-8">
+                <div>
+                    <h3 class="font-bold text-gray-800 mb-2">Wizualizacja przestrzeni decyzyjnej</h3>
+                    <p class="text-sm text-gray-600 mb-4">Zbiór danych to okrąg (niebieskie w środku, czerwone na zewnątrz). Wybierz model, aby zobaczyć w tle jego obszary decyzyjne.</p>
+                    
+                    <div class="flex flex-col gap-2">
+                        <button onclick="drawDecisionBoundary('data')" class="text-left px-4 py-3 bg-gray-100 border hover:bg-gray-200 rounded font-semibold text-sm">
+                            1. Pokaż tylko punkty danych
+                        </button>
+                        <button onclick="drawDecisionBoundary('tree')" class="text-left px-4 py-3 bg-blue-50 border border-blue-200 text-blue-800 hover:bg-blue-100 rounded font-semibold text-sm">
+                            2. Granica Pojedynczego Drzewa (Ortogonalna)
+                        </button>
+                        <button onclick="drawDecisionBoundary('forest')" class="text-left px-4 py-3 bg-emerald-50 border border-emerald-200 text-emerald-800 hover:bg-emerald-100 rounded font-semibold text-sm">
+                            3. Granica Lasu Losowego (Wygładzona/Nieliniowa)
+                        </button>
+                    </div>
+                </div>
+                
+                <div class="flex justify-center items-center">
+                    <!-- HTML Canvas do renderowania granic decyzyjnych -->
+                    <canvas id="rf-canvas" width="300" height="300"></canvas>
+                </div>
+            </div>
+            <p class="text-xs text-gray-500 mt-4 text-center">Symulacja pokazuje jak uśrednianie wyników wielu niezależnych drzew (o różnej losowej strukturze podziałów) w Lesie Losowym pozwala "obrysować" koło używając wyłącznie ortogonalnych cięć.</p>
+        </section>
+
+        <!-- SEKCJA 4: GRADIENT BOOSTING W LICZBACH -->
+        <section class="bg-white rounded-xl shadow-lg p-6 md:p-8">
+            <h2 class="text-2xl font-bold text-emerald-800 mb-4 border-b-2 border-emerald-100 pb-2">4. Gradient Boosting na żywych liczbach</h2>
+            <p class="mb-4">Boosting działa na zasadzie szeregowej. Zamiast budować niezależne modele, każde nowe drzewo stara się naprawić błędy (rezidua) modelu poprzedniego. Policzmy to na małym zbiorze przewidującym <strong>Wagę (Y)</strong> na podstawie Wzrostu.</p>
+            
+            <div class="bg-orange-50 border border-orange-200 rounded-lg p-4 overflow-x-auto mb-4">
+                <table id="boostingTable" class="text-sm bg-white w-full">
+                    <thead>
+                        <tr>
+                            <th>ID</th>
+                            <th>Wzrost (X)</th>
+                            <th>Waga Rzeczywista (Y)</th>
+                            <th class="text-gray-500">Krok 0: Baza $F_0$</th>
+                            <th class="text-red-500 hidden boost-col-1">Błąd $r_1$</th>
+                            <th class="text-blue-600 hidden boost-col-1">Drzewo 1 predykcja</th>
+                            <th class="text-emerald-600 hidden boost-col-1">Krok 1: Nowe $F_1$</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr><td>1</td><td>160 cm</td><td>50 kg</td><td class="text-gray-500">65 kg (Średnia)</td><td class="hidden boost-col-1 text-red-500">-15 kg</td><td class="hidden boost-col-1 text-blue-600">-12 kg</td><td class="hidden boost-col-1 font-bold text-emerald-600">53 kg</td></tr>
+                        <tr><td>2</td><td>175 cm</td><td>70 kg</td><td class="text-gray-500">65 kg (Średnia)</td><td class="hidden boost-col-1 text-red-500">+5 kg</td><td class="hidden boost-col-1 text-blue-600">+4 kg</td><td class="hidden boost-col-1 font-bold text-emerald-600">69 kg</td></tr>
+                        <tr><td>3</td><td>185 cm</td><td>75 kg</td><td class="text-gray-500">65 kg (Średnia)</td><td class="hidden boost-col-1 text-red-500">+10 kg</td><td class="hidden boost-col-1 text-blue-600">+8 kg</td><td class="hidden boost-col-1 font-bold text-emerald-600">73 kg</td></tr>
+                    </tbody>
+                </table>
+            </div>
+
+            <div class="flex gap-4 items-center border-t pt-4">
+                <button id="boostStepBtn" onclick="nextBoostStep()" class="bg-orange-500 text-white font-bold py-2 px-6 rounded shadow hover:bg-orange-600 transition">
+                    Wykonaj Iterację 1 (Dodaj Drzewo)
+                </button>
+                <div id="boostExplanation" class="text-sm text-gray-700 italic">
+                    Aktualny model $F_0(x) = \text{średnia}(Y) = 65$. Zobaczmy jakie są błędy (Y - F_0).
+                </div>
+            </div>
+        </section>
+
+    </main>
+
+    <footer class="text-center text-gray-500 text-sm mt-8 pb-8">
+        Materiały edukacyjne. Zespół Drzew & Boosting.
+    </footer>
+
+    <!-- SKRYPTY INTERAKTYWNOŚCI -->
+    <script>
+        // --- SEKCJA 1: DRZEWA DECYZYJNE ---
+        const rows = [
+            { id: 1, wiek: 22, zarobki: 3.0, kupil: false },
+            { id: 2, wiek: 36, zarobki: 5.5, kupil: true },
+            { id: 3, wiek: 45, zarobki: 8.0, kupil: true },
+            { id: 4, wiek: 28, zarobki: 4.0, kupil: false },
+            { id: 5, wiek: 31, zarobki: 9.0, kupil: true },
+            { id: 6, wiek: 50, zarobki: 3.5, kupil: false }
+        ];
+
+        function applySplit(feature, threshold) {
+            let leftCount = 0, rightCount = 0;
+            let leftTrue = 0, rightTrue = 0;
+
+            rows.forEach(r => {
+                const tr = document.getElementById(`row-${r.id}`);
+                tr.classList.remove('row-left', 'row-right');
+                
+                const val = feature === 'Wiek' ? r.wiek : r.zarobki;
+                const goesRight = val > threshold; // Zmiana logiki: > to prawy/zielony, <= to lewy/czerwony
+
+                if (goesRight) {
+                    tr.classList.add('row-left'); // Zielonkawy dla tych co spełniają
+                    rightCount++;
+                    if(r.kupil) rightTrue++;
+                } else {
+                    tr.classList.add('row-right'); // Czerwonawy dla odrzuconych
+                    leftCount++;
+                    if(r.kupil) leftTrue++;
+                }
+            });
+
+            const resDiv = document.getElementById('splitResult');
+            resDiv.innerHTML = `
+                <div class="mb-2"><strong class="text-blue-700">Węzeł 1 (Warunek spełniony: ${feature} > ${threshold}):</strong> Trafia tu ${rightCount} wierszy. (Kupiło: ${rightTrue}, Nie: ${rightCount-rightTrue})</div>
+                <div><strong class="text-red-700">Węzeł 2 (Warunek niespełniony):</strong> Trafia tu ${leftCount} wierszy. (Kupiło: ${leftTrue}, Nie: ${leftCount-leftTrue})</div>
+            `;
+            
+            // Highlight opłacalności
+            if(feature === 'Zarobki' && threshold === 4.5) {
+                resDiv.innerHTML += `<div class="mt-2 text-emerald-600 font-bold">To doskonały podział! Idealnie odseparował kupujących (Zarobki > 4.5k) od niekupujących. Gini = 0.</div>`;
+            }
+        }
+
+        function resetSplit() {
+            rows.forEach(r => {
+                document.getElementById(`row-${r.id}`).classList.remove('row-left', 'row-right');
+            });
+            document.getElementById('splitResult').innerHTML = "Kliknij przycisk po lewej, aby przetestować warunek podziału.";
+        }
+
+        // --- SEKCJA 2: INDEKS GINIEGO ---
+        function calculateGini() {
+            const a = parseInt(document.getElementById('rangeA').value);
+            const b = parseInt(document.getElementById('rangeB').value);
+            
+            document.getElementById('valA').innerText = a;
+            document.getElementById('valB').innerText = b;
+
+            const total = a + b;
+            const eqDiv = document.getElementById('giniEquation');
+            const scoreDiv = document.getElementById('giniScore');
+            const statusDiv = document.getElementById('giniStatus');
+            
+            if (total === 0) {
+                eqDiv.innerText = "Brak danych w węźle";
+                scoreDiv.innerText = "-";
+                statusDiv.innerText = "-";
+                statusDiv.className = "text-sm font-bold text-gray-500 bg-gray-100 px-3 py-1 rounded-full";
+                return;
+            }
+
+            const pA = a / total;
+            const pB = b / total;
+            const gini = 1 - (pA * pA + pB * pB);
+            
+            eqDiv.innerText = `1 - ( (${a}/${total})² + (${b}/${total})² ) = 1 - (${(pA*pA).toFixed(2)} + ${(pB*pB).toFixed(2)})`;
+            scoreDiv.innerText = gini.toFixed(3);
+
+            statusDiv.className = "text-sm font-bold px-3 py-1 rounded-full transition-colors";
+            if (gini === 0) {
+                statusDiv.innerText = "Gini = 0 (Idealny węzeł, jedna klasa)";
+                statusDiv.classList.add("text-emerald-700", "bg-emerald-100");
+            } else if (gini < 0.3) {
+                statusDiv.innerText = "Niskie zabrudzenie";
+                statusDiv.classList.add("text-lime-700", "bg-lime-100");
+            } else {
+                statusDiv.innerText = "Wysokie wymieszanie (Słabo)";
+                statusDiv.classList.add("text-red-700", "bg-red-100");
+            }
+        }
+
+        // --- SEKCJA 3: CANVAS (LASY LOSOWE) ---
+        const canvas = document.getElementById('rf-canvas');
+        const ctx = canvas.getContext('2d');
+        const W = canvas.width;
+        const H = canvas.height;
+        
+        // Generowanie stałego zbioru punktów (Kształt: koło)
+        const points = [];
+        for(let i=0; i<300; i++) {
+            const x = Math.random() * W;
+            const y = Math.random() * H;
+            const distFromCenter = Math.sqrt(Math.pow(x - W/2, 2) + Math.pow(y - H/2, 2));
+            // Promień 70 - klasa 0 (niebieskie), na zewnątrz klasa 1 (czerwone)
+            const isBlue = distFromCenter < 70;
+            points.push({x, y, isBlue});
+        }
+
+        function drawPoints() {
+            points.forEach(p => {
+                ctx.beginPath();
+                ctx.arc(p.x, p.y, 4, 0, 2 * Math.PI);
+                ctx.fillStyle = p.isBlue ? '#3b82f6' : '#ef4444'; // Blue-500 : Red-500
+                ctx.fill();
+                ctx.strokeStyle = '#fff';
+                ctx.lineWidth = 1;
+                ctx.stroke();
+            });
+        }
+
+        function drawDecisionBoundary(type) {
+            ctx.clearRect(0, 0, W, H);
+            
+            if (type === 'tree') {
+                // Rysujemy schodkową granicę (symulacja pojedynczego, głębszego drzewa)
+                // Obrysowuje okrąg za pomocą prostokątów (ortogonalnie)
+                ctx.fillStyle = '#fee2e2'; // tło czerwone
+                ctx.fillRect(0, 0, W, H);
+                
+                ctx.fillStyle = '#dbeafe'; // obszary niebieskie
+                ctx.fillRect(W/2 - 80, H/2 - 60, 160, 120);
+                ctx.fillRect(W/2 - 50, H/2 - 80, 100, 160);
+                ctx.fillRect(W/2 - 65, H/2 - 70, 130, 140);
+                
+            } else if (type === 'forest') {
+                // Rysujemy wygładzoną granicę (symulacja nałożenia setek drzew)
+                ctx.fillStyle = '#fee2e2';
+                ctx.fillRect(0, 0, W, H);
+                
+                // Używamy radial gradient, co perfekcyjnie oddaje wygładzenie w Random Forest dla kolistych danych
+                const gradient = ctx.createRadialGradient(W/2, H/2, 40, W/2, H/2, 100);
+                gradient.addColorStop(0, '#dbeafe'); // Czysty niebieski w środku
+                gradient.addColorStop(0.7, '#e0e7ff'); // Mieszany na granicy
+                gradient.addColorStop(1, '#fee2e2'); // Czerwony na zewnątrz
+                
+                ctx.fillStyle = gradient;
+                ctx.fillRect(0, 0, W, H);
+            }
+            // Zawsze rysuj punkty na wierzchu
+            drawPoints();
+        }
+        
+        // Inicjalizacja canvasu
+        drawDecisionBoundary('data');
+
+        // --- SEKCJA 4: GRADIENT BOOSTING ---
+        let boostState = 0;
+        function nextBoostStep() {
+            const cols = document.querySelectorAll('.boost-col-1');
+            const btn = document.getElementById('boostStepBtn');
+            const exp = document.getElementById('boostExplanation');
+
+            if (boostState === 0) {
+                // Pokaż kolumny
+                cols.forEach(el => el.classList.remove('hidden'));
+                btn.innerText = "Zrozumiałem, to kończy Krok 1";
+                btn.classList.replace('bg-orange-500', 'bg-gray-400');
+                btn.disabled = true;
+                
+                exp.innerHTML = `
+                    <strong>Jak zadziałało Drzewo 1?</strong><br>
+                    Algorytm zauważył błędy ($r_1$). Drzewo 1 uczy się zgadywać to <strong>reziduum</strong>, a nie oryginalną wagę! 
+                    Ponieważ to proste drzewo, nie trafia idealnie (przewiduje np. -12 zamiast -15). 
+                    Nowy model to: <span class="font-mono bg-yellow-100 px-1">$F_1(x) = F_0(x) + \text{Drzewo}_1(x)$</span>. Błędy się zmniejszyły! W kolejnym kroku zbudujemy Drzewo 2 na resztkach błędów z $F_1$.
+                `;
+                boostState = 1;
+            }
+        }
+
+    </script>
+</body>
+</html>
